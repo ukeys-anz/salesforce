@@ -39,6 +39,7 @@
                     key={goal.id}
                     data-id={goal.id}
                     onclick={handleFilter}
+                    data-test-id="goal"
                   >
                     <div class="slds-text-align_center">
                       <a>{goal.goal.name}</a>
@@ -58,7 +59,10 @@
                         <p class="slds-text-title_bold slds-text-color_weak">
                           Target Value
                         </p>
-                        <p class="slds-text-color_weak">
+                        <p
+                          class="slds-text-color_weak"
+                          data-test-id="target-value"
+                        >
                           {goal.goal.target_amount}
                         </p>
                       </div>
@@ -75,7 +79,10 @@
                             data-id="total-saved-info"
                           ></lightning-icon>
                         </p>
-                        <p class="slds-text-color_weak">
+                        <p
+                          class="slds-text-color_weak"
+                          data-test-id="total-saved"
+                        >
                           <lightning-formatted-number
                             value={goal.balance.value}
                             format-style="currency"

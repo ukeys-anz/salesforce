@@ -7,9 +7,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _ConsoleTabBarItem__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _ConsoleTabBarItem
-);
+var _ConsoleTabBarItem__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_ConsoleTabBarItem);
 
 async function _utam_get_navMenu(driver, root) {
   let _element = root;

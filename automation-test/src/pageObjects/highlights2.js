@@ -7,9 +7,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _ActionsRibbon__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _ActionsRibbon
-);
+var _ActionsRibbon__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_ActionsRibbon);
 
 async function _utam_get_primaryFieldContent(driver, root) {
   let _element = root;

@@ -7,9 +7,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _RecordLayoutRow__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _RecordLayoutRow
-);
+var _RecordLayoutRow__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_RecordLayoutRow);
 
 async function _utam_get_rowss(driver, root) {
   let _element = root;

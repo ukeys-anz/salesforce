@@ -4,6 +4,7 @@ import Case from "./Case";
 import * as faker from "faker";
 import * as caseUtils from "utils/caseUtils";
 import * as commonUtils from "utils/commonUtils";
+import caseData from "data/caseData";
 
 export default class DirectEntry extends Case {
   async createRecord(): Promise<void> {
@@ -30,6 +31,15 @@ export default class DirectEntry extends Case {
       1
     );
 
+    // Intended Account BSB
+    await caseCreationFormRoot.editText(6, 1, 1, caseData.bsb);
+
+    // Intended Account Number
+    await caseCreationFormRoot.editText(6, 2, 1, caseData.checkAccountNumber);
+
+    // Intended Account Name
+    await caseCreationFormRoot.editText(6, 3, 1, caseData.accountName);
+
     // Channel Received
     await caseUtils.selectPicklistOnCreationForm(
       caseCreationFormRoot,
@@ -52,9 +62,13 @@ export default class DirectEntry extends Case {
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {}
+  async assignNewOwner(): Promise<void> {
+    console.log("Skip assignNewOwner | This scenario does not need it.");
+  }
 
-  async updateRecord(): Promise<void> {}
+  async updateRecord(): Promise<void> {
+    console.log("Skip updateRecord |  This scenario does not need it.");
+  }
 
   async closeRecord(): Promise<void> {
     // Coaches Workbench Case Record Page
@@ -63,7 +77,8 @@ export default class DirectEntry extends Case {
     );
 
     // get record layout
-    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
+    const detailPanel =
+      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 

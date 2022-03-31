@@ -7,9 +7,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _LwcDetailPanel__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _LwcDetailPanel
-);
+var _LwcDetailPanel__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_LwcDetailPanel);
 
 async function _utam_get_detailPanel(driver, root) {
   let _element = root;

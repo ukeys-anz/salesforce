@@ -73,9 +73,13 @@ export default class ATM extends Case {
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {}
+  async assignNewOwner(): Promise<void> {
+    console.log("Skip assignNewOwner | This scenario does not need it.");
+  }
 
-  async updateRecord(): Promise<void> {}
+  async updateRecord(): Promise<void> {
+    console.log("Skip updateRecord |  This scenario does not need it.");
+  }
 
   async closeRecord(): Promise<void> {
     // Coaches Workbench Case Record Page
@@ -84,7 +88,8 @@ export default class ATM extends Case {
     );
 
     // get record layout
-    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
+    const detailPanel =
+      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 

@@ -7,9 +7,10 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _CoachesWorkbenchCaseCreationFormPicklist__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _CoachesWorkbenchCaseCreationFormPicklist
-);
+var _CoachesWorkbenchCaseCreationFormPicklist__default =
+  /*#__PURE__*/ _interopDefaultLegacy(
+    _CoachesWorkbenchCaseCreationFormPicklist
+  );
 
 async function _utam_filter_caseRecordType(element, text) {
   const result = await element.getText();

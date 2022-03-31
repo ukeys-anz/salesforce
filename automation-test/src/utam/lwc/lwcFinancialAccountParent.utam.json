@@ -2,6 +2,14 @@
   "shadow": {
     "elements": [
       {
+        "name": "financialGoals",
+        "type": "anzx-utam-lwc/pageObjects/lwcFinancialGoals",
+        "selector": {
+          "css": "c-financial-goals"
+        },
+        "public": true
+      },
+      {
         "name": "transactionHistoryBoard",
         "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryBoard",
         "selector": {

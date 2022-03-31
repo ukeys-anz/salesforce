@@ -2,7 +2,6 @@ import Auth from "common/Auth";
 import { navigateToConsoleAppAndTab } from "utils/consoleUtils";
 import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
 import { UserRole, App, AppTab, TransactionType } from "constants/enums";
-import Case from "common/cases/Case";
 import ATM from "common/cases/ATM";
 import Card from "common/cases/Card";
 import DirectEntry from "common/cases/DirectEntry";
@@ -11,18 +10,16 @@ import caseData from "data/caseData";
 
 describe("Disputes - Coach Creates Disputes from Transaction", () => {
   // pre test steps
-  before(
-    async (): Promise<void> => {
-      // max viewport
-      await browser.maximizeWindow();
+  before(async (): Promise<void> => {
+    // max viewport
+    await browser.maximizeWindow();
 
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+    // login as test user
+    await Auth.loginSalesforceAsRole(UserRole.COACH);
 
-      // redirect test user to Coaches Workbench and Account home page
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.ACCOUNTS);
-    }
-  );
+    // redirect test user to Coaches Workbench and Account home page
+    await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+  });
 
   beforeEach(async () => {
     await browser.pause(1000);
@@ -35,13 +32,11 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
     );
 
     // Deposit Withdrawal Dispute will raise ATM case
-    let atmCase = new ATM(UserRole.COACH);
+    const atmCase = new ATM(UserRole.COACH);
 
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
-      await searchRecordInGlobalSearchAndRedirect(
-        caseData.financialAccountNumber
-      );
+      await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
     });
 
     it("Raise Dispute", async (): Promise<void> => {
@@ -58,16 +53,14 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
   });
 
   describe("BSB-ACC Dispute Dispute", async (): Promise<void> => {
-    let bsbAccDispute = new Disputes(UserRole.COACH, TransactionType.BSB_ACC);
+    const bsbAccDispute = new Disputes(UserRole.COACH, TransactionType.BSB_ACC);
 
     // BSB-ACC Dispute will raise Direct Entry case
     const directEntryCase = new DirectEntry(UserRole.COACH);
 
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
-      await searchRecordInGlobalSearchAndRedirect(
-        caseData.financialAccountNumber
-      );
+      await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
     });
 
     it("Raise Dispute", async (): Promise<void> => {
@@ -84,16 +77,14 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
   });
 
   describe("Card Dispute Dispute", async (): Promise<void> => {
-    let cardDispute = new Disputes(UserRole.COACH, TransactionType.CARD);
+    const cardDispute = new Disputes(UserRole.COACH, TransactionType.CARD);
 
     // Card Dispute will raise Card case
     const cardCase = new Card(UserRole.COACH);
 
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
-      await searchRecordInGlobalSearchAndRedirect(
-        caseData.financialAccountNumber
-      );
+      await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
     });
 
     it("Raise Dispute", async (): Promise<void> => {
@@ -109,10 +100,8 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
     });
   });
 
-  after(
-    async (): Promise<void> => {
-      // log out test user
-      await Auth.logoutSalesforce();
-    }
-  );
+  after(async (): Promise<void> => {
+    // log out test user
+    await Auth.logoutSalesforce();
+  });
 });

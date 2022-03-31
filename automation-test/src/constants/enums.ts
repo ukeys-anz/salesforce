@@ -18,12 +18,12 @@ export enum Queue {
 }
 
 export enum App {
-  COACHES_WORKBENCH = "Coaches Workbench"
+  Coaches_Workbench = "Coaches Workbench"
 }
 
 export enum AppTab {
-  CASES = "Cases",
-  ACCOUNTS = "Accounts"
+  Cases = "Cases",
+  Accounts = "Accounts"
 }
 
 export enum TransactionType {

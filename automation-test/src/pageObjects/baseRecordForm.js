@@ -8,9 +8,8 @@ function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _LwcRecordLayout__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _LwcRecordLayout
-);
+var _LwcRecordLayout__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_LwcRecordLayout);
 var _FormFooter__default = /*#__PURE__*/ _interopDefaultLegacy(_FormFooter);
 
 async function _utam_get_recordLayoutContainer(driver, root) {

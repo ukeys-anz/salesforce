@@ -9,9 +9,8 @@ function _interopDefaultLegacy(e) {
 }
 
 var _Button__default = /*#__PURE__*/ _interopDefaultLegacy(_Button);
-var _ActionsRibbon__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _ActionsRibbon
-);
+var _ActionsRibbon__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_ActionsRibbon);
 
 async function _utam_get_saveButton(driver, root) {
   let _element = root;

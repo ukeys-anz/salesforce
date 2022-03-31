@@ -1,25 +1,23 @@
 "use strict";
 
 var core = require("@utam/core");
-var _CoachesWorkbenchCaseTabset2 = require("./../pageObjects/coachesWorkbenchCaseTabset2");
+var _LwcFinancialGoalsPersonAccount = require("./../pageObjects/lwcFinancialGoalsPersonAccount");
 
 function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
 }
 
-var _CoachesWorkbenchCaseTabset2__default = /*#__PURE__*/ _interopDefaultLegacy(
-  _CoachesWorkbenchCaseTabset2
-);
+var _LwcFinancialGoalsPersonAccount__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_LwcFinancialGoalsPersonAccount);
 
-async function _utam_get_mainRegionTabset(driver, root) {
+async function _utam_get_financialGoals(driver, root) {
   let _element = root;
-  const _locator = core.By.css(
-    `.row-main .region-main flexipage-tabset2:first-child`
-  );
+  const _locator = core.By.css(`c-financial-goals-person-account`);
+  _element = new core.ShadowRoot(driver, _element);
   return _element.findElement(_locator);
 }
 
-class CoachesWorkbenchCaseRecordHomeTemplateDesktop2 extends core.UtamBasePageObject {
+class LwcPersonAccountFinancialDetails extends core.UtamBasePageObject {
   constructor(driver, element, locator) {
     super(driver, element, locator);
   }
@@ -31,11 +29,11 @@ class CoachesWorkbenchCaseRecordHomeTemplateDesktop2 extends core.UtamBasePageOb
     return new BaseUtamElement(driver, root);
   }
 
-  async getMainRegionTabset() {
+  async getFinancialGoals() {
     const driver = this.driver;
     const root = await this.getRootElement();
-    let element = await _utam_get_mainRegionTabset(driver, root);
-    element = new _CoachesWorkbenchCaseTabset2__default["default"](
+    let element = await _utam_get_financialGoals(driver, root);
+    element = new _LwcFinancialGoalsPersonAccount__default["default"](
       driver,
       element
     );
@@ -44,4 +42,4 @@ class CoachesWorkbenchCaseRecordHomeTemplateDesktop2 extends core.UtamBasePageOb
   }
 }
 
-module.exports = CoachesWorkbenchCaseRecordHomeTemplateDesktop2;
+module.exports = LwcPersonAccountFinancialDetails;
