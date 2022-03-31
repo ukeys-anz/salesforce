@@ -133,7 +133,6 @@ public with sharing class GetHelpCaseActions {
         System.now()
       );
     }
-    GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(
       records,
       (Map<Id, Case>) oldMap

@@ -41,8 +41,7 @@ const commonFieldsMapping = {
   Date_Posted__c: "transaction_posted_date",
   Transaction_Id__c: "origination_id",
   Transaction_UUID__c: "transaction_id",
-  Transaction_Type__c: "type",
-  Transaction_Status__c: "status"
+  Transaction_Type__c: "type"
 }; // Common fields between all dispute types from the payload
 
 // Pre-populate fields that are passed individually from the lwc, which we cannot loop through
