@@ -5,16 +5,14 @@
     <complianceGroup>Privacy_Non_Personal_Information;Source - Salesforce;Integrity - Accurate</complianceGroup>
     <description>System generated field for CMOS Complaints to record the status of DEH Status based on the values of its dependent date fields</description>
     <externalId>false</externalId>
-    <formula>IF( 
- AND( ISBLANK( IDR_DEH_Date_information_request_sent__c ), ISBLANK( IDR_DEH_Date_information_received__c )),
- &apos;New Complaint&apos;,
- IF( AND( ISBLANK(IDR_DEH_Date_information_received__c),  TODAY() &gt; IDR_DEH_Date_information_due__c ),
- &apos;No information received - prepare response&apos;,
-  IF( ISBLANK(IDR_DEH_Date_information_received__c),
-  &apos;Request for further information sent&apos;,
-  &apos;Information received - prepare response&apos;
-  )
- )
+    <formula>IF( AND( ISBLANK( IDR_DEH_Date_information_request_sent__c ), ISBLANK( IDR_DEH_Date_information_received__c ) ),
+    &apos;New Complaint&apos;,
+    IF( AND( ISBLANK(IDR_DEH_Date_information_received__c ), TODAY() &gt; IDR_DEH_Date_information_due__c ),
+        &apos;No information received - prepare response&apos;,
+         IF(IDR_DEH_Date_information_received__c &gt; IDR_DEH_Date_information_due__c, 
+            &apos;Information received after due date - prepare response&apos;,
+             &apos;Information received - prepare response&apos;) 
+    )
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>DEH Current Status</label>
