@@ -3,24 +3,19 @@
   <fullName>ANZx Standard User</fullName>
   <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
   <loginIpRanges>
-    <description>CIDR range for AU - TM</description>
-    <endAddress>203.110.235.31</endAddress>
+    <description>CIDR range for AU - TM - MW - ZIA</description>
+    <endAddress>203.110.235.255</endAddress>
     <startAddress>203.110.235.0</startAddress>
   </loginIpRanges>
   <loginIpRanges>
-    <description>CIDR range for AU - MW</description>
-    <endAddress>203.110.235.159</endAddress>
-    <startAddress>203.110.235.128</startAddress>
+    <description>CIDR range for IN - RM - ZIA</description>
+    <endAddress>202.128.96.255</endAddress>
+    <startAddress>202.128.96.0</startAddress>
   </loginIpRanges>
   <loginIpRanges>
-    <description>CIDR range for IN - RM</description>
-    <endAddress>202.128.96.143</endAddress>
-    <startAddress>202.128.96.128</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for IN - MN</description>
-    <endAddress>202.128.97.143</endAddress>
-    <startAddress>202.128.97.128</startAddress>
+    <description>CIDR range for IN - MN - ZIA</description>
+    <endAddress>202.128.97.255</endAddress>
+    <startAddress>202.128.97.0</startAddress>
   </loginIpRanges>
   <loginIpRanges>
     <description>CIDR range for NZ - Lady Ruby</description>
@@ -33,14 +28,14 @@
     <startAddress>156.13.219.0</startAddress>
   </loginIpRanges>
   <loginIpRanges>
-    <description>CIDR range for SG - KC</description>
-    <endAddress>156.13.71.111</endAddress>
-    <startAddress>156.13.71.96</startAddress>
+    <description>CIDR range for SG - KC - ZIA</description>
+    <endAddress>156.13.71.255</endAddress>
+    <startAddress>156.13.71.0</startAddress>
   </loginIpRanges>
   <loginIpRanges>
-    <description>CIDR range for SG - IB</description>
-    <endAddress>156.13.70.111</endAddress>
-    <startAddress>156.13.70.96</startAddress>
+    <description>CIDR range for SG - IB - ZIA</description>
+    <endAddress>156.13.70.255</endAddress>
+    <startAddress>156.13.70.0</startAddress>
   </loginIpRanges>
   <loginIpRanges>
     <description>CIDR range for UK - Bank Street</description>
@@ -9958,7 +9953,7 @@
     <name>RemoveDirectMessageMembers</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>RunReports</name>
   </userPermissions>
   <userPermissions>
@@ -9978,7 +9973,7 @@
     <name>SubmitMacrosAllowed</name>
   </userPermissions>
   <userPermissions>
-    <enabled>true</enabled>
+    <enabled>false</enabled>
     <name>SubscribeToLightningReports</name>
   </userPermissions>
   <userPermissions>

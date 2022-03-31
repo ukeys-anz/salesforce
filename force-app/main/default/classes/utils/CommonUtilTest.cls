@@ -86,4 +86,20 @@ public with sharing class CommonUtilTest {
       'Failed to get CustomNotificationType by DeveloperName.'
     );
   }
+
+  @isTest
+  static void testBase64Conversion() {
+    // WHEN
+    // base64urlToBase64() method is called passing the base64url
+    Test.startTest();
+    String base64 = CommonUtil.base64URLToBase64('hJ-QWHABDBjoPHor_YF5/xghQ+');
+    Test.stopTest();
+    // THEN
+    // it should return a valid base64 string
+    System.assertEquals(
+      base64,
+      'hJ+QWHABDBjoPHor/YF5/xghQ+==',
+      'Failed to convert base64url to base64.'
+    );
+  }
 }

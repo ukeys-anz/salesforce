@@ -133,6 +133,7 @@ public with sharing class GetHelpCaseActions {
         System.now()
       );
     }
+    GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(
       records,
       (Map<Id, Case>) oldMap
@@ -499,6 +500,7 @@ public with sharing class GetHelpCaseActions {
         maskTaxNumbers(record);
       }
     }
+    GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
   }
 
