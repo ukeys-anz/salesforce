@@ -332,7 +332,7 @@ public with sharing class ContactRequestActions {
     result.StartDateTime = interactionSubject.StartTime;
     result.WhoId = interactionAccount.PersonContactId;
     result.EndDateTime = interactionSubject.EndTime;
-    result.Interaction__c = interactionSubject.Id;
+    result.WhatId = interactionSubject.Id;
     return result;
   }
 

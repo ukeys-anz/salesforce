@@ -372,7 +372,7 @@ public with sharing class ContactRequestActionsTest {
 
     System.assertEquals(
       testInteraction.Id,
-      testEvent.Interaction__c,
+      testEvent.WhatId,
       'The interaction must be set to the creating Interaction'
     );
   }
