@@ -23,10 +23,14 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return `HttpCalloutResponse` api response
-   * @description virtual accounts and goals callout
+   * @description virtual financial accounts callout
    */
-  public virtual HttpCalloutResponse getAccountsAndGoals(String ocvId) {
+  public virtual HttpCalloutResponse getFinancialAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     return null;
   }
 
@@ -244,6 +248,19 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse getStatementUrl(
     String ocvId,
     String statementId
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param paramUrl params to be sent to api
+   * @return `HttpCalloutResponse` api response
+   * @description virtual account buckets callout
+   */
+  public virtual HttpCalloutResponse getAccountBuckets(
+    String ocvId,
+    String paramUrl
   ) {
     return null;
   }

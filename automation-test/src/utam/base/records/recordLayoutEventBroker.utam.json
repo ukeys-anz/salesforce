@@ -1,0 +1,57 @@
+{
+  "elements": [
+    {
+      "type": "container",
+      "public": true,
+      "name": "content"
+    },
+    {
+      "type": "container",
+      "public": true,
+      "name": "contentInsideSlot",
+      "selector": {
+        "css": ":not(slot)"
+      }
+    },
+    {
+      "type": "container",
+      "public": true,
+      "name": "generatedTemplate",
+      "selector": {
+        "css": ".forcegenerated-flexipage-template"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "waitForTemplate",
+      "compose": [
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "root",
+                  "apply": "containsElement",
+                  "args": [
+                    {
+                      "type": "locator",
+                      "value": {
+                        "css": ".forcegenerated-flexipage-template"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "apply": "returnSelf"
+        }
+      ]
+    }
+  ]
+}

@@ -9,6 +9,13 @@ const APEX_TRANSACTIONS_SUCCESS = require("./data/transactionSuccess.json");
 const APEX_TRANSACTIONS_SUCCESS_SECOND = require("./data/transactionSuccessTwo.json");
 const APEX_TRANSACTIONS_SUCCESS_PARTIAL = require("./data/transactionPartial.json");
 const APEX_TRANSACTIONS_FAILURE = require("./data/transactionFailure.json");
+const TRANSACTION_TYPE_RECORD_TYPE_ID_MAP = {
+  ATM_Dispute: "0122O000001VkrVQAS",
+  Card_Dispute: "0122O000001VkrYQAS",
+  Direct_Debit_Dispute: "0122O000001VkrbQAC",
+  Direct_Entry_Dispute: "0122O000001VkrcQAC",
+  NPP_Dispute: "0122O000001VkriQAC"
+};
 
 jest.mock(
   "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura",
@@ -38,13 +45,14 @@ describe("c-transactionHistoryBoard", () => {
     // eslint-disable-next-line no-undef
     return new Promise((resolve) => setImmediate(resolve));
   }
-
+  // check for header
   it("test default scenario", () => {
-    getTransactions.mockResolvedValue(APEX_TRANSACTIONS_SUCCESS);
     const element = createElement("c-transactionHistoryBoard", {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);
@@ -59,11 +67,12 @@ describe("c-transactionHistoryBoard", () => {
   });
 
   it("test partial response", () => {
-    getTransactions.mockResolvedValue(APEX_TRANSACTIONS_SUCCESS_PARTIAL);
     const element = createElement("c-transactionHistoryBoard", {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS_PARTIAL;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);
@@ -77,11 +86,12 @@ describe("c-transactionHistoryBoard", () => {
   });
 
   it("test end date change", () => {
-    getTransactions.mockResolvedValue(APEX_TRANSACTIONS_SUCCESS);
     const element = createElement("c-transactionHistoryBoard", {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);
@@ -112,7 +122,7 @@ describe("c-transactionHistoryBoard", () => {
         );
       })
       .then(() => {
-        getTransactions.mockResolvedValue(APEX_TRANSACTIONS_SUCCESS_SECOND);
+        element.transactionData = APEX_TRANSACTIONS_SUCCESS_SECOND;
         const searchBtn = element.shadowRoot.querySelector("lightning-button");
         searchBtn.click();
 
@@ -124,28 +134,13 @@ describe("c-transactionHistoryBoard", () => {
       });
   });
 
-  it("test error handling", () => {
-    getTransactions.mockRejectedValue(APEX_TRANSACTIONS_FAILURE);
-    const element = createElement("c-transactionHistoryBoard", {
-      is: TransactionHistoryBoard
-    });
-    document.body.appendChild(element);
-
-    // Emit data from @wire
-    getRecordAdapter.emit(mockGetRecord);
-
-    return flushPromises().then(() => {
-      const errorCmp = element.shadowRoot.querySelector("c-error");
-      expect(errorCmp).not.toBeNull();
-    });
-  });
-
   it("test expand and load more button", () => {
-    getTransactions.mockResolvedValue(APEX_TRANSACTIONS_SUCCESS);
     const element = createElement("c-transactionHistoryBoard", {
       is: TransactionHistoryBoard
     });
     document.body.appendChild(element);
+    element.transactionTypeDisputeIdMapFromParent = TRANSACTION_TYPE_RECORD_TYPE_ID_MAP;
+    element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
     getRecordAdapter.emit(mockGetRecord);

@@ -1568,6 +1568,16 @@
         <startAddress>34.87.219.182</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <description>GCP PROD3 for Harness</description>
+        <endAddress>34.87.216.1</endAddress>
+        <startAddress>34.87.216.1</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD4 for Harness</description>
+        <endAddress>34.87.220.213</endAddress>
+        <startAddress>34.87.220.213</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <description>GCP NP3 for Harness</description>
         <endAddress>35.238.133.229</endAddress>
         <startAddress>35.238.133.229</startAddress>

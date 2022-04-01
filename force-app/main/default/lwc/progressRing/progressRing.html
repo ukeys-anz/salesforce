@@ -15,12 +15,22 @@
         stroke-dasharray={progressStyle}
       ></circle>
     </svg>
-    <template if:true={emoticon}>
-      <div class="emoticon" data-progress={progress}>{emoticon}</div>
+    <template if:true={image}>
+      <div class="imagery" data-progress={progress}>
+        <img class="image" src={image} />
+      </div>
       <div class="progress-text hide" data-progress={progress}>{progress}%</div>
     </template>
-    <template if:false={emoticon}>
-      <div class="progress-text" data-progress={progress}>{progress}%</div>
+    <template if:false={image}>
+      <template if:true={emoticon}>
+        <div class="imagery" data-progress={progress}>{emoticon}</div>
+        <div class="progress-text hide" data-progress={progress}>
+          {progress}%
+        </div>
+      </template>
+      <template if:false={emoticon}>
+        <div class="progress-text" data-progress={progress}>{progress}%</div>
+      </template>
     </template>
   </div>
 </template>

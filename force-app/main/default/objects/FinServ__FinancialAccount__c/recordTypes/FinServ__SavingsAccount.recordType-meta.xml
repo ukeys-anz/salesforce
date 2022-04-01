@@ -290,6 +290,10 @@
             <fullName>Closed</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>FinServ__TaxStatus__c</picklist>

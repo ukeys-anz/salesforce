@@ -40,10 +40,17 @@
   ],
   "usermap": [
     {
+      "name": "Business Admin",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Business_Admin"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "3rd Party Mobile Support Team",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Third_Party_Mobile_Support_Team"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {

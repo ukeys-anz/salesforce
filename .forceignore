@@ -85,6 +85,7 @@ force-app/main/default/classes/utils/CommonUtils.cls
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
 type:DataCategoryGroup
+force-app/main/default/datacategorygroups
 
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
@@ -111,3 +112,5 @@ force-app/main/default/transactionSecurityPolicies
 
 #to prevent issues when deploying looking for depracated process name
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
+force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
+force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml

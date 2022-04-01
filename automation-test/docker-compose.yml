@@ -1,0 +1,10 @@
+version: "3.9" # optional since v1.27.0
+services:
+  automationtest:
+    image: "automationtest:latest"
+    build: .
+    command: "./automationtest.sh"
+    volumes:
+      - "${PWD:-.}:/app"
+    env_file:
+      - ./.env

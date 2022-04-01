@@ -128,7 +128,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Duplicate Transactions</fullName>
+            <fullName>Duplicate Transaction</fullName>
             <default>false</default>
         </values>
         <values>
@@ -5188,6 +5188,21 @@
         </values>
         <values>
             <fullName>Transaction</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Transaction_Status__c</picklist>
+        <values>
+            <fullName>TRANSACTION_STATUS_UNSPECIFIED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TRANSACTION_STATUS_PENDING</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TRANSACTION_STATUS_POSTED</fullName>
             <default>false</default>
         </values>
     </picklistValues>

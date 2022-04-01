@@ -1,0 +1,36 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "everydayAccount",
+      "selector": {
+        "css": "c-financial-account[data-id='checking-account']"
+      },
+      "public": true
+    },
+    {
+      "name": "savingsAccount",
+      "selector": {
+        "css": "c-financial-account[data-id='savings-account']"
+      },
+      "public": true
+    },
+    {
+      "name": "financialGoals",
+      "selector": {
+        "css": "c-financial-goals-person-account"
+      },
+      "public": true
+    },
+    {
+      "name": "totalBalance",
+      "selector": {
+        "css": "c-total-balance"
+      },
+      "public": true
+    }
+  ]
+}

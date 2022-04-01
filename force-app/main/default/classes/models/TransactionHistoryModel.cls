@@ -75,7 +75,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public List<String> categories;
     @AuraEnabled
-    public FieldValue merchantId;
+    public FieldValue merchant_id;
     @AuraEnabled
     public List<String> tags;
     @AuraEnabled
@@ -145,7 +145,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    */
   public class Merchants {
     @AuraEnabled
-    public String merchantId;
+    public String merchant_id;
     @AuraEnabled
     public String lastUpdateTime;
     @AuraEnabled
@@ -224,6 +224,8 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
   public class Source_account {
     @AuraEnabled
     public Account account;
+    @AuraEnabled
+    public FieldValue bucket_id;
   }
 
   /**

@@ -209,8 +209,10 @@ public with sharing class IDRCaseActions {
         : null;
       if (
         (oldCase != null &&
-        oldCase.Status != IDRConstants.ESCALATED_STATUS &&
-        c.Status == IDRConstants.ESCALATED_STATUS)
+        ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
+        c.Status == IDRConstants.ESCALATED_STATUS) ||
+        (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
+        c.IDR_Milestone_Sla__c == 'Completed'))
       ) {
         escalationCases.add(c.Id);
       }
@@ -226,7 +228,10 @@ public with sharing class IDRCaseActions {
     if (!escalationCases.isEmpty()) {
       MilestoneUtils.completeMilestones(
         escalationCases,
-        new List<String>{ 'Open_Escalation_Time' },
+        new List<String>{
+          'Open_Escalation_Time',
+          'FPR 5 Business Day Resolution target'
+        },
         System.now()
       );
     }
@@ -467,6 +472,11 @@ public with sharing class IDRCaseActions {
         record.IDR_Date_Received__c,
         record.BusinessHoursId
       );
+    }
+
+    // if the date received has been updated , this information needs to flow on to SlaStartDate field. for the entitlments to work as expected.
+    if (record.IDR_Date_Received__c != oldRec.IDR_Date_Received__c) {
+      record.SlaStartDate = record.IDR_Date_Received__c;
     }
   }
 

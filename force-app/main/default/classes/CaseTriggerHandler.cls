@@ -55,6 +55,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       null
     );
+    GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
   }
 
   /**
@@ -99,6 +100,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
+    GetHelpCaseActions.handleDisputesPEGAIntegration(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**

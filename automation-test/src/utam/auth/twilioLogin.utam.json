@@ -1,0 +1,32 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "email",
+      "selector": {
+        "css": "[name='loginfmt']"
+      },
+      "public": true,
+      "type": "editable"
+    },
+    {
+      "name": "next",
+      "selector": {
+        "css": "input[type='submit']"
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "password",
+      "selector": {
+        "css": "[name='passwd']"
+      },
+      "public": true,
+      "type": "editable"
+    }
+  ]
+}

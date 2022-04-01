@@ -20,9 +20,10 @@ public with sharing class FabricServiceMock extends Service {
   private static final String LOCK_CARD_RESPONSE = '{"status": true,"eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_LOST","ELIGIBILITY_CARD_REPLACEMENT_STOLEN","ELIGIBILITY_CARD_REPLACEMENT_DAMAGED","ELIGIBILITY_UNBLOCK"]}';
 
   @TestVisible
-  private static final String ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE = getStaticResource(
-    'mock_accountsAndGoals'
+  private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getStaticResource(
+    'mock_financialAccounts'
   );
+
   @TestVisible
   private static final String TRANSACTION_HISTORY_SUCCESS_RESPONSE = getStaticResource(
     'mock_transactionHistory'
@@ -37,22 +38,34 @@ public with sharing class FabricServiceMock extends Service {
   private static final String REPLACE_CARD = getStaticResource(
     'mock_replaceCard'
   );
+
   @TestVisible
   private static final String GET_STATEMENT = getStaticResource(
     'mock_statement'
   );
+
   @TestVisible
   private static final String GET_STATEMENTURL = getStaticResource(
     'mock_statementUrl'
   );
+
+  @TestVisible
+  private static final String ACCOUNT_BUCKETS_RESPONSE = getStaticResource(
+    'mock_accountBuckets'
+  );
+
   /**
    * @param ocvId customer id to retrieve accounts and goals for
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return `HttpCalloutResponse` the api response
    * @description fetches accounts and goals fake response
    */
-  public override HttpCalloutResponse getAccountsAndGoals(String ocvId) {
+  public override HttpCalloutResponse getFinancialAccounts(
+    String ocvId,
+    List<String> accountNumbers
+  ) {
     if (!preset) {
-      response.body = FabricServiceMock.ACCOUNTS_AND_GOALS_SUCCESS_RESPONSE;
+      response.body = FabricServiceMock.FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE;
     }
     return response;
   }
@@ -160,6 +173,22 @@ public with sharing class FabricServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = FabricServiceMock.REPLACE_CARD;
+    }
+    return response;
+  }
+
+  /**
+   * @param ocvId customer id to retrieve account buckets for
+   * @param paramUrl customer id to retrieve account buckets for
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches mock account buckets response
+   */
+  public override HttpCalloutResponse getAccountBuckets(
+    String ocvId,
+    String paramUrl
+  ) {
+    if (!preset) {
+      response.body = FabricServiceMock.ACCOUNT_BUCKETS_RESPONSE;
     }
     return response;
   }
