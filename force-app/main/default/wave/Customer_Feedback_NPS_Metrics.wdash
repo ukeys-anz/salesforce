@@ -310,7 +310,7 @@
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
-          "label": "Average NPS Score",
+          "label": "Average Advocacy Rating",
           "align": "center",
           "subtitleLabel": ""
         },
