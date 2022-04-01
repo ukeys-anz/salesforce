@@ -6,18 +6,41 @@
   </template>
   <article class={transactionRecord.rowColour}>
     <div class="slds-grid slds-m-bottom_small">
-      <div class="slds-col slds-size--1-of-7">
+      <div class="slds-col slds-size--1-of-7 logo-container">
         <template if:true={transactionRecord.logo}>
-          <img class="logo-image" alt="Logo" src={transactionRecord.logo} />
+          <img class={logoClass} alt="Logo" src={transactionRecord.logo} />
+        </template>
+        <template if:true={transactionRecord.source_emoji}>
+          <div class="source-emoji">{transactionRecord.source_emoji}</div>
+        </template>
+        <template if:true={transactionRecord.source_image}>
+          <div class={sourceClass}>
+            <img src={transactionRecord.source_image} />
+          </div>
+        </template>
+        <template if:true={transactionRecord.destination_emoji}>
+          <div class="destination-emoji">
+            {transactionRecord.destination_emoji}
+          </div>
+        </template>
+        <template if:true={transactionRecord.destination_image}>
+          <div class={destinationClass}>
+            <img src={transactionRecord.destination_image} />
+          </div>
         </template>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Name</div>
-        <div class="slds-grid">{transactionRecord.title}</div>
+        <p class="slds-truncate name" title={transactionRecord.title}>
+          {transactionRecord.title}
+        </p>
+        <div class="description-tooltip">{transactionRecord.title}</div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Type</div>
-        <div class="slds-grid">{transactionRecord.formatted_type}</div>
+        <div class="slds-grid" data-test-id="transaction-type">
+          {transactionRecord.formatted_type}
+        </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
@@ -42,12 +65,12 @@
             ></span>
           </template>
           <template if:true={negativeAmount}>
-            <span
-              ><lightning-formatted-number
+            <span>
+              <lightning-formatted-number
                 value={amountNumber}
                 format-style="currency"
-              ></lightning-formatted-number
-            ></span>
+              ></lightning-formatted-number>
+            </span>
           </template>
         </div>
       </div>
@@ -58,14 +81,16 @@
               value="Show Details"
               label="Show Details"
               onclick={handleDetailsToggle}
-            ></lightning-menu-item>
+            >
+            </lightning-menu-item>
           </template>
           <template if:true={showTransactionDetails}>
             <lightning-menu-item
               value="Hide Details"
               label="Hide Details"
               onclick={handleDetailsToggle}
-            ></lightning-menu-item>
+            >
+            </lightning-menu-item>
           </template>
           <lightning-menu-item
             value="Raise Dispute"
@@ -97,7 +122,9 @@
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Long Description</div>
           <div class="slds-grid description">{transactionRecord.long_desc}</div>
-          <div class="description-tooltip">{transactionRecord.long_desc}</div>
+          <div class="description-tooltip" data-id="longDesc">
+            {transactionRecord.long_desc}
+          </div>
         </div>
         <div class="slds-col slds-size--1-of-7">
           <div class="slds-grid slds-form-element__label">Transaction ID</div>
@@ -165,7 +192,8 @@
                 <lightning-formatted-number
                   value={amountConvertedValue}
                   format-style="currency"
-                ></lightning-formatted-number>
+                >
+                </lightning-formatted-number>
               </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
@@ -323,7 +351,8 @@
               map-markers={transactionRecord.mapMarkers}
               zoom-level={zoomLevel}
               class="map"
-            ></lightning-map>
+            >
+            </lightning-map>
           </div>
         </div>
       </template>

@@ -427,7 +427,7 @@ public virtual with sharing class Lib_TriggerHandler {
 
     /**
      * @description get defined max loop count
-     * @return Integer max loop count defined in one transcation
+     * @return Integer max loop count defined in one transaction
      */
     public Integer getMax() {
       return this.max;
@@ -435,7 +435,7 @@ public virtual with sharing class Lib_TriggerHandler {
 
     /**
      * @description get current loop count for a given handler event
-     * @return Integer current handler event loop count in one transcation
+     * @return Integer current handler event loop count in one transaction
      */
     public Integer getCount() {
       return this.count;

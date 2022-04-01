@@ -1135,11 +1135,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Date_Received__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.IDR_Date_closed_after_re_opening__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1534,6 +1529,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Middle_Initial__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <field>Case.Origin</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1920,6 +1920,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Submitted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Transaction_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3350,6 +3355,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Known_Issues__c.IDR_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Known_Issues__c.IDR_Channel_Received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Known_Issues__c.IDR_Priority__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

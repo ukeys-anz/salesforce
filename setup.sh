@@ -2,6 +2,24 @@
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
+
+trap ctrl_c INT
+
+function ctrl_c() {
+    # git checkout .
+    echo "${red}"
+    echo "Making scracthOrg has been stopped."
+    echo ""
+    read -rp "${green}If the scratchOrg has not been created, or you want to delete it, please type y/Y : ${reset}" deleteScratchOrgFlag
+    if [[ $deleteScratchOrgFlag == 'y' || $deleteScratchOrgFlag == 'Y' ]];then
+        echo ""
+        sfdx force:org:delete -u $scratchorgalias | tee stderr
+        echo ""
+    fi
+    exit 1
+    echo "${red}-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-${reset}"
+}
+
 # to use all the functions that we need and do not repeat the code
 source ./bash-scripts/commonFunctions.sh
 
@@ -10,7 +28,7 @@ rm -rf ./artefact
 rm -rf ./tmp
 
 # Using SOAP over REST is much faster for scratch org creations while pushing content.
-sfdx config:set restDeploy=false
+sfdx force:config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
@@ -50,7 +68,9 @@ echo ""
 read -rp "${green}check if the scratchOrg with $scratchorgalias alias has been made(y/n)? " scratchMade
 if [[ $scratchMade == n || $scratchMade == N ]];then
     echo ""
-    echo "${red}exit and re-run it again"
+    echo "${red}exit and re-run it again${reset}"
+    echo ""
+    sfdx force:org:delete -u $scratchorgalias | tee stderr
     exit 1
 fi
 echoMessageCreator "" $stepNo false
@@ -103,20 +123,25 @@ if [ -d "./artefact/" ]; then
         sfdx force:mdapi:deploy -u $scratchorgalias -d artefact -w 10 | tee stderr
         if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
             
-        # step: to if it is failed, make it to re-run, or try again, and you can check the stderr one
+            # step: to if it is failed, make it to re-run, or try again, and you can check the stderr one
             echo "${green}"
             echo "Maybe you need to do some manual steps."
             echo "Please check the stderr file."
             echo ""
-            read -rp "Do you want to retry deploying (y/n)? " retryFlag
-            echo "${reset}"
-            if [[ $retryFlag == n || $retryFlag == N ]]; then
-                echo "${green}"
-                echo "The job has been skipped."
-                echo ""
-                exit 1
+            read -rp "Do you want to continue without pushing the diff metdata (y/n)? ${reset}" ignorePushingMetadata
+            if [[ $ignorePushingMetadata == 'y' || $ignorePushingMetadata == 'Y' ]];then
+                tryDeploying=false
             else
-                tryDeploying=true
+                read -rp "Do you want to retry deploying (y/n)? " retryFlag
+                echo "${reset}"
+                if [[ $retryFlag == n || $retryFlag == N ]]; then
+                    echo "${green}"
+                    echo "The job has been skipped."
+                    echo ""
+                    exit 1
+                else
+                    tryDeploying=true
+                fi
             fi
         fi
     done

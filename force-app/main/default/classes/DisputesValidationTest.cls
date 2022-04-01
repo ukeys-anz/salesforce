@@ -332,13 +332,13 @@ public with sharing class DisputesValidationTest {
     // Delete the case created in @TestSetup
     Case existingDisputeCase = (Case) [SELECT Id FROM Case];
     delete existingDisputeCase;
-    // GIVEN a ATM dispute with Dispute Reason = 'Duplicate Transactions'
+    // GIVEN a ATM dispute with Dispute Reason = 'Duplicate Transaction'
     // And Customer Description is missing
     User usr = TestUtil.getUserByFirstName('CoachTest');
     Account acc = (Account) [SELECT Id FROM Account LIMIT 1];
     Case atmDispute = new Case(
       RecordTypeId = GetHelpConstants.ATM_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       AccountId = acc.Id,
       Transaction_Id__c = 'CT5M00000024404234',
       Transaction_UUID__c = '4313ds-51d2-4ve2-ba7e-0b339p157da1'
@@ -371,13 +371,13 @@ public with sharing class DisputesValidationTest {
     // Delete the case created in @TestSetup
     Case existingDisputeCase = (Case) [SELECT Id FROM Case];
     delete existingDisputeCase;
-    // GIVEN a ATM dispute with Dispute Reason = 'Duplicate Transactions'
+    // GIVEN a ATM dispute with Dispute Reason = 'Duplicate Transaction'
     // And Customer Description is NOT missing
     User usr = TestUtil.getUserByFirstName('CoachTest');
     Account acc = (Account) [SELECT Id FROM Account LIMIT 1];
     Case atmDispute = new Case(
       RecordTypeId = GetHelpConstants.ATM_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Duplicate Transactions',
+      Dispute_Reason__c = 'Duplicate Transaction',
       AccountId = acc.Id,
       Description = 'Sample Customer Description',
       Transaction_Id__c = 'CT5M00000024404234',

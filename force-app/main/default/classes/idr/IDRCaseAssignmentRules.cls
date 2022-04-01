@@ -47,8 +47,15 @@ public with sharing class IDRCaseAssignmentRules {
     if (
       rec.Status == IDRConstants.ESCALATED_STATUS &&
       (oldCase == null ||
-      oldCase.Status != IDRConstants.ESCALATED_STATUS)
+      oldCase.Status != IDRConstants.ESCALATED_STATUS ||
+      (oldCase.Status == rec.Status &&
+      oldCase.recordTypeId != rec.recordTypeId))
     ) {
+      //CEO or Board
+      if (rec.Origin == '9' || rec.Origin == '10') {
+        return QUEUE_MAP.get('IDR_CEO');
+      }
+
       //Priority
       if (
         rec.Priority == 'Customer in Collections' ||
@@ -73,9 +80,14 @@ public with sharing class IDRCaseAssignmentRules {
         }
       }
 
-      //CEO or Board
-      if (rec.Origin == '9' || rec.Origin == '10') {
-        return QUEUE_MAP.get('IDR_CEO');
+      //Credit Reporting
+      if (
+        rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED &&
+        (rec.Type == '19' ||
+        rec.IDR_Issue_Type_2__c == '19' ||
+        rec.IDR_Issue_Type_3__c == '19')
+      ) {
+        return QUEUE_MAP.get('CCR_Complaints');
       }
 
       //Product-based rules

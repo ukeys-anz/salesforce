@@ -35,13 +35,23 @@ export default class CaseDuration extends LightningElement {
   wiredProject({ data }) {
     if (data) {
       this.caseStatus = data.fields.Status.value;
-      this.handleGetCaseDurationTime();
+      if (this.isCaseStopped()) {
+        this.stopTimer();
+      }
     }
   }
 
   connectedCallback() {
     // Get case duration time
-    this.handleGetCaseDurationTime();
+    this.handleGetCaseDurationTime(); // Call this once before starting the interval
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    this.timeIntervalInstance = setInterval(() => {
+      this.handleGetCaseDurationTime();
+    }, 60000);
+  }
+
+  disconnectedCallback() {
+    clearInterval(this.timeIntervalInstance); // Making sure we're not making calls to server when case page is closed
   }
 
   handleGetCaseDurationTime() {
@@ -51,28 +61,13 @@ export default class CaseDuration extends LightningElement {
       .then((result) => {
         this.durationTime = result;
         this.days = Math.floor(this.durationTime.hours / 24);
-        if (
-          this.caseStatus === STATUS.On_Hold ||
-          this.caseStatus === STATUS.Closed ||
-          this.caseStatus === STATUS.Resolved ||
-          this.caseStatus === STATUS.Withdrawn
-        ) {
-          this.durationStop = true;
-          this.handleDate(this.durationTime.hours, this.durationTime.minutes);
+        if (this.isCaseStopped()) {
+          this.stopTimer();
         } else {
           this.durationStop = false;
-          let parentThis = this;
-
-          // eslint-disable-next-line @lwc/lwc/no-async-operation
-          this.timeIntervalInstance = setInterval(() => {
-            this.handleDate(
-              parentThis.durationTime.hours,
-              parentThis.durationTime.minutes,
-              parentThis.totalSeconds
-            );
-            parentThis.totalSeconds += 1;
-          }, 1000);
         }
+
+        this.handleDate(this.durationTime.hours, this.durationTime.minutes);
       })
       .catch((error) => {
         let errorMessage = "Failed to load case duration";
@@ -92,14 +87,11 @@ export default class CaseDuration extends LightningElement {
     this.dispatchEvent(event);
   }
 
-  handleDate(hours, minutes, seconds = "") {
+  handleDate(hours, minutes) {
     let date = new Date();
 
     date.setMinutes(minutes);
     date.setHours(hours);
-    if (seconds) {
-      date.setSeconds(this.totalSeconds);
-    }
 
     this.minutes = date.getMinutes();
     this.hours = date.getHours();
@@ -131,12 +123,7 @@ export default class CaseDuration extends LightningElement {
 
     this.durationString = `${this.dayString} ${this.hourString} ${this.minuteString}`;
 
-    if (
-      (this.caseStatus !== STATUS.On_Hold &&
-        this.caseStatus !== STATUS.Closed) ||
-      (this.caseStatus !== STATUS.Resolved &&
-        this.caseStatus !== STATUS.Withdrawn)
-    ) {
+    if (!this.isCaseStopped()) {
       if (
         date.getHours() === 23 &&
         date.getMinutes() === 59 &&
@@ -150,5 +137,22 @@ export default class CaseDuration extends LightningElement {
         }, 1000);
       }
     }
+  }
+
+  isCaseStopped() {
+    if (
+      this.caseStatus === STATUS.On_Hold ||
+      this.caseStatus === STATUS.Closed ||
+      this.caseStatus === STATUS.Resolved ||
+      this.caseStatus === STATUS.Withdrawn
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  stopTimer() {
+    this.durationStop = true;
+    clearInterval(this.timeIntervalInstance);
   }
 }

@@ -5,7 +5,7 @@
  * @group ANZx
  */
 @isTest
-private with sharing class GetHelpCaseAssignmentRulesTest {
+public with sharing class GetHelpCaseAssignmentRulesTest {
   /**
    * @description : This is to test for ATM/Card/NPP dispute types, when in unauthorised transaction situation
    * case is assigned correctly
@@ -18,6 +18,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
       GetHelpConstants.NPP_DISPUTE_RT_ID
     };
     Case[] cases = new List<Case>();
+    Faker faker = new Faker('AU');
     for (Id rtId : disputeCaseTypes) {
       cases.add(
         new Case(
@@ -25,7 +26,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
           Status = 'Submitted',
           Dispute_Reason__c = GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION,
           External_System__c = 'Pega_Smarts',
-          External_Case_ID__c = 'test1234',
+          External_Case_ID__c = faker.randomString(8),
           Card_In_Possession_During_Transaction__c = 'No',
           Has_The_Card_Been_Stopped__c = 'No',
           Submitted__c = true,
@@ -80,6 +81,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
       GetHelpConstants.CARD_DISPUTE_RT_ID,
       GetHelpConstants.NPP_DISPUTE_RT_ID
     };
+    Faker faker = new Faker('AU');
     Case[] cases = new List<Case>();
     for (Id rtId : disputeCaseTypes) {
       cases.add(
@@ -88,7 +90,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
           Status = 'Open',
           Dispute_Reason__c = GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION,
           External_System__c = 'Pega_Smarts',
-          External_Case_ID__c = 'test1234',
+          External_Case_ID__c = faker.randomString(8),
           Card_In_Possession_During_Transaction__c = 'No',
           Has_The_Card_Been_Stopped__c = 'No',
           IDR_Escalation_Reason__c = '8',
@@ -148,6 +150,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
       GetHelpConstants.CARD_DISPUTE_RT_ID,
       GetHelpConstants.NPP_DISPUTE_RT_ID
     };
+    Faker faker = new Faker('AU');
     Case[] cases = new List<Case>();
     for (Id rtId : disputeCaseTypes) {
       cases.add(
@@ -156,7 +159,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
           Status = 'Submitted',
           Dispute_Reason__c = GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION,
           External_System__c = 'Pega_Smarts',
-          External_Case_ID__c = 'test1234',
+          External_Case_ID__c = faker.randomString(8),
           Card_In_Possession_During_Transaction__c = 'No',
           Has_The_Card_Been_Stopped__c = 'No',
           Submitted__c = true,
@@ -216,6 +219,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
       GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
       GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID
     };
+    Faker faker = new Faker('AU');
     Case[] cases = new List<Case>();
     for (Id rtId : disputeCaseTypes) {
       cases.add(
@@ -224,7 +228,7 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
           Status = 'Submitted',
           Dispute_Reason__c = GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION,
           External_System__c = 'Pega_Smarts',
-          External_Case_ID__c = 'test1234',
+          External_Case_ID__c = faker.randomString(8),
           Card_In_Possession_During_Transaction__c = 'No',
           Has_The_Card_Been_Stopped__c = 'No',
           Submitted__c = true,
@@ -263,5 +267,97 @@ private with sharing class GetHelpCaseAssignmentRulesTest {
       GetHelpConstants.SUPPORT_COACH_QUEUE,
       queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName
     );
+  }
+
+  /**
+   * @description : This is to test for Card dispute type for pending queues
+   * case is assigned correctly
+   */
+  @isTest
+  static void testPendingCardCases() {
+    Faker faker = new Faker('AU');
+    Case c = new Case(
+      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+      Dispute_Reason__c = GetHelpCaseAssignmentRules.DID_NOT_AUTHORISE_TRANSACTION,
+      External_System__c = 'Pega_Smarts',
+      External_Case_ID__c = faker.randomString(8),
+      Card_In_Possession_During_Transaction__c = 'No',
+      Has_The_Card_Been_Stopped__c = 'No',
+      Date_Posted__c = date.newInstance(1970, 1, 1),
+      IDR_Escalation_Reason__c = '8',
+      Is_this_a_Business_Customer__c = 'No',
+      Amount_Of_Authorised_Transaction__c = 20,
+      Origin = 'App',
+      Priority = 'Standard',
+      Description = 'Test',
+      Type = '13',
+      IDR_Subsequent_Issue__c = '9'
+    );
+
+    Test.startTest();
+    insert c;
+    Test.stopTest();
+
+    Map<ID, Group> queueNameById = new Map<ID, Group>(
+      [
+        SELECT id, developername
+        FROM Group
+        WHERE
+          developername IN :GetHelpConstants.workBasketNames
+          AND Type = :IDRCaseActions.QUEUE_TYPE
+      ]
+    );
+    c = [SELECT Id, OwnerId FROM Case WHERE Id = :c.Id];
+    System.assertEquals(
+      GetHelpConstants.PENDING_CARD_DISPUTE_FRAUD_QUEUE,
+      queueNameById.get(c.OwnerId).developerName
+    );
+    c.Dispute_Reason__c = 'Charged Incorrect Amount';
+    update c;
+    c = [SELECT Id, OwnerId FROM Case WHERE Id = :c.Id];
+    System.assertEquals(
+      GetHelpConstants.PENDING_CARD_DISPUTE_GENERAL_QUEUE,
+      queueNameById.get(c.OwnerId).developerName
+    );
+  }
+
+  /**
+   * @description : This is to test validation rule is working when case is in pending status
+   * case cannot be submitted
+   */
+  @isTest
+  static void testSubmitPendingCaseValidation() {
+    Faker faker = new Faker('AU');
+    Case c = new Case(
+      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+      Dispute_Reason__c = GetHelpCaseAssignmentRules.DID_NOT_AUTHORISE_TRANSACTION,
+      External_System__c = 'Pega_Smarts',
+      External_Case_ID__c = faker.randomString(8),
+      Card_In_Possession_During_Transaction__c = 'No',
+      Has_The_Card_Been_Stopped__c = 'No',
+      Date_Posted__c = date.newInstance(1970, 1, 1),
+      IDR_Escalation_Reason__c = '8',
+      Is_this_a_Business_Customer__c = 'No',
+      Amount_Of_Authorised_Transaction__c = 20,
+      Origin = 'App',
+      Priority = 'Standard',
+      Description = 'Test',
+      Type = '13',
+      IDR_Subsequent_Issue__c = '9'
+    );
+
+    Test.startTest();
+    insert c;
+    Test.stopTest();
+
+    c.Submitted__c = true;
+    String expMsg = '';
+    try {
+      update c;
+    } catch (Exception e) {
+      expMsg = e.getMessage();
+    }
+    String validationMsg = 'Card dispute case cannot be submitted when the transaction status is pending or Date posted is not Valid';
+    System.assert(expMsg.contains(validationMsg));
   }
 }

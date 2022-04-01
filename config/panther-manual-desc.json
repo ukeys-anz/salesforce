@@ -516,6 +516,7 @@
         "Sub_Type__c",
         "Subject",
         "Submitted__c",
+        "Transaction_Status__c",
         "Type",
         "What_Customer_was_Trying_to_Do__c",
         "Goods_Or_Services_Returned__c"
@@ -805,7 +806,9 @@
         "IDR_Status__c",
         "IDR_Sub_Issue_Type__c",
         "IDR_Written_Response_Requested__c",
-        "IDR_Written_Response_Required__c"
+        "IDR_Written_Response_Required__c",
+        "IDR_Channel_Received__c",
+        "IDR_Priority__c"
       ]
     },
     "Knowledge__kav": {

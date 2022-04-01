@@ -42,7 +42,8 @@
           { "name": "Origin" },
           { "name": "LastModifiedDate" },
           { "name": "LastModifiedById" },
-          { "name": "Fraud_Loss_Reason_Code__c" }
+          { "name": "Fraud_Loss_Reason_Code__c" },
+          { "name": "Description" }
         ],
         "object": "Case"
       }
