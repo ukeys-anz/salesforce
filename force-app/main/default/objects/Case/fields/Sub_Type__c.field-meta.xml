@@ -78,6 +78,11 @@
                 <label>Device Support</label>
             </value>
             <value>
+                <fullName>Digital Support</fullName>
+                <default>false</default>
+                <label>Digital Support</label>
+            </value>
+            <value>
                 <fullName>Direct Debit or Recurring Payment</fullName>
                 <default>false</default>
                 <label>Direct Debit or Recurring Payment</label>
@@ -276,6 +281,10 @@
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
             <valueName>About ANZ Plus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>Digital Support</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
