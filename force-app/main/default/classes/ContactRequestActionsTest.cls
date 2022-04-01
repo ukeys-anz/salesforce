@@ -159,6 +159,7 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
+    request.RequestDescription = 'Test';
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -204,6 +205,25 @@ public with sharing class ContactRequestActionsTest {
       duration +
       ' minutes after the start time ' +
       appointmentDate
+    );
+
+    System.assertEquals(
+      'Test',
+      newInteraction.Description,
+      'Description on the Interaction must match that of the request.'
+    );
+
+    System.assertEquals(
+      'Outbound',
+      newInteraction.Direction__c,
+      'Direction must be "Outbound"'
+    );
+
+    string expectedName = requestReason + ' Appointment';
+    System.assertEquals(
+      expectedName,
+      newInteraction.Name,
+      'Name should match the Request Reason + " Appointment"'
     );
   }
 

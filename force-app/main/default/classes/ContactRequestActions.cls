@@ -168,7 +168,9 @@ public with sharing class ContactRequestActions {
       StartTime = request.Appointment_date_and_Time__c,
       AccountId = contactAccountMap.get(request.WhoId),
       Name = request.RequestReason + ' Appointment',
-      EndTime = request.Appointment_date_and_Time__c.addMinutes(duration)
+      EndTime = request.Appointment_date_and_Time__c.addMinutes(duration),
+      Description = request.RequestDescription,
+      Direction__c = 'Outbound'
     );
     return newInteraction;
   }
