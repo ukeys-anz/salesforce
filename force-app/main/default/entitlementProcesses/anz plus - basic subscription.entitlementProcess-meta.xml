@@ -3,7 +3,7 @@
     <SObjectType>Case</SObjectType>
     <active>true</active>
     <businessHours>ANZx Case Business Hours</businessHours>
-    <description>Controls SLAs for ANZ Plus record types: General Enquiry, Customer Feedback, Complaints, &amp; all Disputes</description>
+    <description>Controls SLAs for ANZ Plus record types: General Enquiry, Complaints, &amp; all Disputes, Customer Feedback</description>
     <entryStartDateField>Case.CreatedDate</entryStartDateField>
     <exitCriteriaFilterItems>
         <field>Case.IsClosed</field>
@@ -37,18 +37,18 @@
         <minutesToComplete>2400</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Violation_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-1440</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -74,18 +74,18 @@
         <minutesToComplete>1920</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Violation_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-960</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -95,7 +95,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Enquiry, Customer Feedback</value>
+            <value>General Enquiry,Customer Feedback</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
@@ -106,18 +106,18 @@
         <minutesToComplete>1440</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Violation_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-120</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -164,18 +164,18 @@
         <minutesToComplete>43200</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Maximum_IDR_timeframe_5days_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-5</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Maximum_IDR_Time_1day_Reminder</name>
                 <type>Task</type>
             </actions>
             <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_timeframe_5days_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-5</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -317,18 +317,18 @@
         <minutesToComplete>30240</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Maximum_IDR_Time_1day_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-1</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Maximum_IDR_timeframe_5days_Reminder</name>
                 <type>Task</type>
             </actions>
             <timeLength>-5</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_Time_1day_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -354,18 +354,18 @@
         <minutesToComplete>60</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Violation_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-30</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -391,18 +391,18 @@
         <minutesToComplete>480</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Violation_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
             <timeLength>-480</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Violation_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -426,15 +426,7 @@
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>-4800</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_None_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-2401</timeLength>
+            <timeLength>-2400</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
@@ -447,10 +439,18 @@
         </timeTriggers>
         <timeTriggers>
             <actions>
+                <name>SLA_Status_None_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-2401</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>-2400</timeLength>
+            <timeLength>-4800</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
@@ -479,10 +479,26 @@
         <minutesToComplete>10080</minutesToComplete>
         <timeTriggers>
             <actions>
+                <name>SLA_Status_None_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-3361</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>-6720</timeLength>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-3360</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
@@ -498,23 +514,7 @@
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>-3360</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Warning_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_None_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-3361</timeLength>
+            <timeLength>-6720</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>true</useCriteriaStartTime>
@@ -535,22 +535,6 @@
         <minutesToComplete>43200</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>SLA_Status_Warning_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Warning_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-14400</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>SLA_Status_None_Update</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -562,7 +546,23 @@
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
             <timeLength>-28800</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>SLA_Status_Warning_Update</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>-14400</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
