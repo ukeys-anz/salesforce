@@ -56,4 +56,29 @@
         <default>false</default>
         <label>Other</label>
     </standardValue>
+    <standardValue>
+        <fullName>Store</fullName>
+        <default>false</default>
+        <label>Store</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Masterclass</fullName>
+        <default>false</default>
+        <label>Masterclass</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Health check</fullName>
+        <default>false</default>
+        <label>Health check</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Marketing</fullName>
+        <default>false</default>
+        <label>Marketing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Coach</fullName>
+        <default>false</default>
+        <label>Coach</label>
+    </standardValue>
 </StandardValueSet>
