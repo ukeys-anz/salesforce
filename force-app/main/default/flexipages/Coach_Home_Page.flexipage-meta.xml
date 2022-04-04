@@ -112,6 +112,64 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>enableInlineEdit</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>entityName</name>
+                    <value>Interaction</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterName</name>
+                    <value>My_Upcoming_Appointments</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideActionBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideSearchBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageSize</name>
+                    <value>3</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:filterListCard</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>enableInlineEdit</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>entityName</name>
+                    <value>ContactRequest</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterName</name>
+                    <value>Unassigned_Appointment_Requests</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideActionBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideSearchBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageSize</name>
+                    <value>3</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:filterListCard</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>dashboardId</name>
                     <value>Cases</value>
                 </componentInstanceProperties>
