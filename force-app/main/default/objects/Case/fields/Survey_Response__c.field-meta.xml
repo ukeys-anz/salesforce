@@ -6,7 +6,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>The survey response which this case is related to.</description>
     <externalId>false</externalId>
-    <label>Survey Response</label>
+    <label>Original Feedback Record</label>
     <referenceTo>qualtrics__Survey_Response__c</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>
     <relationshipName>Cases</relationshipName>
