@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom metadata which stores the image Id for the Escalated Flag on Contact Request object.</description>
+    <label>Escalated Flag Id</label>
+    <pluralLabel>Escalated Flag Id</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

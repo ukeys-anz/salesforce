@@ -5,8 +5,11 @@
     <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>If Appointment Time is not accepted within Escalated Time- Visual Indicator</description>
     <externalId>false</externalId>
-    <formula>IF((Appointment_date_and_Time__c - NOW()) &lt; 2,true, false)</formula>
+    <formula>IF((Appointment_date_and_Time__c - NOW()) &lt; 1 &amp;&amp; NOT(ISPICKVAL( Status , &apos;Accepted&apos;)),IMAGE(LEFT($Api.Partner_Server_URL_260, FIND( &apos;/services&apos;, $Api.Partner_Server_URL_260)) &amp;  $CustomMetadata.Escalated_Flag_Id__mdt.Alert_Flag_Id.Value__c 
+, &apos;Alert&apos;, 30, 30), &apos;&apos;)</formula>
     <label>Escalated</label>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <type>Checkbox</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
