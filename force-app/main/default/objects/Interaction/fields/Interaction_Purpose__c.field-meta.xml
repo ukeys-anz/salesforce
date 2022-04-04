@@ -24,6 +24,11 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>Digital Support</fullName>
+                <default>false</default>
+                <label>Digital Support</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

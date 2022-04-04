@@ -44,6 +44,10 @@
     <picklistValues>
         <picklist>Interaction_Purpose__c</picklist>
         <values>
+            <fullName>Digital Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Financial Wellbeing</fullName>
             <default>false</default>
         </values>

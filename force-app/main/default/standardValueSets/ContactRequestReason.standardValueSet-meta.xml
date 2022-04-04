@@ -7,6 +7,11 @@
         <label>Financial Wellbeing</label>
     </standardValue>
     <standardValue>
+        <fullName>Digital Support</fullName>
+        <default>false</default>
+        <label>Digital Support</label>
+    </standardValue>
+    <standardValue>
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
