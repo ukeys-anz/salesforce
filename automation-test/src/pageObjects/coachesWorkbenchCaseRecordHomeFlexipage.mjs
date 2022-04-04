@@ -4,7 +4,7 @@ import {
   createUtamMixinCtor as _createUtamMixinCtor,
   UtamBaseRootPageObject as _UtamBaseRootPageObject
 } from "@utam/core";
-import _CoachesWorkbenchCaseRecordHomeTemplateDesktop2 from "./../pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2";
+import _CoachesWorkbenchRecordHomeTemplateDesktop2 from "./../pageObjects/coachesWorkbenchRecordHomeTemplateDesktop2";
 import _LwcDetailPanel from "./../pageObjects/lwcDetailPanel";
 import _RecordPageDecorator from "./../pageObjects/recordPageDecorator";
 
@@ -78,7 +78,7 @@ export default class CoachesWorkbenchCaseRecordHomeFlexipage extends _UtamBaseRo
     const _statement0 = await this.getDecorator();
     const _statement1 = await _statement0.getEventBroker();
     const _result2 = await _statement1.getGeneratedTemplate(
-      _CoachesWorkbenchCaseRecordHomeTemplateDesktop2
+      _CoachesWorkbenchRecordHomeTemplateDesktop2
     );
     return _result2;
   }

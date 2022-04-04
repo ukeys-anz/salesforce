@@ -1,0 +1,36 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "boardBody",
+        "selector": {
+          "css": "[data-test-id='board-body']"
+        },
+        "elements": [
+          {
+            "name": "transactionHistoryRecordOfType",
+            "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryRecord",
+            "selector": {
+              "css": "c-transaction-history-record",
+              "returnAll": true
+            },
+            "filter": {
+              "apply": "getTransactionType",
+              "findFirst": true,
+              "matcher": {
+                "type": "stringEquals",
+                "args": [
+                  {
+                    "name": "transactionType",
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}

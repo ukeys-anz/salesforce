@@ -1,0 +1,14 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "transactionHistoryBoard",
+        "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryBoard",
+        "selector": {
+          "css": "c-transaction-history-board"
+        },
+        "public": true
+      }
+    ]
+  }
+}

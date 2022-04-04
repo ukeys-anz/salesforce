@@ -15,18 +15,30 @@ async function _utam_filter_caseRecordType(element, text) {
 async function _utam_get_newCase(driver, root) {
   let _element = root;
   const _locator = _By.css(`a div[title='New']`);
+  const hasElement = await _element.containsElement(_locator);
+  if (!hasElement) {
+    return null;
+  }
   return _element.findElement(_locator);
 }
 
 async function _utam_get_caseRecordTypes(driver, root) {
   let _element = root;
   const _locator = _By.css(`article[class*='cNewCaseAuraWrapper'] span`);
+  const hasElement = await _element.containsElement(_locator);
+  if (!hasElement) {
+    return null;
+  }
   return _element.findElements(_locator);
 }
 
 async function _utam_get_nextButton(driver, root) {
   let _element = root;
   const _locator = _By.css(`footer button:nth-of-type(2)`);
+  const hasElement = await _element.containsElement(_locator);
+  if (!hasElement) {
+    return null;
+  }
   return _element.findElement(_locator);
 }
 
@@ -93,6 +105,42 @@ async function _utam_get_picklist(
     sectionRowItemIndex
   );
   const _locator = _By.css(`a[role='button']`);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_number(
+  driver,
+  root,
+  sectionIndex,
+  sectionRowIndex,
+  sectionRowItemIndex
+) {
+  let _element = await _utam_get_formSectionRowItem(
+    driver,
+    root,
+    sectionIndex,
+    sectionRowIndex,
+    sectionRowItemIndex
+  );
+  const _locator = _By.css(`input[class*='uiInputSmartNumber']`);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_text(
+  driver,
+  root,
+  sectionIndex,
+  sectionRowIndex,
+  sectionRowItemIndex
+) {
+  let _element = await _utam_get_formSectionRowItem(
+    driver,
+    root,
+    sectionIndex,
+    sectionRowIndex,
+    sectionRowItemIndex
+  );
+  const _locator = _By.css(`input[type='text']`);
   return _element.findElement(_locator);
 }
 
@@ -170,6 +218,9 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
     const root = await this.getRootElement();
     const ClickableUtamElement = _createUtamMixinCtor(_ClickableUtamElement);
     let element = await _utam_get_newCase(driver, root);
+    if (!element) {
+      return null;
+    }
     element = new ClickableUtamElement(driver, element);
     return element;
   }
@@ -179,6 +230,9 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
     const root = await this.getRootElement();
     const ClickableUtamElement = _createUtamMixinCtor(_ClickableUtamElement);
     let elements = await _utam_get_caseRecordTypes(driver, root);
+    if (!elements) {
+      return null;
+    }
     elements = elements.map(function _createElement(element) {
       return new ClickableUtamElement(driver, element);
     });
@@ -194,6 +248,9 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
     const root = await this.getRootElement();
     const ClickableUtamElement = _createUtamMixinCtor(_ClickableUtamElement);
     let element = await _utam_get_nextButton(driver, root);
+    if (!element) {
+      return null;
+    }
     element = new ClickableUtamElement(driver, element);
     return element;
   }
@@ -264,6 +321,36 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
     return element;
   }
 
+  async __getNumber(sectionIndex, sectionRowIndex, sectionRowItemIndex) {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const EditableUtamElement = _createUtamMixinCtor(_EditableUtamElement);
+    let element = await _utam_get_number(
+      driver,
+      root,
+      sectionIndex,
+      sectionRowIndex,
+      sectionRowItemIndex
+    );
+    element = new EditableUtamElement(driver, element);
+    return element;
+  }
+
+  async __getText(sectionIndex, sectionRowIndex, sectionRowItemIndex) {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const EditableUtamElement = _createUtamMixinCtor(_EditableUtamElement);
+    let element = await _utam_get_text(
+      driver,
+      root,
+      sectionIndex,
+      sectionRowIndex,
+      sectionRowItemIndex
+    );
+    element = new EditableUtamElement(driver, element);
+    return element;
+  }
+
   async __getTextarea(sectionIndex, sectionRowIndex, sectionRowItemIndex) {
     const driver = this.driver;
     const root = await this.getRootElement();
@@ -324,6 +411,9 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
       return _matcher0;
     });
     const _statement1 = await this.getNewCase();
+    if (_statement1 === null) {
+      return null;
+    }
     await _statement1.click();
     await this.waitFor(async () => {
       const _result0 = await this.getCaseRecordType(text);
@@ -331,8 +421,14 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
       return _matcher0;
     });
     const _statement3 = await this.getCaseRecordType(text);
+    if (_statement3 === null) {
+      return null;
+    }
     await _statement3.click();
     const _statement4 = await this.getNextButton();
+    if (_statement4 === null) {
+      return null;
+    }
     await _statement4.click();
   }
 
@@ -343,6 +439,29 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
       sectionRowItemIndex
     );
     await _statement0.click();
+  }
+
+  async editNumber(
+    sectionIndex,
+    sectionRowIndex,
+    sectionRowItemIndex,
+    numberStr
+  ) {
+    const _statement0 = await this.__getNumber(
+      sectionIndex,
+      sectionRowIndex,
+      sectionRowItemIndex
+    );
+    await _statement0.clearAndType(numberStr);
+  }
+
+  async editText(sectionIndex, sectionRowIndex, sectionRowItemIndex, text) {
+    const _statement0 = await this.__getText(
+      sectionIndex,
+      sectionRowIndex,
+      sectionRowItemIndex
+    );
+    await _statement0.clearAndType(text);
   }
 
   async editTextarea(sectionIndex, sectionRowIndex, sectionRowItemIndex, text) {
