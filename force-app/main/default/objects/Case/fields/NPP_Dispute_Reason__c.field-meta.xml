@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NPP_Dispute_Reason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
+    <description>NPP dispute reason the case.</description>
+    <externalId>false</externalId>
+    <formula>IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Amount Transferred&quot;), &quot;Incorrect amount&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;), &quot;Incorrect Payee or payment address&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;), &quot;	Duplicate Payment&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;), &quot;Unauthorised Transaction&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;Final Destination Payment trace&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Amount not received by payee&quot;), &quot;Amount not received by payee&quot;,&quot;&quot;))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>NPP Dispute Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

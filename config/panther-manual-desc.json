@@ -479,6 +479,7 @@
         "Is_this_a_Business_Customer__c",
         "Location__c",
         "Merchant_Description__c",
+        "NPP_Dispute_Reason__c",
         "NPP_Subtype__c",
         "OCV_Id__c",
         "Origin",
