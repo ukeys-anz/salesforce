@@ -228,6 +228,45 @@ public with sharing class ContactRequestActionsTest {
   }
 
   @isTest
+  static void testHandleNullAppointmentDate() {
+    setup();
+    Account testAccount = createTestAccount();
+
+    string requestReason = financialWellbeingPurposeName;
+
+    Integer duration = financialWellbeingPurposeDuration;
+
+    ContactRequest request = new ContactRequest();
+    request.Appointment_date_and_Time__c = null;
+    request.RequestReason = requestReason;
+    request.WhoId = testAccount.PersonContactId;
+    request.RequestDescription = 'Test';
+    insert request;
+
+    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
+
+    Interaction newInteraction = contactRequestActionHelper.createInteractionFromRequest(
+      request
+    );
+
+    List<Interaction> interactions = contactRequestActionHelper.createInteractionsFromRequests(
+      new List<ContactRequest>{ request }
+    );
+
+    System.assertEquals(
+      null,
+      newInteraction,
+      'No Interaction should be created'
+    );
+
+    System.assertEquals(
+      true,
+      interactions.isEmpty(),
+      'No Interactions should be created'
+    );
+  }
+
+  @isTest
   static void testAutomatedPurposeCheck() {
     setup();
     string nonAutomatedPurposeName = 'Financial Wellbeing';

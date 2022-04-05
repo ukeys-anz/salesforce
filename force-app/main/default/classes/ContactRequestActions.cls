@@ -133,7 +133,13 @@ public with sharing class ContactRequestActions {
     Map<Id, Id> contactAccountMap = getWhoIdAccountMap(requests);
     List<Interaction> result = new List<Interaction>();
     for (ContactRequest request : requests) {
-      result.add(createInteractionFromRequest(request, contactAccountMap));
+      Interaction newInteraction = createInteractionFromRequest(
+        request,
+        contactAccountMap
+      );
+      if (newInteraction != null) {
+        result.add(newInteraction);
+      }
     }
     return result;
   }
@@ -161,6 +167,12 @@ public with sharing class ContactRequestActions {
     ContactRequest request,
     Map<Id, Id> contactAccountMap
   ) {
+    if (request.Appointment_date_and_Time__c == null) {
+      request.addError(
+        'You must select an Appointment Date and Time before accepting the request'
+      );
+      return null;
+    }
     Integer duration = getDuration(request.RequestReason);
     Interaction newInteraction = new Interaction(
       Status__c = 'Scheduled',
