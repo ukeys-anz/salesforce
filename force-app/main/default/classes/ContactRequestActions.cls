@@ -238,7 +238,10 @@ public with sharing class ContactRequestActions {
         whoIds.add(request.WhoId);
       }
     }
-    if (!whoIds.isEmpty() && Account.SObjectType.getDescribe().isQueryable()) {
+    if (whoIds.isEmpty()) {
+      return results;
+    }
+    if (Account.SObjectType.getDescribe().isQueryable()) {
       List<Account> personAccounts = [
         SELECT Id, PersonContactId
         FROM Account

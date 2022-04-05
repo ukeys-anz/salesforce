@@ -47,9 +47,11 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
     List<ContactRequest> acceptedRequests = actions.acceptContactRequests(
       requests
     );
-    List<Interaction> interactions = actions.createInteractionsFromRequests(
-      acceptedRequests
-    );
-    actions.insertInteractions(interactions);
+    if (!acceptedRequests.isEmpty()) {
+      List<Interaction> interactions = actions.createInteractionsFromRequests(
+        acceptedRequests
+      );
+      actions.insertInteractions(interactions);
+    }
   }
 }
