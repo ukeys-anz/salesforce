@@ -1,14 +1,21 @@
 import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
 import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import RecordPage from "pageObjects/recordPage";
+import CallsTab from "pageObjects/callsTab";
+import CaseNotesTab from "pageObjects/caseNotesTab";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
 import { CaseType, UserRole, Queue } from "constants/enums";
 import { ownerType } from "types/record";
 import Case from "./Case";
+import IChatter from "interfaces/IChatter";
 import caseData from "data/caseData";
 import * as commonUtils from "utils/commonUtils";
 import * as caseUtils from "utils/caseUtils";
+import * as faker from "faker";
 
-export default class GeneralEnquiry extends Case {
+const generalComment = `Automation Test @ ${new Date().toLocaleString()}.`;
+
+export default class GeneralEnquiry extends Case implements IChatter {
   async createRecord(): Promise<void> {
     const caseCreationFormRoot = await utam.load(CaseCreationForm);
     await caseCreationFormRoot.selectCaseRecordType(CaseType.GENERAL_ENQUIRY);
@@ -82,13 +89,11 @@ export default class GeneralEnquiry extends Case {
     const CaseRecordHomeFlexipageRoot = await utam.load(
       CaseRecordHomeFlexipage
     );
-
     // get record layout
     const detailPanel =
       await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
-
     // Priority
     await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
@@ -98,23 +103,77 @@ export default class GeneralEnquiry extends Case {
     await baseRecordForm.clickFooterButton("Save");
   }
 
+  async updateCallDetails(): Promise<void> {
+    const flexiPageRoot = await utam.load(RecordPage);
+    const caseRecordPage = await flexiPageRoot.getCaseRecordPage();
+
+    const chatsTabset = await caseRecordPage.getChatsTabset();
+    const callsTab = await commonUtils.clickTabByLabelAndGetContent(
+      chatsTabset,
+      "Calls",
+      CallsTab
+    );
+
+    if (callsTab instanceof CallsTab) {
+      const randomCallSID = `CA${faker.finance.account(32)}`;
+      const randomAuthMethodIndex = faker.datatype.number({ min: 2, max: 4 });
+
+      const caseLogACall = await callsTab.getCaseLogACall();
+      await caseLogACall.logACall(randomCallSID, randomAuthMethodIndex);
+      await browser.pause(2000);
+    }
+  }
+
+  async postChatterComment(): Promise<void> {
+    const flexiPageRoot = await utam.load(RecordPage);
+    const caseRecordPage = await flexiPageRoot.getCaseRecordPage();
+
+    const caseNotesTabset = await caseRecordPage.getCaseNotesTabset();
+    const caseNotesTab = await commonUtils.clickTabByLabelAndGetContent(
+      caseNotesTabset,
+      "Case Notes",
+      CaseNotesTab
+    );
+
+    if (caseNotesTab instanceof CaseNotesTab) {
+      const chatterPanel = await caseNotesTab.getChatterPanel();
+      await chatterPanel.postComment(generalComment);
+    }
+  }
+
+  async verifyChatterComment(): Promise<void> {
+    const flexiPageRoot = await utam.load(RecordPage);
+    const caseRecordPage = await flexiPageRoot.getCaseRecordPage();
+
+    const caseNotesTabset = await caseRecordPage.getCaseNotesTabset();
+    const caseNotesTab = await commonUtils.clickTabByLabelAndGetContent(
+      caseNotesTabset,
+      "Case Notes",
+      CaseNotesTab
+    );
+
+    if (caseNotesTab instanceof CaseNotesTab) {
+      const chatterPanel = await caseNotesTab.getChatterPanel();
+      expect(
+        await chatterPanel.latestPostContentEquals(generalComment)
+      ).toEqual(true);
+    }
+  }
+
   async closeRecord(): Promise<void> {
     // Coaches Workbench Case Record Page
     const CaseRecordHomeFlexipageRoot = await utam.load(
       CaseRecordHomeFlexipage
     );
-
     // get record layout
     const detailPanel =
       await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
     const baseRecordForm = await detailPanel.getBaseRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
-
     // Status
     // select Closed status
     await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 6);
     await baseRecordForm.clickFooterButton("Save");
-
     await browser.pause(3000);
   }
 

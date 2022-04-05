@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Salesforce development project - Automation Test",
   "scripts": {
-    "test": "npx wdio wdio.conf.js",
+    "delete-cache": "rm -rf ./all-logs & rm -rf ./allure-results",
+    "test": "yarn delete-cache & npx wdio wdio.conf.js",
     "generate-report": "npx allure generate allure-results --clean",
     "build": "yarn build:utam && yarn build:ts",
-    "build:ts": "tsc -b tsconfig.json",
-    "build:utam": "utam && prettier --write ./src/pageObjects/"
+    "build:ts": "tsc -b tsconfig.json && prettier --write './src/**/*.{ts,js}'",
+    "build:utam": "rm -rf ./src/pageObjects & utam && prettier --write ./src/pageObjects"
   },
   "repository": {
     "type": "git",
@@ -38,12 +39,12 @@
     "eslint": "^7.30.0",
     "expect-webdriverio": "^3.1.0",
     "faker": "^5.5.3",
-    "jsforce": "^1.10.1",
+    "jsforce": "^1.11.0",
     "mochawesome": "^6.2.2",
     "prettier": "^2.2.1",
     "selenium-webdriver": "^4.0.0-beta.4",
     "ts-node": "^10.5.0",
-    "tsconfig-paths": "^3.10.1",
+    "tsconfig-paths": "^3.14.1",
     "tsify": "^5.0.4",
     "typescript": "^4.5.5",
     "utam": "^1.0.1",

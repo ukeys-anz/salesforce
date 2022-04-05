@@ -43,9 +43,7 @@ class CoachesWorkbenchCaseRecordHomeFlexipage extends core.UtamBaseRootPageObjec
   constructor(
     driver,
     element,
-    locator = core.By.css(
-      `section[class='tabContent active oneConsoleTab'] section[class='tabContent active oneConsoleTab'] one-record-home-flexipage2`
-    )
+    locator = core.By.css(`one-record-home-flexipage2`)
   ) {
     super(driver, element, locator);
   }

@@ -1,0 +1,175 @@
+{
+  "elements": [
+    {
+      "name": "shareButton",
+      "selector": {
+        "css": "button[title='Share']"
+      },
+      "type": "clickable"
+    },
+    {
+      "name": "contentEditArea",
+      "selector": {
+        "css": ".slds-rich-text-area__content"
+      },
+      "type": ["clickable", "editable"]
+    },
+    {
+      "name": "saveButton",
+      "selector": {
+        "css": "button[title='Click, or press Ctrl+Enter']"
+      },
+      "type": "clickable"
+    },
+    {
+      "name": "latestPost",
+      "selector": {
+        "css": ".cuf-feedElementIterationItem"
+      },
+      "elements": [
+        {
+          "name": "latestPostContent",
+          "selector": {
+            "css": ".cuf-body .uiOutputText"
+          }
+        },
+        {
+          "name": "postActionTrigger",
+          "selector": {
+            "css": ".cuf-feedItemActionTrigger"
+          },
+          "elements": [
+            {
+              "name": "postActionButton",
+              "selector": {
+                "css": "button"
+              },
+              "type": "clickable"
+            },
+            {
+              "name": "postDeleteButton",
+              "selector": {
+                "css": "li[title='Delete'] a"
+              },
+              "type": "clickable"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "postComment",
+      "compose": [
+        {
+          "element": "shareButton",
+          "apply": "click"
+        },
+        {
+          "element": "contentEditArea",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "contentToShare",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "element": "saveButton",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "latestPostContentHasMasked",
+      "compose": [
+        {
+          "element": "latestPostContent",
+          "apply": "getText",
+          "matcher": {
+            "type": "stringContains",
+            "args": [
+              {
+                "value": "************"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "getLatestPostContent",
+      "compose": [
+        {
+          "element": "latestPostContent",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "latestPostContentContains",
+      "compose": [
+        {
+          "element": "latestPostContent",
+          "apply": "getText",
+          "matcher": {
+            "type": "stringContains",
+            "args": [
+              {
+                "name": "content",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "latestPostContentEquals",
+      "compose": [
+        {
+          "element": "latestPostContent",
+          "apply": "getText",
+          "matcher": {
+            "type": "stringEquals",
+            "args": [
+              {
+                "name": "content",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "clickDeleteLatestPost",
+      "compose": [
+        {
+          "element": "postActionButton",
+          "apply": "click"
+        },
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "postDeleteButton",
+                  "apply": "isVisible"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "postDeleteButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

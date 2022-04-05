@@ -2,9 +2,12 @@ import RecordLayout from "pageObjects/lwcRecordLayout";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
 import ChangeOwnerModal from "pageObjects/changeOwnerModal";
 import GlobalSearch from "pageObjects/globalSearch";
+import Tabset2 from "pageObjects/tabset2";
 import { ownerType } from "types/record";
 import { fieldSectionIndex, picklistItemIndexRange } from "types/layout";
 import * as faker from "faker";
+import { UtamBasePageObject } from "utam";
+import { ContainerCtor } from "@utam/core";
 
 /**
  * @description get a field from record layout
@@ -109,7 +112,7 @@ export const searchAndSelectNewOwner = async (
  */
 export const searchRecordInGlobalSearchAndRedirect = async (
   searchTerm: string
-) => {
+): Promise<void> => {
   const globalSearchRoot = await utam.load(GlobalSearch);
   await globalSearchRoot.searchAndRedirectToRecord(searchTerm, 1);
 };
@@ -118,7 +121,7 @@ export const searchRecordInGlobalSearchAndRedirect = async (
  * @description generate a random future date formatted string: DD/MM/YYYY
  * @returns a formatted date string: DD/MM/YYYY
  */
-export const getRandomFutureDateFormattedString = () => {
+export const getRandomFutureDateFormattedString = (): string => {
   const today = new Date();
   const futureDay = new Date();
   futureDay.setDate(today.getDate() + 7);
@@ -129,4 +132,43 @@ export const getRandomFutureDateFormattedString = () => {
   return `${futureDate.getDate()}/${
     futureDate.getMonth() + 1
   }/${futureDate.getFullYear()}`;
+};
+
+/**
+ * @description generate a random credit card string with 1111-1111-1111-1111 format
+ * @returns credit card number string
+ */
+export const getCreditCardNumberString = (): string => {
+  let ccNumStr: string;
+
+  //https://stackoverflow.com/questions/59650010/regularexpression-for-16-digits-virtual-visa-cards-with-dash
+  const reg = new RegExp("^4[0-9]{3}(?:-[0-9]{4}){3}$");
+
+  do {
+    // faker.finance.creditCardNumber randomly returns cc number for all format.
+    // we only need visa or master card, which has 16 digital
+    ccNumStr = faker.finance.creditCardNumber();
+  } while (!ccNumStr.match(reg));
+
+  return ccNumStr;
+};
+
+export const clickTabByLable = async (
+  tabset2: Tabset2,
+  tabLabel: string
+): Promise<void> => {
+  const tabset = await tabset2.getTabset();
+  const tabBar = await tabset.getTabBar();
+  await tabBar.clickTab(tabLabel);
+};
+
+export const clickTabByLabelAndGetContent = async (
+  tabset2: Tabset2,
+  tabLabel: string,
+  content: ContainerCtor<UtamBasePageObject>
+): Promise<UtamBasePageObject> => {
+  await clickTabByLable(tabset2, tabLabel);
+
+  const tabset = await tabset2.getTabset();
+  return tabset.getActiveTabContent(content);
 };

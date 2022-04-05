@@ -74,11 +74,11 @@ export default class ATM extends Case {
   }
 
   async assignNewOwner(): Promise<void> {
-    console.log("Skip Assign a new owner | This scenario does not need it.");
+    console.log("Skip assignNewOwner | This scenario does not need it.");
   }
 
   async updateRecord(): Promise<void> {
-    console.log("Update a record |  This scenario does not need it.");
+    console.log("Skip updateRecord |  This scenario does not need it.");
   }
 
   async closeRecord(): Promise<void> {

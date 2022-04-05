@@ -33,9 +33,7 @@ export default class CoachesWorkbenchCaseRecordHomeFlexipage extends _UtamBaseRo
   constructor(
     driver,
     element,
-    locator = _By.css(
-      `section[class='tabContent active oneConsoleTab'] section[class='tabContent active oneConsoleTab'] one-record-home-flexipage2`
-    )
+    locator = _By.css(`one-record-home-flexipage2`)
   ) {
     super(driver, element, locator);
   }

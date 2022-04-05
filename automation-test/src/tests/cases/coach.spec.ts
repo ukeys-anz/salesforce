@@ -22,7 +22,7 @@ describe("Case - Coach Creates and Updates Cases", () => {
     const generalEnquiryCase = new GeneralEnquiry(UserRole.COACH);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a General Enquiry Case", async (): Promise<void> => {
@@ -37,6 +37,18 @@ describe("Case - Coach Creates and Updates Cases", () => {
       await generalEnquiryCase.updateRecord();
     });
 
+    it("Add Call Details", async (): Promise<void> => {
+      await generalEnquiryCase.updateCallDetails();
+    });
+
+    it("Create Case Comment", async (): Promise<void> => {
+      await generalEnquiryCase.postChatterComment();
+    });
+
+    it("Case Comment does not appear in Activity History", async (): Promise<void> => {
+      await generalEnquiryCase.verifyChatterComment();
+    });
+
     it("Assign General Enquiry Case to Another Coach", async (): Promise<void> => {
       await generalEnquiryCase.assignNewOwner("Users");
     });
@@ -46,11 +58,11 @@ describe("Case - Coach Creates and Updates Cases", () => {
     });
   });
 
-  describe("ANZx Complaint Case", async (): Promise<void> => {
+  describe.skip("ANZx Complaint Case", async (): Promise<void> => {
     const anzxComplaintCase = new ANZXComplaint(UserRole.COACH);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a ANZx Complaint Case", async (): Promise<void> => {

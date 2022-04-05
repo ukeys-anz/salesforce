@@ -1,0 +1,19 @@
+{
+  "elements": [
+    {
+      "name": "targetValue",
+      "selector": {
+        "css": "[data-test-id='target-value']"
+      },
+      "public": true
+    },
+
+    {
+      "name": "totalSaved",
+      "selector": {
+        "css": "[data-test-id='total-saved']"
+      },
+      "public": true
+    }
+  ]
+}
