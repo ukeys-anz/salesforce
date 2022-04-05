@@ -43,6 +43,7 @@
             <operation>notEqual</operation>
             <value>CFMS Migrated Case</value>
         </criteriaItems>
+    </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Case_RT_BusinessAdmin_RW</fullName>
         <accessLevel>Edit</accessLevel>
@@ -57,7 +58,6 @@
             <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
