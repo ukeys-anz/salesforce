@@ -1,0 +1,94 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "listViewPicker",
+      "selector": {
+        "css": ".forceListViewPicker"
+      },
+      "elements": [
+        {
+          "name": "listViewSelector",
+          "selector": {
+            "css": "[title='Select a List View']"
+          },
+          "type": "clickable"
+        }
+      ]
+    },
+    {
+      "name": "listViewPickerPanel",
+      "selector": {
+        "css": ".listViewPickerPanel"
+      },
+      "elements": [
+        {
+          "name": "listViewSearchBar",
+          "selector": {
+            "css": "input"
+          },
+          "type": ["clickable", "editable"]
+        },
+        {
+          "name": "listViewList",
+          "selector": {
+            "css": "[role='listbox']"
+          },
+          "elements": [
+            {
+              "name": "listView",
+              "selector": {
+                "css": "a"
+              },
+              "type": "clickable"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "openListView",
+      "compose":[
+        {
+          "element": "listViewSelector",
+          "apply": "click"
+        },
+        {
+          "element": "listViewSearchBar",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "listViewName",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "element": "listView",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

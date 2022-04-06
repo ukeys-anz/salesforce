@@ -1,8 +1,24 @@
 {
   "root": true,
   "selector": {
-    "css": "one-record-home-flexipage2"
+    "css": ".windowViewMode-maximized one-record-home-flexipage2"
   },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "shadow": {
     "elements": [
       {
@@ -41,7 +57,7 @@
       "compose": [
         {
           "element": "decorator",
-          "returnType": "utam-record-flexipage/pageObjects/recordPageDecorator"
+          "returnType": "utam-record_flexipage/pageObjects/recordPageDecorator"
         },
         {
           "chain": true,
@@ -65,6 +81,46 @@
             {
               "type": "pageObject",
               "value": "anzx-utam-flexipage/pageObjects/caseRecordPage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getAccountRecordPage",
+      "compose": [
+        {
+          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "apply": "getRecordLayoutBroker"
+        },
+        {
+          "chain": true,
+          "returnType": "anzx-utam-flexipage/pageObjects/accountRecordPage",
+          "element": "generatedTemplate",
+          "args": [
+            {
+              "type": "pageObject",
+              "value": "anzx-utam-flexipage/pageObjects/accountRecordPage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getFinancialAccountRecordPage",
+      "compose": [
+        {
+          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "apply": "getRecordLayoutBroker"
+        },
+        {
+          "chain": true,
+          "returnType": "anzx-utam-flexipage/pageObjects/financialAccountRecordPage",
+          "element": "generatedTemplate",
+          "args": [
+            {
+              "type": "pageObject",
+              "value": "anzx-utam-flexipage/pageObjects/financialAccountRecordPage"
             }
           ]
         }

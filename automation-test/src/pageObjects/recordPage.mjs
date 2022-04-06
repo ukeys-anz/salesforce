@@ -5,6 +5,8 @@ import {
   UtamBaseRootPageObject as _UtamBaseRootPageObject
 } from "@utam/core";
 import _CaseRecordPage from "./../pageObjects/caseRecordPage";
+import _AccountRecordPage from "./../pageObjects/accountRecordPage";
+import _FinancialAccountRecordPage from "./../pageObjects/financialAccountRecordPage";
 import _RecordPageDecorator from "./../pageObjects/recordPageDecorator";
 
 async function _utam_get_adgRollup(driver, root) {
@@ -32,9 +34,18 @@ export default class RecordPage extends _UtamBaseRootPageObject {
   constructor(
     driver,
     element,
-    locator = _By.css(`one-record-home-flexipage2`)
+    locator = _By.css(`.windowViewMode-maximized one-record-home-flexipage2`)
   ) {
     super(driver, element, locator);
+  }
+
+  async __beforeLoad__() {
+    const _result0 = await this.waitFor(async () => {
+      const _statement0 = await this.__getRoot();
+      const _result0 = await _statement0.isVisible();
+      return _result0;
+    });
+    return _result0;
   }
 
   async __getRoot() {
@@ -80,6 +91,20 @@ export default class RecordPage extends _UtamBaseRootPageObject {
   async getCaseRecordPage() {
     const _statement0 = await this.getRecordLayoutBroker();
     const _result1 = await _statement0.getGeneratedTemplate(_CaseRecordPage);
+    return _result1;
+  }
+
+  async getAccountRecordPage() {
+    const _statement0 = await this.getRecordLayoutBroker();
+    const _result1 = await _statement0.getGeneratedTemplate(_AccountRecordPage);
+    return _result1;
+  }
+
+  async getFinancialAccountRecordPage() {
+    const _statement0 = await this.getRecordLayoutBroker();
+    const _result1 = await _statement0.getGeneratedTemplate(
+      _FinancialAccountRecordPage
+    );
     return _result1;
   }
 }

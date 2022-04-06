@@ -58,7 +58,7 @@ describe("Case - Coach Creates and Updates Cases", () => {
     });
   });
 
-  describe.skip("ANZx Complaint Case", async (): Promise<void> => {
+  describe("ANZx Complaint Case", async (): Promise<void> => {
     const anzxComplaintCase = new ANZXComplaint(UserRole.COACH);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
