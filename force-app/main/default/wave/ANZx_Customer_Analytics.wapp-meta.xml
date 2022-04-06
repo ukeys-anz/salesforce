@@ -5,11 +5,6 @@
     <masterLabel>ANZx Customer Analytics</masterLabel>
     <shares>
         <accessLevel>View</accessLevel>
-        <sharedTo>X3rd_Party_Mobile_Support_Team</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </shares>
-    <shares>
-        <accessLevel>View</accessLevel>
         <sharedTo>Card_Dispute_Agent</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
@@ -26,11 +21,6 @@
     <shares>
         <accessLevel>View</accessLevel>
         <sharedTo>FraudX_Agent</sharedTo>
-        <sharedToType>Role</sharedToType>
-    </shares>
-    <shares>
-        <accessLevel>View</accessLevel>
-        <sharedTo>Quality_Analyst</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
     <shares>
