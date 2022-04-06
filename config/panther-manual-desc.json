@@ -826,7 +826,7 @@
         "MarketingConsent",
         "PrivacyConsent"
       ],
-      "IA-2530753": "Description"
+      "IA-2530753": ["Description"]
     },
     "Log_Record_Access__b": {
       "IA-2468710": [
