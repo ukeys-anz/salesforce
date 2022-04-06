@@ -72,6 +72,10 @@ public with sharing class GetHelpConstants {
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';
   public static final String SUPPORT_COACH_QUEUE = 'Support_Coach_Queue';
+  public static final String PENDING_CARD_DISPUTE_FRAUD_QUEUE = 'Pending_Card_Dispute_Fraud_Queue';
+  public static final String PENDING_CARD_DISPUTE_GENERAL_QUEUE = 'Pending_Card_Dispute_General_Queue';
+  public static final String TRANSACTION_STATUS_PENDING = 'TRANSACTION_STATUS_PENDING';
+  public static final String TRANSACTION_STATUS_POSTED = 'TRANSACTION_STATUS_POSTED';
 
   /**
    * @description Static variable to list ANZX workbaskets' API names
@@ -84,7 +88,9 @@ public with sharing class GetHelpConstants {
           CARD_DISPUTE_FRAUD_QUEUE,
           CARD_DISPUTE_GENERAL_QUEUE,
           SUPPORT_COACH_QUEUE,
-          DIGITAL_FRAUD_QUEUE
+          DIGITAL_FRAUD_QUEUE,
+          PENDING_CARD_DISPUTE_FRAUD_QUEUE,
+          PENDING_CARD_DISPUTE_GENERAL_QUEUE
         };
       }
       return workBasketNames;

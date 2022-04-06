@@ -7,14 +7,18 @@
             icon-name="standard:product_item_transaction"
             size="medium"
             class="slds-m-right_small"
-          ></lightning-icon>
+          >
+          </lightning-icon>
         </div>
         <div class="slds-col slds-size_10-of-11 flex-override">
           {componentTitle}
         </div>
       </div>
     </div>
-    <div class="slds-card__body slds-card__body_inner padded-card">
+    <div
+      class="slds-card__body slds-card__body_inner padded-card"
+      data-test-id="board-body"
+    >
       <template if:true={displayContent}>
         <template if:true={loading}>
           <div class="slds-align_absolute-center" style="height: 4rem">

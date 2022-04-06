@@ -15,7 +15,7 @@ export default class RecipientMule extends Case {
     // search and select first account
     await caseCreationFormRoot.searchAndSelectLookup(
       1,
-      4,
+      5,
       1,
       caseData.accountName,
       caseData.accountName
@@ -24,7 +24,7 @@ export default class RecipientMule extends Case {
     // Issue Type
     await caseUtils.selectPicklistOnCreationForm(
       caseCreationFormRoot,
-      [1, 3, 1],
+      [1, 4, 1],
       [2, 9],
       0
     );
@@ -32,7 +32,7 @@ export default class RecipientMule extends Case {
     // Channel Received
     await caseUtils.selectPicklistOnCreationForm(
       caseCreationFormRoot,
-      [1, 2, 2],
+      [1, 3, 2],
       [2, 7],
       1
     );
@@ -57,7 +57,7 @@ export default class RecipientMule extends Case {
     // Case Owner
     const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
-      [1, 6, 2]
+      [2, 6, 2]
     );
 
     // click change owner button
@@ -83,7 +83,7 @@ export default class RecipientMule extends Case {
     // Priority
     await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
-      [1, 1, 2],
+      [2, 1, 2],
       [2, 9]
     );
     await baseRecordForm.clickFooterButton("Save");
@@ -103,7 +103,7 @@ export default class RecipientMule extends Case {
 
     // Status
     // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 4, 2], 4);
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 2], 4);
     await baseRecordForm.clickFooterButton("Save");
 
     await browser.pause(3000);

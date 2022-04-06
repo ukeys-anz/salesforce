@@ -8,10 +8,7 @@ import _LwcTransactionHistoryRecord from "./../pageObjects/lwcTransactionHistory
 
 export default class LwcTransactionHistoryBoard extends _UtamBasePageObject {
   constructor(driver: _Driver, element?: _Element, locator?: _Locator);
-  getTransactionHistoryRecordByType(
-    transcationType: string
-  ): Promise<_LwcTransactionHistoryRecord>;
-  getTransactionHistoryRecords(
-    transcationType: string
+  getTransactionHistoryRecordOfType(
+    transactionType: string
   ): Promise<_LwcTransactionHistoryRecord>;
 }
