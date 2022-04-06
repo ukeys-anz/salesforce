@@ -3,6 +3,7 @@
     <fullName>ANZX_Leads</fullName>
     <active>true</active>
     <businessProcess>ANZX Leads</businessProcess>
+    <compactLayoutAssignment>ANZX_Leads</compactLayoutAssignment>
     <label>ANZX Leads</label>
     <picklistValues>
         <picklist>LeadSource</picklist>

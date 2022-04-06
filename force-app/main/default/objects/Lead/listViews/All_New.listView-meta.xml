@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_New</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.LEAD_SOURCE</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>LEAD.RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>New</value>
+    </filters>
+    <filters>
+        <field>LEAD.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Lead.ANZX_Leads</value>
+    </filters>
+    <label>All New</label>
+</ListView>
