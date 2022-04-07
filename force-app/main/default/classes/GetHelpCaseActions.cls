@@ -499,6 +499,7 @@ public with sharing class GetHelpCaseActions {
         maskTaxNumbers(record);
       }
     }
+    GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
   }
 

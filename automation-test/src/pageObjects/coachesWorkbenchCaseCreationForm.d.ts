@@ -16,6 +16,18 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
     sectionRowIndex: number,
     sectionRowItemIndex: number
   ): Promise<void>;
+  editNumber(
+    sectionIndex: number,
+    sectionRowIndex: number,
+    sectionRowItemIndex: number,
+    numberStr: string
+  ): Promise<void>;
+  editText(
+    sectionIndex: number,
+    sectionRowIndex: number,
+    sectionRowItemIndex: number,
+    text: string
+  ): Promise<void>;
   editTextarea(
     sectionIndex: number,
     sectionRowIndex: number,
@@ -30,11 +42,11 @@ export default class CoachesWorkbenchCaseCreationForm extends _UtamBaseRootPageO
     resultTile: string
   ): Promise<void>;
   saveNew(): Promise<void>;
-  getNewCase(): Promise<_BaseUtamElement & _ClickableUtamElement>;
+  getNewCase(): Promise<(_BaseUtamElement & _ClickableUtamElement) | null>;
   getCaseRecordType(
     text: string
-  ): Promise<_BaseUtamElement & _ClickableUtamElement>;
-  getNextButton(): Promise<_BaseUtamElement & _ClickableUtamElement>;
+  ): Promise<(_BaseUtamElement & _ClickableUtamElement) | null>;
+  getNextButton(): Promise<(_BaseUtamElement & _ClickableUtamElement) | null>;
   getPicklistItemsLists(): Promise<_CoachesWorkbenchCaseCreationFormPicklist[]>;
   getSaveCase(): Promise<_BaseUtamElement & _ClickableUtamElement>;
 }

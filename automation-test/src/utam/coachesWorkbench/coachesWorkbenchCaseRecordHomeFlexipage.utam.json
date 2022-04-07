@@ -50,12 +50,12 @@
         },
         {
           "chain": true,
-          "returnType": "anzx-utam-flexipage/pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2",
+          "returnType": "anzx-utam-flexipage/pageObjects/coachesWorkbenchRecordHomeTemplateDesktop2",
           "element": "generatedTemplate",
           "args": [
             {
               "type": "pageObject",
-              "value": "anzx-utam-flexipage/pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2"
+              "value": "anzx-utam-flexipage/pageObjects/coachesWorkbenchRecordHomeTemplateDesktop2"
             }
           ]
         }
@@ -66,12 +66,12 @@
       "compose": [
         {
           "apply": "getCaseRecordPage",
-          "returnType": "anzx-utam-coachesWorkbench/pageObjects/coachesWorkbenchCaseRecordHomeTemplateDesktop2"
+          "returnType": "anzx-utam-coachesWorkbench/pageObjects/coachesWorkbenchRecordHomeTemplateDesktop2"
         },
         {
           "chain": true,
           "element": "mainRegionTabset",
-          "returnType": "anzx-utam-coachesWorkbench/pageObjects/coachesWorkbenchCaseTabset2"
+          "returnType": "anzx-utam-coachesWorkbench/pageObjects/coachesWorkbenchTabset2"
         },
         {
           "chain": true,

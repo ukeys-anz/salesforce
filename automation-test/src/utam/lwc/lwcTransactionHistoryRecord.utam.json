@@ -1,0 +1,62 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "transactionType",
+        "selector": {
+          "css": "[data-test-id='transaction-type']"
+        }
+      },
+      {
+        "name": "menuButton",
+        "selector": {
+          "css": "lightning-button-menu"
+        },
+        "elements": [
+          {
+            "name": "raiseDisputeButton",
+            "selector": {
+              "css": "lightning-menu-item:nth-of-type(2)"
+            },
+            "type": "clickable"
+          }
+        ],
+        "shadow": {
+          "elements": [
+            {
+              "name": "button",
+              "selector": {
+                "css": "button"
+              },
+              "type": "clickable"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "methods": [
+    {
+      "name": "getTransactionType",
+      "compose": [
+        {
+          "element": "transactionType",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "raiseDispute",
+      "compose": [
+        {
+          "element": "button",
+          "apply": "click"
+        },
+        {
+          "element": "raiseDisputeButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

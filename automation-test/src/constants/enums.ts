@@ -22,5 +22,12 @@ export enum App {
 }
 
 export enum AppTab {
-  CASES = "Cases"
+  CASES = "Cases",
+  ACCOUNTS = "Accounts"
+}
+
+export enum TransactionType {
+  CARD = "Card",
+  DEPOSIT_WITHDRAWAL = "Deposit Withdrawal",
+  BSB_ACC = "BSB/ACC"
 }
