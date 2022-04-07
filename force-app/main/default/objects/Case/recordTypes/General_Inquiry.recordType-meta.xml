@@ -4758,7 +4758,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Credit Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Damaged card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Support</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4767,6 +4775,10 @@
         </values>
         <values>
             <fullName>Digital wallet provisioning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Debit or Recurring Payment</fullName>
             <default>false</default>
         </values>
         <values>
