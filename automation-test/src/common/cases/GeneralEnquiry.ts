@@ -1,7 +1,6 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import CaseCreationForm from "pageObjects/caseCreationForm";
 import RecordPage from "pageObjects/recordPage";
-import CallsTab from "pageObjects/callsTab";
+import CaseCallsTab from "pageObjects/caseCallsTab";
 import CaseNotesTab from "pageObjects/caseNotesTab";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
 import { CaseType, UserRole, Queue } from "constants/enums";
@@ -53,68 +52,54 @@ export default class GeneralEnquiry extends Case implements IChatter {
   }
 
   async assignNewOwner(ownerType?: ownerType): Promise<void> {
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Case Owner
-    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [2, 1, 1]
-    );
+      // Case Owner
+      const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+        recordLayout,
+        [2, 1, 1]
+      );
 
-    switch (this.userRole) {
-      case UserRole.COACH:
-        await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
-        break;
-      case UserRole.FRAUDX_AGENT:
-        await this.assignNewOwnerByFraudXAgent(caseOwnerField);
-        break;
-      default:
-        console.error(
-          "Error: invalid user role when creating ANZx Complaint Case."
-        );
-        process.exit(-1);
+      switch (this.userRole) {
+        case UserRole.COACH:
+          await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
+          break;
+        case UserRole.FRAUDX_AGENT:
+          await this.assignNewOwnerByFraudXAgent(caseOwnerField);
+          break;
+        default:
+          console.error(
+            "Error: invalid user role when creating ANZx Complaint Case."
+          );
+          process.exit(-1);
+      }
     }
   }
 
   async updateRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
-    // Priority
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 4, 2],
-      [2, 5]
-    );
-    await baseRecordForm.clickFooterButton("Save");
+    const baseRecordForm = await caseUtils.getRecordForm();
+
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
+
+      // Priority
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [2, 4, 2],
+        [2, 5]
+      );
+
+      await baseRecordForm.clickFooterButton("Save");
+    }
   }
 
   async updateCallDetails(): Promise<void> {
-    const flexiPageRoot = await utam.load(RecordPage);
-    const caseRecordPage = await flexiPageRoot.getCaseRecordPage();
+    const callsTab = await caseUtils.getTabContent("Calls");
 
-    const chatsTabset = await caseRecordPage.getChatsTabset();
-    const callsTab = await commonUtils.clickTabByLabelAndGetContent(
-      chatsTabset,
-      "Calls",
-      CallsTab
-    );
-
-    if (callsTab instanceof CallsTab) {
+    if (callsTab instanceof CaseCallsTab) {
       const randomCallSID = `CA${faker.finance.account(32)}`;
       const randomAuthMethodIndex = faker.datatype.number({ min: 2, max: 4 });
 
@@ -125,15 +110,7 @@ export default class GeneralEnquiry extends Case implements IChatter {
   }
 
   async postChatterComment(): Promise<void> {
-    const flexiPageRoot = await utam.load(RecordPage);
-    const caseRecordPage = await flexiPageRoot.getCaseRecordPage();
-
-    const caseNotesTabset = await caseRecordPage.getCaseNotesTabset();
-    const caseNotesTab = await commonUtils.clickTabByLabelAndGetContent(
-      caseNotesTabset,
-      "Case Notes",
-      CaseNotesTab
-    );
+    const caseNotesTab = await caseUtils.getTabContent("Case Notes");
 
     if (caseNotesTab instanceof CaseNotesTab) {
       const chatterPanel = await caseNotesTab.getChatterPanel();
@@ -142,15 +119,7 @@ export default class GeneralEnquiry extends Case implements IChatter {
   }
 
   async verifyChatterComment(): Promise<void> {
-    const flexiPageRoot = await utam.load(RecordPage);
-    const caseRecordPage = await flexiPageRoot.getCaseRecordPage();
-
-    const caseNotesTabset = await caseRecordPage.getCaseNotesTabset();
-    const caseNotesTab = await commonUtils.clickTabByLabelAndGetContent(
-      caseNotesTabset,
-      "Case Notes",
-      CaseNotesTab
-    );
+    const caseNotesTab = await caseUtils.getTabContent("Case Notes");
 
     if (caseNotesTab instanceof CaseNotesTab) {
       const chatterPanel = await caseNotesTab.getChatterPanel();
@@ -161,20 +130,22 @@ export default class GeneralEnquiry extends Case implements IChatter {
   }
 
   async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
-    // Status
-    // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 6);
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    const baseRecordForm = await caseUtils.getRecordForm();
+
+    if (baseRecordForm) {
+      // get record layout
+      const recordLayout = await baseRecordForm.getRecordLayout();
+
+      // Status
+      // select Closed status
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [2, 3, 2],
+        6
+      );
+      await baseRecordForm.clickFooterButton("Save");
+      await browser.pause(3000);
+    }
   }
 
   async assignNewOwnerByCoach(
@@ -187,7 +158,7 @@ export default class GeneralEnquiry extends Case implements IChatter {
     if (ownerType === "Users") {
       await commonUtils.searchAndSelectNewOwner(
         "Users",
-        caseData.newFraudXAgentOwnerName
+        caseData.newCoachOwnerName
       );
     } else if (ownerType === "Queues") {
       await commonUtils.searchAndSelectNewOwner(

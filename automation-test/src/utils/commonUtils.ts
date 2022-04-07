@@ -166,7 +166,7 @@ export const clickTabByLabelAndGetContent = async (
   tabset2: Tabset2,
   tabLabel: string,
   content: ContainerCtor<UtamBasePageObject>
-): Promise<UtamBasePageObject> => {
+) => {
   await clickTabByLable(tabset2, tabLabel);
 
   const tabset = await tabset2.getTabset();
