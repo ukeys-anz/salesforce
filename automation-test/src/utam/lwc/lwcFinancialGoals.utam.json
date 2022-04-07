@@ -1,0 +1,23 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "cardBody",
+        "selector": {
+          "css": ".slds-card__body"
+        },
+        "elements": [
+          {
+            "name": "goals",
+            "type": "anzx-utam-lwc/pageObjects/lwcFinancialGoalsDetails",
+            "selector": {
+              "css": "[data-test-id='goal']",
+              "returnAll": true
+            },
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}
