@@ -80,11 +80,6 @@
                 <default>false</default>
                 <label>Document management required</label>
             </value>
-            <value>
-                <fullName>20</fullName>
-                <default>false</default>
-                <label>Further investigation required (Internal business unit escalation process exhausted)</label>
-            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
