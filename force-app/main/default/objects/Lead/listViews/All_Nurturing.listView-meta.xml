@@ -4,6 +4,7 @@
     <columns>FULL_NAME</columns>
     <columns>LEAD.LEAD_SOURCE</columns>
     <columns>LEAD.STATUS</columns>
+    <columns>Marketing_Consent__c</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>LEAD.RECORDTYPE</columns>
     <filterScope>Everything</filterScope>
@@ -12,7 +13,7 @@
         <operation>equals</operation>
         <value>Nurturing</value>
     </filters>
-        <filters>
+    <filters>
         <field>LEAD.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Lead.ANZX_Leads</value>
