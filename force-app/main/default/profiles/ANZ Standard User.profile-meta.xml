@@ -1693,6 +1693,21 @@
         <layout>ContentVersion-Content Version</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Lead-ANZX Lead Layout</layout>
+        <recordType>Lead.ANZX_Leads</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__RetirementPlanning</recordType>
+    </layoutAssignments>    
+    <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
