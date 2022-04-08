@@ -19,4 +19,10 @@
         <value>Lead.ANZX_Leads</value>
     </filters>
     <label>All New</label>
+    <sharedTo>
+        <role>Coach</role>
+        <role>Coach_Lead</role>
+        <role>Quality_Analyst</role>
+        <role>Support_Coach</role>
+    </sharedTo>
 </ListView>
