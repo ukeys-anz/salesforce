@@ -480,12 +480,6 @@ public with sharing class ContactRequestActionsTest {
       testInteractionSummary.Meeting_Notes__c,
       'Meeting Notes must be blank'
     );
-
-    System.assertEquals(
-      '',
-      testInteractionSummary.Next_Steps__c,
-      'Next Steps must be blank'
-    );
   }
 
   @isTest

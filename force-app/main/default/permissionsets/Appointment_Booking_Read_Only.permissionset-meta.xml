@@ -133,11 +133,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>InteractionSummary.Next_Steps__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>InteractionSummary.Offering</field>
         <readable>true</readable>
     </fieldPermissions>

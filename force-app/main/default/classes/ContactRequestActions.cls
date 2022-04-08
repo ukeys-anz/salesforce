@@ -417,8 +417,7 @@ public with sharing class ContactRequestActions {
       Status = 'In Progress',
       InteractionId = interactionSubject.Id,
       AccountId = interactionSubject.AccountId,
-      Meeting_Notes__c = '',
-      Next_Steps__c = ''
+      Meeting_Notes__c = ''
     );
     return summary;
   }

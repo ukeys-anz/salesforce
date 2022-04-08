@@ -823,7 +823,6 @@
         "InteractionId",
         "Meeting_Notes__c",
         "Name",
-        "Next_Steps__c",
         "OwnerId",
         "Status"
       ]
