@@ -342,11 +342,20 @@ private class ContactRequestTriggerHandlerTest {
     update requests;
     test.stopTest();
 
-    List<Interaction> interactions = [SELECT Id FROM Interaction];
+    List<Interaction> interactions = [
+      SELECT Id, Interaction_Summary__c
+      FROM Interaction
+    ];
     System.assertEquals(
       sizeTest,
       interactions.size(),
       'Should have created equal number of interactions to Contact Requests'
+    );
+
+    System.assertNotEquals(
+      null,
+      interactions[0].Interaction_Summary__c,
+      'Interaction Summary field must be populated on Interaction once it is created'
     );
   }
 
