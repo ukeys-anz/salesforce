@@ -141,6 +141,7 @@
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
+    "Product Family": "Custom object that holds work basket details for cases",
     "Quality_Assessment__c": "An object that holds all the relative fields and it’s values for a quality analyst to conduct end to end quality assessment.",
     "Release__c": "System documentation on a given Salesforce release of features",
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
@@ -600,7 +601,8 @@
         "SI_PSI_Source_Other__c",
         "SI_PSI_Source__c"
       ],
-      "IA-2415720": ["Date_Account_Last_Debited__c", "IDR_Customer_Number__c"]
+      "IA-2415720": ["Date_Account_Last_Debited__c", "IDR_Customer_Number__c"],
+      "IA-2530753": ["IDR_Product_Family__c"]
     },
     "CFMS_Migrated_Document__c": {
       "IA-2453595": [
@@ -870,6 +872,21 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
+      ],
+      "IA-2530753": ["IDR_Product_Family__c"]
+    },
+    "Product_Family__c": {
+      "IA-2530753": [
+        "IDR_ANZ_com_Product_Category__c",
+        "IDR_ANZ_com_Unique_Product_Indicator__c",
+        "IDR_Workbasket__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Quality_Assessment__c": {

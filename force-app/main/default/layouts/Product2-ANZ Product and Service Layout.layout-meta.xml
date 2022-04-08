@@ -20,6 +20,10 @@
                 <field>ANZ_Product_Code__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Product_Family__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Workbasket__c</field>
             </layoutItems>

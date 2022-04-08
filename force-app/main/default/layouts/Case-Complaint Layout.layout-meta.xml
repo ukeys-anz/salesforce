@@ -126,6 +126,10 @@
                 <field>Product__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Product_Family__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Escalation_Reason__c</field>
             </layoutItems>
