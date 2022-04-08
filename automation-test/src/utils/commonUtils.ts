@@ -1,3 +1,4 @@
+import ObjectHome from "pageObjects/objectHome";
 import RecordLayout from "pageObjects/lwcRecordLayout";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
 import ChangeOwnerModal from "pageObjects/changeOwnerModal";
@@ -171,4 +172,12 @@ export const clickTabByLabelAndGetContent = async (
 
   const tabset = await tabset2.getTabset();
   return tabset.getActiveTabContent(content);
+};
+
+export const searchAndOpenListViewByName = async (listViewName: string) => {
+  const objectHomeRoot = await utam.load(ObjectHome);
+  await objectHomeRoot.searchListView(listViewName);
+  // wait for the result to filter, move filter logic from utam file to code
+  await browser.pause(1000);
+  await objectHomeRoot.openListView();
 };
