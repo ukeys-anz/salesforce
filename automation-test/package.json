@@ -5,7 +5,8 @@
   "scripts": {
     "delete-cache": "rm -rf ./all-logs & rm -rf ./allure-results",
     "test": "yarn delete-cache & npx wdio wdio.conf.js",
-    "generate-report": "npx allure generate allure-results --clean",
+    "result:generate": "npx allure generate allure-results --clean",
+    "result:open": "npx allure open",
     "build": "yarn build:utam && yarn build:ts",
     "build:ts": "tsc -b tsconfig.json && prettier --write './src/**/*.{ts,js}'",
     "build:utam": "rm -rf ./src/pageObjects & utam && prettier --write ./src/pageObjects"

@@ -1,4 +1,4 @@
-import AccountRecordHomeFlexipage from "pageObjects/coachesWorkbenchAccountRecordHomeFlexipage";
+import RecordPage from "pageObjects/recordPage";
 import RootPageModal from "pageObjects/rootPageModal";
 import IChatter from "interfaces/IChatter";
 import { getCreditCardNumberString } from "utils/commonUtils";
@@ -50,19 +50,21 @@ export default class Chatter implements IChatter {
 
     await chatterPanel.clickDeleteLatestPost();
 
-    const confirmModal = await utam.load(RootPageModal);
-    expect(await confirmModal.userHasNoPermissionToDeleteChatterPost()).toEqual(
-      true
-    );
+    const confirmModalRoot = await utam.load(RootPageModal);
+    expect(
+      await confirmModalRoot.userHasNoPermissionToDeleteChatterPost()
+    ).toEqual(true);
   }
 
-  getPageRoot() {
+  async getPageRoot() {
+    const recordPageRoot = await utam.load(RecordPage);
+
     switch (this.pageType) {
       case "Account":
-        return utam.load(AccountRecordHomeFlexipage);
+        return recordPageRoot.getAccountRecordPage();
       default:
         // default return account record page root
-        return utam.load(AccountRecordHomeFlexipage);
+        return recordPageRoot.getAccountRecordPage();
     }
   }
 }

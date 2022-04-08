@@ -14,12 +14,16 @@ public with sharing class SubmitDisputeController {
   @AuraEnabled
   public static Boolean updateSubmitFlag(Id caseId) {
     if (Schema.sObjectType.Case.isUpdateable()) {
-      Database.DMLOptions dmo = new Database.DMLOptions();
-      dmo.assignmentRuleHeader.useDefaultRule = true;
-      Case disputeCase = new Case(Id = caseId, Submitted__c = true);
-      disputeCase.setOptions(dmo);
-      update disputeCase;
-      return true;
+      try {
+        Database.DMLOptions dmo = new Database.DMLOptions();
+        dmo.assignmentRuleHeader.useDefaultRule = true;
+        Case disputeCase = new Case(Id = caseId, Submitted__c = true);
+        disputeCase.setOptions(dmo);
+        update disputeCase;
+        return true;
+      } catch (Exception e) {
+        throw new AuraHandledException(e.getMessage());
+      }
     } else {
       CommonUtil.logAndThrowIAE(
         'SubmitDisputeController',

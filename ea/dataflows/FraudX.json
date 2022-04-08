@@ -43,7 +43,13 @@
           { "name": "LastModifiedDate" },
           { "name": "LastModifiedById" },
           { "name": "Fraud_Loss_Reason_Code__c" },
-          { "name": "Description" }
+          { "name": "Description" },
+          { "name": "Fraud_Assisted_ID_Event_Type__c" },
+          { "name": "Fraud_Review_Outcome__c" },
+          { "name": "Fraud_PIN_Status__c" },
+          { "name": "Fraud_Failed_Verification_Reason__c" },
+          { "name": "Fraud_Customer_Provided_Selfie__c" },
+          { "name": "Fraud_Selfie_Match__c" }
         ],
         "object": "Case"
       }

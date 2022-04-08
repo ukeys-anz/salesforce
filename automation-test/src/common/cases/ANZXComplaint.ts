@@ -1,5 +1,4 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import CaseCreationForm from "pageObjects/caseCreationForm";
 import RecordLayout from "pageObjects/lwcRecordLayout";
 import BaseRecordForm from "pageObjects/baseRecordForm";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
@@ -38,92 +37,77 @@ export default class ANZXComplaint extends Case {
   }
 
   async assignNewOwner(ownerType?: ownerType): Promise<void> {
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Case Owner
-    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [2, 1, 1]
-    );
+      // Case Owner
+      const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+        recordLayout,
+        [2, 1, 1]
+      );
 
-    switch (this.userRole) {
-      case UserRole.COACH:
-        await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
-        break;
-      case UserRole.FRAUDX_AGENT:
-        await this.assignNewOwnerByFraudXAgent(caseOwnerField);
-        break;
-      default:
-        console.error(
-          "Error: invalid user role when creating ANZx Complaint Case."
-        );
-        process.exit(-1);
+      switch (this.userRole) {
+        case UserRole.COACH:
+          await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
+          break;
+        case UserRole.FRAUDX_AGENT:
+          await this.assignNewOwnerByFraudXAgent(caseOwnerField);
+          break;
+        default:
+          console.error(
+            "Error: invalid user role when creating ANZx Complaint Case."
+          );
+          process.exit(-1);
+      }
     }
   }
 
   async updateRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    switch (this.userRole) {
-      case UserRole.COACH:
-        await this.updateRecordByCoach(recordLayout);
-        break;
-      case UserRole.FRAUDX_AGENT:
-        await this.updateRecordByFraudXAgent(recordLayout);
-        break;
-      default:
-        console.error(
-          "Error: invalid user role when updating ANZx Complaint Case."
-        );
-        process.exit(-1);
+      switch (this.userRole) {
+        case UserRole.COACH:
+          await this.updateRecordByCoach(recordLayout);
+          break;
+        case UserRole.FRAUDX_AGENT:
+          await this.updateRecordByFraudXAgent(recordLayout);
+          break;
+        default:
+          console.error(
+            "Error: invalid user role when updating ANZx Complaint Case."
+          );
+          process.exit(-1);
+      }
+
+      await baseRecordForm.clickFooterButton("Save");
     }
-
-    await baseRecordForm.clickFooterButton("Save");
   }
 
   async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
+    if (baseRecordForm) {
+      switch (this.userRole) {
+        case UserRole.COACH:
+          await this.closeRecordByCoach(baseRecordForm);
+          break;
+        case UserRole.FRAUDX_AGENT:
+          await this.closeRecordByFraudXAgent(baseRecordForm);
+          break;
+        default:
+          console.error(
+            "Error: invalid user role when closing ANZx Complaint Case."
+          );
+          process.exit(-1);
+      }
 
-    switch (this.userRole) {
-      case UserRole.COACH:
-        await this.closeRecordByCoach(baseRecordForm);
-        break;
-      case UserRole.FRAUDX_AGENT:
-        await this.closeRecordByFraudXAgent(baseRecordForm);
-        break;
-      default:
-        console.error(
-          "Error: invalid user role when closing ANZx Complaint Case."
-        );
-        process.exit(-1);
+      await browser.pause(3000);
     }
-
-    await browser.pause(3000);
   }
 
   async createRecordByCoach(

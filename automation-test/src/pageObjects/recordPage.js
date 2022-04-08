@@ -2,6 +2,8 @@
 
 var core = require("@utam/core");
 var _CaseRecordPage = require("./../pageObjects/caseRecordPage");
+var _AccountRecordPage = require("./../pageObjects/accountRecordPage");
+var _FinancialAccountRecordPage = require("./../pageObjects/financialAccountRecordPage");
 var _RecordPageDecorator = require("./../pageObjects/recordPageDecorator");
 
 function _interopDefaultLegacy(e) {
@@ -10,6 +12,11 @@ function _interopDefaultLegacy(e) {
 
 var _CaseRecordPage__default =
   /*#__PURE__*/ _interopDefaultLegacy(_CaseRecordPage);
+var _AccountRecordPage__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_AccountRecordPage);
+var _FinancialAccountRecordPage__default = /*#__PURE__*/ _interopDefaultLegacy(
+  _FinancialAccountRecordPage
+);
 var _RecordPageDecorator__default =
   /*#__PURE__*/ _interopDefaultLegacy(_RecordPageDecorator);
 
@@ -38,9 +45,20 @@ class RecordPage extends core.UtamBaseRootPageObject {
   constructor(
     driver,
     element,
-    locator = core.By.css(`one-record-home-flexipage2`)
+    locator = core.By.css(
+      `.windowViewMode-maximized one-record-home-flexipage2`
+    )
   ) {
     super(driver, element, locator);
+  }
+
+  async __beforeLoad__() {
+    const _result0 = await this.waitFor(async () => {
+      const _statement0 = await this.__getRoot();
+      const _result0 = await _statement0.isVisible();
+      return _result0;
+    });
+    return _result0;
   }
 
   async __getRoot() {
@@ -87,6 +105,22 @@ class RecordPage extends core.UtamBaseRootPageObject {
     const _statement0 = await this.getRecordLayoutBroker();
     const _result1 = await _statement0.getGeneratedTemplate(
       _CaseRecordPage__default["default"]
+    );
+    return _result1;
+  }
+
+  async getAccountRecordPage() {
+    const _statement0 = await this.getRecordLayoutBroker();
+    const _result1 = await _statement0.getGeneratedTemplate(
+      _AccountRecordPage__default["default"]
+    );
+    return _result1;
+  }
+
+  async getFinancialAccountRecordPage() {
+    const _statement0 = await this.getRecordLayoutBroker();
+    const _result1 = await _statement0.getGeneratedTemplate(
+      _FinancialAccountRecordPage__default["default"]
     );
     return _result1;
   }

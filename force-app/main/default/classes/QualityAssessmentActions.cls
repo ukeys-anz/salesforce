@@ -119,6 +119,7 @@ public with sharing class QualityAssessmentActions {
         RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID
       );
 
+      qa = calculateAndAssignFieldsToQAandReturnCase(record, qa);
       qualityAssessments.add(qa);
     }
 
@@ -253,6 +254,30 @@ public with sharing class QualityAssessmentActions {
       );
       record.Interaction_Type__c = interactionType;
     }
+  }
+
+  /**
+   * @description Update the Record before inserting into Database
+   * @param relatedCase The original Case Record
+   * @param record The new Quality assessment record that needs updating
+   * @return Quality_Assessment__c | Return the updated record with the correct assignments
+   */
+  @testVisible
+  private static Quality_Assessment__c calculateAndAssignFieldsToQAandReturnCase(
+    Case relatedCase,
+    Quality_Assessment__c record
+  ) {
+    record.Issue_Type__c = relatedCase?.Type;
+    record.Subsequent_Issue_Type__c = relatedCase?.IDR_Subsequent_Issue__c;
+    record.Customer__c = relatedCase?.AccountId;
+    record.Interaction_Date_Time__c = relatedCase?.ClosedDate;
+    record.Interaction_Owner__c = relatedCase.OwnerId;
+    if (String.isBlank(record.Interaction_Type__c)) {
+      String interactionType = calculateInteractionType(relatedCase?.Origin);
+      record.Interaction_Type__c = interactionType;
+    }
+
+    return record;
   }
 
   /**
