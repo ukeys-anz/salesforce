@@ -446,9 +446,9 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      otherPurposeName + ' Appointment',
+      otherPurposeName + ' Appointment Summary',
       testInteractionSummary.Name,
-      'Interaction Summary Name must be the purpose + Appointment'
+      'Interaction Summary Name must be the purpose + Appointment Summary'
     );
 
     System.assertEquals(

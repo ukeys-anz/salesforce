@@ -413,7 +413,7 @@ public with sharing class ContactRequestActions {
     Interaction interactionSubject
   ) {
     InteractionSummary summary = new InteractionSummary(
-      Name = interactionSubject.Interaction_Purpose__c + ' Appointment',
+      Name = interactionSubject.Interaction_Purpose__c + ' Appointment Summary',
       Status = 'In Progress',
       InteractionId = interactionSubject.Id,
       AccountId = interactionSubject.AccountId,
