@@ -1,41 +1,55 @@
-import Auth from "../common/Auth";
-import LwcCustomerDetails from "../pageObjects/lwcCustomerDetails";
-import SfNavigation from "../common/navigation";
-import SfAccounts from "../common/accounts";
-import SfCustomer from "../common/customer";
-import SfTransactions from "../common/transactions";
+import Auth from "common/Auth";
+import Transactions from "common/Transactions";
+import { UserRole, App, AppTab } from "constants/enums";
+import { navigateToConsoleAppAndTab } from "utils/consoleUtils";
+import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
+import accountData from "data/accountData";
 
-describe("Transactions verification", () => {
-  it("Login and search for a customer with a valid transactions", async () => {
-    //Login
-    browser.maximizeWindow();
-    await Auth.loginSalesforceAsRole("Coach");
+describe("Transactions - Coach Views and Verifies Details", () => {
+  // pre test steps
+  before(async (): Promise<void> => {
+    // max viewport
+    await browser.maximizeWindow();
 
-    //Close all tabs
-    await browser.pause(5000);
-    // await SfPageUtils.closeAllTabsMain();
-
-    //Search for a customer
-    const customerPageRoot = await utam.load(LwcCustomerDetails);
-    const navigationShowElement = await customerPageRoot.getNavigationShow();
-    await navigationShowElement.click();
-
-    const sfNavigation = new SfNavigation();
-    await sfNavigation.selectNavigation("Accounts");
-
-    const sfAccountView = new SfAccounts();
-
-    await sfAccountView.selectAccountFilter();
-    await sfAccountView.searchAccount("scenarioTransaction001");
+    // login as test user
+    await Auth.loginSalesforceAsRole(UserRole.COACH);
   });
 
-  it("Verify the details of a Card transaction", async () => {
-    //Open Transactions
-    const sfCustomerView = new SfCustomer();
+  beforeEach(async () => {
+    await browser.pause(1000);
+  });
 
-    await sfCustomerView.openEverydayAccount("scenarioTransaction001");
+  describe("Transactions History Date Filter ", async (): Promise<void> => {
+    const transaction = new Transactions();
 
-    const SfTransactionsView = new SfTransactions();
-    await SfTransactionsView.verifyTransactions("Card");
+    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    });
+
+    it("Go to Financial Account", async (): Promise<void> => {
+      // search financial account in global search and redirect
+      await searchRecordInGlobalSearchAndRedirect(
+        accountData.savingsAccountNumber
+      );
+
+      await transaction.loadFinancialAccountTab();
+    });
+
+    it("Records Displays in Chronological Order", async (): Promise<void> => {
+      await transaction.verifyRecordsDisplayOrder();
+    });
+
+    it("Search Seciton End Date Defaults to Today's Date", async (): Promise<void> => {
+      await transaction.verifySearchEndDate();
+    });
+
+    it("Transaction Time Displays in 12 Hour Format", async (): Promise<void> => {
+      await transaction.verifyTransactionTime();
+    });
+  });
+
+  after(async (): Promise<void> => {
+    // log out test user
+    await Auth.logoutSalesforce();
   });
 });

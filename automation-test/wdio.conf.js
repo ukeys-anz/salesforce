@@ -1,6 +1,6 @@
 const video = require("wdio-video-reporter");
 const { UtamWdioService } = require("wdio-utam-service");
-const { cleanupTestData } = require("./testDataCleanup");
+const { cleanupTestData } = require("./build/utils/wdioUtils");
 require("dotenv").config();
 
 exports.config = {
@@ -71,7 +71,8 @@ exports.config = {
     "./build/tests/cases/*.spec.js",
     "./build/tests/disputes.spec.js",
     "./build/tests/virtualGoals.spec.js",
-    "./build/tests/chatter.spec.js"
+    "./build/tests/chatter.spec.js",
+    "./build/tests/transactions.spec.js"
   ],
   /*suites: {
     loginUtam: ["./build/src/test/*.js"]

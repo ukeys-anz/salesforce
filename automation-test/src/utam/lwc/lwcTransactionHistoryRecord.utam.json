@@ -2,9 +2,22 @@
   "shadow": {
     "elements": [
       {
+        "name": "transactionDate",
+        "nullable": true,
+        "selector": {
+          "css": "[data-test-id='transaction-date']"
+        }
+      },
+      {
         "name": "transactionType",
         "selector": {
           "css": "[data-test-id='transaction-type']"
+        }
+      },
+      {
+        "name": "transactionTime",
+        "selector": {
+          "css": "[data-test-id='transaction-time']"
         }
       },
       {
@@ -41,6 +54,32 @@
       "compose": [
         {
           "element": "transactionType",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getTransactionTime",
+      "compose": [
+        {
+          "element": "transactionTime",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getTransactionDateInput",
+      "compose": [
+        {
+          "element": "transactionDate"
+        }
+      ]
+    },
+    {
+      "name": "getTransactionDate",
+      "compose": [
+        {
+          "element": "transactionDate",
           "apply": "getText"
         }
       ]
