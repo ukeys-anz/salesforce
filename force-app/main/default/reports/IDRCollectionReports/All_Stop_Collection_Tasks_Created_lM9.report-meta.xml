@@ -37,13 +37,6 @@ If (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE)==2, &apos;Day 3&apos;, &apos;&gt;
             <value>STOP Collection</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ASSIGNED</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>Stop Collections</value>
-        </criteriaItems>
-        <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>

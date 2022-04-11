@@ -7,9 +7,13 @@
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Queue</filterScope>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Queue__c</field>
+        <operation>equals</operation>
+        <value>EDR CM Home/Business Owners &amp; Scams</value>
+    </filters>
     <label>EDR CM Home/Business Owners &amp; Scams</label>
-    <queue>EDR_CM_Home_Business_Owners_Scams</queue>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
