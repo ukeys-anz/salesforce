@@ -20,8 +20,8 @@
                 <field>qualtrics__Survey__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Survey_Response_ID__c</field>
+                <behavior>Edit</behavior>
+                <field>qualtrics__Q_SurveyID__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -64,10 +64,6 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>qualtrics__Q_SurveyID__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>qualtrics__Q_Recipient_ID__c</field>
