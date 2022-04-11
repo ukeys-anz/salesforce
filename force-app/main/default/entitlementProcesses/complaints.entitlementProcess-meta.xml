@@ -13,6 +13,35 @@
     <milestones>
         <businessHours>Case Business Hours</businessHours>
         <milestoneCriteriaFormula>AND(
+OR(
+ISPICKVAL(Status, &apos;Open&apos;),
+ISPICKVAL(Status, &apos;Under Investigation&apos;)
+),
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+OR(
+CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Leadership',
+CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Team_Leaders',
+CreatedBy.UserRole.DeveloperName = 'Customer_Resolution'
+)
+)</milestoneCriteriaFormula>
+        <milestoneName>FPR 5 Business Day Resolution target</milestoneName>
+        <minutesToComplete>7680</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>CompleteMilestone</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
+    <milestones>
+        <businessHours>Case Business Hours</businessHours>
+        <milestoneCriteriaFormula>AND(
 OR(  
 ISPICKVAL(Status, &apos;Open&apos;),
 ISPICKVAL(Status, &apos;Under Investigation&apos;) 
@@ -21,19 +50,19 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
-NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Team_Leaders&apos;),
-NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
+NOT(CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Leadership'),
+NOT(CreatedBy.UserRole.DeveloperName = 'Customer_Resolution_Team_Leaders'),
+NOT(CreatedBy.UserRole.DeveloperName = 'Customer_Resolution')
 )</milestoneCriteriaFormula>
         <milestoneName>Open_Escalation_Time</milestoneName>
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Escalate_The_Case</name>
+                <name>EscalationtoAmber</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
+            <timeLength>-2</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
             <actions>
@@ -45,11 +74,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         </timeTriggers>
         <timeTriggers>
             <actions>
-                <name>EscalationtoAmber</name>
+                <name>Escalate_The_Case</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>-2</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>

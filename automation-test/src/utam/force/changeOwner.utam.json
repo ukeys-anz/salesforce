@@ -1,0 +1,14 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "changeOwnerButton",
+        "selector": {
+          "css": "lightning-button-icon.change-owner-trigger"
+        },
+        "type": ["clickable"],
+        "public": true
+      }
+    ]
+  }
+}

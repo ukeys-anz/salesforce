@@ -313,7 +313,10 @@ public with sharing class AuthTokenCacheUtil {
     }
 
     //decode claims to json map, the first part is header, second part is claims
-    String decodedString = EncodingUtil.base64Decode(tokenParts[1]).toString();
+    String decodedString = EncodingUtil.base64Decode(
+        CommonUtil.base64URLToBase64(tokenParts[1])
+      )
+      .toString();
     Map<String, Object> tokenMap = (Map<String, Object>) (JSON.deserializeUntyped(
       decodedString
     ));

@@ -23,6 +23,8 @@ public with sharing class IDRExpressComplaintControllerTest {
       IDR_Complaint_Remedy__c = '2',
       IDR_Non_Financial_Remedy__c = '1',
       Is_Active__c = true,
+      IDR_Priority__c = 'Standard',
+      IDR_Channel_Received__c = 'Phone',
       IDR_Written_Response_Requested__c = 'No'
     );
     insert knownIssue;

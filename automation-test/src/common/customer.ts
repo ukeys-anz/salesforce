@@ -31,7 +31,7 @@ export default class SfCustomer {
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     // const accountSection = await utam.load(LwcAccountsSection);
     // await assert.ok(customerPageRoot instanceof LwcCustomerDetails);
-    let accountsections = await customerPageRoot.getTabHeader();
+    const accountsections = await customerPageRoot.getTabHeader();
     await console.log(await accountsections.length);
     // await console.log(await accountSection.getButtonsByText("Get Card Details"));
   };

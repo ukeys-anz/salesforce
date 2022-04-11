@@ -333,4 +333,38 @@ public with sharing class CommonUtil {
       log.publishEvent();
     }
   }
+
+  /**
+   * @description converts a base64url to base64 string
+   * @param base64url string to convert
+   * @return base64 converted input string
+   */
+  public static String base64URLToBase64(String base64url) {
+    // replace base64url chars to base64
+    String base64 = base64URL.replaceAll('-', '+').replaceAll('_', '/');
+    // if string length of base64 mod 4 is not equal to 0
+    Integer remainder = Math.mod(base64.length(), 4);
+    if (remainder != 0) {
+      Integer paddingCount = 4 - remainder;
+      //update base64 value with padding
+      base64 = base64 + '='.repeat(paddingCount);
+    }
+    return base64;
+  }
+
+  /**
+   * @description getCaseInsensitiveMap creates a map of lower case values to cased values
+   * @param field the object.field to create the map from
+   * @return caseInsensitiveMap map of all picklist values with a case insensitive key
+   */
+  public static Map<String, String> getCaseInsensitiveMap(
+    Schema.SobjectField field
+  ) {
+    Map<String, String> caseInsensitiveMap = new Map<String, String>();
+    Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
+    for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
+      caseInsensitiveMap.put(f.getValue().toLowerCase(), f.getValue());
+    }
+    return caseInsensitiveMap;
+  }
 }

@@ -33,6 +33,8 @@ public with sharing class IDRExpressComplaintController {
           IDR_Complaint_Remedy__c,
           IDR_Non_Financial_Remedy__c,
           Is_Active__c,
+          IDR_Channel_Received__c,
+          IDR_Priority__c,
           IDR_Written_Response_Requested__c
         FROM Known_Issues__c
         WHERE Is_Active__c = TRUE

@@ -43,6 +43,21 @@
             <operation>notEqual</operation>
             <value>CFMS Migrated Case</value>
         </criteriaItems>
+    <sharingCriteriaRules>
+        <fullName>Case_RT_BusinessAdmin_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read Write access to All ANZ plus record types for Business Admin.</description>
+        <label>Case_RT_BusinessAdmin_RW</label>
+        <sharedTo>
+            <role>Business_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
@@ -118,11 +133,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint,CFMS Migrated Case</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>IDR_Is_Restricted__c</field>
-            <operation>notEqual</operation>
-            <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

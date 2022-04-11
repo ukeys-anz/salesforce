@@ -118,6 +118,13 @@ private with sharing class IDRCaseAssignmentRulesTest {
     cases.add(
       new Case(
         RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+        Type = '19',
+        Description = 'CCR_Complaints'
+      )
+    );
+    cases.add(
+      new Case(
+        RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
         Origin = '9',
         Description = 'IDR_CEO'
       )
