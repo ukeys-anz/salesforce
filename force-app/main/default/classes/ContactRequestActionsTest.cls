@@ -225,6 +225,12 @@ public with sharing class ContactRequestActionsTest {
       newInteraction.Name,
       'Name should match the Request Reason + " Appointment"'
     );
+
+    System.assertEquals(
+      request.Id,
+      newInteraction.ContactRequestId__c,
+      'Contact Request Id must be populated on Interaction'
+    );
   }
 
   @isTest

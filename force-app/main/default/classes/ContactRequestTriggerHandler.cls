@@ -52,6 +52,7 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
         acceptedRequests
       );
       actions.insertInteractions(interactions);
+      actions.setInteractionIds(requests, interactions);
     }
   }
 }

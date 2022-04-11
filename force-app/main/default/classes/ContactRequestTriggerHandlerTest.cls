@@ -270,7 +270,11 @@ private class ContactRequestTriggerHandlerTest {
     update request;
     test.stopTest();
 
-    request = [SELECT Id, Status FROM ContactRequest WHERE Id = :request.Id];
+    request = [
+      SELECT Id, Status, Interaction__c
+      FROM ContactRequest
+      WHERE Id = :request.Id
+    ];
 
     system.assertEquals(
       'Accepted',
@@ -289,6 +293,12 @@ private class ContactRequestTriggerHandlerTest {
       0,
       interactions.size(),
       'At least 1 interaction must be created'
+    );
+
+    System.assertEquals(
+      interactions[0].Id,
+      request.Interaction__c,
+      'Interaction must be set on Contact Request'
     );
 
     List<InteractionSummary> summaries = [SELECT Id FROM InteractionSummary];

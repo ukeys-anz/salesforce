@@ -182,7 +182,8 @@ public with sharing class ContactRequestActions {
       Name = request.RequestReason + ' Appointment',
       EndTime = request.Appointment_date_and_Time__c.addMinutes(duration),
       Description = request.RequestDescription,
-      Direction__c = 'Outbound'
+      Direction__c = 'Outbound',
+      ContactRequestId__c = request.Id
     );
     return newInteraction;
   }
@@ -430,5 +431,33 @@ public with sharing class ContactRequestActions {
   public Integer getDuration(String purpose) {
     return AutomatedRequestMetadataProvider.getInstance()
       .getPurposeDuration(purpose);
+  }
+
+  /**
+   * @description goes through a list of requests and sets the Interaction Id
+   * based upon a list of interactions
+   * @param requests List<ContactRequest> list of contact requests to cycle through
+   * @param interactions List<Interaction> list of interactions to draw from.
+   */
+  public void setInteractionIds(
+    List<ContactRequest> requests,
+    List<Interaction> interactions
+  ) {
+    if (requests.isEmpty() || interactions.isEmpty()) {
+      return;
+    }
+    Map<Id, Id> contactRequestInteractionIdMap = new Map<Id, Id>();
+    for (Interaction currentInteraction : interactions) {
+      contactRequestInteractionIdMap.put(
+        currentInteraction.ContactRequestId__c,
+        currentInteraction.Id
+      );
+    }
+
+    for (ContactRequest request : requests) {
+      if (contactRequestInteractionIdMap.containsKey(request.Id)) {
+        request.Interaction__c = contactRequestInteractionIdMap.get(request.Id);
+      }
+    }
   }
 }

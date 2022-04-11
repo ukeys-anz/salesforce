@@ -790,6 +790,7 @@
     "Interaction": {
       "IA-2468715": [
         "Id",
+        "ContactRequestId__c",
         "CreatedById",
         "CreatedDate",
         "LastModifiedById",
