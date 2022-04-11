@@ -347,21 +347,21 @@
             <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <visibilityRule>
-                    <booleanFilter>1 AND  NOT(2) AND 3</booleanFilter>
+                    <booleanFilter>(1 OR 2) AND  NOT(3)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>CONTAINS</operator>
+                        <operator>EQUAL</operator>
                         <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Non_Customer_Complaint</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>Customer Resolution</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -451,21 +451,21 @@
             <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>CONTAINS</operator>
+                        <operator>EQUAL</operator>
                         <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Non_Customer_Complaint</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>Customer Resolution</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
