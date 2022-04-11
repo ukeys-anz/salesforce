@@ -35,13 +35,6 @@
             <value>STOP Collection</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ASSIGNED</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>Stop Collections</value>
-        </criteriaItems>
-        <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>

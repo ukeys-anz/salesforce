@@ -42,6 +42,12 @@ async function _utam_get_listView(driver, root) {
   return _element.findElement(_locator);
 }
 
+async function _utam_get_listViewss(driver, root) {
+  let _element = await _utam_get_listViewList(driver, root);
+  const _locator = _By.css(`a`);
+  return _element.findElements(_locator);
+}
+
 export default class ObjectHome extends _UtamBaseRootPageObject {
   constructor(driver, element, locator = _By.css(`body`)) {
     super(driver, element, locator);
@@ -120,12 +126,27 @@ export default class ObjectHome extends _UtamBaseRootPageObject {
     return element;
   }
 
-  async openListView(listViewName) {
+  async getListViews() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const ClickableUtamElement = _createUtamMixinCtor(_ClickableUtamElement);
+    let elements = await _utam_get_listViewss(driver, root);
+    elements = elements.map(function _createElement(element) {
+      return new ClickableUtamElement(driver, element);
+    });
+    return elements;
+  }
+
+  async searchListView(listViewName) {
     const _statement0 = await this.__getListViewSelector();
     await _statement0.click();
     const _statement1 = await this.__getListViewSearchBar();
     await _statement1.clearAndType(listViewName);
-    const _statement2 = await this.__getListView();
-    await _statement2.click();
+    await _statement1.click();
+  }
+
+  async openListView() {
+    const _statement0 = await this.__getListView();
+    await _statement0.click();
   }
 }
