@@ -2104,11 +2104,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.Survey_Response_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>qualtrics__Survey_Response__c.Survey_Trigger__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2135,16 +2130,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Feedback_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Vendor_Record_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Vendor_Record_Link__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

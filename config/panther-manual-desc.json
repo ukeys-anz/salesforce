@@ -619,8 +619,7 @@
         "Alerting_Reason__c",
         "Feedback_Type__c",
         "Original_Feedback_Record__c"
-      ],
-      "IA-2415790": ["Vendor_Record_ID__c", "Vendor_Record_Link__c"]
+      ]
     },
     "CFMS_Migrated_Document__c": {
       "IA-2453595": [
@@ -905,14 +904,10 @@
         "qualtrics__Q_Recipient_ID__c",
         "qualtrics__Q_Survey_ID__c",
         "qualtrics__Survey__c",
-        "Survey_Response_ID__c",
         "Survey_Trigger__c",
         "UUID__c"
       ],
-      "IA-2415984": [
-        "qualtrics__Account__c",
-        "qualtrics__Contact__c"
-      ],
+      "IA-2415984": ["qualtrics__Account__c", "qualtrics__Contact__c"],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",

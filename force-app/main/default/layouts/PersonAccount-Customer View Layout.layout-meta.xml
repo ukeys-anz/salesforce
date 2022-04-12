@@ -221,7 +221,7 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>qualtrics__Date_Responded__c</fields>
-        <fields>Other_Feedback__c</fields>
+        <fields>Customer_Feedback__c</fields>
         <fields>qualtrics__Net_Promoter_Score__c</fields>
         <relatedList>qualtrics__Survey_Response__c.qualtrics__Account__c</relatedList>
         <sortField>qualtrics__Date_Responded__c</sortField>
