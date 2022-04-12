@@ -20,14 +20,12 @@ private class ContactRequestTriggerHandlerTest {
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 5;
     apptCommt.Confirmed__c = 2;
-    apptCommt.Date_AEDT__c = Date.newInstance(2022, 3, 10);
-    apptCommt.Time__c = Time.newInstance(12, 45, 0, 0);
+    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     apptCommtRecords.add(apptCommt);
 
     Appointment_Commitment__c apptCommt2 = new Appointment_Commitment__c();
     apptCommt2.Available__c = 5;
-    apptCommt2.Date_AEDT__c = Date.newInstance(2022, 3, 11);
-    apptCommt2.Time__c = Time.newInstance(1, 45, 0, 0);
+    apptCommt2.Date_and_Time__c = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
     apptCommtRecords.add(apptCommt2);
 
     insert apptCommtRecords;
@@ -53,7 +51,7 @@ private class ContactRequestTriggerHandlerTest {
       interactionList.add(interaction);
 
       ContactRequest contactReq = new ContactRequest(
-        PreferredChannel = 'Phone',
+        PreferredChannel = 'Call',
         RequestReason = 'Financial Wellbeing',
         Status = 'New'
       );
@@ -66,13 +64,12 @@ private class ContactRequestTriggerHandlerTest {
 
   @isTest
   static void testSuccessfulConfirmCountUpdate() {
-    Date dateVal = Date.newInstance(2022, 3, 10);
-    Time timeVal = Time.newInstance(12, 45, 0, 0);
+    Datetime dateTimeVal = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = [
       SELECT ID, Confirmed__c
       FROM Appointment_Commitment__c
-      WHERE Date_AEDT__c = :dateVal AND Time__c = :timeVal
+      WHERE Date_and_Time__c = :dateTimeVal
     ];
 
     /*
@@ -100,6 +97,7 @@ private class ContactRequestTriggerHandlerTest {
       0
     );
     contReq.Appointment_Commitment__c = apptCommtRec.Id;
+    contReq.PreferredChannel = 'Call';
     insert contReq;
 
     Test.stopTest();
@@ -107,7 +105,7 @@ private class ContactRequestTriggerHandlerTest {
     Appointment_Commitment__c apptCommtRec2 = [
       SELECT ID, Confirmed__c
       FROM Appointment_Commitment__c
-      WHERE Date_AEDT__c = :dateVal AND Time__c = :timeVal
+      WHERE Date_and_Time__c = :dateTimeVal
     ];
 
     /*
@@ -123,13 +121,12 @@ private class ContactRequestTriggerHandlerTest {
 
   @isTest
   static void testSuccessfulConfirmCountUpdateConfirmedNull() {
-    Date dateVal = Date.newInstance(2022, 3, 11);
-    Time timeVal = Time.newInstance(1, 45, 0, 0);
+    DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = [
       SELECT ID, Confirmed__c
       FROM Appointment_Commitment__c
-      WHERE Date_AEDT__c = :dateVal AND Time__c = :timeVal
+      WHERE Date_and_Time__c = :dateTimeVal
     ];
 
     Test.startTest();
@@ -148,6 +145,7 @@ private class ContactRequestTriggerHandlerTest {
       0
     );
     contReq.Appointment_Commitment__c = apptCommtRec.Id;
+    contReq.PreferredChannel = 'Call';
     insert contReq;
 
     Test.stopTest();
@@ -155,7 +153,7 @@ private class ContactRequestTriggerHandlerTest {
     Appointment_Commitment__c apptCommtRec2 = [
       SELECT ID, Confirmed__c
       FROM Appointment_Commitment__c
-      WHERE Date_AEDT__c = :dateVal AND Time__c = :timeVal
+      WHERE Date_and_Time__c = :dateTimeVal
     ];
 
     /*
@@ -181,6 +179,7 @@ private class ContactRequestTriggerHandlerTest {
 
     ContactRequest contReq = new ContactRequest();
     contReq.Appointment_date_and_time__c = dateTimeVal;
+    contReq.PreferredChannel = 'Call';
     insert contReq;
 
     Test.stopTest();
@@ -262,6 +261,7 @@ private class ContactRequestTriggerHandlerTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
+    request.PreferredChannel = 'Call';
     insert request;
 
     request.OwnerId = UserInfo.getUserId();
@@ -396,6 +396,7 @@ private class ContactRequestTriggerHandlerTest {
       request.Appointment_date_and_Time__c = appointmentDate;
       request.RequestReason = otherPurposeName;
       request.WhoId = currentAccount.PersonContactId;
+      request.PreferredChannel = 'Call';
       requests.add(request);
     }
     return requests;

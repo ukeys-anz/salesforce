@@ -12,7 +12,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Date_AEDT__c</field>
+                <field>Date_and_Time__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -29,10 +29,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Slot_Available__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Time__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
