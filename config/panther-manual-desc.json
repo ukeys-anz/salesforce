@@ -619,8 +619,7 @@
         "Alerting_Reason__c",
         "Feedback_Type__c",
         "Original_Feedback_Record__c"
-      ],
-      "IA-2415790": ["Vendor_Record_ID__c", "Vendor_Record_Link__c"]
+      ]
     },
     "CFMS_Migrated_Document__c": {
       "IA-2453595": [

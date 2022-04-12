@@ -14,6 +14,10 @@
                 <behavior>Edit</behavior>
                 <field>AccountId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>IDR_Date_Received__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -35,7 +39,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>OwnerId</field>
+                <field>Origin</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -46,8 +50,8 @@
                 <field>Type</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Status</field>
+                <behavior>Edit</behavior>
+                <field>Sub_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -56,8 +60,12 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Sub_Type__c</field>
+                <behavior>Readonly</behavior>
+                <field>Subject</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Status</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -72,12 +80,12 @@
                 <field>Alerting_Reason__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Subject</field>
+                <behavior>Edit</behavior>
+                <field>ParentId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>ParentId</field>
+                <field>OwnerId</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -108,20 +116,6 @@
         <label>System Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Vendor_Record_ID__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Vendor_Record_Link__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Origin</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>ContactId</field>
             </layoutItems>
@@ -129,6 +123,8 @@
                 <behavior>Readonly</behavior>
                 <field>SuppliedEmail</field>
             </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CreatedById</field>
@@ -264,7 +260,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000003Jj2G</masterLabel>
+        <masterLabel>00h2O0000026sMJ</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
