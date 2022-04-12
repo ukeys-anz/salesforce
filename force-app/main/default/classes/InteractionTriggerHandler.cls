@@ -20,4 +20,15 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Event> events = actions.createEventsFromInteractions(interactions);
     actions.insertEvents(events);
   }
+
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    InteractionActions actions = new InteractionActions();
+    List<Interaction> cancelledInteractions = actions.findCancelledInteractions(
+      oldMap,
+      records
+    );
+    if (!cancelledInteractions.isEmpty()) {
+      actions.deleteInteractionEvents(cancelledInteractions);
+    }
+  }
 }
