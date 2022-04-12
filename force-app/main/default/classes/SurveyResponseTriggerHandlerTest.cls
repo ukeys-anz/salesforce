@@ -71,8 +71,8 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       qualtrics__Survey_Response__c sr = new qualtrics__Survey_Response__c();
       sr.OCV_ID__c = OCV_ID_1;
       sr.qualtrics__Net_Promoter_Score__c = 2;
-      sr.qualtrics__Description__c = 'Customer Feedback';
-      sr.qualtrics__Other_Feedback__c = 'Some other feedback';
+      sr.Customer_Feedback__c = 'Customer Feedback';
+      sr.Other_Feedback__c = 'Some other feedback';
       sr.qualtrics__Overall_Satisfaction__c = 'Satisfied';
 
       Test.startTest();
@@ -111,8 +111,8 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       qualtrics__Survey_Response__c sr = new qualtrics__Survey_Response__c();
       sr.OCV_ID__c = '98765';
       sr.qualtrics__Net_Promoter_Score__c = 2;
-      sr.qualtrics__Description__c = 'Customer Feedback';
-      sr.qualtrics__Other_Feedback__c = 'Some other feedback';
+      sr.Customer_Feedback__c = 'Customer Feedback';
+      sr.Other_Feedback__c = 'Some other feedback';
       sr.qualtrics__Overall_Satisfaction__c = 'Satisfied';
 
       Test.startTest();
@@ -206,7 +206,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       sr.OCV_ID__c = OCV_ID_1;
       sr.qualtrics__Net_Promoter_Score__c = 2;
       sr.Customer_Feedback__c = 'Customer Feedback';
-      sr.qualtrics__Other_Feedback__c = 'Some other feedback';
+      sr.Other_Feedback__c = 'Some other feedback';
       sr.qualtrics__Overall_Satisfaction__c = 'Satisfied';
       sr.Alerting_Reason__c = 'Some alerting reason';
       sr.Create_Case__c = true;
@@ -250,7 +250,7 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       sr.OCV_ID__c = OCV_ID_1;
       sr.qualtrics__Net_Promoter_Score__c = 2;
       sr.Customer_Feedback__c = 'Customer Feedback';
-      sr.qualtrics__Other_Feedback__c = 'Some other feedback';
+      sr.Other_Feedback__c = 'Some other feedback';
       sr.qualtrics__Overall_Satisfaction__c = 'Satisfied';
       sr.Alerting_Reason__c = 'Some alerting reason';
       sr.Create_Case__c = false;
