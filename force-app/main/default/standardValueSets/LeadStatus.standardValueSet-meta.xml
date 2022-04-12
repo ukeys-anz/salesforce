@@ -43,4 +43,10 @@
         <label>Converted</label>
         <converted>true</converted>
     </standardValue>
+    <standardValue>
+        <fullName>Declined</fullName>
+        <default>false</default>
+        <label>Declined</label>
+        <converted>false</converted>
+    </standardValue>
 </StandardValueSet>
