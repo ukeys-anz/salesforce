@@ -2,9 +2,48 @@
   "shadow": {
     "elements": [
       {
+        "name": "transactionDate",
+        "nullable": true,
+        "selector": {
+          "css": "[data-test-id='transaction-date']"
+        }
+      },
+      {
         "name": "transactionType",
         "selector": {
           "css": "[data-test-id='transaction-type']"
+        }
+      },
+      {
+        "name": "transactionTime",
+        "selector": {
+          "css": "[data-test-id='transaction-time']"
+        }
+      },
+      {
+        "name": "amount",
+        "selector": {
+          "css": "[data-test-id='amount']"
+        },
+        "type": "utam-lightning/pageObjects/formattedNumber"
+      },
+      {
+        "name": "merchantName",
+        "selector": {
+          "css": "[data-test-id='merchant-name']"
+        }
+      },
+      {
+        "name": "convertedCurrencyCode",
+        "selector": {
+          "css": "[data-test-id='converted-currency-code']"
+        }
+      },
+      {
+        "name": "cardScheme",
+        "nullable": true,
+        "selector": {
+          "css": "[data-test-id='card-scheme']"
         }
       },
       {
@@ -13,6 +52,13 @@
           "css": "lightning-button-menu"
         },
         "elements": [
+          {
+            "name": "showDetailsButton",
+            "selector": {
+              "css": "lightning-menu-item:nth-of-type(1)"
+            },
+            "type": "clickable"
+          },
           {
             "name": "raiseDisputeButton",
             "selector": {
@@ -24,7 +70,7 @@
         "shadow": {
           "elements": [
             {
-              "name": "button",
+              "name": "dropDownButton",
               "selector": {
                 "css": "button"
               },
@@ -37,6 +83,23 @@
   },
   "methods": [
     {
+      "name": "getTransactionDateEle",
+      "compose": [
+        {
+          "element": "transactionDate"
+        }
+      ]
+    },
+    {
+      "name": "getTransactionDate",
+      "compose": [
+        {
+          "element": "transactionDate",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
       "name": "getTransactionType",
       "compose": [
         {
@@ -46,10 +109,68 @@
       ]
     },
     {
+      "name": "getTransactionTime",
+      "compose": [
+        {
+          "element": "transactionTime",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getAmount",
+      "compose": [
+        {
+          "element": "amount",
+          "apply": "getInnerText"
+        }
+      ]
+    },
+    {
+      "name": "getMerchantName",
+      "compose": [
+        {
+          "element": "merchantName",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getConvertedCurrencyCode",
+      "compose": [
+        {
+          "element": "convertedCurrencyCode",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getCardScheme",
+      "compose": [
+        {
+          "element": "cardScheme",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "showDetails",
+      "compose": [
+        {
+          "element": "dropDownButton",
+          "apply": "click"
+        },
+        {
+          "element": "showDetailsButton",
+          "apply": "click"
+        }
+      ]
+    },
+    {
       "name": "raiseDispute",
       "compose": [
         {
-          "element": "button",
+          "element": "dropDownButton",
           "apply": "click"
         },
         {

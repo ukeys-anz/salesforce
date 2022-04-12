@@ -34,7 +34,7 @@ export default class VirtualGoals {
       await recordPageRoot.getFinancialAccountRecordPage();
 
     const accountTabset = await financialAccountRecordPage.getAccountTabset();
-    const accountTab = commonUtils.clickTabByLabelAndGetContent(
+    const accountTab = await commonUtils.clickTabByLabelAndGetContent(
       accountTabset,
       "Account",
       FinancialAccountTab

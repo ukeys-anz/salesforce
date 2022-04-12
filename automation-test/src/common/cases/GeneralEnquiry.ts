@@ -1,5 +1,4 @@
 import CaseCreationForm from "pageObjects/caseCreationForm";
-import RecordPage from "pageObjects/recordPage";
 import CaseCallsTab from "pageObjects/caseCallsTab";
 import CaseNotesTab from "pageObjects/caseNotesTab";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
