@@ -217,11 +217,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.IDR_Date_Received__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.IDR_Date_closed_after_re_opening__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -839,6 +834,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Known_Issues__c.IDR_Channel_Received__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Known_Issues__c.IDR_Customer_Desired_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -870,6 +870,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Known_Issues__c.IDR_Possible_Systemic_Issue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Known_Issues__c.IDR_Priority__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

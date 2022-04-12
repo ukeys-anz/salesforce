@@ -1,0 +1,77 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "globalSearchButton",
+      "selector": {
+        "css": ".slds-global-header__item--search"
+      },
+      "type": "clickable",
+      "public": true
+    },
+    {
+      "name": "globalSearchPanel",
+      "selector": {
+        "css": "div.forceSearchAssistantDialog"
+      },
+      "elements": [
+        {
+          "name": "lightningInput",
+          "public": true,
+          "type": "utam-lightning/pageObjects/input",
+          "selector": {
+            "css": "lightning-input"
+          }
+        },
+        {
+          "name": "searchResultsList",
+          "type": "anzx-utam-force/pageObjects/globalSearchResultsList",
+          "selector": {
+            "css": "search_dialog-instant-results-list"
+          }
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "searchAndRedirectToRecord",
+      "compose": [
+        {
+          "element": "globalSearchButton",
+          "apply": "click"
+        },
+        {
+          "element": "lightningInput",
+          "apply": "setText",
+          "args": [
+            {
+              "type": "string",
+              "name": "searchTerm"
+            }
+          ]
+        },
+        {
+          "element": "searchResultsList"
+        },
+        {
+          "chain": true,
+          "element": "searchResultsListItem",
+          "args": [
+            {
+              "name": "resultIndex",
+              "type": "number"
+            }
+          ]
+        },
+        {
+          "chain": true,
+          "apply": "selectResult"
+        }
+      ]
+    }
+  ]
+}

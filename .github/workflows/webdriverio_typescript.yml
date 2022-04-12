@@ -1,10 +1,10 @@
 # This workflow builds the webdriverIO tests with typescript
-name: WebDriverIO
+name: Automation-Test-WebDriverIO
 
 on:
   pull_request:
     paths:
-      - "webdriverIO/**"
+      - "automation-test/**"
     branches: [develop]
 
 jobs:
@@ -16,25 +16,25 @@ jobs:
         uses: actions/checkout@v2
 
       - name: "Rename npmrc"
-        run: mv ci.npmrc ./webdriverIO/.npmrc
+        run: mv ci.npmrc ./automation-test/.npmrc
 
       - name: "Install npm packages"
-        working-directory: webdriverIO
+        working-directory: automation-test
         run: npm ci
 
       - name: "Enforce Style Guidelines"
-        working-directory: webdriverIO
+        working-directory: automation-test
         shell: bash
         run: |
-          echo "Checking WebdriverIO project files"
+          echo "Checking automation-test project files"
           npx prettier -c "./**/*.{ts,js}"
       - name: "Lint TypeScript files"
-        working-directory: webdriverIO
+        working-directory: automation-test
         shell: bash
         run: |
           echo "Linting TypeScript files"
           npx eslint "./**/*.ts" -c "./.ts-eslintrc.json"
 
       - name: "Build Typescript"
-        working-directory: webdriverIO
+        working-directory: automation-test
         run: npx tsc

@@ -89,8 +89,13 @@ public with sharing class GetHelpTaskActions {
    * @return `Boolean`
    */
   private static Boolean isOutboundCallLog(Task taskRec) {
+    Boolean isOutboundCallLog = false;
     // identify only the auto-created Voice Call Logs related Outbound
-    return (taskRec.CallType == 'Outbound' && taskRec.Type == 'outbound');
+    if (taskRec.CallType != null) {
+      isOutboundCallLog = (taskRec.CallType == 'Outbound' &&
+      taskRec.Type == 'outbound');
+    }
+    return isOutboundCallLog;
   }
 
   /**
@@ -99,10 +104,14 @@ public with sharing class GetHelpTaskActions {
    * @return `Boolean`
    */
   private static Boolean isRelatedToCase(Task taskRec) {
-    return ('Case'
-      .equalsIgnoreCase(
-        taskRec.WhatId.getSobjectType().getDescribe().getName()
-      ));
+    Boolean isRelatedToCase = false;
+    if (taskRec.WhatId != null) {
+      isRelatedToCase = ('Case'
+        .equalsIgnoreCase(
+          taskRec.WhatId.getSobjectType().getDescribe().getName()
+        ));
+    }
+    return isRelatedToCase;
   }
 
   /**

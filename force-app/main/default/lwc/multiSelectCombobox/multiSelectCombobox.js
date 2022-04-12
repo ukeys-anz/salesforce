@@ -272,13 +272,37 @@ export default class MultiSelectCombobox extends LightningElement {
     );
   }
 
+  @api
+  deselectAllAccounts() {
+    this.value = undefined;
+    this.values = [];
+    for (let i = 0; i < this.optionData.length; i++) {
+      this.optionData[i].selected = false;
+    }
+    this.searchString = "";
+    this.dispatchEvent(
+      new CustomEvent("select", {
+        detail: {
+          payloadType: "multi-select",
+          payload: {
+            value: this.value,
+            values: this.values
+          }
+        }
+      })
+    );
+  }
+
   @api handleExpressCase() {
     this.searchString = "1 Option(s) Selected";
+    this.values = [];
     for (let i = 0; i < this.optionData.length; i++) {
       if (this.optionData[i].value === "N/A") {
         this.optionData[i].selected = true;
         this.values.push(this.optionData[i].value);
         this.values = [...new Set(this.values)];
+      } else {
+        this.optionData[i].selected = false;
       }
     }
     this.dispatchEvent(
@@ -297,8 +321,11 @@ export default class MultiSelectCombobox extends LightningElement {
   @api
   selectAllAccounts() {
     var count = 0;
+    this.values = [];
     for (let i = 0; i < this.optionData.length; i++) {
-      if (this.optionData[i].value !== "N/A") {
+      if (this.optionData[i].value === "N/A") {
+        this.optionData[i].selected = false;
+      } else {
         this.optionData[i].selected = true;
         this.values.push(this.optionData[i].value);
         this.values = [...new Set(this.values)];

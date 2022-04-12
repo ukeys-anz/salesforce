@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - .github/workflows/blackduck.yml # Run on change to scan, or packages, in develop
-      - "**/package.json"
+      - "package.json"
     branches:
       - develop
   schedule:
@@ -43,5 +43,5 @@ jobs:
             --application-name=secscan \
             --target-name=BlackduckScanCI \
             --target-type=PIPELINE \
-            --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER};SUBDIR=webdriverIO" \
+            --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER}" \
             --wait
