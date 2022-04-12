@@ -108,32 +108,30 @@ public with sharing class ChatterMigrationServiceTest {
   */
   @isTest
   static void testFailedAPICallBlank() {
+    User usr = TestUtil.getUserByFirstName('OCVUserTest');
+
+    prepareRequest(VICTIM_EXTERNAL_ID, null);
+
     Test.startTest();
+    System.runAs(usr) {
+      ChatterMigrationServiceController.migrate();
+    }
+    Test.stopTest();
 
-    RestRequest req = new RestRequest();
-    RestResponse res = new RestResponse();
-    req.requestURI = '/services/apexrest/ChatterMigrate'; //Request URL
-    req.httpMethod = 'POST';
-
-    Map<String, String> payload = new Map<String, String>{
-      'victimID' => VICTIM_EXTERNAL_ID
-    };
-
-    req.requestBody = Blob.valueOf(JSON.serialize(payload));
-    RestContext.request = req;
-    RestContext.response = res;
-
-    System.assertEquals(
-      false,
-      ChatterMigrationServiceController.migrate(),
-      'Expecting the migrate controller to fail without both VictimId and SurvivorId'
-    );
     System.assert(
       (RestContext.response.statusCode == 400),
       'API Response did not return with a 400'
     );
 
-    Test.stopTest();
+    Map<String, Object> response = (Map<String, Object>) JSON.deserializeUntyped(
+      RestContext.response.responseBody.toString()
+    );
+
+    System.assertEquals(
+      'Bad paylod: required input missing',
+      response.get('error'),
+      'API Response did not contain error message'
+    );
   }
 
   /* 
@@ -141,32 +139,30 @@ public with sharing class ChatterMigrationServiceTest {
   */
   @isTest
   static void testFailedAPIWrongVictimId() {
+    User usr = TestUtil.getUserByFirstName('OCVUserTest');
+
+    prepareRequest('ThisShouldFail', SURVIVOR_EXTERNAL_ID);
+
     Test.startTest();
+    System.runAs(usr) {
+      ChatterMigrationServiceController.migrate();
+    }
+    Test.stopTest();
 
-    RestRequest req = new RestRequest();
-    RestResponse res = new RestResponse();
-    req.requestURI = '/services/apexrest/ChatterMigrate'; //Request URL
-    req.httpMethod = 'POST';
-
-    Map<String, String> payload = new Map<String, String>{
-      'victimId' => 'ThisShouldFail',
-      'survivorId' => SURVIVOR_EXTERNAL_ID
-    };
-    req.requestBody = Blob.valueOf(JSON.serialize(payload));
-    RestContext.request = req;
-    RestContext.response = res;
-
-    System.assertEquals(
-      false,
-      ChatterMigrationServiceController.migrate(),
-      'Expecting the migrate controller to fail with a incorrect Account External ID'
-    );
     System.assert(
       (RestContext.response.statusCode == 404),
       'API Response did not return with a 404'
     );
 
-    Test.stopTest();
+    Map<String, Object> response = (Map<String, Object>) JSON.deserializeUntyped(
+      RestContext.response.responseBody.toString()
+    );
+
+    System.assertEquals(
+      'The victimId used does not match with any Accounts',
+      response.get('error'),
+      'API Response did not contain error message'
+    );
   }
 
   /* 
@@ -174,73 +170,90 @@ public with sharing class ChatterMigrationServiceTest {
   */
   @isTest
   static void testMigrationAPICall() {
-    Test.startTest();
-
     User usr = TestUtil.getUserByFirstName('OCVUserTest');
 
+    prepareRequest(VICTIM_EXTERNAL_ID, SURVIVOR_EXTERNAL_ID);
+
+    Test.startTest();
     System.runAs(usr) {
-      RestRequest req = new RestRequest();
-      RestResponse res = new RestResponse();
-      req.requestURI = '/services/apexrest/ChatterMigrate'; //Request URL
-      req.httpMethod = 'POST';
+      ChatterMigrationServiceController.migrate();
+    }
+    Test.stopTest();
 
-      Map<String, String> payload = new Map<String, String>{
-        'victimId' => VICTIM_EXTERNAL_ID,
-        'survivorId' => SURVIVOR_EXTERNAL_ID
-      };
-      req.requestBody = Blob.valueOf(JSON.serialize(payload));
-      RestContext.request = req;
-      RestContext.response = res;
+    System.assert(
+      (RestContext.response.statusCode == 200),
+      'API Response did not return with a Successful 200'
+    );
 
-      System.assertEquals(
-        true,
-        ChatterMigrationServiceController.migrate(),
-        'Expecting the migrate controller to migrate successfully and return true - Response Body:' +
-        RestContext.response.responseBody.toString()
-      );
-      System.assert(
-        (RestContext.response.statusCode == 200),
-        'API Response did not return with a Successful 200'
-      );
+    Map<String, Object> response = (Map<String, Object>) JSON.deserializeUntyped(
+      RestContext.response.responseBody.toString()
+    );
 
-      SystemModeActions systemAction = new SystemModeActions(
-        'ChatterMigrationServiceTest',
-        'testMigrationAPICall'
-      );
-      List<FeedItem> feedOld = systemAction.query(
-        'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
-        ChatterMigrationService.getAccountIdFromExternalId(VICTIM_EXTERNAL_ID) +
-        '\''
-      );
+    System.assertEquals(
+      'true',
+      response.get('success'),
+      'API Response did not contain success message'
+    );
 
-      List<FeedItem> feedNew = systemAction.query(
-        'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
-        ChatterMigrationService.getAccountIdFromExternalId(
-          SURVIVOR_EXTERNAL_ID
-        ) +
-        '\''
-      );
+    SystemModeActions systemAction = new SystemModeActions(
+      'ChatterMigrationServiceTest',
+      'testMigrationAPICall'
+    );
+    List<FeedItem> feedOld = systemAction.query(
+      'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
+      ChatterMigrationService.getAccountIdFromExternalId(VICTIM_EXTERNAL_ID) +
+      '\''
+    );
 
-      List<FeedComment> feedComments = systemAction.query(
-        'SELECT CommentBody, CreatedById, CreatedDate, FeedItemId, CommentType From FeedComment'
-      );
+    List<FeedItem> feedNew = systemAction.query(
+      'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
+      ChatterMigrationService.getAccountIdFromExternalId(SURVIVOR_EXTERNAL_ID) +
+      '\''
+    );
 
-      System.assert(
-        (feedOld.size() == 0),
-        'Expected that the Victim Account to have 0 feed items in the test'
-      );
+    List<FeedComment> feedComments = systemAction.query(
+      'SELECT CommentBody, CreatedById, CreatedDate, FeedItemId, CommentType From FeedComment'
+    );
 
-      System.assert(
-        (feedNew.size() == 2),
-        'Expected that the Survivor Account to have 2 feed items in the test'
-      );
+    System.assert(
+      (feedOld.size() == 0),
+      'Expected that the Victim Account to have 0 feed items in the test'
+    );
 
-      System.assert(
-        (feedComments.size() == 2),
-        'Expected that the Feed has 2 comments copied over'
-      );
+    System.assert(
+      (feedNew.size() == 2),
+      'Expected that the Survivor Account to have 2 feed items in the test'
+    );
+
+    System.assert(
+      (feedComments.size() == 2),
+      'Expected that the Feed has 2 comments copied over'
+    );
+  }
+
+  /**
+   * @description Method to prepare REST requests for test scenarios.
+   * @param victimId
+   * @param survivorId
+   */
+  private static void prepareRequest(String victimId, String survivorId) {
+    RestRequest req = new RestRequest();
+    RestResponse res = new RestResponse();
+    req.requestURI = '/services/apexrest/ChatterMigrate'; //Request URL
+    req.httpMethod = 'POST';
+
+    Map<String, String> payload = new Map<String, String>();
+
+    if (String.isNotBlank(victimId)) {
+      payload.put('victimId', victimId);
     }
 
-    Test.stopTest();
+    if (String.isNotBlank(survivorId)) {
+      payload.put('survivorId', survivorId);
+    }
+
+    req.requestBody = Blob.valueOf(JSON.serialize(payload));
+    RestContext.request = req;
+    RestContext.response = res;
   }
 }
