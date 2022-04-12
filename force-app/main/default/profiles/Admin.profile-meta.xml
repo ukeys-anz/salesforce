@@ -3682,6 +3682,9 @@
     <layoutAssignments>
         <layout>Known_Issues__c-Known Issues Layout</layout>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Product_Family__c-Product Family Layout</layout>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
