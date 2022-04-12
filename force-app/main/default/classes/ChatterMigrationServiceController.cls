@@ -26,10 +26,9 @@ global with sharing class ChatterMigrationServiceController {
 
   /**
    * @description The endpoint for migrating the Chatter items from the Victim to the Survivor
-   * @return Boolean, if successful the method will return true. Otherwise will throw a 4xx or 5xx error with an JSON Body
    */
   @HttpPost
-  global static Boolean migrate() {
+  global static void migrate() {
     init();
     String victimId;
     String survivorId;
@@ -45,7 +44,7 @@ global with sharing class ChatterMigrationServiceController {
           'error' => 'Bad paylod: required input missing'
         }
       );
-      return false;
+      return;
     } else {
       victimId = params.get('victimId').toString();
       survivorId = params.get('survivorId').toString();
@@ -62,16 +61,12 @@ global with sharing class ChatterMigrationServiceController {
         404,
         new Map<String, String>{ 'error' => err.getMessage() }
       );
-      return false;
     } catch (Exception err) {
       responseHandler(
         500,
         new Map<String, String>{ 'error' => err.getMessage() }
       );
-      return false;
     }
-
-    return true;
   }
 
   /**
