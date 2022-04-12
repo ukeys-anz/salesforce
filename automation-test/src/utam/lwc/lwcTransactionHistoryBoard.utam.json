@@ -66,7 +66,7 @@
               "returnAll": true
             },
             "filter": {
-              "apply": "getTransactionDateInput",
+              "apply": "getTransactionDateEle",
               "matcher": {
                 "type": "notNull"
               }
@@ -80,6 +80,22 @@
               "css": "c-transaction-history-record"
             },
             "public": true
+          },
+          {
+            "name": "transactionHistoryRecords",
+            "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryRecord",
+            "selector": {
+              "css": "c-transaction-history-record",
+              "returnAll": true
+            },
+            "public": true
+          },
+          {
+            "name": "loadMoreButton",
+            "selector": {
+              "css": "button[class*='load-more']"
+            },
+            "type": "clickable"
           }
         ]
       }
@@ -97,6 +113,19 @@
           "chain": true,
           "element" : "datepicker",
           "returnType": "utam-lightning/pageObjects/datepicker"
+        }
+      ]
+    },
+    {
+      "name": "loadMore",
+      "compose":[
+        {
+          "element": "loadMoreButton",
+          "apply": "click"
+        },
+        {
+          "element": "transactionHistoryRecords",
+          "apply": "waitForVisible"
         }
       ]
     }

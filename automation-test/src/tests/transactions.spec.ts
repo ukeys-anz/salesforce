@@ -19,7 +19,7 @@ describe("Transactions - Coach Views and Verifies Details", () => {
     await browser.pause(1000);
   });
 
-  describe("Transactions History Date Filter ", async (): Promise<void> => {
+  describe("Transaction History Date Filter", async (): Promise<void> => {
     const transaction = new Transactions();
 
     it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
@@ -45,6 +45,48 @@ describe("Transactions - Coach Views and Verifies Details", () => {
 
     it("Transaction Time Displays in 12 Hour Format", async (): Promise<void> => {
       await transaction.verifyTransactionTime();
+    });
+  });
+
+  describe("Transaction History and Load More", async (): Promise<void> => {
+    const transaction = new Transactions();
+
+    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    });
+
+    it("Go to Financial Account", async (): Promise<void> => {
+      // search financial account in global search and redirect
+      await searchRecordInGlobalSearchAndRedirect(
+        accountData.savingsAccountNumber
+      );
+
+      await transaction.loadFinancialAccountTab();
+    });
+
+    it("Load Next page of Transaction History", async (): Promise<void> => {
+      await transaction.verifyLoadMore();
+    });
+  });
+
+  describe("Transaction History and Detailed View", async (): Promise<void> => {
+    const transaction = new Transactions();
+
+    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    });
+
+    it("Go to Financial Account", async (): Promise<void> => {
+      // search financial account in global search and redirect
+      await searchRecordInGlobalSearchAndRedirect(
+        accountData.savingsAccountNumber
+      );
+
+      await transaction.loadFinancialAccountTab();
+    });
+
+    it("Verify Transaction Details", async (): Promise<void> => {
+      await transaction.verifyDetails();
     });
   });
 

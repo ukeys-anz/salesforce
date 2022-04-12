@@ -69,9 +69,51 @@ export default class Transactions {
     const transactionTime = await finHistory.getTransactionTime();
 
     const regexp = new RegExp("^(1[0-2]|0?[1-9]):[0-5][0-9] (A|P|a|p)(M|m)");
-    const transactionTimeFormatted = regexp.test(transactionTime);
+    const isTransactionTimeFormatted = regexp.test(transactionTime);
 
     // assert transaction time displays in 12 Hour format
-    expect(transactionTimeFormatted).toBeTruthy();
+    expect(isTransactionTimeFormatted).toBeTruthy();
+  }
+
+  async verifyLoadMore() {
+    const finAccountParent =
+      await this.financialAccountTab!.getFinancialAccountParent();
+    const finHistoryBoard = await finAccountParent.getTransactionHistoryBoard();
+
+    const recordsBeforeLoadMore = (
+      await finHistoryBoard.getTransactionHistoryRecords()
+    ).length;
+
+    // click load more button
+    await finHistoryBoard.loadMore();
+
+    const recordsAfterLoadMore = (
+      await finHistoryBoard.getTransactionHistoryRecords()
+    ).length;
+
+    expect(recordsBeforeLoadMore).toBeLessThan(recordsAfterLoadMore);
+  }
+
+  async verifyDetails() {
+    const finAccountParent =
+      await this.financialAccountTab!.getFinancialAccountParent();
+    const finHistoryBoard = await finAccountParent.getTransactionHistoryBoard();
+
+    const finHistoryRecord =
+      await finHistoryBoard.getTransactionHistoryRecord();
+    await finHistoryRecord.showDetails();
+
+    const transactionType = await finHistoryRecord.getTransactionType();
+    expect(transactionType).toBeTruthy();
+
+    const merchantName = await finHistoryRecord.getMerchantName();
+    expect(merchantName).toBeTruthy();
+
+    const convertedCurrencyCode =
+      await finHistoryRecord.getConvertedCurrencyCode();
+    expect(convertedCurrencyCode).toBeTruthy();
+
+    const cardScheme = await finHistoryRecord.getCardScheme();
+    expect(cardScheme).toBeTruthy();
   }
 }

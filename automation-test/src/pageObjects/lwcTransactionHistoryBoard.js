@@ -24,7 +24,7 @@ async function _utam_filter_transactionHistoryRecordOfType(
 }
 
 async function _utam_filter_transactionHistoryRecordsWithDate(element) {
-  const result = await element.getTransactionDateInput();
+  const result = await element.getTransactionDateEle();
   return result !== null;
 }
 
@@ -74,6 +74,18 @@ async function _utam_get_transactionHistoryRecordsWithDates(driver, root) {
 async function _utam_get_transactionHistoryRecord(driver, root) {
   let _element = await _utam_get_boardBody(driver, root);
   const _locator = core.By.css(`c-transaction-history-record`);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_transactionHistoryRecordss(driver, root) {
+  let _element = await _utam_get_boardBody(driver, root);
+  const _locator = core.By.css(`c-transaction-history-record`);
+  return _element.findElements(_locator);
+}
+
+async function _utam_get_loadMoreButton(driver, root) {
+  let _element = await _utam_get_boardBody(driver, root);
+  const _locator = core.By.css(`button[class*='load-more']`);
   return _element.findElement(_locator);
 }
 
@@ -190,10 +202,41 @@ class LwcTransactionHistoryBoard extends core.UtamBasePageObject {
     return element;
   }
 
+  async getTransactionHistoryRecords() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    let elements = await _utam_get_transactionHistoryRecordss(driver, root);
+    elements = elements.map(function _createElement(element) {
+      return new _LwcTransactionHistoryRecord__default[
+        "default"
+      ](driver, element);
+    });
+    await Promise.all(elements.map((el) => el.__beforeLoad__()));
+    return elements;
+  }
+
+  async __getLoadMoreButton() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const ClickableUtamElement = core.createUtamMixinCtor(
+      core.ClickableUtamElement
+    );
+    let element = await _utam_get_loadMoreButton(driver, root);
+    element = new ClickableUtamElement(driver, element);
+    return element;
+  }
+
   async getEndDateSearch() {
     const _statement0 = await this.__getEndDateInput();
     const _result1 = await _statement0.getDatepicker();
     return _result1;
+  }
+
+  async loadMore() {
+    const _statement0 = await this.__getLoadMoreButton();
+    await _statement0.click();
+    const _statement1 = await this.getTransactionHistoryRecords();
+    await Promise.all(_statement1.map((_it) => _it.waitForVisible()));
   }
 }
 

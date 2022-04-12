@@ -10,6 +10,7 @@ import _LwcTransactionHistoryRecord from "./../pageObjects/lwcTransactionHistory
 export default class LwcTransactionHistoryBoard extends _UtamBasePageObject {
   constructor(driver: _Driver, element?: _Element, locator?: _Locator);
   getEndDateSearch(): Promise<_Datepicker>;
+  loadMore(): Promise<void>;
   getTransactionHistoryRecordOfType(
     transactionType: string
   ): Promise<_LwcTransactionHistoryRecord>;
@@ -17,4 +18,5 @@ export default class LwcTransactionHistoryBoard extends _UtamBasePageObject {
     _LwcTransactionHistoryRecord[]
   >;
   getTransactionHistoryRecord(): Promise<_LwcTransactionHistoryRecord>;
+  getTransactionHistoryRecords(): Promise<_LwcTransactionHistoryRecord[]>;
 }
