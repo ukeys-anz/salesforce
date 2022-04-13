@@ -43,7 +43,7 @@
     });
     toastEvent.fire();
   },
-    // Handle navigating user to case edit form
+  // Handle navigating user to case edit form
   handleNavig: function (component) {
     $A.get("e.force:closeQuickAction").fire();
     var navService = component.find("navService");
@@ -56,8 +56,10 @@
       },
       state: {
         defaultFieldValues:
-          "RecordTypeId=" + component.get("v.selectedRecordTypeId") +
-          ",IDR_AFCA_Status__c=" + component.get("v.IDR_AFCA_Status")
+          "RecordTypeId=" +
+          component.get("v.selectedRecordTypeId") +
+          ",IDR_AFCA_Status__c=" +
+          component.get("v.IDR_AFCA_Status")
       }
     };
     navService.navigate(pageReference);
