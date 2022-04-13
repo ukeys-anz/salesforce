@@ -22,7 +22,8 @@ public with sharing class NewCaseFlowWrapperController {
 
   /**
    * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
-   * @param caseId, newRecordTypeId
+   * @param caseId, the case record id
+   * @param newRecordTypeId id of the new record type selected for the case
    * @return returnIDRAFCAStatus The IDR_AFCA_Status__c of the input case record
    */
   @AuraEnabled
