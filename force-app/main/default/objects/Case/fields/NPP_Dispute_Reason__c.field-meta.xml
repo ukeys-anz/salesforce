@@ -5,11 +5,11 @@
     <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
     <description>NPP dispute reason the case.</description>
     <externalId>false</externalId>
-    <formula>IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Amount Transferred&quot;), &quot;Incorrect amount&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;), &quot;Incorrect Payee or payment address&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;), &quot;	Duplicate Payment&quot;,
+    <formula>IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Amount Transferred&quot;), &quot;Incorrect Amount&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;), &quot;Incorrect Payee Or Payment Address&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;), &quot;    Payment Was Duplicated&quot;,
 IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;), &quot;Unauthorised Transaction&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;Final Destination Payment trace&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;Refund Request by End Customer&quot;,
 IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Amount not received by payee&quot;), &quot;Amount not received by payee&quot;,&quot;&quot;))))))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>NPP Dispute Reason</label>
