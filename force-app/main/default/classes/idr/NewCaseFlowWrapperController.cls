@@ -21,16 +21,15 @@ public with sharing class NewCaseFlowWrapperController {
   }
   /**
    * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
-   * @param id : case technical ID , newRecordTypeName
-   * @return The IDR_AFCA_Status__c
+   * @param id : caseId , newRecordTypeName
+   * @return The returnIDRAFCAStatus
    */
   @AuraEnabled
-  public static String getCaseDetailsById(Id caseid, String newRecordTypeID) {
+  public static String getCaseDetailsById(Id caseId, String newRecordTypeID) {
     String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeID);
-    string return_IDR_AFCA_Status = '';
+    string returnIDRAFCAStatus = '';
     if (
       Case.sObjectType.getDescribe().isQueryable() &&
-      Schema.SObjectType.Case.isAccessible() &&
       (newRecordTypeName == 'Non_Customer_Complaint' ||
       newRecordTypeName == 'Customer_Complaint')
     ) {
@@ -47,12 +46,13 @@ public with sharing class NewCaseFlowWrapperController {
           AND RecordTypeId = :IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
           AND (Origin = :'Referred from AFCA'
           OR Origin = :'11')
+        WITH SECURITY_ENFORCED
       ];
       if (!caseLst.isEmpty()) {
-        return_IDR_AFCA_Status = '10';
+        returnIDRAFCAStatus = '10';
       }
     }
-    return return_IDR_AFCA_Status;
+    return returnIDRAFCAStatus;
   }
 
   /**
