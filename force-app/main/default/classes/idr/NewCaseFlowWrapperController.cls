@@ -27,24 +27,22 @@ public with sharing class NewCaseFlowWrapperController {
   @AuraEnabled
   public static String getCaseDetailsById(Id caseid,  String NewRecordTypeID ) {
       String NewRecordTypeName = getCaseRecordTypeDevNameById(NewRecordTypeID);
-      system.debug('caseid'+caseid+'*NewRecordTypeName*'+NewRecordTypeName);
-		if (Case.sObjectType.getDescribe().isQueryable()) {
-        	List<Case> CaseLst = [
+      if (Case.sObjectType.getDescribe().isQueryable()) {
+      	List<Case> CaseLst = [
               SELECT ID, IDR_AFCA_Status__c , Origin, RecordType.DeveloperName
               FROM case
               WHERE Id = :caseid and (Origin =:'Referred from AFCA' OR Origin =:'11')
-			];
+	];
 
-          	if (!CaseLst.isEmpty()) {
-            	system.debug(CaseLst);
-				String OldRecordTypeName = CaseLst[0].RecordType.DeveloperName;
+        if (!CaseLst.isEmpty()) {
+		String OldRecordTypeName = CaseLst[0].RecordType.DeveloperName;
                 if(OldRecordTypeName == 'General_Inquiry_CMOS' && (NewRecordTypeName == 'Non_Customer_Complaint' || NewRecordTypeName == 'Customer_Complaint')){
-                  return '10';
+                	return '10';
               	}else{
-                  return CaseLst[0].IDR_AFCA_Status__c;
+                	return CaseLst[0].IDR_AFCA_Status__c;
               	}
-          	}
-            return null;
+         }
+         return null;
         }
         return null;
   }
