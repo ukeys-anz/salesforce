@@ -19,7 +19,37 @@ public with sharing class NewCaseFlowWrapperController {
       .get(id)
       .getDeveloperName();
   }
+  /**
+   * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
+   * @param id : case technical ID , OldRecordTypeName, NewRecordTypeName
+   * @return The IDR_AFCA_Status__c
+   */
+  @AuraEnabled
+  public static String getCaseDetailsById(Id caseid,  String NewRecordTypeID ) {
+      String NewRecordTypeName = getCaseRecordTypeDevNameById(NewRecordTypeID);
+      system.debug('caseid'+caseid+'*NewRecordTypeName*'+NewRecordTypeName);
+		if (Case.sObjectType.getDescribe().isQueryable()) {
+        	List<Case> CaseLst = [
+              SELECT ID, IDR_AFCA_Status__c , Origin, RecordType.DeveloperName
+              FROM case
+              WHERE Id = :caseid and (Origin =:'Referred from AFCA' OR Origin =:'11')
+			];
 
+          	if (!CaseLst.isEmpty()) {
+            	system.debug(CaseLst);
+				String OldRecordTypeName = CaseLst[0].RecordType.DeveloperName;
+                if(OldRecordTypeName == 'General_Inquiry_CMOS' && (NewRecordTypeName == 'Non_Customer_Complaint' || NewRecordTypeName == 'Customer_Complaint')){
+                  return '10';
+              	}else{
+                  return CaseLst[0].IDR_AFCA_Status__c;
+              	}
+          	}
+            return null;
+        }
+        return null;
+  }
+    
+    
   /**
    * @description Query for Customer OCV ID by passing in the Account ID
    * @param accountID SF Account ID related to the Customer
