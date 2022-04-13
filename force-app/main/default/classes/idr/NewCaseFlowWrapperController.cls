@@ -19,10 +19,11 @@ public with sharing class NewCaseFlowWrapperController {
       .get(id)
       .getDeveloperName();
   }
+
   /**
    * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
-   * @param id : caseId , newRecordTypeName
-   * @return The returnIDRAFCAStatus
+   * @param caseId, newRecordTypeName
+   * @return returnIDRAFCAStatus The IDR_AFCA_Status__c of the input case record
    */
   @AuraEnabled
   public static String getCaseDetailsById(Id caseId, String newRecordTypeID) {
