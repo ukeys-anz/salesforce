@@ -22,12 +22,12 @@ public with sharing class NewCaseFlowWrapperController {
 
   /**
    * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
-   * @param caseId, newRecordTypeName
+   * @param caseId, newRecordTypeId
    * @return returnIDRAFCAStatus The IDR_AFCA_Status__c of the input case record
    */
   @AuraEnabled
-  public static String getCaseDetailsById(Id caseId, String newRecordTypeID) {
-    String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeID);
+  public static String getCaseDetailsById(Id caseId, String newRecordTypeId) {
+    String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
     string returnIDRAFCAStatus = '';
     if (
       Case.sObjectType.getDescribe().isQueryable() &&
