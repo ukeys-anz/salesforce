@@ -78,7 +78,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Survey__c</field>
+        <field>qualtrics__Survey_Response__c.Survey_Variation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

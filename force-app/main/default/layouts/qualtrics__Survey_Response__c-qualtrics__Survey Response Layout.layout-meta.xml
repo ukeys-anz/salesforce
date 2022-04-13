@@ -52,7 +52,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>qualtrics__Survey__c</field>
+                <field>Survey_Variation__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
