@@ -27,10 +27,10 @@ public with sharing class NewCaseFlowWrapperController {
   @AuraEnabled
   public static String getCaseDetailsById(Id caseid, String newRecordTypeID) {
     String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeID);
-    string IDR_AFCA_Status = '';
-    system.debug('newRecordTypeName:' + newRecordTypeName);
+    string return_IDR_AFCA_Status = '';
     if (
       Case.sObjectType.getDescribe().isQueryable() &&
+      Schema.SObjectType.Case.isAccessible() &&
       (newRecordTypeName == 'Non_Customer_Complaint' ||
       newRecordTypeName == 'Customer_Complaint')
     ) {
@@ -49,10 +49,10 @@ public with sharing class NewCaseFlowWrapperController {
           OR Origin = :'11')
       ];
       if (!caseLst.isEmpty()) {
-        IDR_AFCA_Status = '10';
+        return_IDR_AFCA_Status = '10';
       }
     }
-    return IDR_AFCA_Status;
+    return return_IDR_AFCA_Status;
   }
 
   /**
