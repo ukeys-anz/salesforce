@@ -10,34 +10,83 @@
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Case.Escalate_Complaint</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Resolve_Complaint</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Change_Record_Type</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Re_open_Complaint</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PrintableView</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>ChangeOwnerOne</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Share</value>
+                            <value>Case.Change_Record_Type</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>General_Inquiry_CMOS</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>Case.Send_Notification</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Case.Send_Letter_Email</value>
+                            <value>MassAccept</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>General_Inquiry_CMOS</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Clone</value>
+                            <visibilityRule>
+                                <booleanFilter>1 OR 2</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>General_Inquiry_CMOS</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>CONTAINS</operator>
+                                    <rightValue>Systemic_Issue</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Share</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Systemic_Issue</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>RecordShareHierarchy</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>General_Inquiry_CMOS</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CaseHierarchy</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>General_Inquiry_CMOS</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PrintableView</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Systemic_Issue</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

@@ -21,37 +21,38 @@ public with sharing class NewCaseFlowWrapperController {
   }
   /**
    * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
-   * @param id : case technical ID , oldRecordTypeName, newRecordTypeName
+   * @param id : case technical ID , newRecordTypeName
    * @return The IDR_AFCA_Status__c
    */
   @AuraEnabled
   public static String getCaseDetailsById(Id caseid, String newRecordTypeID) {
     String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeID);
-    if (Case.sObjectType.getDescribe().isQueryable()) {
+    string IDR_AFCA_Status = '';
+    system.debug('newRecordTypeName:' + newRecordTypeName);
+    if (
+      Case.sObjectType.getDescribe().isQueryable() &&
+      (newRecordTypeName == 'Non_Customer_Complaint' ||
+      newRecordTypeName == 'Customer_Complaint')
+    ) {
       List<Case> caseLst = [
-        SELECT ID, IDR_AFCA_Status__c, Origin, RecordType.DeveloperName
+        SELECT
+          ID,
+          IDR_AFCA_Status__c,
+          Origin,
+          RecordType.DeveloperName,
+          RecordTypeId
         FROM case
         WHERE
           Id = :caseid
+          AND RecordTypeId = :IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
           AND (Origin = :'Referred from AFCA'
           OR Origin = :'11')
       ];
-
       if (!caseLst.isEmpty()) {
-        String oldRecordTypeName = caseLst[0].RecordType.DeveloperName;
-        if (
-          oldRecordTypeName == 'General_Inquiry_CMOS' &&
-          (newRecordTypeName == 'Non_Customer_Complaint' ||
-          newRecordTypeName == 'Customer_Complaint')
-        ) {
-          return '10';
-        } else {
-          return caseLst[0].IDR_AFCA_Status__c;
-        }
+        IDR_AFCA_Status = '10';
       }
-      return null;
     }
-    return null;
+    return IDR_AFCA_Status;
   }
 
   /**
