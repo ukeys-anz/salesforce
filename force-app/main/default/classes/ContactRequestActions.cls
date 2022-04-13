@@ -349,6 +349,9 @@ public with sharing class ContactRequestActions {
     result.WhoId = interactionAccount.PersonContactId;
     result.EndDateTime = interactionSubject.EndTime;
     result.WhatId = interactionSubject.Id;
+    result.IsReminderSet = true;
+    result.ReminderDateTime = result.StartDateTime.addMinutes(-15);
+
     return result;
   }
 

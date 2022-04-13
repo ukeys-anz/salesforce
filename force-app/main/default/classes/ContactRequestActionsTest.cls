@@ -7,6 +7,9 @@ public with sharing class ContactRequestActionsTest {
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
 
+  //Number of minutes before an event to set the reminder
+  private static Integer reminderMinutes = 15;
+
   @testSetup
   static void loadAutomatedPurposes() {
     setup();
@@ -419,6 +422,22 @@ public with sharing class ContactRequestActionsTest {
       testInteraction.Id,
       testEvent.WhatId,
       'The interaction must be set to the creating Interaction'
+    );
+
+    System.assertEquals(
+      true,
+      testEvent.IsReminderSet,
+      'Reminder should be set to true'
+    );
+
+    DateTime expectedReminderDate = appointmentDateTime.addMinutes(
+      -1 * reminderMinutes
+    );
+
+    System.assertEquals(
+      expectedReminderDate,
+      testEvent.ReminderDateTime,
+      'Reminder should be 15 minutes before the start time'
     );
   }
 
