@@ -1158,11 +1158,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.NPP_Dispute_Reason__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.NPP_Subtype__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1504,11 +1499,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Subject</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Submitted_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
