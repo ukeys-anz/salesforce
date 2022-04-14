@@ -14,10 +14,6 @@
                 <behavior>Edit</behavior>
                 <field>AccountId</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>IDR_Date_Received__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -35,15 +31,15 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Feedback_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Origin</field>
+                <field>OwnerId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CaseNumber</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Origin</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -55,13 +51,17 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Survey_Response__c</field>
+                <field>Subject</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Subject</field>
+                <behavior>Edit</behavior>
+                <field>Feedback_Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Alerting_Reason__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -77,15 +77,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Alerting_Reason__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>ParentId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>OwnerId</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -100,11 +92,19 @@
                 <behavior>Readonly</behavior>
                 <field>Description</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Survey_Response__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Advocacy_Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>IDR_Date_Received__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -121,13 +121,13 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>SuppliedEmail</field>
+                <field>CreatedById</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>CreatedById</field>
+                <field>SuppliedEmail</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -166,11 +166,6 @@
     <platformActionList>
         <actionListContext>Record</actionListContext>
         <platformActionListItems>
-            <actionName>FeedItem.TextPost</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
             <actionName>Delete</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>1</sortOrder>
@@ -184,6 +179,11 @@
             <actionName>Share</actionName>
             <actionType>StandardButton</actionType>
             <sortOrder>3</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>FeedItem.TextPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>0</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>
@@ -260,7 +260,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O0000026sMJ</masterLabel>
+        <masterLabel>00h5P000000dI2R</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
