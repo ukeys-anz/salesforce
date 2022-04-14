@@ -991,6 +991,7 @@
         "IDR_Tribe__c",
         "PSI_or_DSI__c",
         "Priority",
+        "Queue__c",
         "Status",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
