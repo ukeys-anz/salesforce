@@ -4,5 +4,6 @@
     <fields>Name</fields>
     <fields>MobilePhone</fields>
     <fields>Email</fields>
+    <fields>LeadSource</fields>
     <label>ANZX Leads</label>
 </CompactLayout>
