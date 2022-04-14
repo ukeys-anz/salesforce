@@ -68,6 +68,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Authentication_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.Channel_Booked__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -95,6 +100,11 @@
         <editable>true</editable>
         <field>Interaction.InteractionType</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Interaction_Number__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -138,6 +148,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Voice_Call_SID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>InteractionSummary.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -149,6 +164,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>InteractionSummary.InteractionPurpose</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>InteractionSummary.Interaction_Summary_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

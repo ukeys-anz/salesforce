@@ -5,6 +5,21 @@
     <description>Appointment record type for Appointment Booking</description>
     <label>Appointment</label>
     <picklistValues>
+        <picklist>Authentication_Method__c</picklist>
+        <values>
+            <fullName>Authenticated by Coach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer cannot be authenticated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Customer Call</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Channel_Booked__c</picklist>
         <values>
             <fullName>App</fullName>
@@ -74,6 +89,5 @@
             <fullName>Scheduled</fullName>
             <default>false</default>
         </values>
-
     </picklistValues>
 </RecordType>

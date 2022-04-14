@@ -5,7 +5,7 @@
     <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Why interaction happened</description>
     <externalId>false</externalId>
-    <label>Interaction Purpose</label>
+    <label>Interaction Reason</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
