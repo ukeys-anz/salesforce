@@ -1678,6 +1678,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Event.Queue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Event.SI_Other_Tribe_BU__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2289,6 +2294,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.PSI_or_DSI__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Queue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

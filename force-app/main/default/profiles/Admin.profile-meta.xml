@@ -2101,6 +2101,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Event.Queue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Event.Type</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3103,7 +3108,12 @@
         <field>Task.Description</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>  
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Queue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Task.ActivityDate</field>
         <readable>true</readable>
