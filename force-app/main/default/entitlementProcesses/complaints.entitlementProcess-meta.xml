@@ -10,6 +10,7 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
+    <isVersionDefault>true</isVersionDefault>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
         <milestoneCriteriaFormula>AND(
@@ -243,4 +244,7 @@ NOT(CreatedBy.UserRole.DeveloperName = 'Customer_Resolution')
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
+    <name>complaints</name>
+    <versionMaster>5522O000000CGgO</versionMaster>
+    <versionNumber>1</versionNumber>
 </EntitlementProcess>
