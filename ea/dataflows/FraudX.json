@@ -78,6 +78,15 @@
             "name": "AgeBucket",
             "saqlExpression": "case \nwhen 'Fraud_Customer_Event_Age__c' > 55 then \"55 & Older\"\nwhen 'Fraud_Customer_Event_Age__c' > 45 then \"46 to 55\"\nwhen 'Fraud_Customer_Event_Age__c' > 35 then \"36 to 45\"\nwhen 'Fraud_Customer_Event_Age__c' > 25 then \"26 to 35\"\nwhen 'Fraud_Customer_Event_Age__c' > 18 then \"19 to 25\"\nwhen 'Fraud_Customer_Event_Age__c' <= 18  then \"18 or younger\"\nend",
             "type": "Text"
+          },
+          {
+            "defaultValue": "0",
+            "label": "Detection Status",
+            "name": "DetectionStatus",
+            "precision": 1,
+            "saqlExpression": "(case 'Origin'\n      when \"Falcon\" then 1    \n      when \"Fraud Staff\" then 1 \n      else 0\nend)",
+            "scale": 0,
+            "type": "Numeric"
           }
         ],
         "mergeWithSource": true
