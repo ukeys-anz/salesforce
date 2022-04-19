@@ -174,11 +174,17 @@ public with sharing class ContactRequestActions {
       return null;
     }
     Integer duration = getDuration(request.RequestReason);
+    Id accID = contactAccountMap.get(request.WhoId);
+    Id leadId = null;
+    if (accID == null) {
+      leadId = request.WhoId;
+    }
     Interaction newInteraction = new Interaction(
       Status__c = 'Scheduled',
       Interaction_Purpose__c = request.RequestReason,
       StartTime = request.Appointment_date_and_Time__c,
-      AccountId = contactAccountMap.get(request.WhoId),
+      AccountId = accID,
+      Lead__c = leadId,
       Name = request.RequestReason + ' Appointment',
       EndTime = request.Appointment_date_and_Time__c.addMinutes(duration),
       Description = request.RequestDescription,
@@ -286,10 +292,13 @@ public with sharing class ContactRequestActions {
     List<Interaction> interactions
   ) {
     Map<Id, Account> accountMap = getAccountMapFromInteractions(interactions);
+    Map<Id, Lead> leadMap = getLeadMapFromInteractions(interactions);
     List<Event> result = new List<Event>();
     if (!interactions.isEmpty()) {
       for (Interaction currentInteraction : interactions) {
-        result.add(createEventFromInteraction(currentInteraction, accountMap));
+        result.add(
+          createEventFromInteraction(currentInteraction, accountMap, leadMap)
+        );
       }
     }
     return result;
@@ -302,6 +311,7 @@ public with sharing class ContactRequestActions {
   public void insertEvents(List<Event> events) {
     if (events != null && Event.SObjectType.getDescribe().isCreateable()) {
       List<Database.SaveResult> results = Database.Insert(events);
+
       lib_systemLog log = new lib_systemLog(
         'ContactRequestActions',
         'insertEvents'
@@ -329,29 +339,39 @@ public with sharing class ContactRequestActions {
     Map<Id, Account> accountMap = getAccountMapFromInteractions(
       new List<Interaction>{ interactionSubject }
     );
-    return createEventFromInteraction(interactionSubject, accountMap);
+    Map<Id, Lead> leadMap = getLeadMapFromInteractions(
+      new List<Interaction>{ interactionSubject }
+    );
+    return createEventFromInteraction(interactionSubject, accountMap, leadMap);
   }
 
   /**
    * @description creates an event from an Interaction
    * @param interactionSubject Interaction subject from which to create an Event
    * @param accountMap Map<Id,Account> map of Accounts to their Id.
+   * @param leadMap Map<Id,Lead> map of leads to their Id.
    * @return Event newly created Event.
    */
   public Event createEventFromInteraction(
     Interaction interactionSubject,
-    Map<Id, Account> accountMap
+    Map<Id, Account> accountMap,
+    Map<Id, Lead> leadMap
   ) {
     Account interactionAccount = accountMap.get(interactionSubject.AccountId);
     Event result = new Event();
-    result.Subject = 'Appointment with ' + interactionAccount.Name;
     result.StartDateTime = interactionSubject.StartTime;
-    result.WhoId = interactionAccount.PersonContactId;
-    result.EndDateTime = interactionSubject.EndTime;
     result.WhatId = interactionSubject.Id;
+    if (interactionAccount != null) {
+      result.WhoId = interactionAccount.PersonContactId;
+      result.Subject = 'Appointment with ' + interactionAccount.Name;
+    } else {
+      result.Lead__c = interactionSubject.Lead__c;
+      Lead interactionLead = leadMap.get(interactionSubject.Lead__c);
+      result.Subject = 'Appointment with ' + interactionLead.Name;
+    }
+    result.EndDateTime = interactionSubject.EndTime;
     result.IsReminderSet = true;
     result.ReminderDateTime = result.StartDateTime.addMinutes(-15);
-
     return result;
   }
 
@@ -385,6 +405,40 @@ public with sharing class ContactRequestActions {
           'ContactRequestActions',
           'getAccountMapFromInteractions',
           'Not enough permissions to query Accounts.'
+        );
+      }
+    }
+    return result;
+  }
+
+  /**
+   * @description gets leads related to a list of interactions in a map.
+   * @param interactions List<Interaction> interactions for which to get the leads
+   * @return Map<Id,Lead> map of leads.
+   */
+  public Map<Id, Lead> getLeadMapFromInteractions(
+    List<Interaction> interactions
+  ) {
+    Map<Id, Lead> result = new Map<Id, Lead>();
+
+    Set<Id> leadIds = new Set<Id>();
+    if (!interactions.isEmpty()) {
+      for (Interaction currentInteraction : interactions) {
+        if (currentInteraction.Lead__c != null) {
+          leadIds.add(currentInteraction.Lead__c);
+        }
+      }
+    }
+    if (!leadIds.isEmpty()) {
+      if (Lead.SObjectType.getDescribe().isQueryable()) {
+        result = new Map<Id, Lead>(
+          [SELECT Id, Name FROM Lead WHERE Id IN :leadIds]
+        );
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'ContactRequestActions',
+          'getLeadMapFromInteractions',
+          'Not enough permissions to query Leads.'
         );
       }
     }

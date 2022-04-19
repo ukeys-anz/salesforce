@@ -33,6 +33,7 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testFindZeroRequestsThatNowBelongToUser() {
     ContactRequest request = new ContactRequest();
+    request.PreferredChannel = 'Call';
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -62,6 +63,7 @@ public with sharing class ContactRequestActionsTest {
 
     ContactRequest request = new ContactRequest();
     request.OwnerId = contactRequestQueue[0].Queue.Id;
+    request.PreferredChannel = 'Call';
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -93,7 +95,9 @@ public with sharing class ContactRequestActionsTest {
 
     ContactRequest okRequest = new ContactRequest();
     okRequest.OwnerId = contactRequestQueue[0].Queue.Id;
+    okRequest.PreferredChannel = 'Call';
     ContactRequest notOkRequest = new ContactRequest();
+    notOkRequest.PreferredChannel = 'Call';
     List<ContactRequest> requests = new List<ContactRequest>{
       okRequest,
       notOkRequest
@@ -131,6 +135,7 @@ public with sharing class ContactRequestActionsTest {
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = DateTime.now();
     request.RequestReason = requestReason;
+    request.PreferredChannel = 'Call';
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -163,6 +168,7 @@ public with sharing class ContactRequestActionsTest {
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
     request.RequestDescription = 'Test';
+    request.PreferredChannel = 'Call';
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -237,6 +243,94 @@ public with sharing class ContactRequestActionsTest {
   }
 
   @isTest
+  static void testCreateInteractionFromRequestForLead() {
+    setup();
+    Lead testLead = createTestLead();
+
+    string requestReason = financialWellbeingPurposeName;
+
+    Integer duration = financialWellbeingPurposeDuration;
+
+    DateTime appointmentDate = DateTime.now();
+    DateTime expectedEndDate = appointmentDate.addMinutes(duration);
+
+    ContactRequest request = new ContactRequest();
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = requestReason;
+    request.WhoId = testLead.Id;
+    request.RequestDescription = 'Test';
+    request.PreferredChannel = 'Call';
+    insert request;
+
+    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
+
+    Test.startTest();
+
+    Interaction newInteraction = contactRequestActionHelper.createInteractionFromRequest(
+      request
+    );
+    Test.stopTest();
+
+    System.assertNotEquals(
+      null,
+      newInteraction,
+      'A new Interaction should be created'
+    );
+
+    System.assertEquals(
+      'Scheduled',
+      newInteraction.Status__c,
+      'Interaction Status must default to Scheduled'
+    );
+
+    System.assertEquals(
+      requestReason,
+      newInteraction.Interaction_Purpose__c,
+      'Interaction Purpose should match Contact Request Reason'
+    );
+
+    System.assertEquals(
+      request.Appointment_date_and_Time__c,
+      newInteraction.StartTime,
+      'Interaction Start time should match the request appointment date time'
+    );
+
+    System.assertEquals(
+      testLead.Id,
+      newInteraction.Lead__c,
+      'Interactions Lead must equal the contact requests Lead record'
+    );
+
+    System.assertEquals(
+      expectedEndDate,
+      newInteraction.EndTime,
+      'The end time of the interaction must be ' +
+      duration +
+      ' minutes after the start time ' +
+      appointmentDate
+    );
+
+    System.assertEquals(
+      'Test',
+      newInteraction.Description,
+      'Description on the Interaction must match that of the request.'
+    );
+
+    System.assertEquals(
+      'Outbound',
+      newInteraction.Direction__c,
+      'Direction must be "Outbound"'
+    );
+
+    string expectedName = requestReason + ' Appointment';
+    System.assertEquals(
+      expectedName,
+      newInteraction.Name,
+      'Name should match the Request Reason + " Appointment"'
+    );
+  }
+
+  @isTest
   static void testHandleNullAppointmentDate() {
     setup();
     Account testAccount = createTestAccount();
@@ -250,6 +344,7 @@ public with sharing class ContactRequestActionsTest {
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
     request.RequestDescription = 'Test';
+    request.PreferredChannel = 'Call';
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -291,9 +386,11 @@ public with sharing class ContactRequestActionsTest {
     ContactRequest autoRequest = new ContactRequest();
     autoRequest.RequestReason = automatedPurposeName;
     autoRequest.Appointment_date_and_Time__c = DateTime.now();
+    autoRequest.PreferredChannel = 'Call';
     ContactRequest notAutoRequest = new ContactRequest();
     notAutoRequest.RequestReason = nonAutomatedPurposeName;
     notAutoRequest.Appointment_date_and_Time__c = DateTime.now();
+    notAutoRequest.PreferredChannel = 'Call';
 
     List<ContactRequest> requests = new List<ContactRequest>();
     requests.add(autoRequest);
@@ -338,6 +435,7 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = DateTime.now();
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
+    request.PreferredChannel = 'Call';
     insert request;
 
     Map<Id, Id> contactIdAccountIdMap = contactRequestActionHelper.getWhoIdAccountMap(
@@ -407,6 +505,12 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
+      testInteraction.Id,
+      testEvent.WhatId,
+      'Interaction should be mapped with the whatId of the Event'
+    );
+
+    System.assertEquals(
       testInteraction.OwnerId,
       testEvent.OwnerId,
       'Owner Id of Event must match the Interactions'
@@ -416,12 +520,6 @@ public with sharing class ContactRequestActionsTest {
       endDateTime,
       testEvent.EndDateTime,
       'The End Date of the Event must match the Interactions End Date'
-    );
-
-    System.assertEquals(
-      testInteraction.Id,
-      testEvent.WhatId,
-      'The interaction must be set to the creating Interaction'
     );
 
     System.assertEquals(
@@ -438,6 +536,159 @@ public with sharing class ContactRequestActionsTest {
       expectedReminderDate,
       testEvent.ReminderDateTime,
       'Reminder should be 15 minutes before the start time'
+    );
+  }
+
+  @isTest
+  static void testEventCreationForLead() {
+    setup();
+    DateTime appointmentDateTime = DateTime.Now();
+    DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
+
+    Lead testLead = createTestLead();
+
+    List<Event> events = [SELECT Id FROM Event];
+
+    system.assertEquals(0, events.size(), 'No events should be available');
+
+    Interaction testInteraction = new Interaction();
+    testInteraction.Name = otherPurposeName + ' Appointment';
+    testInteraction.Lead__c = testLead.Id;
+    testInteraction.StartTime = appointmentDateTime;
+    testInteraction.EndTime = endDateTime;
+    testInteraction.Interaction_Purpose__c = otherPurposeName;
+    insert testInteraction;
+
+    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
+
+    Event testEvent = contactRequestActionHelper.createEventFromInteraction(
+      testInteraction
+    );
+
+    events = [SELECT Id FROM Event];
+
+    system.assertNotEquals(null, events, 'Events should not be null');
+    system.assertNotEquals(
+      0,
+      events.size(),
+      'At least 1 event must be created'
+    );
+
+    System.assertNotEquals(null, testEvent, 'Must return an Event');
+
+    String expectedName = 'Appointment with Test CR Lead';
+    System.assertEquals(
+      expectedName,
+      testEvent.Subject,
+      'Subject must match the expected Name'
+    );
+
+    System.assertEquals(
+      appointmentDateTime,
+      testEvent.StartDateTime,
+      'Event start time should be the same as the interactions'
+    );
+
+    Id eventWhoId = testEvent.Lead__c;
+    System.assertEquals(
+      testLead.Id,
+      eventWhoId,
+      'The Lead Id should match with the Lead created'
+    );
+
+    System.assertEquals(
+      testInteraction.OwnerId,
+      testEvent.OwnerId,
+      'Owner Id of Event must match the Interactions'
+    );
+
+    System.assertEquals(
+      testInteraction.Id,
+      testEvent.WhatId,
+      'Interaction should be mapped with the whatId of the Event'
+    );
+
+    System.assertEquals(
+      endDateTime,
+      testEvent.EndDateTime,
+      'The End Date of the Event must match the Interactions End Date'
+    );
+  }
+
+  @isTest
+  static void testCreateInteractionSummaryForLead() {
+    setup();
+
+    DateTime appointmentDateTime = DateTime.Now();
+    DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
+
+    Lead testLead = createTestLead();
+
+    List<InteractionSummary> summaries = [SELECT Id FROM InteractionSummary];
+
+    system.assertEquals(
+      0,
+      summaries.size(),
+      'No interaction summary should be available'
+    );
+
+    Interaction testInteraction = new Interaction();
+    testInteraction.Name = otherPurposeName + ' Appointment';
+    testInteraction.Lead__c = testLead.Id;
+    testInteraction.StartTime = appointmentDateTime;
+    testInteraction.EndTime = endDateTime;
+    testInteraction.Interaction_Purpose__c = otherPurposeName;
+    insert testInteraction;
+
+    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
+
+    InteractionSummary testInteractionSummary = contactRequestActionHelper.createInteractionSummaryFromInteraction(
+      testInteraction
+    );
+
+    summaries = [SELECT Id FROM InteractionSummary];
+
+    system.assertNotEquals(null, summaries, 'Summaries should not be null');
+    system.assertNotEquals(
+      0,
+      summaries.size(),
+      'At least 1 summary must be created'
+    );
+
+    System.assertNotEquals(
+      null,
+      testInteractionSummary,
+      'Must return an Interaction Summary'
+    );
+
+    System.assertEquals(
+      otherPurposeName + ' Appointment Summary',
+      testInteractionSummary.Name,
+      'Interaction Summary Name must be the purpose + Appointment Summary'
+    );
+
+    System.assertEquals(
+      'In Progress',
+      testInteractionSummary.Status,
+      'Status must equal In Progress'
+    );
+
+    System.assertEquals(
+      testInteraction.Id,
+      testInteractionSummary.InteractionId,
+      'Interaction must be set on the Interaction Summary'
+    );
+
+    System.assertEquals(
+      testInteraction.OwnerId,
+      testInteractionSummary.OwnerId,
+      'Owner Id must be set on the Interactions OwnerId'
+    );
+
+    System.assertEquals(
+      '',
+      testInteractionSummary.Meeting_Notes__c,
+      'Meeting Notes must be blank'
     );
   }
 
@@ -594,5 +845,26 @@ public with sharing class ContactRequestActionsTest {
     ];
 
     return testAccount;
+  }
+
+  /**
+   * @description helper method to create a test lead record
+   * @return a Lead with name as Test Lead for Contact Request
+   */
+
+  static Lead createTestLead() {
+    Id leadRecordTypeId = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
+      .get('General')
+      .getRecordTypeId();
+
+    Lead testLead = new Lead();
+    testLead.LastName = 'Test CR Lead';
+    testLead.Company = 'Test CR Lead';
+    testLead.RecordTypeId = leadRecordTypeId;
+    insert testLead;
+
+    testLead = [SELECT ID FROM Lead WHERE ID = :testLead.Id];
+
+    return testLead;
   }
 }

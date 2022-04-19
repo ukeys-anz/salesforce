@@ -802,6 +802,8 @@
         "Interaction_Number__c",
         "Interaction_Purpose__c",
         "Interaction_Summary__c",
+        "Channel_Booked__c",
+        "Lead__c",
         "InteractionType",
         "Id",
         "LastModifiedById",
