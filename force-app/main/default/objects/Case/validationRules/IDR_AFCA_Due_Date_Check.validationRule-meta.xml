@@ -9,18 +9,12 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 NOT(ISNEW()),
 ISCHANGED(RecordTypeId),
 NOT(ISBLANK(PRIORVALUE(RecordTypeId))),
-OR(
 ISPICKVAL(Origin,&apos;11&apos;),
-ISPICKVAL(Origin,&apos;Referred from AFCA&apos;)
-),
 OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-OR(
 ISPICKVAL(IDR_AFCA_Status__c,&apos;10&apos;),
-ISPICKVAL(IDR_AFCA_Status__c,&apos;IDR Referral&apos;)
-),
 ISNULL(IDR_AFCA_Due_Date__c)
 )
 </errorConditionFormula>
