@@ -15,7 +15,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>Coach Queue</label>
+    <label>Open Coach Queue</label>
     <queue>Coach_Queue</queue>
     <sharedTo>
         <roleAndSubordinates>ANZx</roleAndSubordinates>
