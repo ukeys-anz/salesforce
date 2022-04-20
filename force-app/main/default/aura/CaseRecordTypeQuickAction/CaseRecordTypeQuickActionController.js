@@ -37,8 +37,8 @@
     $A.get("e.force:closeQuickAction").fire();
     var action = component.get("c.getCaseDetailsById");
     action.setParams({
-      caseid: component.get("v.recordId"),
-      newRecordTypeID: component.get("v.selectedRecordTypeId")
+      caseId: component.get("v.recordId"),
+      newRecordTypeId: component.get("v.selectedRecordTypeId")
     });
     action.setCallback(this, function (response) {
       var state = response.getState();
