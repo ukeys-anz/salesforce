@@ -8,14 +8,6 @@
     <picklistValues>
         <picklist>LeadSource</picklist>
         <values>
-            <fullName>Coach</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Health check</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Marketing</fullName>
             <default>false</default>
         </values>
@@ -24,7 +16,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Money mindset</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
             <default>false</default>
         </values>
         <values>

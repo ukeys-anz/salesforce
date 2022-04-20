@@ -67,9 +67,9 @@
         <label>Masterclass</label>
     </standardValue>
     <standardValue>
-        <fullName>Health check</fullName>
+        <fullName>Money mindset</fullName>
         <default>false</default>
-        <label>Health check</label>
+        <label>Money mindset</label>
     </standardValue>
     <standardValue>
         <fullName>Marketing</fullName>
@@ -77,8 +77,13 @@
         <label>Marketing</label>
     </standardValue>
     <standardValue>
-        <fullName>Coach</fullName>
+        <fullName>Phone</fullName>
         <default>false</default>
-        <label>Coach</label>
+        <label>Phone</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Unknown</fullName>
+        <default>false</default>
+        <label>Unknown</label>
     </standardValue>
 </StandardValueSet>
