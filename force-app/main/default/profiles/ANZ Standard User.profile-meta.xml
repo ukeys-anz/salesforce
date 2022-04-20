@@ -283,7 +283,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>NewCaseFlowWrapperController</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>PermissionChecker</apexClass>
@@ -331,7 +331,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>NewCaseFlowWrapperControllerTest</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ProcessBuilderNoActionTest</apexClass>
