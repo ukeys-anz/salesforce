@@ -17,7 +17,7 @@
         <fullName>Qualified</fullName>
         <default>false</default>
         <label>Qualified</label>
-        <converted>true</converted>
+        <converted>false</converted>
     </standardValue>
     <standardValue>
         <fullName>Unqualified</fullName>
