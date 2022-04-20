@@ -9640,7 +9640,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Lead</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>DefaultOn</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-LightningBoltHome</tab>
