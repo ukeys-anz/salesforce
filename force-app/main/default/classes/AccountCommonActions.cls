@@ -188,14 +188,14 @@ public with sharing class AccountCommonActions {
    */
   public static void findAndConvertLead(List<Account> records) {
     // Find matching leads
-    Map<Id, Lead> matchingLeadByAccIdMap = AccountCommonActionsHelper.findMatchingLeads(
+    Map<Id, List<Lead>> matchingLeadsByAccIdMap = AccountCommonActionsHelper.findMatchingLeads(
       records
     );
 
     // Convert matching leads into accounts
-    if (matchingLeadByAccIdMap.size() > 0) {
+    if (matchingLeadsByAccIdMap.size() > 0) {
       LeadDMLOperator dmlOperator = new LeadDMLOperator();
-      dmlOperator.convertLeads(matchingLeadByAccIdMap);
+      dmlOperator.convertLeads(matchingLeadsByAccIdMap);
     }
   }
 
@@ -225,11 +225,11 @@ public with sharing class AccountCommonActions {
   private without sharing class LeadDMLOperator {
     /**
      * @description convertLeads convert leads into their matching accounts
-     * @param matchingLeadByAccIdMap A map fo leads to be converted and their corresponding account Ids
+     * @param matchingLeadsByAccIdMap A map fo leads to be converted and their corresponding account Ids
      */
     @SuppressWarnings('PMD.ApexCRUDViolation')
-    private void convertLeads(Map<Id, Lead> matchingLeadByAccIdMap) {
-      convertedAccountIds = matchingLeadByAccIdMap.keySet();
+    private void convertLeads(Map<Id, List<Lead>> matchingLeadsByAccIdMap) {
+      convertedAccountIds = matchingLeadsByAccIdMap.keySet();
       List<Database.LeadConvert> converts = new List<Database.LeadConvert>();
       LeadStatus convertedStatus = [
         SELECT MasterLabel
@@ -237,13 +237,15 @@ public with sharing class AccountCommonActions {
         WHERE IsConverted = TRUE
         LIMIT 1
       ];
-      for (String accountId : matchingLeadByAccIdMap.keySet()) {
-        Database.LeadConvert convert = new Database.LeadConvert();
-        convert.setLeadId(matchingLeadByAccIdMap.get(accountId).Id);
-        convert.setAccountId(accountId);
-        convert.setConvertedStatus(convertedStatus.MasterLabel);
-        convert.setDoNotCreateOpportunity(true);
-        converts.add(convert);
+      for (String accountId : matchingLeadsByAccIdMap.keySet()) {
+        for (Lead l : matchingLeadsByAccIdMap.get(accountId)) {
+          Database.LeadConvert convert = new Database.LeadConvert();
+          convert.setLeadId(l.Id);
+          convert.setAccountId(accountId);
+          convert.setConvertedStatus(convertedStatus.MasterLabel);
+          convert.setDoNotCreateOpportunity(true);
+          converts.add(convert);
+        }
       }
       List<Database.LeadConvertResult> lcResults = Database.convertLead(
         converts
