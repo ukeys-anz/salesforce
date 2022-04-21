@@ -295,7 +295,7 @@ private class AccountTriggerHandlerTest {
   }
 
   @isTest
-  private static void testFirstNameLastNameMobilelMatch() {
+  private static void testFirstNameLastNameMobileMatch() {
     Faker faker = new Faker('AU');
     // GIVEN an account with matching firstname, lastname and mobile with an existing lead
     Account testAccount = new Account(
@@ -360,7 +360,7 @@ private class AccountTriggerHandlerTest {
   }
 
   @isTest
-  private static void testFirstNameLastNameEmaillMatch() {
+  private static void testFirstNameLastNameEmailMatch() {
     Faker faker = new Faker('AU');
     // GIVEN an account with matching firstname, lastname and email with an existing lead
     Account testAccount = new Account(

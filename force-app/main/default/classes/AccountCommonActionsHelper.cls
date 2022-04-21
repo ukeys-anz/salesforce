@@ -51,10 +51,10 @@ public with sharing class AccountCommonActionsHelper {
   /**
    * @description findMatchingLeads finds the leads that have matching details with the newly created account
    * @param newRecs The account records from Trigger.new()
-   * @return Map<Id, Lead> A map fo leads to be converted and their corresponding account Ids
+   * @return Map<Id, List<Lead>> A map fo leads to be converted and their corresponding account Ids
    */
   @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ApexCRUDViolation')
-  public static Map<Id, Lead> findMatchingLeads(List<Account> newRecs) {
+  public static Map<Id, List<Lead>> findMatchingLeads(List<Account> newRecs) {
     Map<String, Account> accountByMobileMap = new Map<String, Account>();
     Map<String, Account> accountByEmailMap = new Map<String, Account>();
     for (Account rec : newRecs) {
@@ -62,7 +62,7 @@ public with sharing class AccountCommonActionsHelper {
       accountByEmailMap.put(rec.PersonEmail, rec);
     }
 
-    Map<Id, Lead> matchingLeadByAccIdMap = new Map<Id, Lead>();
+    Map<Id, List<Lead>> matchingLeadsByAccIdMap = new Map<Id, List<Lead>>();
     LeadRetriever lr = new LeadRetriever();
     for (
       Lead l : lr.getPotentialMatchingLeads(
@@ -75,15 +75,25 @@ public with sharing class AccountCommonActionsHelper {
         firstnameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap) ||
         lastnameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap)
       ) {
-        matchingLeadByAccIdMap.put(accountByEmailMap.get(l.Email).Id, l);
+        putLeadsInMapByAccId(
+          l,
+          'Email',
+          matchingLeadsByAccIdMap,
+          accountByEmailMap
+        );
       } else if (
         firstNameLastNameMobileMatch(l, accountByMobileMap, accountByEmailMap)
       ) {
-        matchingLeadByAccIdMap.put(accountByMobileMap.get(l.MobilePhone).Id, l);
+        putLeadsInMapByAccId(
+          l,
+          'MobilePhone',
+          matchingLeadsByAccIdMap,
+          accountByMobileMap
+        );
       }
     }
 
-    return matchingLeadByAccIdMap;
+    return matchingLeadsByAccIdMap;
   }
 
   /**
@@ -180,8 +190,45 @@ public with sharing class AccountCommonActionsHelper {
           RecordTypeId = :GetHelpConstants.LEAD_ANZX_RT_ID
           AND (MobilePhone IN :mobileSet
           OR Email IN :emailSet)
+          AND IsConverted = FALSE
       ];
       return potentialMatchingLeads;
     }
+  }
+
+  /**
+   * @description getLeadsByAccIdMap gets a list of potential matching leads by their corresponding account Id
+   * @param l The lead record to be added to the list
+   * @param leadKeyName Name of the key used to construct the map, can be either Email or MobilePhone
+   * @param matchingLeadsByAccIdMap A map fo leads to be converted and their corresponding account Ids
+   * @param accountByLeadKeyMap A map of accounts and their mobile/email
+   * @return Map<Id, List<Lead>> A map fo leads to be converted and their corresponding account Ids
+   */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
+  private static Map<Id, List<Lead>> putLeadsInMapByAccId(
+    Lead l,
+    String leadKeyName,
+    Map<Id, List<Lead>> matchingLeadsByAccIdMap,
+    Map<String, Account> accountByLeadKeyMap
+  ) {
+    String mapKey = String.valueOf(l.get(leadKeyName));
+    if (
+      // Check if the key (mobile OR email is NOT blank) and if the map already contains this key
+      String.isNotBlank(mapKey) &&
+      matchingLeadsByAccIdMap.keySet()
+        .contains(accountByLeadKeyMap.get(mapKey).Id)
+    ) {
+      // If yes, add the lead to the exist list
+      matchingLeadsByAccIdMap.get(accountByLeadKeyMap.get(mapKey).Id).add(l);
+    } else {
+      // If no, create a new list of leads and put this in the map by the account Id
+      List<Lead> matchingLeads = new List<Lead>();
+      matchingLeads.add(l);
+      matchingLeadsByAccIdMap.put(
+        accountByLeadKeyMap.get(mapKey).Id,
+        matchingLeads
+      );
+    }
+    return matchingLeadsByAccIdMap;
   }
 }
