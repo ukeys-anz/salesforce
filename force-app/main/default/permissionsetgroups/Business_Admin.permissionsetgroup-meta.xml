@@ -34,7 +34,6 @@
     <permissionSets>Release_Author</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
-    <permissionSets>Tableau_CRM_Read_Only</permissionSets>
     <permissionSets>TwilioSF__Twilio_User</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
