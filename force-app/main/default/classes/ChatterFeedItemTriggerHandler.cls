@@ -89,8 +89,10 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
    * @description onBeforeDelete to prevent feeditem to be deleted
    */
   public override void onBeforeDelete() {
-    for (FeedItem record : (List<FeedItem>) records) {
-      record.addError(DELETE_ERROR);
+    if (!FeatureManagement.checkPermission('DeleteChatter')) {
+      for (FeedItem record : (List<FeedItem>) records) {
+        record.addError(DELETE_ERROR);
+      }
     }
   }
   /**

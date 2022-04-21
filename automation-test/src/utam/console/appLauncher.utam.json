@@ -1,0 +1,170 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "appLauncher",
+      "selector": {
+        "css": "div[class*='appLauncher'][role='navigation']"
+      },
+      "type": "clickable",
+      "public": true
+    },
+    {
+      "name": "menu",
+      "selector": {
+        "css": "one-app-launcher-menu"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "searchBar",
+            "selector": {
+              "css": "one-app-launcher-search-bar"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "lightningInput",
+                  "selector": {
+                    "css": "lightning-input"
+                  },
+                  "shadow": {
+                    "elements": [
+                      {
+                        "name": "searchInput",
+                        "selector": {
+                          "css": "input"
+                        },
+                        "type": "editable",
+                        "public": true
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "searchItem",
+            "selector": {
+              "css": "one-app-launcher-menu-item"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "searchItemLink",
+                  "selector": {
+                    "css": "a[role='option']"
+                  },
+                  "type": "clickable",
+                  "public": true
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "currentApp",
+      "selector": {
+        "css": "div[class*='appName'] span"
+      },
+      "public": true
+    }
+  ],
+  "methods": [
+    {
+      "name": "isCurrentApp",
+      "compose": [
+        {
+          "element": "currentApp",
+          "apply": "getText",
+          "matcher": {
+            "type": "stringEquals",
+            "args": [
+              {
+                "name": "appName",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "redirectToApp",
+      "compose": [
+        {
+          "element": "appLauncher",
+          "apply": "click"
+        },
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "searchInput",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "searchInput",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "appName",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "searchItemLink",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "searchItemLink",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

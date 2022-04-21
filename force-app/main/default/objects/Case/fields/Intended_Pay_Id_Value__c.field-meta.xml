@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Details of the PayID eg mobile, ABN/ACN number or email address.</inlineHelpText>
     <label>Intended PayID Details</label>
-    <length>12</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
