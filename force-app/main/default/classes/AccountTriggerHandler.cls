@@ -27,6 +27,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     AccountCommonActions.createEntitlement(records);
+    AccountCommonActions.findAndConvertLead(records);
   }
 
   /**
@@ -35,5 +36,13 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     AccountCommonActions.updateEntitlement(records, oldMap);
+  }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    AccountCommonActions.revertAccountChanges(records, oldMap);
   }
 }

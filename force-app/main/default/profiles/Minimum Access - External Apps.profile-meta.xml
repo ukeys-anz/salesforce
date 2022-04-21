@@ -2478,4 +2478,10 @@
         <enabled>false</enabled>
         <name>ViewSetup</name>
     </userPermissions>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <personAccountDefault>true</personAccountDefault>
+        <recordType>Lead.ANZX_Leads</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
 </Profile>

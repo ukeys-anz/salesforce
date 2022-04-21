@@ -8195,6 +8195,21 @@
     <recordType>Case.Scam</recordType>
   </layoutAssignments>
   <layoutAssignments>
+        <layout>Lead-ANZX Lead Layout</layout>
+        <recordType>Lead.ANZX_Leads</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__RetirementPlanning</recordType>
+    </layoutAssignments>  
+  <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
     <recordType>PersonAccount.PersonAccount</recordType>
   </layoutAssignments>
@@ -9625,7 +9640,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Lead</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>DefaultOn</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-LightningBoltHome</tab>

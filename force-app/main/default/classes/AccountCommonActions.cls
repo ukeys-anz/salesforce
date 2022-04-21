@@ -5,7 +5,11 @@
  * @description Common Account Action methods
  */
 
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class AccountCommonActions {
+  // Variable used to store the account Ids into which matching leads were converted into
+  // This is used to revert the changes on accounts that resulted from lead conversion process
+  private static Set<Id> convertedAccountIds = new Set<Id>();
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()
@@ -176,5 +180,93 @@ public with sharing class AccountCommonActions {
     ent.StartDate = System.today();
 
     return ent;
+  }
+
+  /**
+   * @description findAndConvertLead find leads with matching details and convert them
+   * @param records The Account records passed from Trigger.new()
+   */
+  public static void findAndConvertLead(List<Account> records) {
+    // Find matching leads
+    Map<Id, Lead> matchingLeadByAccIdMap = AccountCommonActionsHelper.findMatchingLeads(
+      records
+    );
+
+    // Convert matching leads into accounts
+    if (matchingLeadByAccIdMap.size() > 0) {
+      LeadDMLOperator dmlOperator = new LeadDMLOperator();
+      dmlOperator.convertLeads(matchingLeadByAccIdMap);
+    }
+  }
+
+  /**
+   * @description revertAccountChanges revert any changes on the account that are not from OCV Integration User
+   * @param records The Account records passed from Trigger.new()
+   * @param oldMap old trigger values
+   */
+  public static void revertAccountChanges(
+    List<Account> records,
+    Map<Id, SObject> oldMap
+  ) {
+    if (convertedAccountIds.size() == 0) {
+      return;
+    }
+    for (Account rec : records) {
+      if (convertedAccountIds.contains(rec.Id)) {
+        Account oldRec = (Account) oldMap.get(rec.Id);
+        AccountCommonActionsHelper.revertAccountFieldChanges(rec, oldRec);
+      }
+    }
+  }
+
+  /**
+   * @description private without sharing class to bypass lead sharing setting in lead conversion process
+   */
+  private without sharing class LeadDMLOperator {
+    /**
+     * @description convertLeads convert leads into their matching accounts
+     * @param matchingLeadByAccIdMap A map fo leads to be converted and their corresponding account Ids
+     */
+    @SuppressWarnings('PMD.ApexCRUDViolation')
+    private void convertLeads(Map<Id, Lead> matchingLeadByAccIdMap) {
+      convertedAccountIds = matchingLeadByAccIdMap.keySet();
+      List<Database.LeadConvert> converts = new List<Database.LeadConvert>();
+      LeadStatus convertedStatus = [
+        SELECT MasterLabel
+        FROM LeadStatus
+        WHERE IsConverted = TRUE
+        LIMIT 1
+      ];
+      for (String accountId : matchingLeadByAccIdMap.keySet()) {
+        Database.LeadConvert convert = new Database.LeadConvert();
+        convert.setLeadId(matchingLeadByAccIdMap.get(accountId).Id);
+        convert.setAccountId(accountId);
+        convert.setConvertedStatus(convertedStatus.MasterLabel);
+        convert.setDoNotCreateOpportunity(true);
+        converts.add(convert);
+      }
+      List<Database.LeadConvertResult> lcResults = Database.convertLead(
+        converts
+      );
+
+      for (Database.LeadConvertResult lcr : lcResults) {
+        if (!lcr.isSuccess()) {
+          lib_systemLog log = new lib_systemLog(
+            'AccountCommonActionsHelper',
+            'covertLeads'
+          );
+          log.info(
+            'Account_Id: ' +
+            lcr.getAccountId() +
+            '; Lead_Id: ' +
+            lcr.getLeadId() +
+            '; Lead Record Type: ANZx' +
+            '; Error_Message: ' +
+            lcr.getErrors()[0].getMessage()
+          );
+          log.publishEvent();
+        }
+      }
+    }
   }
 }
