@@ -40,6 +40,11 @@ public with sharing class FinancialAccountController {
         accountNumbers
       );
 
+      //Check if we have any accounts returned
+      if (result.account_list == null) {
+        return financialAccounts;
+      }
+
       for (FinancialAccountModel.AccountList finAccount : result.account_list) {
         financialAccounts.add(
           new FinServ__FinancialAccount__c(

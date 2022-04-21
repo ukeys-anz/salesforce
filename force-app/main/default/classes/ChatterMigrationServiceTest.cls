@@ -13,11 +13,43 @@ public with sharing class ChatterMigrationServiceTest {
 
   @testSetup
   static void testSetup() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Profile p = CommonUtil.getProfileByName('Minimum Access - External Apps');
+      UserRole role = CommonUtil.getUserRoleByDevName('ANZx');
+
+      User apiUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'OCVUserTest',
+          'ProfileId' => p.Id,
+          'UserRoleId' => role.Id
+        }
+      );
+      insert apiUser;
+
+      // Assign Case related PS on API User
+      List<String> psNames = new List<String>{
+        'Enforce_mTLS',
+        'FinancialServicesCloudStandard',
+        'Read_Write_Customer_Details',
+        'Moderate_Chatter'
+      };
+      List<PermissionSet> psList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :psNames
+      ];
+      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : psList) {
+        psaList.add(TestUtil.createPSAssignment(apiUser.id, ps.Id));
+      }
+      insert psaList;
+    }
+
     Faker faker = new Faker('AU');
 
     // Insert Account (Victim and Survivor) records
     List<String> companyNames = faker.text.realWords(2);
-
     List<Account> accounts = new List<Account>();
 
     accounts.add(
@@ -54,6 +86,21 @@ public with sharing class ChatterMigrationServiceTest {
     posts.add(post2);
 
     insert posts;
+
+    //Insert FeedComments into the above posts
+
+    List<FeedComment> comments = new List<FeedComment>();
+    for (FeedItem createdPost : posts) {
+      comments.add(
+        new FeedComment(
+          CommentBody = 'Testing Comment',
+          FeedItemId = createdPost.Id,
+          CommentType = 'TextComment'
+        )
+      );
+    }
+
+    insert comments;
   }
 
   /* 
@@ -129,43 +176,70 @@ public with sharing class ChatterMigrationServiceTest {
   static void testMigrationAPICall() {
     Test.startTest();
 
-    RestRequest req = new RestRequest();
-    RestResponse res = new RestResponse();
-    req.requestURI = '/services/apexrest/ChatterMigrate'; //Request URL
-    req.httpMethod = 'POST';
+    User usr = TestUtil.getUserByFirstName('OCVUserTest');
 
-    Map<String, String> payload = new Map<String, String>{
-      'victimId' => VICTIM_EXTERNAL_ID,
-      'survivorId' => SURVIVOR_EXTERNAL_ID
-    };
-    req.requestBody = Blob.valueOf(JSON.serialize(payload));
-    RestContext.request = req;
-    RestContext.response = res;
+    System.runAs(usr) {
+      RestRequest req = new RestRequest();
+      RestResponse res = new RestResponse();
+      req.requestURI = '/services/apexrest/ChatterMigrate'; //Request URL
+      req.httpMethod = 'POST';
 
-    System.assertEquals(
-      true,
-      ChatterMigrationServiceController.migrate(),
-      'Expecting the migrate controller to migrate successfully and return true'
-    );
-    System.assert(
-      (RestContext.response.statusCode == 200),
-      'API Response did not return with a Successful 200'
-    );
+      Map<String, String> payload = new Map<String, String>{
+        'victimId' => VICTIM_EXTERNAL_ID,
+        'survivorId' => SURVIVOR_EXTERNAL_ID
+      };
+      req.requestBody = Blob.valueOf(JSON.serialize(payload));
+      RestContext.request = req;
+      RestContext.response = res;
 
-    List<Account> accounts = [
-      SELECT Id
-      FROM Account
-      WHERE OCV_ID__c = :SURVIVOR_OCV
-    ];
-    List<FeedItem> feed = [
-      SELECT Body, BestCommentId, CommentCount, LikeCount, Type
-      FROM FeedItem
-      WHERE ParentId = :accounts[0].Id
-    ];
-    System.assert(
-      (feed.size() == 2),
-      'Expected that the Survivor Account to have 2 feed items in the test'
-    );
+      System.assertEquals(
+        true,
+        ChatterMigrationServiceController.migrate(),
+        'Expecting the migrate controller to migrate successfully and return true - Response Body:' +
+        RestContext.response.responseBody.toString()
+      );
+      System.assert(
+        (RestContext.response.statusCode == 200),
+        'API Response did not return with a Successful 200'
+      );
+
+      SystemModeActions systemAction = new SystemModeActions(
+        'ChatterMigrationServiceTest',
+        'testMigrationAPICall'
+      );
+      List<FeedItem> feedOld = systemAction.query(
+        'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
+        ChatterMigrationService.getAccountIdFromExternalId(VICTIM_EXTERNAL_ID) +
+        '\''
+      );
+
+      List<FeedItem> feedNew = systemAction.query(
+        'SELECT Body, BestCommentId, CommentCount, LikeCount, Type FROM FeedItem WHERE ParentId = \'' +
+        ChatterMigrationService.getAccountIdFromExternalId(
+          SURVIVOR_EXTERNAL_ID
+        ) +
+        '\''
+      );
+
+      List<FeedComment> feedComments = systemAction.query(
+        'SELECT CommentBody, CreatedById, CreatedDate, FeedItemId, CommentType From FeedComment'
+      );
+
+      System.assert(
+        (feedOld.size() == 0),
+        'Expected that the Victim Account to have 0 feed items in the test'
+      );
+
+      System.assert(
+        (feedNew.size() == 2),
+        'Expected that the Survivor Account to have 2 feed items in the test'
+      );
+
+      System.assert(
+        (feedComments.size() == 2),
+        'Expected that the Feed has 2 comments copied over'
+      );
+    }
 
     Test.stopTest();
   }

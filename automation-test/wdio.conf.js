@@ -67,7 +67,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   //specs: ["./build/src/test/*.js"],
-  specs: ["./build/tests/cases.spec.js"],
+  specs: ["./build/tests/cases/*.spec.js", "./build/tests/disputes.spec.js"],
   /*suites: {
     loginUtam: ["./build/src/test/*.js"]
   },*/
@@ -110,7 +110,7 @@ exports.config = {
         // to run chrome headless the following flags are required
         // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
         args: [
-          // "--headless",
+          "--headless",
           "--disable-gpu",
           "--no-sandbox",
           "--disable-infobars",

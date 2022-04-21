@@ -1,0 +1,45 @@
+{
+  "elements": [
+    {
+      "name": "picklistItem",
+      "selector": {
+        "css": "li[class='uiMenuItem uiRadioMenuItem']:nth-of-type(%d)",
+        "args": [
+          {
+            "name": "picklistItemIndex",
+            "type": "number"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    }
+  ],
+  "methods": [
+    {
+      "name": "selectPicklistItem",
+      "compose": [
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "picklistItem",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "picklistItem",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

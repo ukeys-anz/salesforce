@@ -8,20 +8,20 @@ import customerData from "../data/customerData.json";
 describe("Customer Verification", () => {
   it("Customer Information", async () => {
     browser.maximizeWindow();
-    await Auth.loginSalesforce("Coach");
+    await Auth.loginSalesforceAsRole("Coach");
 
     const customerPageRoot = await utam.load(LwcCustomerDetails);
     const navigationShowElement = await customerPageRoot.getNavigationShow();
     await navigationShowElement.click();
 
-    let sfNavigation = new SfNavigation();
+    const sfNavigation = new SfNavigation();
     await sfNavigation.selectNavigation("Accounts");
 
-    let sfAccountView = new SfAccounts();
-    await sfAccountView.selectAccountFilter("All Accounts");
+    const sfAccountView = new SfAccounts();
+    await sfAccountView.selectAccountFilter();
     await sfAccountView.searchAccount(customerData.customers[0].name);
 
-    let sfCustomerDetails = new SfCustomer();
+    const sfCustomerDetails = new SfCustomer();
     await sfCustomerDetails.verifyCustomerAccount();
   });
 });

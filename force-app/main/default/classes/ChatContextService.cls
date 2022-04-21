@@ -132,7 +132,7 @@ global with sharing class ChatContextService {
           // Infer Case Type by Subtype
           populateTypeFromSubtype(
             newCase,
-            requestByOCVId.get(acc.OCV_ID__c).caseSubtype,
+            getSubtypeLowerCase(requestByOCVId.get(acc.OCV_ID__c).caseSubtype),
             acc,
             responseList,
             responseStatusByOCVId
@@ -500,5 +500,22 @@ global with sharing class ChatContextService {
 
     newCase.Sub_Type__c = subtype;
     newCase.Type = picklistDependencies.get(subtype)[0];
+  }
+
+  /**
+   * @description getSubtypeLowerCase validates caseSubtypes in requests regardless of case sensitvity
+   * @param caseSubtype the Subtype received in request to validate
+   * @return subtype the validated Subtype taking into account case sensitivity
+   */
+  private static String getSubtypeLowerCase(String caseSubtype) {
+    Map<String, String> subtypeMap = CommonUtil.getCaseInsensitiveMap(
+      Case.Sub_Type__c
+    );
+    if (String.isNotBlank(subtypeMap.get(caseSubtype.toLowerCase()))) {
+      String validSubtype = subtypeMap.get(caseSubtype.toLowerCase());
+      return validSubtype;
+    } else {
+      return caseSubtype;
+    }
   }
 }

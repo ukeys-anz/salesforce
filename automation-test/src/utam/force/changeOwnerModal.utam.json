@@ -1,0 +1,156 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "modalHeader",
+      "selector": {
+        "css": ".modal-header"
+      }
+    },
+    {
+      "name": "modalBody",
+      "selector": {
+        "css": ".modal-body"
+      },
+      "elements": [
+        {
+          "name": "ownerMenuButton",
+          "selector": {
+            "css": "a.entityMenuTrigger"
+          },
+          "type": "clickable"
+        },
+        {
+          "name": "searchBox",
+          "selector": {
+            "css": "input[title*='Search']"
+          },
+          "type": ["clickable", "editable"]
+        },
+        {
+          "name": "searchResult",
+          "selector": {
+            "css": ".listContent li a div[title='%s']",
+            "args": [
+              {
+                "name": "resultTitle",
+                "type": "string"
+              }
+            ]
+          },
+          "type": "clickable"
+        }
+      ]
+    },
+    {
+      "name": "modalFooter",
+      "selector": {
+        "css": ".modal-footer"
+      },
+      "elements": [
+        {
+          "name": "changeOwnerButton",
+          "selector": {
+            "css": "button[name='change owner']"
+          },
+          "type": "clickable",
+          "public": true
+        }
+      ]
+    },
+    {
+      "name": "ownerMenuList",
+      "selector": {
+        "css": "div.entityMenuList"
+      },
+      "elements": [
+        {
+          "name": "ownerType",
+          "selector": {
+            "css": "a[title='%s']",
+            "args": [
+              {
+                "name": "ownerType",
+                "type": "string"
+              }
+            ]
+          },
+          "type": "clickable",
+          "public": true
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "searchAndSelectNewOwner",
+      "compose": [
+        {
+          "apply": "waitForVisible",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "ownerMenuButton",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "ownerMenuButton",
+          "apply": "click"
+        },
+        {
+          "element": "ownerType",
+          "apply": "click"
+        },
+        {
+          "element": "searchBox",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "searchTerm",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "element": "searchBox",
+          "apply": "click"
+        },
+        {
+          "apply": "waitForVisible",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "searchResult",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "searchResult",
+          "apply": "click"
+        },
+        {
+          "element": "changeOwnerButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

@@ -7,7 +7,7 @@
     "generate-report": "npx allure generate allure-results --clean",
     "build": "yarn build:utam && yarn build:ts",
     "build:ts": "tsc -b tsconfig.json",
-    "build:utam": "utam"
+    "build:utam": "utam && prettier --write ./src/pageObjects/"
   },
   "repository": {
     "type": "git",
@@ -33,16 +33,14 @@
     "@wdio/mocha-framework": "^7.16.15",
     "@wdio/selenium-standalone-service": "^7.7.4",
     "@wdio/spec-reporter": "^7.16.14",
-    "@wdio/sync": "~7.7.6",
     "allure-commandline": "^2.13.8",
     "dotenv": "^16.0.0",
     "eslint": "^7.30.0",
     "expect-webdriverio": "^3.1.0",
     "faker": "^5.5.3",
-    "force": "0.0.3",
     "jsforce": "^1.10.1",
     "mochawesome": "^6.2.2",
-    "prettier": "^2.3.2",
+    "prettier": "^2.2.1",
     "selenium-webdriver": "^4.0.0-beta.4",
     "ts-node": "^10.5.0",
     "tsconfig-paths": "^3.10.1",
