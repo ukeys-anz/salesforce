@@ -58,8 +58,12 @@ public with sharing class AccountCommonActionsHelper {
     Map<String, Account> accountByMobileMap = new Map<String, Account>();
     Map<String, Account> accountByEmailMap = new Map<String, Account>();
     for (Account rec : newRecs) {
-      accountByMobileMap.put(rec.PersonMobilePhone, rec);
-      accountByEmailMap.put(rec.PersonEmail, rec);
+      if (String.isNotBlank(rec.PersonMobilePhone)) {
+        accountByMobileMap.put(rec.PersonMobilePhone, rec);
+      }
+      if (String.isNotBlank(rec.PersonEmail)) {
+        accountByEmailMap.put(rec.PersonEmail, rec);
+      }
     }
 
     Map<Id, List<Lead>> matchingLeadsByAccIdMap = new Map<Id, List<Lead>>();
