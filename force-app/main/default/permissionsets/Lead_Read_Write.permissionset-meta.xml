@@ -101,10 +101,6 @@
         <recordType>Lead.ANZX_Leads</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Lead.FinServ__General</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <tabSettings>
         <tab>standard-Lead</tab>
         <visibility>Visible</visibility>

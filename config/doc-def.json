@@ -251,7 +251,10 @@
       "name": "Qualtrics Integration User",
       "profile": "Integration User (External Apps)",
       "permissionsetgroups": [],
-      "permissionsets": ["Customer_Feedback_Read_Write"],
+      "permissionsets": [
+        "Customer_Feedback_Read_Write",
+        "Lead_Read_Write_Qualtrics_Integration"
+      ],
       "type": "system"
     },
     {
