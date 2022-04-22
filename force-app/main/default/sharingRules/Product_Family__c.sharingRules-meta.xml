@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Share_Product_Family_with_ANZ_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing Product Family records, read only</description>
+        <label>Share Product Family with ANZ Users</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>IDR_Workbasket__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
