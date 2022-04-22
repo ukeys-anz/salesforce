@@ -47,7 +47,7 @@ public with sharing class AccountCommonActions {
           createEntitlement(
             acc.id,
             'Basic Subscription',
-            'anz plus - basic subscription v1',
+            'anz plus - basic subscription',
             'anzPlusBasic'
           )
         );
@@ -95,7 +95,7 @@ public with sharing class AccountCommonActions {
           createEntitlement(
             acc.id,
             'Basic Subscription',
-            'anz plus - basic subscription v1',
+            'anz plus - basic subscription',
             'anzPlusBasic'
           )
         );
@@ -160,7 +160,14 @@ public with sharing class AccountCommonActions {
     if (slaId != null) {
       return slaId;
     } else {
-      SlaProcess sla = [SELECT Id FROM SlaProcess WHERE Name = :processName];
+      SlaProcess sla = [
+        SELECT Id
+        FROM SlaProcess
+        WHERE
+          Name = :processName
+          AND IsVersionDefault = TRUE
+          AND IsActive = TRUE
+      ];
       Cache.Org.put('local.Utility.' + cacheName, sla.Id);
       return (String) sla.Id;
     }
