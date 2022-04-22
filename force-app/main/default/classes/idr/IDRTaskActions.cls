@@ -235,6 +235,14 @@ public without sharing class IDRTaskActions {
         caseIds.add(record.WhatId);
       }
       if (
+        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY10 ||
+        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY1
+      ) {
+        record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
+        record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
+        caseIds.add(record.whatId);
+      }
+      if (
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         (!caseTaskMap.keySet().contains(record.WhatId) ||
         (record.Subject == IDRConstants.TASK_SUBJECT_DAY1))

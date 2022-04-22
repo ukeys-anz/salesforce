@@ -156,7 +156,14 @@ public with sharing class AccountCommonActions {
     if (slaId != null) {
       return slaId;
     } else {
-      SlaProcess sla = [SELECT Id FROM SlaProcess WHERE Name = :processName];
+      SlaProcess sla = [
+        SELECT Id
+        FROM SlaProcess
+        WHERE
+          Name = :processName
+          AND IsActive = TRUE
+          AND IsVersionDefault = TRUE
+      ];
       Cache.Org.put('local.Utility.' + cacheName, sla.Id);
       return (String) sla.Id;
     }
