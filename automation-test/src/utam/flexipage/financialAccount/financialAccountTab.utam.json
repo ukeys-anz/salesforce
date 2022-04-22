@@ -1,0 +1,12 @@
+{
+  "elements": [
+    {
+      "name": "financialAccountParent",
+      "type": "anzx-utam-lwc/pageObjects/lwcFinancialAccountParent",
+      "selector": {
+        "css": "c-financial-account-parent"
+      },
+      "public": true
+    }
+  ]
+}

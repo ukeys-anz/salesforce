@@ -1,5 +1,4 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import CaseCreationForm from "pageObjects/caseCreationForm";
 import Case from "./Case";
 import * as faker from "faker";
 import * as caseUtils from "utils/caseUtils";
@@ -74,43 +73,42 @@ export default class ATM extends Case {
   }
 
   async assignNewOwner(): Promise<void> {
-    console.log("Skip Assign a new owner | This scenario does not need it.");
+    console.log("Skip assignNewOwner | This scenario does not need it.");
   }
 
   async updateRecord(): Promise<void> {
-    console.log("Update a record |  This scenario does not need it.");
+    console.log("Skip updateRecord |  This scenario does not need it.");
   }
 
   async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // External Case ID
-    const externalCaseIdField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [4, 7, 1]
-    );
-    const externalCaseId = `${faker.datatype.string(10)}`;
-    await commonUtils.inputText(externalCaseIdField, externalCaseId);
+      // External Case ID
+      const externalCaseIdField = await commonUtils.getFieldFromRecordLayout(
+        recordLayout,
+        [4, 7, 1]
+      );
+      const externalCaseId = `${faker.datatype.string(10)}`;
+      await commonUtils.inputText(externalCaseIdField, externalCaseId);
 
-    // click button twice to get across page stuck
-    await baseRecordForm.clickFooterButton("Save");
-    await baseRecordForm.clickFooterButton("Save");
+      // click button twice to get across page stuck
+      await baseRecordForm.clickFooterButton("Save");
+      await baseRecordForm.clickFooterButton("Save");
 
-    // Status
-    // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 1, 1], 5);
+      // Status
+      // select Closed status
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [4, 1, 1],
+        5
+      );
 
-    await baseRecordForm.clickFooterButton("Save");
+      await baseRecordForm.clickFooterButton("Save");
 
-    await browser.pause(3000);
+      await browser.pause(3000);
+    }
   }
 }

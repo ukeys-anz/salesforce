@@ -36,13 +36,6 @@ IF (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE) &lt; 14 &amp;&amp; DATEVALUE(NOW(
             <value>START Collection</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ASSIGNED</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>Restart Collections</value>
-        </criteriaItems>
-        <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>

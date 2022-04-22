@@ -1,0 +1,23 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "lightningCard",
+        "selector": {
+          "css": "lightning-card .slds-card__body .slds-grid"
+        },
+        "elements": [
+          {
+            "name": "goals",
+            "type": "anzx-utam-lwc/pageObjects/lwcFinancialGoalsPersonAccountGoalDetails",
+            "selector": {
+              "css": "[data-test-id='goal']",
+              "returnAll": true
+            },
+            "public": true
+          }
+        ]
+      }
+    ]
+  }
+}

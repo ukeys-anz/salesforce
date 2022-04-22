@@ -87,7 +87,7 @@
     {
       "name": "currentApp",
       "selector": {
-        "css": "div[class*='appName'] span"
+        "css": ".appName span"
       },
       "public": true
     }

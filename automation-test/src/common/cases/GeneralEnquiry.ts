@@ -1,14 +1,19 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import CaseCreationForm from "pageObjects/caseCreationForm";
+import CaseCallsTab from "pageObjects/caseCallsTab";
+import CaseNotesTab from "pageObjects/caseNotesTab";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
 import { CaseType, UserRole, Queue } from "constants/enums";
 import { ownerType } from "types/record";
 import Case from "./Case";
+import IChatter from "interfaces/IChatter";
 import caseData from "data/caseData";
 import * as commonUtils from "utils/commonUtils";
 import * as caseUtils from "utils/caseUtils";
+import * as faker from "faker";
 
-export default class GeneralEnquiry extends Case {
+const generalComment = `Automation Test @ ${new Date().toLocaleString()}.`;
+
+export default class GeneralEnquiry extends Case implements IChatter {
   async createRecord(): Promise<void> {
     const caseCreationFormRoot = await utam.load(CaseCreationForm);
     await caseCreationFormRoot.selectCaseRecordType(CaseType.GENERAL_ENQUIRY);
@@ -46,76 +51,100 @@ export default class GeneralEnquiry extends Case {
   }
 
   async assignNewOwner(ownerType?: ownerType): Promise<void> {
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Case Owner
-    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [2, 1, 1]
-    );
+      // Case Owner
+      const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+        recordLayout,
+        [2, 1, 1]
+      );
 
-    switch (this.userRole) {
-      case UserRole.COACH:
-        await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
-        break;
-      case UserRole.FRAUDX_AGENT:
-        await this.assignNewOwnerByFraudXAgent(caseOwnerField);
-        break;
-      default:
-        console.error(
-          "Error: invalid user role when creating ANZx Complaint Case."
-        );
-        process.exit(-1);
+      switch (this.userRole) {
+        case UserRole.COACH:
+          await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
+          break;
+        case UserRole.FRAUDX_AGENT:
+          await this.assignNewOwnerByFraudXAgent(caseOwnerField);
+          break;
+        default:
+          console.error(
+            "Error: invalid user role when creating ANZx Complaint Case."
+          );
+          process.exit(-1);
+      }
     }
   }
 
   async updateRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Priority
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 4, 2],
-      [2, 5]
-    );
-    await baseRecordForm.clickFooterButton("Save");
+      // Priority
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [2, 4, 2],
+        [2, 5]
+      );
+
+      await baseRecordForm.clickFooterButton("Save");
+    }
+  }
+
+  async updateCallDetails(): Promise<void> {
+    const callsTab = await caseUtils.getTabContent("Calls");
+
+    if (callsTab instanceof CaseCallsTab) {
+      const randomCallSID = `CA${faker.finance.account(32)}`;
+      const randomAuthMethodIndex = faker.datatype.number({ min: 2, max: 4 });
+
+      const caseLogACall = await callsTab.getCaseLogACall();
+      await caseLogACall.logACall(randomCallSID, randomAuthMethodIndex);
+      await browser.pause(2000);
+    }
+  }
+
+  async postChatterComment(): Promise<void> {
+    const caseNotesTab = await caseUtils.getTabContent("Case Notes");
+
+    if (caseNotesTab instanceof CaseNotesTab) {
+      const chatterPanel = await caseNotesTab.getChatterPanel();
+      await chatterPanel.postComment(generalComment);
+    }
+  }
+
+  async verifyChatterComment(): Promise<void> {
+    const caseNotesTab = await caseUtils.getTabContent("Case Notes");
+
+    if (caseNotesTab instanceof CaseNotesTab) {
+      const chatterPanel = await caseNotesTab.getChatterPanel();
+      expect(
+        await chatterPanel.latestPostContentEquals(generalComment)
+      ).toEqual(true);
+    }
   }
 
   async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      // get record layout
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Status
-    // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 6);
-    await baseRecordForm.clickFooterButton("Save");
-
-    await browser.pause(3000);
+      // Status
+      // select Closed status
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [2, 3, 2],
+        6
+      );
+      await baseRecordForm.clickFooterButton("Save");
+      await browser.pause(3000);
+    }
   }
 
   async assignNewOwnerByCoach(
@@ -128,7 +157,7 @@ export default class GeneralEnquiry extends Case {
     if (ownerType === "Users") {
       await commonUtils.searchAndSelectNewOwner(
         "Users",
-        caseData.newFraudXAgentOwnerName
+        caseData.newCoachOwnerName
       );
     } else if (ownerType === "Queues") {
       await commonUtils.searchAndSelectNewOwner(
