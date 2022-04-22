@@ -49,11 +49,12 @@ public with sharing class SurveyResponseActionsHelper {
   ) {
     List<Case> casesToCreate = new List<Case>();
     for (qualtrics__Survey_Response__c record : responsesRequireCase) {
-      Case newCase = buildCaseFromSurveyResponse(
-        record,
-        accountsMap.get(record.qualtrics__Account__c)?.PersonContactId
+      casesToCreate.add(
+        buildCaseFromSurveyResponse(
+          record,
+          accountsMap.get(record.qualtrics__Account__c)?.PersonContactId
+        )
       );
-      casesToCreate.add(newCase);
     }
     return casesToCreate;
   }

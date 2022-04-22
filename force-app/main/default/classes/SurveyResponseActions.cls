@@ -38,27 +38,38 @@ public with sharing class SurveyResponseActions {
       ]) {
         ocvIdToAccountIdMap.put(acc.OCV_ID__c, acc.Id);
       }
+      mapSurveyResToAccount(ocvIdToSurveyResponseMap, ocvIdToAccountIdMap);
+    }
+  }
 
-      for (String ocvId : ocvIdToSurveyResponseMap.keySet()) {
-        qualtrics__Survey_Response__c sr = ocvIdToSurveyResponseMap.get(ocvid);
-        if (String.isNotBlank(ocvIdToAccountIdMap.get(ocvId))) {
-          sr.qualtrics__Account__c = ocvIdToAccountIdMap.get(ocvId);
-        } else {
-          sr.addError(INVALID_OCV_ID_ERROR);
-          lib_systemLog log = new lib_systemLog(
-            'SurveyResponseActions',
-            'beforeInsertActions'
-          );
-          log.info(
-            'OCV ID: ' +
-            ocvId +
-            '; Q_SurveyID: ' +
-            sr.qualtrics__Q_SurveyID__c +
-            '; Q_Recipient ID: ' +
-            sr.qualtrics__Q_Recipient_ID__c
-          );
-          log.publishEvent();
-        }
+  /**
+   * @description mapSurveyResToAccount maps Survey Responses to Accounts using OCV ID
+   * @param ocvIdToSurveyResponseMap  A map of OCV ID's to Survey Responses
+   * @param ocvIdToAccountIdMap A map of OCV ID's to Accounts
+   */
+  public static void mapSurveyResToAccount(
+    Map<String, qualtrics__Survey_Response__c> ocvIdToSurveyResponseMap,
+    Map<String, String> ocvIdToAccountIdMap
+  ) {
+    for (String ocvId : ocvIdToSurveyResponseMap.keySet()) {
+      qualtrics__Survey_Response__c sr = ocvIdToSurveyResponseMap.get(ocvid);
+      if (String.isNotBlank(ocvIdToAccountIdMap.get(ocvId))) {
+        sr.qualtrics__Account__c = ocvIdToAccountIdMap.get(ocvId);
+      } else {
+        sr.addError(INVALID_OCV_ID_ERROR);
+        lib_systemLog log = new lib_systemLog(
+          'SurveyResponseActions',
+          'beforeInsertActions'
+        );
+        log.info(
+          'OCV ID: ' +
+          ocvId +
+          '; Q_SurveyID: ' +
+          sr.qualtrics__Q_SurveyID__c +
+          '; Q_Recipient ID: ' +
+          sr.qualtrics__Q_Recipient_ID__c
+        );
+        log.publishEvent();
       }
     }
   }
