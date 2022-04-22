@@ -175,9 +175,11 @@
         "AR_C_Customer__c",
         "Anniversary_Date__c",
         "Anniversary_Duration__c",
+        "Collections__c",
         "Customer_Belongs_To__c",
         "FinServ__KYCStatus__c",
         "FinServ__Status__c",
+        "Hardship__c",
         "Has_Customer_Provided_TFN__c",
         "KYC_Verification_Level__c"
       ],

@@ -1,0 +1,462 @@
+{
+  "dataSourceLinks": [],
+  "filters": [
+    {
+      "dataset": { "name": "FraudX" },
+      "dependent": true,
+      "fields": ["Record.Name"],
+      "label": "Case type",
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "FraudX" },
+      "dependent": true,
+      "fields": ["CreatedDate"],
+      "locked": false,
+      "operator": ">=<="
+    },
+    {
+      "dataset": { "name": "FraudX" },
+      "dependent": true,
+      "fields": ["Fraud_Loss_Reason_Code__c"],
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "FraudX" },
+      "dependent": true,
+      "fields": ["DetectionStatus"],
+      "locked": false,
+      "operator": ">=<="
+    },
+    {
+      "dataset": { "name": "FraudX" },
+      "dependent": true,
+      "fields": ["Origin"],
+      "locked": false,
+      "operator": "in"
+    }
+  ],
+  "gridLayouts": [
+    {
+      "maxWidth": 1440,
+      "name": "Default",
+      "numColumns": 12,
+      "pages": [
+        {
+          "label": "Home",
+          "name": "9d9cb84e-1ae7-4254-ab24-fd583457b57d",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 12,
+              "column": 0,
+              "name": "table_1",
+              "row": 10,
+              "rowspan": 54,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 2,
+              "column": 0,
+              "name": "filterpanel_1",
+              "row": 2,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 2,
+              "name": "filterpanel_2",
+              "row": 2,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 4,
+              "name": "filterpanel_3",
+              "row": 2,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 12,
+              "column": 0,
+              "name": "container_1",
+              "row": 1,
+              "rowspan": 8,
+              "widgetStyle": {
+                "backgroundColor": "#335779",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "filterpanel_5",
+              "row": 2,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 8,
+              "name": "filterpanel_6",
+              "row": 2,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "fine",
+      "selectors": [],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#F2F6FA",
+        "cellSpacingX": 16,
+        "cellSpacingY": 0,
+        "fit": "original",
+        "gutterColor": "#C5D3E0"
+      },
+      "version": 1.0
+    }
+  ],
+  "layouts": [],
+  "steps": {
+    "all_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "FraudX" }],
+      "isGlobal": false,
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = foreach q generate 'CaseNumber' as 'Case Number', \n'Record.Name' as 'Case Type',\n'CreatedDate' as 'Case Created Date', \n'Account.OCV_ID__c' as 'OCV ID', \n'Type' as 'Compromise Type',\n(case 'Origin'\n      when \"Falcon\" then 1    \n      when \"Fraud Staff\" then 1 \n      else 0\nend) as 'Detection Status',\n'Origin' as 'Detection Method',  \n'Fraud_Total_Scam_Value__c' as 'Total Scam Value', \n'Fraud_Total_Fraud_Value__c' as 'Total Fraud Value', \n'Fraud_Total_Falcon_Recalled__c' as 'Total Falcon Recalled', \n'Fraud_Total_Recovered__c' as 'Total Recovered', \n'Fraud_Total_Customer_Loss__c' as 'Total Customer Loss', \n'Fraud_Total_Customer_Exposure__c' as 'Total Customer Exposure', \n'Fraud_Total_Fraud_Received__c' as 'Total Fraud Received', \n'Fraud_Total_Recipient_Loss__c' as 'Total Recipient Loss', \n'Fraud_Loss_Reason_Code__c' as 'Loss Reason Code',\n'Fraud_Summary_of_Events__c' as 'Summary of Event', \n'ClosedDate' as 'Case Closed Date';\nq = filter q by 'Case Type' in [\"Fraud\",\"Scam\",\"Recipient/Mule\"];\nq = order q by 'Case Created Date' desc;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    }
+  },
+  "widgetStyle": {
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#E6ECF2",
+    "borderEdges": [],
+    "borderRadius": 0,
+    "borderWidth": 1
+  },
+  "widgets": {
+    "table_1": {
+      "parameters": {
+        "borderColor": "#e0e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#f4f6f9",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a8b7c7",
+        "innerMinorBorderColor": "#e0e5ee",
+        "maxColumnWidth": 300,
+        "minColumnWidth": 40,
+        "mode": "variable",
+        "numberOfLines": 1,
+        "showActionMenu": true,
+        "step": "lens_1",
+        "verticalPadding": 8
+      },
+      "type": "table"
+    },
+    "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "filterpanel_6": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [{ "dataset": { "name": "FraudX" }, "field": "Origin" }],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_5": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          { "dataset": { "name": "FraudX" }, "field": "DetectionStatus" }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_3": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "FraudX" },
+            "field": "Fraud_Loss_Reason_Code__c"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_2": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          { "dataset": { "name": "FraudX" }, "field": "CreatedDate" }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_1": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          { "dataset": { "name": "FraudX" }, "field": "Record.Name" }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    }
+  }
+}
