@@ -159,7 +159,10 @@ public with sharing class AccountCommonActions {
       SlaProcess sla = [
         SELECT Id
         FROM SlaProcess
-        WHERE Name = :processName AND IsVersionDefault = TRUE
+        WHERE
+          Name = :processName
+          AND IsVersionDefault = TRUE
+          AND IsActive = TRUE
       ];
       Cache.Org.put('local.Utility.' + cacheName, sla.Id);
       return (String) sla.Id;

@@ -2,11 +2,6 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Read/write to Customer Feedback record types and read only Accounts UUID field.</description>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.UUID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Case.AccountId</field>
         <readable>true</readable>
