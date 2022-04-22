@@ -643,7 +643,6 @@
         "Appointment_Commitment__c",
         "Appointment_date_and_Time__c",
         "Channel_Booked__c",
-        "Escalated__c",
         "Interaction__c",
         "OwnerId",
         "RequestDescription",
@@ -798,6 +797,7 @@
         "Description",
         "Direction__c",
         "EndTime",
+        "Escalated__c"
         "Event_Id__c",
         "Interaction_Number__c",
         "Interaction_Purpose__c",

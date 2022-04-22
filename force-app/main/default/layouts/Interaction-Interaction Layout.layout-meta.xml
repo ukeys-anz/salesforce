@@ -33,6 +33,10 @@
                 <behavior>Edit</behavior>
                 <field>InteractionType</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Escalated__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

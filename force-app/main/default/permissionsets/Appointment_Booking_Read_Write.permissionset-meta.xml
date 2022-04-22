@@ -52,11 +52,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>ContactRequest.Escalated__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>ContactRequest.Interaction__c</field>
         <readable>true</readable>
@@ -89,6 +84,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.EndTime</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Escalated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
