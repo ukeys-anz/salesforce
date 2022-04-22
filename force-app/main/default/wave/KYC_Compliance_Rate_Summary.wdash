@@ -276,7 +276,7 @@
               "rowspan": 4,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
-                "borderColor": "#091A3E",
+                "borderColor": "#FFFFFF",
                 "borderEdges": ["all"],
                 "borderRadius": 8,
                 "borderWidth": 1
@@ -631,7 +631,7 @@
       "groups": [],
       "label": "Defects Resolved  (All)",
       "numbers": [],
-      "query": "q = load \"KYC_QA\";\nq = filter q by Fraud_Defects_Rectified__c == \"Yes\" and IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "query": "q = load \"KYC_QA\";\nq = filter q by date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_day_epoch') in [..\"1 month ago\"];\nq = filter q by Fraud_Defects_Rectified__c == \"Yes\" and IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -684,6 +684,11 @@
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
           },
           "showActionMenu": true,
           "measureAxis2": {
@@ -913,7 +918,7 @@
       "groups": [],
       "label": "Referred for Exit",
       "numbers": [],
-      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"true\" and Fraud_Defects_Rectified__c == \"Referred for Exit\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "query": "q = load \"KYC_QA\";\nq = filter q by date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_day_epoch') in [..\"1 month ago\"];\nq = filter q by IsClosed == \"true\" and Fraud_Defects_Rectified__c == \"Referred for Exit\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1188,7 +1193,7 @@
       "groups": [],
       "label": "Restraints (All)",
       "numbers": [],
-      "query": "q = load \"KYC_QA\";\nq = filter q by Fraud_Restraint_Status__c != \"N/A\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "query": "q = load \"KYC_QA\";\nq = filter q by date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_day_epoch') in [..\"1 month ago\"];\nq = filter q by Fraud_Restraint_Status__c != \"N/A\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1373,7 +1378,7 @@
       "groups": [],
       "label": "Test in Progress (All)",
       "numbers": [],
-      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"false\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "query": "q = load \"KYC_QA\";\nq = filter q by date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_day_epoch') in [..\"1 month ago\"];\nq = filter q by IsClosed == \"false\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1463,12 +1468,12 @@
       "groups": [],
       "label": "Test in Progress (Month)",
       "numbers": [],
-      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"false\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
+      "query": "q = load \"KYC_QA\";\nq = filter q by CreatedDate_Month == \"{{cell(Min_Date_Time_1.result, 0, \"Month_Number\").asString()}}\" and CreatedDate_Year == \"{{cell(Min_Date_Time_1.result, 0, \"Year\").asString()}}\" ;\nq = filter q by IsClosed == \"false\";\nq = group q by all;\nq = foreach q generate count() as 'count';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
       "type": "saql",
-      "useGlobal": true,
+      "useGlobal": false,
       "visualizationParameters": {
         "parameters": {
           "autoFitMode": "keepLabels",
@@ -1558,7 +1563,7 @@
       "groups": [],
       "label": "Tests Complete (All)",
       "numbers": [],
-      "query": "q = load \"KYC_QA\";\nq = filter q by IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count",
+      "query": "q = load \"KYC_QA\";\nq = filter q by date('CreatedDate_Year', 'CreatedDate_Month', 'CreatedDate_day_epoch') in [..\"1 month ago\"];\nq = filter q by IsClosed == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'count",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1611,11 +1616,6 @@
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
-          },
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": [],
-            "plots": ["count"]
           },
           "showActionMenu": true,
           "measureAxis2": {
@@ -2045,7 +2045,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "Customer_Population_11",
@@ -2063,7 +2063,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "Customer_Population_10",
@@ -2081,7 +2081,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "Customer_Population_9",
@@ -2099,7 +2099,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "Customer_Population_6",
@@ -2117,7 +2117,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
@@ -2127,7 +2127,7 @@
         "exploreLink": true,
         "measureField": "Count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 24,
         "showActionMenu": true,
         "step": "Customer_Population_3",
@@ -2145,7 +2145,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "Customer_Population_5",
@@ -2163,7 +2163,7 @@
         "exploreLink": false,
         "measureField": "c",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "Customer_Population_4",
@@ -2183,7 +2183,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
@@ -2193,7 +2193,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "lens_6",
@@ -2220,7 +2220,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
@@ -2270,7 +2270,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
@@ -2288,7 +2288,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
@@ -2480,7 +2480,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
@@ -2490,7 +2490,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
@@ -2509,7 +2509,7 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E",
+        "textColor": "#FFFFFF",
         "tooltip": "Compliance Rate"
       },
       "type": "text"
@@ -2520,15 +2520,15 @@
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
-        "textColor": "#091A3E"
+        "textColor": "#FFFFFF"
       },
       "type": "text"
     },
     "filterpanel_1": {
       "parameters": {
         "filterItemOptions": {
-          "propertyColor": "#091A3E",
-          "valueColor": "#091A3E"
+          "propertyColor": "#FFFFFF",
+          "valueColor": "#FFFFFF"
         },
         "filters": [{ "dataset": { "name": "KYC_QA" }, "field": "ClosedDate" }],
         "showAllFilters": false
@@ -2541,7 +2541,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "lens_5",
@@ -2591,7 +2591,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "lens_4",
@@ -2609,7 +2609,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "lens_3",
@@ -2627,7 +2627,7 @@
         "exploreLink": false,
         "measureField": "count",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": false,
         "step": "lens_2",
@@ -2645,13 +2645,13 @@
         "exploreLink": true,
         "measureField": "c",
         "noResultsLabel": "0",
-        "numberColor": "#091A3E",
+        "numberColor": "#FFFFFF",
         "numberSize": 20,
         "showActionMenu": true,
         "step": "lens_1",
         "textAlignment": "left",
         "title": "Tests Initiated",
-        "titleColor": "#091A3E",
+        "titleColor": "#FFFFFF",
         "titleSize": 16,
         "tooltip": { "customizeTooltip": false }
       },

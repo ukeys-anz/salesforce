@@ -1,0 +1,14 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "financialGoals",
+        "type": "anzx-utam-lwc/pageObjects/lwcFinancialGoalsPersonAccount",
+        "selector": {
+          "css": "c-financial-goals-person-account"
+        },
+        "public": true
+      }
+    ]
+  }
+}

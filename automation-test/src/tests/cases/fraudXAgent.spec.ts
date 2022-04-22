@@ -27,7 +27,7 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     const kycQaCase = new KYCQA(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a KYC QA Case", async (): Promise<void> => {
@@ -51,7 +51,7 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     const recipientMuleCase = new RecipientMule(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a Recipient/Mule Case", async (): Promise<void> => {
@@ -75,7 +75,7 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     const fraudCase = new Fraud(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a Fraud Case", async (): Promise<void> => {
@@ -99,7 +99,7 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     const anzxComplaintCase = new ANZXComplaint(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a ANZx Complaint Case", async (): Promise<void> => {
@@ -123,7 +123,7 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     const generalEnquiryCase = new GeneralEnquiry(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a General Enquiry Case", async (): Promise<void> => {
@@ -147,7 +147,7 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     const identityCase = new Identity(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create an Identity Case", async (): Promise<void> => {
@@ -171,7 +171,7 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     const scamCase = new Scam(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a Scam Case", async (): Promise<void> => {

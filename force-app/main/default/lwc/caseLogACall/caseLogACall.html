@@ -13,6 +13,7 @@
             <div if:false={showMore}>
               <button
                 class="slds-button slds-button_neutral slds-button_stretch button-padding"
+                data-test-id="log-call-button"
                 onclick={openLWC}
               >
                 Add your Call
@@ -56,6 +57,7 @@
               variant="label-hidden"
               max-length="34"
               message-when-too-long={fieldErrorMessages.voiceCall}
+              data-test-id="voice-call-sid"
             ></lightning-input>
             <p if:true={errorString.voiceCall} class="error-text">
               {errorString.voiceCall}
@@ -77,6 +79,7 @@
               data-field="auth"
               value={fields.auth}
               variant="label-hidden"
+              data-test-id="authentication-method"
             >
             </lightning-combobox>
             <p if:true={errorString.auth} class="error-text">
@@ -112,7 +115,9 @@
               variant="brand"
               label="Save"
               onclick={handleSaveTask}
-            ></lightning-button>
+              data-test-id="save-button"
+            >
+            </lightning-button>
           </div>
           <!-- / Container inner -->
         </div>
