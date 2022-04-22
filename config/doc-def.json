@@ -23,6 +23,7 @@
     "Privileged_Access_Request__c",
     "Product2",
     "Quality_Assessment__c",
+    "qualtrics__Survey_Response__c",
     "Release__c",
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
