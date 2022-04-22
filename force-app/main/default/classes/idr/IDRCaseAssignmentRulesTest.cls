@@ -8,19 +8,31 @@
 private with sharing class IDRCaseAssignmentRulesTest {
   @TestSetup
   static void makeData() {
-    Schema.DescribeFieldResult productWorkbasketList = Product2.IDR_Workbasket__c.getDescribe();
+    Schema.DescribeFieldResult productWorkbasketList = Product_Family__c.IDR_Workbasket__c.getDescribe();
     List<Schema.PicklistEntry> workbasketPicklistValues = productWorkbasketList.getPicklistValues();
+    list<Product_Family__c> pfList = new List<Product_Family__c>();
+    Integer productNumber = 1;
+    for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
+      pfList.add(
+        new Product_Family__c(
+          Name = 'Product Family' + productNumber,
+          IDR_Workbasket__c = workbasket.getValue()
+        )
+      );
+      productNumber++;
+    }
+    insert pfList;
 
     List<Product2> products = new List<Product2>();
-    Integer productNumber = 1;
+    productNumber = 1;
 
-    for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
+    for (Product_Family__c pf : pfList) {
       products.add(
         new Product2(
           Name = 'Test Product ' + productNumber,
           RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
           isActive = true,
-          IDR_Workbasket__c = workbasket.getValue()
+          IDR_Product_Family__c = pf.Id
         )
       );
       productNumber++;
@@ -66,12 +78,25 @@ private with sharing class IDRCaseAssignmentRulesTest {
           AND Type = :IDRCaseActions.QUEUE_TYPE
       ]
     );
-    cases = [SELECT Id, Product__r.IDR_Workbasket__c, Owner.Name FROM Case];
+    cases = [
+      SELECT
+        Id,
+        Product__r.IDR_Product_Family__c,
+        IDR_Product_Family__c,
+        IDR_Product_Family__r.IDR_Workbasket__c,
+        Owner.Name
+      FROM Case
+    ];
     for (case c : cases) {
       System.assertEquals(
-        c.Product__r.IDR_Workbasket__c,
+        c.Product__r.IDR_Product_Family__c,
+        c.IDR_Product_Family__c,
+        'Case Product Family Should align with selected product'
+      );
+      System.assertEquals(
+        c.IDR_Product_Family__r.IDR_Workbasket__c,
         queueNameById.get(c.OwnerId).DeveloperName,
-        'Case Should be assigned to the workbasket defined at the Product'
+        'Case Should be assigned to the workbasket defined for the Product'
       );
     }
   }
