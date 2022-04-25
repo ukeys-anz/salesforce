@@ -106,9 +106,4 @@
         <default>false</default>
         <label>Source - ANZ Plus Website</label>
     </standardValue>
-    <standardValue>
-        <fullName>Source_Qualtrics</fullName>
-        <default>false</default>
-        <label>Source - Qualtrics</label>
-    </standardValue>
 </StandardValueSet>
