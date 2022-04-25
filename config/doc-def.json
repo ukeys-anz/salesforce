@@ -255,7 +255,8 @@
       "permissionsets": [
         "Lead_Read_Write_Qualtrics_Integration"
         "Case_Read_Write_Qualtrics_Integration",
-        "Customer_Feedback_Read_Write"
+        "Customer_Feedback_Read_Write",
+        "Lead_Read_Write_Qualtrics_Integration"
       ],
       "type": "system"
     },
