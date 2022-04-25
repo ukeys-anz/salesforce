@@ -253,6 +253,7 @@
       "profile": "Integration User (External Apps)",
       "permissionsetgroups": [],
       "permissionsets": [
+        "Lead_Read_Write_Qualtrics_Integration"
         "Case_Read_Write_Qualtrics_Integration",
         "Customer_Feedback_Read_Write",
         "Lead_Read_Write_Qualtrics_Integration"
