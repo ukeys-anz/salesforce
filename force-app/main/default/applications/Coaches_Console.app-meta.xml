@@ -99,6 +99,8 @@
     <tabs>Knowledge__kav</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
+    <tabs>Customer_Feedback__c</tabs>
+    <tabs>standard-Lead</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -114,6 +116,9 @@
         </mappings>
         <mappings>
             <tab>standard-Dashboard</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Lead</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>

@@ -56,4 +56,34 @@
         <default>false</default>
         <label>Other</label>
     </standardValue>
+    <standardValue>
+        <fullName>Store</fullName>
+        <default>false</default>
+        <label>Store</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Masterclass</fullName>
+        <default>false</default>
+        <label>Masterclass</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Money mindset</fullName>
+        <default>false</default>
+        <label>Money mindset</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Marketing</fullName>
+        <default>false</default>
+        <label>Marketing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Phone</fullName>
+        <default>false</default>
+        <label>Phone</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Unknown</fullName>
+        <default>false</default>
+        <label>Unknown</label>
+    </standardValue>
 </StandardValueSet>
