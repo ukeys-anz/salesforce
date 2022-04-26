@@ -4,7 +4,7 @@
     <active>true</active>
     <businessHours>Case Business Hours</businessHours>
     <description>entitlement process that supports complaints case with appropriate timers and escalates the case on voliation</description>
-    <entryStartDateField>Case.IDR_EntitlementStartDate__c</entryStartDateField>
+    <entryStartDateField>Case.IDR_Date_Received__c</entryStartDateField>
     <exitCriteriaFilterItems>
         <field>Case.IsClosed</field>
         <operation>equals</operation>
@@ -59,14 +59,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Escalate_The_Case</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>EscalationtoRed</name>
                 <type>FieldUpdate</type>
             </actions>
@@ -80,6 +72,14 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             </actions>
             <timeLength>-2</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Escalate_The_Case</name>
+                <type>FieldUpdate</type>
+            </actions>
+            <timeLength>0</timeLength>
+            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
@@ -130,18 +130,18 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <minutesToComplete>43200</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Maximum_IDR_timeframe_5days_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-5</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Maximum_IDR_Time_1day_Reminder</name>
                 <type>Task</type>
             </actions>
             <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_timeframe_5days_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-5</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
@@ -238,24 +238,24 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <minutesToComplete>30240</minutesToComplete>
         <timeTriggers>
             <actions>
-                <name>Maximum_IDR_Time_1day_Reminder</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-1</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
                 <name>Maximum_IDR_timeframe_5days_Reminder</name>
                 <type>Task</type>
             </actions>
             <timeLength>-5</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>Maximum_IDR_Time_1day_Reminder</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>Default</businessHours>
+        <businessHours>No Holidays</businessHours>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -264,23 +264,15 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <milestoneCriteriaFilterItems>
             <field>Case.IDR_AFCA_Status__c</field>
             <operation>notEqual</operation>
-            <value></value>
+            <value> </value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.IDR_AFCA_Due_Date__c</field>
             <operation>notEqual</operation>
-            <value></value>
+            <value> </value>
         </milestoneCriteriaFilterItems>
         <milestoneName>AFCA Response Due</milestoneName>
-        <minutesToComplete>525600</minutesToComplete>
-        <timeTriggers>
-            <actions>
-                <name>AFCA_Response_is_due_in_10_days</name>
-                <type>Task</type>
-            </actions>
-            <timeLength>-10</timeLength>
-            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
-        </timeTriggers>
+        <minutesCustomClass>AFCAMilestoneTimeCalculator</minutesCustomClass>
         <timeTriggers>
             <actions>
                 <name>AFCA_Response_is_due_in_1_day</name>
@@ -289,9 +281,17 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <timeLength>-1</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>AFCA_Response_is_due_in_10_days</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-10</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <name>complaints</name>
     <versionMaster>5522N000000AfXe</versionMaster>
-    <versionNumber>1</versionNumber>
+    <versionNumber>2</versionNumber>
 </EntitlementProcess>
