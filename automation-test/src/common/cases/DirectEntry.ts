@@ -1,9 +1,9 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import CaseCreationForm from "pageObjects/caseCreationForm";
 import Case from "./Case";
 import * as faker from "faker";
 import * as caseUtils from "utils/caseUtils";
 import * as commonUtils from "utils/commonUtils";
+import caseData from "data/caseData";
 
 export default class DirectEntry extends Case {
   async createRecord(): Promise<void> {
@@ -30,6 +30,15 @@ export default class DirectEntry extends Case {
       1
     );
 
+    // Intended Account BSB
+    await caseCreationFormRoot.editText(6, 1, 1, caseData.bsb);
+
+    // Intended Account Number
+    await caseCreationFormRoot.editText(6, 2, 1, caseData.checkAccountNumber);
+
+    // Intended Account Name
+    await caseCreationFormRoot.editText(6, 3, 1, caseData.accountName);
+
     // Channel Received
     await caseUtils.selectPicklistOnCreationForm(
       caseCreationFormRoot,
@@ -53,43 +62,42 @@ export default class DirectEntry extends Case {
   }
 
   async assignNewOwner(): Promise<void> {
-    console.log("Skip Assign a new owner | This scenario does not need it.");
+    console.log("Skip assignNewOwner | This scenario does not need it.");
   }
 
   async updateRecord(): Promise<void> {
-    console.log("Update a record |  This scenario does not need it.");
+    console.log("Skip updateRecord |  This scenario does not need it.");
   }
 
   async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // External Case ID
-    const externalCaseIdField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [7, 7, 1]
-    );
-    const externalCaseId = `${faker.datatype.string(10)}`;
-    await commonUtils.inputText(externalCaseIdField, externalCaseId);
+      // External Case ID
+      const externalCaseIdField = await commonUtils.getFieldFromRecordLayout(
+        recordLayout,
+        [7, 7, 1]
+      );
+      const externalCaseId = `${faker.datatype.string(10)}`;
+      await commonUtils.inputText(externalCaseIdField, externalCaseId);
 
-    // click button twice to get across page stuck
-    await baseRecordForm.clickFooterButton("Save");
-    await baseRecordForm.clickFooterButton("Save");
+      // click button twice to get across page stuck
+      await baseRecordForm.clickFooterButton("Save");
+      await baseRecordForm.clickFooterButton("Save");
 
-    // Status
-    // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [7, 1, 1], 5);
+      // Status
+      // select Closed status
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [7, 1, 1],
+        5
+      );
 
-    await baseRecordForm.clickFooterButton("Save");
+      await baseRecordForm.clickFooterButton("Save");
 
-    await browser.pause(3000);
+      await browser.pause(3000);
+    }
   }
 }

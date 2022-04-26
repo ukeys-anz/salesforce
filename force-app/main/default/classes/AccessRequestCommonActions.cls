@@ -74,6 +74,11 @@ public without sharing class AccessRequestCommonActions {
   @SuppressWarnings('PMD.OperationWithLimitsInLoop')
   public static void checkIfRecordsOverlap(List<Access_Request__c> records) {
     for (Access_Request__c record : records) {
+      //If the record is being rejected we can ignore checking if this record overlaps
+      if (record.Status__c == 'Rejected') {
+        continue;
+      }
+
       if (Schema.sObjectType.Privileged_Access_Request__c.isQueryable()) {
         //Create a dummy PAR
         List<Id> requesterIdList = new List<Id>();

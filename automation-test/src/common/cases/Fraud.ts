@@ -1,5 +1,4 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import CaseCreationForm from "pageObjects/caseCreationForm";
 import { CaseType } from "constants/enums";
 import Case from "./Case";
 import caseData from "data/caseData";
@@ -45,73 +44,63 @@ export default class Fraud extends Case {
   }
 
   async assignNewOwner(): Promise<void> {
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Case Owner
-    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [2, 6, 2]
-    );
+      // Case Owner
+      const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+        recordLayout,
+        [2, 6, 2]
+      );
 
-    // click change owner button
-    await caseOwnerField.clickChangeOwnerButton();
-    await commonUtils.searchAndSelectNewOwner(
-      "Users",
-      caseData.newFraudXAgentOwnerName
-    );
+      // click change owner button
+      await caseOwnerField.clickChangeOwnerButton();
+      await commonUtils.searchAndSelectNewOwner(
+        "Users",
+        caseData.newFraudXAgentOwnerName
+      );
+    }
   }
 
   async updateRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Chat Topic ID
-    const chatTopicField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [2, 3, 2]
-    );
+      // Chat Topic ID
+      const chatTopicField = await commonUtils.getFieldFromRecordLayout(
+        recordLayout,
+        [2, 3, 2]
+      );
 
-    // set random stirng as value
-    const chatTopicId = `CH${faker.datatype.string(32)}`;
-    await commonUtils.inputText(chatTopicField, chatTopicId);
+      // set random stirng as value
+      const chatTopicId = `CH${faker.datatype.string(32)}`;
+      await commonUtils.inputText(chatTopicField, chatTopicId);
 
-    // click save button
-    await baseRecordForm.clickFooterButton("Save");
+      // click save button
+      await baseRecordForm.clickFooterButton("Save");
+    }
   }
 
   async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+    const baseRecordForm = await caseUtils.getRecordForm();
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    if (baseRecordForm) {
+      const recordLayout = await baseRecordForm.getRecordLayout();
 
-    // Status
-    // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 2], 4);
-    await baseRecordForm.clickFooterButton("Save");
+      // Status
+      // select Closed status
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [2, 4, 2],
+        4
+      );
+      await baseRecordForm.clickFooterButton("Save");
 
-    await browser.pause(3000);
+      await browser.pause(3000);
+    }
   }
 }
