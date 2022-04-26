@@ -81,7 +81,6 @@ public with sharing class AccountCommonActionsHelper {
       ) {
         putLeadsInMapByAccId(
           l,
-          'Email',
           matchingLeadsByAccIdMap,
           accountByEmailMap.get(l.Email)
         );
@@ -90,7 +89,6 @@ public with sharing class AccountCommonActionsHelper {
       ) {
         putLeadsInMapByAccId(
           l,
-          'MobilePhone',
           matchingLeadsByAccIdMap,
           accountByMobileMap.get(l.MobilePhone)
         );
@@ -203,7 +201,6 @@ public with sharing class AccountCommonActionsHelper {
   /**
    * @description getLeadsByAccIdMap gets a list of potential matching leads by their corresponding account Id
    * @param l The lead record to be added to the list
-   * @param leadKeyName Name of the key used to construct the map, can be either Email or MobilePhone
    * @param matchingLeadsByAccIdMap A map of leads to be converted and their corresponding account Ids
    * @param account Account record matching the lead
    * @return Map<Id, List<Lead>> A map of leads to be converted and their corresponding account Ids
@@ -211,14 +208,11 @@ public with sharing class AccountCommonActionsHelper {
   @SuppressWarnings('PMD.ExcessiveParameterList')
   private static Map<Id, List<Lead>> putLeadsInMapByAccId(
     Lead l,
-    String leadKeyName,
     Map<Id, List<Lead>> matchingLeadsByAccIdMap,
     Account account
   ) {
-    String mapKey = String.valueOf(l.get(leadKeyName));
     if (
-      // Check if the key (mobile OR email is NOT blank) and if the map already contains this key
-      String.isNotBlank(mapKey) &&
+      // Check if the map already contains this key
       matchingLeadsByAccIdMap.containsKey(account.Id)
     ) {
       // If yes, add the lead to the exist list
