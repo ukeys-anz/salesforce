@@ -219,8 +219,7 @@ public with sharing class AccountCommonActionsHelper {
     if (
       // Check if the key (mobile OR email is NOT blank) and if the map already contains this key
       String.isNotBlank(mapKey) &&
-      matchingLeadsByAccIdMap.keySet()
-        .contains(accountByLeadKeyMap.get(mapKey).Id)
+      matchingLeadsByAccIdMap.containsKey(accountByLeadKeyMap.get(mapKey).Id)
     ) {
       // If yes, add the lead to the exist list
       matchingLeadsByAccIdMap.get(accountByLeadKeyMap.get(mapKey).Id).add(l);
