@@ -76,8 +76,8 @@ public with sharing class AccountCommonActionsHelper {
     ) {
       if (
         firstNameLastNameEmailMatch(l, accountByMobileMap, accountByEmailMap) ||
-        firstnameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap) ||
-        lastnameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap)
+        firstNameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap) ||
+        lastNameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap)
       ) {
         putLeadsInMapByAccId(
           l,
@@ -101,13 +101,13 @@ public with sharing class AccountCommonActionsHelper {
   }
 
   /**
-   * @description firstnameMobileEmailMatch checks if a lead's firstname, mobile, email matches those of an account
+   * @description firstNameMobileEmailMatch checks if a lead's firstname, mobile, email matches those of an account
    * @param l A lead record
    * @param accountByMobileMap A map of accounts and their mobile numbers
    * @param accountByEmailMap A map of accounts and their emails
    * @return Boolean If the lead's firstname, mobile, email match with the account's firstname, mobile, email
    */
-  private static Boolean firstnameMobileEmailMatch(
+  private static Boolean firstNameMobileEmailMatch(
     Lead l,
     Map<String, Account> accountByMobileMap,
     Map<String, Account> accountByEmailMap
@@ -119,13 +119,13 @@ public with sharing class AccountCommonActionsHelper {
   }
 
   /**
-   * @description lastnameMobileEmailMatch checks if a lead's lastname, mobile, email matches those of an account
+   * @description lastNameMobileEmailMatch checks if a lead's lastname, mobile, email matches those of an account
    * @param l A lead record
    * @param accountByMobileMap A map of accounts and their mobile numbers
    * @param accountByEmailMap A map of accounts and their emails
    * @return Boolean If the lead's lastname, mobile, email match with the account's lastname, mobile, email
    */
-  private static Boolean lastnameMobileEmailMatch(
+  private static Boolean lastNameMobileEmailMatch(
     Lead l,
     Map<String, Account> accountByMobileMap,
     Map<String, Account> accountByEmailMap

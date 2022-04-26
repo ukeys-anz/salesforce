@@ -163,7 +163,7 @@ private class AccountTriggerHandlerTest {
   }
 
   @isTest
-  private static void testFirstnameMobileEmailMatch() {
+  private static void testFirstNameMobileEmailMatch() {
     Faker faker = new Faker('AU');
     // GIVEN an account with matching firstname, mobile and email with an existing lead
     Account testAccount = new Account(
