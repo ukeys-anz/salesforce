@@ -4176,6 +4176,10 @@
         <tab>Quality_Assessment__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
+     <tabVisibilities>
+        <tab>Product_Family__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
     <tabVisibilities>
         <tab>Release__c</tab>
         <visibility>Hidden</visibility>
