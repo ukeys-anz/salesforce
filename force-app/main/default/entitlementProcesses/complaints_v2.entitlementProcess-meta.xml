@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EntitlementProcess xmlns="http://soap.sforce.com/2006/04/metadata">
     <SObjectType>Case</SObjectType>
-    <active>false</active>
+    <active>true</active>
     <businessHours>Case Business Hours</businessHours>
     <description>entitlement process that supports complaints case with appropriate timers and escalates the case on voliation</description>
-    <entryStartDateField>Case.IDR_Date_Received__c</entryStartDateField>
+    <entryStartDateField>Case.IDR_EntitlementStartDate__c</entryStartDateField>
     <exitCriteriaFilterItems>
         <field>Case.IsClosed</field>
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>false</isVersionDefault>
+    <isVersionDefault>true</isVersionDefault>
     <milestones>
         <businessHours>Case Business Hours</businessHours>
         <milestoneCriteriaFormula>AND(
@@ -81,11 +81,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <timeLength>-2</timeLength>
             <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
         </timeTriggers>
-                <useCriteriaStartTime>false</useCriteriaStartTime>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -120,6 +120,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.IDR_Subsequent_Issue_3__c</field>
             <operation>notContain</operation>
             <value>20, 21, 22, 23, 26, 28, 96, 97, 98</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_AFCA_Status__c</field>
+            <operation>notEqual</operation>
+            <value>11</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>30-day IDR Response Due</milestoneName>
         <minutesToComplete>43200</minutesToComplete>
@@ -143,7 +148,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16))</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16)) AND 17</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -224,6 +229,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <operation>contains</operation>
             <value>26, 28, 97, 98</value>
         </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_AFCA_Status__c</field>
+            <operation>notEqual</operation>
+            <value>11</value>
+        </milestoneCriteriaFilterItems>
         <milestoneName>21-day IDR Response Due</milestoneName>
         <minutesToComplete>30240</minutesToComplete>
         <timeTriggers>
@@ -244,7 +254,46 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
+    <milestones>
+        <businessHours>Default</businessHours>
+        <milestoneCriteriaFilterItems>
+            <field>Case.Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_AFCA_Status__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.IDR_AFCA_Due_Date__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </milestoneCriteriaFilterItems>
+        <milestoneName>AFCA Response Due</milestoneName>
+        <minutesToComplete>525600</minutesToComplete>
+        <timeTriggers>
+            <actions>
+                <name>AFCA_Response_is_due_in_10_days</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-10</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <timeTriggers>
+            <actions>
+                <name>AFCA_Response_is_due_in_1_day</name>
+                <type>Task</type>
+            </actions>
+            <timeLength>-1</timeLength>
+            <workflowTimeTriggerUnit>Days</workflowTimeTriggerUnit>
+        </timeTriggers>
+        <useCriteriaStartTime>false</useCriteriaStartTime>
+    </milestones>
     <name>complaints</name>
     <versionMaster>5522N000000EgRn</versionMaster>
-    <versionNumber>1</versionNumber>
+    <versionNotes>Addition of new IDR AFCA fields</versionNotes>
+    <versionNumber>2</versionNumber>
 </EntitlementProcess>
+
