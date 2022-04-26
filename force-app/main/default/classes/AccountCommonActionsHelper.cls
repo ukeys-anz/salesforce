@@ -205,7 +205,7 @@ public with sharing class AccountCommonActionsHelper {
    * @param l The lead record to be added to the list
    * @param leadKeyName Name of the key used to construct the map, can be either Email or MobilePhone
    * @param matchingLeadsByAccIdMap A map of leads to be converted and their corresponding account Ids
-   * @param accountByLeadKeyMap A map of accounts and their mobile/email
+   * @param account Account record matching the lead
    * @return Map<Id, List<Lead>> A map of leads to be converted and their corresponding account Ids
    */
   @SuppressWarnings('PMD.ExcessiveParameterList')
