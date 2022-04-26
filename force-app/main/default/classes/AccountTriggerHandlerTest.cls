@@ -206,26 +206,7 @@ private class AccountTriggerHandlerTest {
       SELECT Id, FirstName, LastName, PersonEmail, PersonMobilePhone
       FROM Account LIMIT1
     ];
-    System.assertEquals(
-      testAccount.FirstName,
-      acc.FirstName,
-      'FirstName should match.'
-    );
-    System.assertEquals(
-      testAccount.LastName,
-      acc.LastName,
-      'LastName should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonEmail,
-      acc.PersonEmail,
-      'Email should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonMobilePhone,
-      acc.PersonMobilePhone,
-      'Mobile phone should match.'
-    );
+    assertAccountDetailsMatch(testAccount, acc);
   }
 
   @isTest
@@ -272,26 +253,7 @@ private class AccountTriggerHandlerTest {
       SELECT Id, FirstName, LastName, PersonEmail, PersonMobilePhone
       FROM Account LIMIT1
     ];
-    System.assertEquals(
-      testAccount.FirstName,
-      acc.FirstName,
-      'FirstName should match.'
-    );
-    System.assertEquals(
-      testAccount.LastName,
-      acc.LastName,
-      'LastName should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonEmail,
-      acc.PersonEmail,
-      'Email should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonMobilePhone,
-      acc.PersonMobilePhone,
-      'Mobile phone should match.'
-    );
+    assertAccountDetailsMatch(testAccount, acc);
   }
 
   @isTest
@@ -337,26 +299,7 @@ private class AccountTriggerHandlerTest {
       SELECT Id, FirstName, LastName, PersonEmail, PersonMobilePhone
       FROM Account LIMIT1
     ];
-    System.assertEquals(
-      testAccount.FirstName,
-      acc.FirstName,
-      'FirstName should match.'
-    );
-    System.assertEquals(
-      testAccount.LastName,
-      acc.LastName,
-      'LastName should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonEmail,
-      acc.PersonEmail,
-      'Email should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonMobilePhone,
-      acc.PersonMobilePhone,
-      'Mobile phone should match.'
-    );
+    assertAccountDetailsMatch(testAccount, acc);
   }
 
   @isTest
@@ -402,26 +345,7 @@ private class AccountTriggerHandlerTest {
       SELECT Id, FirstName, LastName, PersonEmail, PersonMobilePhone
       FROM Account LIMIT1
     ];
-    System.assertEquals(
-      testAccount.FirstName,
-      acc.FirstName,
-      'FirstName should match.'
-    );
-    System.assertEquals(
-      testAccount.LastName,
-      acc.LastName,
-      'LastName should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonEmail,
-      acc.PersonEmail,
-      'Email should match.'
-    );
-    System.assertEquals(
-      testAccount.PersonMobilePhone,
-      acc.PersonMobilePhone,
-      'Mobile phone should match.'
-    );
+    assertAccountDetailsMatch(testAccount, acc);
   }
 
   @isTest
@@ -462,6 +386,32 @@ private class AccountTriggerHandlerTest {
       'New',
       l.Status,
       'Lead should NOT have been converted.'
+    );
+  }
+
+  private static void assertAccountDetailsMatch(
+    Account testAccount,
+    Account acc
+  ) {
+    System.assertEquals(
+      testAccount.FirstName,
+      acc.FirstName,
+      'FirstName should match.'
+    );
+    System.assertEquals(
+      testAccount.LastName,
+      acc.LastName,
+      'LastName should match.'
+    );
+    System.assertEquals(
+      testAccount.PersonEmail,
+      acc.PersonEmail,
+      'Email should match.'
+    );
+    System.assertEquals(
+      testAccount.PersonMobilePhone,
+      acc.PersonMobilePhone,
+      'Mobile phone should match.'
     );
   }
 }
