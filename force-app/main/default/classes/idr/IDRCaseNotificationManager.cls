@@ -172,14 +172,16 @@ public with sharing class IDRCaseNotificationManager {
       Case oldCase = (oldMap.containsKey(record.Id)
         ? (Case) oldMap.get(record.Id)
         : null);
-      if (
-        oldCase != null &&
-        oldCase.IDR_Milestone_Sla__c != record.IDR_Milestone_Sla__c &&
-        record.IDR_Milestone_Sla__c == IDRConstants.MILESTONE_SLA_RED &&
-        record.IsEscalated == false
-      ) {
-        toBeEsclationCases.add(record);
-        caseOwnerIds.add(record.OwnerId);
+      if (record.IDR_Owner_Type__c == 'User') {
+        if (
+          oldCase != null &&
+          oldCase.IDR_Milestone_Sla__c != record.IDR_Milestone_Sla__c &&
+          record.IDR_Milestone_Sla__c == IDRConstants.MILESTONE_SLA_RED &&
+          record.IsEscalated == false
+        ) {
+          toBeEsclationCases.add(record);
+          caseOwnerIds.add(record.OwnerId);
+        }
       }
     }
     Map<Id, User> ownerMap = new Map<Id, User>(
@@ -188,6 +190,7 @@ public with sharing class IDRCaseNotificationManager {
           Id,
           Email,
           FirstName,
+          ManagerId,
           Manager.Name,
           Manager.FirstName,
           Manager.Email
@@ -228,9 +231,13 @@ public with sharing class IDRCaseNotificationManager {
     nEvent.Is_Banker_Notification__c = true;
     nEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId).Email;
     nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId).FirstName;
-    nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
-    nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
-      .Manager.FirstName;
+    if (ownerMap.get(c.OwnerId).ManagerId != null) {
+      nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
+      nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId).Manager.FirstName;
+    } else {
+      nEvent.Line_Manager_Email__c = null;
+      nEvent.Line_Manager_First_Name__c = null;
+    }
     nEvent.MessageID__c = '' + c.ID + Datetime.now().millisecond();
     nEvent.EmailFlag__c = true;
     nEvent.EmailTemplate__c = IDRConstants.BANKER_EMAIL_NOTIFICATION_TEMPLATE;

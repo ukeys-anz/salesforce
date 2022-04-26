@@ -477,10 +477,8 @@ public with sharing class IDRCaseActions {
     }
 
     // if the date received has been updated , this information needs to flow on to SlaStartDate field. for the entitlments to work as expected.
-    if (
-      record.IDR_EntitlementStartDate__c != oldRec.IDR_EntitlementStartDate__c
-    ) {
-      record.SlaStartDate = record.IDR_EntitlementStartDate__c;
+    if (record.IDR_Date_Received__c != oldRec.IDR_Date_Received__c) {
+      record.SlaStartDate = record.IDR_Date_Received__c;
     }
   }
 
