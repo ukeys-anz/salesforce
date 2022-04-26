@@ -14,7 +14,7 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-ISPICKVAL(IDR_AFCA_Status__c,&apos;10&apos;),
+NOT(ISBLANK(TEXT(IDR_AFCA_Status__c))),
 ISNULL(IDR_AFCA_Due_Date__c)
 )
 </errorConditionFormula>
