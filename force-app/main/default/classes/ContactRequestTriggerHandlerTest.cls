@@ -13,6 +13,7 @@ private class ContactRequestTriggerHandlerTest {
       Insert appointment commitment records
     */
 
+    DateTime start = DateTime.newInstance(DateTime.now().year() + 1, 1, 1);
     Faker faker = new Faker('AU');
 
     List<Appointment_Commitment__c> apptCommtRecords = new List<Appointment_Commitment__c>();
@@ -29,15 +30,20 @@ private class ContactRequestTriggerHandlerTest {
     apptCommtRecords.add(apptCommt2);
 
     insert apptCommtRecords;
-
+    Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('PersonAccount')
+      .getRecordTypeId();
     Account account = new Account(
       FirstName = faker.person.firstName(),
       LastName = faker.person.lastName(),
       OCV_ID__c = faker.randomString(10),
-      ANZx_Customer__c = true
+      ANZx_Customer__c = true,
+      RecordTypeId = personAccountRecordTypeId
     );
 
     insert account;
+
+    account = [SELECT Id, PersonContactId FROM Account WHERE Id = :account.Id];
 
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
     List<Interaction> interactionList = new List<Interaction>();
@@ -53,7 +59,9 @@ private class ContactRequestTriggerHandlerTest {
       ContactRequest contactReq = new ContactRequest(
         PreferredChannel = 'Call',
         RequestReason = 'Financial Wellbeing',
-        Status = 'New'
+        Status = 'New',
+        Appointment_Date_And_Time__c = start,
+        WhoId = account.PersonContactId
       );
 
       contactRequestList.add(contactReq);
@@ -64,6 +72,7 @@ private class ContactRequestTriggerHandlerTest {
 
   @isTest
   static void testSuccessfulConfirmCountUpdate() {
+    Account testAccount = createTestAccounts(1)[0];
     Datetime dateTimeVal = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = [
@@ -98,6 +107,7 @@ private class ContactRequestTriggerHandlerTest {
     );
     contReq.Appointment_Commitment__c = apptCommtRec.Id;
     contReq.PreferredChannel = 'Call';
+    contReq.WhoId = testAccount.PersonContactId;
     insert contReq;
 
     Test.stopTest();
@@ -121,6 +131,7 @@ private class ContactRequestTriggerHandlerTest {
 
   @isTest
   static void testSuccessfulConfirmCountUpdateConfirmedNull() {
+    Account testAccount = createTestAccounts(1)[0];
     DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = [
@@ -146,6 +157,7 @@ private class ContactRequestTriggerHandlerTest {
     );
     contReq.Appointment_Commitment__c = apptCommtRec.Id;
     contReq.PreferredChannel = 'Call';
+    contReq.WhoId = testAccount.PersonContactId;
     insert contReq;
 
     Test.stopTest();
@@ -169,6 +181,7 @@ private class ContactRequestTriggerHandlerTest {
 
   @isTest
   static void testContactRequestQueueOwnerAssignment() {
+    Account testAccount = createTestAccounts(1)[0];
     DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
 
     Test.startTest();
@@ -180,6 +193,7 @@ private class ContactRequestTriggerHandlerTest {
     ContactRequest contReq = new ContactRequest();
     contReq.Appointment_date_and_time__c = dateTimeVal;
     contReq.PreferredChannel = 'Call';
+    contReq.WhoId = testAccount.PersonContactId;
     insert contReq;
 
     Test.stopTest();
@@ -262,12 +276,8 @@ private class ContactRequestTriggerHandlerTest {
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
     request.PreferredChannel = 'Call';
-    insert request;
-
-    request.OwnerId = UserInfo.getUserId();
-
     test.startTest();
-    update request;
+    insert request;
     test.stopTest();
 
     request = [
@@ -276,19 +286,19 @@ private class ContactRequestTriggerHandlerTest {
       WHERE Id = :request.Id
     ];
 
-    system.assertEquals(
-      'Accepted',
-      request.Status,
-      'The requests status should have been set to Accepted.'
-    );
-
-    List<Interaction> interactions = [SELECT Id FROM Interaction];
+    List<Interaction> interactions = [
+      SELECT Id
+      FROM Interaction
+      WHERE Id = :request.Interaction__c
+    ];
 
     system.assertNotEquals(
       null,
       interactions,
       'Interactions should not be null'
     );
+
+    //failing as not setting the interaction id on the contact request
     system.assertNotEquals(
       0,
       interactions.size(),
@@ -342,22 +352,18 @@ private class ContactRequestTriggerHandlerTest {
       accounts,
       contactRequestQueue[0].Queue.Id
     );
-    insert requests;
-
-    for (ContactRequest request : requests) {
-      request.OwnerId = UserInfo.getUserId();
-    }
-
     test.startTest();
-    update requests;
+    insert requests;
     test.stopTest();
 
     List<Interaction> interactions = [
       SELECT Id, Interaction_Summary__c
       FROM Interaction
     ];
+
+    Integer expected = sizeTest + 2; //there are two in the setup.
     System.assertEquals(
-      sizeTest,
+      expected,
       interactions.size(),
       'Should have created equal number of interactions to Contact Requests'
     );

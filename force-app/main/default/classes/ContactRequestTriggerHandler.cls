@@ -20,6 +20,16 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
 
   public override void onAfterInsert() {
     ContactRequestTriggerActions.updateConfirmedCount(records);
+    ContactRequestActions actions = new ContactRequestActions();
+    List<ContactRequest> automatedRequests = actions.returnRequestsWithAutomatedPurpose(
+      records
+    );
+    if (!automatedRequests.isEmpty()) {
+      List<Interaction> interactions = actions.createInteractionsFromRequests(
+        automatedRequests
+      );
+      actions.insertInteractions(interactions);
+    }
   }
 
   /**
@@ -35,24 +45,5 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     ContactRequestTriggerActions.handleCancelledRequest(oldMap, records);
-  }
-
-  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    ContactRequestActions actions = new ContactRequestActions();
-
-    List<ContactRequest> requests = actions.findRequestsThatNowBelongToUser(
-      oldMap,
-      records
-    );
-    List<ContactRequest> acceptedRequests = actions.acceptContactRequests(
-      requests
-    );
-    if (!acceptedRequests.isEmpty()) {
-      List<Interaction> interactions = actions.createInteractionsFromRequests(
-        acceptedRequests
-      );
-      actions.insertInteractions(interactions);
-      actions.setInteractionIds(requests, interactions);
-    }
   }
 }

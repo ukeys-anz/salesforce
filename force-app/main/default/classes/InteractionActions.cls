@@ -77,7 +77,7 @@ public with sharing class InteractionActions {
         CommonUtil.logAndThrowIAE(
           'InteractionActions',
           'deleteInteractionEvents',
-          'Not enough permissions to delete Events.'
+          'Not enough permissions to delete Events'
         );
       }
     } else {

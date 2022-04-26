@@ -627,7 +627,7 @@ public without sharing class Lib_SystemLog {
             errNo,
             'Id=' +
             rec.Id +
-            ',Message:' +
+            ',Message: ' +
             err.getMessage() +
             'Fields:' +
             err.getFields(),

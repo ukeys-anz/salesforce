@@ -1,6 +1,7 @@
 @isTest
 public with sharing class ContactRequestActionsTest {
   private static string contactRequestQueueName = 'Contact Request';
+  private static string appointmentQueueName = 'Appointments Queue';
   private static string otherPurposeName = 'Other';
   private static string financialWellbeingPurposeName = 'Financial Wellbeing';
 
@@ -32,8 +33,14 @@ public with sharing class ContactRequestActionsTest {
 
   @isTest
   static void testFindZeroRequestsThatNowBelongToUser() {
+    setup();
+    Account testAccount = createTestAccount();
+
+    DateTime start = DateTime.newInstance(DateTime.now().year() + 1, 1, 1);
     ContactRequest request = new ContactRequest();
     request.PreferredChannel = 'Call';
+    request.Appointment_date_and_Time__c = start;
+    request.WhoId = testAccount.PersonContactId;
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -49,21 +56,18 @@ public with sharing class ContactRequestActionsTest {
 
   @isTest
   static void testFindRequestsThatNowBelongToUser() {
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
-    ];
+    setup();
+    Account testAccount = createTestAccount();
 
-    System.AssertEquals(
-      1,
-      contactRequestQueue.size(),
-      'Cannot find the Contact Request Queue'
-    );
+    DateTime start = DateTime.newInstance(DateTime.now().year() + 1, 1, 1);
+
+    QueueSObject contactRequestQueue = getQueue(contactRequestQueueName);
 
     ContactRequest request = new ContactRequest();
-    request.OwnerId = contactRequestQueue[0].Queue.Id;
+    request.OwnerId = contactRequestQueue.Queue.Id;
     request.PreferredChannel = 'Call';
+    request.Appointment_date_and_Time__c = start;
+    request.WhoId = testAccount.PersonContactId;
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -87,17 +91,24 @@ public with sharing class ContactRequestActionsTest {
 
   @isTest
   static void testOnlyGoingFromContactRequestQueueTriggers() {
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
-    ];
+    setup();
+    Account testAccount = createTestAccount();
+
+    DateTime start = DateTime.newInstance(DateTime.now().year() + 1, 1, 1);
+
+    QueueSObject contactRequestQueue = getQueue(contactRequestQueueName);
 
     ContactRequest okRequest = new ContactRequest();
-    okRequest.OwnerId = contactRequestQueue[0].Queue.Id;
+    okRequest.OwnerId = contactRequestQueue.Queue.Id;
     okRequest.PreferredChannel = 'Call';
+    okRequest.Appointment_date_and_Time__c = start;
+    okRequest.WhoId = testAccount.PersonContactId;
+
     ContactRequest notOkRequest = new ContactRequest();
     notOkRequest.PreferredChannel = 'Call';
+    notOkRequest.Appointment_date_and_Time__c = start;
+    notOkRequest.WhoId = testAccount.PersonContactId;
+
     List<ContactRequest> requests = new List<ContactRequest>{
       okRequest,
       notOkRequest
@@ -128,30 +139,6 @@ public with sharing class ContactRequestActionsTest {
   }
 
   @isTest
-  static void testAcceptContactRequest() {
-    setup();
-    string requestReason = 'Financial Wellbeing';
-
-    ContactRequest request = new ContactRequest();
-    request.Appointment_date_and_Time__c = DateTime.now();
-    request.RequestReason = requestReason;
-    request.PreferredChannel = 'Call';
-    insert request;
-
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    List<ContactRequest> requests = contactRequestActionHelper
-      .acceptContactRequests(new List<ContactRequest>{ request });
-
-    System.assertEquals(1, requests.size(), 'Should return a request');
-    System.assertEquals(
-      'Accepted',
-      requests[0].Status,
-      'Status need to be changed to "Accepted"'
-    );
-  }
-
-  @isTest
   static void testCreateInteractionFromRequest() {
     setup();
     Account testAccount = createTestAccount();
@@ -169,13 +156,31 @@ public with sharing class ContactRequestActionsTest {
     request.WhoId = testAccount.PersonContactId;
     request.RequestDescription = 'Test';
     request.PreferredChannel = 'Call';
+    Test.startTest();
     insert request;
+    Test.stopTest();
 
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    Interaction newInteraction = contactRequestActionHelper.createInteractionFromRequest(
-      request
+    List<Interaction> interactions = [
+      SELECT
+        Id,
+        Status__c,
+        Interaction_Purpose__c,
+        StartTime,
+        AccountId,
+        EndTime,
+        Description,
+        Name,
+        ContactRequestId__c,
+        Direction__c
+      FROM Interaction
+    ];
+    System.assertEquals(
+      1,
+      interactions.size(),
+      'An interaction should have been created'
     );
+
+    Interaction newInteraction = interactions[0];
 
     System.assertNotEquals(
       null,
@@ -239,6 +244,44 @@ public with sharing class ContactRequestActionsTest {
       request.Id,
       newInteraction.ContactRequestId__c,
       'Contact Request Id must be populated on Interaction'
+    );
+  }
+
+  @isTest
+  static void testCreateInteractionFromRequestAndInsert() {
+    setup();
+    Account testAccount = createTestAccount();
+
+    string requestReason = financialWellbeingPurposeName;
+
+    Integer duration = financialWellbeingPurposeDuration;
+
+    DateTime appointmentDate = DateTime.now();
+    DateTime expectedEndDate = appointmentDate.addMinutes(duration);
+
+    ContactRequest request = new ContactRequest();
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = requestReason;
+    request.WhoId = testAccount.PersonContactId;
+    request.RequestDescription = 'Test';
+    request.PreferredChannel = 'Call';
+    insert request;
+
+    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
+
+    Interaction newInteraction = contactRequestActionHelper.createInteractionFromRequest(
+      request
+    );
+
+    newInteraction.ContactRequestId__c = null;
+
+    insert newInteraction;
+
+    List<Interaction> newInteractions = [SELECT Id FROM Interaction];
+    System.assertEquals(
+      2,
+      newInteractions.size(),
+      'Should have inserted an interaction'
     );
   }
 
@@ -345,34 +388,25 @@ public with sharing class ContactRequestActionsTest {
     request.WhoId = testAccount.PersonContactId;
     request.RequestDescription = 'Test';
     request.PreferredChannel = 'Call';
-    insert request;
 
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    Interaction newInteraction = contactRequestActionHelper.createInteractionFromRequest(
-      request
-    );
-
-    List<Interaction> interactions = contactRequestActionHelper.createInteractionsFromRequests(
-      new List<ContactRequest>{ request }
-    );
-
-    System.assertEquals(
-      null,
-      newInteraction,
-      'No Interaction should be created'
-    );
+    Boolean exceptionThrown = false;
+    try {
+      insert request;
+    } catch (Exception exc) {
+      exceptionThrown = true;
+    }
 
     System.assertEquals(
       true,
-      interactions.isEmpty(),
-      'No Interactions should be created'
+      exceptionThrown,
+      'An exception should be thrown if you try to create a Contact Request with no appointment date'
     );
   }
 
   @isTest
   static void testAutomatedPurposeCheck() {
     setup();
+    Account testAccount = createTestAccount();
     string nonAutomatedPurposeName = 'Financial Wellbeing';
     string automatedPurposeName = 'Other';
 
@@ -387,10 +421,13 @@ public with sharing class ContactRequestActionsTest {
     autoRequest.RequestReason = automatedPurposeName;
     autoRequest.Appointment_date_and_Time__c = DateTime.now();
     autoRequest.PreferredChannel = 'Call';
+    autoRequest.WhoId = testAccount.PersonContactId;
+
     ContactRequest notAutoRequest = new ContactRequest();
     notAutoRequest.RequestReason = nonAutomatedPurposeName;
     notAutoRequest.Appointment_date_and_Time__c = DateTime.now();
     notAutoRequest.PreferredChannel = 'Call';
+    notAutoRequest.WhoId = testAccount.PersonContactId;
 
     List<ContactRequest> requests = new List<ContactRequest>();
     requests.add(autoRequest);
@@ -866,5 +903,20 @@ public with sharing class ContactRequestActionsTest {
     testLead = [SELECT ID FROM Lead WHERE ID = :testLead.Id];
 
     return testLead;
+  }
+
+  /**
+   * @description gets a queue by name
+   * @param name string name of the queue to retrieve
+   * @return QueueSObject the instance of the found queue.
+   */
+  static QueueSObject getQueue(string name) {
+    List<QueueSObject> foundQueue = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.Name = :name
+    ];
+
+    return foundQueue[0];
   }
 }

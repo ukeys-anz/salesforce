@@ -43,10 +43,6 @@ public with sharing class InteractionTriggerHandlerTest {
     request.WhoId = testAccount.PersonContactId;
     insert request;
 
-    request.OwnerId = UserInfo.getUserId();
-
-    update request;
-
     Interaction testInteraction = [SELECT Id, Status__c FROM Interaction];
 
     List<Event> events = [SELECT Id FROM Event];
@@ -57,7 +53,7 @@ public with sharing class InteractionTriggerHandlerTest {
       testInteraction.Status__c,
       'Interaction must not start off cancelled.'
     );
-    System.assertEquals(1, events.size(), 'One event must be created');
+    System.assertEquals(1, events.size(), 'One event must be created ');
 
     test.startTest();
     testInteraction.Status__c = 'Cancelled';

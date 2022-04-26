@@ -8,27 +8,31 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    * @description override of the onAfterInsert to create Events & Interaction Summaries
    */
   public override void onAfterInsert() {
-    ContactRequestActions actions = new ContactRequestActions();
-    List<Interaction> interactions = actions.returnInteractionsWithAutomatedPurpose(
+    ContactRequestActions cRActions = new ContactRequestActions();
+    List<Interaction> interactions = cRActions.returnInteractionsWithAutomatedPurpose(
       records
     );
-    List<InteractionSummary> summaries = actions.createInteractionSummariesFromInteractions(
+
+    List<InteractionSummary> summaries = cRActions.createInteractionSummariesFromInteractions(
       interactions
     );
-    actions.insertSummaries(summaries);
 
-    List<Event> events = actions.createEventsFromInteractions(interactions);
-    actions.insertEvents(events);
+    cRActions.insertSummaries(summaries);
+
+    List<Event> events = cRActions.createEventsFromInteractions(interactions);
+    cRActions.insertEvents(events);
+
+    cRActions.setInteractionIds(interactions);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    InteractionActions actions = new InteractionActions();
-    List<Interaction> cancelledInteractions = actions.findCancelledInteractions(
+    InteractionActions interActions = new InteractionActions();
+    List<Interaction> cancelledInteractions = interActions.findCancelledInteractions(
       oldMap,
       records
     );
     if (!cancelledInteractions.isEmpty()) {
-      actions.deleteInteractionEvents(cancelledInteractions);
+      interActions.deleteInteractionEvents(cancelledInteractions);
     }
   }
 }
