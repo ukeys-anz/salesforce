@@ -89,5 +89,9 @@
             <fullName>Scheduled</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Unassigned</fullName>
+            <default>true</default>
+        </values>
     </picklistValues>
 </RecordType>

@@ -4,6 +4,7 @@ public with sharing class ContactRequestActionsTest {
   private static string appointmentQueueName = 'Appointments Queue';
   private static string otherPurposeName = 'Other';
   private static string financialWellbeingPurposeName = 'Financial Wellbeing';
+  private static string defaultInteractionStatus = 'Unassigned';
 
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
@@ -171,7 +172,8 @@ public with sharing class ContactRequestActionsTest {
         Description,
         Name,
         ContactRequestId__c,
-        Direction__c
+        Direction__c,
+        OwnerId
       FROM Interaction
     ];
     System.assertEquals(
@@ -189,9 +191,9 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      'Scheduled',
+      defaultInteractionStatus,
       newInteraction.Status__c,
-      'Interaction Status must default to Scheduled'
+      'Interaction Status must default to Unassigned'
     );
 
     System.assertEquals(
@@ -244,6 +246,14 @@ public with sharing class ContactRequestActionsTest {
       request.Id,
       newInteraction.ContactRequestId__c,
       'Contact Request Id must be populated on Interaction'
+    );
+
+    QueueSObject appointmentQueue = getQueue(appointmentQueueName);
+
+    System.assertEquals(
+      appointmentQueue.Queue.Id,
+      newInteraction.OwnerId,
+      'Newly created Interaction must be owned by the queue.'
     );
   }
 
@@ -321,9 +331,9 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      'Scheduled',
+      defaultInteractionStatus,
       newInteraction.Status__c,
-      'Interaction Status must default to Scheduled'
+      'Interaction Status must default to Unassigned'
     );
 
     System.assertEquals(

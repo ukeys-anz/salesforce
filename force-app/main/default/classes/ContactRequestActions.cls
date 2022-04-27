@@ -5,6 +5,8 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class ContactRequestActions {
+  private static string appointmentQueueName = 'Appointments_Queue';
+
   /**
    * @description Goes through a list of Contact Request records, and returns the ones that
    * have been switch to the currently logged in user.
@@ -30,6 +32,21 @@ public with sharing class ContactRequestActions {
       }
     }
     return requests;
+  }
+
+  //local variable holding the Appointment Queue
+  private Group localAppointmentQueue;
+
+  /**
+   * @description lazy loads the appointment queue and stores in a local variable to save on database calls.
+   */
+  private Group appointmentQueue {
+    get {
+      if (localAppointmentQueue == null) {
+        localAppointmentQueue = CommonUtil.getQueueByName(appointmentQueueName);
+      }
+      return localAppointmentQueue;
+    }
   }
 
   /**
@@ -179,8 +196,9 @@ public with sharing class ContactRequestActions {
     if (accID == null) {
       leadId = request.WhoId;
     }
+    string defaultInteractionStatus = 'Unassigned';
     Interaction newInteraction = new Interaction(
-      Status__c = 'Scheduled',
+      Status__c = defaultInteractionStatus,
       Interaction_Purpose__c = request.RequestReason,
       StartTime = request.Appointment_date_and_Time__c,
       AccountId = accID,
@@ -189,7 +207,8 @@ public with sharing class ContactRequestActions {
       EndTime = request.Appointment_date_and_Time__c.addMinutes(duration),
       Description = request.RequestDescription,
       Direction__c = 'Outbound',
-      ContactRequestId__c = request.Id
+      ContactRequestId__c = request.Id,
+      OwnerId = appointmentQueue.Id
     );
     return newInteraction;
   }
