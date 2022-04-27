@@ -4,6 +4,10 @@
  * @description class for Interaction Actions
  */
 public with sharing class InteractionActions {
+  public static final String APPOINTMENTS_QUEUE = 'Appointments Queue';
+  public static final String SCHEDULED_STATUS = 'Scheduled';
+  public static final String UNASSIGNED_STATUS = 'Unassigned';
+
   /**
    * @description goes through a list of interactions and returns the ones that have been cancelled.
    * @param oldMap Map<Id,SObject> map of the old versions of the interactions
@@ -85,6 +89,79 @@ public with sharing class InteractionActions {
         'InteractionActions',
         'deleteInteractionEvents',
         'Not enough permissions to query Events.'
+      );
+    }
+  }
+
+  /**
+   * @description Assign the ownership of newly created interactions to the Interaction Queue
+   * @param interactions List of newly created interactions.
+   */
+
+  public void updateOwnerNewInteractions(List<Interaction> interactions) {
+    List<Group> interactionQueue = new List<Group>();
+    if (Group.SObjectType.getDescribe().isAccessible()) {
+      interactionQueue = [
+        SELECT ID
+        FROM Group
+        WHERE Type = 'Queue' AND Name = :APPOINTMENTS_QUEUE
+      ];
+
+      if (interactionQueue.size() > 0) {
+        for (Interaction interact : interactions) {
+          interact.OwnerID = interactionQueue[0].Id;
+          interact.Status__c = UNASSIGNED_STATUS;
+        }
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'updateOwnerNewInteractions',
+        'Not enough permissions to query Group object.'
+      );
+    }
+  }
+
+  /**
+   * @description Get the list of updated Interactions where a Coach has taken ownership from the queue
+   * @param oldMap The oldValues before the update.
+   * @param interactions The new values of the interaction after update.
+   * @return List<Interaction> The list of interactions where the owner has been updated
+   */
+
+  public List<Interaction> getAcceptedInteractions(
+    Map<Id, SObject> oldMap,
+    List<Interaction> interactions
+  ) {
+    List<Interaction> acceptedInteractions = new List<Interaction>();
+    Id oldInteractionId = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
+    for (Interaction interact : interactions) {
+      Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
+      if (
+        oldInteraction.OwnerId != interact.OwnerId &&
+        oldInteraction.OwnerId == oldInteractionId
+      ) {
+        acceptedInteractions.add(interact);
+      }
+    }
+    return acceptedInteractions;
+  }
+
+  /**
+   * @description Update the status of the interactions to scheduled if the owner is updated
+   * @param interactions The list of interactions where the owner is updated from Queue to Coach
+   */
+
+  public void updateStatustoScheduled(List<Interaction> interactions) {
+    if (Interaction.SObjectType.getDescribe().isUpdateable()) {
+      for (Interaction interact : interactions) {
+        interact.Status__c = SCHEDULED_STATUS;
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'updateStatustoScheduled',
+        'Not enough permissions to update Interaction.'
       );
     }
   }

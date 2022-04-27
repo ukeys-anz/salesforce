@@ -35,4 +35,27 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       interActions.deleteInteractionEvents(cancelledInteractions);
     }
   }
+
+  /** @description onBeforeInsert to handle before insert trigger actions.
+   */
+
+  public override void onBeforeInsert() {
+    InteractionActions actions = new InteractionActions();
+    actions.updateOwnerNewInteractions(records);
+  }
+
+  /** @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    InteractionActions actions = new InteractionActions();
+    List<Interaction> acceptedInteractions = actions.getAcceptedInteractions(
+      oldMap,
+      records
+    );
+    if (acceptedInteractions.size() > 0) {
+      actions.updateStatustoScheduled(records);
+    }
+  }
 }

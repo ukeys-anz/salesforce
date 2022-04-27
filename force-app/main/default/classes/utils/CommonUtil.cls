@@ -374,14 +374,15 @@ public with sharing class CommonUtil {
    * @return Id the Id of the Group or null
    */
   public static Id getGroupId(string queueDeveloperName) {
-    Group contactRequestGroup = [
+    List<Group> contactRequestGroup = new List<Group>();
+    contactRequestGroup = [
       SELECT Id
       FROM group
       WHERE Type = 'Queue' AND DeveloperName = :queueDeveloperName
     ];
 
-    if (contactRequestGroup != null) {
-      return contactRequestGroup.Id;
+    if (contactRequestGroup.size() > 0) {
+      return contactRequestGroup[0].Id;
     }
     return null;
   }

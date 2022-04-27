@@ -25,9 +25,14 @@
                 <label>Scheduled</label>
             </value>
             <value>
-                <fullName>Completed</fullName>
+                <fullName>Rescheduled</fullName>
                 <default>false</default>
-                <label>Completed</label>
+                <label>Rescheduled</label>
+            </value>
+            <value>
+                <fullName>Walk In</fullName>
+                <default>false</default>
+                <label>Walk In</label>
             </value>
             <value>
                 <fullName>Cancelled</fullName>
@@ -38,6 +43,16 @@
                 <fullName>No Show</fullName>
                 <default>false</default>
                 <label>No Show</label>
+            </value>
+            <value>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <label>Completed</label>
+            </value>
+            <value>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+                <label>Not Completed</label>
             </value>
         </valueSetDefinition>
     </valueSet>
