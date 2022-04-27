@@ -72,6 +72,16 @@ public with sharing class GetHelpConstants {
     .get('Compliance_Task')
     .getRecordTypeId();
 
+  //Lead - ANZx RT Id
+  public static final Id LEAD_ANZX_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
+    .get('ANZX_Leads')
+    .getRecordTypeId();
+
+  // Account - Person Account RT Id
+  public static final Id ACCOUNT_PERSON_ACCOUNT_RT_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+    .get('PersonAccount')
+    .getRecordTypeId();
+
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';
