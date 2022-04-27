@@ -42,8 +42,12 @@
       var state = response.getState();
       if (state === "SUCCESS") {
         var result = JSON.parse(response.getReturnValue());
-        component.set("v.IDR_AFCA_Status", result.IDR_AFCA_Status__c);
-        component.set("v.IDR_Sub_Issue", result.IDR_Subsequent_Issue__c);
+        var autoFillFieldsString = "";
+        for (var i in result) {
+          autoFillFieldsString =
+            autoFillFieldsString + "," + i + "=" + result[i];
+        }
+        component.set("v.autoFillFieldsString", autoFillFieldsString);
         helper.handleNavig(component);
       } else {
         console.error("Failed with state: " + state);

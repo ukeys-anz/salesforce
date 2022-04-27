@@ -31,7 +31,6 @@ public with sharing class NewCaseFlowWrapperController {
     String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
     Map<String, String> caseDetails = new Map<String, String>();
     caseDetails.put('IDR_AFCA_Status__c', '');
-    caseDetails.put('IDR_Subsequent_Issue__c', '');
     string returnIDRAFCAStatus = '';
     if (
       Case.sObjectType.getDescribe().isQueryable() &&
@@ -44,6 +43,11 @@ public with sharing class NewCaseFlowWrapperController {
           IDR_AFCA_Status__c,
           Origin,
           IDR_Subsequent_Issue__c,
+          IDR_Is_Written_Resp_Requested__c,
+          IDR_Is_Written_Resp_Required__c,
+          IDR_Is_Common__c,
+          IDR_Escalation_Reason__c,
+          IDR_Complainant_Type__c,
           RecordType.DeveloperName,
           RecordTypeId
         FROM case
@@ -57,12 +61,42 @@ public with sharing class NewCaseFlowWrapperController {
         if (caseLst[0].Origin == '11') {
           caseDetails.put('IDR_AFCA_Status__c', '10');
         }
-        if (caseLst[0].IDR_Subsequent_Issue__c != null) {
-          caseDetails.put(
-            'IDR_Subsequent_Issue__c',
-            caseLst[0].IDR_Subsequent_Issue__c
-          );
-        }
+        caseDetails.put(
+          'IDR_Subsequent_Issue__c',
+          (caseLst[0].IDR_Subsequent_Issue__c != null)
+            ? caseLst[0].IDR_Subsequent_Issue__c
+            : ''
+        );
+        caseDetails.put(
+          'IDR_Is_Written_Resp_Requested__c',
+          (caseLst[0].IDR_Is_Written_Resp_Requested__c != null)
+            ? caseLst[0].IDR_Is_Written_Resp_Requested__c
+            : ''
+        );
+        caseDetails.put(
+          'IDR_Is_Written_Resp_Required__c',
+          (caseLst[0].IDR_Is_Written_Resp_Required__c != null)
+            ? caseLst[0].IDR_Is_Written_Resp_Required__c
+            : ''
+        );
+        caseDetails.put(
+          'IDR_Is_Common__c',
+          (caseLst[0].IDR_Is_Common__c != null)
+            ? caseLst[0].IDR_Is_Common__c
+            : ''
+        );
+        caseDetails.put(
+          'IDR_Escalation_Reason__c',
+          (caseLst[0].IDR_Escalation_Reason__c != null)
+            ? caseLst[0].IDR_Escalation_Reason__c
+            : ''
+        );
+        caseDetails.put(
+          'IDR_Complainant_Type__c',
+          (caseLst[0].IDR_Complainant_Type__c != null)
+            ? caseLst[0].IDR_Complainant_Type__c
+            : ''
+        );
       }
     }
     return JSON.serialize(caseDetails);

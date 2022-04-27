@@ -58,10 +58,7 @@
         defaultFieldValues:
           "RecordTypeId=" +
           component.get("v.selectedRecordTypeId") +
-          ",IDR_AFCA_Status__c=" +
-          component.get("v.IDR_AFCA_Status") +
-          ",IDR_Subsequent_Issue__c=" +
-          component.get("v.IDR_Sub_Issue")
+          component.get("v.autoFillFieldsString")
       }
     };
     navService.navigate(pageReference);
