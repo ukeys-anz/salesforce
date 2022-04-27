@@ -52,8 +52,28 @@
         <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
         <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>00:00:00.000Z</fridayEndTime>
+        <fridayStartTime>00:00:00.000Z</fridayStartTime>
+        <mondayEndTime>00:00:00.000Z</mondayEndTime>
+        <mondayStartTime>00:00:00.000Z</mondayStartTime>
+        <name>No Holidays</name>
+        <saturdayEndTime>00:00:00.000Z</saturdayEndTime>
+        <saturdayStartTime>00:00:00.000Z</saturdayStartTime>
+        <sundayEndTime>00:00:00.000Z</sundayEndTime>
+        <sundayStartTime>00:00:00.000Z</sundayStartTime>
+        <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
+        <timeZoneId>Australia/Sydney</timeZoneId>
+        <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
+    </businessHours>
     <holidays>
-        <activityDate>2021-04-25</activityDate>
+        <activityDate>2021-05-15</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Anzac Day</description>
@@ -61,14 +81,14 @@
         <name>Anzac Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-01-26</activityDate>
+        <activityDate>2021-02-15</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Australia Day</description>
         <isRecurring>false</isRecurring>
         <name>Australia Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-12-28</activityDate>
+        <activityDate>2022-01-17</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Boxing Day</description>
@@ -76,7 +96,7 @@
         <name>Boxing Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-12-27</activityDate>
+        <activityDate>2022-01-16</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Christmas Day</description>
@@ -84,7 +104,7 @@
         <name>Christmas Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-04-05</activityDate>
+        <activityDate>2021-04-25</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Easter Monday</description>
@@ -92,7 +112,7 @@
         <name>Easter Monday</name>
     </holidays>
     <holidays>
-        <activityDate>2021-04-02</activityDate>
+        <activityDate>2021-04-22</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Good Friday</description>
@@ -100,7 +120,7 @@
         <name>Good Friday</name>
     </holidays>
     <holidays>
-        <activityDate>2021-01-01</activityDate>
+        <activityDate>2021-01-21</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>New Year&apos;s Day</description>
         <isRecurring>false</isRecurring>

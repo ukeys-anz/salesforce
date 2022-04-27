@@ -292,6 +292,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <name>complaints</name>
-    <versionMaster>5522N000000AfXe</versionMaster>
-    <versionNumber>1</versionNumber>
+    <versionMaster>5522O000000CGgO</versionMaster>
+    <versionNumber>2</versionNumber>
 </EntitlementProcess>

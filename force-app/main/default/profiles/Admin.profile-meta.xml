@@ -1544,6 +1544,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Owner_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Card_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4212,6 +4217,10 @@
     <tabVisibilities>
         <tab>Quality_Assessment__c</tab>
         <visibility>Hidden</visibility>
+    </tabVisibilities>
+     <tabVisibilities>
+        <tab>Product_Family__c</tab>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Release__c</tab>
