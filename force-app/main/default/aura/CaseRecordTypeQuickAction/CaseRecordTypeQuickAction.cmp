@@ -8,6 +8,7 @@
   <aura:attribute name="caseRecordTypes" type="List" />
   <aura:attribute name="selectedRecordTypeId" type="String" default="" />
   <aura:attribute name="IDR_AFCA_Status" type="String" default="" />
+  <aura:attribute name="IDR_Sub_Issue" type="String" default="" />
   <aura:attribute name="selectedRecordTypeName" type="String" default="" />
   <aura:attribute name="showError" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.init}" />

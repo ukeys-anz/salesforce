@@ -29,6 +29,9 @@ public with sharing class NewCaseFlowWrapperController {
   @AuraEnabled
   public static String getCaseDetailsById(Id caseId, String newRecordTypeId) {
     String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
+    Map<String, String> caseDetails = new Map<String, String>();
+    caseDetails.put('IDR_AFCA_Status__c', '');
+    caseDetails.put('IDR_Subsequent_Issue__c', '');
     string returnIDRAFCAStatus = '';
     if (
       Case.sObjectType.getDescribe().isQueryable() &&
@@ -37,24 +40,35 @@ public with sharing class NewCaseFlowWrapperController {
     ) {
       List<Case> caseLst = [
         SELECT
-          ID,
+          Id,
           IDR_AFCA_Status__c,
           Origin,
+          IDR_Subsequent_Issue__c,
           RecordType.DeveloperName,
           RecordTypeId
         FROM case
         WHERE
           Id = :caseid
           AND RecordTypeId = :IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
-          AND (Origin = :'Referred from AFCA'
-          OR Origin = :'11')
         WITH SECURITY_ENFORCED
       ];
       if (!caseLst.isEmpty()) {
-        returnIDRAFCAStatus = '10';
+        //As we're querying by recordId, only 1 record should be present if the query isn't empty
+        if (
+          caseLst[0].Origin == '11' ||
+          caseLst[0].Origin == 'Referred from AFCA'
+        ) {
+          caseDetails.put('IDR_AFCA_Status__c', '10');
+        }
+        if (caseLst[0].IDR_Subsequent_Issue__c != null) {
+          caseDetails.put(
+            'IDR_Subsequent_Issue__c',
+            caseLst[0].IDR_Subsequent_Issue__c
+          );
+        }
       }
     }
-    return returnIDRAFCAStatus;
+    return JSON.serialize(caseDetails);
   }
 
   /**

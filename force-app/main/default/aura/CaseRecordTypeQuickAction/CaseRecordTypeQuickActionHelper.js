@@ -59,7 +59,9 @@
           "RecordTypeId=" +
           component.get("v.selectedRecordTypeId") +
           ",IDR_AFCA_Status__c=" +
-          component.get("v.IDR_AFCA_Status")
+          component.get("v.IDR_AFCA_Status") +
+          ",IDR_Subsequent_Issue__c=" +
+          component.get("v.IDR_Sub_Issue")
       }
     };
     navService.navigate(pageReference);
