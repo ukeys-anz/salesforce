@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_AFCA_Due_Date_Check</fullName>
     <active>true</active>
-    <description>AFCA Response Due Date should be mandatory to complete while converting an EDR shell case that has origin IDR Referral.
+    <description>AFCA Response Due Date should be mandatory to complete while converting an EDR shell case.
 </description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
@@ -14,7 +14,7 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-ISPICKVAL(IDR_AFCA_Status__c,&apos;10&apos;),
+NOT(ISBLANK(TEXT(IDR_AFCA_Status__c))),
 ISNULL(IDR_AFCA_Due_Date__c)
 )
 </errorConditionFormula>
