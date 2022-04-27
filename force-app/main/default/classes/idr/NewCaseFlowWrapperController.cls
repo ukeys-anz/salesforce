@@ -54,10 +54,7 @@ public with sharing class NewCaseFlowWrapperController {
       ];
       if (!caseLst.isEmpty()) {
         //As we're querying by recordId, only 1 record should be present if the query isn't empty
-        if (
-          caseLst[0].Origin == '11' ||
-          caseLst[0].Origin == 'Referred from AFCA'
-        ) {
+        if (caseLst[0].Origin == '11') {
           caseDetails.put('IDR_AFCA_Status__c', '10');
         }
         if (caseLst[0].IDR_Subsequent_Issue__c != null) {
