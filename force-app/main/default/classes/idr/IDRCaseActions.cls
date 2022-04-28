@@ -82,6 +82,7 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
+    IDRCaseAssignmentRules.assignProductFamily(records, null);
     IDRCaseAssignmentRules.assignCases(records, null);
     stampQueueName(records, null);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
@@ -155,6 +156,7 @@ public with sharing class IDRCaseActions {
     preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
     //calling handleOfficeAssignment for all case records for which the IDR_Office__c needs to be updated.
     handleOfficeAssignment(changeOfficeCaseList);
+    IDRCaseAssignmentRules.assignProductFamily(records, (Map<Id, Case>) oldMap);
     IDRCaseAssignmentRules.assignCases(records, (Map<Id, Case>) oldMap);
     stampQueueName(records, (Map<Id, Case>) oldMap);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI

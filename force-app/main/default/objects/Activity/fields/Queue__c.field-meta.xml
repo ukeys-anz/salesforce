@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Queue__c</fullName>
+    <description>Populates the Queue Name when Task Owner is Queue. Task Ownership changes when queue member accepts the task, hence stamping the queue name to get that visibility</description>
+    <externalId>false</externalId>
+    <label>Queue</label>
+    <length>75</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

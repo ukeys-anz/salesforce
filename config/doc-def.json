@@ -22,6 +22,7 @@
     "Log_Record_Access__b",
     "Privileged_Access_Request__c",
     "Product2",
+    "Product_Family__c",
     "Quality_Assessment__c",
     "qualtrics__Survey_Response__c",
     "Release__c",
