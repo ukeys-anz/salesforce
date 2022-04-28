@@ -450,6 +450,7 @@
         "IDR_NC_Is_Consent_Obtained__c",
         "IDR_Office__c",
         "IDR_Office_Created_By__c",
+        "IDR_Owner_Type__c",
         "IDR_Possible_Systemic_Issues__c",
         "IDR_Previously_raised_with_ANZ__c",
         "IDR_Product_2__c",
