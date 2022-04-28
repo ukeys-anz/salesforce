@@ -19,7 +19,7 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
    */
 
   public override void onAfterInsert() {
-    ContactRequestTriggerActions.updateConfirmedCount(records);
+    ContactRequestTriggerActions.updateConfirmedCount(records, true);
     ContactRequestActions actions = new ContactRequestActions();
     List<ContactRequest> automatedRequests = actions.returnRequestsWithAutomatedPurpose(
       records

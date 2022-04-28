@@ -292,6 +292,12 @@ private class ContactRequestTriggerHandlerTest {
       WHERE Id = :request.Interaction__c
     ];
 
+    System.assertEquals(
+      interactions[0].Id,
+      request.Interaction__c,
+      'Interaction must be set on Contact Request'
+    );
+
     system.assertNotEquals(
       null,
       interactions,
@@ -303,21 +309,6 @@ private class ContactRequestTriggerHandlerTest {
       0,
       interactions.size(),
       'At least 1 interaction must be created'
-    );
-
-    System.assertEquals(
-      interactions[0].Id,
-      request.Interaction__c,
-      'Interaction must be set on Contact Request'
-    );
-
-    List<InteractionSummary> summaries = [SELECT Id FROM InteractionSummary];
-
-    system.assertNotEquals(null, summaries, 'Summaries should not be null');
-    system.assertNotEquals(
-      0,
-      summaries.size(),
-      'At least 1 summary must be created'
     );
 
     List<Event> events = [SELECT Id FROM Event];
@@ -366,12 +357,6 @@ private class ContactRequestTriggerHandlerTest {
       expected,
       interactions.size(),
       'Should have created equal number of interactions to Contact Requests'
-    );
-
-    System.assertNotEquals(
-      null,
-      interactions[0].Interaction_Summary__c,
-      'Interaction Summary field must be populated on Interaction once it is created'
     );
   }
 

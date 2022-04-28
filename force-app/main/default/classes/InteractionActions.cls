@@ -4,7 +4,7 @@
  * @description class for Interaction Actions
  */
 public with sharing class InteractionActions {
-  public static final String APPOINTMENTS_QUEUE = 'Appointments Queue';
+  public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
   public static final String SCHEDULED_STATUS = 'Scheduled';
   public static final String UNASSIGNED_STATUS = 'Unassigned';
 
@@ -164,5 +164,39 @@ public with sharing class InteractionActions {
         'Not enough permissions to update Interaction.'
       );
     }
+  }
+
+  /**
+   * @description Get the list of contact requests of those interactions which are cancelled
+   * @param interactions The list of interactions which were cancelled
+   * @return List<ContactRequest> List of ContactRequest records related to the interaction which were cancelled.
+   */
+
+  public List<ContactRequest> getRelatedContactRequest(
+    List<Interaction> interactions
+  ) {
+    List<ContactRequest> contactRequestList = new List<ContactRequest>();
+    Set<Id> contactRequestIds = new Set<Id>();
+    for (Interaction interact : interactions) {
+      contactRequestIds.add(interact.ContactRequestId__c);
+    }
+
+    if (
+      ContactRequest.SObjectType.getDescribe().isAccessible() &&
+      Schema.SObjectType.ContactRequest.fields.Appointment_Commitment__c.isAccessible()
+    ) {
+      contactRequestList = [
+        SELECT Id, Appointment_Commitment__c
+        FROM ContactRequest
+        WHERE ID IN :contactRequestIds
+      ];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'getRelatedContactRequest',
+        'Not enough permissions to query Contact Request.'
+      );
+    }
+    return contactRequestList;
   }
 }

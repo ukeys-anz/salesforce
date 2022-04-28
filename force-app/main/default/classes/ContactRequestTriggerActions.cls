@@ -14,14 +14,24 @@ public with sharing class ContactRequestTriggerActions {
    * when a new Contact request record is created. The appointment commitment is
    * associated with the contact request record.
    * @param records The list of newly created contact request records.
+   * @param apptBooked Boolean parameter to indicate if its appointment booking or cancellation
    */
 
-  public static void updateConfirmedCount(List<ContactRequest> records) {
+  public static void updateConfirmedCount(
+    List<ContactRequest> records,
+    Boolean apptBooked
+  ) {
     Set<Id> appointmentCommitmentIds = new Set<Id>();
+    Map<Id, Integer> confirmCountMap = new Map<Id, Integer>();
 
-    //Get the list of all appointment commitment records where the confirmed count should be increased by 1.
+    //Get the list of all appointment commitment records where the confirmed count should be updated.
     for (ContactRequest contReq : records) {
       appointmentCommitmentIds.add(contReq.Appointment_Commitment__c);
+      Integer tempCount = 0;
+      if (confirmCountMap.containsKey(contReq.Appointment_Commitment__c)) {
+        tempCount = confirmCountmap.get(contReq.Appointment_Commitment__c);
+      }
+      confirmCountMap.put(contReq.Appointment_Commitment__c, tempCount + 1);
     }
 
     //Get the current confirmed count from each appointment commitment record and increase the count by 1.
@@ -35,9 +45,14 @@ public with sharing class ContactRequestTriggerActions {
         FROM Appointment_Commitment__c
         WHERE ID IN :appointmentCommitmentIds
       ]) {
-        apptCommt.Confirmed__c = apptCommt.Confirmed__c == null
-          ? 1
-          : apptCommt.Confirmed__c + 1;
+        if (apptBooked) {
+          apptCommt.Confirmed__c = apptCommt.Confirmed__c == null
+            ? 1
+            : apptCommt.Confirmed__c + confirmCountMap.get(apptCommt.Id);
+        } else {
+          apptCommt.Confirmed__c =
+            apptCommt.Confirmed__c - confirmCountMap.get(apptCommt.Id);
+        }
         apptCommtList.add(apptCommt);
       }
     } else {

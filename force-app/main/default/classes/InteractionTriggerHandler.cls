@@ -26,13 +26,24 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    InteractionActions interActions = new InteractionActions();
-    List<Interaction> cancelledInteractions = interActions.findCancelledInteractions(
+    InteractionActions actions = new InteractionActions();
+    List<ContactRequest> contactRequestList = new List<ContactRequest>();
+    List<Interaction> cancelledInteractions = actions.findCancelledInteractions(
       oldMap,
       records
     );
     if (!cancelledInteractions.isEmpty()) {
-      interActions.deleteInteractionEvents(cancelledInteractions);
+      actions.deleteInteractionEvents(cancelledInteractions);
+      contactRequestList = actions.getRelatedContactRequest(
+        cancelledInteractions
+      );
+    }
+
+    if (contactRequestList.size() > 0) {
+      ContactRequestTriggerActions.updateConfirmedCount(
+        contactRequestList,
+        false
+      );
     }
   }
 
