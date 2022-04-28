@@ -11,8 +11,12 @@ RecordType.DeveloperName = &apos;IDR_System_Task&apos;,
 OR
 (
 NOT($UserRole.DeveloperName = &apos;Systemic_Issue_Team&apos;),
-NOT(ISPICKVAL(Type, &apos;Systemic Issue&apos;)),
-NOT($Profile.Name = &apos;Integration User&apos;)
+NOT(ISPICKVAL(Type, &apos;Systemic Issue&apos;))
+),
+OR
+(
+NOT($Profile.Name = &apos;Integration User&apos;),
+NOT(ISPICKVAL(Type, &apos;Notification&apos;))
 ),
 OR
 (
