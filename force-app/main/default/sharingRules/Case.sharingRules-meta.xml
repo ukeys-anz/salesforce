@@ -390,6 +390,21 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read/Write access to the General Inquiry CMOS RecordType for members of the NLP Public Group (Integration User)</description>
+        <label>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</label>
+        <sharedTo>
+            <group>NLP_Public_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Inquiry CMOS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>IDR_RT_Data_Analyst_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>Grant read only access to Data Analyst for Complaint and SI record types</description>

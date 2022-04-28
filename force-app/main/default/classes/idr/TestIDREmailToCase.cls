@@ -2,6 +2,17 @@
 public with sharing class TestIDREmailToCase {
   @isTest
   static void testANZComCaseParsing() {
+    Schema.DescribeFieldResult productWorkbasketList = Product_Family__c.IDR_Workbasket__c.getDescribe();
+    List<Schema.PicklistEntry> workbasketPicklistValues = productWorkbasketList.getPicklistValues();
+
+    Product_Family__c pf = new Product_Family__c(
+      Name = 'Product Family1',
+      IDR_Workbasket__c = workbasketPicklistValues[0].getValue(),
+      IDR_ANZ_com_Product_Category__c = 'Credit Card'
+    );
+
+    insert pf;
+
     Test.startTest();
     List<Case> caseList = new List<Case>();
     for (Integer i = 0; i <= Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -16,7 +27,20 @@ public with sharing class TestIDREmailToCase {
 
     insert caseList;
     Test.stopTest();
-    Case queriedCase = [SELECT Id, Type FROM Case LIMIT 1];
+    Case queriedCase = [
+      SELECT
+        Id,
+        Type,
+        IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c,
+        IDR_Product_category__c
+      FROM Case
+      LIMIT 1
+    ];
     System.assertEquals('18', queriedCase.Type, 'Case Type is not correct');
+    system.assertEquals(
+      queriedCase.IDR_Product_category__c,
+      queriedCase.IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c,
+      'Product family assignment is incorrect'
+    );
   }
 }

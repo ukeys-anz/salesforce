@@ -5,7 +5,9 @@
     <complianceGroup>Privacy_Non_Personal_Information;Source - Salesforce;Integrity - Accurate</complianceGroup>
     <description>System generated field for CMOS Complaints to automate the due date of DEH Response based on the values of its dependent date fields</description>
     <externalId>false</externalId>
-    <formula>IF( ISBLANK( IDR_DEH_Date_information_received__c ), IDR_DEH_Date_information_request_sent__c + 28, IDR_DEH_Date_information_received__c + 21)</formula>
+    <formula>IF( OR(ISBLANK( IDR_DEH_Date_information_received__c ), IDR_DEH_Date_information_received__c &gt; IDR_DEH_Date_information_due__c ), 
+IDR_DEH_Date_information_request_sent__c + 28, 
+IDR_DEH_Date_information_received__c + 21)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>IDR Response Due</label>
     <required>false</required>

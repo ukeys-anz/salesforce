@@ -42,5 +42,26 @@
       type: notificationType
     });
     toastEvent.fire();
+  },
+  // Handle navigating user to case edit form
+  handleNavig: function (component) {
+    $A.get("e.force:closeQuickAction").fire();
+    var navService = component.find("navService");
+    var pageReference = {
+      type: "standard__recordPage",
+      attributes: {
+        recordId: component.get("v.recordId"),
+        objectApiName: "Case",
+        actionName: "edit"
+      },
+      state: {
+        defaultFieldValues:
+          "RecordTypeId=" +
+          component.get("v.selectedRecordTypeId") +
+          ",IDR_AFCA_Status__c=" +
+          component.get("v.IDR_AFCA_Status")
+      }
+    };
+    navService.navigate(pageReference);
   }
 });
