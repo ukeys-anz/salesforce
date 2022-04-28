@@ -56,48 +56,45 @@ public with sharing class NewCaseFlowWrapperController {
           AND RecordTypeId = :IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
         WITH SECURITY_ENFORCED
       ];
-      if (!caseLst.isEmpty()) {
-        //As we're querying by recordId, only 1 record should be present if the query isn't empty
-        if (caseLst[0].Origin == '11') {
-          caseDetails.put('IDR_AFCA_Status__c', '10');
-        }
-        caseDetails.put(
-          'IDR_Subsequent_Issue__c',
-          (caseLst[0].IDR_Subsequent_Issue__c != null)
-            ? caseLst[0].IDR_Subsequent_Issue__c
-            : ''
-        );
-        caseDetails.put(
-          'IDR_Is_Written_Resp_Requested__c',
-          (caseLst[0].IDR_Is_Written_Resp_Requested__c != null)
-            ? caseLst[0].IDR_Is_Written_Resp_Requested__c
-            : ''
-        );
-        caseDetails.put(
-          'IDR_Is_Written_Resp_Required__c',
-          (caseLst[0].IDR_Is_Written_Resp_Required__c != null)
-            ? caseLst[0].IDR_Is_Written_Resp_Required__c
-            : ''
-        );
-        caseDetails.put(
-          'IDR_Is_Common__c',
-          (caseLst[0].IDR_Is_Common__c != null)
-            ? caseLst[0].IDR_Is_Common__c
-            : ''
-        );
-        caseDetails.put(
-          'IDR_Escalation_Reason__c',
-          (caseLst[0].IDR_Escalation_Reason__c != null)
-            ? caseLst[0].IDR_Escalation_Reason__c
-            : ''
-        );
-        caseDetails.put(
-          'IDR_Complainant_Type__c',
-          (caseLst[0].IDR_Complainant_Type__c != null)
-            ? caseLst[0].IDR_Complainant_Type__c
-            : ''
-        );
+
+      //As we're querying by recordId, only 1 record should be present if the query isn't empty
+      if (caseLst[0].Origin == '11') {
+        caseDetails.put('IDR_AFCA_Status__c', '10');
       }
+      caseDetails.put(
+        'IDR_Subsequent_Issue__c',
+        (caseLst[0].IDR_Subsequent_Issue__c != null)
+          ? caseLst[0].IDR_Subsequent_Issue__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Is_Written_Resp_Requested__c',
+        (caseLst[0].IDR_Is_Written_Resp_Requested__c != null)
+          ? caseLst[0].IDR_Is_Written_Resp_Requested__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Is_Written_Resp_Required__c',
+        (caseLst[0].IDR_Is_Written_Resp_Required__c != null)
+          ? caseLst[0].IDR_Is_Written_Resp_Required__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Is_Common__c',
+        (caseLst[0].IDR_Is_Common__c != null) ? caseLst[0].IDR_Is_Common__c : ''
+      );
+      caseDetails.put(
+        'IDR_Escalation_Reason__c',
+        (caseLst[0].IDR_Escalation_Reason__c != null)
+          ? caseLst[0].IDR_Escalation_Reason__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Complainant_Type__c',
+        (caseLst[0].IDR_Complainant_Type__c != null)
+          ? caseLst[0].IDR_Complainant_Type__c
+          : ''
+      );
     }
     return JSON.serialize(caseDetails);
   }
