@@ -198,7 +198,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
       String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
       params +=
-        'account_number=' +
+        'account_numbers=' +
         accountNumber +
         '&start_time=' +
         utcStartDate +
@@ -277,11 +277,11 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     AccountBucketsModel result;
     if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
       Service s = ServiceProvider.getService(FabricService.class);
-      String paramUrl;
+      String paramUrl = '?status_filter=BUCKET_STATUS_FILTER_OPEN';
       if (String.isBlank(nextPageToken)) {
-        paramUrl = '?page_size=' + pageSize;
+        paramUrl += '&page_size=' + pageSize;
       } else {
-        paramUrl = '?page_token=' + nextPageToken;
+        paramUrl += '&page_token=' + nextPageToken;
       }
 
       HttpCalloutResponse response = s.getAccountBuckets(ocvId, paramUrl);
