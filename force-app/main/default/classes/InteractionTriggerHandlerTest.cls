@@ -41,6 +41,7 @@ public with sharing class InteractionTriggerHandlerTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
+    request.PreferredChannel = 'Call';
     insert request;
 
     Interaction testInteraction = [SELECT Id, Status__c FROM Interaction];
@@ -63,6 +64,260 @@ public with sharing class InteractionTriggerHandlerTest {
     events = [SELECT Id FROM Event];
 
     System.assertEquals(true, events.isEmpty(), 'All events must be deleted');
+  }
+
+  /*
+   * @description Test method to validate Interaction when the status is updated to Rescheduled
+   */
+  @isTest
+  static void testReschedulingAnInteraction() {
+    Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
+    apptCommt.Available__c = 5;
+    apptCommt.Confirmed__c = 2;
+    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    insert apptCommt;
+
+    string otherPurposeName = 'Other';
+    Integer otherPurposeDuration = 30;
+    string contactRequestQueueName = 'Contact Request';
+    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount;
+    testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount.Id
+    ];
+
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+
+    List<QueueSObject> contactRequestQueue = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+    ];
+
+    DateTime appointmentDate = DateTime.now();
+
+    ContactRequest request = new ContactRequest();
+    request.OwnerId = contactRequestQueue[0].Queue.Id;
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = otherPurposeName;
+    request.WhoId = testAccount.PersonContactId;
+    request.Appointment_Commitment__c = apptCommt.Id;
+    request.PreferredChannel = 'Call';
+    insert request;
+
+    request.OwnerId = UserInfo.getUserId();
+
+    update request;
+
+    Interaction testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      testInteraction.Status__c,
+      'Unassigned',
+      'The new interaction should have the status as Unassigned'
+    );
+
+    Group interactionQueue = [
+      SELECT ID
+      FROM Group
+      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+    ];
+
+    System.assertEquals(
+      interactionQueue.Id,
+      testInteraction.OwnerId,
+      'The owner of the new interaction should be Appointment Queue'
+    );
+
+    Appointment_Commitment__c apptCommitRec = [
+      SELECT Id, Confirmed__c
+      FROM Appointment_Commitment__c
+    ];
+
+    System.assertEquals(
+      apptCommitRec.Confirmed__c,
+      3,
+      'The confirmed count should be increased by 1'
+    );
+
+    List<Event> events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
+    System.assertEquals(1, events.size(), 'An event record must be created');
+
+    Test.startTest();
+
+    testInteraction.Status__c = 'Rescheduled';
+    testInteraction.StartTime = System.now().addDays(5);
+    testInteraction.EndTime = testInteraction.StartTime.addMinutes(45);
+
+    update testInteraction;
+
+    Test.stopTest();
+
+    apptCommitRec = [SELECT Id, Confirmed__c FROM Appointment_Commitment__c];
+
+    System.assertEquals(
+      apptCommitRec.Confirmed__c,
+      2,
+      'The confirmed count should be decreased by 1'
+    );
+
+    events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
+
+    System.assertEquals(
+      testInteraction.StartTime,
+      events[0].StartDateTime,
+      'The start time on the interaction should match with the event start time'
+    );
+
+    System.assertEquals(
+      testInteraction.EndTime,
+      events[0].EndDateTime,
+      'The start time on the interaction should match with the event start time'
+    );
+  }
+
+  /*
+   * @description Test method to validate Interaction when the status is updated to Rescheduled (Bulk)
+   */
+  @isTest
+  static void testBulkReschedulingAnInteraction() {
+    Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
+    apptCommt.Available__c = 100;
+    apptCommt.Confirmed__c = 0;
+    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    insert apptCommt;
+
+    string otherPurposeName = 'Other';
+    Integer otherPurposeDuration = 30;
+    string contactRequestQueueName = 'Contact Request';
+    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount;
+    testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount.Id
+    ];
+
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+
+    List<QueueSObject> contactRequestQueue = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+    ];
+
+    DateTime appointmentDate = DateTime.now();
+
+    List<ContactRequest> crList = new List<ContactRequest>();
+    for (Integer i = 0; i < 100; i++) {
+      ContactRequest request = new ContactRequest();
+      request.OwnerId = contactRequestQueue[0].Queue.Id;
+      request.Appointment_date_and_Time__c = appointmentDate;
+      request.RequestReason = otherPurposeName;
+      request.WhoId = testAccount.PersonContactId;
+      request.Appointment_Commitment__c = apptCommt.Id;
+      request.PreferredChannel = 'Call';
+      crList.add(request);
+    }
+
+    insert crList;
+
+    for (ContactRequest cr : crList) {
+      cr.OwnerId = UserInfo.getUserId();
+    }
+    update crList;
+
+    List<Interaction> testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      FROM Interaction
+    ];
+
+    Group interactionQueue = [
+      SELECT ID
+      FROM Group
+      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+    ];
+
+    for (Interaction interact : testInteraction) {
+      System.assertEquals(
+        'Unassigned',
+        interact.Status__c,
+        'The new interaction should have the status as Unassigned'
+      );
+
+      System.assertEquals(
+        interactionQueue.Id,
+        interact.OwnerId,
+        'The owner of the new interaction should be Appointment Queue'
+      );
+    }
+    Appointment_Commitment__c apptCommitRec = [
+      SELECT Id, Confirmed__c
+      FROM Appointment_Commitment__c
+    ];
+
+    System.assertEquals(
+      100,
+      apptCommitRec.Confirmed__c,
+      'The confirmed count should be increased by 100'
+    );
+
+    List<Event> events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
+    System.assertEquals(100, events.size(), '100 events  must be created');
+
+    Test.startTest();
+
+    Datetime startTime = System.now().addDays(5);
+    Datetime endTime = startTime.addMinutes(45);
+
+    for (Interaction interact : testInteraction) {
+      interact.Status__c = 'Rescheduled';
+      interact.StartTime = startTime;
+      interact.EndTime = endTime;
+    }
+
+    update testInteraction;
+
+    Test.stopTest();
+
+    apptCommitRec = [SELECT Id, Confirmed__c FROM Appointment_Commitment__c];
+
+    System.assertEquals(
+      0,
+      apptCommitRec.Confirmed__c,
+      'The confirmed count should be decreased to 0'
+    );
+
+    events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
+
+    for (Event evt : events) {
+      System.assertEquals(
+        evt.StartDateTime,
+        startTime,
+        'The start time on the interaction should match with the event start time'
+      );
+
+      System.assertEquals(
+        evt.EndDateTime,
+        endTime,
+        'The start time on the interaction should match with the event start time'
+      );
+    }
   }
 
   /**

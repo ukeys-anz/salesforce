@@ -3,10 +3,12 @@
  * @since 20220411
  * @description class for Interaction Actions
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class InteractionActions {
   public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
   public static final String SCHEDULED_STATUS = 'Scheduled';
   public static final String UNASSIGNED_STATUS = 'Unassigned';
+  public static final String RESCHEDULED_STATUS = 'Rescheduled';
 
   /**
    * @description goes through a list of interactions and returns the ones that have been cancelled.
@@ -145,6 +147,112 @@ public with sharing class InteractionActions {
       }
     }
     return acceptedInteractions;
+  }
+
+  /**
+   * @description Get the list of updated Interactions where the status has been updated to Rescheduled
+   * @param oldMap The oldValues before the update.
+   * @param interactions The new values of the interaction after update.
+   * @return List<Interaction> The list of interactions where the status has been updated to rescheduled
+   */
+
+  public List<Interaction> getRescheduledInteractions(
+    Map<Id, SObject> oldMap,
+    List<Interaction> interactions
+  ) {
+    List<Interaction> rescheduledInteractions = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
+      if (
+        oldInteraction.Status__c != interact.Status__c &&
+        interact.Status__c == RESCHEDULED_STATUS
+      ) {
+        rescheduledInteractions.add(interact);
+      }
+    }
+    return rescheduledInteractions;
+  }
+
+  /**
+   * @description Get the list of events related to Interaction which was rescheduled
+   * @param interactions The list of interactions which were rescheduled
+   * @return List<Event> List of event records related to the interaction which were rescheduled.
+   */
+
+  public List<Event> getRelatedEvents(List<Interaction> interactions) {
+    List<Event> eventList = new List<Event>();
+    Set<Id> interactionIds = new Set<Id>();
+    for (Interaction interact : interactions) {
+      interactionIds.add(interact.Id);
+    }
+    if (
+      Event.SObjectType.getDescribe().isAccessible() &&
+      Schema.SObjectType.Event.fields.StartDateTime.isAccessible() &&
+      Schema.SObjectType.Event.fields.EndDateTime.isAccessible() &&
+      Schema.SObjectType.Event.fields.WhatId.isAccessible()
+    ) {
+      eventList = [
+        SELECT Id, WhatId, StartDateTime, EndDateTime
+        FROM Event
+        WHERE WhatId IN :interactionIds
+      ];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'getRelatedEvents',
+        'Not enough permissions to query Events.'
+      );
+    }
+    return eventList;
+  }
+
+  /**
+   * @description Update the events date and time to match with the interaction
+   * @param eventRecords The list of events to be updated
+   * @param interactions The interactions which are rescheduled
+   */
+
+  public void updateEventSchedule(
+    List<Event> eventRecords,
+    List<Interaction> interactions
+  ) {
+    Map<Id, Interaction> interactionMap = new Map<Id, Interaction>();
+    for (Interaction interact : interactions) {
+      interactionMap.put(interact.Id, interact);
+    }
+
+    for (Event evt : eventRecords) {
+      evt.StartDateTime = interactionMap.get(evt.WhatId).StartTime;
+      evt.EndDateTime = interactionMap.get(evt.WhatId).EndTime;
+    }
+
+    updateEvents(eventRecords);
+  }
+
+  /**
+   * @description Method to update the events record
+   * @param events The list of events to be updated
+   */
+
+  public void updateEvents(List<Event> events) {
+    if (Event.SObjectType.getDescribe().isUpdateable()) {
+      List<Database.SaveResult> results = Database.Update(events);
+      lib_systemLog log = new lib_systemLog(
+        'InteractionActions',
+        'updateEvents'
+      );
+      Boolean hasError = log.addDatabaseSaveResult('Event', results, events);
+      if (hasError) {
+        //log errors to application log
+        log.insertLog();
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'updateEvents',
+        'Not enough permissions to update Events.'
+      );
+    }
   }
 
   /**

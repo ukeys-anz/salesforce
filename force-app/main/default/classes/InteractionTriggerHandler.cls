@@ -45,9 +45,34 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
+
+    List<ContactRequest> rescheduledContactRequestList = new List<ContactRequest>();
+    List<Interaction> rescheduledInteractions = actions.getRescheduledInteractions(
+      oldMap,
+      records
+    );
+    List<Event> relatedEvents = actions.getRelatedEvents(records);
+
+    if (rescheduledInteractions.size() > 0) {
+      rescheduledContactRequestList = actions.getRelatedContactRequest(
+        rescheduledInteractions
+      );
+    }
+
+    if (rescheduledContactRequestList.size() > 0) {
+      ContactRequestTriggerActions.updateConfirmedCount(
+        rescheduledContactRequestList,
+        false
+      );
+    }
+
+    if (relatedEvents.size() > 0) {
+      actions.updateEventSchedule(relatedEvents, records);
+    }
   }
 
-  /** @description onBeforeInsert to handle before insert trigger actions.
+  /**
+   *  @description onBeforeInsert to handle before insert trigger actions.
    */
 
   public override void onBeforeInsert() {
