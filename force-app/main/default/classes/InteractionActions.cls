@@ -9,6 +9,32 @@ public with sharing class InteractionActions {
   public static final String SCHEDULED_STATUS = 'Scheduled';
   public static final String UNASSIGNED_STATUS = 'Unassigned';
   public static final String RESCHEDULED_STATUS = 'Rescheduled';
+  public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
+
+  /**
+   * @description Gets the list of interactions and returns the ones where the owner has been assigned back to Queue.
+   * @param oldMap Map<Id,SObject> map of the old versions of the interactions
+   * @param interactions List<Interaction> list of interactions through which to search.
+   * @return List<Interaction> list of interactions assigned back to Queue
+   */
+  public List<Interaction> getInteractionsAssignedBacktoQueue(
+    Map<Id, SObject> oldMap,
+    List<Interaction> interactions
+  ) {
+    List<Interaction> assignedToQueueInteractions = new List<Interaction>();
+
+    for (Interaction interact : interactions) {
+      Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
+      if (
+        interact.OwnerId != oldInteraction.OwnerId &&
+        interact.OwnerId == QUEUE_ID
+      ) {
+        assignedToQueueInteractions.add(interact);
+      }
+    }
+
+    return assignedToQueueInteractions;
+  }
 
   /**
    * @description goes through a list of interactions and returns the ones that have been cancelled.
@@ -96,30 +122,21 @@ public with sharing class InteractionActions {
   }
 
   /**
-   * @description Assign the ownership of newly created interactions to the Interaction Queue
+   * @description Assign the ownership of newly created interactions to the Interaction Queue and update status to Unassigned
    * @param interactions List of newly created interactions.
    */
 
   public void updateOwnerNewInteractions(List<Interaction> interactions) {
-    List<Group> interactionQueue = new List<Group>();
-    if (Group.SObjectType.getDescribe().isAccessible()) {
-      interactionQueue = [
-        SELECT ID
-        FROM Group
-        WHERE Type = 'Queue' AND Name = :APPOINTMENTS_QUEUE
-      ];
-
-      if (interactionQueue.size() > 0) {
-        for (Interaction interact : interactions) {
-          interact.OwnerID = interactionQueue[0].Id;
-          interact.Status__c = UNASSIGNED_STATUS;
-        }
+    if (Interaction.SObjectType.getDescribe().isUpdateable()) {
+      for (Interaction interact : interactions) {
+        interact.OwnerID = QUEUE_ID;
+        interact.Status__c = UNASSIGNED_STATUS;
       }
     } else {
       CommonUtil.logAndThrowIAE(
         'InteractionActions',
         'updateOwnerNewInteractions',
-        'Not enough permissions to query Group object.'
+        'Not enough permissions to update Interaction.'
       );
     }
   }
@@ -136,12 +153,11 @@ public with sharing class InteractionActions {
     List<Interaction> interactions
   ) {
     List<Interaction> acceptedInteractions = new List<Interaction>();
-    Id oldInteractionId = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
     for (Interaction interact : interactions) {
       Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
       if (
         oldInteraction.OwnerId != interact.OwnerId &&
-        oldInteraction.OwnerId == oldInteractionId
+        oldInteraction.OwnerId == QUEUE_ID
       ) {
         acceptedInteractions.add(interact);
       }

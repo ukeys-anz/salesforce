@@ -28,6 +28,15 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     InteractionActions actions = new InteractionActions();
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
+    List<Interaction> assignedBacktoQueueInteractions = actions.getInteractionsAssignedBacktoQueue(
+      oldMap,
+      records
+    );
+
+    if (assignedBacktoQueueInteractions.size() > 0) {
+      actions.deleteInteractionEvents(assignedBacktoQueueInteractions);
+    }
+
     List<Interaction> cancelledInteractions = actions.findCancelledInteractions(
       oldMap,
       records
@@ -92,6 +101,15 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     );
     if (acceptedInteractions.size() > 0) {
       actions.updateStatustoScheduled(records);
+    }
+
+    List<Interaction> assignedBacktoQueueInteractions = actions.getInteractionsAssignedBacktoQueue(
+      oldMap,
+      records
+    );
+
+    if (assignedBacktoQueueInteractions.size() > 0) {
+      actions.updateOwnerNewInteractions(assignedBacktoQueueInteractions);
     }
   }
 }

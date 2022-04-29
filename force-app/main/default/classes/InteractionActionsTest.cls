@@ -6,6 +6,111 @@
 @isTest
 public with sharing class InteractionActionsTest {
   /**
+   * @description test for interaction assigned back to Queue.
+   */
+  @isTest
+  static void testInteractionAssignedBacktoQueue() {
+    string otherPurposeName = 'Other';
+    Integer otherPurposeDuration = 30;
+    string contactRequestQueueName = 'Contact Request';
+    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount;
+    testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount.Id
+    ];
+
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+
+    List<QueueSObject> contactRequestQueue = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+    ];
+
+    DateTime appointmentDate = DateTime.now();
+
+    ContactRequest request = new ContactRequest();
+    request.OwnerId = contactRequestQueue[0].Queue.Id;
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = otherPurposeName;
+    request.WhoId = testAccount.PersonContactId;
+    request.PreferredChannel = 'Call';
+    insert request;
+
+    request.OwnerId = UserInfo.getUserId();
+
+    update request;
+
+    Interaction testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      'Unassigned',
+      testInteraction.Status__c,
+      'The new interaction should have the status as Unassigned'
+    );
+
+    Group interactionQueue = [
+      SELECT ID
+      FROM Group
+      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+    ];
+
+    System.assertEquals(
+      interactionQueue.Id,
+      testInteraction.OwnerId,
+      'The owner of the new interaction should be Appointment Queue'
+    );
+
+    System.assertEquals(
+      testInteraction.ContactRequestId__c,
+      request.Id,
+      'The Contact request Id should be updated on the Interaction record.'
+    );
+
+    List<Event> events = [SELECT Id FROM Event];
+
+    System.assertEquals(1, events.size(), 'One event must be created');
+
+    testInteraction.OwnerId = UserInfo.getUserId();
+    update testInteraction;
+
+    testInteraction = [SELECT Id, Status__c, OwnerId FROM Interaction];
+
+    System.assertEquals(
+      'Scheduled',
+      testInteraction.Status__c,
+      'The status of the interaction should be updated to Scheduled'
+    );
+
+    Test.startTest();
+    testInteraction.OwnerId = interactionQueue.Id;
+    update testInteraction;
+    Test.stopTest();
+
+    testInteraction = [SELECT Id, Status__c, OwnerId FROM Interaction];
+
+    System.assertEquals(
+      'Unassigned',
+      testInteraction.Status__c,
+      'The status of the interaction should be updated back to Unassigned'
+    );
+
+    events = [SELECT Id FROM Event];
+
+    System.assertEquals(0, events.size(), 'All events must be deleted');
+  }
+
+  /**
    * @description test for bulk cancelling an Interaction
    */
   @isTest
