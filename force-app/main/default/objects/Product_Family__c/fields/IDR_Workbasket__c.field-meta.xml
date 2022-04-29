@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Workbasket__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>WorkBasket that cases with this product family need to be assigned to</description>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <externalId>false</externalId>
+    <label>Workbasket</label>
+    <required>true</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+             <value>
+                <fullName>IDR_Business_Owners</fullName>
+                <default>false</default>
+                <label>IDR Business Owners</label>
+            </value>
+            <value>
+                <fullName>IDR_Everyday_Banking</fullName>
+                <default>false</default>
+                <label>IDR Everyday Banking</label>
+            </value>
+            <value>
+                <fullName>IDR_Home_Owners</fullName>
+                <default>false</default>
+                <label>IDR Home Owners</label>
+            </value>
+            <value>
+                <fullName>IDR_Wealth</fullName>
+                <default>false</default>
+                <label>IDR Wealth</label>
+            </value>
+            <value>
+                <fullName>Specialised_Early_Resolution_Hardship</fullName>
+                <default>false</default>
+                <label>Specialised Early Resolution Hardship</label>
+            </value>
+            <value>
+                <fullName>Specialised_EarlyRes_Responsible_Lending</fullName>
+                <default>false</default>
+                <label>Specialised EarlyRes Responsible Lending</label>
+            </value>
+            <value>
+                <fullName>EDR_Early_Resolution</fullName>
+                <default>false</default>
+                <label>EDR Early Resolution</label>
+            </value>
+            <value>
+                <fullName>IDR_Hardship</fullName>
+                <default>false</default>
+                <label>IDR Hardship</label>
+            </value>
+            <value>
+                <fullName>IDR_Responsible_Lending</fullName>
+                <default>false</default>
+                <label>IDR Responsible Lending</label>
+            </value>
+            <value>
+                <fullName>IDR_CEO</fullName>
+                <default>false</default>
+                <label>IDR CEO</label>
+            </value>
+            <value>
+                <fullName>IDR_Early_Resolution</fullName>
+                <default>false</default>
+                <label>IDR Early Resolution</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

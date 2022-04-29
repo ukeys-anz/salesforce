@@ -3,13 +3,23 @@ private class QualityAssessmentTriggerHandlerTest {
   //method to test pre-populated fields when create Quality Assessment record, value are from Related Case lookup
   @isTest
   static void testPopulateFieldsFromCaseWhenCreateQA() {
+    //Add New Account to Case
+    Account account = new Account();
+    account.Name = 'TestAccount';
+    account.OCV_ID__c = '1';
+    account.ANZx_Customer__c = true;
+    account.External_Id__c = '82jfsa80534';
+    insert account;
+
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
           Status = GetHelpConstants.CLOSED_STATUS,
-          Origin = 'Phone'
+          AccountId = account.Id,
+          Origin = 'Phone',
+          Type = 'About Us'
         )
       );
     }
@@ -27,7 +37,9 @@ private class QualityAssessmentTriggerHandlerTest {
         Related_Case__r.Owner.Type,
         Related_Case__r.OwnerId,
         Interaction_Owner__c,
-        Interaction_Type__c
+        Interaction_Type__c,
+        Issue_Type__c,
+        Customer__c
       FROM Quality_Assessment__c
     ];
 
@@ -51,6 +63,20 @@ private class QualityAssessmentTriggerHandlerTest {
         'Voice Call',
         record.Interaction_Type__c,
         'Interaction Type of Quality Assessment should be Voice Call if realated case origin is Phone.'
+      );
+
+      //Check Issue Type
+      System.assertEquals(
+        'About Us',
+        record.Issue_Type__c,
+        'Interaction Issue Type should match the Case Origin (About Us)'
+      );
+
+      //Check Account ID
+      System.assertEquals(
+        account.Id,
+        record.Customer__c,
+        'Customer Id does not match with the origin account'
       );
 
       if (record.Related_Case__r?.Owner.Type == 'Queue') {

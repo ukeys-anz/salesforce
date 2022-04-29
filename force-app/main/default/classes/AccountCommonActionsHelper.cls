@@ -76,23 +76,21 @@ public with sharing class AccountCommonActionsHelper {
     ) {
       if (
         firstNameLastNameEmailMatch(l, accountByMobileMap, accountByEmailMap) ||
-        firstnameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap) ||
-        lastnameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap)
+        firstNameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap) ||
+        lastNameMobileEmailMatch(l, accountByMobileMap, accountByEmailMap)
       ) {
         putLeadsInMapByAccId(
           l,
-          'Email',
           matchingLeadsByAccIdMap,
-          accountByEmailMap
+          accountByEmailMap.get(l.Email)
         );
       } else if (
         firstNameLastNameMobileMatch(l, accountByMobileMap, accountByEmailMap)
       ) {
         putLeadsInMapByAccId(
           l,
-          'MobilePhone',
           matchingLeadsByAccIdMap,
-          accountByMobileMap
+          accountByMobileMap.get(l.MobilePhone)
         );
       }
     }
@@ -101,13 +99,13 @@ public with sharing class AccountCommonActionsHelper {
   }
 
   /**
-   * @description firstnameMobileEmailMatch checks if a lead's firstname, mobile, email matches those of an account
+   * @description firstNameMobileEmailMatch checks if a lead's firstname, mobile, email matches those of an account
    * @param l A lead record
    * @param accountByMobileMap A map of accounts and their mobile numbers
    * @param accountByEmailMap A map of accounts and their emails
    * @return Boolean If the lead's firstname, mobile, email match with the account's firstname, mobile, email
    */
-  private static Boolean firstnameMobileEmailMatch(
+  private static Boolean firstNameMobileEmailMatch(
     Lead l,
     Map<String, Account> accountByMobileMap,
     Map<String, Account> accountByEmailMap
@@ -119,13 +117,13 @@ public with sharing class AccountCommonActionsHelper {
   }
 
   /**
-   * @description lastnameMobileEmailMatch checks if a lead's lastname, mobile, email matches those of an account
+   * @description lastNameMobileEmailMatch checks if a lead's lastname, mobile, email matches those of an account
    * @param l A lead record
    * @param accountByMobileMap A map of accounts and their mobile numbers
    * @param accountByEmailMap A map of accounts and their emails
    * @return Boolean If the lead's lastname, mobile, email match with the account's lastname, mobile, email
    */
-  private static Boolean lastnameMobileEmailMatch(
+  private static Boolean lastNameMobileEmailMatch(
     Lead l,
     Map<String, Account> accountByMobileMap,
     Map<String, Account> accountByEmailMap
@@ -203,35 +201,27 @@ public with sharing class AccountCommonActionsHelper {
   /**
    * @description getLeadsByAccIdMap gets a list of potential matching leads by their corresponding account Id
    * @param l The lead record to be added to the list
-   * @param leadKeyName Name of the key used to construct the map, can be either Email or MobilePhone
-   * @param matchingLeadsByAccIdMap A map fo leads to be converted and their corresponding account Ids
-   * @param accountByLeadKeyMap A map of accounts and their mobile/email
-   * @return Map<Id, List<Lead>> A map fo leads to be converted and their corresponding account Ids
+   * @param matchingLeadsByAccIdMap A map of leads to be converted and their corresponding account Ids
+   * @param account Account record matching the lead
+   * @return Map<Id, List<Lead>> A map of leads to be converted and their corresponding account Ids
    */
   @SuppressWarnings('PMD.ExcessiveParameterList')
   private static Map<Id, List<Lead>> putLeadsInMapByAccId(
     Lead l,
-    String leadKeyName,
     Map<Id, List<Lead>> matchingLeadsByAccIdMap,
-    Map<String, Account> accountByLeadKeyMap
+    Account account
   ) {
-    String mapKey = String.valueOf(l.get(leadKeyName));
     if (
-      // Check if the key (mobile OR email is NOT blank) and if the map already contains this key
-      String.isNotBlank(mapKey) &&
-      matchingLeadsByAccIdMap.keySet()
-        .contains(accountByLeadKeyMap.get(mapKey).Id)
+      // Check if the map already contains this key
+      matchingLeadsByAccIdMap.containsKey(account.Id)
     ) {
       // If yes, add the lead to the exist list
-      matchingLeadsByAccIdMap.get(accountByLeadKeyMap.get(mapKey).Id).add(l);
+      matchingLeadsByAccIdMap.get(account.Id).add(l);
     } else {
       // If no, create a new list of leads and put this in the map by the account Id
       List<Lead> matchingLeads = new List<Lead>();
       matchingLeads.add(l);
-      matchingLeadsByAccIdMap.put(
-        accountByLeadKeyMap.get(mapKey).Id,
-        matchingLeads
-      );
+      matchingLeadsByAccIdMap.put(account.Id, matchingLeads);
     }
     return matchingLeadsByAccIdMap;
   }

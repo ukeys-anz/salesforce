@@ -37,7 +37,7 @@ If (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE)==2, &apos;Day 3&apos;, &apos;&gt;
             <value>STOP Collection</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ASSIGNED</column>
+            <column>Activity.Queue__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>

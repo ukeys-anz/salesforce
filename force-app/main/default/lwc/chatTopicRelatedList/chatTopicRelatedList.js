@@ -173,7 +173,7 @@ export default class ChatTopicRelatedList extends LightningElement {
   }
 
   generateRowData(row) {
-    row.status = this.resolveStatuses(row);
+    row.topicStatus = this.resolveStatuses(row);
     if (
       this.isPrivilegedRole === true &&
       row.status &&
@@ -227,53 +227,45 @@ export default class ChatTopicRelatedList extends LightningElement {
   }
 
   resolveStatuses(row) {
-    let topicStatus;
     if (row.status) {
       if (row.chatFlowStatus) {
         // IF row status is 'active'
         if (row.status === STATUS_ACTIVE) {
           if (row.chatFlowStatus === CHAT_FLOW_STATUS_NEW) {
-            topicStatus = TOPIC_STATUS_NEW;
+            return TOPIC_STATUS_NEW;
           }
           if (row.chatFlowStatus === CHAT_FLOW_STATUS_ACCEPTED) {
-            topicStatus = TOPIC_STATUS_ACTIVE;
+            return TOPIC_STATUS_ACTIVE;
           }
           if (row.chatFlowStatus === CHAT_FLOW_STATUS_OPEN) {
-            topicStatus = TOPIC_STATUS_OPEN;
+            return TOPIC_STATUS_OPEN;
           }
         }
-
         // IF row status is 'inactive'
         if (row.status === STATUS_INACTIVE) {
           if (row.chatFlowStatus === CHAT_FLOW_STATUS_RESOLVED) {
-            topicStatus = TOPIC_STATUS_RESOLVED;
+            return TOPIC_STATUS_RESOLVED;
           }
-
           if (
             row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD &&
             row.onHoldReason
           ) {
             if (row.onHoldReason === ONHOLD_REASON_CUSTOMER) {
-              topicStatus = TOPIC_STATUS_ONHOLD_CUSTOMER;
+              return TOPIC_STATUS_ONHOLD_CUSTOMER;
             }
             if (row.onHoldReason === ONHOLD_REASON_COACH) {
-              topicStatus = TOPIC_STATUS_ONHOLD_COACH;
+              return TOPIC_STATUS_ONHOLD_COACH;
             }
           }
         }
       }
-
       // IF row status is 'closed'
       if (row.status === STATUS_CLOSED) {
-        topicStatus = TOPIC_STATUS_CLOSED;
+        return TOPIC_STATUS_CLOSED;
       }
     }
-
     // Incase if no conditions were matched
-    if (!topicStatus) {
-      topicStatus = TOPIC_STATUS_UNDEFINED;
-    }
-    return topicStatus;
+    return TOPIC_STATUS_UNDEFINED;
   }
 
   get showLoadMore() {

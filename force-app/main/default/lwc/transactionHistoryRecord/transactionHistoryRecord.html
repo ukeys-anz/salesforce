@@ -1,6 +1,9 @@
 <template>
   <template if:true={transactionRecord.showDateTitle}>
-    <div class="slds-text-color_weak slds-card__header-title transaction-date">
+    <div
+      class="slds-text-color_weak slds-card__header-title transaction-date"
+      data-test-id="transaction-date"
+    >
       {transactionDate}
     </div>
   </template>
@@ -44,7 +47,9 @@
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Transaction Time</div>
-        <div class="slds-grid">{transactionTime}</div>
+        <div class="slds-grid" data-test-id="transaction-time">
+          {transactionTime}
+        </div>
       </div>
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Short Description</div>
@@ -58,6 +63,7 @@
           <template if:true={positiveAmount}>
             <span class="positive-amount"
               >+<lightning-formatted-number
+                data-test-id="amount"
                 value={amountNumber}
                 format-style="currency"
                 data-id="amount"
@@ -67,9 +73,11 @@
           <template if:true={negativeAmount}>
             <span>
               <lightning-formatted-number
+                data-test-id="amount"
                 value={amountNumber}
                 format-style="currency"
-              ></lightning-formatted-number>
+              >
+              </lightning-formatted-number>
             </span>
           </template>
         </div>
@@ -151,7 +159,9 @@
             <div class="slds-col slds-size--1-of-7"></div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Name</div>
-              <div class="slds-grid">{transactionRecord.merchantName}</div>
+              <div class="slds-grid" data-test-id="merchant-name">
+                {transactionRecord.merchantName}
+              </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Address</div>
@@ -200,7 +210,9 @@
               <div class="slds-grid slds-form-element__label">
                 Converted Currency Code
               </div>
-              <div class="slds-grid">{amountConvertedCurrency}</div>
+              <div class="slds-grid" data-test-id="converted-currency-code">
+                {amountConvertedCurrency}
+              </div>
             </div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">
@@ -219,7 +231,7 @@
             <div class="slds-col slds-size--1-of-7"></div>
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Card Scheme</div>
-              <div class="slds-grid">
+              <div class="slds-grid" data-test-id="card-scheme">
                 {transactionRecord.card.formatted_scheme}
               </div>
             </div>
