@@ -15,6 +15,16 @@
     <description>Should only have required/minimum permissions to Read Case related information.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Collections__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Hardship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Source_System_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -146,11 +156,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Crediting_Bank_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.Receipt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -766,6 +771,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Reason_for_an_Urgent_Dishonour_Request__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Receipt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
