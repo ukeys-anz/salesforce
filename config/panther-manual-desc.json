@@ -800,7 +800,9 @@
         "PublishStatus",
         "Title",
         "UrlName",
-        "ArticleNumber"
+        "ArticleNumber",
+        "Audience__c",
+        "Topic__c"
       ],
       "IA-2468715": [
         "CreatedById",
