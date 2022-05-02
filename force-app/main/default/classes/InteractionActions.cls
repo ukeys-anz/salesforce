@@ -291,11 +291,34 @@ public with sharing class InteractionActions {
   }
 
   /**
+   * @description Goes through a list of Interactions and using an old map, finds the one that ownership has changed.
+   * @param oldMap Map<Id, SObject> map of old versions of the interactions
+   * @param records List<Interaction> list of the interaction through which to iterate.
+   * @return List<Interaction> list of interaction that have had their ownership changed.
+   */
+  public List<Interaction> findInteractionsOwnershipChanged(
+    Map<Id, SObject> oldMap,
+    List<Interaction> records
+  ) {
+    List<Interaction> result = new List<Interaction>();
+    for (Interaction currentInteraction : records) {
+      if (oldMap.containsKey(currentInteraction.Id)) {
+        Interaction oldInteraction = (Interaction) oldMap.get(
+          currentInteraction.Id
+        );
+        if (oldInteraction.OwnerId != currentInteraction.OwnerId) {
+          result.add(currentInteraction);
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
    * @description Get the list of contact requests of those interactions which are cancelled
    * @param interactions The list of interactions which were cancelled
    * @return List<ContactRequest> List of ContactRequest records related to the interaction which were cancelled.
    */
-
   public List<ContactRequest> getRelatedContactRequest(
     List<Interaction> interactions
   ) {

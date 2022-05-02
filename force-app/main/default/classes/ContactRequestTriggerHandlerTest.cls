@@ -313,11 +313,10 @@ private class ContactRequestTriggerHandlerTest {
 
     List<Event> events = [SELECT Id FROM Event];
 
-    system.assertNotEquals(null, events, 'Events should not be null');
-    system.assertNotEquals(
-      0,
-      events.size(),
-      'At least 1 event must be created'
+    system.assertEquals(
+      true,
+      events.isEmpty(),
+      'Events should not be created at this point'
     );
   }
 

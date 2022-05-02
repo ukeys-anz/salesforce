@@ -5,14 +5,16 @@
  */
 @isTest
 public with sharing class InteractionTriggerHandlerTest {
-  /**
-   * @description test for cancelling an Interaction
-   */
+  private static string appointmentQueueName = 'Appointments_Queue';
+  private static string otherPurposeName = 'Other';
+  private static Integer otherPurposeDuration = 30;
+
   @isTest
-  static void testCancellingAnInteraction() {
-    string otherPurposeName = 'Other';
-    Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
+  static void testSwitchingInteractionFromQueueToUser() {
+    createPurposeMap();
+    QueueSObject appointmentQueue = getGroupByName(appointmentQueueName);
+    Id currentUserId = UserInfo.getUserId();
+
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
     insert testAccount;
     testAccount = [
@@ -21,23 +23,61 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE Id = :testAccount.Id
     ];
 
-    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
-    otherPurpose.Duration__c = otherPurposeDuration;
-    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
-    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+    DateTime startTime = DateTime.newInstance(DateTime.now().year(), 1, 1);
 
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+    Interaction testInteraction = new Interaction(
+      Status__c = 'Unassigned',
+      Interaction_Purpose__c = otherPurposeName,
+      StartTime = startTime,
+      AccountId = testAccount.Id,
+      Name = 'Other Appointment',
+      EndTime = startTime.addMinutes(otherPurposeDuration),
+      OwnerId = appointmentQueue.Queue.Id
+    );
+    insert testInteraction;
+
+    List<Event> currentEvents = [SELECT Id FROM Event];
+    system.assertEquals(
+      true,
+      currentEvents.isEmpty(),
+      'There should not be any events at this stage'
+    );
+
+    test.startTest();
+    testInteraction.OwnerId = currentUserId;
+    update testInteraction;
+    test.stopTest();
+
+    currentEvents = [SELECT Id FROM Event];
+    system.assertEquals(
+      false,
+      currentEvents.isEmpty(),
+      'There should be an event at this stage'
+    );
+  }
+
+  /**
+   * @description test for cancelling an Interaction
+   */
+  @isTest
+  static void testCancellingAnInteraction() {
+    string contactRequestQueueName = 'Contact_Request';
+    createPurposeMap();
+
+    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount;
+    testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount.Id
     ];
+
+    QueueSObject contactRequestQueue = getGroupByName(contactRequestQueueName);
 
     DateTime appointmentDate = DateTime.now();
 
     ContactRequest request = new ContactRequest();
-    request.OwnerId = contactRequestQueue[0].Queue.Id;
+    request.OwnerId = contactRequestQueue.Queue.Id;
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
@@ -54,7 +94,11 @@ public with sharing class InteractionTriggerHandlerTest {
       testInteraction.Status__c,
       'Interaction must not start off cancelled.'
     );
-    System.assertEquals(1, events.size(), 'One event must be created ');
+    System.assertEquals(
+      true,
+      events.isEmpty(),
+      'No Event should be created at this stage'
+    );
 
     test.startTest();
     testInteraction.Status__c = 'Cancelled';
@@ -66,6 +110,14 @@ public with sharing class InteractionTriggerHandlerTest {
     System.assertEquals(true, events.isEmpty(), 'All events must be deleted');
   }
 
+  static void createPurposeMap() {
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+  }
   /*
    * @description Test method to validate Interaction when the status is updated to Rescheduled
    */
@@ -88,12 +140,7 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE Id = :testAccount.Id
     ];
 
-    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
-    otherPurpose.Duration__c = otherPurposeDuration;
-    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
-    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+    createPurposeMap();
 
     List<QueueSObject> contactRequestQueue = [
       SELECT Queue.Id, Queue.Name, Queue.Type
@@ -138,6 +185,9 @@ public with sharing class InteractionTriggerHandlerTest {
       testInteraction.OwnerId,
       'The owner of the new interaction should be Appointment Queue'
     );
+
+    testInteraction.OwnerId = UserInfo.getUserId();
+    update testInteraction;
 
     Appointment_Commitment__c apptCommitRec = [
       SELECT Id, Confirmed__c
@@ -208,13 +258,6 @@ public with sharing class InteractionTriggerHandlerTest {
       WHERE Id = :testAccount.Id
     ];
 
-    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
-    otherPurpose.Duration__c = otherPurposeDuration;
-    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
-    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
-
     List<QueueSObject> contactRequestQueue = [
       SELECT Queue.Id, Queue.Name, Queue.Type
       FROM QueueSObject
@@ -236,11 +279,6 @@ public with sharing class InteractionTriggerHandlerTest {
     }
 
     insert crList;
-
-    for (ContactRequest cr : crList) {
-      cr.OwnerId = UserInfo.getUserId();
-    }
-    update crList;
 
     List<Interaction> testInteraction = [
       SELECT Id, Status__c, OwnerId, ContactRequestId__c
@@ -265,7 +303,12 @@ public with sharing class InteractionTriggerHandlerTest {
         interact.OwnerId,
         'The owner of the new interaction should be Appointment Queue'
       );
+
+      interact.OwnerId = UserInfo.getUserId();
     }
+
+    update testInteraction;
+
     Appointment_Commitment__c apptCommitRec = [
       SELECT Id, Confirmed__c
       FROM Appointment_Commitment__c
@@ -342,5 +385,14 @@ public with sharing class InteractionTriggerHandlerTest {
     testAccount.RecordTypeId = personAccountRecordTypeId;
 
     return testAccount;
+  }
+
+  static QueueSObject getGroupByName(string name) {
+    List<QueueSObject> result = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.DeveloperName = :name
+    ];
+    return result[0];
   }
 }

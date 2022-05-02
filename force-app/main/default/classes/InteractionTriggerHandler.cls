@@ -3,6 +3,7 @@
  * @author Adam Phillip Smith
  * @since 20220329
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description override of the onAfterInsert to create Events & Interaction Summaries
@@ -19,71 +20,100 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     cRActions.insertSummaries(summaries);
 
-    List<Event> events = cRActions.createEventsFromInteractions(interactions);
-    cRActions.insertEvents(events);
-
     cRActions.setInteractionIds(interactions);
   }
 
+  /**
+   * @description onAfterUpdate runs after an interaction has been updated.
+   * @param oldMap Map<Id,SObject> the old versions of the interactions
+   */
+  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    InteractionActions actions = new InteractionActions();
-    List<ContactRequest> contactRequestList = new List<ContactRequest>();
-    List<Interaction> assignedBacktoQueueInteractions = actions.getInteractionsAssignedBacktoQueue(
+    InteractionActions actionsForInteractions = new InteractionActions();
+    ContactRequestActions actionsForContactRequests = new ContactRequestActions();
+
+    List<Interaction> changedOwnerInteractions = actionsForInteractions.findInteractionsOwnershipChanged(
       oldMap,
       records
     );
+    List<Interaction> userOwnedInteractions = new List<Interaction>();
+    List<Interaction> assignedBacktoQueueInteractions = new List<Interaction>();
 
-    if (assignedBacktoQueueInteractions.size() > 0) {
-      actions.deleteInteractionEvents(assignedBacktoQueueInteractions);
+    if (!changedOwnerInteractions.isEmpty()) {
+      for (Interaction currentInteraction : changedOwnerInteractions) {
+        if (currentInteraction.OwnerId == UserInfo.getUserId()) {
+          userOwnedInteractions.add(currentInteraction);
+        } else {
+          assignedBacktoQueueInteractions.add(currentInteraction);
+        }
+      }
+      if (!userOwnedInteractions.isEmpty()) {
+        List<Event> events = actionsForContactRequests.createEventsFromInteractions(
+          userOwnedInteractions
+        );
+        if (events.isEmpty() == false) {
+          actionsForContactRequests.insertEvents(events);
+        }
+      }
     }
 
-    List<Interaction> cancelledInteractions = actions.findCancelledInteractions(
+    List<ContactRequest> contactRequestList = new List<ContactRequest>();
+    List<Interaction> interactionToDeleteEvents = assignedBacktoQueueInteractions.Clone();
+
+    if (!assignedBacktoQueueInteractions.isEmpty()) {
+      actionsForInteractions.deleteInteractionEvents(
+        assignedBacktoQueueInteractions
+      );
+    }
+
+    List<Interaction> cancelledInteractions = actionsForInteractions.findCancelledInteractions(
       oldMap,
       records
     );
-    if (!cancelledInteractions.isEmpty()) {
-      actions.deleteInteractionEvents(cancelledInteractions);
-      contactRequestList = actions.getRelatedContactRequest(
+
+    interactionToDeleteEvents.addAll(cancelledInteractions);
+
+    if (!interactionToDeleteEvents.isEmpty()) {
+      actionsForInteractions.deleteInteractionEvents(interactionToDeleteEvents);
+      contactRequestList = actionsForInteractions.getRelatedContactRequest(
         cancelledInteractions
       );
     }
 
-    if (contactRequestList.size() > 0) {
-      ContactRequestTriggerActions.updateConfirmedCount(
-        contactRequestList,
-        false
-      );
-    }
-
+    List<ContactRequest> requestsToRecalculate = contactRequestList.Clone();
     List<ContactRequest> rescheduledContactRequestList = new List<ContactRequest>();
-    List<Interaction> rescheduledInteractions = actions.getRescheduledInteractions(
+
+    List<Interaction> rescheduledInteractions = actionsForInteractions.getRescheduledInteractions(
       oldMap,
       records
     );
-    List<Event> relatedEvents = actions.getRelatedEvents(records);
+    List<Event> relatedEvents = actionsForInteractions.getRelatedEvents(
+      records
+    );
 
-    if (rescheduledInteractions.size() > 0) {
-      rescheduledContactRequestList = actions.getRelatedContactRequest(
+    if (!rescheduledInteractions.isEmpty()) {
+      rescheduledContactRequestList = actionsForInteractions.getRelatedContactRequest(
         rescheduledInteractions
       );
     }
 
-    if (rescheduledContactRequestList.size() > 0) {
+    requestsToRecalculate.addAll(rescheduledContactRequestList);
+
+    if (!requestsToRecalculate.isEmpty()) {
       ContactRequestTriggerActions.updateConfirmedCount(
-        rescheduledContactRequestList,
+        requestsToRecalculate,
         false
       );
     }
 
-    if (relatedEvents.size() > 0) {
-      actions.updateEventSchedule(relatedEvents, records);
+    if (!relatedEvents.isEmpty()) {
+      actionsForInteractions.updateEventSchedule(relatedEvents, records);
     }
   }
 
   /**
    *  @description onBeforeInsert to handle before insert trigger actions.
    */
-
   public override void onBeforeInsert() {
     InteractionActions actions = new InteractionActions();
     actions.updateOwnerNewInteractions(records);
@@ -92,7 +122,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   /** @description onBeforeUpdate to handle before update trigger actions.
    * @param oldMap old trigger values
    */
-
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     InteractionActions actions = new InteractionActions();
     List<Interaction> acceptedInteractions = actions.getAcceptedInteractions(

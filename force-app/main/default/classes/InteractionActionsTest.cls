@@ -5,6 +5,7 @@
  */
 @isTest
 public with sharing class InteractionActionsTest {
+  private final static string APPOINTMENT_QUEUE_NAME = 'Appointments_Queue';
   /**
    * @description test for interaction assigned back to Queue.
    */
@@ -77,12 +78,12 @@ public with sharing class InteractionActionsTest {
       'The Contact request Id should be updated on the Interaction record.'
     );
 
+    testInteraction.OwnerId = UserInfo.getUserId();
+    update testInteraction;
+
     List<Event> events = [SELECT Id FROM Event];
 
     System.assertEquals(1, events.size(), 'One event must be created');
-
-    testInteraction.OwnerId = UserInfo.getUserId();
-    update testInteraction;
 
     testInteraction = [SELECT Id, Status__c, OwnerId FROM Interaction];
 
@@ -165,15 +166,6 @@ public with sharing class InteractionActionsTest {
 
     insert contactRequestList;
 
-    List<ContactRequest> crList = [SELECT ID, OwnerId FROM ContactRequest];
-
-    for (ContactRequest contReq : crList) {
-      contReq.OwnerId = UserInfo.getUserId();
-      contactRequestList.add(contReq);
-    }
-
-    update crList;
-
     List<Interaction> testInteraction = [
       SELECT Id, Status__c, OwnerId, ContactRequestId__c
       FROM Interaction
@@ -204,6 +196,11 @@ public with sharing class InteractionActionsTest {
         'The owner of the new interaction should be Appointment Queue'
       );
     }
+
+    for (Interaction currentInteraction : testInteraction) {
+      currentInteraction.OwnerId = UserInfo.getUserId();
+    }
+    update testInteraction;
 
     Appointment_Commitment__c apptCommitRec = [
       SELECT Id, Confirmed__c
@@ -345,6 +342,9 @@ public with sharing class InteractionActionsTest {
       request.Id,
       'The Contact request Id should be updated on the Interaction record.'
     );
+
+    testInteraction.OwnerId = UserInfo.getUserId();
+    update testInteraction;
 
     Appointment_Commitment__c apptCommitRec = [
       SELECT Id, Confirmed__c
@@ -525,6 +525,53 @@ public with sharing class InteractionActionsTest {
       'Scheduled',
       testInteraction.Status__c,
       'The status of the interaction should be updated to Scheduled'
+    );
+  }
+
+  @isTest
+  static void testFindInteractionOwnershipChanged() {
+    InteractionActions actions = new InteractionActions();
+    Id myId = UserInfo.getUserId();
+    Id groupId = CommonUtil.getGroupId(APPOINTMENT_QUEUE_NAME);
+
+    Interaction testInteraction = new Interaction(
+      Name = 'Test Interaction',
+      OwnerId = groupId
+    );
+    insert testInteraction;
+
+    Interaction newInteraction = new Interaction(
+      Name = testInteraction.Name,
+      Id = testInteraction.Id,
+      OwnerId = myId
+    );
+
+    Map<Id, SObject> oldMap = new Map<Id, SObject>(
+      new List<Interaction>{ testInteraction }
+    );
+
+    List<Interaction> records = new List<Interaction>{ newInteraction };
+
+    List<Interaction> result = actions.findInteractionsOwnershipChanged(
+      oldMap,
+      records
+    );
+
+    System.assertEquals(
+      false,
+      result.isEmpty(),
+      'The interaction should be returned.'
+    );
+
+    newInteraction.OwnerId = groupId;
+    records = new List<Interaction>{ newInteraction };
+
+    result = actions.findInteractionsOwnershipChanged(oldMap, records);
+
+    System.assertEquals(
+      true,
+      result.isEmpty(),
+      'The interaction should not be returned.'
     );
   }
 
