@@ -189,7 +189,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     String accountNumber,
     List<String> bucketIds
   ) {
-    String params = '?';
+    String params = '';
     if (
       String.isNotBlank(startDate) &&
       String.isNotBlank(endDate) &&
@@ -198,7 +198,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
       String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
       params +=
-        'account_numbers=' +
+        '?account_numbers=' +
         accountNumber +
         '&start_time=' +
         utcStartDate +
