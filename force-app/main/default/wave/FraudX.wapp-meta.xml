@@ -17,4 +17,9 @@
         <sharedTo>FraudX_Agent</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
+    <shares>
+        <accessLevel>Manage</accessLevel>
+        <sharedTo>Business_Admin</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
 </WaveApplication>

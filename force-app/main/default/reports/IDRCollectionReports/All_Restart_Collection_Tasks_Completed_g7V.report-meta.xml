@@ -38,7 +38,7 @@
             <value>START Collection</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ASSIGNED</column>
+            <column>Activity.Queue__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>

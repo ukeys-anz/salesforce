@@ -7,9 +7,13 @@
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Queue</filterScope>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Queue__c</field>
+        <operation>equals</operation>
+        <value>IDR Responsible Lending</value>
+    </filters>
     <label>IDR Responsible Lending</label>
-    <queue>IDR_Responsible_Lending</queue>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>

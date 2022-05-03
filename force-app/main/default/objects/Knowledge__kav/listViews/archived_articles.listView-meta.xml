@@ -16,6 +16,7 @@
     </filters>
     <label>Archived Articles</label>
     <sharedTo>
+        <role>Business_Admin</role>
         <role>Content_Writer</role>
         <role>IDR_Content_Writer</role>
     </sharedTo>

@@ -51,7 +51,7 @@ async function _utam_get_searchItemLink(driver, root) {
 
 async function _utam_get_currentApp(driver, root) {
   let _element = root;
-  const _locator = core.By.css(`div[class*='appName'] span`);
+  const _locator = core.By.css(`.appName span`);
   return _element.findElement(_locator);
 }
 

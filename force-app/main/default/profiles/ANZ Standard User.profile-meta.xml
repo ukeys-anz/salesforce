@@ -283,7 +283,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>NewCaseFlowWrapperController</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>PermissionChecker</apexClass>
@@ -331,7 +331,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>NewCaseFlowWrapperControllerTest</apexClass>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ProcessBuilderNoActionTest</apexClass>
@@ -1681,6 +1681,9 @@
     <layoutAssignments>
         <layout>Product2-ANZ Product and Service Layout</layout>
         <recordType>Product2.ANZ_Product_or_Service</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Product_Family__c-Product Family Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Product2-Product Layout</layout>

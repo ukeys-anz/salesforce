@@ -8,6 +8,35 @@
         },
         "elements": [
           {
+            "name": "searchSection",
+            "selector": {
+              "css": ".search-section"
+            },
+            "elements": [
+              {
+                "name": "startDateInput",
+                "selector": {
+                  "css": "[data-test-id='startDateInput']"
+                },
+                "type": "utam-lightning/pageObjects/input"
+              },
+              {
+                "name": "endDateInput",
+                "selector": {
+                  "css": "[data-test-id='endDateInput']"
+                },
+                "type": "utam-lightning/pageObjects/input"
+              },
+              {
+                "name": "searchButton",
+                "selector": {
+                  "css": "lightning-button"
+                },
+                "type": "utam-lightning/pageObjects/button"
+              }
+            ]
+          },
+          {
             "name": "transactionHistoryRecordOfType",
             "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryRecord",
             "selector": {
@@ -28,9 +57,77 @@
               }
             },
             "public": true
+          },
+          {
+            "name": "transactionHistoryRecordsWithDate",
+            "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryRecord",
+            "selector": {
+              "css": "c-transaction-history-record",
+              "returnAll": true
+            },
+            "filter": {
+              "apply": "getTransactionDateEle",
+              "matcher": {
+                "type": "notNull"
+              }
+            },
+            "public": true
+          },
+          {
+            "name": "transactionHistoryRecord",
+            "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryRecord",
+            "selector": {
+              "css": "c-transaction-history-record"
+            },
+            "public": true
+          },
+          {
+            "name": "transactionHistoryRecords",
+            "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryRecord",
+            "selector": {
+              "css": "c-transaction-history-record",
+              "returnAll": true
+            },
+            "public": true
+          },
+          {
+            "name": "loadMoreButton",
+            "selector": {
+              "css": "button[class*='load-more']"
+            },
+            "type": "clickable"
           }
         ]
       }
     ]
-  }
+  },
+  "methods": [
+    {
+      "name": "getEndDateSearch",
+      "compose":[
+        {
+          "element": "endDateInput",
+          "returnType": "utam-lightning/pageObjects/input"
+        },
+        {
+          "chain": true,
+          "element" : "datepicker",
+          "returnType": "utam-lightning/pageObjects/datepicker"
+        }
+      ]
+    },
+    {
+      "name": "loadMore",
+      "compose":[
+        {
+          "element": "loadMoreButton",
+          "apply": "click"
+        },
+        {
+          "element": "transactionHistoryRecords",
+          "apply": "waitForVisible"
+        }
+      ]
+    }
+  ]
 }

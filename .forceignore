@@ -32,6 +32,7 @@ force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
@@ -74,6 +75,9 @@ force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c
 force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal Layout.layout-meta.xml
 
+#Ignoring these fields as they are no longer used and should not be created. Entitlement Process has a dependency on them so can't delete them.
+force-app/main/default/objects/Case/fields/IDR_EntitlementStartDate__c.field-meta.xml
+
 #Ignoring apex classes below as they have been renamed
 force-app/main/default/classes/EverydayAccountController.cls
 force-app/main/default/classes/FinancialGoalsComponentController.cls
@@ -108,7 +112,14 @@ force-app/main/default/flows/Knowledge_Process.flow-meta.xml
 #ignore pushing harness stuffs for making a scratchOrg
 force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
-force-app/main/default/entitlementProcesses/
+# Now that entitlementProcesses are versioned we no longer need to ignore them.
+#force-app/main/default/entitlementProcesses/
+force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
 force-app/main/default/transactionSecurityPolicies
+
+#to prevent issues when deploying looking for depracated process name
+force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
 force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
 force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml

@@ -3,9 +3,9 @@
  * @since 07/2021
  * @description  Test Class to test CMOS Milestones features
  */
-@isTest
+@IsTest
 public class IDRMilestonesTest {
-  @testSetup
+  @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
 
@@ -18,16 +18,16 @@ public class IDRMilestonesTest {
     );
     insert a;
 
-    Slaprocess sla = [
-      SELECT Id, NAME
-      FROM Slaprocess
-      WHERE Name = 'complaints'
+    SlaProcess sla = [
+      SELECT Id, Name
+      FROM SlaProcess
+      WHERE Name = 'complaints' AND IsActive = TRUE AND IsVersionDefault = TRUE
       LIMIT 1
     ];
     Entitlement et = new Entitlement(
       Name = 'Complaints Entitlement',
       AccountId = a.Id,
-      StartDate = Date.valueof(System.now().addDays(-2)),
+      StartDate = Date.valueOf(System.now().addDays(-2)),
       SlaProcessId = sla.Id
     );
     insert et;
@@ -65,7 +65,7 @@ public class IDRMilestonesTest {
   WHEN the case gets escalated or completed
   THEN the appropriate milestones are set to complete
   */
-  @isTest
+  @IsTest
   static void testIDRMilestoneCompletion() {
     Case[] newCases = createCMOSCustomerComplaintCase();
 
@@ -90,15 +90,15 @@ public class IDRMilestonesTest {
     update newCases[0];
 
     List<CaseMilestone> cmList1 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
       WHERE
-        CaseId = :newCases[0].id
+        CaseId = :newCases[0].Id
         AND MilestoneType.Name = 'Open_Escalation_Time'
     ];
     System.assertEquals(
       true,
-      cmList1[0].isCompleted,
+      cmList1[0].IsCompleted,
       'Escalation milestone should be closed'
     );
 
@@ -109,9 +109,9 @@ public class IDRMilestonesTest {
     update newCases[1];
 
     List<CaseMilestone> cmList2 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
-      WHERE CaseId = :newCases[1].id AND isCompleted = TRUE
+      WHERE CaseId = :newCases[1].Id AND IsCompleted = TRUE
     ];
     System.assertEquals(
       2,
@@ -123,12 +123,12 @@ public class IDRMilestonesTest {
   WHEN the case gets created or its issue+sub issue types get updated
   THEN the 30-day milestones are appearing given the correct issue+sub issue types defined in https://jira.service.anz/browse/IDR-3464
   */
-  @isTest
+  @IsTest
   static void testIDR30DayMilestoneCreation() {
     Test.startTest();
     Case[] newCases = createCMOSCustomerComplaintCase();
     List<CaseMilestone> cmList1 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
       WHERE
         CaseId IN :newCases
@@ -153,7 +153,7 @@ public class IDRMilestonesTest {
     update newCases;
 
     List<CaseMilestone> cmList2 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
       WHERE
         CaseId IN :newCases
@@ -175,7 +175,7 @@ public class IDRMilestonesTest {
   WHEN the case gets created or its issue+sub issue types get updated
   THEN the 21-day milestones are appearing given the correct issue+sub issue types defined in https://jira.service.anz/browse/IDR-3464
   */
-  @isTest
+  @IsTest
   static void testIDR21DayMilestoneCreation() {
     Test.startTest();
     Case[] newCases = new List<Case>();
@@ -195,7 +195,7 @@ public class IDRMilestonesTest {
     insert newCases;
 
     List<CaseMilestone> cmList1 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
       WHERE
         CaseId IN :newCases
@@ -218,7 +218,7 @@ public class IDRMilestonesTest {
     update newCases;
 
     List<CaseMilestone> cmList2 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
       WHERE
         CaseId IN :newCases
@@ -241,7 +241,7 @@ public class IDRMilestonesTest {
   WHEN the cases' issue+sub issue types get updated
   THEN the correct are appearing given the correct issue+sub issue types defined in https://jira.service.anz/browse/IDR-3464
   */
-  @isTest
+  @IsTest
   static void testIDR21and30DayMilestoneChange() {
     Case[] newCases = createCMOSCustomerComplaintCase();
 
@@ -265,7 +265,7 @@ public class IDRMilestonesTest {
     update newCases;
 
     List<CaseMilestone> cmList1 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
       WHERE
         CaseId IN :newCases
@@ -283,7 +283,7 @@ public class IDRMilestonesTest {
     update newCases;
 
     List<CaseMilestone> cmList2 = [
-      SELECT Id, isCompleted, MilestoneType.Name
+      SELECT Id, IsCompleted, MilestoneType.Name
       FROM CaseMilestone
       WHERE
         CaseId IN :newCases
