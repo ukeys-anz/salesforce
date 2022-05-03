@@ -71,7 +71,13 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
+    List<Interaction> noShowInteractions = actionsForInteractions.getNoShowInteractions(
+      oldMap,
+      records
+    );
+
     interactionToDeleteEvents.addAll(cancelledInteractions);
+    interactionToDeleteEvents.addAll(noShowInteractions);
 
     if (!interactionToDeleteEvents.isEmpty()) {
       actionsForInteractions.deleteInteractionEvents(interactionToDeleteEvents);

@@ -236,6 +236,90 @@ public with sharing class InteractionTriggerHandlerTest {
     );
   }
 
+  @isTest
+  static void testInteractionNoShow() {
+    string otherPurposeName = 'Other';
+    Integer otherPurposeDuration = 30;
+    string contactRequestQueueName = 'Contact Request';
+    Id currentUserId = UserInfo.getUserId();
+
+    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount;
+    testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount.Id
+    ];
+
+    createPurposeMap();
+
+    List<QueueSObject> contactRequestQueue = [
+      SELECT Queue.Id, Queue.Name, Queue.Type
+      FROM QueueSObject
+      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+    ];
+
+    DateTime appointmentDate = DateTime.now();
+
+    ContactRequest request = new ContactRequest();
+    request.OwnerId = contactRequestQueue[0].Queue.Id;
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = otherPurposeName;
+    request.WhoId = testAccount.PersonContactId;
+    request.PreferredChannel = 'Call';
+    insert request;
+
+    request.OwnerId = UserInfo.getUserId();
+
+    update request;
+
+    Interaction testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      testInteraction.Status__c,
+      'Unassigned',
+      'The new interaction should have the status as Unassigned'
+    );
+
+    Group interactionQueue = [
+      SELECT ID
+      FROM Group
+      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+    ];
+
+    System.assertEquals(
+      interactionQueue.Id,
+      testInteraction.OwnerId,
+      'The owner of the new interaction should be Appointment Queue'
+    );
+
+    testInteraction.OwnerId = currentUserId;
+    update testInteraction;
+
+    List<Event> currentEvents = [SELECT Id FROM Event];
+    system.assertEquals(
+      false,
+      currentEvents.isEmpty(),
+      'There should be an event at this stage'
+    );
+
+    Test.startTest();
+    testInteraction.Status__c = 'No Show';
+    update testInteraction;
+    Test.stopTest();
+
+    currentEvents = [SELECT Id FROM Event];
+
+    System.assertEquals(
+      true,
+      currentEvents.isEmpty(),
+      'All events must be deleted'
+    );
+  }
+
   /*
    * @description Test method to validate Interaction when the status is updated to Rescheduled (Bulk)
    */

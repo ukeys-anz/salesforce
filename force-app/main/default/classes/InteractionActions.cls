@@ -9,6 +9,7 @@ public with sharing class InteractionActions {
   public static final String SCHEDULED_STATUS = 'Scheduled';
   public static final String UNASSIGNED_STATUS = 'Unassigned';
   public static final String RESCHEDULED_STATUS = 'Rescheduled';
+  public static final String NO_SHOW_STATUS = 'No Show';
   public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
 
   /**
@@ -34,6 +35,32 @@ public with sharing class InteractionActions {
     }
 
     return assignedToQueueInteractions;
+  }
+
+  /**
+   * @description Gets the list of interactions and returns the ones where the status is updated as No show
+   * @param oldMap Map<Id,SObject> map of the old versions of the interactions
+   * @param interactions List<Interaction> list of interactions through which to search.
+   * @return List<Interaction> list of interactions updated as No show
+   */
+
+  public List<Interaction> getNoShowInteractions(
+    Map<Id, SObject> oldMap,
+    List<Interaction> interactions
+  ) {
+    List<Interaction> noShowInteractions = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      Interaction oldInteraction = (Interaction) Trigger.oldMap
+        .get(interact.Id);
+      if (
+        oldInteraction.Status__c != interact.Status__c &&
+        interact.Status__c == NO_SHOW_STATUS
+      ) {
+        noShowInteractions.add(interact);
+      }
+    }
+
+    return noShowInteractions;
   }
 
   /**
