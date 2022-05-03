@@ -161,6 +161,24 @@ public with sharing class ContactRequestActionsTest {
   }
 
   @isTest
+  static void testInteractionExternalIdNotFromCR() {
+    Interaction testInteraction = new Interaction(Name = 'Test Interaction');
+    test.startTest();
+    insert testInteraction;
+    test.stopTest();
+    testInteraction = [
+      SELECT Interaction_External_Id__c, Interaction_Auto_Number__c
+      FROM Interaction
+      WHERE Id = :testInteraction.Id
+    ];
+    system.assertEquals(
+      testInteraction.Interaction_Auto_Number__c,
+      testInteraction.Interaction_External_Id__c,
+      'External Id should match the auto number when not linked to a CR'
+    );
+  }
+
+  @isTest
   static void testCreateInteractionFromRequest() {
     setup();
     Account testAccount = createTestAccount();
@@ -185,6 +203,19 @@ public with sharing class ContactRequestActionsTest {
     request.Channel_Booked__c = 'Chat';
     Test.startTest();
     insert request;
+    request = [
+      SELECT
+        Name,
+        Appointment_date_and_Time__c,
+        RequestReason,
+        WhoId,
+        RequestDescription,
+        PreferredChannel,
+        Channel_Booked__c
+      FROM ContactRequest
+      WHERE Id = :request.Id
+      LIMIT 1
+    ];
     Test.stopTest();
 
     List<Interaction> interactions = [
@@ -202,7 +233,8 @@ public with sharing class ContactRequestActionsTest {
         OwnerId,
         RecordTypeId,
         InteractionType,
-        Channel_Booked__c
+        Channel_Booked__c,
+        Interaction_External_Id__c
       FROM Interaction
     ];
     System.assertEquals(
@@ -301,6 +333,14 @@ public with sharing class ContactRequestActionsTest {
       request.Channel_Booked__c,
       newInteraction.Channel_Booked__c,
       'The Interaction Channel Booked field must match the Requests'
+    );
+
+    string expectedExternalId = 'CR-' + request.Name;
+
+    System.assertEquals(
+      expectedExternalId,
+      newInteraction.Interaction_External_Id__c,
+      'Extenal Id should be copied from the requests Autonumber'
     );
   }
 

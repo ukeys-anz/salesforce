@@ -216,7 +216,8 @@ public with sharing class ContactRequestActions {
       OwnerId = appointmentQueue.Id,
       InteractionType = request.PreferredChannel,
       Channel_Booked__c = request.Channel_Booked__c,
-      RecordTypeId = appointmentRecordTypeId
+      RecordTypeId = appointmentRecordTypeId,
+      Interaction_External_Id__c = 'CR-' + request.Name
     );
     return newInteraction;
   }

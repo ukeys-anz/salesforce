@@ -21,6 +21,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     cRActions.insertSummaries(summaries);
 
     cRActions.setInteractionIds(interactions);
+
+    Map<Id, SObject> interactionMap = new Map<Id, SObject>(records);
+    Set<Id> interactionIds = new Set<Id>(interactionMap.keyset());
+
+    InteractionActions.setExternalIds(interactionIds);
   }
 
   /**

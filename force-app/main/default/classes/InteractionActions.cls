@@ -373,4 +373,50 @@ public with sharing class InteractionActions {
     }
     return contactRequestList;
   }
+
+  /**
+   * @description goes through a list of interactions and sets the external Id
+   * to the autonumber if it is not already set
+   * @param interactions list of interactions to cycle
+   */
+  public void setExternalIds(List<Interaction> interactions) {
+    for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.Interaction_External_Id__c == null) {
+        currentInteraction.Interaction_External_Id__c = currentInteraction.Interaction_Auto_Number__c;
+      }
+    }
+  }
+
+  /**
+   * @description future method to set the external Id after creation
+   * @param interactionIds the Ids to update
+   */
+  @future
+  public static void setExternalIds(Set<Id> interactionIds) {
+    InteractionActions actions = new InteractionActions();
+
+    if (Interaction.SObjectType.getDescribe().isAccessible()) {
+      List<Interaction> interactions = [
+        SELECT Id, Interaction_External_Id__c, Interaction_Auto_Number__c
+        FROM Interaction
+        WHERE Id IN :interactionIds AND Interaction_External_Id__c = NULL
+      ];
+      actions.setExternalIds(interactions);
+      if (Interaction.SObjectType.getDescribe().isUpdateable()) {
+        update interactions;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'InteractionActions',
+          'setExternalIds',
+          'Not enough permissions to update Interaction.'
+        );
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'setExternalIds',
+        'Not enough permissions to query Interaction.'
+      );
+    }
+  }
 }
