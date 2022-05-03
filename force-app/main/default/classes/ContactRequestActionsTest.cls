@@ -5,6 +5,7 @@ public with sharing class ContactRequestActionsTest {
   private static string otherPurposeName = 'Other';
   private static string financialWellbeingPurposeName = 'Financial Wellbeing';
   private static string defaultInteractionStatus = 'Unassigned';
+  private static string appointmentRTName = 'Appointment';
 
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
@@ -140,6 +141,26 @@ public with sharing class ContactRequestActionsTest {
   }
 
   @isTest
+  static void testDirectionChoice() {
+    ContactRequestActions actions = new ContactRequestActions();
+
+    String direction = actions.getDirection('Call');
+
+    System.assertEquals(
+      'Outbound',
+      direction,
+      'Direction must be Outbound when channel is Call'
+    );
+
+    direction = actions.getDirection('Store');
+    System.assertEquals(
+      '',
+      direction,
+      'Direction must be blank when channel is Store'
+    );
+  }
+
+  @isTest
   static void testCreateInteractionFromRequest() {
     setup();
     Account testAccount = createTestAccount();
@@ -151,12 +172,17 @@ public with sharing class ContactRequestActionsTest {
     DateTime appointmentDate = DateTime.now();
     DateTime expectedEndDate = appointmentDate.addMinutes(duration);
 
+    Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
+      .get(appointmentRTName)
+      .getRecordTypeId();
+
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
     request.RequestDescription = 'Test';
     request.PreferredChannel = 'Call';
+    request.Channel_Booked__c = 'Chat';
     Test.startTest();
     insert request;
     Test.stopTest();
@@ -173,7 +199,10 @@ public with sharing class ContactRequestActionsTest {
         Name,
         ContactRequestId__c,
         Direction__c,
-        OwnerId
+        OwnerId,
+        RecordTypeId,
+        InteractionType,
+        Channel_Booked__c
       FROM Interaction
     ];
     System.assertEquals(
@@ -254,6 +283,24 @@ public with sharing class ContactRequestActionsTest {
       appointmentQueue.Queue.Id,
       newInteraction.OwnerId,
       'Newly created Interaction must be owned by the queue.'
+    );
+
+    System.assertEquals(
+      appointmentRecordTypeId,
+      newInteraction.RecordTypeId,
+      'Record Type must be Appointment'
+    );
+
+    System.assertEquals(
+      request.PreferredChannel,
+      newInteraction.InteractionType,
+      'The Interaction Type must match the requests preferred channel'
+    );
+
+    System.assertEquals(
+      request.Channel_Booked__c,
+      newInteraction.Channel_Booked__c,
+      'The Interaction Channel Booked field must match the Requests'
     );
   }
 

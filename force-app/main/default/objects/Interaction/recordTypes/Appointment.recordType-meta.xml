@@ -86,12 +86,24 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Not Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rescheduled</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Scheduled</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Unassigned</fullName>
             <default>true</default>
+        </values>
+        <values>
+            <fullName>Walk In</fullName>
+            <default>false</default>
         </values>
     </picklistValues>
 </RecordType>

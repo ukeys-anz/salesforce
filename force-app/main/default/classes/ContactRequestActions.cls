@@ -196,6 +196,11 @@ public with sharing class ContactRequestActions {
     if (accID == null) {
       leadId = request.WhoId;
     }
+
+    Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
+      .get('Appointment')
+      .getRecordTypeId();
+
     string defaultInteractionStatus = 'Unassigned';
     Interaction newInteraction = new Interaction(
       Status__c = defaultInteractionStatus,
@@ -206,11 +211,30 @@ public with sharing class ContactRequestActions {
       Name = request.RequestReason + ' Appointment',
       EndTime = request.Appointment_date_and_Time__c.addMinutes(duration),
       Description = request.RequestDescription,
-      Direction__c = 'Outbound',
+      Direction__c = getDirection(request.PreferredChannel),
       ContactRequestId__c = request.Id,
-      OwnerId = appointmentQueue.Id
+      OwnerId = appointmentQueue.Id,
+      InteractionType = request.PreferredChannel,
+      Channel_Booked__c = request.Channel_Booked__c,
+      RecordTypeId = appointmentRecordTypeId
     );
     return newInteraction;
+  }
+
+  /**
+   * @description returns the direction based upon the preferred channel
+   * @param preferredChannel String the preferred channel.
+   * @return the direction
+   */
+  public string getDirection(string preferredChannel) {
+    switch on preferredChannel {
+      when 'Call' {
+        return 'Outbound';
+      }
+      when else {
+        return '';
+      }
+    }
   }
 
   /**
