@@ -29,16 +29,9 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
-    ];
-
     DateTime appointmentDate = DateTime.now();
 
     ContactRequest request = new ContactRequest();
-    request.OwnerId = contactRequestQueue[0].Queue.Id;
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
@@ -143,19 +136,12 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
-    ];
-
     DateTime appointmentDate = DateTime.now();
 
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
 
     for (Integer i = 0; i < 100; i++) {
       ContactRequest request = new ContactRequest();
-      request.OwnerId = contactRequestQueue[0].Queue.Id;
       request.Appointment_date_and_Time__c = appointmentDate;
       request.RequestReason = otherPurposeName;
       request.WhoId = testAccounts[0].PersonContactId;
@@ -293,16 +279,9 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
-    ];
-
     DateTime appointmentDate = DateTime.now();
 
     ContactRequest request = new ContactRequest();
-    request.OwnerId = contactRequestQueue[0].Queue.Id;
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
@@ -472,16 +451,9 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
-    ];
-
     DateTime appointmentDate = DateTime.now();
 
     ContactRequest request = new ContactRequest();
-    request.OwnerId = contactRequestQueue[0].Queue.Id;
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;

@@ -179,48 +179,6 @@ private class ContactRequestTriggerHandlerTest {
     );
   }
 
-  @isTest
-  static void testContactRequestQueueOwnerAssignment() {
-    Account testAccount = createTestAccounts(1)[0];
-    DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
-
-    Test.startTest();
-
-    /*
-      Insert a new contact request record.
-    */
-
-    ContactRequest contReq = new ContactRequest();
-    contReq.Appointment_date_and_time__c = dateTimeVal;
-    contReq.PreferredChannel = 'Call';
-    contReq.WhoId = testAccount.PersonContactId;
-    insert contReq;
-
-    Test.stopTest();
-
-    ContactRequest conReq = [
-      SELECT OwnerId
-      FROM ContactRequest
-      WHERE Appointment_date_and_time__c = :dateTimeVal
-    ];
-
-    Group contactRequestQueue = [
-      SELECT Id
-      FROM Group
-      WHERE Type = 'Queue' AND Name = :'Contact Request'
-    ];
-
-    /*
-      Assert the the owner of the new contact request record
-    */
-
-    System.assertEquals(
-      conReq.OwnerId,
-      contactRequestQueue.Id,
-      'Contact request owner should be assigned to Contact Request Queue'
-    );
-  }
-
   static void testContactRequestCancellation() {
     List<ContactRequest> contactRequestList = [
       SELECT Id, Status
@@ -252,7 +210,7 @@ private class ContactRequestTriggerHandlerTest {
   static void testAutomaticInteractionCreation() {
     string otherPurposeName = 'Other';
     Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
+
     Account testAccount = createTestAccounts(1)[0];
 
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
@@ -262,16 +220,9 @@ private class ContactRequestTriggerHandlerTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
-    ];
-
     DateTime appointmentDate = DateTime.now();
 
     ContactRequest request = new ContactRequest();
-    request.OwnerId = contactRequestQueue[0].Queue.Id;
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
@@ -340,7 +291,7 @@ private class ContactRequestTriggerHandlerTest {
 
     List<ContactRequest> requests = createContactRequests(
       accounts,
-      contactRequestQueue[0].Queue.Id
+      UserInfo.getUserId()
     );
     test.startTest();
     insert requests;

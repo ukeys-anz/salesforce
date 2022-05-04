@@ -32,14 +32,6 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
     }
   }
 
-  /**
-   * @description onBeforeInsert to handle before insert trigger actions.
-   */
-
-  public override void onBeforeInsert() {
-    ContactRequestTriggerActions.assignContactRequestQueue(records);
-  }
-
   /** @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */

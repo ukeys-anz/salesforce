@@ -7,33 +7,6 @@
 public with sharing class ContactRequestActions {
   private static string appointmentQueueName = 'Appointments_Queue';
 
-  /**
-   * @description Goes through a list of Contact Request records, and returns the ones that
-   * have been switch to the currently logged in user.
-   * @param oldMap Map of the old version of Contact Request records
-   * @param requestRecords List of the new version of Contact request records
-   * @return List<ContactRequest>
-   */
-  public List<ContactRequest> findRequestsThatNowBelongToUser(
-    Map<id, SObject> oldMap,
-    List<SObject> requestRecords
-  ) {
-    List<ContactRequest> requests = new List<ContactRequest>();
-    Id contactRequestQueueId = getContactRequestGroupId();
-    for (SObject requestSObject : requestRecords) {
-      ContactRequest newRequest = (ContactRequest) requestSObject;
-      ContactRequest oldRequest = (ContactRequest) oldMap.get(newRequest.Id);
-      if (
-        oldRequest.OwnerId != newRequest.OwnerId &&
-        UserInfo.getUserId() == newRequest.OwnerId &&
-        oldRequest.OwnerId == contactRequestQueueId
-      ) {
-        requests.add(newRequest);
-      }
-    }
-    return requests;
-  }
-
   //local variable holding the Appointment Queue
   private Group localAppointmentQueue;
 
@@ -47,14 +20,6 @@ public with sharing class ContactRequestActions {
       }
       return localAppointmentQueue;
     }
-  }
-
-  /**
-   * @description gets the Contact Request Group Id
-   * @return Id the Group Id
-   */
-  public Id getContactRequestGroupId() {
-    return CommonUtil.getGroupId('Contact_Request');
   }
 
   /**
