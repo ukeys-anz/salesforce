@@ -74,6 +74,12 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testCreateInteractionFromRequest() {
     setup();
+    Schema.Location testLocation = new Schema.Location(
+      Name = 'ANZ Location',
+      LocationType = 'Store'
+    );
+    insert testLocation;
+
     Account testAccount = createTestAccount();
 
     string requestReason = financialWellbeingPurposeName;
@@ -94,6 +100,7 @@ public with sharing class ContactRequestActionsTest {
     request.RequestDescription = 'Test';
     request.PreferredChannel = 'Call';
     request.Channel_Booked__c = 'Chat';
+    request.Location__c = testLocation.Id;
     Test.startTest();
     insert request;
     request = [
@@ -104,7 +111,8 @@ public with sharing class ContactRequestActionsTest {
         WhoId,
         RequestDescription,
         PreferredChannel,
-        Channel_Booked__c
+        Channel_Booked__c,
+        Location__c
       FROM ContactRequest
       WHERE Id = :request.Id
       LIMIT 1
@@ -127,7 +135,9 @@ public with sharing class ContactRequestActionsTest {
         RecordTypeId,
         InteractionType,
         Channel_Booked__c,
-        Interaction_External_Id__c
+        Interaction_External_Id__c,
+        LocationId,
+        Optional_Notes__c
       FROM Interaction
     ];
     System.assertEquals(
@@ -234,6 +244,18 @@ public with sharing class ContactRequestActionsTest {
       expectedExternalId,
       newInteraction.Interaction_External_Id__c,
       'Extenal Id should be copied from the requests Autonumber'
+    );
+
+    System.assertEquals(
+      request.Location__c,
+      newInteraction.LocationId,
+      'The interaction should take place at the location specified in the Contact Request'
+    );
+
+    System.assertEquals(
+      request.RequestDescription,
+      newInteraction.Optional_Notes__c,
+      'Optional Notes on Interaction should match the Requests Request Description'
     );
   }
 

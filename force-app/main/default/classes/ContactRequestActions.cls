@@ -182,7 +182,9 @@ public with sharing class ContactRequestActions {
       InteractionType = request.PreferredChannel,
       Channel_Booked__c = request.Channel_Booked__c,
       RecordTypeId = appointmentRecordTypeId,
-      Interaction_External_Id__c = 'CR-' + request.Name
+      Interaction_External_Id__c = 'CR-' + request.Name,
+      LocationId = request.Location__c,
+      Optional_Notes__c = request.RequestDescription
     );
     return newInteraction;
   }
