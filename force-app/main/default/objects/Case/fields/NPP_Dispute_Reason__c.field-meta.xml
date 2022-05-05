@@ -9,7 +9,7 @@
 IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;), &quot;Incorrect Payee Or Payment Address&quot;,
 IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;), &quot;    Payment Was Duplicated&quot;,
 IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;), &quot;Unauthorised Transaction&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;Refund Request by End Customer&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;Refund Request By End Customer&quot;,
 IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Amount not received by payee&quot;), &quot;Amount not received by payee&quot;,&quot;&quot;))))))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>NPP Dispute Reason</label>
