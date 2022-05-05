@@ -170,6 +170,6 @@ Jira Link - https://jira.anzx.service.anz/browse/ANZX-38305</description>
     </nameField>
     <pluralLabel>Appointment Commitments</pluralLabel>
     <searchLayouts></searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
