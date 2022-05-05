@@ -3,6 +3,7 @@
 var core = require("@utam/core");
 var _LwcHighlightsPanel = require("./../pageObjects/lwcHighlightsPanel");
 var _Tabset2 = require("./../pageObjects/tabset2");
+var _LstRelatedListSingleContainer = require("./../pageObjects/lstRelatedListSingleContainer");
 
 function _interopDefaultLegacy(e) {
   return e && typeof e === "object" && "default" in e ? e : { default: e };
@@ -11,6 +12,8 @@ function _interopDefaultLegacy(e) {
 var _LwcHighlightsPanel__default =
   /*#__PURE__*/ _interopDefaultLegacy(_LwcHighlightsPanel);
 var _Tabset2__default = /*#__PURE__*/ _interopDefaultLegacy(_Tabset2);
+var _LstRelatedListSingleContainer__default =
+  /*#__PURE__*/ _interopDefaultLegacy(_LstRelatedListSingleContainer);
 
 async function _utam_get_highlights(driver, root) {
   let _element = root;
@@ -30,6 +33,14 @@ async function _utam_get_caseNotesTabset(driver, root) {
   let _element = root;
   const _locator = core.By.css(
     `.region-main flexipage-component2:nth-of-type(2) flexipage-tabset2`
+  );
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_qualityAssessmentsRelatedList(driver, root) {
+  let _element = root;
+  const _locator = core.By.css(
+    `.region-main flexipage-component2:nth-of-type(3) lst-related-list-single-container`
   );
   return _element.findElement(_locator);
 }
@@ -85,6 +96,18 @@ class CaseRecordPage extends core.UtamBasePageObject {
     const root = await this.getRootElement();
     let element = await _utam_get_caseNotesTabset(driver, root);
     element = new _Tabset2__default["default"](driver, element);
+    await element.__beforeLoad__();
+    return element;
+  }
+
+  async getQualityAssessmentsRelatedList() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    let element = await _utam_get_qualityAssessmentsRelatedList(driver, root);
+    element = new _LstRelatedListSingleContainer__default["default"](
+      driver,
+      element
+    );
     await element.__beforeLoad__();
     return element;
   }

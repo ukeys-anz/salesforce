@@ -116,11 +116,7 @@
         },
         {
           "chain": true,
-          "element": "changeOwnerButton"
-        },
-        {
-          "chain": true,
-          "apply": "click"
+          "apply": "clickButton"
         }
       ]
     },
@@ -246,6 +242,7 @@
       },
       {
         "name": "inlineEditButton",
+        "nullable": true,
         "selector": {
           "css": "button.inline-edit-trigger"
         },

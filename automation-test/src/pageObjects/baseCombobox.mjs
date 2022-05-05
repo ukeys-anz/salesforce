@@ -3,10 +3,31 @@ import {
   ShadowRoot as _ShadowRoot,
   createUtamMixinCtor as _createUtamMixinCtor,
   ClickableUtamElement as _ClickableUtamElement,
-  UtamBasePageObject as _UtamBasePageObject,
-  EditableUtamElement as _EditableUtamElement
+  EditableUtamElement as _EditableUtamElement,
+  UtamBasePageObject as _UtamBasePageObject
 } from "@utam/core";
 import _BaseComboboxItem from "./../pageObjects/baseComboboxItem";
+
+async function _utam_get_searchBox(driver, root) {
+  let _element = root;
+  const _locator = _By.css(`input[role='combobox']`);
+  _element = new _ShadowRoot(driver, _element);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_lookupResultsBox(driver, root) {
+  let _element = root;
+  const _locator = _By.css(`[role='listbox']`);
+  _element = new _ShadowRoot(driver, _element);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_firstSearchedResult(driver, root) {
+  let _element = root;
+  const _locator = _By.css(`ul li lightning-base-combobox-item`);
+  _element = new _ShadowRoot(driver, _element);
+  return _element.findElement(_locator);
+}
 
 async function _utam_get_expandButton(driver, root) {
   let _element = root;
@@ -69,6 +90,36 @@ export default class BaseCombobox extends _UtamBasePageObject {
     const root = await this.getRootElement();
     const EditableUtamElement = _createUtamMixinCtor(_EditableUtamElement);
     return new EditableUtamElement(driver, root);
+  }
+
+  async __getSearchBox() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const ClickableEditableUtamElement = _createUtamMixinCtor(
+      _ClickableUtamElement,
+      _EditableUtamElement
+    );
+    let element = await _utam_get_searchBox(driver, root);
+    element = new ClickableEditableUtamElement(driver, element);
+    return element;
+  }
+
+  async __getLookupResultsBox() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const BaseUtamElement = _createUtamMixinCtor();
+    let element = await _utam_get_lookupResultsBox(driver, root);
+    element = new BaseUtamElement(driver, element);
+    return element;
+  }
+
+  async getFirstSearchedResult() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    let element = await _utam_get_firstSearchedResult(driver, root);
+    element = new _BaseComboboxItem(driver, element);
+    await element.__beforeLoad__();
+    return element;
   }
 
   async __getExpandButton() {
@@ -136,6 +187,15 @@ export default class BaseCombobox extends _UtamBasePageObject {
     let element = await _utam_get_selectedItemInput(driver, root);
     element = new EditableUtamElement(driver, element);
     return element;
+  }
+
+  async searchLookupAndSelect(lookupText) {
+    const _statement0 = await this.__getSearchBox();
+    await _statement0.click();
+    await _statement0.clearAndType(lookupText);
+    const _statement2 = await this.getFirstSearchedResult();
+    await _statement2.waitForVisible();
+    await _statement2.clickItem();
   }
 
   async expand() {

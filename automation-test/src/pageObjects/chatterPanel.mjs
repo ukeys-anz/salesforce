@@ -8,52 +8,57 @@ import {
 
 async function _utam_get_shareButton(driver, root) {
   let _element = root;
-  const _locator = _By.css(`button[title='Share']`);
+  const _locator = _By.css("button[title='Share']");
   return _element.findElement(_locator);
 }
 
 async function _utam_get_contentEditArea(driver, root) {
   let _element = root;
-  const _locator = _By.css(`.slds-rich-text-area__content`);
+  const _locator = _By.css(".slds-rich-text-area__content");
   return _element.findElement(_locator);
 }
 
 async function _utam_get_saveButton(driver, root) {
   let _element = root;
-  const _locator = _By.css(`button[title='Click, or press Ctrl+Enter']`);
+  const _locator = _By.css("button[title='Click, or press Ctrl+Enter']");
   return _element.findElement(_locator);
 }
 
 async function _utam_get_latestPost(driver, root) {
   let _element = root;
-  const _locator = _By.css(`.cuf-feedElementIterationItem`);
+  const _locator = _By.css(".cuf-feedElementIterationItem");
   return _element.findElement(_locator);
 }
 
 async function _utam_get_latestPostContent(driver, root) {
   let _element = await _utam_get_latestPost(driver, root);
-  const _locator = _By.css(`.cuf-body .uiOutputText`);
+  const _locator = _By.css(".cuf-body .uiOutputText");
   return _element.findElement(_locator);
 }
 
 async function _utam_get_postActionTrigger(driver, root) {
   let _element = await _utam_get_latestPost(driver, root);
-  const _locator = _By.css(`.cuf-feedItemActionTrigger`);
+  const _locator = _By.css(".cuf-feedItemActionTrigger");
   return _element.findElement(_locator);
 }
 
 async function _utam_get_postActionButton(driver, root) {
   let _element = await _utam_get_postActionTrigger(driver, root);
-  const _locator = _By.css(`button`);
+  const _locator = _By.css("button");
   return _element.findElement(_locator);
 }
 
 async function _utam_get_postDeleteButton(driver, root) {
   let _element = await _utam_get_postActionTrigger(driver, root);
-  const _locator = _By.css(`li[title='Delete'] a`);
+  const _locator = _By.css("li[title='Delete'] a");
   return _element.findElement(_locator);
 }
 
+/**
+ * generated from JSON src/utam/force/chatterPanel.utam.json
+ * @version 2022-05-03T10:04:49.271Z
+ * @author UTAM
+ */
 export default class ChatterPanel extends _UtamBasePageObject {
   constructor(driver, element, locator) {
     super(driver, element, locator);
@@ -141,13 +146,16 @@ export default class ChatterPanel extends _UtamBasePageObject {
     return element;
   }
 
-  async postComment(contentToShare) {
+  async clickShareButton() {
     const _statement0 = await this.__getShareButton();
     await _statement0.click();
-    const _statement1 = await this.__getContentEditArea();
-    await _statement1.clearAndType(contentToShare);
-    const _statement2 = await this.__getSaveButton();
-    await _statement2.click();
+  }
+
+  async postComment(contentToShare) {
+    const _statement0 = await this.__getContentEditArea();
+    await _statement0.clearAndType(contentToShare);
+    const _statement1 = await this.__getSaveButton();
+    await _statement1.click();
   }
 
   async latestPostContentHasMasked() {

@@ -1,0 +1,220 @@
+{
+  "elements": [
+    {
+      "name": "header",
+      "selector": {
+        "css": ".region-header"
+      },
+      "elements": [
+        {
+          "name": "actionBar",
+          "selector": {
+            "css": ".actionsContainer"
+          },
+          "elements": [
+            {
+              "name": "actionRibbon",
+              "selector": {
+                "css": ".oneActionsRibbon"
+              },
+              "elements": [
+                {
+                  "name": "actionByTitle",
+                  "selector": {
+                    "css": "li a",
+                    "returnAll": true
+                  },
+                  "filter": {
+                    "apply": "getTitle",
+                    "findFirst": true,
+                    "matcher": {
+                      "type": "stringContains",
+                      "args": [
+                        {
+                          "name": "title",
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "type": "clickable"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "main",
+      "selector": {
+        "css": ".row-main"
+      },
+      "elements": [
+        {
+          "name": "formSection",
+          "selector": {
+            "css": ".forcePageBlockSection:nth-of-type(%d)",
+            "args": [
+              {
+                "name": "sectionIndex",
+                "type": "number"
+              }
+            ]
+          },
+          "elements": [
+            {
+              "name": "formSectionRow",
+              "selector": {
+                "css": ".forcePageBlockSectionRow:nth-of-type(%d)",
+                "args": [
+                  {
+                    "name": "sectionRowIndex",
+                    "type": "number"
+                  }
+                ]
+              },
+              "elements": [
+                {
+                  "name": "formSectionRowItem",
+                  "selector": {
+                    "css": ".forcePageBlockItem:nth-of-type(%d)",
+                    "args": [
+                      {
+                        "name": "sectionRowItemIndex",
+                        "type": "number"
+                      }
+                    ]
+                  },
+                  "elements": [
+                    {
+                      "name": "displayText",
+                      "selector": {
+                        "css": ".is-read-only span"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rightSidebar",
+          "selector": {
+            "css": ".region-sidebar-right"
+          },
+          "elements": [
+            {
+              "name": "categoryViewer",
+              "selector": {
+                "css": ".flexipageComponent:nth-of-type(1)"
+              },
+              "elements": [
+                {
+                  "name": "categoryMenuButton",
+                  "selector": {
+                    "css": "a[role='button']"
+                  },
+                  "type": "clickable"
+                },
+                {
+                  "name": "categoryEditButton",
+                  "selector": {
+                    "css": "a[title='Edit']"
+                  },
+                  "type": "clickable"
+                }
+              ]
+            },
+            {
+              "name": "approvalHistory",
+              "selector": {
+                "css": ".flexipageComponent:nth-of-type(2)"
+              },
+              "elements": [
+                {
+                  "name": "approvalHistoryDropDown",
+                  "selector": {
+                    "css": ".forceDeferredDropDownAction"
+                  },
+                  "type": "clickable"
+                },
+                {
+                  "name": "hisotryList",
+                  "selector": {
+                    "css": ".uiAbstractList"
+                  },
+                  "elements": [
+                    {
+                      "name": "histories",
+                      "type": "anzx-utam-flexipage/pageObjects/knowledgeApprovalHistory",
+                      "selector": {
+                        "css": "li.forceRecordLayout",
+                        "returnAll": true
+                      },
+                      "public": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "articleCategoriesEditorModal",
+      "selector": {
+        "css": ".forceKnowledgeArticleDataCategoryChooser"
+      },
+      "type": "anzx-utam-flexipage/pageObjects/articleCategoriesEditorModal"
+    }
+  ],
+  "methods": [
+    {
+      "name": "clickHeaderButtonByTitle",
+      "compose": [
+        {
+          "element": "actionByTitle",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "getFieldOutputText",
+      "compose": [
+        {
+          "element": "displayText",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "openCategoriesEditor",
+      "compose": [
+        {
+          "element": "categoryMenuButton",
+          "apply": "click"
+        },
+        {
+          "apply": "waitForVisible",
+          "element": "categoryEditButton"
+        },
+        {
+          "element": "categoryEditButton",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "expandApprovalHistoryDropDown",
+      "compose": [
+        {
+          "element": "approvalHistoryDropDown",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

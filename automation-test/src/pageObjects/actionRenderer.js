@@ -12,6 +12,17 @@ var _Button__default = /*#__PURE__*/ _interopDefaultLegacy(_Button);
 var _ExecutorLwcHeadless__default =
   /*#__PURE__*/ _interopDefaultLegacy(_ExecutorLwcHeadless);
 
+async function _utam_filter_item(element, itemText) {
+  const result = await element.getText();
+  return result.includes(itemText);
+}
+
+async function _utam_get_items(driver, root) {
+  let _element = root;
+  const _locator = core.By.css(`runtime_platform_actions-ribbon-menu-item`);
+  return _element.findElements(_locator);
+}
+
 async function _utam_get_lightningButton(driver, root) {
   let _element = root;
   const _locator = core.By.css(`lightning-button`);
@@ -40,6 +51,23 @@ class ActionRenderer extends core.UtamBasePageObject {
     return new BaseUtamElement(driver, root);
   }
 
+  async __getItem(itemText) {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const ClickableUtamElement = core.createUtamMixinCtor(
+      core.ClickableUtamElement
+    );
+    let elements = await _utam_get_items(driver, root);
+    elements = elements.map(function _createElement(element) {
+      return new ClickableUtamElement(driver, element);
+    });
+    const appliedFilter = await Promise.all(
+      elements.map((el) => _utam_filter_item(el, itemText))
+    );
+    elements = elements.find((_, i) => appliedFilter[i]);
+    return elements;
+  }
+
   async getLightningButton() {
     const driver = this.driver;
     const root = await this.getRootElement();
@@ -60,6 +88,11 @@ class ActionRenderer extends core.UtamBasePageObject {
 
   async clickButton() {
     const _statement0 = await this.getLightningButton();
+    await _statement0.click();
+  }
+
+  async clickItemByText(itemText) {
+    const _statement0 = await this.__getItem(itemText);
     await _statement0.click();
   }
 }

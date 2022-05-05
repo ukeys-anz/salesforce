@@ -32,5 +32,7 @@ export default class RecordLayoutItem extends _UtamBasePageObject {
     ContainerCtor: _ContainerCtor<T>
   ): Promise<T>;
   getLabel(): Promise<_BaseUtamElement>;
-  getInlineEditButton(): Promise<_BaseUtamElement & _ClickableUtamElement>;
+  getInlineEditButton(): Promise<
+    (_BaseUtamElement & _ClickableUtamElement) | null
+  >;
 }

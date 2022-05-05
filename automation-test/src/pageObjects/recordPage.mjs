@@ -4,13 +4,21 @@ import {
   createUtamMixinCtor as _createUtamMixinCtor,
   UtamBaseRootPageObject as _UtamBaseRootPageObject
 } from "@utam/core";
+import _KnowledgeRecordPage from "./../pageObjects/knowledgeRecordPage";
 import _CaseRecordPage from "./../pageObjects/caseRecordPage";
 import _AccountRecordPage from "./../pageObjects/accountRecordPage";
 import _FinancialAccountRecordPage from "./../pageObjects/financialAccountRecordPage";
+import _QualityAssessmentRecordPage from "./../pageObjects/qualityAssessmentRecordPage";
 import _RecordPageDecorator from "./../pageObjects/recordPageDecorator";
 
-async function _utam_get_adgRollup(driver, root) {
+async function _utam_get_oneRecordHomeFlexipage2(driver, root) {
   let _element = root;
+  const _locator = _By.css(`.active.lafPageHost one-record-home-flexipage2`);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_adgRollup(driver, root) {
+  let _element = await _utam_get_oneRecordHomeFlexipage2(driver, root);
   const _locator = _By.css(`.adg-rollup-wrapped`);
   _element = new _ShadowRoot(driver, _element);
   return _element.findElement(_locator);
@@ -30,12 +38,14 @@ async function _utam_get_decorator(driver, root) {
   return _element.findElement(_locator);
 }
 
+async function _utam_get_knowledgeFlexipage(driver, root) {
+  let _element = root;
+  const _locator = _By.css(`.active.lafPageHost .flexipagePage`);
+  return _element.findElement(_locator);
+}
+
 export default class RecordPage extends _UtamBaseRootPageObject {
-  constructor(
-    driver,
-    element,
-    locator = _By.css(`.windowViewMode-maximized one-record-home-flexipage2`)
-  ) {
+  constructor(driver, element, locator = _By.css(`body`)) {
     super(driver, element, locator);
   }
 
@@ -53,6 +63,15 @@ export default class RecordPage extends _UtamBaseRootPageObject {
     const root = await this.getRootElement();
     const BaseUtamElement = _createUtamMixinCtor();
     return new BaseUtamElement(driver, root);
+  }
+
+  async __getOneRecordHomeFlexipage2() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const BaseUtamElement = _createUtamMixinCtor();
+    let element = await _utam_get_oneRecordHomeFlexipage2(driver, root);
+    element = new BaseUtamElement(driver, element);
+    return element;
   }
 
   async __getAdgRollup() {
@@ -82,6 +101,15 @@ export default class RecordPage extends _UtamBaseRootPageObject {
     return element;
   }
 
+  async __getKnowledgeFlexipage() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    let element = await _utam_get_knowledgeFlexipage(driver, root);
+    element = new _KnowledgeRecordPage(driver, element);
+    await element.__beforeLoad__();
+    return element;
+  }
+
   async getRecordLayoutBroker() {
     const _statement0 = await this.getDecorator();
     const _result1 = await _statement0.getEventBroker();
@@ -106,5 +134,18 @@ export default class RecordPage extends _UtamBaseRootPageObject {
       _FinancialAccountRecordPage
     );
     return _result1;
+  }
+
+  async getQualityAssessmentRecordPage() {
+    const _statement0 = await this.getRecordLayoutBroker();
+    const _result1 = await _statement0.getGeneratedTemplate(
+      _QualityAssessmentRecordPage
+    );
+    return _result1;
+  }
+
+  async getKnowledgeRecordPage() {
+    const _result0 = await this.__getKnowledgeFlexipage();
+    return _result0;
   }
 }

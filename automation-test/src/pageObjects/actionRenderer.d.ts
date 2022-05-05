@@ -10,6 +10,7 @@ import _ExecutorLwcHeadless from "./../pageObjects/executorLwcHeadless";
 export default class ActionRenderer extends _UtamBasePageObject {
   constructor(driver: _Driver, element?: _Element, locator?: _Locator);
   clickButton(): Promise<void>;
+  clickItemByText(itemText: string): Promise<void>;
   getLightningButton(): Promise<_Button>;
   getHeadlessAction(): Promise<_ExecutorLwcHeadless>;
 }

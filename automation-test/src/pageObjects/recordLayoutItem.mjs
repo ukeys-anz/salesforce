@@ -35,6 +35,10 @@ async function _utam_get_inlineEditButton(driver, root) {
   let _element = root;
   const _locator = _By.css(`button.inline-edit-trigger`);
   _element = new _ShadowRoot(driver, _element);
+  const hasElement = await _element.containsElement(_locator);
+  if (!hasElement) {
+    return null;
+  }
   return _element.findElement(_locator);
 }
 
@@ -80,6 +84,9 @@ export default class RecordLayoutItem extends _UtamBasePageObject {
     const root = await this.getRootElement();
     const ClickableUtamElement = _createUtamMixinCtor(_ClickableUtamElement);
     let element = await _utam_get_inlineEditButton(driver, root);
+    if (!element) {
+      return null;
+    }
     element = new ClickableUtamElement(driver, element);
     return element;
   }
@@ -101,6 +108,9 @@ export default class RecordLayoutItem extends _UtamBasePageObject {
 
   async edit() {
     const _statement0 = await this.getInlineEditButton();
+    if (_statement0 === null) {
+      return null;
+    }
     await _statement0.click();
     const _result1 = await this.waitFor(async () => {
       const _statement0 = await this.getRoot();
@@ -126,8 +136,7 @@ export default class RecordLayoutItem extends _UtamBasePageObject {
 
   async clickChangeOwnerButton() {
     const _statement0 = await this.getOutputField(_ChangeOwner);
-    const _statement1 = await _statement0.getChangeOwnerButton();
-    await _statement1.click();
+    await _statement0.clickButton();
   }
 
   async getPicklist() {

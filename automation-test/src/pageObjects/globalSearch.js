@@ -96,14 +96,13 @@ class GlobalSearch extends core.UtamBaseRootPageObject {
     return element;
   }
 
-  async searchAndRedirectToRecord(searchTerm, resultIndex) {
+  async search(searchTerm) {
     const _statement0 = await this.getGlobalSearchButton();
     await _statement0.click();
     const _statement1 = await this.getLightningInput();
     await _statement1.setText(searchTerm);
-    const _statement2 = await this.__getSearchResultsList();
-    const _statement3 = await _statement2.getSearchResultsListItem(resultIndex);
-    await _statement3.selectResult();
+    const _result2 = await this.__getSearchResultsList();
+    return _result2;
   }
 }
 

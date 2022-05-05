@@ -169,28 +169,34 @@ class ChangeOwnerModal extends core.UtamBaseRootPageObject {
     return element;
   }
 
-  async searchAndSelectNewOwner(ownerType, searchTerm, resultTitle) {
-    await this.waitForVisible(async () => {
-      const _result0 = await this.__getOwnerMenuButton();
-      const _matcher0 = _result0 !== null;
-      return _matcher0;
-    });
-    const _statement1 = await this.__getOwnerMenuButton();
-    await _statement1.click();
-    const _statement2 = await this.getOwnerType(ownerType);
-    await _statement2.click();
-    const _statement3 = await this.__getSearchBox();
-    await _statement3.clearAndType(searchTerm);
-    await _statement3.click();
-    await this.waitForVisible(async () => {
-      const _result0 = await this.__getSearchResult(resultTitle);
-      const _matcher0 = _result0 !== null;
-      return _matcher0;
-    });
-    const _statement6 = await this.__getSearchResult(resultTitle);
-    await _statement6.click();
-    const _statement7 = await this.getChangeOwnerButton();
-    await _statement7.click();
+  async clickOwnerTypeDropDown() {
+    const _statement0 = await this.__getOwnerMenuButton();
+    await _statement0.click();
+  }
+
+  async selectOwnerType(ownerType) {
+    const _statement0 = await this.getOwnerType(ownerType);
+    await _statement0.click();
+  }
+
+  async clickSearchBox() {
+    const _statement0 = await this.__getSearchBox();
+    await _statement0.click();
+  }
+
+  async search(username) {
+    const _statement0 = await this.__getSearchBox();
+    await _statement0.clearAndType(username);
+  }
+
+  async selectUser(resultTitle) {
+    const _statement0 = await this.__getSearchResult(resultTitle);
+    await _statement0.click();
+  }
+
+  async save() {
+    const _statement0 = await this.getChangeOwnerButton();
+    await _statement0.click();
   }
 }
 

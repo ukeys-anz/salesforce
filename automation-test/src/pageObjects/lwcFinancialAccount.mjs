@@ -1,35 +1,26 @@
 import {
   By as _By,
+  ShadowRoot as _ShadowRoot,
   createUtamMixinCtor as _createUtamMixinCtor,
-  UtamBaseRootPageObject as _UtamBaseRootPageObject
+  UtamBasePageObject as _UtamBasePageObject
 } from "@utam/core";
 
-async function _utam_get_everydayAccount(driver, root) {
+async function _utam_get_balance(driver, root) {
   let _element = root;
-  const _locator = _By.css(`c-financial-account[data-id='checking-account']`);
+  const _locator = _By.css(`[data-test-id='balance']`);
+  _element = new _ShadowRoot(driver, _element);
   return _element.findElement(_locator);
 }
 
-async function _utam_get_savingsAccount(driver, root) {
+async function _utam_get_lastUpdatedTime(driver, root) {
   let _element = root;
-  const _locator = _By.css(`c-financial-account[data-id='savings-account']`);
+  const _locator = _By.css(`[data-test-id='last-updated-time']`);
+  _element = new _ShadowRoot(driver, _element);
   return _element.findElement(_locator);
 }
 
-async function _utam_get_financialGoals(driver, root) {
-  let _element = root;
-  const _locator = _By.css(`c-financial-goals-person-account`);
-  return _element.findElement(_locator);
-}
-
-async function _utam_get_totalBalance(driver, root) {
-  let _element = root;
-  const _locator = _By.css(`c-total-balance`);
-  return _element.findElement(_locator);
-}
-
-export default class LwcFinancialAccount extends _UtamBaseRootPageObject {
-  constructor(driver, element, locator = _By.css(`body`)) {
+export default class LwcFinancialAccount extends _UtamBasePageObject {
+  constructor(driver, element, locator) {
     super(driver, element, locator);
   }
 
@@ -40,39 +31,33 @@ export default class LwcFinancialAccount extends _UtamBaseRootPageObject {
     return new BaseUtamElement(driver, root);
   }
 
-  async getEverydayAccount() {
+  async __getBalance() {
     const driver = this.driver;
     const root = await this.getRootElement();
     const BaseUtamElement = _createUtamMixinCtor();
-    let element = await _utam_get_everydayAccount(driver, root);
+    let element = await _utam_get_balance(driver, root);
     element = new BaseUtamElement(driver, element);
     return element;
   }
 
-  async getSavingsAccount() {
+  async __getLastUpdatedTime() {
     const driver = this.driver;
     const root = await this.getRootElement();
     const BaseUtamElement = _createUtamMixinCtor();
-    let element = await _utam_get_savingsAccount(driver, root);
+    let element = await _utam_get_lastUpdatedTime(driver, root);
     element = new BaseUtamElement(driver, element);
     return element;
   }
 
-  async getFinancialGoals() {
-    const driver = this.driver;
-    const root = await this.getRootElement();
-    const BaseUtamElement = _createUtamMixinCtor();
-    let element = await _utam_get_financialGoals(driver, root);
-    element = new BaseUtamElement(driver, element);
-    return element;
+  async getBalance() {
+    const _statement0 = await this.__getBalance();
+    const _result0 = await _statement0.getText();
+    return _result0;
   }
 
-  async getTotalBalance() {
-    const driver = this.driver;
-    const root = await this.getRootElement();
-    const BaseUtamElement = _createUtamMixinCtor();
-    let element = await _utam_get_totalBalance(driver, root);
-    element = new BaseUtamElement(driver, element);
-    return element;
+  async getLastUpdatedTime() {
+    const _statement0 = await this.__getLastUpdatedTime();
+    const _result0 = await _statement0.getText();
+    return _result0;
   }
 }

@@ -5,6 +5,7 @@ import {
 } from "@utam/core";
 import _LwcHighlightsPanel from "./../pageObjects/lwcHighlightsPanel";
 import _Tabset2 from "./../pageObjects/tabset2";
+import _LstRelatedListSingleContainer from "./../pageObjects/lstRelatedListSingleContainer";
 
 async function _utam_get_highlights(driver, root) {
   let _element = root;
@@ -24,6 +25,14 @@ async function _utam_get_caseNotesTabset(driver, root) {
   let _element = root;
   const _locator = _By.css(
     `.region-main flexipage-component2:nth-of-type(2) flexipage-tabset2`
+  );
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_qualityAssessmentsRelatedList(driver, root) {
+  let _element = root;
+  const _locator = _By.css(
+    `.region-main flexipage-component2:nth-of-type(3) lst-related-list-single-container`
   );
   return _element.findElement(_locator);
 }
@@ -79,6 +88,15 @@ export default class CaseRecordPage extends _UtamBasePageObject {
     const root = await this.getRootElement();
     let element = await _utam_get_caseNotesTabset(driver, root);
     element = new _Tabset2(driver, element);
+    await element.__beforeLoad__();
+    return element;
+  }
+
+  async getQualityAssessmentsRelatedList() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    let element = await _utam_get_qualityAssessmentsRelatedList(driver, root);
+    element = new _LstRelatedListSingleContainer(driver, element);
     await element.__beforeLoad__();
     return element;
   }

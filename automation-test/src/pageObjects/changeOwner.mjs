@@ -33,4 +33,9 @@ export default class ChangeOwner extends _UtamBasePageObject {
     element = new ClickableUtamElement(driver, element);
     return element;
   }
+
+  async clickButton() {
+    const _statement0 = await this.getChangeOwnerButton();
+    await _statement0.click();
+  }
 }

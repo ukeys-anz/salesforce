@@ -35,7 +35,7 @@ class SalesforceLogout extends core.UtamBaseRootPageObject {
     return new BaseUtamElement(driver, root);
   }
 
-  async __getUserProfile() {
+  async getUserProfile() {
     const driver = this.driver;
     const root = await this.getRootElement();
     const ClickableUtamElement = core.createUtamMixinCtor(
@@ -46,7 +46,7 @@ class SalesforceLogout extends core.UtamBaseRootPageObject {
     return element;
   }
 
-  async __getLogoutLink() {
+  async getLogoutLink() {
     const driver = this.driver;
     const root = await this.getRootElement();
     const ClickableUtamElement = core.createUtamMixinCtor(
@@ -57,11 +57,14 @@ class SalesforceLogout extends core.UtamBaseRootPageObject {
     return element;
   }
 
-  async logout() {
-    const _statement0 = await this.__getUserProfile();
+  async clickProfile() {
+    const _statement0 = await this.getUserProfile();
     await _statement0.click();
-    const _statement1 = await this.__getLogoutLink();
-    await _statement1.click();
+  }
+
+  async clickLogout() {
+    const _statement0 = await this.getLogoutLink();
+    await _statement0.click();
   }
 }
 

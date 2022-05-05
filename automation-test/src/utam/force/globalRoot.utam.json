@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "knowledgeApprovalHistoryDropDownApprove",
+      "selector": {
+        "css": ".branding-actions.forceActionsDropDownMenuList li:nth-of-type(1) a"
+      },
+      "type": "clickable"
+    }
+  ],
+  "methods": [
+    {
+      "name": "approveArticle",
+      "compose": [
+        {
+          "element": "knowledgeApprovalHistoryDropDownApprove",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

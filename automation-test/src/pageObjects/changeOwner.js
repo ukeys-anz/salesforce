@@ -31,6 +31,11 @@ class ChangeOwner extends core.UtamBasePageObject {
     element = new ClickableUtamElement(driver, element);
     return element;
   }
+
+  async clickButton() {
+    const _statement0 = await this.getChangeOwnerButton();
+    await _statement0.click();
+  }
 }
 
 module.exports = ChangeOwner;

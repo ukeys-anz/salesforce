@@ -21,9 +21,67 @@
   ],
   "elements": [
     {
+      "name": "standardAppContainer",
+      "nullable": true,
+      "selector": {
+        "css": ".navexStandardManager"
+      }
+    },
+    {
+      "name": "consoleAppContainer",
+      "nullable": true,
+      "selector": {
+        "css": ".navexWorkspaceManager"
+      }
+    },
+    {
+      "name": "oneAppLauncherMenu",
+      "selector": {
+        "css": "one-app-launcher-menu"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "oneAppLauncherSearchBar",
+            "selector": {
+              "css": "one-app-launcher-search-bar"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "oneAppLauncherSearchBarInput",
+                  "type": "utam-lightning/pageObjects/input",
+                  "selector": {
+                    "css": "lightning-input"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "oneApplauncherMenuItem",
+            "selector": {
+              "css": "one-app-launcher-menu-item"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "appLink",
+                  "selector": {
+                    "css": "[role='option']"
+                  },
+                  "type": "clickable"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
       "name": "appLauncher",
       "selector": {
-        "css": "div[class*='appLauncher'][role='navigation']"
+        "css": "[class*='appLauncher'][role='navigation'] button"
       },
       "type": "clickable",
       "public": true
@@ -163,6 +221,52 @@
         {
           "element": "searchItemLink",
           "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "searchAppLwc",
+      "compose": [
+        {
+          "element": "oneAppLauncherSearchBarInput",
+          "returnType": "utam-lightning/pageObjects/input"
+        },
+        {
+          "chain": true,
+          "apply": "setText",
+          "args": [
+            {
+              "name": "appName",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "selectAppLwcAndRedirect",
+      "compose": [
+        {
+          "element": "appLink",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "isInStandardApp",
+      "compose": [
+        {
+          "element": "standardAppContainer",
+          "apply": "isPresent"
+        }
+      ]
+    },
+    {
+      "name": "isInConsoleApp",
+      "compose": [
+        {
+          "element": "consoleAppContainer",
+          "apply": "isPresent"
         }
       ]
     }

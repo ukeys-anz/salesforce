@@ -9,5 +9,6 @@ import {
 
 export default class ChangeOwner extends _UtamBasePageObject {
   constructor(driver: _Driver, element?: _Element, locator?: _Locator);
+  clickButton(): Promise<void>;
   getChangeOwnerButton(): Promise<_BaseUtamElement & _ClickableUtamElement>;
 }

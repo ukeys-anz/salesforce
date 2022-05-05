@@ -8,5 +8,6 @@ import _AppNavBar from "./../pageObjects/appNavBar";
 
 export default class AppNav extends _UtamBasePageObject {
   constructor(driver: _Driver, element?: _Element, locator?: _Locator);
+  expandAppLauncher(): Promise<void>;
   getAppNavBar(): Promise<_AppNavBar>;
 }

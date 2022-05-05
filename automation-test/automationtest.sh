@@ -6,10 +6,18 @@ then
     npm i @ffmpeg-installer/linux-arm64
 fi
 
+npm install
+ls -al
+
+# below code is used for debugging network traffic
+# sudo tcpdump -s 65535 -w out.pcap &
+
 # Start chromedriver
 echo "START CHROMEDRIVER"
-chromedriver &
-
+chromedriver --port=9515 --log-path=/app/chromedriver.log &
+sleep 5
+ps ax
+netstat -an
 # Build ts and utam
 echo "BUILD THE TESTS"
 npm run-script build:utam

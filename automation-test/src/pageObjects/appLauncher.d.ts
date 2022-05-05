@@ -12,6 +12,10 @@ export default class AppLauncher extends _UtamBaseRootPageObject {
   constructor(driver: _Driver, element?: _Element, locator?: _Locator);
   isCurrentApp(appName: string): Promise<boolean>;
   redirectToApp(appName: string): Promise<void>;
+  searchAppLwc(appName: string): Promise<void>;
+  selectAppLwcAndRedirect(): Promise<void>;
+  isInStandardApp(): Promise<boolean>;
+  isInConsoleApp(): Promise<boolean>;
   getAppLauncher(): Promise<_BaseUtamElement & _ClickableUtamElement>;
   getSearchInput(): Promise<_BaseUtamElement & _EditableUtamElement>;
   getSearchItemLink(): Promise<_BaseUtamElement & _ClickableUtamElement>;

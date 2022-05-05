@@ -1,10 +1,73 @@
 "use strict";
 
 var core = require("@utam/core");
+var _Input = require("./../pageObjects/input");
+
+function _interopDefaultLegacy(e) {
+  return e && typeof e === "object" && "default" in e ? e : { default: e };
+}
+
+var _Input__default = /*#__PURE__*/ _interopDefaultLegacy(_Input);
+
+async function _utam_get_standardAppContainer(driver, root) {
+  let _element = root;
+  const _locator = core.By.css(`.navexStandardManager`);
+  const hasElement = await _element.containsElement(_locator);
+  if (!hasElement) {
+    return null;
+  }
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_consoleAppContainer(driver, root) {
+  let _element = root;
+  const _locator = core.By.css(`.navexWorkspaceManager`);
+  const hasElement = await _element.containsElement(_locator);
+  if (!hasElement) {
+    return null;
+  }
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_oneAppLauncherMenu(driver, root) {
+  let _element = root;
+  const _locator = core.By.css(`one-app-launcher-menu`);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_oneAppLauncherSearchBar(driver, root) {
+  let _element = await _utam_get_oneAppLauncherMenu(driver, root);
+  const _locator = core.By.css(`one-app-launcher-search-bar`);
+  _element = new core.ShadowRoot(driver, _element);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_oneAppLauncherSearchBarInput(driver, root) {
+  let _element = await _utam_get_oneAppLauncherSearchBar(driver, root);
+  const _locator = core.By.css(`lightning-input`);
+  _element = new core.ShadowRoot(driver, _element);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_oneApplauncherMenuItem(driver, root) {
+  let _element = await _utam_get_oneAppLauncherMenu(driver, root);
+  const _locator = core.By.css(`one-app-launcher-menu-item`);
+  _element = new core.ShadowRoot(driver, _element);
+  return _element.findElement(_locator);
+}
+
+async function _utam_get_appLink(driver, root) {
+  let _element = await _utam_get_oneApplauncherMenuItem(driver, root);
+  const _locator = core.By.css(`[role='option']`);
+  _element = new core.ShadowRoot(driver, _element);
+  return _element.findElement(_locator);
+}
 
 async function _utam_get_appLauncher(driver, root) {
   let _element = root;
-  const _locator = core.By.css(`div[class*='appLauncher'][role='navigation']`);
+  const _locator = core.By.css(
+    `[class*='appLauncher'][role='navigation'] button`
+  );
   return _element.findElement(_locator);
 }
 
@@ -74,6 +137,77 @@ class AppLauncher extends core.UtamBaseRootPageObject {
     const root = await this.getRootElement();
     const BaseUtamElement = core.createUtamMixinCtor();
     return new BaseUtamElement(driver, root);
+  }
+
+  async __getStandardAppContainer() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const BaseUtamElement = core.createUtamMixinCtor();
+    let element = await _utam_get_standardAppContainer(driver, root);
+    if (!element) {
+      return null;
+    }
+    element = new BaseUtamElement(driver, element);
+    return element;
+  }
+
+  async __getConsoleAppContainer() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const BaseUtamElement = core.createUtamMixinCtor();
+    let element = await _utam_get_consoleAppContainer(driver, root);
+    if (!element) {
+      return null;
+    }
+    element = new BaseUtamElement(driver, element);
+    return element;
+  }
+
+  async __getOneAppLauncherMenu() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const BaseUtamElement = core.createUtamMixinCtor();
+    let element = await _utam_get_oneAppLauncherMenu(driver, root);
+    element = new BaseUtamElement(driver, element);
+    return element;
+  }
+
+  async __getOneAppLauncherSearchBar() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const BaseUtamElement = core.createUtamMixinCtor();
+    let element = await _utam_get_oneAppLauncherSearchBar(driver, root);
+    element = new BaseUtamElement(driver, element);
+    return element;
+  }
+
+  async __getOneAppLauncherSearchBarInput() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    let element = await _utam_get_oneAppLauncherSearchBarInput(driver, root);
+    element = new _Input__default["default"](driver, element);
+    await element.__beforeLoad__();
+    return element;
+  }
+
+  async __getOneApplauncherMenuItem() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const BaseUtamElement = core.createUtamMixinCtor();
+    let element = await _utam_get_oneApplauncherMenuItem(driver, root);
+    element = new BaseUtamElement(driver, element);
+    return element;
+  }
+
+  async __getAppLink() {
+    const driver = this.driver;
+    const root = await this.getRootElement();
+    const ClickableUtamElement = core.createUtamMixinCtor(
+      core.ClickableUtamElement
+    );
+    let element = await _utam_get_appLink(driver, root);
+    element = new ClickableUtamElement(driver, element);
+    return element;
   }
 
   async getAppLauncher() {
@@ -178,6 +312,34 @@ class AppLauncher extends core.UtamBaseRootPageObject {
     });
     const _statement4 = await this.getSearchItemLink();
     await _statement4.click();
+  }
+
+  async searchAppLwc(appName) {
+    const _statement0 = await this.__getOneAppLauncherSearchBarInput();
+    await _statement0.setText(appName);
+  }
+
+  async selectAppLwcAndRedirect() {
+    const _statement0 = await this.__getAppLink();
+    await _statement0.click();
+  }
+
+  async isInStandardApp() {
+    const _statement0 = await this.__getStandardAppContainer();
+    if (_statement0 === null) {
+      return null;
+    }
+    const _result0 = await _statement0.isPresent();
+    return _result0;
+  }
+
+  async isInConsoleApp() {
+    const _statement0 = await this.__getConsoleAppContainer();
+    if (_statement0 === null) {
+      return null;
+    }
+    const _result0 = await _statement0.isPresent();
+    return _result0;
   }
 }
 

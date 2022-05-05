@@ -6,11 +6,9 @@ import {
 } from "@utam/core";
 import _GlobalSearchResultsListItem from "./../pageObjects/globalSearchResultsListItem";
 
-async function _utam_get_searchResultsListItem(driver, root, resultIndex) {
+async function _utam_get_searchResultsListItem(driver, root) {
   let _element = root;
-  const _locator = _By.css(
-    `search_dialog-instant-result-item:nth-of-type(${resultIndex})`
-  );
+  const _locator = _By.css(`search_dialog-instant-result-item`);
   _element = new _ShadowRoot(driver, _element);
   return _element.findElement(_locator);
 }
@@ -27,16 +25,17 @@ export default class GlobalSearchResultsList extends _UtamBasePageObject {
     return new BaseUtamElement(driver, root);
   }
 
-  async getSearchResultsListItem(resultIndex) {
+  async __getSearchResultsListItem() {
     const driver = this.driver;
     const root = await this.getRootElement();
-    let element = await _utam_get_searchResultsListItem(
-      driver,
-      root,
-      resultIndex
-    );
+    let element = await _utam_get_searchResultsListItem(driver, root);
     element = new _GlobalSearchResultsListItem(driver, element);
     await element.__beforeLoad__();
     return element;
+  }
+
+  async selectFirstResult() {
+    const _statement0 = await this.__getSearchResultsListItem();
+    await _statement0.selectResult();
   }
 }
