@@ -548,6 +548,285 @@ public with sharing class InteractionActionsTest {
   }
 
   /**
+   * @description test for creating new coaching summary
+   */
+  @isTest
+  static void testCoachingSummaryCreation() {
+    string otherPurposeName = 'Other';
+    Integer otherPurposeDuration = 30;
+    string contactRequestQueueName = 'Contact Request';
+    List<Account> personAccountList = new List<Account>();
+
+    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount2 = createTestAccount('John', 'Smith', 'jsm666');
+
+    personAccountList.add(testAccount1);
+    personAccountList.add(testAccount2);
+    insert personAccountList;
+
+    List<Account> testAccounts = [SELECT Id, PersonContactId FROM Account];
+
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+
+    DateTime appointmentDate = DateTime.now();
+
+    List<ContactRequest> contactRequestList = new List<ContactRequest>();
+
+    for (Integer i = 0; i < 100; i++) {
+      ContactRequest request = new ContactRequest();
+      request.Appointment_date_and_Time__c = appointmentDate;
+      request.RequestReason = otherPurposeName;
+      request.WhoId = testAccounts[0].PersonContactId;
+      request.PreferredChannel = 'Call';
+      contactRequestList.add(request);
+    }
+
+    insert contactRequestList;
+
+    List<Interaction> testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, Coaching_Summary__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      100,
+      testInteraction.size(),
+      '100 Interaction records should be created'
+    );
+
+    Group interactionQueue = [
+      SELECT ID
+      FROM Group
+      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+    ];
+
+    for (Interaction inter : testInteraction) {
+      System.assertEquals(
+        'Unassigned',
+        inter.Status__c,
+        'The new interaction should have the status as Unassigned'
+      );
+
+      System.assertEquals(
+        interactionQueue.Id,
+        inter.OwnerId,
+        'The owner of the new interaction should be Appointment Queue'
+      );
+    }
+
+    for (Interaction currentInteraction : testInteraction) {
+      currentInteraction.OwnerId = UserInfo.getUserId();
+    }
+    update testInteraction;
+
+    List<Event> events = [SELECT Id FROM Event];
+
+    System.assertNotEquals(null, testInteraction, 'An Interaction must exist');
+    System.assertEquals(100, events.size(), '100 events must be created');
+
+    List<Coaching_Summary__c> coachingSummaryList = [
+      SELECT Id, Name__c, Account__c
+      FROM Coaching_Summary__c
+    ];
+
+    System.assertEquals(
+      100,
+      coachingSummaryList.size(),
+      '100 coaching summary records must be created'
+    );
+
+    testInteraction = [
+      SELECT
+        Id,
+        Status__c,
+        OwnerId,
+        AccountId,
+        ContactRequestId__c,
+        Coaching_Summary__c,
+        Interaction_Purpose__c
+      FROM Interaction
+    ];
+
+    for (Integer i = 0; i < 100; i++) {
+      System.assertEquals(
+        testInteraction[i].Coaching_Summary__c,
+        coachingSummaryList[i].Id,
+        'The coaching summary Id should be updated on the interaction'
+      );
+
+      System.assertEquals(
+        testInteraction[i].AccountId,
+        coachingSummaryList[i].Account__c,
+        'The coaching summary account should be matched with interaction account'
+      );
+
+      System.assertEquals(
+        testInteraction[i].Interaction_Purpose__c + ' Coaching Summary',
+        coachingSummaryList[i].Name__c,
+        'The coaching summary name should be matched with interaction purpose'
+      );
+    }
+  }
+
+  /**
+   * @description test for updating coaching summary owner
+   */
+  @isTest
+  static void testCoachingSummaryOwnerUpdate() {
+    string otherPurposeName = 'Other';
+    Integer otherPurposeDuration = 30;
+    string contactRequestQueueName = 'Contact Request';
+    List<Account> personAccountList = new List<Account>();
+
+    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount1;
+
+    List<Account> testAccounts = [SELECT Id, PersonContactId FROM Account];
+
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+
+    DateTime appointmentDate = DateTime.now();
+
+    List<ContactRequest> contactRequestList = new List<ContactRequest>();
+
+    ContactRequest request = new ContactRequest();
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = otherPurposeName;
+    request.WhoId = testAccounts[0].PersonContactId;
+    request.PreferredChannel = 'Call';
+    contactRequestList.add(request);
+
+    insert request;
+
+    List<Interaction> testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, Coaching_Summary__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      1,
+      testInteraction.size(),
+      '1 Interaction record should be created'
+    );
+
+    Group interactionQueue = [
+      SELECT ID
+      FROM Group
+      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+    ];
+
+    System.assertEquals(
+      'Unassigned',
+      testInteraction[0].Status__c,
+      'The new interaction should have the status as Unassigned'
+    );
+
+    System.assertEquals(
+      interactionQueue.Id,
+      testInteraction[0].OwnerId,
+      'The owner of the new interaction should be Appointment Queue'
+    );
+
+    testInteraction[0].OwnerId = UserInfo.getUserId();
+
+    update testInteraction;
+
+    List<Event> events = [SELECT Id FROM Event];
+
+    System.assertNotEquals(null, testInteraction, 'An Interaction must exist');
+    System.assertEquals(1, events.size(), '1 event must be created');
+
+    List<Coaching_Summary__c> coachingSummaryList = [
+      SELECT Id, Name__c, Account__c, OwnerId
+      FROM Coaching_Summary__c
+    ];
+
+    System.assertEquals(
+      1,
+      coachingSummaryList.size(),
+      '1 coaching summary record must be created'
+    );
+
+    System.assertEquals(
+      UserInfo.getUserId(),
+      coachingSummaryList[0].OwnerId,
+      'The coaching summary owner should be current user'
+    );
+
+    Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    User coach = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'CoachTest',
+        'ProfileId' => profile.Id,
+        'UserRoleId' => coachRole.Id
+      }
+    );
+    insert coach;
+
+    PermissionSet ps = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name = 'Appointment_Booking_Read_Write'
+    ];
+
+    PermissionSetAssignment psa = new PermissionSetAssignment(
+      AssigneeId = coach.id,
+      PermissionSetId = ps.Id
+    );
+
+    insert psa;
+
+    Interaction interactNew = new Interaction();
+    interactNew.Coaching_Summary__c = coachingSummaryList[0].Id;
+    interactNew.Name = 'TestNewInteraction';
+    interactNew.AccountId = testAccount1.Id;
+    interactNew.StartTime = System.now().addDays(30);
+    interactNew.EndTime = interactNew.StartTime.addMinutes(30);
+    insert interactNew;
+
+    interactNew = [
+      SELECT Id, OwnerId
+      FROM Interaction
+      WHERE Name = 'TestNewInteraction'
+    ];
+
+    System.assertEquals(
+      interactionQueue.Id,
+      interactNew.OwnerId,
+      'The owner of the new interaction should be Appointment Queue'
+    );
+
+    Test.startTest();
+
+    interactNew.OwnerId = coach.Id;
+    update interactNew;
+
+    Test.stopTest();
+
+    coachingSummaryList = [
+      SELECT Id, Name__c, Account__c, OwnerId
+      FROM Coaching_Summary__c
+    ];
+
+    System.assertEquals(
+      coach.Id,
+      coachingSummaryList[0].OwnerId,
+      'The existing coaching summary owner should be updated with the new interaction owner'
+    );
+  }
+
+  /**
    * @description helper method to create a person account
    * @param firstName String the first name of the person
    * @param lastName String the last name of the person

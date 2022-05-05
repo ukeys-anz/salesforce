@@ -672,15 +672,6 @@ public with sharing class ContactRequestActionsTest {
       testInteraction
     );
 
-    summaries = [SELECT Id FROM InteractionSummary];
-
-    system.assertNotEquals(null, summaries, 'Summaries should not be null');
-    system.assertNotEquals(
-      0,
-      summaries.size(),
-      'At least 1 summary must be created'
-    );
-
     System.assertNotEquals(
       null,
       testInteractionSummary,

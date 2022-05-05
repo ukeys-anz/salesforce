@@ -5,6 +5,9 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
+  public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
+  public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
+
   /**
    * @description override of the onAfterInsert to create Events & Interaction Summaries
    */
@@ -13,12 +16,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> interactions = cRActions.returnInteractionsWithAutomatedPurpose(
       records
     );
-
-    List<InteractionSummary> summaries = cRActions.createInteractionSummariesFromInteractions(
-      interactions
-    );
-
-    cRActions.insertSummaries(summaries);
 
     cRActions.setInteractionIds(interactions);
 
@@ -32,7 +29,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    * @description onAfterUpdate runs after an interaction has been updated.
    * @param oldMap Map<Id,SObject> the old versions of the interactions
    */
-  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+  @SuppressWarnings(
+    'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount'
+  )
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     InteractionActions actionsForInteractions = new InteractionActions();
     ContactRequestActions actionsForContactRequests = new ContactRequestActions();
@@ -43,10 +42,12 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     );
     List<Interaction> userOwnedInteractions = new List<Interaction>();
     List<Interaction> assignedBacktoQueueInteractions = new List<Interaction>();
+    List<Interaction> createCoachingSummaryInteractions = new List<Interaction>();
+    List<Interaction> assignCoachingSummaryOwnerInteractions = new List<Interaction>();
 
     if (!changedOwnerInteractions.isEmpty()) {
       for (Interaction currentInteraction : changedOwnerInteractions) {
-        if (currentInteraction.OwnerId == UserInfo.getUserId()) {
+        if (currentInteraction.OwnerId != QUEUE_ID) {
           userOwnedInteractions.add(currentInteraction);
         } else {
           assignedBacktoQueueInteractions.add(currentInteraction);
@@ -59,6 +60,37 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
         if (events.isEmpty() == false) {
           actionsForContactRequests.insertEvents(events);
         }
+        createCoachingSummaryInteractions = actionsForInteractions.getInteractionswithoutCoachingSummary(
+          userOwnedInteractions
+        );
+        assignCoachingSummaryOwnerInteractions = actionsForInteractions.getInteractionswithCoachingSummary(
+          userOwnedInteractions
+        );
+      }
+    }
+
+    if (!createCoachingSummaryInteractions.isEmpty()) {
+      List<Coaching_Summary__c> newCoachingSummary = actionsForInteractions.createCoachingSummaryfromInteraction(
+        createCoachingSummaryInteractions
+      );
+
+      if (newCoachingSummary.isEmpty() == false) {
+        actionsForInteractions.insertCoachingSummary(newCoachingSummary);
+        actionsForInteractions.assignSummaryToInteraction(
+          records,
+          newCoachingSummary
+        );
+      }
+    }
+
+    if (!assignCoachingSummaryOwnerInteractions.isEmpty()) {
+      List<Coaching_Summary__c> updateCoachingSummaryRecords = actionsForInteractions.assignCoachingSummaryOwner(
+        assignCoachingSummaryOwnerInteractions
+      );
+      if (!updateCoachingSummaryRecords.isEmpty()) {
+        actionsForInteractions.updateCoachingSummary(
+          updateCoachingSummaryRecords
+        );
       }
     }
 
