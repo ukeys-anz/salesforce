@@ -32,13 +32,13 @@
 
   // Handle populating defaults and navigating user to case edit form
   handleNext: function (component, event, helper) {
-    $A.get("e.force:closeQuickAction").fire();
     var action = component.get("c.getCaseDetailsById");
     action.setParams({
       caseId: component.get("v.recordId"),
       newRecordTypeId: component.get("v.selectedRecordTypeId")
     });
     action.setCallback(this, function (response) {
+      $A.get("e.force:closeQuickAction").fire();
       var state = response.getState();
       if (state === "SUCCESS") {
         var result = JSON.parse(response.getReturnValue());
