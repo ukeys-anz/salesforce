@@ -1,0 +1,80 @@
+{
+  "root": true,
+  "selector": {
+    "css": ".active.lafPageHost"
+  },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "modalDetailPanelWrapper",
+      "selector": {
+        "css": "records-modal-lwc-detail-panel-wrapper"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "modalDetailPanel",
+            "selector": {
+              "css": "records-lwc-detail-panel"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "modalBaseRecordForm",
+                  "type": "utam-records/pageObjects/baseRecordForm",
+                  "selector": {
+                    "css": "records-base-record-form"
+                  },
+                  "public": true
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "relatedListDetailPanelWrapper",
+      "selector": {
+        "css": "records-related-list-lwc-detail-panel-wrapper"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "relatedListDetailPanel",
+            "selector": {
+              "css": "records-lwc-detail-panel"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "relatedListBaseRecordForm",
+                  "type": "utam-records/pageObjects/baseRecordForm",
+                  "selector": {
+                    "css": "records-base-record-form"
+                  },
+                  "public": true
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

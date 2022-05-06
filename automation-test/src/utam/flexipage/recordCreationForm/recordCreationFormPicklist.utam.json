@@ -1,0 +1,68 @@
+{
+  "elements": [
+    {
+      "name": "optionByIndex",
+      "selector": {
+        "css": "li[class='uiMenuItem uiRadioMenuItem']:nth-of-type(%d)",
+        "args": [
+          {
+            "name": "ptionIndex",
+            "type": "number"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "optionByTitle",
+      "nullable": true,
+      "type": "anzx-utam-flexipage/pageObjects/recordCreationFormPicklistOption",
+      "selector": {
+        "css": "li",
+        "returnAll": true
+      },
+      "filter": {
+        "apply": "getOptionTitle",
+        "findFirst": true,
+        "matcher": {
+          "type": "stringEquals",
+          "args": [
+            {
+              "name": "optionTitle",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "public": true
+    }
+  ],
+  "methods": [
+    {
+      "name": "selectOptionByIndex",
+      "compose": [
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "optionByIndex",
+                  "matcher": {
+                    "type": "notNull"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "optionByIndex",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

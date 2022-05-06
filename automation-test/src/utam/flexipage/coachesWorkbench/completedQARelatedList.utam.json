@@ -1,0 +1,34 @@
+{
+  "elements": [
+    {
+      "name": "qaList",
+      "selector": {
+        "css": ".uiAbstractList .listContent ul"
+      },
+      "elements": [
+        {
+          "name": "qualityAssessmentByNumber",
+          "type": "anzx-utam-flexipage/pageObjects/completedQARelatedListItem",
+          "selector": {
+            "css": ".forceListRecord",
+            "returnAll": true
+          },
+          "filter": {
+            "apply": "getNumber",
+            "findFirst": true,
+            "matcher": {
+              "type": "stringContains",
+              "args": [
+                {
+                  "name": "qaNumber",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "public": true
+        }
+      ]
+    }
+  ]
+}

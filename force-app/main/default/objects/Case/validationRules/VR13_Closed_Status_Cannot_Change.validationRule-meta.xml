@@ -6,6 +6,7 @@
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 NOT($Profile.Name = &quot;System Administrator&quot;),
 NOT($UserRole.DeveloperName = &quot;Coach_Lead&quot;),
+NOT($UserRole.DeveloperName = &quot;Business_Admin&quot;),
 RecordType.DeveloperName = &quot;General_Inquiry&quot;,
 IsChanged( Status ),
 ISPICKVAL(PRIORVALUE(Status),&quot;Closed&quot;)

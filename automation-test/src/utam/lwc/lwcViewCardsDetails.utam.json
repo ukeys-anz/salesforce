@@ -1,0 +1,83 @@
+{
+  "elements": [
+    {
+      "name": "lightningCard",
+      "selector": {
+        "css": "lightning-card"
+      },
+      "elements": [
+        {
+          "name": "cardHolder",
+          "selector": {
+            "css": "[data-test-id='cardholder']"
+          }
+        },
+        {
+          "name": "last4Digits",
+          "selector": {
+            "css": "[data-test-id='last-4-digits']"
+          }
+        },
+        {
+          "name": "expiryDate",
+          "selector": {
+            "css": "[data-test-id='expiry-date']"
+          }
+        },
+        {
+          "name": "status",
+          "selector": {
+            "css": "[data-test-id='status']"
+          }
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "isCardHolderVisible",
+      "compose": [
+        {
+          "element": "cardHolder",
+          "apply": "isVisible"
+        }
+      ]
+    },
+    {
+      "name": "isLast4DigitsVisible",
+      "compose": [
+        {
+          "element": "last4Digits",
+          "apply": "isVisible"
+        }
+      ]
+    },
+    {
+      "name": "isExpiryDateVisible",
+      "compose": [
+        {
+          "element": "expiryDate",
+          "apply": "isVisible"
+        }
+      ]
+    },
+    {
+      "name": "isStatusVisible",
+      "compose": [
+        {
+          "element": "status",
+          "apply": "isVisible"
+        }
+      ]
+    },
+    {
+      "name": "getStatus",
+      "compose": [
+        {
+          "element": "status",
+          "apply": "getText"
+        }
+      ]
+    }
+  ]
+}

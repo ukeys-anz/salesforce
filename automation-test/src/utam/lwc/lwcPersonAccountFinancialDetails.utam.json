@@ -2,6 +2,29 @@
   "shadow": {
     "elements": [
       {
+        "name": "refreshButton",
+        "selector": {
+          "css": "[data-test-id='refresh-button']"
+        },
+        "type": "clickable"
+      },
+      {
+        "name": "everydayAccount",
+        "selector": {
+          "css": "c-financial-account[data-test-id='checking-account']"
+        },
+        "type": "anzx-utam-lwc/pageObjects/lwcFinancialAccount",
+        "public": true
+      },
+      {
+        "name": "savingsAccount",
+        "selector": {
+          "css": "c-financial-account[data-test-id='savings-account']"
+        },
+        "type": "anzx-utam-lwc/pageObjects/lwcFinancialAccount",
+        "public": true
+      },
+      {
         "name": "financialGoals",
         "type": "anzx-utam-lwc/pageObjects/lwcFinancialGoalsPersonAccount",
         "selector": {
@@ -10,5 +33,16 @@
         "public": true
       }
     ]
-  }
+  },
+  "methods": [
+    {
+      "name": "refresh",
+      "compose": [
+        {
+          "element": "refreshButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
 }

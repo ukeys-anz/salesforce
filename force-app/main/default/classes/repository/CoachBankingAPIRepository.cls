@@ -198,7 +198,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
       String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
       params +=
-        'account_number=' +
+        'account_numbers=' +
         accountNumber +
         '&start_time=' +
         utcStartDate +
