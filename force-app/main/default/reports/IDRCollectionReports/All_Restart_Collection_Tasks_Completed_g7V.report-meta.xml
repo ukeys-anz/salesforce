@@ -38,6 +38,13 @@
             <value>START Collection</value>
         </criteriaItems>
         <criteriaItems>
+            <column>Activity.Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Restart Collections</value>
+        </criteriaItems>
+        <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Alerting_Reason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Qualtrics</complianceGroup>
+    <description>Alerting reason is the rule describing the response needing customer contact e.g. Detractor 0-4
+This field is used to receive data from Qualtrics before copying it onto the case.</description>
+    <externalId>false</externalId>
+    <label>Alerting Reason</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

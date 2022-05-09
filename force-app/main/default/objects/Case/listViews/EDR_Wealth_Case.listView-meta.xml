@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDR_Wealth_Case</fullName>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Queue__c</field>
+        <operation>equals</operation>
+        <value>EDR Wealth</value>
+    </filters>
+    <label>EDR Wealth</label>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

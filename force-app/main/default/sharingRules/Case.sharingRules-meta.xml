@@ -43,6 +43,7 @@
             <operation>notEqual</operation>
             <value>CFMS Migrated Case</value>
         </criteriaItems>
+    </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Case_RT_BusinessAdmin_RW</fullName>
         <accessLevel>Edit</accessLevel>
@@ -57,7 +58,6 @@
             <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
@@ -136,93 +136,31 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Coach_Lead_RW</fullName>
+        <fullName>RTs_Coach_Lead_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute related record types are to be shared with Coach Lead with Read/Write access.</description>
-        <label>Dispute_RTs-Coach-Lead-RW</label>
+        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback are to be shared with Coach Lead with Read/Write access.</description>
+        <label>RTs-Coach-Lead-RW</label>
         <sharedTo>
             <role>Coach_Lead</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZ Plus Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
+            <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Coaches_RW</fullName>
+        <fullName>RTs_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute related record types are to be shared with Coaches with Read/Write access.</description>
-        <label>Dispute_RTs-Coaches-RW</label>
+        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback are to be shared with Coaches with Read/Write access.</description>
+        <label>RTs-Coaches-RW</label>
         <sharedTo>
             <role>Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZ Plus Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
+            <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -271,86 +209,30 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Support_Coaches_RW</fullName>
+        <fullName>RTs_Support_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Dispute_RTs_Support_Coaches_RW</label>
+        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback are to be shared with Support Coach with Read/Write access.</description>
+        <label>RTs_Support_Coaches_RW</label>
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZ Plus Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
+            <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Card_Dispute_Agent_RW</fullName>
+        <fullName>RTs_Card_Dispute_Agent_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Dispute_RTs_Card_Dispute_Agent_RW</label>
+        <label>RTs_Card_Dispute_Agent_RW</label>
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,General Enquiry,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -393,16 +275,17 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Support_Staff_RW</fullName>
+        <fullName>RTs_Support_Staff_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>Dispute_RTs_Support_Staff_RW</label>
+        <description>All ANZ Plus Complaint, Customer Feedback cases are to be shared with Support Staff AR&amp;C with Read/Write access.</description>
+        <label>RTs_Support_Staff_RW</label>
         <sharedTo>
             <role>Support_Staff_ARC</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ANZ Plus Complaint</value>
+            <value>ANZ Plus Complaint, Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -445,10 +328,10 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Fraud_RTs_CardDisputeAgents_RW</fullName>
+        <fullName>RTs_CardDisputeAgents_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Fraud related record types are to be shared with Card Dispute Agents with Read access.</description>
-        <label>Fraud_RTs_CardDisputeAgents_RO</label>
+        <description>All Cases having Fraud, record types are to be shared with Card Dispute Agents with Read access.</description>
+        <label>RTs_CardDisputeAgents_RO</label>
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
@@ -479,32 +362,47 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Fraud_RTs_FraudXAgents_RW</fullName>
+        <fullName>RTs_FraudXAgents_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Fraud related record types are to be shared with FraudX Agents with Read/Write access.</description>
-        <label>Fraud_RTs-FraudXAgents-RW</label>
+        <description>All Cases having Fraud record types, disputes, General Enquiry, Customer Feedback are to be shared with FraudX Agents with Read/Write access.</description>
+        <label>RTs-FraudXAgents-RW</label>
         <sharedTo>
             <role>FraudX_Agent</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>GeneralEnquiry_RT_3rdPartyMobileSupport_RW</fullName>
+        <fullName>RTs_3rdPartyMobileSupport_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Read Write access to General Enquiry record type for 3rd Party Mobile Support Team.</description>
-        <label>GeneralEnquiry_RT_3rdPartyMobileSupport_RW</label>
+        <description>Read Write access to General Enquiry and Customer Feedback record types for 3rd Party Mobile Support Team.</description>
+        <label>RTs_3rdPartyMobileSupport_RW</label>
         <sharedTo>
             <role>X3rd_Party_Mobile_Support_Team</role>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Enquiry</value>
+            <value>General Enquiry, Customer Feedback</value>
         </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read/Write access to the General Inquiry CMOS RecordType for members of the NLP Public Group (Integration User)</description>
+        <label>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</label>
+        <sharedTo>
+            <group>NLP_Public_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Inquiry CMOS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>IDR_RT_Data_Analyst_RO</fullName>
@@ -580,6 +478,34 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Systemic Issue</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Super_Support_Admin_RT_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on Case record types to Super Support Admin</description>
+        <label>Super_Support_Admin_RT_RW</label>
+        <sharedTo>
+            <role>Super_Support_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Feedback</value>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Quality_Analyst_RT_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant read and write access on Case record types to Quality Analysts</description>
+        <label>Quality_Analyst_RT_RW</label>
+        <sharedTo>
+            <role>Quality_Analyst</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingOwnerRules>

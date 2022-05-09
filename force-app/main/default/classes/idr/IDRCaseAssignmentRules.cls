@@ -15,18 +15,49 @@ public with sharing class IDRCaseAssignmentRules {
    * @param oldMap old map of case record in current trigger context
    */
   public static void assignCases(Case[] cases, Map<Id, Case> oldMap) {
-    Map<Id, Product2> productMap = getProductNames(cases);
+    Map<Id, Product_Family__c> productFamilyMap = getProductFamilies(cases);
+
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-        String productWorkbasketName = c.Product__c != null
-          ? (productMap.get(c.Product__c)).IDR_Workbasket__c
+        String productWorkbasketName = c.IDR_Product_Family__c != null
+          ? (productFamilyMap.get(c.IDR_Product_Family__c)).IDR_Workbasket__c
           : null;
         c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
           c,
           productWorkbasketName,
           oldCase
         );
+      }
+    }
+  }
+  /**
+   * @description method to Assign product family
+   * @param cases Records in the current context
+   * @param oldMap old map of case record in current trigger context
+   */
+  public static void assignProductFamily(Case[] cases, Map<Id, Case> oldMap) {
+    Map<Id, Product2> productMap = getProductNames(cases);
+    Map<string, Product_Family__c> categoryMap = getProductCategory(Cases);
+
+    for (Case c : cases) {
+      Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
+      if (
+        IDRCaseActions.isIDRComplaintType(c) &&
+        c.Product__c != null &&
+        (oldCase == null ||
+        oldCase.Product__c != c.Product__c)
+      ) {
+        c.IDR_Product_Family__c = (productMap.get(c.Product__c))
+          .IDR_Product_Family__c;
+      } else if (
+        c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
+        c.IDR_Product_Category__c != null &&
+        (oldCase == null ||
+        oldCase.IDR_Product_Category__c != c.IDR_Product_Category__c)
+      ) {
+        c.IDR_Product_Family__c = (categoryMap.get(c.IDR_Product_Category__c))
+          .Id;
       }
     }
   }
@@ -150,19 +181,21 @@ public with sharing class IDRCaseAssignmentRules {
   }
 
   /**
-   * @description Method to get a map of product names by product Ids related to cases
+   * @description Method to get a map of product families by product Ids related to cases
    * @param cases List of cases in context, with or without a parent product
    * @return A map of product names by product Ids
    */
   private static Map<Id, Product2> getProductNames(Case[] cases) {
     Id[] productIds = new List<Id>();
     for (Case c : cases) {
-      productIds.add(c.Product__c);
+      if (IDRCaseActions.isIDRComplaintType(c)) {
+        productIds.add(c.Product__c);
+      }
     }
     Map<Id, Product2> productMap = new Map<Id, Product2>();
     if (Product2.sObjectType.getDescribe().isQueryable()) {
       for (Product2 p : [
-        SELECT Name, IDR_Workbasket__c
+        SELECT Name, IDR_Product_Family__c
         FROM Product2
         WHERE Id IN :productIds
       ]) {
@@ -170,5 +203,61 @@ public with sharing class IDRCaseAssignmentRules {
       }
     }
     return productMap;
+  }
+  /**
+   * @description Method to get a map of product families related to cases
+   * @param cases List of cases in context
+   * @return A map of product family by Ids
+   */
+  private static Map<Id, Product_Family__c> getProductFamilies(Case[] cases) {
+    list<Id> familyIds = new List<Id>();
+    for (Case c : cases) {
+      if (c.IDR_Product_Family__c != null) {
+        familyIds.add(c.IDR_Product_Family__c);
+      }
+    }
+    Map<Id, Product_Family__C> productFamilies = new Map<Id, Product_Family__c>();
+    if (
+      Product_Family__c.sObjectType.getDescribe().isQueryable() &&
+      familyIds.size() > 0
+    ) {
+      for (Product_Family__c p : [
+        SELECT Name, IDR_ANZ_com_Product_Category__c, IDR_WorkBasket__c
+        FROM Product_Family__c
+        WHERE Id IN :familyIds
+      ]) {
+        productFamilies.put(p.Id, p);
+      }
+    }
+    return productFamilies;
+  }
+  /**
+   * @description Method to get a map of product families  related to cases based on product category
+   * @param cases List of cases in context
+   * @return A map of product family by product categories
+   */
+  private static Map<string, Product_Family__c> getProductCategory(
+    Case[] cases
+  ) {
+    string[] categories = new List<string>();
+    for (Case c : cases) {
+      if (
+        c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
+        c.IDR_Product_Category__c != null
+      ) {
+        categories.add(c.IDR_Product_Category__c);
+      }
+    }
+    Map<string, Product_Family__c> productFamilyMap = new Map<string, Product_family__c>();
+    if (Product_Family__c.sObjectType.getDescribe().isQueryable()) {
+      for (Product_Family__c p : [
+        SELECT ID, IDR_ANZ_com_Product_Category__c
+        FROM Product_Family__c
+        WHERE IDR_ANZ_com_Product_Category__c IN :categories
+      ]) {
+        productFamilyMap.put(p.IDR_ANZ_com_Product_Category__c, p);
+      }
+    }
+    return productFamilyMap;
   }
 }

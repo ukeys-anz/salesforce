@@ -26,6 +26,7 @@ Trial Customer Portal User.profile
 
 # SFDX based permissions that are only available in Production
 force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
+force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
 
 # Ignoring sharing rules for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
@@ -34,6 +35,7 @@ force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset
@@ -76,6 +78,10 @@ force-app/main/default/quickActions/Account.New_Appointment.quickAction-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c
 force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal Layout.layout-meta.xml
 
+#Ignoring these fields as they are no longer used and should not be created. Entitlement Process has a dependency on them so can't delete them.
+force-app/main/default/objects/Case/fields/IDR_EntitlementStartDate__c.field-meta.xml
+force-app/main/default/objects/Case/fields/IDR_AFCA_ResponseDue365DaysDateTime__c.field-meta.xml
+
 #Ignoring apex classes below as they have been renamed
 force-app/main/default/classes/EverydayAccountController.cls
 force-app/main/default/classes/FinancialGoalsComponentController.cls
@@ -106,5 +112,12 @@ force-app/main/default/flows/Send_Notification_to_New_User.flow-meta.xml
 #ANZX-29577 Ignoring Knowledge Process to force engineers to deploy this manually and do a post deployment step
 #to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
 force-app/main/default/flows/Knowledge_Process.flow-meta.xml
+
+#to prevent issues when deploying looking for depracated process name
+force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
 force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
 force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
+
+#AR-10035 Ignore attempts to delete prior version of complaints entitlement process. May not be present.
+force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml

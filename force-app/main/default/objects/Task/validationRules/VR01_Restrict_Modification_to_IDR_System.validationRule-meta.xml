@@ -15,6 +15,11 @@ NOT(ISPICKVAL(Type, &apos;Systemic Issue&apos;))
 ),
 OR
 (
+NOT($Profile.Name = &apos;Integration User&apos;),
+NOT(ISPICKVAL(Type, &apos;Notification&apos;))
+),
+OR
+(
 PRIORVALUE(IsClosed),
 ISCHANGED(Subject)
 )

@@ -10,6 +10,13 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   public TaskTriggerHandler() {
     super();
   }
+
+  /**
+   * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
+   */
+  public override void onApplyDefaults() {
+    IDRTaskActions.applyDefaults(records);
+  }
   /**
    * @description onBeforeInsert to handle before insert trigger actions.
    */
@@ -49,7 +56,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
       if (
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         record.Subject == IDRTaskActions.IDR_TASK_SUBJECT &&
-        record.OwnerId == IDRTaskActions.siQueue.id
+        record.OwnerId == IDRTaskActions.siQueue.Id
       ) {
         wrapperList.add(createNotification(record));
       }
@@ -68,7 +75,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
       record,
       new List<Id>{ record.OwnerId },
       record.Subject,
-      String.valueOf(record.activityDate),
+      String.valueOf(record.ActivityDate),
       null
     );
     return wrapper;
