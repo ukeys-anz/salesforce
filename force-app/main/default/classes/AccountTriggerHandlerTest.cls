@@ -151,15 +151,16 @@ private class AccountTriggerHandlerTest {
       update testAccount;
 
       Test.stopTest();
-    }
-    Account testAcc = [SELECT Id FROM Account WHERE Name = 'Test Account'];
-    Integer entitlementCount = [
-      SELECT COUNT()
-      FROM Entitlement
-      WHERE AccountId = :testAcc.Id AND Name = 'Basic Subscription'
-    ];
 
-    System.assertEquals(1, entitlementCount);
+      Account testAcc = [SELECT Id FROM Account WHERE Name = 'Test Account'];
+      Integer entitlementCount = [
+        SELECT COUNT()
+        FROM Entitlement
+        WHERE AccountId = :testAcc.Id AND Name = 'Basic Subscription'
+      ];
+
+      System.assertEquals(1, entitlementCount);
+    }
   }
 
   @isTest
