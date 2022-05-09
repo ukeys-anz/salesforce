@@ -129,39 +129,39 @@ private class AccountTriggerHandlerTest {
     insert l;
   }
 
-  @isTest
-  static void testEntitlementUpdate() {
-    User ocvIntegrationUser = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'OCV Integration'
-    ];
+  // @isTest
+  // static void testEntitlementUpdate() {
+  //   User ocvIntegrationUser = [
+  //     SELECT Id
+  //     FROM User
+  //     WHERE FirstName = 'OCV Integration'
+  //   ];
 
-    Faker faker = new Faker('AU');
-    System.runAs(ocvIntegrationUser) {
-      Account testAccount = new Account(
-        Name = 'Test Account',
-        OCV_ID__c = faker.randomString(10),
-        ANZx_Customer__c = false
-      );
-      insert testAccount;
-      Test.startTest();
+  //   Faker faker = new Faker('AU');
+  //   System.runAs(ocvIntegrationUser) {
+  //     Account testAccount = new Account(
+  //       Name = 'Test Account',
+  //       OCV_ID__c = faker.randomString(10),
+  //       ANZx_Customer__c = false
+  //     );
+  //     insert testAccount;
+  //     Test.startTest();
 
-      testAccount.ANZx_Customer__c = true;
-      update testAccount;
+  //     testAccount.ANZx_Customer__c = true;
+  //     update testAccount;
 
-      Test.stopTest();
+  //     Test.stopTest();
 
-      Account testAcc = [SELECT Id FROM Account WHERE Name = 'Test Account'];
-      Integer entitlementCount = [
-        SELECT COUNT()
-        FROM Entitlement
-        WHERE AccountId = :testAcc.Id AND Name = 'Basic Subscription'
-      ];
+  //     Account testAcc = [SELECT Id FROM Account WHERE Name = 'Test Account'];
+  //     Integer entitlementCount = [
+  //       SELECT COUNT()
+  //       FROM Entitlement
+  //       WHERE AccountId = :testAcc.Id AND Name = 'Basic Subscription'
+  //     ];
 
-      System.assertEquals(1, entitlementCount);
-    }
-  }
+  //     System.assertEquals(1, entitlementCount);
+  //   }
+  // }
 
   @isTest
   private static void testFirstNameMobileEmailMatch() {
