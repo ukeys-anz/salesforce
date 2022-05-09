@@ -627,29 +627,72 @@ public with sharing class InteractionActions {
    */
   public void setInteractionsMobile(List<Interaction> interactions) {
     Map<Id, Account> accountMap = getAccountInfo(interactions);
-    setInteractionsMobile(interactions, accountMap);
+    Map<Id, Lead> leadMap = getLeadInfo(interactions);
+    setInteractionsMobile(interactions, accountMap, leadMap);
   }
 
   /**
    * @description sets the interaction's Contact Mobile field
    * @param interactions Interaction the interaction of which to set the Contact Mobile.
    * @param accountMap Map<Id,Account> Map of Accounts linked to the interactions
+   * @param leadMap Map<Id,Lead> Map of Leads linked to the interactions
    */
   public void setInteractionsMobile(
     List<Interaction> interactions,
-    Map<Id, Account> accountMap
+    Map<Id, Account> accountMap,
+    Map<Id, Lead> leadMap
   ) {
     for (Interaction currentInteraction : interactions) {
       if (
         currentInteraction.AccountId != null &&
         accountMap.containsKey(currentInteraction.AccountId)
       ) {
-        setInteractionMobileFromAccount(
-          currentInteraction,
-          accountMap.get(currentInteraction.AccountId)
-        );
+        currentInteraction.Contact_Mobile__c = accountMap.get(
+            currentInteraction.AccountId
+          )
+          .PersonMobilePhone;
+      } else if (
+        currentInteraction.Lead__c != null &&
+        leadMap.containsKey(currentInteraction.Lead__c)
+      ) {
+        currentInteraction.Contact_Mobile__c = leadMap.get(
+            currentInteraction.Lead__c
+          )
+          .MobilePhone;
       }
     }
+  }
+
+  /**
+   * @description gets information about Leads linked to a list of Interactions
+   * @param interactions List<Interaction> list of interactions
+   * @return Map<Id,Lead> A map of Leads
+   */
+  private Map<Id, Lead> getLeadInfo(List<Interaction> interactions) {
+    Map<Id, Lead> leadMap = new Map<Id, Lead>();
+    Set<Id> leadIds = new Set<Id>();
+    for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.Lead__c != null) {
+        leadIds.add(currentInteraction.Lead__c);
+      }
+    }
+    if (Lead.SObjectType.getDescribe().isQueryable()) {
+      List<Lead> interactionLeads = [
+        SELECT Id, MobilePhone
+        FROM Lead
+        WHERE Id IN :leadIds
+      ];
+      if (!interactionLeads.isEmpty()) {
+        leadMap = new Map<Id, Lead>(interactionLeads);
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'getLeadInfo',
+        'Not enough permissions to query Leads.'
+      );
+    }
+    return leadMap;
   }
 
   /**
@@ -657,7 +700,7 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> list of interactions
    * @return Map<Id,Acount> A map of Accounts
    */
-  public Map<Id, Account> getAccountInfo(List<Interaction> interactions) {
+  private Map<Id, Account> getAccountInfo(List<Interaction> interactions) {
     Map<Id, Account> accountMap = new Map<Id, Account>();
     Set<Id> accountIds = new Set<Id>();
     for (Interaction currentInteraction : interactions) {
@@ -682,18 +725,6 @@ public with sharing class InteractionActions {
       );
     }
     return accountMap;
-  }
-
-  /**
-   * @description sets the interaction's Contact mobile field when the Interaction is linked to an account
-   * @param interactionSubject Interaction the interaction of which to set the Contact Mobile.
-   * @param interactionsAccount Account the interaction's account
-   */
-  public void setInteractionMobileFromAccount(
-    Interaction interactionSubject,
-    Account interactionsAccount
-  ) {
-    interactionSubject.Contact_Mobile__c = interactionsAccount.PersonMobilePhone;
   }
 
   /**

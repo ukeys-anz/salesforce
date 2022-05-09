@@ -126,6 +126,28 @@ public with sharing class InteractionActionsTest {
   }
 
   @isTest
+  static void testSettingContactMobileFromLead() {
+    Id generalLeadRTID = Schema.sOBjectType.Lead.getRecordTypeInfosByDeveloperName()
+      .get('General')
+      .getRecordTypeId();
+    Lead testLead = new Lead(
+      LastName = 'Bloggs',
+      RecordTypeId = generalLeadRTID
+    );
+    testLead.MobilePhone = TEST_MOBILE;
+    insert testLead;
+    Interaction newInteraction = new Interaction(Lead__c = testLead.Id);
+
+    InteractionActions actions = new InteractionActions();
+    actions.setInteractionsMobile(new List<Interaction>{ newInteraction });
+    System.assertEquals(
+      testLead.MobilePhone,
+      newInteraction.Contact_Mobile__c,
+      'Mobile number must be set'
+    );
+  }
+
+  @isTest
   static void testFindingInteractionsWithoutMobile() {
     Interaction interactionWithoutPhoneNumber = new Interaction(
       Name = 'interactionWithoutNumber'
