@@ -112,7 +112,7 @@ public with sharing class ContactRequestActions {
   public List<Interaction> createInteractionsFromRequests(
     List<ContactRequest> requests
   ) {
-    Map<Id, Id> contactAccountMap = getWhoIdAccountMap(requests);
+    Map<Id, Account> contactAccountMap = getWhoIdAccountMap(requests);
     List<Interaction> result = new List<Interaction>();
     for (ContactRequest request : requests) {
       Interaction newInteraction = createInteractionFromRequest(
@@ -133,7 +133,7 @@ public with sharing class ContactRequestActions {
    * @return Interaction newly created & inserted Interaction object.
    */
   public Interaction createInteractionFromRequest(ContactRequest request) {
-    Map<Id, Id> contactAccountMap = getWhoIdAccountMap(
+    Map<Id, Account> contactAccountMap = getWhoIdAccountMap(
       new List<ContactRequest>{ request }
     );
     return createInteractionFromRequest(request, contactAccountMap);
@@ -147,7 +147,7 @@ public with sharing class ContactRequestActions {
    */
   public Interaction createInteractionFromRequest(
     ContactRequest request,
-    Map<Id, Id> contactAccountMap
+    Map<Id, Account> contactAccountMap
   ) {
     if (request.Appointment_date_and_Time__c == null) {
       request.addError(
@@ -156,9 +156,12 @@ public with sharing class ContactRequestActions {
       return null;
     }
     Integer duration = getDuration(request.RequestReason);
-    Id accID = contactAccountMap.get(request.WhoId);
+    Account interactionAccount;
+    if (contactAccountMap.containsKey(request.WhoId)) {
+      interactionAccount = contactAccountMap.get(request.WhoId);
+    }
     Id leadId = null;
-    if (accID == null) {
+    if (interactionAccount == null) {
       leadId = request.WhoId;
     }
 
@@ -171,7 +174,7 @@ public with sharing class ContactRequestActions {
       Status__c = defaultInteractionStatus,
       Interaction_Purpose__c = request.RequestReason,
       StartTime = request.Appointment_date_and_Time__c,
-      AccountId = accID,
+      AccountId = interactionAccount?.Id,
       Lead__c = leadId,
       Name = request.RequestReason + ' Appointment',
       EndTime = request.Appointment_date_and_Time__c.addMinutes(duration),
@@ -184,7 +187,8 @@ public with sharing class ContactRequestActions {
       RecordTypeId = appointmentRecordTypeId,
       Interaction_External_Id__c = 'CR-' + request.Name,
       LocationId = request.Location__c,
-      Optional_Notes__c = request.RequestDescription
+      Optional_Notes__c = request.RequestDescription,
+      Contact_Mobile__c = interactionAccount?.PersonMobilePhone
     );
     return newInteraction;
   }
@@ -257,10 +261,10 @@ public with sharing class ContactRequestActions {
    * @description goes through a list of ContactRequests and returns a map
    * of ContactId to AccountId based on the WhoId
    * @param requests List<ContactRequest> requests to search through
-   * @return Map<Id,Id> map of ContactId to related AccountId
+   * @return Map<Id,Account> map of ContactId to related Account
    */
-  public Map<Id, Id> getWhoIdAccountMap(List<ContactRequest> requests) {
-    Map<Id, Id> results = new Map<Id, Id>();
+  public Map<Id, Account> getWhoIdAccountMap(List<ContactRequest> requests) {
+    Map<Id, Account> results = new Map<Id, Account>();
 
     Set<Id> whoIds = new Set<Id>();
     if (!requests.isEmpty()) {
@@ -273,14 +277,14 @@ public with sharing class ContactRequestActions {
     }
     if (Account.SObjectType.getDescribe().isQueryable()) {
       List<Account> personAccounts = [
-        SELECT Id, PersonContactId
+        SELECT Id, PersonContactId, PersonMobilePhone
         FROM Account
         WHERE PersonContactId IN :whoIds
       ];
 
       if (!personAccounts.isEmpty()) {
         for (Account personAccount : personAccounts) {
-          results.put(personAccount.PersonContactId, PersonAccount.Id);
+          results.put(personAccount.PersonContactId, personAccount);
         }
       }
     } else {

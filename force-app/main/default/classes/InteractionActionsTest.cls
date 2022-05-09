@@ -6,6 +6,7 @@
 @isTest
 public with sharing class InteractionActionsTest {
   private final static string APPOINTMENT_QUEUE_NAME = 'Appointments_Queue';
+  private final static string TEST_MOBILE = '01189998819991197253';
   /**
    * @description test for interaction assigned back to Queue.
    */
@@ -102,6 +103,57 @@ public with sharing class InteractionActionsTest {
     events = [SELECT Id FROM Event];
 
     System.assertEquals(0, events.size(), 'All events must be deleted');
+  }
+
+  @isTest
+  static void testSettingContactMobileFromAccount() {
+    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount;
+    testAccount = [
+      SELECT Id, PersonContactId, PersonMobilePhone
+      FROM Account
+      WHERE Id = :testAccount.Id
+    ];
+    Interaction newInteraction = new Interaction(AccountId = testAccount.Id);
+
+    InteractionActions actions = new InteractionActions();
+    actions.setInteractionsMobile(new List<Interaction>{ newInteraction });
+    System.assertEquals(
+      testAccount.PersonMobilePhone,
+      newInteraction.Contact_Mobile__c,
+      'Mobile number must be set'
+    );
+  }
+
+  @isTest
+  static void testFindingInteractionsWithoutMobile() {
+    Interaction interactionWithoutPhoneNumber = new Interaction(
+      Name = 'interactionWithoutNumber'
+    );
+    Interaction interactionWithPhoneNumber = new Interaction(
+      Name = 'interactionWithNumber',
+      Contact_Mobile__c = TEST_MOBILE
+    );
+    List<Interaction> interactions = new List<Interaction>{
+      interactionWithPhoneNumber,
+      interactionWithoutPhoneNumber
+    };
+    InteractionActions actions = new InteractionActions();
+
+    List<Interaction> interactionsWithtoutMobile = actions.findInteractionsWithoutMobile(
+      interactions
+    );
+
+    System.assertEquals(
+      false,
+      interactionsWithtoutMobile.isEmpty(),
+      'At least one interactions should be returned'
+    );
+    System.assertEquals(
+      interactionWithoutPhoneNumber.Name,
+      interactionsWithtoutMobile[0].Name,
+      'The interaction without mobile should be returned'
+    );
   }
 
   /**
@@ -846,6 +898,7 @@ public with sharing class InteractionActionsTest {
     testAccount.LastName = lastName;
     testAccount.OCV_ID__c = ocvId;
     testAccount.RecordTypeId = personAccountRecordTypeId;
+    testAccount.PersonMobilePhone = TEST_MOBILE;
 
     return testAccount;
   }

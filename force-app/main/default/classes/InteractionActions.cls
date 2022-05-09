@@ -2,8 +2,10 @@
  * @author Adam Smith
  * @since 20220411
  * @description class for Interaction Actions
+ * Adding suppression for Excessive Public Count as tech debt to be resolved
+ * later in the Epic's development as per request.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity,PMD.ExcessivePublicCount')
 public with sharing class InteractionActions {
   public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
   public static final String SCHEDULED_STATUS = 'Scheduled';
@@ -592,7 +594,6 @@ public with sharing class InteractionActions {
    * @description Method to update the coaching summary records
    * @param coachingSummaries The list of coaching summary records to be updated
    */
-
   public void updateCoachingSummary(
     List<Coaching_Summary__c> coachingSummaries
   ) {
@@ -618,5 +619,99 @@ public with sharing class InteractionActions {
         'Not enough permissions to update Coaching Summary object.'
       );
     }
+  }
+
+  /**
+   * @description sets the interaction's Contact Mobile field and queries the Database for Accounts
+   * @param interactions Interaction the interaction of which to set the Contact Mobile.
+   */
+  public void setInteractionsMobile(List<Interaction> interactions) {
+    Map<Id, Account> accountMap = getAccountInfo(interactions);
+    setInteractionsMobile(interactions, accountMap);
+  }
+
+  /**
+   * @description sets the interaction's Contact Mobile field
+   * @param interactions Interaction the interaction of which to set the Contact Mobile.
+   * @param accountMap Map<Id,Account> Map of Accounts linked to the interactions
+   */
+  public void setInteractionsMobile(
+    List<Interaction> interactions,
+    Map<Id, Account> accountMap
+  ) {
+    for (Interaction currentInteraction : interactions) {
+      if (
+        currentInteraction.AccountId != null &&
+        accountMap.containsKey(currentInteraction.AccountId)
+      ) {
+        setInteractionMobileFromAccount(
+          currentInteraction,
+          accountMap.get(currentInteraction.AccountId)
+        );
+      }
+    }
+  }
+
+  /**
+   * @description gets information about accounts linked to a list of Interactions
+   * @param interactions List<Interaction> list of interactions
+   * @return Map<Id,Acount> A map of Accounts
+   */
+  public Map<Id, Account> getAccountInfo(List<Interaction> interactions) {
+    Map<Id, Account> accountMap = new Map<Id, Account>();
+    Set<Id> accountIds = new Set<Id>();
+    for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.AccountId != null) {
+        accountIds.add(currentInteraction.AccountId);
+      }
+    }
+    if (Account.SObjectType.getDescribe().isQueryable()) {
+      List<Account> interactionAccounts = [
+        SELECT Id, PersonMobilePhone
+        FROM Account
+        WHERE Id IN :accountIds
+      ];
+      if (!interactionAccounts.isEmpty()) {
+        accountMap = new Map<Id, Account>(interactionAccounts);
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'getAccountInfo',
+        'Not enough permissions to query Accounts.'
+      );
+    }
+    return accountMap;
+  }
+
+  /**
+   * @description sets the interaction's Contact mobile field when the Interaction is linked to an account
+   * @param interactionSubject Interaction the interaction of which to set the Contact Mobile.
+   * @param interactionsAccount Account the interaction's account
+   */
+  public void setInteractionMobileFromAccount(
+    Interaction interactionSubject,
+    Account interactionsAccount
+  ) {
+    interactionSubject.Contact_Mobile__c = interactionsAccount.PersonMobilePhone;
+  }
+
+  /**
+   * @description finds & returns interactions without a mobile number
+   * @param interactions List<Interaction> list of interactions through which to search
+   * @return List<Interaction> List of interactions without mobile number.
+   */
+  public List<Interaction> findInteractionsWithoutMobile(
+    List<Interaction> interactions
+  ) {
+    List<Interaction> result = new List<Interaction>();
+
+    for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.Contact_Mobile__c == null) {
+        result.add(currentInteraction);
+      }
+    }
+
+    return result;
   }
 }

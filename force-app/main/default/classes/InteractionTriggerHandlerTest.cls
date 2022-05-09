@@ -8,6 +8,8 @@ public with sharing class InteractionTriggerHandlerTest {
   private static string appointmentQueueName = 'Appointments_Queue';
   private static string otherPurposeName = 'Other';
   private static Integer otherPurposeDuration = 30;
+  private final static string TEST_MOBILE = '01189998819991197253';
+  private final static string TEST_MOBILE2 = '0118999881999119725';
 
   @isTest
   static void testSwitchingInteractionFromQueueToUser() {
@@ -422,6 +424,60 @@ public with sharing class InteractionTriggerHandlerTest {
     }
   }
 
+  @isTest
+  static void testMobileGetsSet() {
+    Account testAccount = createTestAccount('Joe', 'Bloggs', '0123456');
+    Account testAccount2 = createTestAccount('Jane', 'Bloggs', '0123457');
+    testAccount2.PersonMobilePhone = TEST_MOBILE2;
+    List<Account> accounts = new List<Account>{ testAccount, testAccount2 };
+
+    insert accounts;
+
+    testAccount = [
+      SELECT Id, PersonMobilePhone, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount.Id
+    ];
+    testAccount2 = [
+      SELECT Id, PersonMobilePhone, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount2.Id
+    ];
+
+    Interaction testInteraction = new Interaction(
+      Name = 'Test Interaction',
+      AccountId = testAccount.Id
+    );
+    insert testInteraction;
+
+    testInteraction = [
+      SELECT Id, Contact_Mobile__c
+      FROM Interaction
+      WHERE Id = :testInteraction.Id
+    ];
+
+    System.assertEquals(
+      TEST_MOBILE,
+      testInteraction.Contact_Mobile__c,
+      'Contact Mobile must be set from the accounts mobile number'
+    );
+
+    testInteraction.AccountId = testAccount2.Id;
+    update testInteraction;
+
+    testInteraction = [
+      SELECT Id, Contact_Mobile__c
+      FROM Interaction
+      WHERE Id = :testInteraction.Id
+    ];
+
+    System.assertEquals(
+      TEST_MOBILE2,
+      testInteraction.Contact_Mobile__c,
+      'Contact Mobile must be switch when changing linked account'
+    );
+  }
+
   /**
    * @description helper method to create a person account
    * @param firstName String the first name of the person
@@ -441,6 +497,7 @@ public with sharing class InteractionTriggerHandlerTest {
     testAccount.FirstName = firstName;
     testAccount.LastName = lastName;
     testAccount.OCV_ID__c = ocvId;
+    testAccount.PersonMobilePhone = TEST_MOBILE;
     testAccount.RecordTypeId = personAccountRecordTypeId;
 
     return testAccount;

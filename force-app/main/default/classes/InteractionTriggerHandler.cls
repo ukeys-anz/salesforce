@@ -160,6 +160,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     InteractionActions actions = new InteractionActions();
     actions.updateOwnerNewInteractions(records);
+    actions.setInteractionsMobile(records);
   }
 
   /** @description onBeforeUpdate to handle before update trigger actions.
@@ -183,5 +184,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     if (assignedBacktoQueueInteractions.size() > 0) {
       actions.updateOwnerNewInteractions(assignedBacktoQueueInteractions);
     }
+
+    actions.setInteractionsMobile(records);
   }
 }

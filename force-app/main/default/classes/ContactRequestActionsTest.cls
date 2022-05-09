@@ -137,7 +137,8 @@ public with sharing class ContactRequestActionsTest {
         Channel_Booked__c,
         Interaction_External_Id__c,
         LocationId,
-        Optional_Notes__c
+        Optional_Notes__c,
+        Contact_Mobile__c
       FROM Interaction
     ];
     System.assertEquals(
@@ -256,6 +257,12 @@ public with sharing class ContactRequestActionsTest {
       request.RequestDescription,
       newInteraction.Optional_Notes__c,
       'Optional Notes on Interaction should match the Requests Request Description'
+    );
+
+    System.assertEquals(
+      testAccount.PersonMobilePhone,
+      newInteraction.Contact_Mobile__c,
+      'The Interactions mobile must match the Accounts Mobile Number'
     );
   }
 
@@ -487,7 +494,7 @@ public with sharing class ContactRequestActionsTest {
     request.PreferredChannel = 'Call';
     insert request;
 
-    Map<Id, Id> contactIdAccountIdMap = contactRequestActionHelper.getWhoIdAccountMap(
+    Map<Id, Account> contactIdAccountIdMap = contactRequestActionHelper.getWhoIdAccountMap(
       new List<ContactRequest>{ request }
     );
 
@@ -505,7 +512,7 @@ public with sharing class ContactRequestActionsTest {
 
     System.AssertEquals(
       testAccount.Id,
-      contactIdAccountIdMap.get(testAccount.PersonContactId),
+      contactIdAccountIdMap.get(testAccount.PersonContactId)?.Id,
       'The account Id should be that of the account'
     );
   }
@@ -874,11 +881,12 @@ public with sharing class ContactRequestActionsTest {
     testAccount.FirstName = 'Fred';
     testAccount.LastName = 'Smith';
     testAccount.OCV_ID__c = '123456';
+    testAccount.PersonMobilePhone = '01189998819991197253';
     testAccount.RecordTypeId = personAccountRecordTypeId;
     insert testAccount;
 
     testAccount = [
-      SELECT Id, PersonContactId
+      SELECT Id, PersonContactId, PersonMobilePhone
       FROM Account
       WHERE Id = :testAccount.Id
     ];
