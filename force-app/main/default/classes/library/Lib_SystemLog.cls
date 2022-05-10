@@ -596,6 +596,51 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
+   * @description  The method addDeleteResult is used for for creating logs when permorfing DML operation delete
+   * The delete results are checked to see if its successful and if there are any failures we add to the log list. At the end the caller should call {@link insertLog()} method
+   * to create record/records in Traced_Application_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
+   * @param objectName The name of the object used to create the log record.
+   * @param results List of delete results which will be evaluated for logging.
+   * @param records actual records which are used for DML delete
+   * @return Boolean
+   */
+  public Boolean addDatabaseDeleteResult(
+    String objectName,
+    List<Database.DeleteResult> results,
+    List<SObject> records
+  ) {
+    Boolean hasError = false;
+    for (Integer i = 0; i < records.size(); i++) {
+      Database.DeleteResult sr = results[i];
+      SObject rec = records[i];
+      if (!sr.isSuccess()) {
+        hasError = true;
+        // Operation failed, so get all errors
+        for (Database.Error err : sr.getErrors()) {
+          String errNo = String.valueof(err.getStatusCode());
+          if (errNo.length() > 50) {
+            errNo = errNo.substring(0, 50);
+          }
+          this.addObjectMessage(
+            objectName,
+            rec.Id,
+            errNo,
+            'Id=' +
+            rec.Id +
+            ',Message: ' +
+            err.getMessage() +
+            'Fields:' +
+            err.getFields(),
+            Severity.ERROR
+          );
+        }
+      }
+    }
+
+    return hasError;
+  }
+
+  /**
    * @description  The method publishEvent is used for creating a platform event for Async logging
    * The Lib_SystemLog object needs to be created with required fields  before calling this method
    * The information used to create the object is serialized as JSON and published as platform event.

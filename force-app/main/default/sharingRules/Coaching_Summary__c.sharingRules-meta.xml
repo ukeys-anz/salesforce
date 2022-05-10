@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Coaching_Summary_Business_Admin_Read_Write_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides read/write access to coaching summary for business admin role</description>
+        <label>Coaching Summary Business Admin Read/Write Sharing Rule</label>
+        <sharedTo>
+            <role>Business_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Coaching_Summary_Coach_Lead_Read_Write_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides Read/Write access to Coach Lead for Coaching Summary records</description>
+        <label>Coaching Summary Coach Lead Read/Write Sharing Rule</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Coaching_Summary_Coach_Read_Write_Sharing_Rule</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides read/write access to Coaching summary for Coach role.</description>
+        <label>Coaching Summary Coach Read/Write Sharing Rule</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Coaching_Summary_QA_Read_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides Read access to Coaching summary record for QA Role.</description>
+        <label>Coaching Summary QA Read Sharing Rule</label>
+        <sharedTo>
+            <role>Quality_Analyst</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

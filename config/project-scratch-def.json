@@ -53,6 +53,11 @@
     },
     "accountSettings": {
       "enableRelateContactToMultipleAccounts": true
+    },
+    "industriesSettings": {
+      "enableInteractionSummaryPref": true,
+      "enableInteractionSummaryRoleHierarchy": true,
+      "enableInteractionRoleHierarchy": true
     }
   }
 }
