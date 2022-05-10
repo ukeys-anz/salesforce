@@ -517,10 +517,64 @@ public with sharing class InteractionActionsTest {
     );
   }
 
+  @isTest
+  static void testUnassigningInteraction() {
+    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+      .get('Appointment')
+      .getRecordTypeId();
+
+    Interaction testInteraction = new Interaction(
+      OwnerId = UserInfo.getUserId(),
+      Name = 'Test Interaction',
+      RecordTypeId = appointmentRTID
+    );
+    insert testInteraction;
+
+    testInteraction.Status__c = 'Assigned';
+
+    Interaction unassignedInteraction = new Interaction(
+      Id = testInteraction.Id,
+      Status__c = 'Unassigned',
+      OwnerId = UserInfo.getUserId(),
+      RecordTypeId = appointmentRTID
+    );
+
+    Map<Id, Interaction> oldMap = new Map<Id, Interaction>();
+    oldMap.put(testInteraction.Id, testInteraction);
+
+    List<Interaction> records = new List<Interaction>{ unassignedInteraction };
+
+    InteractionActions actions = new InteractionActions();
+
+    List<Interaction> unassignedInteractions = actions.unassignInteractions(
+      oldMap,
+      records
+    );
+
+    System.assertEquals(
+      false,
+      unassignedInteractions.isEmpty(),
+      'Should return an Interaction'
+    );
+
+    System.assertEquals(
+      1,
+      unassignedInteractions.size(),
+      'One Interaction must be returned'
+    );
+
+    Id groupId = CommonUtil.getGroupId(APPOINTMENT_QUEUE_NAME);
+
+    System.assertEquals(
+      groupId,
+      unassignedInteractions[0].OwnerId,
+      'Owner Id must be set to the Appointment Queue'
+    );
+  }
+
   /**
    * @description test for validating if the status is updated to Scheduled when the Owner is updated from Queue to User
    */
-
   @isTest
   static void testStatusChangetoScheduled() {
     string otherPurposeName = 'Other';

@@ -745,4 +745,42 @@ public with sharing class InteractionActions {
 
     return result;
   }
+
+  /**
+   * @description goes through a list of Interactions and if they have moved status to unassigned set the owner to the queue
+   * @param oldMap Map<Id,SObject> old map of interactions
+   * @param records List<Interaction> list of interactions of which to search
+   * @return List<Interaction> interactions that have been updated
+   */
+  public List<Interaction> unassignInteractions(
+    Map<Id, sObject> oldMap,
+    List<Interaction> records
+  ) {
+    Id groupId = CommonUtil.getGroupId('Appointments_Queue');
+    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+      .get('Appointment')
+      .getRecordTypeId();
+    List<Interaction> results = new List<Interaction>();
+    for (Interaction currentInteraction : records) {
+      if (
+        !oldMap.containsKey(currentInteraction.Id) ||
+        currentInteraction.Status__c != UNASSIGNED_STATUS ||
+        currentInteraction.RecordTypeId != appointmentRTID
+      ) {
+        continue;
+      }
+
+      Interaction oldInteraction = (Interaction) oldMap.get(
+        currentInteraction.Id
+      );
+
+      if (oldInteraction.Status__c == UNASSIGNED_STATUS) {
+        continue;
+      }
+
+      currentInteraction.OwnerId = groupId;
+      results.add(currentInteraction);
+    }
+    return results;
+  }
 }

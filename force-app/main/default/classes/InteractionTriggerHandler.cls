@@ -186,5 +186,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     actions.setInteractionsMobile(records);
+    actions.unassignInteractions(oldMap, records);
   }
 }
