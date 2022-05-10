@@ -121,9 +121,16 @@ public with sharing class InteractionTriggerHandlerTest {
    */
   @isTest
   static void testReschedulingAnInteraction() {
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store1';
+    insert loc;
+
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 5;
     apptCommt.Confirmed__c = 2;
+    apptCommt.Type__c = 'Other';
+    apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     insert apptCommt;
 
@@ -309,9 +316,16 @@ public with sharing class InteractionTriggerHandlerTest {
    */
   @isTest
   static void testBulkReschedulingAnInteraction() {
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store1';
+    insert loc;
+
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 100;
     apptCommt.Confirmed__c = 0;
+    apptCommt.Type__c = 'Other';
+    apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     insert apptCommt;
 
@@ -331,8 +345,6 @@ public with sharing class InteractionTriggerHandlerTest {
     List<ContactRequest> crList = new List<ContactRequest>();
     for (Integer i = 0; i < 100; i++) {
       ContactRequest request = new ContactRequest();
-      request.Appointment_date_and_Time__c = appointmentDate;
-      request.RequestReason = otherPurposeName;
       request.WhoId = testAccount.PersonContactId;
       request.Appointment_Commitment__c = apptCommt.Id;
       request.PreferredChannel = 'Call';
@@ -345,6 +357,12 @@ public with sharing class InteractionTriggerHandlerTest {
       SELECT Id, Status__c, OwnerId, ContactRequestId__c
       FROM Interaction
     ];
+
+    System.assertEquals(
+      100,
+      testInteraction.size(),
+      '100 Interaction records should be created'
+    );
 
     Group interactionQueue = [
       SELECT ID
@@ -382,7 +400,6 @@ public with sharing class InteractionTriggerHandlerTest {
     );
 
     List<Event> events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
-    System.assertEquals(100, events.size(), '100 events  must be created');
 
     Test.startTest();
 

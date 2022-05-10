@@ -183,9 +183,16 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testBulkCancellingAnInteraction() {
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store1';
+    insert loc;
+
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 100;
     apptCommt.Confirmed__c = 0;
+    apptCommt.Type__c = 'Other';
+    apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     insert apptCommt;
 
@@ -329,9 +336,16 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testCancellingAnInteraction() {
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store1';
+    insert loc;
+
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 5;
     apptCommt.Confirmed__c = 2;
+    apptCommt.Type__c = 'Other';
+    apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     insert apptCommt;
 
@@ -356,16 +370,18 @@ public with sharing class InteractionActionsTest {
     DateTime appointmentDate = DateTime.now();
 
     ContactRequest request = new ContactRequest();
-    request.Appointment_date_and_Time__c = appointmentDate;
-    request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
     request.Appointment_Commitment__c = apptCommt.Id;
     request.PreferredChannel = 'Call';
     insert request;
 
-    request.OwnerId = UserInfo.getUserId();
+    request = [SELECT Id, RequestReason FROM ContactRequest];
 
-    update request;
+    System.assertEquals(
+      request.RequestReason,
+      apptCommt.Type__c,
+      'The request reason should match the type on Appointment Commitment'
+    );
 
     Interaction testInteraction = [
       SELECT Id, Status__c, OwnerId, ContactRequestId__c

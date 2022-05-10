@@ -153,4 +153,70 @@ public with sharing class ContactRequestTriggerActions {
       }
     }
   }
+
+  /** @description Map the appointment commitment field values to the corresponding contact request records
+   * @param crList List of new contact request records to be updated.
+   * @param appointmentCommitmentMap Map of appointment commitment records related to the contact request.
+   */
+
+  public void prepopulateAppointmentCommitmentValues(
+    List<ContactRequest> crList,
+    Map<Id, Appointment_Commitment__c> appointmentCommitmentMap
+  ) {
+    if (ContactRequest.sObjectType.getDescribe().isUpdateable()) {
+      for (ContactRequest contReq : crList) {
+        Appointment_Commitment__c apptCommt = appointmentCommitmentMap.get(
+          contReq.Appointment_Commitment__c
+        );
+        contReq.RequestReason = apptCommt.Type__c;
+        contReq.Appointment_date_and_Time__c = apptCommt.Date_and_Time__c;
+        contReq.Location__c = apptCommt.Location__c;
+      }
+    } else {
+      //If the user does not have permission to update the contact request object log an error.
+      CommonUtil.logAndThrowIAE(
+        'ContactRequestActions',
+        'prepopulateAppointmentCommitmentValues',
+        'Not enough permissions to update Contact Request.'
+      );
+    }
+  }
+
+  /** @description Map the appointment commitment field values to the corresponding contact request records
+   * @param crList List of new contact request records to be updated.
+   * @return Map<Id, Appointment_Commitment__c> Map of appointment commitment records related to the contact request.
+   */
+
+  public Map<Id, Appointment_Commitment__c> getRelatedAppCommtDetails(
+    List<ContactRequest> crList
+  ) {
+    Set<Id> apptCommtId = new Set<Id>();
+    Map<Id, Appointment_Commitment__c> apptCommtMap = new Map<Id, Appointment_Commitment__c>();
+    for (ContactRequest cr : crList) {
+      if (cr.Appointment_Commitment__c != null) {
+        apptCommtId.add(cr.Appointment_Commitment__c);
+      }
+    }
+    if (
+      Appointment_Commitment__c.SObjectType.getDescribe().isAccessible() &&
+      Schema.SObjectType.Appointment_Commitment__c.fields.Type__c.isAccessible() &&
+      Schema.SObjectType.Appointment_Commitment__c.fields.Date_and_Time__c.isAccessible() &&
+      Schema.SObjectType.Appointment_Commitment__c.fields.Location__c.isAccessible()
+    ) {
+      for (Appointment_Commitment__c apptCommt : [
+        SELECT Id, Type__c, Date_and_Time__c, Location__c
+        FROM Appointment_Commitment__c
+        WHERE ID IN :apptCommtId
+      ]) {
+        apptCommtMap.put(apptCommt.Id, apptCommt);
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'ContactRequestActions',
+        'getRelatedAppCommtDetails',
+        'Not enough permissions to query Appointment Commitment object.'
+      );
+    }
+    return apptCommtMap;
+  }
 }

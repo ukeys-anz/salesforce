@@ -20,6 +20,7 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
 
   public override void onAfterInsert() {
     ContactRequestTriggerActions.updateConfirmedCount(records, true);
+    ContactRequestTriggerActions crTriggerActions = new ContactRequestTriggerActions();
     ContactRequestActions actions = new ContactRequestActions();
     List<ContactRequest> automatedRequests = actions.returnRequestsWithAutomatedPurpose(
       records
@@ -37,5 +38,20 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     ContactRequestTriggerActions.handleCancelledRequest(oldMap, records);
+  }
+
+  /** @description onBeforeInsert to handle after update trigger actions.
+   */
+  public override void onBeforeInsert() {
+    ContactRequestTriggerActions crActions = new ContactRequestTriggerActions();
+    Map<Id, Appointment_Commitment__c> appointmentCommitmentMap = crActions.getRelatedAppCommtDetails(
+      records
+    );
+    if (!appointmentCommitmentMap.isEmpty()) {
+      crActions.prepopulateAppointmentCommitmentValues(
+        records,
+        appointmentCommitmentMap
+      );
+    }
   }
 }

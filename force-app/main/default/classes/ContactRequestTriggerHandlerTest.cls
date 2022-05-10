@@ -16,11 +16,18 @@ private class ContactRequestTriggerHandlerTest {
     DateTime start = DateTime.newInstance(DateTime.now().year() + 1, 1, 1);
     Faker faker = new Faker('AU');
 
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location';
+    loc.LocationType = 'Store1';
+    insert loc;
+
     List<Appointment_Commitment__c> apptCommtRecords = new List<Appointment_Commitment__c>();
 
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 5;
     apptCommt.Confirmed__c = 2;
+    apptCommt.Type__c = 'Financial Wellbeing';
+    apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     apptCommtRecords.add(apptCommt);
 
@@ -68,6 +75,126 @@ private class ContactRequestTriggerHandlerTest {
     }
 
     insert contactRequestList;
+  }
+
+  /*
+   * Test method for contact request prepopulation
+   */
+
+  @isTest
+  static void testContactRequestPrepopulation() {
+    Account testAccount = createTestAccounts(1)[0];
+    Datetime dateTimeVal = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+
+    Appointment_Commitment__c apptCommtRec = [
+      SELECT ID, Confirmed__c, Type__c, Location__c, Date_and_Time__c
+      FROM Appointment_Commitment__c
+      WHERE Date_and_Time__c = :dateTimeVal
+    ];
+
+    /*
+      Insert contact request for that appointment commitment record.
+    */
+
+    ContactRequest contReq = new ContactRequest();
+    contReq.Appointment_date_and_time__c = DateTime.newInstance(
+      2022,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
+    contReq.Appointment_Commitment__c = apptCommtRec.Id;
+    contReq.PreferredChannel = 'Call';
+    contReq.WhoId = testAccount.PersonContactId;
+    insert contReq;
+
+    contReq = [
+      SELECT
+        Id,
+        Name,
+        Contact_Request_Auto_Number__c,
+        RequestReason,
+        Appointment_date_and_Time__c,
+        Location__c
+      FROM ContactRequest
+      WHERE Appointment_date_and_time__c = :dateTimeVal
+    ];
+
+    System.assertEquals(
+      contReq.RequestReason,
+      apptCommtRec.Type__c,
+      'The request reason should be updated with the appointment commitment type'
+    );
+
+    System.assertEquals(
+      contReq.Appointment_date_and_Time__c,
+      apptCommtRec.Date_and_Time__c,
+      'The date and time should be updated with the appointment commitment date and time'
+    );
+
+    System.assertEquals(
+      contReq.Location__c,
+      apptCommtRec.Location__c,
+      'The location should be updated with the appointment commitment location'
+    );
+  }
+
+  @isTest
+  static void testBulkContactRequestPrepopulation() {
+    Schema.Location loc = new Schema.location();
+    loc.Name = 'Test Location2';
+    loc.LocationType = 'Store2';
+    insert loc;
+
+    Account testAccount = createTestAccounts(1)[0];
+    Datetime dateTimeVal = DateTime.newInstance(2022, 5, 12, 12, 45, 0);
+
+    Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
+    apptCommt.Available__c = 100;
+    apptCommt.Confirmed__c = 0;
+    apptCommt.Type__c = 'Financial Wellbeing';
+    apptCommt.Location__c = loc.Id;
+    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 5, 12, 12, 45, 0);
+    insert apptCommt;
+
+    List<ContactRequest> crList = new List<ContactRequest>();
+    for (Integer i = 0; i < 100; i++) {
+      ContactRequest contReq = new ContactRequest();
+      contReq.Appointment_Commitment__c = apptCommt.Id;
+      contReq.PreferredChannel = 'Phone';
+      contReq.WhoId = testAccount.PersonContactId;
+      crList.add(contReq);
+    }
+
+    insert crList;
+
+    crList = [
+      SELECT Id, RequestReason, Appointment_date_and_Time__c, Location__c
+      FROM ContactRequest
+      WHERE PreferredChannel = 'Phone'
+    ];
+
+    for (ContactRequest contReq : crList) {
+      System.assertEquals(
+        contReq.RequestReason,
+        apptCommt.Type__c,
+        'The request reason should be updated with the appointment commitment type'
+      );
+
+      System.assertEquals(
+        contReq.Appointment_date_and_Time__c,
+        apptCommt.Date_and_Time__c,
+        'The date and time should be updated with the appointment commitment date and time'
+      );
+
+      System.assertEquals(
+        contReq.Location__c,
+        apptCommt.Location__c,
+        'The location should be updated with the appointment commitment location'
+      );
+    }
   }
 
   @isTest
