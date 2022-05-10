@@ -82,13 +82,13 @@ public with sharing class AccountBucketsModel extends CalloutModel {
      * @description calculate the value of the amount charged
      */
     @AuraEnabled
-    public Double value {
+    public Decimal value {
       get {
         //Need to check if units and nanos exist as they aren't always returned
-        Double unitValue = String.isNotBlank(this.units)
-          ? double.valueOf(this.units)
+        Decimal unitValue = String.isNotBlank(this.units)
+          ? decimal.valueOf(this.units)
           : 0;
-        Double nanoValue = this.nanos != null ? this.nanos : 0;
+        Decimal nanoValue = this.nanos != null ? this.nanos : 0;
         return unitValue + (nanoValue / 1000000000);
       }
     }
