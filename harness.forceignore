@@ -121,3 +121,6 @@ force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
 #AR-10035 Ignore attempts to delete prior version of complaints entitlement process. May not be present.
 force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
 force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
+
+#to prevent issues when deploying looking for deleted objects tab
+force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml

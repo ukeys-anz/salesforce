@@ -45,7 +45,6 @@
   },
   // Handle navigating user to case edit form
   handleNavig: function (component) {
-    $A.get("e.force:closeQuickAction").fire();
     var navService = component.find("navService");
     var pageReference = {
       type: "standard__recordPage",
