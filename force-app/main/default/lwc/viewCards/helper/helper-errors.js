@@ -2,7 +2,9 @@ const ERROR_MESSAGES = {
   invalidCard:
     "Card Information is invalid. Please reach out to your system administrator.",
   cardDetailsError:
-    "Failed to retrieve card list. Please refresh and try again. If the problem persists, please contact your System Administrator."
+    "Failed to retrieve card list. Please refresh and try again. If the problem persists, please contact your System Administrator.",
+  requestError:
+    "Failed to complete request. Please refresh and try again. If the problem persists, please contact your System Administrator."
 };
 
 const toastTitles = {
@@ -31,13 +33,13 @@ function errorNotToBeAWord(error, whichError) {
   return whichError;
 }
 
-export const errorHanlder = {
+export const errorHandler = {
   invalidCard: ERROR_MESSAGES.invalidCard,
 
   subscription: function (msg) {
     return {
       title: toastTitles.subscription,
-      message: msg.message,
+      message: errorNotToBeAWord(msg, ERROR_MESSAGES.requestError),
       variant: msg.success ? "success" : "error"
     };
   },
