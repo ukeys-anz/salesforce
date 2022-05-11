@@ -281,10 +281,6 @@
                     <value>Account.Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>Customer_Feedback__r</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
                     <value>NONE</value>
                 </componentInstanceProperties>
