@@ -159,7 +159,20 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     InteractionActions actions = new InteractionActions();
-    actions.updateOwnerNewInteractions(records);
+    ContactRequestActions cRActions = new ContactRequestActions();
+    List<Interaction> interactions = cRActions.returnInteractionsWithAutomatedPurpose(
+      records
+    );
+
+    actions.updateOwnerNewInteractions(interactions);
+
+    List<Interaction> newInteractions = actions.getInteractionsWithoutEnddate(
+      interactions
+    );
+
+    if (!newInteractions.isEmpty()) {
+      actions.updateEndTime(newInteractions);
+    }
     actions.setInteractionsMobile(records);
   }
 
@@ -168,6 +181,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     InteractionActions actions = new InteractionActions();
+
     List<Interaction> acceptedInteractions = actions.getAcceptedInteractions(
       oldMap,
       records
@@ -185,6 +199,14 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       actions.updateOwnerNewInteractions(assignedBacktoQueueInteractions);
     }
 
+    List<Interaction> reasonOrStartTimeUpdatedInteractions = actions.getInteractionsRequiringEndTimeUpdate(
+      oldMap,
+      records
+    );
+
+    if (!reasonOrStartTimeUpdatedInteractions.isEmpty()) {
+      actions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
+    }
     actions.setInteractionsMobile(records);
     actions.unassignInteractions(oldMap, records);
   }

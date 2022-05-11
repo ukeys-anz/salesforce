@@ -87,7 +87,7 @@
                 <field>StartTime</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>EndTime</field>
             </layoutItems>
             <layoutItems>

@@ -4,7 +4,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Contact Request auto number field with the requested format, since name field is not editable.</description>
     <externalId>false</externalId>
-    <formula>&apos;CR &apos; &amp;  Name</formula>
+    <formula>&apos;CR-&apos; &amp;  Name</formula>
     <label>Contact Request Auto Number</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

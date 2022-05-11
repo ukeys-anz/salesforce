@@ -945,12 +945,6 @@ public with sharing class InteractionActionsTest {
       WHERE Name = 'TestNewInteraction'
     ];
 
-    System.assertEquals(
-      interactionQueue.Id,
-      interactNew.OwnerId,
-      'The owner of the new interaction should be Appointment Queue'
-    );
-
     Test.startTest();
 
     interactNew.OwnerId = coach.Id;
