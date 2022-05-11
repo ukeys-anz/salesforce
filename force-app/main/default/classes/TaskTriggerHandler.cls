@@ -12,12 +12,6 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
-   * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
-   */
-  public override void onApplyDefaults() {
-    IDRTaskActions.applyDefaults(records);
-  }
-  /**
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {

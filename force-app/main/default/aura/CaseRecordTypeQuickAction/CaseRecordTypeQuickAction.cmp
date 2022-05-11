@@ -6,8 +6,9 @@
   <aura:attribute name="caseRecord" type="Object" />
   <aura:attribute name="showRecordTypes" type="Boolean" default="false" />
   <aura:attribute name="caseRecordTypes" type="List" />
+  <aura:attribute name="caseRecordError" type="String" />
   <aura:attribute name="selectedRecordTypeId" type="String" default="" />
-  <aura:attribute name="IDR_AFCA_Status" type="String" default="" />
+  <aura:attribute name="autoFillFieldsString" type="String" default="" />
   <aura:attribute name="selectedRecordTypeName" type="String" default="" />
   <aura:attribute name="showError" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.init}" />
@@ -21,6 +22,9 @@
     fields="CaseNumber"
     targetError="{!v.caseRecordError}"
   />
+  <aura:if isTrue="{!not(empty(v.caseRecordError))}">
+    <div class="recordSaveError">{!v.caseRecordError}</div>
+  </aura:if>
 
   <article class="slds-card">
     <!-- Header -->

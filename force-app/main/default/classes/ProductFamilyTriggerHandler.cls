@@ -18,6 +18,18 @@ public with sharing class ProductFamilyTriggerHandler extends Lib_TriggerHandler
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
+    updateUniqueProductIndicator();
+  }
+
+  /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   * @param mpOldProductFamilies old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> mpOldProductFamilies) {
+    updateUniqueProductIndicator();
+  }
+
+  private void updateUniqueProductIndicator() {
     for (Product_Family__c pf : (List<Product_Family__c>) records) {
       pf.IDR_ANZ_com_Unique_Product_Indicator__c = pf.IDR_ANZ_com_Product_Category__c;
     }

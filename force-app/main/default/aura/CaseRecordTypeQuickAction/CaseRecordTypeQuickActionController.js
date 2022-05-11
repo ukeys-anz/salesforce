@@ -32,23 +32,22 @@
 
   // Handle populating defaults and navigating user to case edit form
   handleNext: function (component, event, helper) {
-    //Fetch IDR_AFCA_Status__c of case.
-    var AFCA_Status;
-    $A.get("e.force:closeQuickAction").fire();
     var action = component.get("c.getCaseDetailsById");
     action.setParams({
       caseId: component.get("v.recordId"),
       newRecordTypeId: component.get("v.selectedRecordTypeId")
     });
     action.setCallback(this, function (response) {
+      $A.get("e.force:closeQuickAction").fire();
       var state = response.getState();
       if (state === "SUCCESS") {
-        var result = response.getReturnValue();
-        AFCA_Status = result;
-        component.set("v.IDR_AFCA_Status", AFCA_Status);
-        console.log(
-          "Inside: IDR_AFCA_Status:" + component.get("v.IDR_AFCA_Status")
-        );
+        var result = JSON.parse(response.getReturnValue());
+        var autoFillFieldsString = "";
+        for (var i in result) {
+          autoFillFieldsString =
+            autoFillFieldsString + "," + i + "=" + result[i];
+        }
+        component.set("v.autoFillFieldsString", autoFillFieldsString);
         helper.handleNavig(component);
       } else {
         console.error("Failed with state: " + state);

@@ -48,14 +48,6 @@ public without sharing class IDRTaskActions {
   ];
 
   /**
-   * @description applyDefaults is called onBeforeInsert to set the following values as defaults
-   * @param records The record list form which we need to apply defaults
-   */
-  public static void applyDefaults(List<Task> records) {
-    stampQueueName(records, null);
-  }
-
-  /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
    * @param records The Task record list.
    */
@@ -76,6 +68,7 @@ public without sharing class IDRTaskActions {
     }
     checkIDRMaximumTimeTasks(records);
     assignToCollectionsQueue(records);
+    stampQueueName(records, null);
   }
 
   /**

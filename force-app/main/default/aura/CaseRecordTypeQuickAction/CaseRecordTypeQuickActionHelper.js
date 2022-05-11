@@ -45,7 +45,6 @@
   },
   // Handle navigating user to case edit form
   handleNavig: function (component) {
-    $A.get("e.force:closeQuickAction").fire();
     var navService = component.find("navService");
     var pageReference = {
       type: "standard__recordPage",
@@ -58,8 +57,7 @@
         defaultFieldValues:
           "RecordTypeId=" +
           component.get("v.selectedRecordTypeId") +
-          ",IDR_AFCA_Status__c=" +
-          component.get("v.IDR_AFCA_Status")
+          component.get("v.autoFillFieldsString")
       }
     };
     navService.navigate(pageReference);
