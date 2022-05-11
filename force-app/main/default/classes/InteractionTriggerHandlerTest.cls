@@ -205,7 +205,6 @@ public with sharing class InteractionTriggerHandlerTest {
 
     testInteraction.Status__c = 'Rescheduled';
     testInteraction.StartTime = System.now().addDays(5);
-    testInteraction.EndTime = testInteraction.StartTime.addMinutes(45);
 
     update testInteraction;
 
@@ -221,14 +220,29 @@ public with sharing class InteractionTriggerHandlerTest {
 
     events = [SELECT Id, StartDateTime, EndDateTime FROM Event];
 
+    testInteraction = [
+      SELECT
+        Id,
+        Status__c,
+        OwnerId,
+        ContactRequestId__c,
+        StartTime,
+        EndTime,
+        Interaction_Purpose__c
+      FROM Interaction
+    ];
+
     System.assertEquals(
       testInteraction.StartTime,
       events[0].StartDateTime,
       'The start time on the interaction should match with the event start time'
     );
 
+    Integer duration = AutomatedRequestMetadataProvider.getInstance()
+      .getPurposeDuration(testInteraction.Interaction_Purpose__c);
+
     System.assertEquals(
-      testInteraction.EndTime,
+      testInteraction.StartTime.addMinutes(duration),
       events[0].EndDateTime,
       'The start time on the interaction should match with the event start time'
     );
@@ -354,7 +368,7 @@ public with sharing class InteractionTriggerHandlerTest {
     insert crList;
 
     List<Interaction> testInteraction = [
-      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, Interaction_Purpose__c
       FROM Interaction
     ];
 
@@ -404,12 +418,13 @@ public with sharing class InteractionTriggerHandlerTest {
     Test.startTest();
 
     Datetime startTime = System.now().addDays(5);
-    Datetime endTime = startTime.addMinutes(45);
+    Integer duration = AutomatedRequestMetadataProvider.getInstance()
+      .getPurposeDuration(apptCommt.Type__c);
+    Datetime endTime = startTime.addMinutes(duration);
 
     for (Interaction interact : testInteraction) {
       interact.Status__c = 'Rescheduled';
       interact.StartTime = startTime;
-      interact.EndTime = endTime;
     }
 
     update testInteraction;
@@ -436,9 +451,64 @@ public with sharing class InteractionTriggerHandlerTest {
       System.assertEquals(
         evt.EndDateTime,
         endTime,
-        'The start time on the interaction should match with the event start time'
+        'The end time on the interaction should match with the event end time'
       );
     }
+  }
+
+  @isTest
+  static void testEndTimePopulationOnInsert() {
+    Interaction newInteractionWithoutEndtime = new Interaction(
+      Name = 'New Interaction',
+      Interaction_Purpose__c = 'Financial Wellbeing',
+      StartTime = System.now()
+    );
+
+    insert newInteractionWithoutEndtime;
+    Integer duration = AutomatedRequestMetadataProvider.getInstance()
+      .getPurposeDuration(newInteractionWithoutEndtime.Interaction_Purpose__c);
+
+    Interaction testInteraction = [SELECT EndTime FROM Interaction];
+
+    System.assertEquals(
+      testInteraction.Endtime,
+      newInteractionWithoutEndtime.StartTime.addMinutes(duration),
+      'The end time should be updated based on the metadata configuration'
+    );
+  }
+
+  @isTest
+  static void testEndTimePopulationOnUpdate() {
+    Interaction newInteractionWithoutEndtime = new Interaction(
+      Name = 'New Interaction',
+      Interaction_Purpose__c = 'Financial Wellbeing',
+      StartTime = System.now()
+    );
+
+    insert newInteractionWithoutEndtime;
+    Integer duration = AutomatedRequestMetadataProvider.getInstance()
+      .getPurposeDuration(newInteractionWithoutEndtime.Interaction_Purpose__c);
+
+    Interaction testInteraction = [SELECT EndTime FROM Interaction];
+
+    System.assertEquals(
+      testInteraction.Endtime,
+      newInteractionWithoutEndtime.StartTime.addMinutes(duration),
+      'The end time should be updated based on the metadata configuration'
+    );
+
+    newInteractionWithoutEndtime.StartTime = newInteractionWithoutEndtime.StartTime.addDays(
+      10
+    );
+    update newInteractionWithoutEndtime;
+
+    testInteraction = [SELECT EndTime FROM Interaction];
+
+    System.assertEquals(
+      testInteraction.Endtime,
+      newInteractionWithoutEndtime.StartTime.addMinutes(duration),
+      'The end time should be updated based on the metadata configuration'
+    );
   }
 
   @isTest

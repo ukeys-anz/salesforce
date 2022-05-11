@@ -622,7 +622,67 @@ public with sharing class InteractionActions {
   }
 
   /**
-   * @description sets the interaction's Contact Mobile field and queries the Database for Accounts
+   * @description Returns the list of new interactions without End time
+   * @param interactions List<Interaction> list of new interaction records.
+   * @return List<Interaction> list of interactions without end time.
+   */
+
+  public List<Interaction> getInteractionsWithoutEnddate(
+    List<Interaction> interactions
+  ) {
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      if (interact.EndTime == null) {
+        interactionList.add(interact);
+      }
+    }
+    return interactionList;
+  }
+
+  /**
+   * @description Method to updated interactions without end time
+   * @param interactions List<Interaction> list of interaction records without end time.
+   */
+
+  public void updateEndTime(List<Interaction> interactions) {
+    ContactRequestActions crActions = new ContactRequestActions();
+    for (Interaction interact : interactions) {
+      Integer duration = interact.Interaction_Purpose__c != null
+        ? crActions.getDuration(interact.Interaction_Purpose__c)
+        : 0;
+      interact.EndTime = interact.StartTime != null
+        ? interact.StartTime.addMinutes(duration)
+        : null;
+    }
+  }
+
+  /**
+   * @description Gets the list of interactions and returns the ones where the reason or starttime has been updated.
+   * @param oldMap Map<Id,SObject> map of the old versions of the interactions
+   * @param interactions List<Interaction> list of interactions through which to search.
+   * @return List<Interaction> list of interactions where end time needs to be updated.
+   */
+
+  public List<Interaction> getInteractionsRequiringEndTimeUpdate(
+    Map<Id, SObject> oldMap,
+    List<Interaction> interactions
+  ) {
+    List<Interaction> interactionList = new List<Interaction>();
+
+    for (Interaction interact : interactions) {
+      Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
+      if (
+        oldInteraction.Interaction_Purpose__c !=
+        interact.Interaction_Purpose__c ||
+        oldInteraction.StartTime != interact.StartTime
+      ) {
+        interactionList.add(interact);
+      }
+    }
+    return interactionList;
+  }
+
+  /** @description sets the interaction's Contact Mobile field and queries the Database for Accounts
    * @param interactions Interaction the interaction of which to set the Contact Mobile.
    */
   public void setInteractionsMobile(List<Interaction> interactions) {
