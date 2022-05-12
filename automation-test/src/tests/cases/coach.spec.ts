@@ -1,10 +1,12 @@
 import Auth from "common/Auth";
-import { navigateToConsoleAppAndTab } from "utils/consoleUtils";
-import { UserRole, App, AppTab } from "constants/enums";
+import { navigateToAppAndTab } from "utils/navigationUtils";
+import { UserRole, Queue, OwnerType } from "constants/enums";
+import { App, AppTab } from "constants/appsDefinition";
 import GeneralEnquiry from "common/cases/GeneralEnquiry";
 import ANZXComplaint from "common/cases/ANZXComplaint";
+import caseData from "data/caseData";
 
-describe("Case - Coach Creates and Updates Cases", () => {
+describe("AR-4499: Get Help Salesforce Case Management", () => {
   // pre test steps
   before(async (): Promise<void> => {
     // max viewport
@@ -14,27 +16,36 @@ describe("Case - Coach Creates and Updates Cases", () => {
     await Auth.loginSalesforceAsRole(UserRole.COACH);
   });
 
-  beforeEach(async () => {
-    await browser.pause(1000);
+  beforeEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
   });
 
-  describe("General Enquiry Case", async (): Promise<void> => {
+  afterEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
+  });
+
+  describe("AR-10339: Coach - General Enquiry Case", async (): Promise<void> => {
     const generalEnquiryCase = new GeneralEnquiry(UserRole.COACH);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a General Enquiry Case", async (): Promise<void> => {
-      await generalEnquiryCase.createRecord();
+      await generalEnquiryCase.create(caseData);
     });
 
     it("Assign General Enquiry Case to Support Coach Queue", async (): Promise<void> => {
-      await generalEnquiryCase.assignNewOwner("Queues");
+      await generalEnquiryCase.assignNewOwner(
+        OwnerType.Queues,
+        Queue.SUPPORT_COACH_QUEUE
+      );
     });
 
     it("Update General Enquiry Case", async (): Promise<void> => {
-      await generalEnquiryCase.updateRecord();
+      await generalEnquiryCase.update();
     });
 
     it("Add Call Details", async (): Promise<void> => {
@@ -50,39 +61,48 @@ describe("Case - Coach Creates and Updates Cases", () => {
     });
 
     it("Assign General Enquiry Case to Another Coach", async (): Promise<void> => {
-      await generalEnquiryCase.assignNewOwner("Users");
+      await generalEnquiryCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newCoachOwnerName
+      );
     });
 
     it("Close General Enquiry Case", async (): Promise<void> => {
-      await generalEnquiryCase.closeRecord();
+      await generalEnquiryCase.close();
     });
   });
 
-  describe("ANZx Complaint Case", async (): Promise<void> => {
+  describe("AR-10340: Coach - ANZ Plus Complaint Case", async (): Promise<void> => {
     const anzxComplaintCase = new ANZXComplaint(UserRole.COACH);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Cases);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
-    it("Create a ANZx Complaint Case", async (): Promise<void> => {
-      await anzxComplaintCase.createRecord();
+    it("Create a ANZ Plus Complaint Case", async (): Promise<void> => {
+      await anzxComplaintCase.create(caseData);
     });
 
-    it("Assign ANZx Complaint Case to Support Coach Queue", async (): Promise<void> => {
-      await anzxComplaintCase.assignNewOwner("Queues");
+    it("Assign ANZ Plus Complaint Case to Support Coach Queue", async (): Promise<void> => {
+      await anzxComplaintCase.assignNewOwner(
+        OwnerType.Queues,
+        Queue.SUPPORT_COACH_QUEUE
+      );
     });
 
-    it("Update ANZx Complaint Case", async (): Promise<void> => {
-      await anzxComplaintCase.updateRecord();
+    it("Update ANZ Plus Complaint Case", async (): Promise<void> => {
+      await anzxComplaintCase.update();
     });
 
     it("Assign General Enquiry Case to Another Coach", async (): Promise<void> => {
-      await anzxComplaintCase.assignNewOwner("Users");
+      await anzxComplaintCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newCoachOwnerName
+      );
     });
 
-    it("Close ANZx Complaint Case", async (): Promise<void> => {
-      await anzxComplaintCase.closeRecord();
+    it("Close ANZ Plus Complaint Case", async (): Promise<void> => {
+      await anzxComplaintCase.close();
     });
   });
 

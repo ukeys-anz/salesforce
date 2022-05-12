@@ -1,0 +1,33 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "lstRelatedPreviewCard",
+        "selector": {
+          "css": "lst-related-preview-card"
+        },
+        "shadow": {
+          "elements": [
+            {
+              "name": "rowHeaderLstTemplatelistField",
+              "selector": {
+                "css": "h3 lst-template-list-field"
+              },
+              "shadow": {
+                "elements": [
+                  {
+                    "name": "rowHeaderLookup",
+                    "selector": {
+                      "css": "force-lookup"
+                    },
+                    "public": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

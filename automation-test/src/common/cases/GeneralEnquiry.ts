@@ -1,102 +1,102 @@
-import CaseCreationForm from "pageObjects/caseCreationForm";
+import RecordCreationForm from "pageObjects/recordCreationForm";
 import CaseCallsTab from "pageObjects/caseCallsTab";
 import CaseNotesTab from "pageObjects/caseNotesTab";
-import RecordLayoutItem from "pageObjects/recordLayoutItem";
-import { CaseType, UserRole, Queue } from "constants/enums";
-import { ownerType } from "types/record";
+import CaseType from "constants/case/caseType";
+import { OwnerType } from "constants/enums";
 import Case from "./Case";
 import IChatter from "interfaces/IChatter";
-import caseData from "data/caseData";
 import * as commonUtils from "utils/commonUtils";
-import * as caseUtils from "utils/caseUtils";
+import * as creationFormUtils from "utils/creationFormUtils";
+import * as casePageUtils from "utils/casePageUtils";
 import * as faker from "faker";
+import { FieldDefinition } from "types/field";
+import CaseFields from "constants/case/caseFields";
+import IAssignNewOwner from "interfaces/IAssignNewOwner";
 
 const generalComment = `Automation Test @ ${new Date().toLocaleString()}.`;
 
-export default class GeneralEnquiry extends Case implements IChatter {
-  async createRecord(): Promise<void> {
-    const caseCreationFormRoot = await utam.load(CaseCreationForm);
-    await caseCreationFormRoot.selectCaseRecordType(CaseType.GENERAL_ENQUIRY);
+export default class GeneralEnquiry
+  extends Case
+  implements IChatter, IAssignNewOwner
+{
+  static creationFormFieldIndexMap = new Map<string, number>();
 
-    // Account Name
-    // search and select first account
-    await caseCreationFormRoot.searchAndSelectLookup(
-      1,
-      1,
-      1,
-      caseData.accountName,
-      caseData.accountName
-    );
+  async create(caseData: any): Promise<void> {
+    const recordCreationFormRoot = await utam.load(RecordCreationForm);
+    await recordCreationFormRoot.selectCaseRecordType(CaseType.GENERAL_ENQUIRY);
+    await browser.pause(2000);
 
-    // Issue Type
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [2, 3, 1],
-      [2, 10],
-      0
-    );
+    const fieldsToFill: FieldDefinition[] = [
+      {
+        label: CaseFields.Account_Name,
+        options: {
+          lookupText: caseData.accountName
+        }
+      },
+      {
+        label: CaseFields.Channel_Received,
+        options: {
+          picklistDOMIndex: 0,
+          picklistOptionIndexRange: [2, 8]
+        }
+      },
+      {
+        label: CaseFields.Issue_Type,
+        options: {
+          picklistDOMIndex: 1,
+          picklistOptionIndexRange: [2, 10]
+        }
+      }
+    ];
 
-    // Channel Received
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [2, 1, 2],
-      [2, 8],
-      1
-    );
+    GeneralEnquiry.creationFormFieldIndexMap =
+      await creationFormUtils.fillInFields(
+        this.sobject,
+        GeneralEnquiry.creationFormFieldIndexMap,
+        fieldsToFill
+      );
 
     // click save button
-    await caseCreationFormRoot.saveNew();
-
+    await recordCreationFormRoot.saveNew();
     await browser.pause(5000);
+
+    this.caseNumber = await casePageUtils.getCaseNumber();
   }
 
-  async assignNewOwner(ownerType?: ownerType): Promise<void> {
-    const baseRecordForm = await caseUtils.getRecordForm();
+  async assignNewOwner(
+    ownerType: OwnerType,
+    newOwnerName: string
+  ): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
 
-    if (baseRecordForm) {
-      const recordLayout = await baseRecordForm.getRecordLayout();
+    // Case Owner
+    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [2, 1, 1]
+    );
 
-      // Case Owner
-      const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-        recordLayout,
-        [2, 1, 1]
-      );
-
-      switch (this.userRole) {
-        case UserRole.COACH:
-          await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
-          break;
-        case UserRole.FRAUDX_AGENT:
-          await this.assignNewOwnerByFraudXAgent(caseOwnerField);
-          break;
-        default:
-          console.error(
-            "Error: invalid user role when creating ANZx Complaint Case."
-          );
-          process.exit(-1);
-      }
-    }
+    // click change owner button
+    await caseOwnerField.clickChangeOwnerButton();
+    await commonUtils.searchAndSelectNewOwner(ownerType, newOwnerName);
   }
 
-  async updateRecord(): Promise<void> {
-    const baseRecordForm = await caseUtils.getRecordForm();
+  async update(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
 
-    if (baseRecordForm) {
-      const recordLayout = await baseRecordForm.getRecordLayout();
-
-      // Priority
-      await commonUtils.selectPicklistOnRecordLayout(
-        recordLayout,
-        [2, 4, 2],
-        [2, 5]
-      );
-
-      await baseRecordForm.clickFooterButton("Save");
-    }
+    // Priority
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 4, 2],
+      [2, 5]
+    );
+    await baseRecordForm.clickFooterButton("Save");
+    await browser.pause(3000);
   }
 
   async updateCallDetails(): Promise<void> {
-    const callsTab = await caseUtils.getTabContent("Calls");
+    const callsTab = await casePageUtils.getTabContent("Calls");
 
     if (callsTab instanceof CaseCallsTab) {
       const randomCallSID = `CA${faker.finance.account(32)}`;
@@ -109,16 +109,18 @@ export default class GeneralEnquiry extends Case implements IChatter {
   }
 
   async postChatterComment(): Promise<void> {
-    const caseNotesTab = await caseUtils.getTabContent("Case Notes");
+    const caseNotesTab = await casePageUtils.getTabContent("Case Notes");
 
     if (caseNotesTab instanceof CaseNotesTab) {
       const chatterPanel = await caseNotesTab.getChatterPanel();
+      await chatterPanel.clickShareButton();
+      await browser.pause(2000);
       await chatterPanel.postComment(generalComment);
     }
   }
 
   async verifyChatterComment(): Promise<void> {
-    const caseNotesTab = await caseUtils.getTabContent("Case Notes");
+    const caseNotesTab = await casePageUtils.getTabContent("Case Notes");
 
     if (caseNotesTab instanceof CaseNotesTab) {
       const chatterPanel = await caseNotesTab.getChatterPanel();
@@ -128,53 +130,14 @@ export default class GeneralEnquiry extends Case implements IChatter {
     }
   }
 
-  async closeRecord(): Promise<void> {
-    const baseRecordForm = await caseUtils.getRecordForm();
+  async close(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
 
-    if (baseRecordForm) {
-      // get record layout
-      const recordLayout = await baseRecordForm.getRecordLayout();
-
-      // Status
-      // select Closed status
-      await commonUtils.selectPicklistOnRecordLayout(
-        recordLayout,
-        [2, 3, 2],
-        6
-      );
-      await baseRecordForm.clickFooterButton("Save");
-      await browser.pause(3000);
-    }
-  }
-
-  async assignNewOwnerByCoach(
-    caseOwnerField: RecordLayoutItem,
-    ownerType?: ownerType
-  ): Promise<void> {
-    // click change owner button
-    await caseOwnerField.clickChangeOwnerButton();
-
-    if (ownerType === "Users") {
-      await commonUtils.searchAndSelectNewOwner(
-        "Users",
-        caseData.newCoachOwnerName
-      );
-    } else if (ownerType === "Queues") {
-      await commonUtils.searchAndSelectNewOwner(
-        "Queues",
-        Queue.SUPPORT_COACH_QUEUE
-      );
-    }
-  }
-
-  async assignNewOwnerByFraudXAgent(
-    caseOwnerField: RecordLayoutItem
-  ): Promise<void> {
-    // click change owner button
-    await caseOwnerField.clickChangeOwnerButton();
-    await commonUtils.searchAndSelectNewOwner(
-      "Users",
-      caseData.newFraudXAgentOwnerName
-    );
+    // Status
+    // select Closed status
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 6);
+    await baseRecordForm.clickFooterButton("Save");
+    await browser.pause(3000);
   }
 }
