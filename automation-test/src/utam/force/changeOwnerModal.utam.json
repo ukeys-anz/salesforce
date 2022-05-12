@@ -102,66 +102,59 @@
   ],
   "methods": [
     {
-      "name": "searchAndSelectNewOwner",
+      "name": "clickOwnerTypeDropDown",
       "compose": [
-        {
-          "apply": "waitForVisible",
-          "args": [
-            {
-              "type": "function",
-              "predicate": [
-                {
-                  "element": "ownerMenuButton",
-                  "matcher": {
-                    "type": "notNull"
-                  }
-                }
-              ]
-            }
-          ]
-        },
         {
           "element": "ownerMenuButton",
           "apply": "click"
-        },
+        }
+      ]
+    },
+    {
+      "name": "selectOwnerType",
+      "compose": [
         {
           "element": "ownerType",
           "apply": "click"
-        },
+        }
+      ]
+    },
+    {
+      "name": "clickSearchBox",
+      "compose": [
+        {
+          "element": "searchBox",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "search",
+      "compose": [
         {
           "element": "searchBox",
           "apply": "clearAndType",
           "args": [
             {
-              "name": "searchTerm",
+              "name": "username",
               "type": "string"
             }
           ]
-        },
-        {
-          "element": "searchBox",
-          "apply": "click"
-        },
-        {
-          "apply": "waitForVisible",
-          "args": [
-            {
-              "type": "function",
-              "predicate": [
-                {
-                  "element": "searchResult",
-                  "matcher": {
-                    "type": "notNull"
-                  }
-                }
-              ]
-            }
-          ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "selectUser",
+      "compose": [
         {
           "element": "searchResult",
           "apply": "click"
-        },
+        }
+      ]
+    },
+    {
+      "name": "save",
+      "compose": [
         {
           "element": "changeOwnerButton",
           "apply": "click"

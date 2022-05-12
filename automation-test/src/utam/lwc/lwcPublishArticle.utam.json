@@ -1,0 +1,36 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "actionPanel",
+        "selector": {
+          "css": "lightning-quick-action-panel"
+        },
+        "elements": [
+          {
+            "name": "publishButton",
+            "type": "utam-lightning/pageObjects/button",
+            "selector": {
+              "css": "lightning-button:nth-of-type(2)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "methods": [
+    {
+      "name": "publish",
+      "compose": [
+        {
+          "element": "publishButton",
+          "returnType": "utam-lightning/pageObjects/button"
+        },
+        {
+          "chain": true,
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "modalFooter",
+      "selector": {
+        "css": ".modal-footer"
+      },
+      "elements": [
+        {
+          "name": "submitButton",
+          "selector": {
+            "css": "button:nth-of-type(2)"
+          },
+          "type": "clickable"
+        },
+        {
+          "name": "approveButton",
+          "selector": {
+            "css": "button:nth-of-type(2)"
+          },
+          "type": "clickable"
+        },
+        {
+          "name": "editAsDraftButton",
+          "selector": {
+            "css": "button:nth-of-type(2)"
+          },
+          "type": "clickable"
+        }
+      ]
+    },
+    {
+      "name": "publishArticleModal",
+      "type": "anzx-utam-lwc/pageObjects/lwcPublishArticle",
+      "selector": {
+        "css": "c-publish-article"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "submit",
+      "compose": [
+        {
+          "element": "submitButton",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "approve",
+      "compose": [
+        {
+          "element": "approveButton",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "editAsDraft",
+      "compose": [
+        {
+          "element": "editAsDraftButton",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "publish",
+      "compose": [
+        {
+          "element": "publishArticleModal",
+          "returnType": "anzx-utam-lwc/pageObjects/lwcPublishArticle"
+        },
+        {
+          "chain": "true",
+          "apply": "publish"
+        }
+      ]
+    }
+  ]
+}

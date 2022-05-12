@@ -60,12 +60,17 @@
   ],
   "methods": [
     {
-      "name": "postComment",
+      "name": "clickShareButton",
       "compose": [
         {
           "element": "shareButton",
           "apply": "click"
-        },
+        }
+      ]
+    },
+    {
+      "name": "postComment",
+      "compose": [
         {
           "element": "contentEditArea",
           "apply": "clearAndType",

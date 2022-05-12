@@ -104,21 +104,21 @@
   "methods": [
     {
       "name": "getEndDateSearch",
-      "compose":[
+      "compose": [
         {
           "element": "endDateInput",
           "returnType": "utam-lightning/pageObjects/input"
         },
         {
           "chain": true,
-          "element" : "datepicker",
+          "element": "datepicker",
           "returnType": "utam-lightning/pageObjects/datepicker"
         }
       ]
     },
     {
       "name": "loadMore",
-      "compose":[
+      "compose": [
         {
           "element": "loadMoreButton",
           "apply": "click"

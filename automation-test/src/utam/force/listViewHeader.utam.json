@@ -1,0 +1,37 @@
+{
+  "elements": [
+    {
+      "name": "sortLink",
+      "selector": {
+        "css": "a.toggle"
+      },
+      "type": "clickable"
+    },
+    {
+      "name": "assistiveText",
+      "selector": {
+        "css": "a.toggle + .slds-assistive-text"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "sort",
+      "compose": [
+        {
+          "element": "sortLink",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "getSortingDirection",
+      "compose": [
+        {
+          "element": "assistiveText",
+          "apply": "getText"
+        }
+      ]
+    }
+  ]
+}

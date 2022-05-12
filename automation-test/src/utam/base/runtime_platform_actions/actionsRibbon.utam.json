@@ -14,6 +14,23 @@
             }
           ]
         }
+      },
+      {
+        "name": "lightningButtonMenu",
+        "selector": {
+          "css": "lightning-button-menu"
+        },
+        "shadow": {
+          "elements": [
+            {
+              "name": "dropdownButton",
+              "selector": {
+                "css": "button"
+              },
+              "type": "clickable"
+            }
+          ]
+        }
       }
     ]
   },
@@ -33,6 +50,15 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "expandDropdown",
+      "compose": [
+        {
+          "element": "dropdownButton",
+          "apply": "click"
         }
       ]
     }
