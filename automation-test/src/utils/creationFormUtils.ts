@@ -145,11 +145,14 @@ export const fillInFields = async (
 
       for (let i = currentIndex; i < fields.length; i++) {
         const fieldLabel = await fields[i].getLabel();
+        // save resolved label into cache, ignore null label
+        // cache all labels in case fields passed in out-of-order
+        if (fieldLabel) {
+          fieldIndexMap.set(fieldLabel, i);
+        }
 
         if (fieldLabel === fieldToFill.label) {
           await fillInField(sobject, fields[i], fieldToFill.options);
-          fieldIndexMap.set(fieldLabel, i);
-
           currentIndex = ++i;
           break;
         }
