@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_ANZx_Queues_Profile</fullName>
+    <active>true</active>
+    <description>Restrict assignment to an ANZ Plus queue by ANZ Standard User&apos;s.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ISCHANGED(OwnerId),
+$Profile.Name = &quot;ANZ Standard User&quot;,
+OR(
+(Owner:Queue.QueueName = &quot;Card Dispute - Fraud Queue&quot;),
+(Owner:Queue.QueueName = &quot;Card Dispute - General Queue&quot;),
+(Owner:Queue.QueueName = &quot;Coach Lead Escalation&quot;),
+(Owner:Queue.QueueName = &quot;Coach Queue&quot;),
+(Owner:Queue.QueueName = &quot;Compliance Tasks&quot;),
+(Owner:Queue.QueueName = &quot;Digital Fraud Queue&quot;),
+(Owner:Queue.QueueName = &quot;General Case Queue&quot;),
+(Owner:Queue.QueueName = &quot;ID Ops Queue&quot;),
+(Owner:Queue.QueueName = &quot;Pending Card Dispute - Fraud Queue&quot;),
+(Owner:Queue.QueueName = &quot;Pending Card Dispute - General Queue&quot;),
+(Owner:Queue.QueueName = &quot;Quality Assessor&quot;),
+(Owner:Queue.QueueName = &quot;Support Coach Queue&quot;)
+)
+)</errorConditionFormula>
+    <errorMessage>CMOS agents are unable to assign to an ANZ Plus queue.</errorMessage>
+</ValidationRule>
