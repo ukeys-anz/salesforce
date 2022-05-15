@@ -78,7 +78,7 @@
   "methods": [
     {
       "name": "searchListView",
-      "compose":[
+      "compose": [
         {
           "element": "listViewSelector",
           "apply": "click"

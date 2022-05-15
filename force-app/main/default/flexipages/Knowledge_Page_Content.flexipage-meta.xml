@@ -4,11 +4,41 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>DeleteArchiveKnowledgeArticleVersion</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>EditDraftKnowledgeArticleVersion</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Knowledge__kav.Publish_Article</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CreateDraftFromOnlineKnowledgeArticleVersion</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>SubmitKnowledgeArticleVersionForApproval</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>FeedItem.TextPost</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>DeleteDraftKnowledgeArticleVersion</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>collapsed</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsConfiguration</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>enableActionsInNative</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -31,11 +61,6 @@
                 <componentName>force:detailPanel</componentName>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>forceKnowledge:articleThumbVote</componentName>
-            </componentInstance>
-        </itemInstances>
         <name>Facet-2e1e978d-eb4d-498a-a820-3318c63242bc</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -46,6 +71,27 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-5ca68d96-0ef2-4aad-8a3e-3a67b8c49823</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListContainer</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-f525dbd4-22c3-4e16-b9d4-ba0b0ca93c69</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -79,6 +125,19 @@
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f525dbd4-22c3-4e16-b9d4-ba0b0ca93c69</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Approval History</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
         <name>Facet-867f1634-283a-4645-92d7-969bcd843270</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -92,10 +151,6 @@
                 <componentName>flexipage:tabset</componentName>
             </componentInstance>
         </itemInstances>
-        <name>main</name>
-        <type>Region</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleDataCategoryViewer</componentName>
@@ -103,19 +158,7 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListContainer</componentName>
+                <componentName>forceKnowledge:articleThumbVote</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -123,13 +166,13 @@
                 <componentName>forceChatter:recordFeedContainer</componentName>
             </componentInstance>
         </itemInstances>
-        <name>sidebar</name>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Knowledge Page - Content</masterLabel>
     <sobjectType>Knowledge__kav</sobjectType>
     <template>
-        <name>flexipage:recordHomeTemplateDesktop</name>
+        <name>flexipage:recordHomeSimpleViewTemplate</name>
     </template>
     <type>RecordPage</type>
 </FlexiPage>

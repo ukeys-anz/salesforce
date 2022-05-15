@@ -16,6 +16,7 @@ function ctrl_c() {
     echo "${red}"
     echo "Creating snapshot has been stopped."
     echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+    exit 1
 }
 
 # to use all the functions that we need and do not repeat the code
@@ -80,14 +81,9 @@ echoMessageCreator "install unmanaged packages" $stepNo true
 # if it is not like below, change it to the new one
 apvId=04t1E000001Iql5
 sfdx force:package:install --package $apvId -w 20 --securitytype AllUsers
-echoMessageCreator "" $stepNo false
-########################
-
-# change forceignore to harness.forceignore as we will have all things in our snapshot
-echoMessageCreator "change the forceignore to the proper one" $stepNo true
-mv .forceignore ci.forceignore
-mv harness.forceignore .forceignore
-echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
+sfdx force:package:install -p 04t2J000000IzriQAC --securitytype AdminsOnly
+echo "wait for 5 mins to finish deploying"
+sleep 300
 echoMessageCreator "" $stepNo false
 ########################
 

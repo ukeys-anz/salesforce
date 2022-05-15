@@ -21,6 +21,12 @@
             <layoutItems>
                 <field>Reason_for_Change__c</field>
             </layoutItems>
+            <layoutItems>
+                <field>Audience__c</field>
+            </layoutItems>
+            <layoutItems>
+                <field>Topic__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

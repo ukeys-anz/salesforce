@@ -1,332 +1,164 @@
-import CaseCreationForm from "pageObjects/caseCreationForm";
+import RecordCreationForm from "pageObjects/recordCreationForm";
 import RecordLayout from "pageObjects/lwcRecordLayout";
-import BaseRecordForm from "pageObjects/baseRecordForm";
-import RecordLayoutItem from "pageObjects/recordLayoutItem";
-import { CaseType, UserRole, Queue } from "constants/enums";
-import { ownerType } from "types/record";
-import { fieldSectionIndex } from "types/layout";
+import { UserRole, OwnerType } from "constants/enums";
+import CaseType from "constants/case/caseType";
+import CaseFields from "constants/case/caseFields";
+import { FieldSectionIndex } from "types/layout";
+import { FieldDefinition } from "types/field";
 import Case from "./Case";
-import caseData from "data/caseData";
-import * as faker from "faker";
 import * as commonUtils from "utils/commonUtils";
-import * as caseUtils from "utils/caseUtils";
+import * as creationFormUtils from "utils/creationFormUtils";
+import * as casePageUtils from "utils/casePageUtils";
+import IAssignNewOwner from "interfaces/IAssignNewOwner";
 
-export default class ANZXComplaint extends Case {
-  async createRecord(): Promise<void> {
-    const caseCreationFormRoot = await utam.load(CaseCreationForm);
-    await caseCreationFormRoot.selectCaseRecordType(CaseType.ANZX_COMPLAINT);
+export default class ANZXComplaint extends Case implements IAssignNewOwner {
+  static creationFormFieldIndexMap = new Map<string, number>();
 
-    switch (this.userRole) {
-      case UserRole.COACH:
-        await this.createRecordByCoach(caseCreationFormRoot);
-        break;
-      case UserRole.FRAUDX_AGENT:
-        await this.createRecordByFraudXAgent(caseCreationFormRoot);
-        break;
-      default:
-        console.error(
-          "Error: invalid user role when creating ANZx Complaint Case."
-        );
-        process.exit(-1);
-    }
+  async create(caseData: any): Promise<void> {
+    const recordCreationFormRoot = await utam.load(RecordCreationForm);
+    await recordCreationFormRoot.selectCaseRecordType(CaseType.ANZX_COMPLAINT);
+    await browser.pause(2000);
+
+    const fieldsToFill = this.initFieldsToFill(caseData);
+    ANZXComplaint.creationFormFieldIndexMap =
+      await creationFormUtils.fillInFields(
+        this.sobject,
+        ANZXComplaint.creationFormFieldIndexMap,
+        fieldsToFill
+      );
 
     // click save button
-    await caseCreationFormRoot.saveNew();
-
+    await recordCreationFormRoot.saveNew();
     await browser.pause(5000);
   }
 
-  async assignNewOwner(ownerType?: ownerType): Promise<void> {
-    const baseRecordForm = await caseUtils.getRecordForm();
+  async assignNewOwner(
+    newOwnerType: OwnerType,
+    newOwnerName: string
+  ): Promise<void> {
+    // Owner field index on layout
+    const ownerFieldIndex: FieldSectionIndex = [2, 1, 1];
 
-    if (baseRecordForm) {
-      const recordLayout = await baseRecordForm.getRecordLayout();
-
-      // Case Owner
-      const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-        recordLayout,
-        [2, 1, 1]
-      );
-
-      switch (this.userRole) {
-        case UserRole.COACH:
-          await this.assignNewOwnerByCoach(caseOwnerField, ownerType);
-          break;
-        case UserRole.FRAUDX_AGENT:
-          await this.assignNewOwnerByFraudXAgent(caseOwnerField);
-          break;
-        default:
-          console.error(
-            "Error: invalid user role when creating ANZx Complaint Case."
-          );
-          process.exit(-1);
-      }
-    }
+    await commonUtils.assignNewOwner(
+      this.sobject,
+      ownerFieldIndex,
+      newOwnerType,
+      newOwnerName
+    );
   }
 
-  async updateRecord(): Promise<void> {
-    const baseRecordForm = await caseUtils.getRecordForm();
+  async update(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
 
-    if (baseRecordForm) {
-      const recordLayout = await baseRecordForm.getRecordLayout();
-
-      switch (this.userRole) {
-        case UserRole.COACH:
-          await this.updateRecordByCoach(recordLayout);
-          break;
-        case UserRole.FRAUDX_AGENT:
-          await this.updateRecordByFraudXAgent(recordLayout);
-          break;
-        default:
-          console.error(
-            "Error: invalid user role when updating ANZx Complaint Case."
-          );
-          process.exit(-1);
-      }
-
+    if (this.userRole === UserRole.COACH) {
+      await this.updatePriority(recordLayout, [2, 3, 2]);
+      await baseRecordForm.clickFooterButton("Save");
+    } else if (this.userRole === UserRole.FRAUDX_AGENT) {
+      await this.updatePriority(recordLayout, [2, 2, 2]);
       await baseRecordForm.clickFooterButton("Save");
     }
+
+    await browser.pause(3000);
   }
 
-  async closeRecord(): Promise<void> {
-    const baseRecordForm = await caseUtils.getRecordForm();
+  async close(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
 
-    if (baseRecordForm) {
-      switch (this.userRole) {
-        case UserRole.COACH:
-          await this.closeRecordByCoach(baseRecordForm);
-          break;
-        case UserRole.FRAUDX_AGENT:
-          await this.closeRecordByFraudXAgent(baseRecordForm);
-          break;
-        default:
-          console.error(
-            "Error: invalid user role when closing ANZx Complaint Case."
-          );
-          process.exit(-1);
-      }
-
-      await browser.pause(3000);
+    // Status
+    // select Closed status
+    if (this.userRole === UserRole.COACH) {
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [2, 2, 2],
+        7
+      );
+      await baseRecordForm.clickFooterButton("Save");
+    } else if (this.userRole === UserRole.FRAUDX_AGENT) {
+      await commonUtils.selectPicklistOnRecordLayout(
+        recordLayout,
+        [2, 1, 2],
+        7
+      );
+      await baseRecordForm.clickFooterButton("Save");
     }
+
+    await browser.pause(6000);
   }
 
-  async createRecordByCoach(
-    caseCreationFormRoot: CaseCreationForm
-  ): Promise<void> {
-    // Account Name
-    // search and select first account
-    await caseCreationFormRoot.searchAndSelectLookup(
-      1,
-      1,
-      1,
-      caseData.accountName,
-      caseData.accountName
-    );
+  initFieldsToFill(caseData: any): FieldDefinition[] {
+    // default fields to fill in
+    let fieldsToFill: FieldDefinition[] = [
+      {
+        label: CaseFields.Account_Name,
+        options: {
+          lookupText: caseData.accountName
+        }
+      },
+      {
+        label: CaseFields.Channel_Received,
+        options: {
+          picklistDOMIndex: 0,
+          picklistOptionIndexRange: [2, 14]
+        }
+      },
+      {
+        label: CaseFields.Issue_Type,
+        options: {
+          picklistDOMIndex: 1,
+          picklistOptionIndexRange: [2, 10]
+        }
+      },
+      {
+        label: CaseFields.Subsequent_Issue_Type,
+        options: {
+          picklistDOMIndex: 2,
+          picklistOptionIndexRange: [2, 2]
+        }
+      },
+      {
+        label: CaseFields.Description_of_Issue
+      },
+      {
+        label: CaseFields.Customer_Desired_Outcome
+      },
+      {
+        label: CaseFields.Is_a_Written_Response_Requested,
+        options: {
+          picklistDOMIndex: 3,
+          picklistOptionIndexRange: [2, 3]
+        }
+      }
+    ];
 
-    // sequence of selecting fields must be followed due to limitation of page behavior
-    await this.selectChannelReceived(caseCreationFormRoot, [2, 3, 1]);
-    await this.selectPriority(caseCreationFormRoot, [2, 3, 2]);
-    await this.selectIssueType(caseCreationFormRoot, [2, 5, 1]);
-    await this.selectSubsequentIssueType(caseCreationFormRoot, [2, 5, 2]);
-    await this.selectWrittenResponse(caseCreationFormRoot, [5, 3, 1]);
+    if (
+      this.userRole === UserRole.COACH ||
+      this.userRole === UserRole.FRAUDX_AGENT
+    ) {
+      fieldsToFill = [
+        ...fieldsToFill,
+        {
+          label: CaseFields.Product_or_Service_Name,
+          options: {
+            lookupText: caseData.productName
+          }
+        }
+      ];
+    }
 
-    // Product or Service Name
-    // search ANZ and select first result
-    await caseCreationFormRoot.searchAndSelectLookup(
-      2,
-      6,
-      1,
-      caseData.productName,
-      caseData.productName
-    );
-
-    // Description of Issue
-    // get field from layout and set text
-    const descriptionOfIssue = faker.datatype.string(100);
-    await caseCreationFormRoot.editTextarea(2, 10, 1, descriptionOfIssue);
-
-    // Customer Desired Outcome
-    // get field from layout and set text
-    const customerDesiredOutcome = faker.datatype.string(100);
-    await caseCreationFormRoot.editTextarea(2, 11, 1, customerDesiredOutcome);
-  }
-
-  async createRecordByFraudXAgent(
-    caseCreationFormRoot: CaseCreationForm
-  ): Promise<void> {
-    // Account Name
-    // search and select first account
-    await caseCreationFormRoot.searchAndSelectLookup(
-      1,
-      1,
-      1,
-      caseData.accountName,
-      caseData.accountName
-    );
-
-    // sequence of selecting fields must be followed due to limitation of page behavior
-    await this.selectChannelReceived(caseCreationFormRoot, [2, 3, 1]);
-    await this.selectPriority(caseCreationFormRoot, [2, 2, 2]);
-    await this.selectIssueType(caseCreationFormRoot, [2, 5, 1]);
-    await this.selectSubsequentIssueType(caseCreationFormRoot, [2, 4, 2]);
-    await this.selectWrittenResponse(caseCreationFormRoot, [5, 3, 1]);
-
-    // Product or Service Name
-    // search ANZ and select first result
-    await caseCreationFormRoot.searchAndSelectLookup(
-      2,
-      6,
-      1,
-      caseData.productName,
-      caseData.productName
-    );
-
-    // Description of Issue
-    // get field from layout and set text
-    const descriptionOfIssue = faker.datatype.string(100);
-    await caseCreationFormRoot.editTextarea(2, 9, 1, descriptionOfIssue);
-
-    // Customer Desired Outcome
-    // get field from layout and set text
-    const customerDesiredOutcome = faker.datatype.string(100);
-    await caseCreationFormRoot.editTextarea(2, 10, 1, customerDesiredOutcome);
-  }
-
-  async updateRecordByCoach(recordLayout: RecordLayout): Promise<void> {
-    await this.updatePriority(recordLayout, [2, 3, 2]);
-  }
-
-  async updateRecordByFraudXAgent(recordLayout: RecordLayout): Promise<void> {
-    await this.updatePriority(recordLayout, [2, 2, 2]);
-  }
-
-  async closeRecordByCoach(baseRecordForm: BaseRecordForm): Promise<void> {
-    // get record layout
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
-    // Status
-    // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 2], 7);
-    await baseRecordForm.clickFooterButton("Save");
-  }
-
-  async closeRecordByFraudXAgent(
-    baseRecordForm: BaseRecordForm
-  ): Promise<void> {
-    // get record layout
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
-    // Status
-    // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 1, 2], 7);
-    await baseRecordForm.clickFooterButton("Save");
-  }
-
-  // Channel Received
-  async selectChannelReceived(
-    caseCreationFormRoot: CaseCreationForm,
-    fieldSectionIndex: fieldSectionIndex
-  ): Promise<void> {
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      fieldSectionIndex,
-      [2, 14],
-      0
-    );
-  }
-
-  // Priority
-  async selectPriority(
-    caseCreationFormRoot: CaseCreationForm,
-    fieldSectionIndex: fieldSectionIndex
-  ): Promise<void> {
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      fieldSectionIndex,
-      [2, 5],
-      1
-    );
-  }
-
-  // Issue Type
-  async selectIssueType(
-    caseCreationFormRoot: CaseCreationForm,
-    fieldSectionIndex: fieldSectionIndex
-  ): Promise<void> {
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      fieldSectionIndex,
-      [2, 10],
-      2
-    );
-  }
-
-  // Subsequent Issue Type
-  async selectSubsequentIssueType(
-    caseCreationFormRoot: CaseCreationForm,
-    fieldSectionIndex: fieldSectionIndex
-  ): Promise<void> {
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      fieldSectionIndex,
-      [2, 2],
-      3
-    );
-  }
-
-  // Is a Written Response Requested?
-  async selectWrittenResponse(
-    caseCreationFormRoot: CaseCreationForm,
-    fieldSectionIndex: fieldSectionIndex
-  ): Promise<void> {
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      fieldSectionIndex,
-      [2, 3],
-      4
-    );
+    return fieldsToFill;
   }
 
   // Priority (used on Record Page, not on Creation Form)
   async updatePriority(
     recordLayout: RecordLayout,
-    fieldSectionIndex: fieldSectionIndex
+    FieldSectionIndex: FieldSectionIndex
   ) {
     await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
-      fieldSectionIndex,
+      FieldSectionIndex,
       [2, 5]
-    );
-  }
-
-  async assignNewOwnerByCoach(
-    caseOwnerField: RecordLayoutItem,
-    ownerType?: ownerType
-  ): Promise<void> {
-    // click change owner button
-    await caseOwnerField.clickChangeOwnerButton();
-
-    if (ownerType === "Users") {
-      await commonUtils.searchAndSelectNewOwner(
-        "Users",
-        caseData.newFraudXAgentOwnerName
-      );
-    } else if (ownerType === "Queues") {
-      await commonUtils.searchAndSelectNewOwner(
-        "Queues",
-        Queue.SUPPORT_COACH_QUEUE
-      );
-    }
-  }
-
-  async assignNewOwnerByFraudXAgent(
-    caseOwnerField: RecordLayoutItem
-  ): Promise<void> {
-    // click change owner button
-    await caseOwnerField.clickChangeOwnerButton();
-    await commonUtils.searchAndSelectNewOwner(
-      "Users",
-      caseData.newFraudXAgentOwnerName
     );
   }
 }

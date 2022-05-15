@@ -124,3 +124,6 @@ force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.ent
 force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
 force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
 force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
+
+#to prevent issues when deploying looking for deleted objects tab
+force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml

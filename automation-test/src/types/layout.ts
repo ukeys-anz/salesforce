@@ -4,7 +4,7 @@
  * @param sectionRowIndex index of the row on the section, start from 1
  * @param sectionRowItem index of the item on the row, start from 1
  */
-export type fieldSectionIndex = [
+export type FieldSectionIndex = [
   sectionsIndex: number,
   sectionRowIndex: number,
   sectionRowItemIndex: number
@@ -16,6 +16,6 @@ export type fieldSectionIndex = [
  * @param min min index of the selectable picklist item
  * @param max max index of the selectable picklist item
  */
-export type picklistItemIndexRange =
+export type PicklistOptionIndexRange =
   | number
   | [minIndex: number, maxIndex: number];
