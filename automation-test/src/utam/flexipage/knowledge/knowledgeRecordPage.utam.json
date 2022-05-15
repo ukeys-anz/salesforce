@@ -52,46 +52,108 @@
       },
       "elements": [
         {
-          "name": "formSection",
+          "name": "mainSectionTablist",
           "selector": {
-            "css": ".forcePageBlockSection:nth-of-type(%d)",
-            "args": [
-              {
-                "name": "sectionIndex",
-                "type": "number"
-              }
-            ]
+            "css": ".flexipageComponent:nth-of-type(1) [role='tablist']"
           },
           "elements": [
             {
-              "name": "formSectionRow",
+              "name": "detailsTabLink",
               "selector": {
-                "css": ".forcePageBlockSectionRow:nth-of-type(%d)",
+                "css": "li:nth-of-type(1)"
+              },
+              "type": "clickable"
+            },
+            {
+              "name": "approvalHistoryTabLink",
+              "selector": {
+                "css": "li:nth-of-type(3)"
+              },
+              "type": "clickable"
+            }
+          ]
+        },
+        {
+          "name": "mainSectionActiveTabContent",
+          "selector": {
+            "css": ".tabs__content.active.uiTab"
+          },
+          "elements": [
+            {
+              "name": "formSection",
+              "selector": {
+                "css": ".forcePageBlockSection:nth-of-type(%d)",
                 "args": [
                   {
-                    "name": "sectionRowIndex",
+                    "name": "sectionIndex",
                     "type": "number"
                   }
                 ]
               },
               "elements": [
                 {
-                  "name": "formSectionRowItem",
+                  "name": "formSectionRow",
                   "selector": {
-                    "css": ".forcePageBlockItem:nth-of-type(%d)",
+                    "css": ".forcePageBlockSectionRow:nth-of-type(%d)",
                     "args": [
                       {
-                        "name": "sectionRowItemIndex",
+                        "name": "sectionRowIndex",
                         "type": "number"
                       }
                     ]
                   },
                   "elements": [
                     {
-                      "name": "displayText",
+                      "name": "formSectionRowItem",
                       "selector": {
-                        "css": ".is-read-only span"
-                      }
+                        "css": ".forcePageBlockItem:nth-of-type(%d)",
+                        "args": [
+                          {
+                            "name": "sectionRowItemIndex",
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "elements": [
+                        {
+                          "name": "displayText",
+                          "selector": {
+                            "css": ".is-read-only span"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "approvalHistoryRelatedList",
+              "selector": {
+                "css": ".forceRelatedListContainer"
+              },
+              "elements": [
+                {
+                  "name": "approvalHistoryApproveButton",
+                  "selector": {
+                    "css": "a[title='Approve']"
+                  },
+                  "type": "clickable"
+                },
+                {
+                  "name": "hisotryList",
+                  "selector": {
+                    "css": "tbody"
+                  },
+                  "elements": [
+                    {
+                      "name": "histories",
+                      "type": "anzx-utam-flexipage/pageObjects/knowledgeApprovalHistory",
+                      "selector": {
+                        "css": "tr",
+                        "returnAll": true
+                      },
+                      "public": true
                     }
                   ]
                 }
@@ -100,64 +162,24 @@
           ]
         },
         {
-          "name": "rightSidebar",
+          "name": "categoryViewer",
           "selector": {
-            "css": ".region-sidebar-right"
+            "css": "[data-component-id='forceKnowledge_articleDataCategoryViewer']"
           },
           "elements": [
             {
-              "name": "categoryViewer",
+              "name": "categoryMenuButton",
               "selector": {
-                "css": ".flexipageComponent:nth-of-type(1)"
+                "css": "a[role='button']"
               },
-              "elements": [
-                {
-                  "name": "categoryMenuButton",
-                  "selector": {
-                    "css": "a[role='button']"
-                  },
-                  "type": "clickable"
-                },
-                {
-                  "name": "categoryEditButton",
-                  "selector": {
-                    "css": "a[title='Edit']"
-                  },
-                  "type": "clickable"
-                }
-              ]
+              "type": "clickable"
             },
             {
-              "name": "approvalHistory",
+              "name": "categoryEditButton",
               "selector": {
-                "css": ".flexipageComponent:nth-of-type(2)"
+                "css": "a[title='Edit']"
               },
-              "elements": [
-                {
-                  "name": "approvalHistoryDropDown",
-                  "selector": {
-                    "css": ".forceDeferredDropDownAction"
-                  },
-                  "type": "clickable"
-                },
-                {
-                  "name": "hisotryList",
-                  "selector": {
-                    "css": ".uiAbstractList"
-                  },
-                  "elements": [
-                    {
-                      "name": "histories",
-                      "type": "anzx-utam-flexipage/pageObjects/knowledgeApprovalHistory",
-                      "selector": {
-                        "css": "li.forceRecordLayout",
-                        "returnAll": true
-                      },
-                      "public": true
-                    }
-                  ]
-                }
-              ]
+              "type": "clickable"
             }
           ]
         }
@@ -177,6 +199,33 @@
       "compose": [
         {
           "element": "actionByTitle",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openDetailTab",
+      "compose": [
+        {
+          "element": "detailsTabLink",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openApprovalHistoryTab",
+      "compose": [
+        {
+          "element": "approvalHistoryTabLink",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "clickApproveButton",
+      "compose": [
+        {
+          "element": "approvalHistoryApproveButton",
           "apply": "click"
         }
       ]
@@ -203,15 +252,6 @@
         },
         {
           "element": "categoryEditButton",
-          "apply": "click"
-        }
-      ]
-    },
-    {
-      "name": "expandApprovalHistoryDropDown",
-      "compose": [
-        {
-          "element": "approvalHistoryDropDown",
           "apply": "click"
         }
       ]
