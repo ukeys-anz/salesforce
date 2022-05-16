@@ -2,6 +2,23 @@
   "shadow": {
     "elements": [
       {
+        "name": "appLauncherHeader",
+        "selector": {
+          "css": "one-app-launcher-header"
+        },
+        "shadow": {
+          "elements": [
+            {
+              "name": "appLauncherButton",
+              "selector": {
+                "css": "button"
+              },
+              "type": "clickable"
+            }
+          ]
+        }
+      },
+      {
         "name": "appNavBar",
         "type": "utam-global/pageObjects/appNavBar",
         "public": true,
@@ -10,5 +27,16 @@
         }
       }
     ]
-  }
+  },
+  "methods": [
+    {
+      "name": "expandAppLauncher",
+      "compose": [
+        {
+          "element": "appLauncherButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
 }

@@ -18,6 +18,9 @@ export default class Chatter implements IChatter {
     // new page should also has a getChatterPanel to interact with Chatter Panel
     const chatterPanel = await pageRoot.getChatterPanel();
 
+    await chatterPanel.clickShareButton();
+    await browser.pause(3000);
+
     switch (commentType) {
       case "CreditCard":
         await chatterPanel.postComment(

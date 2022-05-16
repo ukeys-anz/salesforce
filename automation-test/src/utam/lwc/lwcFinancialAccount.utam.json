@@ -1,36 +1,38 @@
 {
-  "root": true,
-  "selector": {
-    "css": "body"
+  "shadow": {
+    "elements": [
+      {
+        "name": "balance",
+        "selector": {
+          "css": "[data-test-id='balance']"
+        }
+      },
+      {
+        "name": "lastUpdatedTime",
+        "selector": {
+          "css": "[data-test-id='last-updated-time']"
+        }
+      }
+    ]
   },
-  "elements": [
+  "methods": [
     {
-      "name": "everydayAccount",
-      "selector": {
-        "css": "c-financial-account[data-id='checking-account']"
-      },
-      "public": true
+      "name": "getBalance",
+      "compose": [
+        {
+          "element": "balance",
+          "apply": "getText"
+        }
+      ]
     },
     {
-      "name": "savingsAccount",
-      "selector": {
-        "css": "c-financial-account[data-id='savings-account']"
-      },
-      "public": true
-    },
-    {
-      "name": "financialGoals",
-      "selector": {
-        "css": "c-financial-goals-person-account"
-      },
-      "public": true
-    },
-    {
-      "name": "totalBalance",
-      "selector": {
-        "css": "c-total-balance"
-      },
-      "public": true
+      "name": "getLastUpdatedTime",
+      "compose": [
+        {
+          "element": "lastUpdatedTime",
+          "apply": "getText"
+        }
+      ]
     }
   ]
 }

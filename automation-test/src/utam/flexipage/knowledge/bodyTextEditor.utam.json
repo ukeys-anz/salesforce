@@ -1,0 +1,25 @@
+{
+  "root": true,
+  "exposeRootElement": true,
+  "selector": {
+    "css": "body"
+  },
+  "type": "editable",
+  "methods": [
+    {
+      "name": "editBody",
+      "compose": [
+        {
+          "element": "root",
+          "apply": "setText",
+          "args": [
+            {
+              "name": "content",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
