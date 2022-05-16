@@ -6,8 +6,8 @@
     <description>Length of being a customer</description>
     <externalId>false</externalId>
     <formula>if((Today() -  Anniversary_Date__c) &gt;= 1, 
-Text(Today() -  Anniversary_Date__c) &amp; &quot; Day(s)&quot;,
-&quot;&quot;)</formula>
+TEXT(FLOOR((Today() - Anniversary_Date__c)/365)) &amp;&apos; Year(s)&apos; &amp; &apos; and &apos; &amp; 
+TEXT(FLOOR(MOD((Today() - Anniversary_Date__c),365)/30)) &amp;&apos; Month(s)&apos; , &apos;&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Anniversary Duration</label>
     <required>false</required>
