@@ -869,10 +869,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.isAddressRequired) {
         requiredFields.street = "Street";
         requiredFields.suburb = "Suburb";
-        requiredFields.postcode = "Postcode";
+        requiredFields.country = "Country";
+        requiredFields.state = "State";
       }
-      requiredFields.country = "Country";
-      requiredFields.state = "State";
+      requiredFields.postcode = "Postcode";
     }
     if (this.hasNominatedThirdParty) {
       requiredFields.thirdPartyName = "Nominated 3rd party name";
