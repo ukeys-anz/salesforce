@@ -1,0 +1,32 @@
+{
+  "type": "clickable",
+  "elements": [
+    {
+      "name": "optionLink",
+      "selector": {
+        "css": "a"
+      },
+      "type": "clickable"
+    }
+  ],
+  "methods": [
+    {
+      "name": "getOptionTitle",
+      "compose": [
+        {
+          "element": "optionLink",
+          "apply": "getTitle"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "compose": [
+        {
+          "element": "optionLink",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

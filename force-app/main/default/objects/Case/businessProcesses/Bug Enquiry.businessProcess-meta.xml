@@ -2,7 +2,7 @@
 <BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bug Enquiry</fullName>
     <description>A Support Process for Bug Enquiry.</description>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <values>
         <fullName>Action Required</fullName>
         <default>false</default>

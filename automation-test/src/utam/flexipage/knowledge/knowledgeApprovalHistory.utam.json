@@ -1,0 +1,36 @@
+{
+  "elements": [
+    {
+      "name": "title",
+      "selector": {
+        "css": "h3.primaryField"
+      }
+    },
+    {
+      "name": "assignedTo",
+      "selector": {
+        "css": ".itemRows li:nth-of-type(3) .slds-item--detail"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "getTitle",
+      "compose": [
+        {
+          "element": "title",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getAssignedTo",
+      "compose": [
+        {
+          "element": "assignedTo",
+          "apply": "getText"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "elements": [
+    {
+      "name": "rowCell",
+      "selector": {
+        "css": "td:nth-of-type(%d)",
+        "args": [
+          {
+            "name": "cellIndex",
+            "type": "number"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rowHeader",
+      "selector": {
+        "css": "th"
+      },
+      "elements": [
+        {
+          "name": "rowHeaderLink",
+          "selector": {
+            "css": "a"
+          },
+          "type": "clickable"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getContentByRowCellIndex",
+      "compose": [
+        {
+          "element": "rowCell",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getRowHeaderContent",
+      "compose": [
+        {
+          "element": "rowHeader",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "clickRowHeader",
+      "compose": [
+        {
+          "element": "rowHeaderLink",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

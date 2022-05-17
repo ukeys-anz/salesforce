@@ -60,7 +60,10 @@
                             onclick={handleInfoModal}
                           ></lightning-icon>
                         </p>
-                        <p class="slds-text-heading_large">
+                        <p
+                          class="slds-text-heading_large"
+                          data-test-id="balance"
+                        >
                           <lightning-formatted-number
                             value={finAccount.FinServ__Balance__c}
                             format-style="currency"
@@ -115,7 +118,9 @@
                 </div>
               </template>
               <footer class="slds-card__footer account-footer">
-                <span class="lastUpdated">Last Updated {timestamp}</span>
+                <span class="lastUpdated" data-test-id="last-updated-time"
+                  >Last Updated {timestamp}</span
+                >
               </footer>
             </article>
           </div>

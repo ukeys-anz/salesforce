@@ -1,6 +1,33 @@
 {
   "methods": [
     {
+      "name": "searchLookupAndSelect",
+      "compose": [
+        {
+          "element": "searchBox",
+          "apply": "click"
+        },
+        {
+          "element": "searchBox",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "lookupText",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "element": "firstSearchedResult",
+          "apply": "waitForVisible"
+        },
+        {
+          "element": "firstSearchedResult",
+          "apply": "clickItem"
+        }
+      ]
+    },
+    {
       "name": "expand",
       "compose": [
         {
@@ -43,6 +70,27 @@
   "type": "editable",
   "shadow": {
     "elements": [
+      {
+        "name": "searchBox",
+        "selector": {
+          "css": "input[role='combobox']"
+        },
+        "type": ["clickable", "editable"]
+      },
+      {
+        "name": "lookupResultsBox",
+        "selector": {
+          "css": "[role='listbox']"
+        }
+      },
+      {
+        "name": "firstSearchedResult",
+        "selector": {
+          "css": "ul li lightning-base-combobox-item"
+        },
+        "type": "utam-lightning/pageObjects/baseComboboxItem",
+        "public": true
+      },
       {
         "name": "expandButton",
         "selector": {
