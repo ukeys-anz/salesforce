@@ -8,6 +8,7 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 ISCHANGED(OwnerId),
 $Profile.Name = &quot;ANZ Standard User&quot;,
 OR(
+(Owner:Queue.QueueName = &quot;Card Capabilities Queue&quot;),
 (Owner:Queue.QueueName = &quot;Card Dispute - Fraud Queue&quot;),
 (Owner:Queue.QueueName = &quot;Card Dispute - General Queue&quot;),
 (Owner:Queue.QueueName = &quot;Coach Lead Escalation&quot;),
