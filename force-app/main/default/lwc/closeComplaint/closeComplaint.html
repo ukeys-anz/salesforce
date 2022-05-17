@@ -1,0 +1,35 @@
+<template>
+  <lightning-quick-action-panel title="Close Complaint" class="maxwidth">
+    Close Complaint
+    <lightning-combobox
+      name="ComplaintStatus"
+      label="Complaint Status"
+      aria-label="Dropdown Complaint Status"
+      value={caseStatus}
+      options={statusOptions}
+      onchange={handleStatusChange}
+      data-id="caseStatus-id"
+    ></lightning-combobox>
+    <template if:true={loadChild}>
+      <c-complaints-Close-Child
+        record-id={recordId}
+        record-type-id={recordTypeId}
+        onfieldvalueupdate={handleFieldUpdate}
+      >
+      </c-complaints-Close-Child>
+    </template>
+
+    <div class="slds-float slds-align_absolute-center">
+      <lightning-button
+        variant="brand"
+        type="submit"
+        onclick={validateFields}
+        class="saveButton"
+        name="save"
+        label="Save Complaint"
+        data-id="submit-id"
+        aria-label="Press to save the form and create the case"
+      ></lightning-button>
+    </div>
+  </lightning-quick-action-panel>
+</template>

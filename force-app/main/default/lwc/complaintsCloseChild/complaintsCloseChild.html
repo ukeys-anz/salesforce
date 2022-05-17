@@ -1,0 +1,155 @@
+<template>
+  <template if:true={showOptions}>
+    <!--Complaint Status-->
+    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
+      <lightning-combobox
+        name="ComplaintOutcome"
+        label="Complaint Outcome"
+        aria-label="Dropdown Complaint Outcome"
+        required="true"
+        options={complaintOutcomeOptions}
+        onchange={handleComplaintOutcomeChange}
+        data-id="compOutCome-id"
+      ></lightning-combobox>
+    </div>
+    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
+      <lightning-input
+        name="outcomeDescription"
+        label="Outcome Description"
+        required="true"
+        onchange={handleOutcomeDescriptionChange}
+        data-id="descOutcome-id"
+      ></lightning-input>
+    </div>
+    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
+      <lightning-combobox
+        name="Complaint Remedy"
+        label="Complaint Remedy"
+        aria-label="Dropdown Complaint Remedy"
+        required="true"
+        options={RemedyOptions}
+        onchange={handleComplaintRemedy}
+        data-id="compRemedy-id"
+      ></lightning-combobox>
+    </div>
+    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
+      <template if:true={isFinancialComplaintRemedy}>
+        <label class="slds-form-element__label" for="text-input-id-149">
+          <abbr class="slds-required" title="required">* </abbr>Financial
+          Amount</label
+        >
+        <lightning-input
+          variant="label-hidden"
+          required
+          step="any"
+          pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
+          formatter="currency"
+          type="number"
+          onchange={handleFinancialCompensation}
+          class="input inputFinCompensation"
+          message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
+          data-id="finAmount-id"
+        ></lightning-input>
+      </template>
+      <template if:true={isNonFinancialComplaintRemedy}>
+        <lightning-combobox
+          name="Non-FinancialRemedy"
+          label="Non-Financial Remedy"
+          aria-label="Dropdown Non-Financial Remedy"
+          required="true"
+          options={nonFinancialRemedyOptions}
+          onchange={handleNonFinacialRemedy}
+          data-id="nonFinancialRemedy-id"
+        ></lightning-combobox>
+      </template>
+      <template if:true={isReferredToProductManufacturer}>
+        <lightning-combobox
+          name="ProductManufacturer"
+          label="Product Manufacturer"
+          aria-label="Dropdown Complaint Outcome"
+          required="true"
+          options={ThirdPartyProductManufacturerOptions}
+          onchange={handleThirdPartyProductManufacturer}
+          data-id="thirdPartyProductManufacturer-id"
+        ></lightning-combobox>
+      </template>
+    </div>
+    <template if:true={isOtherProductManufacturer}>
+      <div
+        class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+      >
+        <lightning-input
+          variant="label-stacked"
+          label="Name of product manufacturer"
+          required
+          name="NameOfProductManufacturer"
+          type="string"
+          max-length="255"
+          onchange={handleProductManufacturerNameChange}
+          data-id="thirdPartyOtherProductManufacturer-id"
+        >
+        </lightning-input>
+      </div>
+    </template>
+    <template if:true={isReferredToProductManufacturer}>
+      <div
+        class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+      >
+        <lightning-input
+          type="checkbox"
+          label="The details of this complaint have been provided to the product manufacturer"
+          name="thirdPartyIsDetailsProvidedToProductManufacturer"
+          required
+          message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
+          field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
+          data-id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
+          onchange={handleIsDetailsProvidedToProductManufacturer}
+        ></lightning-input>
+      </div>
+    </template>
+  </template>
+  <template if:true={showModal}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      class="slds-modal slds-fade-in-open slds-modal_small"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+    >
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <lightning-button-icon
+            icon-name="utility:close"
+            class="slds-float_right"
+            onclick={closeModal}
+            alternative-text="close"
+            arial-label="Press to close the dialog and return to the form"
+          ></lightning-button-icon>
+          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+            {modalHeader}
+          </h2>
+        </header>
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+          <lightning-formatted-rich-text
+            value={modalMessage}
+          ></lightning-formatted-rich-text>
+        </div>
+        <footer class="slds-modal__footer">
+          <lightning-button
+            variant="brand"
+            label="Close"
+            arial-label="Press to close the dialog and return to the form"
+            title="Close"
+            onclick={closeModal}
+            class="slds-m-left_x-small"
+          ></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>
