@@ -1,112 +1,117 @@
 <template>
   <template if:true={showOptions}>
-    <!--Complaint Status-->
-    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
-      <lightning-combobox
-        name="ComplaintOutcome"
-        label="Complaint Outcome"
+    <lightning-record-edit-form
+      object-api-name={caseObject}
+      record-type-id={recordTypeId}
+      onsubmit={handleSubmit}
+      onsuccess={handleCaseSuccess}
+      onerror={handleCaseError}
+    >
+      <lightning-input-field
+        variant="label-stacked"
         aria-label="Dropdown Complaint Outcome"
         required="true"
-        options={complaintOutcomeOptions}
+        field-name={complaintOutcome}
         onchange={handleComplaintOutcomeChange}
-        data-id="compOutCome-id"
-      ></lightning-combobox>
-    </div>
-    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
-      <lightning-input
-        name="outcomeDescription"
-        label="Outcome Description"
+        data-id="compOutCome2-id"
+      ></lightning-input-field>
+      <lightning-input-field
+        variant="label-stacked"
         required="true"
+        field-name={outcomeDescription}
         onchange={handleOutcomeDescriptionChange}
         data-id="descOutcome-id"
-      ></lightning-input>
-    </div>
-    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
-      <lightning-combobox
-        name="Complaint Remedy"
-        label="Complaint Remedy"
+      ></lightning-input-field>
+      <lightning-input-field
+        variant="label-stacked"
         aria-label="Dropdown Complaint Remedy"
         required="true"
-        options={RemedyOptions}
+        field-name={complaintRemedy}
         onchange={handleComplaintRemedy}
         data-id="compRemedy-id"
-      ></lightning-combobox>
-    </div>
-    <div class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium">
-      <template if:true={isFinancialComplaintRemedy}>
-        <label class="slds-form-element__label" for="text-input-id-149">
-          <abbr class="slds-required" title="required">* </abbr>Financial
-          Amount</label
-        >
-        <lightning-input
-          variant="label-hidden"
-          required
-          step="any"
-          pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
-          formatter="currency"
-          type="number"
-          onchange={handleFinancialCompensation}
-          class="input inputFinCompensation"
-          message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
-          data-id="finAmount-id"
-        ></lightning-input>
-      </template>
+      ></lightning-input-field>
+      <lightning-input-field
+        variant="label-stacked"
+        aria-label="Dropdown Complaint Sub Remedy"
+        required="true"
+        field-name={complaintSubRemedy}
+        onchange={handleComplaintSubRemedy}
+        data-id="compSubRemedy-id"
+      ></lightning-input-field>
+
+      <div
+        class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+      >
+        <template if:true={isFinancialComplaintRemedy}>
+          <label class="slds-form-element__label" for="text-input-id-149">
+            <abbr class="slds-required" title="required">* </abbr>Financial
+            Amount</label
+          >
+          <lightning-input
+            variant="label-hidden"
+            required
+            step="any"
+            pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
+            formatter="currency"
+            type="number"
+            onchange={handleFinancialCompensation}
+            class="input inputFinCompensation"
+            message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
+            data-id="finAmount-id"
+          ></lightning-input>
+        </template>
+      </div>
       <template if:true={isNonFinancialComplaintRemedy}>
-        <lightning-combobox
-          name="Non-FinancialRemedy"
-          label="Non-Financial Remedy"
-          aria-label="Dropdown Non-Financial Remedy"
-          required="true"
-          options={nonFinancialRemedyOptions}
+        <lightning-input-field
+          variant="label-stacked"
+          required
+          field-name={nonFinancialRemedy}
           onchange={handleNonFinacialRemedy}
           data-id="nonFinancialRemedy-id"
-        ></lightning-combobox>
+        ></lightning-input-field>
       </template>
       <template if:true={isReferredToProductManufacturer}>
-        <lightning-combobox
-          name="ProductManufacturer"
-          label="Product Manufacturer"
-          aria-label="Dropdown Complaint Outcome"
-          required="true"
-          options={ThirdPartyProductManufacturerOptions}
+        <lightning-input-field
+          variant="label-stacked"
+          required
+          field-name={thirdPartyProductManufacturer}
           onchange={handleThirdPartyProductManufacturer}
           data-id="thirdPartyProductManufacturer-id"
-        ></lightning-combobox>
-      </template>
-    </div>
-    <template if:true={isOtherProductManufacturer}>
-      <div
-        class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-      >
-        <lightning-input
-          variant="label-stacked"
-          label="Name of product manufacturer"
-          required
-          name="NameOfProductManufacturer"
-          type="string"
-          max-length="255"
-          onchange={handleProductManufacturerNameChange}
-          data-id="thirdPartyOtherProductManufacturer-id"
         >
-        </lightning-input>
-      </div>
-    </template>
-    <template if:true={isReferredToProductManufacturer}>
-      <div
-        class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-      >
-        <lightning-input
-          type="checkbox"
-          label="The details of this complaint have been provided to the product manufacturer"
-          name="thirdPartyIsDetailsProvidedToProductManufacturer"
-          required
-          message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
-          field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
-          data-id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
-          onchange={handleIsDetailsProvidedToProductManufacturer}
-        ></lightning-input>
-      </div>
-    </template>
+        </lightning-input-field>
+      </template>
+      <template if:true={isOtherProductManufacturer}>
+        <div
+          class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+        >
+          <lightning-input-field
+            variant="label-stacked"
+            required
+            field-name={thirdPartyOtherProductManufacturer}
+            onchange={handleProductManufacturerNameChange}
+            data-id="thirdPartyOtherProductManufacturer-id"
+          >
+          </lightning-input-field>
+        </div>
+      </template>
+      <!--Complaint Status-->
+      <template if:true={isReferredToProductManufacturer}>
+        <div
+          class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+        >
+          <lightning-input
+            type="checkbox"
+            label="The details of this complaint have been provided to the product manufacturer"
+            name="thirdPartyIsDetailsProvidedToProductManufacturer"
+            required
+            message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
+            field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
+            data-id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
+            onchange={handleIsDetailsProvidedToProductManufacturer}
+          ></lightning-input>
+        </div>
+      </template>
+    </lightning-record-edit-form>
   </template>
   <template if:true={showModal}>
     <section

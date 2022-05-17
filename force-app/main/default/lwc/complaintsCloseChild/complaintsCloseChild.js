@@ -1,6 +1,11 @@
-import { LightningElement, api, wire } from "lwc";
-import { getPicklistValuesByRecordType } from "lightning/uiObjectInfoApi";
+import { LightningElement, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
+import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
+import COMPLAINT_SUB_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy__c";
+import NON_FINANCIAL_REMEDY from "@salesforce/schema/Case.IDR_Non_Financial_Remedy__c";
+import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
+import CASE_OBJECT from "@salesforce/schema/Case";
 
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
@@ -10,9 +15,16 @@ const OTHER = "Other";
 export default class complaintsResolveLWC extends NavigationMixin(
   LightningElement
 ) {
+  complaintOutcome = COMPLAINT_OUTCOME;
+  complaintRemedy = COMPLAINT_REMEDY;
+  complaintSubRemedy = COMPLAINT_SUB_REMEDY;
+  outcomeDescription = OUTCOME_DESCRIPTION;
+  nonFinancialRemedy = NON_FINANCIAL_REMEDY;
+  caseObject = CASE_OBJECT;
+
   @api recordId;
   @api recordTypeId;
-  showOptions = false;
+  showOptions = true;
   showModal = false;
   modalMessage = ERROR_UNKNOWN_TITLE;
   modalHeader = "Error";
@@ -36,43 +48,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
   openModal(msg) {
     this.modalMessage = msg;
     this.showModal = true;
-  }
-
-  @wire(getPicklistValuesByRecordType, {
-    objectApiName: "Case",
-    recordTypeId: "$recordTypeId"
-  })
-  wiredValues({ data }) {
-    if (data) {
-      this.outcomeOptions =
-        data.picklistFieldValues.IDR_Complaint_Outcome__c.values;
-      this.remedyOptions =
-        data.picklistFieldValues.IDR_Complaint_Remedy__c.values;
-      this.productManufacturerOptions =
-        data.picklistFieldValues.IDR_Product_Manufacturer__c.values;
-      this.nonFinancialRemedyOptions =
-        data.picklistFieldValues.IDR_Non_Financial_Remedy__c.values;
-
-      this.showOptions = true;
-      console.log("picklist fetched");
-    }
-  }
-
-  get complaintOutcomeOptions() {
-    return [...this.outcomeOptions];
-    //return this.outcomeOptions;
-  }
-  get RemedyOptions() {
-    return [...this.remedyOptions];
-    //return this.remedyOptions;
-  }
-
-  get ThirdPartyProductManufacturerOptions() {
-    return [...this.productManufacturerOptions];
-  }
-
-  get nonFinancialRemedyOptions() {
-    return [...this.nonFinancialRemedyOptions];
   }
 
   handleComplaintOutcomeChange(event) {
@@ -100,6 +75,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
       value: ""
     };
     sendVal.field = "Name_of_product_manufacturer__c";
+    sendVal.value = event.detail.value;
+    this.sendFieldValue(sendVal);
+  }
+  handleComplaintSubRemedy(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+    sendVal.field = "IDR_Complaint_Sub_Remedy__c";
     sendVal.value = event.detail.value;
     this.sendFieldValue(sendVal);
   }

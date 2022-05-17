@@ -12,6 +12,7 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import THIRD_PARTY_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.IDR_Product_Manufacturer__c";
 import THIRD_PARTY_OTHER_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Name_of_product_manufacturer__c";
 import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Provided_details_to_Product_Manufacturer__c";
+import COMPLAINT_SUB_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy__c";
 import ID_FIELD from "@salesforce/schema/Contact.Id";
 
 const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
@@ -84,6 +85,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
           THIRD_PARTY_OTHER_PRODUCT_MANUFACTURER.fieldApiName
         ] = value;
         break;
+      case "IDR_Complaint_Sub_Remedy__c":
+        this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] = value;
     }
   }
 
