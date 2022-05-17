@@ -32,4 +32,48 @@
       ></lightning-button>
     </div>
   </lightning-quick-action-panel>
+  <template if:true={showModal}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      class="slds-modal slds-fade-in-open slds-modal_small"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+    >
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <lightning-button-icon
+            icon-name="utility:close"
+            class="slds-float_right"
+            onclick={closeModal}
+            alternative-text="close"
+            arial-label="Press to close the dialog and return to the form"
+          ></lightning-button-icon>
+          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+            {modalHeader}
+          </h2>
+        </header>
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+          <lightning-formatted-rich-text
+            value={modalMessage}
+          ></lightning-formatted-rich-text>
+        </div>
+        <footer class="slds-modal__footer">
+          <lightning-button
+            variant="brand"
+            label="Close"
+            arial-label="Press to close the dialog and return to the form"
+            title="Close"
+            onclick={closeModal}
+            class="slds-m-left_x-small"
+          ></lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
 </template>
