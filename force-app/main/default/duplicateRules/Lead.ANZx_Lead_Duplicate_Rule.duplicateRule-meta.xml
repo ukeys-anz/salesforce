@@ -2,15 +2,25 @@
 <DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
-    <description>Duplicate rule for lead records.</description>
-    <duplicateRuleFilter xsi:nil="true"/>
+    <alertText xsi:nil="true"/>
+    <description>Duplicate rule for ANZx lead records.</description>
+    <duplicateRuleFilter>
+        <booleanFilter xsi:nil="true"/>
+        <duplicateRuleFilterItems>
+            <field>RecordType</field>
+            <operation>equals</operation>
+            <value>ANZX Leads</value>
+            <sortOrder>1</sortOrder>
+            <table>Lead</table>
+        </duplicateRuleFilterItems>
+    </duplicateRuleFilter>
     <duplicateRuleMatchRules>
         <matchRuleSObjectType>Lead</matchRuleSObjectType>
-        <matchingRule>Match_Leads_by_Name_Email_and_MobilePhone</matchingRule>
+        <matchingRule>Match_ANZx_Leads_by_Name_Email_and_MobilePhone</matchingRule>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
-    <masterLabel>Standard Lead Duplicate Rule</masterLabel>
+    <masterLabel>ANZx Lead Duplicate Rule</masterLabel>
     <operationsOnInsert>Report</operationsOnInsert>
     <operationsOnUpdate>Report</operationsOnUpdate>
     <securityOption>BypassSharingRules</securityOption>
