@@ -26,6 +26,7 @@ const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const OTHER_NONFIN_REMEDY = "99";
 const DEBT_WAIVER = "10";
 const SETTEL_FOR_LESS = "18";
+const REWARD_POINTS = "Reward Points";
 
 export default class closeComplaint extends NavigationMixin(LightningElement) {
   @api recordId;
@@ -106,6 +107,10 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateFields() {
     let validToSave = true;
     let errMsg = "Complete Required Fields:";
+    if (this.saveFields[STATUS_FIELD.fieldApiName] == null) {
+      validToSave = false;
+      errMsg = errMsg + STATUS_FIELD.fieldApiName + " ;";
+    }
     if (this.saveFields[COMPLAINT_OUTCOME.fieldApiName] == null) {
       validToSave = false;
       errMsg = errMsg + COMPLAINT_OUTCOME.fieldApiName + " ;";
@@ -122,18 +127,19 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       this.saveFields[COMPLAINT_REMEDY.fieldApiName] ==
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.saveFields[FINANCIAL_COMPENSATION.fieldApiName] == null &&
+      this.saveFields[FINANCIAL_COMPENSATION.fieldApiName] == null
+    ) {
+      validToSave = false;
+      errMsg = errMsg + FINANCIAL_COMPENSATION.fieldApiName + " ;";
+    }
+
+    if (
+      this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] == REWARD_POINTS &&
       this.saveFields[REMEDY_POINTS1.fieldApiName] == null
     ) {
       validToSave = false;
-      errMsg =
-        errMsg +
-        FINANCIAL_COMPENSATION.fieldApiName +
-        "or " +
-        REMEDY_POINTS1.fieldApiName +
-        " ;";
+      errMsg = errMsg + REMEDY_POINTS1.fieldApiName + ";";
     }
-
     if (
       (this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] == DEBT_WAIVER ||
         this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==

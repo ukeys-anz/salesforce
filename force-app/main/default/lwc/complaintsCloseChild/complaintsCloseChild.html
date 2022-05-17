@@ -38,33 +38,9 @@
         onchange={handleComplaintSubRemedy}
         data-id="compSubRemedy-id"
       ></lightning-input-field>
-
       <div
         class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
       >
-        <template if:true={isFinancialComplaintRemedy}>
-          <lightning-combobox
-            name="Financial Remedy Type"
-            label="Financial Remedy Type"
-            aria-label="Financial Remedy Type"
-            options={FinancialRemedyTypeOptions}
-            onchange={handleFinancialRemedyTypeChange}
-            data-id="FinancialRemedyType-id"
-            required
-          >
-          </lightning-combobox>
-          <template if:true={isRewardPoints}>
-            <lightning-input-field
-              variant="label-stacked"
-              aria-label="Integer financial reward Points"
-              required="true"
-              field-name={remedyPoints1}
-              onchange={handleFinRemedyPoints}
-              data-id="finRemedyPoints1-id"
-            >
-            </lightning-input-field>
-          </template>
-        </template>
         <template if:true={showFinancialCompensation}>
           <label class="slds-form-element__label" for="text-input-id-149">
             <abbr class="slds-required" title="required">* </abbr>Financial
@@ -93,6 +69,17 @@
             onchange={handleotherNonFinRemedy}
             data-id="nonFinancialRemedy-id"
           ></lightning-input-field>
+        </template>
+        <template if:true={isRewardPoints}>
+          <lightning-input-field
+            variant="label-stacked"
+            aria-label="Integer financial reward Points"
+            required="true"
+            field-name={remedyPoints1}
+            onchange={handleFinRemedyPoints}
+            data-id="finRemedyPoints1-id"
+          >
+          </lightning-input-field>
         </template>
       </template>
       <template if:true={isReferredToProductManufacturer}>

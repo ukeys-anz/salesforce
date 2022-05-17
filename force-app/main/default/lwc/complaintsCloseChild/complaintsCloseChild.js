@@ -12,8 +12,7 @@ const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 const COMPLAINT_REMDY_PRODUCT_MANU = "3";
 const OTHER = "Other";
-const MONETARY = "Monetary";
-const REWARD_POINTS = "Rewards Points";
+const REWARD_POINTS = "Reward Points";
 const OTHER_NONFIN_REMEDY = "99";
 const DEBT_WAIVER = "10";
 const SETTEL_FOR_LESS = "18";
@@ -51,16 +50,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
   productManufacturerOptions = [];
   nonFinancialRemedyOptions = [];
 
-  get FinancialRemedyTypeOptions() {
-    return [
-      { label: MONETARY, value: MONETARY },
-      {
-        label: REWARD_POINTS,
-        value: REWARD_POINTS
-      }
-    ];
-  }
-
   handleComplaintOutcomeChange(event) {
     let sendVal = {
       field: "",
@@ -80,47 +69,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
-  handleProductManufacturerNameChange(event) {
-    let sendVal = {
-      field: "",
-      value: ""
-    };
-    sendVal.field = "Name_of_product_manufacturer__c";
-    sendVal.value = event.detail.value;
-    this.sendFieldValue(sendVal);
-  }
-  handleComplaintSubRemedy(event) {
-    let sendVal = {
-      field: "",
-      value: ""
-    };
-    sendVal.field = "IDR_Complaint_Sub_Remedy__c";
-    sendVal.value = event.detail.value;
 
-    if (event.target.value == OTHER_NONFIN_REMEDY) {
-      this.isOtherNonFinRemedy = true;
-    } else {
-      this.isOtherNonFinRemedy = false;
-    }
-    if (
-      event.target.value == DEBT_WAIVER ||
-      event.target.value == SETTEL_FOR_LESS
-    ) {
-      this.showFinancialCompensation = true;
-    } else {
-      this.showFinancialCompensation = false;
-    }
-    this.sendFieldValue(sendVal);
-  }
-  handleFinancialRemedyTypeChange(event) {
-    if (event.detail.value === MONETARY) {
-      this.showFinancialCompensation = true;
-      this.isRewardPoints = false;
-    } else {
-      this.isRewardPoints = true;
-      this.showFinancialCompensation = false;
-    }
-  }
   handleComplaintRemedy(event) {
     let sendVal = {
       field: "",
@@ -150,6 +99,47 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
   }
 
+  handleComplaintSubRemedy(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+    sendVal.field = "IDR_Complaint_Sub_Remedy__c";
+    sendVal.value = event.detail.value;
+
+    if (event.target.value == OTHER_NONFIN_REMEDY) {
+      this.isOtherNonFinRemedy = true;
+    } else {
+      this.isOtherNonFinRemedy = false;
+    }
+    if (
+      event.target.value == DEBT_WAIVER ||
+      event.target.value == SETTEL_FOR_LESS
+    ) {
+      this.showFinancialCompensation = true;
+    } else {
+      this.showFinancialCompensation = false;
+    }
+
+    if (event.target.value === REWARD_POINTS) {
+      this.isRewardPoints = true;
+    } else {
+      this.isRewardPoints = false;
+    }
+    this.sendFieldValue(sendVal);
+  }
+
+  handleFinancialCompensation(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+    sendVal.field = "IDR_Financial_Compensation__c";
+    sendVal.value = event.target.value;
+    this.showFinancialCompensation = true;
+    this.sendFieldValue(sendVal);
+  }
+
   handleFinRemedyPoints(event) {
     let sendVal = {
       field: "",
@@ -157,6 +147,16 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Financial_Remedy_Points__c";
     sendVal.value = event.detail.value;
+    this.sendFieldValue(sendVal);
+  }
+
+  handleotherNonFinRemedy(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+    sendVal.field = "IDR_Other_Remedy_Provided__c";
+    sendVal.value = event.target.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -174,6 +174,16 @@ export default class complaintsResolveLWC extends NavigationMixin(
     }
     this.sendFieldValue(sendVal);
   }
+  handleProductManufacturerNameChange(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+    sendVal.field = "Name_of_product_manufacturer__c";
+    sendVal.value = event.detail.value;
+    this.sendFieldValue(sendVal);
+  }
+
   handleIsDetailsProvidedToProductManufacturer(event) {
     let sendVal = {
       field: "",
@@ -186,26 +196,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
   }
 
-  handleFinancialCompensation(event) {
-    let sendVal = {
-      field: "",
-      value: ""
-    };
-    sendVal.field = "IDR_Financial_Compensation__c";
-    sendVal.value = event.target.value;
-    this.financialCompensation = event.target.value;
-    this.sendFieldValue(sendVal);
-  }
-
-  handleotherNonFinRemedy(event) {
-    let sendVal = {
-      field: "",
-      value: ""
-    };
-    sendVal.field = "IDR_Other_Remedy_Provided__c";
-    sendVal.value = event.target.value;
-    this.sendFieldValue(sendVal);
-  }
   sendFieldValue(sendVal) {
     this.dispatchEvent(
       new CustomEvent("fieldvalueupdate", { detail: sendVal })
