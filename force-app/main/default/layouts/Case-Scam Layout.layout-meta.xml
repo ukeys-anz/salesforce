@@ -160,6 +160,10 @@
                 <behavior>Edit</behavior>
                 <field>Fraud_Total_Customer_Exposure__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fraud_COR_Event_ID__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
