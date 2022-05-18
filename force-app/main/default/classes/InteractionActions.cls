@@ -12,6 +12,7 @@ public with sharing class InteractionActions {
   public static final String UNASSIGNED_STATUS = 'Unassigned';
   public static final String RESCHEDULED_STATUS = 'Rescheduled';
   public static final String INPROGRESS_STATUS = 'In Progress';
+  public static final String NEW_STATUS = 'New';
   public static final String COACHING_SUMMARY_LABEL = ' Coaching Summary';
   public static final String NO_SHOW_STATUS = 'No Show';
   public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
@@ -450,7 +451,7 @@ public with sharing class InteractionActions {
       Coaching_Summary__c coachSummary = new Coaching_Summary__c();
       coachSummary.Name__c =
         interact.Interaction_Purpose__c + COACHING_SUMMARY_LABEL;
-      coachSummary.Status__c = INPROGRESS_STATUS;
+      coachSummary.Status__c = NEW_STATUS;
       coachSummary.OwnerId = interact.OwnerId;
       coachSummary.Account__c = interact.AccountId;
       coachSummary.Lead__c = interact.Lead__c;
