@@ -277,6 +277,11 @@
                 <default>false</default>
                 <label>Raising a concern</label>
             </value>
+             <value>
+                <fullName>Withholding tax refund</fullName>
+                <default>false</default>
+                <label>Withholding tax refund</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
@@ -317,6 +322,10 @@
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Transaction Disputes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Withholding tax refund</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
