@@ -22,6 +22,7 @@
     <isActive>true</isActive>
     <masterLabel>ANZx Lead Duplicate Rule</masterLabel>
     <operationsOnInsert>Report</operationsOnInsert>
+    <operationsOnUpdate>Alert</operationsOnUpdate>
     <operationsOnUpdate>Report</operationsOnUpdate>
     <securityOption>BypassSharingRules</securityOption>
     <sortOrder>1</sortOrder>
