@@ -1,103 +1,106 @@
-import CaseCreationForm from "pageObjects/caseCreationForm";
+import RecordCreationForm from "pageObjects/recordCreationForm";
 import Case from "./Case";
 import * as faker from "faker";
-import * as caseUtils from "utils/caseUtils";
+import * as creationFormUtils from "utils/creationFormUtils";
 import * as commonUtils from "utils/commonUtils";
-import caseData from "data/caseData";
+import * as casePageUtils from "utils/casePageUtils";
+import { FieldDefinition } from "types/field";
+import CaseFields from "constants/case/caseFields";
 
 export default class DirectEntry extends Case {
-  async createRecord(): Promise<void> {
-    const caseCreationFormRoot = await utam.load(CaseCreationForm);
+  static creationFormFieldIndexMap = new Map<string, number>();
 
-    // Dispute Reason
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [3, 1, 1],
-      [2, 6],
-      0
-    );
+  async create(caseData: any): Promise<void> {
+    const recordCreationFormRoot = await utam.load(RecordCreationForm);
 
-    // Description of Issue
-    // get field from layout and set text
-    const descriptionOfIssue = faker.datatype.string(100);
-    await caseCreationFormRoot.editTextarea(3, 2, 1, descriptionOfIssue);
+    const fieldsToFill: FieldDefinition[] = [
+      {
+        label: CaseFields.Dispute_Reason,
+        options: {
+          firstFieldIndex: 10,
+          picklistDOMIndex: 0,
+          picklistOptionIndexRange: [2, 6]
+        }
+      },
+      {
+        label: CaseFields.Description_of_Issue
+      },
+      {
+        label: CaseFields.Amount_Of_Authorised_Transaction
+      },
+      {
+        label: CaseFields.Is_this_a_Business_Customer,
+        options: {
+          picklistDOMIndex: 1,
+          picklistOptionIndexRange: [2, 3]
+        }
+      },
+      {
+        label: CaseFields.Intended_Account_BSB,
+        options: {
+          textContent: caseData.bsb
+        }
+      },
+      {
+        label: CaseFields.Intended_Account_Number,
+        options: {
+          textContent: caseData.checkAccountNumber
+        }
+      },
+      {
+        label: CaseFields.Intended_Account_Name,
+        options: {
+          textContent: caseData.accountName
+        }
+      },
+      {
+        label: CaseFields.Channel_Received,
+        options: {
+          picklistDOMIndex: 2,
+          picklistOptionIndexRange: [2, 25]
+        }
+      },
+      {
+        label: CaseFields.External_System,
+        options: {
+          picklistDOMIndex: 3,
+          picklistOptionIndexRange: [2, 4]
+        }
+      }
+    ];
 
-    // Is this a Business Customer?
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [4, 1, 1],
-      [2, 3],
-      1
-    );
-
-    // Intended Account BSB
-    await caseCreationFormRoot.editText(6, 1, 1, caseData.bsb);
-
-    // Intended Account Number
-    await caseCreationFormRoot.editText(6, 2, 1, caseData.checkAccountNumber);
-
-    // Intended Account Name
-    await caseCreationFormRoot.editText(6, 3, 1, caseData.accountName);
-
-    // Channel Received
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [7, 3, 1],
-      [2, 25],
-      2
-    );
-
-    // External System
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [7, 6, 1],
-      [2, 4],
-      3
-    );
+    DirectEntry.creationFormFieldIndexMap =
+      await creationFormUtils.fillInFields(
+        this.sobject,
+        DirectEntry.creationFormFieldIndexMap,
+        fieldsToFill
+      );
 
     // click save button
-    await caseCreationFormRoot.saveNew();
-
+    await recordCreationFormRoot.saveNew();
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {
-    console.log("Skip assignNewOwner | This scenario does not need it.");
+  async update(): Promise<void> {
+    console.log("Skip update | This scenario does not need it.");
   }
 
-  async updateRecord(): Promise<void> {
-    console.log("Skip updateRecord |  This scenario does not need it.");
-  }
+  async close(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
 
-  async closeRecord(): Promise<void> {
-    const baseRecordForm = await caseUtils.getRecordForm();
+    // External Case ID
+    const externalCaseIdField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [7, 7, 1]
+    );
+    const externalCaseId = `${faker.datatype.string(10)}`;
+    await commonUtils.inputText(externalCaseIdField, externalCaseId);
 
-    if (baseRecordForm) {
-      const recordLayout = await baseRecordForm.getRecordLayout();
-
-      // External Case ID
-      const externalCaseIdField = await commonUtils.getFieldFromRecordLayout(
-        recordLayout,
-        [7, 7, 1]
-      );
-      const externalCaseId = `${faker.datatype.string(10)}`;
-      await commonUtils.inputText(externalCaseIdField, externalCaseId);
-
-      // click button twice to get across page stuck
-      await baseRecordForm.clickFooterButton("Save");
-      await baseRecordForm.clickFooterButton("Save");
-
-      // Status
-      // select Closed status
-      await commonUtils.selectPicklistOnRecordLayout(
-        recordLayout,
-        [7, 1, 1],
-        5
-      );
-
-      await baseRecordForm.clickFooterButton("Save");
-
-      await browser.pause(3000);
-    }
+    // Status
+    // select Closed status
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [7, 1, 1], 5);
+    await baseRecordForm.clickFooterButton("Save");
+    await browser.pause(3000);
   }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Topic__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <description>The given topic related to the knowledge article.</description>
+    <securityClassification>Internal</securityClassification>
+    <externalId>false</externalId>
+    <label>Topic</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Card</fullName>
+                <default>false</default>
+                <label>Card</label>
+            </value>
+            <value>
+                <fullName>Feedback &amp; Complaints</fullName>
+                <default>false</default>
+                <label>Feedback &amp; Complaints</label>
+            </value>
+            <value>
+                <fullName>Money</fullName>
+                <default>false</default>
+                <label>Money</label>
+            </value>
+            <value>
+                <fullName>Payments</fullName>
+                <default>false</default>
+                <label>Payments</label>
+            </value>
+            <value>
+                <fullName>Profile &amp; Security</fullName>
+                <default>false</default>
+                <label>Profile &amp; Security</label>
+            </value>
+            <value>
+                <fullName>Contacting ANZ Plus</fullName>
+                <default>false</default>
+                <label>Contacting ANZ Plus</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

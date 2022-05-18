@@ -36,6 +36,6 @@
     <shares>
         <accessLevel>Manage</accessLevel>
         <sharedTo>Business_Admin</sharedTo>
-        <sharedToType>RoleAndSubordinates</sharedToType>
+        <sharedToType>Role</sharedToType>
     </shares>
 </WaveApplication>

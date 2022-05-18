@@ -19,7 +19,7 @@ public with sharing class NotificationHandlerSchedulerTest {
     // Create Case
 
     List<Case> caseList = new List<Case>();
-    for (Integer i = 0; i < 200; i++) {
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Case testCase = new Case();
 
       testCase.IDR_Account_Card_Policy_Number__c = '000001234';

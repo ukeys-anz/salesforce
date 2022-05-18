@@ -1,0 +1,89 @@
+{
+  "elements": [
+    {
+      "name": "newButton",
+      "selector": {
+        "css": "a[title='New']"
+      },
+      "type": "clickable"
+    },
+    {
+      "name": "title",
+      "selector": {
+        "css": "h2"
+      }
+    },
+    {
+      "name": "listViewContent",
+      "selector": {
+        "css": ".listViewContent"
+      },
+      "elements": [
+        {
+          "name": "tableHeader",
+          "selector": {
+            "css": "table.uiVirtualDataTable thead"
+          },
+          "elements": [
+            {
+              "name": "listViewHeaderByTitle",
+              "type": "anzx-utam-force/pageObjects/listViewHeader",
+              "selector": {
+                "css": "th[title='%s']",
+                "args": [
+                  {
+                    "name": "headerTitle",
+                    "type": "string"
+                  }
+                ]
+              },
+              "public": true
+            }
+          ]
+        },
+        {
+          "name": "tableBody",
+          "selector": {
+            "css": "table.uiVirtualDataTable tbody"
+          },
+          "elements": [
+            {
+              "name": "listViewRowByIndex",
+              "type": "anzx-utam-force/pageObjects/listViewRow",
+              "selector": {
+                "css": "tr:nth-of-type(%d)",
+                "args": [
+                  {
+                    "name": "rowIndex",
+                    "type": "number"
+                  }
+                ]
+              },
+              "public": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "getListViewTitle",
+      "compose": [
+        {
+          "element": "title",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "clickNew",
+      "compose": [
+        {
+          "element": "newButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

@@ -30,6 +30,14 @@ export SFDX_DOMAIN_RETRY=0
 scratchorgalias=ANZxScratchOrg
 ALL_START_TIME=$(date +%s)
 
+# change forceignore to harness.forceignore as we will have all things in our snapshot
+echoMessageCreator "change the forceignore to the proper one" $stepNo true
+mv .forceignore ci.forceignore
+mv harness.forceignore .forceignore
+echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
+echoMessageCreator "" $stepNo false
+########################
+
 # assign permission sets
 echoMessageCreator "Assign Permission sets" $stepNo true
 sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
@@ -42,10 +50,18 @@ echoMessageCreator "" $stepNo false
 
 # deploy settings and content assests
 echoMessageCreator "Deploy settings and content assets" $stepNo true
-sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml,force-app/main/default/contentassets,force-app/main/default/objects/Case/fields/SLA_Status__c.field-meta.xml 2>&1 | tee stderr
+sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml,force-app/main/default/contentassets,force-app/main/default/objects/Case/fields/SLA_Status__c.field-meta.xml,force-app/main/default/settings/Entitlement.settings-meta.xml 2>&1 | tee stderr
 if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
     exit 1
 fi
+echoMessageCreator "" $stepNo false
+###########################
+
+
+# deploy matching and duplicate rules
+echoMessageCreator "Deploy matching and duplicate rules" $stepNo true
+sfdx force:source:deploy -p force-app/main/default/matchingRules/Lead.matchingRule-meta.xml
+sfdx force:source:deploy -p force-app/main/default/duplicateRules/Lead.Standard_Lead_Duplicate_Rule.duplicateRule-meta.xml
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -63,6 +79,7 @@ changeMetadata force-app/main/default/objects/Account/Account.object-meta.xml Is
 changeMetadata force-app/main/default/objects/Quality_Assessment__c/Quality_Assessment__c.object-meta.xml IsotopeSubscription
 changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum
 changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard
+changeMetadata force-app/main/default/permissionsets/Manage_Users.permissionset-meta.xml manageUsers
 echoMessageCreator "" $stepNo false
 ###########################
 

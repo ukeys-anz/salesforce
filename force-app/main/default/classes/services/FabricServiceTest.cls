@@ -27,6 +27,27 @@ public inherited sharing class FabricServiceTest {
   }
 
   @isTest
+  static void testGetTransactionHistory() {
+    Test.setMock(HttpCalloutMock.class, new MockFabricCallout());
+    //load forge staff token
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
+      ForgeTokenHandlerTest.IDTESTVALUE
+    );
+
+    Test.startTest();
+    FabricService service = new FabricService();
+    HttpCalloutResponse response = service.getTransactionHistory(
+      '1111',
+      '210433904',
+      ''
+    );
+    Test.stopTest();
+
+    System.assertEquals(201, response.statusCode);
+  }
+
+  @isTest
   static void getRealService() {
     Test.startTest();
     Service serviceResult = (Service) ServiceProvider.getService(

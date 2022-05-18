@@ -1,0 +1,69 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "knowledgeMultiSelectTable",
+      "selector": {
+        "css": ".forceKnowledgeMultiSelectTable"
+      },
+      "elements": [
+        {
+          "name": "tableBody",
+          "selector": {
+            "css": "tbody"
+          },
+          "elements": [
+            {
+              "name": "firstOption",
+              "selector": {
+                "css": "tr:nth-of-type(1)"
+              },
+              "elements": [
+                {
+                  "name": "firstOptionSelector",
+                  "selector": {
+                    "css": "input[type='checkbox']"
+                  },
+                  "type": "clickable"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "modalFooter",
+      "selector": {
+        "css": ".slds-modal__footer"
+      },
+      "elements": [
+        {
+          "name": "saveButton",
+          "selector": {
+            "css": "button:nth-of-type(2)"
+          },
+          "type": "clickable"
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "selectFirstCategory",
+      "compose": [
+        {
+          "element": "firstOptionSelector",
+          "apply": "click"
+        },
+        {
+          "element": "saveButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}
