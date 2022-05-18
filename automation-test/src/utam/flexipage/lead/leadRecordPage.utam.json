@@ -1,0 +1,28 @@
+{
+  "elements": [
+    {
+      "name": "highlights",
+      "selector": {
+        "css": "records-lwc-highlights-panel"
+      },
+      "type": "utam-records/pageObjects/lwcHighlightsPanel",
+      "public": true
+    },
+    {
+      "name": "detailsTabset",
+      "selector": {
+        "css": ".region-main flexipage-component2:nth-of-type(1) flexipage-tabset2"
+      },
+      "type": "utam-flexipage/pageObjects/tabset2",
+      "public": true
+    },
+    {
+      "name": "leadNotesTabset",
+      "selector": {
+        "css": ".region-main flexipage-component2:nth-of-type(2) flexipage-tabset2"
+      },
+      "type": "utam-flexipage/pageObjects/tabset2",
+      "public": true
+    }
+  ]
+}

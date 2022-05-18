@@ -56,7 +56,7 @@
       "name": "nextButton",
       "nullable": true,
       "selector": {
-        "css": "footer button:nth-of-type(2)"
+        "css": "button.slds-button_brand"
       },
       "public": true,
       "type": "clickable"
@@ -151,6 +151,29 @@
       },
       "public": true,
       "type": "clickable"
+    },
+    {
+      "name": "leadRecordType",
+      "nullable": true,
+      "selector": {
+        "css": ".changeRecordTypeCenter span.slds-form-element__label",
+        "returnAll": true
+      },
+      "filter": {
+        "apply": "getText",
+        "findFirst": true,
+        "matcher": {
+          "type": "stringEquals",
+          "args": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "public": true,
+      "type": "clickable"
     }
   ],
   "methods": [
@@ -217,6 +240,14 @@
         {
           "element": "saveButton",
           "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "createNewLead",
+      "compose": [
+        {
+          "apply": "clickNew"
         }
       ]
     }

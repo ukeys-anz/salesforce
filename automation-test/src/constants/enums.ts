@@ -22,14 +22,16 @@ export const enum SObject {
   Account = "Account",
   Case = "Case",
   Knowledge = "Knowledge",
-  Quality_Assessment = "Quality Assessment"
+  Quality_Assessment = "Quality Assessment",
+  Lead = "Lead"
 }
 
 export const enum SObjectAPIName {
   Account = "Account",
   Case = "Case",
   Knowledge = "Knowledge__kav",
-  Quality_Assessment = "Quality_Assessment__c"
+  Quality_Assessment = "Quality_Assessment__c",
+  Lead = "Lead"
 }
 
 export const enum OwnerType {

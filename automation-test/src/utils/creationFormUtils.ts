@@ -176,7 +176,7 @@ export const fillInField = async (
       await fillInTextField(field, fieldOptions?.textContent);
       break;
     case "textarea":
-      await fillInTextareaField(field);
+      await fillInTextAreaField(field);
       break;
     case "number":
       await fillInNumberField(field);
@@ -219,7 +219,7 @@ const fillInTextField = async (
   await field.editText(content);
 };
 
-const fillInTextareaField = async (
+const fillInTextAreaField = async (
   field: RecordCreationFormField
 ): Promise<void> => {
   const fakeContent = faker.datatype.string(100);
