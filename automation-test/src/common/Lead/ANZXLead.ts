@@ -6,10 +6,11 @@ import IChatter from "interfaces/IChatter";
 import LeadNotesTab from "pageObjects/leadNotesTab";
 import * as leadPageUtils from "utils/leadPageUtils";
 import * as faker from "faker";
+import RecordPage from "pageObjects/recordPage";
 
 const generalComment = `Automation Test General Comment.`;
 export default class ANZXLead extends Lead implements IChatter {
-  async create(): Promise<void> {
+  async create(leadData?: any): Promise<void> {
     const recordCreationFormRoot = await utam.load(RecordCreationForm);
 
     await recordCreationFormRoot.createNewLead();
@@ -30,32 +31,36 @@ export default class ANZXLead extends Lead implements IChatter {
 
     const recordLayoutInputName = await nameField.getInputName();
     const inputName = await recordLayoutInputName.getInputName();
+
     const firstNameInput = await inputName.getFirstNameInput();
-    const randomFirstName = faker.name.firstName();
-    await firstNameInput.setText(randomFirstName);
+    const firstName = leadData?.firstName
+      ? leadData.firstName
+      : faker.name.firstName();
+    await firstNameInput.setText(firstName);
 
     const lastNameInput = await inputName.getLastNameInput();
-    const randomLastName = faker.name.lastName();
-    await lastNameInput.setText(randomLastName);
+    const lastName = leadData?.lastName
+      ? leadData.lastName
+      : faker.name.lastName();
+    await lastNameInput.setText(lastName);
 
     const mobilePhoneField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 2, 1]
     );
     const mobilePhoneInput = await mobilePhoneField.getInput();
-    const randomMobileNumber = faker.phone.phoneNumber("04########");
-    await mobilePhoneInput.setText(randomMobileNumber);
+    const mobile = leadData?.mobile
+      ? leadData.mobile
+      : faker.phone.phoneNumber("04########");
+    await mobilePhoneInput.setText(mobile);
 
     const emailField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 3, 1]
     );
     const emailInput = await emailField.getInput();
-    const emailText = faker.internet.exampleEmail(
-      randomFirstName,
-      randomLastName
-    );
-    await emailInput.setText(emailText);
+    const email = faker.internet.exampleEmail(firstName, lastName);
+    await emailInput.setText(email);
 
     // click save button
     const formFooter = await baseRecordFrom.getFooter();
@@ -99,6 +104,27 @@ export default class ANZXLead extends Lead implements IChatter {
       expect(
         await chatterPanel.latestPostContentEquals(generalComment)
       ).toEqual(true);
+    }
+  }
+
+  async verifyDuplicate(hasDuplicates: boolean): Promise<void> {
+    // load Lead flexi page
+    const recordPageRoot = await utam.load(RecordPage);
+    const leadRecordPage = await recordPageRoot.getLeadRecordPage();
+    const mergeCandidatesPreviewCard =
+      await leadRecordPage.getMergeCandidatesPreviewCard();
+
+    const duplicateMessage =
+      await mergeCandidatesPreviewCard.getDuplicateMessage();
+
+    if (hasDuplicates) {
+      expect(duplicateMessage).toEqual(
+        "We found 1 potential duplicate of this Lead."
+      );
+    } else {
+      expect(duplicateMessage).toEqual(
+        "We found no potential duplicates of this Lead."
+      );
     }
   }
 }

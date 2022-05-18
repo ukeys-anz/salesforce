@@ -23,6 +23,24 @@
       },
       "type": "utam-flexipage/pageObjects/tabset2",
       "public": true
+    },
+    {
+      "name": "mergeCandicatesPreviewCard",
+      "selector": {
+        "css": ".region-sidebar-right flexipage-component2:nth-of-type(1) flexipage-aura-wrapper"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "mergeCandidatesPreviewCard",
+            "type": "anzx-utam-force/pageObjects/mergeCandidatesPreviewCard",
+            "selector": {
+              "css": ".runtime_sales_mergeMergeCandidatesPreviewCard"
+            },
+            "public": true
+          }
+        ]
+      }
     }
   ]
 }
