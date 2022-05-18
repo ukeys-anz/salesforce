@@ -1,0 +1,11 @@
+{
+  "elements": [
+    {
+      "name": "totalSaved",
+      "selector": {
+        "css": "[data-test-id='total-saved']"
+      },
+      "public": true
+    }
+  ]
+}

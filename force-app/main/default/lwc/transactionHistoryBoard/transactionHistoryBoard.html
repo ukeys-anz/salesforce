@@ -45,23 +45,27 @@
                     type="date"
                     name="startDate"
                     data-id="startDateInput"
+                    data-test-id="startDateInput"
                     label="Start Date"
                     value={startDate}
                     max={endDate}
                     onchange={handleStartDateChange}
-                  ></lightning-input>
+                  >
+                  </lightning-input>
                 </div>
                 <div class="slds-form-element">
                   <lightning-input
                     type="date"
                     name="endDate"
                     data-id="endDateInput"
+                    data-test-id="endDateInput"
                     label="End Date"
                     value={endDate}
                     max={todayDate}
                     min={startDate}
                     onchange={handleEndDateChange}
-                  ></lightning-input>
+                  >
+                  </lightning-input>
                 </div>
                 <template if:true={disableSearch}>
                   <div class="slds-form-element">

@@ -320,4 +320,44 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
       queueNameById.get(c.OwnerId).developerName
     );
   }
+
+  /**
+   * @description : This is to test validation rule is working when case is in pending status
+   * case cannot be submitted
+   */
+  @isTest
+  static void testSubmitPendingCaseValidation() {
+    Faker faker = new Faker('AU');
+    Case c = new Case(
+      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+      Dispute_Reason__c = GetHelpCaseAssignmentRules.DID_NOT_AUTHORISE_TRANSACTION,
+      External_System__c = 'Pega_Smarts',
+      External_Case_ID__c = faker.randomString(8),
+      Card_In_Possession_During_Transaction__c = 'No',
+      Has_The_Card_Been_Stopped__c = 'No',
+      Date_Posted__c = date.newInstance(1970, 1, 1),
+      IDR_Escalation_Reason__c = '8',
+      Is_this_a_Business_Customer__c = 'No',
+      Amount_Of_Authorised_Transaction__c = 20,
+      Origin = 'App',
+      Priority = 'Standard',
+      Description = 'Test',
+      Type = '13',
+      IDR_Subsequent_Issue__c = '9'
+    );
+
+    Test.startTest();
+    insert c;
+    Test.stopTest();
+
+    c.Submitted__c = true;
+    String expMsg = '';
+    try {
+      update c;
+    } catch (Exception e) {
+      expMsg = e.getMessage();
+    }
+    String validationMsg = 'Card dispute case cannot be submitted when the transaction status is pending or Date posted is not Valid';
+    System.assert(expMsg.contains(validationMsg));
+  }
 }

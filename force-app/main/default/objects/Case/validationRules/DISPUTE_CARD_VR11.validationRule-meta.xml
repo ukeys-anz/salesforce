@@ -5,8 +5,10 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;Card_Dispute&apos;,
-ISPICKVAL(Transaction_Status__c, &quot;TRANSACTION_STATUS_PENDING&quot;),
+ISPICKVAL(Origin,"App"),
+OR(ISPICKVAL(Transaction_Status__c, &quot;TRANSACTION_STATUS_PENDING&quot;),
+YEAR(Date_Posted__c) = 1970),
 Submitted__c = True
 )</errorConditionFormula>
-    <errorMessage>Card dispute case cannot be submitted when the transaction status is pending</errorMessage>
+    <errorMessage>Card dispute case cannot be submitted when the transaction status is pending or Date posted is not Valid</errorMessage>
 </ValidationRule>

@@ -14,11 +14,6 @@ export default class Auth {
       process.exit(-1);
     }
 
-    if (!process.env.SALESFORCE_ENV) {
-      console.error("Error: missing SALESFORCE_ENV.");
-      process.exit(-1);
-    }
-
     // open login url
     await browser.url(process.env.SALESFORCE_LOGIN_URL!);
 
@@ -35,8 +30,8 @@ export default class Auth {
         }
 
         await salesforceLoginRoot.login(
-          `${process.env.COACH_USERNAME}.${process.env.SALESFORCE_ENV}`,
-          process.env.COACH_PASSWORD!
+          process.env.COACH_USERNAME,
+          process.env.COACH_PASSWORD
         );
         break;
       case UserRole.FRAUDX_AGENT:
@@ -51,8 +46,8 @@ export default class Auth {
         }
 
         await salesforceLoginRoot.login(
-          `${process.env.FRAUDX_AGENT_USERNAME}.${process.env.SALESFORCE_ENV}`,
-          process.env.FRAUDX_AGENT_PASSWORD!
+          process.env.FRAUDX_AGENT_USERNAME,
+          process.env.FRAUDX_AGENT_PASSWORD
         );
         break;
       default:

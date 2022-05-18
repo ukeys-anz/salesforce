@@ -18,7 +18,7 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
     await Auth.loginSalesforceAsRole(UserRole.COACH);
 
     // redirect test user to Coaches Workbench and Account home page
-    await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.ACCOUNTS);
+    await navigateToConsoleAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
   });
 
   beforeEach(async () => {
@@ -36,9 +36,7 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
 
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
-      await searchRecordInGlobalSearchAndRedirect(
-        caseData.financialAccountNumber
-      );
+      await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
     });
 
     it("Raise Dispute", async (): Promise<void> => {
@@ -62,9 +60,7 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
 
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
-      await searchRecordInGlobalSearchAndRedirect(
-        caseData.financialAccountNumber
-      );
+      await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
     });
 
     it("Raise Dispute", async (): Promise<void> => {
@@ -88,9 +84,7 @@ describe("Disputes - Coach Creates Disputes from Transaction", () => {
 
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
-      await searchRecordInGlobalSearchAndRedirect(
-        caseData.financialAccountNumber
-      );
+      await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
     });
 
     it("Raise Dispute", async (): Promise<void> => {

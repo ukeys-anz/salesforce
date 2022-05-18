@@ -1,0 +1,12 @@
+{
+  "elements": [
+    {
+      "name": "caseLogACall",
+      "type": "anzx-utam-lwc/pageObjects/lwcCaseLogACall",
+      "selector": {
+        "css": "c-case-log-a-call"
+      },
+      "public": true
+    }
+  ]
+}

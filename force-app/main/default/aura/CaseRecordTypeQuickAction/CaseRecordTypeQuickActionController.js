@@ -30,22 +30,34 @@
     dismissActionPanel.fire();
   },
 
-  // Handle navigating user to case edit form
-  handleNext: function (component) {
-    $A.get("e.force:closeQuickAction").fire();
-    var navService = component.find("navService");
-    var pageReference = {
-      type: "standard__recordPage",
-      attributes: {
-        recordId: component.get("v.recordId"),
-        objectApiName: "Case",
-        actionName: "edit"
-      },
-      state: {
-        defaultFieldValues:
-          "RecordTypeId=" + component.get("v.selectedRecordTypeId")
+  // Handle populating defaults and navigating user to case edit form
+  handleNext: function (component, event, helper) {
+    var action = component.get("c.getCaseDetailsById");
+    action.setParams({
+      caseId: component.get("v.recordId"),
+      newRecordTypeId: component.get("v.selectedRecordTypeId")
+    });
+    action.setCallback(this, function (response) {
+      $A.get("e.force:closeQuickAction").fire();
+      var state = response.getState();
+      if (state === "SUCCESS") {
+        var result = JSON.parse(response.getReturnValue());
+        var autoFillFieldsString = "";
+        for (var i in result) {
+          autoFillFieldsString =
+            autoFillFieldsString + "," + i + "=" + result[i];
+        }
+        component.set("v.autoFillFieldsString", autoFillFieldsString);
+        helper.handleNavig(component);
+      } else {
+        console.error("Failed with state: " + state);
+        this.showToast(
+          "error",
+          "Failed to retrieve case details, please contact system administrator for assistance.",
+          "Error!"
+        );
       }
-    };
-    navService.navigate(pageReference);
+    });
+    $A.enqueueAction(action);
   }
 });

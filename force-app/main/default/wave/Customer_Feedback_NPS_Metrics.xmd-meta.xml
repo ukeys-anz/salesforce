@@ -22,11 +22,11 @@
                 <sortIndex>2</sortIndex>
             </formattingBins>
             <property>chartColor</property>
-            <referenceField>avg_Advocacy_Rating__c</referenceField>
+            <referenceField>avg_qualtrics__Net_Promoter_Score__c</referenceField>
             <sortIndex xsi:nil="true"/>
             <type>multiple</type>
         </conditionalFormatting>
-        <field>Advocacy_Rating__c_1.ALL</field>
+        <field>qualtrics__Net_Promoter_Score__c_1.ALL</field>
         <isDerived>false</isDerived>
         <sortIndex>0</sortIndex>
     </dimensions>
@@ -51,11 +51,11 @@
                 <sortIndex>2</sortIndex>
             </formattingBins>
             <property>chartColor</property>
-            <referenceField>avg_Advocacy_Rating__c</referenceField>
+            <referenceField>avg_qualtrics__Net_Promoter_Score__c</referenceField>
             <sortIndex xsi:nil="true"/>
             <type>multiple</type>
         </conditionalFormatting>
-        <field>Advocacy_Rating__c_1.avg_Advocacy_Rating__c</field>
+        <field>qualtrics__Net_Promoter_Score__c_1.avg_qualtrics__Net_Promoter_Score__c</field>
         <isDerived>false</isDerived>
         <sortIndex>0</sortIndex>
     </measures>

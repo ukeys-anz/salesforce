@@ -27,7 +27,9 @@
     "Log_Record_Access__b",
     "Privileged_Access_Request__c",
     "Product2",
+    "Product_Family__c",
     "Quality_Assessment__c",
+    "qualtrics__Survey_Response__c",
     "Release__c",
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
@@ -256,7 +258,11 @@
       "name": "Qualtrics Integration User",
       "profile": "Integration User (External Apps)",
       "permissionsetgroups": [],
-      "permissionsets": ["Customer_Feedback_Read_Write"],
+      "permissionsets": [
+        "Case_Read_Write_Qualtrics_Integration",
+        "Customer_Feedback_Read_Write",
+        "Lead_Read_Write_Qualtrics_Integration"
+      ],
       "type": "system"
     },
     {

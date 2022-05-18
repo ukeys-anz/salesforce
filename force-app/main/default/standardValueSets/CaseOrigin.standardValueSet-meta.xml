@@ -176,4 +176,9 @@
         <default>false</default>
         <label>BU identified other</label>
     </standardValue>
+    <standardValue>
+        <fullName>Survey</fullName>
+        <default>false</default>
+        <label>Survey</label>
+    </standardValue>
 </StandardValueSet>

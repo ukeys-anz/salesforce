@@ -80,13 +80,13 @@
   ],
   "layouts": [],
   "steps": {
-    "Advocacy_Rating__c_1": {
+    "qualtrics__Net_Promoter_Score__c_1": {
       "broadcastFacet": true,
-      "datasets": [{ "name": "Customer_Feedback" }],
+      "datasets": [{ "name": "NPS" }],
       "isGlobal": false,
-      "label": "Advocacy_Rating__c_1",
+      "label": "qualtrics__Net_Promoter_Score__c_1",
       "query": {
-        "query": "{\"measures\":[[\"avg\",\"Advocacy_Rating__c\"]]}",
+        "query": "{\"measures\":[[\"avg\",\"qualtrics__Net_Promoter_Score__c\"]]}",
         "version": -1.0
       },
       "receiveFacetSource": { "mode": "all", "steps": [] },
@@ -130,7 +130,10 @@
           "showLabel": false,
           "showValue": true,
           "high": 66,
-          "columnMap": { "trellis": [], "plots": ["avg_Advocacy_Rating__c"] },
+          "columnMap": {
+            "trellis": [],
+            "plots": ["avg_qualtrics__Net_Promoter_Score__c"]
+          },
           "showActionMenu": true,
           "min": 0,
           "angle": 180,
@@ -142,7 +145,7 @@
     },
     "all_2": {
       "broadcastFacet": true,
-      "datasets": [{ "name": "Customer_Feedback" }],
+      "datasets": [{ "name": "NPS" }],
       "isGlobal": false,
       "label": "Total Feedback Provided",
       "query": {
@@ -274,12 +277,12 @@
     "text_1": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Avg_of_Advocacy_Rati]\n",
+          "displayTemplate": "[Avg_of_Net_Promoter_Score]\n",
           "values": {
-            "Avg_of_Advocacy_Rati": {
-              "field": "avg_Advocacy_Rating__c",
+            "Avg_of_Net_Promoter_Score": {
+              "field": "avg_qualtrics__Net_Promoter_Score__c",
               "sourceType": "result",
-              "step": "Advocacy_Rating__c_1"
+              "step": "qualtrics__Net_Promoter_Score__c_1"
             }
           }
         },
@@ -307,7 +310,7 @@
         "title": {
           "fontSize": 14,
           "subtitleFontSize": 11,
-          "label": "Average Advocacy Score",
+          "label": "Average Advocacy Rating",
           "align": "center",
           "subtitleLabel": ""
         },
@@ -321,14 +324,17 @@
         },
         "colors": { "lowColor1": "#1674D9", "highColor1": "#1674D9" },
         "high": 66,
-        "columnMap": { "trellis": [], "plots": ["avg_Advocacy_Rating__c"] },
+        "columnMap": {
+          "trellis": [],
+          "plots": ["avg_qualtrics__Net_Promoter_Score__c"]
+        },
         "showActionMenu": false,
         "min": 0,
         "numberOfIcons": 10,
         "valueType": "none",
         "valuesOnLeft": false,
         "theme": "wave",
-        "step": "Advocacy_Rating__c_1",
+        "step": "qualtrics__Net_Promoter_Score__c_1",
         "applyConditionalFormatting": true,
         "showMax": false
       },

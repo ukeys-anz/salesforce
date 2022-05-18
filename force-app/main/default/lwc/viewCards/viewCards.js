@@ -29,10 +29,10 @@ export default class ViewCards extends LightningElement {
   initialCardsDetails = [];
   tokenizedCardNumber = "";
   collapseExpandText = "Expand List";
-  replaceLockUnavailable;
-  replaceLostUnavailable;
-  replaceStolenUnavailable;
-  replaceDamagedUnavailable;
+  replaceLockUnavailable = true;
+  replaceLostUnavailable = true;
+  replaceStolenUnavailable = true;
+  replaceDamagedUnavailable = true;
 
   loading = false;
   noCards = false;
@@ -164,7 +164,11 @@ export default class ViewCards extends LightningElement {
       label,
       showLock: this.showLock,
       showFraudLock: this.showFraudLock,
-      showReplace: this.showReplace
+      showReplace: this.showReplace,
+      replaceDamagedUnavailable: this.replaceDamagedUnavailable,
+      replaceLockUnavailable: this.replaceLockUnavailable,
+      replaceLostUnavailable: this.replaceLostUnavailable,
+      replaceStolenUnavailable: this.replaceStolenUnavailable
     };
     const buttonClicked = card.buttons.find((btn) => btn.label === label);
     const returnObject = buttonClicked.actionFunction(inputObject);

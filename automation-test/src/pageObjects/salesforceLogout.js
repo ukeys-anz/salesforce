@@ -19,6 +19,15 @@ class SalesforceLogout extends core.UtamBaseRootPageObject {
     super(driver, element, locator);
   }
 
+  async __beforeLoad__() {
+    const _result0 = await this.waitFor(async () => {
+      const _statement0 = await this.__getRoot();
+      const _result0 = await _statement0.isVisible();
+      return _result0;
+    });
+    return _result0;
+  }
+
   async __getRoot() {
     const driver = this.driver;
     const root = await this.getRootElement();
