@@ -741,4 +741,19 @@ public without sharing class Lib_SystemLog {
       );
     }
   }
+
+  /**
+   * @description calculates the difference in minutes between the start time and end time
+   * @param startTime the Earliest Time
+   * @param endTime the Latest Time
+   * @return Integer the difference in minutes between the two times.
+   */
+  public static Integer getDifferenceInMinutes(
+    DateTime startTime,
+    DateTime endTime
+  ) {
+    Long duration = endTime.getTime() - startTime.getTime();
+    duration = duration / (60 * 1000);
+    return duration.intValue();
+  }
 }

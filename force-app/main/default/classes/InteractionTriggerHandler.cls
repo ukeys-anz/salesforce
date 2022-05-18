@@ -23,6 +23,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     Set<Id> interactionIds = new Set<Id>(interactionMap.keyset());
 
     InteractionActions.setExternalIds(interactionIds);
+
+    AppointmentNotificationHandler.sendNotifications(interactions);
   }
 
   /**
@@ -107,6 +109,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       oldMap,
       records
     );
+
+    AppointmentNotificationHandler.sendNotifications(cancelledInteractions);
 
     List<Interaction> noShowInteractions = actionsForInteractions.getNoShowInteractions(
       oldMap,

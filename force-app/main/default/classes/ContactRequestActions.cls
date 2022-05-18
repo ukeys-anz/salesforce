@@ -410,7 +410,7 @@ public with sharing class ContactRequestActions {
       if (Account.SObjectType.getDescribe().isQueryable()) {
         result = new Map<Id, Account>(
           [
-            SELECT Id, Name, PersonContactId
+            SELECT Id, Name, PersonContactId, FirstName
             FROM Account
             WHERE Id IN :accountIds
           ]
@@ -447,7 +447,7 @@ public with sharing class ContactRequestActions {
     if (!leadIds.isEmpty()) {
       if (Lead.SObjectType.getDescribe().isQueryable()) {
         result = new Map<Id, Lead>(
-          [SELECT Id, Name FROM Lead WHERE Id IN :leadIds]
+          [SELECT Id, Name, FirstName FROM Lead WHERE Id IN :leadIds]
         );
       } else {
         CommonUtil.logAndThrowIAE(
