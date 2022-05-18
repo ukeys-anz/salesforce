@@ -24,6 +24,8 @@
     <permissionSets>Fraud_Lock_Card</permissionSets>
     <permissionSets>Knowledge_Base_Author</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
+    <permissionSets>Lead_Modify_All</permissionSets>
+    <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
     <permissionSets>Manage_Users</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>

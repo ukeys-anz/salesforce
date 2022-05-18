@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>ANZX_Leads_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Leads having ANZX Leads record type are to be shared with Coaches, Coach Leads and Support Coaches with Read/Write access.</description>
+        <description>All Leads having ANZX Leads record type are to be shared with Coaches, Coach Leads, Support Coaches and Business Admins with Read/Write access.</description>
         <label>ANZX_Leads_Coaches_RW</label>
         <sharedTo>
             <group>Lead_Read_Write_Roles</group>
@@ -27,5 +27,5 @@
             <operation>equals</operation>
             <value>ANZX Leads</value>
         </criteriaItems>
-    </sharingCriteriaRules>   
+    </sharingCriteriaRules>
 </SharingRules>
