@@ -12,14 +12,14 @@
                 <field>AccountId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Contact_Mobile__c</field>
+                <behavior>Edit</behavior>
+                <field>Lead__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Lead__c</field>
+                <field>Contact_Mobile__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -41,10 +41,6 @@
         <label>Appointment Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Name</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Interaction_Auto_Number__c</field>
             </layoutItems>
@@ -62,11 +58,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Authentication_Method__c</field>
+                <field>StartTime</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Channel_Booked__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Record_Type__c</field>
+                <field>Escalated__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -84,11 +84,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>StartTime</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>EndTime</field>
+                <field>Direction__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -96,15 +92,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Coaching_Summary__c</field>
+                <field>EndTime</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Direction__c</field>
+                <field>Authentication_Method__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Escalated__c</field>
+                <behavior>Edit</behavior>
+                <field>Coaching_Summary__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -125,14 +121,17 @@
         <label>Other Information</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>Name</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CreatedById</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Channel_Booked__c</field>
+                <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

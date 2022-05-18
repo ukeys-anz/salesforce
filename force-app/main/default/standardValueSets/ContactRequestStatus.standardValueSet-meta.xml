@@ -7,11 +7,6 @@
         <label>New</label>
     </standardValue>
     <standardValue>
-        <fullName>Accepted</fullName>
-        <default>false</default>
-        <label>Accepted</label>
-    </standardValue>
-    <standardValue>
         <fullName>Cancelled</fullName>
         <default>false</default>
         <label>Cancelled</label>

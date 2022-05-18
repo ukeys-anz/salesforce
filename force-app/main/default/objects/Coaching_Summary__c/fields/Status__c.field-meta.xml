@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Status of the coaching summary record.</description>
+    <inlineHelpText>The status of the coaching summary.</inlineHelpText>
     <externalId>false</externalId>
     <label>Status</label>
     <required>false</required>

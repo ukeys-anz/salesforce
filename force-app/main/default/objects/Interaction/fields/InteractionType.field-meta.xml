@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>How interaction happened</description>
-    <inlineHelpText>The type of interaction.</inlineHelpText>
+    <inlineHelpText>The channel that the appointment will be held through e.g. through phone or store</inlineHelpText>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

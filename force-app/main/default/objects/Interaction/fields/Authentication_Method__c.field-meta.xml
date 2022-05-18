@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The method used to authenticate customer on the call</description>
+    <inlineHelpText>The customer will need to be authenticated before an appointment occurs. Please select how the customer was authenticated.</inlineHelpText>
     <externalId>false</externalId>
     <label>Authentication Method</label>
     <required>false</required>

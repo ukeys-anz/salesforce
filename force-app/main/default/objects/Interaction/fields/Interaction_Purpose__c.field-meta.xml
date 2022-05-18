@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Why interaction happened</description>
+    <inlineHelpText>The reason for the appointment with the customer</inlineHelpText>
     <externalId>false</externalId>
     <label>Reason</label>
     <required>false</required>

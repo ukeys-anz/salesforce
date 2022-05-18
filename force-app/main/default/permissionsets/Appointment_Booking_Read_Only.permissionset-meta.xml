@@ -43,11 +43,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactRequest.Contact_Request_Auto_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>ContactRequest.Channel_Booked__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -123,6 +118,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Interaction_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Interaction_Purpose__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -139,6 +139,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.LocationId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Optional_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -169,11 +174,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Twilio_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.Optional_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -263,7 +263,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>InteractionSummary</object>
+        <object>Location</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
@@ -276,10 +276,6 @@
     </tabSettings>
     <tabSettings>
         <tab>standard-Interaction</tab>
-        <visibility>Visible</visibility>
-    </tabSettings>
-    <tabSettings>
-        <tab>standard-InteractionSummary</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
