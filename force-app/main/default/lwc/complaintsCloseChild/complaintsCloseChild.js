@@ -10,22 +10,25 @@ import COMPLAINT_SUB_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Sub_Reme
 import REMEDY_POINTS1 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points__c";
 import OTHER_REMDY1 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided__c";
 import REMEDY_DURATION from "@salesforce/schema/Case.IDR_Duration_of_Remedy__c";
+
 //Remedy 2 fields
 import COMPLAINT_REMEDY2 from "@salesforce/schema/Case.IDR_Complaint_Remedy_2__c";
 import COMPLAINT_SUB_REMEDY2 from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy_2__c";
 import REMEDY_POINTS2 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_2__c";
 import OTHER_REMDY2 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_2__c";
+import REMEDY_DURATION2 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_2__c";
 
 //Remedy 3 fields
 import COMPLAINT_REMEDY3 from "@salesforce/schema/Case.IDR_Complaint_Remedy_3__c";
 import COMPLAINT_SUB_REMEDY3 from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy_3__c";
 import REMEDY_POINTS3 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_3__c";
 import OTHER_REMDY3 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_3__c";
+import REMEDY_DURATION3 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_3__c";
 
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 const COMPLAINT_REMDY_PRODUCT_MANU = "3";
-const OTHER = "99";
+const SUB_REMEDY_OTHER = "99";
 const REWARD_POINTS = "Reward Points";
 const DEBT_WAIVER = "10";
 const SETTEL_FOR_LESS = "18";
@@ -49,12 +52,14 @@ export default class complaintsResolveLWC extends NavigationMixin(
   complaintSubRemedy2 = COMPLAINT_SUB_REMEDY2;
   remedyPoints2 = REMEDY_POINTS2;
   otherNonFinRemedy2 = OTHER_REMDY2;
+  remedyDuration2 = REMEDY_DURATION2;
 
   //remedy3
   complaintRemedy3 = COMPLAINT_REMEDY3;
   complaintSubRemedy3 = COMPLAINT_SUB_REMEDY3;
   remedyPoints3 = REMEDY_POINTS3;
   otherNonFinRemedy3 = OTHER_REMDY3;
+  remedyDuration3 = REMEDY_DURATION3;
 
   showRemedy2 = false;
   showRemedy3 = false;
@@ -121,27 +126,22 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Complaint_Remedy__c";
     sendVal.value = event.detail.value;
-    console.log("Remedy:" + event.detail.value);
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
-      console.log("here 1");
       this.isFinancialComplaintRemedy = true;
       this.showFinancialCompensation = true;
       this.isNonFinancialComplaintRemedy = false;
       this.isReferredToProductManufacturer = false;
     } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
-      console.log("here 2");
       this.isFinancialComplaintRemedy = false;
       this.showFinancialCompensation = false;
       this.isNonFinancialComplaintRemedy = true;
       this.isReferredToProductManufacturer = false;
     } else if (event.detail.value === COMPLAINT_REMDY_PRODUCT_MANU) {
-      console.log("here 3");
       this.isFinancialComplaintRemedy = false;
       this.showFinancialCompensation = false;
       this.isNonFinancialComplaintRemedy = false;
       this.isReferredToProductManufacturer = true;
     } else {
-      console.log("here 4");
       this.isFinancialComplaintRemedy = false;
       this.isNonFinancialComplaintRemedy = false;
       this.isReferredToProductManufacturer = false;
@@ -158,7 +158,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Complaint_Sub_Remedy__c";
     sendVal.value = event.detail.value;
 
-    if (event.target.value == OTHER) {
+    if (event.target.value == SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy = true;
     } else {
       this.isOtherSubFinRemedy = false;
@@ -297,7 +297,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Complaint_Sub_Remedy_2__c";
     sendVal.value = event.detail.value;
 
-    if (event.target.value == OTHER) {
+    if (event.target.value == SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy2 = true;
     } else {
       this.isOtherSubFinRemedy2 = false;
@@ -317,6 +317,16 @@ export default class complaintsResolveLWC extends NavigationMixin(
     } else {
       this.isRewardPoints2 = false;
     }
+
+    if (
+      event.target.value === MORATORIUM ||
+      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER
+    ) {
+      this.showDuration2 = true;
+    } else {
+      this.showDuration2 = false;
+    }
+
     this.sendFieldValue(sendVal);
   }
 
@@ -360,6 +370,17 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.value = event.detail.checked;
     this.thirdPartyIsDetailsProvidedToProductManufacturer =
       event.detail.checked;
+    this.sendFieldValue(sendVal);
+  }
+
+  handleremedyDuration2(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+
+    sendVal.field = "IDR_Duration_of_Remedy_2__c";
+    sendVal.value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -415,7 +436,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Complaint_Sub_Remedy_3__c";
     sendVal.value = event.detail.value;
 
-    if (event.target.value == OTHER) {
+    if (event.target.value == SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy3 = true;
     } else {
       this.isOtherSubFinRemedy3 = false;
@@ -435,6 +456,16 @@ export default class complaintsResolveLWC extends NavigationMixin(
     } else {
       this.isRewardPoints3 = false;
     }
+
+    if (
+      event.target.value === MORATORIUM ||
+      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER
+    ) {
+      this.showDuration3 = true;
+    } else {
+      this.showDuration3 = false;
+    }
+
     this.sendFieldValue(sendVal);
   }
 
@@ -480,6 +511,18 @@ export default class complaintsResolveLWC extends NavigationMixin(
       event.detail.checked;
     this.sendFieldValue(sendVal);
   }
+
+  handleremedyDuration3(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+
+    sendVal.field = "IDR_Duration_of_Remedy_3__c";
+    sendVal.value = event.detail.value;
+    this.sendFieldValue(sendVal);
+  }
+
   sendFieldValue(sendVal) {
     this.dispatchEvent(
       new CustomEvent("fieldvalueupdate", { detail: sendVal })

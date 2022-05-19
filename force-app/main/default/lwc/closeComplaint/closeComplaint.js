@@ -24,6 +24,7 @@ import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2 from "@salesforc
 import COMPLAINT_SUB_REMEDY2 from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy_2__c";
 import REMEDY_POINTS2 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_2__c";
 import OTHER_REMDY2 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_2__c";
+import REMEDY_DURATION2 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_2__c";
 
 //Remedy 3
 
@@ -33,13 +34,13 @@ import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3 from "@salesforc
 import COMPLAINT_SUB_REMEDY3 from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy_3__c";
 import REMEDY_POINTS3 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_3__c";
 import OTHER_REMDY3 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_3__c";
+import REMEDY_DURATION3 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_3__c";
 
 const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
-const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
 const COMPLAINT_REMEDY_PRODUCT_MANU = "3";
-const OTHER = "99";
+const SUB_REMEDY_OTHER = "99";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const DEBT_WAIVER = "10";
 const SETTEL_FOR_LESS = "18";
@@ -52,7 +53,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   @api recordId;
   recordTypeId;
   loadChild = false;
-  saveFields = {};
+  closeFields = {};
   errMsg = "Complete Required Fields:";
 
   showModal = false;
@@ -82,7 +83,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   }
 
   handleStatusChange(event) {
-    this.saveFields[STATUS_FIELD.fieldApiName] = event.target.value;
+    this.closeFields[STATUS_FIELD.fieldApiName] = event.target.value;
   }
 
   handleFieldUpdate(event) {
@@ -91,79 +92,87 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
     switch (fieldApi) {
       case "IDR_Complaint_Outcome__c":
-        this.saveFields[COMPLAINT_OUTCOME.fieldApiName] = value;
+        this.closeFields[COMPLAINT_OUTCOME.fieldApiName] = value;
         break;
       case "IDR_Description_of_Outcome__c":
-        this.saveFields[OUTCOME_DESCRIPTION.fieldApiName] = value;
+        this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] = value;
         break;
       case "IDR_Complaint_Remedy__c":
-        this.saveFields[COMPLAINT_REMEDY.fieldApiName] = value;
+        this.closeFields[COMPLAINT_REMEDY.fieldApiName] = value;
         break;
       case "Provided_details_to_Product_Manufacturer__c":
-        this.saveFields[
+        this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
         ] = value;
         break;
       case "IDR_Financial_Compensation__c":
-        this.saveFields[FINANCIAL_COMPENSATION.fieldApiName] = value;
+        this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] = value;
         break;
       case "IDR_Complaint_Sub_Remedy__c":
-        this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] = value;
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] = value;
         break;
       case "IDR_Financial_Remedy_Points__c":
-        this.saveFields[REMEDY_POINTS1.fieldApiName] = value;
+        this.closeFields[REMEDY_POINTS1.fieldApiName] = value;
         break;
       case "IDR_Other_Remedy_Provided__c":
-        this.saveFields[OTHER_REMDY1.fieldApiName] = value;
+        this.closeFields[OTHER_REMDY1.fieldApiName] = value;
+        break;
+      case "IDR_Duration_of_Remedy__c":
+        this.closeFields[REMEDY_DURATION.fieldApiName] = value;
+        console.log("Duration receieved");
         break;
       case "Remedy2":
         this.remedy2 = value;
         break;
       case "IDR_Complaint_Remedy_2__c":
-        this.saveFields[COMPLAINT_REMEDY2.fieldApiName] = value;
+        this.closeFields[COMPLAINT_REMEDY2.fieldApiName] = value;
         break;
       case "Provided_details_to_Prod_Manufacturer_2__c":
-        this.saveFields[
+        this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
         ] = value;
         break;
       case "IDR_Financial_Compensation_2__c":
-        this.saveFields[FINANCIAL_COMPENSATION2.fieldApiName] = value;
+        this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] = value;
         break;
       case "IDR_Complaint_Sub_Remedy_2__c":
-        this.saveFields[COMPLAINT_SUB_REMEDY2.fieldApiName] = value;
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] = value;
         break;
       case "IDR_Financial_Remedy_Points_2__c":
-        this.saveFields[REMEDY_POINTS2.fieldApiName] = value;
+        this.closeFields[REMEDY_POINTS2.fieldApiName] = value;
         break;
       case "IDR_Other_Remedy_Provided_2__c":
-        this.saveFields[OTHER_REMDY2.fieldApiName] = value;
+        this.closeFields[OTHER_REMDY2.fieldApiName] = value;
+        break;
+      case "IDR_Duration_of_Remedy_2__c":
+        this.closeFields[REMEDY_DURATION2.fieldApiName] = value;
+        console.log("Duration receieved");
         break;
       case "Remedy3":
         this.remedy3 = value;
         break;
       case "IDR_Complaint_Remedy_3__c":
-        this.saveFields[COMPLAINT_REMEDY3.fieldApiName] = value;
+        this.closeFields[COMPLAINT_REMEDY3.fieldApiName] = value;
         break;
       case "Provided_details_to_Prod_Manufacturer_3__c":
-        this.saveFields[
+        this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
         ] = value;
         break;
       case "IDR_Financial_Compensation_3__c":
-        this.saveFields[FINANCIAL_COMPENSATION3.fieldApiName] = value;
+        this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] = value;
         break;
       case "IDR_Complaint_Sub_Remedy_3__c":
-        this.saveFields[COMPLAINT_SUB_REMEDY3.fieldApiName] = value;
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] = value;
         break;
       case "IDR_Financial_Remedy_Points_3__c":
-        this.saveFields[REMEDY_POINTS3.fieldApiName] = value;
+        this.closeFields[REMEDY_POINTS3.fieldApiName] = value;
         break;
       case "IDR_Other_Remedy_Provided_3__c":
-        this.saveFields[OTHER_REMDY3.fieldApiName] = value;
+        this.closeFields[OTHER_REMDY3.fieldApiName] = value;
         break;
-      case "IDR_Duration_of_Remedy__c":
-        this.saveFields[REMEDY_DURATION.fieldApiName] = value;
+      case "IDR_Duration_of_Remedy_3__c":
+        this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
         console.log("Duration receieved");
         break;
     }
@@ -173,7 +182,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     this.errMsg = "Complete Required Fields:";
     let validToSave = true;
 
-    if (this.saveFields[STATUS_FIELD.fieldApiName] == null) {
+    if (this.closeFields[STATUS_FIELD.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + STATUS_FIELD.fieldApiName + " ;";
     }
@@ -189,9 +198,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     }
 
     if (validToSave) {
-      this.saveFields[ID_FIELD.fieldApiName] = this.recordId;
+      this.closeFields[ID_FIELD.fieldApiName] = this.recordId;
 
-      const fields = this.saveFields;
+      const fields = this.closeFields;
       const recordInput = { fields };
 
       updateRecord(recordInput)
@@ -210,76 +219,76 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateRemedy1Fields() {
     let validToSave = true;
 
-    if (this.saveFields[COMPLAINT_OUTCOME.fieldApiName] == null) {
+    if (this.closeFields[COMPLAINT_OUTCOME.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + COMPLAINT_OUTCOME.fieldApiName + " ;";
     }
-    if (this.saveFields[OUTCOME_DESCRIPTION.fieldApiName] == null) {
+    if (this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + OUTCOME_DESCRIPTION.fieldApiName + " ;";
     }
-    if (this.saveFields[COMPLAINT_REMEDY.fieldApiName] == null) {
+    if (this.closeFields[COMPLAINT_REMEDY.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + COMPLAINT_REMEDY.fieldApiName + " ;";
     }
 
-    if (this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] == null) {
+    if (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + COMPLAINT_SUB_REMEDY.fieldApiName + ";";
     }
 
     if (
-      this.saveFields[COMPLAINT_REMEDY.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.saveFields[FINANCIAL_COMPENSATION.fieldApiName] == null
+      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + FINANCIAL_COMPENSATION.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] == REWARD_POINTS &&
-      this.saveFields[REMEDY_POINTS1.fieldApiName] == null
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS1.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + REMEDY_POINTS1.fieldApiName + ";";
     }
 
     if (
-      (this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] == DEBT_WAIVER ||
-        this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
           SETTEL_FOR_LESS) &&
-      this.saveFields[FINANCIAL_COMPENSATION.fieldApiName] == null
+      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + FINANCIAL_COMPENSATION.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] == OTHER &&
-      this.saveFields[OTHER_REMDY1.fieldApiName] == null
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == SUB_REMEDY_OTHER &&
+      this.closeFields[OTHER_REMDY1.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + OTHER_REMDY1.fieldApiName + " ;";
     }
 
     if (
-      (this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] == MORATORIUM ||
-        this.saveFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
           TIME_TO_SELL_REFINANCE_SURRENDER) &&
-      this.saveFields[REMEDY_DURATION.fieldApiName] == null
+      this.closeFields[REMEDY_DURATION.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + REMEDY_DURATION.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_REMEDY.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
         COMPLAINT_REMEDY_PRODUCT_MANU &&
-      (this.saveFields[
+      (this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
       ] == null ||
-        this.saveFields[
+        this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
         ] == false)
     ) {
@@ -295,58 +304,68 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateRemedy2Fields() {
     let validToSave = true;
 
-    if (this.saveFields[COMPLAINT_REMEDY2.fieldApiName] == null) {
+    if (this.closeFields[COMPLAINT_REMEDY2.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + COMPLAINT_REMEDY2.fieldApiName + " ;";
     }
 
-    if (this.saveFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == null) {
+    if (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + COMPLAINT_SUB_REMEDY2.fieldApiName + ";";
     }
 
     if (
-      this.saveFields[COMPLAINT_REMEDY2.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.saveFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
+      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == REWARD_POINTS &&
-      this.saveFields[REMEDY_POINTS2.fieldApiName] == null
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS2.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + REMEDY_POINTS2.fieldApiName + ";";
     }
 
     if (
-      (this.saveFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == DEBT_WAIVER ||
-        this.saveFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
           SETTEL_FOR_LESS) &&
-      this.saveFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
+      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == OTHER &&
-      this.saveFields[OTHER_REMDY2.fieldApiName] == null
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+        SUB_REMEDY_OTHER &&
+      this.closeFields[OTHER_REMDY2.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + OTHER_REMDY2.fieldApiName + " ;";
     }
+    if (
+      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+      this.closeFields[REMEDY_DURATION2.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.errMsg = this.errMsg + REMEDY_DURATION2.fieldApiName + " ;";
+    }
 
     if (
-      this.saveFields[COMPLAINT_REMEDY2.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
         COMPLAINT_REMEDY_PRODUCT_MANU &&
-      (this.saveFields[
+      (this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
       ] == null ||
-        this.saveFields[
+        this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
         ] == false)
     ) {
@@ -362,58 +381,69 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateRemedy3Fields() {
     let validToSave = true;
 
-    if (this.saveFields[COMPLAINT_REMEDY3.fieldApiName] == null) {
+    if (this.closeFields[COMPLAINT_REMEDY3.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + COMPLAINT_REMEDY3.fieldApiName + " ;";
     }
 
-    if (this.saveFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == null) {
+    if (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == null) {
       validToSave = false;
       this.errMsg = this.errMsg + COMPLAINT_SUB_REMEDY3.fieldApiName + ";";
     }
 
     if (
-      this.saveFields[COMPLAINT_REMEDY3.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.saveFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
+      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == REWARD_POINTS &&
-      this.saveFields[REMEDY_POINTS3.fieldApiName] == null
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS3.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + REMEDY_POINTS3.fieldApiName + ";";
     }
 
     if (
-      (this.saveFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == DEBT_WAIVER ||
-        this.saveFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
           SETTEL_FOR_LESS) &&
-      this.saveFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
+      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == OTHER &&
-      this.saveFields[OTHER_REMDY3.fieldApiName] == null
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+        SUB_REMEDY_OTHER &&
+      this.closeFields[OTHER_REMDY3.fieldApiName] == null
     ) {
       validToSave = false;
       this.errMsg = this.errMsg + OTHER_REMDY3.fieldApiName + " ;";
     }
 
     if (
-      this.saveFields[COMPLAINT_REMEDY3.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+      this.closeFields[REMEDY_DURATION3.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.errMsg = this.errMsg + REMEDY_DURATION3.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
         COMPLAINT_REMEDY_PRODUCT_MANU &&
-      (this.saveFields[
+      (this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
       ] == null ||
-        this.saveFields[
+        this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
         ] == false)
     ) {

@@ -21,7 +21,6 @@ import THIRD_PARTY_COMMS from "@salesforce/schema/Case.IDR_SwicthOff_3rd_Party_N
 import RECORDTYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 import THIRD_PARTY_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.IDR_Product_Manufacturer__c";
 import THIRD_PARTY_OTHER_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Name_of_product_manufacturer__c";
-import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Provided_details_to_Product_Manufacturer__c";
 
 //Non Customer complaint
 import COMPLAINT_TYPE_FIELD from "@salesforce/schema/Case.IDR_Complainant_Type__c";
@@ -61,10 +60,36 @@ import DESIRED_OUTCOME_FIELD from "@salesforce/schema/Case.IDR_Complainant_Desir
 
 //complaint resolution fields
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
+import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
+
 import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
 import FINANCIAL_COMPENSATION from "@salesforce/schema/Case.IDR_Financial_Compensation__c";
-import NON_FINANCIAL_REMEDY from "@salesforce/schema/Case.IDR_Non_Financial_Remedy__c";
-import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
+import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Provided_details_to_Product_Manufacturer__c";
+import COMPLAINT_SUB_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy__c";
+import REMEDY_POINTS1 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points__c";
+import OTHER_REMDY1 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided__c";
+import REMEDY_DURATION from "@salesforce/schema/Case.IDR_Duration_of_Remedy__c";
+
+//Remedy 2
+
+import COMPLAINT_REMEDY2 from "@salesforce/schema/Case.IDR_Complaint_Remedy_2__c";
+import FINANCIAL_COMPENSATION2 from "@salesforce/schema/Case.IDR_Financial_Compensation_2__c";
+import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2 from "@salesforce/schema/Case.Provided_details_to_Prod_Manufacturer_2__c";
+import COMPLAINT_SUB_REMEDY2 from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy_2__c";
+import REMEDY_POINTS2 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_2__c";
+import OTHER_REMDY2 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_2__c";
+import REMEDY_DURATION2 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_2__c";
+
+//Remedy 3
+
+import COMPLAINT_REMEDY3 from "@salesforce/schema/Case.IDR_Complaint_Remedy_3__c";
+import FINANCIAL_COMPENSATION3 from "@salesforce/schema/Case.IDR_Financial_Compensation_3__c";
+import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3 from "@salesforce/schema/Case.Provided_details_to_Prod_Manufacturer_3__c";
+import COMPLAINT_SUB_REMEDY3 from "@salesforce/schema/Case.IDR_Complaint_Sub_Remedy_3__c";
+import REMEDY_POINTS3 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_3__c";
+import OTHER_REMDY3 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_3__c";
+import REMEDY_DURATION3 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_3__c";
+
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 
 //Systemic issue & compliance fields
@@ -118,6 +143,16 @@ const OTHER = "Other";
 const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
 const FIN_HARDSHIP_VALUE = "4";
+
+//close complaint child
+const COMPLAINT_REMEDY_PRODUCT_MANU = "3";
+const SUB_REMEDY_OTHER = "99";
+const DEBT_WAIVER = "10";
+const SETTEL_FOR_LESS = "18";
+const REWARD_POINTS = "Reward Points";
+const MORATORIUM = "16";
+//const REPAYMENT_ARRAGMENT = "";
+const TIME_TO_SELL_REFINANCE_SURRENDER = "20";
 
 export default class CreateComplaintLWC extends NavigationMixin(
   LightningElement
@@ -177,11 +212,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   writtenResponseRequired = WRITTEN_RESPONSE_REQUIRED_FIELD;
 
   //complaint resolution fields
-  complaintOutcome = COMPLAINT_OUTCOME;
-  complaintRemedy = COMPLAINT_REMEDY;
-  financialCompensation = "";
-  outcomeDescription = OUTCOME_DESCRIPTION;
-  nonFinancialRemedy = NON_FINANCIAL_REMEDY;
+  closeFields = {};
+  remedy2 = false;
+  remedy3 = false;
 
   //systemic issue & compliance fields
   commonComplaint = IS_COMMON_COMPLAINT_FIELD;
@@ -702,13 +735,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Express Case Creation: A known issue must be selected in the This Complaint Is About field (If the complaint is not a 'Known Issue' please deselect the 'Express Case' toggle)";
     }
 
+    let isResolveFieldsValid = false;
+    if (this.isComplaintResolved) {
+      isResolveFieldsValid = this.validateRemedyFields();
+    } else {
+      isResolveFieldsValid = true;
+    }
     return (
       isFieldValid &&
       isEmailValid &&
       isFinCompValid &&
       isDescValid &&
       isComboboxValid &&
-      isRadioGroupValid
+      isRadioGroupValid &&
+      isResolveFieldsValid
     );
   }
 
@@ -819,26 +859,33 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[EXPRESS_CMOS.fieldApiName] = this.expressCMOS;
       }
 
-      const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
-      createRecord(recordInput)
-        .then((response) => {
-          if (response) {
-            let caseId = response.id;
-            this.template.querySelector(".saveButton").disabled = false;
-            this.handleCaseSuccess(caseId);
-          }
-        })
-        .catch((error) => {
-          if (
-            error.body.enhancedErrorType === "RecordError" &&
-            this.restrictionLevelValue === "Restricted Case" &&
-            error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS"
-          ) {
-            this.handleRestrictedCase(error);
-          } else {
-            this.handleError(error);
-          }
-        });
+      try {
+        if (this.isComplaintResolved) {
+          fields = fields.concat(this.closeFields);
+        }
+        const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
+        createRecord(recordInput)
+          .then((response) => {
+            if (response) {
+              let caseId = response.id;
+              this.template.querySelector(".saveButton").disabled = false;
+              this.handleCaseSuccess(caseId);
+            }
+          })
+          .catch((error) => {
+            if (
+              error.body.enhancedErrorType === "RecordError" &&
+              this.restrictionLevelValue === "Restricted Case" &&
+              error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS"
+            ) {
+              this.handleRestrictedCase(error);
+            } else {
+              this.handleError(error);
+            }
+          });
+      } catch (error) {
+        console.log("error:" + error);
+      }
     }
   }
 
@@ -1246,5 +1293,365 @@ export default class CreateComplaintLWC extends NavigationMixin(
     } else {
       this.disableAccNoThreeField = false;
     }
+  }
+
+  handleFieldUpdate(event) {
+    let fieldApi = event.detail.field;
+    let value = event.detail.value;
+
+    switch (fieldApi) {
+      case "IDR_Complaint_Outcome__c":
+        this.closeFields[COMPLAINT_OUTCOME.fieldApiName] = value;
+        break;
+      case "IDR_Description_of_Outcome__c":
+        this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] = value;
+        break;
+      case "IDR_Complaint_Remedy__c":
+        this.closeFields[COMPLAINT_REMEDY.fieldApiName] = value;
+        break;
+      case "Provided_details_to_Product_Manufacturer__c":
+        this.closeFields[
+          THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
+        ] = value;
+        break;
+      case "IDR_Financial_Compensation__c":
+        this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] = value;
+        break;
+      case "IDR_Complaint_Sub_Remedy__c":
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] = value;
+        break;
+      case "IDR_Financial_Remedy_Points__c":
+        this.closeFields[REMEDY_POINTS1.fieldApiName] = value;
+        break;
+      case "IDR_Other_Remedy_Provided__c":
+        this.closeFields[OTHER_REMDY1.fieldApiName] = value;
+        break;
+      case "IDR_Duration_of_Remedy__c":
+        this.closeFields[REMEDY_DURATION.fieldApiName] = value;
+        console.log("Duration receieved");
+        break;
+      case "Remedy2":
+        this.remedy2 = value;
+        break;
+      case "IDR_Complaint_Remedy_2__c":
+        this.closeFields[COMPLAINT_REMEDY2.fieldApiName] = value;
+        break;
+      case "Provided_details_to_Prod_Manufacturer_2__c":
+        this.closeFields[
+          THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
+        ] = value;
+        break;
+      case "IDR_Financial_Compensation_2__c":
+        this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] = value;
+        break;
+      case "IDR_Complaint_Sub_Remedy_2__c":
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] = value;
+        break;
+      case "IDR_Financial_Remedy_Points_2__c":
+        this.closeFields[REMEDY_POINTS2.fieldApiName] = value;
+        break;
+      case "IDR_Other_Remedy_Provided_2__c":
+        this.closeFields[OTHER_REMDY2.fieldApiName] = value;
+        break;
+      case "IDR_Duration_of_Remedy_2__c":
+        this.closeFields[REMEDY_DURATION2.fieldApiName] = value;
+        console.log("Duration receieved");
+        break;
+      case "Remedy3":
+        this.remedy3 = value;
+        break;
+      case "IDR_Complaint_Remedy_3__c":
+        this.closeFields[COMPLAINT_REMEDY3.fieldApiName] = value;
+        break;
+      case "Provided_details_to_Prod_Manufacturer_3__c":
+        this.closeFields[
+          THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
+        ] = value;
+        break;
+      case "IDR_Financial_Compensation_3__c":
+        this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] = value;
+        break;
+      case "IDR_Complaint_Sub_Remedy_3__c":
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] = value;
+        break;
+      case "IDR_Financial_Remedy_Points_3__c":
+        this.closeFields[REMEDY_POINTS3.fieldApiName] = value;
+        break;
+      case "IDR_Other_Remedy_Provided_3__c":
+        this.closeFields[OTHER_REMDY3.fieldApiName] = value;
+        break;
+      case "IDR_Duration_of_Remedy_3__c":
+        this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
+        console.log("Duration receieved");
+        break;
+    }
+  }
+
+  validateRemedyFields() {
+    let validToSave = true;
+    return validToSave;
+  }
+
+  validateRemedy1Fields() {
+    let validToSave = true;
+
+    if (this.closeFields[COMPLAINT_OUTCOME.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + COMPLAINT_OUTCOME.fieldApiName + " ;";
+    }
+    if (this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + OUTCOME_DESCRIPTION.fieldApiName + " ;";
+    }
+    if (this.closeFields[COMPLAINT_REMEDY.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + COMPLAINT_REMEDY.fieldApiName + " ;";
+    }
+
+    if (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + COMPLAINT_SUB_REMEDY.fieldApiName + ";";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
+        COMPLAINT_REMEDY_FIN_VALUE &&
+      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + FINANCIAL_COMPENSATION.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS1.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + REMEDY_POINTS1.fieldApiName + ";";
+    }
+
+    if (
+      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
+          SETTEL_FOR_LESS) &&
+      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + FINANCIAL_COMPENSATION.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == SUB_REMEDY_OTHER &&
+      this.closeFields[OTHER_REMDY1.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + OTHER_REMDY1.fieldApiName + " ;";
+    }
+
+    if (
+      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
+          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+      this.closeFields[REMEDY_DURATION.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + REMEDY_DURATION.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
+        COMPLAINT_REMEDY_PRODUCT_MANU &&
+      (this.closeFields[
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
+      ] == null ||
+        this.closeFields[
+          THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
+        ] == false)
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields +
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName +
+        " ;";
+    }
+    return validToSave;
+  }
+
+  validateRemedy2Fields() {
+    let validToSave = true;
+
+    if (this.closeFields[COMPLAINT_REMEDY2.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + COMPLAINT_REMEDY2.fieldApiName + " ;";
+    }
+
+    if (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + COMPLAINT_SUB_REMEDY2.fieldApiName + ";";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
+        COMPLAINT_REMEDY_FIN_VALUE &&
+      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS2.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + REMEDY_POINTS2.fieldApiName + ";";
+    }
+
+    if (
+      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+          SETTEL_FOR_LESS) &&
+      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+        SUB_REMEDY_OTHER &&
+      this.closeFields[OTHER_REMDY2.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + OTHER_REMDY2.fieldApiName + " ;";
+    }
+    if (
+      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+      this.closeFields[REMEDY_DURATION2.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + REMEDY_DURATION2.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
+        COMPLAINT_REMEDY_PRODUCT_MANU &&
+      (this.closeFields[
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
+      ] == null ||
+        this.closeFields[
+          THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
+        ] == false)
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields +
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName +
+        " ;";
+    }
+    return validToSave;
+  }
+
+  validateRemedy3Fields() {
+    let validToSave = true;
+
+    if (this.closeFields[COMPLAINT_REMEDY3.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + COMPLAINT_REMEDY3.fieldApiName + " ;";
+    }
+
+    if (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == null) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + COMPLAINT_SUB_REMEDY3.fieldApiName + ";";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
+        COMPLAINT_REMEDY_FIN_VALUE &&
+      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS3.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + REMEDY_POINTS3.fieldApiName + ";";
+    }
+
+    if (
+      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+          SETTEL_FOR_LESS) &&
+      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+        SUB_REMEDY_OTHER &&
+      this.closeFields[OTHER_REMDY3.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + OTHER_REMDY3.fieldApiName + " ;";
+    }
+
+    if (
+      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+      this.closeFields[REMEDY_DURATION3.fieldApiName] == null
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields + REMEDY_DURATION3.fieldApiName + " ;";
+    }
+
+    if (
+      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
+        COMPLAINT_REMEDY_PRODUCT_MANU &&
+      (this.closeFields[
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
+      ] == null ||
+        this.closeFields[
+          THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
+        ] == false)
+    ) {
+      validToSave = false;
+      this.missingDataFields =
+        this.missingDataFields +
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName +
+        " ;";
+    }
+    return validToSave;
   }
 }

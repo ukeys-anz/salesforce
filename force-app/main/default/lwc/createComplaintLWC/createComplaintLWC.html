@@ -780,7 +780,13 @@
                 </div>
               </template>
               <template if:true={isComplaintResolved}>
-                <div
+                <c-complaints-Close-Child
+                  record-id={recordId}
+                  record-type-id={recordType}
+                  onfieldvalueupdate={handleFieldUpdate}
+                >
+                </c-complaints-Close-Child>
+                <!-- <div
                   class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
                 >
                   <lightning-input-field
@@ -884,7 +890,7 @@
                       onchange={handleIsDetailsProvidedToProductManufacturer}
                     ></lightning-input>
                   </div>
-                </template>
+                </template>-->
               </template>
             </div>
             <!--Systemic issues-->
