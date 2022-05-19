@@ -49,12 +49,17 @@
             <value>
                 <fullName>7</fullName>
                 <default>false</default>
-                <label>Greater than 65 years</label>
+                <label>75 years and over</label>
             </value>
             <value>
                 <fullName>8</fullName>
                 <default>false</default>
-                <label>Not known</label>
+                <label>65–74 years</label>
+            </value>
+            <value>
+                <fullName>9</fullName>
+                <default>false</default>
+                <label>Unknown or not applicable</label>
             </value>
         </valueSetDefinition>
     </valueSet>
