@@ -22,12 +22,11 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     await browser.pause(500);
   });
 
-  describe("AR-11387: Coach creates and nurtures ANZX Lead", async (): Promise<void> => {
-    const anzxLead = new ANZXLead(UserRole.COACH);
+  function createAndNurtureLeadByRole(role: UserRole) {
+    const anzxLead = new ANZXLead(role);
 
-    it("Login as Coach", async (): Promise<void> => {
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+    it(`Login as ${role}`, async (): Promise<void> => {
+      await Auth.loginSalesforceAsRole(role);
     });
 
     it("Go to Coaches Workbench and Leads Tab", async (): Promise<void> => {
@@ -53,18 +52,34 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     it("Logout", async (): Promise<void> => {
       await Auth.logoutSalesforce();
     });
+  }
+
+  describe("Lead creation and nurturing by role", async (): Promise<void> => {
+    describe("AR-11387: Coach creates and nurtures ANZX Lead", async (): Promise<void> => {
+      await createAndNurtureLeadByRole(UserRole.COACH);
+    });
+
+    describe("AR-11390: Coach Lead creates and nurtures ANZX Lead", async (): Promise<void> => {
+      await createAndNurtureLeadByRole(UserRole.COACH_LEAD);
+    });
+
+    describe("AR-11391: Support Coach creates and nurtures ANZX Lead", async (): Promise<void> => {
+      await createAndNurtureLeadByRole(UserRole.SUPPORT_COACH);
+    });
   });
 
-  describe("AR-11835: Coach creates duplicate ANZX Leads", async (): Promise<void> => {
+  describe("AR-11385: Coach creates duplicate ANZX Leads", async (): Promise<void> => {
     const anzxLead = new ANZXLead(UserRole.COACH);
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const mobile = faker.phone.phoneNumber("04########");
+    const email = faker.internet.exampleEmail(firstName, lastName);
 
     const anzxLeadData = {
       firstName,
       lastName,
-      mobile
+      mobile,
+      email
     };
 
     it("Login as Coach", async (): Promise<void> => {

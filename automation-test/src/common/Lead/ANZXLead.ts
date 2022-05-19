@@ -59,7 +59,9 @@ export default class ANZXLead extends Lead implements IChatter {
       [1, 3, 1]
     );
     const emailInput = await emailField.getInput();
-    const email = faker.internet.exampleEmail(firstName, lastName);
+    const email = leadData?.email
+      ? leadData.email
+      : faker.internet.exampleEmail(firstName, lastName);
     await emailInput.setText(email);
 
     // click save button

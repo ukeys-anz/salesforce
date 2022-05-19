@@ -98,6 +98,23 @@ export default class Auth {
           process.env.COACH_LEAD_PASSWORD
         );
         break;
+      case UserRole.SUPPORT_COACH:
+        if (
+          !process.env.SUPPORT_COACH_USERNAME ||
+          !process.env.SUPPORT_COACH_PASSWORD
+        ) {
+          console.error(
+            "Error: Trying to login as Support Coach but missing SUPPORT_COACH_USERNAME or SUPPORT_COACH_PASSWORD."
+          );
+          process.exit(-1);
+        }
+
+        await salesforceLoginRoot.login(
+          process.env.SUPPORT_COACH_USERNAME,
+          process.env.SUPPORT_COACH_PASSWORD
+        );
+        break;
+
       default:
         console.error(
           "Error: Cannot find any matching test user's credential, exiting..."

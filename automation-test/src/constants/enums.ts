@@ -4,7 +4,8 @@ export const enum UserRole {
   FRAUDX_AGENT = "FraudX Agent",
   CONTENT_WRITER = "Content Writer",
   SUPER_SUPPORT_ADMIN = "Super Support Admin",
-  QUALITY_ANALYST = "Quality Analyst"
+  QUALITY_ANALYST = "Quality Analyst",
+  SUPPORT_COACH = "Support Coach"
 }
 
 export const enum Queue {
