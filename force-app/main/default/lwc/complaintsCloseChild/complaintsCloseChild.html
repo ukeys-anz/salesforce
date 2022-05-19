@@ -55,14 +55,14 @@
             ></lightning-input-field>
           </template>
         </div>
-        <template if:true={showFinancialCompensation}>
-          <label class="slds-form-element__label" for="text-input-id-149">
-            <abbr class="slds-required" title="required">* </abbr>Financial
-            Amount</label
-          >
-          <div
-            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
-          >
+        <div
+          class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+        >
+          <template if:true={showFinancialCompensation}>
+            <label class="slds-form-element__label" for="text-input-id-149">
+              <abbr class="slds-required" title="required">* </abbr>Financial
+              Amount</label
+            >
             <lightning-input
               variant="label-hidden"
               required
@@ -75,8 +75,8 @@
               message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
               data-id="finAmount-id"
             ></lightning-input>
-          </div>
-        </template>
+          </template>
+        </div>
         <template if:true={isNonFinancialComplaintRemedy}>
           <template if:true={isRewardPoints}>
             <div class="slds-col slds-size_2-of-4 slds-m-right_large">
