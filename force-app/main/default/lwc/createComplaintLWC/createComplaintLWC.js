@@ -662,6 +662,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     });
+
+    let isResolveFieldsValid = false;
+    if (this.isComplaintResolved) {
+      isResolveFieldsValid = this.validateRemedyFields();
+    } else {
+      isResolveFieldsValid = true;
+    }
+
     if (this.missingDataFields !== "") {
       this.missingDataFields =
         ERROR_REQUIRED_TITLE + this.missingDataFields.replace(/,\s$/, ". ");
@@ -735,12 +743,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Express Case Creation: A known issue must be selected in the This Complaint Is About field (If the complaint is not a 'Known Issue' please deselect the 'Express Case' toggle)";
     }
 
-    let isResolveFieldsValid = false;
-    if (this.isComplaintResolved) {
-      isResolveFieldsValid = this.validateRemedyFields();
-    } else {
-      isResolveFieldsValid = true;
-    }
     return (
       isFieldValid &&
       isEmailValid &&
@@ -1391,6 +1393,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   validateRemedyFields() {
     let validToSave = true;
+    validToSave = this.validateRemedy1Fields();
+    if (this.remedy2) {
+      validToSave = this.validateRemedy2Fields();
+    }
+
+    if (this.remedy3) {
+      validToSave = this.validateRemedy3Fields();
+    }
     return validToSave;
   }
 
@@ -1399,24 +1409,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
     if (this.closeFields[COMPLAINT_OUTCOME.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + COMPLAINT_OUTCOME.fieldApiName + " ;";
+      this.missingDataFields += COMPLAINT_OUTCOME.fieldApiName + " ,";
     }
     if (this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + OUTCOME_DESCRIPTION.fieldApiName + " ;";
+      this.missingDataFields += OUTCOME_DESCRIPTION.fieldApiName + " ,";
     }
     if (this.closeFields[COMPLAINT_REMEDY.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + COMPLAINT_REMEDY.fieldApiName + " ;";
+      this.missingDataFields += COMPLAINT_REMEDY.fieldApiName + " ,";
     }
 
     if (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + COMPLAINT_SUB_REMEDY.fieldApiName + ";";
+      this.missingDataFields += COMPLAINT_SUB_REMEDY.fieldApiName + " ,";
     }
 
     if (
@@ -1425,8 +1431,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + FINANCIAL_COMPENSATION.fieldApiName + " ;";
+      this.missingDataFields += FINANCIAL_COMPENSATION.fieldApiName + " ,";
     }
 
     if (
@@ -1434,8 +1439,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[REMEDY_POINTS1.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + REMEDY_POINTS1.fieldApiName + ";";
+      this.missingDataFields += REMEDY_POINTS1.fieldApiName + " ,";
     }
 
     if (
@@ -1445,8 +1449,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + FINANCIAL_COMPENSATION.fieldApiName + " ;";
+      this.missingDataFields += FINANCIAL_COMPENSATION.fieldApiName + " ,";
     }
 
     if (
@@ -1454,8 +1457,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[OTHER_REMDY1.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + OTHER_REMDY1.fieldApiName + " ;";
+      this.missingDataFields += OTHER_REMDY1.fieldApiName + " ,";
     }
 
     if (
@@ -1465,8 +1467,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[REMEDY_DURATION.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + REMEDY_DURATION.fieldApiName + " ;";
+      this.missingDataFields += REMEDY_DURATION.fieldApiName + " ,";
     }
 
     if (
@@ -1480,10 +1481,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         ] == false)
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields +
+      this.missingDataFields +=
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName +
-        " ;";
+        " ,";
     }
     return validToSave;
   }
@@ -1493,14 +1493,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
     if (this.closeFields[COMPLAINT_REMEDY2.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + COMPLAINT_REMEDY2.fieldApiName + " ;";
+      this.missingDataFields += COMPLAINT_REMEDY2.fieldApiName + " ,";
     }
 
     if (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + COMPLAINT_SUB_REMEDY2.fieldApiName + ";";
+      this.missingDataFields += COMPLAINT_SUB_REMEDY2.fieldApiName + " ,";
     }
 
     if (
@@ -1509,8 +1507,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
+      this.missingDataFields += FINANCIAL_COMPENSATION2.fieldApiName + " ,";
     }
 
     if (
@@ -1518,8 +1515,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[REMEDY_POINTS2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + REMEDY_POINTS2.fieldApiName + ";";
+      this.missingDataFields += REMEDY_POINTS2.fieldApiName + " ,";
     }
 
     if (
@@ -1529,8 +1525,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
+      this.missingDataFields += FINANCIAL_COMPENSATION2.fieldApiName + " ,";
     }
 
     if (
@@ -1539,8 +1534,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[OTHER_REMDY2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + OTHER_REMDY2.fieldApiName + " ;";
+      this.missingDataFields += OTHER_REMDY2.fieldApiName + " ,";
     }
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == MORATORIUM ||
@@ -1549,8 +1543,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[REMEDY_DURATION2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + REMEDY_DURATION2.fieldApiName + " ;";
+      this.missingDataFields += REMEDY_DURATION2.fieldApiName + " ,";
     }
 
     if (
@@ -1564,10 +1557,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         ] == false)
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields +
+      this.missingDataFields +=
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName +
-        " ;";
+        " ,";
     }
     return validToSave;
   }
@@ -1577,14 +1569,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
     if (this.closeFields[COMPLAINT_REMEDY3.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + COMPLAINT_REMEDY3.fieldApiName + " ;";
+      this.missingDataFields += COMPLAINT_REMEDY3.fieldApiName + " ,";
     }
 
     if (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == null) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + COMPLAINT_SUB_REMEDY3.fieldApiName + ";";
+      this.missingDataFields += COMPLAINT_SUB_REMEDY3.fieldApiName + " ,";
     }
 
     if (
@@ -1593,8 +1583,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
+      this.missingDataFields += FINANCIAL_COMPENSATION3.fieldApiName + " ,";
     }
 
     if (
@@ -1602,8 +1591,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[REMEDY_POINTS3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + REMEDY_POINTS3.fieldApiName + ";";
+      this.missingDataFields += REMEDY_POINTS3.fieldApiName + " ,";
     }
 
     if (
@@ -1613,8 +1601,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
+      this.missingDataFields += FINANCIAL_COMPENSATION3.fieldApiName + " ,";
     }
 
     if (
@@ -1623,8 +1610,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[OTHER_REMDY3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + OTHER_REMDY3.fieldApiName + " ;";
+      this.missingDataFields += OTHER_REMDY3.fieldApiName + " ,";
     }
 
     if (
@@ -1634,8 +1620,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[REMEDY_DURATION3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields + REMEDY_DURATION3.fieldApiName + " ;";
+      this.missingDataFields += REMEDY_DURATION3.fieldApiName + " ,";
     }
 
     if (
@@ -1649,10 +1634,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         ] == false)
     ) {
       validToSave = false;
-      this.missingDataFields =
-        this.missingDataFields +
+      this.missingDataFields +=
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName +
-        " ;";
+        " ,";
     }
     return validToSave;
   }
