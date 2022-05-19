@@ -51,7 +51,7 @@ global with sharing class ChatterMigrationServiceController {
     }
 
     try {
-      ChatterMigrationService.cloneChatterFromVicimToSurvivor(
+      ChatterMigrationService.cloneChatterFromVictimToSurvivor(
         victimId,
         survivorId
       );

@@ -24,5 +24,6 @@
         <role>Coach_Lead</role>
         <role>Quality_Analyst</role>
         <role>Support_Coach</role>
+        <role>Business_Admin</role>
     </sharedTo>
 </ListView>
