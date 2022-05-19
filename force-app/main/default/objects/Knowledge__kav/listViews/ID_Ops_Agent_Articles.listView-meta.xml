@@ -11,7 +11,7 @@
     <filters>
         <field>Audience__c</field>
         <operation>includes</operation>
-        <value>ID Ops &amp; Fraud Agent</value>
+        <value>All,ID Ops &amp; Fraud Agent</value>
     </filters>
     <label>ID Ops &amp; Fraud Agent Articles</label>
 </ListView>
