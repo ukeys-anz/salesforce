@@ -22,7 +22,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     await browser.pause(500);
   });
 
-  function createAndNurtureLeadByRole(role: UserRole) {
+  async function createAndNurtureLeadByRole(role: UserRole): Promise<void> {
     const anzxLead = new ANZXLead(role);
 
     it(`Login as ${role}`, async (): Promise<void> => {
