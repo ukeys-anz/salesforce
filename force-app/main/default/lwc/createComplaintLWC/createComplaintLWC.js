@@ -861,35 +861,31 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[EXPRESS_CMOS.fieldApiName] = this.expressCMOS;
       }
 
-      try {
-        if (this.isComplaintResolved) {
-          for (let x in this.closeFields) {
-            fields[x] = this.closeFields[x];
-          }
+      if (this.isComplaintResolved) {
+        for (let x in this.closeFields) {
+          fields[x] = this.closeFields[x];
         }
-        const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
-        createRecord(recordInput)
-          .then((response) => {
-            if (response) {
-              let caseId = response.id;
-              this.template.querySelector(".saveButton").disabled = false;
-              this.handleCaseSuccess(caseId);
-            }
-          })
-          .catch((error) => {
-            if (
-              error.body.enhancedErrorType === "RecordError" &&
-              this.restrictionLevelValue === "Restricted Case" &&
-              error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS"
-            ) {
-              this.handleRestrictedCase(error);
-            } else {
-              this.handleError(error);
-            }
-          });
-      } catch (error) {
-        console.log("error:" + error);
       }
+      const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
+      createRecord(recordInput)
+        .then((response) => {
+          if (response) {
+            let caseId = response.id;
+            this.template.querySelector(".saveButton").disabled = false;
+            this.handleCaseSuccess(caseId);
+          }
+        })
+        .catch((error) => {
+          if (
+            error.body.enhancedErrorType === "RecordError" &&
+            this.restrictionLevelValue === "Restricted Case" &&
+            error.body.output.errors[0].errorCode === "INSUFFICIENT_ACCESS"
+          ) {
+            this.handleRestrictedCase(error);
+          } else {
+            this.handleError(error);
+          }
+        });
     }
   }
 
@@ -1332,7 +1328,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
         break;
       case "IDR_Duration_of_Remedy__c":
         this.closeFields[REMEDY_DURATION.fieldApiName] = value;
-        console.log("Duration receieved");
         break;
       case "Remedy2":
         this.remedy2 = value;
@@ -1359,7 +1354,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
         break;
       case "IDR_Duration_of_Remedy_2__c":
         this.closeFields[REMEDY_DURATION2.fieldApiName] = value;
-        console.log("Duration receieved");
         break;
       case "Remedy3":
         this.remedy3 = value;
@@ -1386,25 +1380,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
         break;
       case "IDR_Duration_of_Remedy_3__c":
         this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
-        console.log("Duration receieved");
         break;
     }
   }
 
   validateRemedyFields() {
     let validToSave = true;
-    try {
-      validToSave = this.validateRemedy1Fields();
-      if (this.remedy2) {
-        validToSave = this.validateRemedy2Fields();
-      }
+    validToSave = this.validateRemedy1Fields();
+    if (this.remedy2) {
+      validToSave = this.validateRemedy2Fields();
+    }
 
-      if (this.remedy3) {
-        validToSave = this.validateRemedy3Fields();
-      }
-    } catch (error) {
-      console.log("error:" + error);
-      validToSave = "false";
+    if (this.remedy3) {
+      validToSave = this.validateRemedy3Fields();
     }
     return validToSave;
   }

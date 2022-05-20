@@ -119,7 +119,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         break;
       case "IDR_Duration_of_Remedy__c":
         this.closeFields[REMEDY_DURATION.fieldApiName] = value;
-        console.log("Duration receieved");
         break;
       case "Remedy2":
         this.remedy2 = value;
@@ -146,7 +145,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         break;
       case "IDR_Duration_of_Remedy_2__c":
         this.closeFields[REMEDY_DURATION2.fieldApiName] = value;
-        console.log("Duration receieved");
         break;
       case "Remedy3":
         this.remedy3 = value;
@@ -173,7 +171,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         break;
       case "IDR_Duration_of_Remedy_3__c":
         this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
-        console.log("Duration receieved");
         break;
     }
   }
