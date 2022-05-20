@@ -25,6 +25,47 @@ global with sharing class ChatterMigrationServiceController {
   }
 
   /**
+   * @description Exposes OCV Migration via Aura for LWC
+   * @param recordId String | the Id of the Account record about to be migrated
+   * @return Boolean | True if Migraiton is OK. Throws an exception if something goes wrong.
+   */
+  @AuraEnabled
+  public static Boolean migrateViaButton(String recordId) {
+    lib_systemLog log = new lib_systemLog(
+      ChatterMigrationServiceController.class.getName(),
+      'ChatterMigrationServiceController Recieved'
+    );
+    log.info(
+      'Manual OCV Merge Via button Triggered by: ' + UserInfo.getUserId()
+    );
+    log.insertLogAsync();
+
+    Account record = [
+      SELECT Id, Survivor_Party_ID__c, External_Id__c
+      FROM Account
+      WHERE Id = :recordId
+    ][0];
+
+    if (record.Survivor_Party_ID__c == null) {
+      throw new AuraHandledException(
+        'Please check that the Survivor Party Id is set on the account you are attempting to merge'
+      );
+    }
+    if (
+      ChatterMigrationService.cloneChatterFromVicimToSurvivor(
+        record.External_Id__c,
+        record.Survivor_Party_ID__c
+      )
+    ) {
+      return true;
+    } else {
+      throw new AuraHandledException(
+        'Could not migrate to Surviving Party. Please contact support: Error Code: CHATTEROCV-001'
+      );
+    }
+  }
+
+  /**
    * @description The endpoint for migrating the Chatter items from the Victim to the Survivor
    */
   @HttpPost

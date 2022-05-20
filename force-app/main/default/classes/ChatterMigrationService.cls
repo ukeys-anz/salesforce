@@ -47,7 +47,7 @@ public with sharing class ChatterMigrationService {
         )
       );
 
-      log.insertLogAsync();
+      log.publishEvent();
 
       SystemModeActions systemAction = new SystemModeActions(
         'ChatterMigrationService',
@@ -78,7 +78,7 @@ public with sharing class ChatterMigrationService {
       );
       cloneCommentsFromOldToNew(items, clonedItems);
 
-      log.insertLogAsync();
+      log.publishEvent();
 
       delete items;
       log.info(
@@ -88,7 +88,7 @@ public with sharing class ChatterMigrationService {
         )
       );
 
-      log.insertLogAsync();
+      log.publishEvent();
 
       return true;
     }
@@ -125,6 +125,8 @@ public with sharing class ChatterMigrationService {
       ChatterMigrationService.class.getName(),
       'cloneChatterFromOldToNew'
     );
+
+    log.publishEvent();
 
     return clonedItems;
   }
@@ -186,7 +188,7 @@ public with sharing class ChatterMigrationService {
       )
     );
 
-    log.insertLogAsync();
+    log.publishEvent();
   }
 
   /**
