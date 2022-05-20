@@ -164,15 +164,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Complaint_Sub_Remedy__c";
     sendVal.value = event.detail.value;
 
-    if (event.target.value == SUB_REMEDY_OTHER) {
+    if (event.target.value === SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy = true;
     } else {
       this.isOtherSubFinRemedy = false;
     }
 
     if (
-      event.target.value == DEBT_WAIVER ||
-      event.target.value == SETTEL_FOR_LESS
+      event.target.value === DEBT_WAIVER ||
+      event.target.value === SETTEL_FOR_LESS
     ) {
       this.showFinancialCompensation = true;
     } else if (!this.isFinancialComplaintRemedy) {
@@ -306,15 +306,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Complaint_Sub_Remedy_2__c";
     sendVal.value = event.detail.value;
 
-    if (event.target.value == SUB_REMEDY_OTHER) {
+    if (event.target.value === SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy2 = true;
     } else {
       this.isOtherSubFinRemedy2 = false;
     }
 
     if (
-      event.target.value == DEBT_WAIVER ||
-      event.target.value == SETTEL_FOR_LESS
+      event.target.value === DEBT_WAIVER ||
+      event.target.value === SETTEL_FOR_LESS
     ) {
       this.showFinancialCompensation2 = true;
     } else if (!this.isFinancialComplaintRemedy2) {
@@ -473,15 +473,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Complaint_Sub_Remedy_3__c";
     sendVal.value = event.detail.value;
 
-    if (event.target.value == SUB_REMEDY_OTHER) {
+    if (event.target.value === SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy3 = true;
     } else {
       this.isOtherSubFinRemedy3 = false;
     }
 
     if (
-      event.target.value == DEBT_WAIVER ||
-      event.target.value == SETTEL_FOR_LESS
+      event.target.value === DEBT_WAIVER ||
+      event.target.value === SETTEL_FOR_LESS
     ) {
       this.showFinancialCompensation3 = true;
     } else if (!this.isFinancialComplaintRemedy3) {

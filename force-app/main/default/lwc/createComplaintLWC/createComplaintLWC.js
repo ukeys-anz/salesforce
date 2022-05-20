@@ -863,7 +863,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
       if (this.isComplaintResolved) {
         for (let x in this.closeFields) {
-          fields[x] = this.closeFields[x];
+          if (this.closeFields[x] !== null) {
+            fields[x] = this.closeFields[x];
+          }
         }
       }
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
