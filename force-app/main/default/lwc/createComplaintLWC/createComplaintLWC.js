@@ -1428,7 +1428,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === REWARD_POINTS &&
       !this.closeFields[REMEDY_POINTS1.fieldApiName]
     ) {
       validToSave = false;
@@ -1436,8 +1436,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == DEBT_WAIVER ||
-        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
           SETTEL_FOR_LESS) &&
       !this.closeFields[FINANCIAL_COMPENSATION.fieldApiName]
     ) {
@@ -1446,7 +1446,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == SUB_REMEDY_OTHER &&
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
+        SUB_REMEDY_OTHER &&
       !this.closeFields[OTHER_REMDY1.fieldApiName]
     ) {
       validToSave = false;
@@ -1454,8 +1455,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == MORATORIUM ||
-        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
           TIME_TO_SELL_REFINANCE_SURRENDER) &&
       !this.closeFields[REMEDY_DURATION.fieldApiName]
     ) {
@@ -1503,7 +1504,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === REWARD_POINTS &&
       !this.closeFields[REMEDY_POINTS2.fieldApiName]
     ) {
       validToSave = false;
@@ -1511,17 +1512,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == DEBT_WAIVER ||
-        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
           SETTEL_FOR_LESS) &&
-      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
+      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] === null
     ) {
       validToSave = false;
       this.missingDataFields += "Financial Amount 2 ,";
     }
 
     if (
-      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
         SUB_REMEDY_OTHER &&
       !this.closeFields[OTHER_REMDY2.fieldApiName]
     ) {
@@ -1529,8 +1530,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.missingDataFields += "Other Remedy Provided 2 ,";
     }
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == MORATORIUM ||
-        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
           TIME_TO_SELL_REFINANCE_SURRENDER) &&
       !this.closeFields[REMEDY_DURATION2.fieldApiName]
     ) {
@@ -1539,14 +1540,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ===
         COMPLAINT_REMEDY_PRODUCT_MANU &&
       (!this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
       ] ||
         this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
-        ] == false)
+        ] === false)
     ) {
       validToSave = false;
       this.missingDataFields +=
@@ -1569,7 +1570,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ===
         COMPLAINT_REMEDY_FIN_VALUE &&
       !this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName]
     ) {
@@ -1578,7 +1579,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == REWARD_POINTS &&
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === REWARD_POINTS &&
       !this.closeFields[REMEDY_POINTS3.fieldApiName]
     ) {
       validToSave = false;
@@ -1586,8 +1587,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == DEBT_WAIVER ||
-        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === DEBT_WAIVER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
           SETTEL_FOR_LESS) &&
       !this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName]
     ) {
@@ -1596,7 +1597,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
         SUB_REMEDY_OTHER &&
       !this.closeFields[OTHER_REMDY3.fieldApiName]
     ) {
@@ -1605,8 +1606,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == MORATORIUM ||
-        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === MORATORIUM ||
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
           TIME_TO_SELL_REFINANCE_SURRENDER) &&
       !this.closeFields[REMEDY_DURATION3.fieldApiName]
     ) {
@@ -1615,14 +1616,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ===
         COMPLAINT_REMEDY_PRODUCT_MANU &&
       (!this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
       ] ||
         this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
-        ] == false)
+        ] === false)
     ) {
       validToSave = false;
       this.missingDataFields +=
