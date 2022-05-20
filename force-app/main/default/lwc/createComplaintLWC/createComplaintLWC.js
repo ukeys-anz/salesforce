@@ -1393,13 +1393,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   validateRemedyFields() {
     let validToSave = true;
-    validToSave = this.validateRemedy1Fields();
-    if (this.remedy2) {
-      validToSave = this.validateRemedy2Fields();
-    }
+    try {
+      validToSave = this.validateRemedy1Fields();
+      if (this.remedy2) {
+        validToSave = this.validateRemedy2Fields();
+      }
 
-    if (this.remedy3) {
-      validToSave = this.validateRemedy3Fields();
+      if (this.remedy3) {
+        validToSave = this.validateRemedy3Fields();
+      }
+    } catch (error) {
+      console.log("error:" + error);
+      validToSave = "false";
     }
     return validToSave;
   }
@@ -1407,83 +1412,82 @@ export default class CreateComplaintLWC extends NavigationMixin(
   validateRemedy1Fields() {
     let validToSave = true;
 
-    if (this.closeFields[COMPLAINT_OUTCOME.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_OUTCOME.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += COMPLAINT_OUTCOME.fieldApiName + " ,";
+      this.missingDataFields += "Complaint Outcome ,";
     }
-    if (this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] == null) {
+    if (!this.closeFields[OUTCOME_DESCRIPTION.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += OUTCOME_DESCRIPTION.fieldApiName + " ,";
+      this.missingDataFields += "Description of Outcome ,";
     }
-    if (this.closeFields[COMPLAINT_REMEDY.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_REMEDY.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += COMPLAINT_REMEDY.fieldApiName + " ,";
+      this.missingDataFields += "Complaint Remedy 1 ,";
     }
 
-    if (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += COMPLAINT_SUB_REMEDY.fieldApiName + " ,";
+      this.missingDataFields += "Complaint Sub Remedy 1 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
+      !this.closeFields[FINANCIAL_COMPENSATION.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += FINANCIAL_COMPENSATION.fieldApiName + " ,";
+      this.missingDataFields += "Financial Amount ,";
     }
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == REWARD_POINTS &&
-      this.closeFields[REMEDY_POINTS1.fieldApiName] == null
+      !this.closeFields[REMEDY_POINTS1.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += REMEDY_POINTS1.fieldApiName + " ,";
+      this.missingDataFields += "Financial Remedy Points 1 ,";
     }
 
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == DEBT_WAIVER ||
         this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
           SETTEL_FOR_LESS) &&
-      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
+      !this.closeFields[FINANCIAL_COMPENSATION.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += FINANCIAL_COMPENSATION.fieldApiName + " ,";
+      this.missingDataFields += "Financial Amount ,";
     }
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == SUB_REMEDY_OTHER &&
-      this.closeFields[OTHER_REMDY1.fieldApiName] == null
+      !this.closeFields[OTHER_REMDY1.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += OTHER_REMDY1.fieldApiName + " ,";
+      this.missingDataFields += "Other Remedy Provided 1 ,";
     }
 
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == MORATORIUM ||
         this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ==
           TIME_TO_SELL_REFINANCE_SURRENDER) &&
-      this.closeFields[REMEDY_DURATION.fieldApiName] == null
+      !this.closeFields[REMEDY_DURATION.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += REMEDY_DURATION.fieldApiName + " ,";
+      this.missingDataFields += "Duration of Remedy(months) ,";
     }
 
     if (
       this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
         COMPLAINT_REMEDY_PRODUCT_MANU &&
-      (this.closeFields[
+      (!this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
-      ] == null ||
+      ] ||
         this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
-        ] == false)
+        ] === false)
     ) {
       validToSave = false;
       this.missingDataFields +=
-        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName +
-        " ,";
+        "The details of this complaint have been provided to the product manufacturer ? ,";
     }
     return validToSave;
   }
@@ -1491,31 +1495,31 @@ export default class CreateComplaintLWC extends NavigationMixin(
   validateRemedy2Fields() {
     let validToSave = true;
 
-    if (this.closeFields[COMPLAINT_REMEDY2.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_REMEDY2.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += COMPLAINT_REMEDY2.fieldApiName + " ,";
+      this.missingDataFields += "Complaint Remedy 2 ,";
     }
 
-    if (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += COMPLAINT_SUB_REMEDY2.fieldApiName + " ,";
+      this.missingDataFields += "Complaint Sub Remedy 2 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
+      !this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += FINANCIAL_COMPENSATION2.fieldApiName + " ,";
+      this.missingDataFields += "Financial Amount 2 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == REWARD_POINTS &&
-      this.closeFields[REMEDY_POINTS2.fieldApiName] == null
+      !this.closeFields[REMEDY_POINTS2.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += REMEDY_POINTS2.fieldApiName + " ,";
+      this.missingDataFields += "Financial Remedy Points 2 ,";
     }
 
     if (
@@ -1525,41 +1529,40 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.missingDataFields += FINANCIAL_COMPENSATION2.fieldApiName + " ,";
+      this.missingDataFields += "Financial Amount 2 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
         SUB_REMEDY_OTHER &&
-      this.closeFields[OTHER_REMDY2.fieldApiName] == null
+      !this.closeFields[OTHER_REMDY2.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += OTHER_REMDY2.fieldApiName + " ,";
+      this.missingDataFields += "Other Remedy Provided 2 ,";
     }
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == MORATORIUM ||
         this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ==
           TIME_TO_SELL_REFINANCE_SURRENDER) &&
-      this.closeFields[REMEDY_DURATION2.fieldApiName] == null
+      !this.closeFields[REMEDY_DURATION2.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += REMEDY_DURATION2.fieldApiName + " ,";
+      this.missingDataFields += "Duration of Remedy(months) 2 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
         COMPLAINT_REMEDY_PRODUCT_MANU &&
-      (this.closeFields[
+      (!this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
-      ] == null ||
+      ] ||
         this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
         ] == false)
     ) {
       validToSave = false;
       this.missingDataFields +=
-        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName +
-        " ,";
+        "The details of this complaint have been provided to the product manufacturer 2 ? ,";
     }
     return validToSave;
   }
@@ -1567,76 +1570,75 @@ export default class CreateComplaintLWC extends NavigationMixin(
   validateRemedy3Fields() {
     let validToSave = true;
 
-    if (this.closeFields[COMPLAINT_REMEDY3.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_REMEDY3.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += COMPLAINT_REMEDY3.fieldApiName + " ,";
+      this.missingDataFields += "Complaint Remedy 3 ,";
     }
 
-    if (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName]) {
       validToSave = false;
-      this.missingDataFields += COMPLAINT_SUB_REMEDY3.fieldApiName + " ,";
+      this.missingDataFields += "Complaint Sub Remedy 3 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
+      !this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += FINANCIAL_COMPENSATION3.fieldApiName + " ,";
+      this.missingDataFields += "Financial Amount 3 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == REWARD_POINTS &&
-      this.closeFields[REMEDY_POINTS3.fieldApiName] == null
+      !this.closeFields[REMEDY_POINTS3.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += REMEDY_POINTS3.fieldApiName + " ,";
+      this.missingDataFields += "Financial Remedy Points 3 ,";
     }
 
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == DEBT_WAIVER ||
         this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
           SETTEL_FOR_LESS) &&
-      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
+      !this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += FINANCIAL_COMPENSATION3.fieldApiName + " ,";
+      this.missingDataFields += "Financial Amount 3 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
         SUB_REMEDY_OTHER &&
-      this.closeFields[OTHER_REMDY3.fieldApiName] == null
+      !this.closeFields[OTHER_REMDY3.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += OTHER_REMDY3.fieldApiName + " ,";
+      this.missingDataFields += "Other Remedy Provided 3 ,";
     }
 
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == MORATORIUM ||
         this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
           TIME_TO_SELL_REFINANCE_SURRENDER) &&
-      this.closeFields[REMEDY_DURATION3.fieldApiName] == null
+      !this.closeFields[REMEDY_DURATION3.fieldApiName]
     ) {
       validToSave = false;
-      this.missingDataFields += REMEDY_DURATION3.fieldApiName + " ,";
+      this.missingDataFields += "Duration of Remedy(months) 3 ,";
     }
 
     if (
       this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ==
         COMPLAINT_REMEDY_PRODUCT_MANU &&
-      (this.closeFields[
+      (!this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
-      ] == null ||
+      ] ||
         this.closeFields[
           THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
         ] == false)
     ) {
       validToSave = false;
       this.missingDataFields +=
-        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName +
-        " ,";
+        "The details of this complaint have been provided to the product manufacturer 3 ? ,";
     }
     return validToSave;
   }

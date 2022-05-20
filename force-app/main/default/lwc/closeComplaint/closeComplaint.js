@@ -219,22 +219,22 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateRemedy1Fields() {
     let validToSave = true;
 
-    if (this.closeFields[COMPLAINT_OUTCOME.fieldApiName] == null) {
+    if (!this.closeFields[COMPLAINT_OUTCOME.fieldApiName]) {
       validToSave = false;
-      this.errMsg = this.errMsg + COMPLAINT_OUTCOME.fieldApiName + " ;";
+      this.errMsg += "Complaint Outcome ,";
     }
     if (this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] == null) {
       validToSave = false;
-      this.errMsg = this.errMsg + OUTCOME_DESCRIPTION.fieldApiName + " ;";
+      this.errMsg += "Description of Outcome ,";
     }
     if (this.closeFields[COMPLAINT_REMEDY.fieldApiName] == null) {
       validToSave = false;
-      this.errMsg = this.errMsg + COMPLAINT_REMEDY.fieldApiName + " ;";
+      this.errMsg += "Complaint Remedy 1 ,";
     }
 
     if (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == null) {
       validToSave = false;
-      this.errMsg = this.errMsg + COMPLAINT_SUB_REMEDY.fieldApiName + ";";
+      this.errMsg += "Complaint Sub Remedy 1 ,";
     }
 
     if (
@@ -243,7 +243,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + FINANCIAL_COMPENSATION.fieldApiName + " ;";
+      this.errMsg += "Financial Amount ,";
     }
 
     if (
@@ -251,7 +251,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[REMEDY_POINTS1.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + REMEDY_POINTS1.fieldApiName + ";";
+      this.errMsg += "Financial Remedy Points 1 ,";
     }
 
     if (
@@ -261,15 +261,14 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + FINANCIAL_COMPENSATION.fieldApiName + " ;";
+      this.errMsg += "Financial Amount ,";
     }
-
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] == SUB_REMEDY_OTHER &&
       this.closeFields[OTHER_REMDY1.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + OTHER_REMDY1.fieldApiName + " ;";
+      this.errMsg += "Other Remedy Provided 1 ,";
     }
 
     if (
@@ -279,7 +278,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[REMEDY_DURATION.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + REMEDY_DURATION.fieldApiName + " ;";
+      this.errMsg += "Duration of Remedy(months) ,";
     }
 
     if (
@@ -293,10 +292,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         ] == false)
     ) {
       validToSave = false;
-      this.errMsg =
-        this.errMsg +
-        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName +
-        " ;";
+      this.errMsg +=
+        "The details of this complaint have been provided to the product manufacturer ? ,";
     }
     return validToSave;
   }
@@ -306,12 +303,12 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
     if (this.closeFields[COMPLAINT_REMEDY2.fieldApiName] == null) {
       validToSave = false;
-      this.errMsg = this.errMsg + COMPLAINT_REMEDY2.fieldApiName + " ;";
+      this.errMsg += "Complaint Remedy 2 ,";
     }
 
     if (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == null) {
       validToSave = false;
-      this.errMsg = this.errMsg + COMPLAINT_SUB_REMEDY2.fieldApiName + ";";
+      this.errMsg += "Complaint Sub Remedy 2 ,";
     }
 
     if (
@@ -320,7 +317,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
+      this.errMsg += "Financial Amount 2 ,";
     }
 
     if (
@@ -328,7 +325,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[REMEDY_POINTS2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + REMEDY_POINTS2.fieldApiName + ";";
+      this.errMsg += "Financial Remedy Points 2 ,";
     }
 
     if (
@@ -338,7 +335,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + FINANCIAL_COMPENSATION2.fieldApiName + " ;";
+      this.errMsg += "Financial Amount 2 ,";
     }
 
     if (
@@ -347,7 +344,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[OTHER_REMDY2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + OTHER_REMDY2.fieldApiName + " ;";
+      this.errMsg += "Other Remedy Provided 2 ,";
     }
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] == MORATORIUM ||
@@ -356,7 +353,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[REMEDY_DURATION2.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + REMEDY_DURATION2.fieldApiName + " ;";
+      this.errMsg += "Duration of Remedy(months) 2 ,";
     }
 
     if (
@@ -370,10 +367,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         ] == false)
     ) {
       validToSave = false;
-      this.errMsg =
-        this.errMsg +
-        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName +
-        " ;";
+      this.errMsg +=
+        "The details of this complaint have been provided to the product manufacturer 2 ? ,";
     }
     return validToSave;
   }
@@ -383,12 +378,12 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
     if (this.closeFields[COMPLAINT_REMEDY3.fieldApiName] == null) {
       validToSave = false;
-      this.errMsg = this.errMsg + COMPLAINT_REMEDY3.fieldApiName + " ;";
+      this.errMsg += "Complaint Remedy 3 ,";
     }
 
     if (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] == null) {
       validToSave = false;
-      this.errMsg = this.errMsg + COMPLAINT_SUB_REMEDY3.fieldApiName + ";";
+      this.errMsg += "Complaint Sub Remedy 3 ,";
     }
 
     if (
@@ -397,7 +392,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
+      this.errMsg += "Financial Amount 3 ,";
     }
 
     if (
@@ -405,7 +400,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[REMEDY_POINTS3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + REMEDY_POINTS3.fieldApiName + ";";
+      this.errMsg += "Financial Remedy Points 3 ,";
     }
 
     if (
@@ -415,7 +410,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + FINANCIAL_COMPENSATION3.fieldApiName + " ;";
+      this.errMsg += "Financial Amount 3 ,";
     }
 
     if (
@@ -424,7 +419,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[OTHER_REMDY3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + OTHER_REMDY3.fieldApiName + " ;";
+      this.errMsg += "Other Remedy Provided 3 ,";
     }
 
     if (
@@ -434,7 +429,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.closeFields[REMEDY_DURATION3.fieldApiName] == null
     ) {
       validToSave = false;
-      this.errMsg = this.errMsg + REMEDY_DURATION3.fieldApiName + " ;";
+      this.errMsg += "Duration of Remedy(months) 3 ,";
     }
 
     if (
@@ -448,10 +443,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         ] == false)
     ) {
       validToSave = false;
-      this.errMsg =
-        this.errMsg +
-        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName +
-        " ;";
+      this.errMsg +=
+        "The details of this complaint have been provided to the product manufacturer 3 ? ,";
     }
     return validToSave;
   }

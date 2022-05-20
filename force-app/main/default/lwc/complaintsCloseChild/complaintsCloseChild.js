@@ -91,6 +91,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
   thirdPartyIsDetailsProvidedToProductManufacturer2 = false;
   isOtherSubFinRemedy2 = false;
 
+  isFinancialComplaintRemedy3 = false;
+  isNonFinancialComplaintRemedy3 = false;
+  isReferredToProductManufacturer3 = false;
+  thirdPartyIsDetailsProvidedToProductManufacturer3 = false;
+  isOtherSubFinRemedy3 = false;
+
   showSuccess = false;
   showAuthError = false;
 
@@ -256,6 +262,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "Remedy2";
     sendVal.value = event.target.checked;
     this.sendFieldValue(sendVal);
+    if (!event.target.checked) {
+      this.clearRemedy2();
+    }
   }
 
   handleComplaintRemedy2(event) {
@@ -384,6 +393,34 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
   }
 
+  clearRemedy2() {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+
+    sendVal.field = "IDR_Complaint_Remedy_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Complaint_Sub_Remedy_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Financial_Compensation_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Financial_Remedy_Points_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Other_Remedy_Provided_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "Provided_details_to_Product_Manufacturer_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Duration_of_Remedy_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "Remedy2";
+    sendVal.value = false;
+    this.sendFieldValue(sendVal);
+    if (this.showRemedy3) {
+      this.showRemedy3 = false;
+      this.clearRemedy3();
+    }
+  }
   // remedy 3
 
   handle3ndRemedyToggleChange(event) {
@@ -520,6 +557,30 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Duration_of_Remedy_3__c";
     sendVal.value = event.detail.value;
+    this.sendFieldValue(sendVal);
+  }
+  clearRemedy3() {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+
+    sendVal.field = "IDR_Complaint_Remedy_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Complaint_Sub_Remedy_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Financial_Compensation_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Financial_Remedy_Points_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Other_Remedy_Provided_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "Provided_details_to_Product_Manufacturer_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "IDR_Duration_of_Remedy_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "Remedy3";
+    sendVal.value = false;
     this.sendFieldValue(sendVal);
   }
 
