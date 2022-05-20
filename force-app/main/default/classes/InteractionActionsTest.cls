@@ -194,6 +194,7 @@ public with sharing class InteractionActionsTest {
     apptCommt.Type__c = 'Other';
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
     string otherPurposeName = 'Other';
@@ -347,6 +348,7 @@ public with sharing class InteractionActionsTest {
     apptCommt.Type__c = 'Other';
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
     string otherPurposeName = 'Other';

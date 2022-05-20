@@ -29,11 +29,13 @@ private class ContactRequestTriggerHandlerTest {
     apptCommt.Type__c = 'Financial Wellbeing';
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
+    apptCommt.Appointment_Channel__c = 'Store';
     apptCommtRecords.add(apptCommt);
 
     Appointment_Commitment__c apptCommt2 = new Appointment_Commitment__c();
     apptCommt2.Available__c = 5;
     apptCommt2.Date_and_Time__c = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
+    apptCommt2.Appointment_Channel__c = 'Store';
     apptCommtRecords.add(apptCommt2);
 
     insert apptCommtRecords;
@@ -64,7 +66,7 @@ private class ContactRequestTriggerHandlerTest {
       interactionList.add(interaction);
 
       ContactRequest contactReq = new ContactRequest(
-        PreferredChannel = 'Call',
+        PreferredChannel = 'Store',
         RequestReason = 'Financial Wellbeing',
         Status = 'New',
         Appointment_Date_And_Time__c = start,
@@ -87,7 +89,13 @@ private class ContactRequestTriggerHandlerTest {
     Datetime dateTimeVal = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = [
-      SELECT ID, Confirmed__c, Type__c, Location__c, Date_and_Time__c
+      SELECT
+        ID,
+        Confirmed__c,
+        Type__c,
+        Location__c,
+        Date_and_Time__c,
+        Appointment_Channel__c
       FROM Appointment_Commitment__c
       WHERE Date_and_Time__c = :dateTimeVal
     ];
@@ -106,7 +114,6 @@ private class ContactRequestTriggerHandlerTest {
       0
     );
     contReq.Appointment_Commitment__c = apptCommtRec.Id;
-    contReq.PreferredChannel = 'Call';
     contReq.WhoId = testAccount.PersonContactId;
     insert contReq;
 
@@ -117,9 +124,10 @@ private class ContactRequestTriggerHandlerTest {
         Contact_Request_Auto_Number__c,
         RequestReason,
         Appointment_date_and_Time__c,
-        Location__c
+        Location__c,
+        PreferredChannel
       FROM ContactRequest
-      WHERE Appointment_date_and_time__c = :dateTimeVal
+      WHERE Id = :contReq.Id
     ];
 
     System.assertEquals(
@@ -139,6 +147,12 @@ private class ContactRequestTriggerHandlerTest {
       apptCommtRec.Location__c,
       'The location should be updated with the appointment commitment location'
     );
+
+    System.assertEquals(
+      apptCommtRec.Appointment_Channel__c,
+      contReq.PreferredChannel,
+      'The PreferredChannel should be updated with the appointment commitment Channel'
+    );
   }
 
   @isTest
@@ -156,14 +170,14 @@ private class ContactRequestTriggerHandlerTest {
     apptCommt.Confirmed__c = 0;
     apptCommt.Type__c = 'Financial Wellbeing';
     apptCommt.Location__c = loc.Id;
-    apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 5, 12, 12, 45, 0);
+    apptCommt.Appointment_Channel__c = 'Call';
+    apptCommt.Date_and_Time__c = dateTimeVal;
     insert apptCommt;
 
     List<ContactRequest> crList = new List<ContactRequest>();
     for (Integer i = 0; i < 100; i++) {
       ContactRequest contReq = new ContactRequest();
       contReq.Appointment_Commitment__c = apptCommt.Id;
-      contReq.PreferredChannel = 'Phone';
       contReq.WhoId = testAccount.PersonContactId;
       crList.add(contReq);
     }
@@ -173,27 +187,34 @@ private class ContactRequestTriggerHandlerTest {
     crList = [
       SELECT Id, RequestReason, Appointment_date_and_Time__c, Location__c
       FROM ContactRequest
-      WHERE PreferredChannel = 'Phone'
+      WHERE PreferredChannel = 'Call'
     ];
+
+    Integer counter = 0;
 
     for (ContactRequest contReq : crList) {
       System.assertEquals(
         contReq.RequestReason,
         apptCommt.Type__c,
-        'The request reason should be updated with the appointment commitment type'
+        'The request reason should be updated with the appointment commitment type ' +
+        counter
       );
 
       System.assertEquals(
         contReq.Appointment_date_and_Time__c,
         apptCommt.Date_and_Time__c,
-        'The date and time should be updated with the appointment commitment date and time'
+        'The date and time should be updated with the appointment commitment date and time ' +
+        counter
       );
 
       System.assertEquals(
         contReq.Location__c,
         apptCommt.Location__c,
-        'The location should be updated with the appointment commitment location'
+        'The location should be updated with the appointment commitment location ' +
+        counter
       );
+
+      counter++;
     }
   }
 
@@ -203,7 +224,7 @@ private class ContactRequestTriggerHandlerTest {
     Datetime dateTimeVal = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = [
-      SELECT ID, Confirmed__c
+      SELECT ID, Confirmed__c, Appointment_Channel__c
       FROM Appointment_Commitment__c
       WHERE Date_and_Time__c = :dateTimeVal
     ];
@@ -240,7 +261,7 @@ private class ContactRequestTriggerHandlerTest {
     Test.stopTest();
 
     Appointment_Commitment__c apptCommtRec2 = [
-      SELECT ID, Confirmed__c
+      SELECT ID, Confirmed__c, Appointment_Channel__c
       FROM Appointment_Commitment__c
       WHERE Date_and_Time__c = :dateTimeVal
     ];
@@ -262,7 +283,7 @@ private class ContactRequestTriggerHandlerTest {
     DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = [
-      SELECT ID, Confirmed__c
+      SELECT ID, Confirmed__c, Appointment_Channel__c
       FROM Appointment_Commitment__c
       WHERE Date_and_Time__c = :dateTimeVal
     ];
@@ -290,7 +311,7 @@ private class ContactRequestTriggerHandlerTest {
     Test.stopTest();
 
     Appointment_Commitment__c apptCommtRec2 = [
-      SELECT ID, Confirmed__c
+      SELECT ID, Confirmed__c, Appointment_Channel__c
       FROM Appointment_Commitment__c
       WHERE Date_and_Time__c = :dateTimeVal
     ];

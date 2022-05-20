@@ -171,6 +171,7 @@ public with sharing class ContactRequestTriggerActions {
         contReq.RequestReason = apptCommt.Type__c;
         contReq.Appointment_date_and_Time__c = apptCommt.Date_and_Time__c;
         contReq.Location__c = apptCommt.Location__c;
+        contReq.PreferredChannel = apptCommt.Appointment_Channel__c;
       }
     } else {
       //If the user does not have permission to update the contact request object log an error.
@@ -197,19 +198,19 @@ public with sharing class ContactRequestTriggerActions {
         apptCommtId.add(cr.Appointment_Commitment__c);
       }
     }
-    if (
-      Appointment_Commitment__c.SObjectType.getDescribe().isAccessible() &&
-      Schema.SObjectType.Appointment_Commitment__c.fields.Type__c.isAccessible() &&
-      Schema.SObjectType.Appointment_Commitment__c.fields.Date_and_Time__c.isAccessible() &&
-      Schema.SObjectType.Appointment_Commitment__c.fields.Location__c.isAccessible()
-    ) {
-      for (Appointment_Commitment__c apptCommt : [
-        SELECT Id, Type__c, Date_and_Time__c, Location__c
-        FROM Appointment_Commitment__c
-        WHERE ID IN :apptCommtId
-      ]) {
-        apptCommtMap.put(apptCommt.Id, apptCommt);
-      }
+    if (Appointment_Commitment__c.SObjectType.getDescribe().isAccessible()) {
+      apptCommtMap = new Map<Id, Appointment_Commitment__c>(
+        [
+          SELECT
+            Id,
+            Type__c,
+            Date_and_Time__c,
+            Location__c,
+            Appointment_Channel__c
+          FROM Appointment_Commitment__c
+          WHERE ID IN :apptCommtId
+        ]
+      );
     } else {
       CommonUtil.logAndThrowIAE(
         'ContactRequestActions',
