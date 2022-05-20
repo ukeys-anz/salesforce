@@ -135,6 +135,10 @@
         <enabled>true</enabled>
         <name>ViewRoles</name>
     </userPermissions>
+    <layoutAssignments>
+        <layout>Lead-ANZX Lead Layout</layout>
+        <recordType>Lead.ANZX_Leads</recordType>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -143,5 +147,9 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
         <viewAllRecords>false</viewAllRecords>
-      </objectPermissions>
+    </objectPermissions>
+    <tabVisibilities>
+        <tab>standard-Lead</tab>
+        <visibility>DefaultOn</visibility>
+  </tabVisibilities>      
 </Profile>

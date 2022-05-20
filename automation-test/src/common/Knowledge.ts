@@ -11,7 +11,6 @@ import * as faker from "faker";
 import { Queue, SObject, SObjectAPIName } from "constants/enums";
 import { App, AppTab } from "constants/appsDefinition";
 import { FieldDefinition } from "types/field";
-import GlobalRoot from "pageObjects/globalRoot";
 import KnowledgeEditAsDraftModal from "pageObjects/knowledgeEditAsDraftModal";
 
 export default class Knowledge {
@@ -128,13 +127,14 @@ export default class Knowledge {
     const knowledgeRecordPage = await recordPageRoot.getKnowledgeRecordPage();
 
     // verify Approval History
+    await knowledgeRecordPage.openApprovalHistoryTab();
     const approvalHistories = await knowledgeRecordPage.getHistories();
     // there should have 2 records
     expect(approvalHistories.length).toEqual(2);
 
     // first record is Peer Review
     const peerReview = approvalHistories[0];
-    expect(await peerReview.getTitle()).toEqual("Peer Review");
+    expect(await peerReview.getStepName()).toEqual("Peer Review");
 
     // first record Assigned to Content Writers Queue
     expect(await peerReview.getAssignedTo()).toEqual(
@@ -143,7 +143,7 @@ export default class Knowledge {
 
     // second record is Approval Request Submitted
     const requestSubmitted = approvalHistories[1];
-    expect(await requestSubmitted.getTitle()).toEqual(
+    expect(await requestSubmitted.getStepName()).toEqual(
       "Approval Request Submitted"
     );
   }
@@ -192,10 +192,8 @@ export default class Knowledge {
     const knowledgeRecordPage = await recordPageRoot.getKnowledgeRecordPage();
 
     // click approval
-    await knowledgeRecordPage.expandApprovalHistoryDropDown();
-    await browser.pause(1000);
-    const globalRoot = await utam.load(GlobalRoot);
-    await globalRoot.approveArticle();
+    await knowledgeRecordPage.openApprovalHistoryTab();
+    await knowledgeRecordPage.clickApproveButton();
     await browser.pause(1000);
 
     const knowledgeModalRoot = await utam.load(KnowledgeModal);
@@ -206,6 +204,7 @@ export default class Knowledge {
   async publish(): Promise<void> {
     const recordPageRoot = await utam.load(RecordPage);
     const knowledgeRecordPage = await recordPageRoot.getKnowledgeRecordPage();
+    await knowledgeRecordPage.openDetailTab();
 
     // click publish article button to open Publish Article lwc modal
     await knowledgeRecordPage.clickHeaderButtonByTitle("Publish Article");

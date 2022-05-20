@@ -4,7 +4,8 @@ export const enum UserRole {
   FRAUDX_AGENT = "FraudX Agent",
   CONTENT_WRITER = "Content Writer",
   SUPER_SUPPORT_ADMIN = "Super Support Admin",
-  QUALITY_ANALYST = "Quality Analyst"
+  QUALITY_ANALYST = "Quality Analyst",
+  SUPPORT_COACH = "Support Coach"
 }
 
 export const enum Queue {
@@ -22,14 +23,16 @@ export const enum SObject {
   Account = "Account",
   Case = "Case",
   Knowledge = "Knowledge",
-  Quality_Assessment = "Quality Assessment"
+  Quality_Assessment = "Quality Assessment",
+  Lead = "Lead"
 }
 
 export const enum SObjectAPIName {
   Account = "Account",
   Case = "Case",
   Knowledge = "Knowledge__kav",
-  Quality_Assessment = "Quality_Assessment__c"
+  Quality_Assessment = "Quality_Assessment__c",
+  Lead = "Lead"
 }
 
 export const enum OwnerType {

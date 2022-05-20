@@ -40,7 +40,6 @@ export const selectPicklistOnRecordLayout = async (
   fieldSectionIndex: FieldSectionIndex,
   picklistOptionIndexRange: PicklistOptionIndexRange
 ): Promise<void> => {
-  // get field and
   const field = await getFieldFromRecordLayout(recordLayout, fieldSectionIndex);
   const fieldInlineEditButton = await field.getInlineEditButton();
 
