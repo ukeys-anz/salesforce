@@ -94,7 +94,7 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
     });
   });
 
-  describe.skip("AR-10347: Quality Analyst processes Quality Assessment for ANZ Plus Complaint case", async (): Promise<void> => {
+  describe("AR-10347: Quality Analyst processes Quality Assessment for ANZ Plus Complaint case", async (): Promise<void> => {
     const anzxComplaintCase = new ANZXComplaint(UserRole.QUALITY_ANALYST);
     const qualityAssessment = new QualityAssessment(UserRole.QUALITY_ANALYST);
 

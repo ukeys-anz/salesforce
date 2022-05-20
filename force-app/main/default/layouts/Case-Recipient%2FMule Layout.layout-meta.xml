@@ -103,6 +103,10 @@
         <label>Case Information</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Fraud_Customer_Event_Age__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Fraud_Complicit_in_Fraud__c</field>
             </layoutItems>

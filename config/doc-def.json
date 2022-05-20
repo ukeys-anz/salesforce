@@ -66,14 +66,14 @@
       "name": "Coach",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Coach"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
       "name": "Coach Lead",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Coach_Lead"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {
@@ -87,7 +87,7 @@
       "name": "Content Author",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Content_Author_PSG"],
-      "permissionsets": [],
+      "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },
     {

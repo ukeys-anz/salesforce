@@ -19,7 +19,55 @@ export default class ANZXComplaint extends Case implements IAssignNewOwner {
     await recordCreationFormRoot.selectCaseRecordType(CaseType.ANZX_COMPLAINT);
     await browser.pause(2000);
 
-    const fieldsToFill = this.initFieldsToFill(caseData);
+    const fieldsToFill: FieldDefinition[] = [
+      {
+        label: CaseFields.Account_Name,
+        options: {
+          lookupText: caseData.accountName
+        }
+      },
+      {
+        label: CaseFields.Channel_Received,
+        options: {
+          picklistDOMIndex: 0,
+          picklistOptionIndexRange: [2, 14]
+        }
+      },
+      {
+        label: CaseFields.Issue_Type,
+        options: {
+          picklistDOMIndex: 1,
+          picklistOptionIndexRange: [2, 10]
+        }
+      },
+      {
+        label: CaseFields.Subsequent_Issue_Type,
+        options: {
+          picklistDOMIndex: 2,
+          picklistOptionIndexRange: [2, 2]
+        }
+      },
+      {
+        label: CaseFields.Description_of_Issue
+      },
+      {
+        label: CaseFields.Customer_Desired_Outcome
+      },
+      {
+        label: CaseFields.Is_a_Written_Response_Requested,
+        options: {
+          picklistDOMIndex: 3,
+          picklistOptionIndexRange: [2, 3]
+        }
+      },
+      {
+        label: CaseFields.Product_or_Service_Name,
+        options: {
+          lookupText: caseData.productName
+        }
+      }
+    ];
+
     ANZXComplaint.creationFormFieldIndexMap =
       await creationFormUtils.fillInFields(
         this.sobject,
@@ -30,6 +78,8 @@ export default class ANZXComplaint extends Case implements IAssignNewOwner {
     // click save button
     await recordCreationFormRoot.saveNew();
     await browser.pause(5000);
+
+    this.caseNumber = await casePageUtils.getCaseNumber();
   }
 
   async assignNewOwner(
@@ -85,69 +135,6 @@ export default class ANZXComplaint extends Case implements IAssignNewOwner {
     }
 
     await browser.pause(6000);
-  }
-
-  initFieldsToFill(caseData: any): FieldDefinition[] {
-    // default fields to fill in
-    let fieldsToFill: FieldDefinition[] = [
-      {
-        label: CaseFields.Account_Name,
-        options: {
-          lookupText: caseData.accountName
-        }
-      },
-      {
-        label: CaseFields.Channel_Received,
-        options: {
-          picklistDOMIndex: 0,
-          picklistOptionIndexRange: [2, 14]
-        }
-      },
-      {
-        label: CaseFields.Issue_Type,
-        options: {
-          picklistDOMIndex: 1,
-          picklistOptionIndexRange: [2, 10]
-        }
-      },
-      {
-        label: CaseFields.Subsequent_Issue_Type,
-        options: {
-          picklistDOMIndex: 2,
-          picklistOptionIndexRange: [2, 2]
-        }
-      },
-      {
-        label: CaseFields.Description_of_Issue
-      },
-      {
-        label: CaseFields.Customer_Desired_Outcome
-      },
-      {
-        label: CaseFields.Is_a_Written_Response_Requested,
-        options: {
-          picklistDOMIndex: 3,
-          picklistOptionIndexRange: [2, 3]
-        }
-      }
-    ];
-
-    if (
-      this.userRole === UserRole.COACH ||
-      this.userRole === UserRole.FRAUDX_AGENT
-    ) {
-      fieldsToFill = [
-        ...fieldsToFill,
-        {
-          label: CaseFields.Product_or_Service_Name,
-          options: {
-            lookupText: caseData.productName
-          }
-        }
-      ];
-    }
-
-    return fieldsToFill;
   }
 
   // Priority (used on Record Page, not on Creation Form)
