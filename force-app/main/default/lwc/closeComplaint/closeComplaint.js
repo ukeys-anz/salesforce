@@ -404,7 +404,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === DEBT_WAIVER ||
-        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ==
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
           SETTEL_FOR_LESS) &&
       this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] === null
     ) {
