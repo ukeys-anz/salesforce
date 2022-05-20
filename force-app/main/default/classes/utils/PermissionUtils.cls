@@ -12,7 +12,7 @@ public with sharing class PermissionUtils {
    */
   public static Boolean canCreate(String objectName) {
     Schema.SObjectType targetType = Schema.getGlobalDescribe().get(objectName);
-    Boolean createable = targetType.getDescribe().isQueryable();
+    Boolean createable = targetType.getDescribe().isCreateable();
 
     if (!createable) {
       NoAccessException error = new System.NoAccessException();
