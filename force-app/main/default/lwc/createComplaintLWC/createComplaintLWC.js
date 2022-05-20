@@ -1218,7 +1218,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     statusElement.dispatchEvent(new CustomEvent("change"));
     // AR-7064 The above Status change causes the isComplaintResolved to change but if the Status goes from Open to Closed
     // The screen doesn't have time to refresh before the below code starts access those screen elements.
-    if (this.isComplaintResolved) {
+    /* if (this.isComplaintResolved) {
       const complaintOutcomeElement = this.template.querySelector(
         '[data-id="compOutCome-id"]'
       );
@@ -1249,7 +1249,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
             event === undefined ? "" : event.detail.IDR_Non_Financial_Remedy__c;
         }
       }
-    }
+    }*/
 
     this.knownIssue = event === undefined ? "" : event.detail.Id;
   }
