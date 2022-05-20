@@ -66,8 +66,8 @@
                 <field>IDR_NC_Suburb__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>IDR_NC_State__c</field>
+                <behavior>Edit</behavior>
+                <field>IDR_NC_Country__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -92,12 +92,12 @@
                 <field>IDR_NC_Street__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>IDR_NC_Postcode__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_NC_Country__c</field>
+                <field>IDR_NC_State__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -678,7 +678,6 @@
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
-    <runAssignmentRulesDefault>false</runAssignmentRulesDefault>
     <showEmailCheckbox>true</showEmailCheckbox>
     <showHighlightsPanel>true</showHighlightsPanel>
     <showInteractionLogPanel>true</showInteractionLogPanel>

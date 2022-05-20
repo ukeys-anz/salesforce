@@ -302,7 +302,7 @@
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
-                    required={isAddressRequired}
+                    required
                     variant="label-stacked"
                     field-name={postcode}
                     data-id="postcode-id"
@@ -311,19 +311,19 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
-                    required
-                    aria-label="Dropdown Country"
-                    field-name={country}
-                    data-id="country-id"
+                    required={isAddressRequired}
+                    aria-label="Dropdown State"
+                    field-name={state}
+                    data-id="state-id"
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     variant="label-stacked"
-                    required
-                    aria-label="Dropdown State"
-                    field-name={state}
-                    data-id="state-id"
+                    required={isAddressRequired}
+                    aria-label="Dropdown Country"
+                    field-name={country}
+                    data-id="country-id"
                   ></lightning-input-field>
                 </div>
               </div>
