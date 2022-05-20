@@ -52,7 +52,7 @@ global with sharing class ChatterMigrationServiceController {
       );
     }
     if (
-      ChatterMigrationService.cloneChatterFromVicimToSurvivor(
+      ChatterMigrationService.cloneChatterFromVictimToSurvivor(
         record.External_Id__c,
         record.Survivor_Party_ID__c
       )
