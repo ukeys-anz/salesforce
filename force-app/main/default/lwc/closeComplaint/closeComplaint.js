@@ -172,6 +172,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       case "IDR_Duration_of_Remedy_3__c":
         this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
         break;
+      default:
     }
   }
 

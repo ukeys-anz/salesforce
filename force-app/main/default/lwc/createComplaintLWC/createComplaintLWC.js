@@ -1383,6 +1383,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       case "IDR_Duration_of_Remedy_3__c":
         this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
         break;
+      default:
     }
   }
 
@@ -1421,7 +1422,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ===
         COMPLAINT_REMEDY_FIN_VALUE &&
       !this.closeFields[FINANCIAL_COMPENSATION.fieldApiName]
     ) {
@@ -1467,7 +1468,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY.fieldApiName] ===
         COMPLAINT_REMEDY_PRODUCT_MANU &&
       (!this.closeFields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
@@ -1497,7 +1498,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     if (
-      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ==
+      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ===
         COMPLAINT_REMEDY_FIN_VALUE &&
       !this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName]
     ) {
