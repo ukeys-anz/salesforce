@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Provided_details_to_Prod_Manufacturer_3__c</fullName>
+    <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>The details of this complaint have been provided to the product manufacturer</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case</inlineHelpText>
+    <label>Provided details to Product Manufacturer 3</label>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
