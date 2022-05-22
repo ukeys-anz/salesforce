@@ -104,45 +104,6 @@ describe("c-create-complaint-l-w-c", () => {
     });
   });
 
-  it("check resolved complaint case", () => {
-    const element = createElement("c-create-complaint-l-w-c", {
-      is: CreateComplaintForm
-    });
-    element.recordTypeDevName = "Customer_Complaint";
-    document.body.appendChild(element);
-
-    const complaintStatus = element.shadowRoot.querySelector(
-      "lightning-combobox[data-id=caseStatus-id]"
-    );
-    complaintStatus.value = "Closed";
-    complaintStatus.dispatchEvent(new CustomEvent("change"));
-
-    return flushPromises().then(() => {
-      expect(complaintStatus.value).toBe("Closed");
-      const compRemedy = element.shadowRoot.querySelector(
-        "lightning-input-field[data-id=compRemedy-id]"
-      );
-      compRemedy.dispatchEvent(
-        new CustomEvent("change", {
-          detail: {
-            value: "1"
-          }
-        })
-      );
-
-      return flushPromises().then(() => {
-        const finRemedy = element.shadowRoot.querySelector(
-          "lightning-input[data-id=finAmount-id]"
-        );
-        expect(finRemedy).toBeTruthy();
-
-        //click Create Case button to improve code coverage
-        const saveButton = element.shadowRoot.querySelector(".saveButton");
-        saveButton.click();
-      });
-    });
-  });
-
   it("display Nominated third party fields", () => {
     const element = createElement("c-create-complaint-l-w-c", {
       is: CreateComplaintForm
