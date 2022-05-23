@@ -11,7 +11,7 @@
     <filters>
         <field>Audience__c</field>
         <operation>includes</operation>
-        <value>Support Coach</value>
+        <value>All,Support Coach</value>
     </filters>
     <label>Support Coach Articles</label>
 </ListView>

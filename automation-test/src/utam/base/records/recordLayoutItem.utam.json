@@ -229,6 +229,22 @@
       "selector": {
         "css": "[slot='outputField']"
       }
+    },
+    {
+      "type": "utam-lightning/pageObjects/input",
+      "name": "input",
+      "public": true,
+      "selector": {
+        "css": "lightning-input"
+      }
+    },
+    {
+      "type": "utam-records/pageObjects/recordLayoutInputName",
+      "name": "inputName",
+      "public": true,
+      "selector": {
+        "css": "records-record-layout-input-name"
+      }
     }
   ],
   "shadow": {

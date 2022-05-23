@@ -11,7 +11,7 @@
     <filters>
         <field>Audience__c</field>
         <operation>includes</operation>
-        <value>Card Dispute Agent</value>
+        <value>All,Card Dispute Agent</value>
     </filters>
     <label>Card Dispute Agent Articles</label>
 </ListView>

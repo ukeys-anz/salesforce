@@ -1,24 +1,24 @@
 {
   "elements": [
     {
-      "name": "title",
+      "name": "stepName",
       "selector": {
-        "css": "h3.primaryField"
+        "css": "th"
       }
     },
     {
       "name": "assignedTo",
       "selector": {
-        "css": ".itemRows li:nth-of-type(3) .slds-item--detail"
+        "css": "td:nth-of-type(3)"
       }
     }
   ],
   "methods": [
     {
-      "name": "getTitle",
+      "name": "getStepName",
       "compose": [
         {
-          "element": "title",
+          "element": "stepName",
           "apply": "getText"
         }
       ]

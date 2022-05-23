@@ -71,7 +71,6 @@ exports.config = {
     [
       "./build/tests/cases/*.spec.js",
       "./build/tests/disputes.spec.js",
-      "./build/tests/digitalWallets.spec.js",
       "./build/tests/qualityAssessments.spec.js"
     ],
     [
@@ -82,7 +81,8 @@ exports.config = {
     [
       "./build/tests/virtualGoals.spec.js",
       "./build/tests/chatters.spec.js",
-      "./build/tests/knowledge.spec.js"
+      "./build/tests/knowledge.spec.js",
+      "./build/tests/leads.spec.js"
     ]
   ],
   // Patterns to exclude.
