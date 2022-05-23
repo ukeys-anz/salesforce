@@ -978,7 +978,7 @@ public with sharing class InteractionActions {
           tempInteractionList = coachInteractions.get(interact.OwnerId);
         }
         tempInteractionList.add(interact);
-        coachInteractions.put(interact.AccountId, tempInteractionList);
+        coachInteractions.put(interact.OwnerId, tempInteractionList);
       }
       return coachInteractions;
     } else {
@@ -1001,7 +1001,10 @@ public with sharing class InteractionActions {
     List<Interaction> interactions
   ) {
     for (Interaction interact : interactions) {
-      if (existingCoachInteractions.containsKey(interact.OwnerId)) {
+      Boolean hasOwnerExistingInteractions = existingCoachInteractions.containsKey(
+        interact.OwnerId
+      );
+      if (hasOwnerExistingInteractions) {
         Boolean existingInteractionAvailable = verifyTimeSlots(
           interact,
           existingCoachInteractions.get(interact.OwnerId)

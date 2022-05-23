@@ -972,6 +972,9 @@ public with sharing class InteractionActionsTest {
     );
   }
 
+  /**
+   *@description A customer cannot request an interaction at the same time they have another
+   */
   @isTest
   static void testCustomerCreatingOverlappingInteraction() {
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -1016,21 +1019,31 @@ public with sharing class InteractionActionsTest {
     request2.RequestReason = finacialWellbeingPurposeName;
     request2.WhoId = testAccount.PersonContactId;
     request2.PreferredChannel = 'Call';
+
+    Exception thrownException;
     try {
       insert request2;
     } catch (Exception e) {
-      System.assert(
-        e.getMessage()
-          .contains(System.Label.Interaction_User_Created_Error_Message),
-        'The error message should be available in the body'
-      );
+      thrownException = e;
     }
     Test.stopTest();
+
+    System.assertNotEquals(
+      null,
+      thrownException,
+      'An exception must have been thrown'
+    );
+
+    System.assert(
+      thrownException.getMessage()
+        .contains(System.Label.Interaction_User_Created_Error_Message),
+      'The error message should be available in the body'
+    );
   }
 
   /**
-   * @description testing that the same customer, cannot have an interaction
-   * Created by a coach at the same time.
+   * @description testing that a coach cannot create an interaction for the same customer
+   * at the same time.
    */
   @isTest
   static void testCoachCreatingOverlappingInteraction() {
@@ -1091,6 +1104,125 @@ public with sharing class InteractionActionsTest {
       UserInfo.getUserId(),
       testInteraction2.OwnerId,
       'Update should have not allowed the owner to change.'
+    );
+  }
+
+  /**
+   * @description testing that a coach cannot take ownership of an interaction
+   * at the same time as another interaction they have ownership.
+   */
+  @isTest
+  static void testCoachUpdatingOverlappingInteraction() {
+    InteractionActions actions = new InteractionActions();
+    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+      .get('Appointment')
+      .getRecordTypeId();
+
+    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount1;
+    Account testAccount2 = createTestAccount('Jane', 'Doe', 'zui987');
+    insert testAccount2;
+
+    Account testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount1.Id
+    ];
+
+    testAccount2 = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount2.Id
+    ];
+
+    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
+    DateTime endDate = appointmentDate.addMinutes(45);
+
+    Interaction existingInteraction = new Interaction(
+      Name = 'existing interaction',
+      RecordTypeId = appointmentRTID,
+      AccountId = testAccount1.Id,
+      Interaction_Purpose__c = 'Financial Wellbeing',
+      OwnerId = UserInfo.getUserId(),
+      Status__c = InteractionActions.SCHEDULED_STATUS,
+      StartTime = appointmentDate,
+      EndTime = endDate
+    );
+    insert existingInteraction;
+
+    existingInteraction.OwnerId = UserInfo.getUserId();
+    update existingInteraction;
+
+    existingInteraction = [
+      SELECT Id, Status__c
+      FROM Interaction
+      WHERE Id = :existingInteraction.Id
+    ];
+    System.assertEquals(
+      InteractionActions.SCHEDULED_STATUS,
+      existingInteraction.Status__c,
+      'Status should be set'
+    );
+    Test.startTest();
+
+    Interaction testInteraction2;
+    testInteraction2 = new Interaction(
+      Name = 'Test Interaction',
+      RecordTypeId = appointmentRTID,
+      AccountId = testAccount2.Id,
+      Interaction_Purpose__c = 'Financial Wellbeing',
+      StartTime = appointmentDate,
+      EndTime = endDate
+    );
+    insert testInteraction2;
+
+    testInteraction2 = [
+      SELECT Id, OwnerId
+      FROM Interaction
+      WHERE Id = :testInteraction2.Id
+    ];
+
+    Map<Id, List<Interaction>> interactionMap = actions.getCoachExistingInteractions(
+      new Set<Id>{ UserInfo.getUserId() }
+    );
+    System.assertEquals(
+      1,
+      interactionMap.values().size(),
+      'There should be an existing interaction for the coach'
+    );
+
+    testInteraction2.OwnerId = UserInfo.getUserId();
+
+    Exception thrownException;
+    try {
+      update testInteraction2;
+    } catch (Exception exc) {
+      thrownException = exc;
+    }
+    Test.stopTest();
+
+    testInteraction2 = [
+      SELECT Id, OwnerId
+      FROM Interaction
+      WHERE Id = :testInteraction2.Id
+    ];
+    System.assertNotEquals(
+      UserInfo.getUserId(),
+      testInteraction2.OwnerId,
+      'Update should have not allowed the owner to change.'
+    );
+
+    System.assertNotEquals(
+      null,
+      thrownException,
+      'An exception should have been thrown'
+    );
+
+    System.assert(
+      thrownException.getMessage()
+        .contains(System.Label.Coach_Existing_Interaction_Error_Message),
+      'Error message should be what is expected'
     );
   }
 
