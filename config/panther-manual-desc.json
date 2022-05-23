@@ -443,6 +443,7 @@
         "IDR_Duration_of_Remedy__c",
         "IDR_Duration_of_Remedy_2__c",
         "IDR_Duration_of_Remedy_3__c",
+        "IDR_EDW_Status__c",
         "IDR_Escalated_to__c",
         "IDR_Escalation_Reason__c",
         "IDR_Existing_ANZ_Customer__c",
