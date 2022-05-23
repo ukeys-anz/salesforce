@@ -23,6 +23,11 @@ import THIRD_PARTY_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.IDR_Produc
 import THIRD_PARTY_OTHER_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Name_of_product_manufacturer__c";
 import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER from "@salesforce/schema/Case.Provided_details_to_Product_Manufacturer__c";
 
+// Customer Complaint
+import CC_AGE_FIELD from "@salesforce/schema/Case.IDR_CC_Age__c";
+import CC_GENDER_FIELD from "@salesforce/schema/Case.IDR_CC_Gender__c";
+import CC_POSTCODE_FIELD from "@salesforce/schema/Case.IDR_CC_Postcode__c";
+
 //Non Customer complaint
 import COMPLAINT_TYPE_FIELD from "@salesforce/schema/Case.IDR_Complainant_Type__c";
 import BUSINESS_NAME_FIELD from "@salesforce/schema/Case.IDR_NC_Business_Name__c";
@@ -136,6 +141,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   accountOrPolicyNumber = "";
   CapCisID = CAP_CIS_ID_FIELD;
   customerIdentifierValue = CUS_IDENTIFIER_CAPCIS_ID;
+  ccAge = CC_AGE_FIELD;
+  ccGender = CC_GENDER_FIELD;
+  ccPostcode = CC_POSTCODE_FIELD;
 
   //Non customer complaint details
   complaintType = COMPLAINT_TYPE_FIELD;
@@ -727,6 +735,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields[CP_ID.fieldApiName] = this.cpId;
         fields[RM_COMPLAINT.fieldApiName] = this.isRmComplaint;
         fields[EMAIL_FIELD.fieldApiName] = this.email;
+        fields[CC_AGE_FIELD.fieldApiName] = this.ccAge;
+        fields[CC_GENDER_FIELD.fieldApiName] = this.ccGender;
+        fields[CC_POSTCODE_FIELD.fieldApiName] = this.ccPostcode;
       }
       if (this.isCustomerComplaint) {
         fields[
@@ -941,6 +952,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.ocvId = event.detail.ocvId;
         this.isRmComplaint = event.detail.isRmPresent;
         this.email = event.detail.email;
+        this.ccAge = event.detail.age;
+        this.ccGender = event.detail.gender;
+        this.ccPostcode = event.detail.postcode;
         this.isCustomerDetails = true;
         this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
         let x;
