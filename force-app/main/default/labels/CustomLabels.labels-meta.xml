@@ -233,4 +233,25 @@
         <shortDescription>IDR_Window_For_Task_Reminders</shortDescription>
         <value>1,3,5,7</value>
     </labels>
+    <labels>
+        <fullName>Interaction_User_Created_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction_User_Created_Error_Message</shortDescription>
+        <value>You already have an appointment at this date and time. Please select another date and time.</value>
+    </labels>
+    <labels>
+        <fullName>Interaction_Coach_Created_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction_Coach_Created_Error_Message</shortDescription>
+        <value>The customer already has an appointment at this date and time. Please select another date and time.</value>
+    </labels>
+    <labels>
+        <fullName>Coach_Existing_Interaction_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Coach_Existing_Interaction_Error_Message</shortDescription>
+        <value>You already have an appointment at this date and time. Please select another date and time.</value>
+    </labels>
 </CustomLabels>

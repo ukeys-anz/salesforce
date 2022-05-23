@@ -5,7 +5,9 @@
  * Adding suppression for Excessive Public Count as tech debt to be resolved
  * later in the Epic's development as per request.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity,PMD.ExcessivePublicCount')
+@SuppressWarnings(
+  'PMD.CyclomaticComplexity,PMD.ExcessivePublicCount,PMD.ExcessiveClassLength'
+)
 public with sharing class InteractionActions {
   public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
   public static final String SCHEDULED_STATUS = 'Scheduled';
@@ -159,17 +161,9 @@ public with sharing class InteractionActions {
    */
 
   public void updateOwnerNewInteractions(List<Interaction> interactions) {
-    if (Interaction.SObjectType.getDescribe().isUpdateable()) {
-      for (Interaction interact : interactions) {
-        interact.OwnerID = QUEUE_ID;
-        interact.Status__c = UNASSIGNED_STATUS;
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'updateOwnerNewInteractions',
-        'Not enough permissions to update Interaction.'
-      );
+    for (Interaction interact : interactions) {
+      interact.OwnerID = QUEUE_ID;
+      interact.Status__c = UNASSIGNED_STATUS;
     }
   }
 
@@ -565,7 +559,6 @@ public with sharing class InteractionActions {
    * @description Method to update the interactions record
    * @param interactions The list of interactions to be updated
    */
-
   public void updateInteractions(List<Interaction> interactions) {
     if (Interaction.SObjectType.getDescribe().isUpdateable()) {
       List<Database.SaveResult> results = Database.Update(interactions);
@@ -843,5 +836,182 @@ public with sharing class InteractionActions {
       results.add(currentInteraction);
     }
     return results;
+  }
+
+  /** @description Loop through list of new interactions and validate the data.
+   * @param interactions New interaction records to be created.
+   */
+  public void validateInteractions(List<Interaction> interactions) {
+    Set<Id> accountIds = new Set<Id>();
+    for (Interaction interact : interactions) {
+      if (interact.AccountId != null) {
+        accountIds.add(interact.AccountId);
+      }
+    }
+    Map<Id, List<Interaction>> accountInteractionMap = new Map<Id, List<Interaction>>();
+    accountInteractionMap = existingInteractions(accountIds);
+    validateOverlappingInteractions(accountInteractionMap, interactions);
+  }
+
+  /** @description Method to get the list of existing scheduled interactions for the customer
+   * @param accountIds Set of account ids related to the new interactions
+   * @return  Map<Id, List<Interaction>> Map of account ids and list of scheduled interactions creared for the customer
+   */
+
+  public Map<Id, List<Interaction>> existingInteractions(Set<Id> accountIds) {
+    Map<Id, List<Interaction>> accountInteractionMap = new Map<Id, List<Interaction>>();
+    if (Interaction.SObjectType.getDescribe().isQueryable()) {
+      List<Interaction> interactionsForAccounts = [
+        SELECT Id, AccountId, StartTime, Endtime, OwnerId
+        FROM Interaction
+        WHERE Status__c = :SCHEDULED_STATUS AND AccountId IN :accountIds
+      ];
+
+      for (Interaction interact : interactionsForAccounts) {
+        List<Interaction> tempInteractionList = new List<Interaction>();
+        if (accountInteractionMap.containsKey(interact.AccountId)) {
+          tempInteractionList = accountInteractionMap.get(interact.AccountId);
+        }
+        tempInteractionList.add(interact);
+        accountInteractionMap.put(interact.AccountId, tempInteractionList);
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'existingInteractions',
+        'Not enough permissions to query Interaction object.'
+      );
+    }
+    return accountInteractionMap;
+  }
+
+  /** @description Method to identify if the customer has any existing interactions at the same time.
+   * @param accountInteractionMap Map of account id and the existing list of scheduled interactions
+   * @param interactions list of new interactions created.
+   */
+  public void validateOverlappingInteractions(
+    Map<Id, List<Interaction>> accountInteractionMap,
+    List<Interaction> interactions
+  ) {
+    Set<Id> customersWithExistingInteractions = new Set<Id>();
+    for (Interaction interact : interactions) {
+      if (accountInteractionMap.containsKey(interact.AccountId)) {
+        Boolean existingInteractionAvailable = verifyTimeSlots(
+          interact,
+          accountInteractionMap.get(interact.AccountId)
+        );
+        if (existingInteractionAvailable) {
+          if (!String.isEmpty(interact.ContactRequestId__c)) {
+            interact.addError(
+              System.Label.Interaction_User_Created_Error_Message
+            );
+          } else {
+            interact.addError(
+              System.Label.Interaction_Coach_Created_Error_Message
+            );
+          }
+        }
+      }
+    }
+  }
+
+  /** @description Method to loop through list of existing interactions to identify if there are any overlaps
+   * @param newinteraction The new interaction record created
+   * @param interactions list of existing interactions for the customer
+   * @return Boolean Returns true or false if there are conflicting
+   */
+
+  public Boolean verifyTimeSlots(
+    Interaction newinteraction,
+    List<Interaction> interactions
+  ) {
+    Boolean existingInteractionAvailable = false;
+    for (Interaction interact : interactions) {
+      if (
+        newInteraction.StartTime.date() == interact.StartTime.date() &&
+        ((newInteraction.StartTime.time() >= interact.StartTime.time() &&
+        newInteraction.StartTime.time() < interact.Endtime.time()) ||
+        (newInteraction.Endtime.time() > interact.StartTime.time()))
+      ) {
+        existingInteractionAvailable = true;
+        break;
+      }
+    }
+    return existingInteractionAvailable;
+  }
+
+  /** @description Method to validate if the coach has an existing appointment while accepting a new one
+   * @param interactions List of new interactions accepted by the coach
+   */
+
+  public void validateCoachAssignment(List<Interaction> interactions) {
+    Set<Id> coachIds = new Set<Id>();
+    for (Interaction interact : interactions) {
+      coachIds.add(interact.OwnerId);
+    }
+
+    Map<Id, List<Interaction>> existingCoachInteractions = new Map<Id, List<Interaction>>();
+    existingCoachInteractions = getCoachExistingInteractions(coachIds);
+    validateOverlappingCoachInteractions(
+      existingCoachInteractions,
+      interactions
+    );
+  }
+
+  /** @description Method to get the list of existing scheduled interactions for the coach
+   * @param coachIds Set of coach ids related to the new interactions
+   * @return  Map<Id, List<Interaction>> Map of owner ids and list of scheduled interactions creared for the corresponding coach
+   */
+
+  public Map<Id, List<Interaction>> getCoachExistingInteractions(
+    Set<Id> coachIds
+  ) {
+    Map<Id, List<Interaction>> coachInteractions = new Map<Id, List<Interaction>>();
+    if (Interaction.SObjectType.getDescribe().isQueryable()) {
+      for (Interaction interact : [
+        SELECT Id, AccountId, StartTime, Endtime, OwnerId
+        FROM Interaction
+        WHERE Status__c = :SCHEDULED_STATUS AND OwnerId IN :coachIds
+      ]) {
+        List<Interaction> tempInteractionList = new List<Interaction>();
+        if (coachInteractions.containsKey(interact.OwnerId)) {
+          tempInteractionList = coachInteractions.get(interact.OwnerId);
+        }
+        tempInteractionList.add(interact);
+        coachInteractions.put(interact.AccountId, tempInteractionList);
+      }
+      return coachInteractions;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'existingInteractions',
+        'Not enough permissions to query Interaction object.'
+      );
+    }
+    return null;
+  }
+
+  /** @description Method to identify if the coach has any existing interactions at the same time.
+   * @param existingCoachInteractions  Map of owner id and the existing list of scheduled interactions
+   * @param interactions list of new interactions created.
+   */
+
+  public void validateOverlappingCoachInteractions(
+    Map<Id, List<Interaction>> existingCoachInteractions,
+    List<Interaction> interactions
+  ) {
+    for (Interaction interact : interactions) {
+      if (existingCoachInteractions.containsKey(interact.OwnerId)) {
+        Boolean existingInteractionAvailable = verifyTimeSlots(
+          interact,
+          existingCoachInteractions.get(interact.OwnerId)
+        );
+        if (existingInteractionAvailable) {
+          interact.addError(
+            System.Label.Coach_Existing_Interaction_Error_Message
+          );
+        }
+      }
+    }
   }
 }

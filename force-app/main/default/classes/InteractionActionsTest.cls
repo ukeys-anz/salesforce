@@ -271,7 +271,7 @@ public with sharing class InteractionActionsTest {
     update testInteraction;
 
     Appointment_Commitment__c apptCommitRec = [
-      SELECT Id, Confirmed__c
+      SELECT Id, Confirmed__c, Appointment_Channel__c
       FROM Appointment_Commitment__c
     ];
 
@@ -326,7 +326,10 @@ public with sharing class InteractionActionsTest {
 
     System.assertEquals(true, events.isEmpty(), 'All events must be deleted');
 
-    apptCommitRec = [SELECT Id, Confirmed__c FROM Appointment_Commitment__c];
+    apptCommitRec = [
+      SELECT Id, Confirmed__c, Appointment_Channel__c
+      FROM Appointment_Commitment__c
+    ];
 
     System.assertEquals(
       0,
@@ -418,7 +421,7 @@ public with sharing class InteractionActionsTest {
     update testInteraction;
 
     Appointment_Commitment__c apptCommitRec = [
-      SELECT Id, Confirmed__c
+      SELECT Id, Confirmed__c, Appointment_Channel__c
       FROM Appointment_Commitment__c
     ];
 
@@ -466,7 +469,10 @@ public with sharing class InteractionActionsTest {
 
     System.assertEquals(true, events.isEmpty(), 'All events must be deleted');
 
-    apptCommitRec = [SELECT Id, Confirmed__c FROM Appointment_Commitment__c];
+    apptCommitRec = [
+      SELECT Id, Confirmed__c, Appointment_Channel__c
+      FROM Appointment_Commitment__c
+    ];
 
     System.assertEquals(
       2,
@@ -963,6 +969,128 @@ public with sharing class InteractionActionsTest {
       coach.Id,
       coachingSummaryList[0].OwnerId,
       'The existing coaching summary owner should be updated with the new interaction owner'
+    );
+  }
+
+  @isTest
+  static void testCustomerCreatingOverlappingInteraction() {
+    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount1;
+
+    Account testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount1.Id
+    ];
+
+    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
+
+    ContactRequest request = new ContactRequest();
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = finacialWellbeingPurposeName;
+    request.WhoId = testAccount.PersonContactId;
+    request.PreferredChannel = 'Call';
+    insert request;
+
+    List<Interaction> testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, Coaching_Summary__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      1,
+      testInteraction.size(),
+      '1 Interaction record should be created'
+    );
+
+    testInteraction[0].OwnerId = UserInfo.getUserId();
+    update testInteraction;
+
+    Test.startTest();
+
+    DateTime newAppointmentDate = DateTime.newInstance(2022, 10, 20, 11, 0, 0);
+
+    ContactRequest request2 = new ContactRequest();
+    request2.Appointment_date_and_Time__c = newAppointmentDate;
+    request2.RequestReason = finacialWellbeingPurposeName;
+    request2.WhoId = testAccount.PersonContactId;
+    request2.PreferredChannel = 'Call';
+    try {
+      insert request2;
+    } catch (Exception e) {
+      System.assert(
+        e.getMessage()
+          .contains(System.Label.Interaction_User_Created_Error_Message),
+        'The error message should be available in the body'
+      );
+    }
+    Test.stopTest();
+  }
+
+  /**
+   * @description testing that the same customer, cannot have an interaction
+   * Created by a coach at the same time.
+   */
+  @isTest
+  static void testCoachCreatingOverlappingInteraction() {
+    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+      .get('Appointment')
+      .getRecordTypeId();
+
+    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount1;
+
+    Account testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount1.Id
+    ];
+
+    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
+    DateTime endDate = appointmentDate.addMinutes(45);
+
+    Interaction existingInteraction = new Interaction(
+      Name = 'existing interaction',
+      RecordTypeId = appointmentRTID,
+      AccountId = testAccount1.Id,
+      Interaction_Purpose__c = 'Financial Wellbeing',
+      OwnerId = UserInfo.getUserId(),
+      Status__c = InteractionActions.SCHEDULED_STATUS,
+      StartTime = appointmentDate,
+      EndTime = endDate
+    );
+    insert existingInteraction;
+    Test.startTest();
+
+    Interaction testInteraction2;
+    testInteraction2 = new Interaction(
+      Name = 'Test Interaction',
+      RecordTypeId = appointmentRTID,
+      AccountId = testAccount1.Id,
+      Interaction_Purpose__c = 'Financial Wellbeing',
+      StartTime = appointmentDate,
+      EndTime = endDate
+    );
+    insert testInteraction2;
+
+    testInteraction2 = [
+      SELECT Id, OwnerId
+      FROM Interaction
+      WHERE Id = :testInteraction2.Id
+    ];
+    Test.stopTest();
+
+    testInteraction2 = [
+      SELECT Id, OwnerId
+      FROM Interaction
+      WHERE Id = :testInteraction2.Id
+    ];
+    System.assertNotEquals(
+      UserInfo.getUserId(),
+      testInteraction2.OwnerId,
+      'Update should have not allowed the owner to change.'
     );
   }
 

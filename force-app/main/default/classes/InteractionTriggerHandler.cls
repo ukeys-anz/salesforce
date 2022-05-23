@@ -168,6 +168,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
+    actions.validateInteractions(interactions);
+
     actions.updateOwnerNewInteractions(interactions);
 
     List<Interaction> newInteractions = actions.getInteractionsWithoutEnddate(
@@ -191,7 +193,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
     if (acceptedInteractions.size() > 0) {
-      actions.updateStatustoScheduled(records);
+      actions.updateStatustoScheduled(acceptedInteractions);
+      actions.validateCoachAssignment(acceptedInteractions);
     }
 
     List<Interaction> assignedBacktoQueueInteractions = actions.getInteractionsAssignedBacktoQueue(
