@@ -1,0 +1,11 @@
+.btn {
+  padding-right: 10px;
+}
+
+.btn:last-child {
+  padding-right: 0;
+}
+
+.maxwidth {
+  max-width: 700px;
+}
