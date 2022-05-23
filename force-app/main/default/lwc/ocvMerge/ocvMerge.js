@@ -45,7 +45,6 @@ export default class OCVMerge extends NavigationMixin(LightningElement) {
           message = error.body.message;
         } else {
           message = error;
-          console.error(error);
         }
 
         handleErrorShowToast(this, "Error", error, message, "pester");
