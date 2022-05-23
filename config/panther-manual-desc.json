@@ -526,7 +526,9 @@
         "Transaction_Status__c",
         "Type",
         "What_Customer_was_Trying_to_Do__c",
-        "Goods_Or_Services_Returned__c"
+        "Goods_Or_Services_Returned__c",
+        "Provided_details_to_Prod_Manufacturer_2__c",
+        "Provided_details_to_Prod_Manufacturer_3__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",

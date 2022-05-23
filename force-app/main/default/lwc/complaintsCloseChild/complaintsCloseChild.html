@@ -1,0 +1,376 @@
+<template>
+  <template if:true={showOptions}>
+    <lightning-record-edit-form
+      object-api-name={caseObject}
+      record-type-id={recordTypeId}
+    >
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_2-of-4 slds-m-right_large">
+          <lightning-input-field
+            variant="label-stacked"
+            aria-label="Dropdown Complaint Outcome"
+            required="true"
+            field-name={complaintOutcome}
+            onchange={handleComplaintOutcomeChange}
+            data-id="compOutCome2-id"
+          ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_2-of-4 slds-m-right_large">
+          <lightning-input-field
+            variant="label-stacked"
+            required="true"
+            field-name={outcomeDescription}
+            onchange={handleOutcomeDescriptionChange}
+            data-id="descOutcome-id"
+          ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_2-of-4 slds-m-right_large">
+          <lightning-input-field
+            variant="label-stacked"
+            aria-label="Dropdown Complaint Remedy"
+            required="true"
+            field-name={complaintRemedy}
+            onchange={handleComplaintRemedy}
+            data-id="compRemedy-id"
+          ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_2-of-4 slds-m-right_large">
+          <lightning-input-field
+            variant="label-stacked"
+            aria-label="Dropdown Complaint Sub Remedy"
+            required="true"
+            field-name={complaintSubRemedy}
+            onchange={handleComplaintSubRemedy}
+            data-id="compSubRemedy-id"
+          ></lightning-input-field>
+        </div>
+        <div class="slds-col slds-size_2-of-4 slds-m-right_large">
+          <template if:true={isOtherSubFinRemedy}>
+            <lightning-input-field
+              variant="label-stacked"
+              required
+              field-name={otherNonFinRemedy}
+              onchange={handleotherNonFinRemedy}
+              data-id="nonFinancialRemedy-id"
+            ></lightning-input-field>
+          </template>
+        </div>
+        <div
+          class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+        >
+          <template if:true={showFinancialCompensation}>
+            <label class="slds-form-element__label" for="text-input-id-149">
+              <abbr class="slds-required" title="required">* </abbr>Financial
+              Amount</label
+            >
+            <lightning-input
+              variant="label-hidden"
+              required
+              step="any"
+              pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
+              formatter="currency"
+              type="number"
+              onchange={handleFinancialCompensation}
+              class="input inputFinCompensation"
+              message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
+              data-id="finAmount-id"
+            ></lightning-input>
+          </template>
+        </div>
+        <template if:true={isNonFinancialComplaintRemedy}>
+          <template if:true={isRewardPoints}>
+            <div class="slds-col slds-size_2-of-4 slds-m-right_large">
+              <lightning-input-field
+                variant="label-stacked"
+                aria-label="Integer financial reward Points"
+                required="true"
+                field-name={remedyPoints1}
+                onchange={handleFinRemedyPoints}
+                data-id="finRemedyPoints1-id"
+              >
+              </lightning-input-field>
+            </div>
+          </template>
+        </template>
+        <template if:true={isReferredToProductManufacturer}>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input
+              type="checkbox"
+              label="The details of this complaint have been provided to the product manufacturer"
+              name="thirdPartyIsDetailsProvidedToProductManufacturer"
+              required
+              message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
+              field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
+              data-id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
+              onchange={handleIsDetailsProvidedToProductManufacturer}
+            ></lightning-input>
+          </div>
+        </template>
+        <template if:true={showDuration}>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input-field
+              variant="label-stacked"
+              aria-label="Integer duration of remedy months"
+              required="true"
+              field-name={remedyDuration}
+              onchange={handleremedyDuration}
+              data-id="finRemedyDuration1-id"
+            >
+            </lightning-input-field>
+          </div>
+        </template>
+        <div
+          class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+        >
+          <lightning-input
+            type="toggle"
+            label="Second Complaint Remedy Provided?"
+            onchange={handle2ndRemedyToggleChange}
+            message-toggle-active="Yes"
+            message-toggle-inactive="No"
+            data-id="issue2-id"
+          >
+          </lightning-input>
+        </div>
+        <!--Complaint Remedy 2-->
+        <template if:true={showRemedy2}>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input-field
+              variant="label-stacked"
+              aria-label="Dropdown Complaint Remedy2"
+              required="true"
+              field-name={complaintRemedy2}
+              onchange={handleComplaintRemedy2}
+              data-id="compRemedy2-id"
+            ></lightning-input-field>
+          </div>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input-field
+              variant="label-stacked"
+              aria-label="Dropdown Complaint Sub Remedy2"
+              required="true"
+              field-name={complaintSubRemedy2}
+              onchange={handleComplaintSubRemedy2}
+              data-id="compSubRemedy2-id"
+            ></lightning-input-field>
+          </div>
+          <template if:true={isOtherSubFinRemedy2}>
+            <div
+              class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+            >
+              <lightning-input-field
+                variant="label-stacked"
+                required
+                field-name={otherNonFinRemedy2}
+                onchange={handleotherNonFinRemedy2}
+                data-id="nonFinancialRemedy2-id"
+              ></lightning-input-field>
+            </div>
+          </template>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <template if:true={showFinancialCompensation2}>
+              <label class="slds-form-element__label" for="text-input-id-149">
+                <abbr class="slds-required" title="required">* </abbr>Financial
+                Amount 2</label
+              >
+              <lightning-input
+                variant="label-hidden"
+                required
+                step="any"
+                pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
+                formatter="currency"
+                type="number"
+                onchange={handleFinancialCompensation2}
+                class="input inputFinCompensation"
+                message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
+                data-id="finAmount2-id"
+              ></lightning-input>
+            </template>
+          </div>
+          <template if:true={isNonFinancialComplaintRemedy2}>
+            <template if:true={isRewardPoints2}>
+              <div
+                class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+              >
+                <lightning-input-field
+                  variant="label-stacked"
+                  aria-label="Integer financial reward Points"
+                  required="true"
+                  field-name={remedyPoints2}
+                  onchange={handleFinRemedyPoints2}
+                  data-id="finRemedyPoints2-id"
+                >
+                </lightning-input-field>
+              </div>
+            </template>
+          </template>
+          <template if:true={isReferredToProductManufacturer2}>
+            <div
+              class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+            >
+              <lightning-input
+                type="checkbox"
+                label="The details of this complaint have been provided to the product manufacturer 2"
+                name="thirdPartyIsDetailsProvidedToProductManufacturer"
+                required
+                message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
+                field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
+                data-id="thirdPartyIsDetailsProvidedToProductManufacturer2-id"
+                onchange={handleIsDetailsProvidedToProductManufacturer2}
+              ></lightning-input>
+            </div>
+          </template>
+          <template if:true={showDuration2}>
+            <div
+              class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+            >
+              <lightning-input-field
+                variant="label-stacked"
+                aria-label="Integer duration of remedy months"
+                required="true"
+                field-name={remedyDuration2}
+                onchange={handleremedyDuration2}
+                data-id="finRemedyDuration2-id"
+              >
+              </lightning-input-field>
+            </div>
+          </template>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input
+              type="toggle"
+              label="Third Complaint Remedy Provided?"
+              onchange={handle3ndRemedyToggleChange}
+              message-toggle-active="Yes"
+              message-toggle-inactive="No"
+              data-id="issue3-id"
+            >
+            </lightning-input>
+          </div>
+        </template>
+        <!--Complaint Remedy 3-->
+        <template if:true={showRemedy3}>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input-field
+              variant="label-stacked"
+              aria-label="Dropdown Complaint Remedy3"
+              required="true"
+              field-name={complaintRemedy3}
+              onchange={handleComplaintRemedy3}
+              data-id="compRemedy-id"
+            ></lightning-input-field>
+          </div>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input-field
+              variant="label-stacked"
+              aria-label="Dropdown Complaint Sub Remedy3"
+              required="true"
+              field-name={complaintSubRemedy3}
+              onchange={handleComplaintSubRemedy3}
+              data-id="compSubRemedy-id"
+            ></lightning-input-field>
+          </div>
+          <template if:true={isOtherSubFinRemedy3}>
+            <div
+              class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+            >
+              <lightning-input-field
+                variant="label-stacked"
+                required
+                field-name={otherNonFinRemedy3}
+                onchange={handleotherNonFinRemedy3}
+                data-id="nonFinancialRemedy2-id"
+              ></lightning-input-field>
+            </div>
+          </template>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <template if:true={showFinancialCompensation3}>
+              <label class="slds-form-element__label" for="text-input-id-149">
+                <abbr class="slds-required" title="required">* </abbr>Financial
+                Amount 3</label
+              >
+              <lightning-input
+                variant="label-hidden"
+                required
+                step="any"
+                pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
+                formatter="currency"
+                type="number"
+                onchange={handleFinancialCompensation3}
+                class="input inputFinCompensation"
+                message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
+                data-id="finAmount-id"
+              ></lightning-input>
+            </template>
+          </div>
+          <template if:true={isNonFinancialComplaintRemedy3}>
+            <template if:true={isRewardPoints3}>
+              <div
+                class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+              >
+                <lightning-input-field
+                  variant="label-stacked"
+                  aria-label="Integer financial reward Points"
+                  required="true"
+                  field-name={remedyPoints3}
+                  onchange={handleFinRemedyPoints3}
+                  data-id="finRemedyPoints1-id"
+                >
+                </lightning-input-field>
+              </div>
+            </template>
+          </template>
+          <!--Complaint Status-->
+          <template if:true={isReferredToProductManufacturer3}>
+            <div
+              class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+            >
+              <lightning-input
+                type="checkbox"
+                label="The details of this complaint have been provided to the product manufacturer 3"
+                name="thirdPartyIsDetailsProvidedToProductManufacturer"
+                required
+                message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
+                field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
+                data-id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
+                onchange={handleIsDetailsProvidedToProductManufacturer3}
+              ></lightning-input>
+            </div>
+          </template>
+          <template if:true={showDuration3}>
+            <div
+              class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+            >
+              <lightning-input-field
+                variant="label-stacked"
+                aria-label="Integer duration of remedy months"
+                required="true"
+                field-name={remedyDuration3}
+                onchange={handleremedyDuration3}
+                data-id="finRemedyDuration2-id"
+              >
+              </lightning-input-field>
+            </div>
+          </template>
+        </template>
+      </div>
+    </lightning-record-edit-form>
+  </template>
+</template>

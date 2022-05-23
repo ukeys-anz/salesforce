@@ -780,111 +780,12 @@
                 </div>
               </template>
               <template if:true={isComplaintResolved}>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
+                <c-complaints-Close-Child
+                  record-id={recordId}
+                  record-type-id={recordType}
+                  onfieldvalueupdate={handleFieldUpdate}
                 >
-                  <lightning-input-field
-                    variant="label-stacked"
-                    aria-label="Dropdown Complaint Outcome"
-                    required={isComplaintResolved}
-                    field-name={complaintOutcome}
-                    data-id="compOutCome-id"
-                  ></lightning-input-field>
-                </div>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <lightning-input-field
-                    variant="label-stacked"
-                    required={isComplaintResolved}
-                    field-name={outcomeDescription}
-                    data-id="descOutcome-id"
-                  ></lightning-input-field>
-                </div>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <lightning-input-field
-                    variant="label-stacked"
-                    aria-label="Dropdown Complaint Remedy"
-                    required={isComplaintResolved}
-                    field-name={complaintRemedy}
-                    onchange={handleComplaintRemedy}
-                    data-id="compRemedy-id"
-                  ></lightning-input-field>
-                </div>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <template if:true={isFinancialComplaintRemedy}>
-                    <label
-                      class="slds-form-element__label"
-                      for="text-input-id-149"
-                    >
-                      <abbr class="slds-required" title="required">* </abbr
-                      >Financial Amount</label
-                    >
-                    <lightning-input
-                      variant="label-hidden"
-                      required
-                      step="any"
-                      pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
-                      formatter="currency"
-                      type="number"
-                      onchange={handleFinancialCompensation}
-                      class="input inputFinCompensation"
-                      message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
-                      data-id="finAmount-id"
-                    ></lightning-input>
-                  </template>
-                  <template if:true={isNonFinancialComplaintRemedy}>
-                    <lightning-input-field
-                      variant="label-stacked"
-                      required
-                      field-name={nonFinancialRemedy}
-                      data-id="nonFinancialRemedy-id"
-                    ></lightning-input-field>
-                  </template>
-                  <template if:true={isReferredToProductManufacturer}>
-                    <lightning-input-field
-                      variant="label-stacked"
-                      required
-                      field-name={thirdPartyProductManufacturer}
-                      onchange={handleThirdPartyProductManufacturer}
-                      data-id="thirdPartyProductManufacturer-id"
-                    >
-                    </lightning-input-field>
-                  </template>
-                </div>
-                <template if:true={isOtherProductManufacturer}>
-                  <div
-                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                  >
-                    <lightning-input-field
-                      variant="label-stacked"
-                      required
-                      field-name={thirdPartyOtherProductManufacturer}
-                      data-id="thirdPartyOtherProductManufacturer-id"
-                    >
-                    </lightning-input-field>
-                  </div>
-                </template>
-                <template if:true={isReferredToProductManufacturer}>
-                  <div
-                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                  >
-                    <lightning-input
-                      type="checkbox"
-                      label="The details of this complaint have been provided to the product manufacturer"
-                      name="thirdPartyIsDetailsProvidedToProductManufacturer"
-                      required
-                      message-when-value-missing="Acknowledgement that the complaint details have been provided to the product manufacturer is required"
-                      field-level-help="Evidence that the details of the complaint have been passed onto the product manufacturer must be included on the case"
-                      data-id="thirdPartyIsDetailsProvidedToProductManufacturer-id"
-                      onchange={handleIsDetailsProvidedToProductManufacturer}
-                    ></lightning-input>
-                  </div>
-                </template>
+                </c-complaints-Close-Child>
               </template>
             </div>
             <!--Systemic issues-->
