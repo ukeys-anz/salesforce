@@ -71,7 +71,6 @@ exports.config = {
     [
       "./build/tests/cases/*.spec.js",
       "./build/tests/disputes.spec.js",
-      "./build/tests/digitalWallets.spec.js",
       "./build/tests/qualityAssessments.spec.js"
     ],
     [

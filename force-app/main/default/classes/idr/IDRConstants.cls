@@ -66,6 +66,15 @@ public with sharing class IDRConstants {
     .get('Systemic_Issue_Task')
     .getRecordTypeId();
 
+  //Complaint Status' for STOP collection
+  public static final Set<String> STATUS_STOP_COLLECTIONS = new Set<String>{
+    OPEN_STATUS,
+    UNDER_INVESTIGATION_STATUS,
+    ESCALATED_STATUS,
+    PROVISIONALLY_CLOSED_STATUS,
+    REOPENED_STATUS
+  };
+
   //Complaint Type and Subsequent Issue Type Set for collections
   public static final Set<String> ISSUE_TYPE_COLLECTIONS = new Set<String>{
     '4',
@@ -103,29 +112,29 @@ public with sharing class IDRConstants {
   public static final String MILESTONE_SLA_NORMAL = 'Normal';
   public static final String MILESTONE_SLA_RED = '1 business day';
   public static final String MILESTONE_SLA_AMBER = '2 business days';
-  public static final string MILESTONE_SLA_VIOLATED = 'Violated';
-  public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
-  public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
-  public static final string COMPLAINTS_ENTITLEMENT_NAME = 'Complaints Entitlement';
+  public static final String MILESTONE_SLA_VIOLATED = 'Violated';
+  public static final String COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
+  public static final String COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
+  public static final String COMPLAINTS_ENTITLEMENT_NAME = 'Complaints Entitlement';
 
   //Field labels
   public static final String MILESTONE_SLA_FIELD_LABEL = 'Milestone Sla';
   public static final String CASE_OWNER_ID = 'Owner ID';
 
   //IDR Maximum time constants
-  public static final string TASK_SUBJECT_DAY5 = 'IDR Response due in 5-days';
-  public static final string TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';
-  public static final string TASK_STANDARD_PRIORITY = 'Standard';
-  public static final string TASK_STATUS_EXPIRED = 'Expired';
-  public static final string TASK_STATUS_COMPLETED = 'Completed';
-  public static final string MILESTONE_STANDARD = '30-day IDR Response Due';
-  public static final string MILESTONE_PRIORITY = '21-day IDR Response Due';
+  public static final String TASK_SUBJECT_DAY5 = 'IDR Response due in 5-days';
+  public static final String TASK_SUBJECT_DAY1 = 'IDR Response Due in 1-day';
+  public static final String TASK_STANDARD_PRIORITY = 'Standard';
+  public static final String TASK_STATUS_EXPIRED = 'Expired';
+  public static final String TASK_STATUS_COMPLETED = 'Completed';
+  public static final String MILESTONE_STANDARD = '30-day IDR Response Due';
+  public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
 
-  public static final string TASK_AFCA_SUBJECT_DAY10 = 'AFCA Response is due in 10 days';
-  public static final string TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
+  public static final String TASK_AFCA_SUBJECT_DAY10 = 'AFCA Response is due in 10 days';
+  public static final String TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
 
   //Channel Recieved
-  public static final string CHANNEL_RECEIVED_AFCA_REFERRED = '11';
+  public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';
 
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{4,8}';
