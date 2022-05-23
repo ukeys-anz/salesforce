@@ -154,6 +154,16 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+             <value>
+                <fullName>Reward Points</fullName>
+                <default>false</default>
+                <label>Reward Points</label>
+            </value>
+            <value>
+                <fullName>Repayment arrangement</fullName>
+                <default>false</default>
+                <label>Repayment arrangement</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
@@ -221,6 +231,10 @@
             <controllingFieldValue>3</controllingFieldValue>
             <valueName>99</valueName>
         </valueSettings>
+         <valueSettings>
+            <controllingFieldValue>2</controllingFieldValue>
+            <valueName>Reward Points</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
             <valueName>1</valueName>
@@ -268,6 +282,10 @@
         <valueSettings>
             <controllingFieldValue>3</controllingFieldValue>
             <valueName>Worldline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>4</controllingFieldValue>
+            <valueName>Repayment arrangement</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

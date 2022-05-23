@@ -33,7 +33,7 @@ const REWARD_POINTS = "Reward Points";
 const DEBT_WAIVER = "10";
 const SETTEL_FOR_LESS = "18";
 const MORATORIUM = "16";
-//const REPAYMENT_ARRAGMENT = "";
+const REPAYMENT_ARRAGMENT = "Repayment arrangement";
 const TIME_TO_SELL_REFINANCE_SURRENDER = "20";
 export default class complaintsResolveLWC extends NavigationMixin(
   LightningElement
@@ -187,7 +187,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     if (
       event.target.value === MORATORIUM ||
-      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER
+      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER ||
+      event.target.value === REPAYMENT_ARRAGMENT
     ) {
       this.showDuration = true;
     } else {
@@ -329,7 +330,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     if (
       event.target.value === MORATORIUM ||
-      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER
+      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER ||
+      event.target.vlaue === REPAYMENT_ARRAGMENT
     ) {
       this.showDuration2 = true;
     } else {
@@ -496,7 +498,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     if (
       event.target.value === MORATORIUM ||
-      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER
+      event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER ||
+      event.taret.value === REPAYMENT_ARRAGMENT
     ) {
       this.showDuration3 = true;
     } else {

@@ -46,7 +46,7 @@ const DEBT_WAIVER = "10";
 const SETTEL_FOR_LESS = "18";
 const REWARD_POINTS = "Reward Points";
 const MORATORIUM = "16";
-//const REPAYMENT_ARRAGMENT = "";
+const REPAYMENT_ARRAGMENT = "Repayment arrangement";
 const TIME_TO_SELL_REFINANCE_SURRENDER = "20";
 
 export default class closeComplaint extends NavigationMixin(LightningElement) {
@@ -273,7 +273,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === MORATORIUM ||
         this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
-          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+          TIME_TO_SELL_REFINANCE_SURRENDER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
+          REPAYMENT_ARRAGMENT) &&
       this.closeFields[REMEDY_DURATION.fieldApiName] === null
     ) {
       validToSave = false;
@@ -348,7 +350,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === MORATORIUM ||
         this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
-          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+          TIME_TO_SELL_REFINANCE_SURRENDER ||
+        his.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
+          REPAYMENT_ARRAGMENT) &&
       this.closeFields[REMEDY_DURATION2.fieldApiName] === null
     ) {
       validToSave = false;
@@ -424,7 +428,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === MORATORIUM ||
         this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
-          TIME_TO_SELL_REFINANCE_SURRENDER) &&
+          TIME_TO_SELL_REFINANCE_SURRENDER ||
+        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
+          REPAYMENT_ARRAGMENT) &&
       this.closeFields[REMEDY_DURATION3.fieldApiName] === null
     ) {
       validToSave = false;
