@@ -101,7 +101,7 @@
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-Lead</tabs>
     <tabs>standard-Interaction</tabs>
-    <tabs>standard-InteractionSummary</tabs>
+    <tabs>Coaching_Summary__c</tabs>
     <tabs>standard-ContactRequest</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
@@ -129,7 +129,7 @@
             <tab>standard-Interaction</tab>
         </mappings>
         <mappings>
-            <tab>standard-InteractionSummary</tab>
+            <tab>Coaching_Summary__c</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>

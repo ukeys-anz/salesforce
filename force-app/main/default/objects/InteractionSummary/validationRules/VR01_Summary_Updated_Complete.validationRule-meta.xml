@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR01_Summary_Updated_Complete</fullName>
-    <active>true</active>
-    <description>Ensures that meeting notes and next steps are not null when the interaction summary is updated to complete.</description>
-    <errorConditionFormula>AND($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,ISPICKVAL(Status,&quot;Completed&quot;),OR(LEN( Meeting_Notes__c ) = 0))</errorConditionFormula>
-    <errorMessage>Please provide meeting notes before completing the interaction summary.</errorMessage>
-</ValidationRule>

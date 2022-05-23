@@ -145,7 +145,6 @@
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
-    "InteractionSummary": "Represents the details/conversation summary during the interaction between the coach and the customer",
     "IDR_Letter_Approval_Details__c": "Letter Approval Detail",
     "IDR_Template_Detail__c": "Template Detail",
     "Known_Issues__c": "Known Issues",
@@ -858,23 +857,6 @@
         "StartTime",
         "Status__c",
         "Voice_Call_SID__c"
-      ]
-    },
-    "InteractionSummary": {
-      "IA-2468715": [
-        "Id",
-        "CreatedById",
-        "CreatedDate",
-        "LastModifiedById",
-        "LastModifiedDate",
-        "RecordTypeId",
-        "AccountId",
-        "InteractionId",
-        "Interaction_Summary_Number__c",
-        "Meeting_Notes__c",
-        "Name",
-        "OwnerId",
-        "Status"
       ]
     },
     "Known_Issues__c": {
