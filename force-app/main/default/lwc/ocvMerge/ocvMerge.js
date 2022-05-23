@@ -9,6 +9,7 @@ import { NavigationMixin } from "lightning/navigation";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import mergeOCV from "@salesforce/apex/ChatterMigrationServiceController.migrateViaButton";
+import { handleErrorShowToast } from "c/utils";
 
 export default class OCVMerge extends NavigationMixin(LightningElement) {
   @api recordId;
@@ -47,11 +48,7 @@ export default class OCVMerge extends NavigationMixin(LightningElement) {
           console.error(error);
         }
 
-        const title = "Error";
-        const variant = "error";
-
-        const event = new ShowToastEvent({ title, message, variant });
-        this.dispatchEvent(event);
+        handleErrorShowToast(this, "Error", error, message, "pester");
       })
       .finally(() => {
         this.isLoading = false;
