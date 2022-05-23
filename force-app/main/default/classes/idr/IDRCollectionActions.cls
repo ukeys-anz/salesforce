@@ -485,7 +485,11 @@ public with sharing class IDRCollectionActions {
     List<Id> caseIds
   ) {
     Map<String, Set<Id>> startCollectionMap = new Map<String, Set<Id>>();
-
+    for(String accNumber : collectionAcctsList){
+      accNumber = (accNumber.replaceFirst('^0+', ''));
+      collectionAcctsList.add(accNumber);
+    }
+    
     //query all stop collections task and put it in map with key as account number
     if (Task.SObjectType.getDescribe().isQueryable()) {
       if (!collectionAcctsList.isEmpty()) {
@@ -567,21 +571,25 @@ public with sharing class IDRCollectionActions {
     for (
       String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
     ) {
+      String accNumberTrim = (accNumber.replaceFirst('^0+', ''));
       if (
-        startCollecMap.containsKey(accNumber) &&
-        startCollecMap.get(accNumber).contains(rec.Id) &&
-        startCollecMap.get(accNumber).size() == 1 &&
-        productNameMap.containsKey(rec.Product__c)
+        (startCollecMap.containsKey(accNumber) || startCollecMap.containsKey(accNumberTrim)) &&
+        (startCollecMap.get(accNumber).contains(rec.Id) || startCollecMap.get(accNumberTrim).contains(rec.Id) )
       ) {
-        startCollectionAccList.add(
-          new IDRCollectionsAccounts(
-            accNumber,
-            productNameMap.get(rec.Product__c).Name
-          )
-        );
-        startCollectionTaskList.add(
-          populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber)
-        );
+        if(
+          (startCollecMap.get(accNumber).size() == 1 || startCollecMap.get(accNumberTrim).size() == 1) &&
+           productNameMap.containsKey(rec.Product__c)
+        ) {
+          startCollectionAccList.add(
+            new IDRCollectionsAccounts(
+              accNumber,
+              productNameMap.get(rec.Product__c).Name
+            )
+          );
+          startCollectionTaskList.add(
+            populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber)
+          );
+        }
       }
     }
   }
@@ -599,21 +607,25 @@ public with sharing class IDRCollectionActions {
       String accNumber2 : String.valueOf(rec.IDR_Collection_Number_2__c)
         .split(';')
     ) {
+      String accNumberTrim = (accNumber2.replaceFirst('^0+', ''));
       if (
-        startCollecMap.containsKey(accNumber2) &&
-        startCollecMap.get(accNumber2).contains(rec.Id) &&
-        startCollecMap.get(accNumber2).size() == 1 &&
-        productNameMap.containsKey(rec.IDR_Product_2__c)
+        (startCollecMap.containsKey(accNumber2) || startCollecMap.containsKey(accNumberTrim)) &&
+        (startCollecMap.get(accNumber2).contains(rec.Id) || startCollecMap.get(accNumberTrim).contains(rec.Id) ) 
       ) {
-        startCollectionAccList.add(
-          new IDRCollectionsAccounts(
-            accNumber2,
-            productNameMap.get(rec.IDR_Product_2__c).Name
-          )
-        );
-        startCollectionTaskList.add(
-          populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber2)
-        );
+        if(
+          (startCollecMap.get(accNumber2).size() == 1 ||startCollecMap.get(accNumberTrim).size() == 1  ) &&
+          productNameMap.containsKey(rec.IDR_Product_2__c)
+        ) {
+          startCollectionAccList.add(
+            new IDRCollectionsAccounts(
+              accNumber2,
+              productNameMap.get(rec.IDR_Product_2__c).Name
+            )
+          );
+          startCollectionTaskList.add(
+            populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber2)
+          );
+        }
       }
     }
   }
@@ -631,21 +643,25 @@ public with sharing class IDRCollectionActions {
       String accNumber3 : String.valueOf(rec.IDR_Collection_Number_3__c)
         .split(';')
     ) {
+      String accNumberTrim = (accNumber3.replaceFirst('^0+', ''));
       if (
-        startCollecMap.containsKey(accNumber3) &&
-        startCollecMap.get(accNumber3).contains(rec.Id) &&
-        startCollecMap.get(accNumber3).size() == 1 &&
-        productNameMap.containsKey(rec.IDR_Product_3__c)
+        (startCollecMap.containsKey(accNumber3) || startCollecMap.containsKey(accNumberTrim)) &&
+        (startCollecMap.get(accNumber3).contains(rec.Id) || startCollecMap.get(accNumberTrim).contains(rec.Id)) 
       ) {
-        startCollectionAccList.add(
-          new IDRCollectionsAccounts(
-            accNumber3,
-            productNameMap.get(rec.IDR_Product_3__c).Name
-          )
-        );
-        startCollectionTaskList.add(
-          populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber3)
-        );
+        if (
+          (startCollecMap.get(accNumber3).size() == 1 || startCollecMap.get(accNumberTrim).size() == 1 ) &&
+          productNameMap.containsKey(rec.IDR_Product_3__c)
+          ) {
+          startCollectionAccList.add(
+            new IDRCollectionsAccounts(
+              accNumber3,
+              productNameMap.get(rec.IDR_Product_3__c).Name
+            )
+          );
+          startCollectionTaskList.add(
+            populateSystemTask(rec, START_COLLEC_TASK_SUBJECT, accNumber3)
+          );
+        }
       }
     }
   }
