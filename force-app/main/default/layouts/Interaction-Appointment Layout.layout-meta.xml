@@ -42,7 +42,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Interaction_Auto_Number__c</field>
+                <field>Interaction_External_Id__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -91,7 +91,7 @@
                 <field>Twilio_ID__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>EndTime</field>
             </layoutItems>
             <layoutItems>
