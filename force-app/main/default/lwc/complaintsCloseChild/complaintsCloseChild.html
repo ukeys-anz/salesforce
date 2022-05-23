@@ -285,6 +285,19 @@
               data-id="compSubRemedy-id"
             ></lightning-input-field>
           </div>
+          <template if:true={isOtherSubFinRemedy3}>
+            <div
+              class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+            >
+              <lightning-input-field
+                variant="label-stacked"
+                required
+                field-name={otherNonFinRemedy3}
+                onchange={handleotherNonFinRemedy3}
+                data-id="nonFinancialRemedy2-id"
+              ></lightning-input-field>
+            </div>
+          </template>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
@@ -308,19 +321,6 @@
             </template>
           </div>
           <template if:true={isNonFinancialComplaintRemedy3}>
-            <template if:true={isOtherNonFinRemedy3}>
-              <div
-                class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
-              >
-                <lightning-input-field
-                  variant="label-stacked"
-                  required
-                  field-name={otherNonFinRemedy3}
-                  onchange={handleotherNonFinRemedy3}
-                  data-id="nonFinancialRemedy-id"
-                ></lightning-input-field>
-              </div>
-            </template>
             <template if:true={isRewardPoints3}>
               <div
                 class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
