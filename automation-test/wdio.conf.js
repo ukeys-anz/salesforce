@@ -1,7 +1,6 @@
 const video = require("wdio-video-reporter");
 require("global-agent/bootstrap");
 const { UtamWdioService } = require("wdio-utam-service");
-const { cleanupTestData } = require("./build/utils/wdioUtils");
 require("dotenv").config();
 
 exports.config = {
@@ -82,6 +81,7 @@ exports.config = {
       "./build/tests/virtualGoals.spec.js",
       "./build/tests/chatters.spec.js",
       "./build/tests/knowledge.spec.js",
+      "./build/tests/survey.spec.js",
       "./build/tests/leads.spec.js"
     ]
   ],
@@ -356,14 +356,13 @@ exports.config = {
     if (error !== undefined) {
       browser.takeScreenshot();
     }
-  },
+  }
   /**
    * Hook that gets executed after the suite has ended
    * @param {Object} suite suite details
    */
-  afterSuite: function (suite) {
-    cleanupTestData();
-  }
+  // afterSuite: function (suite) {
+  // },
   /**
    * Runs after a WebdriverIO command gets executed
    * @param {String} commandName hook command name

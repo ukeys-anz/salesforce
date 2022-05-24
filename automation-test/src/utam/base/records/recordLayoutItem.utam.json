@@ -105,12 +105,12 @@
       "name": "clickChangeOwnerButton",
       "compose": [
         {
-          "returnType": "anzx-utam-force/pageObjects/changeOwner",
+          "returnType": "anzx-utam-force/pageObjects/ownerLookup",
           "element": "outputField",
           "args": [
             {
               "type": "pageObject",
-              "value": "anzx-utam-force/pageObjects/changeOwner"
+              "value": "anzx-utam-force/pageObjects/ownerLookup"
             }
           ]
         },

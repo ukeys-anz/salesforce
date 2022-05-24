@@ -25,6 +25,7 @@
       "selector": {
         "css": ".forceListViewPicker"
       },
+      "type": "clickable",
       "elements": [
         {
           "name": "listViewSelector",
@@ -73,9 +74,45 @@
           ]
         }
       ]
+    },
+    {
+      "name": "linkByRecordId",
+      "selector": {
+        "css": "a[data-recordid='%s']",
+        "args": [
+          {
+            "name": "recordId",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "listViewByIndex",
+      "selector": {
+        "css": "li:nth-child(%d) > a",
+        "args": [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ]
+      },
+      "type": "clickable"
     }
   ],
   "methods": [
+    {
+      "name": "openListViewPicker",
+      "compose": [
+        {
+          "element": "listViewPicker",
+          "apply": "click"
+        }
+      ]
+    },
     {
       "name": "searchListView",
       "compose": [
@@ -104,6 +141,31 @@
       "compose": [
         {
           "element": "listView",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openRecordById",
+      "compose": [
+        {
+          "element": "linkByRecordId",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openListViewByIndex",
+      "compose": [
+        {
+          "apply": "openListViewPicker"
+        },
+        {
+          "element": "listViewByIndex",
+          "apply": "waitForVisible"
+        },
+        {
+          "element": "listViewByIndex",
           "apply": "click"
         }
       ]

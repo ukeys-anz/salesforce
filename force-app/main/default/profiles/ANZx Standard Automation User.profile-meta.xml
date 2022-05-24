@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>NewCaseFlowWrapperController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <custom>true</custom>
     <loginIpRanges>
         <description>Allow all ips for this automation user to avoid MFA</description>
@@ -138,6 +142,10 @@
     <layoutAssignments>
         <layout>Lead-ANZX Lead Layout</layout>
         <recordType>Lead.ANZX_Leads</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>PersonAccount-Customer View Layout</layout>
+        <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
