@@ -351,7 +351,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === MORATORIUM ||
         this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
           TIME_TO_SELL_REFINANCE_SURRENDER ||
-        his.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
+        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
           REPAYMENT_ARRAGMENT) &&
       this.closeFields[REMEDY_DURATION2.fieldApiName] === null
     ) {

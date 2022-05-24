@@ -331,7 +331,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     if (
       event.target.value === MORATORIUM ||
       event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER ||
-      event.target.vlaue === REPAYMENT_ARRAGMENT
+      event.target.value === REPAYMENT_ARRAGMENT
     ) {
       this.showDuration2 = true;
     } else {
@@ -499,7 +499,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     if (
       event.target.value === MORATORIUM ||
       event.target.value === TIME_TO_SELL_REFINANCE_SURRENDER ||
-      event.taret.value === REPAYMENT_ARRAGMENT
+      event.target.value === REPAYMENT_ARRAGMENT
     ) {
       this.showDuration3 = true;
     } else {
