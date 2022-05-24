@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Restrict_Postcode_Alphanumeric</fullName>
+    <active>true</active>
+    <description>Enforces IDR_NC_Postcode field to be alphanumeric or have the value &apos;Not Applicable&apos;</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
+NOT(ISBLANK(IDR_NC_Postcode__c)),
+AND(NOT(REGEX( IDR_NC_Postcode__c , &quot;^[0-9]{4}$&quot;)),
+NOT(LOWER(IDR_NC_Postcode__c)=&apos;not applicable&apos;),
+NOT(LOWER(IDR_NC_Postcode__c)=&apos;overseas&apos;)))</errorConditionFormula>
+    <errorDisplayField>IDR_NC_Postcode__c</errorDisplayField>
+    <errorMessage>Postcode must be a 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;, if the postcode is unknown, enter &apos;Not Applicable&apos;.</errorMessage>
+</ValidationRule>
