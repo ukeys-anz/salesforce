@@ -354,10 +354,7 @@ public with sharing class InteractionActions {
       contactRequestIds.add(interact.ContactRequestId__c);
     }
 
-    if (
-      ContactRequest.SObjectType.getDescribe().isAccessible() &&
-      Schema.SObjectType.ContactRequest.fields.Appointment_Commitment__c.isAccessible()
-    ) {
+    if (ContactRequest.SObjectType.getDescribe().isAccessible()) {
       contactRequestList = [
         SELECT Id, Appointment_Commitment__c
         FROM ContactRequest
