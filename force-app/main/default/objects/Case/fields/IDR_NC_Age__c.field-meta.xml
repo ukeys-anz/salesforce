@@ -49,12 +49,12 @@
             <value>
                 <fullName>7</fullName>
                 <default>false</default>
-                <label>75 years and over</label>
+                <label>65–74 years</label>
             </value>
             <value>
                 <fullName>8</fullName>
                 <default>false</default>
-                <label>65–74 years</label>
+                <label>75 years and over</label>
             </value>
             <value>
                 <fullName>9</fullName>
