@@ -71,7 +71,7 @@ public with sharing class AppointmentNotificationTest {
     interactionSubject.EndTime = endDate;
 
     Test.startTest();
-    Appointment_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
+    IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
       interactionSubject
     );
     Test.stopTest();
@@ -115,8 +115,8 @@ public with sharing class AppointmentNotificationTest {
 
     System.assertEquals(
       TEMPLATE_CANCELLED,
-      notificationEvent.Email_Template__c,
-      'Email_Template__c should be set'
+      notificationEvent.EmailTemplate__c,
+      'EmailTemplate__c should be set'
     );
   }
 
@@ -139,7 +139,7 @@ public with sharing class AppointmentNotificationTest {
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
 
-    Appointment_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
+    IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
       interactionSubject
     );
     System.assertNotEquals(null, notificationEvent, 'Should return an Event');
@@ -182,8 +182,8 @@ public with sharing class AppointmentNotificationTest {
 
     System.assertEquals(
       TEMPLATE_BOOKED,
-      notificationEvent.Email_Template__c,
-      'Email_Template__c should be set'
+      notificationEvent.EmailTemplate__c,
+      'EmailTemplate__c should be set'
     );
   }
 

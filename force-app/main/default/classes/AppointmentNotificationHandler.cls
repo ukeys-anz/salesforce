@@ -14,7 +14,7 @@ public with sharing class AppointmentNotificationHandler {
   ) {
     List<Database.SaveResult> results = new List<Database.SaveResult>();
 
-    List<Appointment_Notification_Event__e> events = createAppointmentNotificationEvents(
+    List<IDR_Notification_Event__e> events = createAppointmentNotificationEvents(
       interactions
     );
 
@@ -24,11 +24,7 @@ public with sharing class AppointmentNotificationHandler {
         AppointmentNotificationHandler.class.getName(),
         'sendNotifications'
       );
-      log.addDatabaseSaveResult(
-        'Appointment_Notification_Event__e',
-        results,
-        events
-      );
+      log.addDatabaseSaveResult('IDR_Notification_Event__e', results, events);
       log.insertLog();
     }
     return results;
@@ -37,15 +33,15 @@ public with sharing class AppointmentNotificationHandler {
   /**
    * @description creates a notification event from an Interaction
    * @param interactionSubject Interaction for which to create a Notification Event
-   * @return Appointment_Notification_Event__e instance of Application Notification Event
+   * @return IDR_Notification_Event__e instance of Application Notification Event
    */
-  public static Appointment_Notification_Event__e createAppointmentNotificationEvent(
+  public static IDR_Notification_Event__e createAppointmentNotificationEvent(
     Interaction interactionSubject
   ) {
     List<Interaction> interactions = new List<Interaction>{
       interactionSubject
     };
-    List<Appointment_Notification_Event__e> results = createAppointmentNotificationEvents(
+    List<IDR_Notification_Event__e> results = createAppointmentNotificationEvents(
       new List<Interaction>{ interactionSubject }
     );
     if (!results.isEmpty()) {
@@ -57,9 +53,9 @@ public with sharing class AppointmentNotificationHandler {
   /**
    * @description creates a notification event from an Interaction
    * @param interactions Interactions for which to create a Notification Event
-   * @return List<Appointment_Notification_Event__e> instance of Application Notification Event
+   * @return List<IDR_Notification_Event__e> instance of Application Notification Event
    */
-  public static List<Appointment_Notification_Event__e> createAppointmentNotificationEvents(
+  public static List<IDR_Notification_Event__e> createAppointmentNotificationEvents(
     List<Interaction> interactions
   ) {
     ContactRequestActions actions = new ContactRequestActions();
@@ -67,7 +63,7 @@ public with sharing class AppointmentNotificationHandler {
       interactions
     );
     Map<Id, Lead> leadMap = actions.getLeadMapFromInteractions(interactions);
-    List<Appointment_Notification_Event__e> result = new List<Appointment_Notification_Event__e>();
+    List<IDR_Notification_Event__e> result = new List<IDR_Notification_Event__e>();
     for (Interaction currentInteraction : interactions) {
       result.add(
         createAppointmentNotificationEvent(
@@ -85,9 +81,9 @@ public with sharing class AppointmentNotificationHandler {
    * @param interactionSubject Interaction for which to create a Notification Event
    * @param accountMap Map<Id,Account> map of Account Id and Account for interactions
    * @param leadMap Map<Id,Lead> map of Lead Id and Lead for interactions
-   * @return Appointment_Notification_Event__e instance of Application Notification Event
+   * @return IDR_Notification_Event__e instance of Application Notification Event
    */
-  public static Appointment_Notification_Event__e createAppointmentNotificationEvent(
+  public static IDR_Notification_Event__e createAppointmentNotificationEvent(
     Interaction interactionSubject,
     Map<Id, Account> accountMap,
     Map<Id, Lead> leadMap
@@ -99,13 +95,14 @@ public with sharing class AppointmentNotificationHandler {
     } else if (interactionSubject.Lead__c != null) {
       interactionLead = leadMap.get(interactionSubject.Lead__c);
     }
-    Appointment_Notification_Event__e notificationEvent = new Appointment_Notification_Event__e();
+    IDR_Notification_Event__e notificationEvent = new IDR_Notification_Event__e();
 
     notificationEvent.Date_and_Time__c = interactionSubject.StartTime;
     notificationEvent.Preferred_Channel__c = interactionSubject.InteractionType;
     notificationEvent.Location__c = interactionSubject.LocationId;
     notificationEvent.Request_Type__c = interactionSubject.Interaction_Purpose__c;
-    notificationEvent.Email_Template__c = getNotificationTemplate(
+    notificationEvent.Event_Type__c = 'Appointment';
+    notificationEvent.EmailTemplate__c = getNotificationTemplate(
       interactionSubject
     );
     if (interactionAccount != null) {
