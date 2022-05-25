@@ -1,5 +1,6 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import { getRecord } from "lightning/uiRecordApi";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
@@ -66,7 +67,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   @api recordId;
   @api recordTypeId;
-  @api expressCaseCreationData = {};
+  @api expressCaseCreationData;
   showOptions = true;
 
   draftValues = [];
@@ -107,8 +108,30 @@ export default class complaintsResolveLWC extends NavigationMixin(
   nonFinancialRemedyOptions = [];
   pageLoadComplete = false;
 
+  remedy2Toggle = false;
+  remedy3Toggle = false;
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [COMPLAINT_REMEDY2, COMPLAINT_REMEDY3]
+  })
+  wiredProject({ data }) {
+    if (data) {
+      let caseRemedy2 = data.fields.IDR_Complaint_Remedy_2__c.value;
+      let caseRemedy3 = data.fields.IDR_Complaint_Remedy_3__c.value;
+      if (caseRemedy2 !== null) {
+        this.remedy2Toggle = true;
+        this.showRemedy2 = true;
+      }
+      if (caseRemedy3 !== null) {
+        this.remedy3Toogle = true;
+        this.showRemedy3 = true;
+      }
+    }
+  }
+
   //initialize components
-  handelPageLoad() {
+  renderedCallback() {
     if (!this.pageLoadComplete) {
       if (this.expressCaseCreationData) {
         if (!this.isNonFinancialComplaintRemedy) {
@@ -185,6 +208,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       })
     );
   }
+
   handleComplaintOutcomeChange(event) {
     let sendVal = {
       field: "",
@@ -461,7 +485,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "Provided_details_to_Product_Manufacturer_2__c";
+    sendVal.field = "Provided_details_to_Prod_Manufacturer_2__c";
     sendVal.value = event.detail.checked;
     this.thirdPartyIsDetailsProvidedToProductManufacturer =
       event.detail.checked;
@@ -495,7 +519,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Other_Remedy_Provided_2__c";
     this.sendFieldValue(sendVal);
-    sendVal.field = "Provided_details_to_Product_Manufacturer_2__c";
+    sendVal.field = "Provided_details_to_Prod_Manufacturer_2__c";
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Duration_of_Remedy_2__c";
     this.sendFieldValue(sendVal);
@@ -629,7 +653,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "Provided_details_to_Product_Manufacturer_3__c";
+    sendVal.field = "Provided_details_to_Prod_Manufacturer_3__c";
     sendVal.value = event.detail.checked;
     this.thirdPartyIsDetailsProvidedToProductManufacturer3 =
       event.detail.checked;
@@ -662,7 +686,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Other_Remedy_Provided_3__c";
     this.sendFieldValue(sendVal);
-    sendVal.field = "Provided_details_to_Product_Manufacturer_3__c";
+    sendVal.field = "Provided_details_to_Prod_Manufacturer_3__c";
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Duration_of_Remedy_3__c";
     this.sendFieldValue(sendVal);

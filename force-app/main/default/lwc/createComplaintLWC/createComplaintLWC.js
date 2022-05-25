@@ -1295,9 +1295,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let fieldApi = event.detail.field;
     let value = event.detail.value;
 
-    console.log("fieldApi:" + fieldApi);
-    console.log("Value:" + value);
-
     switch (fieldApi) {
       case "IDR_Complaint_Outcome__c":
         this.closeFields[COMPLAINT_OUTCOME.fieldApiName] = value;
