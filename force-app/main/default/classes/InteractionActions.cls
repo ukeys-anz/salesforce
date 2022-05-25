@@ -840,21 +840,32 @@ public with sharing class InteractionActions {
    */
   public void validateInteractions(List<Interaction> interactions) {
     Set<Id> accountIds = new Set<Id>();
+    Set<Id> leadIds = new Set<Id>();
     for (Interaction interact : interactions) {
       if (interact.AccountId != null) {
         accountIds.add(interact.AccountId);
       }
+      if (interact.Lead__c != null) {
+        leadIds.add(interact.Lead__c);
+      }
     }
-    Map<Id, List<Interaction>> accountInteractionMap = new Map<Id, List<Interaction>>();
-    accountInteractionMap = existingInteractions(accountIds);
-    validateOverlappingInteractions(accountInteractionMap, interactions);
+    Map<Id, List<Interaction>> accountInteractionMap = existingInteractions(
+      accountIds
+    );
+    Map<Id, List<Interaction>> leadInteractionMap = existingLeadInteractions(
+      leadIds
+    );
+    validateOverlappingInteractions(
+      accountInteractionMap,
+      leadInteractionMap,
+      interactions
+    );
   }
 
   /** @description Method to get the list of existing scheduled interactions for the customer
    * @param accountIds Set of account ids related to the new interactions
    * @return  Map<Id, List<Interaction>> Map of account ids and list of scheduled interactions creared for the customer
    */
-
   public Map<Id, List<Interaction>> existingInteractions(Set<Id> accountIds) {
     Map<Id, List<Interaction>> accountInteractionMap = new Map<Id, List<Interaction>>();
     if (Interaction.SObjectType.getDescribe().isQueryable()) {
@@ -882,20 +893,63 @@ public with sharing class InteractionActions {
     return accountInteractionMap;
   }
 
+  /** @description Method to get the list of existing scheduled interactions for the lead
+   * @param leadIds Set of lead ids related to the new interactions
+   * @return  Map<Id, List<Interaction>> Map of lead ids and list of scheduled interactions creared for the customer
+   */
+  public Map<Id, List<Interaction>> existingLeadInteractions(Set<Id> leadIds) {
+    Map<Id, List<Interaction>> leadInteractionMap = new Map<Id, List<Interaction>>();
+    if (Interaction.SObjectType.getDescribe().isQueryable()) {
+      List<Interaction> interactionsForAccounts = [
+        SELECT Id, Lead__c, StartTime, Endtime, OwnerId
+        FROM Interaction
+        WHERE Status__c = :SCHEDULED_STATUS AND Lead__c IN :leadIds
+      ];
+
+      for (Interaction interact : interactionsForAccounts) {
+        List<Interaction> tempInteractionList = new List<Interaction>();
+        if (leadInteractionMap.containsKey(interact.Lead__c)) {
+          tempInteractionList = leadInteractionMap.get(interact.Lead__c);
+        }
+        tempInteractionList.add(interact);
+        leadInteractionMap.put(interact.Lead__c, tempInteractionList);
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'existingInteractions',
+        'Not enough permissions to query Interaction object.'
+      );
+    }
+    return leadInteractionMap;
+  }
+
   /** @description Method to identify if the customer has any existing interactions at the same time.
    * @param accountInteractionMap Map of account id and the existing list of scheduled interactions
+   * @param leadInteractionMap Map of lead id and the existing list of scheduled interactions
    * @param interactions list of new interactions created.
    */
   public void validateOverlappingInteractions(
     Map<Id, List<Interaction>> accountInteractionMap,
+    Map<Id, List<Interaction>> leadInteractionMap,
     List<Interaction> interactions
   ) {
     Set<Id> customersWithExistingInteractions = new Set<Id>();
     for (Interaction interact : interactions) {
+      List<Interaction> customersInteractions = new List<Interaction>();
+
       if (accountInteractionMap.containsKey(interact.AccountId)) {
+        customersInteractions.addAll(
+          accountInteractionMap.get(interact.AccountId)
+        );
+      }
+      if (leadInteractionMap.containsKey(interact.Lead__c)) {
+        customersInteractions.addAll(leadInteractionMap.get(interact.Lead__c));
+      }
+      if (!customersInteractions.isEmpty()) {
         Boolean existingInteractionAvailable = verifyTimeSlots(
           interact,
-          accountInteractionMap.get(interact.AccountId)
+          customersInteractions
         );
         if (existingInteractionAvailable) {
           if (!String.isEmpty(interact.ContactRequestId__c)) {
@@ -917,7 +971,6 @@ public with sharing class InteractionActions {
    * @param interactions list of existing interactions for the customer
    * @return Boolean Returns true or false if there are conflicting
    */
-
   public Boolean verifyTimeSlots(
     Interaction newinteraction,
     List<Interaction> interactions
@@ -940,7 +993,6 @@ public with sharing class InteractionActions {
   /** @description Method to validate if the coach has an existing appointment while accepting a new one
    * @param interactions List of new interactions accepted by the coach
    */
-
   public void validateCoachAssignment(List<Interaction> interactions) {
     Set<Id> coachIds = new Set<Id>();
     for (Interaction interact : interactions) {
@@ -992,7 +1044,6 @@ public with sharing class InteractionActions {
    * @param existingCoachInteractions  Map of owner id and the existing list of scheduled interactions
    * @param interactions list of new interactions created.
    */
-
   public void validateOverlappingCoachInteractions(
     Map<Id, List<Interaction>> existingCoachInteractions,
     List<Interaction> interactions

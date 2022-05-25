@@ -1042,6 +1042,76 @@ public with sharing class InteractionActionsTest {
   }
 
   /**
+   *@description A lead cannot request an interaction at the same time they have another
+   */
+  @isTest
+  static void testLeadCreatingOverlappingInteraction() {
+    Id generalLeadRTID = Schema.sOBjectType.Lead.getRecordTypeInfosByDeveloperName()
+      .get('General')
+      .getRecordTypeId();
+    Lead testLead = new Lead(
+      LastName = 'Bloggs',
+      RecordTypeId = generalLeadRTID
+    );
+    testLead.MobilePhone = TEST_MOBILE;
+    insert testLead;
+
+    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
+
+    ContactRequest request = new ContactRequest();
+    request.Appointment_date_and_Time__c = appointmentDate;
+    request.RequestReason = finacialWellbeingPurposeName;
+    request.WhoId = testLead.Id;
+    request.PreferredChannel = 'Call';
+    insert request;
+
+    List<Interaction> testInteraction = [
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, Coaching_Summary__c
+      FROM Interaction
+    ];
+
+    System.assertEquals(
+      1,
+      testInteraction.size(),
+      '1 Interaction record should be created'
+    );
+
+    testInteraction[0].OwnerId = UserInfo.getUserId();
+    update testInteraction;
+
+    Test.startTest();
+
+    DateTime newAppointmentDate = DateTime.newInstance(2022, 10, 20, 11, 0, 0);
+
+    ContactRequest request2 = new ContactRequest();
+    request2.Appointment_date_and_Time__c = newAppointmentDate;
+    request2.RequestReason = finacialWellbeingPurposeName;
+    request2.WhoId = testLead.Id;
+    request2.PreferredChannel = 'Call';
+
+    Exception thrownException;
+    try {
+      insert request2;
+    } catch (Exception e) {
+      thrownException = e;
+    }
+    Test.stopTest();
+
+    System.assertNotEquals(
+      null,
+      thrownException,
+      'An exception must have been thrown'
+    );
+
+    System.assert(
+      thrownException.getMessage()
+        .contains(System.Label.Interaction_User_Created_Error_Message),
+      'The error message should be available in the body'
+    );
+  }
+
+  /**
    * @description testing that a coach cannot create an interaction for the same customer
    * at the same time.
    */
