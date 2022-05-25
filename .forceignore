@@ -58,7 +58,6 @@ force-app/main/default/objects/ServiceAppointment/
 force-app/main/default/objects/ServiceResource/
 force-app/main/default/objects/ServiceTerritory/
 force-app/main/default/objects/WorkTypeGroup/
-force-app/main/default/objects/Location/
 force-app/main/default/objects/Opportunity/
 force-app/main/default/objects/Individual/
 force-app/main/default/objects/FinServ__Securities__c/
