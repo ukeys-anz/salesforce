@@ -10,6 +10,7 @@ import * as creationFormUtils from "utils/creationFormUtils";
 import * as casePageUtils from "utils/casePageUtils";
 import * as faker from "faker";
 import { FieldDefinition } from "types/field";
+import { FieldSectionIndex } from "types/layout";
 import CaseFields from "constants/case/caseFields";
 import IAssignNewOwner from "interfaces/IAssignNewOwner";
 
@@ -64,21 +65,18 @@ export default class GeneralEnquiry
   }
 
   async assignNewOwner(
-    ownerType: OwnerType,
+    newOwnerType: OwnerType,
     newOwnerName: string
   ): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
-    const recordLayout = await baseRecordForm.getRecordLayout();
+    // Owner field index on layout
+    const ownerFieldIndex: FieldSectionIndex = [2, 1, 1];
 
-    // Case Owner
-    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [2, 1, 1]
+    await commonUtils.assignNewOwner(
+      this.sobject,
+      ownerFieldIndex,
+      newOwnerType,
+      newOwnerName
     );
-
-    // click change owner button
-    await caseOwnerField.clickChangeOwnerButton();
-    await commonUtils.searchAndSelectNewOwner(ownerType, newOwnerName);
   }
 
   async update(): Promise<void> {

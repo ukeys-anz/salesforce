@@ -12,6 +12,7 @@ import { UtamBasePageObject } from "utam";
 import { ContainerCtor } from "@utam/core";
 import * as casePageUtils from "./casePageUtils";
 import * as qaPageUtils from "./qualityAssessmentPageUtils";
+import FormattedText from "pageObjects/formattedText";
 
 /**
  * @description get a field from record layout
@@ -225,4 +226,13 @@ export const searchAndOpenListViewByName = async (listViewName: string) => {
   await browser.pause(1000);
   await objectHomeRoot.openListView();
   await browser.pause(1000);
+};
+
+export const getFormattedTextValue = async (
+  recordLayoutItem: RecordLayoutItem
+) => {
+  const formattedTextField = await recordLayoutItem.getOutputField(
+    FormattedText
+  );
+  return formattedTextField.getInnerText();
 };

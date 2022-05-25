@@ -242,18 +242,12 @@ private with sharing class IDRTaskActionsTest {
     update newTasks;
 
     //THEN ensure the Queue name is updated
-    Task c = [
-            SELECT OwnerId, Queue__c
-            FROM Task
-            WHERE Id = :newTasks[0].Id
-    ];
-    Group oQueue = [SELECT Id, Name
-                  FROM Group
-                  WHERE Id = :c.OwnerId];
+    Task c = [SELECT OwnerId, Queue__c FROM Task WHERE Id = :newTasks[0].Id];
+    Group oQueue = [SELECT Id, Name FROM Group WHERE Id = :c.OwnerId];
     System.assertEquals(
-            oQueue.Name,
-            c.Queue__c,
-            'Task Queue owner not updated'
+      oQueue.Name,
+      c.Queue__c,
+      'Task Queue owner not updated'
     );
     // Change owner to test user
     for (Task oTask : newTasks) {
@@ -262,15 +256,11 @@ private with sharing class IDRTaskActionsTest {
     update newTasks;
 
     //THEN ensure the Queue name is preserved
-    c = [
-            SELECT Queue__c
-            FROM Task
-            WHERE Id = :newTasks[0].Id
-    ];
+    c = [SELECT Queue__c FROM Task WHERE Id = :newTasks[0].Id];
     System.assertEquals(
-            oQueue.Name,
-            c.Queue__c,
-            'Task Queue name not preserved'
+      oQueue.Name,
+      c.Queue__c,
+      'Task Queue name not preserved'
     );
   }
 }
