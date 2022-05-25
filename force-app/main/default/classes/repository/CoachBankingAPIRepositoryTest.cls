@@ -101,11 +101,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     Test.startTest();
     CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
     try {
-      transactionModel = coachAPI.getTransactionHistory(
-        '1111',
-        '000000000',
-        ''
-      );
+      transactionModel = coachAPI.getTransactionHistory('1111', '');
     } catch (Exception e) {
       resultException = e;
     }
