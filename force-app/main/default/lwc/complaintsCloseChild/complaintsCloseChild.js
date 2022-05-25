@@ -66,6 +66,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   @api recordId;
   @api recordTypeId;
+  @api expressCaseCreationData = {};
   showOptions = true;
 
   draftValues = [];
@@ -104,12 +105,92 @@ export default class complaintsResolveLWC extends NavigationMixin(
   remedyOptions = [];
   productManufacturerOptions = [];
   nonFinancialRemedyOptions = [];
+  pageLoadComplete = false;
 
+  //initialize components
+  handelPageLoad() {
+    if (!this.pageLoadComplete) {
+      if (this.expressCaseCreationData) {
+        if (!this.isNonFinancialComplaintRemedy) {
+          this.knownIssueChangeHandler();
+        } else {
+          this.knownIssueChangeHandlerNF();
+        }
+      }
+    }
+  }
+
+  knownIssueChangeHandler() {
+    this.pageLoadComplete = true;
+    const complaintOutcomeElement = this.template.querySelector(
+      '[data-id="compOutCome-id"]'
+    );
+
+    if (complaintOutcomeElement !== null) {
+      complaintOutcomeElement.value =
+        this.expressCaseCreationData === undefined
+          ? ""
+          : this.expressCaseCreationData.detail.IDR_Complaint_Outcome__c;
+      complaintOutcomeElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: { value: complaintOutcomeElement.value }
+        })
+      );
+    }
+
+    const descOfOutcomeElement = this.template.querySelector(
+      '[data-id="descOutcome-id"]'
+    );
+    if (descOfOutcomeElement !== null) {
+      descOfOutcomeElement.value =
+        this.expressCaseCreationData === undefined
+          ? ""
+          : this.expressCaseCreationData.detail.IDR_Description_of_Outcome__c;
+      descOfOutcomeElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: { value: descOfOutcomeElement.value }
+        })
+      );
+    }
+
+    const complaintRemedyElement = this.template.querySelector(
+      '[data-id="compRemedy-id"]'
+    );
+    if (complaintRemedyElement !== null) {
+      complaintRemedyElement.value =
+        this.expressCaseCreationData === undefined
+          ? ""
+          : this.expressCaseCreationData.detail.IDR_Complaint_Remedy__c;
+      complaintRemedyElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: { value: complaintRemedyElement.value }
+        })
+      );
+    }
+  }
+  knownIssueChangeHandlerNF() {
+    this.pageLoadComplete = true;
+    const nonFinancialRemedyElement = this.template.querySelector(
+      '[data-id="compSubRemedy-id"]'
+    );
+    if (nonFinancialRemedyElement !== null) {
+      nonFinancialRemedyElement.value =
+        this.expressCaseCreationData === undefined
+          ? ""
+          : this.expressCaseCreationData.detail.IDR_Non_Financial_Remedy__c;
+    }
+    nonFinancialRemedyElement.dispatchEvent(
+      new CustomEvent("change", {
+        detail: { value: nonFinancialRemedyElement.value }
+      })
+    );
+  }
   handleComplaintOutcomeChange(event) {
     let sendVal = {
       field: "",
       value: ""
     };
+
     sendVal.field = "IDR_Complaint_Outcome__c";
     sendVal.value = event.detail.value;
     this.sendFieldValue(sendVal);
@@ -138,6 +219,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.isNonFinancialComplaintRemedy = false;
       this.isReferredToProductManufacturer = false;
     } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
+      if (this.expressCaseCreationData) {
+        this.pageLoadComplete = false;
+      }
       this.isFinancialComplaintRemedy = false;
       this.showFinancialCompensation = false;
       this.isNonFinancialComplaintRemedy = true;

@@ -3,6 +3,7 @@
     <lightning-record-edit-form
       object-api-name={caseObject}
       record-type-id={recordTypeId}
+      onload={handelPageLoad}
     >
       <div class="slds-grid slds-wrap">
         <div class="slds-col slds-size_2-of-4 slds-m-right_large">
@@ -12,7 +13,7 @@
             required="true"
             field-name={complaintOutcome}
             onchange={handleComplaintOutcomeChange}
-            data-id="compOutCome2-id"
+            data-id="compOutCome-id"
           ></lightning-input-field>
         </div>
         <div class="slds-col slds-size_2-of-4 slds-m-right_large">

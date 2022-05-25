@@ -326,6 +326,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   disableAccNoOneField = false;
   disableAccNoTwoField = false;
   disableAccNoThreeField = false;
+  expressCaseCreationData = {};
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -427,8 +428,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isComplaintResolved = false;
     //future use: this.isComplaintonHold = false;
     /* Future use : case "On Hold":
-          this.isComplaintOnhold = true;
-          break;*/
+            this.isComplaintOnhold = true;
+            break;*/
     switch (this.caseStatus) {
       case "Provisionally Closed":
         this.isComplaintResolved = true;
@@ -1087,8 +1088,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
   expressToggleCheckedHandler(event) {
     this.expressCMOS = event.detail.value;
     if (this.expressCMOS) {
-      this.isComplaintResolved = true;
-      this.isNonFinancialComplaintRemedy = true;
+      // this.isComplaintResolved = true;
+      // this.isNonFinancialComplaintRemedy = true;
       const issueTypeElement = this.template.querySelector(
         '[data-id="issueType-id"]'
       );
@@ -1102,22 +1103,35 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   knownIssueChangeHandler(event) {
+    this.expressCaseCreationData = event;
     const priority = this.template.querySelector('[data-id="priority-id"]');
     priority.value =
       event === undefined ? "Standard" : event.detail.IDR_Priority__c;
-    priority.dispatchEvent(new CustomEvent("Change"));
+    priority.dispatchEvent(
+      new CustomEvent("change", {
+        detail: { value: priority.value }
+      })
+    );
     const channelRecieved = this.template.querySelector(
       '[data-id="channelReceived-id"]'
     );
     channelRecieved.value =
       event === undefined ? "Phone" : event.detail.IDR_Channel_Received__c;
-    channelRecieved.dispatchEvent(new CustomEvent("Change"));
+    channelRecieved.dispatchEvent(
+      new CustomEvent("change", {
+        detail: { value: channelRecieved.value }
+      })
+    );
     const issueTypeElement = this.template.querySelector(
       '[data-id="issueType-id"]'
     );
     issueTypeElement.value =
       event === undefined ? "" : event.detail.IDR_Issue_Type__c;
-    issueTypeElement.dispatchEvent(new CustomEvent("change"));
+    issueTypeElement.dispatchEvent(
+      new CustomEvent("change", {
+        detail: { value: issueTypeElement.value }
+      })
+    );
 
     const subIssueTypeElement = this.template.querySelector(
       '[data-id="subsequentIssue-id"]'
@@ -1280,6 +1294,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleFieldUpdate(event) {
     let fieldApi = event.detail.field;
     let value = event.detail.value;
+
+    console.log("fieldApi:" + fieldApi);
+    console.log("Value:" + value);
 
     switch (fieldApi) {
       case "IDR_Complaint_Outcome__c":
