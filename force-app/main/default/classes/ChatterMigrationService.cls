@@ -13,14 +13,14 @@ public with sharing class ChatterMigrationService {
    * @param survivorId String of the External Account Id for the surviving party, this must be a valid Account Id
    * @return Boolean, if successful the method will return true. Otherwise will throw an error and return false.
    */
-  public static Boolean cloneChatterFromVicimToSurvivor(
+  public static Boolean cloneChatterFromVictimToSurvivor(
     String victimId,
     String survivorId
   ) {
     ListException error = new System.ListException(); //Init
     String errorString = null;
 
-    if (hasPermissions()) {
+    if (PermissionUtils.canQuery('Account')) {
       Id victimAccountId = getAccountIdFromExternalId(victimId);
       if (victimAccountId == null) {
         errorString = 'The victimId used does not match with any Accounts';
@@ -70,9 +70,11 @@ public with sharing class ChatterMigrationService {
         return true;
       }
 
-      List<FeedItem> clonedItems = cloneChatterFromListToSurvivorId(
-        items,
-        survivorAccountId
+      Map<Id, List<FeedItem>> chatterItemsByAccountId = new Map<Id, List<FeedItem>>();
+      chatterItemsByAccountId.put(survivorAccountId, items);
+
+      List<FeedItem> clonedItems = cloneChatterFromOldToNew(
+        chatterItemsByAccountId
       );
       cloneCommentsFromOldToNew(items, clonedItems);
 
@@ -95,42 +97,34 @@ public with sharing class ChatterMigrationService {
   }
 
   /**
-   * @description Clones a list of Chatter Items to a new Account Id
-   * @param items | List<FeedItem> | The list of Chatter Items to be migrated
-   * @param survivorAccountId | Id | The Salesforce Id of the account where the Chatter Items will be cloned to
-   * @return List<FeedItem> | Returns the newly inserted cloned Chatter Items with the new SurvivorAccountId
+   * @description Clones the lists of Chatter Items to the new Account Ids
+   * @param feedItemsToMigrateByAccountIdMap | Map<Id, List<FeedItem> | Map of the list of chatter items to
+   * be migrated along with the Salesforce Id of the account where the Chatter Items will be cloned to
+   * @return List<FeedItem> | Returns the newly inserted cloned Chatter Items with the newAccountId
    */
-  private static List<FeedItem> cloneChatterFromListToSurvivorId(
-    List<FeedItem> items,
-    Id survivorAccountId
+  public static List<FeedItem> cloneChatterFromOldToNew(
+    Map<Id, List<FeedItem>> feedItemsToMigrateByAccountIdMap
   ) {
     List<FeedItem> clonedItems = new List<FeedItem>();
     FeedItem cloned;
+    if (PermissionUtils.canCreate('FeedItem')) {
+      for (Id newAccountId : feedItemsToMigrateByAccountIdMap.keySet()) {
+        for (
+          FeedItem item : feedItemsToMigrateByAccountIdMap.get(newAccountId)
+        ) {
+          cloned = item.clone(false, true, true, true);
+          cloned.ParentId = newAccountId;
+          clonedItems.add(cloned);
+        }
+      }
 
-    for (FeedItem item : items) {
-      cloned = item.clone(false, true, true, true);
-      cloned.ParentId = survivorAccountId;
-      clonedItems.add(cloned);
+      insert clonedItems;
     }
-
-    insert clonedItems;
 
     lib_systemLog log = new lib_systemLog(
       ChatterMigrationService.class.getName(),
-      'cloneChatterFromList'
+      'cloneChatterFromOldToNew'
     );
-
-    log.info(
-      String.format(
-        'Migrated {0} chatter items to: {1}',
-        new List<String>{
-          String.valueOf(clonedItems.size()),
-          survivorAccountId
-        }
-      )
-    );
-
-    log.insertLogAsync();
 
     return clonedItems;
   }
@@ -140,7 +134,7 @@ public with sharing class ChatterMigrationService {
    * @param originalItems | List<FeedItem> | The list of the original Chatter Items
    * @param clonedItems | List<FeedItem> | The list of newly created chatter items
    */
-  private static void cloneCommentsFromOldToNew(
+  public static void cloneCommentsFromOldToNew(
     List<FeedItem> originalItems,
     List<FeedItem> clonedItems
   ) {
@@ -196,42 +190,6 @@ public with sharing class ChatterMigrationService {
   }
 
   /**
-   * @description Checks if the user has permissions
-   * @return Boolean - True if the user has the right permissions, otherwise throws an error
-   */
-  private static Boolean hasPermissions() {
-    QueryException error = new System.QueryException();
-
-    if (!Account.sObjectType.getDescribe().isQueryable()) {
-      error.setMessage('User does not have the permissions to query Accounts');
-      throw error;
-    }
-
-    if (!(FeedItem.sObjectType.getDescribe().isAccessible())) {
-      error.setMessage(
-        'User does not have the permissions to query Feed Items'
-      );
-      throw error;
-    }
-
-    if (!(FeedComment.sObjectType.getDescribe().isAccessible())) {
-      error.setMessage(
-        'User does not have the permissions to query Feed Comments'
-      );
-      throw error;
-    }
-
-    if (!(FeedItem.sObjectType.getDescribe().isCreateable())) {
-      error.setMessage(
-        'User does not have the permissions to create Feed Items'
-      );
-      throw error;
-    }
-
-    return true;
-  }
-
-  /**
    * @description Returns the Account Id from the External ID
    * @param externalId String | The unique external ID you are searching for
    * @return Id | The Account Id from the found Account or null if nothing is found
@@ -240,7 +198,7 @@ public with sharing class ChatterMigrationService {
   private static Id getAccountIdFromExternalId(String externalId) {
     SystemModeActions systemAction = new SystemModeActions(
       'ChatterMigrationService',
-      'cloneChatterFromVicimToSurvivor'
+      'cloneChatterFromVictimToSurvivor'
     );
     List<Account> account = systemAction.query(
       'SELECT Id FROM Account WHERE External_Id__c = \'' +

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>ANZX_Leads_Coaches_RW</fullName>
+        <fullName>ANZX_Leads_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Leads having ANZX Leads record type are to be shared with Coaches with Read/Write access.</description>
+        <description>All Leads having ANZX Leads record type are to be shared with Coaches, Coach Leads, Support Coaches and Business Admins with Read/Write access.</description>
         <label>ANZX_Leads_Coaches_RW</label>
         <sharedTo>
-            <role>Coach</role>
+            <group>Lead_Read_Write_Roles</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -14,34 +14,6 @@
             <value>ANZX Leads</value>
         </criteriaItems>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>ANZX_Leads_Coach_Leads_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>All Leads having ANZX Leads record type are to be shared with Coach Leads with Read/Write access.</description>
-        <label>ANZX_Leads_Coach_Leads_RW</label>
-        <sharedTo>
-            <role>Coach_Lead</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZX Leads</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>ANZX_Leads_Support_Coaches_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>All Leads having ANZX Leads record type are to be shared with Support Coaches with Read/Write access.</description>
-        <label>ANZX_Leads_Support_Coaches_RW</label>
-        <sharedTo>
-            <role>Support_Coach</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZX Leads</value>
-        </criteriaItems>
-    </sharingCriteriaRules>    
     <sharingCriteriaRules>
         <fullName>ANZX_Leads_QA_RO</fullName>
         <accessLevel>Read</accessLevel>
@@ -55,5 +27,5 @@
             <operation>equals</operation>
             <value>ANZX Leads</value>
         </criteriaItems>
-    </sharingCriteriaRules>   
+    </sharingCriteriaRules>
 </SharingRules>
