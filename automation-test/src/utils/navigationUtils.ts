@@ -18,6 +18,7 @@ const searchAndOpenApp = async (appName: string): Promise<void> => {
   const appLauncherRoot = await utam.load(AppLauncher);
 
   // search app by name and click and redirect
+  await browser.pause(1000);
   await appLauncherRoot.searchApp(appName);
   await browser.pause(1000);
   await appLauncherRoot.selectAppAndRedirect();
@@ -82,7 +83,6 @@ export const navigateToAppAndTab = async (
     const homePageRoot = await utam.load(HomePage);
     const navigationBar = await homePageRoot.getNavigationBar();
     await navigationBar.expandAppLauncher();
-    await browser.pause(1000);
 
     await searchAndOpenApp(appName);
 
