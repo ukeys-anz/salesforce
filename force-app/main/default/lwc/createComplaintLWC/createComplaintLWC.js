@@ -1382,16 +1382,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   validateRemedyFields() {
-    let validToSave = true;
-    validToSave = this.validateRemedy1Fields();
+    let validToSave1 = true;
+    let validToSave2 = true;
+    let validToSave3 = true;
+
+    validToSave1 = this.validateRemedy1Fields();
     if (this.remedy2) {
-      validToSave = this.validateRemedy2Fields();
+      validToSave2 = this.validateRemedy2Fields();
     }
 
     if (this.remedy3) {
-      validToSave = this.validateRemedy3Fields();
+      validToSave3 = this.validateRemedy3Fields();
     }
-    return validToSave;
+    return validToSave1 && validToSave2 && validToSave3;
   }
 
   validateRemedy1Fields() {
