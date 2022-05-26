@@ -39,11 +39,13 @@ public with sharing class ContactRequestTriggerActions {
       Appointment_Commitment__c.SObjectType.getDescribe().isAccessible() &&
       Schema.SObjectType.Appointment_Commitment__c.fields.Confirmed__c.isAccessible()
     ) {
-      for (Appointment_Commitment__c apptCommt : [
-        SELECT ID, Confirmed__c
+      List<Appointment_Commitment__c> appointmentCommitments = [
+        SELECT ID, Confirmed__c, Available__c
         FROM Appointment_Commitment__c
         WHERE ID IN :appointmentCommitmentIds
-      ]) {
+      ];
+
+      for (Appointment_Commitment__c apptCommt : appointmentCommitments) {
         if (apptBooked) {
           apptCommt.Confirmed__c = apptCommt.Confirmed__c == null
             ? 1
@@ -168,10 +170,14 @@ public with sharing class ContactRequestTriggerActions {
         Appointment_Commitment__c apptCommt = appointmentCommitmentMap.get(
           contReq.Appointment_Commitment__c
         );
-        contReq.RequestReason = apptCommt.Type__c;
-        contReq.Appointment_date_and_Time__c = apptCommt.Date_and_Time__c;
-        contReq.Location__c = apptCommt.Location__c;
-        contReq.PreferredChannel = apptCommt.Appointment_Channel__c;
+        if (apptCommt.Available__c == apptCommt.Confirmed__c) {
+          contReq.addError(System.Label.Appointment_Commitment_Full);
+        } else {
+          contReq.RequestReason = apptCommt.Type__c;
+          contReq.Appointment_date_and_Time__c = apptCommt.Date_and_Time__c;
+          contReq.Location__c = apptCommt.Location__c;
+          contReq.PreferredChannel = apptCommt.Appointment_Channel__c;
+        }
       }
     } else {
       //If the user does not have permission to update the contact request object log an error.
@@ -206,7 +212,9 @@ public with sharing class ContactRequestTriggerActions {
             Type__c,
             Date_and_Time__c,
             Location__c,
-            Appointment_Channel__c
+            Appointment_Channel__c,
+            Available__c,
+            Confirmed__c
           FROM Appointment_Commitment__c
           WHERE ID IN :apptCommtId
         ]

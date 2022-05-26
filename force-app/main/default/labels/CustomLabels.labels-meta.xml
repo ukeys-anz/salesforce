@@ -254,4 +254,11 @@
         <shortDescription>Coach_Existing_Interaction_Error_Message</shortDescription>
         <value>You already have an appointment at this date and time. Please select another date and time.</value>
     </labels>
+    <labels>
+        <fullName>Appointment_Commitment_Full</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment Commitment Full</shortDescription>
+        <value>This appointment slot is no longer available, please choose a different date and time.</value>
+    </labels>
 </CustomLabels>
