@@ -33,7 +33,9 @@ export default class EscalateToCRC extends NavigationMixin(LightningElement) {
          * LWC does not support refreshing of the other
          * components on the page and this is the most
          * elegant solution without doing window.refresh()
-         * which is much slower 26/06/2022
+         * which is much slower 26/05/2022
+         * refresh is needed to update the view for the case
+         * list or related list in the account object
          */
         /* eslint-disable no-eval */
         eval("$A.get('e.force:refreshView').fire();");
