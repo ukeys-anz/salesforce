@@ -67,7 +67,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   @api recordId;
   @api recordTypeId;
-  @api expressCaseCreationData;
+
+  expressCaseCreationData;
   showOptions = true;
 
   draftValues = [];
@@ -107,9 +108,21 @@ export default class complaintsResolveLWC extends NavigationMixin(
   productManufacturerOptions = [];
   nonFinancialRemedyOptions = [];
   pageLoadComplete = false;
+  pageRendered = false;
 
   remedy2Toggle = false;
   remedy3Toggle = false;
+
+  @api set expressCaseCreationDataObj(value) {
+    this.expressCaseCreationData = value.detail;
+    this.pageLoadComplete = false;
+    if (this.pageRendered) {
+      this.intializeExpressCaseCreationDate();
+    }
+  }
+  get expressCaseCreationDataObj() {
+    return this.expressCaseCreationData;
+  }
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -132,6 +145,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   //initialize components
   renderedCallback() {
+    this.pageRendered = true;
+    this.intializeExpressCaseCreationDate();
+  }
+
+  intializeExpressCaseCreationDate() {
     if (!this.pageLoadComplete) {
       if (this.expressCaseCreationData) {
         if (!this.isNonFinancialComplaintRemedy) {
@@ -142,7 +160,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
       }
     }
   }
-
   knownIssueChangeHandler() {
     this.pageLoadComplete = true;
     const complaintOutcomeElement = this.template.querySelector(
@@ -153,7 +170,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       complaintOutcomeElement.value =
         this.expressCaseCreationData === undefined
           ? ""
-          : this.expressCaseCreationData.detail.IDR_Complaint_Outcome__c;
+          : this.expressCaseCreationData.IDR_Complaint_Outcome__c;
       complaintOutcomeElement.dispatchEvent(
         new CustomEvent("change", {
           detail: { value: complaintOutcomeElement.value }
@@ -168,7 +185,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       descOfOutcomeElement.value =
         this.expressCaseCreationData === undefined
           ? ""
-          : this.expressCaseCreationData.detail.IDR_Description_of_Outcome__c;
+          : this.expressCaseCreationData.IDR_Description_of_Outcome__c;
       descOfOutcomeElement.dispatchEvent(
         new CustomEvent("change", {
           detail: { value: descOfOutcomeElement.value }
@@ -183,7 +200,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       complaintRemedyElement.value =
         this.expressCaseCreationData === undefined
           ? ""
-          : this.expressCaseCreationData.detail.IDR_Complaint_Remedy__c;
+          : this.expressCaseCreationData.IDR_Complaint_Remedy__c;
       complaintRemedyElement.dispatchEvent(
         new CustomEvent("change", {
           detail: { value: complaintRemedyElement.value }
@@ -200,7 +217,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       nonFinancialRemedyElement.value =
         this.expressCaseCreationData === undefined
           ? ""
-          : this.expressCaseCreationData.detail.IDR_Non_Financial_Remedy__c;
+          : this.expressCaseCreationData.IDR_Non_Financial_Remedy__c;
     }
     nonFinancialRemedyElement.dispatchEvent(
       new CustomEvent("change", {

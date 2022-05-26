@@ -49,6 +49,33 @@ const MORATORIUM = "16";
 const REPAYMENT_ARRAGMENT = "Repayment arrangement";
 const TIME_TO_SELL_REFINANCE_SURRENDER = "20";
 
+const FIELDS = [
+  Case_RecordTypeId,
+  COMPLAINT_OUTCOME,
+  OUTCOME_DESCRIPTION,
+  COMPLAINT_REMEDY,
+  FINANCIAL_COMPENSATION,
+  THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER,
+  COMPLAINT_SUB_REMEDY,
+  REMEDY_POINTS1,
+  OTHER_REMDY1,
+  REMEDY_DURATION,
+  COMPLAINT_REMEDY2,
+  FINANCIAL_COMPENSATION2,
+  THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2,
+  COMPLAINT_SUB_REMEDY2,
+  REMEDY_POINTS2,
+  OTHER_REMDY2,
+  REMEDY_DURATION2,
+  COMPLAINT_REMEDY3,
+  FINANCIAL_COMPENSATION3,
+  THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3,
+  COMPLAINT_SUB_REMEDY3,
+  REMEDY_POINTS3,
+  OTHER_REMDY3,
+  REMEDY_DURATION3
+];
+
 export default class closeComplaint extends NavigationMixin(LightningElement) {
   @api recordId;
   recordTypeId;
@@ -63,12 +90,74 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   remedy3 = false;
 
   //Get the recordType to send to the API
-  @wire(getRecord, { recordId: "$recordId", fields: [Case_RecordTypeId] })
+  @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
   wiredProject({ data }) {
     if (data) {
       this.recordTypeId = data.fields.RecordTypeId.value;
-      this.loadChild = true;
+      this.updateCloseFieldsWithExistingValues(data);
     }
+  }
+
+  updateCloseFieldsWithExistingValues(data) {
+    this.closeFields[COMPLAINT_OUTCOME.fieldApiName] =
+      data.fields[COMPLAINT_OUTCOME.fieldApiName].value;
+    this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] =
+      data.fields[OUTCOME_DESCRIPTION.fieldApiName].value;
+    this.closeFields[COMPLAINT_REMEDY.fieldApiName] =
+      data.fields[COMPLAINT_REMEDY.fieldApiName].value;
+    this.closeFields[
+      THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
+    ] =
+      data.fields[
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER.fieldApiName
+      ].value;
+    this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] =
+      data.fields[FINANCIAL_COMPENSATION.fieldApiName].value;
+    this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] =
+      data.fields[COMPLAINT_SUB_REMEDY.fieldApiName].value;
+    this.closeFields[REMEDY_POINTS1.fieldApiName] =
+      data.fields[REMEDY_POINTS1.fieldApiName].value;
+    this.closeFields[OTHER_REMDY1.fieldApiName] =
+      data.fields[OTHER_REMDY1.fieldApiName].value;
+    this.closeFields[REMEDY_DURATION.fieldApiName] =
+      data.fields[REMEDY_DURATION.fieldApiName].value;
+    this.closeFields[COMPLAINT_REMEDY2.fieldApiName] =
+      data.fields[COMPLAINT_REMEDY2.fieldApiName].value;
+    this.closeFields[
+      THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
+    ] =
+      data.fields[
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
+      ].value;
+    this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] =
+      data.fields[FINANCIAL_COMPENSATION2.fieldApiName].value;
+    this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] =
+      data.fields[COMPLAINT_SUB_REMEDY2.fieldApiName].value;
+    this.closeFields[REMEDY_POINTS2.fieldApiName] =
+      data.fields[REMEDY_POINTS2.fieldApiName].value;
+    this.closeFields[OTHER_REMDY2.fieldApiName] =
+      data.fields[OTHER_REMDY2.fieldApiName].value;
+    this.closeFields[REMEDY_DURATION2.fieldApiName] =
+      data.fields[REMEDY_DURATION2.fieldApiName].value;
+    this.closeFields[COMPLAINT_REMEDY3.fieldApiName] =
+      data.fields[COMPLAINT_REMEDY3.fieldApiName].value;
+    this.closeFields[
+      THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
+    ] =
+      data.fields[
+        THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3.fieldApiName
+      ].value;
+    this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] =
+      data.fields[FINANCIAL_COMPENSATION3.fieldApiName].value;
+    this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] =
+      data.fields[COMPLAINT_SUB_REMEDY3.fieldApiName].value;
+    this.closeFields[REMEDY_POINTS3.fieldApiName] =
+      data.fields[REMEDY_POINTS3.fieldApiName].value;
+    this.closeFields[OTHER_REMDY3.fieldApiName] =
+      data.fields[OTHER_REMDY3.fieldApiName].value;
+    this.closeFields[REMEDY_DURATION3.fieldApiName] =
+      data.fields[REMEDY_DURATION3.fieldApiName].value;
+    this.loadChild = true;
   }
 
   get statusOptions() {
@@ -180,7 +269,11 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     this.errMsg = "Complete Required Fields:";
     let validToSave = true;
 
-    if (this.closeFields[STATUS_FIELD.fieldApiName] === null) {
+    if (
+      this.closeFields[STATUS_FIELD.fieldApiName] !==
+        PROVISIONALLYCLOSED_STATUS_API_NAME &&
+      this.closeFields[STATUS_FIELD.fieldApiName] !== CLOSED_STATUS_API_NAME
+    ) {
       validToSave = false;
       this.errMsg = this.errMsg + STATUS_FIELD.fieldApiName + " ;";
     }
@@ -207,7 +300,13 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
           window.location.reload();
         })
         .catch((error) => {
-          this.openModal("Update Failed: " + error);
+          let message = "Unknown error";
+          if (Array.isArray(error.body)) {
+            message = error.body.map((e) => e.message).join(", ");
+          } else if (typeof error.body.message === "string") {
+            message = error.body.message;
+          }
+          this.openModal("Update Failed: " + message);
         });
     } else {
       this.openModal(this.errMsg);
