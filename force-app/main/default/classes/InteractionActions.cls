@@ -1092,4 +1092,14 @@ public with sharing class InteractionActions {
       }
     }
   }
+
+  /** @description Method to set the Interaction Name for manual interaction creations
+   * @param interactions list of new interactions created.
+   */
+
+  public void setNameOfInteractions(List<Interaction> interactions) {
+    for (Interaction interact : interactions) {
+      interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+    }
+  }
 }

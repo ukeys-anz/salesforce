@@ -1309,6 +1309,61 @@ public with sharing class InteractionActionsTest {
   }
 
   /**
+   * @description testing that a interaction record will have
+   * the name populated for manual creations.
+   */
+  @isTest
+  static void testsetNameOfInteractions() {
+    InteractionActions actions = new InteractionActions();
+    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+      .get('Appointment')
+      .getRecordTypeId();
+
+    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount1;
+    Account testAccount2 = createTestAccount('Jane', 'Doe', 'zui987');
+    insert testAccount2;
+
+    Account testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount1.Id
+    ];
+
+    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
+    DateTime endDate = appointmentDate.addMinutes(45);
+    Interaction newInteraction = new Interaction(
+      RecordTypeId = appointmentRTID,
+      AccountId = testAccount1.Id,
+      Interaction_Purpose__c = 'Financial Wellbeing',
+      Status__c = 'Unassigned',
+      StartTime = appointmentDate
+    );
+    Test.startTest();
+    insert newInteraction;
+    Test.stopTest();
+
+    Interaction testInteraction = [
+      SELECT Id, Name
+      FROM Interaction
+      WHERE Id = :newInteraction.Id
+    ];
+
+    System.assertEquals(
+      'Financial Wellbeing Appointment',
+      testInteraction.Name,
+      'Interaction record must have the name set.'
+    );
+
+    System.assertNotEquals(
+      'Appointment',
+      testInteraction.Name,
+      'Interaction record name must match.'
+    );
+  }
+
+  /**
    * @description helper method to create a person account
    * @param firstName String the first name of the person
    * @param lastName String the last name of the person
