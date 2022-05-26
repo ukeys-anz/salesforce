@@ -4,6 +4,7 @@
     <externalId>false</externalId>
     <formula>IDR_Financial_Compensation__c +  IDR_Financial_Compensation_2__c + IDR_Financial_Compensation_3__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Total of all financial amounts provided</inlineHelpText>
     <label>Total Financial Amount</label>
     <precision>18</precision>
     <required>false</required>
