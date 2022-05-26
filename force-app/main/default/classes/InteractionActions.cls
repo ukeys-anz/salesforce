@@ -870,7 +870,13 @@ public with sharing class InteractionActions {
     Map<Id, List<Interaction>> accountInteractionMap = new Map<Id, List<Interaction>>();
     if (Interaction.SObjectType.getDescribe().isQueryable()) {
       List<Interaction> interactionsForAccounts = [
-        SELECT Id, AccountId, StartTime, Endtime, OwnerId
+        SELECT
+          Id,
+          AccountId,
+          StartTime,
+          Endtime,
+          OwnerId,
+          Interaction_External_Id__c
         FROM Interaction
         WHERE Status__c = :SCHEDULED_STATUS AND AccountId IN :accountIds
       ];
@@ -901,7 +907,13 @@ public with sharing class InteractionActions {
     Map<Id, List<Interaction>> leadInteractionMap = new Map<Id, List<Interaction>>();
     if (Interaction.SObjectType.getDescribe().isQueryable()) {
       List<Interaction> interactionsForAccounts = [
-        SELECT Id, Lead__c, StartTime, Endtime, OwnerId
+        SELECT
+          Id,
+          Lead__c,
+          StartTime,
+          Endtime,
+          OwnerId,
+          Interaction_External_Id__c
         FROM Interaction
         WHERE Status__c = :SCHEDULED_STATUS AND Lead__c IN :leadIds
       ];
@@ -947,14 +959,16 @@ public with sharing class InteractionActions {
         customersInteractions.addAll(leadInteractionMap.get(interact.Lead__c));
       }
       if (!customersInteractions.isEmpty()) {
-        Boolean existingInteractionAvailable = verifyTimeSlots(
+        Interaction existingInteraction = getInteractionAtSameTime(
           interact,
           customersInteractions
         );
+        Boolean existingInteractionAvailable = existingInteraction != null;
         if (existingInteractionAvailable) {
           if (!String.isEmpty(interact.ContactRequestId__c)) {
             interact.addError(
-              System.Label.Interaction_User_Created_Error_Message
+              System.Label.Interaction_User_Created_Error_Message +
+              existingInteraction.Interaction_External_Id__c
             );
           } else {
             interact.addError(
@@ -976,6 +990,20 @@ public with sharing class InteractionActions {
     List<Interaction> interactions
   ) {
     Boolean existingInteractionAvailable = false;
+    existingInteractionAvailable =
+      getInteractionAtSameTime(newinteraction, interactions) != null;
+    return existingInteractionAvailable;
+  }
+
+  /** @description Method to loop through list of existing interactions to identify if there are any overlaps
+   * @param newinteraction The new interaction record created
+   * @param interactions list of existing interactions for the customer
+   * @return Interaction Returns the conflicting interaction if one exists or null
+   */
+  public Interaction getInteractionAtSameTime(
+    Interaction newinteraction,
+    List<Interaction> interactions
+  ) {
     for (Interaction interact : interactions) {
       if (
         newInteraction.StartTime.date() == interact.StartTime.date() &&
@@ -983,11 +1011,10 @@ public with sharing class InteractionActions {
         newInteraction.StartTime.time() < interact.Endtime.time()) ||
         (newInteraction.Endtime.time() > interact.StartTime.time()))
       ) {
-        existingInteractionAvailable = true;
-        break;
+        return interact;
       }
     }
-    return existingInteractionAvailable;
+    return null;
   }
 
   /** @description Method to validate if the coach has an existing appointment while accepting a new one

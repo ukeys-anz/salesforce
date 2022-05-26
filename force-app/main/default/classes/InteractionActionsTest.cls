@@ -997,7 +997,13 @@ public with sharing class InteractionActionsTest {
     insert request;
 
     List<Interaction> testInteraction = [
-      SELECT Id, Status__c, OwnerId, ContactRequestId__c, Coaching_Summary__c
+      SELECT
+        Id,
+        Status__c,
+        OwnerId,
+        ContactRequestId__c,
+        Coaching_Summary__c,
+        Interaction_External_Id__c
       FROM Interaction
     ];
 
@@ -1038,6 +1044,12 @@ public with sharing class InteractionActionsTest {
       thrownException.getMessage()
         .contains(System.Label.Interaction_User_Created_Error_Message),
       'The error message should be available in the body'
+    );
+
+    System.assert(
+      thrownException.getMessage()
+        .contains(testInteraction[0].Interaction_External_Id__c),
+      'The error message should contain the External Id'
     );
   }
 
