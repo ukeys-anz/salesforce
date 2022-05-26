@@ -3,7 +3,7 @@
     <lightning-record-edit-form
       object-api-name={caseObject}
       record-type-id={recordTypeId}
-      onload={handelPageLoad}
+      record-id={recordId}
     >
       <div class="slds-grid slds-wrap">
         <div class="slds-col slds-size_2-of-4 slds-m-right_large">
@@ -133,6 +133,7 @@
             onchange={handle2ndRemedyToggleChange}
             message-toggle-active="Yes"
             message-toggle-inactive="No"
+            checked={remedy2Toggle}
             data-id="issue2-id"
           >
           </lightning-input>
