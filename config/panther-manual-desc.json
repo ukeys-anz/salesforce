@@ -857,7 +857,8 @@
         "ReferenceIdentifier",
         "StartTime",
         "Status__c",
-        "Voice_Call_SID__c"
+        "Voice_Call_SID__c",
+        "Escalated_Flag__c"
       ]
     },
     "Known_Issues__c": {
