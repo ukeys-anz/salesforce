@@ -46,6 +46,18 @@ public with sharing class AppointmentCommitmentTest {
       createdRequests.size(),
       'There should only be two appointments created'
     );
+
+    appointmentCommitment = [
+      SELECT Available__c
+      FROM Appointment_Commitment__c
+      WHERE Id = :appointmentCommitment.Id
+    ];
+
+    System.assertEquals(
+      2,
+      appointmentCommitment.Available__c,
+      'Make sure available doesnt increase'
+    );
   }
 
   /**
