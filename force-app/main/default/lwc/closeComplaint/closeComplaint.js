@@ -88,6 +88,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   modalHeader = "Error";
   remedy2 = false;
   remedy3 = false;
+  caseStatus = OPEN_STATUS_API_NAME;
 
   //Get the recordType to send to the API
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
@@ -162,6 +163,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
   get statusOptions() {
     //future use:  { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },
+    this.closeFields[STATUS_FIELD.fieldApiName] = CLOSED_STATUS_API_NAME;
     return [
       {
         label: PROVISIONALLYCLOSED_STATUS_API_NAME,
@@ -172,6 +174,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   }
 
   handleStatusChange(event) {
+    this.caseStatus = event.target.value;
     this.closeFields[STATUS_FIELD.fieldApiName] = event.target.value;
   }
 

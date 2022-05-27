@@ -71,6 +71,7 @@
               pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
               formatter="currency"
               type="number"
+              value={finRem1}
               onchange={handleFinancialCompensation}
               class="input inputFinCompensation"
               message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
@@ -192,6 +193,7 @@
                 pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
                 formatter="currency"
                 type="number"
+                value={finRem2}
                 onchange={handleFinancialCompensation2}
                 class="input inputFinCompensation"
                 message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"
@@ -256,6 +258,7 @@
               onchange={handle3ndRemedyToggleChange}
               message-toggle-active="Yes"
               message-toggle-inactive="No"
+              checked={remedy3Toggle}
               data-id="issue3-id"
             >
             </lightning-input>
@@ -315,6 +318,7 @@
                 pattern="^[1-9]\d{0,6}(\.\d{1,2})?$|^0\.(?!0+$)\d{1,2}$"
                 formatter="currency"
                 type="number"
+                value={finRem3}
                 onchange={handleFinancialCompensation3}
                 class="input inputFinCompensation"
                 message-when-pattern-mismatch="Must be a positive value with up to 7 whole digits and 2 decimal digits"

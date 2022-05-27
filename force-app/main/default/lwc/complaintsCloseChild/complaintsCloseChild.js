@@ -11,6 +11,7 @@ import COMPLAINT_SUB_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Sub_Reme
 import REMEDY_POINTS1 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points__c";
 import OTHER_REMDY1 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided__c";
 import REMEDY_DURATION from "@salesforce/schema/Case.IDR_Duration_of_Remedy__c";
+import FINANCIAL_COMPENSATION from "@salesforce/schema/Case.IDR_Financial_Compensation__c";
 
 //Remedy 2 fields
 import COMPLAINT_REMEDY2 from "@salesforce/schema/Case.IDR_Complaint_Remedy_2__c";
@@ -18,6 +19,7 @@ import COMPLAINT_SUB_REMEDY2 from "@salesforce/schema/Case.IDR_Complaint_Sub_Rem
 import REMEDY_POINTS2 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_2__c";
 import OTHER_REMDY2 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_2__c";
 import REMEDY_DURATION2 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_2__c";
+import FINANCIAL_COMPENSATION2 from "@salesforce/schema/Case.IDR_Financial_Compensation_2__c";
 
 //Remedy 3 fields
 import COMPLAINT_REMEDY3 from "@salesforce/schema/Case.IDR_Complaint_Remedy_3__c";
@@ -25,6 +27,7 @@ import COMPLAINT_SUB_REMEDY3 from "@salesforce/schema/Case.IDR_Complaint_Sub_Rem
 import REMEDY_POINTS3 from "@salesforce/schema/Case.IDR_Financial_Remedy_Points_3__c";
 import OTHER_REMDY3 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_3__c";
 import REMEDY_DURATION3 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_3__c";
+import FINANCIAL_COMPENSATION3 from "@salesforce/schema/Case.IDR_Financial_Compensation_3__c";
 
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
@@ -81,6 +84,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
   showDuration = false;
   showDuration2 = false;
   showDuration3 = false;
+
+  finRem1;
+  finRem2;
+  finRem3;
   //uiControl
   isFinancialComplaintRemedy = false;
   isNonFinancialComplaintRemedy = false;
@@ -126,19 +133,153 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [COMPLAINT_REMEDY2, COMPLAINT_REMEDY3]
+    fields: [
+      COMPLAINT_REMEDY,
+      COMPLAINT_REMEDY2,
+      COMPLAINT_REMEDY3,
+      FINANCIAL_COMPENSATION,
+      FINANCIAL_COMPENSATION2,
+      FINANCIAL_COMPENSATION3,
+      COMPLAINT_SUB_REMEDY,
+      COMPLAINT_SUB_REMEDY2,
+      COMPLAINT_SUB_REMEDY3
+    ]
   })
   wiredProject({ data }) {
     if (data) {
+      let caseRemedy = data.fields.IDR_Complaint_Remedy__c.value;
       let caseRemedy2 = data.fields.IDR_Complaint_Remedy_2__c.value;
       let caseRemedy3 = data.fields.IDR_Complaint_Remedy_3__c.value;
+
+      let subRemedy = data.fields.IDR_Complaint_Sub_Remedy__c.value;
+      let subRemedy2 = data.fields.IDR_Complaint_Sub_Remedy_2__c.value;
+      let subRemedy3 = data.fields.IDR_Complaint_Sub_Remedy_3__c.value;
+
+      this.finRem1 = data.fields.IDR_Financial_Compensation__c.value;
+      this.finRem2 = data.fields.IDR_Financial_Compensation_2__c.value;
+      this.finRem3 = data.fields.IDR_Financial_Compensation_3__c.value;
+
+      switch (caseRemedy) {
+        case COMPLAINT_REMEDY_FIN_VALUE:
+          this.showFinancialCompensation = true;
+          break;
+        case COMPLAINT_REMEDY_NON_FIN_VALUE:
+          this.isNonFinancialComplaintRemedy = true;
+          break;
+        case COMPLAINT_REMDY_PRODUCT_MANU:
+          this.isReferredToProductManufacturer = true;
+          break;
+        default:
+      }
+
+      switch (subRemedy) {
+        case SUB_REMEDY_OTHER:
+          this.isOtherSubFinRemedy = true;
+          break;
+        case REWARD_POINTS:
+          this.isRewardPoints = true;
+          break;
+        case DEBT_WAIVER:
+          this.showFinancialCompensation = true;
+          break;
+        case SETTEL_FOR_LESS:
+          this.showFinancialCompensation = true;
+          break;
+        case MORATORIUM:
+          this.showDuration = true;
+          break;
+        case REPAYMENT_ARRAGMENT:
+          this.showDuration = true;
+          break;
+        case TIME_TO_SELL_REFINANCE_SURRENDER:
+          this.showDuration = true;
+          break;
+        default:
+      }
+
       if (caseRemedy2 !== null) {
         this.remedy2Toggle = true;
         this.showRemedy2 = true;
       }
+
+      switch (caseRemedy2) {
+        case COMPLAINT_REMEDY_FIN_VALUE:
+          console.log("caseRemedy2 fin");
+          this.showFinancialCompensation2 = true;
+          break;
+        case COMPLAINT_REMEDY_NON_FIN_VALUE:
+          this.isNonFinancialComplaintRemedy2 = true;
+          break;
+        case COMPLAINT_REMDY_PRODUCT_MANU:
+          this.isReferredToProductManufacturer2 = true;
+          break;
+        default:
+      }
+
+      switch (subRemedy2) {
+        case SUB_REMEDY_OTHER:
+          this.isOtherSubFinRemedy2 = true;
+          break;
+        case REWARD_POINTS:
+          this.isRewardPoints2 = true;
+          break;
+        case DEBT_WAIVER:
+          this.showFinancialCompensation2 = true;
+          break;
+        case SETTEL_FOR_LESS:
+          this.showFinancialCompensation2 = true;
+          break;
+        case MORATORIUM:
+          this.showDuration2 = true;
+          break;
+        case REPAYMENT_ARRAGMENT:
+          this.showDuration2 = true;
+          break;
+        case TIME_TO_SELL_REFINANCE_SURRENDER:
+          this.showDuration2 = true;
+          break;
+        default:
+      }
+
       if (caseRemedy3 !== null) {
-        this.remedy3Toogle = true;
+        this.remedy3Toggle = true;
         this.showRemedy3 = true;
+      }
+      switch (caseRemedy3) {
+        case COMPLAINT_REMEDY_FIN_VALUE:
+          this.showFinancialCompensation3 = true;
+          break;
+        case COMPLAINT_REMEDY_NON_FIN_VALUE:
+          this.isNonFinancialComplaintRemedy3 = true;
+          break;
+        case COMPLAINT_REMDY_PRODUCT_MANU:
+          this.isReferredToProductManufacturer3 = true;
+          break;
+        default:
+      }
+      switch (subRemedy3) {
+        case SUB_REMEDY_OTHER:
+          this.isOtherSubFinRemedy3 = true;
+          break;
+        case REWARD_POINTS:
+          this.isRewardPoints3 = true;
+          break;
+        case DEBT_WAIVER:
+          this.showFinancialCompensation3 = true;
+          break;
+        case SETTEL_FOR_LESS:
+          this.showFinancialCompensation3 = true;
+          break;
+        case MORATORIUM:
+          this.showDuration3 = true;
+          break;
+        case REPAYMENT_ARRAGMENT:
+          this.showDuration3 = true;
+          break;
+        case TIME_TO_SELL_REFINANCE_SURRENDER:
+          this.showDuration3 = true;
+          break;
+        default:
       }
     }
   }
@@ -286,13 +427,14 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "IDR_Complaint_Sub_Remedy__c";
-    sendVal.value = event.detail.value;
 
     if (event.target.value === SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy = true;
     } else {
       this.isOtherSubFinRemedy = false;
+      sendVal.field = "IDR_Other_Remedy_Provided__c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (
@@ -319,6 +461,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     } else {
       this.showDuration = false;
     }
+
+    sendVal.field = "IDR_Complaint_Sub_Remedy__c";
+    sendVal.value = event.detail.value;
 
     this.sendFieldValue(sendVal);
   }
@@ -429,13 +574,14 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "IDR_Complaint_Sub_Remedy_2__c";
-    sendVal.value = event.detail.value;
 
     if (event.target.value === SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy2 = true;
     } else {
       this.isOtherSubFinRemedy2 = false;
+      sendVal.field = "IDR_Other_Remedy_Provided_2__c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (
@@ -462,6 +608,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     } else {
       this.showDuration2 = false;
     }
+
+    sendVal.field = "IDR_Complaint_Sub_Remedy_2__c";
+    sendVal.value = event.detail.value;
 
     this.sendFieldValue(sendVal);
   }
@@ -536,9 +685,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Other_Remedy_Provided_2__c";
     this.sendFieldValue(sendVal);
-    sendVal.field = "Provided_details_to_Prod_Manufacturer_2__c";
-    this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Duration_of_Remedy_2__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "Provided_details_to_Prod_Manufacturer_2__c";
+    sendVal.value = false;
     this.sendFieldValue(sendVal);
     sendVal.field = "Remedy2";
     sendVal.value = false;
@@ -597,13 +747,14 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "IDR_Complaint_Sub_Remedy_3__c";
-    sendVal.value = event.detail.value;
 
     if (event.target.value === SUB_REMEDY_OTHER) {
       this.isOtherSubFinRemedy3 = true;
     } else {
       this.isOtherSubFinRemedy3 = false;
+      sendVal.field = "IDR_Other_Remedy_Provided_3__c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (
@@ -630,6 +781,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     } else {
       this.showDuration3 = false;
     }
+
+    sendVal.field = "IDR_Complaint_Sub_Remedy_3__c";
+    sendVal.value = event.detail.value;
 
     this.sendFieldValue(sendVal);
   }
@@ -703,9 +857,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Other_Remedy_Provided_3__c";
     this.sendFieldValue(sendVal);
-    sendVal.field = "Provided_details_to_Prod_Manufacturer_3__c";
-    this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Duration_of_Remedy_3__c";
+    this.sendFieldValue(sendVal);
+    sendVal.field = "Provided_details_to_Prod_Manufacturer_3__c";
+    sendVal.value = false;
     this.sendFieldValue(sendVal);
     sendVal.field = "Remedy3";
     sendVal.value = false;
