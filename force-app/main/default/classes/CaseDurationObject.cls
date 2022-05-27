@@ -63,7 +63,6 @@ public with sharing class CaseDurationObject {
     @description Query the CaseHistory table and construct a collection of entries on each status change
     */
   private void buildHistoryEntries() {
-    Integer processCounter = 0;
     DateTime lastDateTime = system.NOW();
     List<CaseHistory> caseHistory = new List<CaseHistory>(
       [

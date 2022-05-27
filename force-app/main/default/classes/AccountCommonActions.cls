@@ -10,6 +10,7 @@ public with sharing class AccountCommonActions {
   // Variable used to store the account Ids into which matching leads were converted into
   // This is used to revert the changes on accounts that resulted from lead conversion process
   private static Set<Id> convertedAccountIds = new Set<Id>();
+  private static final String DELETED_IN_OCV_FLAG_ERROR_MSG = 'having multiple records with the Deleted_In_OCV__C flag set in a single transaction is not supported';
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()
@@ -26,9 +27,7 @@ public with sharing class AccountCommonActions {
       System.enqueuejob(new QueueAccountDeletion(accList[0]));
     } else if (accList.size() > 1) {
       for (Account acc : accList) {
-        acc.addError(
-          'having multiple records with the Deleted_In_OCV__C flag set in a single transaction is not supported'
-        );
+        acc.addError(DELETED_IN_OCV_FLAG_ERROR_MSG);
       }
     }
   }

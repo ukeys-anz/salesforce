@@ -41,6 +41,7 @@ class FakerInternetProviderTest {
     String safeEmail = faker.internet.safeEmail();
     String companyEmail = faker.internet.companyEmail();
     String freeEmail = faker.internet.freeEmail();
+    System.assert(password.length() >= 5 && password.length() <= 10);
     System.assert(email.contains('@'));
     System.assert(safeEmail.contains('@'));
     System.assert(companyEmail.contains('@'));

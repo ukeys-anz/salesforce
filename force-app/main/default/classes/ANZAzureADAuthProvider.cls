@@ -14,10 +14,7 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
    More details here: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow*/
   public String redirectUrl; // use this URL for the endpoint that the authentication provider calls back to for configuration
   private String key;
-  private String secret;
   private String authUrl; // application redirection to the Microsoft website for authentication and authorization
-  private String userAPIUrl; // api url to access the user
-  private String userAPIVersionUrl; // version of the user api url to access data
 
   private String expiresOn;
   @testVisible
@@ -114,7 +111,6 @@ global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
 
     Map<String, String> provMap = new Map<String, String>();
     String id = '';
-    HTTPResponse res;
 
     List<String> idTokenList = idToken.split('\\.');
     if (idTokenList.size() < 2) {

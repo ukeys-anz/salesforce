@@ -32,6 +32,9 @@ public with sharing class GetHelpCaseActionsHelper {
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
+  private static final String MORE_THAN_TWO_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select more than two Additional Types.';
+  private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
+  private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
   /**
    * @description  This method checks if Additional_Type__c has more than 2 values selected or
    * if the Type value is same as one of the additional values
@@ -43,16 +46,12 @@ public with sharing class GetHelpCaseActionsHelper {
         List<String> additionalTypes = singleCase.Additional_Type__c.split(';');
 
         if (additionalTypes.size() > 2) {
-          singleCase.addError(
-            'You cannot select more than two Additional Types.'
-          );
+          singleCase.addError(MORE_THAN_TWO_ADDITIONAL_TYPES_ERROR_MSG);
         }
 
         for (String additionalType : additionalTypes) {
           if (additionalType == singleCase.Type) {
-            singleCase.addError(
-              'You cannot select a value in Additional Type that is already selected as the Primary Type.'
-            );
+            singleCase.addError(SAME_ADDITIONAL_TYPES_ERROR_MSG);
           }
         }
       }
@@ -238,7 +237,7 @@ public with sharing class GetHelpCaseActionsHelper {
         isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
-          c.addError('No entitlement found for account.');
+          c.addError(NO_ENTITLEMENT_ERROR_MSG);
         } else {
           c.EntitlementId = entMap.get(c.AccountId);
         }

@@ -15,7 +15,7 @@ private class IDRCaseNotificationManagerTest {
           IDR_Complainant_Desired_Outcome__c = 'Test Outcome',
           IDR_Description_of_Outcome__c = 'Test Outcome',
           IDR_Systemic_Issue_Description__c = 'None',
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = complaintRecordTypeId,
           IDR_Customer_Number__c = '1234567890',
           Status = 'Open',
           IDR_Date_Received__c = System.now()
