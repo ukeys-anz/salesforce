@@ -88,7 +88,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   modalHeader = "Error";
   remedy2 = false;
   remedy3 = false;
-  caseStatus = OPEN_STATUS_API_NAME;
+  caseStatus = CLOSED_STATUS_API_NAME;
 
   //Get the recordType to send to the API
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })

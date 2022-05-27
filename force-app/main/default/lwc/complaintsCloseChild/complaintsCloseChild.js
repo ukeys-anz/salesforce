@@ -204,7 +204,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
       switch (caseRemedy2) {
         case COMPLAINT_REMEDY_FIN_VALUE:
-          console.log("caseRemedy2 fin");
           this.showFinancialCompensation2 = true;
           break;
         case COMPLAINT_REMEDY_NON_FIN_VALUE:
@@ -393,8 +392,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "IDR_Complaint_Remedy__c";
-    sendVal.value = event.detail.value;
+
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy = true;
       this.showFinancialCompensation = true;
@@ -404,21 +402,39 @@ export default class complaintsResolveLWC extends NavigationMixin(
       if (this.expressCaseCreationData) {
         this.pageLoadComplete = false;
       }
-      this.isFinancialComplaintRemedy = false;
-      this.showFinancialCompensation = false;
+      if (this.isFinancialComplaintRemedy) {
+        this.isFinancialComplaintRemedy = false;
+        this.showFinancialCompensation = false;
+        sendVal.field = "IDR_Financial_Compensation__c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy = true;
       this.isReferredToProductManufacturer = false;
     } else if (event.detail.value === COMPLAINT_REMDY_PRODUCT_MANU) {
-      this.isFinancialComplaintRemedy = false;
-      this.showFinancialCompensation = false;
+      if (this.isFinancialComplaintRemedy) {
+        this.isFinancialComplaintRemedy = false;
+        this.showFinancialCompensation = false;
+        sendVal.field = "IDR_Financial_Compensation__c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy = false;
       this.isReferredToProductManufacturer = true;
     } else {
-      this.isFinancialComplaintRemedy = false;
+      if (this.isFinancialComplaintRemedy) {
+        this.isFinancialComplaintRemedy = false;
+        this.showFinancialCompensation = false;
+        sendVal.field = "IDR_Financial_Compensation__c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy = false;
       this.isReferredToProductManufacturer = false;
     }
 
+    sendVal.field = "IDR_Complaint_Remedy__c";
+    sendVal.value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -444,12 +460,18 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.showFinancialCompensation = true;
     } else if (!this.isFinancialComplaintRemedy) {
       this.showFinancialCompensation = false;
+      sendVal.field = "IDR_Financial_Compensation___c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (event.target.value === REWARD_POINTS) {
       this.isRewardPoints = true;
-    } else {
+    } else if (this.isRewardPoints) {
       this.isRewardPoints = false;
+      sendVal.field = "IDR_Financial_Remedy_Points__c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (
@@ -543,29 +565,45 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "IDR_Complaint_Remedy_2__c";
-    sendVal.value = event.detail.value;
+
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy2 = true;
       this.isNonFinancialComplaintRemedy2 = false;
       this.isReferredToProductManufacturer2 = false;
       this.showFinancialCompensation2 = true;
     } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
-      this.isFinancialComplaintRemedy2 = false;
+      if (this.isFinancialComplaintRemedy2) {
+        this.isFinancialComplaintRemedy2 = false;
+        this.showFinancialCompensation2 = false;
+        sendVal.field = "IDR_Financial_Compensation_2___c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy2 = true;
       this.isReferredToProductManufacturer2 = false;
-      this.showFinancialCompensation2 = false;
     } else if (event.detail.value === COMPLAINT_REMDY_PRODUCT_MANU) {
-      this.isFinancialComplaintRemedy2 = false;
+      if (this.isFinancialComplaintRemedy2) {
+        this.isFinancialComplaintRemedy2 = false;
+        this.showFinancialCompensation2 = false;
+        sendVal.field = "IDR_Financial_Compensation_2___c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy2 = false;
-      this.showFinancialCompensation2 = false;
       this.isReferredToProductManufacturer2 = true;
     } else {
-      this.isFinancialComplaintRemedy2 = false;
+      if (this.isFinancialComplaintRemedy2) {
+        this.isFinancialComplaintRemedy2 = false;
+        this.showFinancialCompensation2 = false;
+        sendVal.field = "IDR_Financial_Compensation_2___c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy2 = false;
       this.isReferredToProductManufacturer2 = false;
-      this.showFinancialCompensation2 = false;
     }
+    sendVal.field = "IDR_Complaint_Remedy_2__c";
+    sendVal.value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -591,12 +629,18 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.showFinancialCompensation2 = true;
     } else if (!this.isFinancialComplaintRemedy2) {
       this.showFinancialCompensation2 = false;
+      sendVal.field = "IDR_Financial_Compensation_2___c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (event.target.value === REWARD_POINTS) {
       this.isRewardPoints2 = true;
-    } else {
+    } else if (this.isRewardPoints2) {
       this.isRewardPoints2 = false;
+      sendVal.field = "IDR_Financial_Remedy_Points_2__c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (
@@ -716,29 +760,45 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-    sendVal.field = "IDR_Complaint_Remedy_3__c";
-    sendVal.value = event.detail.value;
+
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy3 = true;
       this.isNonFinancialComplaintRemedy3 = false;
       this.isReferredToProductManufacturer3 = false;
       this.showFinancialCompensation3 = true;
     } else if (event.detail.value === COMPLAINT_REMEDY_NON_FIN_VALUE) {
-      this.isFinancialComplaintRemedy3 = false;
+      if (this.isFinancialComplaintRemedy3) {
+        this.isFinancialComplaintRemedy3 = false;
+        this.showFinancialCompensation3 = false;
+        sendVal.field = "IDR_Financial_Compensation_3___c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy3 = true;
       this.isReferredToProductManufacturer3 = false;
-      this.showFinancialCompensation3 = false;
     } else if (event.detail.value === COMPLAINT_REMDY_PRODUCT_MANU) {
-      this.isFinancialComplaintRemedy3 = false;
+      if (this.isFinancialComplaintRemedy3) {
+        this.isFinancialComplaintRemedy3 = false;
+        this.showFinancialCompensation3 = false;
+        sendVal.field = "IDR_Financial_Compensation_3___c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy3 = false;
-      this.showFinancialCompensation3 = false;
       this.isReferredToProductManufacturer3 = true;
     } else {
-      this.isFinancialComplaintRemedy3 = false;
+      if (this.isFinancialComplaintRemedy3) {
+        this.isFinancialComplaintRemedy3 = false;
+        this.showFinancialCompensation3 = false;
+        sendVal.field = "IDR_Financial_Compensation_3___c";
+        sendVal.value = "";
+        this.sendFieldValue(sendVal);
+      }
       this.isNonFinancialComplaintRemedy3 = false;
       this.isReferredToProductManufacturer3 = false;
-      this.showFinancialCompensation3 = false;
     }
+    sendVal.field = "IDR_Complaint_Remedy_3__c";
+    sendVal.value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -764,12 +824,18 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.showFinancialCompensation3 = true;
     } else if (!this.isFinancialComplaintRemedy3) {
       this.showFinancialCompensation3 = false;
+      sendVal.field = "IDR_Financial_Compensation_3__c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (event.target.value === REWARD_POINTS) {
       this.isRewardPoints3 = true;
-    } else {
+    } else if (this.isRewardPoints3) {
       this.isRewardPoints3 = false;
+      sendVal.field = "IDR_Financial_Remedy_Points_3__c";
+      sendVal.value = "";
+      this.sendFieldValue(sendVal);
     }
 
     if (
