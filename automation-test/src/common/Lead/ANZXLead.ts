@@ -23,12 +23,11 @@ export default class ANZXLead extends Lead implements IChatter {
 
     const recordLayout = await baseRecordFrom.getRecordLayout();
 
-    // name field is a compound field
+    // Set Name - field is a compound field
     const nameField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 1, 1]
     );
-
     const recordLayoutInputName = await nameField.getInputName();
     const inputName = await recordLayoutInputName.getInputName();
 
@@ -44,6 +43,7 @@ export default class ANZXLead extends Lead implements IChatter {
       : faker.name.lastName();
     await lastNameInput.setText(lastName);
 
+    // Set Mobiile
     const mobilePhoneField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 2, 1]
@@ -54,6 +54,7 @@ export default class ANZXLead extends Lead implements IChatter {
       : faker.phone.phoneNumber("04########");
     await mobilePhoneInput.setText(mobile);
 
+    // Set email
     const emailField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 3, 1]
@@ -63,6 +64,9 @@ export default class ANZXLead extends Lead implements IChatter {
       ? leadData.email
       : faker.internet.exampleEmail(firstName, lastName);
     await emailInput.setText(email);
+
+    // Set Lead Source
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 3, 2], 4);
 
     // click save button
     const formFooter = await baseRecordFrom.getFooter();

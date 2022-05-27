@@ -66,6 +66,10 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     describe("AR-11391: Support Coach creates and nurtures ANZX Lead", async (): Promise<void> => {
       await createAndNurtureLeadByRole(UserRole.SUPPORT_COACH);
     });
+
+    describe("AR-11388: Business Admin creates and nurtures ANZX Lead", async (): Promise<void> => {
+      await createAndNurtureLeadByRole(UserRole.BUSINESS_ADMIN);
+    });
   });
 
   describe("AR-11385: Coach creates duplicate ANZX Leads", async (): Promise<void> => {

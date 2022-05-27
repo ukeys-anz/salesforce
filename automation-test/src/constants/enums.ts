@@ -6,7 +6,8 @@ export enum UserRole {
   SUPER_SUPPORT_ADMIN = "Super Support Admin",
   QUALITY_ANALYST = "Quality Analyst",
   QUALTRICS_AUTOMATION_USER = "Qualtrics Integration User",
-  SUPPORT_COACH = "Support Coach"
+  SUPPORT_COACH = "Support Coach",
+  BUSINESS_ADMIN = "Business Admin"
 }
 
 export const enum Queue {
