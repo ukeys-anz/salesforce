@@ -31,7 +31,6 @@ public with sharing class NewCaseFlowWrapperController {
     String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
     Map<String, String> caseDetails = new Map<String, String>();
     caseDetails.put('IDR_AFCA_Status__c', '');
-    string returnIDRAFCAStatus = '';
     if (
       Case.sObjectType.getDescribe().isQueryable() &&
       (newRecordTypeName == 'Non_Customer_Complaint' ||
