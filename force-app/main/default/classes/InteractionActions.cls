@@ -18,6 +18,12 @@ public with sharing class InteractionActions {
   public static final String COACHING_SUMMARY_LABEL = ' Coaching Summary';
   public static final String NO_SHOW_STATUS = 'No Show';
   public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
+  public static final Set<String> UNIQUE_STATUSES = new Set<String>{
+    'Unassigned',
+    'Scheduled',
+    'Rescheduled',
+    'Walk In'
+  };
 
   /**
    * @description Gets the list of interactions and returns the ones where the owner has been assigned back to Queue.
@@ -878,7 +884,7 @@ public with sharing class InteractionActions {
           OwnerId,
           Interaction_External_Id__c
         FROM Interaction
-        WHERE Status__c = :SCHEDULED_STATUS AND AccountId IN :accountIds
+        WHERE AccountId IN :accountIds AND Status__c IN :UNIQUE_STATUSES
       ];
 
       for (Interaction interact : interactionsForAccounts) {
@@ -915,7 +921,7 @@ public with sharing class InteractionActions {
           OwnerId,
           Interaction_External_Id__c
         FROM Interaction
-        WHERE Status__c = :SCHEDULED_STATUS AND Lead__c IN :leadIds
+        WHERE Lead__c IN :leadIds AND Status__c IN :UNIQUE_STATUSES
       ];
 
       for (Interaction interact : interactionsForAccounts) {

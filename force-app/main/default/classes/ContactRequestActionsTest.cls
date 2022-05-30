@@ -267,44 +267,6 @@ public with sharing class ContactRequestActionsTest {
   }
 
   @isTest
-  static void testCreateInteractionFromRequestAndInsert() {
-    setup();
-    Account testAccount = createTestAccount();
-
-    string requestReason = financialWellbeingPurposeName;
-
-    Integer duration = financialWellbeingPurposeDuration;
-
-    DateTime appointmentDate = DateTime.now();
-    DateTime expectedEndDate = appointmentDate.addMinutes(duration);
-
-    ContactRequest request = new ContactRequest();
-    request.Appointment_date_and_Time__c = appointmentDate;
-    request.RequestReason = requestReason;
-    request.WhoId = testAccount.PersonContactId;
-    request.RequestDescription = 'Test';
-    request.PreferredChannel = 'Call';
-    insert request;
-
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    Interaction newInteraction = contactRequestActionHelper.createInteractionFromRequest(
-      request
-    );
-
-    newInteraction.ContactRequestId__c = null;
-
-    insert newInteraction;
-
-    List<Interaction> newInteractions = [SELECT Id FROM Interaction];
-    System.assertEquals(
-      2,
-      newInteractions.size(),
-      'Should have inserted an interaction'
-    );
-  }
-
-  @isTest
   static void testCreateInteractionFromRequestForLead() {
     setup();
     Lead testLead = createTestLead();

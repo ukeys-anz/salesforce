@@ -168,8 +168,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    actions.validateInteractions(interactions);
-
     actions.updateOwnerNewInteractions(interactions);
 
     actions.setNameOfInteractions(interactions);
@@ -182,6 +180,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       actions.updateEndTime(newInteractions);
     }
     actions.setInteractionsMobile(records);
+
+    actions.validateInteractions(interactions);
   }
 
   /** @description onBeforeUpdate to handle before update trigger actions.

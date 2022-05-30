@@ -1168,24 +1168,18 @@ public with sharing class InteractionActionsTest {
       StartTime = appointmentDate,
       EndTime = endDate
     );
-    insert testInteraction2;
-
-    testInteraction2 = [
-      SELECT Id, OwnerId
-      FROM Interaction
-      WHERE Id = :testInteraction2.Id
-    ];
+    Exception thrownException;
+    try {
+      insert testInteraction2;
+    } catch (Exception exc) {
+      thrownException = exc;
+    }
     Test.stopTest();
 
-    testInteraction2 = [
-      SELECT Id, OwnerId
-      FROM Interaction
-      WHERE Id = :testInteraction2.Id
-    ];
     System.assertNotEquals(
-      UserInfo.getUserId(),
-      testInteraction2.OwnerId,
-      'Update should have not allowed the owner to change.'
+      null,
+      thrownException,
+      'An exception should have been thrown to prevent the creation of the second interaction'
     );
   }
 
