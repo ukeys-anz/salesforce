@@ -3,7 +3,7 @@
     <fullName>IDR_Other_Remedy_Provided_2__c</fullName>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <externalId>false</externalId>
-    <label>Other Remedy Provided 2</label>
+    <label>Other Remedy 2</label>
     <inlineHelpText>Enter a brief, high level description of the remedy provided</inlineHelpText>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
