@@ -72,6 +72,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Card_Scheme__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Claimed_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -282,6 +287,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Posted_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Posted_Currency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Reason_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -341,8 +356,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Transaction_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Authorised_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Transaction_Currency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -353,6 +378,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Transaction_UUID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
