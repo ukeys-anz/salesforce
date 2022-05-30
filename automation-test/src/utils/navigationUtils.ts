@@ -3,7 +3,7 @@ import AppLauncher from "pageObjects/appLauncher";
 import HomePage from "pageObjects/homePage";
 import AppsDefinition from "constants/appsDefinition";
 
-export const closeConsoleNavMainTabs = async (): Promise<void> => {
+const closeConsoleNavMainTabs = async (): Promise<void> => {
   const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
   const tabBarItems = await consoleAppNavigationRoot.getTabBarItems();
 
@@ -12,6 +12,44 @@ export const closeConsoleNavMainTabs = async (): Promise<void> => {
       await item.closeTab();
     });
   }
+};
+
+const searchAndOpenApp = async (appName: string): Promise<void> => {
+  const appLauncherRoot = await utam.load(AppLauncher);
+
+  // search app by name and click and redirect
+  await appLauncherRoot.searchApp(appName);
+  await browser.pause(1000);
+  await appLauncherRoot.selectAppAndRedirect();
+  await browser.pause(2000);
+};
+
+const openConsoleAppTabHome = async (tabName: string): Promise<void> => {
+  // user is in redirected Console app now
+  await closeConsoleNavMainTabs();
+  await browser.pause(1000);
+
+  const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
+
+  if (!(await consoleAppNavigationRoot.isCurrentTab(tabName))) {
+    // redirect user to tab (tab home may not render correctly sometimes, e.g. console left side bar is present)
+    await consoleAppNavigationRoot.redirectToTab(tabName);
+  }
+
+  // click to force redirect to and open current tab home page
+  await consoleAppNavigationRoot.redirectToCurrentTabHome();
+};
+
+const openStandardAppTabHome = async (tabName: string): Promise<void> => {
+  const homePageRoot = await utam.load(HomePage);
+  const navigationBar = await homePageRoot.getNavigationBar();
+  const appNavBar = await navigationBar.getAppNavBar();
+  const navItem = await appNavBar.getNavItem(tabName);
+
+  if (tabName === "Home") {
+    tabName = "home";
+  }
+  await navItem.clickAndWaitForUrl(tabName);
 };
 
 export const navigateToAppAndTab = async (
@@ -27,80 +65,31 @@ export const navigateToAppAndTab = async (
   if (await appLauncherRoot.isInConsoleApp()) {
     if (redirectToAppType === "Console") {
       if (!(await appLauncherRoot.isCurrentApp(appName))) {
-        // redirect user to console app
-        await appLauncherRoot.redirectToApp(appName);
-        await browser.pause(2000);
+        await appLauncherRoot.openConsoleAppLauncher();
+        await searchAndOpenApp(appName);
       }
 
-      // user is in redirected Console app view now
-      await closeConsoleNavMainTabs();
-      await browser.pause(1000);
-
-      const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
-
-      if (!(await consoleAppNavigationRoot.isCurrentTab(tabName))) {
-        // redirect user to tab
-        await consoleAppNavigationRoot.redirectToTab(tabName);
-      } else {
-        // click to redirect to current tab home
-        await consoleAppNavigationRoot.redirectToCurrentTabHome();
-      }
-    } else {
-      // if redirectTo app is Standard App
-      // redirect user to the app
-      await appLauncherRoot.redirectToApp(appName);
-      await browser.pause(2000);
-
-      // user is in Standard app view now
-      const homePageRoot = await utam.load(HomePage);
-      const navigationBar = await homePageRoot.getNavigationBar();
-      const appNavBar = await navigationBar.getAppNavBar();
-      const navItem = await appNavBar.getNavItem(tabName);
-
-      if (tabName === "Home") {
-        tabName = "home";
-      }
-      await navItem.clickAndWaitForUrl(tabName);
+      await openConsoleAppTabHome(tabName);
+    } // if redirectTo app is Standard App
+    else {
+      await appLauncherRoot.openConsoleAppLauncher();
+      await searchAndOpenApp(appName);
+      await openStandardAppTabHome(tabName);
     }
   } // if user is in Standard app view
   else {
     // in Standard app, open App Launcher
     const homePageRoot = await utam.load(HomePage);
-    const navBar = await homePageRoot.getNavigationBar();
-    await navBar.expandAppLauncher();
+    const navigationBar = await homePageRoot.getNavigationBar();
+    await navigationBar.expandAppLauncher();
     await browser.pause(1000);
 
-    // search redirectTo app name and click and redirect
-    await appLauncherRoot.searchAppLwc(appName);
-    await browser.pause(1000);
-    await appLauncherRoot.selectAppLwcAndRedirect();
-    await browser.pause(2000);
+    await searchAndOpenApp(appName);
 
     if (redirectToAppType === "Console") {
-      // user is in redirected Console app view now
-      await closeConsoleNavMainTabs();
-      await browser.pause(1000);
-
-      const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
-
-      if (!(await consoleAppNavigationRoot.isCurrentTab(tabName))) {
-        // redirect user to tab
-        await consoleAppNavigationRoot.redirectToTab(tabName);
-      } else {
-        // click to redirect to current tab home
-        await consoleAppNavigationRoot.redirectToCurrentTabHome();
-      }
+      await openConsoleAppTabHome(tabName);
     } else {
-      // user is in Standard app view now
-      const homePageRoot = await utam.load(HomePage);
-      const navigationBar = await homePageRoot.getNavigationBar();
-      const appNavBar = await navigationBar.getAppNavBar();
-      const navItem = await appNavBar.getNavItem(tabName);
-
-      if (tabName === "Home") {
-        tabName = "home";
-      }
-      await navItem.clickAndWaitForUrl(tabName);
+      await openStandardAppTabHome(tabName);
     }
   }
 

@@ -3,7 +3,7 @@
     <fullName>Privacy_Consent__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Qualtrics;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
-    <defaultValue>false</defaultValue>
+    <defaultValue>true</defaultValue>
     <description>Captures the Privacy Consent</description>
     <externalId>false</externalId>
     <label>Privacy Consent</label>

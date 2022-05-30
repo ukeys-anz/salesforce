@@ -1,0 +1,14 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "inputName",
+        "type": "utam-lightning/pageObjects/inputName",
+        "selector": {
+          "css": "lightning-input-name"
+        },
+        "public": true
+      }
+    ]
+  }
+}

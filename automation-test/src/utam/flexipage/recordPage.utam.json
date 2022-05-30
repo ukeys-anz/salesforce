@@ -169,6 +169,26 @@
           "returnType": "anzx-utam-flexipage/pageObjects/knowledgeRecordPage"
         }
       ]
+    },
+    {
+      "name": "getLeadRecordPage",
+      "compose": [
+        {
+          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "apply": "getRecordLayoutBroker"
+        },
+        {
+          "chain": true,
+          "returnType": "anzx-utam-flexipage/pageObjects/leadRecordPage",
+          "element": "generatedTemplate",
+          "args": [
+            {
+              "type": "pageObject",
+              "value": "anzx-utam-flexipage/pageObjects/leadRecordPage"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
