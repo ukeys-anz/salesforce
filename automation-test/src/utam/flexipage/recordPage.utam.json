@@ -1,7 +1,7 @@
 {
   "root": true,
   "selector": {
-    "css": ".windowViewMode-maximized one-record-home-flexipage2"
+    "css": "body"
   },
   "beforeLoad": [
     {
@@ -19,38 +19,53 @@
       ]
     }
   ],
-  "shadow": {
-    "elements": [
-      {
-        "name": "adgRollup",
-        "selector": {
-          "css": ".adg-rollup-wrapped"
-        },
-        "shadow": {
-          "elements": [
-            {
-              "name": "flexipageModule",
-              "selector": {
-                "css": ".forcegenerated-flexipage-module"
-              },
-              "shadow": {
-                "elements": [
-                  {
-                    "type": "utam-record-flexipage/pageObjects/recordPageDecorator",
-                    "public": true,
-                    "name": "decorator",
-                    "selector": {
-                      "css": "record_flexipage-record-page-decorator"
-                    }
+  "elements": [
+    {
+      "name": "oneRecordHomeFlexipage2",
+      "selector": {
+        "css": ".active.lafPageHost one-record-home-flexipage2"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "adgRollup",
+            "selector": {
+              "css": ".adg-rollup-wrapped"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "flexipageModule",
+                  "selector": {
+                    "css": ".forcegenerated-flexipage-module"
+                  },
+                  "shadow": {
+                    "elements": [
+                      {
+                        "type": "utam-record-flexipage/pageObjects/recordPageDecorator",
+                        "public": true,
+                        "name": "decorator",
+                        "selector": {
+                          "css": "record_flexipage-record-page-decorator"
+                        }
+                      }
+                    ]
                   }
-                ]
-              }
+                }
+              ]
             }
-          ]
-        }
+          }
+        ]
       }
-    ]
-  },
+    },
+    {
+      "name": "knowledgeFlexipage",
+      "selector": {
+        "css": ".active.lafPageHost .flexipagePage"
+      },
+      "type": "anzx-utam-flexipage/pageObjects/knowledgeRecordPage"
+    }
+  ],
   "methods": [
     {
       "name": "getRecordLayoutBroker",
@@ -121,6 +136,55 @@
             {
               "type": "pageObject",
               "value": "anzx-utam-flexipage/pageObjects/financialAccountRecordPage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getQualityAssessmentRecordPage",
+      "compose": [
+        {
+          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "apply": "getRecordLayoutBroker"
+        },
+        {
+          "chain": true,
+          "returnType": "anzx-utam-flexipage/pageObjects/qualityAssessmentRecordPage",
+          "element": "generatedTemplate",
+          "args": [
+            {
+              "type": "pageObject",
+              "value": "anzx-utam-flexipage/pageObjects/qualityAssessmentRecordPage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "getKnowledgeRecordPage",
+      "compose": [
+        {
+          "element": "knowledgeFlexipage",
+          "returnType": "anzx-utam-flexipage/pageObjects/knowledgeRecordPage"
+        }
+      ]
+    },
+    {
+      "name": "getLeadRecordPage",
+      "compose": [
+        {
+          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "apply": "getRecordLayoutBroker"
+        },
+        {
+          "chain": true,
+          "returnType": "anzx-utam-flexipage/pageObjects/leadRecordPage",
+          "element": "generatedTemplate",
+          "args": [
+            {
+              "type": "pageObject",
+              "value": "anzx-utam-flexipage/pageObjects/leadRecordPage"
             }
           ]
         }

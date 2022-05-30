@@ -32,6 +32,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Collections__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Deceased_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -78,6 +83,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.FinServ__TotalOutstandingCredit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Hardship__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

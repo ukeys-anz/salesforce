@@ -4,6 +4,29 @@
     <active>true</active>
     <label>IDR Knowledge</label>
     <picklistValues>
+        <picklist>Audience__c</picklist>
+        <values>
+            <fullName>All</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Card Dispute Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ID Ops %26 Fraud Agent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support Coach</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Issue_Type__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -498,6 +521,29 @@
         </values>
         <values>
             <fullName>Stores are cashless</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Topic__c</picklist>
+        <values>
+            <fullName>Card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feedback %26 Complaints</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Money</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile %26 Security</fullName>
             <default>false</default>
         </values>
     </picklistValues>

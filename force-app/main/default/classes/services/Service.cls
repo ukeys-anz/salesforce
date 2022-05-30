@@ -75,14 +75,12 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
-   * @param accountNumber Account number for which we want to fetch the transactions
    * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @return `HttpCalloutResponse` api response
    * @description virtual transaction history callout
    */
   public virtual HttpCalloutResponse getTransactionHistory(
     String ocvId,
-    String accountNumber,
     String paramUrl
   ) {
     return null;

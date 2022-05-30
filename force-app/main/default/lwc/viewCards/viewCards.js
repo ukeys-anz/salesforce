@@ -3,7 +3,7 @@ import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { createButtonsFromArray } from "./helper/helper-button-class";
 
-import { errorHanlder } from "./helper/helper-errors";
+import { errorHandler } from "./helper/helper-errors";
 import { cardImageHandler } from "./helper/helper-cardImages";
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 import getCardList from "@salesforce/apex/CoachBankingAPIRepository.getCardListAura";
@@ -132,12 +132,12 @@ export default class ViewCards extends LightningElement {
     );
     if (invalidCard) {
       this.hasError = true;
-      this.errorMsg = errorHanlder.invalidCard;
+      this.errorMsg = errorHandler.invalidCard;
     }
   };
 
   showToast = (toastFor, msg) => {
-    this.dispatchEvent(new ShowToastEvent(errorHanlder[toastFor](msg)));
+    this.dispatchEvent(new ShowToastEvent(errorHandler[toastFor](msg)));
   };
 
   handleViewAll() {

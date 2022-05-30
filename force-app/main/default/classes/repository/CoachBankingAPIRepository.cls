@@ -52,23 +52,17 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   }
   /**
    * @param ocvId customer id
-   * @param accountNumber Account number for which we want to fetch the transactions
    * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @return `TransactionHistoryModel` model class constructed from api response
    * @description fetches transaction history from fabric, deserialized to a model
    */
   public TransactionHistoryModel getTransactionHistory(
     String ocvId,
-    String accountNumber,
     String paramUrl
   ) {
     TransactionHistoryModel result;
     Service s = ServiceProvider.getService(FabricService.class);
-    HttpCalloutResponse response = s.getTransactionHistory(
-      ocvId,
-      accountNumber,
-      paramUrl
-    );
+    HttpCalloutResponse response = s.getTransactionHistory(ocvId, paramUrl);
     if (response.successful) {
       try {
         result = TransactionHistoryModel.parse(response.body);
@@ -111,7 +105,6 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     try {
       TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
         ocvId,
-        accountNumber,
         paramUrl
       );
       return responseModel;
@@ -182,35 +175,41 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param bucketIds list of bucket ids to filter transactions by
    * @return String the url with params to retrieve transactions
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
+  @SuppressWarnings('PMD.ExcessiveParameterList, PMD.CyclomaticComplexity')
   private static String getTransactionParamUrl(
     String startDate,
     String endDate,
     String accountNumber,
     List<String> bucketIds
   ) {
-    String params = '?';
-    if (
-      String.isNotBlank(startDate) &&
-      String.isNotBlank(endDate) &&
-      String.isNotBlank(accountNumber)
-    ) {
-      String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
-      String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
-      params +=
-        'account_number=' +
-        accountNumber +
-        '&start_time=' +
-        utcStartDate +
-        '&end_time=' +
-        utcEndDate +
-        '&';
+    String accNum = '';
+    String startTime = '';
+    String endTime = '';
+    String goalIds = '';
+    String params = '';
+    if (String.isNotBlank(accountNumber)) {
+      accNum = 'account_numbers=' + accountNumber + '&';
     }
-
+    if (String.isNotBlank(startDate)) {
+      String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
+      startTime += 'start_time=' + utcStartDate + '&';
+    }
+    if (String.isNotBlank(endDate)) {
+      String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
+      endTime += 'end_time=' + utcEndDate + '&';
+    }
     if (!bucketIds.isEmpty()) {
       for (String bucketId : bucketIds) {
-        params += 'bucket_ids=' + bucketId + '&';
+        goalIds += 'bucket_ids=' + bucketId + '&';
       }
+    }
+    if (
+      String.isNotBlank(accNum) ||
+      String.isNotBlank(startTime) ||
+      String.isNotBlank(endTime) ||
+      String.isNotBlank(goalIds)
+    ) {
+      params = '?' + accNum + startTime + endTime + goalIds;
     }
     return params;
   }

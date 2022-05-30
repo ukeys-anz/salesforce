@@ -19,6 +19,29 @@
       }
     ]
   },
+  "elements": [
+    {
+      "name": "item",
+      "selector": {
+        "css": "runtime_platform_actions-ribbon-menu-item",
+        "returnAll": true
+      },
+      "type": "clickable",
+      "filter": {
+        "apply": "getText",
+        "findFirst": true,
+        "matcher": {
+          "type": "stringContains",
+          "args": [
+            {
+              "name": "itemText",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    }
+  ],
   "methods": [
     {
       "name": "clickButton",
@@ -28,6 +51,15 @@
         },
         {
           "chain": true,
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "clickItemByText",
+      "compose": [
+        {
+          "element": "item",
           "apply": "click"
         }
       ]

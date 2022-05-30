@@ -21,68 +21,70 @@
   ],
   "elements": [
     {
-      "name": "appLauncher",
+      "name": "standardAppContainer",
+      "nullable": true,
       "selector": {
-        "css": "div[class*='appLauncher'][role='navigation']"
-      },
-      "type": "clickable",
-      "public": true
+        "css": ".navexStandardManager"
+      }
     },
     {
-      "name": "menu",
+      "name": "consoleAppContainer",
+      "nullable": true,
+      "selector": {
+        "css": ".navexWorkspaceManager"
+      }
+    },
+    {
+      "name": "oneAppLauncherMenu",
       "selector": {
         "css": "one-app-launcher-menu"
       },
       "shadow": {
         "elements": [
           {
-            "name": "searchBar",
+            "name": "oneAppLauncherSearchBar",
             "selector": {
               "css": "one-app-launcher-search-bar"
             },
             "shadow": {
               "elements": [
                 {
-                  "name": "lightningInput",
+                  "name": "oneAppLauncherSearchBarInput",
+                  "type": "utam-lightning/pageObjects/input",
                   "selector": {
                     "css": "lightning-input"
-                  },
-                  "shadow": {
-                    "elements": [
-                      {
-                        "name": "searchInput",
-                        "selector": {
-                          "css": "input"
-                        },
-                        "type": "editable",
-                        "public": true
-                      }
-                    ]
                   }
                 }
               ]
             }
           },
           {
-            "name": "searchItem",
+            "name": "oneApplauncherMenuItem",
             "selector": {
               "css": "one-app-launcher-menu-item"
             },
             "shadow": {
               "elements": [
                 {
-                  "name": "searchItemLink",
+                  "name": "appLink",
                   "selector": {
-                    "css": "a[role='option']"
+                    "css": "[role='option']"
                   },
-                  "type": "clickable",
-                  "public": true
+                  "type": "clickable"
                 }
               ]
             }
           }
         ]
       }
+    },
+    {
+      "name": "consoleAppLauncher",
+      "selector": {
+        "css": "[class*='appLauncher'][role='navigation'] button"
+      },
+      "type": "clickable",
+      "public": true
     },
     {
       "name": "currentApp",
@@ -112,57 +114,57 @@
       ]
     },
     {
-      "name": "redirectToApp",
+      "name": "openConsoleAppLauncher",
       "compose": [
         {
-          "element": "appLauncher",
+          "element": "consoleAppLauncher",
           "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "searchApp",
+      "compose": [
+        {
+          "element": "oneAppLauncherSearchBarInput",
+          "returnType": "utam-lightning/pageObjects/input"
         },
         {
-          "apply": "waitFor",
-          "args": [
-            {
-              "type": "function",
-              "predicate": [
-                {
-                  "element": "searchInput",
-                  "matcher": {
-                    "type": "notNull"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "element": "searchInput",
-          "apply": "clearAndType",
+          "chain": true,
+          "apply": "setText",
           "args": [
             {
               "name": "appName",
               "type": "string"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "selectAppAndRedirect",
+      "compose": [
         {
-          "apply": "waitFor",
-          "args": [
-            {
-              "type": "function",
-              "predicate": [
-                {
-                  "element": "searchItemLink",
-                  "matcher": {
-                    "type": "notNull"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "element": "searchItemLink",
+          "element": "appLink",
           "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "isInStandardApp",
+      "compose": [
+        {
+          "element": "standardAppContainer",
+          "apply": "isPresent"
+        }
+      ]
+    },
+    {
+      "name": "isInConsoleApp",
+      "compose": [
+        {
+          "element": "consoleAppContainer",
+          "apply": "isPresent"
         }
       ]
     }

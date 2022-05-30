@@ -1,33 +1,41 @@
-export enum CaseType {
-  ANZX_COMPLAINT = "ANZ Plus Complaint",
-  FRAUD = "Fraud",
-  GENERAL_ENQUIRY = "General Enquiry",
-  KYC_QA = "KYC QA",
-  RECIPIENT_MULE = "Recipient/Mule",
-  SCAM = "Scam",
-  IDENTITY = "Identity"
-}
-
-export enum UserRole {
+export const enum UserRole {
   COACH = "Coach",
-  FRAUDX_AGENT = "FraudX Agent"
+  COACH_LEAD = "Coach Lead",
+  FRAUDX_AGENT = "FraudX Agent",
+  CONTENT_WRITER = "Content Writer",
+  SUPER_SUPPORT_ADMIN = "Super Support Admin",
+  QUALITY_ANALYST = "Quality Analyst",
+  SUPPORT_COACH = "Support Coach"
 }
 
-export enum Queue {
-  SUPPORT_COACH_QUEUE = "Support Coach Queue"
+export const enum Queue {
+  SUPPORT_COACH_QUEUE = "Support Coach Queue",
+  CONTENT_WRITERS_QUEUE = "Content Writers Queue"
 }
 
-export enum App {
-  Coaches_Workbench = "Coaches Workbench"
-}
-
-export enum AppTab {
-  Cases = "Cases",
-  Accounts = "Accounts"
-}
-
-export enum TransactionType {
+export const enum TransactionType {
   CARD = "Card",
   DEPOSIT_WITHDRAWAL = "Deposit Withdrawal",
   BSB_ACC = "BSB/ACC"
+}
+
+export const enum SObject {
+  Account = "Account",
+  Case = "Case",
+  Knowledge = "Knowledge",
+  Quality_Assessment = "Quality Assessment",
+  Lead = "Lead"
+}
+
+export const enum SObjectAPIName {
+  Account = "Account",
+  Case = "Case",
+  Knowledge = "Knowledge__kav",
+  Quality_Assessment = "Quality_Assessment__c",
+  Lead = "Lead"
+}
+
+export const enum OwnerType {
+  Users = "Users",
+  Queues = "Queues"
 }

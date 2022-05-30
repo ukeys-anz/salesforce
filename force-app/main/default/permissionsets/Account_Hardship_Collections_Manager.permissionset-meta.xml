@@ -14,7 +14,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Account Hardship/Collections Manager</label>
     <objectPermissions>
-        <allowCreate>true</allowCreate>
+        <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>

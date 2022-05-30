@@ -1,4 +1,5 @@
 const video = require("wdio-video-reporter");
+require("global-agent/bootstrap");
 const { UtamWdioService } = require("wdio-utam-service");
 const { cleanupTestData } = require("./build/utils/wdioUtils");
 require("dotenv").config();
@@ -66,17 +67,24 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  //specs: ["./build/src/test/*.js"],
   specs: [
-    "./build/tests/cases/*.spec.js",
-    "./build/tests/disputes.spec.js",
-    "./build/tests/virtualGoals.spec.js",
-    "./build/tests/chatter.spec.js",
-    "./build/tests/transactions.spec.js"
+    [
+      "./build/tests/cases/*.spec.js",
+      "./build/tests/disputes.spec.js",
+      "./build/tests/qualityAssessments.spec.js"
+    ],
+    [
+      "./build/tests/transactionHistories.spec.js",
+      "./build/tests/cards.spec.js",
+      "./build/tests/financialAccounts.spec.js"
+    ],
+    [
+      "./build/tests/virtualGoals.spec.js",
+      "./build/tests/chatters.spec.js",
+      "./build/tests/knowledge.spec.js",
+      "./build/tests/leads.spec.js"
+    ]
   ],
-  /*suites: {
-    loginUtam: ["./build/src/test/*.js"]
-  },*/
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -97,7 +105,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 2,
+  maxInstances: 1,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -108,9 +116,15 @@ exports.config = {
       // maxInstances can get overwritten per capability. So if you have an in-house Selenium
       // grid with only 5 firefox instances available you can make sure that not more than
       // 5 instances get started at a time.
-      maxInstances: 2,
+      maxInstances: 1,
       //
       browserName: "chrome",
+      proxy: {
+        proxyType: "manual",
+        httpProxy: "http-forward-proxy:3128",
+        sslProxy: "http-forward-proxy:3128",
+        noProxy: "localhost,127.0.0.1"
+      },
       pageLoadStrategy: "normal",
       "goog:chromeOptions": {
         // to run chrome headless the following flags are required
@@ -120,7 +134,8 @@ exports.config = {
           "--disable-gpu",
           "--no-sandbox",
           "--disable-infobars",
-          "--window-size=1440,735"
+          "--window-size=1440,735",
+          "--no-check-certificate"
         ],
         prefs: {
           "profile.managed_default_content_settings.popups": 1,

@@ -1,0 +1,47 @@
+<template>
+  <lightning-quick-action-panel
+    title="Merge Account to Survivor ID"
+    class="maxwidth"
+  >
+    <div>
+      <b>Are you sure you want to continue, this action cannot be undone</b>
+      <ul class="slds-list_dotted" style="margin: 10px">
+        <li>
+          Make sure the Survivor Party ID is correct on the Account before you
+          continue
+        </li>
+      </ul>
+
+      <b>If the merge is successful it will:</b>
+      <ul class="slds-list_dotted" style="margin: 10px">
+        <li>
+          Copy Chatter Comments to the Surviving Party Account, but will only
+          migrate Content Posts, Link Posts and Text Post.
+          <br />Other types of Chatter Items will not be migrated
+        </li>
+      </ul>
+
+      <div if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." variant="brand">
+        </lightning-spinner>
+      </div>
+    </div>
+
+    <div slot="footer">
+      <div if:false={isLoading}>
+        <lightning-button
+          class="btn"
+          variant="neutral"
+          label="Cancel"
+          onclick={closeAction}
+        ></lightning-button>
+        <lightning-button
+          class="btn"
+          variant="brand"
+          label="Continue"
+          onclick={mergeOCVAction}
+        ></lightning-button>
+      </div>
+    </div>
+  </lightning-quick-action-panel>
+</template>

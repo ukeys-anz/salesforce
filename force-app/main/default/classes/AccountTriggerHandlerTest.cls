@@ -129,38 +129,39 @@ private class AccountTriggerHandlerTest {
     insert l;
   }
 
-  @isTest
-  static void testEntitlementUpdate() {
-    User ocvIntegrationUser = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'OCV Integration'
-    ];
+  // @isTest
+  // static void testEntitlementUpdate() {
+  //   User ocvIntegrationUser = [
+  //     SELECT Id
+  //     FROM User
+  //     WHERE FirstName = 'OCV Integration'
+  //   ];
 
-    Faker faker = new Faker('AU');
-    System.runAs(ocvIntegrationUser) {
-      Account testAccount = new Account(
-        Name = 'Test Account',
-        OCV_ID__c = faker.randomString(10),
-        ANZx_Customer__c = false
-      );
-      insert testAccount;
-      Test.startTest();
+  //   Faker faker = new Faker('AU');
+  //   System.runAs(ocvIntegrationUser) {
+  //     Account testAccount = new Account(
+  //       Name = 'Test Account',
+  //       OCV_ID__c = faker.randomString(10),
+  //       ANZx_Customer__c = false
+  //     );
+  //     insert testAccount;
+  //     Test.startTest();
 
-      testAccount.ANZx_Customer__c = true;
-      update testAccount;
+  //     testAccount.ANZx_Customer__c = true;
+  //     update testAccount;
 
-      Test.stopTest();
-    }
-    Account testAcc = [SELECT Id FROM Account WHERE Name = 'Test Account'];
-    Integer entitlementCount = [
-      SELECT COUNT()
-      FROM Entitlement
-      WHERE AccountId = :testAcc.Id AND Name = 'Basic Subscription'
-    ];
+  //     Test.stopTest();
 
-    System.assertEquals(1, entitlementCount);
-  }
+  //     Account testAcc = [SELECT Id FROM Account WHERE Name = 'Test Account'];
+  //     Integer entitlementCount = [
+  //       SELECT COUNT()
+  //       FROM Entitlement
+  //       WHERE AccountId = :testAcc.Id AND Name = 'Basic Subscription'
+  //     ];
+
+  //     System.assertEquals(1, entitlementCount);
+  //   }
+  // }
 
   @isTest
   private static void testFirstNameMobileEmailMatch() {
@@ -412,6 +413,64 @@ private class AccountTriggerHandlerTest {
       testAccount.PersonMobilePhone,
       acc.PersonMobilePhone,
       'Mobile phone should match.'
+    );
+  }
+
+  @isTest
+  private static void testConvertMultipleMatchingLeads() {
+    List<Lead> leadsToCleanup = [SELECT Id FROM Lead];
+    delete leadsToCleanup;
+
+    // GIVEN 3 existing leads with same firsname, mobile and email with an account that will be inserted
+    String email = 'jane.doe@gmail.com';
+    String mobile = '0401123321';
+    String firstName = 'Jane';
+    List<Lead> matchingLeads = new List<Lead>();
+    for (Integer i = 0; i < 3; i++) {
+      Lead l = new Lead();
+      l.FirstName = firstName;
+      l.LastName = 'User' + i;
+      l.MobilePhone = mobile;
+      l.Email = email;
+      l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
+      matchingLeads.add(l);
+    }
+
+    insert matchingLeads;
+
+    Faker faker = new Faker('AU');
+    Account testAccount = new Account(
+      FirstName = firstName,
+      LastName = 'Something',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      PersonMobilePhone = mobile,
+      PersonEmail = email
+    );
+
+    Test.startTest();
+    // WHEN this account is inserted by OCV Integration User
+    User ocvIntegrationUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'OCV Integration'
+    ];
+    System.runAs(ocvIntegrationUser) {
+      insert testAccount;
+    }
+    Test.stopTest();
+
+    // THEN all 3 existing leads should be converted into this account
+    List<Lead> convertedLeads = [
+      SELECT Id, Status
+      FROM Lead
+      WHERE Firstname = :firstName AND Email = :email AND isConverted = TRUE
+    ];
+    System.assertEquals(
+      3,
+      convertedLeads.size(),
+      'All leads should have been converted'
     );
   }
 }

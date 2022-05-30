@@ -1,14 +1,17 @@
+import BaseRecordForm from "pageObjects/baseRecordForm";
 import ObjectHome from "pageObjects/objectHome";
 import RecordLayout from "pageObjects/lwcRecordLayout";
 import RecordLayoutItem from "pageObjects/recordLayoutItem";
 import ChangeOwnerModal from "pageObjects/changeOwnerModal";
 import GlobalSearch from "pageObjects/globalSearch";
 import Tabset2 from "pageObjects/tabset2";
-import { ownerType } from "types/record";
-import { fieldSectionIndex, picklistItemIndexRange } from "types/layout";
+import { FieldSectionIndex, PicklistOptionIndexRange } from "types/layout";
 import * as faker from "faker";
+import { SObject, OwnerType } from "constants/enums";
 import { UtamBasePageObject } from "utam";
 import { ContainerCtor } from "@utam/core";
+import * as casePageUtils from "./casePageUtils";
+import * as qaPageUtils from "./qualityAssessmentPageUtils";
 
 /**
  * @description get a field from record layout
@@ -18,7 +21,7 @@ import { ContainerCtor } from "@utam/core";
  */
 export const getFieldFromRecordLayout = async (
   recordLayout: RecordLayout,
-  fieldSectionIndex: fieldSectionIndex
+  fieldSectionIndex: FieldSectionIndex
 ): Promise<RecordLayoutItem> => {
   const section = await recordLayout.getSection(fieldSectionIndex[0]);
   const row = await section.getRow(fieldSectionIndex[1]);
@@ -30,18 +33,21 @@ export const getFieldFromRecordLayout = async (
  * @description select picklist/combobox from
  * @param recordLayout record layout
  * @param fieldSectionIndex index array to define a field position on layout
- * @param picklistItemIndexRange picklist item indexes range
+ * @param picklistOptionIndexRange picklist item indexes range
  */
 export const selectPicklistOnRecordLayout = async (
   recordLayout: RecordLayout,
-  fieldSectionIndex: fieldSectionIndex,
-  picklistItemIndexRange: picklistItemIndexRange
+  fieldSectionIndex: FieldSectionIndex,
+  picklistOptionIndexRange: PicklistOptionIndexRange
 ): Promise<void> => {
-  // get field and click inline edit button
   const field = await getFieldFromRecordLayout(recordLayout, fieldSectionIndex);
   const fieldInlineEditButton = await field.getInlineEditButton();
-  await fieldInlineEditButton.click();
-  await browser.pause(2000);
+
+  // decide if it's in view mode or creation mode
+  if (fieldInlineEditButton) {
+    await fieldInlineEditButton.click();
+    await browser.pause(2000);
+  }
 
   // click picklist and get selection items list
   const picklist = await field.getPicklist();
@@ -49,22 +55,23 @@ export const selectPicklistOnRecordLayout = async (
   const baseCombobox = await combobox?.getBase();
   await baseCombobox?.expandForDisabledInput();
 
-  let itemIndex: picklistItemIndexRange;
+  let itemIndex: PicklistOptionIndexRange;
 
-  if (typeof picklistItemIndexRange === "number") {
+  if (typeof picklistOptionIndexRange === "number") {
     // use the specific item index
-    itemIndex = picklistItemIndexRange;
+    itemIndex = picklistOptionIndexRange;
   } else {
     // get a random picklist item index, usually min starts from 2, as 1 is index of --None--
     itemIndex = faker.datatype.number({
-      min: picklistItemIndexRange[0],
-      max: picklistItemIndexRange[1]
+      min: picklistOptionIndexRange[0],
+      max: picklistOptionIndexRange[1]
     });
   }
 
   // find item and click it to select
   const item = await baseCombobox?.getItem(itemIndex);
   await item?.clickItem();
+  await browser.pause(1000);
 };
 
 /**
@@ -77,11 +84,39 @@ export const inputText = async (
   text: string
 ): Promise<void> => {
   const fieldInlineEditButton = await field.getInlineEditButton();
-  await fieldInlineEditButton.click();
+  await fieldInlineEditButton!.click();
 
   // get input field and set new value
   const inputField = await field.getTextInput();
   await inputField.setText(text);
+};
+
+export const assignNewOwner = async (
+  sobject: SObject,
+  ownerFieldIndex: FieldSectionIndex,
+  ownerType: OwnerType,
+  newOwnerName: string
+): Promise<void> => {
+  let baseRecordForm: BaseRecordForm | undefined;
+
+  if (sobject === SObject.Case) {
+    baseRecordForm = (await casePageUtils.getRecordForm())!;
+  } else if (sobject === SObject.Quality_Assessment) {
+    baseRecordForm = (await qaPageUtils.getRecordForm())!;
+  }
+
+  if (baseRecordForm !== undefined) {
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    const ownerField = await getFieldFromRecordLayout(
+      recordLayout,
+      ownerFieldIndex
+    );
+
+    // click change owner button
+    await ownerField.clickChangeOwnerButton();
+    await searchAndSelectNewOwner(ownerType, newOwnerName);
+  }
 };
 
 /**
@@ -90,21 +125,27 @@ export const inputText = async (
  * @param newOwnerName
  */
 export const searchAndSelectNewOwner = async (
-  ownerType: ownerType,
+  ownerType: OwnerType,
   newOwnerName: string
 ): Promise<void> => {
   // load change owner modal
-  const ChangeOwnerModalRoot = await utam.load(ChangeOwnerModal);
+  const changeOwnerModalRoot = await utam.load(ChangeOwnerModal);
 
-  // click either Users or Queues and search and select first result
-  ChangeOwnerModalRoot.searchAndSelectNewOwner(
-    ownerType,
-    newOwnerName,
-    newOwnerName
-  );
+  await browser.pause(1000);
+  await changeOwnerModalRoot.clickOwnerTypeDropDown();
+  await browser.pause(1000);
+  await changeOwnerModalRoot.selectOwnerType(ownerType);
+  await browser.pause(1000);
+  await changeOwnerModalRoot.clickSearchBox();
+  await browser.pause(1000);
+  await changeOwnerModalRoot.search(newOwnerName);
+  await browser.pause(1000);
+  await changeOwnerModalRoot.selectUser(newOwnerName);
+  await browser.pause(1000);
+  await changeOwnerModalRoot.save();
 
   // wait for page reload
-  await browser.pause(5000);
+  await browser.pause(3000);
 };
 
 /**
@@ -115,7 +156,10 @@ export const searchRecordInGlobalSearchAndRedirect = async (
   searchTerm: string
 ): Promise<void> => {
   const globalSearchRoot = await utam.load(GlobalSearch);
-  await globalSearchRoot.searchAndRedirectToRecord(searchTerm, 1);
+  const resultList = await globalSearchRoot.search(searchTerm);
+  await browser.pause(1000);
+  await resultList.selectFirstResult();
+  await browser.pause(3000);
 };
 
 /**
@@ -180,4 +224,5 @@ export const searchAndOpenListViewByName = async (listViewName: string) => {
   // wait for the result to filter, move filter logic from utam file to code
   await browser.pause(1000);
   await objectHomeRoot.openListView();
+  await browser.pause(1000);
 };
