@@ -357,12 +357,7 @@ exports.config = {
       browser.takeScreenshot();
     }
   }
-  /**
-   * Hook that gets executed after the suite has ended
-   * @param {Object} suite suite details
-   */
-  // afterSuite: function (suite) {
-  // },
+
   /**
    * Runs after a WebdriverIO command gets executed
    * @param {String} commandName hook command name

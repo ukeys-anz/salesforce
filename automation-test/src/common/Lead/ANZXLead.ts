@@ -1,14 +1,16 @@
 import Lead from "./Lead";
 import RecordCreationForm from "pageObjects/recordCreationForm";
 import LwcRecordCreationForm from "pageObjects/lwcRecordCreationForm";
-import * as commonUtils from "utils/commonUtils";
 import IChatter from "interfaces/IChatter";
 import LeadNotesTab from "pageObjects/leadNotesTab";
-import * as leadPageUtils from "utils/leadPageUtils";
-import * as faker from "faker";
 import RecordPage from "pageObjects/recordPage";
+import * as commonUtils from "utils/commonUtils";
+import * as leadPageUtils from "utils/leadPageUtils";
+import { loginJSForce } from "utils/apiUtils";
+import { gotoRecordPageById } from "utils/navigationUtils";
 
 const generalComment = `Automation Test General Comment.`;
+
 export default class ANZXLead extends Lead implements IChatter {
   async create(leadData?: any): Promise<void> {
     const recordCreationFormRoot = await utam.load(RecordCreationForm);
@@ -32,15 +34,11 @@ export default class ANZXLead extends Lead implements IChatter {
     const inputName = await recordLayoutInputName.getInputName();
 
     const firstNameInput = await inputName.getFirstNameInput();
-    const firstName = leadData?.firstName
-      ? leadData.firstName
-      : faker.name.firstName();
+    const firstName = leadData?.firstName ? leadData.firstName : this.firstName;
     await firstNameInput.setText(firstName);
 
     const lastNameInput = await inputName.getLastNameInput();
-    const lastName = leadData?.lastName
-      ? leadData.lastName
-      : faker.name.lastName();
+    const lastName = leadData?.lastName ? leadData.lastName : this.lastName;
     await lastNameInput.setText(lastName);
 
     // Set Mobiile
@@ -49,9 +47,7 @@ export default class ANZXLead extends Lead implements IChatter {
       [1, 2, 1]
     );
     const mobilePhoneInput = await mobilePhoneField.getInput();
-    const mobile = leadData?.mobile
-      ? leadData.mobile
-      : faker.phone.phoneNumber("04########");
+    const mobile = leadData?.mobile ? leadData.mobile : this.mobile;
     await mobilePhoneInput.setText(mobile);
 
     // Set email
@@ -60,9 +56,7 @@ export default class ANZXLead extends Lead implements IChatter {
       [1, 3, 1]
     );
     const emailInput = await emailField.getInput();
-    const email = leadData?.email
-      ? leadData.email
-      : faker.internet.exampleEmail(firstName, lastName);
+    const email = leadData?.email ? leadData.email : this.email;
     await emailInput.setText(email);
 
     // Set Lead Source
@@ -81,16 +75,21 @@ export default class ANZXLead extends Lead implements IChatter {
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Attempt to change Status to Converted
-    const statusPicklist = await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [1, 2, 2],
-      4
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 2, 2], 4);
     await baseRecordForm.clickFooterButton("Save");
     await browser.pause(3000);
     // Validation error should be thrown: Lead Status cannot be changed to Converted manually.
     await baseRecordForm.clickFooterButton("Cancel");
     await browser.pause(1000);
+
+    // Assert Status field is still New
+    const statusPicklistAfterAttemptedConvert =
+      await commonUtils.getFieldFromRecordLayout(recordLayout, [1, 2, 2]);
+    expect(
+      await commonUtils.getFormattedTextValue(
+        statusPicklistAfterAttemptedConvert!
+      )
+    ).toEqual("New");
   }
 
   async postChatterComment(): Promise<void> {
@@ -134,7 +133,61 @@ export default class ANZXLead extends Lead implements IChatter {
     }
   }
 
-  async verifyLeadFieldsAreReadOnly(): Promise<void> {
+  async receiveLeadViaQualtricsIntegration(): Promise<string | void> {
+    let apiResult = "";
+
+    // Log in as Qualtrics Integration User
+    const conn = await loginJSForce(
+      process.env.QUALTRICS_AUTOMATION_USERNAME!,
+      process.env.QUALTRICS_AUTOMATION_PASSWORD!
+    );
+
+    if (conn) {
+      // Construct lead payload
+      const qualtricsPayload = {
+        FirstName: this.firstName,
+        LastName: this.lastName,
+        MobilePhone: this.mobile,
+        Email: this.email,
+        Marketing_Consent__c: true,
+        Privacy_Consent__c: true,
+        LeadSource: "Marketing",
+        RecordTypeId: process.env.ANZX_LEADS_RECORD_TYPE_ID
+      };
+
+      const optionHeader = { headers: { "SForce-Auto-Assign": "FALSE" } };
+
+      const sr = await conn
+        .sobject("Lead")
+        .create(qualtricsPayload, optionHeader);
+
+      expect(sr.success);
+
+      apiResult = await sr.id!;
+      return apiResult;
+    }
+  }
+
+  async openById(leadId: string) {
+    await browser.pause(1000);
+    await gotoRecordPageById(leadId);
+    await browser.pause(1000);
+  }
+
+  async verifyQualtricsLead() {
+    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Assert Status field is New
+    const statusPicklist = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [1, 2, 2]
+    );
+    expect(await commonUtils.getFormattedTextValue(statusPicklist!)).toEqual(
+      "New"
+    );
+
+    async verifyLeadFieldsAreReadOnly(): Promise<void> {
     const baseRecordForm = (await leadPageUtils.getRecordForm())!;
     const recordLayout = await baseRecordForm.getRecordLayout();
 

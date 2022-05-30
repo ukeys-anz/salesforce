@@ -95,3 +95,8 @@ export const navigateToAppAndTab = async (
 
   await browser.pause(4000);
 };
+
+export const gotoRecordPageById = async (recordId: string): Promise<void> => {
+  const recordHomeUrl = process.env.SALESFORCE_LOGIN_URL + "/" + recordId;
+  await browser.navigateTo(recordHomeUrl);
+};

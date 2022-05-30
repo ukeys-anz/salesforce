@@ -4,6 +4,7 @@ import { UserRole } from "constants/enums";
 import { App, AppTab } from "constants/appsDefinition";
 import ANZXLead from "common/Lead/ANZXLead";
 import * as faker from "faker";
+import { cleanupTestData } from "../utils/wdioUtils";
 import * as commonUtils from "utils/commonUtils";
 
 describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
@@ -75,17 +76,6 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
 
   describe("AR-11385: Coach creates duplicate ANZX Leads", async (): Promise<void> => {
     const anzxLead = new ANZXLead(UserRole.COACH);
-    const firstName = faker.name.firstName();
-    const lastName = faker.name.lastName();
-    const mobile = faker.phone.phoneNumber("04########");
-    const email = faker.internet.exampleEmail(firstName, lastName);
-
-    const anzxLeadData = {
-      firstName,
-      lastName,
-      mobile,
-      email
-    };
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
@@ -97,7 +87,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     });
 
     it("Create an ANZX Lead", async (): Promise<void> => {
-      await anzxLead.create(anzxLeadData);
+      await anzxLead.create();
     });
 
     it("Verify first ANZX Lead has no duplicate", async (): Promise<void> => {
@@ -109,7 +99,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     });
 
     it("Create a duplicate ANZX Lead", async (): Promise<void> => {
-      await anzxLead.create(anzxLeadData);
+      await anzxLead.create();
     });
 
     it("Verify second ANZX Lead is a duplicate", async (): Promise<void> => {
@@ -120,6 +110,34 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
       await Auth.logoutSalesforce();
     });
   });
+
+  describe("AR-11384: Lead creation by Qualtrics Integration", async (): Promise<void> => {
+    let apiResult: string | void;
+
+    const anzxLead = new ANZXLead(UserRole.COACH);
+
+    it("Create Lead Record via Qualtrics Integration", async (): Promise<void> => {
+      apiResult = await anzxLead.receiveLeadViaQualtricsIntegration()!;
+    });
+
+    it("Go to Lead record", async (): Promise<void> => {
+      // Login in as a Coach
+      await Auth.loginSalesforceAsRole(UserRole.COACH);
+
+      // Open Lead record by navigating to record page using Id
+      // As Lead search results contains Einstein results recommendations
+      // Which is not predictable when searching via contact details
+      await anzxLead.openById(apiResult!);
+    });
+
+    it("Verify Lead Fields", async (): Promise<void> => {
+      // Verify Lead fields
+      await anzxLead.verifyQualtricsLead();
+    });
+      
+    it("Logout", async (): Promise<void> => {
+      await Auth.logoutSalesforce();
+    });
 
   describe("AR-11392: Quality Analyst views ANZX Leads", async (): Promise<void> => {
     const anzxLead = new ANZXLead(UserRole.QUALITY_ANALYST);
@@ -148,6 +166,10 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
 
     it("Logout", async (): Promise<void> => {
       await Auth.logoutSalesforce();
+    });
+
+    after(async (): Promise<void> => {
+      await cleanupTestData(UserRole.QUALTRICS_AUTOMATION_USER, ["Lead"]);
     });
   });
 });
