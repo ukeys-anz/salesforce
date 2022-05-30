@@ -25,7 +25,7 @@ public with sharing class AppointmentNotificationHandler {
         'sendNotifications'
       );
       log.addDatabaseSaveResult('IDR_Notification_Event__e', results, events);
-      log.insertLog();
+      log.insertLogAsync();
     }
     return results;
   }
