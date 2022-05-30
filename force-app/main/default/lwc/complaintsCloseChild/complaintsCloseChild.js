@@ -565,7 +565,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-
+    this.clearRemedy2();
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy2 = true;
       this.isNonFinancialComplaintRemedy2 = false;
@@ -760,7 +760,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       field: "",
       value: ""
     };
-
+    this.clearRemedy3();
     if (event.detail.value === COMPLAINT_REMEDY_FIN_VALUE) {
       this.isFinancialComplaintRemedy3 = true;
       this.isNonFinancialComplaintRemedy3 = false;

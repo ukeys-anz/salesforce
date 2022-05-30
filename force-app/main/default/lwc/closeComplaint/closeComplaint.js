@@ -122,6 +122,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       data.fields[OTHER_REMDY1.fieldApiName].value;
     this.closeFields[REMEDY_DURATION.fieldApiName] =
       data.fields[REMEDY_DURATION.fieldApiName].value;
+    if (data.fields[COMPLAINT_REMEDY2.fieldApiName].value !== null) {
+      this.remedy2 = true;
+    }
     this.closeFields[COMPLAINT_REMEDY2.fieldApiName] =
       data.fields[COMPLAINT_REMEDY2.fieldApiName].value;
     this.closeFields[
@@ -140,6 +143,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       data.fields[OTHER_REMDY2.fieldApiName].value;
     this.closeFields[REMEDY_DURATION2.fieldApiName] =
       data.fields[REMEDY_DURATION2.fieldApiName].value;
+    if (data.fields[COMPLAINT_REMEDY3.fieldApiName].value !== null) {
+      this.remedy3 = true;
+    }
     this.closeFields[COMPLAINT_REMEDY3.fieldApiName] =
       data.fields[COMPLAINT_REMEDY3.fieldApiName].value;
     this.closeFields[
@@ -307,10 +313,14 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         })
         .catch((error) => {
           let message = "Unknown error";
-          if (Array.isArray(error.body)) {
+          if (error.body.output) {
+            message = message = error.body.output.message;
+          } else if (Array.isArray(error.body)) {
             message = error.body.map((e) => e.message).join(", ");
           } else if (typeof error.body.message === "string") {
             message = error.body.message;
+          } else if (typeof error === "string") {
+            message = error;
           }
           this.openModal("Update Failed: " + message);
         });
