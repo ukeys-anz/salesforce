@@ -3,6 +3,22 @@
   "selector": {
     "css": "body"
   },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "elements": [
     {
       "name": "username",

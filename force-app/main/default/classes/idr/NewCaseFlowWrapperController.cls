@@ -21,6 +21,85 @@ public with sharing class NewCaseFlowWrapperController {
   }
 
   /**
+   * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
+   * @param caseId the case record id
+   * @param newRecordTypeId id of the new record type selected for the case
+   * @return returnIDRAFCAStatus The IDR_AFCA_Status__c of the input case record
+   */
+  @AuraEnabled
+  public static String getCaseDetailsById(Id caseId, String newRecordTypeId) {
+    String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
+    Map<String, String> caseDetails = new Map<String, String>();
+    caseDetails.put('IDR_AFCA_Status__c', '');
+    string returnIDRAFCAStatus = '';
+    if (
+      Case.sObjectType.getDescribe().isQueryable() &&
+      (newRecordTypeName == 'Non_Customer_Complaint' ||
+      newRecordTypeName == 'Customer_Complaint')
+    ) {
+      List<Case> caseLst = [
+        SELECT
+          Id,
+          IDR_AFCA_Status__c,
+          Origin,
+          IDR_Subsequent_Issue__c,
+          IDR_Is_Written_Resp_Requested__c,
+          IDR_Is_Written_Resp_Required__c,
+          IDR_Is_Common__c,
+          IDR_Escalation_Reason__c,
+          IDR_Complainant_Type__c,
+          RecordType.DeveloperName,
+          RecordTypeId
+        FROM case
+        WHERE
+          Id = :caseid
+          AND RecordTypeId = :IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+        WITH SECURITY_ENFORCED
+      ];
+
+      //As we're querying by recordId, only 1 record should be present if the query isn't empty
+      if (caseLst[0].Origin == '11') {
+        caseDetails.put('IDR_AFCA_Status__c', '10');
+      }
+      caseDetails.put(
+        'IDR_Subsequent_Issue__c',
+        (caseLst[0].IDR_Subsequent_Issue__c != null)
+          ? caseLst[0].IDR_Subsequent_Issue__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Is_Written_Resp_Requested__c',
+        (caseLst[0].IDR_Is_Written_Resp_Requested__c != null)
+          ? caseLst[0].IDR_Is_Written_Resp_Requested__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Is_Written_Resp_Required__c',
+        (caseLst[0].IDR_Is_Written_Resp_Required__c != null)
+          ? caseLst[0].IDR_Is_Written_Resp_Required__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Is_Common__c',
+        (caseLst[0].IDR_Is_Common__c != null) ? caseLst[0].IDR_Is_Common__c : ''
+      );
+      caseDetails.put(
+        'IDR_Escalation_Reason__c',
+        (caseLst[0].IDR_Escalation_Reason__c != null)
+          ? caseLst[0].IDR_Escalation_Reason__c
+          : ''
+      );
+      caseDetails.put(
+        'IDR_Complainant_Type__c',
+        (caseLst[0].IDR_Complainant_Type__c != null)
+          ? caseLst[0].IDR_Complainant_Type__c
+          : ''
+      );
+    }
+    return JSON.serialize(caseDetails);
+  }
+
+  /**
    * @description Query for Customer OCV ID by passing in the Account ID
    * @param accountID SF Account ID related to the Customer
    * @return String

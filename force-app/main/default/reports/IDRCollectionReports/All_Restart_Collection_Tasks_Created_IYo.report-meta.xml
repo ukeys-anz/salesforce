@@ -36,7 +36,7 @@ IF (DATEVALUE(NOW()) - DATEVALUE(CREATED_DATE) &lt; 14 &amp;&amp; DATEVALUE(NOW(
             <value>START Collection</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ASSIGNED</column>
+            <column>Activity.Queue__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>

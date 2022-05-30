@@ -734,7 +734,7 @@ private class CaseTriggerHandlerTest {
     Slaprocess sla = [
       SELECT Id, NAME
       FROM Slaprocess
-      WHERE Name = 'complaints'
+      WHERE Name = 'complaints' AND IsActive = TRUE AND IsVersionDefault = TRUE
       LIMIT 1
     ];
     Entitlement et = new Entitlement(

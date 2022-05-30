@@ -1,0 +1,12 @@
+{
+  "elements": [
+    {
+      "name": "detailPanel",
+      "type": "utam-records/pageObjects/lwcDetailPanel",
+      "selector": {
+        "css": "records-lwc-detail-panel"
+      },
+      "public": true
+    }
+  ]
+}

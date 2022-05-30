@@ -5,12 +5,37 @@
     <masterLabel>ANZx Customer Analytics</masterLabel>
     <shares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Card_Dispute_Agent</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Coach</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
     <shares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Coach_Lead</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>FraudX_Agent</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Super_Support_Admin</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Support_Coach</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Support_Staff_ARC</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
 </WaveApplication>

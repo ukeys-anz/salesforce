@@ -68,9 +68,24 @@
                 <label>Coaching/Needs based Discussion</label>
             </value>
             <value>
+                <fullName>Credit Reporting</fullName>
+                <default>false</default>
+                <label>Credit Reporting</label>
+            </value>
+            <value>
                 <fullName>Device Support</fullName>
                 <default>false</default>
                 <label>Device Support</label>
+            </value>
+            <value>
+                <fullName>Digital Support</fullName>
+                <default>false</default>
+                <label>Digital Support</label>
+            </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payment</fullName>
+                <default>false</default>
+                <label>Direct Debit or Recurring Payment</label>
             </value>
             <value>
                 <fullName>Feature Request</fullName>
@@ -262,10 +277,19 @@
                 <default>false</default>
                 <label>Raising a concern</label>
             </value>
+             <value>
+                <fullName>Withholding tax refund</fullName>
+                <default>false</default>
+                <label>Withholding tax refund</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
             <valueName>About ANZ Plus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>Digital Support</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
@@ -300,8 +324,20 @@
             <valueName>Transaction Disputes</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Withholding tax refund</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Making payments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Direct Debit or Recurring Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Credit Reporting</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>

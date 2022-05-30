@@ -3,30 +3,53 @@
   "selector": {
     "css": "body"
   },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "elements": [
     {
       "name": "userProfile",
       "selector": {
         "css": "button[class*='branding-userProfile-button']"
       },
-      "type": "clickable"
+      "type": "clickable",
+      "public": true
     },
     {
       "name": "logoutLink",
       "selector": {
         "css": "a[class*='logout']"
       },
-      "type": "clickable"
+      "type": "clickable",
+      "public": true
     }
   ],
   "methods": [
     {
-      "name": "logout",
+      "name": "clickProfile",
       "compose": [
         {
           "element": "userProfile",
           "apply": "click"
-        },
+        }
+      ]
+    },
+    {
+      "name": "clickLogout",
+      "compose": [
         {
           "element": "logoutLink",
           "apply": "click"

@@ -1,4 +1,4 @@
-@isTest
+@IsTest
 private with sharing class IDRTaskActionsTest {
   @TestSetup
   static void testSetup() {
@@ -39,13 +39,13 @@ private with sharing class IDRTaskActionsTest {
 
       List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : psList) {
-        psaList.add(TestUtil.createPSAssignment(siUser.id, ps.Id));
+        psaList.add(TestUtil.createPSAssignment(siUser.Id, ps.Id));
       }
       insert psaList;
     }
   }
 
-  @isTest
+  @IsTest
   static void testTaskFieldMasking() {
     //GIVEN tasks
     //WHEN they're inserted
@@ -65,7 +65,7 @@ private with sharing class IDRTaskActionsTest {
     System.assertEquals('*****4321', t.Subject, 'Subject should be masked.');
   }
 
-  @isTest
+  @IsTest
   static void testSITaskDueDateUpdate() {
     User siUser = TestUtil.getUserByFirstName('siUser');
     List<Case> newSIs = new List<Case>();
@@ -78,7 +78,7 @@ private with sharing class IDRTaskActionsTest {
           new Case(
             RecordTypeId = IDRConstants.SI_RT_ID,
             Status = 'Open',
-            SI_Workflow_step__c = 'Assessing'
+            SI_Workflow_Step__c = 'Assessing'
           )
         );
       }
@@ -89,7 +89,7 @@ private with sharing class IDRTaskActionsTest {
         Subject = IDRTaskActions.IDR_TASK_SUBJECT,
         RecordTypeId = IDRConstants.SI_TASK_RT_ID,
         Priority = 'Normal',
-        ActivityDate = system.today().addDays(10),
+        ActivityDate = System.today().addDays(10),
         WhatId = newSIs[0].Id
       );
 
@@ -98,18 +98,18 @@ private with sharing class IDRTaskActionsTest {
 
     //WHEN the task due date is updated by someone other than the case owner
     try {
-      siTask.ActivityDate = system.today().adddays(15);
+      siTask.ActivityDate = System.today().addDays(15);
       update siTask;
-    } catch (DMLexception e) {
+    } catch (DmlException e) {
       //THEN restrict the user from updating task due date
-      system.assertEquals(
+      System.assertEquals(
         IDRTaskActions.SI_DUE_DATE_ERROR_MESSAGE,
         e.getDmlMessage(0)
       );
     }
   }
 
-  @isTest
+  @IsTest
   static void testPendCaseTaskSubject() {
     Case customerCase = new Case(
       RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
@@ -125,7 +125,7 @@ private with sharing class IDRTaskActionsTest {
       RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
       Type = IDRConstants.TASK_TYPE_PEND_CASE,
       Priority = 'Normal',
-      ActivityDate = system.today().addDays(10),
+      ActivityDate = System.today().addDays(10),
       WhatId = customerCase.Id,
       Description = 'test Description',
       IDR_Key_Contact_Name__c = 'John Doe',
@@ -144,14 +144,14 @@ private with sharing class IDRTaskActionsTest {
       'Pend case task subject must default to a defined value'
     );
   }
-  @isTest
+  @IsTest
   static void testIDRTaskClosureOnCaseClose() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Date_Received__c = system.now()
+          IDR_Date_Received__c = System.now()
         )
       );
     }
@@ -159,19 +159,19 @@ private with sharing class IDRTaskActionsTest {
 
     List<Task> taskToinsert = new List<Task>();
     for (Case c : newCases) {
-      task idrTask = new task(
-        whatId = c.Id,
+      Task idrTask = new Task(
+        WhatId = c.Id,
         Subject = IDRConstants.TASK_SUBJECT_DAY5,
         RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
         Priority = 'Standard',
-        ActivityDate = system.today()
+        ActivityDate = System.today()
       );
       taskToinsert.add(idrTask);
     }
 
     insert taskToinsert;
 
-    checkRecursive.firstCall = false;
+    CheckRecursive.firstCall = false;
 
     Test.startTest();
     for (Case c : newCases) {
@@ -183,12 +183,12 @@ private with sharing class IDRTaskActionsTest {
 
     Test.stopTest();
 
-    for (Task task : [SELECT Status FROM Task WHERE id = :taskToinsert]) {
-      system.assertEquals(IDRConstants.TASK_STATUS_COMPLETED, task.Status);
+    for (Task task : [SELECT Status FROM Task WHERE Id = :taskToinsert]) {
+      System.assertEquals(IDRConstants.TASK_STATUS_COMPLETED, task.Status);
     }
   }
 
-  @isTest
+  @IsTest
   static void testSystemTaskUpdate() {
     Task[] newTasks = new List<Task>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -206,14 +206,61 @@ private with sharing class IDRTaskActionsTest {
     for (Task t : newTasks) {
       t.Subject = 'New Test Subject';
     }
-    List<Database.SaveResult> results = Database.Update(newTasks, false);
+    List<Database.SaveResult> results = Database.update(newTasks, false);
     Test.stopTest();
 
     for (Database.SaveResult result : results) {
-      system.assertEquals(
+      System.assertEquals(
         'You are not authorized to make updates to this record.',
         result.errors[0].getMessage()
       );
     }
+  }
+
+  @IsTest
+  static void testQueueNameStamp() {
+    //GIVEN new System Task
+    Task[] newTasks = new List<Task>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newTasks.add(
+        new Task(
+          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+          Priority = 'Normal',
+          Subject = 'Test Subject',
+          Description = 'Test description '
+        )
+      );
+    }
+    insert newTasks;
+
+    //WHEN they are updated with a Queue as Owner
+    Set<Id> taskIds = (new Map<Id, Task>(newTasks)).keySet();
+    newTasks = [SELECT OwnerId FROM Task WHERE Id IN :taskIds];
+    for (Task c : newTasks) {
+      c.OwnerId = IDRTaskActions.stopQueue.Id;
+    }
+    update newTasks;
+
+    //THEN ensure the Queue name is updated
+    Task c = [SELECT OwnerId, Queue__c FROM Task WHERE Id = :newTasks[0].Id];
+    Group oQueue = [SELECT Id, Name FROM Group WHERE Id = :c.OwnerId];
+    System.assertEquals(
+      oQueue.Name,
+      c.Queue__c,
+      'Task Queue owner not updated'
+    );
+    // Change owner to test user
+    for (Task oTask : newTasks) {
+      oTask.OwnerId = UserInfo.getUserId();
+    }
+    update newTasks;
+
+    //THEN ensure the Queue name is preserved
+    c = [SELECT Queue__c FROM Task WHERE Id = :newTasks[0].Id];
+    System.assertEquals(
+      oQueue.Name,
+      c.Queue__c,
+      'Task Queue name not preserved'
+    );
   }
 }

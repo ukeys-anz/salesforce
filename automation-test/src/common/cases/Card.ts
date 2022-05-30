@@ -1,140 +1,122 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
+import RecordCreationForm from "pageObjects/recordCreationForm";
 import Case from "./Case";
 import * as faker from "faker";
-import * as caseUtils from "utils/caseUtils";
+import * as creationFormUtils from "utils/creationFormUtils";
 import * as commonUtils from "utils/commonUtils";
+import * as casePageUtils from "utils/casePageUtils";
+import { FieldDefinition } from "types/field";
+import CaseFields from "constants/case/caseFields";
 
 export default class Card extends Case {
-  async createRecord(): Promise<void> {
-    const caseCreationFormRoot = await utam.load(CaseCreationForm);
+  static creationFormFieldIndexMap = new Map<string, number>();
 
-    // Dispute Reason
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [3, 1, 1],
-      [2, 9],
-      0
-    );
+  async create(): Promise<void> {
+    const recordCreationFormRoot = await utam.load(RecordCreationForm);
 
-    // Description of Issue
-    // get field from layout and set text
-    const descriptionOfIssue = faker.datatype.string(100);
-    await caseCreationFormRoot.editTextarea(3, 2, 1, descriptionOfIssue);
+    const fieldsToFill: FieldDefinition[] = [
+      {
+        label: CaseFields.Dispute_Reason,
+        options: {
+          firstFieldIndex: 14,
+          picklistDOMIndex: 0,
+          picklistOptionIndexRange: [2, 9]
+        }
+      },
+      {
+        label: CaseFields.Description_of_Issue
+      },
+      {
+        label: CaseFields.Is_The_Card_Lost_Stolen,
+        options: {
+          picklistDOMIndex: 1,
+          picklistOptionIndexRange: [2, 4]
+        }
+      },
+      {
+        label: CaseFields.Card_In_Possession_During_Transaction,
+        options: {
+          picklistDOMIndex: 2,
+          picklistOptionIndexRange: [2, 3]
+        }
+      },
+      {
+        label: CaseFields.Has_The_Card_Been_Stopped,
+        options: {
+          picklistDOMIndex: 3,
+          picklistOptionIndexRange: [2, 3]
+        }
+      },
+      {
+        label: CaseFields.Amount_Of_Authorised_Transaction
+      },
+      {
+        label: CaseFields.Customer_Contacted_Merchant,
+        options: {
+          picklistDOMIndex: 4,
+          picklistOptionIndexRange: [2, 3]
+        }
+      },
+      {
+        label: CaseFields.What_Happened_with_Merchant
+      },
+      {
+        label: CaseFields.Date_Of_Authorised_Transaction
+      },
+      {
+        label: CaseFields.Amount_Of_Credit_Due
+      },
+      {
+        label: CaseFields.Goods_Or_Services_Returned,
+        options: {
+          picklistDOMIndex: 5,
+          picklistOptionIndexRange: [2, 3]
+        }
+      },
+      {
+        label: CaseFields.Good_Returned_Or_Service_Cancelled_Date
+      },
+      {
+        label: CaseFields.Date_Of_Expected_Delivery_Service
+      },
+      {
+        label: CaseFields.Regular_Payment_Cancellation_Date
+      },
+      {
+        label: CaseFields.Refund_Request_Date
+      },
+      {
+        label: CaseFields.Channel_Received,
+        options: {
+          picklistDOMIndex: 6,
+          picklistOptionIndexRange: [2, 13]
+        }
+      },
+      {
+        label: CaseFields.External_System,
+        options: {
+          picklistDOMIndex: 7,
+          picklistOptionIndexRange: [2, 4]
+        }
+      }
+    ];
 
-    // Is The Card Lost
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [3, 5, 1],
-      [2, 4],
-      1
-    );
-
-    // Card In Possession During Transaction
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [3, 6, 1],
-      [2, 3],
-      2
-    );
-
-    // Has The Card Been Stopped
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [3, 7, 1],
-      [2, 3],
-      3
-    );
-
-    // Amount Of Authorised Transaction
-    // get field from layout and set number
-    const receivedAmount = faker.datatype.number({ min: 1, max: 100 });
-    await caseCreationFormRoot.editNumber(3, 8, 1, receivedAmount.toString());
-
-    //Customer Contacted Merchant
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [3, 9, 1],
-      [2, 3],
-      4
-    );
-
-    // What Happened with Merchant?
-    // get field from layout and set number
-    const whatHappenedText = faker.datatype.string();
-    await caseCreationFormRoot.editText(3, 10, 1, whatHappenedText);
-
-    // Date Of Authorised Transaction
-    const authTransactionDateStr = commonUtils.getRandomFutureDateFormattedString();
-    await caseCreationFormRoot.editText(3, 11, 1, authTransactionDateStr);
-
-    // Amount Of Credit Due
-    const creditDueAmount = faker.datatype.number({ min: 1, max: 100 });
-    await caseCreationFormRoot.editNumber(3, 12, 1, creditDueAmount.toString());
-
-    // Goods Or Services Returned
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [3, 13, 1],
-      [2, 3],
-      5
-    );
-
-    // Good Returned Or Service Cancelled Date
-    const goodReturnedDateStr = commonUtils.getRandomFutureDateFormattedString();
-    await caseCreationFormRoot.editText(3, 14, 1, goodReturnedDateStr);
-
-    // Date Of Expected Delivery/Service
-    const expectedDeliveryDateStr = commonUtils.getRandomFutureDateFormattedString();
-    await caseCreationFormRoot.editText(3, 15, 1, expectedDeliveryDateStr);
-
-    // Regular Payment Cancellation Date
-    const paymentCancellationDateStr = commonUtils.getRandomFutureDateFormattedString();
-    await caseCreationFormRoot.editText(3, 16, 1, paymentCancellationDateStr);
-
-    // Refund Request Date
-    const refundRequestDateStr = commonUtils.getRandomFutureDateFormattedString();
-    await caseCreationFormRoot.editText(3, 17, 1, refundRequestDateStr);
-
-    // Channel Received
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [4, 3, 1],
-      [2, 13],
-      6
-    );
-
-    // External System
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [4, 6, 1],
-      [2, 4],
-      7
+    Card.creationFormFieldIndexMap = await creationFormUtils.fillInFields(
+      this.sobject,
+      Card.creationFormFieldIndexMap,
+      fieldsToFill
     );
 
     // click save button
-    await caseCreationFormRoot.saveNew();
-
+    await recordCreationFormRoot.saveNew();
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {
-    console.log("Skip Assign a new owner | This scenario does not need it.");
+  async update(): Promise<void> {
+    console.log("Skip update | This scenario does not need it.");
   }
 
-  async updateRecord(): Promise<void> {
-    console.log("Update a record |  This scenario does not need it.");
-  }
-
-  async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
-
-    // get record layout
-    const detailPanel = await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
+  async close(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // External Case ID
@@ -145,16 +127,10 @@ export default class Card extends Case {
     const externalCaseId = `${faker.datatype.string(10)}`;
     await commonUtils.inputText(externalCaseIdField, externalCaseId);
 
-    // click button twice to get across page stuck
-    await baseRecordForm.clickFooterButton("Save");
-    await baseRecordForm.clickFooterButton("Save");
-
     // Status
     // select Closed status
     await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 1, 1], 5);
-
     await baseRecordForm.clickFooterButton("Save");
-
     await browser.pause(3000);
   }
 }

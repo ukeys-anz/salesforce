@@ -58,6 +58,10 @@ public with sharing class GetHelpConstants {
     .get('Bug_Enquiry')
     .getRecordTypeId();
 
+  public static final Id CUSTOMER_FEEDBACK_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Customer_Feedback')
+    .getRecordTypeId();
+
   //Quality Assessment - General RT Id
   public static final Id QUALITY_ASSESSMENT_GENERAL_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
     .get('General')
@@ -68,10 +72,21 @@ public with sharing class GetHelpConstants {
     .get('Compliance_Task')
     .getRecordTypeId();
 
+  //Lead - ANZx RT Id
+  public static final Id LEAD_ANZX_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
+    .get('ANZX_Leads')
+    .getRecordTypeId();
+
+  // Account - Person Account RT Id
+  public static final Id ACCOUNT_PERSON_ACCOUNT_RT_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+    .get('PersonAccount')
+    .getRecordTypeId();
+
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';
   public static final String SUPPORT_COACH_QUEUE = 'Support_Coach_Queue';
+  public static final String COACH_QUEUE = 'Coach_Queue';
   public static final String PENDING_CARD_DISPUTE_FRAUD_QUEUE = 'Pending_Card_Dispute_Fraud_Queue';
   public static final String PENDING_CARD_DISPUTE_GENERAL_QUEUE = 'Pending_Card_Dispute_General_Queue';
   public static final String TRANSACTION_STATUS_PENDING = 'TRANSACTION_STATUS_PENDING';
