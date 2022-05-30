@@ -133,4 +133,16 @@ export default class ANZXLead extends Lead implements IChatter {
       );
     }
   }
+
+  async verifyLeadFieldsAreReadOnly(): Promise<void> {
+    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Mobile Phone Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 1]);
+    // Status Picklist
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+    // Email Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+  }
 }

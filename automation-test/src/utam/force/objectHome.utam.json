@@ -32,7 +32,8 @@
           "selector": {
             "css": "[title='Select a List View']"
           },
-          "type": "clickable"
+          "type": "clickable",
+          "public": true
         }
       ]
     },
@@ -74,6 +75,15 @@
           ]
         }
       ]
+    },
+    {
+      "name": "firstRow",
+      "selector": {
+        "css": "tbody tr th span a"
+      },
+      "type": "clickable",
+      "nullable": true,
+      "public": true
     },
     {
       "name": "linkByRecordId",
@@ -121,6 +131,20 @@
           "apply": "click"
         },
         {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "listViewSearchBar",
+                  "apply": "isVisible"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "element": "listViewSearchBar",
           "apply": "clearAndType",
           "args": [
@@ -166,6 +190,29 @@
         },
         {
           "element": "listViewByIndex",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openFirstRow",
+      "compose": [
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "firstRow",
+                  "apply": "isVisible"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "firstRow",
           "apply": "click"
         }
       ]

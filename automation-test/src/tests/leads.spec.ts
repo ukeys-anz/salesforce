@@ -4,6 +4,7 @@ import { UserRole } from "constants/enums";
 import { App, AppTab } from "constants/appsDefinition";
 import ANZXLead from "common/Lead/ANZXLead";
 import * as faker from "faker";
+import * as commonUtils from "utils/commonUtils";
 
 describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   // pre test steps
@@ -113,6 +114,36 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
 
     it("Verify second ANZX Lead is a duplicate", async (): Promise<void> => {
       await anzxLead.verifyDuplicate(true);
+    });
+
+    it("Logout", async (): Promise<void> => {
+      await Auth.logoutSalesforce();
+    });
+  });
+
+  describe("AR-11392: Quality Analyst views ANZX Leads", async (): Promise<void> => {
+    const anzxLead = new ANZXLead(UserRole.QUALITY_ANALYST);
+
+    it("Login as Quality Analyst", async (): Promise<void> => {
+      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+    });
+
+    it("Go to Quality Workbench and Leads Tab", async (): Promise<void> => {
+      await navigateToAppAndTab(App.Quality_Workbench, AppTab.Leads);
+    });
+
+    it("Select a Lead record from All New List View", async (): Promise<void> => {
+      await commonUtils.openListViewByIndex(0);
+      await commonUtils.openFirstRecordInListView();
+    });
+
+    it("Lead fields are read only for Quality Analyst", async (): Promise<void> => {
+      await anzxLead.verifyLeadFieldsAreReadOnly();
+    });
+
+    it("Quality Analyst adds Chatter Post onto Lead", async (): Promise<void> => {
+      await anzxLead.postChatterComment();
+      await anzxLead.verifyChatterComment();
     });
 
     it("Logout", async (): Promise<void> => {
