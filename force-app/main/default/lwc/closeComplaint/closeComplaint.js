@@ -332,20 +332,32 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateRemedy1Fields() {
     let validToSave = true;
 
-    if (!this.closeFields[COMPLAINT_OUTCOME.fieldApiName]) {
+    if (
+      !this.closeFields[COMPLAINT_OUTCOME.fieldApiName] ||
+      this.closeFields[COMPLAINT_OUTCOME.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Complaint Outcome ,";
     }
-    if (this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] === null) {
+    if (
+      !this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] ||
+      this.closeFields[OUTCOME_DESCRIPTION.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Description of Outcome ,";
     }
-    if (this.closeFields[COMPLAINT_REMEDY.fieldApiName] === null) {
+    if (
+      !this.closeFields[COMPLAINT_REMEDY.fieldApiName] ||
+      this.closeFields[COMPLAINT_REMEDY.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Complaint Remedy 1 ,";
     }
 
-    if (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === null) {
+    if (
+      !this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ||
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Complaint Sub Remedy 1 ,";
     }
@@ -353,7 +365,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       this.closeFields[COMPLAINT_REMEDY.fieldApiName] ===
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] === null
+      (!this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] ||
+        this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Amount ,";
@@ -361,7 +374,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === REWARD_POINTS &&
-      this.closeFields[REMEDY_POINTS1.fieldApiName] === null
+      (!this.closeFields[REMEDY_POINTS1.fieldApiName] ||
+        this.closeFields[REMEDY_POINTS1.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Remedy Points 1 ,";
@@ -371,7 +385,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === DEBT_WAIVER ||
         this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
           SETTEL_FOR_LESS) &&
-      this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] === null
+      (!this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] ||
+        this.closeFields[FINANCIAL_COMPENSATION.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Amount ,";
@@ -379,7 +394,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
         SUB_REMEDY_OTHER &&
-      this.closeFields[OTHER_REMDY1.fieldApiName] === null
+      (!this.closeFields[OTHER_REMDY1.fieldApiName] ||
+        this.closeFields[OTHER_REMDY1.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Other Remedy Provided 1 ,";
@@ -391,7 +407,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
           TIME_TO_SELL_REFINANCE_SURRENDER ||
         this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
           REPAYMENT_ARRAGMENT) &&
-      this.closeFields[REMEDY_DURATION.fieldApiName] === null
+      (!this.closeFields[REMEDY_DURATION.fieldApiName] ||
+        this.closeFields[REMEDY_DURATION.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Duration of Remedy(months) ,";
@@ -417,12 +434,18 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateRemedy2Fields() {
     let validToSave = true;
 
-    if (this.closeFields[COMPLAINT_REMEDY2.fieldApiName] === null) {
+    if (
+      !this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ||
+      this.closeFields[COMPLAINT_REMEDY2.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Complaint Remedy 2 ,";
     }
 
-    if (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === null) {
+    if (
+      !this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ||
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Complaint Sub Remedy 2 ,";
     }
@@ -430,7 +453,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       this.closeFields[COMPLAINT_REMEDY2.fieldApiName] ===
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] === null
+      (!this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] ||
+        this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Amount 2 ,";
@@ -438,7 +462,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === REWARD_POINTS &&
-      this.closeFields[REMEDY_POINTS2.fieldApiName] === null
+      (!this.closeFields[REMEDY_POINTS2.fieldApiName] ||
+        this.closeFields[REMEDY_POINTS2.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Remedy Points 2 ,";
@@ -448,7 +473,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === DEBT_WAIVER ||
         this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
           SETTEL_FOR_LESS) &&
-      this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] === null
+      (!this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] ||
+        this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Amount 2 ,";
@@ -457,7 +483,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
         SUB_REMEDY_OTHER &&
-      this.closeFields[OTHER_REMDY2.fieldApiName] === null
+      (!this.closeFields[OTHER_REMDY2.fieldApiName] ||
+        this.closeFields[OTHER_REMDY2.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Other Remedy Provided 2 ,";
@@ -468,7 +495,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
           TIME_TO_SELL_REFINANCE_SURRENDER ||
         this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
           REPAYMENT_ARRAGMENT) &&
-      this.closeFields[REMEDY_DURATION2.fieldApiName] === null
+      (!this.closeFields[REMEDY_DURATION2.fieldApiName] ||
+        this.closeFields[REMEDY_DURATION2.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Duration of Remedy(months) 2 ,";
@@ -494,12 +522,18 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateRemedy3Fields() {
     let validToSave = true;
 
-    if (this.closeFields[COMPLAINT_REMEDY3.fieldApiName] === null) {
+    if (
+      !this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ||
+      this.closeFields[COMPLAINT_REMEDY3.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Complaint Remedy 3 ,";
     }
 
-    if (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === null) {
+    if (
+      !this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ||
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === null
+    ) {
       validToSave = false;
       this.errMsg += "Complaint Sub Remedy 3 ,";
     }
@@ -507,7 +541,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       this.closeFields[COMPLAINT_REMEDY3.fieldApiName] ===
         COMPLAINT_REMEDY_FIN_VALUE &&
-      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] === null
+      (!this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] ||
+        this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Amount 3 ,";
@@ -515,7 +550,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === REWARD_POINTS &&
-      this.closeFields[REMEDY_POINTS3.fieldApiName] === null
+      (!this.closeFields[REMEDY_POINTS3.fieldApiName] ||
+        this.closeFields[REMEDY_POINTS3.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Remedy Points 3 ,";
@@ -525,7 +561,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === DEBT_WAIVER ||
         this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
           SETTEL_FOR_LESS) &&
-      this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] === null
+      (!this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] ||
+        this.closeFields[FINANCIAL_COMPENSATION3.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Financial Amount 3 ,";
@@ -534,7 +571,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     if (
       this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
         SUB_REMEDY_OTHER &&
-      this.closeFields[OTHER_REMDY3.fieldApiName] === null
+      (!this.closeFields[OTHER_REMDY3.fieldApiName] ||
+        this.closeFields[OTHER_REMDY3.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Other Remedy Provided 3 ,";
@@ -546,7 +584,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
           TIME_TO_SELL_REFINANCE_SURRENDER ||
         this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
           REPAYMENT_ARRAGMENT) &&
-      this.closeFields[REMEDY_DURATION3.fieldApiName] === null
+      (!this.closeFields[REMEDY_DURATION3.fieldApiName] ||
+        this.closeFields[REMEDY_DURATION3.fieldApiName] === null)
     ) {
       validToSave = false;
       this.errMsg += "Duration of Remedy(months) 3 ,";
