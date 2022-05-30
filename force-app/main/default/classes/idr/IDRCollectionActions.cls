@@ -485,7 +485,7 @@ public with sharing class IDRCollectionActions {
     List<Id> caseIds
   ) {
     Map<String, Set<Id>> startCollectionMap = new Map<String, Set<Id>>();
-    for(String accNumber : collectionAcctsList){
+    for (String accNumber : collectionAcctsList) {
       accNumber = (accNumber.replaceFirst('^0+', ''));
       collectionAcctsList.add(accNumber);
     }
@@ -572,13 +572,15 @@ public with sharing class IDRCollectionActions {
       String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
     ) {
       String accNumberTrim = (accNumber.replaceFirst('^0+', ''));
+      Set<ID> stCaseIds;
       if (
-        (startCollecMap.containsKey(accNumber) || startCollecMap.containsKey(accNumberTrim)) &&
-        (startCollecMap.get(accNumber).contains(rec.Id) || startCollecMap.get(accNumberTrim).contains(rec.Id) )
+        ((stCaseIds = startCollecMap.get(accNumber)) != null &&
+        stCaseIds.contains(rec.Id)) ||
+        ((stCaseIds = startCollecMap.get(accNumberTrim)) != null &&
+        stCaseIds.contains(rec.Id))
       ) {
-        if(
-          (startCollecMap.get(accNumber).size() == 1 || startCollecMap.get(accNumberTrim).size() == 1) &&
-           productNameMap.containsKey(rec.Product__c)
+        if (
+          (stCaseIds.size() == 1) && productNameMap.containsKey(rec.Product__c)
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
@@ -608,12 +610,15 @@ public with sharing class IDRCollectionActions {
         .split(';')
     ) {
       String accNumberTrim = (accNumber2.replaceFirst('^0+', ''));
+      Set<ID> stCaseIds;
       if (
-        (startCollecMap.containsKey(accNumber2) || startCollecMap.containsKey(accNumberTrim)) &&
-        (startCollecMap.get(accNumber2).contains(rec.Id) || startCollecMap.get(accNumberTrim).contains(rec.Id) ) 
+        ((stCaseIds = startCollecMap.get(accNumber2)) != null &&
+        stCaseIds.contains(rec.Id)) ||
+        ((stCaseIds = startCollecMap.get(accNumberTrim)) != null &&
+        stCaseIds.contains(rec.Id))
       ) {
-        if(
-          (startCollecMap.get(accNumber2).size() == 1 ||startCollecMap.get(accNumberTrim).size() == 1  ) &&
+        if (
+          (stCaseIds.size() == 1) &&
           productNameMap.containsKey(rec.IDR_Product_2__c)
         ) {
           startCollectionAccList.add(
@@ -644,14 +649,17 @@ public with sharing class IDRCollectionActions {
         .split(';')
     ) {
       String accNumberTrim = (accNumber3.replaceFirst('^0+', ''));
+      Set<ID> stCaseIds;
       if (
-        (startCollecMap.containsKey(accNumber3) || startCollecMap.containsKey(accNumberTrim)) &&
-        (startCollecMap.get(accNumber3).contains(rec.Id) || startCollecMap.get(accNumberTrim).contains(rec.Id)) 
+        ((stCaseIds = startCollecMap.get(accNumber3)) != null &&
+        stCaseIds.contains(rec.Id)) ||
+        ((stCaseIds = startCollecMap.get(accNumberTrim)) != null &&
+        stCaseIds.contains(rec.Id))
       ) {
         if (
-          (startCollecMap.get(accNumber3).size() == 1 || startCollecMap.get(accNumberTrim).size() == 1 ) &&
+          (stCaseIds.size() == 1) &&
           productNameMap.containsKey(rec.IDR_Product_3__c)
-          ) {
+        ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber3,
