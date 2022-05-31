@@ -86,7 +86,7 @@ public virtual with sharing class Lib_TriggerHandler {
    */
   private static String contextId;
   /**
-   * @description TriggerContext The current context of the trigger, overridable in tests
+   * @description The current context of the trigger, overridable in tests
    */
   private TriggerContext context;
   /**
@@ -121,12 +121,15 @@ public virtual with sharing class Lib_TriggerHandler {
     } else {
       this.records = Trigger.new.clone();
     }
+
     Salesforce_Library_Settings__c settings = Salesforce_Library_Settings__c.getInstance(
       UserInfo.getUserId()
     );
+
     Salesforce_Bypass_Trigger_Actions__c bypassActions = Salesforce_Bypass_Trigger_Actions__c.getInstance(
       UserInfo.getUserId()
     );
+
     this.objectType = records.getSObjectType();
     this.objectDescribe = objectType.getDescribe();
     this.bypassDelete =
@@ -140,8 +143,11 @@ public virtual with sharing class Lib_TriggerHandler {
     this.log = new lib_SystemLog(objectType + ' Trigger');
 
     setObjectEventName();
+
     addToLoopCount(maxLoopCount);
+
     triggerHandler();
+
     this.log.insertLog();
   }
 

@@ -367,23 +367,4 @@ public with sharing class CommonUtil {
     }
     return caseInsensitiveMap;
   }
-
-  /**
-   * @description returns the group Id from a Queue Developer Name
-   * @param queueDeveloperName string developer name of the queue to search
-   * @return Id the Id of the Group or null
-   */
-  public static Id getGroupId(string queueDeveloperName) {
-    List<Group> contactRequestGroup = new List<Group>();
-    contactRequestGroup = [
-      SELECT Id
-      FROM group
-      WHERE Type = 'Queue' AND DeveloperName = :queueDeveloperName
-    ];
-
-    if (contactRequestGroup.size() > 0) {
-      return contactRequestGroup[0].Id;
-    }
-    return null;
-  }
 }

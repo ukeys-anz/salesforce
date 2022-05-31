@@ -136,21 +136,17 @@
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
-    "Coaching Summary": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
     "Contact": "Contact details of an individual person. Forms part of a person account",
-    "ContactRequest": "Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "EmailMessage": "Represents an email in Salesforce.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
-    "Interaction": "Represents the interaction details between the coach and the customer",
     "IDR_Letter_Approval_Details__c": "Letter Approval Detail",
     "IDR_Template_Detail__c": "Template Detail",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
-    "Location" : "This standard object would contain all the store locations for ANZ",
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
@@ -643,24 +639,6 @@
         "LastModifiedDate"
       ]
     },
-    "Coaching_Summary__c": {
-      "IA-2415840": [
-        "Account__c",
-        "Name",
-        "Name__c",
-        "Lead__c",
-        "OwnerId",
-        "Reason__c",
-        "Status__c"
-      ],
-      "IA36": [
-        "Id",
-        "CreatedById",
-        "CreatedDate",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
     "Contact": {
       "IA-2468715": [
         "AccountId",
@@ -677,28 +655,6 @@
         "Gender__c",
         "MobilePhone",
         "OtherAddress"
-      ]
-    },
-    "ContactRequest": {
-      "IA-2453595": [
-        "Appointment_Commitment__c",
-        "Appointment_date_and_Time__c",
-        "Contact_Request_Auto_Number__c"
-        "Channel_Booked__c",
-        "Interaction__c",
-        "OwnerId",
-        "RequestDescription",
-        "RequestReason",
-        "Status",
-        "WhoId"
-      ],
-      "IA-2468715": [
-        "Id",
-        "CreatedById",
-        "CreatedDate",
-        "LastModifiedById",
-        "LastModifiedDate",
-        "RecordTypeId"
       ]
     },
     "ContentDocumentLink": {
@@ -828,39 +784,6 @@
         "LastModifiedDate"
       ]
     },
-    "Interaction": {
-      "IA-2468715": [
-        "AccountId",
-        "Authentication_Method__c",  
-        "Channel_Booked__c",
-        "Contact_Mobile__c",
-        "ContactRequestId__c",
-        "CreatedById",
-        "CreatedDate",
-        "Description",
-        "Direction__c",
-        "EndTime",
-        "Escalated__c",
-        "Event_Id__c",
-        "Interaction_Auto_Number__c",
-        "Interaction_Number__c",
-        "Interaction_Purpose__c",
-        "Interaction_Summary__c",
-        "Lead__c",
-        "InteractionType",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate",
-        "Name",
-        "OwnerId",
-        "RecordTypeId",
-        "ReferenceIdentifier",
-        "StartTime",
-        "Status__c",
-        "Voice_Call_SID__c",
-        "Escalated_Flag__c"
-      ]
-    },
     "Known_Issues__c": {
       "IA-2468715": [
         "CreatedById",
@@ -929,17 +852,6 @@
         "PrivacyConsent"
       ],
       "IA-2530753": ["Description"]
-    },
-    "Location": {
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate",
-        "Location_External_Id__c",
-        "LocationType"
-      ]
     },
     "Log_Record_Access__b": {
       "IA-2468710": [
