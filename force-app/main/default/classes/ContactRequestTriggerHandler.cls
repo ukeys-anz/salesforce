@@ -47,6 +47,7 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
     Map<Id, Appointment_Commitment__c> appointmentCommitmentMap = crActions.getRelatedAppCommtDetails(
       records
     );
+    crActions.validateContactRequests(records);
     if (!appointmentCommitmentMap.isEmpty()) {
       crActions.prepopulateAppointmentCommitmentValues(
         records,

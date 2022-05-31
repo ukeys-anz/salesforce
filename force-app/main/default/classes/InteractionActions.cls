@@ -866,6 +866,23 @@ public with sharing class InteractionActions {
       leadInteractionMap,
       interactions
     );
+
+    validateLocations(interactions);
+  }
+
+  /**
+   * @description goes through a list of interactions and adds an error if any have a channel of store, but no location
+   * @param interactions List<Interaction> to search through for offenders.
+   */
+  private void validateLocations(List<Interaction> interactions) {
+    for (Interaction currentInteraction : interactions) {
+      if (
+        currentInteraction.InteractionType == 'Store' &&
+        currentInteraction.LocationId == null
+      ) {
+        currentInteraction.addError(System.Label.Interaction_Store_Required);
+      }
+    }
   }
 
   /** @description Method to get the list of existing scheduled interactions for the customer

@@ -228,4 +228,19 @@ public with sharing class ContactRequestTriggerActions {
     }
     return apptCommtMap;
   }
+
+  /**
+   * @description goes through a list of ContactRequests and adds an error if any have a channel of store, but no location
+   * @param requests List<ContactRequest> to search through for offenders.
+   */
+  public void validateContactRequests(List<ContactRequest> requests) {
+    for (ContactRequest currentRequest : requests) {
+      if (
+        currentRequest.PreferredChannel == 'Store' &&
+        currentRequest.Location__c == null
+      ) {
+        currentRequest.addError(System.Label.Interaction_Store_Required);
+      }
+    }
+  }
 }
