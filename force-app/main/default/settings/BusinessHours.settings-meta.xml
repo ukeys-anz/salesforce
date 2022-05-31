@@ -73,7 +73,7 @@
         <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <holidays>
-        <activityDate>2021-04-25</activityDate>
+        <activityDate>2023-04-25</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Anzac Day</description>
@@ -81,14 +81,14 @@
         <name>Anzac Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-01-26</activityDate>
+        <activityDate>2023-01-26</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>Australia Day</description>
         <isRecurring>false</isRecurring>
         <name>Australia Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-12-28</activityDate>
+        <activityDate>2022-12-26</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Boxing Day</description>
@@ -96,7 +96,7 @@
         <name>Boxing Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-12-27</activityDate>
+        <activityDate>2022-12-27</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Christmas Day</description>
@@ -104,7 +104,7 @@
         <name>Christmas Day</name>
     </holidays>
     <holidays>
-        <activityDate>2021-04-05</activityDate>
+        <activityDate>2023-04-10</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Easter Monday</description>
@@ -112,7 +112,7 @@
         <name>Easter Monday</name>
     </holidays>
     <holidays>
-        <activityDate>2021-04-02</activityDate>
+        <activityDate>2023-04-07</activityDate>
         <businessHours>ANZx Case Business Hours</businessHours>
         <businessHours>Case Business Hours</businessHours>
         <description>Good Friday</description>
@@ -120,7 +120,7 @@
         <name>Good Friday</name>
     </holidays>
     <holidays>
-        <activityDate>2021-01-01</activityDate>
+        <activityDate>2023-01-01</activityDate>
         <businessHours>Case Business Hours</businessHours>
         <description>New Year&apos;s Day</description>
         <isRecurring>false</isRecurring>

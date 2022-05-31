@@ -145,11 +145,14 @@ export const fillInFields = async (
 
       for (let i = currentIndex; i < fields.length; i++) {
         const fieldLabel = await fields[i].getLabel();
+        // save resolved label into cache, ignore null label
+        // cache all labels in case fields passed in out-of-order
+        if (fieldLabel) {
+          fieldIndexMap.set(fieldLabel, i);
+        }
 
         if (fieldLabel === fieldToFill.label) {
           await fillInField(sobject, fields[i], fieldToFill.options);
-          fieldIndexMap.set(fieldLabel, i);
-
           currentIndex = ++i;
           break;
         }
@@ -173,7 +176,7 @@ export const fillInField = async (
       await fillInTextField(field, fieldOptions?.textContent);
       break;
     case "textarea":
-      await fillInTextareaField(field);
+      await fillInTextAreaField(field);
       break;
     case "number":
       await fillInNumberField(field);
@@ -216,7 +219,7 @@ const fillInTextField = async (
   await field.editText(content);
 };
 
-const fillInTextareaField = async (
+const fillInTextAreaField = async (
   field: RecordCreationFormField
 ): Promise<void> => {
   const fakeContent = faker.datatype.string(100);

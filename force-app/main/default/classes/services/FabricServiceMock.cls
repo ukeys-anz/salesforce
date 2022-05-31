@@ -72,7 +72,6 @@ public with sharing class FabricServiceMock extends Service {
 
   public override HttpCalloutResponse getTransactionHistory(
     String ocvId,
-    String accountNumber,
     String paramUrl
   ) {
     if (!preset) {
