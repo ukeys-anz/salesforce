@@ -27,6 +27,16 @@
     <description>Should only have required/minimum permissions to Read/Write Case related information.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Collections__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Hardship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Source_System_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -52,6 +62,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Advocacy_Score__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Alerting_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Amount_Of_Authorised_Transaction__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -73,11 +93,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Card_In_Possession_During_Transaction__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Bank_ATM__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -162,11 +177,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Receipt__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.Crediting_Recipient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -197,21 +207,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Customer_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Customer_Notification_Consent__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <field>Case.Customer_Description__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Date_Account_Last_Debited__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Customer_Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -267,6 +268,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Expected_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Feedback_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -391,16 +397,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Issue_Type_2__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.IDR_Issue_Type_3__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.IDR_Is_Common__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -412,6 +408,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Is_Written_Resp_Required__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Issue_Type_2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Issue_Type_3__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -451,11 +457,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Subsequent_Issue__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.IDR_Second_Issue__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -467,6 +468,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Subsequent_Issue_3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Subsequent_Issue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -551,7 +557,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.OCV_ID__c</field>
+        <field>Case.OCV_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -621,6 +627,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Receipt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Received_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -640,9 +651,9 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Related_Bug__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -672,6 +683,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Subject</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Survey_Response__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -792,6 +808,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.Card_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.Customer_Feedback</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

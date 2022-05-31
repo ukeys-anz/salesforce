@@ -17,11 +17,15 @@
         ├── common
         ├── constants
         ├── data
-        ├── pageObjects
+        ├── interfaces
         ├── tests
+        ├── types
         ├── utam
         |   ├── auth
         |   ├── base
+        |   ├── console
+        |   ├── flexipage
+        |   ├── force
         |   └── lwc
         └── utils
 
@@ -37,7 +41,9 @@
 
   - `data` folder manages test data.
 
-  - `tests` folder contains the test spec files and test running will look for those files for testing.
+  - `interfaces` folder contains definitions of ts interface.
+
+  - `tests` folder contains the test spec files and test runner will look for those files for testing.
 
   - `utam` folder will be the place to maintain \*.utam.json and utam compiler will compile these files into page objects in pageObjects folder (git ignored).
 
@@ -87,10 +93,6 @@
 
 - **`For now engineers need to get test users' credentials and store in .env file. Please be mindful and DO NOT commit these credentials. This practice will be replaced in the future once the security store integration for automation is ready`**
 
-- In .env file, the `SALESFORCE_ENV` variable is used to control in which org the test will be running. For now the only supported value is `test` as we will run the automation in test sandbox first.
-
-- The `SALESFORCE_ENV` is also used to format the testing users' username at runtime. For exmaple: if `COACH_USERNAME` is `testusername@anzx.com`, the automation auth process will concatenate `COACH_USERNAME` + `'.'` + `SALESFORCE_ENV` and format the username to `testusername@anzx.com.test`.
-
 ## Run in Local
 
 **`Make sure steps in Prerequisites have been followed`**
@@ -109,14 +111,40 @@
    npm install
    ```
 
-4. Change wdio.conf.js, “goog:chromeoptions” and comment headless from the argument list, leave other arguments as is
+4. Change wdio.conf.js.
+
+   4.1 edit `goog:chromeoptions` and comment headless from the argument list, leave other arguments as is.
 
    ```txt
    "goog:chromeOptions": {
-    args: [
-      // "--headless"
-    ]
+      args: [
+         // "--headless"
+      ]
    }
+   ```
+
+   4.2 comment out proxy setting. This part is required for running in harness.
+
+   ```text
+   // proxy: {
+   //   proxyType: "manual",
+   //   httpProxy: "http-forward-proxy:3128",
+   //   sslProxy: "http-forward-proxy:3128",
+   //   noProxy: "localhost,127.0.0.1"
+   // }
+   ```
+
+   4.3 comment out other spec files and only leave the ones you want to run locally. For exmaple, blow only qualityAssesments test will be invoked.
+
+   ```text
+   specs: [
+      // [
+      //   "./build/tests/cases/*.spec.js",
+      //   "./build/tests/disputes.spec.js",
+      //   "./build/tests/digitalWallets.spec.js",
+      "./build/tests/qualityAssessments.spec.js"
+      // ]
+   ],
    ```
 
 5. Build locally
@@ -154,3 +182,9 @@
    ```bash
    npm run test
    ```
+
+## Resources
+
+- Blog: [Run End-to-End Tests with the UI Test Automation Model (UTAM)](https://developer.salesforce.com/blogs/2022/05/run-end-to-end-tests-with-the-ui-test-automation-model-utam)
+- Official website: [UI Test Automation Model](https://utam.dev/)
+- A sample js utam project repo: [utam-js-recipes](https://github.com/salesforce/utam-js-recipes)

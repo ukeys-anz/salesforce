@@ -1,6 +1,8 @@
 import Auth from "common/Auth";
-import { navigateToConsoleAppAndTab } from "utils/consoleUtils";
-import { UserRole, App, AppTab } from "constants/enums";
+import { OwnerType } from "constants/enums";
+import { navigateToAppAndTab } from "utils/navigationUtils";
+import { UserRole } from "constants/enums";
+import { App, AppTab } from "constants/appsDefinition";
 import ANZXComplaint from "common/cases/ANZXComplaint";
 import KYCQA from "common/cases/KYCQA";
 import RecipientMule from "common/cases/RecipientMule";
@@ -8,8 +10,9 @@ import Fraud from "common/cases/Fraud";
 import GeneralEnquiry from "common/cases/GeneralEnquiry";
 import Identity from "common/cases/Identity";
 import Scam from "common/cases/Scam";
+import caseData from "data/caseData";
 
-describe("Case - FraudX Agent Creates and Updates Cases", () => {
+describe("AR-4499: Get Help Salesforce Case Management", () => {
   // pre test steps
   before(
     async (): Promise<void> => {
@@ -21,175 +24,222 @@ describe("Case - FraudX Agent Creates and Updates Cases", () => {
     }
   );
 
-  beforeEach(async () => {
-    await browser.pause(1000);
+  beforeEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
   });
 
-  describe("KYC QA Case", async (): Promise<void> => {
+  afterEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
+  });
+
+  describe("AR-10338: FraudX Agent - KYC QA Case", async (): Promise<void> => {
     const kycQaCase = new KYCQA(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a KYC QA Case", async (): Promise<void> => {
-      await kycQaCase.createRecord();
+      await kycQaCase.create(caseData);
     });
 
     it("Assign KYC QA Case to Another FraudX Agent", async (): Promise<void> => {
-      await kycQaCase.assignNewOwner();
+      await kycQaCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newFraudXAgentOwnerName
+      );
     });
 
     it("Update KYC QA Case", async (): Promise<void> => {
-      await kycQaCase.updateRecord();
+      await kycQaCase.update();
     });
 
     it("Close KYC QA Case", async (): Promise<void> => {
-      await kycQaCase.closeRecord();
+      await kycQaCase.close();
     });
   });
 
-  describe("Recipient/Mule Case", async (): Promise<void> => {
+  describe("AR-10337: FraudX Agent - Recipient/Mule Case", async (): Promise<void> => {
     const recipientMuleCase = new RecipientMule(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a Recipient/Mule Case", async (): Promise<void> => {
-      await recipientMuleCase.createRecord();
+      await recipientMuleCase.create(caseData);
     });
 
     it("Assign Recipient/Mule Case to Another FraudX Agent", async (): Promise<void> => {
-      await recipientMuleCase.assignNewOwner();
+      await recipientMuleCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newFraudXAgentOwnerName
+      );
     });
 
     it("Update Recipient/Mule Case", async (): Promise<void> => {
-      await recipientMuleCase.updateRecord();
+      await recipientMuleCase.update();
     });
 
     it("Close Recipient/Mule Case", async (): Promise<void> => {
-      await recipientMuleCase.closeRecord();
+      await recipientMuleCase.close();
     });
   });
 
-  describe("Fraud Case", async (): Promise<void> => {
+  describe("AR-10335: FraudX Agent - Fraud Case", async (): Promise<void> => {
     const fraudCase = new Fraud(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a Fraud Case", async (): Promise<void> => {
-      await fraudCase.createRecord();
+      await fraudCase.create(caseData);
     });
 
     it("Assign Fraud Case to Another FraudX Agent", async (): Promise<void> => {
-      await fraudCase.assignNewOwner();
+      await fraudCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newFraudXAgentOwnerName
+      );
     });
 
     it("Update Fraud Case", async (): Promise<void> => {
-      await fraudCase.updateRecord();
+      await fraudCase.update();
     });
 
     it("Close Fraud Case", async (): Promise<void> => {
-      await fraudCase.closeRecord();
+      await fraudCase.close();
     });
   });
 
-  describe("ANZx Complaint Case", async (): Promise<void> => {
+  describe("AR-10325: FraudX Agent - ANZ Plus Complaint Case", async (): Promise<void> => {
     const anzxComplaintCase = new ANZXComplaint(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
-    it("Create a ANZx Complaint Case", async (): Promise<void> => {
-      await anzxComplaintCase.createRecord();
+    it("Create a ANZ Plus Complaint Case", async (): Promise<void> => {
+      await anzxComplaintCase.create(caseData);
     });
 
-    it("Assign ANZx Complaint Case to Another FraudX Agent", async (): Promise<void> => {
-      await anzxComplaintCase.assignNewOwner();
+    it("Assign ANZ Plus Complaint Case to Another FraudX Agent", async (): Promise<void> => {
+      await anzxComplaintCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newFraudXAgentOwnerName
+      );
     });
 
-    it("Update ANZx Complaint Case", async (): Promise<void> => {
-      await anzxComplaintCase.updateRecord();
+    it("Update ANZ Plus Complaint Case", async (): Promise<void> => {
+      await anzxComplaintCase.update();
     });
 
-    it("Close ANZx Complaint Case", async (): Promise<void> => {
-      await anzxComplaintCase.closeRecord();
+    it("Close ANZ Plus Complaint Case", async (): Promise<void> => {
+      await anzxComplaintCase.close();
     });
   });
 
-  describe("General Enquiry Case", async (): Promise<void> => {
+  describe("AR-10312: FraudX Agent - General Enquiry Case", async (): Promise<void> => {
     const generalEnquiryCase = new GeneralEnquiry(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a General Enquiry Case", async (): Promise<void> => {
-      await generalEnquiryCase.createRecord();
+      await generalEnquiryCase.create(caseData);
     });
 
     it("Assign General Enquiry Case to Another FraudX Agent", async (): Promise<void> => {
-      await generalEnquiryCase.assignNewOwner();
+      await generalEnquiryCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newFraudXAgentOwnerName
+      );
     });
 
     it("Update General Enquiry Case", async (): Promise<void> => {
-      await generalEnquiryCase.updateRecord();
+      await generalEnquiryCase.update();
     });
 
     it("Close General Enquiry Case", async (): Promise<void> => {
-      await generalEnquiryCase.closeRecord();
+      await generalEnquiryCase.close();
     });
   });
 
-  describe("Identity Case", async (): Promise<void> => {
+  describe("AR-10333: FraudX Agent - Identity Case", async (): Promise<void> => {
     const identityCase = new Identity(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
+    });
+
+    it("Open Case Creation Form and Select Identity Case", async (): Promise<void> => {
+      await identityCase.selectIdentityCase();
+    });
+
+    it("Issue Type - Open Banking is Selectable", async (): Promise<void> => {
+      await identityCase.verifyIssueType("Open Banking");
+    });
+
+    it("Issue Type - Verified by Visa is Selectable", async (): Promise<void> => {
+      await identityCase.verifyIssueType("Verified by Visa");
+    });
+
+    it("Issue Type - Assisted PIN Recovery is Selectable", async (): Promise<void> => {
+      await identityCase.verifyIssueType("Assisted PIN Recovery");
+    });
+
+    it("Issue Type - Digital Wallet Provisioning is Selectable", async (): Promise<void> => {
+      await identityCase.verifyIssueType("Digital Wallet Provisioning");
     });
 
     it("Create an Identity Case", async (): Promise<void> => {
-      await identityCase.createRecord();
+      await identityCase.create(caseData);
     });
 
     it("Assign Identity Case to Another FraudX Agent", async (): Promise<void> => {
-      await identityCase.assignNewOwner();
+      await identityCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newFraudXAgentOwnerName
+      );
     });
 
     it("Update Identity Case", async (): Promise<void> => {
-      await identityCase.updateRecord();
+      await identityCase.update();
     });
 
     it("Close Identity Case", async (): Promise<void> => {
-      await identityCase.closeRecord();
+      await identityCase.close();
     });
   });
 
-  describe("Scam Case", async (): Promise<void> => {
+  describe("AR-10328: FraudX Agent - Scam Case", async (): Promise<void> => {
     const scamCase = new Scam(UserRole.FRAUDX_AGENT);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
-      await navigateToConsoleAppAndTab(App.COACHES_WORKBENCH, AppTab.CASES);
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
     });
 
     it("Create a Scam Case", async (): Promise<void> => {
-      await scamCase.createRecord();
+      await scamCase.create(caseData);
     });
 
     it("Assign Scam Case to Another FraudX Agent", async (): Promise<void> => {
-      await scamCase.assignNewOwner();
+      await scamCase.assignNewOwner(
+        OwnerType.Users,
+        caseData.newFraudXAgentOwnerName
+      );
     });
 
     it("Update Scam Case", async (): Promise<void> => {
-      await scamCase.updateRecord();
+      await scamCase.update();
     });
 
     it("Close Scam Case", async (): Promise<void> => {
-      await scamCase.closeRecord();
+      await scamCase.close();
     });
   });
 

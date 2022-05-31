@@ -14,11 +14,6 @@ export default class Auth {
       process.exit(-1);
     }
 
-    if (!process.env.SALESFORCE_ENV) {
-      console.error("Error: missing SALESFORCE_ENV.");
-      process.exit(-1);
-    }
-
     // open login url
     await browser.url(process.env.SALESFORCE_LOGIN_URL!);
 
@@ -35,8 +30,8 @@ export default class Auth {
         }
 
         await salesforceLoginRoot.login(
-          `${process.env.COACH_USERNAME}.${process.env.SALESFORCE_ENV}`,
-          process.env.COACH_PASSWORD!
+          process.env.COACH_USERNAME,
+          process.env.COACH_PASSWORD
         );
         break;
       case UserRole.FRAUDX_AGENT:
@@ -51,10 +46,75 @@ export default class Auth {
         }
 
         await salesforceLoginRoot.login(
-          `${process.env.FRAUDX_AGENT_USERNAME}.${process.env.SALESFORCE_ENV}`,
-          process.env.FRAUDX_AGENT_PASSWORD!
+          process.env.FRAUDX_AGENT_USERNAME,
+          process.env.FRAUDX_AGENT_PASSWORD
         );
         break;
+      case UserRole.CONTENT_WRITER:
+        if (
+          !process.env.CONTENT_WRITER_USERNAME ||
+          !process.env.CONTENT_WRITER_PASSWORD
+        ) {
+          console.error(
+            "Error: Trying to login as Content Writer but missing CONTENT_WRITER_USERNAME or CONTENT_WRITER_PASSWORD."
+          );
+          process.exit(-1);
+        }
+
+        await salesforceLoginRoot.login(
+          process.env.CONTENT_WRITER_USERNAME,
+          process.env.CONTENT_WRITER_PASSWORD
+        );
+        break;
+      case UserRole.QUALITY_ANALYST:
+        if (
+          !process.env.QUALITY_ANALYST_USERNAME ||
+          !process.env.QUALITY_ANALYST_PASSWORD
+        ) {
+          console.error(
+            "Error: Trying to login as Quality Analyst but missing QUALITY_ANALYST_USERNAME or QUALITY_ANALYST_PASSWORD."
+          );
+          process.exit(-1);
+        }
+
+        await salesforceLoginRoot.login(
+          process.env.QUALITY_ANALYST_USERNAME,
+          process.env.QUALITY_ANALYST_PASSWORD
+        );
+        break;
+      case UserRole.COACH_LEAD:
+        if (
+          !process.env.COACH_LEAD_USERNAME ||
+          !process.env.COACH_LEAD_PASSWORD
+        ) {
+          console.error(
+            "Error: Trying to login as Coach Lead but missing COACH_LEAD_USERNAME or COACH_LEAD_PASSWORD."
+          );
+          process.exit(-1);
+        }
+
+        await salesforceLoginRoot.login(
+          process.env.COACH_LEAD_USERNAME,
+          process.env.COACH_LEAD_PASSWORD
+        );
+        break;
+      case UserRole.SUPPORT_COACH:
+        if (
+          !process.env.SUPPORT_COACH_USERNAME ||
+          !process.env.SUPPORT_COACH_PASSWORD
+        ) {
+          console.error(
+            "Error: Trying to login as Support Coach but missing SUPPORT_COACH_USERNAME or SUPPORT_COACH_PASSWORD."
+          );
+          process.exit(-1);
+        }
+
+        await salesforceLoginRoot.login(
+          process.env.SUPPORT_COACH_USERNAME,
+          process.env.SUPPORT_COACH_PASSWORD
+        );
+        break;
+
       default:
         console.error(
           "Error: Cannot find any matching test user's credential, exiting..."
@@ -69,16 +129,23 @@ export default class Auth {
       (await domDocument.getUrl()).includes("/lightning")
     );
 
-    await browser.pause(3000);
+    await browser.pause(4000);
   };
 
   /**
    * @description logout current test user from Salesforce
    */
   static logoutSalesforce = async (): Promise<void> => {
+    await browser.pause(2000);
+
     // load the page object
     const salesforceLogoutRoot = await utam.load(SalesforceLogout);
-    await salesforceLogoutRoot.logout();
+    await salesforceLogoutRoot.clickProfile();
+    await browser.pause(3000);
+    await salesforceLogoutRoot.clickLogout();
+
+    // open login url to force logout
+    await browser.url("https://test.salesforce.com");
     await browser.reloadSession();
   };
 

@@ -71,14 +71,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CustomerFeedbackActions</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CustomerFeedbackTriggerHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>DateTimeUtils</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -267,10 +259,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CustomerFeedbackTriggerHandlerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>DateTimeUtilsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -404,6 +392,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.PPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Collections__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Hardship__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1290,6 +1288,11 @@
         <field>Case.IDR_Office_Created_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Product_Family__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Product_Manufacturer__c</field>
@@ -1402,6 +1405,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Selfie_Match__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Selfie_Comparison_Match__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1551,6 +1559,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <field>Case.Origin</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Owner_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1930,6 +1943,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Survey_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Submitted__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2050,52 +2068,97 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Account_Name__c</field>
+        <field>qualtrics__Survey_Response__c.Additional_Feedback__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Advocacy_Rating__c</field>
+        <field>qualtrics__Survey_Response__c.Alerting_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>        
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Customer_Feedback__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Coach_Name__c</field>
+        <field>qualtrics__Survey_Response__c.Create_Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Coach_Type__c</field>
+        <field>qualtrics__Survey_Response__c.OCV_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Feedback_Received_Date_Time__c</field>
+        <field>qualtrics__Survey_Response__c.Other_Feedback__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Feedback_Type__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Related_Case__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.OCV_ID__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Store_Location__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Customer_Feedback__c.Verbatim__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Overall_Satisfaction__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.qualtrics__Q_SurveyID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Survey_Variation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Survey_Trigger__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.UUID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Advocacy_Score__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Alerting_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Feedback_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2116,6 +2179,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Event.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Event.Queue__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3122,7 +3190,12 @@
         <field>Task.Description</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>  
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Queue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Task.ActivityDate</field>
         <readable>true</readable>
@@ -3375,7 +3448,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product_Family__c.IDR_ANZ_com_Product_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product_Family__c.IDR_ANZ_com_Unique_Product_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.ANZ_Product_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Product2.IDR_Product_Family__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3520,6 +3608,10 @@
         <recordType>Case.Customer_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Customer Feedback Layout</layout>
+        <recordType>Case.Customer_Feedback</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Direct Debit Dispute Layout</layout>
         <recordType>Case.Direct_Debit_Dispute</recordType>
     </layoutAssignments>
@@ -3594,7 +3686,7 @@
         <recordType>ContentVersion.Systemic_Issue_File</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Customer_Feedback__c-Customer Feedback Layout</layout>
+        <layout>qualtrics__Survey_Response__c-qualtrics__Survey Response Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>EmailMessage-Email Message Layout - Email-to-Case</layout>
@@ -3605,6 +3697,21 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-ANZX Lead Layout</layout>
+        <recordType>Lead.ANZX_Leads</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__RetirementPlanning</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>PersonAccount-Customer View Layout</layout>
@@ -3670,6 +3777,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Known_Issues__c-Known Issues Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Product_Family__c-Product Family Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -3749,7 +3859,7 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>Customer_Feedback__c</object>
+        <object>qualtrics__Survey_Response__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -3878,13 +3988,22 @@
         <object>User_Provisioning_Request__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
+     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Known_Issues__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Product_Family__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
@@ -4110,8 +4229,8 @@
         <tab>Application_Log__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
-    <tabVisibilities>
-        <tab>Customer_Feedback__c</tab>
+        <tabVisibilities>
+        <tab>qualtrics__Survey_Response__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
@@ -4137,6 +4256,10 @@
     <tabVisibilities>
         <tab>Quality_Assessment__c</tab>
         <visibility>Hidden</visibility>
+    </tabVisibilities>
+     <tabVisibilities>
+        <tab>Product_Family__c</tab>
+        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>Release__c</tab>

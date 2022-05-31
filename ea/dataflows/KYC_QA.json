@@ -94,7 +94,8 @@
           { "name": "Fraud_Selfie_Match__c" },
           { "name": "Case_Hour_Duration__c" },
           { "name": "Fraud_Restraint_Status__c" },
-          { "name": "Fraud_Middle_Initial__c" }
+          { "name": "Fraud_Middle_Initial__c" },
+          { "name": "Fraud_Selfie_Comparison_Match__c" }
         ],
         "object": "Case"
       }

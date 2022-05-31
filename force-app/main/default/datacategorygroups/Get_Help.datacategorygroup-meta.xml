@@ -85,8 +85,8 @@
                     <name>Statements</name>
                 </dataCategory>
                 <dataCategory>
-                    <label>Transaction disputes</label>
-                    <name>Transaction_disputes</name>
+                    <label>Transaction Disputes</label>
+                    <name>Transaction_Disputes</name>
                 </dataCategory>
                 <label>Money</label>
                 <name>Money</name>
