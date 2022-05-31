@@ -757,11 +757,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "Provided_details_to_Prod_Manufacturer_2__c";
     sendVal.value = false;
     this.sendFieldValue(sendVal);
-    sendVal.field = "Remedy2";
-    sendVal.value = false;
-    this.sendFieldValue(sendVal);
     if (this.showRemedy3) {
       this.showRemedy3 = false;
+      sendVal.field = "Remedy3";
+      sendVal.value = false;
+      this.sendFieldValue(sendVal);
       this.clearRemedy3();
     }
   }
@@ -952,9 +952,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Duration_of_Remedy_3__c";
     this.sendFieldValue(sendVal);
     sendVal.field = "Provided_details_to_Prod_Manufacturer_3__c";
-    sendVal.value = false;
-    this.sendFieldValue(sendVal);
-    sendVal.field = "Remedy3";
     sendVal.value = false;
     this.sendFieldValue(sendVal);
   }
