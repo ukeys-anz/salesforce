@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReferenceIdentifier</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <description>Unique reference of the interaction</description>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+</CustomField>

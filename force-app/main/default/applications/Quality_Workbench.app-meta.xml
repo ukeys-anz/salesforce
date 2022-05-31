@@ -79,6 +79,8 @@
     <tabs>standard-Account</tabs>
     <tabs>standard-Task</tabs>
     <tabs>Knowledge__kav</tabs>
+    <tabs>standard-Interaction</tabs>
+    <tabs>Coaching_Summary__c</tabs>
     <tabs>standard-Lead</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Quality_Workbench_UtilityBar</utilityBar>
@@ -94,6 +96,12 @@
         </mappings>
         <mappings>
             <tab>standard-Case</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Interaction</tab>
+        </mappings>
+        <mappings>
+            <tab>Coaching_Summary__c</tab>
         </mappings>
         <mappings>
             <tab>standard-Task</tab>
