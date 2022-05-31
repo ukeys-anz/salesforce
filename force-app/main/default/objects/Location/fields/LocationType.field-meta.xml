@@ -2,15 +2,5 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>LocationType</fullName>
     <trackHistory>false</trackHistory>
-    <type>Picklist</type><valueSet>
-        <restricted>false</restricted>
-        <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Store</fullName>
-                <default>false</default>
-                <label>Store</label>
-            </value>
-        </valueSetDefinition>
-    </valueSet>
+    <type>Picklist</type>
 </CustomField>

@@ -7,7 +7,6 @@
     <columns>PreferredChannel</columns>
     <columns>Appointment_date_and_Time__c</columns>
     <columns>Status</columns>
-    <columns>Escalated__c</columns>
     <columns>Owner</columns>
     <filterScope>Everything</filterScope>
     <label>All Appointment Requests</label>
