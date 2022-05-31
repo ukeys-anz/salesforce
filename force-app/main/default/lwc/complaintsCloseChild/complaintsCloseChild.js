@@ -776,6 +776,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "Remedy3";
     sendVal.value = event.target.checked;
     this.sendFieldValue(sendVal);
+    if (!event.target.checked) {
+      this.clearRemedy3();
+    }
   }
 
   handleComplaintRemedy3(event) {
