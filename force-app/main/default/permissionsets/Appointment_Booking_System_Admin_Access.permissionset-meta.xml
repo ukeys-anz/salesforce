@@ -127,6 +127,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Escalated_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Event_Id__c</field>
         <readable>true</readable>
@@ -261,7 +266,11 @@
     </tabSettings>
     <tabSettings>
         <tab>Coaching_Summary__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-ContactRequest</tab>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>standard-Interaction</tab>

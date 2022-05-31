@@ -103,6 +103,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Escalated_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Event_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -198,11 +203,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>InteractionSummary.Interaction_Summary_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>InteractionSummary.MeetingNotes</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -272,7 +272,7 @@
     </recordTypeVisibilities>
     <tabSettings>
         <tab>Coaching_Summary__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>standard-Interaction</tab>
