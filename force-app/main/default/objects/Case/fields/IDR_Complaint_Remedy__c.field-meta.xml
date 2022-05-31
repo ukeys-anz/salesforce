@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Complaint_Remedy__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
     <description>Free text explaining the actions that were required to remedy the complaint including any financial component.</description>
     <externalId>false</externalId>
-    <label>Complaint Remedy</label>
+    <label>Complaint Remedy 1</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -19,7 +19,12 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>Financial remedy</label>
+                <label>Financial Remedy</label>
+            </value>
+            <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <label>Credit approved remedy</label>
             </value>
             <value>
                 <fullName>2</fullName>

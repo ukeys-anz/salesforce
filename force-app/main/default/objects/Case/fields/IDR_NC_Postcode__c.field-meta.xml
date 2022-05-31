@@ -2,9 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_NC_Postcode__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Privacy - Personal Information;Source - Salesforce;Integrity - Accurate</complianceGroup>
     <description>Customer&apos;s residential address: Postcode. Capture this only if customer is not found in MAUD/CAP-CIS.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Enter the customer’s 4-digit Australian postcode. If the customer is overseas, enter &apos;Overseas&apos;. If the postcode is not known, enter &apos;Not applicable&apos;.</inlineHelpText>
     <label>Postcode</label>
     <length>255</length>
     <required>false</required>

@@ -15,7 +15,7 @@ private with sharing class IDRCollectionActionsTest {
       ANZ_Product_Code__c = '241',
       IDR_Product_or_Service_Category__c = '8',
       IDR_Product_or_Service_Line__c = '3',
-      IDR_Product_or_Service_Type__c = '35'
+      IDR_Product_or_Service_Type__c = '40'
     );
     insert p;
   }
