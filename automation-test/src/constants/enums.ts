@@ -7,6 +7,7 @@ export enum UserRole {
   QUALITY_ANALYST = "Quality Analyst",
   QUALTRICS_AUTOMATION_USER = "Qualtrics Integration User",
   SUPPORT_COACH = "Support Coach",
+  OCV_AUTOMATION_USER = "OCV Integration Automation Test User",
   BUSINESS_ADMIN = "Business Admin"
 }
 

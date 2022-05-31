@@ -2,6 +2,7 @@ import ConsoleAppNavigation from "pageObjects/consoleAppNavigation";
 import AppLauncher from "pageObjects/appLauncher";
 import HomePage from "pageObjects/homePage";
 import AppsDefinition from "constants/appsDefinition";
+import { URL } from "url";
 
 const closeConsoleNavMainTabs = async (): Promise<void> => {
   const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
@@ -97,6 +98,11 @@ export const navigateToAppAndTab = async (
 };
 
 export const gotoRecordPageById = async (recordId: string): Promise<void> => {
-  const recordHomeUrl = process.env.SALESFORCE_LOGIN_URL + "/" + recordId;
-  await browser.navigateTo(recordHomeUrl);
+  const domDocument = utam.getCurrentDocument();
+  const url = await domDocument.getUrl();
+  const origin = new URL(url).origin;
+  const recordPageUrl = `${origin}/${recordId}`;
+
+  await browser.navigateTo(recordPageUrl);
+  await browser.pause(3000);
 };

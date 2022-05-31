@@ -71,6 +71,28 @@
               },
               "type": "clickable",
               "public": true
+            },
+            {
+              "name": "listViewByTitle",
+              "selector": {
+                "css": "a",
+                "returnAll": true
+              },
+              "filter": {
+                "apply": "getText",
+                "findFirst": true,
+                "matcher": {
+                  "type": "stringContains",
+                  "args": [
+                    {
+                      "name": "title",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "public": true,
+              "type": "clickable"
             }
           ]
         }
@@ -92,6 +114,21 @@
         "args": [
           {
             "name": "recordId",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "recordLinkByTitle",
+      "nullable": true,
+      "selector": {
+        "css": "a[title='%s']",
+        "args": [
+          {
+            "name": "title",
             "type": "string"
           }
         ]
@@ -156,6 +193,19 @@
         },
         {
           "element": "listViewSearchBar",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "selectListViewByTitle",
+      "compose": [
+        {
+          "element": "listViewSelector",
+          "apply": "click"
+        },
+        {
+          "element": "listViewByTitle",
           "apply": "click"
         }
       ]

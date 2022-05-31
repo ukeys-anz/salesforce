@@ -24,6 +24,10 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     await browser.pause(500);
   });
 
+  after(async (): Promise<void> => {
+    await cleanupTestData(UserRole.QUALTRICS_AUTOMATION_USER, ["Lead"]);
+  });
+
   async function createAndNurtureLeadByRole(role: UserRole): Promise<void> {
     const anzxLead = new ANZXLead(role);
 
@@ -134,10 +138,56 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
       // Verify Lead fields
       await anzxLead.verifyQualtricsLead();
     });
-      
+
     it("Logout", async (): Promise<void> => {
       await Auth.logoutSalesforce();
     });
+  });
+
+  describe("AR-11386: Lead conversion upon account creation", async (): Promise<void> => {
+    const anzxLead = new ANZXLead(UserRole.COACH);
+
+    it("Login as Coach", async (): Promise<void> => {
+      await Auth.loginSalesforceAsRole(UserRole.COACH);
+    });
+
+    it("Go to Coaches Workbench and Leads Tab", async (): Promise<void> => {
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Leads);
+    });
+
+    it("Create an ANZX Lead", async (): Promise<void> => {
+      await anzxLead.create();
+    });
+
+    it("Post chatter on Lead", async (): Promise<void> => {
+      await anzxLead.postChatterComment();
+    });
+
+    it("Verify Lead in List View", async (): Promise<void> => {
+      await anzxLead.verifyVisibleInListView(`Today's Leads`, true);
+    });
+
+    // for now just create Account Through UI
+    it("Create Account through API", async (): Promise<void> => {
+      await anzxLead.createAccountFromOCVIntegration();
+    });
+
+    it("Cannot find previously created Lead in List View", async (): Promise<void> => {
+      await anzxLead.verifyVisibleInListView(`Today's Leads`, false);
+    });
+
+    it("Open Account", async (): Promise<void> => {
+      await anzxLead.openAccount();
+    });
+
+    it("Verify Chatter Post migrated to Account", async (): Promise<void> => {
+      await anzxLead.verifyChatterOnAccount();
+    });
+
+    it("Logout", async (): Promise<void> => {
+      await Auth.logoutSalesforce();
+    });
+  });
 
   describe("AR-11392: Quality Analyst views ANZX Leads", async (): Promise<void> => {
     const anzxLead = new ANZXLead(UserRole.QUALITY_ANALYST);
@@ -166,10 +216,6 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
 
     it("Logout", async (): Promise<void> => {
       await Auth.logoutSalesforce();
-    });
-
-    after(async (): Promise<void> => {
-      await cleanupTestData(UserRole.QUALTRICS_AUTOMATION_USER, ["Lead"]);
     });
   });
 });

@@ -3,11 +3,14 @@ import RecordCreationForm from "pageObjects/recordCreationForm";
 import LwcRecordCreationForm from "pageObjects/lwcRecordCreationForm";
 import IChatter from "interfaces/IChatter";
 import LeadNotesTab from "pageObjects/leadNotesTab";
-import RecordPage from "pageObjects/recordPage";
-import * as commonUtils from "utils/commonUtils";
 import * as leadPageUtils from "utils/leadPageUtils";
+import RecordPage from "pageObjects/recordPage";
+import { navigateToAppAndTab, gotoRecordPageById } from "utils/navigationUtils";
+import { App, AppTab } from "constants/appsDefinition";
+import ObjectHome from "pageObjects/objectHome";
+import leadData from "../../data/leadData";
 import { loginJSForce } from "utils/apiUtils";
-import { gotoRecordPageById } from "utils/navigationUtils";
+import * as commonUtils from "utils/commonUtils";
 
 const generalComment = `Automation Test General Comment.`;
 
@@ -75,7 +78,11 @@ export default class ANZXLead extends Lead implements IChatter {
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Attempt to change Status to Converted
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 2, 2], 4);
+    const statusPicklist = await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [1, 2, 2],
+      4
+    );
     await baseRecordForm.clickFooterButton("Save");
     await browser.pause(3000);
     // Validation error should be thrown: Lead Status cannot be changed to Converted manually.
@@ -133,6 +140,89 @@ export default class ANZXLead extends Lead implements IChatter {
     }
   }
 
+  async verifyVisibleInListView(
+    listViewTile: string,
+    visible: boolean
+  ): Promise<void> {
+    await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Leads);
+
+    const objectHomeRoot = await utam.load(ObjectHome);
+    await objectHomeRoot.selectListViewByTitle(listViewTile);
+    await browser.pause(5000);
+
+    // Added a sorting logic to sort by CreatedDate
+    const record = await objectHomeRoot.getRecordLinkByTitle(
+      `${this.firstName} ${this.lastName}`
+    );
+
+    expect(!!(await record?.isVisible())).toBe(visible);
+  }
+
+  async createAccountFromOCVIntegration(): Promise<void> {
+    // Log in as OCV User
+    const conn = await loginJSForce(
+      process.env.OCV_AUTOMATION_USERNAME!,
+      process.env.OCV_AUTOMATION_PASSWORD!
+    );
+
+    if (conn) {
+      // Construct Account payload
+      const ocvPayload = {
+        FirstName: this.firstName,
+        LastName: this.lastName,
+        PersonMobilePhone: this.mobile,
+        PersonEmail: this.email,
+        RecordTypeId: leadData.individualAccountRecordTypeId,
+        OCV_ID__c: this.ocvId
+      };
+
+      const sr = await conn.sobject("Account").create(ocvPayload);
+
+      if (!sr.success) {
+        console.log("Error in creating Account through jsforce API call.");
+        console.log("Error: ", JSON.stringify(sr.errors));
+      }
+
+      if (sr.id) {
+        this.accountId = sr.id;
+      }
+    }
+  }
+
+  async openAccount(): Promise<void> {
+    await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    await gotoRecordPageById(this.accountId!);
+
+    const recordPageRoot = await utam.load(RecordPage);
+    const accountRecordPage = await recordPageRoot.getAccountRecordPage();
+    expect(await accountRecordPage.isVisible()).toBeTruthy();
+  }
+
+  async verifyChatterOnAccount(): Promise<void> {
+    const recordPageRoot = await utam.load(RecordPage);
+    const accountRecordPage = await recordPageRoot.getAccountRecordPage();
+
+    const chatterPanel = await accountRecordPage.getChatterPanel();
+    const posts = await chatterPanel.getPosts();
+
+    // there should be 2 posts
+    // first one is convert message
+    // second one is a copy from converted lead
+    expect(posts.length).toBe(2);
+  }
+
+  async verifyLeadFieldsAreReadOnly(): Promise<void> {
+    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Mobile Phone Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 1]);
+    // Status Picklist
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+    // Email Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+  }
+
   async receiveLeadViaQualtricsIntegration(): Promise<string | void> {
     let apiResult = "";
 
@@ -186,16 +276,5 @@ export default class ANZXLead extends Lead implements IChatter {
     expect(await commonUtils.getFormattedTextValue(statusPicklist!)).toEqual(
       "New"
     );
-
-    async verifyLeadFieldsAreReadOnly(): Promise<void> {
-    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
-    // Mobile Phone Field
-    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 1]);
-    // Status Picklist
-    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
-    // Email Field
-    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
   }
 }
