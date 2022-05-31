@@ -261,4 +261,11 @@
         <shortDescription>Appointment Commitment Full</shortDescription>
         <value>This appointment slot is no longer available, please choose a different date and time.</value>
     </labels>
+    <labels>
+        <fullName>Interaction_Store_Required</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction_Store_Required</shortDescription>
+        <value>Please select store location.</value>
+    </labels>
 </CustomLabels>

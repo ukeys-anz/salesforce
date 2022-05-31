@@ -54,6 +54,11 @@ private class ContactRequestTriggerHandlerTest {
 
     account = [SELECT Id, PersonContactId FROM Account WHERE Id = :account.Id];
 
+    Schema.Location testLocation = new Schema.Location();
+    testLocation.Name = 'Test Location';
+    testLocation.LocationType = 'Store';
+    insert testLocation;
+
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
     List<Interaction> interactionList = new List<Interaction>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -70,7 +75,8 @@ private class ContactRequestTriggerHandlerTest {
         RequestReason = 'Financial Wellbeing',
         Status = 'New',
         Appointment_Date_And_Time__c = start,
-        WhoId = account.PersonContactId
+        WhoId = account.PersonContactId,
+        Location__c = testLocation.Id
       );
 
       contactRequestList.add(contactReq);
