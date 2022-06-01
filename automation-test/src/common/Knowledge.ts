@@ -128,6 +128,8 @@ export default class Knowledge {
 
     // verify Approval History
     await knowledgeRecordPage.openApprovalHistoryTab();
+    await browser.pause(2000);
+
     const approvalHistories = await knowledgeRecordPage.getHistories();
     // there should have 2 records
     expect(approvalHistories.length).toEqual(2);
@@ -193,6 +195,8 @@ export default class Knowledge {
 
     // click approval
     await knowledgeRecordPage.openApprovalHistoryTab();
+    await browser.pause(2000);
+
     await knowledgeRecordPage.clickApproveButton();
     await browser.pause(1000);
 

@@ -32,7 +32,8 @@
           "selector": {
             "css": "[title='Select a List View']"
           },
-          "type": "clickable"
+          "type": "clickable",
+          "public": true
         }
       ]
     },
@@ -70,10 +71,41 @@
               },
               "type": "clickable",
               "public": true
+            },
+            {
+              "name": "listViewByTitle",
+              "selector": {
+                "css": "a",
+                "returnAll": true
+              },
+              "filter": {
+                "apply": "getText",
+                "findFirst": true,
+                "matcher": {
+                  "type": "stringContains",
+                  "args": [
+                    {
+                      "name": "title",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "public": true,
+              "type": "clickable"
             }
           ]
         }
       ]
+    },
+    {
+      "name": "firstRow",
+      "selector": {
+        "css": "tbody tr th span a"
+      },
+      "type": "clickable",
+      "nullable": true,
+      "public": true
     },
     {
       "name": "linkByRecordId",
@@ -82,6 +114,21 @@
         "args": [
           {
             "name": "recordId",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "recordLinkByTitle",
+      "nullable": true,
+      "selector": {
+        "css": "a[title='%s']",
+        "args": [
+          {
+            "name": "title",
             "type": "string"
           }
         ]
@@ -121,6 +168,20 @@
           "apply": "click"
         },
         {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "listViewSearchBar",
+                  "apply": "isVisible"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "element": "listViewSearchBar",
           "apply": "clearAndType",
           "args": [
@@ -132,6 +193,19 @@
         },
         {
           "element": "listViewSearchBar",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "selectListViewByTitle",
+      "compose": [
+        {
+          "element": "listViewSelector",
+          "apply": "click"
+        },
+        {
+          "element": "listViewByTitle",
           "apply": "click"
         }
       ]
@@ -166,6 +240,29 @@
         },
         {
           "element": "listViewByIndex",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openFirstRow",
+      "compose": [
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "firstRow",
+                  "apply": "isVisible"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "firstRow",
           "apply": "click"
         }
       ]

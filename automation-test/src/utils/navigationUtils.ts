@@ -2,6 +2,7 @@ import ConsoleAppNavigation from "pageObjects/consoleAppNavigation";
 import AppLauncher from "pageObjects/appLauncher";
 import HomePage from "pageObjects/homePage";
 import AppsDefinition from "constants/appsDefinition";
+import { URL } from "url";
 
 const closeConsoleNavMainTabs = async (): Promise<void> => {
   const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
@@ -18,6 +19,7 @@ const searchAndOpenApp = async (appName: string): Promise<void> => {
   const appLauncherRoot = await utam.load(AppLauncher);
 
   // search app by name and click and redirect
+  await browser.pause(1000);
   await appLauncherRoot.searchApp(appName);
   await browser.pause(1000);
   await appLauncherRoot.selectAppAndRedirect();
@@ -82,7 +84,6 @@ export const navigateToAppAndTab = async (
     const homePageRoot = await utam.load(HomePage);
     const navigationBar = await homePageRoot.getNavigationBar();
     await navigationBar.expandAppLauncher();
-    await browser.pause(1000);
 
     await searchAndOpenApp(appName);
 
@@ -94,4 +95,14 @@ export const navigateToAppAndTab = async (
   }
 
   await browser.pause(4000);
+};
+
+export const gotoRecordPageById = async (recordId: string): Promise<void> => {
+  const domDocument = utam.getCurrentDocument();
+  const url = await domDocument.getUrl();
+  const origin = new URL(url).origin;
+  const recordPageUrl = `${origin}/${recordId}`;
+
+  await browser.navigateTo(recordPageUrl);
+  await browser.pause(3000);
 };

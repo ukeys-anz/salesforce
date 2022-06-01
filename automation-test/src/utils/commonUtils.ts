@@ -13,6 +13,7 @@ import { ContainerCtor } from "@utam/core";
 import * as casePageUtils from "./casePageUtils";
 import * as qaPageUtils from "./qualityAssessmentPageUtils";
 import FormattedText from "pageObjects/formattedText";
+import LwcRecordLayout from "pageObjects/lwcRecordLayout";
 
 /**
  * @description get a field from record layout
@@ -235,4 +236,28 @@ export const getFormattedTextValue = async (
     FormattedText
   );
   return formattedTextField.getInnerText();
+};
+
+export const openListViewByIndex = async (index: number) => {
+  const objectHomeRoot = await utam.load(ObjectHome);
+  const listViewSelector = await objectHomeRoot.getListViewSelector();
+  await listViewSelector.click();
+  await browser.pause(2000);
+  const allListViews = await objectHomeRoot.getListViews();
+  await allListViews[index].click();
+};
+
+export const openFirstRecordInListView = async () => {
+  const objectHomeRoot = await utam.load(ObjectHome);
+  await objectHomeRoot.openFirstRow();
+  await browser.pause(1000);
+};
+
+export const editButtonIsNotVisible = async (
+  recordLayout: LwcRecordLayout,
+  fieldIndex: FieldSectionIndex
+) => {
+  const fieldToCheck = await getFieldFromRecordLayout(recordLayout, fieldIndex);
+  const fieldIsEditable = await fieldToCheck.getInlineEditButton();
+  expect(await fieldIsEditable?.isVisible()).toBeUndefined();
 };

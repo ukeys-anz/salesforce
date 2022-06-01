@@ -7,6 +7,7 @@ export const loginJSForce = async (username: string, password: string) => {
   const conn = new Connection<StandardSchema>({
     loginUrl: process.env.SALESFORCE_LOGIN_URL
   });
+
   await conn.login(username, password);
 
   return conn;
