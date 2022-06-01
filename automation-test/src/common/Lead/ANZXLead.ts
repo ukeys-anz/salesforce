@@ -79,7 +79,7 @@ export default class ANZXLead extends Lead implements IChatter {
     // Attempt to change Status to Converted
     const statusPicklist = await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
-      [1, 1, 2],
+      [1, 2, 2],
       4
     );
     await baseRecordForm.clickFooterButton("Save");
