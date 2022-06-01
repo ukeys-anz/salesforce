@@ -75,3 +75,31 @@ function changeMetadata(){
         fi
     fi
 }
+
+# first argument : scratchOrg alias
+# second argument : which step ( pre/post deploy )
+function waitForManualSteps(){
+    read -rp "${green}Do you want to open the scratch org to do manual $2 steps (y/n)? " manualDeploySteps
+    echo "${reset}"
+    if [[ $manualDeploySteps == y || $manualDeploySteps == Y ]]; then
+        sfdx force:org:open -u $1 
+    fi
+
+    echo ""
+    echo "${green}************************"
+    echo ""
+    echo "Waiting while the job in scratchOrg is finished."
+    echo ""
+    echo "************************"
+    echo ""
+
+    echo "You can run your manual commands in another terminal window and then continue the other steps"
+    echo ""
+    read -rp "When you have done the manual steps, just type (y). If you want to stop the job, type (n): " continueFlag
+    if [[ $continueFlag == n || $continueFlag == N ]]; then
+        echo ""
+        echo "Creating snapshot has been stopped."
+        echo ""
+        exit 1
+    fi
+}
