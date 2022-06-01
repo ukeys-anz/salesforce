@@ -14,15 +14,13 @@ import caseData from "data/caseData";
 
 describe("AR-4499: Get Help Salesforce Case Management", () => {
   // pre test steps
-  before(
-    async (): Promise<void> => {
-      // max viewport
-      await browser.maximizeWindow();
+  before(async (): Promise<void> => {
+    // max viewport
+    await browser.maximizeWindow();
 
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.FRAUDX_AGENT);
-    }
-  );
+    // login as test user
+    await Auth.loginSalesforceAsRole(UserRole.FRAUDX_AGENT);
+  });
 
   beforeEach(async (): Promise<void> => {
     await browser.takeScreenshot();
@@ -243,10 +241,8 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
     });
   });
 
-  after(
-    async (): Promise<void> => {
-      // log out test user
-      await Auth.logoutSalesforce();
-    }
-  );
+  after(async (): Promise<void> => {
+    // log out test user
+    await Auth.logoutSalesforce();
+  });
 });
