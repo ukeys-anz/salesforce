@@ -483,6 +483,7 @@ public with sharing class GetHelpCaseActions {
     }
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
+    GetHelpCaseActionsHelper.isNonCustomerComplaint(records);
   }
 
   /**
