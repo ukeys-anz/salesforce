@@ -60,6 +60,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
   remedyPoints2 = REMEDY_POINTS2;
   otherNonFinRemedy2 = OTHER_REMDY2;
   remedyDuration2 = REMEDY_DURATION2;
+  complaintRemedy2value = "";
 
   //remedy3
   complaintRemedy3 = COMPLAINT_REMEDY3;
@@ -129,6 +130,27 @@ export default class complaintsResolveLWC extends NavigationMixin(
   prodManu3CheckBox;
 
   dataChange = false;
+  wiredData = false;
+
+  caseRemedyValue = "";
+  caseRemedy2Value = "";
+  caseRemedy3Value = "";
+
+  subRemedyValue = "";
+  subRemedy2Value = "";
+  subRemedy3Value = "";
+
+  remedyPointsValue = "";
+  remedyPoints2Value = "";
+  remedyPoints3Value = "";
+
+  otherRemedyValue = "";
+  otherRemedy2value = "";
+  otherRemedy3value = "";
+
+  remedyDurationValue = "";
+  remedyDurationValue2 = "";
+  remedyDurationValue3 = "";
 
   @api set expressCaseCreationDataObj(value) {
     this.dataChange = true;
@@ -138,7 +160,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.expressCaseCreationData = value;
     }
     this.pageLoadComplete = false;
-    if (this.pageRendered) {
+    if (this.pageRendered & !this.wiredData) {
       this.intializeExpressCaseCreationData();
     }
   }
@@ -158,6 +180,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
       COMPLAINT_SUB_REMEDY,
       COMPLAINT_SUB_REMEDY2,
       COMPLAINT_SUB_REMEDY3,
+      REMEDY_POINTS1,
+      REMEDY_POINTS2,
+      REMEDY_POINTS3,
+      OTHER_REMDY1,
+      OTHER_REMDY2,
+      OTHER_REMDY3,
+      REMEDY_DURATION,
+      REMEDY_DURATION2,
+      REMEDY_DURATION3,
       THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER,
       THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2,
       THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3
@@ -165,13 +196,14 @@ export default class complaintsResolveLWC extends NavigationMixin(
   })
   wiredProject({ data }) {
     if (data) {
-      let caseRemedy = data.fields.IDR_Complaint_Remedy__c.value;
-      let caseRemedy2 = data.fields.IDR_Complaint_Remedy_2__c.value;
-      let caseRemedy3 = data.fields.IDR_Complaint_Remedy_3__c.value;
+      this.wiredData = true;
+      this.caseRemedyValue = data.fields.IDR_Complaint_Remedy__c.value;
+      this.caseRemedy2Value = data.fields.IDR_Complaint_Remedy_2__c.value;
+      this.caseRemedy3Value = data.fields.IDR_Complaint_Remedy_3__c.value;
 
-      let subRemedy = data.fields.IDR_Complaint_Sub_Remedy__c.value;
-      let subRemedy2 = data.fields.IDR_Complaint_Sub_Remedy_2__c.value;
-      let subRemedy3 = data.fields.IDR_Complaint_Sub_Remedy_3__c.value;
+      this.subRemedyValue = data.fields.IDR_Complaint_Sub_Remedy__c.value;
+      this.subRemedy2Value = data.fields.IDR_Complaint_Sub_Remedy_2__c.value;
+      this.subRemedy3Value = data.fields.IDR_Complaint_Sub_Remedy_3__c.value;
 
       this.finRem1 = data.fields.IDR_Financial_Compensation__c.value;
       this.finRem2 = data.fields.IDR_Financial_Compensation_2__c.value;
@@ -184,7 +216,21 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.prodManu3CheckBox =
         data.fields.Provided_details_to_Prod_Manufacturer_3__c.value;
 
-      switch (caseRemedy) {
+      this.remedyPointsValue = data.fields.IDR_Financial_Remedy_Points__c.value;
+      this.remedyPoints2Value =
+        data.fields.IDR_Financial_Remedy_Points_2__c.value;
+      this.remedyPoints3Value =
+        data.fields.IDR_Financial_Remedy_Points_3__c.value;
+
+      this.otherRemedyValue = data.fields.IDR_Other_Remedy_Provided__c.value;
+      this.otherRemedy2value = data.fields.IDR_Other_Remedy_Provided_2__c.value;
+      this.otherRemedy3value = data.fields.IDR_Other_Remedy_Provided_3__c.value;
+
+      this.remedyDurationValue = data.fields.IDR_Duration_of_Remedy__c.value;
+      this.remedyDurationValue2 = data.fields.IDR_Duration_of_Remedy_2__c.value;
+      this.remedyDurationValue3 = data.fields.IDR_Duration_of_Remedy_3__c.value;
+
+      switch (this.caseRemedyValue) {
         case COMPLAINT_REMEDY_FIN_VALUE:
           this.showFinancialCompensation = true;
           break;
@@ -197,7 +243,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
         default:
       }
 
-      switch (subRemedy) {
+      switch (this.subRemedyValue) {
         case SUB_REMEDY_OTHER:
           this.isOtherSubFinRemedy = true;
           break;
@@ -222,12 +268,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
         default:
       }
 
-      if (caseRemedy2 !== null) {
+      if (this.caseRemedy2Value !== null) {
         this.remedy2Toggle = true;
         this.showRemedy2 = true;
       }
 
-      switch (caseRemedy2) {
+      switch (this.caseRemedy2Value) {
         case COMPLAINT_REMEDY_FIN_VALUE:
           this.showFinancialCompensation2 = true;
           break;
@@ -240,7 +286,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
         default:
       }
 
-      switch (subRemedy2) {
+      switch (this.subRemedy2Value) {
         case SUB_REMEDY_OTHER:
           this.isOtherSubFinRemedy2 = true;
           break;
@@ -265,11 +311,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
         default:
       }
 
-      if (caseRemedy3 !== null) {
+      if (this.caseRemedy3Value !== null) {
         this.remedy3Toggle = true;
         this.showRemedy3 = true;
       }
-      switch (caseRemedy3) {
+      switch (this.caseRemedy3Value) {
         case COMPLAINT_REMEDY_FIN_VALUE:
           this.showFinancialCompensation3 = true;
           break;
@@ -281,7 +327,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
           break;
         default:
       }
-      switch (subRemedy3) {
+      switch (this.subRemedy3Value) {
         case SUB_REMEDY_OTHER:
           this.isOtherSubFinRemedy3 = true;
           break;
@@ -475,6 +521,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Complaint_Remedy__c";
     sendVal.value = event.detail.value;
+    this.caseRemedyValue = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -529,6 +576,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Complaint_Sub_Remedy__c";
     sendVal.value = event.detail.value;
+    this.subRemedyValue = event.detail.value;
 
     this.sendFieldValue(sendVal);
   }
@@ -541,6 +589,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Financial_Compensation__c";
     sendVal.value = event.target.value;
     this.showFinancialCompensation = true;
+    this.finRem1 = event.target.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -551,6 +600,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Financial_Remedy_Points__c";
     sendVal.value = event.detail.value;
+    this.remedyPointsValue = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -561,6 +611,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Other_Remedy_Provided__c";
     sendVal.value = event.target.value;
+    this.otherRemedyValue = event.target.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -584,6 +635,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Duration_of_Remedy__c";
     sendVal.value = event.detail.value;
+    this.remedyDurationValue = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -647,6 +699,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     }
     sendVal.field = "IDR_Complaint_Remedy_2__c";
     sendVal.value = event.detail.value;
+    this.caseRemedy2Value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -701,7 +754,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Complaint_Sub_Remedy_2__c";
     sendVal.value = event.detail.value;
-
+    this.subRemedy2Value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -713,6 +766,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Financial_Compensation_2__c";
     sendVal.value = event.target.value;
     this.showFinancialCompensation2 = true;
+    this.finRem2 = event.target.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -723,6 +777,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Financial_Remedy_Points_2__c";
     sendVal.value = event.detail.value;
+    this.remedyPoints2Value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -733,6 +788,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Other_Remedy_Provided_2__c";
     sendVal.value = event.target.value;
+    this.otherRemedy2value = event.target.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -756,6 +812,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Duration_of_Remedy_2__c";
     sendVal.value = event.detail.value;
+    this.remedyDurationValue2 = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -765,6 +822,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
       value: ""
     };
 
+    this.caseRemedy2Value = "";
+    this.subRemedy2Value = "";
+    this.finRem2 = "";
+    this.prodManu2CheckBox = false;
+    this.remedyPoints2Value = "";
+    this.otherRemedy2value = "";
+    this.remedyDurationValue2 = "";
+
+    this.remedy2Toggle = false;
     sendVal.field = "IDR_Complaint_Remedy_2__c";
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Complaint_Sub_Remedy_2__c";
@@ -848,6 +914,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     }
     sendVal.field = "IDR_Complaint_Remedy_3__c";
     sendVal.value = event.detail.value;
+    this.caseRemedy3Value = event.detail.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -902,6 +969,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Complaint_Sub_Remedy_3__c";
     sendVal.value = event.detail.value;
+    this.subRemedy3Value = event.detail.value;
 
     this.sendFieldValue(sendVal);
   }
@@ -914,6 +982,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "IDR_Financial_Compensation_3__c";
     sendVal.value = event.target.value;
     this.showFinancialCompensation3 = true;
+    this.finRem3 = event.target.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -924,6 +993,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Financial_Remedy_Points_3__c";
     sendVal.value = event.detail.value;
+    this.remedyPoints3Value = event.detail.value;
+
     this.sendFieldValue(sendVal);
   }
 
@@ -934,6 +1005,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
     sendVal.field = "IDR_Other_Remedy_Provided_3__c";
     sendVal.value = event.target.value;
+
+    this.otherRemedy3value = event.target.value;
     this.sendFieldValue(sendVal);
   }
 
@@ -957,6 +1030,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
     sendVal.field = "IDR_Duration_of_Remedy_3__c";
     sendVal.value = event.detail.value;
+    this.remedyDurationValue3 = event.detail.value;
+
     this.sendFieldValue(sendVal);
   }
   clearRemedy3() {
@@ -965,6 +1040,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
       value: ""
     };
 
+    this.caseRemedy3Value = "";
+    this.subRemedy3Value = "";
+    this.finRem3 = "";
+    this.prodManu3CheckBox = false;
+    this.remedyPoints3Value = "";
+    this.otherRemedy3value = "";
+    this.remedyDurationValue3 = "";
+
+    this.remedy3Toggle = false;
     sendVal.field = "IDR_Complaint_Remedy_3__c";
     this.sendFieldValue(sendVal);
     sendVal.field = "IDR_Complaint_Sub_Remedy_3__c";
