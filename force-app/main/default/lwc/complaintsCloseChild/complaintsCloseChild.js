@@ -130,7 +130,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
   prodManu3CheckBox;
 
   dataChange = false;
-  wiredData = false;
 
   caseRemedyValue = "";
   caseRemedy2Value = "";
@@ -159,8 +158,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
     } else {
       this.expressCaseCreationData = value;
     }
-    this.pageLoadComplete = false;
-    if (this.pageRendered & !this.wiredData) {
+
+    if (
+      this.pageRendered &
+      (this.recordId === null || this.recordId === undefined)
+    ) {
+      this.pageLoadComplete = false;
       this.intializeExpressCaseCreationData();
     }
   }
@@ -196,7 +199,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
   })
   wiredProject({ data }) {
     if (data) {
-      this.wiredData = true;
       this.caseRemedyValue = data.fields.IDR_Complaint_Remedy__c.value;
       this.caseRemedy2Value = data.fields.IDR_Complaint_Remedy_2__c.value;
       this.caseRemedy3Value = data.fields.IDR_Complaint_Remedy_3__c.value;
@@ -361,7 +363,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
   }
 
   intializeExpressCaseCreationData() {
-    if (!this.pageLoadComplete) {
+    if (
+      !this.pageLoadComplete &
+      (this.recordId === null || this.recordId === undefined)
+    ) {
       if (this.dataChange === true) {
         this.dataChange = "false";
         this.knownIssueChangeHandler();
@@ -573,7 +578,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
       sendVal.value = "";
       this.sendFieldValue(sendVal);
     }
-
     sendVal.field = "IDR_Complaint_Sub_Remedy__c";
     sendVal.value = event.detail.value;
     this.subRemedyValue = event.detail.value;
@@ -830,6 +834,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.otherRemedy2value = "";
     this.remedyDurationValue2 = "";
 
+    this.isOtherSubFinRemedy2 = false;
+    this.showFinancialCompensation2 = false;
+    this.isRewardPoints2 = false;
+    this.showDuration2 = false;
+
     this.remedy2Toggle = false;
     sendVal.field = "IDR_Complaint_Remedy_2__c";
     this.sendFieldValue(sendVal);
@@ -1047,6 +1056,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.remedyPoints3Value = "";
     this.otherRemedy3value = "";
     this.remedyDurationValue3 = "";
+
+    this.isOtherSubFinRemedy3 = false;
+    this.showFinancialCompensation3 = false;
+    this.isRewardPoints3 = false;
+    this.showDuration3 = false;
 
     this.remedy3Toggle = false;
     sendVal.field = "IDR_Complaint_Remedy_3__c";
