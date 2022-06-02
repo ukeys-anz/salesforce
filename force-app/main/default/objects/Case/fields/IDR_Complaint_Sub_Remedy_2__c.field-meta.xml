@@ -112,7 +112,7 @@
             <value>
                 <fullName>6</fullName>
                 <default>false</default>
-                <label>Feedback passed to external stakeholder</label>
+                <label>Feedback passed to internal stakeholder</label>
             </value>
             <value>
                 <fullName>Zurich</fullName>
