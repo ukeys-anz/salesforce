@@ -1104,6 +1104,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   knownIssueChangeHandler(event) {
     this.expressCaseCreationData = event;
+
     const priority = this.template.querySelector('[data-id="priority-id"]');
     priority.value =
       event === undefined ? "Standard" : event.detail.IDR_Priority__c;
@@ -1412,7 +1413,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       validToSave = false;
       this.missingDataFields += "Complaint Remedy 1 ,";
     }
-
     if (!this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName]) {
       validToSave = false;
       this.missingDataFields += "Complaint Sub Remedy 1 ,";

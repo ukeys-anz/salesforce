@@ -75,6 +75,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
   @api recordTypeId;
 
   expressCaseCreationData;
+
   showOptions = true;
 
   draftValues = [];
@@ -127,11 +128,18 @@ export default class complaintsResolveLWC extends NavigationMixin(
   prodManu2CheckBox;
   prodManu3CheckBox;
 
+  dataChange = false;
+
   @api set expressCaseCreationDataObj(value) {
-    this.expressCaseCreationData = value.detail;
+    this.dataChange = true;
+    if (value !== undefined) {
+      this.expressCaseCreationData = value.detail;
+    } else {
+      this.expressCaseCreationData = value;
+    }
     this.pageLoadComplete = false;
     if (this.pageRendered) {
-      this.intializeExpressCaseCreationDate();
+      this.intializeExpressCaseCreationData();
     }
   }
   get expressCaseCreationDataObj() {
@@ -303,17 +311,16 @@ export default class complaintsResolveLWC extends NavigationMixin(
   //initialize components
   renderedCallback() {
     this.pageRendered = true;
-    this.intializeExpressCaseCreationDate();
+    this.intializeExpressCaseCreationData();
   }
 
-  intializeExpressCaseCreationDate() {
+  intializeExpressCaseCreationData() {
     if (!this.pageLoadComplete) {
-      if (this.expressCaseCreationData) {
-        if (!this.isNonFinancialComplaintRemedy) {
-          this.knownIssueChangeHandler();
-        } else {
-          this.knownIssueChangeHandlerNF();
-        }
+      if (this.dataChange === true) {
+        this.dataChange = "false";
+        this.knownIssueChangeHandler();
+      } else {
+        this.knownIssueChangeHandlerNF();
       }
     }
   }
@@ -324,6 +331,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     );
 
     if (complaintOutcomeElement !== null) {
+      complaintOutcomeElement.reset();
       complaintOutcomeElement.value =
         this.expressCaseCreationData === undefined
           ? ""
@@ -339,6 +347,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       '[data-id="descOutcome-id"]'
     );
     if (descOfOutcomeElement !== null) {
+      descOfOutcomeElement.reset();
       descOfOutcomeElement.value =
         this.expressCaseCreationData === undefined
           ? ""
@@ -354,6 +363,19 @@ export default class complaintsResolveLWC extends NavigationMixin(
       '[data-id="compRemedy-id"]'
     );
     if (complaintRemedyElement !== null) {
+      complaintRemedyElement.reset();
+
+      //clear sub remedy to handle remedy change
+      let sendVal = {
+        field: "",
+        value: ""
+      };
+
+      sendVal.field = "IDR_Complaint_Sub_Remedy__c";
+      sendVal.value = "";
+
+      this.sendFieldValue(sendVal);
+
       complaintRemedyElement.value =
         this.expressCaseCreationData === undefined
           ? ""
@@ -371,6 +393,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       '[data-id="compSubRemedy-id"]'
     );
     if (nonFinancialRemedyElement !== null) {
+      nonFinancialRemedyElement.reset();
       nonFinancialRemedyElement.value =
         this.expressCaseCreationData === undefined
           ? ""
@@ -757,7 +780,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     sendVal.field = "Provided_details_to_Prod_Manufacturer_2__c";
     sendVal.value = false;
     this.sendFieldValue(sendVal);
-    if (this.showRemedy3) {
+    if (this.showRemedy3 & !this.showRemedy2) {
       this.showRemedy3 = false;
       sendVal.field = "Remedy3";
       sendVal.value = false;
