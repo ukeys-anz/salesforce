@@ -10,7 +10,7 @@ export const cleanupTestData = async (
 
   if (conn) {
     for (const s of sobjects) {
-      const records = await conn
+      await conn
         .sobject(s)
         .find({
           CreatedById: { $eq: userDetails.userId }
