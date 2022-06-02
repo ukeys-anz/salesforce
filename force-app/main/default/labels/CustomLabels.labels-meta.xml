@@ -238,7 +238,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Interaction_User_Created_Error_Message</shortDescription>
-        <value>You already have an appointment at this date and time. Please select another date and time.</value>
+        <value>You already have an appointment at this date and time. Please select another date and time:</value>
     </labels>
     <labels>
         <fullName>Interaction_Coach_Created_Error_Message</fullName>
