@@ -390,6 +390,13 @@ public with sharing class GetHelpCaseActionsHelper {
    * @return Boolean if a case is a valid PEGA dispute
    */
   public static Boolean isValidPegaDispute(Case record) {
+    if (
+      record.RecordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID &&
+      record.Dispute_Reason__c ==
+      GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION
+    ) {
+      return false;
+    }
     return DISPUTE_PEGA_RT_IDS.contains(record.RecordTypeId) &&
       record.Submitted__c &&
       record.Status == 'Open';
