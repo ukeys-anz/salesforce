@@ -30,6 +30,7 @@
             variant="label-stacked"
             aria-label="Dropdown Complaint Remedy"
             required="true"
+            value={caseRemedyValue}
             field-name={complaintRemedy}
             onchange={handleComplaintRemedy}
             data-id="compRemedy-id"
@@ -40,6 +41,7 @@
             variant="label-stacked"
             aria-label="Dropdown Complaint Sub Remedy"
             required="true"
+            value={subRemedyValue}
             field-name={complaintSubRemedy}
             onchange={handleComplaintSubRemedy}
             data-id="compSubRemedy-id"
@@ -51,6 +53,7 @@
               variant="label-stacked"
               required
               field-name={otherNonFinRemedy}
+              value={otherRemedyValue}
               onchange={handleotherNonFinRemedy}
               data-id="nonFinancialRemedy-id"
             ></lightning-input-field>
@@ -87,6 +90,7 @@
                 aria-label="Integer financial reward Points"
                 required="true"
                 field-name={remedyPoints1}
+                value={remedyPointsValue}
                 onchange={handleFinRemedyPoints}
                 data-id="finRemedyPoints1-id"
               >
@@ -120,6 +124,7 @@
               aria-label="Integer duration of remedy months"
               required="true"
               field-name={remedyDuration}
+              value={remedyDurationValue}
               onchange={handleremedyDuration}
               data-id="finRemedyDuration1-id"
             >
@@ -151,6 +156,7 @@
               required="true"
               field-name={complaintRemedy2}
               onchange={handleComplaintRemedy2}
+              value={caseRemedy2Value}
               data-id="compRemedy2-id"
             ></lightning-input-field>
           </div>
@@ -163,6 +169,7 @@
               required="true"
               field-name={complaintSubRemedy2}
               onchange={handleComplaintSubRemedy2}
+              value={subRemedy2Value}
               data-id="compSubRemedy2-id"
             ></lightning-input-field>
           </div>
@@ -175,6 +182,7 @@
                 required
                 field-name={otherNonFinRemedy2}
                 onchange={handleotherNonFinRemedy2}
+                value={otherRemedy2value}
                 data-id="nonFinancialRemedy2-id"
               ></lightning-input-field>
             </div>
@@ -213,6 +221,7 @@
                   required="true"
                   field-name={remedyPoints2}
                   onchange={handleFinRemedyPoints2}
+                  value={remedyPoints2Value}
                   data-id="finRemedyPoints2-id"
                 >
                 </lightning-input-field>
@@ -246,6 +255,7 @@
                 required="true"
                 field-name={remedyDuration2}
                 onchange={handleremedyDuration2}
+                value={remedyDurationValue2}
                 data-id="finRemedyDuration2-id"
               >
               </lightning-input-field>
@@ -277,6 +287,7 @@
               required="true"
               field-name={complaintRemedy3}
               onchange={handleComplaintRemedy3}
+              value={caseRemedy3Value}
               data-id="compRemedy-id"
             ></lightning-input-field>
           </div>
@@ -289,6 +300,7 @@
               required="true"
               field-name={complaintSubRemedy3}
               onchange={handleComplaintSubRemedy3}
+              value={subRemedy3Value}
               data-id="compSubRemedy-id"
             ></lightning-input-field>
           </div>
@@ -301,6 +313,7 @@
                 required
                 field-name={otherNonFinRemedy3}
                 onchange={handleotherNonFinRemedy3}
+                value={otherRemedy3value}
                 data-id="nonFinancialRemedy2-id"
               ></lightning-input-field>
             </div>
@@ -339,13 +352,13 @@
                   required="true"
                   field-name={remedyPoints3}
                   onchange={handleFinRemedyPoints3}
+                  value={remedyPoints3Value}
                   data-id="finRemedyPoints1-id"
                 >
                 </lightning-input-field>
               </div>
             </template>
           </template>
-          <!--Complaint Status-->
           <template if:true={isReferredToProductManufacturer3}>
             <div
               class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
@@ -372,6 +385,7 @@
                 aria-label="Integer duration of remedy months"
                 required="true"
                 field-name={remedyDuration3}
+                value={remedyDurationValue3}
                 onchange={handleremedyDuration3}
                 data-id="finRemedyDuration2-id"
               >
