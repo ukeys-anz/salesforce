@@ -669,7 +669,7 @@
         "Reason__c",
         "Status__c"
       ],
-      "IA36": [
+      "IA-2530753": [
         "Id",
         "CreatedById",
         "CreatedDate",
@@ -848,7 +848,7 @@
       ]
     },
     "Interaction": {
-      "IA-36": [
+      "IA-2530753": [
         "AccountId",
         "Authentication_Method__c",  
         "Channel_Booked__c",
