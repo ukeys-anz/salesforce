@@ -81,28 +81,21 @@ public with sharing class FabricService extends Service {
 
   /**
    * @param ocvId customer id
-   * @param accountNumber Account number for which we want to fetch the transactions
    * @param paramUrl Used to fetch the next lot of transactions or search by date
    * @return `HttpCalloutResponse` the api response
    * @description fetches transaction history from the fabric API
    */
   public override HttpCalloutResponse getTransactionHistory(
     String ocvId,
-    String accountNumber,
     String paramUrl
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(ocvID, headers);
-
-    String endPointParams = String.isNotBlank(paramUrl)
-      ? paramUrl
-      : '?account_numbers=' + accountNumber;
-
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
       Label.MS_Get_Transactions +
-      endPointParams,
+      paramUrl,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

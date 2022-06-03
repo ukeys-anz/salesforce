@@ -5,12 +5,12 @@
 # The below will request review from some members of the
 # salesforce team.
 *                                   @anzx/help-crm
-force-app/main/default/workflows/** @pavankumarananta @dawsond1x @patelsu @aimaj-anz
-force-app/main/default/flows/**     @pavankumarananta @dawsond1x @patelsu @aimaj-anz
+force-app/main/default/workflows/** @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar
+force-app/main/default/flows/**     @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar
 
 # The below will request a review from members of the platform 
 # engineering team for changes to CI/CD files
-*.yaml                              @pavankumarananta @dawsond1x @patelsu @aimaj-anz
-Dockerfile                          @pavankumarananta @dawsond1x @patelsu @aimaj-anz
-ci/**                               @pavankumarananta @dawsond1x @patelsu @aimaj-anz
-.github/**                          @pavankumarananta @dawsond1x @patelsu @aimaj-anz
+*.yaml                              @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar
+Dockerfile                          @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar
+ci/**                               @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar
+.github/**                          @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar

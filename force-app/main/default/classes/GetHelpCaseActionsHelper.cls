@@ -190,6 +190,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
         isDispute(c)) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -233,6 +234,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
         isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -388,6 +390,13 @@ public with sharing class GetHelpCaseActionsHelper {
    * @return Boolean if a case is a valid PEGA dispute
    */
   public static Boolean isValidPegaDispute(Case record) {
+    if (
+      record.RecordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID &&
+      record.Dispute_Reason__c ==
+      GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION
+    ) {
+      return false;
+    }
     return DISPUTE_PEGA_RT_IDS.contains(record.RecordTypeId) &&
       record.Submitted__c &&
       record.Status == 'Open';

@@ -62,11 +62,16 @@ function changeMetadata(){
         echo $f > "$1"
         context=$(<"$1")
 
-        replace=$( sed 's+<objectPermissions> <allowCreate>true</allowCreate> <allowDelete>true</allowDelete> <allowEdit>true</allowEdit> <allowRead>true</allowRead> <modifyAllRecords>true</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>true</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
-        echo $replace > "$1"
-        replace=$( sed 's+<objectPermissions> <allowCreate>false</allowCreate> <allowDelete>false</allowDelete> <allowEdit>false</allowEdit> <allowRead>true</allowRead> <modifyAllRecords>false</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>true</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
-        echo $replace > "$1"
-        replace=$( sed 's+<objectPermissions> <allowCreate>false</allowCreate> <allowDelete>false</allowDelete> <allowEdit>false</allowEdit> <allowRead>false</allowRead> <modifyAllRecords>false</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>false</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
-        echo $replace > "$1"
+        if [[ $2 == 'manageUsers' ]];then
+            replace=$( sed 's+<enabled>false</enabled> <name>ManageSharing</name>+<enabled>true</enabled> <name>ManageSharing</name>+g' "$1")
+            echo $replace > "$1"
+        else
+            replace=$( sed 's+<objectPermissions> <allowCreate>true</allowCreate> <allowDelete>true</allowDelete> <allowEdit>true</allowEdit> <allowRead>true</allowRead> <modifyAllRecords>true</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>true</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
+            echo $replace > "$1"
+            replace=$( sed 's+<objectPermissions> <allowCreate>false</allowCreate> <allowDelete>false</allowDelete> <allowEdit>false</allowEdit> <allowRead>true</allowRead> <modifyAllRecords>false</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>true</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
+            echo $replace > "$1"
+            replace=$( sed 's+<objectPermissions> <allowCreate>false</allowCreate> <allowDelete>false</allowDelete> <allowEdit>false</allowEdit> <allowRead>false</allowRead> <modifyAllRecords>false</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>false</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
+            echo $replace > "$1"
+        fi
     fi
 }

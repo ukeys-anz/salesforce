@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_Leads</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>LEAD.LEAD_SOURCE</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>Marketing_Consent__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>LEAD.RECORDTYPE</columns>
+    <filterScope>Mine</filterScope>
+    <filters>
+        <field>LEAD.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Lead.ANZX_Leads</value>
+    </filters>
+    <label>My Leads</label>
+    <sharedTo>
+        <role>Coach</role>
+        <role>Coach_Lead</role>
+        <role>Quality_Analyst</role>
+        <role>Support_Coach</role>
+        <role>Business_Admin</role>
+    </sharedTo>
+</ListView>

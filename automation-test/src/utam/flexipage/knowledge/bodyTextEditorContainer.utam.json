@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "exposeRootElement": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "bodyTextEdtor",
+      "type": "frame",
+      "selector": {
+        "css": "iframe[title='Body Text Editor Container']"
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "enterBodyTextEditorIframe",
+      "compose": [
+        {
+          "element": "document",
+          "apply": "enterFrame",
+          "args": [
+            {
+              "type": "elementReference",
+              "value": "bodyTextEdtor"
+            },
+            {
+              "type": "rootPageObject",
+              "value": "anzx-utam-flexipage/pageObjects/bodyTextEditor"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

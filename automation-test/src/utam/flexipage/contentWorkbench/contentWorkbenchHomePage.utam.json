@@ -1,0 +1,55 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "homePage",
+      "selector": {
+        "css": ".active.lafPageHost"
+      },
+      "elements": [
+        {
+          "name": "listViewByTitle",
+          "nullable": true,
+          "type": "anzx-utam-flexipage/pageObjects/homePageListView",
+          "selector": {
+            "css": ".flexipageFilterListCard",
+            "returnAll": true
+          },
+          "filter": {
+            "apply": "getListViewTitle",
+            "findFirst": true,
+            "matcher": {
+              "type": "stringEquals",
+              "args": [
+                {
+                  "name": "title",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "public": true
+        }
+      ]
+    }
+  ]
+}

@@ -7856,111 +7856,6 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>SocialPersona.AreWeFollowing</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.AuthorLabels</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.Bio</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.Followers</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.Following</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.InfluencerScore</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.IsBlacklisted</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.IsFollowingUs</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.IsVerified</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.Klout</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.ListedCount</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.MediaProvider</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.MediaType</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.NumberOfFriends</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.NumberOfTweets</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.ProfileType</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.R6SourceId</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.RealName</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.SourceApp</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
-    <field>SocialPersona.TopicType</field>
-    <readable>false</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>true</editable>
-    <field>SocialPersona.UserId</field>
-    <readable>true</readable>
-  </fieldPermissions>
-  <fieldPermissions>
-    <editable>false</editable>
     <field>Solution.IsPublished</field>
     <readable>false</readable>
   </fieldPermissions>
@@ -8143,16 +8038,16 @@
     <recordType>Case.ANZx_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
-    <layout>Case-Bug Enquiry Layout</layout>
-    <recordType>Case.Bug_Enquiry</recordType>
-  </layoutAssignments>
-  <layoutAssignments>
       <layout>Case-Card Dispute Layout</layout>
       <recordType>Case.Card_Dispute</recordType>
   </layoutAssignments>
   <layoutAssignments>
     <layout>Case-Complaint Layout</layout>
     <recordType>Case.Customer_Complaint</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
+    <layout>Case-Customer Feedback Layout</layout>
+    <recordType>Case.Customer_Feedback</recordType>
   </layoutAssignments>
   <layoutAssignments>
     <layout>Case-Direct Debit Dispute Layout</layout>
@@ -8194,6 +8089,21 @@
     <layout>Case-Scam Layout</layout>
     <recordType>Case.Scam</recordType>
   </layoutAssignments>
+  <layoutAssignments>
+        <layout>Lead-ANZX Lead Layout</layout>
+        <recordType>Lead.ANZX_Leads</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Lead-Lead Layout</layout>
+        <recordType>Lead.FinServ__RetirementPlanning</recordType>
+    </layoutAssignments>  
   <layoutAssignments>
     <layout>PersonAccount-Customer View Layout</layout>
     <recordType>PersonAccount.PersonAccount</recordType>
@@ -9364,9 +9274,10 @@
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
-    <default>false</default>
+    <default>true</default>
+    <personAccountDefault>true</personAccountDefault>
     <recordType>PersonAccount.PersonAccount</recordType>
-    <visible>false</visible>
+    <visible>true</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
       <default>true</default>
@@ -9625,7 +9536,7 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-Lead</tab>
-    <visibility>DefaultOff</visibility>
+    <visibility>DefaultOn</visibility>
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-LightningBoltHome</tab>
@@ -9749,10 +9660,6 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-SecuritiesHolding</tab>
-    <visibility>DefaultOff</visibility>
-  </tabVisibilities>
-  <tabVisibilities>
-    <tab>standard-SocialPersona</tab>
     <visibility>DefaultOff</visibility>
   </tabVisibilities>
   <tabVisibilities>

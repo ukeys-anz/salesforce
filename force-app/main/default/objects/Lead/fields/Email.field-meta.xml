@@ -2,9 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Email</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
-    <description>Email address (format enforcement)</description>
+    <complianceGroup>Source_Qualtrics;Privacy_Personal_Information;Integrity_Accurate</complianceGroup>
+    <description>Captures the prospects Email address</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
 </CustomField>

@@ -1,0 +1,224 @@
+{
+  "elements": [
+    {
+      "name": "label",
+      "nullable": true,
+      "selector": {
+        "css": ".label span:nth-child(1)"
+      }
+    },
+    {
+      "name": "readOnlylabel",
+      "nullable": true,
+      "selector": {
+        "css": ".slds-form-element__label"
+      }
+    },
+    {
+      "name": "picklist",
+      "selector": {
+        "css": "a[role='button']"
+      },
+      "type": "clickable"
+    },
+    {
+      "name": "number",
+      "selector": {
+        "css": "input[class*='uiInputSmartNumber']"
+      },
+      "type": "editable"
+    },
+    {
+      "name": "text",
+      "selector": {
+        "css": "input[type='text']"
+      },
+      "type": "editable"
+    },
+    {
+      "name": "textarea",
+      "selector": {
+        "css": "textarea[role='textbox']"
+      },
+      "type": "editable"
+    },
+    {
+      "name": "lookup",
+      "selector": {
+        "css": "input[role='combobox']"
+      },
+      "type": ["editable", "clickable"]
+    },
+    {
+      "name": "itemBody",
+      "nullable": true,
+      "selector": {
+        "css": ".itemBody"
+      },
+      "elements": [
+        {
+          "name": "editButton",
+          "nullable": true,
+          "selector": {
+            "css": ".editButton"
+          },
+          "type": "clickable"
+        },
+        {
+          "name": "bodyIframe",
+          "nullable": true,
+          "selector": {
+            "css": "force-aloha-page"
+          },
+          "type": "anzx-utam-force/pageObjects/alohaPage",
+          "public": true
+        }
+      ]
+    },
+    {
+      "name": "lookupResult",
+      "selector": {
+        "css": ".listContent li a"
+      },
+      "type": "clickable"
+    },
+    {
+      "name": "lookupResultByTitle",
+      "selector": {
+        "css": ".listContent li a div[class*='primaryLabel'][title='%s']",
+        "args": [
+          {
+            "name": "resultTile",
+            "type": "string"
+          }
+        ]
+      },
+      "type": "clickable"
+    }
+  ],
+  "methods": [
+    {
+      "name": "getLabel",
+      "compose": [
+        {
+          "element": "label",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getReadOnlyLabel",
+      "compose": [
+        {
+          "element": "readOnlylabel",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "expandPicklist",
+      "compose": [
+        {
+          "element": "picklist",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "editNumber",
+      "compose": [
+        {
+          "element": "number",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "numberStr",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "editText",
+      "compose": [
+        {
+          "element": "text",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "editTextarea",
+      "compose": [
+        {
+          "element": "textarea",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "text",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clickLookup",
+      "compose": [
+        {
+          "element": "lookup",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "searchLookup",
+      "compose": [
+        {
+          "element": "lookup",
+          "apply": "clearAndType",
+          "args": [
+            {
+              "name": "searchTerm",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "selectLookupResult",
+      "compose": [
+        {
+          "element": "lookupResult",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "selectLookupResultByTitle",
+      "compose": [
+        {
+          "element": "lookupResultByTitle",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "editBody",
+      "compose": [
+        {
+          "element": "editButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

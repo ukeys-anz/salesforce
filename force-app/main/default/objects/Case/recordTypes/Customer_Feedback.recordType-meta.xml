@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Feedback</fullName>
+    <active>true</active>
+    <businessProcess>ANZx Support Process</businessProcess>
+    <description>Record and track cases auto-populated from survey responses with low NPS scores</description>
+    <label>Customer Feedback</label>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Appointment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Survey</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Type__c</picklist>
+        <values>
+            <fullName>ANZ branches</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>About ANZ Plus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account closure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Add Life Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Add%2FEdit Details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancel a Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card Lost%2FStolen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Card%2Fdevice block enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coaching</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coaching%2FNeeds based Discussion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Damaged card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital wallet issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital wallet provisioning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extra Care</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falcon transaction confirmation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General fraud enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost or new phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lost or stolen card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Making payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using tiles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Power of attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Raising a concern</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings and goals</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction Disputes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Updating details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Using card</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>About Us</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deceased Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Money</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Enquiries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SLA_Status__c</picklist>
+        <values>
+            <fullName>Breached</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Warning</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

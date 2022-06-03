@@ -1,83 +1,80 @@
-import CaseCreationForm from "pageObjects/coachesWorkbenchCaseCreationForm";
-import CaseRecordHomeFlexipage from "pageObjects/coachesWorkbenchCaseRecordHomeFlexipage";
-import { CaseType } from "constants/enums";
+import RecordCreationForm from "pageObjects/recordCreationForm";
+import CaseType from "constants/case/caseType";
+import { OwnerType } from "constants/enums";
 import Case from "./Case";
-import caseData from "data/caseData";
 import * as commonUtils from "utils/commonUtils";
-import * as caseUtils from "utils/caseUtils";
+import * as creationFormUtils from "utils/creationFormUtils";
+import * as casePageUtils from "utils/casePageUtils";
+import { FieldDefinition } from "types/field";
+import { FieldSectionIndex } from "types/layout";
+import CaseFields from "constants/case/caseFields";
+import IAssignNewOwner from "interfaces/IAssignNewOwner";
 
-export default class Identity extends Case {
-  async createRecord(): Promise<void> {
-    const caseCreationFormRoot = await utam.load(CaseCreationForm);
-    await caseCreationFormRoot.selectCaseRecordType(CaseType.IDENTITY);
+export default class Identity extends Case implements IAssignNewOwner {
+  static creationFormFieldIndexMap = new Map<string, number>();
 
-    // Account Name
-    // search and select first account
-    await caseCreationFormRoot.searchAndSelectLookup(
-      1,
-      5,
-      1,
-      caseData.accountName,
-      caseData.accountName
+  async selectIdentityCase(): Promise<void> {
+    const recordCreationFormRoot = await utam.load(RecordCreationForm);
+    await recordCreationFormRoot.selectCaseRecordType(CaseType.IDENTITY);
+    await browser.pause(2000);
+  }
+
+  async verifyIssueType(issueType: string): Promise<void> {
+    const selected = await creationFormUtils.selectPicklistByOptionTitle(
+      CaseFields.Issue_Type,
+      0,
+      issueType
     );
 
-    // Issue Type
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [1, 4, 1],
-      [2, 9],
-      0
+    expect(selected).toBeTruthy();
+  }
+
+  async create(caseData: any): Promise<void> {
+    const recordCreationFormRoot = await utam.load(RecordCreationForm);
+
+    const fieldsToFill: FieldDefinition[] = [
+      {
+        label: CaseFields.Channel_Received,
+        options: {
+          picklistDOMIndex: 1,
+          picklistOptionIndexRange: [2, 3]
+        }
+      },
+      {
+        label: CaseFields.Account_Name,
+        options: {
+          lookupText: caseData.accountName
+        }
+      }
+    ];
+
+    Identity.creationFormFieldIndexMap = await creationFormUtils.fillInFields(
+      this.sobject,
+      Identity.creationFormFieldIndexMap,
+      fieldsToFill
     );
 
-    // Channel Received
-    await caseUtils.selectPicklistOnCreationForm(
-      caseCreationFormRoot,
-      [1, 3, 2],
-      [2, 3],
-      1
-    );
-
-    // click save button
-    await caseCreationFormRoot.saveNew();
-
+    await recordCreationFormRoot.saveNew();
     await browser.pause(5000);
   }
 
-  async assignNewOwner(): Promise<void> {
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
+  async assignNewOwner(
+    newOwnerType: OwnerType,
+    newOwnerName: string
+  ): Promise<void> {
+    // Owner field index on layout
+    const ownerFieldIndex: FieldSectionIndex = [2, 6, 2];
 
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
-    // Case Owner
-    const caseOwnerField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [2, 6, 2]
-    );
-
-    // click change owner button
-    await caseOwnerField.clickChangeOwnerButton();
-    await commonUtils.searchAndSelectNewOwner(
-      "Users",
-      caseData.newFraudXAgentOwnerName
+    await commonUtils.assignNewOwner(
+      this.sobject,
+      ownerFieldIndex,
+      newOwnerType,
+      newOwnerName
     );
   }
 
-  async updateRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
-
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
+  async update(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Priority
@@ -86,25 +83,18 @@ export default class Identity extends Case {
       [2, 1, 2],
       [2, 9]
     );
+
     await baseRecordForm.clickFooterButton("Save");
+    await browser.pause(3000);
   }
 
-  async closeRecord(): Promise<void> {
-    // Coaches Workbench Case Record Page
-    const CaseRecordHomeFlexipageRoot = await utam.load(
-      CaseRecordHomeFlexipage
-    );
-
-    // get record layout
-    const detailPanel =
-      await CaseRecordHomeFlexipageRoot.getMainRegionActiveTabDetailPanel();
-    const baseRecordForm = await detailPanel.getBaseRecordForm();
+  async close(): Promise<void> {
+    const baseRecordForm = (await casePageUtils.getRecordForm())!;
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Status
     await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 2], 4);
     await baseRecordForm.clickFooterButton("Save");
-
     await browser.pause(3000);
   }
 }

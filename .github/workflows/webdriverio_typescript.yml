@@ -5,7 +5,9 @@ on:
   pull_request:
     paths:
       - "automation-test/**"
-    branches: [develop]
+    branches:
+      - develop
+      - epic/anzx-bau
 
 jobs:
   typescript-build:
@@ -22,12 +24,20 @@ jobs:
         working-directory: automation-test
         run: npm ci
 
+      - name: "Build UTAM"
+        working-directory: automation-test
+        shell: bash
+        run: |
+          echo "Building Page Objects"
+          npx utam && npx prettier --write ./src/pageObjects
+
       - name: "Enforce Style Guidelines"
         working-directory: automation-test
         shell: bash
         run: |
           echo "Checking automation-test project files"
-          npx prettier -c "./**/*.{ts,js}"
+          npx prettier -c "./**/*.{ts,js,json}"
+
       - name: "Lint TypeScript files"
         working-directory: automation-test
         shell: bash

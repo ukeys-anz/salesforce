@@ -233,7 +233,8 @@ public with sharing class IDRCaseNotificationManager {
     nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId).FirstName;
     if (ownerMap.get(c.OwnerId).ManagerId != null) {
       nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
-      nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId).Manager.FirstName;
+      nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
+        .Manager.FirstName;
     } else {
       nEvent.Line_Manager_Email__c = null;
       nEvent.Line_Manager_First_Name__c = null;
