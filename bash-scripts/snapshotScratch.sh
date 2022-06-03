@@ -3,16 +3,6 @@
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
 
-# trap ctrl-c and call ctrl_c()
-trap ctrl_c INT
-
-function ctrl_c() {
-    git checkout .
-    echo "${red}"
-    echo "Creating snapshot has been stopped."
-    echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-}
-
 stepNum=$(($stepNo+1))
 source ./bash-scripts/commonFunctions.sh
 stepNo=$(($stepNum))
@@ -57,11 +47,18 @@ fi
 echoMessageCreator "" $stepNo false
 ###########################
 
-
-# deploy matching and duplicate rules
-echoMessageCreator "Deploy matching and duplicate rules" $stepNo true
-sfdx force:source:deploy -p force-app/main/default/matchingRules/Lead.matchingRule-meta.xml
-sfdx force:source:deploy -p force-app/main/default/duplicateRules/Lead.Standard_Lead_Duplicate_Rule.duplicateRule-meta.xml
+# deploy bigObjects
+echoMessageCreator "Deploy bigObjects" $stepNo true
+sfdx force:source:deploy -p force-app/main/default/objects/Accessed_Record_Log__b
+sfdx force:source:deploy -p force-app/main/default/objects/Log_Record_Access__b
+sfdx force:source:deploy -p force-app/main/default/objects/Record_Access_Log__b
+sfdx force:source:deploy -p force-app/main/default/objects/Application_Trace_Log__b
+sfdx force:source:deploy -p force-app/main/default/objects/Traced_Application_Log__b
+echo -e "\nforce-app/main/default/objects/Accessed_Record_Log__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Log_Record_Access__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Record_Access_Log__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Application_Trace_Log__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Traced_Application_Log__b" >> .forceignore
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -155,9 +152,6 @@ echoMessageCreator "" $stepNo false
 ALL_END_TIME=$(date +%s)
 echo ""
 echo "${green}$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s.${reset}"
-
-rm -rf ./artefact
-rm -rf ./tmp
 
 # reset source tracking
 echoMessageCreator "Resetting source tracking" $stepNo true

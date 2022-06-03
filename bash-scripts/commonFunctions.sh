@@ -4,6 +4,17 @@ green=`tput setaf 2`
 red=`tput setaf 1`
 reset=`tput sgr0`
 
+trap ctrl_c INT
+
+function ctrl_c() {
+    git checkout .
+    rm -rf ci.forceignore
+    echo "${red}"
+    echo "Creating snapshot has been stopped."
+    echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+    exit 1
+}
+
 echo "${red}"
 echo "WARNING: Disable ANZ Proxy to run this script"
 echo "You can leave alpaca running and proxy variables set to localhost:3128"
