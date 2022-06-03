@@ -1430,16 +1430,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let dotCheck = ".";
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === REWARD_POINTS &&
-        !this.closeFields[REMEDY_POINTS1.fieldApiName]) ||
-      this.closeFields[REMEDY_POINTS1.fieldApiName] === 0 ||
-      this.closeFields[REMEDY_POINTS1.fieldApiName] === null
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === REWARD_POINTS &&
+      (!this.closeFields[REMEDY_POINTS1.fieldApiName] ||
+        this.closeFields[REMEDY_POINTS1.fieldApiName] === 0 ||
+        this.closeFields[REMEDY_POINTS1.fieldApiName] === null)
     ) {
       validToSave = false;
       this.missingDataFields += "Financial Remedy Points 1 ,";
     } else if (
-      this.closeFields[REMEDY_POINTS1.fieldApiName].includes(dotCheck) ||
-      this.closeFields[REMEDY_POINTS1.fieldApiName] < 0
+      this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS1.fieldApiName] &&
+      (this.closeFields[REMEDY_POINTS1.fieldApiName].includes(dotCheck) ||
+        this.closeFields[REMEDY_POINTS1.fieldApiName] < 0)
     ) {
       this.missingDataFields +=
         "Financial Remedy Points 1 must be a positive value without decimals";
@@ -1518,17 +1520,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let dotCheck = ".";
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === REWARD_POINTS &&
-        !this.closeFields[REMEDY_POINTS2.fieldApiName]) ||
-      this.closeFields[REMEDY_POINTS2.fieldApiName] === 0 ||
-      this.closeFields[REMEDY_POINTS2.fieldApiName] === null
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === REWARD_POINTS &&
+      (!this.closeFields[REMEDY_POINTS2.fieldApiName] ||
+        this.closeFields[REMEDY_POINTS2.fieldApiName] === 0 ||
+        this.closeFields[REMEDY_POINTS2.fieldApiName] === null)
     ) {
       validToSave = false;
       this.missingDataFields += "Financial Remedy Points 2 ,";
     } else if (
-      this.closeFields[REMEDY_POINTS2.fieldApiName].includes(dotCheck) ||
-      this.closeFields[REMEDY_POINTS2.fieldApiName] < 0
+      this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS2.fieldApiName] &&
+      (this.closeFields[REMEDY_POINTS2.fieldApiName].includes(dotCheck) ||
+        this.closeFields[REMEDY_POINTS2.fieldApiName] < 0)
     ) {
+      validToSave = false;
       this.missingDataFields +=
         "Financial Remedy Points 2 must be a positive value without decimals";
     }
@@ -1605,17 +1610,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
     let dotCheck = ".";
 
     if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === REWARD_POINTS &&
-        !this.closeFields[REMEDY_POINTS3.fieldApiName]) ||
-      this.closeFields[REMEDY_POINTS3.fieldApiName] === 0 ||
-      this.closeFields[REMEDY_POINTS3.fieldApiName] === null
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === REWARD_POINTS &&
+      (!this.closeFields[REMEDY_POINTS3.fieldApiName] ||
+        this.closeFields[REMEDY_POINTS3.fieldApiName] === 0 ||
+        this.closeFields[REMEDY_POINTS3.fieldApiName] === null)
     ) {
       validToSave = false;
       this.missingDataFields += "Financial Remedy Points 3 ,";
     } else if (
-      this.closeFields[REMEDY_POINTS3.fieldApiName].includes(dotCheck) ||
-      this.closeFields[REMEDY_POINTS3.fieldApiName] < 0
+      this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === REWARD_POINTS &&
+      this.closeFields[REMEDY_POINTS3.fieldApiName] &&
+      (this.closeFields[REMEDY_POINTS3.fieldApiName].includes(dotCheck) ||
+        this.closeFields[REMEDY_POINTS3.fieldApiName] < 0)
     ) {
+      validToSave = false;
       this.missingDataFields +=
         "Financial Remedy Points 3 must be a positive value without decimals";
     }
