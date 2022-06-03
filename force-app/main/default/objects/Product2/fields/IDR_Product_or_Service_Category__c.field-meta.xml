@@ -126,6 +126,11 @@
                 <label>Approved Deposit Fund</label>
             </value>
             <value>
+                <fullName>35</fullName>
+                <default>false</default>
+                <label>Superannuation</label>
+            </value>
+            <value>
                 <fullName>25</fullName>
                 <default>false</default>
                 <label>Industry Fund</label>
@@ -166,11 +171,6 @@
                 <label>Other</label>
             </value>
             <value>
-                <fullName>35</fullName>
-                <default>false</default>
-                <label>Superannuation</label>
-            </value>
-            <value>
                 <fullName>24</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -195,10 +195,6 @@
                 <label>Superannuation – Non-trustee related</label>
             </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>10</controllingFieldValue>
-            <valueName>34</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>1</controllingFieldValue>
             <valueName>1</valueName>
@@ -289,6 +285,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
+            <valueName>35</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>8</controllingFieldValue>
             <valueName>25</valueName>
         </valueSettings>
         <valueSettings>
@@ -308,16 +308,16 @@
             <valueName>30</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>8</controllingFieldValue>
-            <valueName>35</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>9</controllingFieldValue>
             <valueName>31</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>9</controllingFieldValue>
             <valueName>32</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>10</controllingFieldValue>
+            <valueName>34</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
