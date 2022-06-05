@@ -570,6 +570,7 @@ public with sharing class ContactRequestActionsTest {
     system.assertEquals(0, events.size(), 'No events should be available');
 
     Interaction testInteraction = new Interaction();
+    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     testInteraction.Name = otherPurposeName + ' Appointment';
     testInteraction.Lead__c = testLead.Id;
     testInteraction.StartTime = appointmentDateTime;
@@ -650,6 +651,7 @@ public with sharing class ContactRequestActionsTest {
     );
 
     Interaction testInteraction = new Interaction();
+    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     testInteraction.Name = otherPurposeName + ' Appointment';
     testInteraction.Lead__c = testLead.Id;
     testInteraction.StartTime = appointmentDateTime;
@@ -710,6 +712,7 @@ public with sharing class ContactRequestActionsTest {
     Account testAccount = createTestAccount();
 
     Interaction testInteraction = new Interaction();
+    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     testInteraction.Name = otherPurposeName + ' Appointment';
     testInteraction.AccountId = testAccount.Id;
     testInteraction.StartTime = appointmentDateTime;

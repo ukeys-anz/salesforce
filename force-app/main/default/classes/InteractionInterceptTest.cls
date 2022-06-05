@@ -8,6 +8,8 @@ public with sharing class InteractionInterceptTest {
   private static final string FIRST_NAME = 'Fred';
   private static final string LAST_NAME = 'Smith';
   private static final string PHONE_NUMBER = '01189998819991197253';
+  private static string appointmentRTName = 'Appointment';
+
   @isTest
   static void isInterceptInteractions() {
     DateTime startDate = DateTime.newInstance(
@@ -23,6 +25,7 @@ public with sharing class InteractionInterceptTest {
     string purpose = 'Financial Wellbeing';
 
     Interaction testInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount.Id,
       StartTime = startDate,
       Interaction_Purpose__c = purpose
@@ -34,6 +37,7 @@ public with sharing class InteractionInterceptTest {
 
     test.startTest();
     Interaction testInteraction2 = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount.Id,
       StartTime = startDate,
       Interaction_Purpose__c = purpose

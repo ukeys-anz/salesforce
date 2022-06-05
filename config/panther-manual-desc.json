@@ -150,7 +150,7 @@
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
-    "Location" : "This standard object would contain all the store locations for ANZ",
+    "Location": "This standard object would contain all the store locations for ANZ",
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
@@ -683,7 +683,7 @@
       "IA-2453595": [
         "Appointment_Commitment__c",
         "Appointment_date_and_Time__c",
-        "Contact_Request_Auto_Number__c"
+        "Contact_Request_Auto_Number__c",
         "Channel_Booked__c",
         "Interaction__c",
         "OwnerId",
@@ -831,8 +831,14 @@
     "Interaction": {
       "IA-2468715": [
         "AccountId",
-        "Authentication_Method__c",  
+        "ANZ_Number__c",
+        "AppointmentId__c",
+        "Attendees__c",
+        "Authentication_Method__c",
+        "Call_Recording_ID__c",
+        "CaseId__c",
         "Channel_Booked__c",
+        "Chat_or_Call_SID__c",
         "Contact_Mobile__c",
         "ContactRequestId__c",
         "CreatedById",
@@ -855,11 +861,16 @@
         "OwnerId",
         "RecordTypeId",
         "ReferenceIdentifier",
+        "Referred_To__c",
+        "Resolution__c",
         "StartTime",
         "Status__c",
         "Voice_Call_SID__c",
         "Escalated_Flag__c"
       ]
+    },
+    "Interaction_Attendee": {
+      "IA-2468715": ["AttendeeType", "UserId", "Time__c"]
     },
     "Known_Issues__c": {
       "IA-2468715": [
@@ -1367,6 +1378,7 @@
         "FederationIdentifier"
       ],
       "IA-2468715": [
+        "Active_Directory_ID__c",
         "ManagerId",
         "IsActive",
         "LocaleSidKey",

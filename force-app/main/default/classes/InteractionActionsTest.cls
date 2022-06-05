@@ -7,6 +7,36 @@
 public with sharing class InteractionActionsTest {
   private final static string APPOINTMENT_QUEUE_NAME = 'Appointments_Queue';
   private final static string TEST_MOBILE = '01189998819991197253';
+
+  @testSetup
+  static void testSetup() {
+    Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    User coach = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'CoachTest',
+        'ProfileId' => profile.Id,
+        'UserRoleId' => coachRole.Id
+      }
+    );
+    insert coach;
+    // Assign Case related PS on API User
+    List<String> psNames = new List<String>{
+      'Appointment_Booking_Read_Write',
+      'Accounts_Goals_Read_Only'
+    };
+
+    List<PermissionSet> psList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :psNames
+    ];
+    List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : psList) {
+      psaList.add(TestUtil.createPSAssignment(coach.id, ps.Id));
+    }
+    insert psaList;
+  }
   /**
    * @description test for interaction assigned back to Queue.
    */
@@ -127,12 +157,9 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testSettingContactMobileFromLead() {
-    Id generalLeadRTID = Schema.sOBjectType.Lead.getRecordTypeInfosByDeveloperName()
-      .get('General')
-      .getRecordTypeId();
     Lead testLead = new Lead(
       LastName = 'Bloggs',
-      RecordTypeId = generalLeadRTID
+      RecordTypeId = GetHelpConstants.LEAD_GENERAL_RT_ID
     );
     testLead.MobilePhone = TEST_MOBILE;
     insert testLead;
@@ -484,11 +511,13 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testDoesntFindNotOrStillCancelledInteractions() {
     Interaction notCancelledInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'Not Cancelled Interaction',
       Status__c = 'Scheduled'
     );
 
     Interaction stillCancelledInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'Still Cancelled Interaction',
       Status__c = 'Cancelled'
     );
@@ -527,14 +556,10 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testUnassigningInteraction() {
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
-      .getRecordTypeId();
-
     Interaction testInteraction = new Interaction(
       OwnerId = UserInfo.getUserId(),
       Name = 'Test Interaction',
-      RecordTypeId = appointmentRTID
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID
     );
     insert testInteraction;
 
@@ -544,7 +569,7 @@ public with sharing class InteractionActionsTest {
       Id = testInteraction.Id,
       Status__c = 'Unassigned',
       OwnerId = UserInfo.getUserId(),
-      RecordTypeId = appointmentRTID
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID
     );
 
     Map<Id, Interaction> oldMap = new Map<Id, Interaction>();
@@ -833,6 +858,7 @@ public with sharing class InteractionActionsTest {
     string otherPurposeName = 'Other';
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
+    User coach = TestUtil.getUserByFirstName('CoachTest');
     List<Account> personAccountList = new List<Account>();
 
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -915,31 +941,8 @@ public with sharing class InteractionActionsTest {
       'The coaching summary owner should be current user'
     );
 
-    Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
-    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
-    User coach = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'FirstName' => 'CoachTest',
-        'ProfileId' => profile.Id,
-        'UserRoleId' => coachRole.Id
-      }
-    );
-    insert coach;
-
-    PermissionSet ps = [
-      SELECT Id
-      FROM PermissionSet
-      WHERE Name = 'Appointment_Booking_Read_Write'
-    ];
-
-    PermissionSetAssignment psa = new PermissionSetAssignment(
-      AssigneeId = coach.id,
-      PermissionSetId = ps.Id
-    );
-
-    insert psa;
-
     Interaction interactNew = new Interaction();
+    interactNew.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactNew.Coaching_Summary__c = coachingSummaryList[0].Id;
     interactNew.Name = 'TestNewInteraction';
     interactNew.AccountId = testAccount1.Id;
@@ -954,10 +957,8 @@ public with sharing class InteractionActionsTest {
     ];
 
     Test.startTest();
-
     interactNew.OwnerId = coach.Id;
     update interactNew;
-
     Test.stopTest();
 
     coachingSummaryList = [
@@ -1058,12 +1059,9 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testLeadCreatingOverlappingInteraction() {
-    Id generalLeadRTID = Schema.sOBjectType.Lead.getRecordTypeInfosByDeveloperName()
-      .get('General')
-      .getRecordTypeId();
     Lead testLead = new Lead(
       LastName = 'Bloggs',
-      RecordTypeId = generalLeadRTID
+      RecordTypeId = GetHelpConstants.LEAD_GENERAL_RT_ID
     );
     testLead.MobilePhone = TEST_MOBILE;
     insert testLead;
@@ -1129,10 +1127,6 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testCoachCreatingOverlappingInteraction() {
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
-      .getRecordTypeId();
-
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
     insert testAccount1;
 
@@ -1148,7 +1142,7 @@ public with sharing class InteractionActionsTest {
 
     Interaction existingInteraction = new Interaction(
       Name = 'existing interaction',
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = 'Financial Wellbeing',
       OwnerId = UserInfo.getUserId(),
@@ -1162,7 +1156,7 @@ public with sharing class InteractionActionsTest {
     Interaction testInteraction2;
     testInteraction2 = new Interaction(
       Name = 'Test Interaction',
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = 'Financial Wellbeing',
       StartTime = appointmentDate,
@@ -1190,9 +1184,6 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testCoachUpdatingOverlappingInteraction() {
     InteractionActions actions = new InteractionActions();
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
-      .getRecordTypeId();
 
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
     insert testAccount1;
@@ -1217,7 +1208,7 @@ public with sharing class InteractionActionsTest {
 
     Interaction existingInteraction = new Interaction(
       Name = 'existing interaction',
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = 'Financial Wellbeing',
       OwnerId = UserInfo.getUserId(),
@@ -1245,7 +1236,7 @@ public with sharing class InteractionActionsTest {
     Interaction testInteraction2;
     testInteraction2 = new Interaction(
       Name = 'Test Interaction',
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount2.Id,
       Interaction_Purpose__c = 'Financial Wellbeing',
       StartTime = appointmentDate,
@@ -1309,9 +1300,6 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testsetNameOfInteractions() {
     InteractionActions actions = new InteractionActions();
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
-      .getRecordTypeId();
 
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
     insert testAccount1;
@@ -1328,7 +1316,7 @@ public with sharing class InteractionActionsTest {
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
     DateTime endDate = appointmentDate.addMinutes(45);
     Interaction newInteraction = new Interaction(
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = 'Financial Wellbeing',
       Status__c = 'Unassigned',

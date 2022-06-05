@@ -28,6 +28,7 @@ public with sharing class InteractionTriggerHandlerTest {
     DateTime startTime = DateTime.newInstance(DateTime.now().year(), 1, 1);
 
     Interaction testInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Status__c = 'Unassigned',
       Interaction_Purpose__c = otherPurposeName,
       StartTime = startTime,
@@ -461,6 +462,7 @@ public with sharing class InteractionTriggerHandlerTest {
   @isTest
   static void testEndTimePopulationOnInsert() {
     Interaction newInteractionWithoutEndtime = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = 'Financial Wellbeing',
       StartTime = System.now()
@@ -482,6 +484,7 @@ public with sharing class InteractionTriggerHandlerTest {
   @isTest
   static void testEndTimePopulationOnUpdate() {
     Interaction newInteractionWithoutEndtime = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = 'Financial Wellbeing',
       StartTime = System.now()

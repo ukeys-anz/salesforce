@@ -25,6 +25,7 @@ public with sharing class InteractionTest {
     string purpose = 'Digital Support';
 
     Interaction testInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount.Id,
       StartTime = startDate,
       Interaction_Purpose__c = purpose,
