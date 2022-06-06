@@ -1443,6 +1443,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       (this.closeFields[REMEDY_POINTS1.fieldApiName].includes(dotCheck) ||
         this.closeFields[REMEDY_POINTS1.fieldApiName] < 0)
     ) {
+      validToSave = false;
       this.missingDataFields +=
         "Financial Remedy Points 1 must be a positive value without decimals";
     }
