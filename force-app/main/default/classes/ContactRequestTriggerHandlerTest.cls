@@ -288,11 +288,20 @@ private class ContactRequestTriggerHandlerTest {
     Account testAccount = createTestAccounts(1)[0];
     DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
 
-    Appointment_Commitment__c apptCommtRec = [
-      SELECT ID, Confirmed__c, Appointment_Channel__c
-      FROM Appointment_Commitment__c
-      WHERE Date_and_Time__c = :dateTimeVal
-    ];
+    Appointment_Commitment__c apptCommtRec = new Appointment_Commitment__c();
+    apptCommtRec.Available__c = 5;
+    apptCommtRec.Confirmed__c = 2;
+    apptCommtRec.Type__c = 'Financial Wellbeing';
+    apptCommtRec.Date_and_Time__c = DateTime.newInstance(
+      2022,
+      3,
+      10,
+      12,
+      45,
+      0
+    );
+    apptCommtRec.Appointment_Channel__c = 'Call';
+    insert apptCommtRec;
 
     Test.startTest();
 
@@ -319,7 +328,7 @@ private class ContactRequestTriggerHandlerTest {
     Appointment_Commitment__c apptCommtRec2 = [
       SELECT ID, Confirmed__c, Appointment_Channel__c
       FROM Appointment_Commitment__c
-      WHERE Date_and_Time__c = :dateTimeVal
+      WHERE Id = :apptCommtRec.Id
     ];
 
     /*
@@ -327,8 +336,8 @@ private class ContactRequestTriggerHandlerTest {
     */
 
     System.assertEquals(
+      3,
       apptCommtRec2.Confirmed__c,
-      1,
       'Confirmed count should be updated after contact request creation'
     );
   }

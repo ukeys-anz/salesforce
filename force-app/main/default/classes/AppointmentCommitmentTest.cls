@@ -24,12 +24,30 @@ public with sharing class AppointmentCommitmentTest {
     );
     insert appointmentCommitment;
 
+    Faker testFaker = new Faker('AU');
+
+    Account person1 = InteractionInterceptTest.createTestAccount(
+      testFaker.randomString(8),
+      testFaker.randomString(8)
+    );
+    Account person2 = InteractionInterceptTest.createTestAccount(
+      testFaker.randomString(8),
+      testFaker.randomString(8)
+    );
+    Account person3 = InteractionInterceptTest.createTestAccount(
+      testFaker.randomString(8),
+      testFaker.randomString(8)
+    );
+
     ContactRequest testRequest1 = createRequest(appointmentCommitment);
+    testRequest1.WhoId = person1.PersonContactId;
     ContactRequest testRequest2 = createRequest(appointmentCommitment);
+    testRequest2.WhoId = person2.PersonContactId;
     insert testRequest1;
     insert testRequest2;
 
     ContactRequest testRequest3 = createRequest(appointmentCommitment);
+    testRequest3.WhoId = person3.PersonContactId;
 
     test.startTest();
     Exception thrownException;

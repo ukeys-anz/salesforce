@@ -352,7 +352,13 @@ public with sharing class InteractionInterceptTest {
     return createTestAccount(FIRST_NAME, LAST_NAME);
   }
 
-  static Account createTestAccount(String firstName, String lastName) {
+  /**
+   * @description creates a testAccount
+   * @param firstName First Name to put on the account
+   * @param lastName Last Name to put on the account
+   * @return Account newly created account
+   */
+  public static Account createTestAccount(String firstName, String lastName) {
     Faker faker = new Faker('AU');
     Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')

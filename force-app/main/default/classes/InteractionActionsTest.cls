@@ -1119,7 +1119,8 @@ public with sharing class InteractionActionsTest {
     System.assert(
       thrownException.getMessage()
         .contains(System.Label.Interaction_User_Created_Error_Message),
-      'The error message should be available in the body'
+      'The error message should be available in the body: ' +
+      thrownException.getMessage()
     );
   }
 

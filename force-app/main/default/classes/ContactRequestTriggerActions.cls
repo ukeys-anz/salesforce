@@ -4,7 +4,7 @@
  * @description  ContactRequestTriggerActions is the helper class for ContactRequestTriggerHandler class which handles
  * all the actions on the ContactRequest object.
  */
-
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class ContactRequestTriggerActions {
   public static final String STATUS_CANCELLED = 'Cancelled';
 
@@ -230,16 +230,71 @@ public with sharing class ContactRequestTriggerActions {
   }
 
   /**
-   * @description goes through a list of ContactRequests and adds an error if any have a channel of store, but no location
+   * @description goes through a list of ContactRequests and adds an error if any
+   * have a channel of store, but no location
    * @param requests List<ContactRequest> to search through for offenders.
    */
   public void validateContactRequests(List<ContactRequest> requests) {
+    ContactRequestActions actions = new ContactRequestActions();
+    Map<Id, Account> accountMap = actions.getWhoIdAccountMap(requests);
+    Set<Id> whoIds = new Set<Id>();
+
     for (ContactRequest currentRequest : requests) {
+      if (accountMap.containsKey(currentRequest.WhoId)) {
+        whoIds.add(accountMap.get(currentRequest.WhoId).Id);
+      } else {
+        whoIds.add(currentRequest.WhoId);
+      }
+    }
+    List<Interaction> interactions = new List<Interaction>();
+    if (Interaction.SObjectType.getDescribe().isAccessible()) {
+      interactions = [
+        SELECT
+          Id,
+          StartTime,
+          EndTime,
+          Interaction_External_Id__c,
+          AccountId,
+          Lead__c
+        FROM Interaction
+        WHERE AccountId IN :whoIds OR Lead__c IN :whoIds
+      ];
+    }
+
+    for (ContactRequest currentRequest : requests) {
+      Id requestId;
+      if (accountMap.containsKey(currentRequest.WhoId)) {
+        requestId = accountMap.get(currentRequest.WhoId).Id;
+      } else {
+        requestId = currentRequest.WhoId;
+      }
       if (
         currentRequest.PreferredChannel == 'Store' &&
         currentRequest.Location__c == null
       ) {
         currentRequest.addError(System.Label.Interaction_Store_Required);
+      }
+      //if interaction at same time add error
+      for (Interaction currentInteraction : interactions) {
+        Integer duration = AutomatedRequestMetadataProvider.getInstance()
+          .getPurposeDuration(currentRequest.RequestReason);
+
+        if (
+          // need to also check that it is of a relevant account/lead
+          (currentInteraction.AccountId == requestId ||
+          currentInteraction.Lead__c == requestId) &&
+          Lib_SystemLog.doPeriodsIntersect(
+            currentInteraction.StartTime,
+            currentInteraction.EndTime,
+            currentRequest.Appointment_date_and_Time__c,
+            currentRequest.Appointment_date_and_Time__c.addMinutes(duration)
+          )
+        ) {
+          currentRequest.addError(
+            System.Label.Interaction_User_Created_Error_Message +
+            currentInteraction.Interaction_External_Id__c
+          );
+        }
       }
     }
   }
