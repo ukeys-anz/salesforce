@@ -756,4 +756,63 @@ public without sharing class Lib_SystemLog {
     duration = duration / (60 * 1000);
     return duration.intValue();
   }
+
+  /**
+   * @description Checks to see if two date periods intersect
+   * @param firstStartDate the start date of the first period
+   * @param firstEndDate the end date of the first period
+   * @param secondStartDate the start date of the second period
+   * @param secondEndDate the end date of the second period
+   * @return Do the two periods intersect?
+   */
+  public static Boolean doPeriodsIntersect(
+    DateTime firstStartDate,
+    DateTime firstEndDate,
+    DateTime secondStartDate,
+    DateTime secondEndDate
+  ) {
+    //   2nd SD -----  1st SD  ------ 2nd ED
+    Boolean startDateIsBetween = isDateBetween(
+      firstStartDate,
+      secondStartDate,
+      secondEndDate
+    );
+
+    //   2nd SD -----  1st ED  ------ 2nd ED
+    Boolean endDateIsBetween = isDateBetween(
+      firstEndDate,
+      secondStartDate,
+      secondEndDate
+    );
+
+    //   2nd SD ----- 1st SD --- 1st ED ----- 2nd ED
+    Boolean isFirstDateContained =
+      firstStartDate >= secondStartDate &&
+      firstEndDate <= secondEndDate;
+
+    //   2st SD ----- 2nd SD --- 2nd ED ----- 1st ED
+    Boolean isSecondDateContained =
+      secondStartDate >= firstStartDate &&
+      secondEndDate <= firstEndDate;
+
+    return startDateIsBetween ||
+      endDateIsBetween ||
+      isFirstDateContained ||
+      isSecondDateContained;
+  }
+
+  /**
+   * @description checks to see if a datetime is in between two other date times.
+   * @param dateTimeToTest the date to do the test on.
+   * @param startTime the earliest start time
+   * @param endTime the latest end time
+   * @return is the date specified in between the other two?
+   */
+  public static Boolean isDateBetween(
+    DateTime dateTimeToTest,
+    DateTime startTime,
+    DateTime endTime
+  ) {
+    return endTime >= dateTimeToTest && dateTimeToTest >= startTime;
+  }
 }

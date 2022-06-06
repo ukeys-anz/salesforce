@@ -14,15 +14,16 @@ public with sharing class InteractionActions {
   public static final String UNASSIGNED_STATUS = 'Unassigned';
   public static final String RESCHEDULED_STATUS = 'Rescheduled';
   public static final String INPROGRESS_STATUS = 'In Progress';
+  public static final String WALKIN_STATUS = 'Walk In';
   public static final String NEW_STATUS = 'New';
   public static final String COACHING_SUMMARY_LABEL = ' Coaching Summary';
   public static final String NO_SHOW_STATUS = 'No Show';
   public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
   public static final Set<String> UNIQUE_STATUSES = new Set<String>{
-    'Unassigned',
-    'Scheduled',
-    'Rescheduled',
-    'Walk In'
+    UNASSIGNED_STATUS,
+    SCHEDULED_STATUS,
+    RESCHEDULED_STATUS,
+    WALKIN_STATUS
   };
 
   /**
@@ -1019,21 +1020,22 @@ public with sharing class InteractionActions {
   }
 
   /** @description Method to loop through list of existing interactions to identify if there are any overlaps
-   * @param newinteraction The new interaction record created
+   * @param newInteraction The new interaction record created
    * @param interactions list of existing interactions for the customer
    * @return Interaction Returns the conflicting interaction if one exists or null
    */
   public Interaction getInteractionAtSameTime(
-    Interaction newinteraction,
+    Interaction newInteraction,
     List<Interaction> interactions
   ) {
     for (Interaction interact : interactions) {
-      if (
-        newInteraction.StartTime.date() == interact.StartTime.date() &&
-        ((newInteraction.StartTime.time() >= interact.StartTime.time() &&
-        newInteraction.StartTime.time() < interact.Endtime.time()) ||
-        (newInteraction.Endtime.time() > interact.StartTime.time()))
-      ) {
+      Boolean doDatesIntersect = Lib_SystemLog.doPeriodsIntersect(
+        newInteraction.StartTime,
+        newInteraction.EndTime,
+        interact.StartTime,
+        interact.EndTime
+      );
+      if (doDatesIntersect && interact.Id != newInteraction.Id) {
         return interact;
       }
     }
@@ -1070,7 +1072,7 @@ public with sharing class InteractionActions {
       for (Interaction interact : [
         SELECT Id, AccountId, StartTime, Endtime, OwnerId
         FROM Interaction
-        WHERE Status__c = :SCHEDULED_STATUS AND OwnerId IN :coachIds
+        WHERE Status__c IN :UNIQUE_STATUSES AND OwnerId IN :coachIds
       ]) {
         List<Interaction> tempInteractionList = new List<Interaction>();
         if (coachInteractions.containsKey(interact.OwnerId)) {
