@@ -26,7 +26,11 @@ public with sharing class AccountBalancesControllerTest {
     List<FinServ__FinancialAccount__c> finAccountList = AccountBalancesController.getBalances(
       finAccount.Id
     );
-    System.assertEquals(1, finAccountList.size());
+    System.assertEquals(
+      1,
+      finAccountList.size(),
+      'Financial Account List size should be 1.'
+    );
 
     Test.stopTest();
   }

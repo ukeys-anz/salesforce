@@ -269,7 +269,7 @@ export default class QualityAssessment implements IAssignNewOwner {
     await browser.pause(2000);
     await qualityAssessmentSharingModalRoot.clickSearchBox();
     await qualityAssessmentSharingModalRoot.search(username);
-    await browser.pause(1000);
+    await browser.pause(2000);
 
     await qualityAssessmentSharingModalRoot.clickResult(username);
     await qualityAssessmentSharingModalRoot.save();

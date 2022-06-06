@@ -46,15 +46,18 @@ public with sharing class CaseProductTriggerHandlerTest {
 
     //THEN it worked
     Boolean exceptionThrown = false;
+    String errorMessage = '';
     try {
       update cp;
     } catch (Exception e) {
       exceptionThrown = true;
+      errorMessage = e.getMessage();
     }
     System.assertEquals(
       false,
       exceptionThrown,
-      'An exception should not have been thrown on updating the record.'
+      'An exception should not have been thrown on updating the record.|\n' +
+      errorMessage
     );
   }
   @isTest

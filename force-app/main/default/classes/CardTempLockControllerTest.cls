@@ -15,7 +15,7 @@ public with sharing class CardTempLockControllerTest {
       '4444444444444444',
       '1111'
     );
-    System.assertEquals(true, response);
+    System.assertEquals(true, response, 'Lock card is successful.');
     Test.stopTest();
   }
 }

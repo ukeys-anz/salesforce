@@ -9,8 +9,6 @@ public class IDRMilestonesTest {
   static void setup() {
     Faker faker = new Faker('AU');
 
-    User thisUser = new User(Id = UserInfo.getUserId());
-
     Account a = new Account(
       Name = 'Complaint Entitlement Account',
       OCV_ID__c = faker.randomString(10),

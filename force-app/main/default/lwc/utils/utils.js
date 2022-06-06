@@ -65,3 +65,44 @@ export function navigate(cmp, type, attributes) {
     attributes: attributes
   });
 }
+
+export function closeFocusedTab() {
+  invokeWorkspaceAPI("isConsoleNavigation").then((isConsole) => {
+    if (isConsole) {
+      invokeWorkspaceAPI("getFocusedTabInfo").then((response) => {
+        if (!response.isSubtab) {
+          invokeWorkspaceAPI("closeTab", {
+            tabId: response.tabId
+          });
+        } else {
+          invokeWorkspaceAPI("closeTab", {
+            tabId: response.parentTabId
+          });
+        }
+      });
+    }
+  });
+}
+
+function invokeWorkspaceAPI(methodName, methodArgs) {
+  return new Promise((resolve, reject) => {
+    const apiEvent = new CustomEvent("internalapievent", {
+      bubbles: true,
+      composed: true,
+      cancelable: false,
+      detail: {
+        category: "workspaceAPI",
+        methodName: methodName,
+        methodArgs: methodArgs,
+        callback: (err, response) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(response);
+        }
+      }
+    });
+
+    window.dispatchEvent(apiEvent);
+  });
+}

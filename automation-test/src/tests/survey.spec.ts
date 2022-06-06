@@ -1,0 +1,58 @@
+import Survey from "common/Survey";
+import Auth from "common/Auth";
+import { UserRole } from "constants/enums";
+import { APIResult } from "../types/survey";
+import { cleanupTestData } from "../utils/wdioUtils";
+
+describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
+  // pre test steps
+  before(async (): Promise<void> => {
+    // max viewport
+    await browser.maximizeWindow();
+  });
+
+  beforeEach(async () => {
+    await browser.pause(1000);
+  });
+
+  describe("AR-11411: Create Survey Response and Automatic Case Creation", async (): Promise<void> => {
+    const survey = new Survey();
+    let apiResult: APIResult | void;
+
+    it("Create Survey Record through API", async (): Promise<void> => {
+      apiResult = await survey.createSurveyResponse()!;
+    });
+
+    it("Go to Auto Created Case", async (): Promise<void> => {
+      // Login as test user
+      await Auth.loginSalesforceAsRole(UserRole.COACH);
+
+      // Open case record
+      await survey.openCase(apiResult!.CaseId);
+    });
+
+    it("Verify Case Fields", async (): Promise<void> => {
+      // Verify case fields
+      await survey.verifyCase();
+    });
+
+    it("Verify Einstein Advocacy Rating Component on Account Page", async (): Promise<void> => {
+      await survey.verifyAccount();
+    });
+
+    it("Verify Open Survey Response from Account Page", async (): Promise<void> => {
+      await survey.verifySurveyResponse(apiResult!.SurveyResId);
+    });
+
+    it("Logout", async (): Promise<void> => {
+      await Auth.logoutSalesforce();
+    });
+  });
+
+  after(async (): Promise<void> => {
+    await cleanupTestData(UserRole.QUALTRICS_AUTOMATION_USER, [
+      "Case",
+      "qualtrics__Survey_Response__c"
+    ]);
+  });
+});

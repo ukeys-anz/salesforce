@@ -42,7 +42,6 @@ private with sharing class NewCaseFlowWrapperControllerTest {
   // Test getting available record type Ids for Case
   @isTest
   private static void testGetAvailableRecordTypeIdsForSObject() {
-    List<Id> caseRecordTypeIdsByQuery = new List<Id>();
     Test.startTest();
     String resultString = NewCaseFlowWrapperController.getCaseRecordTypes();
     Test.stopTest();

@@ -9,6 +9,7 @@ export const enum AppTab {
   Cases = "Cases",
   Accounts = "Accounts",
   Knowledge = "Knowledge",
+  Survey_Responses = "Survey Responses",
   Leads = "Leads"
 }
 

@@ -264,10 +264,7 @@ public with sharing class IDREmailServiceTest {
 
       IDREmailService idremserObj = new IDREmailService();
       Test.startTest();
-      Messaging.InboundEmailResult result = idremserObj.handleInboundEmail(
-        email,
-        env
-      );
+      idremserObj.handleInboundEmail(email, env);
       Test.stopTest();
       //Asserts
       System.assertEquals(
@@ -340,14 +337,11 @@ public with sharing class IDREmailServiceTest {
 
       IDREmailService idremserObj = new IDREmailService();
       Test.startTest();
-      Messaging.InboundEmailResult result = idremserObj.handleInboundEmail(
-        email,
-        env
-      );
+      idremserObj.handleInboundEmail(email, env);
       Test.stopTest();
       //Asserts
       List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
-      System.assertEquals(0, conVerList.size());
+      System.assertEquals(0, conVerList.size(), 'There is no ContentVersion');
     }
   }
 
@@ -409,14 +403,11 @@ public with sharing class IDREmailServiceTest {
 
       IDREmailService idremserObj = new IDREmailService();
       Test.startTest();
-      Messaging.InboundEmailResult result = idremserObj.handleInboundEmail(
-        email,
-        env
-      );
+      idremserObj.handleInboundEmail(email, env);
       Test.stopTest();
       //Asserts
       List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
-      System.assertEquals(0, conVerList.size());
+      System.assertEquals(0, conVerList.size(), 'There is no ContentVersion');
     }
   }
 

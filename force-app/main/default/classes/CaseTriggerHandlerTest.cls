@@ -559,7 +559,8 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       system.assertEquals(
         'You cannot add parent case. This case is associated with child cases',
-        e.getDmlMessage(0)
+        e.getDmlMessage(0),
+        'Error message should be as expected.'
       );
     }
   }
@@ -658,7 +659,11 @@ private class CaseTriggerHandlerTest {
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
-    system.assertEquals('Cards - Damaged card', newCases[0].Subject);
+    system.assertEquals(
+      'Cards - Damaged card',
+      newCases[0].Subject,
+      'New case subject shoudl be as expected.'
+    );
   }
 
   //Tests if the Case Subject is populated correctly when no sub types.
@@ -690,7 +695,11 @@ private class CaseTriggerHandlerTest {
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
-    system.assertEquals('Cards', newCases[0].Subject);
+    system.assertEquals(
+      'Cards',
+      newCases[0].Subject,
+      'New case subject should be as expected.'
+    );
   }
   //Tests if the Case Subject is populated correctly when adding two sub types.
   @isTest
@@ -723,7 +732,8 @@ private class CaseTriggerHandlerTest {
 
     system.assertEquals(
       'Cards - Damaged card - Using card',
-      newCases[0].Subject
+      newCases[0].Subject,
+      'New case subject should be as expected.'
     );
   }
 
@@ -765,8 +775,16 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :complaintCaselist[0].Id
       LIMIT 1
     ];
-    system.assertEquals(et.Id, checkEntitlment.EntitlementId);
-    system.assertEquals('Normal', checkEntitlment.IDR_Milestone_Sla__c);
+    system.assertEquals(
+      et.Id,
+      checkEntitlment.EntitlementId,
+      'Complaint entitlement id should be as expected.'
+    );
+    system.assertEquals(
+      'Normal',
+      checkEntitlment.IDR_Milestone_Sla__c,
+      'Complaint entitlement IDR_Milestone_Sla should be as expected.'
+    );
     CheckRecursive.firstCall = false;
 
     checkEntitlment.Status = 'Under Investigation';
@@ -778,7 +796,11 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :complaintCaselist[0].Id
       LIMIT 1
     ];
-    system.assertEquals('Normal', checkMilestone.IDR_Milestone_Sla__c);
+    system.assertEquals(
+      'Normal',
+      checkMilestone.IDR_Milestone_Sla__c,
+      'IDR_Milestone_Sla should be as expected.'
+    );
   }
 
   @isTest
@@ -902,8 +924,7 @@ private class CaseTriggerHandlerTest {
   @isTest
   static void testRollupRelatedBugOnNoBug() {
     insert new Reported_Bug__c(Name = 'Test Bug');
-    Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
-    .Id;
+
     Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
     List<Case> newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1051,8 +1072,16 @@ private class CaseTriggerHandlerTest {
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
-    System.assertEquals(IDRTaskActions.siQueue.Id, psiTasks[0].OwnerId);
-    System.assertEquals(IDRTaskActions.IDR_TASK_SUBJECT, psiTasks[0].Subject);
+    System.assertEquals(
+      IDRTaskActions.siQueue.Id,
+      psiTasks[0].OwnerId,
+      'The new task owner id should be as expected.'
+    );
+    System.assertEquals(
+      IDRTaskActions.IDR_TASK_SUBJECT,
+      psiTasks[0].Subject,
+      'The new task subject should be as expected.'
+    );
   }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
@@ -1079,7 +1108,8 @@ private class CaseTriggerHandlerTest {
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
     system.assertEquals(
       'Card - Charged for a cancelled payment',
-      newCases[0].Subject
+      newCases[0].Subject,
+      'New case subject should be as expected.'
     );
   }
 
@@ -1150,8 +1180,6 @@ private class CaseTriggerHandlerTest {
   //Tests if KYC QA Fraud Case Subject is populated correctly based on case type.
   @isTest
   static void testPopulateKYCQAFraudCaseSubject() {
-    Faker faker = new Faker('AU');
-
     // GIVEN FraudX Agent user has required acces
     // Query for API User
     User usr = TestUtil.getUserByFirstName('FraudXTest');
@@ -1214,7 +1242,10 @@ private class CaseTriggerHandlerTest {
       FROM Case
       WHERE Id = :newCase.Id
     ];
-    System.assert(newCase.Case_Hour_Duration__c >= 0);
+    System.assert(
+      newCase.Case_Hour_Duration__c >= 0,
+      'New case duration time hour should be as expected.'
+    );
   }
 
   @istest
@@ -1231,7 +1262,11 @@ private class CaseTriggerHandlerTest {
 
     Case c = [SELECT BusinessHoursId FROM Case WHERE id = :newCase.id];
 
-    System.assertEquals(bhs.Id, c.BusinessHoursId);
+    System.assertEquals(
+      bhs.Id,
+      c.BusinessHoursId,
+      'New case bussinessHours id should be as expected.'
+    );
   }
 
   @istest
@@ -1274,7 +1309,11 @@ private class CaseTriggerHandlerTest {
 
     task checkTask = [SELECT ActivityDate FROM Task WHERE id = :idrTask.Id];
 
-    system.assertNotEquals(idrTask.ActivityDate, checkTask.ActivityDate);
+    system.assertNotEquals(
+      idrTask.ActivityDate,
+      checkTask.ActivityDate,
+      'IDR case date should be updated.'
+    );
   }
 
   //Tests if ANZ Plus Case ContactId is populated correctly based on Account.
@@ -1340,8 +1379,16 @@ private class CaseTriggerHandlerTest {
     }
     insert newCases;
     for (Case c : [SELECT Id, OwnerId FROM Case WHERE id IN :newCases]) {
-      System.assertEquals(c.OwnerId.getSobjectType(), Group.SobjectType);
-      System.assertEquals(queueList[0].Id, c.OwnerId);
+      System.assertEquals(
+        c.OwnerId.getSobjectType(),
+        Group.SobjectType,
+        'Case OwnerId type should be as expected.'
+      );
+      System.assertEquals(
+        queueList[0].Id,
+        c.OwnerId,
+        'New case OwnerId should be as expected.'
+      );
     }
 
     Test.stopTest();
@@ -1382,8 +1429,16 @@ private class CaseTriggerHandlerTest {
     update newCases[0];
 
     Case caseRec = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[0].id];
-    System.assertEquals(Group.SobjectType, caseRec.OwnerId.getSobjectType());
-    System.assertEquals(queueList[1].Id, caseRec.OwnerId);
+    System.assertEquals(
+      Group.SobjectType,
+      caseRec.OwnerId.getSobjectType(),
+      'The workbasket assignment for Afca referred compalints on update should have the same Sobject type.'
+    );
+    System.assertEquals(
+      queueList[1].Id,
+      caseRec.OwnerId,
+      'The workbasket assignment for Afca referred compalints on update should have the same OwnerId.'
+    );
 
     newCases[1].IDR_Subsequent_Issue__c = '39';
     newCases[1].Status = 'Escalated';
@@ -1391,8 +1446,16 @@ private class CaseTriggerHandlerTest {
     update newCases[1];
 
     Case caseRec1 = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[1].id];
-    System.assertEquals(Group.SobjectType, caseRec1.OwnerId.getSobjectType());
-    System.assertEquals(queueList[0].Id, caseRec1.OwnerId);
+    System.assertEquals(
+      Group.SobjectType,
+      caseRec1.OwnerId.getSobjectType(),
+      'The workbasket assignment for Afca referred compalints on update should have the same Sobject type.'
+    );
+    System.assertEquals(
+      queueList[0].Id,
+      caseRec1.OwnerId,
+      'The workbasket assignment for Afca referred compalints on update should have the same OwnerId.'
+    );
 
     Test.stopTest();
   }
@@ -1884,7 +1947,6 @@ private class CaseTriggerHandlerTest {
       FROM Account
       WHERE ANZx_Customer__c = TRUE
     ];
-    Account customerAccount1 = accounts[0];
     Account customerAccount2 = accounts[1];
 
     FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c();
@@ -1917,7 +1979,10 @@ private class CaseTriggerHandlerTest {
     try {
       insert atmDispute;
     } catch (DmlException e) {
-      System.debug(LoggingLevel.ERROR, 'An error has occurred.');
+      System.debug(
+        LoggingLevel.ERROR,
+        'An error has occurred. | ' + e.getMessage()
+      );
     }
     Test.stopTest();
 
@@ -2428,6 +2493,7 @@ private class CaseTriggerHandlerTest {
     // WHEN
     // the SLA_Status__c field gets updated to 'Warning' or 'Breached'
     Boolean exceptionThrown = false;
+    String errorMessage = '';
     Test.startTest();
 
     try {
@@ -2438,6 +2504,7 @@ private class CaseTriggerHandlerTest {
       update newCases;
     } catch (Exception e) {
       exceptionThrown = true;
+      errorMessage = e.getMessage();
     }
 
     Test.stopTest();
@@ -2448,13 +2515,13 @@ private class CaseTriggerHandlerTest {
     System.assertEquals(
       false,
       exceptionThrown,
-      'An exception should not have been thrown while triggering SLA notifications.'
+      'An exception should not have been thrown while triggering SLA notifications.|\n' +
+      errorMessage
     );
   }
 
   @isTest
   static void testDisputeSLAReset() {
-    Faker faker = new Faker('AU');
     // GIVEN
     // a dispute case has gone through mielstones and have reached a SLA Status (Warning/Breached)
     Account acc = [
@@ -2671,5 +2738,46 @@ private class CaseTriggerHandlerTest {
       platFormEventList[0].get('Record_Type_Name__c'),
       'Record Type Name should match.'
     );
+  }
+
+  //test the Quality Assessment record creation when ANZx case was not closed but moved to closed status
+  @isTest
+  static void testCreateNonCustomerComplaintANZx() {
+    Case[] newCases = new List<Case>();
+
+    User usr = TestUtil.getUserByFirstName('CoachTest');
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = GetHelpConstants.OPEN_STATUS
+        )
+      );
+    }
+
+    Test.startTest();
+
+    System.runAs(usr) {
+      insert newCases;
+    }
+
+    List<Case> newCaseRecords = [
+      SELECT Id
+      FROM Case
+      WHERE
+        RecordTypeId = :GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+        AND ANZx_Customer__c = TRUE
+    ];
+
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      newCaseRecords.size(),
+      'Should have ' +
+      Label.Test_Bulk_Size +
+      ' new ANZx Non Customer Complaint records.'
+    );
+
+    Test.stopTest();
   }
 }

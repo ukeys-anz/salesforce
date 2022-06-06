@@ -76,7 +76,11 @@ public class CaseDurationTest {
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
-    System.assertEquals(8, durationTime.hours);
+    System.assertEquals(
+      8,
+      durationTime.hours,
+      'Case duration time should be as expected.'
+    );
   }
 
   /**
@@ -111,7 +115,11 @@ public class CaseDurationTest {
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
-    System.assertEquals(16, durationTime.hours);
+    System.assertEquals(
+      16,
+      durationTime.hours,
+      'Case duration time should be as expected.'
+    );
   }
 
   /**
@@ -160,7 +168,11 @@ public class CaseDurationTest {
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
-    System.assertEquals(1, durationTime.minutes);
+    System.assertEquals(
+      1,
+      durationTime.minutes,
+      'Case duration time should be as expected.'
+    );
   }
 
   /**
@@ -195,7 +207,11 @@ public class CaseDurationTest {
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
-    System.assertEquals(8, durationTime.hours);
+    System.assertEquals(
+      8,
+      durationTime.hours,
+      'Case duration time should be as expected.'
+    );
   }
 
   /**

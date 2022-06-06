@@ -165,7 +165,6 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     List<Case> toBeEsclationCases = new List<Case>();
     Set<Id> caseOwnerIds = new Set<Id>();
-    Set<Id> caseOwnersManagerIds = new Set<Id>();
     List<IDR_Notification_Event__e> notificationList = new List<IDR_Notification_Event__e>();
 
     for (Case record : records) {

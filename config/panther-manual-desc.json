@@ -623,7 +623,8 @@
         "Advocacy_Score__c",
         "Alerting_Reason__c",
         "Feedback_Type__c",
-        "Original_Feedback_Record__c"
+        "Original_Feedback_Record__c",
+        "ANZx_Customer__c"
       ]
     },
     "CFMS_Migrated_Document__c": {

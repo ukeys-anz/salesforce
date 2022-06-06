@@ -25,13 +25,15 @@
       "selector": {
         "css": ".forceListViewPicker"
       },
+      "type": "clickable",
       "elements": [
         {
           "name": "listViewSelector",
           "selector": {
             "css": "[title='Select a List View']"
           },
-          "type": "clickable"
+          "type": "clickable",
+          "public": true
         }
       ]
     },
@@ -69,19 +71,115 @@
               },
               "type": "clickable",
               "public": true
+            },
+            {
+              "name": "listViewByTitle",
+              "selector": {
+                "css": "a",
+                "returnAll": true
+              },
+              "filter": {
+                "apply": "getText",
+                "findFirst": true,
+                "matcher": {
+                  "type": "stringContains",
+                  "args": [
+                    {
+                      "name": "title",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "public": true,
+              "type": "clickable"
             }
           ]
         }
       ]
+    },
+    {
+      "name": "firstRow",
+      "selector": {
+        "css": "tbody tr th span a"
+      },
+      "type": "clickable",
+      "nullable": true,
+      "public": true
+    },
+    {
+      "name": "linkByRecordId",
+      "selector": {
+        "css": "a[data-recordid='%s']",
+        "args": [
+          {
+            "name": "recordId",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "recordLinkByTitle",
+      "nullable": true,
+      "selector": {
+        "css": "a[title='%s']",
+        "args": [
+          {
+            "name": "title",
+            "type": "string"
+          }
+        ]
+      },
+      "public": true,
+      "type": "clickable"
+    },
+    {
+      "name": "listViewByIndex",
+      "selector": {
+        "css": "li:nth-child(%d) > a",
+        "args": [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ]
+      },
+      "type": "clickable"
     }
   ],
   "methods": [
+    {
+      "name": "openListViewPicker",
+      "compose": [
+        {
+          "element": "listViewPicker",
+          "apply": "click"
+        }
+      ]
+    },
     {
       "name": "searchListView",
       "compose": [
         {
           "element": "listViewSelector",
           "apply": "click"
+        },
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "listViewSearchBar",
+                  "apply": "isVisible"
+                }
+              ]
+            }
+          ]
         },
         {
           "element": "listViewSearchBar",
@@ -100,10 +198,71 @@
       ]
     },
     {
+      "name": "selectListViewByTitle",
+      "compose": [
+        {
+          "element": "listViewSelector",
+          "apply": "click"
+        },
+        {
+          "element": "listViewByTitle",
+          "apply": "click"
+        }
+      ]
+    },
+    {
       "name": "openListView",
       "compose": [
         {
           "element": "listView",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openRecordById",
+      "compose": [
+        {
+          "element": "linkByRecordId",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openListViewByIndex",
+      "compose": [
+        {
+          "apply": "openListViewPicker"
+        },
+        {
+          "element": "listViewByIndex",
+          "apply": "waitForVisible"
+        },
+        {
+          "element": "listViewByIndex",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "openFirstRow",
+      "compose": [
+        {
+          "apply": "waitFor",
+          "args": [
+            {
+              "type": "function",
+              "predicate": [
+                {
+                  "element": "firstRow",
+                  "apply": "isVisible"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "firstRow",
           "apply": "click"
         }
       ]
