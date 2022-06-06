@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>My_Interactions</fullName>
+    <fullName>All_Store_Interactions</fullName>
     <columns>Interaction_External_Id__c</columns>
     <columns>Account</columns>
     <columns>InteractionType</columns>
+    <columns>Location</columns>
     <columns>Resolution__c</columns>
     <columns>StartTime</columns>
     <columns>Attendees__c</columns>
-    <filterScope>Mine</filterScope>
-    <label>My Interactions</label>
-    <sharedTo>
-        <role>Coach</role>
-        <role>Coach_Lead</role>
-        <role>Quality_Analyst</role>
-    </sharedTo>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>InteractionType</field>
+        <operation>equals</operation>
+        <value>Store</value>
+    </filters>
+    <label>All Store Interactions</label>
 </ListView>

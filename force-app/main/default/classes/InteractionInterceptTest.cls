@@ -8,7 +8,6 @@ public with sharing class InteractionInterceptTest {
   private static final string FIRST_NAME = 'Fred';
   private static final string LAST_NAME = 'Smith';
   private static final string PHONE_NUMBER = '01189998819991197253';
-  private static string appointmentRTName = 'Appointment';
 
   @isTest
   static void isInterceptInteractions() {

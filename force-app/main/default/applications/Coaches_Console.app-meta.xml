@@ -2,12 +2,21 @@
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Survey_Response_Record_Page</content>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>ANZx_Account_Record_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>qualtrics__Survey_Response__c</pageOrSobjectType>
+        <pageOrSobjectType>Account</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>ANZx_Account_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Account</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
@@ -37,21 +46,12 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override updated by Lightning App Builder during activation.</comment>
-        <content>ANZx_Account_Record_Page</content>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Survey_Response_Record_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>Account</pageOrSobjectType>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>ANZx_Account_Record_Page</content>
-        <formFactor>Small</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>Account</pageOrSobjectType>
+        <pageOrSobjectType>qualtrics__Survey_Response__c</pageOrSobjectType>
     </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
@@ -100,12 +100,18 @@
     <tabs>standard-report</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-Lead</tabs>
-    <tabs>standard-Interaction</tabs>
+    <tabs>Interaction_List_View</tabs>
     <tabs>Coaching_Summary__c</tabs>
     <tabs>standard-ContactRequest</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>Coaching_Summary__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Interaction_List_View</tab>
+        </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
         </mappings>
@@ -124,12 +130,6 @@
         </mappings>
         <mappings>
             <tab>standard-Lead</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Interaction</tab>
-        </mappings>
-        <mappings>
-            <tab>Coaching_Summary__c</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>
