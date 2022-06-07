@@ -3,20 +3,19 @@
  * @date Oct 2021
  */
 
-import { LightningElement, api } from "lwc";
+import { LightningElement, track, api } from "lwc";
+import { getRecordNotifyChange } from "lightning/uiRecordApi";
 import { NavigationMixin } from "lightning/navigation";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
-import { closeFocusedTab } from "c/utils";
 import escalateCaseToCMOS from "@salesforce/apex/CaseEscalateToCMOSController.escalateCaseToCMOS";
 
 export default class EscalateToCRC extends NavigationMixin(LightningElement) {
   @api recordId;
-  isLoading = false;
+  @track isLoading = false;
 
   closeAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
-    this.isLoading = false;
   }
 
   escalate() {
@@ -26,19 +25,17 @@ export default class EscalateToCRC extends NavigationMixin(LightningElement) {
       recordId: this.recordId
     })
       .then(() => {
-        this.handleEscalateSuccess();
-        closeFocusedTab();
-        // Refresh the View once task created
-        /**
-         * LWC does not support refreshing of the other
-         * components on the page and this is the most
-         * elegant solution without doing window.refresh()
-         * which is much slower 26/05/2022
-         * refresh is needed to update the view for the case
-         * list or related list in the account object
-         */
-        /* eslint-disable no-eval */
-        eval("$A.get('e.force:refreshView').fire();");
+        // Refresh the View once escalated
+        getRecordNotifyChange([{ recordId: this.recordId }]);
+
+        let title = "Success";
+        let message = "Case Escalated to CRC";
+        let variant = "success";
+
+        const event = new ShowToastEvent({ title, message, variant });
+        this.dispatchEvent(event);
+
+        this.closeAction();
       })
       .catch((error) => {
         var message;
@@ -57,17 +54,9 @@ export default class EscalateToCRC extends NavigationMixin(LightningElement) {
 
         const event = new ShowToastEvent({ title, message, variant });
         this.dispatchEvent(event);
+      })
+      .finally(() => {
         this.isLoading = false;
       });
-  }
-
-  handleEscalateSuccess() {
-    let title = "Success";
-    let message = "Case Escalated to CRC";
-    let variant = "success";
-
-    const event = new ShowToastEvent({ title, message, variant });
-    this.dispatchEvent(event);
-    this.closeAction();
   }
 }
