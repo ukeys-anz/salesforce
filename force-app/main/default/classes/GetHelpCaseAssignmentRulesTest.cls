@@ -58,15 +58,18 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     Map<Id, Case> caseMap = new Map<Id, Case>([SELECT Id, OwnerId FROM Case]);
     System.assertEquals(
       GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE,
-      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     System.assertEquals(
       GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE,
-      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     System.assertEquals(
       GetHelpConstants.DIGITAL_FRAUD_QUEUE,
-      queueNameById.get(caseMap.get(cases[2].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[2].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
   }
 
@@ -127,15 +130,18 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     Map<Id, Case> caseMap = new Map<Id, Case>([SELECT Id, OwnerId FROM Case]);
     System.assertEquals(
       GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE,
-      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     System.assertEquals(
       GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE,
-      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     System.assertEquals(
       GetHelpConstants.DIGITAL_FRAUD_QUEUE,
-      queueNameById.get(caseMap.get(cases[2].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[2].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
   }
 
@@ -197,15 +203,18 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     Map<Id, Case> caseMap = new Map<Id, Case>([SELECT Id, OwnerId FROM Case]);
     System.assertEquals(
       GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE,
-      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     System.assertEquals(
       GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE,
-      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     System.assertEquals(
       GetHelpConstants.SUPPORT_COACH_QUEUE,
-      queueNameById.get(caseMap.get(cases[2].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[2].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
   }
 
@@ -261,11 +270,13 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     Map<Id, Case> caseMap = new Map<Id, Case>([SELECT Id, OwnerId FROM Case]);
     System.assertEquals(
       GetHelpConstants.SUPPORT_COACH_QUEUE,
-      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[0].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     System.assertEquals(
       GetHelpConstants.SUPPORT_COACH_QUEUE,
-      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName
+      queueNameById.get(caseMap.get(cases[1].Id).OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
   }
 
@@ -310,14 +321,16 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     c = [SELECT Id, OwnerId FROM Case WHERE Id = :c.Id];
     System.assertEquals(
       GetHelpConstants.PENDING_CARD_DISPUTE_FRAUD_QUEUE,
-      queueNameById.get(c.OwnerId).developerName
+      queueNameById.get(c.OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
     c.Dispute_Reason__c = 'Charged Incorrect Amount';
     update c;
     c = [SELECT Id, OwnerId FROM Case WHERE Id = :c.Id];
     System.assertEquals(
       GetHelpConstants.PENDING_CARD_DISPUTE_GENERAL_QUEUE,
-      queueNameById.get(c.OwnerId).developerName
+      queueNameById.get(c.OwnerId).developerName,
+      'Should return the developer name of expected queue.'
     );
   }
 
@@ -358,6 +371,9 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
       expMsg = e.getMessage();
     }
     String validationMsg = 'Card dispute case cannot be submitted when the transaction status is pending or Date posted is not Valid';
-    System.assert(expMsg.contains(validationMsg));
+    System.assert(
+      expMsg.contains(validationMsg),
+      'The message should be as expected.'
+    );
   }
 }
