@@ -130,6 +130,7 @@ public with sharing class NewCaseFlowWrapperController {
     for (Case_Record_Type_To_Exclude__mdt mdt : [
       SELECT DeveloperName
       FROM Case_Record_Type_To_Exclude__mdt
+      LIMIT 10
     ]) {
       recordTypesToExcl.add(mdt.DeveloperName);
     }

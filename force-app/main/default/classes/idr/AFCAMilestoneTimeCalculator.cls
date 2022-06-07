@@ -17,7 +17,7 @@ global without sharing class AFCAMilestoneTimeCalculator implements Support.Mile
 
   @SuppressWarnings('PMD.ApexCRUDViolation')
   global Integer calculateMilestoneTriggerTime(
-    String caseId,
+    Id caseId,
     String milestoneTypeId
   ) {
     if (Schema.SObjectType.Case.isQueryable()) {

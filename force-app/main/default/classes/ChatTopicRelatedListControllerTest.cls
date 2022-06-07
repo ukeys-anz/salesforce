@@ -86,7 +86,7 @@ public with sharing class ChatTopicRelatedListControllerTest {
     ChatTopicRelatedListController.accountHelper = mockAccountHelperNull;
     Test.startTest();
     ChatChannelModel response = ChatTopicRelatedListController.getChatTopicsOnAccount(
-      '',
+      null,
       ''
     );
     Test.stopTest();
