@@ -1,16 +1,20 @@
-export const enum UserRole {
+export enum UserRole {
   COACH = "Coach",
   COACH_LEAD = "Coach Lead",
   FRAUDX_AGENT = "FraudX Agent",
   CONTENT_WRITER = "Content Writer",
   SUPER_SUPPORT_ADMIN = "Super Support Admin",
   QUALITY_ANALYST = "Quality Analyst",
-  SUPPORT_COACH = "Support Coach"
+  QUALTRICS_AUTOMATION_USER = "Qualtrics Integration User",
+  SUPPORT_COACH = "Support Coach",
+  OCV_AUTOMATION_USER = "OCV Integration Automation Test User",
+  BUSINESS_ADMIN = "Business Admin"
 }
 
 export const enum Queue {
   SUPPORT_COACH_QUEUE = "Support Coach Queue",
-  CONTENT_WRITERS_QUEUE = "Content Writers Queue"
+  CONTENT_WRITERS_QUEUE = "Content Writers Queue",
+  COACH_QUEUE = "Coach Queue"
 }
 
 export const enum TransactionType {

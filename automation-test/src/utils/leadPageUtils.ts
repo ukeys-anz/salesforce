@@ -5,7 +5,6 @@ import LeadNotesTab from "pageObjects/leadNotesTab";
 import BaseRecordForm from "pageObjects/baseRecordForm";
 import Tabset2 from "pageObjects/tabset2";
 import * as commonUtils from "utils/commonUtils";
-import LeadRecordPage from "pageObjects/leadRecordPage";
 
 export const getRecordForm = async (): Promise<BaseRecordForm | undefined> => {
   const detailsTab = await getTabContent("Details");

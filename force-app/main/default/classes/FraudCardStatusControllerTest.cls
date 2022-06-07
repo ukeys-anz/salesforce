@@ -71,9 +71,7 @@ public with sharing class FraudCardStatusControllerTest {
       fraudLockObject.put('chatterInformation', chatterInformation);
       fraudLockObject.put('fraudLockInformation', fraudLockInformation);
 
-      Boolean result = FraudCardStatusController.setFraudCardStatus(
-        fraudLockObject
-      );
+      FraudCardStatusController.setFraudCardStatus(fraudLockObject);
     } catch (Exception e) {
       errorResult = e;
     }

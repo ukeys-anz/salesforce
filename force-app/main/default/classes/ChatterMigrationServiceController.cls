@@ -119,8 +119,6 @@ global with sharing class ChatterMigrationServiceController {
     Integer statusCode,
     Map<String, String> response
   ) {
-    RestRequest req = RestContext.request;
-    RestResponse res = Restcontext.response;
     RestContext.response.statusCode = statusCode;
 
     RestContext.response.responseBody = Blob.valueOf(JSON.serialize(response));

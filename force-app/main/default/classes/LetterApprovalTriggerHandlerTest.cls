@@ -59,7 +59,7 @@ public class LetterApprovalTriggerHandlerTest {
     Test.startTest();
     Approval.ProcessSubmitRequest app = new Approval.ProcessSubmitRequest();
     app.setObjectId(lApp.id);
-    Approval.ProcessResult result = Approval.process(app);
+    Approval.process(app);
     Test.stopTest();
     IDR_Letter_Approval__c letterApp = [
       SELECT id, IDR_Status__c

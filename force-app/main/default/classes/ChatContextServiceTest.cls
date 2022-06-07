@@ -90,18 +90,35 @@ public with sharing class ChatContextServiceTest {
       'Auto case creation failed via ChatContextRequests REST service'
     );
 
-    System.assertEquals(200, RestContext.response.statusCode);
+    System.assertEquals(
+      200,
+      RestContext.response.statusCode,
+      'Autp case creation is successful.'
+    );
     List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
       RestContext.response.responseBody.toString(),
       List<ChatContextService.ChatContextResponse>.class
     );
-    System.assertEquals(true, responseDto[0].success);
-    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(
+      true,
+      responseDto[0].success,
+      'Auto case creation is successful.'
+    );
+    System.assertEquals(
+      'OCVID887766',
+      responseDto[0].ocvId,
+      'OcvId of new case should be as expected.'
+    );
     System.assertEquals(
       newCases[0].CaseNumber,
-      responseDto[0].sfdcSearchString
+      responseDto[0].sfdcSearchString,
+      'New case number should be as expected.'
     );
-    System.assertEquals('About ANZ Plus', responseDto[0].chatLabel);
+    System.assertEquals(
+      'About ANZ Plus',
+      responseDto[0].chatLabel,
+      'New case chat label should be as expected.'
+    );
   }
 
   @isTest
@@ -135,15 +152,29 @@ public with sharing class ChatContextServiceTest {
       responseDto[0].success,
       'Request should fail if request params were invalid'
     );
-    System.assertEquals(400, RestContext.response.statusCode);
-    System.assertEquals('OCVID887766', responseDto[0].ocvId);
-    System.assertEquals('', responseDto[0].sfdcSearchString);
-    System.assert(
-      responseDto[0]
-        .errorMessage.contains('Invalid or insufficient request parameters')
+    System.assertEquals(
+      400,
+      RestContext.response.statusCode,
+      'Request should fail - statusCode 400.'
+    );
+    System.assertEquals(
+      'OCVID887766',
+      responseDto[0].ocvId,
+      'Check the OcvId of the request.'
+    );
+    System.assertEquals(
+      '',
+      responseDto[0].sfdcSearchString,
+      'No case number is expected.'
     );
     System.assert(
-      [SELECT COUNT() FROM Case WHERE Account.OCV_ID__c = 'OCVID887766'] == 0
+      responseDto[0]
+        .errorMessage.contains('Invalid or insufficient request parameters'),
+      'Error message should be as expected.'
+    );
+    System.assert(
+      [SELECT COUNT() FROM Case WHERE Account.OCV_ID__c = 'OCVID887766'] == 0,
+      'The failed case has not been inserted.'
     );
   }
 
@@ -180,14 +211,27 @@ public with sharing class ChatContextServiceTest {
       responseDto[0].success,
       'Request should fail if the OCV ID is invalid'
     );
-    System.assertEquals(400, RestContext.response.statusCode);
-    System.assertEquals('OCVID888888', responseDto[0].ocvId);
-    System.assertEquals('', responseDto[0].sfdcSearchString);
+    System.assertEquals(
+      400,
+      RestContext.response.statusCode,
+      'Request should fail - statusCode 400.'
+    );
+    System.assertEquals(
+      'OCVID888888',
+      responseDto[0].ocvId,
+      'Check the OcvId of the request.'
+    );
+    System.assertEquals(
+      '',
+      responseDto[0].sfdcSearchString,
+      'No case number is expected.'
+    );
     System.assert(
       responseDto[0]
         .errorMessage.contains(
           'Could not find a matching ANZx customer record based on OCV ID'
-        )
+        ),
+      'Error message should be as expected.'
     );
   }
 
@@ -244,14 +288,31 @@ public with sharing class ChatContextServiceTest {
       RestContext.response.responseBody.toString(),
       List<ChatContextService.ChatContextResponse>.class
     );
-    System.assertEquals(true, responseDto[0].success);
-    System.assertEquals(200, RestContext.response.statusCode);
-    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(
+      true,
+      responseDto[0].success,
+      'Autp case creation is successful.'
+    );
+    System.assertEquals(
+      200,
+      RestContext.response.statusCode,
+      'Autp case creation is successful.'
+    );
+    System.assertEquals(
+      'OCVID887766',
+      responseDto[0].ocvId,
+      'OcvId of new case should be as expected.'
+    );
     System.assertEquals(
       newCases[0].CaseNumber,
-      responseDto[0].sfdcSearchString
+      responseDto[0].sfdcSearchString,
+      'New case number should be as expected.'
     );
-    System.assertEquals('About ANZ Plus', responseDto[0].chatLabel);
+    System.assertEquals(
+      'About ANZ Plus',
+      responseDto[0].chatLabel,
+      'New case chat label should be as expected.'
+    );
   }
 
   @isTest
@@ -278,26 +339,31 @@ public with sharing class ChatContextServiceTest {
     Test.stopTest();
 
     // THEN the request must succeed. Value on Account 'External ID' field will be returned.
-    List<Case> newCases = [
-      SELECT Id, CaseNumber, Account.OCV_ID__c
-      FROM Case
-      WHERE Account.OCV_ID__c = 'OCVID887766'
-    ];
 
     List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
       RestContext.response.responseBody.toString(),
       List<ChatContextService.ChatContextResponse>.class
     );
-    System.assertEquals(false, responseDto[0].success);
-    System.assertEquals(400, responseDto[0].statusCode);
-    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(false, responseDto[0].success, 'No cas has been found');
+    System.assertEquals(
+      400,
+      responseDto[0].statusCode,
+      'Request should fail - statusCode 400.'
+    );
+    System.assertEquals(
+      'OCVID887766',
+      responseDto[0].ocvId,
+      'Check the OcvId of the request.'
+    );
     System.assertEquals(
       'OCVID887766CAPSYSID123',
-      responseDto[0].sfdcSearchString
+      responseDto[0].sfdcSearchString,
+      'Case number should be as expected.'
     );
     System.assertEquals(
       'Unable to find a matching Type for sub type "About ANZ Plu".',
-      responseDto[0].errorMessage
+      responseDto[0].errorMessage,
+      'Error message should be as expected.'
     );
   }
 
@@ -332,19 +398,36 @@ public with sharing class ChatContextServiceTest {
       WHERE Account.OCV_ID__c = 'OCVID887766'
     ];
 
-    System.assertEquals(200, RestContext.response.statusCode);
+    System.assertEquals(
+      200,
+      RestContext.response.statusCode,
+      'Successful request - StatusCode: 200'
+    );
     List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
       RestContext.response.responseBody.toString(),
       List<ChatContextService.ChatContextResponse>.class
     );
-    System.assertEquals(true, responseDto[0].success);
-    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(true, responseDto[0].success, 'Successful request');
+    System.assertEquals(
+      'OCVID887766',
+      responseDto[0].ocvId,
+      'OcvId should be as expected.'
+    );
     System.assertEquals(
       newCases[0].CaseNumber,
-      responseDto[0].sfdcSearchString
+      responseDto[0].sfdcSearchString,
+      'Case Number should be as expected.'
     );
-    System.assertEquals(newCases[0].Type, 'Other Enquiries');
-    System.assertEquals('Other Enquiries', responseDto[0].chatLabel);
+    System.assertEquals(
+      newCases[0].Type,
+      'Other Enquiries',
+      'Case type of new created case should be as expected.'
+    );
+    System.assertEquals(
+      'Other Enquiries',
+      responseDto[0].chatLabel,
+      'Chat label should be as expected.'
+    );
   }
 
   @isTest
@@ -376,19 +459,36 @@ public with sharing class ChatContextServiceTest {
       WHERE Account.OCV_ID__c = 'OCVID887766'
     ];
 
-    System.assertEquals(200, RestContext.response.statusCode);
+    System.assertEquals(
+      200,
+      RestContext.response.statusCode,
+      'Successful request - StatusCode : 200'
+    );
     List<ChatContextService.ChatContextResponse> responseDto = (List<ChatContextService.ChatContextResponse>) JSON.deserialize(
       RestContext.response.responseBody.toString(),
       List<ChatContextService.ChatContextResponse>.class
     );
-    System.assertEquals(true, responseDto[0].success);
-    System.assertEquals('OCVID887766', responseDto[0].ocvId);
+    System.assertEquals(true, responseDto[0].success, 'Successful request.');
+    System.assertEquals(
+      'OCVID887766',
+      responseDto[0].ocvId,
+      'OcvId should be as expected.'
+    );
     System.assertEquals(
       newCases[0].CaseNumber,
-      responseDto[0].sfdcSearchString
+      responseDto[0].sfdcSearchString,
+      'Case number should be as expected.'
     );
-    System.assertEquals(newCases[0].Type, 'Profile');
-    System.assertEquals('Updating details', responseDto[0].chatLabel);
+    System.assertEquals(
+      newCases[0].Type,
+      'Profile',
+      'New case type should be as expected.'
+    );
+    System.assertEquals(
+      'Updating details',
+      responseDto[0].chatLabel,
+      'Chat label should be as expected.'
+    );
   }
 
   /**

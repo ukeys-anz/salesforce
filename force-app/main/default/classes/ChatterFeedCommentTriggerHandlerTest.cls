@@ -44,7 +44,7 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
         ? true
         : false;
     }
-    System.assertEquals(true, exceptionThrown);
+    System.assertEquals(true, exceptionThrown, 'Field is not writeable');
   }
   @isTest
   static void testDeleteFeedItem() {
@@ -62,6 +62,10 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
         ? true
         : false;
     }
-    System.assertEquals(true, exceptionThrown);
+    System.assertEquals(
+      true,
+      exceptionThrown,
+      'You do not have permission to delete this comment'
+    );
   }
 }

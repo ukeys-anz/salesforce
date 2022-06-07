@@ -129,7 +129,10 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       FROM CaseComment
       WHERE ParentId = :c.id
     ];
-    System.assert(deletedComments.size() == 0);
+    System.assert(
+      deletedComments.size() == 0,
+      'Deleted comments size should be as expected.'
+    );
   }
 
   @isTest
@@ -167,19 +170,17 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       );
       insert testComment;
 
-      Case c = [
-        SELECT Id, OwnerId, Owner.isActive
-        FROM Case
-        WHERE Id = :newCases[0].id
-      ];
-
       //THEN notification flag is set to true in the case record
       List<Application_Log__c> appLogs = [
         SELECT ID
         FROM Application_Log__c
         WHERE Process_Name__c = 'IDRBankerNotificationBuilder'
       ];
-      System.assertEquals(0, appLogs.size());
+      System.assertEquals(
+        0,
+        appLogs.size(),
+        'The application log size should be 0'
+      );
 
       Test.stopTest();
     }
