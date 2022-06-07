@@ -2739,45 +2739,4 @@ private class CaseTriggerHandlerTest {
       'Record Type Name should match.'
     );
   }
-
-  //test the Quality Assessment record creation when ANZx case was not closed but moved to closed status
-  @isTest
-  static void testCreateNonCustomerComplaintANZx() {
-    Case[] newCases = new List<Case>();
-
-    User usr = TestUtil.getUserByFirstName('CoachTest');
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          Status = GetHelpConstants.OPEN_STATUS
-        )
-      );
-    }
-
-    Test.startTest();
-
-    System.runAs(usr) {
-      insert newCases;
-    }
-
-    List<Case> newCaseRecords = [
-      SELECT Id
-      FROM Case
-      WHERE
-        RecordTypeId = :GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
-        AND ANZx_Customer__c = TRUE
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newCaseRecords.size(),
-      'Should have ' +
-      Label.Test_Bulk_Size +
-      ' new ANZx Non Customer Complaint records.'
-    );
-
-    Test.stopTest();
-  }
 }
