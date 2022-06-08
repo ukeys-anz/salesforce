@@ -261,7 +261,6 @@
         <fields>Name</fields>
         <fields>StartTime</fields>
         <fields>Owner</fields>
-        <fields>Status__c</fields>
         <relatedList>Interactions</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

@@ -337,22 +337,17 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>caseLogACall</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Case.Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>ActivityHistories</value>
+                    <value>Interactions__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
-                    <value>ADVGRID</value>
+                    <value>NONE</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
@@ -360,12 +355,12 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListSingleContainer</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-1c66dff8-0bb5-4e57-a5c4-5082895ebc52</name>
+        <name>Facet-f3bc39bb-6a6d-4344-bdb8-a67072e6fd7e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -390,11 +385,11 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-1c66dff8-0bb5-4e57-a5c4-5082895ebc52</value>
+                    <value>Facet-f3bc39bb-6a6d-4344-bdb8-a67072e6fd7e</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Calls</value>
+                    <value>Interactions</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
