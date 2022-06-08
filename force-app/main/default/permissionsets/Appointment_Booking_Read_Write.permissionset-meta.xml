@@ -152,6 +152,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Interaction_Number_Link__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Interaction_Purpose__c</field>
         <readable>true</readable>

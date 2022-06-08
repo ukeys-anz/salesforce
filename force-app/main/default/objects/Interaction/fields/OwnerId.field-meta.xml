@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>User who created the interaction</description>
+    <inlineHelpText>Owner Name is the owner of the appointment interaction. To assign a different owner for the interaction, change the Status field to &apos;Unassigned&apos; to send it back to the Appointment Queue for the new owner to pick up.</inlineHelpText>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Lookup</type>
