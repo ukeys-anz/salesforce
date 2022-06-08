@@ -2763,4 +2763,50 @@ private class CaseTriggerHandlerTest {
       'Record Type Name should match.'
     );
   }
+
+  //Test OCV Id gets populated on ANZx Complaint cases
+  @isTest
+  static void testOCVPopulationOnANZxComplaint() {
+    Account acc = [
+      SELECT Id, PersonContactId, OCV_ID__c
+      FROM Account
+      WHERE OCV_ID__c = 'PERSONOCV879879'
+      LIMIT 1
+    ];
+
+    Case[] newCases = new List<Case>();
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
+          Status = GetHelpConstants.OPEN_STATUS,
+          AccountId = acc.Id,
+          ContactId = acc.PersonContactId
+        )
+      );
+    }
+
+    Test.startTest();
+
+    insert newCases;
+
+    List<Case> newCaseRecords = [
+      SELECT Id
+      FROM Case
+      WHERE
+        RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
+        AND OCV_Id__c = :acc.OCV_ID__c
+    ];
+
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      newCaseRecords.size(),
+      'Should have ' +
+      Label.Test_Bulk_Size +
+      ' new ANZx Complaint records.'
+    );
+
+    Test.stopTest();
+  }
 }
