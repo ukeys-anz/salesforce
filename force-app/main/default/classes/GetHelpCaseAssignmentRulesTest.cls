@@ -367,6 +367,10 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     String expMsg = '';
     try {
       update c;
+      System.assert(
+        false,
+        'Failed to prevent against user submitting dispute case when the transaction stauts is pending or Date posted is not valid'
+      );
     } catch (Exception e) {
       expMsg = e.getMessage();
     }

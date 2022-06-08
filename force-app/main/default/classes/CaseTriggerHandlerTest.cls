@@ -1,4 +1,4 @@
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity,PMD.CognitiveComplexity')
 @isTest
 private class CaseTriggerHandlerTest {
   public static Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
@@ -515,6 +515,7 @@ private class CaseTriggerHandlerTest {
 
     try {
       delete newCases;
+      System.assert(false, 'Failed to protect against user deleting cases');
     } catch (DMLexception e) {
       system.assert(
         e.getMessage().contains('You cannot delete cases'),
@@ -556,6 +557,10 @@ private class CaseTriggerHandlerTest {
     try {
       parentCaseList[0].ParentId = parentCaseList[1].Id;
       update parentCaseList;
+      System.assert(
+        false,
+        'Failed to prevent against user adding parent case when it has already related to child cases'
+      );
     } catch (DmlException e) {
       system.assertEquals(
         'You cannot add parent case. This case is associated with child cases',
@@ -588,6 +593,10 @@ private class CaseTriggerHandlerTest {
 
     try {
       insert newCases;
+      System.assert(
+        false,
+        'Failed to prevent user selecting duplicate values in additional type when the value exists in primary type'
+      );
     } catch (DMLexception e) {
       system.assert(
         e.getMessage()
@@ -621,6 +630,10 @@ private class CaseTriggerHandlerTest {
 
     try {
       insert newCases;
+      System.assert(
+        false,
+        'Failed to prevent against user selecting two additional types'
+      );
     } catch (DMLexception e) {
       system.assert(
         e.getMessage()
@@ -1739,6 +1752,10 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     try {
       insert atmDispute;
+      System.assert(
+        false,
+        'Failed to detect misalignment between customer\'s OCV ID and Financial Account'
+      );
     } catch (DmlException e) {
       // THEN the dispute should not be created and an error is thrown indicating that there is a misalignment
       // between the customer account and the financial account
@@ -1820,6 +1837,10 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     try {
       insert disputes;
+      System.assert(
+        false,
+        'Failed to detect misalignment between customer\'s OCV ID and Financial Account'
+      );
     } catch (DmlException e) {
       // THEN the disputes should not be created and an error is thrown indicating that there is a misalignment
       // between the customer account and the financial account
@@ -1983,6 +2004,7 @@ private class CaseTriggerHandlerTest {
         LoggingLevel.ERROR,
         'An error has occurred. | ' + e.getMessage()
       );
+      System.assert(false, 'Failed to create dispute case');
     }
     Test.stopTest();
 
@@ -2140,6 +2162,7 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     try {
       insert openDispute2;
+      System.assert(false, 'Failed to detect existing dispute case');
     } catch (DmlException e) {
       System.assertEquals(
         true,
@@ -2505,6 +2528,7 @@ private class CaseTriggerHandlerTest {
     } catch (Exception e) {
       exceptionThrown = true;
       errorMessage = e.getMessage();
+      System.assert(false, 'Failed to update SLA notification');
     }
 
     Test.stopTest();
