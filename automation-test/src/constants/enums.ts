@@ -3,7 +3,6 @@ export enum UserRole {
   COACH_LEAD = "Coach Lead",
   FRAUDX_AGENT = "FraudX Agent",
   CONTENT_WRITER = "Content Writer",
-  SUPER_SUPPORT_ADMIN = "Super Support Admin",
   QUALITY_ANALYST = "Quality Analyst",
   QUALTRICS_AUTOMATION_USER = "Qualtrics Integration User",
   SUPPORT_COACH = "Support Coach",
