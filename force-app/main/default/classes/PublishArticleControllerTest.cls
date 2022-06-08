@@ -50,7 +50,11 @@ public with sharing class PublishArticleControllerTest {
         WHERE Id = :article.Id
       ];
 
-      System.assertEquals('Online', article.PublishStatus);
+      System.assertEquals(
+        'Online',
+        article.PublishStatus,
+        'Article status should be as expected.'
+      );
     }
 
   }
@@ -75,6 +79,10 @@ public with sharing class PublishArticleControllerTest {
       exp = e;
     }
 
-    System.assertEquals('Script-thrown exception', exp.getMessage());
+    System.assertEquals(
+      'Script-thrown exception',
+      exp.getMessage(),
+      'Error message should be as expected.'
+    );
   }
 }

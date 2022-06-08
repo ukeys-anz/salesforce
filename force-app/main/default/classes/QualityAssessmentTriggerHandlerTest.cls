@@ -542,6 +542,6 @@ private class QualityAssessmentTriggerHandlerTest {
     }
     Test.stopTest();
 
-    System.assert(exceptionWasThrown);
+    System.assert(exceptionWasThrown, 'The exception error should be thrown.');
   }
 }
