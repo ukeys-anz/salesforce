@@ -230,22 +230,22 @@ Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal d
             <value>
                 <fullName>44</fullName>
                 <default>false</default>
-                <label>Motor Vechile - Comprehensive</label>
+                <label>Motor Vehicle - Comprehensive</label>
             </value>
             <value>
                 <fullName>45</fullName>
                 <default>false</default>
-                <label>Motor Vechile - Third Party Fire &amp; Theft</label>
+                <label>Motor Vehicle - Third Party Fire &amp; Theft</label>
             </value>
             <value>
                 <fullName>46</fullName>
                 <default>false</default>
-                <label>Motor Vechile - Third Party theft</label>
+                <label>Motor Vehicle - Third Party theft</label>
             </value>
             <value>
                 <fullName>47</fullName>
                 <default>false</default>
-                <label>Motor Vechile - Uninsured third party</label>
+                <label>Motor Vehicle - Uninsured third party</label>
             </value>
             <value>
                 <fullName>48</fullName>
@@ -415,7 +415,7 @@ Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal d
             <value>
                 <fullName>81</fullName>
                 <default>false</default>
-                <label>Cryptocurrency ( Derivatives and Hedging )</label>
+                <label>Cryptocurrency (Derivatives and Hedging)</label>
             </value>
             <value>
                 <fullName>82</fullName>
@@ -580,12 +580,12 @@ Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal d
             <value>
                 <fullName>114</fullName>
                 <default>false</default>
-                <label>Consumer credit (Income stream risk)</label>
+                <label>Consumer Credit insurance (Income stream risk)</label>
             </value>
             <value>
                 <fullName>115</fullName>
                 <default>false</default>
-                <label>Income Protection ( Income Stream Risk)</label>
+                <label>Income Protection (Income Stream Risk)</label>
             </value>
             <value>
                 <fullName>116</fullName>
@@ -710,7 +710,7 @@ Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal d
             <value>
                 <fullName>141</fullName>
                 <default>false</default>
-                <label>Cryptocurrency ( Non-Cash )</label>
+                <label>Cryptocurrency (Non-Cash)</label>
             </value>
             <value>
                 <fullName>142</fullName>
