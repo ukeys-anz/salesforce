@@ -90,10 +90,13 @@ public with sharing class AppointmentNotificationHandler {
   ) {
     Account interactionAccount;
     Lead interactionLead;
+    String emailAddress;
     if (interactionSubject.AccountId != null) {
       interactionAccount = accountMap.get(interactionSubject.AccountId);
+      emailAddress = interactionAccount.PersonEmail;
     } else if (interactionSubject.Lead__c != null) {
       interactionLead = leadMap.get(interactionSubject.Lead__c);
+      emailAddress = interactionLead.Email;
     }
     IDR_Notification_Event__e notificationEvent = new IDR_Notification_Event__e();
 
@@ -101,7 +104,9 @@ public with sharing class AppointmentNotificationHandler {
     notificationEvent.Preferred_Channel__c = interactionSubject.InteractionType;
     notificationEvent.Location__c = interactionSubject.LocationId;
     notificationEvent.Request_Type__c = interactionSubject.Interaction_Purpose__c;
+    notificationEvent.Record_Id__c = interactionSubject.Interaction_External_Id__c;
     notificationEvent.Event_Type__c = 'Appointment';
+    notificationEvent.AuthorisedEmail__c = emailAddress;
     notificationEvent.EmailTemplate__c = getNotificationTemplate(
       interactionSubject
     );

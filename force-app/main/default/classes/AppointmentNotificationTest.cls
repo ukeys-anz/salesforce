@@ -69,6 +69,7 @@ public with sharing class AppointmentNotificationTest {
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
+    insert interactionSubject;
 
     Test.startTest();
     IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
@@ -118,6 +119,13 @@ public with sharing class AppointmentNotificationTest {
       notificationEvent.EmailTemplate__c,
       'EmailTemplate__c should be set'
     );
+
+    string expectedEmail = testAccount.PersonEmail.toLowerCase();
+    System.assertEquals(
+      expectedEmail,
+      notificationEvent.AuthorisedEmail__c,
+      'Email on the event must match that of the related account'
+    );
   }
 
   @isTest
@@ -130,6 +138,11 @@ public with sharing class AppointmentNotificationTest {
     testLead.LastName = 'Doe';
     testLead.Company = testLead.FirstName;
     testLead.RecordTypeId = leadRecordTypeId;
+    testLead.Email =
+      testLead.FirstName +
+      '.' +
+      testLead.LastName +
+      '@test.test';
     insert testLead;
 
     Interaction interactionSubject = createInteraction();
@@ -184,6 +197,13 @@ public with sharing class AppointmentNotificationTest {
       TEMPLATE_BOOKED,
       notificationEvent.EmailTemplate__c,
       'EmailTemplate__c should be set'
+    );
+
+    string expectedEmail = testLead.Email.toLowerCase();
+    System.assertEquals(
+      expectedEmail,
+      notificationEvent.AuthorisedEmail__c,
+      'Event Email must match the Leads Email'
     );
   }
 
@@ -247,6 +267,7 @@ public with sharing class AppointmentNotificationTest {
     testAccount.OCV_ID__c = ocvId;
     testAccount.RecordTypeId = personAccountRecordTypeId;
     testAccount.PersonMobilePhone = TEST_MOBILE;
+    testAccount.PersonEmail = firstName + '.' + lastName + '@test.test';
 
     return testAccount;
   }
