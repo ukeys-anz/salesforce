@@ -1,8 +1,8 @@
-import Auth from "common/Auth";
-import { UserRole } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import Knowledge from "common/Knowledge";
+import Auth from "../common/Auth";
+import { UserRole } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import Knowledge from "../common/Knowledge";
 
 describe("AR-4502: Knowledge & Release Notes", () => {
   // pre test steps
@@ -25,7 +25,7 @@ describe("AR-4502: Knowledge & Release Notes", () => {
     const knowledge = new Knowledge();
 
     it("Login as Content Writer", async (): Promise<void> => {
-      await Auth.loginSalesforceAsRole(UserRole.CONTENT_WRITER);
+      await Auth.loginSalesforceAsRole(UserRole.Content_Writer);
     });
 
     it("Go to Content Workbench and Knowledge tab", async (): Promise<void> => {

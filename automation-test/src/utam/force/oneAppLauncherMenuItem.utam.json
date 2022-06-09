@@ -1,0 +1,24 @@
+{
+  "shadow": {
+    "elements": [
+      {
+        "name": "link",
+        "selector": {
+          "css": "[role='option']"
+        },
+        "type": "clickable"
+      }
+    ]
+  },
+  "methods": [
+    {
+      "name": "click",
+      "compose": [
+        {
+          "element": "link",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}
