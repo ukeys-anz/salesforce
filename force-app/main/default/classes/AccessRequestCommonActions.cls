@@ -11,6 +11,7 @@ public without sharing class AccessRequestCommonActions {
   private static final String STATUS_REJECTED = 'Rejected';
   @testVisible
   private static final String REQUEST_IMMEDIATE = 'Immediate';
+  private static final String USER_REQUEST_AND_APPROVE_ERROR_MSG = 'You cannot approve your own request. Please get another user from the PAM Approval Group to approve your Access Request';
 
   /**
    * @description get user Id related to global PAM approvers defined in custom setting 'PAM_Global_Approver__c'
@@ -50,9 +51,7 @@ public without sharing class AccessRequestCommonActions {
   public static void checkApprovers(List<Access_Request__c> records) {
     for (Access_Request__c record : records) {
       if (record.Approver_ID__c == record.Requestor__c) {
-        record.addError(
-          'You cannot approve your own request. Please get another user from the PAM Approval Group to approve your Access Request'
-        );
+        record.addError(USER_REQUEST_AND_APPROVE_ERROR_MSG);
 
         Lib_SystemLog.createSingleLogAsync(
           AccessRequestCommonActions.class.getName(),

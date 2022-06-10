@@ -4,6 +4,17 @@ green=`tput setaf 2`
 red=`tput setaf 1`
 reset=`tput sgr0`
 
+trap ctrl_c INT
+
+function ctrl_c() {
+    git checkout .
+    rm -rf ci.forceignore
+    echo "${red}"
+    echo "Creating snapshot has been stopped."
+    echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+    exit 1
+}
+
 echo "${red}"
 echo "WARNING: Disable ANZ Proxy to run this script"
 echo "You can leave alpaca running and proxy variables set to localhost:3128"
@@ -73,5 +84,33 @@ function changeMetadata(){
             replace=$( sed 's+<objectPermissions> <allowCreate>false</allowCreate> <allowDelete>false</allowDelete> <allowEdit>false</allowEdit> <allowRead>false</allowRead> <modifyAllRecords>false</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>false</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
             echo $replace > "$1"
         fi
+    fi
+}
+
+# first argument : scratchOrg alias
+# second argument : which step ( pre/post deploy )
+function waitForManualSteps(){
+    read -rp "${green}Do you want to open the scratch org to do manual $2 steps (y/n)? " manualDeploySteps
+    echo "${reset}"
+    if [[ $manualDeploySteps == y || $manualDeploySteps == Y ]]; then
+        sfdx force:org:open -u $1 
+    fi
+
+    echo ""
+    echo "${green}************************"
+    echo ""
+    echo "Waiting while the job in scratchOrg is finished."
+    echo ""
+    echo "************************"
+    echo ""
+
+    echo "You can run your manual commands in another terminal window and then continue the other steps"
+    echo ""
+    read -rp "When you have done the manual steps, just type (y). If you want to stop the job, type (n): " continueFlag
+    if [[ $continueFlag == n || $continueFlag == N ]]; then
+        echo ""
+        echo "Creating snapshot has been stopped."
+        echo ""
+        exit 1
     fi
 }

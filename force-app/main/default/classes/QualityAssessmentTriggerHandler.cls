@@ -15,6 +15,8 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
     super();
   }
 
+  private static final String QA_RECORD_VALIDATION_ERROR_MSG = 'Related case must be under the same customer as the QA record.';
+
   /**
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
@@ -77,10 +79,7 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
           record.Customer__c != null &&
           record.Customer__c != record.Related_Case__r?.AccountId
         ) {
-          qaMap.get(record.Id)
-            .addError(
-              'Related case must be under the same customer as the QA record.'
-            );
+          qaMap.get(record.Id).addError(QA_RECORD_VALIDATION_ERROR_MSG);
         }
       }
     }

@@ -1,14 +1,19 @@
 import Lead from "./Lead";
 import RecordCreationForm from "pageObjects/recordCreationForm";
 import LwcRecordCreationForm from "pageObjects/lwcRecordCreationForm";
-import * as commonUtils from "utils/commonUtils";
 import IChatter from "interfaces/IChatter";
 import LeadNotesTab from "pageObjects/leadNotesTab";
 import * as leadPageUtils from "utils/leadPageUtils";
-import * as faker from "faker";
 import RecordPage from "pageObjects/recordPage";
+import { navigateToAppAndTab, gotoRecordPageById } from "utils/navigationUtils";
+import { App, AppTab } from "constants/appsDefinition";
+import ObjectHome from "pageObjects/objectHome";
+import leadData from "../../data/leadData";
+import { loginJSForce } from "utils/apiUtils";
+import * as commonUtils from "utils/commonUtils";
 
 const generalComment = `Automation Test General Comment.`;
+
 export default class ANZXLead extends Lead implements IChatter {
   async create(leadData?: any): Promise<void> {
     const recordCreationFormRoot = await utam.load(RecordCreationForm);
@@ -23,46 +28,42 @@ export default class ANZXLead extends Lead implements IChatter {
 
     const recordLayout = await baseRecordFrom.getRecordLayout();
 
-    // name field is a compound field
+    // Set Name - field is a compound field
     const nameField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 1, 1]
     );
-
     const recordLayoutInputName = await nameField.getInputName();
     const inputName = await recordLayoutInputName.getInputName();
 
     const firstNameInput = await inputName.getFirstNameInput();
-    const firstName = leadData?.firstName
-      ? leadData.firstName
-      : faker.name.firstName();
+    const firstName = leadData?.firstName ? leadData.firstName : this.firstName;
     await firstNameInput.setText(firstName);
 
     const lastNameInput = await inputName.getLastNameInput();
-    const lastName = leadData?.lastName
-      ? leadData.lastName
-      : faker.name.lastName();
+    const lastName = leadData?.lastName ? leadData.lastName : this.lastName;
     await lastNameInput.setText(lastName);
 
+    // Set Mobiile
     const mobilePhoneField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 2, 1]
     );
     const mobilePhoneInput = await mobilePhoneField.getInput();
-    const mobile = leadData?.mobile
-      ? leadData.mobile
-      : faker.phone.phoneNumber("04########");
+    const mobile = leadData?.mobile ? leadData.mobile : this.mobile;
     await mobilePhoneInput.setText(mobile);
 
+    // Set email
     const emailField = await commonUtils.getFieldFromRecordLayout(
       recordLayout,
       [1, 3, 1]
     );
     const emailInput = await emailField.getInput();
-    const email = leadData?.email
-      ? leadData.email
-      : faker.internet.exampleEmail(firstName, lastName);
+    const email = leadData?.email ? leadData.email : this.email;
     await emailInput.setText(email);
+
+    // Set Lead Source
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 3, 2], 4);
 
     // click save button
     const formFooter = await baseRecordFrom.getFooter();
@@ -87,6 +88,15 @@ export default class ANZXLead extends Lead implements IChatter {
     // Validation error should be thrown: Lead Status cannot be changed to Converted manually.
     await baseRecordForm.clickFooterButton("Cancel");
     await browser.pause(1000);
+
+    // Assert Status field is still New
+    const statusPicklistAfterAttemptedConvert =
+      await commonUtils.getFieldFromRecordLayout(recordLayout, [1, 2, 2]);
+    expect(
+      await commonUtils.getFormattedTextValue(
+        statusPicklistAfterAttemptedConvert!
+      )
+    ).toEqual("New");
   }
 
   async postChatterComment(): Promise<void> {
@@ -128,5 +138,143 @@ export default class ANZXLead extends Lead implements IChatter {
         "We found no potential duplicates of this Lead."
       );
     }
+  }
+
+  async verifyVisibleInListView(
+    listViewTile: string,
+    visible: boolean
+  ): Promise<void> {
+    await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Leads);
+
+    const objectHomeRoot = await utam.load(ObjectHome);
+    await objectHomeRoot.selectListViewByTitle(listViewTile);
+    await browser.pause(5000);
+
+    // Added a sorting logic to sort by CreatedDate
+    const record = await objectHomeRoot.getRecordLinkByTitle(
+      `${this.firstName} ${this.lastName}`
+    );
+
+    expect(!!(await record?.isVisible())).toBe(visible);
+  }
+
+  async createAccountFromOCVIntegration(): Promise<void> {
+    // Log in as OCV User
+    const conn = await loginJSForce(
+      process.env.OCV_AUTOMATION_USERNAME!,
+      process.env.OCV_AUTOMATION_PASSWORD!
+    );
+
+    if (conn) {
+      // Construct Account payload
+      const ocvPayload = {
+        FirstName: this.firstName,
+        LastName: this.lastName,
+        PersonMobilePhone: this.mobile,
+        PersonEmail: this.email,
+        RecordTypeId: leadData.individualAccountRecordTypeId,
+        OCV_ID__c: this.ocvId
+      };
+
+      const sr = await conn.sobject("Account").create(ocvPayload);
+
+      if (!sr.success) {
+        console.log("Error in creating Account through jsforce API call.");
+        console.log("Error: ", JSON.stringify(sr.errors));
+      }
+
+      if (sr.id) {
+        this.accountId = sr.id;
+      }
+    }
+  }
+
+  async openAccount(): Promise<void> {
+    await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    await gotoRecordPageById(this.accountId!);
+
+    const recordPageRoot = await utam.load(RecordPage);
+    const accountRecordPage = await recordPageRoot.getAccountRecordPage();
+    expect(await accountRecordPage.isVisible()).toBeTruthy();
+  }
+
+  async verifyChatterOnAccount(): Promise<void> {
+    const recordPageRoot = await utam.load(RecordPage);
+    const accountRecordPage = await recordPageRoot.getAccountRecordPage();
+
+    const chatterPanel = await accountRecordPage.getChatterPanel();
+    const posts = await chatterPanel.getPosts();
+
+    // there should be 2 posts
+    // first one is convert message
+    // second one is a copy from converted lead
+    expect(posts.length).toBe(2);
+  }
+
+  async verifyLeadFieldsAreReadOnly(): Promise<void> {
+    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Mobile Phone Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 1]);
+    // Status Picklist
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+    // Email Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+  }
+
+  async receiveLeadViaQualtricsIntegration(): Promise<string | void> {
+    let apiResult = "";
+
+    // Log in as Qualtrics Integration User
+    const conn = await loginJSForce(
+      process.env.QUALTRICS_AUTOMATION_USERNAME!,
+      process.env.QUALTRICS_AUTOMATION_PASSWORD!
+    );
+
+    if (conn) {
+      // Construct lead payload
+      const qualtricsPayload = {
+        FirstName: this.firstName,
+        LastName: this.lastName,
+        MobilePhone: this.mobile,
+        Email: this.email,
+        Marketing_Consent__c: true,
+        Privacy_Consent__c: true,
+        LeadSource: "Marketing",
+        RecordTypeId: process.env.ANZX_LEADS_RECORD_TYPE_ID
+      };
+
+      const optionHeader = { headers: { "SForce-Auto-Assign": "FALSE" } };
+
+      const sr = await conn
+        .sobject("Lead")
+        .create(qualtricsPayload, optionHeader);
+
+      expect(sr.success);
+
+      apiResult = await sr.id!;
+      return apiResult;
+    }
+  }
+
+  async openById(leadId: string) {
+    await browser.pause(1000);
+    await gotoRecordPageById(leadId);
+    await browser.pause(1000);
+  }
+
+  async verifyQualtricsLead() {
+    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Assert Status field is New
+    const statusPicklist = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [1, 2, 2]
+    );
+    expect(await commonUtils.getFormattedTextValue(statusPicklist!)).toEqual(
+      "New"
+    );
   }
 }

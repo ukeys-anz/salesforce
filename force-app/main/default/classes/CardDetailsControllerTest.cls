@@ -37,7 +37,11 @@ public with sharing class CardDetailsControllerTest {
       card.Id
     );
 
-    System.assertEquals(1, cardList.size());
+    System.assertEquals(
+      1,
+      cardList.size(),
+      'Card list size should be as expected.'
+    );
 
     Test.stopTest();
   }

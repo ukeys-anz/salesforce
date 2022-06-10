@@ -371,7 +371,7 @@ private with sharing class IDRCaseActionsTest {
     }
     insert newTasks;
     Boolean preventCaseCloseErrorThrown = false;
-
+    String errorMessage = '';
     //Scenario where it Case Closure should be allowed
     for (Case c : newCases) {
       c.Status = 'Closed';
@@ -383,11 +383,13 @@ private with sharing class IDRCaseActionsTest {
       update newCases;
     } catch (Exception e) {
       preventCaseCloseErrorThrown = true;
+      errorMessage = e.getMessage();
     }
     System.assertEquals(
       false,
       preventCaseCloseErrorThrown,
-      'Expected update to Closed status to be allowed, however Status update was prevented, throwing an error'
+      'Expected update to Closed status to be allowed, however Status update was prevented, throwing an error|\n' +
+      errorMessage
     );
   }
 

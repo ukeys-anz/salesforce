@@ -114,6 +114,22 @@ export default class Auth {
           process.env.SUPPORT_COACH_PASSWORD
         );
         break;
+      case UserRole.BUSINESS_ADMIN:
+        if (
+          !process.env.BUSINESS_ADMIN_USERNAME ||
+          !process.env.BUSINESS_ADMIN_PASSWORD
+        ) {
+          console.error(
+            "Error: Trying to login as Business Admin but missing BUSINESS_ADMIN_USERNAME or BUSINESS_ADMIN_PASSWORD."
+          );
+          process.exit(-1);
+        }
+
+        await salesforceLoginRoot.login(
+          process.env.BUSINESS_ADMIN_USERNAME,
+          process.env.BUSINESS_ADMIN_PASSWORD
+        );
+        break;
 
       default:
         console.error(
