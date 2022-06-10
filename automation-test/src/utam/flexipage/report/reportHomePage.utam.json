@@ -88,6 +88,10 @@
       "name": "openAllReports",
       "compose": [
         {
+          "element": "centerRegion",
+          "apply": "waitForVisible"
+        },
+        {
           "element": "allReportsButton",
           "apply": "click"
         }

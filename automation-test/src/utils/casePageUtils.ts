@@ -84,7 +84,8 @@ export const getHighlightsPanel = async (): Promise<LwcHighlightsPanel> => {
 
 export const closeCase = async (
   statusFieldIndex: FieldSectionIndex,
-  closedOptionIndex: PicklistOptionIndexRange
+  closedOptionIndex: PicklistOptionIndexRange,
+  closedStatusText = "Closed"
 ): Promise<void> => {
   const baseRecordForm = (await getRecordForm())!;
   const recordLayout = await baseRecordForm.getRecordLayout();
@@ -102,6 +103,6 @@ export const closeCase = async (
     statusFieldIndex
   );
   expect(await (await statusField.getFormattedText()).getInnerText()).toEqual(
-    "Closed"
+    closedStatusText
   );
 };

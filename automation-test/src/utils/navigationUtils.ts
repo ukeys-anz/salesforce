@@ -143,7 +143,9 @@ export const navigateToAppAndTab = async (
   await browser.pause(5000);
 };
 
-export const openTabHome = async (tabName: string): Promise<void> => {
+export const openTabHomeInCurrentApp = async (
+  tabName: string
+): Promise<void> => {
   // first decide which type of app the test user is in, Standard or Console
   const appLauncherRoot = await utam.load(AppLauncher);
 

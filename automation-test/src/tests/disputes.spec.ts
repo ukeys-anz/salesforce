@@ -58,6 +58,10 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
       await atmCase.create();
     });
 
+    it("Update ATM Case", async (): Promise<void> => {
+      await atmCase.update();
+    });
+
     it("Close ATM Case", async (): Promise<void> => {
       await atmCase.close();
     });
@@ -97,6 +101,10 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
       await directEntryCase.create(caseData);
     });
 
+    it("Update Direct Entry Case", async (): Promise<void> => {
+      await directEntryCase.update();
+    });
+
     it("Close Direct Entry Case", async (): Promise<void> => {
       await directEntryCase.close();
     });
@@ -134,6 +142,10 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
 
     it("Create Card Case", async (): Promise<void> => {
       await cardCase.create();
+    });
+
+    it("Update Card Case", async (): Promise<void> => {
+      await cardCase.update();
     });
 
     it("Close Card Case", async (): Promise<void> => {

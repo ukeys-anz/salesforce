@@ -57,11 +57,11 @@ describe("AR-13398: Salesforce UAM: AR-13404: FraudX Agent UAM", () => {
     );
   });
 
-  it("FraudX Agent cannot create Knowledge article in Coaches Workbench", async (): Promise<void> => {
+  it("FraudX Agent cannot create Knowledge article", async (): Promise<void> => {
     await fraudXAgentUAM.verifyKnowledgeCreateAccess(false);
   });
 
-  it("FraudX Agent cannot edit Knowledge article in Coaches Workbench", async (): Promise<void> => {
+  it("FraudX Agent cannot edit Knowledge article", async (): Promise<void> => {
     await fraudXAgentUAM.verifyKnowledgeAccess(Access.Read_Only);
   });
 

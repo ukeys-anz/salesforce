@@ -44,12 +44,15 @@ export const selectPicklistOnRecordLayout = async (
 ): Promise<void> => {
   const field = await getFieldFromRecordLayout(recordLayout, fieldSectionIndex);
 
+  const fieldRoot = await field.getRoot();
+  await fieldRoot.scrollToCenter();
+
   //TODO: salesforce-pageobjects v1.1.0 has a bug with getInlineEditButton
   // comment below line out and refactor code till the bug fix
 
   if (currentLayoutMode !== "edit") {
     await field.edit();
-    await browser.pause(2000);
+    await browser.pause(5000);
   }
 
   /** 
@@ -186,7 +189,7 @@ export const searchRecordInGlobalSearchAndRedirect = async (
   const resultList = await globalSearchRoot.search(searchTerm);
   await browser.pause(2000);
   await resultList.selectFirstResult();
-  await browser.pause(4000);
+  await browser.pause(5000);
 };
 
 /**

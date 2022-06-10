@@ -21,63 +21,55 @@
   ],
   "elements": [
     {
-      "name": "viewPort",
+      "name": "oneRecordHomeFlexipage2",
       "selector": {
-        "css": ".active.lafPageHost"
+        "css": ".active.lafPageHost one-record-home-flexipage2"
+      },
+      "shadow": {
+        "elements": [
+          {
+            "name": "adgRollup",
+            "selector": {
+              "css": ".adg-rollup-wrapped"
+            },
+            "shadow": {
+              "elements": [
+                {
+                  "name": "flexipageModule",
+                  "selector": {
+                    "css": ".forcegenerated-flexipage-module"
+                  },
+                  "shadow": {
+                    "elements": [
+                      {
+                        "type": "salesforce-pageobjects/record/flexipage/pageObjects/recordPageDecorator",
+                        "public": true,
+                        "name": "decorator",
+                        "selector": {
+                          "css": "record_flexipage-record-page-decorator"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "waveWaveHomeTab",
+      "selector": {
+        "css": ".active.lafPageHost .waveWaveHomeTab"
       },
       "elements": [
         {
-          "name": "oneRecordHomeFlexipage2",
+          "name": "analyticsContainer",
+          "type": "frame",
           "selector": {
-            "css": "one-record-home-flexipage2"
-          },
-          "shadow": {
-            "elements": [
-              {
-                "name": "adgRollup",
-                "selector": {
-                  "css": ".adg-rollup-wrapped"
-                },
-                "shadow": {
-                  "elements": [
-                    {
-                      "name": "flexipageModule",
-                      "selector": {
-                        "css": ".forcegenerated-flexipage-module"
-                      },
-                      "shadow": {
-                        "elements": [
-                          {
-                            "type": "salesforce-pageobjects/record/flexipage/pageObjects/recordPageDecorator",
-                            "public": true,
-                            "name": "decorator",
-                            "selector": {
-                              "css": "record_flexipage-record-page-decorator"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "css": "iframe[title='Analytics']"
           }
-        },
-        {
-          "name": "waveWaveHomeTab",
-          "selector": {
-            "css": ".waveWaveHomeTab"
-          },
-          "elements": [
-            {
-              "name": "analyticsContainer",
-              "type": "frame",
-              "selector": {
-                "css": "iframe[title='Analytics']"
-              }
-            }
-          ]
         }
       ]
     },
@@ -93,6 +85,10 @@
     {
       "name": "getRecordLayoutBroker",
       "compose": [
+        {
+          "element": "oneRecordHomeFlexipage2",
+          "apply": "waitForVisible"
+        },
         {
           "element": "decorator",
           "returnType": "salesforce-pageobjects/record/flexipage/pageObjects/recordPageDecorator"

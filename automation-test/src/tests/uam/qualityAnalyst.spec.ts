@@ -45,11 +45,11 @@ describe("AR-13398: Salesforce UAM: AR-13405: Quality Analyst UAM", () => {
     );
   });
 
-  it("Quality Analyst cannot create Knowledge article in Coaches Workbench", async (): Promise<void> => {
+  it("Quality Analyst cannot create Knowledge article", async (): Promise<void> => {
     await qualityAnalystUAM.verifyKnowledgeCreateAccess(false);
   });
 
-  it("Quality Analyst cannot edit Knowledge article in Coaches Workbench", async (): Promise<void> => {
+  it("Quality Analyst cannot edit Knowledge article", async (): Promise<void> => {
     await qualityAnalystUAM.verifyKnowledgeAccess(Access.Read_Only);
   });
 

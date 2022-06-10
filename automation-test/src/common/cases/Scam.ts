@@ -91,6 +91,10 @@ export default class Scam extends Case implements IAssignNewOwner {
     // select Closed status
     const statusFieldIndex: FieldSectionIndex = [2, 4, 2];
     const closedOptionIndex = 4;
-    await casePageUtils.closeCase(statusFieldIndex, closedOptionIndex);
+    await casePageUtils.closeCase(
+      statusFieldIndex,
+      closedOptionIndex,
+      "Resolved"
+    );
   }
 }

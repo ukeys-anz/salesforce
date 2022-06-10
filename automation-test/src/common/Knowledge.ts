@@ -238,7 +238,7 @@ export default class Knowledge {
     // click Edit as Draft button in modal
     const knowledgeModalRoot = await utam.load(KnowledgeModal);
     await knowledgeModalRoot.editAsDraft();
-    await browser.pause(2000);
+    await browser.pause(4000);
 
     // page refreshed? and a new modal
     const editAsDraftModalRoot = await utam.load(KnowledgeEditAsDraftModal);

@@ -1,9 +1,12 @@
 import { App, AppTab } from "src/constants/appsDefinition";
-import { SObject, UserRole } from "../constants/enums";
+import { UserRole } from "../constants/enums";
 import AppLauncher from "pageObjects/appLauncher";
 import { searchRecordInGlobalSearchAndRedirect } from "../utils/commonUtils";
 import RecordPage from "pageObjects/recordPage";
-import { navigateToAppAndTab } from "../utils/navigationUtils";
+import {
+  navigateToAppAndTab,
+  openTabHomeInCurrentApp
+} from "../utils/navigationUtils";
 import ObjectHome from "pageObjects/objectHome";
 import ReportObjectHome from "pageObjects/reportHomePage";
 import { TransactionType, Access } from "../constants/enums";
@@ -43,7 +46,7 @@ export default class UAM {
 
     // refresh page to close app launcher
     await browser.refresh();
-    await browser.pause(3000);
+    await browser.pause(4000);
   }
 
   async verifyItemAccess(hasAccess: boolean, itemName: string): Promise<void> {
@@ -63,7 +66,7 @@ export default class UAM {
 
     // refresh page to close app launcher
     await browser.refresh();
-    await browser.pause(3000);
+    await browser.pause(4000);
   }
 
   /**
@@ -84,15 +87,15 @@ export default class UAM {
     const highlightsPanel = await accountRecordPage.getHighlightsPanel();
     const actionsRibbon = await highlightsPanel.getActions();
 
-    // verify there's no action button (Edit / Delete / Clone etc) on Highlights Panel
-    const hasEditButtons = await actionsRibbon.containsElement(
+    // verify there's no Edit button on Highlights Panel
+    const hasEditButton = await actionsRibbon.containsElement(
       utam.By.css("runtime_platform_actions-action-renderer[title='Edit']")
     );
 
     if (accessLevel === Access.Read_Only) {
-      expect(hasEditButtons).toBeFalsy();
+      expect(hasEditButton).toBeFalsy();
     } else if (accessLevel === Access.Edit) {
-      expect(hasEditButtons).toBeTruthy();
+      expect(hasEditButton).toBeTruthy();
     }
   }
 
@@ -116,14 +119,14 @@ export default class UAM {
     const actionsRibbon = await highlightsPanel.getActions();
 
     // verify there's no action button (Edit / Delete / Clone etc) on Highlights Panel
-    const hasEditButtons = await actionsRibbon.containsElement(
+    const hasEditButton = await actionsRibbon.containsElement(
       utam.By.css("runtime_platform_actions-action-renderer[title='Edit']")
     );
 
     if (accessLevel === Access.Read_Only) {
-      expect(hasEditButtons).toBeFalsy();
+      expect(hasEditButton).toBeFalsy();
     } else if (accessLevel === Access.Edit) {
-      expect(hasEditButtons).toBeTruthy();
+      expect(hasEditButton).toBeTruthy();
     }
   }
 
@@ -132,8 +135,7 @@ export default class UAM {
    * @param canCreate
    */
   async verifyKnowledgeCreateAccess(canCreate: boolean): Promise<void> {
-    await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Knowledge);
-    await browser.pause(5000);
+    await openTabHomeInCurrentApp(AppTab.Knowledge);
 
     const objectHomeRoot = await utam.load(ObjectHome);
     const headerActionBar = await objectHomeRoot.getHeaderActionBar();
@@ -150,8 +152,7 @@ export default class UAM {
    * @param accessLevel
    */
   async verifyKnowledgeAccess(accessLevel: AccessLevel): Promise<void> {
-    await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Knowledge);
-    await browser.pause(3000);
+    await openTabHomeInCurrentApp(AppTab.Knowledge);
 
     const objectHomeRoot = await utam.load(ObjectHome);
     const firstRecord = await objectHomeRoot.getFirstRow();
@@ -169,6 +170,9 @@ export default class UAM {
     if (accessLevel === Access.Read_Only) {
       expect(editButton).toBeNull();
       expect(editDraftButton).toBeNull();
+    } else if (accessLevel === Access.Edit) {
+      expect(await editButton!.isVisible()).toBeTruthy();
+      expect(await editDraftButton!.isVisible()).toBeTruthy();
     }
   }
 
@@ -212,12 +216,13 @@ export default class UAM {
 
     reportObjectHomeRoot = await utam.load(ReportObjectHome);
     await reportObjectHomeRoot.openAllReports();
+    await browser.pause(4000);
 
     reportObjectHomeRoot = await utam.load(ReportObjectHome);
     const reportList = await reportObjectHomeRoot.getReportsList();
     const rowActions = await reportList.getRowAction(1);
     await rowActions.clickButton();
-    await browser.pause(6000);
+    await browser.pause(4000);
 
     const allMenuItems = await rowActions.getAllMenuItems();
 
@@ -239,6 +244,8 @@ export default class UAM {
     financialAccountNumber: string,
     transactionType: TransactionType
   ): Promise<void> {
+    await openTabHomeInCurrentApp(AppTab.Home);
+
     // search financial account in global search and redirect
     await searchRecordInGlobalSearchAndRedirect(financialAccountNumber);
 
@@ -271,8 +278,7 @@ export default class UAM {
     accessLevel: AccessLevel,
     listViewName: string
   ): Promise<void> {
-    // Go to Coaches Workbench and Cases tab
-    await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
+    await openTabHomeInCurrentApp(AppTab.Cases);
 
     // Go to list view
     await commonUtils.searchAndOpenListViewByName(listViewName);
@@ -285,7 +291,8 @@ export default class UAM {
 
     // if access level is edit, verify Edit button is visible on record highlight panel
     const hasEditButton = await actionsRibbon.containsElement(
-      utam.By.css("runtime_platform_actions-action-renderer[title='Edit']")
+      utam.By.css("runtime_platform_actions-action-renderer[title='Edit']"),
+      true
     );
 
     if (accessLevel === Access.Read_Only) {
