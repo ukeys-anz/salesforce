@@ -72,6 +72,23 @@ public with sharing class AppointmentNotificationTest {
     insert interactionSubject;
 
     Test.startTest();
+    interactionSubject = [
+      SELECT
+        Interaction_External_Id__c,
+        StartTime,
+        EndTime,
+        AccountId,
+        Interaction_Purpose__c,
+        Status__c,
+        Lead__c,
+        ContactRequestId__c,
+        Interaction_Auto_Number__c,
+        InteractionType,
+        LocationId
+      FROM Interaction
+      WHERE Id = :interactionSubject.Id
+    ];
+
     IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
       interactionSubject
     );
@@ -115,7 +132,7 @@ public with sharing class AppointmentNotificationTest {
     );
 
     System.assertEquals(
-      TEMPLATE_CANCELLED,
+      TEMPLATE_BOOKED,
       notificationEvent.EmailTemplate__c,
       'EmailTemplate__c should be set'
     );
@@ -125,6 +142,12 @@ public with sharing class AppointmentNotificationTest {
       expectedEmail,
       notificationEvent.AuthorisedEmail__c,
       'Email on the event must match that of the related account'
+    );
+
+    System.assertNotEquals(
+      null,
+      notificationEvent.Record_Id__c,
+      'Interaction External Id must be copied over to the events record Id'
     );
   }
 
