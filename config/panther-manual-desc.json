@@ -143,6 +143,7 @@
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "EmailMessage": "Represents an email in Salesforce.",
+    "Event": "Represents a calendar entry in Salesforce",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -151,7 +152,7 @@
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
-    "Location" : "This standard object would contain all the store locations for ANZ",
+    "Location": "This standard object would contain all the store locations for ANZ",
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
@@ -261,8 +262,8 @@
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c"]
     },
-    "Appointment_Commitment__c" :{
-      "IA-36":[
+    "Appointment_Commitment__c": {
+      "IA-2453595": [
         "Appointment_Channel__c",
         "Available__c",
         "Confirmed__c",
@@ -764,6 +765,31 @@
         "Id"
       ]
     },
+    "Event": {
+      "IA-2468715": [
+        "ActivityDate",
+        "ActivityDateTime",
+        "Attendees",
+        "Description",
+        "DurationInMinutes",
+        "EndDateTime",
+        "EventSubtype",
+        "IsAllDayEvent",
+        "IsPrivate",
+        "IsRecurrence2",
+        "IsReminderSet",
+        "Location",
+        "OwnerId",
+        "ServiceAppointment",
+        "ShowAs",
+        "StartDateTime",
+        "Subject",
+        "Type",
+        "WhatId",
+        "WhoId"
+      ],
+      "IA-2460507": ["Email", "Phone"]
+    },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
         "Account_Key__c",
@@ -850,7 +876,7 @@
     "Interaction": {
       "IA-2530753": [
         "AccountId",
-        "Authentication_Method__c",  
+        "Authentication_Method__c",
         "Channel_Booked__c",
         "Coaching_Summary__c",
         "Contact_Mobile__c",
