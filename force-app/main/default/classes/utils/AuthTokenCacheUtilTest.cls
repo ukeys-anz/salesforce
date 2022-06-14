@@ -97,7 +97,11 @@ public class AuthTokenCacheUtilTest {
     );
     Test.stopTest();
     //Cannot actually test this one since the log is created in big object
-    System.assertEquals('ANZx Standard User', profileName);
+    System.assertEquals(
+      'ANZx Standard User',
+      profileName,
+      'Profile name should be as expected.'
+    );
   }
 
   /**
@@ -190,7 +194,11 @@ public class AuthTokenCacheUtilTest {
     String newToken = AuthTokenCacheUtil.getSessionIdToken();
     Test.stopTest();
 
-    System.assertEquals('sampleidtoken', newToken);
+    System.assertEquals(
+      'sampleidtoken',
+      newToken,
+      'Token should be as expected.'
+    );
   }
 
   /**
@@ -209,7 +217,11 @@ public class AuthTokenCacheUtilTest {
 
     Test.startTest();
     String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
-    System.assertEquals(accessToken, 'xxxxx');
+    System.assertEquals(
+      accessToken,
+      'xxxxx',
+      'The accessToken should be as expected.'
+    );
     Test.stopTest();
   }
 
@@ -234,7 +246,11 @@ public class AuthTokenCacheUtilTest {
 
     Test.startTest();
     String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
-    System.assertEquals(accessToken, ForgeTokenHandlerTest.IDTESTVALUE);
+    System.assertEquals(
+      accessToken,
+      ForgeTokenHandlerTest.IDTESTVALUE,
+      'The accessToken should be as expected.'
+    );
     Test.stopTest();
   }
 
@@ -276,7 +292,11 @@ public class AuthTokenCacheUtilTest {
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
-    System.assertEquals('Get access token failed', exceptionMsg);
+    System.assertEquals(
+      'Get access token failed',
+      exceptionMsg,
+      'Error message should be as expected.'
+    );
 
     Test.stopTest();
   }

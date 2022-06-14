@@ -5,7 +5,9 @@
     </lightning-layout-item>
     <lightning-layout-item padding="horizontal-small" flexibility="auto, grow">
       <div>
-        <a href={assignmentEntry.url} target="_blank">{assignmentEntry.name}</a>
+        <a href={assignmentEntry.url} rel="noopener" target="_blank"
+          >{assignmentEntry.name}</a
+        >
         <template if:true={hasDueDate}>
           <br />Due Date:
           <span class={statusClass}>

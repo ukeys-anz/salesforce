@@ -72,14 +72,20 @@ public class IDRMilestonesTest {
       FROM Case
       WHERE Id IN :newCases
     ];
-    System.assert(cList[0].EntitlementId != null);
+    System.assert(
+      cList[0].EntitlementId != null,
+      'Entitlement Id should not be null.'
+    );
 
     List<CaseMilestone> cmList = [
       SELECT Id
       FROM CaseMilestone
       WHERE CaseId IN :newCases
     ];
-    System.assert(cmList.size() > 0);
+    System.assert(
+      cmList.size() > 0,
+      'The caseMilestone List should have members.'
+    );
 
     newCases[0].Status = 'Escalated';
     newCases[0].IDR_Escalated_to__c = '1';

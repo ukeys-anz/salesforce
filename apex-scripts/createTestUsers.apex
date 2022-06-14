@@ -29,9 +29,7 @@ List<String> roles = new List<String>{
   'Content Writer',
   'Fraud Agent',
   'Quality Analyst',
-  'Super Support Admin',
-  'Support Coach',
-  'Support Staff ARC'
+  'Support Coach'
 };
 
 List<User> testUsers = new List<User>();

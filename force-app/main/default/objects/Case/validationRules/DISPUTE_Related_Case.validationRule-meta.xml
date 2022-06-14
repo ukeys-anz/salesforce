@@ -25,8 +25,7 @@ $UserRole.DeveloperName = &apos;Coach&apos;,
 $UserRole.DeveloperName = &apos;Coach_Lead&apos;,
 $UserRole.DeveloperName = &apos;Content_Writer&apos;,
 $UserRole.DeveloperName = &apos;Quality_Analyst&apos;,
-$UserRole.DeveloperName = &apos;Support_Coach&apos;,
-$UserRole.DeveloperName = &apos;Support_Staff_ARC&apos;
+$UserRole.DeveloperName = &apos;Support_Coach&apos;
 )
 )</errorConditionFormula>
     <errorDisplayField>ParentId</errorDisplayField>

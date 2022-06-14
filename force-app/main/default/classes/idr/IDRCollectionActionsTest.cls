@@ -59,7 +59,11 @@ private with sharing class IDRCollectionActionsTest {
       FROM Task
       WHERE WhatId = :collectionCases[0].id AND Subject LIKE 'STOP Collection%'
     ];
-    System.assertEquals(30, collectionTasks.size());
+    System.assertEquals(
+      30,
+      collectionTasks.size(),
+      'Collection tasks size should be as expected.'
+    );
   }
 
   @isTest
@@ -105,7 +109,11 @@ private with sharing class IDRCollectionActionsTest {
       FROM Task
       WHERE WhatId = :collectionCases[0].id AND Subject LIKE 'STOP Collection%'
     ];
-    System.assertEquals(9, collectionTasks.size());
+    System.assertEquals(
+      9,
+      collectionTasks.size(),
+      'Collection tasks size should be as expected.'
+    );
   }
 
   @isTest
@@ -146,7 +154,11 @@ private with sharing class IDRCollectionActionsTest {
       FROM Task
       WHERE WhatId = :collectionCases[0].id AND Subject LIKE 'START Collection%'
     ];
-    System.assertEquals(0, collectionTasks.size());
+    System.assertEquals(
+      0,
+      collectionTasks.size(),
+      'Collection tasks size should be as expected.'
+    );
   }
 
   @isTest
@@ -189,7 +201,11 @@ private with sharing class IDRCollectionActionsTest {
       FROM Task
       WHERE Subject LIKE 'START Collection%'
     ];
-    System.assertEquals(6, collectionTasks.size());
+    System.assertEquals(
+      6,
+      collectionTasks.size(),
+      'Collection tasks size should be as expected.'
+    );
   }
 
   @isTest
@@ -228,15 +244,25 @@ private with sharing class IDRCollectionActionsTest {
       FROM Task
       WHERE Subject LIKE '%Complaint%'
     ];
-    System.assertEquals(6, collectionTasks.size());
-    System.assertEquals(4, complaintTasks.size());
+    System.assertEquals(
+      6,
+      collectionTasks.size(),
+      'Collection tasks size should be as expected.'
+    );
+    System.assertEquals(
+      4,
+      complaintTasks.size(),
+      'Complaint tasks size should be as expected.'
+    );
     System.assertEquals(
       IDRConstants.TASK_TYPE_COLLECTION,
-      collectionTasks[0].Type
+      collectionTasks[0].Type,
+      'Collection task type should be as expected.'
     );
     System.assertEquals(
       IDRConstants.TASK_TYPE_COMPLIANTS_FLAG,
-      complaintTasks[0].Type
+      complaintTasks[0].Type,
+      'Complaint task type should be as expected.'
     );
   }
 
@@ -270,6 +296,10 @@ private with sharing class IDRCollectionActionsTest {
       FROM Task
       WHERE Subject LIKE '%Collection%'
     ];
-    System.assertEquals(0, collectionTasks.size());
+    System.assertEquals(
+      0,
+      collectionTasks.size(),
+      'Collection tasks size should be as expected.'
+    );
   }
 }

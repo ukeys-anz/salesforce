@@ -1,4 +1,4 @@
-import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
+import { searchRecordInGlobalSearchAndRedirect } from "../utils/commonUtils";
 
 export const redirectToRecordByName = async (
   recordName: string

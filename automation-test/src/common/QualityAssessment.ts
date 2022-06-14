@@ -3,15 +3,20 @@ import QualityWorkbenchHomePage from "pageObjects/qualityWorkbenchHomePage";
 import CoachesWorkbenchHomePage from "pageObjects/coachesWorkbenchHomePage";
 import LwcRecordCreationForm from "pageObjects/lwcRecordCreationForm";
 import QualityAssessmentSharingModal from "pageObjects/qualityAssessmentSharingModal";
-import { UserRole, SObject, SObjectAPIName, OwnerType } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import * as qaPageUtils from "utils/qualityAssessmentPageUtils";
-import * as commonUtils from "utils/commonUtils";
-import BaseRecordForm from "pageObjects/baseRecordForm";
-import accountData from "data/accountData";
-import { FieldSectionIndex } from "types/layout";
-import IAssignNewOwner from "interfaces/IAssignNewOwner";
+import {
+  UserRole,
+  SObject,
+  SObjectAPIName,
+  OwnerType
+} from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import * as qaPageUtils from "../utils/qualityAssessmentPageUtils";
+import * as commonUtils from "../utils/commonUtils";
+import BaseRecordForm from "@salesforce-pageobjects/records/pageObjects/baseRecordForm";
+import accountData from "../data/accountData";
+import { FieldSectionIndex } from "../types/layout";
+import IAssignNewOwner from "../interfaces/IAssignNewOwner";
 
 type ListViewTitle =
   | "Outstanding Quality Assessments"
@@ -20,7 +25,7 @@ type ListViewTitle =
 
 type CreationContext = "modal" | "related-list";
 
-export default class QualityAssessment implements IAssignNewOwner {
+export default class Quality_Assessment implements IAssignNewOwner {
   protected readonly userRole: UserRole;
   protected readonly sobject: SObject;
   public caseNumber: string | undefined;
@@ -34,6 +39,8 @@ export default class QualityAssessment implements IAssignNewOwner {
   }
 
   async verifyListViewByTitle(listViewTitle: ListViewTitle): Promise<void> {
+    await navigateToAppAndTab(App.Quality_Workbench, AppTab.Home);
+
     const qualityWorkbenchHomePageRoot = await utam.load(
       QualityWorkbenchHomePage
     );
@@ -113,7 +120,20 @@ export default class QualityAssessment implements IAssignNewOwner {
     const qaList = await accountRecordPage.getQualityAssessmentsRelatedList();
 
     await browser.pause(1000);
-    await qaList.clickDropdownButtonByTitle("New");
+    const relatedListViewManager = await qaList.getRelatedListViewManager();
+    const commonListInternal =
+      await relatedListViewManager.getCommonListInternal();
+    const header = await commonListInternal.getHeader();
+    const actionsRibbon = await header.getActionsRibbon();
+    const menuButton = await actionsRibbon.getDropdownButton();
+    await menuButton.clickButton();
+    const actionRenderer = await actionsRibbon.getActionRendererWithTitle(
+      "New"
+    );
+    const menuItem = await actionRenderer.getRibbonMenuItem();
+    await menuItem.clickLinkItem();
+
+    // await qaList.clickDropdownButtonByTitle("New");
     await browser.pause(2000);
     await this.createQA("related-list", true);
   }
@@ -142,15 +162,24 @@ export default class QualityAssessment implements IAssignNewOwner {
         [1, 3, 1]
       );
       const lookup = await relatedCaseField.getLookup();
-      const baseCombobox = await lookup.getBaseCombobox();
-      await baseCombobox.searchLookupAndSelect(this.caseNumber!);
+      const lookupDesktop = await lookup.getLookupDesktop();
+      const groupedCombobox = await lookupDesktop.getGroupedCombobox();
+      const baseCombobox = await groupedCombobox.getBaseCombobox();
+      await baseCombobox.setTriggerText(this.caseNumber!);
+      await browser.pause(2000);
+
+      // salesforce-pageobjects v1.1.0 baseCombobox has bugs when selecting items.
+      // use below as workaround
+      const items = await baseCombobox.getItems();
+      await items[1].clickItem();
     }
 
     // Interaction Type
     await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
       [1, 3, 2],
-      [2, 8]
+      [2, 8],
+      "edit"
     );
 
     await baseRecordForm.clickFooterButton("Save");
@@ -178,40 +207,100 @@ export default class QualityAssessment implements IAssignNewOwner {
 
     // select Yes for all below fields to complete evaluation of a Quality Assessment
     // Risk and Compliance Category
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 1, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 1, 1],
+      2,
+      "view"
+    );
 
     // Preparation and Framing
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 3, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 3, 1],
+      2,
+      "edit"
+    );
 
     // Connection and Trust
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 4, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 4, 1],
+      2,
+      "edit"
+    );
 
     // Discover and Align
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 5, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 5, 1],
+      2,
+      "edit"
+    );
 
     // Insights and Focus
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 6, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 6, 1],
+      2,
+      "edit"
+    );
 
     // Actions and Momentum
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 7, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 7, 1],
+      2,
+      "edit"
+    );
 
     // Accountability and Next Steps
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 8, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 8, 1],
+      2,
+      "edit"
+    );
 
     // Energy and Adaptability
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 9, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 9, 1],
+      2,
+      "edit"
+    );
 
     // Finishing Touches
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 10, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 10, 1],
+      2,
+      "edit"
+    );
 
     // Rating
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [3, 1, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [3, 1, 2],
+      2,
+      "edit"
+    );
 
     // Compliance Outcome
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [3, 2, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [3, 2, 1],
+      2,
+      "edit"
+    );
 
     // Interaction Type
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 2, 2],
+      2,
+      "edit"
+    );
 
     // Status
     if (status === "Referred") {
@@ -219,43 +308,44 @@ export default class QualityAssessment implements IAssignNewOwner {
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 1],
-        4
+        4,
+        "edit"
       );
 
       // Sub-Status - Compliance Review
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 2],
-        2
+        2,
+        "edit"
       );
     } else {
       // Complete
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 1],
-        5
+        5,
+        "edit"
       );
 
       // Sub-Status - Evaluation Completed
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 2],
-        2
+        2,
+        "edit"
       );
     }
 
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
   }
 
   async shareTo(username: string): Promise<void> {
     const recordPageRoot = await utam.load(RecordPage);
     const qaRecordPage = await recordPageRoot.getQualityAssessmentRecordPage();
 
-    const highlightPanel = await qaRecordPage.getHighlights();
-    const layout = await highlightPanel.getRecordLayout();
-    const highlight = await layout.getHighlights2();
-    const actionRibbon = await highlight.getActionsRibbon();
+    const highlightPanel = await qaRecordPage.getHighlightsPanel();
+    const actionRibbon = await highlightPanel.getActions();
     const sharingButton = await actionRibbon.getActionRendererWithTitle(
       "Sharing"
     );

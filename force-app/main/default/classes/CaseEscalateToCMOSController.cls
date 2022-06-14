@@ -11,7 +11,7 @@ public with sharing class CaseEscalateToCMOSController {
    * @return boolean - Returns manualEscalationCaseToCMOS Function result
    */
   @AuraEnabled
-  public static Boolean escalateCaseToCMOS(String recordId) {
+  public static Boolean escalateCaseToCMOS(Id recordId) {
     Case record = new Case(Id = recordId);
 
     if (CaseEscalateToCMOS.manualEscalateCaseToCMOS(record)) {

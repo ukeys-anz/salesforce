@@ -31,16 +31,6 @@
     <description>The IDR user permission which is the base for all the IDR Users across all the Levels</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Collections__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.Hardship__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>CFMS_Migrated_Document__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>

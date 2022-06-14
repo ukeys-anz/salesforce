@@ -9,14 +9,14 @@
         "elements": [
           {
             "name": "cardDetailsButton",
-            "type": "utam-lightning/pageObjects/button",
+            "type": "salesforce-pageobjects/lightning/pageObjects/button",
             "selector": {
               "css": "[data-test-id='get-card-details-button']"
             }
           },
           {
             "name": "collapseExpandButton",
-            "type": "utam-lightning/pageObjects/button",
+            "type": "salesforce-pageobjects/lightning/pageObjects/button",
             "selector": {
               "css": "[data-test-id='collapse-expand-button']"
             }

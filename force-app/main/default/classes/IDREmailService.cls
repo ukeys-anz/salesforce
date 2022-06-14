@@ -5,7 +5,7 @@
  *               from IDREmailService email services.
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.AvoidGlobalModifier')
+@SuppressWarnings('PMD.AvoidGlobalModifier, PMD.CyclomaticComplexity')
 global with sharing class IDREmailService implements Messaging.InboundEmailHandler {
   /**
    * @description handles the inbound email from IDREmailService
@@ -53,23 +53,25 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
       }
     }
 
+    String emailSubject = String.escapeSingleQuotes(email.subject);
+
     //Check for Spamming
     Boolean isSpam = IDREmailServiceHandler.checkSpamming(
       senderEmail,
       fromEmail,
-      email.subject,
+      emailSubject,
       technicalEmailAddress
     );
 
     //Extracting case number from subject
     String caseNumber = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_NO_REGEX,
-      email.subject
+      emailSubject
     );
 
     if (!isSpam) {
       Boolean createNewCase;
-      if (caseNumber != email.subject || email.subject.isNumeric()) {
+      if (caseNumber != emailSubject || emailSubject.isNumeric()) {
         createNewCase = IDREmailServiceHandler.updateExistingEmail(
           email,
           fromEmail,

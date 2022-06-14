@@ -58,6 +58,10 @@ public with sharing class CaseCommentsTriggerHandlerTest {
 
     try {
       delete newCaseComments;
+      System.assert(
+        false,
+        'Failed to protect against user deleting case comments'
+      );
     } catch (DMLexception e) {
       system.assert(
         e.getMessage().contains('You cannot delete case comments'),
@@ -67,6 +71,10 @@ public with sharing class CaseCommentsTriggerHandlerTest {
     try {
       newCaseComments.get(0).CommentBody = 'Updated Test';
       update newCaseComments;
+      System.assert(
+        false,
+        'Failed to protect against user editing case comments'
+      );
     } catch (DMLexception e) {
       system.assert(
         e.getMessage().contains('You cannot edit case comments'),

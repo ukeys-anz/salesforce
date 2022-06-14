@@ -31,7 +31,11 @@ public class Lib_TestSyncLogs {
     );
 
     Test.stopTest();
-    System.assertEquals(true, result);
+    System.assertEquals(
+      true,
+      result,
+      'The createSingleLog method should return true.'
+    );
   }
 
   @isTest
@@ -53,7 +57,11 @@ public class Lib_TestSyncLogs {
       500
     );
     Test.stopTest();
-    System.assertEquals(true, result);
+    System.assertEquals(
+      true,
+      result,
+      'The logAPIError method should return true.'
+    );
   }
 
   @isTest
@@ -84,13 +92,21 @@ public class Lib_TestSyncLogs {
       Lib_SystemLog.Severity.FATAL
     );
 
-    System.assertNotEquals(0, log.logList.size());
+    System.assertNotEquals(
+      0,
+      log.logList.size(),
+      'Log list size should be as expected.'
+    );
 
     log.insertLog();
 
     Test.stopTest();
 
-    System.assertEquals(0, log.logList.size());
+    System.assertEquals(
+      0,
+      log.logList.size(),
+      'Log list size should be as expected.'
+    );
   }
 
   @isTest
@@ -113,12 +129,20 @@ public class Lib_TestSyncLogs {
       );
     }
 
-    System.assertNotEquals(0, log.logList.size());
+    System.assertNotEquals(
+      0,
+      log.logList.size(),
+      'Log list size should be as expected.'
+    );
 
     log.insertLog();
 
     Test.stopTest();
 
-    System.assertEquals(0, log.logList.size());
+    System.assertEquals(
+      0,
+      log.logList.size(),
+      'Log list size should be as expected.'
+    );
   }
 }
