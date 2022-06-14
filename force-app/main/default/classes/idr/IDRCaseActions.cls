@@ -242,7 +242,9 @@ public with sharing class IDRCaseActions {
         new List<String>{
           '21-day IDR Response Due',
           '30-day IDR Response Due',
-          'Open_Escalation_Time'
+          'Open_Escalation_Time',
+          'AFCA Response Due',
+          'FPR 5 Business Day Resolution target'
         },
         System.now()
       );

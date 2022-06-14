@@ -115,7 +115,6 @@ force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
 # Now that entitlementProcesses are versioned we no longer need to ignore them.
 #force-app/main/default/entitlementProcesses/
-force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
 force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
 force-app/main/default/transactionSecurityPolicies
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDW_Origin__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT(Origin),
+&apos;Phone&apos;, &apos;2&apos;,
+&apos;3&apos;,&apos;5&apos;,
+&apos;4&apos;,&apos;6&apos;,
+&apos;5&apos;,&apos;8&apos;,
+&apos;Email&apos;, &apos;3&apos;,
+&apos;6&apos;,&apos;8&apos;,
+&apos;8&apos;,&apos;5&apos;,
+&apos;9&apos;,&apos;8&apos;,
+&apos;10&apos;,&apos;8&apos;,
+&apos;11&apos;,&apos;7&apos;,
+&apos;Chat&apos;,&apos;4&apos;,
+&apos;ANZ Plus App&apos;,&apos;4&apos;,
+&apos;12&apos;,&apos;8&apos;,
+&apos;14&apos;,&apos;8&apos;,
+&apos;15&apos;,&apos;8&apos;,
+&apos;Other&apos;,&apos;8&apos;,
+TEXT(Origin))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Channel Received (EDW)</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
