@@ -15,6 +15,46 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>ANZx_Non_Customer_Complaints</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Provides access to ANZx Non Customer Complaints</description>
+        <label>ANZx Non Customer Complaints</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>AR_C_Non_Customer_Complaint</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rules for customer complaints that aren&apos;t marked ANZx</description>
+        <label>AR&amp;C Non Customer Complaint</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Case_RT_BusinessAdmin_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Read Write access to All ANZ plus record types for Business Admin.</description>
