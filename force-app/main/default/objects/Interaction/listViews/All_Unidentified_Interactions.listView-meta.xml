@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_Interactions</fullName>
+    <fullName>All_Unidentified_Interactions</fullName>
+    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
     <columns>Interaction_External_Id__c</columns>
-    <columns>Account</columns>
-    <columns>Lead__c</columns>
     <columns>Interaction_Purpose__c</columns>
     <columns>Contact_Mobile__c</columns>
     <columns>InteractionType</columns>
+    <columns>Direction__c</columns>
     <columns>Resolution__c</columns>
     <columns>Attendees__c</columns>
     <columns>ANZ_Number__c</columns>
@@ -16,5 +16,13 @@
         <operation>equals</operation>
         <value>Interaction.General</value>
     </filters>
-    <label>All Interactions</label>
+    <filters>
+        <field>CaseId__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Account</field>
+        <operation>equals</operation>
+    </filters>
+    <label>All Unidentified Interactions</label>
 </ListView>
