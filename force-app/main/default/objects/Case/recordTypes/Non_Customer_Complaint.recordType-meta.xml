@@ -3216,6 +3216,10 @@
             <fullName>QBE</fullName>
             <default>false</default>
         </values>
+           <values>
+            <fullName>Repayment arrangement</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>Reward Points</fullName>
             <default>false</default>
