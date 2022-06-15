@@ -57,6 +57,14 @@
           "public": true
         }
       ]
+    },
+    {
+      "name": "releaseLogLink",
+      "type": "anzx-utam-lwc/pageObjects/lwcReleaseLogLink",
+      "selector": {
+        "css": "c-release-log-link"
+      },
+      "public": true
     }
   ]
 }

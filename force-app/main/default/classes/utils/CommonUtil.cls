@@ -206,7 +206,7 @@ public with sharing class CommonUtil {
   public static UserRole getUserRoleByDevName(String developerName) {
     UserRole userRole = new UserRole();
     for (UserRole role : [
-      SELECT Id
+      SELECT Id, DeveloperName
       FROM UserRole
       WHERE DeveloperName = :developerName
     ]) {

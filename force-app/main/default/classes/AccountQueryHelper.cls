@@ -10,7 +10,7 @@ public with sharing class AccountQueryHelper {
    * @param accountId the id to be queried
    * @return List<Account> the queried account list
    */
-  public List<Account> findAccountsByAccountId(String accountId) {
+  public List<Account> findAccountsByAccountId(Id accountId) {
     List<Account> accounts = [
       SELECT OCV_ID__c, PPID__c
       FROM Account

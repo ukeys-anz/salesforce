@@ -6,7 +6,6 @@
     <permissionSets>Card_Management_Coach</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>Case_Read_Write_Get_Help</permissionSets>
-    <permissionSets>Case_Read_Write_Non_Customer_Complaints</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>
     <permissionSets>Coaches_Workbench</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>

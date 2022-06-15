@@ -483,7 +483,6 @@ public with sharing class GetHelpCaseActions {
     }
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
-    GetHelpCaseActionsHelper.isNonCustomerComplaint(records);
   }
 
   /**
@@ -671,6 +670,37 @@ public with sharing class GetHelpCaseActions {
       // Publish platform events
       if (peList.size() > 0) {
         PlatformEventUtils.publishEvents(peList);
+      }
+    }
+  }
+
+  /**
+   * @description populate ocv id field on case if the record type is an
+   * ANZx complaint
+   * @param records List of cases
+   */
+  public static void populateOCVOnComplaint(List<Case> records) {
+    List<Id> accountIds = new List<Id>();
+
+    //Loop through case to create list of account ids
+    for (Case c : records) {
+      if (
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
+        !String.isBlank(c.AccountId)
+      ) {
+        accountIds.add(c.AccountId);
+      }
+    }
+
+    //Get map of account ocv ids
+    Map<Id, Account> accountList = new Map<Id, Account>(
+      [SELECT Id, OCV_ID__c FROM Account WHERE Id IN :accountIds]
+    );
+
+    //Loop through cases again and assign ocv id
+    if (!accountList.isEmpty() && PermissionUtils.canQuery('Account')) {
+      for (Case c : records) {
+        c.OCV_Id__c = accountList.get(c.AccountId).OCV_ID__c;
       }
     }
   }

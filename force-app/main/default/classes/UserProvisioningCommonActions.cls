@@ -94,7 +94,7 @@ public with sharing class UserProvisioningCommonActions {
   public static Map<String, Profile> getAllProfileMap() {
     Map<String, Profile> profileMap = new Map<String, Profile>();
 
-    for (Profile prof : [SELECT Id, Name FROM Profile]) {
+    for (Profile prof : [SELECT Id, Name FROM Profile LIMIT 100]) {
       profileMap.put(prof.Name, prof);
     }
     return profileMap;
@@ -108,7 +108,7 @@ public with sharing class UserProvisioningCommonActions {
   public static Map<String, UserRole> getAllUserRoleMap() {
     Map<String, UserRole> userRoleMap = new Map<String, UserRole>();
 
-    for (UserRole uRole : [SELECT Id, DeveloperName FROM UserRole]) {
+    for (UserRole uRole : [SELECT Id, DeveloperName FROM UserRole LIMIT 100]) {
       userRoleMap.put(uRole.DeveloperName, uRole);
     }
     return userRoleMap;
@@ -122,7 +122,7 @@ public with sharing class UserProvisioningCommonActions {
   public static Map<String, CallCenter> getAllCallCenterMap() {
     Map<String, CallCenter> callCenterMap = new Map<String, CallCenter>();
 
-    for (CallCenter cc : [SELECT Id, InternalName FROM CallCenter]) {
+    for (CallCenter cc : [SELECT Id, InternalName FROM CallCenter LIMIT 10]) {
       callCenterMap.put(cc.InternalName, cc);
     }
     return callCenterMap;
@@ -136,7 +136,7 @@ public with sharing class UserProvisioningCommonActions {
   public static Map<String, PermissionSet> getAllPSetMap() {
     Map<String, PermissionSet> pSetMap = new Map<String, PermissionSet>();
 
-    for (PermissionSet pSet : [SELECT Id, Name FROM PermissionSet]) {
+    for (PermissionSet pSet : [SELECT Id, Name FROM PermissionSet LIMIT 500]) {
       pSetMap.put(pSet.Name, pSet);
     }
     return pSetMap;
@@ -153,6 +153,7 @@ public with sharing class UserProvisioningCommonActions {
     for (PermissionSetGroup pSetGroup : [
       SELECT Id, DeveloperName
       FROM PermissionSetGroup
+      LIMIT 200
     ]) {
       pSetGroupMap.put(pSetGroup.DeveloperName, pSetGroup);
     }
@@ -170,6 +171,7 @@ public with sharing class UserProvisioningCommonActions {
     for (PermissionSetLicense pSetLicense : [
       SELECT Id, DeveloperName
       FROM PermissionSetLicense
+      LIMIT 200
     ]) {
       pSetLicenseMap.put(pSetLicense.DeveloperName, pSetLicense);
     }

@@ -50,7 +50,11 @@ public class NotificationHandlerTriggerTest {
       FROM Notification_Handler__c
       WHERE case__c IN :caseList
     ];
-    System.assertEquals(caseList.size(), nhList.size());
+    System.assertEquals(
+      caseList.size(),
+      nhList.size(),
+      'Notification handler list size should be as expected.'
+    );
     Test.stopTest();
   }
 
@@ -82,7 +86,8 @@ public class NotificationHandlerTriggerTest {
     //verify that notification is published successfully
     System.assertEquals(
       IDRConstants.NOTIFICATION_PUBLISH_STATUS,
-      handlerPostExecution.Status__c
+      handlerPostExecution.Status__c,
+      'Notification handler status should be as expected.'
     );
   }
 }

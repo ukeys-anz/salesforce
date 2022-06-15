@@ -10,7 +10,6 @@
     <columns>OWNER_NAME</columns>
     <columns>IDR_NC_First_Name__c</columns>
     <columns>IDR_NC_Last_Name__c</columns>
-    <columns>ANZx_Customer__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>

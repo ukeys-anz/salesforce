@@ -72,6 +72,10 @@ public with sharing class FraudCardStatusControllerTest {
       fraudLockObject.put('fraudLockInformation', fraudLockInformation);
 
       FraudCardStatusController.setFraudCardStatus(fraudLockObject);
+      System.assert(
+        false,
+        'Failed to prevent against user updating fraud status.'
+      );
     } catch (Exception e) {
       errorResult = e;
     }

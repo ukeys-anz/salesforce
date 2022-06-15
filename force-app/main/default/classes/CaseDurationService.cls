@@ -12,9 +12,7 @@ public with sharing class CaseDurationService {
    * @return `DurationTime`
    */
   @AuraEnabled
-  public static CaseDurationObject.DurationTime getCaseDurationTime(
-    String caseId
-  ) {
+  public static CaseDurationObject.DurationTime getCaseDurationTime(Id caseId) {
     CaseDurationObject caseDurationObj = new CaseDurationObject(caseId);
     return caseDurationObj.caseDuration;
   }

@@ -10,7 +10,11 @@ public with sharing class ReleaseLogServerControllerTest {
 
     List<Release__c> releaseList = ReleaseLogServerController.getReleases(1);
 
-    System.assertEquals(1, releaseList.size());
+    System.assertEquals(
+      1,
+      releaseList.size(),
+      'Release list size should be as expected.'
+    );
   }
 
   @isTest
@@ -23,6 +27,10 @@ public with sharing class ReleaseLogServerControllerTest {
 
     Integer releaseCount = ReleaseLogServerController.countTotalRecords();
 
-    System.assertEquals(1, releaseCount);
+    System.assertEquals(
+      1,
+      releaseCount,
+      'Release list size should be as expected.'
+    );
   }
 }

@@ -22,6 +22,15 @@ public with sharing class DisputesValidationTest {
         }
       );
       insert coach;
+      UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
+      User anzx = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'ANZxTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => anzxRole.Id
+        }
+      );
+      insert anzx;
       // Assign related PSs
       List<String> coachPSs = new List<String>{
         'Case_Read_Write_Get_Help',
@@ -51,6 +60,7 @@ public with sharing class DisputesValidationTest {
         RecordTypeID = GetHelpConstants.CARD_DISPUTE_RT_ID,
         Subject = 'Test Disputes',
         Type = 'Cards',
+        OwnerId = coach.Id,
         Dispute_Reason__c = 'Charged for a cancelled payment',
         AccountId = acc.Id,
         Is_The_Card_Lost_Stolen__c = 'Lost',
@@ -63,24 +73,31 @@ public with sharing class DisputesValidationTest {
       );
       insert new Salesforce_Library_Settings__c(
         SetupOwnerId = UserInfo.getOrganizationId(),
-        Disable_Triggers__c = true
+        Disable_Triggers__c = true,
+        Disable_VRs__c = false
       );
     }
   }
   // When Case Owner is manually re-assigned from Queue to an invalid User Role
   @isTest
   static void testDisputesQueuetoUser() {
-    Case c = (Case) [SELECT Id FROM Case LIMIT 1];
-    c.OwnerId = UserInfo.getUserId();
+    Case c = (Case) [SELECT Id, OwnerId FROM Case LIMIT 1];
+    UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
+    User anzx = [SELECT Id FROM User WHERE UserRoleId = :anzxRole.Id LIMIT 1];
+    c.OwnerId = anzx.Id;
     Test.startTest();
     try {
       update c;
+      System.assert(
+        false,
+        'Failed to prevent against user changing case owner to user who has incorrect role.'
+      );
     } catch (Exception e) {
       System.assertEquals(
         true,
         e.getMessage()
           .contains(
-            'For ATM or Card record types, please select either Card Disputes - General Queue or Card Disputes - Fraud Queue or the User must have a Coach, Support Coach, Card Dispute Agent or FraudX Agent Role.'
+            'For ATM or Card cases, the Case Owner Queue must be the Card Disputes Queues, Pending Card Disputes Queues, ID Ops Queue or Coach Queue. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.'
           ),
         'Incorrect error message.'
       );
@@ -120,6 +137,10 @@ public with sharing class DisputesValidationTest {
     System.runAs(usr) {
       try {
         update c;
+        System.assert(
+          false,
+          'Failed to detect missing required fields when update case status.'
+        );
       } catch (Exception e) {
         System.assertEquals(
           true,
@@ -151,6 +172,10 @@ public with sharing class DisputesValidationTest {
     System.runAs(usr) {
       try {
         update c;
+        System.assert(
+          false,
+          'Failed to prevent against user updating case without providing External System ID.'
+        );
       } catch (Exception e) {
         System.assertEquals(
           true,
@@ -189,6 +214,10 @@ public with sharing class DisputesValidationTest {
     System.runAs(usr) {
       try {
         insert cardDispute;
+        System.assert(
+          false,
+          'Failed to detect missing fields when creating card dispute case.'
+        );
       } catch (DmlException e) {
         // THEN an error message should be thrown by DISPUTE_CARD_VR1 validation rule
         System.assertEquals(
@@ -234,7 +263,7 @@ public with sharing class DisputesValidationTest {
         insert cardDispute;
       } catch (DmlException e) {
         // THEN NO error message should be thrown by DISPUTE_CARD_VR1 validation rule
-        System.assertEquals(null, e, 'Error messageshould be null.');
+        System.assertEquals(null, e, 'Error message should be null.');
       }
     }
     System.assertEquals(
@@ -315,7 +344,7 @@ public with sharing class DisputesValidationTest {
         insert cardDispute;
       } catch (DmlException e) {
         // THEN NO error message should be thrown by DISPUTE_CARD_VR8 validation rule
-        System.assertEquals(null, e, 'Error messageshould be null.');
+        System.assertEquals(null, e, 'Error message should be null.');
       }
     }
     System.assertEquals(
@@ -348,6 +377,10 @@ public with sharing class DisputesValidationTest {
     System.runAs(usr) {
       try {
         insert atmDispute;
+        System.assert(
+          false,
+          'Failed to prevent against user create dispute case on missing description.'
+        );
       } catch (DmlException e) {
         // THEN an error message should be thrown by DISPUTE_ATM_VR2 validation rule
         System.assertEquals(
@@ -390,7 +423,7 @@ public with sharing class DisputesValidationTest {
         insert atmDispute;
       } catch (DmlException e) {
         // THEN NO error message should be thrown by DISPUTE_ATM_VR2 validation rule
-        System.assertEquals(null, e, 'Error messageshould be null.');
+        System.assertEquals(null, e, 'Error message should be null.');
       }
     }
     System.assertEquals(
@@ -471,7 +504,7 @@ public with sharing class DisputesValidationTest {
         insert nppDispute;
       } catch (DmlException e) {
         // THEN NO error message should be thrown by DISPUTE_NPP_VR1 validation rule
-        System.assertEquals(null, e, 'Error messageshould be null.');
+        System.assertEquals(null, e, 'Error message should be null.');
       }
     }
     System.assertEquals(

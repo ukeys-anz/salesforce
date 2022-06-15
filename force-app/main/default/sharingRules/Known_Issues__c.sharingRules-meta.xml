@@ -14,19 +14,4 @@
             <value>True</value>
         </criteriaItems>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Share_Known_Issues_with_ANZx_Users</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Sharing known issues records, read only for creating non customer complaints</description>
-        <label>Share Known Issues with ANZx Users</label>
-        <sharedTo>
-            <roleAndSubordinates>ANZx</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>Is_Active__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
 </SharingRules>

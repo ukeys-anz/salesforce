@@ -168,7 +168,11 @@ public with sharing class StatementAPIRepositoryTest {
         '10'
       );
       Test.stopTest();
-      System.assertEquals(4, statement.statements.size());
+      System.assertEquals(
+        4,
+        statement.statements.size(),
+        'The statements size should be as expected.'
+      );
     }
   }
   /**
@@ -191,7 +195,7 @@ public with sharing class StatementAPIRepositoryTest {
         additionaldetails
       );
       Test.stopTest();
-      System.assert(statement != null);
+      System.assert(statement != null, 'Statement should not be null.');
     }
   }
 
@@ -217,7 +221,8 @@ public with sharing class StatementAPIRepositoryTest {
       Test.stopTest();
       System.assertEquals(
         'Statement retrieve failed',
-        resultException.getMessage()
+        resultException.getMessage(),
+        'Error message should be as expected.'
       );
     }
   }

@@ -56,7 +56,11 @@ private class IDRCaseNotificationManagerTest {
         FROM Application_Log__c
         WHERE Process_Name__c = 'IDRBankerNotificationBuilder'
       ];
-      System.assertEquals(0, appLogs.size());
+      System.assertEquals(
+        0,
+        appLogs.size(),
+        'There should be no application logs.'
+      );
     }
   }
 
@@ -98,6 +102,10 @@ private class IDRCaseNotificationManagerTest {
       FROM Application_Log__c
       WHERE Function_Name__c = 'notifyBankersForEscalation'
     ];
-    System.assertEquals(0, appLogs.size());
+    System.assertEquals(
+      0,
+      appLogs.size(),
+      'There should be no application logs.'
+    );
   }
 }
