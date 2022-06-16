@@ -17,7 +17,7 @@
     <sharingCriteriaRules>
         <fullName>Share_Known_Issues_with_ANZx_Users</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Sharing known issues records, read only for creating non customer complaints</description>
+        <description>Sharing known issues records for ANZx, read only for creating non customer complaints</description>
         <label>Share Known Issues with ANZx Users</label>
         <sharedTo>
             <roleAndSubordinates>ANZx</roleAndSubordinates>

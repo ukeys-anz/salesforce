@@ -17,7 +17,7 @@
     <sharingCriteriaRules>
         <fullName>ANZx_Non_Customer_Complaints</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Provides access to ANZx Non Customer Complaints</description>
+        <description>Provides access to Non Customer Complaints for ANZx</description>
         <label>ANZx Non Customer Complaints</label>
         <sharedTo>
             <roleAndSubordinates>ANZx</roleAndSubordinates>
