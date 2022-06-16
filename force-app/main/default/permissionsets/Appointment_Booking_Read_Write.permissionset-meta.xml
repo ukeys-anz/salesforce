@@ -37,6 +37,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Coaching_Summary__c.Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Coaching_Summary__c.Name__c</field>
         <readable>true</readable>
@@ -103,7 +108,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Interaction.Contact_Mobile__c</field>
+        <field>Interaction.Mobile__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -5,8 +5,8 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Summary linked with Interaction</description>
-    <inlineHelpText>Click on the link to edit or view the coaching summary including outcomes and actions.</inlineHelpText>
     <externalId>false</externalId>
+    <inlineHelpText>Click on the link to edit or view the coaching summary including outcomes and actions.</inlineHelpText>
     <label>Coaching Summary</label>
     <referenceTo>Coaching_Summary__c</referenceTo>
     <relationshipLabel>Interactions</relationshipLabel>

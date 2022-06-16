@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Interaction_External_Id__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
     <description>This field will capture the Contact Request auto number when the Interaction record is created through Self Service otherwise will contain the Interaction Auto Number when Interaction record is created through Assisted Channel.</description>
     <externalId>true</externalId>
     <label>Interaction Number</label>

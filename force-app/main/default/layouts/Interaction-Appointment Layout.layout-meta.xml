@@ -20,8 +20,8 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Contact_Mobile__c</field>
+                <behavior>Readonly</behavior>
+                <field>Mobile__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

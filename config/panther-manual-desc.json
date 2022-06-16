@@ -663,6 +663,7 @@
     "Coaching_Summary__c": {
       "IA-2415840": [
         "Account__c",
+        "Mobile__c",
         "Name",
         "Name__c",
         "Lead__c",
@@ -898,6 +899,7 @@
         "LastModifiedById",
         "LastModifiedDate",
         "Lead__c",
+        "Mobile__c",
         "Name",
         "Optional_Notes__c",
         "OwnerId",
