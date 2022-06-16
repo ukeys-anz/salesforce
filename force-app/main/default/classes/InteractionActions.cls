@@ -1116,13 +1116,24 @@ public with sharing class InteractionActions {
     }
   }
 
-  /** @description Method to set the Interaction Name for manual interaction creations
+  /** @description Method to set the Interaction Name for manual appointment rt creations
+   * and all general rt creations
    * @param interactions list of new interactions created.
    */
-
   public void setNameOfInteractions(List<Interaction> interactions) {
+    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+      .get('Appointment')
+      .getRecordTypeId();
     for (Interaction interact : interactions) {
-      interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+      if (interact.RecordTypeId != appointmentRTID) {
+        interact.Name = interact.Direction__c + ' ' + interact.InteractionType;
+      } else if (
+        AutomatedRequestMetadataProvider.getInstance()
+          .getMap()
+          .containsKey(interact.Interaction_Purpose__c)
+      ) {
+        interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+      }
     }
   }
 }

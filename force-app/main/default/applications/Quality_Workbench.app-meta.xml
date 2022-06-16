@@ -79,12 +79,18 @@
     <tabs>standard-Account</tabs>
     <tabs>standard-Task</tabs>
     <tabs>Knowledge__kav</tabs>
-    <tabs>standard-Interaction</tabs>
+    <tabs>Interaction_List_View</tabs>
     <tabs>Coaching_Summary__c</tabs>
     <tabs>standard-Lead</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Quality_Workbench_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>Coaching_Summary__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Interaction_List_View</tab>
+        </mappings>
         <mappings>
             <tab>Knowledge__kav</tab>
         </mappings>
@@ -98,19 +104,13 @@
             <tab>standard-Case</tab>
         </mappings>
         <mappings>
-            <tab>standard-Interaction</tab>
-        </mappings>
-        <mappings>
-            <tab>Coaching_Summary__c</tab>
+            <tab>standard-Lead</tab>
         </mappings>
         <mappings>
             <tab>standard-Task</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>
-        </mappings>
-        <mappings>
-            <tab>standard-Lead</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>

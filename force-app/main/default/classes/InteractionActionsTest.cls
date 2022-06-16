@@ -1294,11 +1294,11 @@ public with sharing class InteractionActionsTest {
   }
 
   /**
-   * @description testing that a interaction record will have
+   * @description testing that a appointment rt record will have
    * the name populated for manual creations.
    */
   @isTest
-  static void testsetNameOfInteractions() {
+  static void testsetNameOfAppointments() {
     InteractionActions actions = new InteractionActions();
 
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -1340,6 +1340,58 @@ public with sharing class InteractionActionsTest {
 
     System.assertNotEquals(
       'Appointment',
+      testInteraction.Name,
+      'Interaction record name must match.'
+    );
+  }
+
+  /**
+   * @description testing that a interaction rt will have
+   * the name populated for manual creations.
+   */
+  @isTest
+  static void testsetNameOfInteractions() {
+    InteractionActions actions = new InteractionActions();
+
+    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    insert testAccount1;
+
+    Account testAccount = [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE Id = :testAccount1.Id
+    ];
+
+    DateTime interactionDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
+    DateTime endDate = interactionDate.addMinutes(45);
+    Interaction newInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+      AccountId = testAccount1.Id,
+      InteractionType = 'Call',
+      Interaction_Purpose__c = 'Customer',
+      Direction__c = 'Outbound',
+      Authentication_Method__c = 'Manually Authenticated',
+      Resolution__c = 'Resolved',
+      StartTime = interactionDate
+    );
+    Test.startTest();
+    insert newInteraction;
+    Test.stopTest();
+
+    Interaction testInteraction = [
+      SELECT Id, Name
+      FROM Interaction
+      WHERE Id = :newInteraction.Id
+    ];
+
+    System.assertEquals(
+      'Outbound Call',
+      testInteraction.Name,
+      'Interaction record must have the name set.'
+    );
+
+    System.assertNotEquals(
+      '',
       testInteraction.Name,
       'Interaction record name must match.'
     );

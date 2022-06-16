@@ -111,10 +111,6 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Name</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>LastModifiedById</field>
             </layoutItems>
@@ -202,9 +198,9 @@
     </quickActionList>
     <relatedLists>
         <fields>Name</fields>
-        <fields>AttendeeType</fields>
         <fields>User</fields>
-        <fields>Contact</fields>
+        <fields>AttendeeType</fields>
+        <fields>Time__c</fields>
         <relatedList>IAttendee</relatedList>
     </relatedLists>
     <relatedLists>
