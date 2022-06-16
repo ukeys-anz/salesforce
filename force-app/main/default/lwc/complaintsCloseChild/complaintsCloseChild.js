@@ -444,17 +444,17 @@ export default class complaintsResolveLWC extends NavigationMixin(
       '[data-id="compSubRemedy-id"]'
     );
     if (nonFinancialRemedyElement !== null) {
-      nonFinancialRemedyElement.reset();
       nonFinancialRemedyElement.value =
         this.expressCaseCreationData === undefined
           ? ""
           : this.expressCaseCreationData.IDR_Non_Financial_Remedy__c;
+
+      nonFinancialRemedyElement.dispatchEvent(
+        new CustomEvent("change", {
+          detail: { value: nonFinancialRemedyElement.value }
+        })
+      );
     }
-    nonFinancialRemedyElement.dispatchEvent(
-      new CustomEvent("change", {
-        detail: { value: nonFinancialRemedyElement.value }
-      })
-    );
   }
 
   handleComplaintOutcomeChange(event) {
