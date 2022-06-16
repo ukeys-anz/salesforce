@@ -604,4 +604,341 @@ describe("c-create-complaint-l-w-c", () => {
       expect(accNumber.disabled).toBe(false);
     });
   });
+
+  it("check if close complaint child component is loaded if complaint is closed", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+    const complaintStatus = element.shadowRoot.querySelector(
+      "lightning-combobox[data-id=caseStatus-id]"
+    );
+    complaintStatus.value = "Closed";
+    complaintStatus.dispatchEvent(new CustomEvent("change"));
+    return Promise.resolve().then(() => {
+      const childCompElement = element.shadowRoot.querySelectorAll(
+        "c-complaints-close-child"
+      );
+      expect(childCompElement).not.toBeNull;
+      expect(childCompElement.length).toBe(1);
+    });
+  });
+
+  it("create a closed case successfully", () => {
+    const element = createElement("c-create-complaint-l-w-c", {
+      is: CreateComplaintForm
+    });
+    element.recordTypeDevName = "Customer_Complaint";
+    document.body.appendChild(element);
+
+    //Populate user input - Customer Number
+    const customerNumber = element.shadowRoot.querySelector(
+      "lightning-input[data-id=customerNumber-id]"
+    );
+    customerNumber.value = "0123456789";
+    customerNumber.dispatchEvent(new CustomEvent("change"));
+
+    //Populate user input - Click Search Button
+    const searchButton = element.shadowRoot.querySelector(
+      "lightning-button[data-id=searchButton-id]"
+    );
+    searchButton.click();
+
+    //Populate user input - Customer Type
+    const customerType = element.shadowRoot.querySelector(
+      "lightning-input-field[data-id=customerType-id]"
+    );
+    customerType.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "Individual"
+        }
+      })
+    );
+
+    const customerComms = element.shadowRoot.querySelector(
+      "lightning-input[data-id=customerNotification-id]"
+    );
+    expect(customerComms).toBeTruthy();
+
+    customerComms.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "true"
+        }
+      })
+    );
+
+    //Populate user input - Issue Type
+    const issueType = element.shadowRoot.querySelector(
+      "lightning-input-field[data-id=issueType-id]"
+    );
+    issueType.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "Advice"
+        }
+      })
+    );
+    //Populate user input - subsequent issue type
+    const subIssueType = element.shadowRoot.querySelector(
+      "lightning-input-field[data-id=subsequentIssue-id]"
+    );
+    subIssueType.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "No Advice"
+        }
+      })
+    );
+    //Populate user input - Product Id
+    const productId = element.shadowRoot.querySelector(
+      "lightning-input-field[data-id=product-id]"
+    );
+    productId.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "Test Product"
+        }
+      })
+    );
+    //Populate user input - Account Number
+    const accNumber = element.shadowRoot.querySelector(
+      "c-multi-select-combobox[data-id=accPolicyNum-id]"
+    );
+    accNumber.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "5345435345"
+        }
+      })
+    );
+    //Populate user input - issue description
+    const issueDesc = element.shadowRoot.querySelector(
+      "lightning-textarea[data-id=descOfIssue-id]"
+    );
+    issueDesc.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "Test Description"
+        }
+      })
+    );
+    //Populate user input - customer desired outcome
+    const desiredOutcome = element.shadowRoot.querySelector(
+      "lightning-input-field[data-id=custOutCome]"
+    );
+    desiredOutcome.dispatchEvent(
+      new CustomEvent("change", {
+        detail: {
+          value: "Test Outcome"
+        }
+      })
+    );
+    //Populate user input - is written response requested
+    const writtenResponse = element.shadowRoot.querySelector(
+      "lightning-radio-group[data-id=writtenResponseGroup-id]"
+    );
+    writtenResponse.dispatchEvent(
+      new CustomEvent("change", { detail: { value: "No" } })
+    );
+    //Populate user input - is written response required
+    const writtenRequired = element.shadowRoot.querySelector(
+      "lightning-radio-group[data-id=writtenRequiredGroup-id]"
+    );
+    writtenRequired.dispatchEvent(
+      new CustomEvent("change", { detail: { value: "No" } })
+    );
+    //Populate user input - is real form required
+    const realFormRequired = element.shadowRoot.querySelector(
+      "lightning-radio-group[data-id=realFormRequiredGroup-id]"
+    );
+    //Populate user input - is real form submitted
+    const realFormSubmitted = element.shadowRoot.querySelector(
+      "lightning-radio-group[data-id=realFormSubmittedGroup-id]"
+    );
+    //Populate user input - real form reference number
+    const realFormRefNo = element.shadowRoot.querySelector(
+      "lightning-input[data-id=realFormRefNoGroup]"
+    );
+    realFormRequired.dispatchEvent(
+      new CustomEvent("change", { detail: { value: "Yes" } }),
+      () => {
+        //Asserting for required scenario (positive)
+        expect(realFormSubmitted.required).toBe(true);
+        realFormSubmitted.dispatchEvent(
+          new CustomEvent("change", { detail: { value: "Yes" } }),
+          () => {
+            realFormRefNo.dispatchEvent(
+              new CustomEvent("change", { detail: { value: "123456789" } })
+            );
+          }
+        );
+      }
+    );
+    realFormRequired.dispatchEvent(
+      new CustomEvent("change", { detail: { value: "No" } }),
+      () => {
+        //Asserting for not required scenario (negative)
+        expect(realFormSubmitted.required).toBe(false);
+      }
+    );
+    //Populate user input - possible systemic issue
+    const possibleSystemicIssue = element.shadowRoot.querySelector(
+      "lightning-radio-group[data-id=commoncomplaintGroup-id]"
+    );
+    possibleSystemicIssue.value = "No";
+    possibleSystemicIssue.dispatchEvent(new CustomEvent("change"));
+
+    const complaintStatus = element.shadowRoot.querySelector(
+      "lightning-combobox[data-id=caseStatus-id]"
+    );
+    complaintStatus.value = "Closed";
+    complaintStatus.dispatchEvent(new CustomEvent("change"));
+    return Promise.resolve().then(() => {
+      const childCompElement = element.shadowRoot.querySelector(
+        "c-complaints-close-child"
+      );
+      //Select Complaint Outcome
+      childCompElement.dispatchEvent(
+        new CustomEvent("fieldvalueupdate", {
+          detail: {
+            field: "IDR_Complaint_Outcome__c",
+            value: "1"
+          }
+        })
+      );
+      return Promise.resolve().then(() => {
+        //Input Description of Outcome
+        childCompElement.dispatchEvent(
+          new CustomEvent("fieldvalueupdate", {
+            detail: {
+              field: "IDR_Description_of_Outcome__c",
+              value: "Test_Description"
+            }
+          })
+        );
+        return Promise.resolve().then(() => {
+          //Select Complaint Remedy 1
+          childCompElement.dispatchEvent(
+            new CustomEvent("fieldvalueupdate", {
+              detail: {
+                field: "IDR_Complaint_Remedy__c",
+                value: "1"
+              }
+            })
+          );
+          return Promise.resolve().then(() => {
+            //Select Complaint Sub Remedy
+            childCompElement.dispatchEvent(
+              new CustomEvent("fieldvalueupdate", {
+                detail: {
+                  field: "IDR_Complaint_Sub_Remedy__c",
+                  value: "2"
+                }
+              })
+            );
+            return Promise.resolve().then(() => {
+              //Input Financial Amount
+              childCompElement.dispatchEvent(
+                new CustomEvent("fieldvalueupdate", {
+                  detail: {
+                    field: "IDR_Financial_Compensation__c",
+                    value: "1000"
+                  }
+                })
+              );
+              return Promise.resolve().then(() => {
+                //Select Remedy 2
+                childCompElement.dispatchEvent(
+                  new CustomEvent("fieldvalueupdate", {
+                    detail: {
+                      field: "Remedy2",
+                      value: true
+                    }
+                  })
+                );
+                return Promise.resolve().then(() => {
+                  //Select Complaint Remedy 2
+                  childCompElement.dispatchEvent(
+                    new CustomEvent("fieldvalueupdate", {
+                      detail: {
+                        field: "IDR_Complaint_Remedy_2__c",
+                        value: "4"
+                      }
+                    })
+                  );
+                  return Promise.resolve().then(() => {
+                    //Select Complaint Sub Remedy 2
+                    childCompElement.dispatchEvent(
+                      new CustomEvent("fieldvalueupdate", {
+                        detail: {
+                          field: "IDR_Complaint_Sub_Remedy_2__c",
+                          value: "8"
+                        }
+                      })
+                    );
+                    return Promise.resolve().then(() => {
+                      //Select Remedy 3
+                      childCompElement.dispatchEvent(
+                        new CustomEvent("fieldvalueupdate", {
+                          detail: {
+                            field: "Remedy3",
+                            value: true
+                          }
+                        })
+                      );
+                      return Promise.resolve().then(() => {
+                        //Select Complaint Remedy 3
+                        childCompElement.dispatchEvent(
+                          new CustomEvent("fieldvalueupdate", {
+                            detail: {
+                              field: "IDR_Complaint_Remedy_3__c",
+                              value: "2"
+                            }
+                          })
+                        );
+                        return Promise.resolve().then(() => {
+                          //Select Complaint Sub Remedy 3
+                          childCompElement.dispatchEvent(
+                            new CustomEvent("fieldvalueupdate", {
+                              detail: {
+                                field: "IDR_Complaint_Sub_Remedy_3__c",
+                                value: "1"
+                              }
+                            })
+                          );
+                          return Promise.resolve().then(() => {
+                            //Save Complaint
+                            //click Create Case button to validate fields entered
+                            const saveButton = element.shadowRoot.querySelector(
+                              ".saveButton"
+                            );
+                            saveButton.click();
+                            expect(saveButton).toBeTruthy();
+
+                            const complaintForm = element.shadowRoot.querySelector(
+                              "lightning-record-edit-form"
+                            );
+                            complaintForm.submit = jest.fn();
+                            //submit EVENT gets dispatched, which triggers a handler function that will call the submit FUNCTION
+                            complaintForm.dispatchEvent(
+                              new CustomEvent("submit", {
+                                detail: { fields: {} }
+                              })
+                            );
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
 });
