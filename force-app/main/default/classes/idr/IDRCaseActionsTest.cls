@@ -406,7 +406,8 @@ private with sharing class IDRCaseActionsTest {
     );
     insert p;
     Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+    //Using 10 instead of Integer.valueOf(Label.Test_Bulk_Size) as it was breaking deployments
+    for (Integer i = 0; i < 10; i++) {
       newCases.add(
         new Case(
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,

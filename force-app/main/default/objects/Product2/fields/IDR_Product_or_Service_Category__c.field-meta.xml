@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Product_or_Service_Category__c</fullName>
     <businessStatus>Active</businessStatus>
-    <description>The broad category of product or service that the complaint is about. Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal dispute resolution data dictionary&quot; PDF)</description>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The broad category of product or service that the complaint is about. Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal dispute resolution data dictionary&quot; PDF)</description>
     <externalId>false</externalId>
     <label>Product or Service Category</label>
     <required>false</required>
@@ -18,12 +18,12 @@
             <value>
                 <fullName>1</fullName>
                 <default>false</default>
-                <label>Business finance</label>
+                <label>Business Finance</label>
             </value>
             <value>
                 <fullName>2</fullName>
                 <default>false</default>
-                <label>Consumer credit</label>
+                <label>Consumer Credit</label>
             </value>
             <value>
                 <fullName>3</fullName>
@@ -33,57 +33,57 @@
             <value>
                 <fullName>4</fullName>
                 <default>false</default>
-                <label>Margin loans</label>
+                <label>Margin Loans</label>
             </value>
             <value>
                 <fullName>5</fullName>
                 <default>false</default>
-                <label>Current accounts</label>
+                <label>Current Accounts</label>
             </value>
             <value>
                 <fullName>6</fullName>
                 <default>false</default>
-                <label>Safe custody</label>
+                <label>Safe Custody</label>
             </value>
             <value>
                 <fullName>7</fullName>
                 <default>false</default>
-                <label>Savings account</label>
+                <label>Savings Accounts</label>
             </value>
             <value>
                 <fullName>8</fullName>
                 <default>false</default>
-                <label>Domestic insurance</label>
+                <label>Domestic Insurance</label>
             </value>
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
-                <label>Extended warranty</label>
+                <label>Extended Warranty</label>
             </value>
             <value>
                 <fullName>10</fullName>
                 <default>false</default>
-                <label>Professional indemnity</label>
+                <label>Professional Indemnity</label>
             </value>
             <value>
                 <fullName>11</fullName>
                 <default>false</default>
-                <label>Small business and farm insurance</label>
+                <label>Small Business and Farm Insurance</label>
             </value>
             <value>
                 <fullName>12</fullName>
                 <default>false</default>
-                <label>Derivatives and hedging</label>
+                <label>Derivatives and Hedging</label>
             </value>
             <value>
                 <fullName>13</fullName>
                 <default>false</default>
-                <label>Managed investments</label>
+                <label>Managed Investments</label>
             </value>
             <value>
                 <fullName>14</fullName>
                 <default>false</default>
-                <label>Real property</label>
+                <label>Real Property</label>
             </value>
             <value>
                 <fullName>15</fullName>
@@ -91,24 +91,19 @@
                 <label>Securities</label>
             </value>
             <value>
-                <fullName>16</fullName>
-                <default>false</default>
-                <label>Superannuation – Non-trustee related</label>
-            </value>
-            <value>
                 <fullName>17</fullName>
                 <default>false</default>
-                <label>Income stream risk</label>
+                <label>Income Stream Risk</label>
             </value>
             <value>
                 <fullName>18</fullName>
                 <default>false</default>
-                <label>Non-income stream risk</label>
+                <label>Non-Income Stream Risk</label>
             </value>
             <value>
                 <fullName>19</fullName>
                 <default>false</default>
-                <label>Direct transfer</label>
+                <label>Direct Transfer</label>
             </value>
             <value>
                 <fullName>20</fullName>
@@ -118,72 +113,86 @@
             <value>
                 <fullName>21</fullName>
                 <default>false</default>
-                <label>Estate management and planning</label>
+                <label>Estate Management &amp; Estate Planning</label>
             </value>
             <value>
                 <fullName>22</fullName>
                 <default>false</default>
-                <label>Annuity policy</label>
+                <label>Annuity Policy</label>
             </value>
             <value>
                 <fullName>23</fullName>
                 <default>false</default>
-                <label>Approved deposit fund</label>
+                <label>Approved Deposit Fund</label>
             </value>
             <value>
-                <fullName>24</fullName>
+                <fullName>35</fullName>
                 <default>false</default>
-                <label>Corporate fund</label>
+                <label>Superannuation</label>
             </value>
             <value>
                 <fullName>25</fullName>
                 <default>false</default>
-                <label>Industry fund</label>
+                <label>Industry Fund</label>
             </value>
             <value>
                 <fullName>26</fullName>
                 <default>false</default>
-                <label>Life policy fund</label>
+                <label>Life Policy Fund</label>
             </value>
             <value>
                 <fullName>27</fullName>
                 <default>false</default>
-                <label>Public sector fund</label>
-            </value>
-            <value>
-                <fullName>28</fullName>
-                <default>false</default>
-                <label>Retail fund</label>
+                <label>Public Sector Fund</label>
             </value>
             <value>
                 <fullName>29</fullName>
                 <default>false</default>
-                <label>Retirement savings account</label>
+                <label>Retirement Savings Account</label>
             </value>
             <value>
                 <fullName>30</fullName>
                 <default>false</default>
-                <label>Small APRA fund</label>
+                <label>Small APRA Fund</label>
             </value>
             <value>
                 <fullName>31</fullName>
                 <default>false</default>
-                <label>General advice</label>
+                <label>General Advice = Financial Advice</label>
             </value>
             <value>
                 <fullName>32</fullName>
                 <default>false</default>
-                <label>Personal advice</label>
-            </value>
-            <value>
-                <fullName>33</fullName>
-                <default>false</default>
-                <label>Digital financial product advice</label>
+                <label>Personal Advice = Financial Advice</label>
             </value>
             <value>
                 <fullName>34</fullName>
                 <default>false</default>
                 <label>Other</label>
+            </value>
+            <value>
+                <fullName>24</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Corporate fund</label>
+            </value>
+            <value>
+                <fullName>33</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Digital financial product advice</label>
+            </value>
+            <value>
+                <fullName>28</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Retail fund</label>
+            </value>
+            <value>
+                <fullName>16</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Superannuation – Non-trustee related</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -247,10 +256,6 @@
             <valueName>15</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>4</controllingFieldValue>
-            <valueName>16</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>5</controllingFieldValue>
             <valueName>17</valueName>
         </valueSettings>
@@ -280,7 +285,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
-            <valueName>24</valueName>
+            <valueName>35</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
@@ -293,10 +298,6 @@
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
             <valueName>27</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>8</controllingFieldValue>
-            <valueName>28</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>8</controllingFieldValue>
@@ -315,11 +316,7 @@
             <valueName>32</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
-            <valueName>33</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
             <valueName>34</valueName>
         </valueSettings>
     </valueSet>

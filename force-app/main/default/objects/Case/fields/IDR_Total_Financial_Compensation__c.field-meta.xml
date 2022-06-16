@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Total_Financial_Compensation__c</fullName>
+    <externalId>false</externalId>
+    <formula>IDR_Financial_Compensation__c +  IDR_Financial_Compensation_2__c + IDR_Financial_Compensation_3__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Total of all financial amounts provided</inlineHelpText>
+    <label>Total Financial Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

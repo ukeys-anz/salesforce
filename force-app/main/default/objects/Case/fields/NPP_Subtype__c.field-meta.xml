@@ -2,14 +2,14 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>NPP_Subtype__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Trusted</complianceGroup>
     <description>NPP subtype of the case.</description>
     <externalId>false</externalId>
-    <formula>IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Amount Transferred&quot;), &quot;Solicited payment return&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;), &quot;Solicited payment return&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;), &quot;Solicited payment return&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;Unsolicited payment return&quot;,
-IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Amount not received by payee&quot;), &quot;Final destination&quot;,&quot;&quot;)))))</formula>
+    <formula>IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Amount Transferred&quot;), &quot;NPP_PaymentReturn_Solicited&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;), &quot;NPP_PaymentReturn_Solicited&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;), &quot;NPP_PaymentReturn_Solicited&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;), &quot;NPP_PaymentReturn_Unsolicited&quot;,
+IF(RecordType.DeveloperName = &quot;NPP_Dispute&quot; &amp;&amp; ISPICKVAL(Dispute_Reason__c, &quot;Amount not received by payee&quot;), &quot;NPP_PaymentTrace_FinalDestination&quot;,&quot;&quot;)))))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>NPP Subtype</label>
     <required>false</required>

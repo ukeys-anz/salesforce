@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Validate_Subsequent_Issue</fullName>
+    <active>true</active>
+    <description>Ensure Subsequent Issue is validate for the selected Issue Type</description>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; !ISNEW() &amp;&amp;
+(RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; || RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp;
+NOT(ISPICKVAL(IDR_Subsequent_Issue__c,&apos;&apos;)) &amp;&amp;
+ISBLANK(TEXT(IDR_Subsequent_Issue__c))</errorConditionFormula>
+    <errorMessage>Subsequent Issue is not valid for given Issue Type</errorMessage>
+</ValidationRule>
