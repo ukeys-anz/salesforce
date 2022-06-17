@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>VR11_Control_Complaint_Remedy_Outcome</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>This is to control the Financial and Non-FInancial Compensation field based on Complaint Remedy selection</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
