@@ -446,4 +446,22 @@ public with sharing class GetHelpCaseActionsHelper {
       }
     }
   }
+
+  /**
+   * @description Check if the account on the case has changed
+   * @param records New record instances to process
+   * @param oldCaseMap Old case map
+   * @return Boolean if a case's account id has changed
+   */
+  public static Boolean hasAccountUpdated(
+    List<Case> records,
+    Map<Id, Case> oldCaseMap
+  ) {
+    for (Case record : (List<Case>) records) {
+      if (record.AccountId != oldCaseMap.get(record.Id).AccountId) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
