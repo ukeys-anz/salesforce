@@ -60,10 +60,11 @@ public with sharing class AppointmentNotificationHandler {
     List<Interaction> interactions
   ) {
     ContactRequestActions actions = new ContactRequestActions();
-    Map<Id, Account> accountMap = actions.getAccountMapFromInteractions(
+    InteractionActions intActions = new InteractionActions();
+    Map<Id, Account> accountMap = intActions.getAccountMapFromInteractions(
       interactions
     );
-    Map<Id, Lead> leadMap = actions.getLeadMapFromInteractions(interactions);
+    Map<Id, Lead> leadMap = intActions.getLeadMapFromInteractions(interactions);
     List<IDR_Notification_Event__e> result = new List<IDR_Notification_Event__e>();
 
     Set<Id> contactRequestIds = new Set<Id>();

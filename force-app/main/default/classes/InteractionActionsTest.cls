@@ -7,6 +7,35 @@
 public with sharing class InteractionActionsTest {
   private final static string APPOINTMENT_QUEUE_NAME = 'Appointments_Queue';
   private final static string TEST_MOBILE = '01189998819991197253';
+
+  private static string contactRequestQueueName = 'Contact Request';
+  private static string otherPurposeName = 'Other';
+  private static string financialWellbeingPurposeName = 'Financial Wellbeing';
+  private static string defaultInteractionStatus = 'Unassigned';
+  private static string appointmentRTName = 'Appointment';
+
+  private static Integer otherPurposeDuration = 30;
+  private static Integer financialWellbeingPurposeDuration = 45;
+
+  //Number of minutes before an event to set the reminder
+  private static Integer reminderMinutes = 15;
+
+  static void setup() {
+    Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
+    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.Duration__c = otherPurposeDuration;
+
+    Automated_Request_Purpose__mdt financialWellbeingPurpose = new Automated_Request_Purpose__mdt();
+    financialWellbeingPurpose.MasterLabel = financialWellbeingPurposeName;
+    financialWellbeingPurpose.Duration__c = financialWellbeingPurposeDuration;
+
+    Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
+    purposeMap.put(otherPurposeName, otherPurpose);
+    purposeMap.put(financialWellbeingPurposeName, financialWellbeingPurpose);
+
+    AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
+  }
+
   /**
    * @description test for interaction assigned back to Queue.
    */
@@ -1381,5 +1410,35 @@ public with sharing class InteractionActionsTest {
     testAccount.PersonMobilePhone = TEST_MOBILE;
 
     return testAccount;
+  }
+
+  @isTest
+  static void returnInteractionsWithAutomatedPurpose() {
+    setup();
+    InteractionActions actions = new InteractionActions();
+
+    Interaction automatedInteraction = new Interaction(
+      Interaction_Purpose__c = otherPurposeName
+    );
+    Interaction nonAutomatedInteraction = new Interaction(
+      Interaction_Purpose__c = 'NotAutomated'
+    );
+
+    List<Interaction> interactions = new List<Interaction>{
+      automatedInteraction,
+      nonAutomatedInteraction
+    };
+
+    test.startTest();
+    List<Interaction> automatedInteractions = actions.returnInteractionsWithAutomatedPurpose(
+      interactions
+    );
+    test.stopTest();
+
+    system.assertEquals(
+      1,
+      automatedInteractions.size(),
+      'Should only return automated interactions'
+    );
   }
 }

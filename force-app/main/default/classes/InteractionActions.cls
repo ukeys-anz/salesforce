@@ -1127,4 +1127,190 @@ public with sharing class InteractionActions {
       interact.Name = interact.Interaction_Purpose__c + ' Appointment';
     }
   }
+
+  /**
+   * @description goes through a list of interactions and returns the ones that have an automated purpose
+   * @param interactions List<Interaction> list of interactions to search through.
+   * @return List<Interaction> List of interactions that have an automated purpose
+   */
+  public List<Interaction> returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions
+  ) {
+    List<Interaction> result = new List<Interaction>();
+    if (!interactions.isEmpty()) {
+      for (Interaction currentInteraction : interactions) {
+        if (
+          AutomatedRequestMetadataProvider.getInstance()
+            .getMap()
+            .containsKey(currentInteraction.Interaction_Purpose__c)
+        ) {
+          result.add(currentInteraction);
+        }
+      }
+    }
+    return result;
+  }
+
+  /**
+   * @description goes through a list of interactions and sets the Interaction Id
+   * on the linked Contact Request by searching the database for requests related to the Interactionss.
+   * @param interactions List<Interaction> list of interactions to cycle through
+   */
+  public void setInteractionIds(List<Interaction> interactions) {
+    Set<Id> requestIds = new Set<Id>();
+
+    for (Interaction currentInteraction : interactions) {
+      requestIds.add(currentInteraction.ContactRequestId__c);
+    }
+
+    List<ContactRequest> contactRequests = new List<ContactRequest>();
+    if (ContactRequest.SObjectType.getDescribe().isQueryable()) {
+      contactRequests = [
+        SELECT Id, Interaction__c
+        FROM ContactRequest
+        WHERE Id IN :requestIds
+      ];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'ContactRequestActions',
+        'setInteractionIds',
+        'Not enough permissions to query Contact Request.'
+      );
+      return;
+    }
+    setInteractionIds(contactRequests, interactions);
+
+    if (ContactRequest.SObjectType.getDescribe().isUpdateable()) {
+      update contactRequests;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'ContactRequestActions',
+        'setInteractionIds',
+        'Not enough permissions to update Contact Request.'
+      );
+      return;
+    }
+  }
+
+  /**
+   * @description goes through a list of requests and sets the Interaction Id
+   * by searching the database for interactions related to the Contact Requests.
+   * @param requests List<ContactRequest> list of contact requests to cycle through
+   */
+  public void setInteractionIds(List<ContactRequest> requests) {
+    Set<Id> requestIds = (new Map<Id, ContactRequest>(requests)).keyset();
+
+    if (Interaction.SObjectType.getDescribe().isQueryable()) {
+      List<Interaction> interactions = [
+        SELECT Id, ContactRequestId__c
+        FROM Interaction
+        WHERE Id IN :requestIds
+      ];
+      setInteractionIds(requests, interactions);
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'ContactRequestActions',
+        'setInteractionIds',
+        'Not enough permissions to query Interactions.'
+      );
+    }
+  }
+
+  /**
+   * @description goes through a list of requests and sets the Interaction Id
+   * based upon a list of interactions
+   * @param requests List<ContactRequest> list of contact requests to cycle through
+   * @param interactions List<Interaction> list of interactions to draw from.
+   */
+  public void setInteractionIds(
+    List<ContactRequest> requests,
+    List<Interaction> interactions
+  ) {
+    if (requests.isEmpty() || interactions.isEmpty()) {
+      return;
+    }
+    Map<Id, Id> contactRequestInteractionIdMap = new Map<Id, Id>();
+    for (Interaction currentInteraction : interactions) {
+      contactRequestInteractionIdMap.put(
+        currentInteraction.ContactRequestId__c,
+        currentInteraction.Id
+      );
+    }
+
+    for (ContactRequest request : requests) {
+      if (contactRequestInteractionIdMap.containsKey(request.Id)) {
+        request.Interaction__c = contactRequestInteractionIdMap.get(request.Id);
+      }
+    }
+  }
+
+  /**
+   * @description gets accounts related to an list of interactions in a map.
+   * @param interactions List<Interaction> interactions for which to get the accounts
+   * @return Map<Id,Account> map of accounts.
+   */
+  public Map<Id, Account> getAccountMapFromInteractions(
+    List<Interaction> interactions
+  ) {
+    Map<Id, Account> result = new Map<Id, Account>();
+
+    Set<Id> accountIds = new Set<Id>();
+    if (!interactions.isEmpty()) {
+      for (Interaction currentInteraction : interactions) {
+        accountIds.add(currentInteraction.AccountId);
+      }
+    }
+    if (!accountIds.isEmpty()) {
+      if (Account.SObjectType.getDescribe().isQueryable()) {
+        result = new Map<Id, Account>(
+          [
+            SELECT Id, Name, PersonContactId, FirstName, PersonEmail
+            FROM Account
+            WHERE Id IN :accountIds
+          ]
+        );
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'ContactRequestActions',
+          'getAccountMapFromInteractions',
+          'Not enough permissions to query Accounts.'
+        );
+      }
+    }
+    return result;
+  }
+
+  /**
+   * @description gets leads related to a list of interactions in a map.
+   * @param interactions List<Interaction> interactions for which to get the leads
+   * @return Map<Id,Lead> map of leads.
+   */
+  public Map<Id, Lead> getLeadMapFromInteractions(
+    List<Interaction> interactions
+  ) {
+    Map<Id, Lead> result = new Map<Id, Lead>();
+
+    Set<Id> leadIds = new Set<Id>();
+    if (!interactions.isEmpty()) {
+      for (Interaction currentInteraction : interactions) {
+        if (currentInteraction.Lead__c != null) {
+          leadIds.add(currentInteraction.Lead__c);
+        }
+      }
+    }
+    if (!leadIds.isEmpty()) {
+      if (Lead.SObjectType.getDescribe().isQueryable()) {
+        result = new Map<Id, Lead>(
+          [SELECT Id, Name, FirstName, Email FROM Lead WHERE Id IN :leadIds]
+        );
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'ContactRequestActions',
+          'getLeadMapFromInteractions',
+          'Not enough permissions to query Leads.'
+        );
+      }
+    }
+    return result;
+  }
 }

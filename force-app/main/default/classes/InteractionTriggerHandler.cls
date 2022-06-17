@@ -12,12 +12,13 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    * @description override of the onAfterInsert to create Events & Interaction Summaries
    */
   public override void onAfterInsert() {
+    InteractionActions intActions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
-    List<Interaction> interactions = cRActions.returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions = intActions.returnInteractionsWithAutomatedPurpose(
       records
     );
 
-    cRActions.setInteractionIds(interactions);
+    intActions.setInteractionIds(interactions);
 
     Map<Id, SObject> interactionMap = new Map<Id, SObject>(records);
     Set<Id> interactionIds = new Set<Id>(interactionMap.keyset());
@@ -56,11 +57,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
         }
       }
       if (!userOwnedInteractions.isEmpty()) {
-        List<Event> events = actionsForContactRequests.createEventsFromInteractions(
+        List<Event> events = EventHelper.createEventsFromInteractions(
           userOwnedInteractions
         );
         if (events.isEmpty() == false) {
-          actionsForContactRequests.insertEvents(events);
+          EventHelper.insertEvents(events);
         }
         createCoachingSummaryInteractions = actionsForInteractions.getInteractionswithoutCoachingSummary(
           userOwnedInteractions
@@ -164,7 +165,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     InteractionActions actions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
-    List<Interaction> interactions = cRActions.returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions = actions.returnInteractionsWithAutomatedPurpose(
       records
     );
 
