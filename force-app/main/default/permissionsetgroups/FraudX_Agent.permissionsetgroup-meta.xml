@@ -4,6 +4,7 @@
     <label>FraudX Agent</label>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
+    <permissionSets>Card_Management_Coach</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>Case_Read_Write_Fraud_Agent</permissionSets>
     <permissionSets>Case_Read_Write_Non_Customer_Complaints</permissionSets>
