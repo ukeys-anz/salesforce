@@ -3,9 +3,10 @@ SELECT
     Name,
     IsActive,
     ANZ_Product_Code__c,
-    IDR_Product_or_Service_Category__c,
     IDR_Product_or_Service_Line__c,
+    IDR_Product_or_Service_Category__c,
     IDR_Product_or_Service_Type__c,
+    IDR_Workbasket__c,
 (SELECT
     Id,
     Parent.CaseNumber__c,

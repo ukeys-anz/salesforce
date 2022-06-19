@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_CC_Age__c</fullName>
+    <complianceGroup>Privacy - Sensitive Personal Information;Source - OCV;Integrity - Trusted</complianceGroup>
+    <description>This the Customer&apos;s age as pulled from OCV for passing to EDW. Only for Customer Complaints.</description>
+    <externalId>false</externalId>
+    <label>Age</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

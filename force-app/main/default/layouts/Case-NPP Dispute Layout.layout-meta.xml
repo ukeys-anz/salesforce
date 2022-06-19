@@ -83,6 +83,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>NPP_Dispute_Reason__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>Reason_Code__c</field>
             </layoutItems>
             <layoutItems>
