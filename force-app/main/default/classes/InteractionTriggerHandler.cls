@@ -74,13 +74,13 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!createCoachingSummaryInteractions.isEmpty()) {
-      List<Coaching_Summary__c> newCoachingSummary = actionsForInteractions.createCoachingSummaryfromInteraction(
+      List<Coaching_Summary__c> newCoachingSummary = CoachingSummaryHelper.createCoachingSummaryfromInteraction(
         createCoachingSummaryInteractions
       );
 
       if (newCoachingSummary.isEmpty() == false) {
-        actionsForInteractions.insertCoachingSummary(newCoachingSummary);
-        actionsForInteractions.assignSummaryToInteraction(
+        CoachingSummaryHelper.insertCoachingSummary(newCoachingSummary);
+        CoachingSummaryHelper.assignSummaryToInteraction(
           records,
           newCoachingSummary
         );
@@ -88,11 +88,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!assignCoachingSummaryOwnerInteractions.isEmpty()) {
-      List<Coaching_Summary__c> updateCoachingSummaryRecords = actionsForInteractions.assignCoachingSummaryOwner(
+      List<Coaching_Summary__c> updateCoachingSummaryRecords = CoachingSummaryHelper.assignCoachingSummaryOwner(
         assignCoachingSummaryOwnerInteractions
       );
       if (!updateCoachingSummaryRecords.isEmpty()) {
-        actionsForInteractions.updateCoachingSummary(
+        CoachingSummaryHelper.updateCoachingSummary(
           updateCoachingSummaryRecords
         );
       }

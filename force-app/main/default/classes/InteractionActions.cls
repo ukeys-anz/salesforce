@@ -262,33 +262,7 @@ public with sharing class InteractionActions {
       evt.EndDateTime = interactionMap.get(evt.WhatId).EndTime;
     }
 
-    updateEvents(eventRecords);
-  }
-
-  /**
-   * @description Method to update the events record
-   * @param events The list of events to be updated
-   */
-
-  public void updateEvents(List<Event> events) {
-    if (Event.SObjectType.getDescribe().isUpdateable()) {
-      List<Database.SaveResult> results = Database.Update(events);
-      lib_systemLog log = new lib_systemLog(
-        'InteractionActions',
-        'updateEvents'
-      );
-      Boolean hasError = log.addDatabaseSaveResult('Event', results, events);
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'updateEvents',
-        'Not enough permissions to update Events.'
-      );
-    }
+    EventHelper.updateEvents(eventRecords);
   }
 
   /**
@@ -423,67 +397,6 @@ public with sharing class InteractionActions {
   }
 
   /**
-   * @description Creates a new coaching summary record based on the interaction
-   * @param interactions List<Interaction> list of the interaction records based on which coaching summary records need to be created.
-   * @return List<Coaching_Summary__c> list of coaching summary records to be created.
-   */
-
-  public List<Coaching_Summary__c> createCoachingSummaryfromInteraction(
-    List<Interaction> interactions
-  ) {
-    List<Coaching_Summary__c> newCoachingSummaries = new List<Coaching_Summary__c>();
-    for (Interaction interact : interactions) {
-      Coaching_Summary__c coachSummary = new Coaching_Summary__c();
-      coachSummary.Name__c =
-        interact.Interaction_Purpose__c +
-        InteractionConstants.COACHING_SUMMARY_LABEL;
-      coachSummary.Status__c = InteractionConstants.NEW_STATUS;
-      coachSummary.OwnerId = interact.OwnerId;
-      coachSummary.Account__c = interact.AccountId;
-      coachSummary.Lead__c = interact.Lead__c;
-      coachSummary.Reason__c = interact.Interaction_Purpose__c;
-      newCoachingSummaries.add(coachSummary);
-    }
-
-    return newCoachingSummaries;
-  }
-
-  /**
-   * @description does the database call to insert Coaching Summary
-   * @param coachingSummaries List<Coaching_Summary__c> list of coaching summary.
-   */
-  public void insertCoachingSummary(
-    List<Coaching_Summary__c> coachingSummaries
-  ) {
-    if (
-      coachingSummaries != null &&
-      Coaching_Summary__c.SObjectType.getDescribe().isCreateable()
-    ) {
-      List<Database.SaveResult> results = Database.Insert(coachingSummaries);
-
-      lib_systemLog log = new lib_systemLog(
-        'InteractionActions',
-        'insertCoachingSummary'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Coaching_Summary__c',
-        results,
-        coachingSummaries
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'insertCoachingSummary',
-        'Not enough permissions to insert coaching summary.'
-      );
-    }
-  }
-
-  /**
    * @description goes through a list of interactions and sets the external Id to the autonumber if it is not already set
    * @param interactions list of interactions to cycle
    */
@@ -529,90 +442,10 @@ public with sharing class InteractionActions {
   }
 
   /**
-   * @description Method to assign the coaching summary record to the interaction record
-   * @param interactions The list of interactions to be updated with the coaching summary record
-   * @param coachingSummaries The list of coaching summaries to be associated with interaction record.
-   */
-
-  public void assignSummaryToInteraction(
-    List<Interaction> interactions,
-    List<Coaching_Summary__c> coachingSummaries
-  ) {
-    List<Interaction> interactionList = new List<Interaction>();
-    for (Integer i = 0; i < interactions.size(); i++) {
-      Interaction interact = new Interaction(Id = interactions[i].Id);
-      interact.Coaching_Summary__c = coachingSummaries[i].Id;
-      interactionList.add(interact);
-    }
-    updateInteractions(interactionList);
-  }
-
-  /**
-   * @description Method to update the interactions record
-   * @param interactions The list of interactions to be updated
-   */
-  public void updateInteractions(List<Interaction> interactions) {
-    if (Interaction.SObjectType.getDescribe().isUpdateable()) {
-      List<Database.SaveResult> results = Database.Update(interactions);
-      lib_systemLog log = new lib_systemLog(
-        'InteractionActions',
-        'updateInteractions'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Interaction',
-        results,
-        interactions
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'updateInteractions',
-        'Not enough permissions to update Interactions.'
-      );
-    }
-  }
-
-  /**
-   * @description Method to update the coaching summary records
-   * @param coachingSummaries The list of coaching summary records to be updated
-   */
-  public void updateCoachingSummary(
-    List<Coaching_Summary__c> coachingSummaries
-  ) {
-    if (Coaching_Summary__c.SObjectType.getDescribe().isUpdateable()) {
-      List<Database.SaveResult> results = Database.Update(coachingSummaries);
-      lib_systemLog log = new lib_systemLog(
-        'InteractionActions',
-        'updateCoachingSummary'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Coaching_Summary__c',
-        results,
-        coachingSummaries
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'updateCoachingSummary',
-        'Not enough permissions to update Coaching Summary object.'
-      );
-    }
-  }
-
-  /**
    * @description Returns the list of new interactions without End time
    * @param interactions List<Interaction> list of new interaction records.
    * @return List<Interaction> list of interactions without end time.
    */
-
   public List<Interaction> getInteractionsWithoutEnddate(
     List<Interaction> interactions
   ) {

@@ -28,6 +28,28 @@ public with sharing class EventHelper {
   }
 
   /**
+   * @description Method to update the events record
+   * @param events The list of events to be updated
+   */
+  public static void updateEvents(List<Event> events) {
+    if (Event.SObjectType.getDescribe().isUpdateable()) {
+      List<Database.SaveResult> results = Database.Update(events);
+      lib_systemLog log = new lib_systemLog('EventHelper', 'updateEvents');
+      Boolean hasError = log.addDatabaseSaveResult('Event', results, events);
+      if (hasError) {
+        //log errors to application log
+        log.insertLog();
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'EventHelper',
+        'updateEvents',
+        'Not enough permissions to update Events.'
+      );
+    }
+  }
+
+  /**
    * @description creates events from Interactions
    * @param interactions List<Interaction> subject from which to create Events
    * @return List<Event> newly created Events.
