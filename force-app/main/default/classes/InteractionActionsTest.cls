@@ -5,14 +5,9 @@
  */
 @isTest
 public with sharing class InteractionActionsTest {
-  private final static string APPOINTMENT_QUEUE_NAME = 'Appointments_Queue';
   private final static string TEST_MOBILE = '01189998819991197253';
 
   private static string contactRequestQueueName = 'Contact Request';
-  private static string otherPurposeName = 'Other';
-  private static string financialWellbeingPurposeName = 'Financial Wellbeing';
-  private static string defaultInteractionStatus = 'Unassigned';
-  private static string appointmentRTName = 'Appointment';
 
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
@@ -22,16 +17,19 @@ public with sharing class InteractionActionsTest {
 
   static void setup() {
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
     otherPurpose.Duration__c = otherPurposeDuration;
 
     Automated_Request_Purpose__mdt financialWellbeingPurpose = new Automated_Request_Purpose__mdt();
-    financialWellbeingPurpose.MasterLabel = financialWellbeingPurposeName;
+    financialWellbeingPurpose.MasterLabel = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     financialWellbeingPurpose.Duration__c = financialWellbeingPurposeDuration;
 
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
-    purposeMap.put(financialWellbeingPurposeName, financialWellbeingPurpose);
+    purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
+    purposeMap.put(
+      InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      financialWellbeingPurpose
+    );
 
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
   }
@@ -41,7 +39,7 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testInteractionAssignedBacktoQueue() {
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -78,7 +76,7 @@ public with sharing class InteractionActionsTest {
     ];
 
     System.assertEquals(
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       testInteraction.Status__c,
       'The new interaction should have the status as Unassigned'
     );
@@ -111,7 +109,7 @@ public with sharing class InteractionActionsTest {
     testInteraction = [SELECT Id, Status__c, OwnerId FROM Interaction];
 
     System.assertEquals(
-      'Scheduled',
+      InteractionConstants.SCHEDULED_STATUS,
       testInteraction.Status__c,
       'The status of the interaction should be updated to Scheduled'
     );
@@ -124,7 +122,7 @@ public with sharing class InteractionActionsTest {
     testInteraction = [SELECT Id, Status__c, OwnerId FROM Interaction];
 
     System.assertEquals(
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       testInteraction.Status__c,
       'The status of the interaction should be updated back to Unassigned'
     );
@@ -220,13 +218,13 @@ public with sharing class InteractionActionsTest {
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 100;
     apptCommt.Confirmed__c = 0;
-    apptCommt.Type__c = 'Other';
+    apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     List<Account> personAccountList = new List<Account>();
@@ -282,7 +280,7 @@ public with sharing class InteractionActionsTest {
 
     for (Interaction inter : testInteraction) {
       System.assertEquals(
-        'Unassigned',
+        InteractionConstants.UNASSIGNED_STATUS,
         inter.Status__c,
         'The new interaction should have the status as Unassigned'
       );
@@ -377,13 +375,13 @@ public with sharing class InteractionActionsTest {
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 5;
     apptCommt.Confirmed__c = 2;
-    apptCommt.Type__c = 'Other';
+    apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -423,7 +421,7 @@ public with sharing class InteractionActionsTest {
     ];
 
     System.assertEquals(
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       testInteraction.Status__c,
       'The new interaction should have the status as Unassigned'
     );
@@ -514,7 +512,7 @@ public with sharing class InteractionActionsTest {
   static void testDoesntFindNotOrStillCancelledInteractions() {
     Interaction notCancelledInteraction = new Interaction(
       Name = 'Not Cancelled Interaction',
-      Status__c = 'Scheduled'
+      Status__c = InteractionConstants.SCHEDULED_STATUS
     );
 
     Interaction stillCancelledInteraction = new Interaction(
@@ -557,7 +555,7 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testUnassigningInteraction() {
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
     Interaction testInteraction = new Interaction(
@@ -571,7 +569,7 @@ public with sharing class InteractionActionsTest {
 
     Interaction unassignedInteraction = new Interaction(
       Id = testInteraction.Id,
-      Status__c = 'Unassigned',
+      Status__c = InteractionConstants.UNASSIGNED_STATUS,
       OwnerId = UserInfo.getUserId(),
       RecordTypeId = appointmentRTID
     );
@@ -600,7 +598,7 @@ public with sharing class InteractionActionsTest {
       'One Interaction must be returned'
     );
 
-    Id groupId = CommonUtil.getGroupId(APPOINTMENT_QUEUE_NAME);
+    Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
 
     System.assertEquals(
       groupId,
@@ -614,7 +612,7 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testStatusChangetoScheduled() {
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -651,7 +649,7 @@ public with sharing class InteractionActionsTest {
     ];
 
     System.assertEquals(
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       testInteraction.Status__c,
       'The new interaction should have the status as Unassigned'
     );
@@ -675,7 +673,7 @@ public with sharing class InteractionActionsTest {
     testInteraction = [SELECT Id, Status__c, OwnerId FROM Interaction];
 
     System.assertEquals(
-      'Scheduled',
+      InteractionConstants.SCHEDULED_STATUS,
       testInteraction.Status__c,
       'The status of the interaction should be updated to Scheduled'
     );
@@ -685,7 +683,7 @@ public with sharing class InteractionActionsTest {
   static void testFindInteractionOwnershipChanged() {
     InteractionActions actions = new InteractionActions();
     Id myId = UserInfo.getUserId();
-    Id groupId = CommonUtil.getGroupId(APPOINTMENT_QUEUE_NAME);
+    Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
 
     Interaction testInteraction = new Interaction(
       Name = 'Test Interaction',
@@ -733,7 +731,7 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testCoachingSummaryCreation() {
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     List<Account> personAccountList = new List<Account>();
@@ -788,7 +786,7 @@ public with sharing class InteractionActionsTest {
 
     for (Interaction inter : testInteraction) {
       System.assertEquals(
-        'Unassigned',
+        InteractionConstants.UNASSIGNED_STATUS,
         inter.Status__c,
         'The new interaction should have the status as Unassigned'
       );
@@ -847,7 +845,8 @@ public with sharing class InteractionActionsTest {
       );
 
       System.assertEquals(
-        testInteraction[i].Interaction_Purpose__c + ' Coaching Summary',
+        testInteraction[i].Interaction_Purpose__c +
+        InteractionConstants.COACHING_SUMMARY_LABEL,
         coachingSummaryList[i].Name__c,
         'The coaching summary name should be matched with interaction purpose'
       );
@@ -859,7 +858,7 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testCoachingSummaryOwnerUpdate() {
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     List<Account> personAccountList = new List<Account>();
@@ -907,7 +906,7 @@ public with sharing class InteractionActionsTest {
     ];
 
     System.assertEquals(
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       testInteraction[0].Status__c,
       'The new interaction should have the status as Unassigned'
     );
@@ -1015,7 +1014,7 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :testAccount1.Id
     ];
 
-    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
 
     ContactRequest request = new ContactRequest();
@@ -1097,7 +1096,7 @@ public with sharing class InteractionActionsTest {
     testLead.MobilePhone = TEST_MOBILE;
     insert testLead;
 
-    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
 
     ContactRequest request = new ContactRequest();
@@ -1160,7 +1159,7 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testCoachCreatingOverlappingInteraction() {
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -1172,7 +1171,7 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :testAccount1.Id
     ];
 
-    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
     DateTime endDate = appointmentDate.addMinutes(45);
 
@@ -1180,9 +1179,9 @@ public with sharing class InteractionActionsTest {
       Name = 'existing interaction',
       RecordTypeId = appointmentRTID,
       AccountId = testAccount1.Id,
-      Interaction_Purpose__c = 'Financial Wellbeing',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       OwnerId = UserInfo.getUserId(),
-      Status__c = InteractionActions.SCHEDULED_STATUS,
+      Status__c = InteractionConstants.SCHEDULED_STATUS,
       StartTime = appointmentDate,
       EndTime = endDate
     );
@@ -1194,7 +1193,7 @@ public with sharing class InteractionActionsTest {
       Name = 'Test Interaction',
       RecordTypeId = appointmentRTID,
       AccountId = testAccount1.Id,
-      Interaction_Purpose__c = 'Financial Wellbeing',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = appointmentDate,
       EndTime = endDate
     );
@@ -1221,7 +1220,7 @@ public with sharing class InteractionActionsTest {
   static void testCoachUpdatingOverlappingInteraction() {
     InteractionActions actions = new InteractionActions();
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -1241,7 +1240,7 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :testAccount2.Id
     ];
 
-    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
     DateTime endDate = appointmentDate.addMinutes(45);
 
@@ -1249,9 +1248,9 @@ public with sharing class InteractionActionsTest {
       Name = 'existing interaction',
       RecordTypeId = appointmentRTID,
       AccountId = testAccount1.Id,
-      Interaction_Purpose__c = 'Financial Wellbeing',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       OwnerId = UserInfo.getUserId(),
-      Status__c = InteractionActions.SCHEDULED_STATUS,
+      Status__c = InteractionConstants.SCHEDULED_STATUS,
       StartTime = appointmentDate,
       EndTime = endDate
     );
@@ -1266,7 +1265,7 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :existingInteraction.Id
     ];
     System.assertEquals(
-      InteractionActions.SCHEDULED_STATUS,
+      InteractionConstants.SCHEDULED_STATUS,
       existingInteraction.Status__c,
       'Status should be set'
     );
@@ -1277,7 +1276,7 @@ public with sharing class InteractionActionsTest {
       Name = 'Test Interaction',
       RecordTypeId = appointmentRTID,
       AccountId = testAccount2.Id,
-      Interaction_Purpose__c = 'Financial Wellbeing',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = appointmentDate,
       EndTime = endDate
     );
@@ -1340,7 +1339,7 @@ public with sharing class InteractionActionsTest {
   static void testsetNameOfInteractions() {
     InteractionActions actions = new InteractionActions();
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
     Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -1354,14 +1353,14 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :testAccount1.Id
     ];
 
-    string finacialWellbeingPurposeName = 'Financial Wellbeing';
+    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
     DateTime endDate = appointmentDate.addMinutes(45);
     Interaction newInteraction = new Interaction(
       RecordTypeId = appointmentRTID,
       AccountId = testAccount1.Id,
-      Interaction_Purpose__c = 'Financial Wellbeing',
-      Status__c = 'Unassigned',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      Status__c = InteractionConstants.UNASSIGNED_STATUS,
       StartTime = appointmentDate
     );
     Test.startTest();
@@ -1418,7 +1417,7 @@ public with sharing class InteractionActionsTest {
     InteractionActions actions = new InteractionActions();
 
     Interaction automatedInteraction = new Interaction(
-      Interaction_Purpose__c = otherPurposeName
+      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
     );
     Interaction nonAutomatedInteraction = new Interaction(
       Interaction_Purpose__c = 'NotAutomated'

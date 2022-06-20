@@ -1,6 +1,5 @@
 @isTest
 private class ContactRequestTriggerHandlerTest {
-  static string otherPurposeName = 'Other';
   static Integer otherPurposeDuration = 30;
   static string contactRequestQueueName = 'Contact Request';
   /*
@@ -26,7 +25,7 @@ private class ContactRequestTriggerHandlerTest {
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 5;
     apptCommt.Confirmed__c = 2;
-    apptCommt.Type__c = 'Financial Wellbeing';
+    apptCommt.Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     apptCommt.Appointment_Channel__c = 'Store';
@@ -65,15 +64,15 @@ private class ContactRequestTriggerHandlerTest {
       Interaction interaction = new Interaction(
         AccountId = account.Id,
         Name = 'Test Interaction' + i,
-        Status__c = 'New'
+        Status__c = InteractionConstants.NEW_STATUS
       );
 
       interactionList.add(interaction);
 
       ContactRequest contactReq = new ContactRequest(
         PreferredChannel = 'Store',
-        RequestReason = 'Financial Wellbeing',
-        Status = 'New',
+        RequestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+        Status = InteractionConstants.NEW_STATUS,
         Appointment_Date_And_Time__c = start,
         WhoId = account.PersonContactId,
         Location__c = testLocation.Id
@@ -174,7 +173,7 @@ private class ContactRequestTriggerHandlerTest {
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 100;
     apptCommt.Confirmed__c = 0;
-    apptCommt.Type__c = 'Financial Wellbeing';
+    apptCommt.Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Appointment_Channel__c = 'Call';
     apptCommt.Date_and_Time__c = dateTimeVal;
@@ -291,7 +290,7 @@ private class ContactRequestTriggerHandlerTest {
     Appointment_Commitment__c apptCommtRec = new Appointment_Commitment__c();
     apptCommtRec.Available__c = 5;
     apptCommtRec.Confirmed__c = 2;
-    apptCommtRec.Type__c = 'Financial Wellbeing';
+    apptCommtRec.Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     apptCommtRec.Date_and_Time__c = DateTime.newInstance(
       2022,
       3,
@@ -346,14 +345,14 @@ private class ContactRequestTriggerHandlerTest {
     List<ContactRequest> contactRequestList = [
       SELECT Id, Status
       FROM ContactRequest
-      WHERE Status = 'New'
+      WHERE Status = :InteractionConstants.NEW_STATUS
     ];
 
     List<ContactRequest> updatedRequests = new List<ContactRequest>();
     for (ContactRequest contactRequest : [
       SELECT Id, Status
       FROM ContactRequest
-      WHERE Status = 'New'
+      WHERE Status = :InteractionConstants.NEW_STATUS
     ]) {
       contactRequest.Status = 'Cancelled';
       updatedRequests.add(contactRequest);
@@ -364,14 +363,14 @@ private class ContactRequestTriggerHandlerTest {
     List<Interaction> interactionList = [
       SELECT Id
       FROM Interaction
-      WHERE Status__c = 'New'
+      WHERE Status__c = :InteractionConstants.NEW_STATUS
     ];
     System.assertEquals(0, interactionList.size());
   }
 
   @isTest
   static void testAutomaticInteractionCreation() {
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
 
     Account testAccount = createTestAccounts(1)[0];
@@ -440,10 +439,10 @@ private class ContactRequestTriggerHandlerTest {
     List<Account> accounts = createTestAccounts(sizeTest);
 
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
     otherPurpose.Duration__c = otherPurposeDuration;
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
+    purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
     List<QueueSObject> contactRequestQueue = [
@@ -498,7 +497,7 @@ private class ContactRequestTriggerHandlerTest {
       ContactRequest request = new ContactRequest();
       request.OwnerId = ownerId;
       request.Appointment_date_and_Time__c = appointmentDate;
-      request.RequestReason = otherPurposeName;
+      request.RequestReason = InteractionConstants.OTHER_PURPOSE_NAME;
       request.WhoId = currentAccount.PersonContactId;
       request.PreferredChannel = 'Call';
       requests.add(request);

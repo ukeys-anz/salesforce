@@ -4,8 +4,6 @@
  * @description class for Automating object creation from accepting a Contact Request
  */
 public with sharing class ContactRequestActions {
-  private static string appointmentQueueName = 'Appointments_Queue';
-
   //local variable holding the Appointment Queue
   private Group localAppointmentQueue;
 
@@ -15,7 +13,9 @@ public with sharing class ContactRequestActions {
   private Group appointmentQueue {
     get {
       if (localAppointmentQueue == null) {
-        localAppointmentQueue = CommonUtil.getQueueByName(appointmentQueueName);
+        localAppointmentQueue = CommonUtil.getQueueByName(
+          InteractionConstants.APPOINTMENTS_QUEUE
+        );
       }
       return localAppointmentQueue;
     }
@@ -136,10 +136,10 @@ public with sharing class ContactRequestActions {
     }
 
     Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
-      .get('Appointment')
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
-    string defaultInteractionStatus = 'Unassigned';
+    string defaultInteractionStatus = InteractionConstants.UNASSIGNED_STATUS;
     Interaction newInteraction = new Interaction(
       Status__c = defaultInteractionStatus,
       Interaction_Purpose__c = request.RequestReason,

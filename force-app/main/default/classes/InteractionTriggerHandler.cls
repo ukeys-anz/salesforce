@@ -5,8 +5,9 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
-  public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
-  public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
+  public static final Id QUEUE_ID = CommonUtil.getGroupId(
+    InteractionConstants.APPOINTMENTS_QUEUE
+  );
 
   /**
    * @description override of the onAfterInsert to create Events & Interaction Summaries

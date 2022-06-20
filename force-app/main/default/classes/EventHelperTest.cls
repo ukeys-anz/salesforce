@@ -7,10 +7,6 @@
 public with sharing class EventHelperTest {
   private static string contactRequestQueueName = 'Contact Request';
   private static string appointmentQueueName = 'Appointments Queue';
-  private static string otherPurposeName = 'Other';
-  private static string financialWellbeingPurposeName = 'Financial Wellbeing';
-  private static string defaultInteractionStatus = 'Unassigned';
-  private static string appointmentRTName = 'Appointment';
 
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
@@ -20,16 +16,19 @@ public with sharing class EventHelperTest {
 
   static void setup() {
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
     otherPurpose.Duration__c = otherPurposeDuration;
 
     Automated_Request_Purpose__mdt financialWellbeingPurpose = new Automated_Request_Purpose__mdt();
-    financialWellbeingPurpose.MasterLabel = financialWellbeingPurposeName;
+    financialWellbeingPurpose.MasterLabel = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     financialWellbeingPurpose.Duration__c = financialWellbeingPurposeDuration;
 
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
-    purposeMap.put(financialWellbeingPurposeName, financialWellbeingPurpose);
+    purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
+    purposeMap.put(
+      InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      financialWellbeingPurpose
+    );
 
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
   }
@@ -43,7 +42,8 @@ public with sharing class EventHelperTest {
     Account testAccount = createTestAccount();
 
     Interaction testInteraction = new Interaction();
-    testInteraction.Name = otherPurposeName + ' Appointment';
+    testInteraction.Name =
+      InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.AccountId = testAccount.Id;
     testInteraction.StartTime = appointmentDateTime;
     testInteraction.EndTime = endDateTime;
@@ -121,11 +121,12 @@ public with sharing class EventHelperTest {
     system.assertEquals(0, events.size(), 'No events should be available');
 
     Interaction testInteraction = new Interaction();
-    testInteraction.Name = otherPurposeName + ' Appointment';
+    testInteraction.Name =
+      InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.Lead__c = testLead.Id;
     testInteraction.StartTime = appointmentDateTime;
     testInteraction.EndTime = endDateTime;
-    testInteraction.Interaction_Purpose__c = otherPurposeName;
+    testInteraction.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
     insert testInteraction;
 
     Event testEvent = EventHelper.createEventFromInteraction(testInteraction);

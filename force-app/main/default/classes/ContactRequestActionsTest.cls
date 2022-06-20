@@ -2,10 +2,6 @@
 public with sharing class ContactRequestActionsTest {
   private static string contactRequestQueueName = 'Contact Request';
   private static string appointmentQueueName = 'Appointments Queue';
-  private static string otherPurposeName = 'Other';
-  private static string financialWellbeingPurposeName = 'Financial Wellbeing';
-  private static string defaultInteractionStatus = 'Unassigned';
-  private static string appointmentRTName = 'Appointment';
 
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
@@ -19,16 +15,19 @@ public with sharing class ContactRequestActionsTest {
   }
   static void setup() {
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
     otherPurpose.Duration__c = otherPurposeDuration;
 
     Automated_Request_Purpose__mdt financialWellbeingPurpose = new Automated_Request_Purpose__mdt();
-    financialWellbeingPurpose.MasterLabel = financialWellbeingPurposeName;
+    financialWellbeingPurpose.MasterLabel = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     financialWellbeingPurpose.Duration__c = financialWellbeingPurposeDuration;
 
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
-    purposeMap.put(financialWellbeingPurposeName, financialWellbeingPurpose);
+    purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
+    purposeMap.put(
+      InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      financialWellbeingPurpose
+    );
 
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
   }
@@ -82,7 +81,7 @@ public with sharing class ContactRequestActionsTest {
 
     Account testAccount = createTestAccount();
 
-    string requestReason = financialWellbeingPurposeName;
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Integer duration = financialWellbeingPurposeDuration;
 
@@ -90,7 +89,7 @@ public with sharing class ContactRequestActionsTest {
     DateTime expectedEndDate = appointmentDate.addMinutes(duration);
 
     Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
-      .get(appointmentRTName)
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
     ContactRequest request = new ContactRequest();
@@ -156,7 +155,7 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      defaultInteractionStatus,
+      InteractionConstants.UNASSIGNED_STATUS,
       newInteraction.Status__c,
       'Interaction Status must default to Unassigned'
     );
@@ -271,7 +270,7 @@ public with sharing class ContactRequestActionsTest {
     setup();
     Lead testLead = createTestLead();
 
-    string requestReason = financialWellbeingPurposeName;
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Integer duration = financialWellbeingPurposeDuration;
 
@@ -302,7 +301,7 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      defaultInteractionStatus,
+      InteractionConstants.UNASSIGNED_STATUS,
       newInteraction.Status__c,
       'Interaction Status must default to Unassigned'
     );
@@ -359,7 +358,7 @@ public with sharing class ContactRequestActionsTest {
     setup();
     Account testAccount = createTestAccount();
 
-    string requestReason = financialWellbeingPurposeName;
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Integer duration = financialWellbeingPurposeDuration;
 
@@ -388,8 +387,8 @@ public with sharing class ContactRequestActionsTest {
   static void testAutomatedPurposeCheck() {
     setup();
     Account testAccount = createTestAccount();
-    string nonAutomatedPurposeName = 'Financial Wellbeing';
-    string automatedPurposeName = 'Other';
+    string nonAutomatedPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
+    string automatedPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
 
     Automated_Request_Purpose__mdt notautomatedPurpose = new Automated_Request_Purpose__mdt();
     notautomatedPurpose.MasterLabel = nonAutomatedPurposeName;
@@ -447,7 +446,7 @@ public with sharing class ContactRequestActionsTest {
     Account testAccount = createTestAccount();
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
 
-    string requestReason = 'Financial Wellbeing';
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = DateTime.now();
@@ -497,11 +496,12 @@ public with sharing class ContactRequestActionsTest {
     );
 
     Interaction testInteraction = new Interaction();
-    testInteraction.Name = otherPurposeName + ' Appointment';
+    testInteraction.Name =
+      InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.Lead__c = testLead.Id;
     testInteraction.StartTime = appointmentDateTime;
     testInteraction.EndTime = endDateTime;
-    testInteraction.Interaction_Purpose__c = otherPurposeName;
+    testInteraction.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
     insert testInteraction;
   }
 
@@ -511,10 +511,10 @@ public with sharing class ContactRequestActionsTest {
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
 
     Integer testOtherDuration = contactRequestActionHelper.getDuration(
-      otherPurposeName
+      InteractionConstants.OTHER_PURPOSE_NAME
     );
     Integer testFWDuration = contactRequestActionHelper.getDuration(
-      financialWellbeingPurposeName
+      InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME
     );
 
     System.assertEquals(

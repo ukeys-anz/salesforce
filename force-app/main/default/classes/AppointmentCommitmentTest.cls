@@ -18,7 +18,7 @@ public with sharing class AppointmentCommitmentTest {
 
     Appointment_Commitment__c appointmentCommitment = new Appointment_Commitment__c(
       Available__c = 2,
-      Type__c = 'Financial Wellbeing',
+      Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       Date_and_Time__c = startDate,
       Appointment_Channel__c = 'Call'
     );

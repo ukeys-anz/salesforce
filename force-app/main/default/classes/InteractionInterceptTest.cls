@@ -20,7 +20,7 @@ public with sharing class InteractionInterceptTest {
     );
     Account testAccount = createTestAccount();
 
-    string purpose = 'Financial Wellbeing';
+    string purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Interaction testInteraction = new Interaction(
       AccountId = testAccount.Id,
@@ -36,7 +36,7 @@ public with sharing class InteractionInterceptTest {
     ];
 
     System.assertEquals(
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       testInteraction.Status__c,
       'A newly created interaction should be unassigned'
     );
@@ -67,7 +67,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Scheduled';
+    testInteraction.Status__c = InteractionConstants.SCHEDULED_STATUS;
     update testInteraction;
 
     try {
@@ -88,7 +88,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Rescheduled';
+    testInteraction.Status__c = InteractionConstants.RESCHEDULED_STATUS;
     update testInteraction;
 
     try {
@@ -109,7 +109,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Walk In';
+    testInteraction.Status__c = InteractionConstants.WALKIN_STATUS;
     update testInteraction;
 
     try {
@@ -183,7 +183,7 @@ public with sharing class InteractionInterceptTest {
   @isTest
   static void test48304Issue4() {
     Integer year = DateTime.now().year() + 1;
-    String purpose = 'Financial Wellbeing';
+    String purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     //Pete Account
     Account peteAccount = createTestAccount('Pete', 'Account');
@@ -195,7 +195,7 @@ public with sharing class InteractionInterceptTest {
       Name = 'Pete Interaction',
       AccountId = peteAccount.Id,
       StartTime = peteStartTime,
-      Interaction_Purpose__c = 'Other'
+      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
     );
     insert peteInteraction;
 
@@ -214,7 +214,7 @@ public with sharing class InteractionInterceptTest {
       'Make sure the date is set as expected.'
     );
 
-    peteInteraction.Status__c = InteractionActions.RESCHEDULED_STATUS;
+    peteInteraction.Status__c = InteractionConstants.RESCHEDULED_STATUS;
     update peteInteraction;
 
     peteInteraction = [
@@ -223,7 +223,7 @@ public with sharing class InteractionInterceptTest {
       WHERE Id = :peteInteraction.Id
     ];
     System.assertEquals(
-      InteractionActions.RESCHEDULED_STATUS,
+      InteractionConstants.RESCHEDULED_STATUS,
       peteInteraction.Status__c,
       'Status must be Rescheduled for this to work'
     );
@@ -264,7 +264,7 @@ public with sharing class InteractionInterceptTest {
   @isTest
   static void test48304Issue4ChangingTime() {
     Integer year = DateTime.now().year() + 1;
-    String purpose = 'Financial Wellbeing';
+    String purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     //Pete Account
     Account peteAccount = createTestAccount('Pete', 'Account');
@@ -276,7 +276,7 @@ public with sharing class InteractionInterceptTest {
       Name = 'Pete Interaction',
       AccountId = peteAccount.Id,
       StartTime = peteStartTime,
-      Interaction_Purpose__c = 'Other'
+      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
     );
     insert peteInteraction;
 
@@ -296,7 +296,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     DateTime peteNewStartTime = DateTime.newInstance(year, 6, 16, 1, 0, 0);
-    peteInteraction.Status__c = InteractionActions.RESCHEDULED_STATUS;
+    peteInteraction.Status__c = InteractionConstants.RESCHEDULED_STATUS;
     peteInteraction.StartTime = peteNewStartTime;
     update peteInteraction;
 
@@ -306,7 +306,7 @@ public with sharing class InteractionInterceptTest {
       WHERE Id = :peteInteraction.Id
     ];
     System.assertEquals(
-      InteractionActions.RESCHEDULED_STATUS,
+      InteractionConstants.RESCHEDULED_STATUS,
       peteInteraction.Status__c,
       'Status must be Rescheduled for this to work'
     );

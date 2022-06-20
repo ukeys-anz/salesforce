@@ -9,22 +9,9 @@
   'PMD.CyclomaticComplexity,PMD.ExcessivePublicCount,PMD.ExcessiveClassLength'
 )
 public with sharing class InteractionActions {
-  public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
-  public static final String SCHEDULED_STATUS = 'Scheduled';
-  public static final String UNASSIGNED_STATUS = 'Unassigned';
-  public static final String RESCHEDULED_STATUS = 'Rescheduled';
-  public static final String INPROGRESS_STATUS = 'In Progress';
-  public static final String WALKIN_STATUS = 'Walk In';
-  public static final String NEW_STATUS = 'New';
-  public static final String COACHING_SUMMARY_LABEL = ' Coaching Summary';
-  public static final String NO_SHOW_STATUS = 'No Show';
-  public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
-  public static final Set<String> UNIQUE_STATUSES = new Set<String>{
-    UNASSIGNED_STATUS,
-    SCHEDULED_STATUS,
-    RESCHEDULED_STATUS,
-    WALKIN_STATUS
-  };
+  public static final Id QUEUE_ID = CommonUtil.getGroupId(
+    InteractionConstants.APPOINTMENTS_QUEUE
+  );
 
   /**
    * @description Gets the list of interactions and returns the ones where the owner has been assigned back to Queue.
@@ -68,7 +55,7 @@ public with sharing class InteractionActions {
         .get(interact.Id);
       if (
         oldInteraction.Status__c != interact.Status__c &&
-        interact.Status__c == NO_SHOW_STATUS
+        interact.Status__c == InteractionConstants.NO_SHOW_STATUS
       ) {
         noShowInteractions.add(interact);
       }
@@ -170,7 +157,7 @@ public with sharing class InteractionActions {
   public void updateOwnerNewInteractions(List<Interaction> interactions) {
     for (Interaction interact : interactions) {
       interact.OwnerID = QUEUE_ID;
-      interact.Status__c = UNASSIGNED_STATUS;
+      interact.Status__c = InteractionConstants.UNASSIGNED_STATUS;
     }
   }
 
@@ -214,7 +201,7 @@ public with sharing class InteractionActions {
       Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
       if (
         oldInteraction.Status__c != interact.Status__c &&
-        interact.Status__c == RESCHEDULED_STATUS
+        interact.Status__c == InteractionConstants.RESCHEDULED_STATUS
       ) {
         rescheduledInteractions.add(interact);
       }
@@ -312,7 +299,7 @@ public with sharing class InteractionActions {
   public void updateStatustoScheduled(List<Interaction> interactions) {
     if (Interaction.SObjectType.getDescribe().isUpdateable()) {
       for (Interaction interact : interactions) {
-        interact.Status__c = SCHEDULED_STATUS;
+        interact.Status__c = InteractionConstants.SCHEDULED_STATUS;
       }
     } else {
       CommonUtil.logAndThrowIAE(
@@ -448,8 +435,9 @@ public with sharing class InteractionActions {
     for (Interaction interact : interactions) {
       Coaching_Summary__c coachSummary = new Coaching_Summary__c();
       coachSummary.Name__c =
-        interact.Interaction_Purpose__c + COACHING_SUMMARY_LABEL;
-      coachSummary.Status__c = NEW_STATUS;
+        interact.Interaction_Purpose__c +
+        InteractionConstants.COACHING_SUMMARY_LABEL;
+      coachSummary.Status__c = InteractionConstants.NEW_STATUS;
       coachSummary.OwnerId = interact.OwnerId;
       coachSummary.Account__c = interact.AccountId;
       coachSummary.Lead__c = interact.Lead__c;
@@ -814,15 +802,16 @@ public with sharing class InteractionActions {
     Map<Id, sObject> oldMap,
     List<Interaction> records
   ) {
-    Id groupId = CommonUtil.getGroupId('Appointments_Queue');
+    Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get('Appointment')
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
     List<Interaction> results = new List<Interaction>();
     for (Interaction currentInteraction : records) {
       if (
         !oldMap.containsKey(currentInteraction.Id) ||
-        currentInteraction.Status__c != UNASSIGNED_STATUS ||
+        currentInteraction.Status__c !=
+        InteractionConstants.UNASSIGNED_STATUS ||
         currentInteraction.RecordTypeId != appointmentRTID
       ) {
         continue;
@@ -832,7 +821,7 @@ public with sharing class InteractionActions {
         currentInteraction.Id
       );
 
-      if (oldInteraction.Status__c == UNASSIGNED_STATUS) {
+      if (oldInteraction.Status__c == InteractionConstants.UNASSIGNED_STATUS) {
         continue;
       }
 
@@ -902,7 +891,9 @@ public with sharing class InteractionActions {
           OwnerId,
           Interaction_External_Id__c
         FROM Interaction
-        WHERE AccountId IN :accountIds AND Status__c IN :UNIQUE_STATUSES
+        WHERE
+          AccountId IN :accountIds
+          AND Status__c IN :InteractionConstants.UNIQUE_STATUSES
       ];
 
       for (Interaction interact : interactionsForAccounts) {
@@ -939,7 +930,9 @@ public with sharing class InteractionActions {
           OwnerId,
           Interaction_External_Id__c
         FROM Interaction
-        WHERE Lead__c IN :leadIds AND Status__c IN :UNIQUE_STATUSES
+        WHERE
+          Lead__c IN :leadIds
+          AND Status__c IN :InteractionConstants.UNIQUE_STATUSES
       ];
 
       for (Interaction interact : interactionsForAccounts) {
@@ -1072,7 +1065,9 @@ public with sharing class InteractionActions {
       for (Interaction interact : [
         SELECT Id, AccountId, StartTime, Endtime, OwnerId
         FROM Interaction
-        WHERE Status__c IN :UNIQUE_STATUSES AND OwnerId IN :coachIds
+        WHERE
+          Status__c IN :InteractionConstants.UNIQUE_STATUSES
+          AND OwnerId IN :coachIds
       ]) {
         List<Interaction> tempInteractionList = new List<Interaction>();
         if (coachInteractions.containsKey(interact.OwnerId)) {

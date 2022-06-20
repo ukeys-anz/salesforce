@@ -5,8 +5,6 @@
  */
 @isTest
 public with sharing class InteractionTriggerHandlerTest {
-  private static string appointmentQueueName = 'Appointments_Queue';
-  private static string otherPurposeName = 'Other';
   private static Integer otherPurposeDuration = 30;
   private final static string TEST_MOBILE = '01189998819991197253';
   private final static string TEST_MOBILE2 = '0118999881999119725';
@@ -14,7 +12,9 @@ public with sharing class InteractionTriggerHandlerTest {
   @isTest
   static void testSwitchingInteractionFromQueueToUser() {
     createPurposeMap();
-    QueueSObject appointmentQueue = getGroupByName(appointmentQueueName);
+    QueueSObject appointmentQueue = getGroupByName(
+      InteractionConstants.APPOINTMENTS_QUEUE
+    );
     Id currentUserId = UserInfo.getUserId();
 
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -28,8 +28,8 @@ public with sharing class InteractionTriggerHandlerTest {
     DateTime startTime = DateTime.newInstance(DateTime.now().year(), 1, 1);
 
     Interaction testInteraction = new Interaction(
-      Status__c = 'Unassigned',
-      Interaction_Purpose__c = otherPurposeName,
+      Status__c = InteractionConstants.UNASSIGNED_STATUS,
+      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME,
       StartTime = startTime,
       AccountId = testAccount.Id,
       Name = 'Other Appointment',
@@ -77,7 +77,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
-    request.RequestReason = otherPurposeName;
+    request.RequestReason = InteractionConstants.OTHER_PURPOSE_NAME;
     request.WhoId = testAccount.PersonContactId;
     request.PreferredChannel = 'Call';
     insert request;
@@ -110,10 +110,10 @@ public with sharing class InteractionTriggerHandlerTest {
 
   static void createPurposeMap() {
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
     otherPurpose.Duration__c = otherPurposeDuration;
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
+    purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
   }
   /*
@@ -129,13 +129,13 @@ public with sharing class InteractionTriggerHandlerTest {
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 5;
     apptCommt.Confirmed__c = 2;
-    apptCommt.Type__c = 'Other';
+    apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -169,7 +169,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     System.assertEquals(
       testInteraction.Status__c,
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       'The new interaction should have the status as Unassigned'
     );
 
@@ -204,7 +204,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     Test.startTest();
 
-    testInteraction.Status__c = 'Rescheduled';
+    testInteraction.Status__c = InteractionConstants.RESCHEDULED_STATUS;
     testInteraction.StartTime = System.now().addDays(5);
 
     update testInteraction;
@@ -251,7 +251,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
   @isTest
   static void testInteractionNoShow() {
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     Id currentUserId = UserInfo.getUserId();
@@ -286,7 +286,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     System.assertEquals(
       testInteraction.Status__c,
-      'Unassigned',
+      InteractionConstants.UNASSIGNED_STATUS,
       'The new interaction should have the status as Unassigned'
     );
 
@@ -313,7 +313,7 @@ public with sharing class InteractionTriggerHandlerTest {
     );
 
     Test.startTest();
-    testInteraction.Status__c = 'No Show';
+    testInteraction.Status__c = InteractionConstants.NO_SHOW_STATUS;
     update testInteraction;
     Test.stopTest();
 
@@ -339,13 +339,13 @@ public with sharing class InteractionTriggerHandlerTest {
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
     apptCommt.Available__c = 100;
     apptCommt.Confirmed__c = 0;
-    apptCommt.Type__c = 'Other';
+    apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
     apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
-    string otherPurposeName = 'Other';
+    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
     string contactRequestQueueName = 'Contact Request';
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -388,7 +388,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     for (Interaction interact : testInteraction) {
       System.assertEquals(
-        'Unassigned',
+        InteractionConstants.UNASSIGNED_STATUS,
         interact.Status__c,
         'The new interaction should have the status as Unassigned'
       );
@@ -425,7 +425,7 @@ public with sharing class InteractionTriggerHandlerTest {
     Datetime endTime = startTime.addMinutes(duration);
 
     for (Interaction interact : testInteraction) {
-      interact.Status__c = 'Rescheduled';
+      interact.Status__c = InteractionConstants.RESCHEDULED_STATUS;
       interact.StartTime = startTime;
     }
 
@@ -462,7 +462,7 @@ public with sharing class InteractionTriggerHandlerTest {
   static void testEndTimePopulationOnInsert() {
     Interaction newInteractionWithoutEndtime = new Interaction(
       Name = 'New Interaction',
-      Interaction_Purpose__c = 'Financial Wellbeing',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = System.now()
     );
 
@@ -483,7 +483,7 @@ public with sharing class InteractionTriggerHandlerTest {
   static void testEndTimePopulationOnUpdate() {
     Interaction newInteractionWithoutEndtime = new Interaction(
       Name = 'New Interaction',
-      Interaction_Purpose__c = 'Financial Wellbeing',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = System.now()
     );
 

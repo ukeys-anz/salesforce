@@ -7,7 +7,6 @@
 public with sharing class AppointmentNotificationTest {
   private final static string TEST_MOBILE = '01189998819991197253';
   private static final String STATUS_CANCELLED = 'Cancelled';
-  private static final String STATUS_ASSIGNED = 'Scheduled';
   private static final String TEMPLATE_BOOKED = 'AgANZxApptBooked';
   private static final String TEMPLATE_CANCELLED = 'AgANZxApptCancelled';
 
@@ -40,7 +39,7 @@ public with sharing class AppointmentNotificationTest {
     interactionSubject.StartTime = startDate;
     interactionSubject.InteractionType = 'Email';
     interactionSubject.LocationId = testLocation.Id;
-    interactionSubject.Interaction_Purpose__c = 'Other';
+    interactionSubject.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
     interactionSubject.Status__c = STATUS_CANCELLED;
     return interactionSubject;
   }
@@ -170,7 +169,7 @@ public with sharing class AppointmentNotificationTest {
 
     Interaction interactionSubject = createInteraction();
     interactionSubject.Lead__c = testLead.Id;
-    interactionSubject.Status__c = STATUS_ASSIGNED;
+    interactionSubject.Status__c = InteractionConstants.SCHEDULED_STATUS;
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
