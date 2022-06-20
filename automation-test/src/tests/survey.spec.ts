@@ -11,8 +11,14 @@ describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
     await browser.maximizeWindow();
   });
 
-  beforeEach(async () => {
-    await browser.pause(1000);
+  beforeEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
+  });
+
+  afterEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
   });
 
   describe("AR-13669: Create Survey Response and Automatic Case Creation", async (): Promise<void> => {
