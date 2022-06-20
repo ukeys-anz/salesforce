@@ -51,7 +51,11 @@ public class NotificationTriggerHandlerAnzxTest {
       FROM Notification_Handler__c
       WHERE case__c IN :caseList
     ];
-    System.assertEquals(caseList.size(), nhList.size());
+    System.assertEquals(
+      caseList.size(),
+      nhList.size(),
+      'Notification handler list size should be as expected.'
+    );
     Test.stopTest();
   }
 
@@ -111,12 +115,29 @@ public class NotificationTriggerHandlerAnzxTest {
     //verify that notification is published successfully
     System.assertEquals(
       IDRConstants.NOTIFICATION_PUBLISH_STATUS,
-      handlerPostExecution.Status__c
+      handlerPostExecution.Status__c,
+      'Notification handler status should be as expected.'
     );
 
-    System.assertEquals(null, evt.CAP_CIS_ID__c);
-    System.assertEquals(c.Id, evt.Case_ID__c);
-    System.assertEquals(true, evt.SMSFlag__c);
-    System.assertEquals(c.Account.PersonMobilePhone, evt.ComplainantMobile__c);
+    System.assertEquals(
+      null,
+      evt.CAP_CIS_ID__c,
+      'Event CAP_CIS_ID__c should be null.'
+    );
+    System.assertEquals(
+      c.Id,
+      evt.Case_ID__c,
+      'Event Case_ID__c should be as expected.'
+    );
+    System.assertEquals(
+      true,
+      evt.SMSFlag__c,
+      'Event SMSFlag__c should be as expected.'
+    );
+    System.assertEquals(
+      c.Account.PersonMobilePhone,
+      evt.ComplainantMobile__c,
+      'Event Complainant Mobile Number should be as expected.'
+    );
   }
 }

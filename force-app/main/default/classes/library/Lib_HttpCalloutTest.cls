@@ -26,8 +26,16 @@ public inherited sharing class Lib_HttpCalloutTest {
       null
     );
     System.assert(response.successful, 'Successful response');
-    System.assertEquals('Complete', response.status);
-    System.assertEquals(TEST_SUCCESS_BODY, response.body);
+    System.assertEquals(
+      'Complete',
+      response.status,
+      'The response status should be as expected.'
+    );
+    System.assertEquals(
+      TEST_SUCCESS_BODY,
+      response.body,
+      'The response body should be as expected.'
+    );
     System.assertEquals(200, response.statusCode, 'Status code is 200');
     System.assert(response.error == null, 'There are no exceptions');
   }
@@ -51,7 +59,8 @@ public inherited sharing class Lib_HttpCalloutTest {
     );
     System.assertEquals(
       'Endpoint or Method cannot be empty for a HTTP callout',
-      response.error.getMessage()
+      response.error.getMessage(),
+      'The error message should be as expected.'
     );
   }
 
@@ -71,7 +80,11 @@ public inherited sharing class Lib_HttpCalloutTest {
       null,
       TEST_SUCCESS_BODY
     );
-    System.assertEquals('Complete', response.status);
+    System.assertEquals(
+      'Complete',
+      response.status,
+      'The response status should be as expected.'
+    );
     System.assertEquals(200, response.statusCode, 'Status code is 200');
     System.assert(response.successful, 'The callout was successful');
     System.assert(String.isBlank(response.body), 'Response Body was empty');
@@ -93,7 +106,11 @@ public inherited sharing class Lib_HttpCalloutTest {
       null,
       TEST_SUCCESS_BODY
     );
-    System.assertEquals('Complete', response.status);
+    System.assertEquals(
+      'Complete',
+      response.status,
+      'The response status should be as expected.'
+    );
     System.assertEquals(200, response.statusCode, 'Status code is 200');
     System.assert(response.successful, 'The callout was successful');
     System.assertEquals('{}', response.body, 'Response Body was empty JSON');
@@ -115,7 +132,11 @@ public inherited sharing class Lib_HttpCalloutTest {
       null,
       TEST_SUCCESS_BODY
     );
-    System.assertEquals('Server Error', response.status);
+    System.assertEquals(
+      'Server Error',
+      response.status,
+      'The response status should be as expected.'
+    );
     System.assertEquals(500, response.statusCode, 'Status code is 500');
     System.assert(!response.successful, 'The callout was not successful');
     System.assert(String.isBlank(response.body), 'Response Body is empty');

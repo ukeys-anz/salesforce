@@ -16,7 +16,11 @@
                 title={release.Name}
               >
                 <template if:true={release.Release_Notes__c}>
-                  <a href={release.Release_Notes__c} target="_blank">
+                  <a
+                    href={release.Release_Notes__c}
+                    rel="noopener"
+                    target="_blank"
+                  >
                     <strong data-id="release-name">{release.Name}</strong>
                   </a>
                 </template>

@@ -1,4 +1,4 @@
-import { FieldDefinition } from "types/field";
+import { FieldDefinition } from "../../types/field";
 import KnowledgeFields from "./knowledgeFields";
 
 export default new Map<string, FieldDefinition>([

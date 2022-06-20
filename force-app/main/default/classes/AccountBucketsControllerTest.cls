@@ -25,7 +25,11 @@ public with sharing class AccountBucketsControllerTest {
         7,
         ''
       );
-      System.assertEquals(7, response.account_buckets.size());
+      System.assertEquals(
+        7,
+        response.account_buckets.size(),
+        'Response account buckets size should be as expected.'
+      );
       Test.stopTest();
     }
   }

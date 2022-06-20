@@ -18,26 +18,26 @@
                 "selector": {
                   "css": "[data-test-id='startDateInput']"
                 },
-                "type": "utam-lightning/pageObjects/input"
+                "type": "salesforce-pageobjects/lightning/pageObjects/input"
               },
               {
                 "name": "endDateInput",
                 "selector": {
                   "css": "[data-test-id='endDateInput']"
                 },
-                "type": "utam-lightning/pageObjects/input"
+                "type": "salesforce-pageobjects/lightning/pageObjects/input"
               },
               {
                 "name": "searchButton",
                 "selector": {
                   "css": "lightning-button"
                 },
-                "type": "utam-lightning/pageObjects/button"
+                "type": "salesforce-pageobjects/lightning/pageObjects/button"
               }
             ]
           },
           {
-            "name": "transactionHistoryRecordOfType",
+            "name": "transactionHistoryRecordByType",
             "type": "anzx-utam-lwc/pageObjects/lwcTransactionHistoryRecord",
             "selector": {
               "css": "c-transaction-history-record",
@@ -107,12 +107,12 @@
       "compose": [
         {
           "element": "endDateInput",
-          "returnType": "utam-lightning/pageObjects/input"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/input"
         },
         {
           "chain": true,
           "element": "datepicker",
-          "returnType": "utam-lightning/pageObjects/datepicker"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/datepicker"
         }
       ]
     },

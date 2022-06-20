@@ -31,11 +31,23 @@ public with sharing class AFCAMilestoneTimeCalculatorTest {
       mt.Id
     );
 
-    System.assertEquals(5 * 60 * 24, actualTriggerTime);
+    System.assertEquals(
+      5 *
+      60 *
+      24,
+      actualTriggerTime,
+      'Actual trigger time should be as expected.'
+    );
 
     c.IDR_AFCA_Due_Date__c = Date.today().addDays(11);
     update c;
     actualTriggerTime = calculator.calculateMilestoneTriggerTime(c.Id, mt.Id);
-    System.assertEquals(11 * 60 * 24, actualTriggerTime);
+    System.assertEquals(
+      11 *
+      60 *
+      24,
+      actualTriggerTime,
+      'Actual trigger time should be as expected.'
+    );
   }
 }

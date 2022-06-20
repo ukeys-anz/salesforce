@@ -14,10 +14,22 @@ public class TransactionHistoryModelTest {
     TransactionHistoryModel obj = TransactionHistoryModel.parse(
       sr.body.toString()
     );
-    System.assert(obj.embedded.transactions != null);
-    System.assert(obj.embedded.tags != null);
-    System.assert(obj.embedded.merchants != null);
-    System.assert(obj.embedded.categories != null);
-    System.assert(obj.count == '14');
+    System.assert(
+      obj.embedded.transactions != null,
+      'Transaction should not be null.'
+    );
+    System.assert(obj.embedded.tags != null, 'Tags should not be null');
+    System.assert(
+      obj.embedded.merchants != null,
+      'Merchants should not be null.'
+    );
+    System.assert(
+      obj.embedded.categories != null,
+      'Catergories should not be null.'
+    );
+    System.assert(
+      obj.count == '14',
+      'The TransactionHistoryModel count should be as expected.'
+    );
   }
 }

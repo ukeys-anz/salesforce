@@ -1,16 +1,16 @@
-import Auth from "common/Auth";
-import { OwnerType } from "constants/enums";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { UserRole } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import ANZXComplaint from "common/cases/ANZXComplaint";
-import KYCQA from "common/cases/KYCQA";
-import RecipientMule from "common/cases/RecipientMule";
-import Fraud from "common/cases/Fraud";
-import GeneralEnquiry from "common/cases/GeneralEnquiry";
-import Identity from "common/cases/Identity";
-import Scam from "common/cases/Scam";
-import caseData from "data/caseData";
+import Auth from "../../common/Auth";
+import { OwnerType } from "../../constants/enums";
+import { navigateToAppAndTab } from "../../utils/navigationUtils";
+import { UserRole } from "../../constants/enums";
+import { App, AppTab } from "../../constants/appsDefinition";
+import ANZXComplaint from "../../common/cases/ANZXComplaint";
+import KYCQA from "../../common/cases/KYCQA";
+import RecipientMule from "../../common/cases/RecipientMule";
+import Fraud from "../../common/cases/Fraud";
+import GeneralEnquiry from "../../common/cases/GeneralEnquiry";
+import Identity from "../../common/cases/Identity";
+import Scam from "../../common/cases/Scam";
+import caseData from "../../data/caseData";
 
 describe("AR-4499: Get Help Salesforce Case Management", () => {
   // pre test steps
@@ -19,7 +19,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
     await browser.maximizeWindow();
 
     // login as test user
-    await Auth.loginSalesforceAsRole(UserRole.FRAUDX_AGENT);
+    await Auth.loginSalesforceAsRole(UserRole.FraudX_Agent);
   });
 
   beforeEach(async (): Promise<void> => {
@@ -33,7 +33,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10338: FraudX Agent - KYC QA Case", async (): Promise<void> => {
-    const kycQaCase = new KYCQA(UserRole.FRAUDX_AGENT);
+    const kycQaCase = new KYCQA(UserRole.FraudX_Agent);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -60,7 +60,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10337: FraudX Agent - Recipient/Mule Case", async (): Promise<void> => {
-    const recipientMuleCase = new RecipientMule(UserRole.FRAUDX_AGENT);
+    const recipientMuleCase = new RecipientMule(UserRole.FraudX_Agent);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -87,7 +87,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10335: FraudX Agent - Fraud Case", async (): Promise<void> => {
-    const fraudCase = new Fraud(UserRole.FRAUDX_AGENT);
+    const fraudCase = new Fraud(UserRole.FraudX_Agent);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -114,7 +114,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10325: FraudX Agent - ANZ Plus Complaint Case", async (): Promise<void> => {
-    const anzxComplaintCase = new ANZXComplaint(UserRole.FRAUDX_AGENT);
+    const anzxComplaintCase = new ANZXComplaint(UserRole.FraudX_Agent);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -141,7 +141,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10312: FraudX Agent - General Enquiry Case", async (): Promise<void> => {
-    const generalEnquiryCase = new GeneralEnquiry(UserRole.FRAUDX_AGENT);
+    const generalEnquiryCase = new GeneralEnquiry(UserRole.FraudX_Agent);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -168,7 +168,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10333: FraudX Agent - Identity Case", async (): Promise<void> => {
-    const identityCase = new Identity(UserRole.FRAUDX_AGENT);
+    const identityCase = new Identity(UserRole.FraudX_Agent);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -215,7 +215,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10328: FraudX Agent - Scam Case", async (): Promise<void> => {
-    const scamCase = new Scam(UserRole.FRAUDX_AGENT);
+    const scamCase = new Scam(UserRole.FraudX_Agent);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);

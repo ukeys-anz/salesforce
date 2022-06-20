@@ -18,7 +18,11 @@ public with sharing class IDRCustomerProfileServiceTest {
     );
     Test.stopTest();
 
-    System.assertEquals(201, response.statusCode);
+    System.assertEquals(
+      201,
+      response.statusCode,
+      'Response statusCode should be as expected.'
+    );
   }
 
   @isTest
@@ -28,7 +32,10 @@ public with sharing class IDRCustomerProfileServiceTest {
       IDRCustomerProfileService.class
     );
     Test.stopTest();
-    System.assert(serviceResult instanceof IDRCustomerProfileServiceMock);
+    System.assert(
+      serviceResult instanceof IDRCustomerProfileServiceMock,
+      'Service should be instance of IDRCustomerProfileServiceMock.'
+    );
   }
 
   @isTest
@@ -44,7 +51,8 @@ public with sharing class IDRCustomerProfileServiceTest {
     Test.stopTest();
     System.assertEquals(
       'No Service class found called [energy-innovation-1488]',
-      resultException.getMessage()
+      resultException.getMessage(),
+      'Error message should be as expected.'
     );
   }
 

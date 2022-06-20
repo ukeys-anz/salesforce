@@ -12,7 +12,9 @@
 
 ```txt
 ├── automation-test
-    ├── build
+    ├── node_modules
+        └── salesforce-pageobjects
+    ├── pageObjects
     └── src
         ├── common
         ├── constants
@@ -22,7 +24,6 @@
         ├── types
         ├── utam
         |   ├── auth
-        |   ├── base
         |   ├── console
         |   ├── flexipage
         |   ├── force
@@ -31,7 +32,9 @@
 
 ```
 
-- `build` folder manages the complied code. Test runner will pickup code in this folder for running tests.
+- `salesforce-pageobjects` npm module providing standard pageobjects
+
+- `pageObjects` folder contains custom pageObjects defined in `src/utam`
 
 - `src` folder contains the source code.
 

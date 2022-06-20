@@ -15,34 +15,44 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>AllExceptARC_RTs_SSA_RO</fullName>
+        <fullName>ANZx_Non_Customer_Complaints</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All cases record types except AR&amp;C are to be shared with Super Support Admin users with Read-Only access.</description>
-        <label>AllExceptARC_RTs_SSA_RO</label>
+        <description>Provides access to Non Customer Complaints for ANZx</description>
+        <label>ANZx Non Customer Complaints</label>
         <sharedTo>
-            <role>Super_Support_Admin</role>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
+            <operation>equals</operation>
             <value>Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>General Inquiry CMOS</value>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>AR_C_Non_Customer_Complaint</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Sharing rules for customer complaints that aren&apos;t marked ANZx</description>
+        <label>AR&amp;C Non Customer Complaint</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
-            <operation>notEqual</operation>
-            <value>CFMS Migrated Case</value>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Case_RT_BusinessAdmin_RW</fullName>
@@ -236,59 +246,6 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_Support_Staff_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Dispute_RTs_Support_Staff_RO</label>
-        <sharedTo>
-            <role>Support_Staff_ARC</role>
-        </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ATM</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Card</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Debit</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>General Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>NPP</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>RTs_Support_Staff_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>All ANZ Plus Complaint, Customer Feedback cases are to be shared with Support Staff AR&amp;C with Read/Write access.</description>
-        <label>RTs_Support_Staff_RW</label>
-        <sharedTo>
-            <role>Support_Staff_ARC</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZ Plus Complaint, Customer Feedback</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Escalated_Complaint_for_Coaches_Role_RO</fullName>
         <accessLevel>Read</accessLevel>
         <label>Escalated Complaint for Coaches Role RO</label>
@@ -478,20 +435,6 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Systemic Issue</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Super_Support_Admin_RT_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant read and write access on Case record types to Super Support Admin</description>
-        <label>Super_Support_Admin_RT_RW</label>
-        <sharedTo>
-            <role>Super_Support_Admin</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>

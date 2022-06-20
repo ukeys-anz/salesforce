@@ -1,4 +1,6 @@
 {
+  "exposeRootElement": true,
+  "type": ["actionable"],
   "shadow": {
     "elements": [
       {

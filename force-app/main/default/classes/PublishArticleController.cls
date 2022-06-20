@@ -10,7 +10,7 @@ public with sharing class PublishArticleController {
    * @param recordId The knowledge version ID
    */
   @AuraEnabled
-  public static void publishWithValidation(String recordId) {
+  public static void publishWithValidation(Id recordId) {
     Knowledge__kav knowledgeVersion;
     if (Schema.sObjectType.Knowledge__kav.isQueryable()) {
       knowledgeVersion = [

@@ -1,7 +1,7 @@
 import SalesforceLogin from "pageObjects/salesforceLogin";
 import SalesforceLogout from "pageObjects/salesforceLogout";
 import TwilioLogin from "pageObjects/twilioLogin";
-import { UserRole } from "constants/enums";
+import { UserRole } from "../constants/enums";
 
 export default class Auth {
   /**
@@ -21,7 +21,7 @@ export default class Auth {
     const salesforceLoginRoot = await utam.load(SalesforceLogin);
 
     switch (role) {
-      case UserRole.COACH:
+      case UserRole.Coach:
         if (!process.env.COACH_USERNAME || !process.env.COACH_PASSWORD) {
           console.error(
             "Error: Trying to login as Coach but missing COACH_USERNAME or COACH_PASSWORD."
@@ -34,7 +34,7 @@ export default class Auth {
           process.env.COACH_PASSWORD
         );
         break;
-      case UserRole.FRAUDX_AGENT:
+      case UserRole.FraudX_Agent:
         if (
           !process.env.FRAUDX_AGENT_USERNAME ||
           !process.env.FRAUDX_AGENT_PASSWORD
@@ -50,7 +50,7 @@ export default class Auth {
           process.env.FRAUDX_AGENT_PASSWORD
         );
         break;
-      case UserRole.CONTENT_WRITER:
+      case UserRole.Content_Writer:
         if (
           !process.env.CONTENT_WRITER_USERNAME ||
           !process.env.CONTENT_WRITER_PASSWORD
@@ -66,7 +66,7 @@ export default class Auth {
           process.env.CONTENT_WRITER_PASSWORD
         );
         break;
-      case UserRole.QUALITY_ANALYST:
+      case UserRole.Quality_Analyst:
         if (
           !process.env.QUALITY_ANALYST_USERNAME ||
           !process.env.QUALITY_ANALYST_PASSWORD
@@ -82,7 +82,7 @@ export default class Auth {
           process.env.QUALITY_ANALYST_PASSWORD
         );
         break;
-      case UserRole.COACH_LEAD:
+      case UserRole.Coach_Lead:
         if (
           !process.env.COACH_LEAD_USERNAME ||
           !process.env.COACH_LEAD_PASSWORD
@@ -98,7 +98,7 @@ export default class Auth {
           process.env.COACH_LEAD_PASSWORD
         );
         break;
-      case UserRole.SUPPORT_COACH:
+      case UserRole.Support_Coach:
         if (
           !process.env.SUPPORT_COACH_USERNAME ||
           !process.env.SUPPORT_COACH_PASSWORD
@@ -114,7 +114,7 @@ export default class Auth {
           process.env.SUPPORT_COACH_PASSWORD
         );
         break;
-      case UserRole.BUSINESS_ADMIN:
+      case UserRole.Business_Admin:
         if (
           !process.env.BUSINESS_ADMIN_USERNAME ||
           !process.env.BUSINESS_ADMIN_PASSWORD

@@ -1,8 +1,14 @@
 import ConsoleAppNavigation from "pageObjects/consoleAppNavigation";
 import AppLauncher from "pageObjects/appLauncher";
 import HomePage from "pageObjects/homePage";
-import AppsDefinition from "constants/appsDefinition";
+import AppsDefinition from "../constants/appsDefinition";
+import OneAppLauncherMenuItem from "pageObjects/oneAppLauncherMenuItem";
 import { URL } from "url";
+
+export type AppLauncherSearchResults = [
+  OneAppLauncherMenuItem | "No results",
+  OneAppLauncherMenuItem | "No results"
+];
 
 const closeConsoleNavMainTabs = async (): Promise<void> => {
   const consoleAppNavigationRoot = await utam.load(ConsoleAppNavigation);
@@ -15,12 +21,51 @@ const closeConsoleNavMainTabs = async (): Promise<void> => {
   }
 };
 
+export const searchInAppLauncher = async (
+  searchText: string
+): Promise<AppLauncherSearchResults> => {
+  // first decide which type of app the test user is in, Standard or Console
+  const appLauncherRoot = await utam.load(AppLauncher);
+
+  // if user is in Console app view
+  if (await appLauncherRoot.isInConsoleApp()) {
+    await appLauncherRoot.openConsoleAppLauncher();
+    await browser.pause(1000);
+    await appLauncherRoot.search(searchText);
+  }
+  // if user is in Standard app view
+  else {
+    // in Standard app, open App Launcher
+    const homePageRoot = await utam.load(HomePage);
+    const navigationBar = await homePageRoot.getNavigationBar();
+    await navigationBar.expandAppLauncher();
+    await browser.pause(1000);
+    await appLauncherRoot.search(searchText);
+  }
+
+  await browser.pause(1000);
+
+  const results: AppLauncherSearchResults = ["No results", "No results"];
+
+  const appResult = await appLauncherRoot.getAppResult();
+  if (appResult) {
+    results[0] = appResult;
+  }
+
+  const itemResult = await appLauncherRoot.getItemResult();
+  if (itemResult) {
+    results[1] = itemResult;
+  }
+
+  return results;
+};
+
 const searchAndOpenApp = async (appName: string): Promise<void> => {
   const appLauncherRoot = await utam.load(AppLauncher);
 
   // search app by name and click and redirect
   await browser.pause(1000);
-  await appLauncherRoot.searchApp(appName);
+  await appLauncherRoot.search(appName);
   await browser.pause(1000);
   await appLauncherRoot.selectAppAndRedirect();
   await browser.pause(2000);
@@ -68,6 +113,7 @@ export const navigateToAppAndTab = async (
     if (redirectToAppType === "Console") {
       if (!(await appLauncherRoot.isCurrentApp(appName))) {
         await appLauncherRoot.openConsoleAppLauncher();
+        await browser.pause(1000);
         await searchAndOpenApp(appName);
       }
 
@@ -94,7 +140,25 @@ export const navigateToAppAndTab = async (
     }
   }
 
-  await browser.pause(4000);
+  await browser.pause(5000);
+};
+
+export const openTabHomeInCurrentApp = async (
+  tabName: string
+): Promise<void> => {
+  // first decide which type of app the test user is in, Standard or Console
+  const appLauncherRoot = await utam.load(AppLauncher);
+
+  // if user is in Console app view
+  if (await appLauncherRoot.isInConsoleApp()) {
+    await openConsoleAppTabHome(tabName);
+  }
+  // if user is in Standard app view
+  else {
+    await openStandardAppTabHome(tabName);
+  }
+
+  await browser.pause(5000);
 };
 
 export const gotoRecordPageById = async (recordId: string): Promise<void> => {

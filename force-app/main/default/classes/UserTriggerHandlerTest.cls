@@ -68,12 +68,24 @@ public class UserTriggerHandlerTest {
       FROM PermissionSetLicenseAssign
     ];
 
-    System.assertNotEquals(0, pslAssignList.size());
+    System.assertNotEquals(
+      0,
+      pslAssignList.size(),
+      'Assigned Permission Set License size should be as expected.'
+    );
 
     //Check if Profile and Role are assigned correctly as defined from Custom Metadata
     if (assignedProfile != null && assignedRole != null) {
-      System.assertEquals(assignedProfile.Id, insertedUser.ProfileId);
-      System.assertEquals(assignedRole.Id, insertedUser.UserRoleId);
+      System.assertEquals(
+        assignedProfile.Id,
+        insertedUser.ProfileId,
+        'The user profile should be as expected.'
+      );
+      System.assertEquals(
+        assignedRole.Id,
+        insertedUser.UserRoleId,
+        'The user role should be as expected.'
+      );
     }
   }
 
@@ -147,7 +159,8 @@ public class UserTriggerHandlerTest {
     if (!testAssignment.isEmpty()) {
       System.assertEquals(
         assignedPsetId[0].Id,
-        testAssignment[0].PermissionSetId
+        testAssignment[0].PermissionSetId,
+        'The assigned permission set should be as expected.'
       );
     }
   }
@@ -184,6 +197,10 @@ public class UserTriggerHandlerTest {
       WHERE UserOrGroupId = :testuser.Id
     ];
 
-    System.assertEquals(0, testAssignment.size());
+    System.assertEquals(
+      0,
+      testAssignment.size(),
+      'Total Assignments size should be as expected.'
+    );
   }
 }

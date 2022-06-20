@@ -30,7 +30,7 @@ global with sharing class ChatterMigrationServiceController {
    * @return Boolean | True if Migraiton is OK. Throws an exception if something goes wrong.
    */
   @AuraEnabled
-  public static Boolean migrateViaButton(String recordId) {
+  public static Boolean migrateViaButton(Id recordId) {
     lib_systemLog log = new lib_systemLog(
       ChatterMigrationServiceController.class.getName(),
       'ChatterMigrationServiceController Recieved'
