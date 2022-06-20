@@ -93,81 +93,77 @@ export default class Survey {
 
   async verifyCase() {
     const baseRecordForm = await casePageUtils.getRecordForm();
+    const recordLayout = await baseRecordForm!.getRecordLayout();
 
-    if (baseRecordForm) {
-      const recordLayout = await baseRecordForm.getRecordLayout();
+    // Assert Priority field
+    const priorityField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [2, 4, 2]
+    );
+    const priority = await (
+      await priorityField.getFormattedText()
+    ).getInnerText();
 
-      // Assert Priority field
-      const priorityField = await commonUtils.getFieldFromRecordLayout(
-        recordLayout,
-        [2, 3, 1]
-      );
-      const priority = await (
-        await priorityField.getFormattedText()
-      ).getInnerText();
+    expect(priority).toEqual("Medium");
 
-      expect(priority).toEqual("Medium");
+    // Assert Subject field
+    const subjectField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [2, 6, 1]
+    );
+    const subject = await (
+      await subjectField.getFormattedText()
+    ).getInnerText();
 
-      // Assert Subject field
-      const subjectField = await commonUtils.getFieldFromRecordLayout(
-        recordLayout,
-        [2, 4, 1]
-      );
-      const subject = await (
-        await subjectField.getFormattedText()
-      ).getInnerText();
+    expect(subject).toEqual("Detractor 0 -4 - Survey");
 
-      expect(subject).toEqual("Detractor 0 -4 - Survey");
+    // Assert Case Owner field
+    const ownerField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [2, 1, 1]
+    );
 
-      // Assert Case Owner field
-      const ownerField = await commonUtils.getFieldFromRecordLayout(
-        recordLayout,
-        [1, 1, 1]
-      );
-
-      const ownerLookup = await ownerField.getOwnerLookup();
-      const outputLookup = await ownerLookup.getOutputLookup();
-      //TODO: salesforce-pageobjects v1.1.0 force-lookup element does not have method to get Queue text.
-      // comment below method out until bug fix.
-      // expect(await outputLookup.getText()).toEqual(Queue.Coach_Queue);
-    }
+    const ownerLookup = await ownerField.getOwnerLookup();
+    const outputLookup = await ownerLookup.getOutputLookup();
+    //TODO: salesforce-pageobjects v1.1.0 force-lookup element does not have method to get Queue text.
+    // comment below method out until bug fix.
+    // expect(await outputLookup.getText()).toEqual(Queue.Coach_Queue);
   }
 
   async verifyAccount() {
     const baseRecordForm = await casePageUtils.getRecordForm();
+    const recordLayout = await baseRecordForm!.getRecordLayout();
 
-    if (baseRecordForm) {
-      const recordLayout = await baseRecordForm.getRecordLayout();
-      const accountField = await commonUtils.getFieldFromRecordLayout(
-        recordLayout,
-        [1, 4, 1]
-      );
+    const accountField = await commonUtils.getFieldFromRecordLayout(
+      recordLayout,
+      [1, 1, 1]
+    );
 
-      //TODO: salesforce-pageobjects v1.1.0 RecordLayoutItem does not have force-lookup element.
-      // comment below method out until bug fix.
-      // const accountLookupField = await accountField.getOutputField(ForceLookup);
-      // await accountLookupField.openLookupLink();
+    //TODO: salesforce-pageobjects v1.1.0 RecordLayoutItem does not have force-lookup element.
+    // comment below method out until bug fix.
+    // const accountLookupField = await accountField.getOutputField(ForceLookup);
+    // await accountLookupField.openLookupLink();
 
-      // search by Account OCV Id from global search as a temp solution for Account redirection.
-      // remove after above bug fix
-      await searchRecordInGlobalSearchAndRedirect(this.ocvId!);
+    // search by Account OCV Id from global search as a temp solution for Account redirection.
+    // remove after above bug fix
+    await searchRecordInGlobalSearchAndRedirect(this.ocvId!);
 
-      const recordPageRoot = await utam.load(RecordPage);
-      const accountRecordPage = await recordPageRoot.getAccountRecordPage();
-      const advocacyRatingWrapper =
-        await accountRecordPage.getAdvocacyRatingWrapper();
-      expect(await advocacyRatingWrapper.isVisible()).toBeTruthy();
-    }
+    const recordPageRoot = await utam.load(RecordPage);
+    const accountRecordPage = await recordPageRoot.getAccountRecordPage();
+    const advocacyRatingWrapper =
+      await accountRecordPage.getAdvocacyRatingWrapper();
+    expect(await advocacyRatingWrapper.isVisible()).toBeTruthy();
   }
 
   async verifySurveyResponse(surveyResponseId: string) {
     const recordPageRoot = await utam.load(RecordPage);
     const accountRecordPage = await recordPageRoot.getAccountRecordPage();
 
-    // use webdriverio API to scroll to middle of the page
-    // $(">>>span[title='Survey Responses']") does not work
-    const elem = await $(">>>span[title='Quality Assessments']");
-    await elem.scrollIntoView();
+    const financialDetails =
+      await accountRecordPage.getPersonAccountFinancialDetails();
+    const financialGoals = await financialDetails.getFinancialGoals();
+    const financialGoalsRoot = await financialGoals.getRoot();
+    await financialGoalsRoot.scrollToTop();
 
     const surveyResRelatedList =
       await accountRecordPage.getSurveyResponsesRelatedList();
