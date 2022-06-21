@@ -26,7 +26,7 @@ global with sharing class ChatterMigrationServiceController {
 
   /**
    * @description Exposes OCV Migration via Aura for LWC
-   * @param recordId String | the Id of the Account record about to be migrated
+   * @param recordId Id | the Id of the Account record about to be migrated
    * @return Boolean | True if Migraiton is OK. Throws an exception if something goes wrong.
    */
   @AuraEnabled
@@ -38,7 +38,7 @@ global with sharing class ChatterMigrationServiceController {
     log.info(
       'Manual OCV Merge Via button Triggered by: ' + UserInfo.getUserId()
     );
-    log.insertLogAsync();
+    log.publishEvent();
 
     Account record = [
       SELECT Id, Survivor_Party_ID__c, External_Id__c
@@ -51,16 +51,19 @@ global with sharing class ChatterMigrationServiceController {
         'Please check that the Survivor Party Id is set on the account you are attempting to merge'
       );
     }
-    if (
+
+    try {
       ChatterMigrationService.cloneChatterFromVictimToSurvivor(
         record.External_Id__c,
         record.Survivor_Party_ID__c
-      )
-    ) {
+      );
       return true;
-    } else {
+    } catch (Exception error) {
+      log.info('Manual OCV Merge Exception: ' + error.getMessage());
+      log.publishEvent();
+
       throw new AuraHandledException(
-        'Could not migrate to Surviving Party. Please contact support: Error Code: CHATTEROCV-001'
+        'Could not migrate to Surviving Party. You may not have the right permissions. Error Code: CHATTEROCV-001'
       );
     }
   }
