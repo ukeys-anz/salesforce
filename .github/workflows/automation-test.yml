@@ -2,7 +2,7 @@ name: Automation-Test
 
 on:
   schedule:
-    - cron: "0 17 ? * MON,TUE,WED,THU,SUN *" # (UTC based) Run 2-3 AM weekday AEST time
+    - cron: "0 5 * * 1-5" # Run at 5AM weekday
 
 jobs:
   automation-test:
