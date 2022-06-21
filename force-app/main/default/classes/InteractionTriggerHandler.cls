@@ -15,7 +15,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     InteractionActions intActions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
-    List<Interaction> interactions = intActions.returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
     );
 
@@ -64,10 +64,10 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
         if (events.isEmpty() == false) {
           EventHelper.insertEvents(events);
         }
-        createCoachingSummaryInteractions = actionsForInteractions.getInteractionswithoutCoachingSummary(
+        createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
           userOwnedInteractions
         );
-        assignCoachingSummaryOwnerInteractions = actionsForInteractions.getInteractionswithCoachingSummary(
+        assignCoachingSummaryOwnerInteractions = InteractionFilter.getInteractionswithCoachingSummary(
           userOwnedInteractions
         );
       }
@@ -166,7 +166,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     InteractionActions actions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
-    List<Interaction> interactions = actions.returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
     );
 
@@ -174,14 +174,13 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     actions.setNameOfInteractions(interactions);
 
-    List<Interaction> newInteractions = actions.getInteractionsWithoutEnddate(
+    List<Interaction> newInteractions = InteractionFilter.getInteractionsWithoutEnddate(
       interactions
     );
 
     if (!newInteractions.isEmpty()) {
       actions.updateEndTime(newInteractions);
     }
-    actions.setInteractionsMobile(records);
 
     actions.validateInteractions(interactions);
   }
@@ -218,7 +217,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     if (!reasonOrStartTimeUpdatedInteractions.isEmpty()) {
       actions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
-    actions.setInteractionsMobile(records);
     actions.unassignInteractions(oldMap, records);
   }
 }

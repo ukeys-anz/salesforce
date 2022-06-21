@@ -44,7 +44,6 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> list of interactions through which to search.
    * @return List<Interaction> list of interactions updated as No show
    */
-
   public List<Interaction> getNoShowInteractions(
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
@@ -82,7 +81,7 @@ public with sharing class InteractionActions {
 
     for (Interaction currentInteraction : interactions) {
       if (
-        currentInteraction.Status__c != 'Cancelled' ||
+        currentInteraction.Status__c != InteractionConstants.CANCELLED_STATUS ||
         !oldMap.containsKey(currentInteraction.Id)
       ) {
         continue;
@@ -90,7 +89,7 @@ public with sharing class InteractionActions {
       Interaction oldInteraction = (Interaction) oldMap.get(
         currentInteraction.Id
       );
-      if (oldInteraction.Status__c != 'Cancelled') {
+      if (oldInteraction.Status__c != InteractionConstants.CANCELLED_STATUS) {
         result.add(currentInteraction);
       }
     }
@@ -118,28 +117,7 @@ public with sharing class InteractionActions {
         return;
       }
 
-      if (Event.SObjectType.getDescribe().isDeletable()) {
-        List<Database.DeleteResult> results = Database.Delete(linkedEvents);
-        lib_systemLog log = new lib_systemLog(
-          'InteractionActions',
-          'deleteInteractionEvents'
-        );
-        Boolean hasError = log.addDatabaseDeleteResult(
-          'Events',
-          results,
-          linkedEvents
-        );
-        if (hasError) {
-          //log errors to application log
-          log.insertLog();
-        }
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'InteractionActions',
-          'deleteInteractionEvents',
-          'Not enough permissions to delete Events'
-        );
-      }
+      EventHelper.deleteEvents(linkedEvents);
     } else {
       CommonUtil.logAndThrowIAE(
         'InteractionActions',
@@ -167,7 +145,6 @@ public with sharing class InteractionActions {
    * @param interactions The new values of the interaction after update.
    * @return List<Interaction> The list of interactions where the owner has been updated
    */
-
   public List<Interaction> getAcceptedInteractions(
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
@@ -191,7 +168,6 @@ public with sharing class InteractionActions {
    * @param interactions The new values of the interaction after update.
    * @return List<Interaction> The list of interactions where the status has been updated to rescheduled
    */
-
   public List<Interaction> getRescheduledInteractions(
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
@@ -214,7 +190,6 @@ public with sharing class InteractionActions {
    * @param interactions The list of interactions which were rescheduled
    * @return List<Event> List of event records related to the interaction which were rescheduled.
    */
-
   public List<Event> getRelatedEvents(List<Interaction> interactions) {
     List<Event> eventList = new List<Event>();
     Set<Id> interactionIds = new Set<Id>();
@@ -247,7 +222,6 @@ public with sharing class InteractionActions {
    * @param eventRecords The list of events to be updated
    * @param interactions The interactions which are rescheduled
    */
-
   public void updateEventSchedule(
     List<Event> eventRecords,
     List<Interaction> interactions
@@ -269,18 +243,9 @@ public with sharing class InteractionActions {
    * @description Update the status of the interactions to scheduled if the owner is updated
    * @param interactions The list of interactions where the owner is updated from Queue to Coach
    */
-
   public void updateStatustoScheduled(List<Interaction> interactions) {
-    if (Interaction.SObjectType.getDescribe().isUpdateable()) {
-      for (Interaction interact : interactions) {
-        interact.Status__c = InteractionConstants.SCHEDULED_STATUS;
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'updateStatustoScheduled',
-        'Not enough permissions to update Interaction.'
-      );
+    for (Interaction interact : interactions) {
+      interact.Status__c = InteractionConstants.SCHEDULED_STATUS;
     }
   }
 
@@ -339,49 +304,10 @@ public with sharing class InteractionActions {
   }
 
   /**
-   * @description Goes through a list of Interactions and using an old map, finds the one that does not have coaching summary.
-   * @param records List<Interaction> list of the interaction through which to iterate.
-   * @return List<Interaction> list of interaction that does not have coaching summary linked to it.
-   */
-
-  public List<Interaction> getInteractionswithoutCoachingSummary(
-    List<Interaction> records
-  ) {
-    List<Interaction> interactionWithoutSummary = new List<Interaction>();
-    for (Interaction interact : records) {
-      if (interact.Coaching_Summary__c == null) {
-        interactionWithoutSummary.add(interact);
-      }
-    }
-
-    return interactionWithoutSummary;
-  }
-
-  /**
-   * @description Goes through a list of Interactions and using an old map, finds the one that has coaching summary.
-   * @param records List<Interaction> list of the interaction through which to iterate.
-   * @return List<Interaction> list of interaction that has coaching summary linked to it.
-   */
-
-  public List<Interaction> getInteractionswithCoachingSummary(
-    List<Interaction> records
-  ) {
-    List<Interaction> interactionWithSummary = new List<Interaction>();
-    for (Interaction interact : records) {
-      if (interact.Coaching_Summary__c != null) {
-        interactionWithSummary.add(interact);
-      }
-    }
-
-    return interactionWithSummary;
-  }
-
-  /**
    * @description Goes through a list of Interactions and assigns the current owner of interaction to the coaching summary.
    * @param interactions List<Interaction> list of the interaction through which to iterate.
    * @return List<Coaching_Summary> list of coaching summary records updated with new owner.
    */
-
   public List<Coaching_Summary__c> assignCoachingSummaryOwner(
     List<Interaction> interactions
   ) {
@@ -423,15 +349,7 @@ public with sharing class InteractionActions {
         WHERE Id IN :interactionIds AND Interaction_External_Id__c = NULL
       ];
       actions.setExternalIds(interactions);
-      if (Interaction.SObjectType.getDescribe().isUpdateable()) {
-        update interactions;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'InteractionActions',
-          'setExternalIds',
-          'Not enough permissions to update Interaction.'
-        );
-      }
+      InteractionDMLHelper.updateInteractions(interactions);
     } else {
       CommonUtil.logAndThrowIAE(
         'InteractionActions',
@@ -442,27 +360,9 @@ public with sharing class InteractionActions {
   }
 
   /**
-   * @description Returns the list of new interactions without End time
-   * @param interactions List<Interaction> list of new interaction records.
-   * @return List<Interaction> list of interactions without end time.
-   */
-  public List<Interaction> getInteractionsWithoutEnddate(
-    List<Interaction> interactions
-  ) {
-    List<Interaction> interactionList = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      if (interact.EndTime == null) {
-        interactionList.add(interact);
-      }
-    }
-    return interactionList;
-  }
-
-  /**
    * @description Method to updated interactions without end time
    * @param interactions List<Interaction> list of interaction records without end time.
    */
-
   public void updateEndTime(List<Interaction> interactions) {
     ContactRequestActions crActions = new ContactRequestActions();
     for (Interaction interact : interactions) {
@@ -481,7 +381,6 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> list of interactions through which to search.
    * @return List<Interaction> list of interactions where end time needs to be updated.
    */
-
   public List<Interaction> getInteractionsRequiringEndTimeUpdate(
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
@@ -499,130 +398,6 @@ public with sharing class InteractionActions {
       }
     }
     return interactionList;
-  }
-
-  /** @description sets the interaction's Contact Mobile field and queries the Database for Accounts
-   * @param interactions Interaction the interaction of which to set the Contact Mobile.
-   */
-  public void setInteractionsMobile(List<Interaction> interactions) {
-    Map<Id, Account> accountMap = getAccountInfo(interactions);
-    Map<Id, Lead> leadMap = getLeadInfo(interactions);
-    setInteractionsMobile(interactions, accountMap, leadMap);
-  }
-
-  /**
-   * @description sets the interaction's Contact Mobile field
-   * @param interactions Interaction the interaction of which to set the Contact Mobile.
-   * @param accountMap Map<Id,Account> Map of Accounts linked to the interactions
-   * @param leadMap Map<Id,Lead> Map of Leads linked to the interactions
-   */
-  public void setInteractionsMobile(
-    List<Interaction> interactions,
-    Map<Id, Account> accountMap,
-    Map<Id, Lead> leadMap
-  ) {
-    for (Interaction currentInteraction : interactions) {
-      if (
-        currentInteraction.AccountId != null &&
-        accountMap.containsKey(currentInteraction.AccountId)
-      ) {
-        currentInteraction.Contact_Mobile__c = accountMap.get(
-            currentInteraction.AccountId
-          )
-          .PersonMobilePhone;
-      } else if (
-        currentInteraction.Lead__c != null &&
-        leadMap.containsKey(currentInteraction.Lead__c)
-      ) {
-        currentInteraction.Contact_Mobile__c = leadMap.get(
-            currentInteraction.Lead__c
-          )
-          .MobilePhone;
-      }
-    }
-  }
-
-  /**
-   * @description gets information about Leads linked to a list of Interactions
-   * @param interactions List<Interaction> list of interactions
-   * @return Map<Id,Lead> A map of Leads
-   */
-  private Map<Id, Lead> getLeadInfo(List<Interaction> interactions) {
-    Map<Id, Lead> leadMap = new Map<Id, Lead>();
-    Set<Id> leadIds = new Set<Id>();
-    for (Interaction currentInteraction : interactions) {
-      if (currentInteraction.Lead__c != null) {
-        leadIds.add(currentInteraction.Lead__c);
-      }
-    }
-    if (Lead.SObjectType.getDescribe().isQueryable()) {
-      List<Lead> interactionLeads = [
-        SELECT Id, MobilePhone
-        FROM Lead
-        WHERE Id IN :leadIds
-      ];
-      if (!interactionLeads.isEmpty()) {
-        leadMap = new Map<Id, Lead>(interactionLeads);
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'getLeadInfo',
-        'Not enough permissions to query Leads.'
-      );
-    }
-    return leadMap;
-  }
-
-  /**
-   * @description gets information about accounts linked to a list of Interactions
-   * @param interactions List<Interaction> list of interactions
-   * @return Map<Id,Acount> A map of Accounts
-   */
-  private Map<Id, Account> getAccountInfo(List<Interaction> interactions) {
-    Map<Id, Account> accountMap = new Map<Id, Account>();
-    Set<Id> accountIds = new Set<Id>();
-    for (Interaction currentInteraction : interactions) {
-      if (currentInteraction.AccountId != null) {
-        accountIds.add(currentInteraction.AccountId);
-      }
-    }
-    if (Account.SObjectType.getDescribe().isQueryable()) {
-      List<Account> interactionAccounts = [
-        SELECT Id, PersonMobilePhone
-        FROM Account
-        WHERE Id IN :accountIds
-      ];
-      if (!interactionAccounts.isEmpty()) {
-        accountMap = new Map<Id, Account>(interactionAccounts);
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'getAccountInfo',
-        'Not enough permissions to query Accounts.'
-      );
-    }
-    return accountMap;
-  }
-
-  /**
-   * @description finds & returns interactions without a mobile number
-   * @param interactions List<Interaction> list of interactions through which to search
-   * @return List<Interaction> List of interactions without mobile number.
-   */
-  public List<Interaction> findInteractionsWithoutMobile(
-    List<Interaction> interactions
-  ) {
-    List<Interaction> result = new List<Interaction>();
-
-    for (Interaction currentInteraction : interactions) {
-      if (currentInteraction.Contact_Mobile__c == null) {
-        result.add(currentInteraction);
-      }
-    }
-
-    return result;
   }
 
   /**
@@ -889,7 +664,6 @@ public with sharing class InteractionActions {
    * @param coachIds Set of coach ids related to the new interactions
    * @return  Map<Id, List<Interaction>> Map of owner ids and list of scheduled interactions creared for the corresponding coach
    */
-
   public Map<Id, List<Interaction>> getCoachExistingInteractions(
     Set<Id> coachIds
   ) {
@@ -949,34 +723,10 @@ public with sharing class InteractionActions {
   /** @description Method to set the Interaction Name for manual interaction creations
    * @param interactions list of new interactions created.
    */
-
   public void setNameOfInteractions(List<Interaction> interactions) {
     for (Interaction interact : interactions) {
       interact.Name = interact.Interaction_Purpose__c + ' Appointment';
     }
-  }
-
-  /**
-   * @description goes through a list of interactions and returns the ones that have an automated purpose
-   * @param interactions List<Interaction> list of interactions to search through.
-   * @return List<Interaction> List of interactions that have an automated purpose
-   */
-  public List<Interaction> returnInteractionsWithAutomatedPurpose(
-    List<Interaction> interactions
-  ) {
-    List<Interaction> result = new List<Interaction>();
-    if (!interactions.isEmpty()) {
-      for (Interaction currentInteraction : interactions) {
-        if (
-          AutomatedRequestMetadataProvider.getInstance()
-            .getMap()
-            .containsKey(currentInteraction.Interaction_Purpose__c)
-        ) {
-          result.add(currentInteraction);
-        }
-      }
-    }
-    return result;
   }
 
   /**
@@ -1127,17 +877,7 @@ public with sharing class InteractionActions {
       }
     }
     if (!leadIds.isEmpty()) {
-      if (Lead.SObjectType.getDescribe().isQueryable()) {
-        result = new Map<Id, Lead>(
-          [SELECT Id, Name, FirstName, Email FROM Lead WHERE Id IN :leadIds]
-        );
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'ContactRequestActions',
-          'getLeadMapFromInteractions',
-          'Not enough permissions to query Leads.'
-        );
-      }
+      result = LeadDMLHelper.getLeadInfoMap(leadIds);
     }
     return result;
   }

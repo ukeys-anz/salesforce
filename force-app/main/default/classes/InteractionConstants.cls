@@ -9,6 +9,7 @@ public with sharing class InteractionConstants {
   public static final String UNASSIGNED_STATUS = 'Unassigned';
   public static final String RESCHEDULED_STATUS = 'Rescheduled';
   public static final String INPROGRESS_STATUS = 'In Progress';
+  public static final String CANCELLED_STATUS = 'Cancelled';
   public static final String WALKIN_STATUS = 'Walk In';
   public static final String NEW_STATUS = 'New';
   public static final String COACHING_SUMMARY_LABEL = ' Coaching Summary';

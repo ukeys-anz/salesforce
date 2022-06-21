@@ -513,60 +513,6 @@ public with sharing class InteractionTriggerHandlerTest {
     );
   }
 
-  @isTest
-  static void testMobileGetsSet() {
-    Account testAccount = createTestAccount('Joe', 'Bloggs', '0123456');
-    Account testAccount2 = createTestAccount('Jane', 'Bloggs', '0123457');
-    testAccount2.PersonMobilePhone = TEST_MOBILE2;
-    List<Account> accounts = new List<Account>{ testAccount, testAccount2 };
-
-    insert accounts;
-
-    testAccount = [
-      SELECT Id, PersonMobilePhone, PersonContactId
-      FROM Account
-      WHERE Id = :testAccount.Id
-    ];
-    testAccount2 = [
-      SELECT Id, PersonMobilePhone, PersonContactId
-      FROM Account
-      WHERE Id = :testAccount2.Id
-    ];
-
-    Interaction testInteraction = new Interaction(
-      Name = 'Test Interaction',
-      AccountId = testAccount.Id
-    );
-    insert testInteraction;
-
-    testInteraction = [
-      SELECT Id, Contact_Mobile__c
-      FROM Interaction
-      WHERE Id = :testInteraction.Id
-    ];
-
-    System.assertEquals(
-      TEST_MOBILE,
-      testInteraction.Contact_Mobile__c,
-      'Contact Mobile must be set from the accounts mobile number'
-    );
-
-    testInteraction.AccountId = testAccount2.Id;
-    update testInteraction;
-
-    testInteraction = [
-      SELECT Id, Contact_Mobile__c
-      FROM Interaction
-      WHERE Id = :testInteraction.Id
-    ];
-
-    System.assertEquals(
-      TEST_MOBILE2,
-      testInteraction.Contact_Mobile__c,
-      'Contact Mobile must be switch when changing linked account'
-    );
-  }
-
   /**
    * @description helper method to create a person account
    * @param firstName String the first name of the person

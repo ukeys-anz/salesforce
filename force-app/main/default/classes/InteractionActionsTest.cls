@@ -133,48 +133,6 @@ public with sharing class InteractionActionsTest {
   }
 
   @isTest
-  static void testSettingContactMobileFromAccount() {
-    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
-    insert testAccount;
-    testAccount = [
-      SELECT Id, PersonContactId, PersonMobilePhone
-      FROM Account
-      WHERE Id = :testAccount.Id
-    ];
-    Interaction newInteraction = new Interaction(AccountId = testAccount.Id);
-
-    InteractionActions actions = new InteractionActions();
-    actions.setInteractionsMobile(new List<Interaction>{ newInteraction });
-    System.assertEquals(
-      testAccount.PersonMobilePhone,
-      newInteraction.Contact_Mobile__c,
-      'Mobile number must be set'
-    );
-  }
-
-  @isTest
-  static void testSettingContactMobileFromLead() {
-    Id generalLeadRTID = Schema.sOBjectType.Lead.getRecordTypeInfosByDeveloperName()
-      .get('General')
-      .getRecordTypeId();
-    Lead testLead = new Lead(
-      LastName = 'Bloggs',
-      RecordTypeId = generalLeadRTID
-    );
-    testLead.MobilePhone = TEST_MOBILE;
-    insert testLead;
-    Interaction newInteraction = new Interaction(Lead__c = testLead.Id);
-
-    InteractionActions actions = new InteractionActions();
-    actions.setInteractionsMobile(new List<Interaction>{ newInteraction });
-    System.assertEquals(
-      testLead.MobilePhone,
-      newInteraction.Contact_Mobile__c,
-      'Mobile number must be set'
-    );
-  }
-
-  @isTest
   static void testFindingInteractionsWithoutMobile() {
     Interaction interactionWithoutPhoneNumber = new Interaction(
       Name = 'interactionWithoutNumber'
@@ -189,7 +147,7 @@ public with sharing class InteractionActionsTest {
     };
     InteractionActions actions = new InteractionActions();
 
-    List<Interaction> interactionsWithtoutMobile = actions.findInteractionsWithoutMobile(
+    List<Interaction> interactionsWithtoutMobile = InteractionFilter.findInteractionsWithoutMobile(
       interactions
     );
 
@@ -1429,7 +1387,7 @@ public with sharing class InteractionActionsTest {
     };
 
     test.startTest();
-    List<Interaction> automatedInteractions = actions.returnInteractionsWithAutomatedPurpose(
+    List<Interaction> automatedInteractions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       interactions
     );
     test.stopTest();

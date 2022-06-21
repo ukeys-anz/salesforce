@@ -32,7 +32,7 @@ public with sharing class EventHelper {
    * @param events The list of events to be updated
    */
   public static void updateEvents(List<Event> events) {
-    if (Event.SObjectType.getDescribe().isUpdateable()) {
+    if (PermissionUtils.canUpdate('Event')) {
       List<Database.SaveResult> results = Database.Update(events);
       lib_systemLog log = new lib_systemLog('EventHelper', 'updateEvents');
       Boolean hasError = log.addDatabaseSaveResult('Event', results, events);
@@ -45,6 +45,28 @@ public with sharing class EventHelper {
         'EventHelper',
         'updateEvents',
         'Not enough permissions to update Events.'
+      );
+    }
+  }
+
+  /**
+   * @description deletes a list of events
+   * @param events to delete.
+   */
+  public static void deleteEvents(List<Event> events) {
+    if (PermissionUtils.canDelete('Event')) {
+      List<Database.DeleteResult> results = Database.Delete(events);
+      lib_systemLog log = new lib_systemLog('EventHelper', 'deleteEvents');
+      Boolean hasError = log.addDatabaseDeleteResult('Events', results, events);
+      if (hasError) {
+        //log errors to application log
+        log.insertLog();
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'EventHelper',
+        'deleteEvents',
+        'Not enough permissions to delete Events'
       );
     }
   }
