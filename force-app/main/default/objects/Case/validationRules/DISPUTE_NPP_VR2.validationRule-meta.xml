@@ -10,8 +10,9 @@ Transaction_Type__c = &apos;TRANSACTION_TYPE_PAYID&apos;,
 OR(
 ISBLANK(Description),
 ISPICKVAL(Intended_Pay_Id_Type__c,&apos;&apos;),
-ISBLANK(Intended_Pay_Id_Value__c)
+ISBLANK(Intended_Pay_Id_Value__c),
+ISBLANK(Intended_Account_Name__c)
 )
 )</errorConditionFormula>
-    <errorMessage>These fields are required: Description of Issue, Intended PayID Type, Intended PayID Details.</errorMessage>
+    <errorMessage>These fields are required: Description of Issue, Intended PayID Type, Intended PayID Details, Intended Account Name.</errorMessage>
 </ValidationRule>

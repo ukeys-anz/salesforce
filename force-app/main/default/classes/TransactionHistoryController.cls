@@ -51,19 +51,21 @@ public with sharing class TransactionHistoryController {
       'TransactionHistoryController',
       'getPersonAccountId'
     );
+
     if (Account.SObjectType.getDescribe().isAccessible()) {
-      for (FinServ__FinancialAccount__c financialAccount : [
+      FinServ__FinancialAccount__c financialAccount = [
         SELECT Id, FinServ__PrimaryOwner__c
         FROM FinServ__FinancialAccount__c
         WHERE Id = :financialAccountId
-      ]) {
-        log.trace(
-          'Person Account retrieved with Id: ' +
-          financialAccount.FinServ__PrimaryOwner__c
-        );
-        log.insertLogAsync();
-        return financialAccount.FinServ__PrimaryOwner__c;
-      }
+        LIMIT 1
+      ];
+
+      log.trace(
+        'Person Account retrieved with Id: ' +
+        financialAccount.FinServ__PrimaryOwner__c
+      );
+      log.publishEvent();
+      return financialAccount.FinServ__PrimaryOwner__c;
     }
     log.trace('Unable to retrieve person account');
     log.insertLogAsync();

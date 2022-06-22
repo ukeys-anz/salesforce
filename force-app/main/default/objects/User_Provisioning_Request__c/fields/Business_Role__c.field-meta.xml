@@ -71,11 +71,6 @@
                 <label>Card Dispute Agent</label>
             </value>
             <value>
-                <fullName>Support Staff ARC</fullName>
-                <default>false</default>
-                <label>Support Staff AR&amp;C</label>
-            </value>
-            <value>
                 <fullName>Support Coach</fullName>
                 <default>false</default>
                 <label>Support Coach</label>
@@ -89,11 +84,6 @@
                 <fullName>Quality Analyst</fullName>
                 <default>false</default>
                 <label>Quality Analyst</label>
-            </value>
-            <value>
-                <fullName>Super Support Admin</fullName>
-                <default>false</default>
-                <label>Super Support Admin</label>
             </value>
             <value>
                 <fullName>Systemic Issues Team</fullName>

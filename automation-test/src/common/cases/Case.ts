@@ -1,5 +1,4 @@
-import { SObjectAPIName, UserRole } from "constants/enums";
-import { SObject } from "constants/enums";
+import { SObjectAPIName, SObject, UserRole } from "../../constants/enums";
 
 export default abstract class Case {
   protected readonly userRole: UserRole;

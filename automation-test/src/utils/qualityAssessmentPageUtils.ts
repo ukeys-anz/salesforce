@@ -1,8 +1,8 @@
 import { UtamBasePageObject } from "utam";
 import RecordPage from "pageObjects/recordPage";
 import QualityAssessmentDetailsTab from "pageObjects/qualityAssessmentDetailsTab";
-import BaseRecordForm from "pageObjects/baseRecordForm";
-import * as commonUtils from "utils/commonUtils";
+import BaseRecordForm from "@salesforce-pageobjects/records/pageObjects/baseRecordForm";
+import * as commonUtils from "../utils/commonUtils";
 
 export const getRecordForm = async (): Promise<BaseRecordForm | undefined> => {
   const detailsTab = await getTabContent("Details");

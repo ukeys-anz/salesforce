@@ -21,6 +21,21 @@
   ],
   "elements": [
     {
+      "name": "headerPanel",
+      "selector": {
+        "css": ".slds-page-header--object-home"
+      },
+      "elements": [
+        {
+          "name": "headerActionBar",
+          "selector": {
+            "css": ".test-lvmForceActionsContainer"
+          },
+          "public": true
+        }
+      ]
+    },
+    {
       "name": "listViewPicker",
       "selector": {
         "css": ".forceListViewPicker"

@@ -65,6 +65,12 @@ public with sharing class LeadTriggerHandlerTest {
       WHERE ParentId IN :leadsToBeConverted
     ];
 
+    System.assertEquals(
+      4,
+      leadsChatterPostList.size(),
+      'Sanity check - there should be 4 chatter posts for this test case.'
+    );
+
     // Insert an account which matches existing lead so that conversion takes place
     Faker faker = new Faker('AU');
 

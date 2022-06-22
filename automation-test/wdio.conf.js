@@ -68,22 +68,23 @@ exports.config = {
   //
   specs: [
     [
-      "./build/tests/cases/*.spec.js",
-      "./build/tests/disputes.spec.js",
-      "./build/tests/qualityAssessments.spec.js"
+      "./src/tests/cases/*.spec.ts",
+      "./src/tests/disputes.spec.ts",
+      "./src/tests/qualityAssessments.spec.ts"
     ],
     [
-      "./build/tests/transactionHistories.spec.js",
-      "./build/tests/cards.spec.js",
-      "./build/tests/financialAccounts.spec.js"
+      "./src/tests/transactionHistories.spec.ts",
+      "./src/tests/cards.spec.ts",
+      "./src/tests/financialAccounts.spec.ts"
     ],
     [
-      "./build/tests/virtualGoals.spec.js",
-      "./build/tests/chatters.spec.js",
-      "./build/tests/knowledge.spec.js",
-      "./build/tests/survey.spec.js",
-      "./build/tests/leads.spec.js"
-    ]
+      "./src/tests/virtualGoals.spec.ts",
+      "./src/tests/chatters.spec.ts",
+      "./src/tests/knowledge.spec.ts",
+      "./src/tests/survey.spec.ts",
+      "./src/tests/leads.spec.ts"
+    ],
+    ["./src/tests/uam/*.spec.ts"]
   ],
   // Patterns to exclude.
   exclude: [

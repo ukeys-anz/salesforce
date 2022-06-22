@@ -1,8 +1,9 @@
 # This workflow scans a Salesforce project using Checkmarx
 name: Checkmarx Scan
 
-# This workflow will only run when manually triggered from Actions within Github
-on: workflow_dispatch
+on:
+  pull_request:
+    branches: [develop, master, epic/*]
 
 jobs:
   checkmarx-scan:
@@ -32,15 +33,15 @@ jobs:
       - name: Checkmarx CxFlow Action
         uses: ./.github/actions/platform-actions-checkmarx-cxflow
         with:
-          project: Salesforce
-          team: /CxServer/Salesforce
+          project: github.com.anzx.salesforce
+          team: /CxServer/Security/Salesforce
           checkmarx_url: ${{ steps.secrets.outputs.CHECKMARX_URL }}
           checkmarx_username: ${{ steps.secrets.outputs.CHECKMARX_USERNAME }}
           checkmarx_password: ${{ steps.secrets.outputs.CHECKMARX_PASSWORD }}
           checkmarx_client_secret: ${{ steps.secrets.outputs.CHECKMARX_CLIENT_SECRET }}
           github_token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
           incremental: false
-          break_build: false
+          break_build: true
           bug_tracker: GitHubPull
-          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,rulesets\/.*
-          params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.head_ref }} --merge-id=${{ github.event.number }}
+          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,rulesets\/.*,createCmosEntitlment.js
+          params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.head_ref }} --merge-id=${{ github.event.number }} --severity=High

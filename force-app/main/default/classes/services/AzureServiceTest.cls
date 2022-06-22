@@ -36,7 +36,11 @@ public with sharing class AzureServiceTest {
       ANZAzureADAuthProviderTest.REDIRECT_URL,
       'code'
     );
-    System.assertNotEquals(null, resp.body);
+    System.assertNotEquals(
+      null,
+      resp.body,
+      'Response body should not be null.'
+    );
   }
 
   @isTest
@@ -49,7 +53,11 @@ public with sharing class AzureServiceTest {
     HttpCalloutResponse resp = serviceClass.getRefreshIdToken(
       'testRefreshTokenValue'
     );
-    System.assertNotEquals(null, resp.body);
+    System.assertNotEquals(
+      null,
+      resp.body,
+      'Response body should not be null.'
+    );
   }
 
   /**

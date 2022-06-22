@@ -29,10 +29,22 @@ public with sharing class TextUtilsTest {
   @isTest
   static void testReactiveLogging() {
     String keywordStr = 'test TFN test 1234-678-90';
-    System.assertEquals(true, TextUtils.reactiveLogging(keywordStr));
+    System.assertEquals(
+      true,
+      TextUtils.reactiveLogging(keywordStr),
+      'The reactiveLogging method should return true.'
+    );
     String nonKeywordStr = 'test abc 1234-678-90';
-    System.assertEquals(false, TextUtils.reactiveLogging(nonKeywordStr));
+    System.assertEquals(
+      false,
+      TextUtils.reactiveLogging(nonKeywordStr),
+      'The reactiveLogging method should return false.'
+    );
     String nonKeywordLongStr = 'test abc 1234-678-90-1234';
-    System.assertEquals(true, TextUtils.reactiveLogging(nonKeywordLongStr));
+    System.assertEquals(
+      true,
+      TextUtils.reactiveLogging(nonKeywordLongStr),
+      'The reactiveLogging method should return true.'
+    );
   }
 }

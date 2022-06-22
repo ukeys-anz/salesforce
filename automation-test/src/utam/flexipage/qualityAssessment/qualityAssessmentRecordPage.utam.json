@@ -1,11 +1,11 @@
 {
   "elements": [
     {
-      "name": "highlights",
+      "name": "highlightsPanel",
       "selector": {
         "css": "records-lwc-highlights-panel"
       },
-      "type": "utam-records/pageObjects/lwcHighlightsPanel",
+      "type": "salesforce-pageobjects/records/pageObjects/lwcHighlightsPanel",
       "public": true
     },
     {
@@ -13,7 +13,7 @@
       "selector": {
         "css": ".region-main flexipage-component2:nth-of-type(1) flexipage-tabset2"
       },
-      "type": "utam-flexipage/pageObjects/tabset2",
+      "type": "salesforce-pageobjects/flexipage/pageObjects/tabset2",
       "public": true
     }
   ]

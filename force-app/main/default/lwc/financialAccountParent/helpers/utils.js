@@ -51,14 +51,12 @@ export function handleGoalData(goalData) {
       goal.goal.target_date = "None set";
     }
 
-    //Check fill percent so we dont end up with negative amount
-    goal.recommendedSavings =
-      goal.recommendedSavings && goal.fillPercent && goal.fillPercent < 100
-        ? new Intl.NumberFormat("en-AU", {
-            style: "currency",
-            currency: "AUD"
-          }).format(goal.recommendedSavings)
-        : "N/A";
+    goal.recommendedSavings = goal.recommendedSavings
+      ? new Intl.NumberFormat("en-AU", {
+          style: "currency",
+          currency: "AUD"
+        }).format(goal.recommendedSavings)
+      : "N/A";
   });
 
   return goalList;

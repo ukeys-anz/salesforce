@@ -36,6 +36,10 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       post.Body = 'This is edit'; /* Since we have disabled Chatter post "Edit" feature in Chatter settings
        Move this into try block to catch "Field is not Writeable" exception*/
       update post;
+      System.assert(
+        false,
+        'Failed to prevent against user updating a not writeable feed item.'
+      );
     } catch (SObjectException e) {
       exceptionThrown = (e.getMessage().contains('Field is not writeable'))
         ? true
@@ -53,6 +57,10 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
     Boolean exceptionThrown = false;
     try {
       delete post;
+      System.assert(
+        false,
+        'Failed to prevent against user deleting feed item whenn not having permission.'
+      );
     } catch (Exception e) {
       exceptionThrown = (e.getMessage()
           .contains('You do not have permission to delete this comment'))
