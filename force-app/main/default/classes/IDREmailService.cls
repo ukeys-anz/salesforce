@@ -22,7 +22,10 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     Messaging.InboundEmail.Header[] emailHeaders = email.headers;
     Map<String, String> headerMap = new Map<String, String>();
     for (Messaging.InboundEmail.Header emailHeader : emailHeaders) {
-      headerMap.put(emailHeader.name, emailHeader.value);
+      headerMap.put(
+        String.escapeSingleQuotes(emailHeader.name),
+        String.escapeSingleQuotes(emailHeader.value)
+      );
     }
     String senderEmail = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_EMAIL_REGEX,
