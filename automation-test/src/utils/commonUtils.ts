@@ -269,7 +269,7 @@ export const openListViewByIndex = async (index: number) => {
 export const openFirstRecordInListView = async () => {
   const objectHomeRoot = await utam.load(ObjectHome);
   await objectHomeRoot.openFirstRow();
-  await browser.pause(1000);
+  await browser.pause(5000);
 };
 
 export const editButtonIsNotVisible = async (

@@ -14,6 +14,8 @@ import { App, AppTab } from "../../constants/appsDefinition";
 import ObjectHome from "pageObjects/objectHome";
 import leadData from "../../data/leadData";
 import { loginJSForce } from "../../utils/apiUtils";
+import UAM from "../../common/UAM";
+import { UserRole, Access } from "../../constants/enums";
 
 const generalComment = `Automation Test General Comment.`;
 
@@ -22,7 +24,7 @@ export default class ANZXLead extends Lead implements IChatter {
     const recordCreationFormRoot = await utam.load(RecordCreationForm);
 
     await recordCreationFormRoot.createNewLead();
-    await browser.pause(2000);
+    await browser.pause(5000);
 
     const lwcRecordCreationFormRoot = await utam.load(LwcRecordCreationForm);
 
@@ -216,15 +218,8 @@ export default class ANZXLead extends Lead implements IChatter {
   }
 
   async verifyLeadFieldsAreReadOnly(): Promise<void> {
-    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
-    // Mobile Phone Field
-    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 1]);
-    // Status Picklist
-    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
-    // Email Field
-    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+    const qualityAnalystUAM = new UAM(UserRole.Quality_Analyst);
+    qualityAnalystUAM.verifyLeadAccess(Access.Read_Only);
   }
 
   async receiveLeadViaQualtricsIntegration(): Promise<string | void> {
