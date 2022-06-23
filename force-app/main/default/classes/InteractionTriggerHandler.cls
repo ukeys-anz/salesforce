@@ -179,6 +179,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     if (!newInteractions.isEmpty()) {
       actions.updateEndTime(newInteractions);
     }
+
     actions.setInteractionsMobile(records);
 
     actions.validateInteractions(interactions);
