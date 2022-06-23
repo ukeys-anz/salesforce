@@ -104,14 +104,29 @@ class FakerBaseTest {
     );
 
     Integer randomIntegerBetween = faker.randomIntegerBetween(200, 300);
-    System.assert(randomIntegerBetween > 200 && randomIntegerBetween < 300, 'Faker should create a right random number');
+    System.assert(
+      randomIntegerBetween > 200 &&
+      randomIntegerBetween < 300,
+      'Faker should create a right random number'
+    );
 
     Decimal randomDecimal = faker.randomDecimal(2, 3);
-    System.assertEquals(5, randomDecimal.precision(), 'Faker should create a right random number');
-    System.assertEquals(3, randomDecimal.scale(), 'Faker should create a right random number');
+    System.assertEquals(
+      5,
+      randomDecimal.precision(),
+      'Faker should create a right random number'
+    );
+    System.assertEquals(
+      3,
+      randomDecimal.scale(),
+      'Faker should create a right random number'
+    );
 
     Decimal randomDecimalMaxDigits = faker.randomDecimalMaxDigits(2, 3);
-    System.assert(100.00 > randomDecimalMaxDigits, 'Faker should create a right random number');
+    System.assert(
+      100.00 > randomDecimalMaxDigits,
+      'Faker should create a right random number'
+    );
     Test.stopTest();
   }
 
@@ -123,13 +138,24 @@ class FakerBaseTest {
 
     String stringFormat = '???';
     String stringResult = faker.bothify(stringFormat);
-    System.assertEquals(3, stringResult.length(), 'Faker should create a right random string');
+    System.assertEquals(
+      3,
+      stringResult.length(),
+      'Faker should create a right random string'
+    );
 
     String integerFormat = '###';
     String integerResult = faker.bothify(integerFormat);
     Integer integerResultValue = Integer.valueOf(integerResult);
-    System.assertEquals(3, integerResult.length(), 'Faker should create a right info');
-    System.assert(1000 > integerResultValue, 'Faker should create a right info');
+    System.assertEquals(
+      3,
+      integerResult.length(),
+      'Faker should generate correct information'
+    );
+    System.assert(
+      1000 > integerResultValue,
+      'Faker should generate correct information'
+    );
     Test.stopTest();
   }
 
@@ -140,7 +166,11 @@ class FakerBaseTest {
     Test.startTest();
 
     String stringFormat = 'ÜäĂÇ';
-    System.assertEquals('UaAC', faker.toAscii(stringFormat), 'Faker should create a right info');
+    System.assertEquals(
+      'UaAC',
+      faker.toAscii(stringFormat),
+      'Faker should generate correct information'
+    );
     Test.stopTest();
   }
 }

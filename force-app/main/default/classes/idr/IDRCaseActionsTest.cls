@@ -174,7 +174,8 @@ private with sharing class IDRCaseActionsTest {
       update newCases;
     } catch (DMLexception e) {
       system.assert(
-        e.getMessage().contains('This field can no longer be edited.')
+        e.getMessage().contains('This field can no longer be edited.'),
+        'Error message should be as expected.'
       );
     }
   }

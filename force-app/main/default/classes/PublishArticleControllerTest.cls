@@ -50,7 +50,11 @@ public with sharing class PublishArticleControllerTest {
         WHERE Id = :article.Id
       ];
 
-      System.assertEquals('Online', article.PublishStatus);
+      System.assertEquals(
+        'Online',
+        article.PublishStatus,
+        'Article status should be as expected.'
+      );
     }
 
   }
@@ -71,10 +75,15 @@ public with sharing class PublishArticleControllerTest {
 
     try {
       PublishArticleController.publishWithValidation(article.Id);
+      System.assert(false, 'Failed to prevent against user publishing article');
     } catch (Exception e) {
       exp = e;
     }
 
-    System.assertEquals('Script-thrown exception', exp.getMessage());
+    System.assertEquals(
+      'Script-thrown exception',
+      exp.getMessage(),
+      'Error message should be as expected.'
+    );
   }
 }

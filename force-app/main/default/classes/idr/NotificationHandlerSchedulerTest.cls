@@ -51,7 +51,8 @@ public with sharing class NotificationHandlerSchedulerTest {
 
     System.assertEquals(
       IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS,
-      handler.Status__c
+      handler.Status__c,
+      'Notification handler status should be as expected.'
     );
 
     Test.startTest();
@@ -68,7 +69,8 @@ public with sharing class NotificationHandlerSchedulerTest {
 
     System.assertEquals(
       IDRConstants.NOTIFICATION_PUBLISH_STATUS,
-      handlerPostExecution.Status__c
+      handlerPostExecution.Status__c,
+      'Notification handler status should be as expected.'
     );
   }
 }

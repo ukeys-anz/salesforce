@@ -1,15 +1,15 @@
 import RecordCreationForm from "pageObjects/recordCreationForm";
-import CaseType from "constants/case/caseType";
-import { OwnerType } from "constants/enums";
+import CaseType from "../../constants/case/caseType";
+import { OwnerType } from "../../constants/enums";
 import Case from "./Case";
 import * as faker from "faker";
-import * as commonUtils from "utils/commonUtils";
-import * as creationFormUtils from "utils/creationFormUtils";
-import * as casePageUtils from "utils/casePageUtils";
-import { FieldDefinition } from "types/field";
-import { FieldSectionIndex } from "types/layout";
-import CaseFields from "constants/case/caseFields";
-import IAssignNewOwner from "interfaces/IAssignNewOwner";
+import * as commonUtils from "../../utils/commonUtils";
+import * as creationFormUtils from "../../utils/creationFormUtils";
+import * as casePageUtils from "../../utils/casePageUtils";
+import { FieldDefinition } from "../../types/field";
+import { FieldSectionIndex } from "../../types/layout";
+import CaseFields from "../../constants/case/caseFields";
+import IAssignNewOwner from "../../interfaces/IAssignNewOwner";
 
 export default class Scam extends Case implements IAssignNewOwner {
   static creationFormFieldIndexMap = new Map<string, number>();
@@ -83,18 +83,18 @@ export default class Scam extends Case implements IAssignNewOwner {
     await commonUtils.inputText(chatTopicField, chatTopicId);
 
     // click save button
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
   }
 
   async close(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
     // Status
     // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 2], 4);
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    const statusFieldIndex: FieldSectionIndex = [2, 4, 2];
+    const closedOptionIndex = 4;
+    await casePageUtils.closeCase(
+      statusFieldIndex,
+      closedOptionIndex,
+      "Resolved"
+    );
   }
 }

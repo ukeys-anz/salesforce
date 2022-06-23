@@ -1,4 +1,6 @@
 {
+  "exposeRootElement": true,
+  "type": ["actionable"],
   "shadow": {
     "elements": [
       {
@@ -25,7 +27,7 @@
         "selector": {
           "css": "[data-test-id='amount']"
         },
-        "type": "utam-lightning/pageObjects/formattedNumber"
+        "type": "salesforce-pageobjects/lightning/pageObjects/formattedNumber"
       },
       {
         "name": "merchantName",
@@ -64,7 +66,8 @@
             "selector": {
               "css": "lightning-menu-item:nth-of-type(2)"
             },
-            "type": "clickable"
+            "type": "clickable",
+            "public": true
           }
         ],
         "shadow": {
@@ -154,11 +157,19 @@
       ]
     },
     {
-      "name": "showDetails",
+      "name": "clickDropdown",
       "compose": [
         {
           "element": "dropDownButton",
           "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "showDetails",
+      "compose": [
+        {
+          "apply": "clickDropdown"
         },
         {
           "element": "showDetailsButton",
@@ -170,8 +181,7 @@
       "name": "raiseDispute",
       "compose": [
         {
-          "element": "dropDownButton",
-          "apply": "click"
+          "apply": "clickDropdown"
         },
         {
           "element": "raiseDisputeButton",

@@ -1,11 +1,10 @@
-import Auth from "common/Auth";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { UserRole } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import ANZXLead from "common/Lead/ANZXLead";
-import * as faker from "faker";
+import Auth from "../common/Auth";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import { UserRole } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import ANZXLead from "../common/leads/ANZXLead";
 import { cleanupTestData } from "../utils/wdioUtils";
-import * as commonUtils from "utils/commonUtils";
+import * as commonUtils from "../utils/commonUtils";
 
 describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   // pre test steps
@@ -25,7 +24,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   });
 
   after(async (): Promise<void> => {
-    await cleanupTestData(UserRole.QUALTRICS_AUTOMATION_USER, ["Lead"]);
+    await cleanupTestData(UserRole.Qualtrics_Automation_User, ["Lead"]);
   });
 
   async function createAndNurtureLeadByRole(role: UserRole): Promise<void> {
@@ -62,28 +61,28 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
 
   describe("Lead creation and nurturing by role", async (): Promise<void> => {
     describe("AR-11387: Coach creates and nurtures ANZX Lead", async (): Promise<void> => {
-      await createAndNurtureLeadByRole(UserRole.COACH);
+      await createAndNurtureLeadByRole(UserRole.Coach);
     });
 
     describe("AR-11390: Coach Lead creates and nurtures ANZX Lead", async (): Promise<void> => {
-      await createAndNurtureLeadByRole(UserRole.COACH_LEAD);
+      await createAndNurtureLeadByRole(UserRole.Coach_Lead);
     });
 
     describe("AR-11391: Support Coach creates and nurtures ANZX Lead", async (): Promise<void> => {
-      await createAndNurtureLeadByRole(UserRole.SUPPORT_COACH);
+      await createAndNurtureLeadByRole(UserRole.Support_Coach);
     });
 
     describe("AR-11388: Business Admin creates and nurtures ANZX Lead", async (): Promise<void> => {
-      await createAndNurtureLeadByRole(UserRole.BUSINESS_ADMIN);
+      await createAndNurtureLeadByRole(UserRole.Business_Admin);
     });
   });
 
   describe("AR-11385: Coach creates duplicate ANZX Leads", async (): Promise<void> => {
-    const anzxLead = new ANZXLead(UserRole.COACH);
+    const anzxLead = new ANZXLead(UserRole.Coach);
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Coaches Workbench and Leads Tab", async (): Promise<void> => {
@@ -118,7 +117,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   describe("AR-11384: Lead creation by Qualtrics Integration", async (): Promise<void> => {
     let apiResult: string | void;
 
-    const anzxLead = new ANZXLead(UserRole.COACH);
+    const anzxLead = new ANZXLead(UserRole.Coach);
 
     it("Create Lead Record via Qualtrics Integration", async (): Promise<void> => {
       apiResult = await anzxLead.receiveLeadViaQualtricsIntegration()!;
@@ -126,7 +125,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
 
     it("Go to Lead record", async (): Promise<void> => {
       // Login in as a Coach
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
 
       // Open Lead record by navigating to record page using Id
       // As Lead search results contains Einstein results recommendations
@@ -145,10 +144,10 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   });
 
   describe("AR-11386: Lead conversion upon account creation", async (): Promise<void> => {
-    const anzxLead = new ANZXLead(UserRole.COACH);
+    const anzxLead = new ANZXLead(UserRole.Coach);
 
     it("Login as Coach", async (): Promise<void> => {
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Coaches Workbench and Leads Tab", async (): Promise<void> => {
@@ -190,10 +189,10 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   });
 
   describe("AR-11392: Quality Analyst views ANZX Leads", async (): Promise<void> => {
-    const anzxLead = new ANZXLead(UserRole.QUALITY_ANALYST);
+    const anzxLead = new ANZXLead(UserRole.Quality_Analyst);
 
     it("Login as Quality Analyst", async (): Promise<void> => {
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
     it("Go to Quality Workbench and Leads Tab", async (): Promise<void> => {

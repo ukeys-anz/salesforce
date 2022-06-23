@@ -65,7 +65,11 @@ private class MilestoneUtilsTest {
       WHERE caseId IN :caseIdList AND cm.MilestoneType.Name = 'Resolution Time'
     ];
 
-    System.assertEquals(Integer.valueOf(Label.Test_Bulk_Size), cmList.size());
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      cmList.size(),
+      'CaseMilestone list size should be as expected.'
+    );
   }
 
   @isTest
@@ -96,6 +100,10 @@ private class MilestoneUtilsTest {
       WHERE caseId IN :caseIdList AND cm.MilestoneType.Name = 'Resolution Time'
     ];
 
-    System.assertEquals(Integer.valueOf(Label.Test_Bulk_Size), cmList.size());
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      cmList.size(),
+      'CaseMilestone list size should be as expected.'
+    );
   }
 }

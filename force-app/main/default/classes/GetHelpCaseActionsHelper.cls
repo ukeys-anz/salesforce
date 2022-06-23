@@ -429,4 +429,39 @@ public with sharing class GetHelpCaseActionsHelper {
     }
     return peList;
   }
+
+  /**
+   * @description Check if the case is a non customer complaint and if the user
+   * is ANZx
+   * @param records New record instances to process
+   */
+  public static void isNonCustomerComplaint(List<Case> records) {
+    for (Case record : records) {
+      if (
+        record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+        UserInfo.getProfileId() ==
+        CommonUtil.getProfileByName('ANZx Standard User').Id
+      ) {
+        record.ANZx_Customer__c = true;
+      }
+    }
+  }
+
+  /**
+   * @description Check if the account on the case has changed
+   * @param records New record instances to process
+   * @param oldCaseMap Old case map
+   * @return Boolean if a case's account id has changed
+   */
+  public static Boolean hasAccountUpdated(
+    List<Case> records,
+    Map<Id, Case> oldCaseMap
+  ) {
+    for (Case record : (List<Case>) records) {
+      if (record.AccountId != oldCaseMap.get(record.Id).AccountId) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

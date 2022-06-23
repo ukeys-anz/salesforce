@@ -82,7 +82,11 @@ public with sharing class TotalBalanceControllerTest {
 
       AggregateResult result = TotalBalanceController.getTotalBalance(accnt.Id);
 
-      System.assertEquals(600, result.get('totalBalance'));
+      System.assertEquals(
+        600,
+        result.get('totalBalance'),
+        'Total balance should be as expected.'
+      );
 
       Test.stopTest();
     }
@@ -107,6 +111,10 @@ public with sharing class TotalBalanceControllerTest {
 
     Test.stopTest();
 
-    System.assertEquals(400, result.get('totalSaved'));
+    System.assertEquals(
+      400,
+      result.get('totalSaved'),
+      'Total saved should be as expected.'
+    );
   }
 }

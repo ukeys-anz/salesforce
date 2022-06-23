@@ -1,0 +1,101 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "beforeLoad": [
+    {
+      "apply": "waitFor",
+      "args": [
+        {
+          "type": "function",
+          "predicate": [
+            {
+              "element": "root",
+              "apply": "isVisible"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "name": "homePage",
+      "selector": {
+        "css": ".active.lafPageHost .folderNavigator"
+      },
+      "elements": [
+        {
+          "name": "header",
+          "selector": {
+            "css": ".slds-page-header"
+          },
+          "elements": [
+            {
+              "name": "platformActions",
+              "selector": {
+                "css": ".platform-actions"
+              },
+              "public": true
+            }
+          ]
+        },
+        {
+          "name": "centerRegion",
+          "selector": {
+            "css": ".centerRegion"
+          },
+          "elements": [
+            {
+              "name": "sidebarContainer",
+              "selector": {
+                "css": ".sidebarContainer"
+              },
+              "elements": [
+                {
+                  "name": "allReportsButton",
+                  "selector": {
+                    "css": "a[title='All Reports']"
+                  },
+                  "type": "clickable"
+                }
+              ]
+            },
+            {
+              "name": "listViewContainer",
+              "selector": {
+                "css": ".listViewContainer"
+              },
+              "elements": [
+                {
+                  "name": "reportsList",
+                  "selector": {
+                    "css": "lightning-datatable"
+                  },
+                  "type": "salesforce-pageobjects/lightning/pageObjects/datatable",
+                  "public": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "openAllReports",
+      "compose": [
+        {
+          "element": "centerRegion",
+          "apply": "waitForVisible"
+        },
+        {
+          "element": "allReportsButton",
+          "apply": "click"
+        }
+      ]
+    }
+  ]
+}

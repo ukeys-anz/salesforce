@@ -10,7 +10,11 @@ class FakerTest {
   static void testInitialize() {
     Test.startTest();
     Faker faker = new Faker('US');
-    System.assertNotEquals(null, faker.person);
+    System.assertNotEquals(
+      null,
+      faker.person,
+      'Faker should generate correct information'
+    );
     Test.stopTest();
   }
 }
