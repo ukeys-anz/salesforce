@@ -36,7 +36,6 @@ public with sharing class AccountCommonActions {
    * @description createEntitlement is called to create an entitlement for the account
    * @param records The Account records passed from Trigger.new()
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void createEntitlement(List<Account> records) {
     List<Entitlement> entitlementList = new List<Entitlement>();
 
@@ -78,7 +77,7 @@ public with sharing class AccountCommonActions {
    * @param records The Account records passed from Trigger.new()
    * @param oldMap old trigger values
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation, PMD.CyclomaticComplexity')
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public static void updateEntitlement(
     List<Account> records,
     Map<Id, SObject> oldMap
@@ -153,7 +152,6 @@ public with sharing class AccountCommonActions {
     }
   }
 
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   private static String getSLAId(String processName, String cacheName) {
     String slaId = (String) Cache.Org.get('local.Utility.' + cacheName);
     if (slaId != null) {
@@ -233,7 +231,6 @@ public with sharing class AccountCommonActions {
      * @description convertLeads convert leads into their matching accounts
      * @param matchingLeadsByAccIdMap A map fo leads to be converted and their corresponding account Ids
      */
-    @SuppressWarnings('PMD.ApexCRUDViolation')
     private void convertLeads(Map<Id, List<Lead>> matchingLeadsByAccIdMap) {
       convertedAccountIds = matchingLeadsByAccIdMap.keySet();
       List<Database.LeadConvert> converts = new List<Database.LeadConvert>();

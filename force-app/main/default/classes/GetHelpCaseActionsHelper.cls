@@ -166,9 +166,6 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param bugIdSet a list of cases that we need to check for bugs
    * @return list of reported bugs
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) // Already check for CRUD permissions in the parent method
   public static List<Reported_Bug__c> getReportedBugs(Set<Id> bugIdSet) {
     return [
       SELECT Id, (SELECT Id FROM Cases__r)
@@ -204,9 +201,6 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param name name of the entitilement
    * @return list of account ids
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) // Already check for CRUD permission in the parent method
   public static List<Entitlement> getEntitlements(
     List<Id> accountIds,
     String name

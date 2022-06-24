@@ -23,7 +23,6 @@ public with sharing class RequestUtils {
    * @param ocvID Customer OCV ID
    * @param requestMethod HTTP request method
    */
-  @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
   public static void setAuthHeaders(
     HttpRequest request,
     String ocvID,

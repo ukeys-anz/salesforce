@@ -345,7 +345,6 @@ public with sharing class GetHelpCaseActions {
    * @param records new trigger case records to calculate rollups for
    * @param oldRecords old trigger case records to calculate rollups for
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void rollupRelatedBug(
     List<Case> records,
     List<Case> oldRecords
@@ -378,7 +377,6 @@ public with sharing class GetHelpCaseActions {
    * @param bugIdSet set of salesforce bug id's to recalculate
    */
   @future
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void futureRollupRelatedBug(Set<Id> bugIdSet) {
     List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
     if (

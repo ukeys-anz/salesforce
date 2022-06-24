@@ -120,9 +120,6 @@ public with sharing class NewCaseFlowWrapperController {
    * @description Get available record types for Case object
    * @return Serialized string of a list of record types
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) // Already check accessibility below but somehow PMD did not pick up
   @AuraEnabled
   public static String getCaseRecordTypes() {
     List<String> recordTypesToExcl = new List<String>();

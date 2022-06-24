@@ -602,7 +602,6 @@ public with sharing class IDRCaseActions {
    * If in the meanwhile if A has moved to division3 and owner is changed back from B to A we can only hold Division3 in Office field
    * @param cases cases to handle the owner changes
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   private static void handleOfficeAssignment(List<Case> cases) {
     if (caseOwnerIds.isEmpty()) {
       return;

@@ -53,7 +53,7 @@ public with sharing class AccountCommonActionsHelper {
    * @param newRecs The account records from Trigger.new()
    * @return Map<Id, List<Lead>> A map fo leads to be converted and their corresponding account Ids
    */
-  @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ApexCRUDViolation')
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public static Map<Id, List<Lead>> findMatchingLeads(List<Account> newRecs) {
     Map<String, Account> accountByMobileMap = new Map<String, Account>();
     Map<String, Account> accountByEmailMap = new Map<String, Account>();
@@ -180,7 +180,6 @@ public with sharing class AccountCommonActionsHelper {
      * @param emailSet A set of emails from accounts
      * @return A list of potenital matching leads
      */
-    @SuppressWarnings('PMD.ApexCRUDViolation')
     private List<Lead> getPotentialMatchingLeads(
       Set<String> mobileSet,
       Set<String> emailSet

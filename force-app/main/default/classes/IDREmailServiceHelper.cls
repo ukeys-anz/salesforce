@@ -5,7 +5,7 @@
  * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDREmailServiceHelper {
-  @SuppressWarnings('PMD.ExcessiveParameterList, PMD.ApexCRUDViolation')
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   /**
    * @description Creates a new case
    * @param email Inbound email object
@@ -85,7 +85,6 @@ public with sharing class IDREmailServiceHelper {
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void createEmailMessage(
     Messaging.InboundEmail email,
     Id caseId
@@ -286,7 +285,6 @@ public with sharing class IDREmailServiceHelper {
    * @param type The type of group
    * @param queueName The name of queue
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void updateCaseWithQueue(
     Case newCase,
     String type,

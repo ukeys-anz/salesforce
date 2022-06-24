@@ -477,9 +477,6 @@ public with sharing class IDRCollectionActions {
    * @param caseIds list of case ids
    * @return startCollectionMap start collection map
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //Apex CRUD validation already added below
   public static Map<String, Set<Id>> getStartCollectionMap(
     Set<String> collectionAcctsList,
     List<Id> caseIds

@@ -3,7 +3,6 @@
  * @since  March 2021
  * @description This class is called as a wrapper for all the case queries
  */
-@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class CaseQueryHelper {
   /**
    * @description findChatCaseByCaseId is to query cases based on Id

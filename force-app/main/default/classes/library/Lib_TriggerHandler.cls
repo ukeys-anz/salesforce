@@ -27,7 +27,7 @@
  * @group Library
  * Suppressing warning for CyclomaticComplexity as this class has a method to check current Trigger Context
  */
-@SuppressWarnings('PMD.EmptyStatementBlock, PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public virtual with sharing class Lib_TriggerHandler {
   /**
    * @description Provides access to the data represented by this domain class

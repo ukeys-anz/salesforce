@@ -1,9 +1,9 @@
 /**
  * @author Peter Charalambous
  * @since 2020
- * @description Forge Token Handler. Suppressing warning for ApexSuggestUsingNamedCred as we need token from cache
+ * @description Forge Token Handler.
  */
-@SuppressWarnings('PMD.ApexSuggestUsingNamedCred, PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class ForgeTokenHandler {
   /**
    * @description Retrieve the Forge JWT token from cache or make request for new token

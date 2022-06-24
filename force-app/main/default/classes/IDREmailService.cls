@@ -5,7 +5,7 @@
  *               from IDREmailService email services.
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.AvoidGlobalModifier, PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity')
 global with sharing class IDREmailService implements Messaging.InboundEmailHandler {
   /**
    * @description handles the inbound email from IDREmailService
