@@ -72,6 +72,29 @@ public with sharing class EventHelper {
   }
 
   /**
+   * @description returns Events related to a set of WhatIds
+   * @param whatIds Set of whatIds
+   * @return List<Event> events that relate to the what Ids
+   */
+  public static List<Event> queryRelatedEvents(Set<Id> whatIds) {
+    List<Event> linkedEvents = new List<Event>();
+    if (Event.SObjectType.getDescribe().isQueryable()) {
+      linkedEvents = [
+        SELECT Id, WhatId, StartDateTime, EndDateTime
+        FROM Event
+        WHERE WhatId IN :whatIds
+      ];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'EventHelper',
+        'queryRelatedEvents',
+        'Not enough permissions to query Events.'
+      );
+    }
+    return linkedEvents;
+  }
+
+  /**
    * @description creates events from Interactions
    * @param interactions List<Interaction> subject from which to create Events
    * @return List<Event> newly created Events.

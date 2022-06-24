@@ -106,24 +106,10 @@ public with sharing class InteractionActions {
       return;
     }
 
-    if (Event.SObjectType.getDescribe().isQueryable()) {
-      List<Event> linkedEvents = [
-        SELECT Id
-        FROM Event
-        WHERE WhatId IN :interactionIds
-      ];
+    List<Event> linkedEvents = EventHelper.queryRelatedEvents(interactionIds);
 
-      if (linkedEvents.isEmpty()) {
-        return;
-      }
-
+    if (!linkedEvents.isEmpty()) {
       EventHelper.deleteEvents(linkedEvents);
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'deleteInteractionEvents',
-        'Not enough permissions to query Events.'
-      );
     }
   }
 
@@ -131,7 +117,6 @@ public with sharing class InteractionActions {
    * @description Assign the ownership of newly created interactions to the Interaction Queue and update status to Unassigned
    * @param interactions List of newly created interactions.
    */
-
   public void updateOwnerNewInteractions(List<Interaction> interactions) {
     for (Interaction interact : interactions) {
       interact.OwnerID = QUEUE_ID;
@@ -196,25 +181,7 @@ public with sharing class InteractionActions {
     for (Interaction interact : interactions) {
       interactionIds.add(interact.Id);
     }
-    if (
-      Event.SObjectType.getDescribe().isAccessible() &&
-      Schema.SObjectType.Event.fields.StartDateTime.isAccessible() &&
-      Schema.SObjectType.Event.fields.EndDateTime.isAccessible() &&
-      Schema.SObjectType.Event.fields.WhatId.isAccessible()
-    ) {
-      eventList = [
-        SELECT Id, WhatId, StartDateTime, EndDateTime
-        FROM Event
-        WHERE WhatId IN :interactionIds
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'getRelatedEvents',
-        'Not enough permissions to query Events.'
-      );
-    }
-    return eventList;
+    return EventHelper.queryRelatedEvents(interactionIds);
   }
 
   /**
@@ -274,36 +241,6 @@ public with sharing class InteractionActions {
   }
 
   /**
-   * @description Get the list of contact requests of those interactions which are cancelled
-   * @param interactions The list of interactions which were cancelled
-   * @return List<ContactRequest> List of ContactRequest records related to the interaction which were cancelled.
-   */
-  public List<ContactRequest> getRelatedContactRequest(
-    List<Interaction> interactions
-  ) {
-    List<ContactRequest> contactRequestList = new List<ContactRequest>();
-    Set<Id> contactRequestIds = new Set<Id>();
-    for (Interaction interact : interactions) {
-      contactRequestIds.add(interact.ContactRequestId__c);
-    }
-
-    if (ContactRequest.SObjectType.getDescribe().isAccessible()) {
-      contactRequestList = [
-        SELECT Id, Appointment_Commitment__c
-        FROM ContactRequest
-        WHERE ID IN :contactRequestIds
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'getRelatedContactRequest',
-        'Not enough permissions to query Contact Request.'
-      );
-    }
-    return contactRequestList;
-  }
-
-  /**
    * @description Goes through a list of Interactions and assigns the current owner of interaction to the coaching summary.
    * @param interactions List<Interaction> list of the interaction through which to iterate.
    * @return List<Coaching_Summary> list of coaching summary records updated with new owner.
@@ -342,20 +279,21 @@ public with sharing class InteractionActions {
   public static void setExternalIds(Set<Id> interactionIds) {
     InteractionActions actions = new InteractionActions();
 
-    if (Interaction.SObjectType.getDescribe().isAccessible()) {
-      List<Interaction> interactions = [
-        SELECT Id, Interaction_External_Id__c, Interaction_Auto_Number__c
-        FROM Interaction
-        WHERE Id IN :interactionIds AND Interaction_External_Id__c = NULL
-      ];
-      actions.setExternalIds(interactions);
-      InteractionDMLHelper.updateInteractions(interactions);
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'setExternalIds',
-        'Not enough permissions to query Interaction.'
-      );
+    List<Interaction> interactions = InteractionDMLHelper.getInteractions(
+      interactionIds
+    );
+    if (!interactions.isEmpty()) {
+      List<Interaction> interactionsToSet = new List<Interaction>();
+      for (Interaction currentInteraction : interactions) {
+        if (currentInteraction.Interaction_External_Id__c == null) {
+          interactionsToSet.add(currentInteraction);
+        }
+      }
+
+      if (!interactionsToSet.isEmpty()) {
+        actions.setExternalIds(interactions);
+        InteractionDMLHelper.updateInteractions(interactions);
+      }
     }
   }
 
@@ -453,7 +391,7 @@ public with sharing class InteractionActions {
         leadIds.add(interact.Lead__c);
       }
     }
-    Map<Id, List<Interaction>> accountInteractionMap = existingInteractions(
+    Map<Id, List<Interaction>> accountInteractionMap = InteractionDMLHelper.getAccountInteractionMap(
       accountIds
     );
     Map<Id, List<Interaction>> leadInteractionMap = existingLeadInteractions(
@@ -483,80 +421,23 @@ public with sharing class InteractionActions {
     }
   }
 
-  /** @description Method to get the list of existing scheduled interactions for the customer
-   * @param accountIds Set of account ids related to the new interactions
-   * @return  Map<Id, List<Interaction>> Map of account ids and list of scheduled interactions creared for the customer
-   */
-  public Map<Id, List<Interaction>> existingInteractions(Set<Id> accountIds) {
-    Map<Id, List<Interaction>> accountInteractionMap = new Map<Id, List<Interaction>>();
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      List<Interaction> interactionsForAccounts = [
-        SELECT
-          Id,
-          AccountId,
-          StartTime,
-          Endtime,
-          OwnerId,
-          Interaction_External_Id__c
-        FROM Interaction
-        WHERE
-          AccountId IN :accountIds
-          AND Status__c IN :InteractionConstants.UNIQUE_STATUSES
-      ];
-
-      for (Interaction interact : interactionsForAccounts) {
-        List<Interaction> tempInteractionList = new List<Interaction>();
-        if (accountInteractionMap.containsKey(interact.AccountId)) {
-          tempInteractionList = accountInteractionMap.get(interact.AccountId);
-        }
-        tempInteractionList.add(interact);
-        accountInteractionMap.put(interact.AccountId, tempInteractionList);
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'existingInteractions',
-        'Not enough permissions to query Interaction object.'
-      );
-    }
-    return accountInteractionMap;
-  }
-
   /** @description Method to get the list of existing scheduled interactions for the lead
    * @param leadIds Set of lead ids related to the new interactions
    * @return  Map<Id, List<Interaction>> Map of lead ids and list of scheduled interactions creared for the customer
    */
   public Map<Id, List<Interaction>> existingLeadInteractions(Set<Id> leadIds) {
     Map<Id, List<Interaction>> leadInteractionMap = new Map<Id, List<Interaction>>();
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      List<Interaction> interactionsForAccounts = [
-        SELECT
-          Id,
-          Lead__c,
-          StartTime,
-          Endtime,
-          OwnerId,
-          Interaction_External_Id__c
-        FROM Interaction
-        WHERE
-          Lead__c IN :leadIds
-          AND Status__c IN :InteractionConstants.UNIQUE_STATUSES
-      ];
+    List<Interaction> interactionsForLeads = InteractionDMLHelper.getInteractionsByLead(
+      leadIds
+    );
 
-      for (Interaction interact : interactionsForAccounts) {
-        List<Interaction> tempInteractionList = new List<Interaction>();
-        if (leadInteractionMap.containsKey(interact.Lead__c)) {
-          tempInteractionList = leadInteractionMap.get(interact.Lead__c);
-        }
-        tempInteractionList.add(interact);
-        leadInteractionMap.put(interact.Lead__c, tempInteractionList);
+    for (Interaction interact : interactionsForLeads) {
+      List<Interaction> tempInteractionList = new List<Interaction>();
+      if (leadInteractionMap.containsKey(interact.Lead__c)) {
+        tempInteractionList = leadInteractionMap.get(interact.Lead__c);
       }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'existingInteractions',
-        'Not enough permissions to query Interaction object.'
-      );
+      tempInteractionList.add(interact);
+      leadInteractionMap.put(interact.Lead__c, tempInteractionList);
     }
     return leadInteractionMap;
   }
@@ -668,30 +549,18 @@ public with sharing class InteractionActions {
     Set<Id> coachIds
   ) {
     Map<Id, List<Interaction>> coachInteractions = new Map<Id, List<Interaction>>();
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      for (Interaction interact : [
-        SELECT Id, AccountId, StartTime, Endtime, OwnerId
-        FROM Interaction
-        WHERE
-          Status__c IN :InteractionConstants.UNIQUE_STATUSES
-          AND OwnerId IN :coachIds
-      ]) {
-        List<Interaction> tempInteractionList = new List<Interaction>();
-        if (coachInteractions.containsKey(interact.OwnerId)) {
-          tempInteractionList = coachInteractions.get(interact.OwnerId);
-        }
-        tempInteractionList.add(interact);
-        coachInteractions.put(interact.OwnerId, tempInteractionList);
+    List<Interaction> leadInteractions = InteractionDMLHelper.existingUniqueInteractions(
+      coachIds
+    );
+    for (Interaction interact : leadInteractions) {
+      List<Interaction> tempInteractionList = new List<Interaction>();
+      if (coachInteractions.containsKey(interact.OwnerId)) {
+        tempInteractionList = coachInteractions.get(interact.OwnerId);
       }
-      return coachInteractions;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'existingInteractions',
-        'Not enough permissions to query Interaction object.'
-      );
+      tempInteractionList.add(interact);
+      coachInteractions.put(interact.OwnerId, tempInteractionList);
     }
-    return null;
+    return coachInteractions;
   }
 
   /** @description Method to identify if the coach has any existing interactions at the same time.
@@ -741,33 +610,12 @@ public with sharing class InteractionActions {
       requestIds.add(currentInteraction.ContactRequestId__c);
     }
 
-    List<ContactRequest> contactRequests = new List<ContactRequest>();
-    if (ContactRequest.SObjectType.getDescribe().isQueryable()) {
-      contactRequests = [
-        SELECT Id, Interaction__c
-        FROM ContactRequest
-        WHERE Id IN :requestIds
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'setInteractionIds',
-        'Not enough permissions to query Contact Request.'
-      );
-      return;
-    }
+    List<ContactRequest> contactRequests = ContactRequestDMLHelper.getContactRequest(
+      requestIds
+    );
     setInteractionIds(contactRequests, interactions);
 
-    if (ContactRequest.SObjectType.getDescribe().isUpdateable()) {
-      update contactRequests;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'setInteractionIds',
-        'Not enough permissions to update Contact Request.'
-      );
-      return;
-    }
+    ContactRequestDMLHelper.updateContactRequests(contactRequests);
   }
 
   /**
@@ -839,21 +687,10 @@ public with sharing class InteractionActions {
       }
     }
     if (!accountIds.isEmpty()) {
-      if (Account.SObjectType.getDescribe().isQueryable()) {
-        result = new Map<Id, Account>(
-          [
-            SELECT Id, Name, PersonContactId, FirstName, PersonEmail
-            FROM Account
-            WHERE Id IN :accountIds
-          ]
-        );
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'ContactRequestActions',
-          'getAccountMapFromInteractions',
-          'Not enough permissions to query Accounts.'
-        );
-      }
+      AccountQueryHelper accountHelper = new AccountQueryHelper();
+      result = new Map<Id, Account>(
+        accountHelper.findAccountsByAccountIds(accountIds)
+      );
     }
     return result;
   }

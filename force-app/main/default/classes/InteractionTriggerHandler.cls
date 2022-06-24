@@ -124,7 +124,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     if (!interactionToDeleteEvents.isEmpty()) {
       actionsForInteractions.deleteInteractionEvents(interactionToDeleteEvents);
-      contactRequestList = actionsForInteractions.getRelatedContactRequest(
+      contactRequestList = InteractionDMLHelper.getRelatedContactRequest(
         cancelledInteractions
       );
     }
@@ -141,7 +141,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     );
 
     if (!rescheduledInteractions.isEmpty()) {
-      rescheduledContactRequestList = actionsForInteractions.getRelatedContactRequest(
+      rescheduledContactRequestList = InteractionDMLHelper.getRelatedContactRequest(
         rescheduledInteractions
       );
     }
