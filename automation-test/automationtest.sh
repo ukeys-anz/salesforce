@@ -7,6 +7,7 @@ then
 fi
 
 npm install
+npm install yarn
 
 # below code is used for debugging network traffic
 # sudo tcpdump -s 65535 -w out.pcap &
