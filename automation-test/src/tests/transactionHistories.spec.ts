@@ -1,10 +1,10 @@
-import Auth from "common/Auth";
-import TransactionHistory from "common/TransactionHistory";
-import { UserRole } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
-import accountData from "data/accountData";
+import Auth from "../common/Auth";
+import TransactionHistory from "../common/TransactionHistory";
+import { UserRole } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import { searchRecordInGlobalSearchAndRedirect } from "../utils/commonUtils";
+import accountData from "../data/accountData";
 
 describe("AR-10299: Salesforce Transaction History", async (): Promise<void> => {
   // pre test steps
@@ -28,7 +28,7 @@ describe("AR-10299: Salesforce Transaction History", async (): Promise<void> => 
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
@@ -67,7 +67,7 @@ describe("AR-10299: Salesforce Transaction History", async (): Promise<void> => 
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
@@ -98,7 +98,7 @@ describe("AR-10299: Salesforce Transaction History", async (): Promise<void> => 
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
@@ -129,11 +129,11 @@ describe("AR-10299: Salesforce Transaction History", async (): Promise<void> => 
 
     it("Login as Quality Analyst", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
-    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
-      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    it("Go to Quality Workbench and Account tab", async (): Promise<void> => {
+      await navigateToAppAndTab(App.Quality_Workbench, AppTab.Accounts);
     });
 
     it("Go to Financial Account", async (): Promise<void> => {

@@ -1,0 +1,16 @@
+{
+  "root": true,
+  "selector": {
+    "css": "body"
+  },
+  "elements": [
+    {
+      "name": "navigationBar",
+      "type": "anzx-utam-force/pageObjects/appNav",
+      "public": true,
+      "selector": {
+        "css": "one-appnav"
+      }
+    }
+  ]
+}

@@ -17,7 +17,7 @@
                 "elements": [
                   {
                     "name": "rowHeaderLookup",
-                    "type": "anzx-utam-force/pageObjects/forceLookup",
+                    "type": "salesforce-pageobjects/force/pageObjects/lookup",
                     "selector": {
                       "css": "force-lookup"
                     },

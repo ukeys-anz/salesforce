@@ -7,35 +7,14 @@ const CLOSED_STATUS_API_NAME = "Closed";
 const DUMMY_RECORD_ID = "5002N00000Dwe1iQAB";
 
 const mockGetCaseRecord = require("./data/getCaseRecord.json");
-
-const oldWindowLocation = window.location;
 const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 
 describe("c-close-complaint test suite", () => {
-  beforeAll(() => {
-    delete window.location;
-
-    window.location = Object.defineProperties(
-      {},
-      {
-        ...Object.getOwnPropertyDescriptors(oldWindowLocation),
-        reload: {
-          configurable: true,
-          value: jest.fn()
-        }
-      }
-    );
-  });
   beforeEach(() => {
-    window.location.reload.mockReset();
     const element = createElement("c-close-complaint", {
       is: CloseComplaintComponent
     });
     document.body.appendChild(element);
-  });
-  afterAll(() => {
-    // restore `window.location` to the `jsdom` `Location` object
-    window.location = oldWindowLocation;
   });
 
   it("Load close complaint page", () => {
@@ -189,10 +168,11 @@ describe("c-close-complaint test suite", () => {
                               );
                               saveButtonElement.click();
                               return Promise.resolve().then(() => {
-                                //When save is successful page gets reloads
-                                expect(
-                                  window.location.reload
-                                ).toHaveBeenCalledTimes(1);
+                                //Save successful without modal being popped up
+                                const modalMessageElement = element.shadowRoot.querySelector(
+                                  ".modalMessage"
+                                );
+                                expect(modalMessageElement).toBeNull();
                               });
                             });
                           });
@@ -342,10 +322,6 @@ describe("c-close-complaint test suite", () => {
                               );
                               saveButtonElement.click();
                               return Promise.resolve().then(() => {
-                                //When save is successful page gets reloads
-                                expect(
-                                  window.location.reload
-                                ).toHaveBeenCalledTimes(0);
                                 const modalMessageElement = element.shadowRoot.querySelector(
                                   ".modalMessage"
                                 );

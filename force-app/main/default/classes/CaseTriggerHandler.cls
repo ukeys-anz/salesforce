@@ -35,6 +35,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
+    GetHelpCaseActions.populateOCVOnComplaint(records);
   }
 
   /**
@@ -77,6 +78,15 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
     GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
+    //Check if the account on the case has updated, if so, update OCV ID
+    if (
+      GetHelpCaseActionsHelper.hasAccountUpdated(
+        records,
+        (Map<Id, Case>) oldMap
+      )
+    ) {
+      GetHelpCaseActions.populateOCVOnComplaint(records);
+    }
   }
 
   /**

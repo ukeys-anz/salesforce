@@ -53,7 +53,7 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
             record.CommentBody +
             '; Reason for logging: User entered long digits without needing to mask'
           );
-          log.insertLogAsync();
+          log.publishEvent();
         }
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);

@@ -1,6 +1,6 @@
-import Survey from "common/Survey";
-import Auth from "common/Auth";
-import { UserRole } from "constants/enums";
+import Survey from "../common/Survey";
+import Auth from "../common/Auth";
+import { UserRole } from "../constants/enums";
 import { APIResult } from "../types/survey";
 import { cleanupTestData } from "../utils/wdioUtils";
 
@@ -11,11 +11,17 @@ describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
     await browser.maximizeWindow();
   });
 
-  beforeEach(async () => {
-    await browser.pause(1000);
+  beforeEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
   });
 
-  describe("AR-11411: Create Survey Response and Automatic Case Creation", async (): Promise<void> => {
+  afterEach(async (): Promise<void> => {
+    await browser.takeScreenshot();
+    await browser.pause(500);
+  });
+
+  describe("AR-13669: Create Survey Response and Automatic Case Creation", async (): Promise<void> => {
     const survey = new Survey();
     let apiResult: APIResult | void;
 
@@ -25,7 +31,7 @@ describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
 
     it("Go to Auto Created Case", async (): Promise<void> => {
       // Login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
 
       // Open case record
       await survey.openCase(apiResult!.CaseId);
@@ -50,7 +56,7 @@ describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
   });
 
   after(async (): Promise<void> => {
-    await cleanupTestData(UserRole.QUALTRICS_AUTOMATION_USER, [
+    await cleanupTestData(UserRole.Qualtrics_Automation_User, [
       "Case",
       "qualtrics__Survey_Response__c"
     ]);

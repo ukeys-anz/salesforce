@@ -2,7 +2,7 @@
   "elements": [
     {
       "name": "detailPanel",
-      "type": "utam-records/pageObjects/lwcDetailPanel",
+      "type": "salesforce-pageobjects/records/pageObjects/lwcDetailPanel",
       "selector": {
         "css": "records-lwc-detail-panel"
       },

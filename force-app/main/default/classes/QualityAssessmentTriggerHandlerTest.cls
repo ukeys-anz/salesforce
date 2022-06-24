@@ -530,6 +530,10 @@ private class QualityAssessmentTriggerHandlerTest {
     Test.startTest();
     try {
       insert newQArecords;
+      System.assert(
+        false,
+        'Failed to prevent against user creating quality assessment.'
+      );
     } catch (Exception e) {
       System.assert(
         e.getMessage()
@@ -542,6 +546,6 @@ private class QualityAssessmentTriggerHandlerTest {
     }
     Test.stopTest();
 
-    System.assert(exceptionWasThrown);
+    System.assert(exceptionWasThrown, 'The exception error should be thrown.');
   }
 }

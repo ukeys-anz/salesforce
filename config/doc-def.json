@@ -364,23 +364,9 @@
       "type": "system"
     },
     {
-      "name": "Support Staff AR&C",
-      "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Support_Staff_ARC"],
-      "permissionsets": ["Enforce_SSO"],
-      "type": "user"
-    },
-    {
       "name": "Support Coach",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Support_Coach"],
-      "permissionsets": ["Enforce_SSO"],
-      "type": "user"
-    },
-    {
-      "name": "Super Support Admin",
-      "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Super_Support_Admin"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },

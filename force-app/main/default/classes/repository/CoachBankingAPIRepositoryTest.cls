@@ -31,8 +31,16 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       );
       Test.stopTest();
 
-      System.assertEquals(2, model.account_list.size());
-      System.assertEquals('000000000', model.account_list[0].account_number);
+      System.assertEquals(
+        2,
+        model.account_list.size(),
+        'Account list size should be as expected.'
+      );
+      System.assertEquals(
+        '000000000',
+        model.account_list[0].account_number,
+        'Account number should be as expected.'
+      );
     }
   }
 
@@ -56,7 +64,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals('Get accounts failed', resultException.getMessage());
+      System.assertEquals(
+        'Get accounts failed',
+        resultException.getMessage(),
+        'Error message should be as expected.'
+      );
     }
   }
 
@@ -85,7 +97,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
     Test.stopTest();
 
-    System.assertEquals(17, transactionModel.embedded.transactions.size());
+    System.assertEquals(
+      17,
+      transactionModel.embedded.transactions.size(),
+      'Transactions size should be as expected.'
+    );
   }
 
   /**
@@ -108,7 +124,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     Test.stopTest();
     System.assertEquals(
       'Get transaction history failed',
-      resultException.getMessage()
+      resultException.getMessage(),
+      'Error message should be as expected.'
     );
   }
 
@@ -137,7 +154,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
     Test.stopTest();
 
-    System.assertEquals(17, transactionModel.embedded.transactions.size());
+    System.assertEquals(
+      17,
+      transactionModel.embedded.transactions.size(),
+      'Transactions size should be as expected.'
+    );
   }
 
   /**
@@ -152,7 +173,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
-      System.assertEquals(5, cardsModel.cards.size());
+      System.assertEquals(
+        5,
+        cardsModel.cards.size(),
+        'The number of cards should be as expected.'
+      );
     }
   }
 
@@ -179,7 +204,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
       System.assertEquals(
         'Card Information is invalid. Please reach out to your system administrator.',
-        resultException.getMessage()
+        resultException.getMessage(),
+        'Error message should be as expected.'
       );
     }
   }
@@ -204,7 +230,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals('Get card list failed', resultException.getMessage());
+      System.assertEquals(
+        'Get card list failed',
+        resultException.getMessage(),
+        'Error message should be as expected.'
+      );
     }
   }
 
@@ -217,7 +247,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       String replaceNumber = coachAPI.replaceCard('1111', '1234', 'stolen');
       Test.stopTest();
 
-      System.assertEquals('9741329257534100', replaceNumber);
+      System.assertEquals(
+        '9741329257534100',
+        replaceNumber,
+        'Replace number should be as expected.'
+      );
     }
   }
 
@@ -237,7 +271,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       } catch (CoachBankingAPIRepository.InvalidInformationException e) {
         errorMsg = e.getMessage();
       }
-      System.assertEquals('The replace reason is not valid.', errorMsg);
+      System.assertEquals(
+        'The replace reason is not valid.',
+        errorMsg,
+        'Error message should be as expected.'
+      );
       Test.stopTest();
     }
   }
@@ -258,7 +296,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals('Replace card failed', resultException.getMessage());
+      System.assertEquals(
+        'Replace card failed',
+        resultException.getMessage(),
+        'Error message should be as expected.'
+      );
     }
   }
 
@@ -327,7 +369,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '');
       Test.stopTest();
 
-      System.assertEquals(7, response.account_buckets.size());
+      System.assertEquals(
+        7,
+        response.account_buckets.size(),
+        'Response account buckets size should be as expected.'
+      );
     }
   }
 
@@ -353,7 +399,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       Test.stopTest();
       System.assertEquals(
         'Get account buckets failed',
-        resultException.getMessage()
+        resultException.getMessage(),
+        'Error message should be as expected.'
       );
     }
   }

@@ -53,7 +53,8 @@ public class TestContentDocumentTriggerHandler {
     } catch (Exception e) {
       System.assertEquals(
         e.getMessage().contains(IDRConstants.RESTRICTED_ACTION_MESSAGE),
-        true
+        true,
+        'Error message should be as expected.'
       );
     }
   }

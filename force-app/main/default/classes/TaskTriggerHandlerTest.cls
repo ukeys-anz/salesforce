@@ -168,7 +168,11 @@ private class TaskTriggerHandlerTest {
         AND WhatId = :standardComplaint.Id
     ];
 
-    system.assertEquals('Expired', checkTask.Status);
+    system.assertEquals(
+      'Expired',
+      checkTask.Status,
+      'Status should be as expected.'
+    );
   }
 
   @isTest
@@ -212,8 +216,16 @@ private class TaskTriggerHandlerTest {
         AND Status = 'Open'
     ];
     //THEN they are automatically assigned to STOP or START collections queue
-    system.assertEquals(IDRTaskActions.stopQueue.Id, taskList[0].OwnerId);
-    system.assertEquals(IDRTaskActions.startQueue.Id, taskList[1].OwnerId);
+    system.assertEquals(
+      IDRTaskActions.stopQueue.Id,
+      taskList[0].OwnerId,
+      'Task owner should be as expected.'
+    );
+    system.assertEquals(
+      IDRTaskActions.startQueue.Id,
+      taskList[1].OwnerId,
+      'Task owner should be as expected.'
+    );
   }
 
   @isTest

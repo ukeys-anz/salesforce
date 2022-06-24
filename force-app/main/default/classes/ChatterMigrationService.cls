@@ -35,6 +35,12 @@ public with sharing class ChatterMigrationService {
         throw error;
       }
 
+      if (survivorAccountId == victimAccountId) {
+        errorString = 'The Surviving ID and Victim ID shoud not be the same';
+        error.setMessage(errorString);
+        throw error;
+      }
+
       lib_systemLog log = new lib_systemLog(
         ChatterMigrationService.class.getName(),
         'ChatterMigrationService Found Accounts'
@@ -63,7 +69,7 @@ public with sharing class ChatterMigrationService {
       if (items.size() == 0) {
         log.info(
           String.format(
-            'Not chatter items to migrate from {0} to {1}',
+            'No chatter items to migrate from {0} to {1}',
             new List<String>{ victimAccountId, survivorAccountId }
           )
         );

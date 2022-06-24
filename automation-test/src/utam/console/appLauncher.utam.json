@@ -50,7 +50,7 @@
               "elements": [
                 {
                   "name": "oneAppLauncherSearchBarInput",
-                  "type": "utam-lightning/pageObjects/input",
+                  "type": "salesforce-pageobjects/lightning/pageObjects/input",
                   "selector": {
                     "css": "lightning-input"
                   }
@@ -59,21 +59,52 @@
             }
           },
           {
-            "name": "oneApplauncherMenuItem",
+            "name": "appSearchResults",
             "selector": {
-              "css": "one-app-launcher-menu-item"
+              "css": "h3:nth-of-type(1) + div[role='listbox']"
             },
-            "shadow": {
-              "elements": [
-                {
-                  "name": "appLink",
-                  "selector": {
-                    "css": "[role='option']"
-                  },
-                  "type": "clickable"
+            "elements": [
+              {
+                "name": "appResult",
+                "nullable": true,
+                "selector": {
+                  "css": "one-app-launcher-menu-item"
+                },
+                "public": true,
+                "type": "anzx-utam-force/pageObjects/oneAppLauncherMenuItem"
+              },
+              {
+                "name": "noAppResultsMessage",
+                "nullable": true,
+                "selector": {
+                  "css": "p"
                 }
-              ]
-            }
+              }
+            ]
+          },
+          {
+            "name": "itemSearchResults",
+            "selector": {
+              "css": "h3:nth-of-type(2) + div[role='listbox']"
+            },
+            "elements": [
+              {
+                "name": "itemResult",
+                "nullable": true,
+                "selector": {
+                  "css": "one-app-launcher-menu-item"
+                },
+                "public": true,
+                "type": "anzx-utam-force/pageObjects/oneAppLauncherMenuItem"
+              },
+              {
+                "name": "noItemResultsMessage",
+                "nullable": true,
+                "selector": {
+                  "css": "p"
+                }
+              }
+            ]
           }
         ]
       }
@@ -123,18 +154,18 @@
       ]
     },
     {
-      "name": "searchApp",
+      "name": "search",
       "compose": [
         {
           "element": "oneAppLauncherSearchBarInput",
-          "returnType": "utam-lightning/pageObjects/input"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/input"
         },
         {
           "chain": true,
           "apply": "setText",
           "args": [
             {
-              "name": "appName",
+              "name": "searchText",
               "type": "string"
             }
           ]
@@ -145,7 +176,16 @@
       "name": "selectAppAndRedirect",
       "compose": [
         {
-          "element": "appLink",
+          "element": "appResult",
+          "apply": "click"
+        }
+      ]
+    },
+    {
+      "name": "selectItemAndRedirect",
+      "compose": [
+        {
+          "element": "itemResult",
           "apply": "click"
         }
       ]
@@ -165,6 +205,24 @@
         {
           "element": "consoleAppContainer",
           "apply": "isPresent"
+        }
+      ]
+    },
+    {
+      "name": "getNoAppResultsMessage",
+      "compose": [
+        {
+          "element": "noAppResultsMessage",
+          "apply": "getText"
+        }
+      ]
+    },
+    {
+      "name": "getNoItemResultsMessage",
+      "compose": [
+        {
+          "element": "noItemResultsMessage",
+          "apply": "getText"
         }
       ]
     }

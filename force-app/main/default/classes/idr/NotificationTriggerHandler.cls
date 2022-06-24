@@ -5,15 +5,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class NotificationTriggerHandler extends Lib_TriggerHandler {
-  private static final Map<String, String> TEMPLATE_ID_MAP = new Map<String, String>{
-    IDRConstants.OPEN_STATUS => 'AgCaseOpen',
-    IDRConstants.UNDER_INVESTIGATION_STATUS => 'AgCaseUdInvest',
-    IDRConstants.ESCALATED_STATUS => 'AgCaseEsclt',
-    IDRConstants.REOPENED_STATUS => 'AgCaseReopen',
-    IDRConstants.PROVISIONALLY_CLOSED_STATUS => 'AgCaseProvisClosed',
-    IDRConstants.CLOSED_STATUS => 'AgCaseClosed',
-    IDRConstants.WITHDRAWN_STATUS => 'AgCaseWthdrwn'
-  };
   public static List<IDR_Notification_Event__e> idrNotifications;
   private static IDR_Notification_Hours__c nHours;
   private static List<Notification_Handler__c> notificationList;

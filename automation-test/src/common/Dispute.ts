@@ -1,7 +1,8 @@
-import { TransactionType } from "constants/enums";
+import { TransactionType } from "../constants/enums";
 import RecordPage from "pageObjects/recordPage";
 import FinancialAccountTab from "pageObjects/financialAccountTab";
-import * as commonUtils from "utils/commonUtils";
+import * as commonUtils from "../utils/commonUtils";
+import TransactionHistoryRecord from "pageObjects/lwcTransactionHistoryRecord";
 
 export default class Dispute {
   protected readonly userRole: string;
@@ -12,7 +13,9 @@ export default class Dispute {
     this.transactionType = transactionType;
   }
 
-  async raiseDispute(): Promise<void> {
+  async getTransactionHistoryRecordByType(
+    transactionType: TransactionType = this.transactionType
+  ): Promise<TransactionHistoryRecord | null> {
     // load Financial Account flexi page
     const recordPageRoot = await utam.load(RecordPage);
     const financialAccountRecordPage =
@@ -33,15 +36,27 @@ export default class Dispute {
       const board = await financialAccount.getTransactionHistoryBoard();
 
       // get a transaction history record of type
-      const record = await board.getTransactionHistoryRecordOfType(
-        this.transactionType
+      const record = await board.getTransactionHistoryRecordByType(
+        transactionType
       );
 
-      // click Raise Dispute button
-      await record.raiseDispute();
-
-      // wait window load case creation form
-      await browser.pause(3000);
+      return record;
     }
+
+    return null;
+  }
+
+  async raiseDispute(
+    transactionType: TransactionType = this.transactionType
+  ): Promise<void> {
+    const record = await this.getTransactionHistoryRecordByType(
+      transactionType
+    );
+
+    // click Raise Dispute button
+    await record!.raiseDispute();
+
+    // wait window load case creation form
+    await browser.pause(3000);
   }
 }

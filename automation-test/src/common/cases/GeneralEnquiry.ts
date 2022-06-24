@@ -1,18 +1,18 @@
 import RecordCreationForm from "pageObjects/recordCreationForm";
 import CaseCallsTab from "pageObjects/caseCallsTab";
 import CaseNotesTab from "pageObjects/caseNotesTab";
-import CaseType from "constants/case/caseType";
-import { OwnerType } from "constants/enums";
+import CaseType from "../../constants/case/caseType";
+import { OwnerType } from "../../constants/enums";
 import Case from "./Case";
-import IChatter from "interfaces/IChatter";
-import * as commonUtils from "utils/commonUtils";
-import * as creationFormUtils from "utils/creationFormUtils";
-import * as casePageUtils from "utils/casePageUtils";
+import IChatter from "../../interfaces/IChatter";
+import * as commonUtils from "../../utils/commonUtils";
+import * as creationFormUtils from "../../utils/creationFormUtils";
+import * as casePageUtils from "../../utils/casePageUtils";
 import * as faker from "faker";
-import { FieldDefinition } from "types/field";
-import { FieldSectionIndex } from "types/layout";
-import CaseFields from "constants/case/caseFields";
-import IAssignNewOwner from "interfaces/IAssignNewOwner";
+import { FieldDefinition } from "../../types/field";
+import { FieldSectionIndex } from "../../types/layout";
+import CaseFields from "../../constants/case/caseFields";
+import IAssignNewOwner from "../../interfaces/IAssignNewOwner";
 
 const generalComment = `Automation Test @ ${new Date().toLocaleString()}.`;
 
@@ -89,8 +89,7 @@ export default class GeneralEnquiry
       [2, 4, 2],
       [2, 5]
     );
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
   }
 
   async updateCallDetails(): Promise<void> {
@@ -129,13 +128,10 @@ export default class GeneralEnquiry
   }
 
   async close(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
     // Status
     // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 6);
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    const statusFieldIndex: FieldSectionIndex = [2, 3, 2];
+    const closedOptionIndex = 6;
+    await casePageUtils.closeCase(statusFieldIndex, closedOptionIndex);
   }
 }
