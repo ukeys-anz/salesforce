@@ -1,13 +1,13 @@
-import BaseRecordForm from "pageObjects/baseRecordForm";
+import BaseRecordForm from "@salesforce-pageobjects/records/pageObjects/baseRecordForm";
 import ObjectHome from "pageObjects/objectHome";
-import RecordLayout from "pageObjects/lwcRecordLayout";
-import RecordLayoutItem from "pageObjects/recordLayoutItem";
+import RecordLayout from "@salesforce-pageobjects/records/pageObjects/lwcRecordLayout";
+import RecordLayoutItem from "@salesforce-pageobjects/records/pageObjects/recordLayoutItem";
 import ChangeOwnerModal from "pageObjects/changeOwnerModal";
 import GlobalSearch from "pageObjects/globalSearch";
-import Tabset2 from "pageObjects/tabset2";
-import { FieldSectionIndex, PicklistOptionIndexRange } from "types/layout";
+import Tabset2 from "@salesforce-pageobjects/flexipage/pageObjects/tabset2";
+import { FieldSectionIndex, PicklistOptionIndexRange } from "../types/layout";
 import * as faker from "faker";
-import { SObject, OwnerType } from "constants/enums";
+import { SObject, OwnerType } from "../constants/enums";
 import { UtamBasePageObject } from "utam";
 import { ContainerCtor } from "@utam/core";
 import * as casePageUtils from "./casePageUtils";
@@ -34,13 +34,28 @@ export const getFieldFromRecordLayout = async (
  * @param recordLayout record layout
  * @param fieldSectionIndex index array to define a field position on layout
  * @param picklistOptionIndexRange picklist item indexes range
+ * @param currentLayoutMode if inlineEditButton has been clicked or not to trigger edit layout
  */
 export const selectPicklistOnRecordLayout = async (
   recordLayout: RecordLayout,
   fieldSectionIndex: FieldSectionIndex,
-  picklistOptionIndexRange: PicklistOptionIndexRange
+  picklistOptionIndexRange: PicklistOptionIndexRange,
+  currentLayoutMode?: "view" | "edit"
 ): Promise<void> => {
   const field = await getFieldFromRecordLayout(recordLayout, fieldSectionIndex);
+
+  const fieldRoot = await field.getRoot();
+  await fieldRoot.scrollToCenter();
+
+  //TODO: salesforce-pageobjects v1.1.0 has a bug with getInlineEditButton
+  // comment below line out and refactor code till the bug fix
+
+  if (currentLayoutMode !== "edit") {
+    await field.edit();
+    await browser.pause(5000);
+  }
+
+  /** 
   const fieldInlineEditButton = await field.getInlineEditButton();
 
   // decide if it's in view mode or creation mode
@@ -48,12 +63,14 @@ export const selectPicklistOnRecordLayout = async (
     await fieldInlineEditButton.click();
     await browser.pause(2000);
   }
-
+  */
   // click picklist and get selection items list
-  const picklist = await field.getPicklist();
+  const recordPicklist = await field.getRecordPicklist();
+  const formPicklist = await recordPicklist!.getFormPicklist();
+  const picklist = await formPicklist.getPicklist();
   const combobox = await picklist.getComboBox();
-  const baseCombobox = await combobox?.getBase();
-  await baseCombobox?.expandForDisabledInput();
+  const baseCombobox = await combobox!.getBase();
+  await baseCombobox.expandForDisabledInput();
 
   let itemIndex: PicklistOptionIndexRange;
 
@@ -72,6 +89,18 @@ export const selectPicklistOnRecordLayout = async (
   const item = await baseCombobox?.getItem(itemIndex);
   await item?.clickItem();
   await browser.pause(1000);
+};
+
+export const clickFormFooterButtonByTitle = async (
+  buttonTitle: string,
+  baseRecordForm: BaseRecordForm
+): Promise<void> => {
+  await browser.pause(1000);
+  const footer = await baseRecordForm.getFooter();
+  const actionsRibbon = await footer.getActionsRibbon();
+  const action = await actionsRibbon.getActionRendererWithTitle(buttonTitle);
+  await action.clickButton();
+  await browser.pause(3000);
 };
 
 /**
@@ -113,8 +142,10 @@ export const assignNewOwner = async (
       ownerFieldIndex
     );
 
-    // click change owner button
-    await ownerField.clickChangeOwnerButton();
+    const ownerLookup = await ownerField.getOwnerLookup();
+    const changeOwnerIcon = await ownerLookup.getChangeOwnerIcon();
+    await changeOwnerIcon.clickButton();
+    await browser.pause(6000);
     await searchAndSelectNewOwner(ownerType, newOwnerName);
   }
 };
@@ -131,21 +162,20 @@ export const searchAndSelectNewOwner = async (
   // load change owner modal
   const changeOwnerModalRoot = await utam.load(ChangeOwnerModal);
 
-  await browser.pause(1000);
   await changeOwnerModalRoot.clickOwnerTypeDropDown();
-  await browser.pause(1000);
+  await browser.pause(1500);
   await changeOwnerModalRoot.selectOwnerType(ownerType);
-  await browser.pause(1000);
+  await browser.pause(1500);
   await changeOwnerModalRoot.clickSearchBox();
-  await browser.pause(1000);
+  await browser.pause(1500);
   await changeOwnerModalRoot.search(newOwnerName);
-  await browser.pause(1000);
+  await browser.pause(1500);
   await changeOwnerModalRoot.selectUser(newOwnerName);
-  await browser.pause(1000);
+  await browser.pause(1500);
   await changeOwnerModalRoot.save();
 
   // wait for page reload
-  await browser.pause(3000);
+  await browser.pause(5000);
 };
 
 /**
@@ -157,9 +187,9 @@ export const searchRecordInGlobalSearchAndRedirect = async (
 ): Promise<void> => {
   const globalSearchRoot = await utam.load(GlobalSearch);
   const resultList = await globalSearchRoot.search(searchTerm);
-  await browser.pause(1000);
+  await browser.pause(2000);
   await resultList.selectFirstResult();
-  await browser.pause(3000);
+  await browser.pause(5000);
 };
 
 /**
@@ -225,4 +255,28 @@ export const searchAndOpenListViewByName = async (listViewName: string) => {
   await browser.pause(1000);
   await objectHomeRoot.openListView();
   await browser.pause(1000);
+};
+
+export const openListViewByIndex = async (index: number) => {
+  const objectHomeRoot = await utam.load(ObjectHome);
+  const listViewSelector = await objectHomeRoot.getListViewSelector();
+  await listViewSelector.click();
+  await browser.pause(2000);
+  const allListViews = await objectHomeRoot.getListViews();
+  await allListViews[index].click();
+};
+
+export const openFirstRecordInListView = async () => {
+  const objectHomeRoot = await utam.load(ObjectHome);
+  await objectHomeRoot.openFirstRow();
+  await browser.pause(1000);
+};
+
+export const editButtonIsNotVisible = async (
+  recordLayout: RecordLayout,
+  fieldIndex: FieldSectionIndex
+) => {
+  const fieldToCheck = await getFieldFromRecordLayout(recordLayout, fieldIndex);
+  const fieldIsEditable = await fieldToCheck.getInlineEditButton();
+  expect(await fieldIsEditable?.isVisible()).toBeUndefined();
 };

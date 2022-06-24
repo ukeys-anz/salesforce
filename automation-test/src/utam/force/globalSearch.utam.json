@@ -37,7 +37,7 @@
         {
           "name": "lightningInput",
           "public": true,
-          "type": "utam-lightning/pageObjects/input",
+          "type": "salesforce-pageobjects/lightning/pageObjects/input",
           "selector": {
             "css": "lightning-input"
           }

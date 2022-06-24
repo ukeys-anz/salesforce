@@ -87,6 +87,11 @@ public with sharing class GetHelpConstants {
     .get('PersonAccount')
     .getRecordTypeId();
 
+  // Case - Non Customer Complaint
+  public static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Non_Customer_Complaint')
+    .getRecordTypeId();
+
   // Interactions - Appointment Interaction RT Id
   public static final Id INTERACTION_APPT_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('Appointment')

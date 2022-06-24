@@ -9,7 +9,7 @@
         "elements": [
           {
             "name": "publishButton",
-            "type": "utam-lightning/pageObjects/button",
+            "type": "salesforce-pageobjects/lightning/pageObjects/button",
             "selector": {
               "css": "lightning-button:nth-of-type(2)"
             }
@@ -24,7 +24,7 @@
       "compose": [
         {
           "element": "publishButton",
-          "returnType": "utam-lightning/pageObjects/button"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/button"
         },
         {
           "chain": true,

@@ -1468,15 +1468,25 @@
         <endAddress>52.8.140.255</endAddress>
         <startAddress>52.8.140.255</startAddress>
     </loginIpRanges>
-     <loginIpRanges>
+    <loginIpRanges>
         <description>Mvision</description>
         <endAddress>52.62.169.21</endAddress>
         <startAddress>52.62.169.21</startAddress>
     </loginIpRanges>
-     <loginIpRanges>
+    <loginIpRanges>
         <description>Mvision</description>
         <endAddress>54.79.123.149</endAddress>
         <startAddress>54.79.123.149</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>34.87.223.167</endAddress>
+        <startAddress>34.87.223.167</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>34.87.246.15</endAddress>
+        <startAddress>34.87.246.15</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>
@@ -1494,9 +1504,29 @@
         <startAddress>34.215.230.220</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>35.189.27.148</endAddress>
+        <startAddress>35.189.27.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <description>ANZ Proxy required for Mvision</description>
         <endAddress>203.110.235.1</endAddress>
         <startAddress>203.110.235.1</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - IDM</description>
+        <endAddress>35.189.57.116</endAddress>
+        <startAddress>35.189.57.116</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - SH loadbalancer</description>
+        <endAddress>35.241.4.34</endAddress>
+        <startAddress>35.241.4.34</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>35.244.124.52</endAddress>
+        <startAddress>35.244.124.52</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Mvision</description>

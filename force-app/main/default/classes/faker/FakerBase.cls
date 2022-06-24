@@ -978,9 +978,7 @@ public with sharing virtual class FakerBase {
       Decimal subDecimal = Decimal.valueOf(
         stringDecimal.substring(0, (decimals + 1))
       );
-      randomDecimal =
-        randomDecimal /
-        Decimal.valueOf(stringDecimal.substring(0, (decimals + 1)));
+      randomDecimal = randomDecimal / subDecimal;
       result += randomDecimal;
     }
     return result;

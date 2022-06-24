@@ -42,10 +42,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>16</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>17</fullName>
             <default>false</default>
         </values>
@@ -78,10 +74,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>24</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>25</fullName>
             <default>false</default>
         </values>
@@ -91,10 +83,6 @@
         </values>
         <values>
             <fullName>27</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>28</fullName>
             <default>false</default>
         </values>
         <values>
@@ -115,10 +103,6 @@
         </values>
         <values>
             <fullName>32</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>33</fullName>
             <default>false</default>
         </values>
         <values>
@@ -186,6 +170,10 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -273,10 +261,6 @@
         </values>
         <values>
             <fullName>117</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>118</fullName>
             <default>false</default>
         </values>
         <values>
@@ -588,43 +572,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>189</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>19</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>190</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>191</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>192</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>193</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>194</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>195</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>196</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>197</fullName>
             <default>false</default>
         </values>
         <values>
@@ -729,10 +677,6 @@
         </values>
         <values>
             <fullName>42</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>43</fullName>
             <default>false</default>
         </values>
         <values>

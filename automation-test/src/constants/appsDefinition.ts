@@ -9,7 +9,11 @@ export const enum AppTab {
   Cases = "Cases",
   Accounts = "Accounts",
   Knowledge = "Knowledge",
-  Leads = "Leads"
+  Survey_Responses = "Survey Responses",
+  Leads = "Leads",
+  Reports = "Reports",
+  Analytics = "Analytics",
+  Financial_Accounts = "Financial Accounts"
 }
 
 export default new Map<string, { name: string; type: "Console" | "Standard" }>([

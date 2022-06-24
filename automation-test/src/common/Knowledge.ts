@@ -5,12 +5,12 @@ import ArticleCategoriesEditorModal from "pageObjects/articleCategoriesEditorMod
 import ContentWorkbenchHomePage from "pageObjects/contentWorkbenchHomePage";
 import BodyTextEditor from "pageObjects/bodyTextEditor";
 import KnowledgeModal from "pageObjects/knowledgeModal";
-import * as creationFormUtils from "utils/creationFormUtils";
-import { navigateToAppAndTab } from "utils/navigationUtils";
+import * as creationFormUtils from "../utils/creationFormUtils";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
 import * as faker from "faker";
-import { Queue, SObject, SObjectAPIName } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import { FieldDefinition } from "types/field";
+import { Queue, SObject, SObjectAPIName } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import { FieldDefinition } from "../types/field";
 import KnowledgeEditAsDraftModal from "pageObjects/knowledgeEditAsDraftModal";
 
 export default class Knowledge {
@@ -128,6 +128,8 @@ export default class Knowledge {
 
     // verify Approval History
     await knowledgeRecordPage.openApprovalHistoryTab();
+    await browser.pause(2000);
+
     const approvalHistories = await knowledgeRecordPage.getHistories();
     // there should have 2 records
     expect(approvalHistories.length).toEqual(2);
@@ -138,7 +140,7 @@ export default class Knowledge {
 
     // first record Assigned to Content Writers Queue
     expect(await peerReview.getAssignedTo()).toEqual(
-      Queue.CONTENT_WRITERS_QUEUE
+      Queue.Content_Writers_Queue
     );
 
     // second record is Approval Request Submitted
@@ -193,6 +195,7 @@ export default class Knowledge {
 
     // click approval
     await knowledgeRecordPage.openApprovalHistoryTab();
+    await browser.pause(2000);
     await knowledgeRecordPage.clickApproveButton();
     await browser.pause(1000);
 
@@ -215,31 +218,27 @@ export default class Knowledge {
     await knowledgeModalRoot.publish();
     await browser.pause(2000);
 
-    // refresh page to get updated status
-    await browser.refresh();
-    await browser.pause(5000);
-
-    const newRecordPageRoot = await utam.load(RecordPage);
-    const newKnowledgeRecordPage =
-      await newRecordPageRoot.getKnowledgeRecordPage();
-
     // verify Publication Status is Published
-    const status = await newKnowledgeRecordPage.getFieldOutputText(1, 3, 2);
+    const status = await knowledgeRecordPage.getFieldOutputText(1, 3, 2);
     expect(status).toEqual("Published");
   }
 
   async editDraft(): Promise<void> {
+    // refresh page to get updated status
+    await browser.refresh();
+    await browser.pause(5000);
+
     const recordPageRoot = await utam.load(RecordPage);
     const knowledgeRecordPage = await recordPageRoot.getKnowledgeRecordPage();
 
     // click Edit as Draft button on header
     await knowledgeRecordPage.clickHeaderButtonByTitle("Edit as Draft");
-    await browser.pause(1000);
+    await browser.pause(2000);
 
     // click Edit as Draft button in modal
     const knowledgeModalRoot = await utam.load(KnowledgeModal);
     await knowledgeModalRoot.editAsDraft();
-    await browser.pause(2000);
+    await browser.pause(4000);
 
     // page refreshed? and a new modal
     const editAsDraftModalRoot = await utam.load(KnowledgeEditAsDraftModal);

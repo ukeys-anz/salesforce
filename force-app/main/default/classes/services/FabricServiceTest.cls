@@ -23,7 +23,11 @@ public inherited sharing class FabricServiceTest {
     );
     Test.stopTest();
 
-    System.assertEquals(201, response.statusCode);
+    System.assertEquals(
+      201,
+      response.statusCode,
+      'Response statusCode should be as expected.'
+    );
   }
 
   @isTest
@@ -33,7 +37,10 @@ public inherited sharing class FabricServiceTest {
       FabricService.class
     );
     Test.stopTest();
-    System.assert(serviceResult instanceof FabricServiceMock);
+    System.assert(
+      serviceResult instanceof FabricServiceMock,
+      'Service should be instance of FabricServiceMock.'
+    );
   }
 
   @isTest
@@ -49,7 +56,8 @@ public inherited sharing class FabricServiceTest {
     Test.stopTest();
     System.assertEquals(
       'No Service class found called [energy-innovation-1488]',
-      resultException.getMessage()
+      resultException.getMessage(),
+      'Error message should be as expected.'
     );
   }
 
@@ -76,7 +84,11 @@ public inherited sharing class FabricServiceTest {
       ForgeTokenHandlerTest.IDTESTVALUE,
       forgeAuth
     );
-    System.assertNotEquals(null, resp.body);
+    System.assertNotEquals(
+      null,
+      resp.body,
+      'Response body should not be null.'
+    );
   }
 
   @isTest
@@ -89,7 +101,11 @@ public inherited sharing class FabricServiceTest {
 
     Test.setMock(HttpCalloutMock.class, new MockCardListCallout());
     HttpCalloutResponse resp = serviceClass.getCardList('1111');
-    System.assertNotEquals(null, resp.body);
+    System.assertNotEquals(
+      null,
+      resp.body,
+      'Response body should not be null.'
+    );
   }
 
   class MockFabricCallout implements HttpCalloutMock {

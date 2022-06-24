@@ -1,15 +1,14 @@
 import RecordCreationForm from "pageObjects/recordCreationForm";
-import RecordLayout from "pageObjects/lwcRecordLayout";
-import { UserRole, OwnerType } from "constants/enums";
-import CaseType from "constants/case/caseType";
-import CaseFields from "constants/case/caseFields";
-import { FieldSectionIndex } from "types/layout";
-import { FieldDefinition } from "types/field";
+import { UserRole, OwnerType } from "../../constants/enums";
+import CaseType from "../../constants/case/caseType";
+import CaseFields from "../../constants/case/caseFields";
+import { FieldSectionIndex } from "../../types/layout";
+import { FieldDefinition } from "../../types/field";
 import Case from "./Case";
-import * as commonUtils from "utils/commonUtils";
-import * as creationFormUtils from "utils/creationFormUtils";
-import * as casePageUtils from "utils/casePageUtils";
-import IAssignNewOwner from "interfaces/IAssignNewOwner";
+import * as commonUtils from "../../utils/commonUtils";
+import * as creationFormUtils from "../../utils/creationFormUtils";
+import * as casePageUtils from "../../utils/casePageUtils";
+import IAssignNewOwner from "../../interfaces/IAssignNewOwner";
 
 export default class ANZXComplaint extends Case implements IAssignNewOwner {
   static creationFormFieldIndexMap = new Map<string, number>();
@@ -101,51 +100,21 @@ export default class ANZXComplaint extends Case implements IAssignNewOwner {
     const baseRecordForm = (await casePageUtils.getRecordForm())!;
     const recordLayout = await baseRecordForm.getRecordLayout();
 
-    if (this.userRole === UserRole.COACH) {
-      await this.updatePriority(recordLayout, [2, 3, 2]);
-      await baseRecordForm.clickFooterButton("Save");
-    } else if (this.userRole === UserRole.FRAUDX_AGENT) {
-      await this.updatePriority(recordLayout, [2, 2, 2]);
-      await baseRecordForm.clickFooterButton("Save");
-    }
+    // Priority
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 3, 2],
+      [2, 5]
+    );
 
-    await browser.pause(3000);
+    await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
   }
 
   async close(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
     // Status
     // select Closed status
-    if (this.userRole === UserRole.COACH) {
-      await commonUtils.selectPicklistOnRecordLayout(
-        recordLayout,
-        [2, 2, 2],
-        7
-      );
-      await baseRecordForm.clickFooterButton("Save");
-    } else if (this.userRole === UserRole.FRAUDX_AGENT) {
-      await commonUtils.selectPicklistOnRecordLayout(
-        recordLayout,
-        [2, 1, 2],
-        7
-      );
-      await baseRecordForm.clickFooterButton("Save");
-    }
-
-    await browser.pause(6000);
-  }
-
-  // Priority (used on Record Page, not on Creation Form)
-  async updatePriority(
-    recordLayout: RecordLayout,
-    FieldSectionIndex: FieldSectionIndex
-  ) {
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      FieldSectionIndex,
-      [2, 5]
-    );
+    const statusFieldIndex: FieldSectionIndex = [2, 2, 2];
+    const closedOptionIndex = 7;
+    await casePageUtils.closeCase(statusFieldIndex, closedOptionIndex);
   }
 }

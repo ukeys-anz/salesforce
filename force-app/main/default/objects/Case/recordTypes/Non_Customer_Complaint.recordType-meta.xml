@@ -3054,6 +3054,44 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Complaint_Remedy_2__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Remedy_3__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Complaint_Remedy__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -3065,6 +3103,390 @@
         </values>
         <values>
             <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Sub_Remedy_2__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMC Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netwealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+           <values>
+            <fullName>Repayment arrangement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reward Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worldline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Sub_Remedy_3__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMC Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netwealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+           <values>
+            <fullName>Repayment arrangement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reward Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worldline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Sub_Remedy__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMC Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netwealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repayment arrangement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reward Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worldline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Customer_Identifier__c</picklist>
+        <values>
+            <fullName>CACHE ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer%2FBusiness CAP ID</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3376,6 +3798,10 @@
         </values>
         <values>
             <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4434,19 +4860,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>10</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>11</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>3</fullName>
+            <fullName>12</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4459,18 +4877,6 @@
         </values>
         <values>
             <fullName>6</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>9</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5878,46 +6284,6 @@
         </values>
         <values>
             <fullName>ANZ Plus App</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>14</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>15</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>16</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>17</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>18</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>19</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>20</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>21</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
             <default>false</default>
         </values>
     </picklistValues>

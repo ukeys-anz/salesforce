@@ -104,7 +104,6 @@ public with sharing class IDRConstants {
   public static final String MILESTONE_SLA_RED = '1 business day';
   public static final String MILESTONE_SLA_AMBER = '2 business days';
   public static final string MILESTONE_SLA_VIOLATED = 'Violated';
-  public static final string COMPLAINTS_ENTITLMENT_ACCT = 'Complaint Entitlement Account';
   public static final string COMPLAINTS_ENTITLMENT_PROCESS = 'complaints';
   public static final string COMPLAINTS_ENTITLEMENT_NAME = 'Complaints Entitlement';
 
@@ -271,4 +270,7 @@ public with sharing class IDRConstants {
     }
     set;
   }
+
+  //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
+  public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
 }

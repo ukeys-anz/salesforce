@@ -1,11 +1,12 @@
 import RecordCreationForm from "pageObjects/recordCreationForm";
 import Case from "./Case";
 import * as faker from "faker";
-import * as creationFormUtils from "utils/creationFormUtils";
-import * as commonUtils from "utils/commonUtils";
-import * as casePageUtils from "utils/casePageUtils";
-import { FieldDefinition } from "types/field";
-import CaseFields from "constants/case/caseFields";
+import * as creationFormUtils from "../../utils/creationFormUtils";
+import * as commonUtils from "../../utils/commonUtils";
+import * as casePageUtils from "../../utils/casePageUtils";
+import { FieldDefinition } from "../../types/field";
+import CaseFields from "../../constants/case/caseFields";
+import { FieldSectionIndex } from "../../types/layout";
 
 export default class Card extends Case {
   static creationFormFieldIndexMap = new Map<string, number>();
@@ -90,13 +91,6 @@ export default class Card extends Case {
           picklistDOMIndex: 6,
           picklistOptionIndexRange: [2, 13]
         }
-      },
-      {
-        label: CaseFields.External_System,
-        options: {
-          picklistDOMIndex: 7,
-          picklistOptionIndexRange: [2, 4]
-        }
       }
     ];
 
@@ -112,10 +106,6 @@ export default class Card extends Case {
   }
 
   async update(): Promise<void> {
-    console.log("Skip update | This scenario does not need it.");
-  }
-
-  async close(): Promise<void> {
     const baseRecordForm = (await casePageUtils.getRecordForm())!;
     const recordLayout = await baseRecordForm.getRecordLayout();
 
@@ -124,13 +114,26 @@ export default class Card extends Case {
       recordLayout,
       [4, 7, 1]
     );
+
     const externalCaseId = `${faker.datatype.string(10)}`;
     await commonUtils.inputText(externalCaseIdField, externalCaseId);
 
+    // External System
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 6, 1],
+      [2, 4],
+      "edit"
+    );
+
+    await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
+  }
+
+  async close(): Promise<void> {
     // Status
     // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 1, 1], 5);
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    const statusFieldIndex: FieldSectionIndex = [4, 1, 1];
+    const closedOptionIndex = 5;
+    await casePageUtils.closeCase(statusFieldIndex, closedOptionIndex);
   }
 }

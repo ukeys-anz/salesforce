@@ -1,6 +1,6 @@
 import RecordPage from "pageObjects/recordPage";
 import FinancialAccountTab from "pageObjects/financialAccountTab";
-import * as commonUtils from "utils/commonUtils";
+import * as commonUtils from "../utils/commonUtils";
 
 export default class VirtualGoal {
   async viewAccountGoals(): Promise<void> {

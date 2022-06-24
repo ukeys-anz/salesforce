@@ -17,7 +17,11 @@ public with sharing class SubmitDisputeController {
       try {
         Database.DMLOptions dmo = new Database.DMLOptions();
         dmo.assignmentRuleHeader.useDefaultRule = true;
-        Case disputeCase = new Case(Id = caseId, Submitted__c = true);
+        Case disputeCase = new Case(
+          Id = caseId,
+          Submitted__c = true,
+          Submitted_Time__c = DateTime.now()
+        );
         disputeCase.setOptions(dmo);
         update disputeCase;
         return true;

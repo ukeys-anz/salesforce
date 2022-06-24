@@ -37,5 +37,20 @@
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
     </displayedFields>
+     <displayedFields>
+        <field>IDR_Other_Remedy_Provided__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+     <displayedFields>
+        <field>IDR_Other_Remedy_Provided_2__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>IDR_Other_Remedy_Provided_3__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
     <label>IDR Masked Fields</label>
 </FieldSet>

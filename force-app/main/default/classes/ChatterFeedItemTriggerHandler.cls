@@ -64,7 +64,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
               '; Reason for logging: User entered long digits without needing to mask'
             );
           }
-          log.insertLogAsync();
+          log.publishEvent();
         }
       } else {
         record.Body = TextUtils.maskData(record.Body);

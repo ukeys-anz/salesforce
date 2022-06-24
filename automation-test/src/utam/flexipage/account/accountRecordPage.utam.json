@@ -1,6 +1,29 @@
 {
   "elements": [
     {
+      "name": "highlightsPanel",
+      "selector": {
+        "css": ".region-header flexipage-component2:nth-of-type(1) records-lwc-highlights-panel"
+      },
+      "type": "salesforce-pageobjects/records/pageObjects/lwcHighlightsPanel",
+      "public": true
+    },
+    {
+      "name": "advocacyRatingWrapper",
+      "selector": {
+        "css": ".left-col flexipage-component2:nth-of-type(2)"
+      },
+      "public": true
+    },
+    {
+      "name": "surveyResponsesRelatedList",
+      "selector": {
+        "css": ".left-col flexipage-component2:nth-of-type(3) lst-related-list-single-container"
+      },
+      "public": true,
+      "type": "anzx-utam-force/pageObjects/lstRelatedListSingleContainer"
+    },
+    {
       "name": "personAccountFinancialDetails",
       "selector": {
         "css": "c-person-account-financial-details"
@@ -35,7 +58,7 @@
     },
     {
       "name": "qualityAssessmentsRelatedList",
-      "type": "anzx-utam-force/pageObjects/lstRelatedListSingleContainer",
+      "type": "salesforce-pageobjects/lists/pageObjects/relatedListSingleContainer",
       "selector": {
         "css": ".right-col flexipage-component2:nth-of-type(2) lst-related-list-single-container"
       },
