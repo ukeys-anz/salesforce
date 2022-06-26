@@ -24,4 +24,8 @@ public with sharing class InteractionConstants {
     RESCHEDULED_STATUS,
     WALKIN_STATUS
   };
+
+  public static final Id APPOINTMENT_QUEUE_ID = CommonUtil.getGroupId(
+    APPOINTMENTS_QUEUE
+  );
 }

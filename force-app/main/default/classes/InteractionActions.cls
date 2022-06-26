@@ -9,60 +9,6 @@
   'PMD.CyclomaticComplexity,PMD.ExcessivePublicCount,PMD.ExcessiveClassLength'
 )
 public with sharing class InteractionActions {
-  public static final Id QUEUE_ID = CommonUtil.getGroupId(
-    InteractionConstants.APPOINTMENTS_QUEUE
-  );
-
-  /**
-   * @description Gets the list of interactions and returns the ones where the owner has been assigned back to Queue.
-   * @param oldMap Map<Id,SObject> map of the old versions of the interactions
-   * @param interactions List<Interaction> list of interactions through which to search.
-   * @return List<Interaction> list of interactions assigned back to Queue
-   */
-  public List<Interaction> getInteractionsAssignedBacktoQueue(
-    Map<Id, SObject> oldMap,
-    List<Interaction> interactions
-  ) {
-    List<Interaction> assignedToQueueInteractions = new List<Interaction>();
-
-    for (Interaction interact : interactions) {
-      Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
-      if (
-        interact.OwnerId != oldInteraction.OwnerId &&
-        interact.OwnerId == QUEUE_ID
-      ) {
-        assignedToQueueInteractions.add(interact);
-      }
-    }
-
-    return assignedToQueueInteractions;
-  }
-
-  /**
-   * @description Gets the list of interactions and returns the ones where the status is updated as No show
-   * @param oldMap Map<Id,SObject> map of the old versions of the interactions
-   * @param interactions List<Interaction> list of interactions through which to search.
-   * @return List<Interaction> list of interactions updated as No show
-   */
-  public List<Interaction> getNoShowInteractions(
-    Map<Id, SObject> oldMap,
-    List<Interaction> interactions
-  ) {
-    List<Interaction> noShowInteractions = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      Interaction oldInteraction = (Interaction) Trigger.oldMap
-        .get(interact.Id);
-      if (
-        oldInteraction.Status__c != interact.Status__c &&
-        interact.Status__c == InteractionConstants.NO_SHOW_STATUS
-      ) {
-        noShowInteractions.add(interact);
-      }
-    }
-
-    return noShowInteractions;
-  }
-
   /**
    * @description goes through a list of interactions and returns the ones that have been cancelled.
    * @param oldMap Map<Id,SObject> map of the old versions of the interactions
@@ -73,27 +19,10 @@ public with sharing class InteractionActions {
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
   ) {
-    List<Interaction> result = new List<Interaction>();
-
-    if (interactions.isEmpty()) {
-      return result;
-    }
-
-    for (Interaction currentInteraction : interactions) {
-      if (
-        currentInteraction.Status__c != InteractionConstants.CANCELLED_STATUS ||
-        !oldMap.containsKey(currentInteraction.Id)
-      ) {
-        continue;
-      }
-      Interaction oldInteraction = (Interaction) oldMap.get(
-        currentInteraction.Id
-      );
-      if (oldInteraction.Status__c != InteractionConstants.CANCELLED_STATUS) {
-        result.add(currentInteraction);
-      }
-    }
-    return result;
+    return InteractionComparisonHelper.findCancelledInteractions(
+      oldMap,
+      interactions
+    );
   }
 
   /**
@@ -119,55 +48,9 @@ public with sharing class InteractionActions {
    */
   public void updateOwnerNewInteractions(List<Interaction> interactions) {
     for (Interaction interact : interactions) {
-      interact.OwnerID = QUEUE_ID;
+      interact.OwnerID = InteractionConstants.APPOINTMENT_QUEUE_ID;
       interact.Status__c = InteractionConstants.UNASSIGNED_STATUS;
     }
-  }
-
-  /**
-   * @description Get the list of updated Interactions where a Coach has taken ownership from the queue
-   * @param oldMap The oldValues before the update.
-   * @param interactions The new values of the interaction after update.
-   * @return List<Interaction> The list of interactions where the owner has been updated
-   */
-  public List<Interaction> getAcceptedInteractions(
-    Map<Id, SObject> oldMap,
-    List<Interaction> interactions
-  ) {
-    List<Interaction> acceptedInteractions = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
-      if (
-        oldInteraction.OwnerId != interact.OwnerId &&
-        oldInteraction.OwnerId == QUEUE_ID
-      ) {
-        acceptedInteractions.add(interact);
-      }
-    }
-    return acceptedInteractions;
-  }
-
-  /**
-   * @description Get the list of updated Interactions where the status has been updated to Rescheduled
-   * @param oldMap The oldValues before the update.
-   * @param interactions The new values of the interaction after update.
-   * @return List<Interaction> The list of interactions where the status has been updated to rescheduled
-   */
-  public List<Interaction> getRescheduledInteractions(
-    Map<Id, SObject> oldMap,
-    List<Interaction> interactions
-  ) {
-    List<Interaction> rescheduledInteractions = new List<Interaction>();
-    for (Interaction interact : interactions) {
-      Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
-      if (
-        oldInteraction.Status__c != interact.Status__c &&
-        interact.Status__c == InteractionConstants.RESCHEDULED_STATUS
-      ) {
-        rescheduledInteractions.add(interact);
-      }
-    }
-    return rescheduledInteractions;
   }
 
   /**
@@ -226,18 +109,10 @@ public with sharing class InteractionActions {
     Map<Id, SObject> oldMap,
     List<Interaction> records
   ) {
-    List<Interaction> result = new List<Interaction>();
-    for (Interaction currentInteraction : records) {
-      if (oldMap.containsKey(currentInteraction.Id)) {
-        Interaction oldInteraction = (Interaction) oldMap.get(
-          currentInteraction.Id
-        );
-        if (oldInteraction.OwnerId != currentInteraction.OwnerId) {
-          result.add(currentInteraction);
-        }
-      }
-    }
-    return result;
+    return InteractionComparisonHelper.findInteractionsOwnershipChanged(
+      oldMap,
+      records
+    );
   }
 
   /**
@@ -263,7 +138,7 @@ public with sharing class InteractionActions {
    * @description goes through a list of interactions and sets the external Id to the autonumber if it is not already set
    * @param interactions list of interactions to cycle
    */
-  public void setExternalIds(List<Interaction> interactions) {
+  private void setExternalIds(List<Interaction> interactions) {
     for (Interaction currentInteraction : interactions) {
       if (currentInteraction.Interaction_External_Id__c == null) {
         currentInteraction.Interaction_External_Id__c = currentInteraction.Interaction_Auto_Number__c;
@@ -447,7 +322,7 @@ public with sharing class InteractionActions {
    * @param leadInteractionMap Map of lead id and the existing list of scheduled interactions
    * @param interactions list of new interactions created.
    */
-  public void validateOverlappingInteractions(
+  private void validateOverlappingInteractions(
     Map<Id, List<Interaction>> accountInteractionMap,
     Map<Id, List<Interaction>> leadInteractionMap,
     List<Interaction> interactions
@@ -548,19 +423,19 @@ public with sharing class InteractionActions {
   public Map<Id, List<Interaction>> getCoachExistingInteractions(
     Set<Id> coachIds
   ) {
-    Map<Id, List<Interaction>> coachInteractions = new Map<Id, List<Interaction>>();
-    List<Interaction> leadInteractions = InteractionDMLHelper.existingUniqueInteractions(
+    Map<Id, List<Interaction>> coachInteractionsMap = new Map<Id, List<Interaction>>();
+    List<Interaction> coachInteractions = InteractionDMLHelper.existingUniqueInteractions(
       coachIds
     );
-    for (Interaction interact : leadInteractions) {
+    for (Interaction interact : coachInteractions) {
       List<Interaction> tempInteractionList = new List<Interaction>();
-      if (coachInteractions.containsKey(interact.OwnerId)) {
-        tempInteractionList = coachInteractions.get(interact.OwnerId);
+      if (coachInteractionsMap.containsKey(interact.OwnerId)) {
+        tempInteractionList = coachInteractionsMap.get(interact.OwnerId);
       }
       tempInteractionList.add(interact);
-      coachInteractions.put(interact.OwnerId, tempInteractionList);
+      coachInteractionsMap.put(interact.OwnerId, tempInteractionList);
     }
-    return coachInteractions;
+    return coachInteractionsMap;
   }
 
   /** @description Method to identify if the coach has any existing interactions at the same time.
@@ -620,35 +495,11 @@ public with sharing class InteractionActions {
 
   /**
    * @description goes through a list of requests and sets the Interaction Id
-   * by searching the database for interactions related to the Contact Requests.
-   * @param requests List<ContactRequest> list of contact requests to cycle through
-   */
-  public void setInteractionIds(List<ContactRequest> requests) {
-    Set<Id> requestIds = (new Map<Id, ContactRequest>(requests)).keyset();
-
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      List<Interaction> interactions = [
-        SELECT Id, ContactRequestId__c
-        FROM Interaction
-        WHERE Id IN :requestIds
-      ];
-      setInteractionIds(requests, interactions);
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'setInteractionIds',
-        'Not enough permissions to query Interactions.'
-      );
-    }
-  }
-
-  /**
-   * @description goes through a list of requests and sets the Interaction Id
    * based upon a list of interactions
    * @param requests List<ContactRequest> list of contact requests to cycle through
    * @param interactions List<Interaction> list of interactions to draw from.
    */
-  public void setInteractionIds(
+  private void setInteractionIds(
     List<ContactRequest> requests,
     List<Interaction> interactions
   ) {

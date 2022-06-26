@@ -5,10 +5,6 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
-  public static final Id QUEUE_ID = CommonUtil.getGroupId(
-    InteractionConstants.APPOINTMENTS_QUEUE
-  );
-
   /**
    * @description override of the onAfterInsert to create Events & Interaction Summaries
    */
@@ -51,7 +47,10 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     if (!changedOwnerInteractions.isEmpty()) {
       for (Interaction currentInteraction : changedOwnerInteractions) {
-        if (currentInteraction.OwnerId != QUEUE_ID) {
+        if (
+          currentInteraction.OwnerId !=
+          InteractionConstants.APPOINTMENT_QUEUE_ID
+        ) {
           userOwnedInteractions.add(currentInteraction);
         } else {
           assignedBacktoQueueInteractions.add(currentInteraction);
@@ -114,7 +113,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     AppointmentNotificationHandler.sendNotifications(cancelledInteractions);
 
-    List<Interaction> noShowInteractions = actionsForInteractions.getNoShowInteractions(
+    List<Interaction> noShowInteractions = InteractionComparisonHelper.getNoShowInteractions(
       oldMap,
       records
     );
@@ -132,7 +131,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<ContactRequest> requestsToRecalculate = contactRequestList.Clone();
     List<ContactRequest> rescheduledContactRequestList = new List<ContactRequest>();
 
-    List<Interaction> rescheduledInteractions = actionsForInteractions.getRescheduledInteractions(
+    List<Interaction> rescheduledInteractions = InteractionComparisonHelper.getRescheduledInteractions(
       oldMap,
       records
     );
@@ -191,7 +190,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     InteractionActions actions = new InteractionActions();
 
-    List<Interaction> acceptedInteractions = actions.getAcceptedInteractions(
+    List<Interaction> acceptedInteractions = InteractionComparisonHelper.getAcceptedInteractions(
       oldMap,
       records
     );
@@ -200,7 +199,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       actions.validateCoachAssignment(acceptedInteractions);
     }
 
-    List<Interaction> assignedBacktoQueueInteractions = actions.getInteractionsAssignedBacktoQueue(
+    List<Interaction> assignedBacktoQueueInteractions = InteractionComparisonHelper.getInteractionsAssignedBacktoQueue(
       oldMap,
       records
     );
