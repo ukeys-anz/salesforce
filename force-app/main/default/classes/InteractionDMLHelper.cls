@@ -202,4 +202,35 @@ public with sharing class InteractionDMLHelper {
       );
     }
   }
+
+  /**
+   * @description gets all interactions for leads and contacts
+   * @param whoIds list of WhoIds
+   * @return List of Interactions
+   */
+  public static List<Interaction> getInteractionsForLeadsAndContacts(
+    Set<Id> whoIds
+  ) {
+    List<Interaction> interactions = new List<Interaction>();
+    if (PermissionUtils.canQuery('Interaction')) {
+      interactions = [
+        SELECT
+          Id,
+          StartTime,
+          EndTime,
+          Interaction_External_Id__c,
+          AccountId,
+          Lead__c
+        FROM Interaction
+        WHERE AccountId IN :whoIds OR Lead__c IN :whoIds
+      ];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionActions',
+        'existingInteractions',
+        'Not enough permissions to query Interaction object.'
+      );
+    }
+    return interactions;
+  }
 }
