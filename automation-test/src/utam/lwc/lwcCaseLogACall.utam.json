@@ -29,7 +29,7 @@
                   },
                   {
                     "name": "voiceCallSID",
-                    "type": "utam-lightning/pageObjects/input",
+                    "type": "salesforce-pageobjects/lightning/pageObjects/input",
                     "selector": {
                       "css": "[data-test-id='voice-call-sid']"
                     },
@@ -37,7 +37,7 @@
                   },
                   {
                     "name": "authMethod",
-                    "type": "utam-lightning/pageObjects/combobox",
+                    "type": "salesforce-pageobjects/lightning/pageObjects/combobox",
                     "selector": {
                       "css": "[data-test-id='authentication-method']"
                     },
@@ -45,7 +45,7 @@
                   },
                   {
                     "name": "saveButton",
-                    "type": "utam-lightning/pageObjects/button",
+                    "type": "salesforce-pageobjects/lightning/pageObjects/button",
                     "selector": {
                       "css": "[data-test-id='save-button']"
                     },
@@ -79,12 +79,12 @@
         },
         {
           "element": "authMethod",
-          "returnType": "utam-lightning/pageObjects/combobox"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/combobox"
         },
         {
           "chain": true,
           "element": "base",
-          "returnType": "utam-lightning/pageObjects/baseCombobox"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/baseCombobox"
         },
         {
           "chain": true,
@@ -92,12 +92,12 @@
         },
         {
           "element": "authMethod",
-          "returnType": "utam-lightning/pageObjects/combobox"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/combobox"
         },
         {
           "chain": true,
           "element": "base",
-          "returnType": "utam-lightning/pageObjects/baseCombobox"
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/baseCombobox"
         },
         {
           "chain": true,

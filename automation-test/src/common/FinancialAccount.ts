@@ -3,7 +3,7 @@ import RecordPage from "pageObjects/recordPage";
 
 type FinancialAccountType = "Everyday" | "Savings";
 
-export default class FinancialAccount {
+export default class Financial_Account {
   type: FinancialAccountType;
   financialAccount: LwcFinancialAccount | undefined;
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
         <application>Case</application>
@@ -56,6 +56,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CaseTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ChatterMigrationService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ChatterMigrationServiceController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -2113,22 +2121,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
+        <field
+    >qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
+        <field
+    >qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Overall_Satisfaction__c</field>
+        <field
+    >qualtrics__Survey_Response__c.qualtrics__Overall_Satisfaction__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
+        <field
+    >qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2403,7 +2415,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__BalanceLastStatement__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__BalanceLastStatement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2458,12 +2471,14 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__CurrentPostedBalance__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__CurrentPostedBalance__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__DailyWithdrawalLimit__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__DailyWithdrawalLimit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2488,27 +2503,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__ExpectedCloseDate__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__ExpectedCloseDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountChargesAndFees__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountChargesAndFees__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountSource__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountSource__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2553,7 +2573,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__InvestmentObjectives__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__InvestmentObjectives__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2563,7 +2584,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__LastTransactionDate__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__LastTransactionDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2613,7 +2635,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__NextStatementDate__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__NextStatementDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2638,12 +2661,14 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__OverdraftLinkedAccount__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__OverdraftLinkedAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__OverdraftProtection__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__OverdraftProtection__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2658,7 +2683,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__PaperlessDelivery__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__PaperlessDelivery__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2683,7 +2709,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__PendingWithdrawals__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__PendingWithdrawals__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2738,7 +2765,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__RebalanceFrequency__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__RebalanceFrequency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2753,7 +2781,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__RepaymentPeriodMonths__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__RepaymentPeriodMonths__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2788,7 +2817,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__StatementFrequency__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__StatementFrequency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2872,7 +2902,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__ReciprocalRole__c.FinServ__InverseRelationship__c</field>
+        <field
+    >FinServ__ReciprocalRole__c.FinServ__InverseRelationship__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2892,7 +2923,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__RollupByLookupConfig__c.FinServ__FromRecordType__c</field>
+        <field
+    >FinServ__RollupByLookupConfig__c.FinServ__FromRecordType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2907,12 +2939,14 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__RollupByLookupConfig__c.FinServ__RollupOperation__c</field>
+        <field
+    >FinServ__RollupByLookupConfig__c.FinServ__RollupOperation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__RollupByLookupConfig__c.FinServ__UpdateOnChange__c</field>
+        <field
+    >FinServ__RollupByLookupConfig__c.FinServ__UpdateOnChange__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3438,12 +3472,14 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Privileged_Access_Request__c.Actual_Access_Granted_Time__c</field>
+        <field
+    >Privileged_Access_Request__c.Actual_Access_Granted_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
+        <field
+    >Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3691,13 +3727,15 @@
         <recordType>ContentVersion.Systemic_Issue_File</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>qualtrics__Survey_Response__c-qualtrics__Survey Response Layout</layout>
+        <layout
+    >qualtrics__Survey_Response__c-qualtrics__Survey Response Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>EmailMessage-Email Message Layout - Email-to-Case</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
+        <layout
+    >FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
         <recordType>FinServ__FinancialAccount__c.Staging_Account</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -3723,7 +3761,8 @@
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Privileged_Access_Request__c-Privileged Access Request Layout</layout>
+        <layout
+    >Privileged_Access_Request__c-Privileged Access Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Product2-ANZ Product and Service Layout</layout>
@@ -3769,10 +3808,12 @@
         <layout>UserAlt-User Profile Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>User_Provisioning_Request__c-User Provisioning Request Layout</layout>
+        <layout
+    >User_Provisioning_Request__c-User Provisioning Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
+        <layout
+    >User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>WorkType-ANZ Work Type Layout</layout>
@@ -4117,17 +4158,20 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__CreditCard</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__CreditCard</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -4142,17 +4186,20 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__InsurancePolicy</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__InsurancePolicy</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__InvestmentAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__InvestmentAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__LoanAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__LoanAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -4162,12 +4209,14 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

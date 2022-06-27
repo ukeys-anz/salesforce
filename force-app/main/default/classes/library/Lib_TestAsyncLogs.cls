@@ -27,12 +27,20 @@ public class Lib_TestAsyncLogs {
 
     Test.startTest();
 
-    System.assertNotEquals(0, sfLog.logList.size());
+    System.assertNotEquals(
+      0,
+      sfLog.logList.size(),
+      'Log list size should be as expected.'
+    );
 
     // WHEN it is published via Platform Events
     sfLog.publishEvent();
 
     Test.stopTest();
-    System.assertEquals(0, sfLog.logList.size());
+    System.assertEquals(
+      0,
+      sfLog.logList.size(),
+      'Log list size should be as expected.'
+    );
   }
 }

@@ -1,5 +1,5 @@
-import { UserRole } from "constants/enums";
-import { loginJSForce } from "utils/apiUtils";
+import { UserRole } from "../constants/enums";
+import { loginJSForce } from "../utils/apiUtils";
 
 export const cleanupTestData = async (
   userRole: UserRole,

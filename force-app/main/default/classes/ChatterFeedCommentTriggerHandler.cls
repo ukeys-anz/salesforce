@@ -65,7 +65,7 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
             );
           }
 
-          log.insertLogAsync();
+          log.publishEvent();
         }
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);

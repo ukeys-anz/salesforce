@@ -20,7 +20,11 @@ public inherited sharing class CalloutModelTest {
     Test.startTest();
     String result = modelBase.serialize(testModel);
     Test.stopTest();
-    System.assertEquals(modelJson, result);
+    System.assertEquals(
+      modelJson,
+      result,
+      'Serialization should work as expected.'
+    );
   }
 
   @isTest
@@ -31,8 +35,16 @@ public inherited sharing class CalloutModelTest {
       FakeModel.class
     );
     Test.stopTest();
-    System.assertEquals('currency', modelResult.testString);
-    System.assertEquals(testModel.currencyCode, modelResult.currencyCode);
+    System.assertEquals(
+      'currency',
+      modelResult.testString,
+      'Deserialization should work as expected.'
+    );
+    System.assertEquals(
+      testModel.currencyCode,
+      modelResult.currencyCode,
+      'Deserialization should work as expected.'
+    );
   }
 
   /**
@@ -46,11 +58,20 @@ public inherited sharing class CalloutModelTest {
       FakeModel.class
     );
     Test.stopTest();
-    System.assertEquals(testModel.testString, modelResult.testString);
-    System.assertEquals(testModel.currencyCode, modelResult.currencyCode);
+    System.assertEquals(
+      testModel.testString,
+      modelResult.testString,
+      'Replacement should work as expected.'
+    );
+    System.assertEquals(
+      testModel.currencyCode,
+      modelResult.currencyCode,
+      'Replacement should work as expected.'
+    );
     System.assertEquals(
       testModel.submodel.testSubString,
-      modelResult.submodel.testSubString
+      modelResult.submodel.testSubString,
+      'Replacement should work as expected.'
     );
   }
 

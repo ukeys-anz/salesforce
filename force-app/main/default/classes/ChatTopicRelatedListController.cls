@@ -17,7 +17,7 @@ public with sharing class ChatTopicRelatedListController {
    */
   @AuraEnabled(cacheable=false)
   public static ChatChannelModel getChatTopicsOnAccount(
-    String accountId,
+    Id accountId,
     String nextURL
   ) {
     // Query for Customer OCV ID by passing in the Account ID

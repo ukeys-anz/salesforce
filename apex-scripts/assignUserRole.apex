@@ -1,5 +1,5 @@
 List<User> users = [SELECT Id, Alias FROM User WHERE UserRoleId = ''];
-List<UserRole> roles = [SELECT Id, Name FROM UserRole];
+List<UserRole> roles = [SELECT Id, Name FROM UserRole LIMIT 100];
 List<User> updateUser = new List<User>();
 Map<String, Id> roleNameToId = new Map<String, Id>();
 if (!users.isEmpty() && !roles.isEmpty()) {

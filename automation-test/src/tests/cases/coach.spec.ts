@@ -1,10 +1,10 @@
-import Auth from "common/Auth";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { UserRole, Queue, OwnerType } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import GeneralEnquiry from "common/cases/GeneralEnquiry";
-import ANZXComplaint from "common/cases/ANZXComplaint";
-import caseData from "data/caseData";
+import Auth from "../../common/Auth";
+import { navigateToAppAndTab } from "../../utils/navigationUtils";
+import { UserRole, Queue, OwnerType } from "../../constants/enums";
+import { App, AppTab } from "../../constants/appsDefinition";
+import GeneralEnquiry from "../../common/cases/GeneralEnquiry";
+import ANZXComplaint from "../../common/cases/ANZXComplaint";
+import caseData from "../../data/caseData";
 
 describe("AR-4499: Get Help Salesforce Case Management", () => {
   // pre test steps
@@ -13,7 +13,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
     await browser.maximizeWindow();
 
     // login as test user
-    await Auth.loginSalesforceAsRole(UserRole.COACH);
+    await Auth.loginSalesforceAsRole(UserRole.Coach);
   });
 
   beforeEach(async (): Promise<void> => {
@@ -27,7 +27,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10339: Coach - General Enquiry Case", async (): Promise<void> => {
-    const generalEnquiryCase = new GeneralEnquiry(UserRole.COACH);
+    const generalEnquiryCase = new GeneralEnquiry(UserRole.Coach);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -40,7 +40,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
     it("Assign General Enquiry Case to Support Coach Queue", async (): Promise<void> => {
       await generalEnquiryCase.assignNewOwner(
         OwnerType.Queues,
-        Queue.SUPPORT_COACH_QUEUE
+        Queue.Support_Coach_Queue
       );
     });
 
@@ -73,7 +73,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
   });
 
   describe("AR-10340: Coach - ANZ Plus Complaint Case", async (): Promise<void> => {
-    const anzxComplaintCase = new ANZXComplaint(UserRole.COACH);
+    const anzxComplaintCase = new ANZXComplaint(UserRole.Coach);
 
     it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Cases);
@@ -86,7 +86,7 @@ describe("AR-4499: Get Help Salesforce Case Management", () => {
     it("Assign ANZ Plus Complaint Case to Support Coach Queue", async (): Promise<void> => {
       await anzxComplaintCase.assignNewOwner(
         OwnerType.Queues,
-        Queue.SUPPORT_COACH_QUEUE
+        Queue.Support_Coach_Queue
       );
     });
 
