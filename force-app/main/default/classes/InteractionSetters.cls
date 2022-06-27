@@ -1,0 +1,120 @@
+/**
+ * @author Adam Smith
+ * @since 20220411
+ * @description class for helper methods to set interaction properties
+ */
+public with sharing class InteractionSetters {
+  /**
+   * @description goes through a list of interactions and sets the external Id to the autonumber if it is not already set
+   * @param interactions list of interactions to cycle
+   */
+  private static void setExternalIds(List<Interaction> interactions) {
+    for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.Interaction_External_Id__c == null) {
+        currentInteraction.Interaction_External_Id__c = currentInteraction.Interaction_Auto_Number__c;
+      }
+    }
+  }
+
+  /**
+   * @description future method to set the external Id after creation
+   * @param interactionIds the Ids to update
+   */
+  @future
+  public static void setExternalIds(Set<Id> interactionIds) {
+    List<Interaction> interactions = InteractionDMLHelper.getInteractions(
+      interactionIds
+    );
+    if (!interactions.isEmpty()) {
+      List<Interaction> interactionsToSet = new List<Interaction>();
+      for (Interaction currentInteraction : interactions) {
+        if (currentInteraction.Interaction_External_Id__c == null) {
+          interactionsToSet.add(currentInteraction);
+        }
+      }
+
+      if (!interactionsToSet.isEmpty()) {
+        setExternalIds(interactions);
+        InteractionDMLHelper.updateInteractions(interactions);
+      }
+    }
+  }
+
+  /**
+   * @description goes through a list of interactions and sets the Interaction Id
+   * on the linked Contact Request by searching the database for requests related to the Interactionss.
+   * @param interactions List<Interaction> list of interactions to cycle through
+   */
+  public static void setInteractionIds(List<Interaction> interactions) {
+    Set<Id> requestIds = new Set<Id>();
+
+    for (Interaction currentInteraction : interactions) {
+      requestIds.add(currentInteraction.ContactRequestId__c);
+    }
+
+    List<ContactRequest> contactRequests = ContactRequestDMLHelper.getContactRequest(
+      requestIds
+    );
+    setInteractionIds(contactRequests, interactions);
+
+    ContactRequestDMLHelper.updateContactRequests(contactRequests);
+  }
+
+  /**
+   * @description goes through a list of requests and sets the Interaction Id
+   * based upon a list of interactions
+   * @param requests List<ContactRequest> list of contact requests to cycle through
+   * @param interactions List<Interaction> list of interactions to draw from.
+   */
+  private static void setInteractionIds(
+    List<ContactRequest> requests,
+    List<Interaction> interactions
+  ) {
+    if (requests.isEmpty() || interactions.isEmpty()) {
+      return;
+    }
+    Map<Id, Id> contactRequestInteractionIdMap = new Map<Id, Id>();
+    for (Interaction currentInteraction : interactions) {
+      contactRequestInteractionIdMap.put(
+        currentInteraction.ContactRequestId__c,
+        currentInteraction.Id
+      );
+    }
+
+    for (ContactRequest request : requests) {
+      if (contactRequestInteractionIdMap.containsKey(request.Id)) {
+        request.Interaction__c = contactRequestInteractionIdMap.get(request.Id);
+      }
+    }
+  }
+
+  /** @description Method to set the Interaction Name for manual interaction creations
+   * @param interactions list of new interactions created.
+   */
+  public static void setNameOfInteractions(List<Interaction> interactions) {
+    for (Interaction interact : interactions) {
+      interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+    }
+  }
+
+  /**
+   * @description Assign the ownership of newly created interactions to the Interaction Queue and update status to Unassigned
+   * @param interactions List of newly created interactions.
+   */
+  public static void setOwnerNewInteractions(List<Interaction> interactions) {
+    for (Interaction interact : interactions) {
+      interact.OwnerID = InteractionConstants.APPOINTMENT_QUEUE_ID;
+      interact.Status__c = InteractionConstants.UNASSIGNED_STATUS;
+    }
+  }
+
+  /**
+   * @description Update the status of the interactions to scheduled if the owner is updated
+   * @param interactions The list of interactions where the owner is updated from Queue to Coach
+   */
+  public static void setStatustoScheduled(List<Interaction> interactions) {
+    for (Interaction interact : interactions) {
+      interact.Status__c = InteractionConstants.SCHEDULED_STATUS;
+    }
+  }
+}

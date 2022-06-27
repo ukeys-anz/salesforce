@@ -15,12 +15,12 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    intActions.setInteractionIds(interactions);
+    InteractionSetters.setInteractionIds(interactions);
 
     Map<Id, SObject> interactionMap = new Map<Id, SObject>(records);
     Set<Id> interactionIds = new Set<Id>(interactionMap.keyset());
 
-    InteractionActions.setExternalIds(interactionIds);
+    InteractionSetters.setExternalIds(interactionIds);
 
     AppointmentNotificationHandler.sendNotifications(interactions);
   }
@@ -101,7 +101,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> interactionToDeleteEvents = assignedBacktoQueueInteractions.Clone();
 
     if (!assignedBacktoQueueInteractions.isEmpty()) {
-      actionsForInteractions.deleteInteractionEvents(
+      InteractionEventHelper.deleteInteractionEvents(
         assignedBacktoQueueInteractions
       );
     }
@@ -122,7 +122,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     interactionToDeleteEvents.addAll(noShowInteractions);
 
     if (!interactionToDeleteEvents.isEmpty()) {
-      actionsForInteractions.deleteInteractionEvents(interactionToDeleteEvents);
+      InteractionEventHelper.deleteInteractionEvents(interactionToDeleteEvents);
       contactRequestList = InteractionDMLHelper.getRelatedContactRequest(
         cancelledInteractions
       );
@@ -135,7 +135,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       oldMap,
       records
     );
-    List<Event> relatedEvents = actionsForInteractions.getRelatedEvents(
+    List<Event> relatedEvents = InteractionEventHelper.getRelatedEvents(
       records
     );
 
@@ -155,7 +155,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!relatedEvents.isEmpty()) {
-      actionsForInteractions.updateEventSchedule(relatedEvents, records);
+      InteractionEventHelper.updateEventSchedule(relatedEvents, records);
     }
   }
 
@@ -169,9 +169,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    actions.updateOwnerNewInteractions(interactions);
+    InteractionSetters.setOwnerNewInteractions(interactions);
 
-    actions.setNameOfInteractions(interactions);
+    InteractionSetters.setNameOfInteractions(interactions);
 
     List<Interaction> newInteractions = InteractionFilter.getInteractionsWithoutEnddate(
       interactions
@@ -181,7 +181,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       actions.updateEndTime(newInteractions);
     }
 
-    actions.validateInteractions(interactions);
+    InteractionValidations.validateInteractions(interactions);
   }
 
   /** @description onBeforeUpdate to handle before update trigger actions.
@@ -195,8 +195,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
     if (acceptedInteractions.size() > 0) {
-      actions.updateStatustoScheduled(acceptedInteractions);
-      actions.validateCoachAssignment(acceptedInteractions);
+      InteractionSetters.setStatustoScheduled(acceptedInteractions);
+      InteractionValidations.validateCoachAssignment(acceptedInteractions);
     }
 
     List<Interaction> assignedBacktoQueueInteractions = InteractionComparisonHelper.getInteractionsAssignedBacktoQueue(
@@ -205,7 +205,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     );
 
     if (assignedBacktoQueueInteractions.size() > 0) {
-      actions.updateOwnerNewInteractions(assignedBacktoQueueInteractions);
+      InteractionSetters.setOwnerNewInteractions(
+        assignedBacktoQueueInteractions
+      );
     }
 
     List<Interaction> reasonOrStartTimeUpdatedInteractions = actions.getInteractionsRequiringEndTimeUpdate(

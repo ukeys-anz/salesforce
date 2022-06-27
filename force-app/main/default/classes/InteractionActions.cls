@@ -5,9 +5,6 @@
  * Adding suppression for Excessive Public Count as tech debt to be resolved
  * later in the Epic's development as per request.
  */
-@SuppressWarnings(
-  'PMD.CyclomaticComplexity,PMD.ExcessivePublicCount,PMD.ExcessiveClassLength'
-)
 public with sharing class InteractionActions {
   /**
    * @description goes through a list of interactions and returns the ones that have been cancelled.
@@ -23,80 +20,6 @@ public with sharing class InteractionActions {
       oldMap,
       interactions
     );
-  }
-
-  /**
-   * @description deletes events linked to a list of interactions
-   * @param interactions List of interactions to search through and delete related events.
-   */
-  public void deleteInteractionEvents(List<Interaction> interactions) {
-    Set<Id> interactionIds = (new Map<Id, Interaction>(interactions)).keySet();
-    if (interactionIds.isEmpty()) {
-      return;
-    }
-
-    List<Event> linkedEvents = EventHelper.queryRelatedEvents(interactionIds);
-
-    if (!linkedEvents.isEmpty()) {
-      EventHelper.deleteEvents(linkedEvents);
-    }
-  }
-
-  /**
-   * @description Assign the ownership of newly created interactions to the Interaction Queue and update status to Unassigned
-   * @param interactions List of newly created interactions.
-   */
-  public void updateOwnerNewInteractions(List<Interaction> interactions) {
-    for (Interaction interact : interactions) {
-      interact.OwnerID = InteractionConstants.APPOINTMENT_QUEUE_ID;
-      interact.Status__c = InteractionConstants.UNASSIGNED_STATUS;
-    }
-  }
-
-  /**
-   * @description Get the list of events related to Interaction which was rescheduled
-   * @param interactions The list of interactions which were rescheduled
-   * @return List<Event> List of event records related to the interaction which were rescheduled.
-   */
-  public List<Event> getRelatedEvents(List<Interaction> interactions) {
-    List<Event> eventList = new List<Event>();
-    Set<Id> interactionIds = new Set<Id>();
-    for (Interaction interact : interactions) {
-      interactionIds.add(interact.Id);
-    }
-    return EventHelper.queryRelatedEvents(interactionIds);
-  }
-
-  /**
-   * @description Update the events date and time to match with the interaction
-   * @param eventRecords The list of events to be updated
-   * @param interactions The interactions which are rescheduled
-   */
-  public void updateEventSchedule(
-    List<Event> eventRecords,
-    List<Interaction> interactions
-  ) {
-    Map<Id, Interaction> interactionMap = new Map<Id, Interaction>();
-    for (Interaction interact : interactions) {
-      interactionMap.put(interact.Id, interact);
-    }
-
-    for (Event evt : eventRecords) {
-      evt.StartDateTime = interactionMap.get(evt.WhatId).StartTime;
-      evt.EndDateTime = interactionMap.get(evt.WhatId).EndTime;
-    }
-
-    EventHelper.updateEvents(eventRecords);
-  }
-
-  /**
-   * @description Update the status of the interactions to scheduled if the owner is updated
-   * @param interactions The list of interactions where the owner is updated from Queue to Coach
-   */
-  public void updateStatustoScheduled(List<Interaction> interactions) {
-    for (Interaction interact : interactions) {
-      interact.Status__c = InteractionConstants.SCHEDULED_STATUS;
-    }
   }
 
   /**
@@ -132,44 +55,6 @@ public with sharing class InteractionActions {
       coachingSummaryList.add(coachSummary);
     }
     return coachingSummaryList;
-  }
-
-  /**
-   * @description goes through a list of interactions and sets the external Id to the autonumber if it is not already set
-   * @param interactions list of interactions to cycle
-   */
-  private void setExternalIds(List<Interaction> interactions) {
-    for (Interaction currentInteraction : interactions) {
-      if (currentInteraction.Interaction_External_Id__c == null) {
-        currentInteraction.Interaction_External_Id__c = currentInteraction.Interaction_Auto_Number__c;
-      }
-    }
-  }
-
-  /**
-   * @description future method to set the external Id after creation
-   * @param interactionIds the Ids to update
-   */
-  @future
-  public static void setExternalIds(Set<Id> interactionIds) {
-    InteractionActions actions = new InteractionActions();
-
-    List<Interaction> interactions = InteractionDMLHelper.getInteractions(
-      interactionIds
-    );
-    if (!interactions.isEmpty()) {
-      List<Interaction> interactionsToSet = new List<Interaction>();
-      for (Interaction currentInteraction : interactions) {
-        if (currentInteraction.Interaction_External_Id__c == null) {
-          interactionsToSet.add(currentInteraction);
-        }
-      }
-
-      if (!interactionsToSet.isEmpty()) {
-        actions.setExternalIds(interactions);
-        InteractionDMLHelper.updateInteractions(interactions);
-      }
-    }
   }
 
   /**
@@ -224,16 +109,13 @@ public with sharing class InteractionActions {
     List<Interaction> records
   ) {
     Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
-      .getRecordTypeId();
     List<Interaction> results = new List<Interaction>();
     for (Interaction currentInteraction : records) {
       if (
-        !oldMap.containsKey(currentInteraction.Id) ||
-        currentInteraction.Status__c !=
-        InteractionConstants.UNASSIGNED_STATUS ||
-        currentInteraction.RecordTypeId != appointmentRTID
+        InteractionComparisonHelper.hasBeenUnassigned(
+          oldMap,
+          currentInteraction
+        )
       ) {
         continue;
       }
@@ -250,275 +132,6 @@ public with sharing class InteractionActions {
       results.add(currentInteraction);
     }
     return results;
-  }
-
-  /** @description Loop through list of new interactions and validate the data.
-   * @param interactions New interaction records to be created.
-   */
-  public void validateInteractions(List<Interaction> interactions) {
-    Set<Id> accountIds = new Set<Id>();
-    Set<Id> leadIds = new Set<Id>();
-    for (Interaction interact : interactions) {
-      if (interact.AccountId != null) {
-        accountIds.add(interact.AccountId);
-      }
-      if (interact.Lead__c != null) {
-        leadIds.add(interact.Lead__c);
-      }
-    }
-    Map<Id, List<Interaction>> accountInteractionMap = InteractionDMLHelper.getAccountInteractionMap(
-      accountIds
-    );
-    Map<Id, List<Interaction>> leadInteractionMap = existingLeadInteractions(
-      leadIds
-    );
-    validateOverlappingInteractions(
-      accountInteractionMap,
-      leadInteractionMap,
-      interactions
-    );
-
-    validateLocations(interactions);
-  }
-
-  /**
-   * @description goes through a list of interactions and adds an error if any have a channel of store, but no location
-   * @param interactions List<Interaction> to search through for offenders.
-   */
-  private void validateLocations(List<Interaction> interactions) {
-    for (Interaction currentInteraction : interactions) {
-      if (
-        currentInteraction.InteractionType == 'Store' &&
-        currentInteraction.LocationId == null
-      ) {
-        currentInteraction.addError(System.Label.Interaction_Store_Required);
-      }
-    }
-  }
-
-  /** @description Method to get the list of existing scheduled interactions for the lead
-   * @param leadIds Set of lead ids related to the new interactions
-   * @return  Map<Id, List<Interaction>> Map of lead ids and list of scheduled interactions creared for the customer
-   */
-  public Map<Id, List<Interaction>> existingLeadInteractions(Set<Id> leadIds) {
-    Map<Id, List<Interaction>> leadInteractionMap = new Map<Id, List<Interaction>>();
-    List<Interaction> interactionsForLeads = InteractionDMLHelper.getInteractionsByLead(
-      leadIds
-    );
-
-    for (Interaction interact : interactionsForLeads) {
-      List<Interaction> tempInteractionList = new List<Interaction>();
-      if (leadInteractionMap.containsKey(interact.Lead__c)) {
-        tempInteractionList = leadInteractionMap.get(interact.Lead__c);
-      }
-      tempInteractionList.add(interact);
-      leadInteractionMap.put(interact.Lead__c, tempInteractionList);
-    }
-    return leadInteractionMap;
-  }
-
-  /** @description Method to identify if the customer has any existing interactions at the same time.
-   * @param accountInteractionMap Map of account id and the existing list of scheduled interactions
-   * @param leadInteractionMap Map of lead id and the existing list of scheduled interactions
-   * @param interactions list of new interactions created.
-   */
-  private void validateOverlappingInteractions(
-    Map<Id, List<Interaction>> accountInteractionMap,
-    Map<Id, List<Interaction>> leadInteractionMap,
-    List<Interaction> interactions
-  ) {
-    Set<Id> customersWithExistingInteractions = new Set<Id>();
-    for (Interaction interact : interactions) {
-      List<Interaction> customersInteractions = new List<Interaction>();
-
-      if (accountInteractionMap.containsKey(interact.AccountId)) {
-        customersInteractions.addAll(
-          accountInteractionMap.get(interact.AccountId)
-        );
-      }
-      if (leadInteractionMap.containsKey(interact.Lead__c)) {
-        customersInteractions.addAll(leadInteractionMap.get(interact.Lead__c));
-      }
-      if (!customersInteractions.isEmpty()) {
-        Interaction existingInteraction = getInteractionAtSameTime(
-          interact,
-          customersInteractions
-        );
-        Boolean existingInteractionAvailable = existingInteraction != null;
-        if (existingInteractionAvailable) {
-          if (!String.isEmpty(interact.ContactRequestId__c)) {
-            interact.addError(
-              System.Label.Interaction_User_Created_Error_Message +
-              existingInteraction.Interaction_External_Id__c
-            );
-          } else {
-            interact.addError(
-              System.Label.Interaction_Coach_Created_Error_Message
-            );
-          }
-        }
-      }
-    }
-  }
-
-  /** @description Method to loop through list of existing interactions to identify if there are any overlaps
-   * @param newinteraction The new interaction record created
-   * @param interactions list of existing interactions for the customer
-   * @return Boolean Returns true or false if there are conflicting
-   */
-  public Boolean verifyTimeSlots(
-    Interaction newinteraction,
-    List<Interaction> interactions
-  ) {
-    Boolean existingInteractionAvailable = false;
-    existingInteractionAvailable =
-      getInteractionAtSameTime(newinteraction, interactions) != null;
-    return existingInteractionAvailable;
-  }
-
-  /** @description Method to loop through list of existing interactions to identify if there are any overlaps
-   * @param newInteraction The new interaction record created
-   * @param interactions list of existing interactions for the customer
-   * @return Interaction Returns the conflicting interaction if one exists or null
-   */
-  public Interaction getInteractionAtSameTime(
-    Interaction newInteraction,
-    List<Interaction> interactions
-  ) {
-    for (Interaction interact : interactions) {
-      Boolean doDatesIntersect = Lib_SystemLog.doPeriodsIntersect(
-        newInteraction.StartTime,
-        newInteraction.EndTime,
-        interact.StartTime,
-        interact.EndTime
-      );
-      if (doDatesIntersect && interact.Id != newInteraction.Id) {
-        return interact;
-      }
-    }
-    return null;
-  }
-
-  /** @description Method to validate if the coach has an existing appointment while accepting a new one
-   * @param interactions List of new interactions accepted by the coach
-   */
-  public void validateCoachAssignment(List<Interaction> interactions) {
-    Set<Id> coachIds = new Set<Id>();
-    for (Interaction interact : interactions) {
-      coachIds.add(interact.OwnerId);
-    }
-
-    Map<Id, List<Interaction>> existingCoachInteractions = new Map<Id, List<Interaction>>();
-    existingCoachInteractions = getCoachExistingInteractions(coachIds);
-    validateOverlappingCoachInteractions(
-      existingCoachInteractions,
-      interactions
-    );
-  }
-
-  /** @description Method to get the list of existing scheduled interactions for the coach
-   * @param coachIds Set of coach ids related to the new interactions
-   * @return  Map<Id, List<Interaction>> Map of owner ids and list of scheduled interactions creared for the corresponding coach
-   */
-  public Map<Id, List<Interaction>> getCoachExistingInteractions(
-    Set<Id> coachIds
-  ) {
-    Map<Id, List<Interaction>> coachInteractionsMap = new Map<Id, List<Interaction>>();
-    List<Interaction> coachInteractions = InteractionDMLHelper.existingUniqueInteractions(
-      coachIds
-    );
-    for (Interaction interact : coachInteractions) {
-      List<Interaction> tempInteractionList = new List<Interaction>();
-      if (coachInteractionsMap.containsKey(interact.OwnerId)) {
-        tempInteractionList = coachInteractionsMap.get(interact.OwnerId);
-      }
-      tempInteractionList.add(interact);
-      coachInteractionsMap.put(interact.OwnerId, tempInteractionList);
-    }
-    return coachInteractionsMap;
-  }
-
-  /** @description Method to identify if the coach has any existing interactions at the same time.
-   * @param existingCoachInteractions  Map of owner id and the existing list of scheduled interactions
-   * @param interactions list of new interactions created.
-   */
-  public void validateOverlappingCoachInteractions(
-    Map<Id, List<Interaction>> existingCoachInteractions,
-    List<Interaction> interactions
-  ) {
-    for (Interaction interact : interactions) {
-      Boolean hasOwnerExistingInteractions = existingCoachInteractions.containsKey(
-        interact.OwnerId
-      );
-      if (hasOwnerExistingInteractions) {
-        Boolean existingInteractionAvailable = verifyTimeSlots(
-          interact,
-          existingCoachInteractions.get(interact.OwnerId)
-        );
-        if (existingInteractionAvailable) {
-          interact.addError(
-            System.Label.Coach_Existing_Interaction_Error_Message
-          );
-        }
-      }
-    }
-  }
-
-  /** @description Method to set the Interaction Name for manual interaction creations
-   * @param interactions list of new interactions created.
-   */
-  public void setNameOfInteractions(List<Interaction> interactions) {
-    for (Interaction interact : interactions) {
-      interact.Name = interact.Interaction_Purpose__c + ' Appointment';
-    }
-  }
-
-  /**
-   * @description goes through a list of interactions and sets the Interaction Id
-   * on the linked Contact Request by searching the database for requests related to the Interactionss.
-   * @param interactions List<Interaction> list of interactions to cycle through
-   */
-  public void setInteractionIds(List<Interaction> interactions) {
-    Set<Id> requestIds = new Set<Id>();
-
-    for (Interaction currentInteraction : interactions) {
-      requestIds.add(currentInteraction.ContactRequestId__c);
-    }
-
-    List<ContactRequest> contactRequests = ContactRequestDMLHelper.getContactRequest(
-      requestIds
-    );
-    setInteractionIds(contactRequests, interactions);
-
-    ContactRequestDMLHelper.updateContactRequests(contactRequests);
-  }
-
-  /**
-   * @description goes through a list of requests and sets the Interaction Id
-   * based upon a list of interactions
-   * @param requests List<ContactRequest> list of contact requests to cycle through
-   * @param interactions List<Interaction> list of interactions to draw from.
-   */
-  private void setInteractionIds(
-    List<ContactRequest> requests,
-    List<Interaction> interactions
-  ) {
-    if (requests.isEmpty() || interactions.isEmpty()) {
-      return;
-    }
-    Map<Id, Id> contactRequestInteractionIdMap = new Map<Id, Id>();
-    for (Interaction currentInteraction : interactions) {
-      contactRequestInteractionIdMap.put(
-        currentInteraction.ContactRequestId__c,
-        currentInteraction.Id
-      );
-    }
-
-    for (ContactRequest request : requests) {
-      if (contactRequestInteractionIdMap.containsKey(request.Id)) {
-        request.Interaction__c = contactRequestInteractionIdMap.get(request.Id);
-      }
-    }
   }
 
   /**
@@ -568,5 +181,23 @@ public with sharing class InteractionActions {
       result = LeadDMLHelper.getLeadInfoMap(leadIds);
     }
     return result;
+  }
+
+  /**
+   * @description deletes events linked to a list of interactions
+   * @param interactions List of interactions to search through and delete related events.
+   */
+  public void deleteInteractionEvents(List<Interaction> interactions) {
+    InteractionEventHelper.deleteInteractionEvents(interactions);
+  }
+
+  /** @description Method to get the list of existing scheduled interactions for the coach
+   * @param coachIds Set of coach ids related to the new interactions
+   * @return  Map<Id, List<Interaction>> Map of owner ids and list of scheduled interactions creared for the corresponding coach
+   */
+  public Map<Id, List<Interaction>> getCoachExistingInteractions(
+    Set<Id> coachIds
+  ) {
+    return InteractionValidations.getCoachExistingInteractions(coachIds);
   }
 }

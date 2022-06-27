@@ -17,6 +17,9 @@ public with sharing class InteractionConstants {
   public static final String OTHER_PURPOSE_NAME = 'Other';
   public static final string FINANCIAL_WELLBEING_PURPOSE_NAME = 'Financial Wellbeing';
   public static final string APPOINTMENT_RECORD_TYPE_NAME = 'Appointment';
+  public static final Id APPOINTMENT_RECORD_TYPE_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
+    .getRecordTypeId();
 
   public static final Set<String> UNIQUE_STATUSES = new Set<String>{
     UNASSIGNED_STATUS,

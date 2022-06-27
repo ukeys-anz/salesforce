@@ -156,4 +156,20 @@ public with sharing class InteractionComparisonHelper {
     }
     return result;
   }
+
+  /**
+   * @description checks to see if an interaction has been changed to unassigned
+   * @param oldMap Map of SObjects contain old versions of Interactions
+   * @param currentInteraction the interaction to check
+   * @return true if the interaction has changed to unassigned.
+   */
+  public static Boolean hasBeenUnassigned(
+    Map<Id, sObject> oldMap,
+    Interaction currentInteraction
+  ) {
+    return !oldMap.containsKey(currentInteraction.Id) ||
+      currentInteraction.Status__c != InteractionConstants.UNASSIGNED_STATUS ||
+      currentInteraction.RecordTypeId !=
+      InteractionConstants.APPOINTMENT_RECORD_TYPE_ID;
+  }
 }
