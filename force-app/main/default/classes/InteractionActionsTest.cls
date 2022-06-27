@@ -5,12 +5,10 @@
  */
 @isTest
 public with sharing class InteractionActionsTest {
-  private final static string TEST_MOBILE = '01189998819991197253';
-
-  private static string contactRequestQueueName = 'Contact Request';
-
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
+  private static final String APPOINTMENT_RW_PS = 'Appointment_Booking_Read_Write';
+  private static final String NOT_AUTOMATED_PURPOSE = 'NotAutomated';
 
   //Number of minutes before an event to set the reminder
   private static Integer reminderMinutes = 15;
@@ -41,8 +39,7 @@ public with sharing class InteractionActionsTest {
   static void testInteractionAssignedBacktoQueue() {
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
-    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount = createTestAccount();
     insert testAccount;
     testAccount = [
       SELECT Id, PersonContactId
@@ -63,7 +60,7 @@ public with sharing class InteractionActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     request.OwnerId = UserInfo.getUserId();
@@ -84,7 +81,9 @@ public with sharing class InteractionActionsTest {
     Group interactionQueue = [
       SELECT ID
       FROM Group
-      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+      WHERE
+        Type = 'Queue'
+        AND Name = :InteractionConstants.APPOINTMENT_QUEUE_NAME
     ];
 
     System.assertEquals(
@@ -134,12 +133,13 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testFindingInteractionsWithoutMobile() {
+    Faker faker = new Faker('AU');
     Interaction interactionWithoutPhoneNumber = new Interaction(
-      Name = 'interactionWithoutNumber'
+      Name = faker.randomString(10)
     );
     Interaction interactionWithPhoneNumber = new Interaction(
-      Name = 'interactionWithNumber',
-      Contact_Mobile__c = TEST_MOBILE
+      Name = faker.randomString(10),
+      Contact_Mobile__c = String.valueOf(faker.randomDecimal(10, 0))
     );
     List<Interaction> interactions = new List<Interaction>{
       interactionWithPhoneNumber,
@@ -168,9 +168,10 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testBulkCancellingAnInteraction() {
+    Faker faker = new Faker('AU');
     Schema.Location loc = new Schema.location();
-    loc.Name = 'Test Location';
-    loc.LocationType = 'Store1';
+    loc.Name = faker.randomString(10);
+    loc.LocationType = InteractionConstants.STORE;
     insert loc;
 
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
@@ -179,16 +180,15 @@ public with sharing class InteractionActionsTest {
     apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
-    apptCommt.Appointment_Channel__c = 'Store';
+    apptCommt.Appointment_Channel__c = InteractionConstants.STORE;
     insert apptCommt;
 
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
     List<Account> personAccountList = new List<Account>();
 
-    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
-    Account testAccount2 = createTestAccount('John', 'Smith', 'jsm666');
+    Account testAccount1 = createTestAccount();
+    Account testAccount2 = createTestAccount();
 
     personAccountList.add(testAccount1);
     personAccountList.add(testAccount2);
@@ -213,7 +213,7 @@ public with sharing class InteractionActionsTest {
       request.RequestReason = otherPurposeName;
       request.WhoId = testAccounts[0].PersonContactId;
       request.Appointment_Commitment__c = apptCommt.Id;
-      request.PreferredChannel = 'Call';
+      request.PreferredChannel = InteractionConstants.CALL;
       contactRequestList.add(request);
     }
 
@@ -233,7 +233,9 @@ public with sharing class InteractionActionsTest {
     Group interactionQueue = [
       SELECT ID
       FROM Group
-      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+      WHERE
+        Type = 'Queue'
+        AND Name = :InteractionConstants.APPOINTMENT_QUEUE_NAME
     ];
 
     for (Interaction inter : testInteraction) {
@@ -287,7 +289,7 @@ public with sharing class InteractionActionsTest {
     InteractionActions actions = new InteractionActions();
 
     for (Interaction updateInteraction : testInteraction) {
-      updateInteraction.Status__c = 'Cancelled';
+      updateInteraction.Status__c = InteractionConstants.CANCELLED;
       updatedInteractions.add(updateInteraction);
     }
     update updatedInteractions;
@@ -325,9 +327,10 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testCancellingAnInteraction() {
+    Faker faker = new Faker('AU');
     Schema.Location loc = new Schema.location();
-    loc.Name = 'Test Location';
-    loc.LocationType = 'Store1';
+    loc.Name = faker.randomString(10);
+    loc.LocationType = InteractionConstants.STORE;
     insert loc;
 
     Appointment_Commitment__c apptCommt = new Appointment_Commitment__c();
@@ -336,13 +339,12 @@ public with sharing class InteractionActionsTest {
     apptCommt.Type__c = InteractionConstants.OTHER_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
-    apptCommt.Appointment_Channel__c = 'Store';
+    apptCommt.Appointment_Channel__c = InteractionConstants.STORE;
     insert apptCommt;
 
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
-    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount = createTestAccount();
     insert testAccount;
     testAccount = [
       SELECT Id, PersonContactId
@@ -362,7 +364,7 @@ public with sharing class InteractionActionsTest {
     ContactRequest request = new ContactRequest();
     request.WhoId = testAccount.PersonContactId;
     request.Appointment_Commitment__c = apptCommt.Id;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     request = [SELECT Id, RequestReason FROM ContactRequest];
@@ -387,7 +389,9 @@ public with sharing class InteractionActionsTest {
     Group interactionQueue = [
       SELECT ID
       FROM Group
-      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+      WHERE
+        Type = 'Queue'
+        AND Name = :InteractionConstants.APPOINTMENT_QUEUE_NAME
     ];
 
     System.assertEquals(
@@ -429,7 +433,7 @@ public with sharing class InteractionActionsTest {
     oldMap.put(oldInteraction.Id, oldInteraction);
 
     test.startTest();
-    testInteraction.Status__c = 'Cancelled';
+    testInteraction.Status__c = InteractionConstants.CANCELLED;
     InteractionActions actions = new InteractionActions();
     List<Interaction> updatedInteractions = new List<Interaction>();
     updatedInteractions.add(testInteraction);
@@ -468,14 +472,15 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testDoesntFindNotOrStillCancelledInteractions() {
+    Faker faker = new Faker('AU');
     Interaction notCancelledInteraction = new Interaction(
-      Name = 'Not Cancelled Interaction',
+      Name = faker.randomString(10),
       Status__c = InteractionConstants.SCHEDULED_STATUS
     );
 
     Interaction stillCancelledInteraction = new Interaction(
-      Name = 'Still Cancelled Interaction',
-      Status__c = 'Cancelled'
+      Name = faker.randomString(10),
+      Status__c = InteractionConstants.CANCELLED
     );
 
     List<Interaction> oldInteractions = new List<Interaction>();
@@ -512,18 +517,19 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testUnassigningInteraction() {
+    Faker faker = new Faker('AU');
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
       .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
     Interaction testInteraction = new Interaction(
       OwnerId = UserInfo.getUserId(),
-      Name = 'Test Interaction',
+      Name = faker.randomString(10),
       RecordTypeId = appointmentRTID
     );
     insert testInteraction;
 
-    testInteraction.Status__c = 'Assigned';
+    testInteraction.Status__c = InteractionConstants.ASSIGNED_STATUS;
 
     Interaction unassignedInteraction = new Interaction(
       Id = testInteraction.Id,
@@ -572,8 +578,7 @@ public with sharing class InteractionActionsTest {
   static void testStatusChangetoScheduled() {
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
-    Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount = createTestAccount();
     insert testAccount;
     testAccount = [
       SELECT Id, PersonContactId
@@ -594,7 +599,7 @@ public with sharing class InteractionActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     request.OwnerId = UserInfo.getUserId();
@@ -615,7 +620,9 @@ public with sharing class InteractionActionsTest {
     Group interactionQueue = [
       SELECT ID
       FROM Group
-      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+      WHERE
+        Type = 'Queue'
+        AND Name = :InteractionConstants.APPOINTMENT_QUEUE_NAME
     ];
 
     System.assertEquals(
@@ -639,12 +646,13 @@ public with sharing class InteractionActionsTest {
 
   @isTest
   static void testFindInteractionOwnershipChanged() {
+    Faker faker = new Faker('AU');
     InteractionActions actions = new InteractionActions();
     Id myId = UserInfo.getUserId();
     Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
 
     Interaction testInteraction = new Interaction(
-      Name = 'Test Interaction',
+      Name = faker.randomString(10),
       OwnerId = groupId
     );
     insert testInteraction;
@@ -691,11 +699,10 @@ public with sharing class InteractionActionsTest {
   static void testCoachingSummaryCreation() {
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
     List<Account> personAccountList = new List<Account>();
 
-    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
-    Account testAccount2 = createTestAccount('John', 'Smith', 'jsm666');
+    Account testAccount1 = createTestAccount();
+    Account testAccount2 = createTestAccount();
 
     personAccountList.add(testAccount1);
     personAccountList.add(testAccount2);
@@ -719,7 +726,7 @@ public with sharing class InteractionActionsTest {
       request.Appointment_date_and_Time__c = appointmentDate;
       request.RequestReason = otherPurposeName;
       request.WhoId = testAccounts[0].PersonContactId;
-      request.PreferredChannel = 'Call';
+      request.PreferredChannel = InteractionConstants.CALL;
       contactRequestList.add(request);
     }
 
@@ -739,7 +746,9 @@ public with sharing class InteractionActionsTest {
     Group interactionQueue = [
       SELECT ID
       FROM Group
-      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+      WHERE
+        Type = 'Queue'
+        AND Name = :InteractionConstants.APPOINTMENT_QUEUE_NAME
     ];
 
     for (Interaction inter : testInteraction) {
@@ -816,12 +825,12 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testCoachingSummaryOwnerUpdate() {
+    Faker faker = new Faker('AU');
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
     List<Account> personAccountList = new List<Account>();
 
-    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount1 = createTestAccount();
     insert testAccount1;
 
     List<Account> testAccounts = [SELECT Id, PersonContactId FROM Account];
@@ -841,7 +850,7 @@ public with sharing class InteractionActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccounts[0].PersonContactId;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     contactRequestList.add(request);
 
     insert request;
@@ -860,7 +869,9 @@ public with sharing class InteractionActionsTest {
     Group interactionQueue = [
       SELECT ID
       FROM Group
-      WHERE Type = 'Queue' AND Name = :'Appointments Queue'
+      WHERE
+        Type = 'Queue'
+        AND Name = :InteractionConstants.APPOINTMENT_QUEUE_NAME
     ];
 
     System.assertEquals(
@@ -905,7 +916,7 @@ public with sharing class InteractionActionsTest {
     UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
     User coach = TestUtil.createTestUser(
       new Map<String, Object>{
-        'FirstName' => 'CoachTest',
+        'FirstName' => faker.randomString(10),
         'ProfileId' => profile.Id,
         'UserRoleId' => coachRole.Id
       }
@@ -915,7 +926,7 @@ public with sharing class InteractionActionsTest {
     PermissionSet ps = [
       SELECT Id
       FROM PermissionSet
-      WHERE Name = 'Appointment_Booking_Read_Write'
+      WHERE Name = :APPOINTMENT_RW_PS
     ];
 
     PermissionSetAssignment psa = new PermissionSetAssignment(
@@ -927,7 +938,8 @@ public with sharing class InteractionActionsTest {
 
     Interaction interactNew = new Interaction();
     interactNew.Coaching_Summary__c = coachingSummaryList[0].Id;
-    interactNew.Name = 'TestNewInteraction';
+    String randInteractName = faker.randomString(10);
+    interactNew.Name = randInteractName;
     interactNew.AccountId = testAccount1.Id;
     interactNew.StartTime = System.now().addDays(30);
     interactNew.EndTime = interactNew.StartTime.addMinutes(30);
@@ -936,7 +948,7 @@ public with sharing class InteractionActionsTest {
     interactNew = [
       SELECT Id, OwnerId
       FROM Interaction
-      WHERE Name = 'TestNewInteraction'
+      WHERE Name = :randInteractName
     ];
 
     Test.startTest();
@@ -963,7 +975,7 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testCustomerCreatingOverlappingInteraction() {
-    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount1 = createTestAccount();
     insert testAccount1;
 
     Account testAccount = [
@@ -979,7 +991,7 @@ public with sharing class InteractionActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = finacialWellbeingPurposeName;
     request.WhoId = testAccount.PersonContactId;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     List<Interaction> testInteraction = [
@@ -1010,7 +1022,7 @@ public with sharing class InteractionActionsTest {
     request2.Appointment_date_and_Time__c = newAppointmentDate;
     request2.RequestReason = finacialWellbeingPurposeName;
     request2.WhoId = testAccount.PersonContactId;
-    request2.PreferredChannel = 'Call';
+    request2.PreferredChannel = InteractionConstants.CALL;
 
     Exception thrownException;
     try {
@@ -1044,14 +1056,15 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testLeadCreatingOverlappingInteraction() {
+    Faker faker = new Faker('AU');
     Id generalLeadRTID = Schema.sOBjectType.Lead.getRecordTypeInfosByDeveloperName()
       .get('General')
       .getRecordTypeId();
     Lead testLead = new Lead(
-      LastName = 'Bloggs',
+      LastName = faker.randomString(10),
       RecordTypeId = generalLeadRTID
     );
-    testLead.MobilePhone = TEST_MOBILE;
+    testLead.MobilePhone = String.valueOf(faker.randomDecimal(10, 0));
     insert testLead;
 
     string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
@@ -1061,7 +1074,7 @@ public with sharing class InteractionActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = finacialWellbeingPurposeName;
     request.WhoId = testLead.Id;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     List<Interaction> testInteraction = [
@@ -1086,7 +1099,7 @@ public with sharing class InteractionActionsTest {
     request2.Appointment_date_and_Time__c = newAppointmentDate;
     request2.RequestReason = finacialWellbeingPurposeName;
     request2.WhoId = testLead.Id;
-    request2.PreferredChannel = 'Call';
+    request2.PreferredChannel = InteractionConstants.CALL;
 
     Exception thrownException;
     try {
@@ -1116,11 +1129,12 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testCoachCreatingOverlappingInteraction() {
+    Faker faker = new Faker('AU');
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
       .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
-    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount1 = createTestAccount();
     insert testAccount1;
 
     Account testAccount = [
@@ -1134,7 +1148,7 @@ public with sharing class InteractionActionsTest {
     DateTime endDate = appointmentDate.addMinutes(45);
 
     Interaction existingInteraction = new Interaction(
-      Name = 'existing interaction',
+      Name = faker.randomString(10),
       RecordTypeId = appointmentRTID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
@@ -1148,7 +1162,7 @@ public with sharing class InteractionActionsTest {
 
     Interaction testInteraction2;
     testInteraction2 = new Interaction(
-      Name = 'Test Interaction',
+      Name = faker.randomString(10),
       RecordTypeId = appointmentRTID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
@@ -1176,14 +1190,15 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testCoachUpdatingOverlappingInteraction() {
+    Faker faker = new Faker('AU');
     InteractionActions actions = new InteractionActions();
     Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
       .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
-    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount1 = createTestAccount();
     insert testAccount1;
-    Account testAccount2 = createTestAccount('Jane', 'Doe', 'zui987');
+    Account testAccount2 = createTestAccount();
     insert testAccount2;
 
     Account testAccount = [
@@ -1203,7 +1218,7 @@ public with sharing class InteractionActionsTest {
     DateTime endDate = appointmentDate.addMinutes(45);
 
     Interaction existingInteraction = new Interaction(
-      Name = 'existing interaction',
+      Name = faker.randomString(10),
       RecordTypeId = appointmentRTID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
@@ -1231,7 +1246,7 @@ public with sharing class InteractionActionsTest {
 
     Interaction testInteraction2;
     testInteraction2 = new Interaction(
-      Name = 'Test Interaction',
+      Name = faker.randomString(10),
       RecordTypeId = appointmentRTID,
       AccountId = testAccount2.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
@@ -1300,9 +1315,9 @@ public with sharing class InteractionActionsTest {
       .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
-    Account testAccount1 = createTestAccount('Joe', 'Bloggs', 'afr123');
+    Account testAccount1 = createTestAccount();
     insert testAccount1;
-    Account testAccount2 = createTestAccount('Jane', 'Doe', 'zui987');
+    Account testAccount2 = createTestAccount();
     insert testAccount2;
 
     Account testAccount = [
@@ -1345,6 +1360,19 @@ public with sharing class InteractionActionsTest {
   }
 
   /**
+   * @description helper method to create a person account with random strings
+   * @return Account a Person Account with random name and OCV Ids
+   */
+  static Account createTestAccount() {
+    Faker faker = new Faker('AU');
+    return createTestAccount(
+      faker.randomString(5),
+      faker.randomString(5),
+      faker.randomString(10)
+    );
+  }
+
+  /**
    * @description helper method to create a person account
    * @param firstName String the first name of the person
    * @param lastName String the last name of the person
@@ -1356,6 +1384,7 @@ public with sharing class InteractionActionsTest {
     String lastName,
     String ocvId
   ) {
+    Faker faker = new Faker('AU');
     Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')
       .getRecordTypeId();
@@ -1364,7 +1393,7 @@ public with sharing class InteractionActionsTest {
     testAccount.LastName = lastName;
     testAccount.OCV_ID__c = ocvId;
     testAccount.RecordTypeId = personAccountRecordTypeId;
-    testAccount.PersonMobilePhone = TEST_MOBILE;
+    testAccount.PersonMobilePhone = String.valueOf(faker.randomDecimal(10, 0));
 
     return testAccount;
   }
@@ -1378,7 +1407,7 @@ public with sharing class InteractionActionsTest {
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
     );
     Interaction nonAutomatedInteraction = new Interaction(
-      Interaction_Purpose__c = 'NotAutomated'
+      Interaction_Purpose__c = NOT_AUTOMATED_PURPOSE
     );
 
     List<Interaction> interactions = new List<Interaction>{

@@ -1,7 +1,6 @@
 @isTest
 private class ContactRequestTriggerHandlerTest {
   static Integer otherPurposeDuration = 30;
-  static string contactRequestQueueName = 'Contact Request';
   /*
     Test data setup 
   */
@@ -16,8 +15,8 @@ private class ContactRequestTriggerHandlerTest {
     Faker faker = new Faker('AU');
 
     Schema.Location loc = new Schema.location();
-    loc.Name = 'Test Location';
-    loc.LocationType = 'Store1';
+    loc.Name = faker.randomString(10);
+    loc.LocationType = InteractionConstants.STORE;
     insert loc;
 
     List<Appointment_Commitment__c> apptCommtRecords = new List<Appointment_Commitment__c>();
@@ -28,13 +27,13 @@ private class ContactRequestTriggerHandlerTest {
     apptCommt.Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
     apptCommt.Date_and_Time__c = DateTime.newInstance(2022, 3, 10, 12, 45, 0);
-    apptCommt.Appointment_Channel__c = 'Store';
+    apptCommt.Appointment_Channel__c = InteractionConstants.STORE;
     apptCommtRecords.add(apptCommt);
 
     Appointment_Commitment__c apptCommt2 = new Appointment_Commitment__c();
     apptCommt2.Available__c = 5;
     apptCommt2.Date_and_Time__c = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
-    apptCommt2.Appointment_Channel__c = 'Store';
+    apptCommt2.Appointment_Channel__c = InteractionConstants.STORE;
     apptCommtRecords.add(apptCommt2);
 
     insert apptCommtRecords;
@@ -54,8 +53,8 @@ private class ContactRequestTriggerHandlerTest {
     account = [SELECT Id, PersonContactId FROM Account WHERE Id = :account.Id];
 
     Schema.Location testLocation = new Schema.Location();
-    testLocation.Name = 'Test Location';
-    testLocation.LocationType = 'Store';
+    testLocation.Name = faker.randomString(10);
+    testLocation.LocationType = InteractionConstants.STORE;
     insert testLocation;
 
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
@@ -63,14 +62,14 @@ private class ContactRequestTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Interaction interaction = new Interaction(
         AccountId = account.Id,
-        Name = 'Test Interaction' + i,
+        Name = faker.randomString(10) + i,
         Status__c = InteractionConstants.NEW_STATUS
       );
 
       interactionList.add(interaction);
 
       ContactRequest contactReq = new ContactRequest(
-        PreferredChannel = 'Store',
+        PreferredChannel = InteractionConstants.STORE,
         RequestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
         Status = InteractionConstants.NEW_STATUS,
         Appointment_Date_And_Time__c = start,
@@ -162,9 +161,10 @@ private class ContactRequestTriggerHandlerTest {
 
   @isTest
   static void testBulkContactRequestPrepopulation() {
+    Faker faker = new Faker('AU');
     Schema.Location loc = new Schema.location();
-    loc.Name = 'Test Location2';
-    loc.LocationType = 'Store2';
+    loc.Name = faker.randomString(10);
+    loc.LocationType = InteractionConstants.STORE;
     insert loc;
 
     Account testAccount = createTestAccounts(1)[0];
@@ -175,7 +175,7 @@ private class ContactRequestTriggerHandlerTest {
     apptCommt.Confirmed__c = 0;
     apptCommt.Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     apptCommt.Location__c = loc.Id;
-    apptCommt.Appointment_Channel__c = 'Call';
+    apptCommt.Appointment_Channel__c = InteractionConstants.CALL;
     apptCommt.Date_and_Time__c = dateTimeVal;
     insert apptCommt;
 
@@ -192,7 +192,7 @@ private class ContactRequestTriggerHandlerTest {
     crList = [
       SELECT Id, RequestReason, Appointment_date_and_Time__c, Location__c
       FROM ContactRequest
-      WHERE PreferredChannel = 'Call'
+      WHERE PreferredChannel = :InteractionConstants.CALL
     ];
 
     Integer counter = 0;
@@ -259,7 +259,7 @@ private class ContactRequestTriggerHandlerTest {
       0
     );
     contReq.Appointment_Commitment__c = apptCommtRec.Id;
-    contReq.PreferredChannel = 'Call';
+    contReq.PreferredChannel = InteractionConstants.CALL;
     contReq.WhoId = testAccount.PersonContactId;
     insert contReq;
 
@@ -299,7 +299,7 @@ private class ContactRequestTriggerHandlerTest {
       45,
       0
     );
-    apptCommtRec.Appointment_Channel__c = 'Call';
+    apptCommtRec.Appointment_Channel__c = InteractionConstants.CALL;
     insert apptCommtRec;
 
     Test.startTest();
@@ -318,7 +318,7 @@ private class ContactRequestTriggerHandlerTest {
       0
     );
     contReq.Appointment_Commitment__c = apptCommtRec.Id;
-    contReq.PreferredChannel = 'Call';
+    contReq.PreferredChannel = InteractionConstants.CALL;
     contReq.WhoId = testAccount.PersonContactId;
     insert contReq;
 
@@ -354,7 +354,7 @@ private class ContactRequestTriggerHandlerTest {
       FROM ContactRequest
       WHERE Status = :InteractionConstants.NEW_STATUS
     ]) {
-      contactRequest.Status = 'Cancelled';
+      contactRequest.Status = InteractionConstants.CANCELLED;
       updatedRequests.add(contactRequest);
     }
 
@@ -388,7 +388,7 @@ private class ContactRequestTriggerHandlerTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = otherPurposeName;
     request.WhoId = testAccount.PersonContactId;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     test.startTest();
     insert request;
     test.stopTest();
@@ -448,7 +448,9 @@ private class ContactRequestTriggerHandlerTest {
     List<QueueSObject> contactRequestQueue = [
       SELECT Queue.Id, Queue.Name, Queue.Type
       FROM QueueSObject
-      WHERE Queue.Type = 'Queue' AND Queue.Name = :contactRequestQueueName
+      WHERE
+        Queue.Type = 'Queue'
+        AND Queue.Name = :InteractionConstants.CONTACT_REQUEST_QUEUE
     ];
 
     List<ContactRequest> requests = createContactRequests(
@@ -499,7 +501,7 @@ private class ContactRequestTriggerHandlerTest {
       request.Appointment_date_and_Time__c = appointmentDate;
       request.RequestReason = InteractionConstants.OTHER_PURPOSE_NAME;
       request.WhoId = currentAccount.PersonContactId;
-      request.PreferredChannel = 'Call';
+      request.PreferredChannel = InteractionConstants.CALL;
       requests.add(request);
     }
     return requests;
@@ -535,7 +537,12 @@ private class ContactRequestTriggerHandlerTest {
    * @return Account a Person Account with Name Fred Smith, OCV ID 123456
    */
   static Account createTestAccount() {
-    return createTestAccount('Fred', 'Smith', '123456');
+    Faker faker = new Faker('AU');
+    return createTestAccount(
+      faker.randomString(5),
+      faker.randomString(5),
+      faker.randomString(6)
+    );
   }
 
   /**

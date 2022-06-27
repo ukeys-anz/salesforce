@@ -1,7 +1,7 @@
 @isTest
 public with sharing class ContactRequestActionsTest {
-  private static string contactRequestQueueName = 'Contact Request';
-  private static string appointmentQueueName = 'Appointments Queue';
+  private static final String OUTBOUND = 'Outbound';
+  private static final String ANZ_LOCATION = 'ANZ Location';
 
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
@@ -36,15 +36,15 @@ public with sharing class ContactRequestActionsTest {
   static void testDirectionChoice() {
     ContactRequestActions actions = new ContactRequestActions();
 
-    String direction = actions.getDirection('Call');
+    String direction = actions.getDirection(InteractionConstants.CALL);
 
     System.assertEquals(
-      'Outbound',
+      OUTBOUND,
       direction,
       'Direction must be Outbound when channel is Call'
     );
 
-    direction = actions.getDirection('Store');
+    direction = actions.getDirection(InteractionConstants.STORE);
     System.assertEquals(
       '',
       direction,
@@ -54,7 +54,10 @@ public with sharing class ContactRequestActionsTest {
 
   @isTest
   static void testInteractionExternalIdNotFromCR() {
-    Interaction testInteraction = new Interaction(Name = 'Test Interaction');
+    Faker faker = new Faker('AU');
+    Interaction testInteraction = new Interaction(
+      Name = faker.randomString(15)
+    );
     test.startTest();
     insert testInteraction;
     test.stopTest();
@@ -73,9 +76,10 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testCreateInteractionFromRequest() {
     setup();
+    Faker faker = new Faker('AU');
     Schema.Location testLocation = new Schema.Location(
-      Name = 'ANZ Location',
-      LocationType = 'Store'
+      Name = ANZ_LOCATION,
+      LocationType = InteractionConstants.STORE
     );
     insert testLocation;
 
@@ -96,9 +100,10 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
-    request.RequestDescription = 'Test';
-    request.PreferredChannel = 'Call';
-    request.Channel_Booked__c = 'Chat';
+    String desp = faker.randomString(4);
+    request.RequestDescription = desp;
+    request.PreferredChannel = InteractionConstants.CALL;
+    request.Channel_Booked__c = InteractionConstants.CHAT;
     request.Location__c = testLocation.Id;
     Test.startTest();
     insert request;
@@ -188,13 +193,13 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      'Test',
+      desp,
       newInteraction.Description,
       'Description on the Interaction must match that of the request.'
     );
 
     System.assertEquals(
-      'Outbound',
+      OUTBOUND,
       newInteraction.Direction__c,
       'Direction must be "Outbound"'
     );
@@ -212,7 +217,9 @@ public with sharing class ContactRequestActionsTest {
       'Contact Request Id must be populated on Interaction'
     );
 
-    QueueSObject appointmentQueue = getQueue(appointmentQueueName);
+    QueueSObject appointmentQueue = getQueue(
+      InteractionConstants.APPOINTMENT_QUEUE_NAME
+    );
 
     System.assertEquals(
       appointmentQueue.Queue.Id,
@@ -268,6 +275,7 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testCreateInteractionFromRequestForLead() {
     setup();
+    Faker faker = new Faker('AU');
     Lead testLead = createTestLead();
 
     string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
@@ -281,8 +289,9 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = requestReason;
     request.WhoId = testLead.Id;
-    request.RequestDescription = 'Test';
-    request.PreferredChannel = 'Call';
+    String desp = faker.randomString(4);
+    request.RequestDescription = desp;
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -334,13 +343,13 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      'Test',
+      desp,
       newInteraction.Description,
       'Description on the Interaction must match that of the request.'
     );
 
     System.assertEquals(
-      'Outbound',
+      OUTBOUND,
       newInteraction.Direction__c,
       'Direction must be "Outbound"'
     );
@@ -356,6 +365,7 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testHandleNullAppointmentDate() {
     setup();
+    Faker faker = new Faker('AU');
     Account testAccount = createTestAccount();
 
     string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
@@ -366,8 +376,9 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = null;
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
-    request.RequestDescription = 'Test';
-    request.PreferredChannel = 'Call';
+    String desp = faker.randomString(4);
+    request.RequestDescription = desp;
+    request.PreferredChannel = InteractionConstants.CALL;
 
     Boolean exceptionThrown = false;
     try {
@@ -400,13 +411,13 @@ public with sharing class ContactRequestActionsTest {
     ContactRequest autoRequest = new ContactRequest();
     autoRequest.RequestReason = automatedPurposeName;
     autoRequest.Appointment_date_and_Time__c = DateTime.now();
-    autoRequest.PreferredChannel = 'Call';
+    autoRequest.PreferredChannel = InteractionConstants.CALL;
     autoRequest.WhoId = testAccount.PersonContactId;
 
     ContactRequest notAutoRequest = new ContactRequest();
     notAutoRequest.RequestReason = nonAutomatedPurposeName;
     notAutoRequest.Appointment_date_and_Time__c = DateTime.now();
-    notAutoRequest.PreferredChannel = 'Call';
+    notAutoRequest.PreferredChannel = InteractionConstants.CALL;
     notAutoRequest.WhoId = testAccount.PersonContactId;
 
     List<ContactRequest> requests = new List<ContactRequest>();
@@ -452,7 +463,7 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = DateTime.now();
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     Map<Id, Account> contactIdAccountIdMap = contactRequestActionHelper.getWhoIdAccountMap(
@@ -545,14 +556,15 @@ public with sharing class ContactRequestActionsTest {
    * @return Account a Person Account with Name Fred Smith, OCV ID 123456
    */
   static Account createTestAccount() {
+    Faker faker = new Faker('AU');
     Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')
       .getRecordTypeId();
     Account testAccount = new Account();
-    testAccount.FirstName = 'Fred';
-    testAccount.LastName = 'Smith';
-    testAccount.OCV_ID__c = '123456';
-    testAccount.PersonMobilePhone = '01189998819991197253';
+    testAccount.FirstName = faker.randomString(5);
+    testAccount.LastName = faker.randomString(5);
+    testAccount.OCV_ID__c = faker.randomString(6);
+    testAccount.PersonMobilePhone = String.valueOf(faker.randomDecimal(10, 0));
     testAccount.RecordTypeId = personAccountRecordTypeId;
     insert testAccount;
 
@@ -574,10 +586,11 @@ public with sharing class ContactRequestActionsTest {
     Id leadRecordTypeId = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
       .get('General')
       .getRecordTypeId();
+    Faker faker = new Faker('AU');
 
     Lead testLead = new Lead();
-    testLead.LastName = 'Test CR Lead';
-    testLead.Company = 'Test CR Lead';
+    testLead.LastName = faker.randomString(12);
+    testLead.Company = faker.randomString(12);
     testLead.RecordTypeId = leadRecordTypeId;
     insert testLead;
 

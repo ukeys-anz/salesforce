@@ -5,9 +5,7 @@
  */
 @isTest
 public with sharing class InteractionInterceptTest {
-  private static final string FIRST_NAME = 'Fred';
-  private static final string LAST_NAME = 'Smith';
-  private static final string PHONE_NUMBER = '01189998819991197253';
+  static final String CANCELLED = 'Cancelled';
   @isTest
   static void isInterceptInteractions() {
     DateTime startDate = DateTime.newInstance(
@@ -130,7 +128,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Cancelled';
+    testInteraction.Status__c = CANCELLED;
     update testInteraction;
 
     try {
@@ -182,17 +180,18 @@ public with sharing class InteractionInterceptTest {
    * with David from 12:30am - 1:15am on the same day which has 15 mins overlap.*/
   @isTest
   static void test48304Issue4() {
+    Faker faker = new Faker('AU');
     Integer year = DateTime.now().year() + 1;
     String purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     //Pete Account
-    Account peteAccount = createTestAccount('Pete', 'Account');
+    Account peteAccount = createTestAccount();
 
     DateTime peteStartTime = DateTime.newInstance(year, 6, 16, 1, 0, 0);
 
     //Rescheduled Appointment.
     Interaction peteInteraction = new Interaction(
-      Name = 'Pete Interaction',
+      Name = faker.randomString(10),
       AccountId = peteAccount.Id,
       StartTime = peteStartTime,
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
@@ -229,14 +228,14 @@ public with sharing class InteractionInterceptTest {
     );
 
     //David Interaction
-    Account davidAccount = createTestAccount('David', 'Person');
+    Account davidAccount = createTestAccount();
 
     DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
 
     DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
 
     Interaction davidInteraction = new Interaction(
-      Name = 'David Interaction',
+      Name = faker.randomString(10),
       AccountId = davidAccount.Id,
       StartTime = davidStartTime,
       Interaction_Purpose__c = purpose
@@ -263,17 +262,18 @@ public with sharing class InteractionInterceptTest {
 
   @isTest
   static void test48304Issue4ChangingTime() {
+    Faker faker = new Faker('AU');
     Integer year = DateTime.now().year() + 1;
     String purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     //Pete Account
-    Account peteAccount = createTestAccount('Pete', 'Account');
+    Account peteAccount = createTestAccount();
 
     DateTime peteStartTime = DateTime.newInstance(year, 6, 15, 1, 0, 0);
 
     //Rescheduled Appointment.
     Interaction peteInteraction = new Interaction(
-      Name = 'Pete Interaction',
+      Name = faker.randomString(10),
       AccountId = peteAccount.Id,
       StartTime = peteStartTime,
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
@@ -312,14 +312,14 @@ public with sharing class InteractionInterceptTest {
     );
 
     //David Interaction
-    Account davidAccount = createTestAccount('David', 'Person');
+    Account davidAccount = createTestAccount();
 
     DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
 
     DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
 
     Interaction davidInteraction = new Interaction(
-      Name = 'David Interaction',
+      Name = faker.randomString(10),
       AccountId = davidAccount.Id,
       StartTime = davidStartTime,
       Interaction_Purpose__c = purpose
@@ -349,7 +349,8 @@ public with sharing class InteractionInterceptTest {
    * @return Account a Person Account with Name Fred Smith, OCV ID 123456
    */
   static Account createTestAccount() {
-    return createTestAccount(FIRST_NAME, LAST_NAME);
+    Faker faker = new Faker('AU');
+    return createTestAccount(faker.randomString(5), faker.randomString(5));
   }
 
   /**
@@ -364,10 +365,10 @@ public with sharing class InteractionInterceptTest {
       .get('PersonAccount')
       .getRecordTypeId();
     Account testAccount = new Account();
-    testAccount.FirstName = FIRST_NAME;
-    testAccount.LastName = LAST_NAME;
+    testAccount.FirstName = firstName;
+    testAccount.LastName = lastName;
     testAccount.OCV_ID__c = faker.randomString(10);
-    testAccount.PersonMobilePhone = PHONE_NUMBER;
+    testAccount.PersonMobilePhone = String.valueOf(faker.randomDecimal(10, 0));
     testAccount.RecordTypeId = personAccountRecordTypeId;
     insert testAccount;
 
