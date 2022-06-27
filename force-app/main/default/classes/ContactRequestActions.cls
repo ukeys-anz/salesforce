@@ -46,35 +46,6 @@ public with sharing class ContactRequestActions {
   }
 
   /**
-   * @description does the database call to insert Interactions
-   * @param interactions List<Interaction> list of interactions.
-   */
-  public void insertInteractions(List<Interaction> interactions) {
-    if (Interaction.SObjectType.getDescribe().isCreateable()) {
-      List<Database.SaveResult> results = Database.Insert(interactions);
-      lib_systemLog log = new lib_systemLog(
-        'ContactRequestActions',
-        'insertInteractions'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Interaction',
-        results,
-        interactions
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'insertInteractions',
-        'Not enough permissions to create Interactions.'
-      );
-    }
-  }
-
-  /**
    * @description creates interactions from a list of requests
    * @param requests List<ContactRequest> requests for which to create Interactions
    * @return List<Interaction> newly created interactions.

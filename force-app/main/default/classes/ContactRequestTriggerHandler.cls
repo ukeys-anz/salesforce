@@ -29,7 +29,7 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
       List<Interaction> interactions = actions.createInteractionsFromRequests(
         automatedRequests
       );
-      actions.insertInteractions(interactions);
+      InteractionDMLHelper.insertInteractions(interactions);
     }
   }
 

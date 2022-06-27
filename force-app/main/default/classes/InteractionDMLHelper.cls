@@ -9,7 +9,7 @@ public with sharing class InteractionDMLHelper {
    * @param interactions The list of interactions to be updated
    */
   public static void updateInteractions(List<Interaction> interactions) {
-    if (Interaction.SObjectType.getDescribe().isUpdateable()) {
+    if (PermissionUtils.canUpdate('Interaction')) {
       List<Database.SaveResult> results = Database.Update(interactions);
       lib_systemLog log = new lib_systemLog(
         'InteractionsDMLHelper',
@@ -40,7 +40,7 @@ public with sharing class InteractionDMLHelper {
    */
   public static List<Interaction> getInteractions(Set<Id> interactionIds) {
     List<Interaction> interactions = new List<Interaction>();
-    if (Interaction.SObjectType.getDescribe().isAccessible()) {
+    if (Interaction.SObjectType.getDescribe().isQueryable()) {
       interactions = [
         SELECT Id, Interaction_External_Id__c, Interaction_Auto_Number__c
         FROM Interaction
@@ -70,7 +70,7 @@ public with sharing class InteractionDMLHelper {
       contactRequestIds.add(interact.ContactRequestId__c);
     }
 
-    if (ContactRequest.SObjectType.getDescribe().isAccessible()) {
+    if (ContactRequest.SObjectType.getDescribe().isQueryable()) {
       contactRequestList = [
         SELECT Id, Appointment_Commitment__c
         FROM ContactRequest
@@ -78,7 +78,7 @@ public with sharing class InteractionDMLHelper {
       ];
     } else {
       CommonUtil.logAndThrowIAE(
-        'InteractionActions',
+        'InteractionDMLHelper',
         'getRelatedContactRequest',
         'Not enough permissions to query Contact Request.'
       );
@@ -117,7 +117,7 @@ public with sharing class InteractionDMLHelper {
     Set<Id> relatedIds
   ) {
     List<Interaction> interactionsForAccounts = new List<Interaction>();
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
+    if (PermissionUtils.canQuery('Interaction')) {
       interactionsForAccounts = [
         SELECT
           Id,
@@ -150,7 +150,7 @@ public with sharing class InteractionDMLHelper {
    */
   public static List<Interaction> getInteractionsByLead(Set<Id> leadIds) {
     List<Interaction> interactionsForLeads = new List<Interaction>();
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
+    if (PermissionUtils.canQuery('Interaction')) {
       interactionsForLeads = [
         SELECT
           Id,
@@ -172,5 +172,34 @@ public with sharing class InteractionDMLHelper {
       );
     }
     return interactionsForLeads;
+  }
+
+  /**
+   * @description does the database call to insert Interactions
+   * @param interactions List<Interaction> list of interactions.
+   */
+  public static void insertInteractions(List<Interaction> interactions) {
+    if (PermissionUtils.canCreate('Interaction')) {
+      List<Database.SaveResult> results = Database.Insert(interactions);
+      lib_systemLog log = new lib_systemLog(
+        'InteractionDMLHelper',
+        'insertInteractions'
+      );
+      Boolean hasError = log.addDatabaseSaveResult(
+        'Interaction',
+        results,
+        interactions
+      );
+      if (hasError) {
+        //log errors to application log
+        log.insertLog();
+      }
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'InteractionDMLHelper',
+        'insertInteractions',
+        'Not enough permissions to create Interactions.'
+      );
+    }
   }
 }

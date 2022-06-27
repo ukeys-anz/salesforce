@@ -3406,11 +3406,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Escalated_Flag_Id__mdt.Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Event.Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
