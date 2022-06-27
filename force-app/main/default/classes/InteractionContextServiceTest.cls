@@ -75,6 +75,24 @@ public with sharing class InteractionContextServiceTest {
   }
 
   @isTest
+  static void testInvalidDirection() {
+    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+    InteractionContextService.InteractionContextRequest intContext = prepareContext(
+      'OCVID887766'
+    );
+    intContext.direction = 'DummyText';
+
+    Test.startTest();
+    System.runAs(usr) {
+      InteractionContextService.doPost(intContext);
+    }
+    Test.stopTest();
+
+    List<Interaction> intList = [SELECT Id, Direction__c FROM Interaction];
+    System.assertEquals(0, intList.size());
+  }
+
+  @isTest
   static void testInvalidOcvId() {
     User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
     InteractionContextService.InteractionContextRequest intContext = prepareContext(
@@ -98,6 +116,7 @@ public with sharing class InteractionContextServiceTest {
 
     intContext.phoneNumber = '0412345678';
     intContext.ocvId = ocvId;
+    intContext.direction = 'Inbound';
 
     RestRequest req = new RestRequest();
     req.requestURI = '/InteractionContextRequests/';

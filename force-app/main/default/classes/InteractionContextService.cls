@@ -6,7 +6,6 @@
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
   global static final String INTERACTION_TYPE = 'Call';
-  global static final String INTERACTION_DIRECTION = 'Inbound';
   /**
    * @description HTTP POST method passing incoming interaction context in to Salesforce.
    * Salesforce would then return a interaction id created
@@ -32,7 +31,7 @@ global with sharing class InteractionContextService {
       Interaction intToInsert = new Interaction();
 
       intToInsert.AccountId = accList[0].Id;
-      intToInsert.Direction__c = INTERACTION_DIRECTION;
+      intToInsert.Direction__c = contextRequest.direction;
       intToInsert.InteractionType = INTERACTION_TYPE;
       intToInsert.Contact_Mobile__c = contextRequest.phoneNumber;
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
@@ -91,6 +90,10 @@ global with sharing class InteractionContextService {
      * @description ocv ID of the account from Twilio
      */
     public String ocvId { get; set; }
+    /**
+     * @description Direction from Twillio
+     */
+    public String direction { get; set; }
   }
 
   /**
