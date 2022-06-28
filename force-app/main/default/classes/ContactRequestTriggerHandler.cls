@@ -3,7 +3,6 @@
  * @since 03/2022
  * @description  ContactRequestTriggerHandler is the handler class for ContactRequestTrigger which extends Lib_TriggerHandler the trigger framework used.
  */
-
 public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to call the trigger framework
@@ -48,13 +47,14 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
       records
     );
 
+    List<ContactRequest> goodRequests = records;
     if (!appointmentCommitmentMap.isEmpty()) {
-      crActions.prepopulateAppointmentCommitmentValues(
+      goodRequests = crActions.prepopulateAppointmentCommitmentValues(
         records,
         appointmentCommitmentMap
       );
     }
 
-    crActions.validateContactRequests(records);
+    crActions.validateContactRequests(goodRequests);
   }
 }

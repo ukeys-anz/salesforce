@@ -76,7 +76,7 @@ public with sharing class ContactRequestTriggerActions {
     Map<Id, SObject> oldMap,
     List<ContactRequest> records
   ) {
-    List<Id> interactionIdList = new List<Id>();
+    Set<Id> interactionIdList = new Set<Id>();
     List<Interaction> interactionCancelList = new List<Interaction>();
 
     //Loop through contact requests and get records updated to cancel
@@ -91,50 +91,55 @@ public with sharing class ContactRequestTriggerActions {
       }
     }
 
-    if (
-      !interactionIdList.isEmpty() &&
-      Schema.sObjectType.Interaction.isQueryable()
-    ) {
-      for (Interaction interaction : [
-        SELECT Id, Status__c
-        FROM Interaction
-        WHERE Id IN :interactionIdList AND Status__c != :STATUS_CANCELLED
-      ]) {
-        interaction.Status__c = STATUS_CANCELLED;
-        interactionCancelList.add(interaction);
-      }
+    List<Interaction> notCancelledInteractions = InteractionGetters.getCancelledInteractions(
+      interactionIdList
+    );
 
-      //Update interactions to cancelled
-      if (
-        !interactionCancelList.isEmpty() &&
-        Interaction.sObjectType.getDescribe().isUpdateable()
-      ) {
-        update interactionCancelList;
-      }
+    for (Interaction interaction : notCancelledInteractions) {
+      interaction.Status__c = STATUS_CANCELLED;
+      interactionCancelList.add(interaction);
+    }
+
+    //Update interactions to cancelled
+    if (
+      !interactionCancelList.isEmpty() &&
+      Interaction.sObjectType.getDescribe().isUpdateable()
+    ) {
+      update interactionCancelList;
     }
   }
 
   /** @description Map the appointment commitment field values to the corresponding contact request records
    * @param crList List of new contact request records to be updated.
    * @param appointmentCommitmentMap Map of appointment commitment records related to the contact request.
+   * @return returns the Contact Requests that can be created
    */
-  public void prepopulateAppointmentCommitmentValues(
+  public List<ContactRequest> prepopulateAppointmentCommitmentValues(
     List<ContactRequest> crList,
     Map<Id, Appointment_Commitment__c> appointmentCommitmentMap
   ) {
+    List<ContactRequest> goodRequests = new List<ContactRequest>();
     for (ContactRequest contReq : crList) {
-      Appointment_Commitment__c apptCommt = appointmentCommitmentMap.get(
-        contReq.Appointment_Commitment__c
-      );
-      if (apptCommt.Available__c == apptCommt.Confirmed__c) {
-        contReq.addError(System.Label.Appointment_Commitment_Full);
+      if (
+        appointmentCommitmentMap.containsKey(contReq.Appointment_Commitment__c)
+      ) {
+        Appointment_Commitment__c apptCommt = appointmentCommitmentMap.get(
+          contReq.Appointment_Commitment__c
+        );
+        if (apptCommt.Available__c == apptCommt.Confirmed__c) {
+          contReq.addError(System.Label.Appointment_Commitment_Full);
+        } else {
+          contReq.RequestReason = apptCommt.Type__c;
+          contReq.Appointment_date_and_Time__c = apptCommt.Date_and_Time__c;
+          contReq.Location__c = apptCommt.Location__c;
+          contReq.PreferredChannel = apptCommt.Appointment_Channel__c;
+          goodRequests.add(contReq);
+        }
       } else {
-        contReq.RequestReason = apptCommt.Type__c;
-        contReq.Appointment_date_and_Time__c = apptCommt.Date_and_Time__c;
-        contReq.Location__c = apptCommt.Location__c;
-        contReq.PreferredChannel = apptCommt.Appointment_Channel__c;
+        goodRequests.add(contReq);
       }
     }
+    return goodRequests;
   }
 
   /** @description Map the appointment commitment field values to the corresponding contact request records
@@ -187,7 +192,7 @@ public with sharing class ContactRequestTriggerActions {
     Map<Id, Account> accountMap = actions.getWhoIdAccountMap(requests);
     Set<Id> whoIds = new Set<Id>();
 
-    List<Interaction> interactions = InteractionDMLHelper.getInteractionsForLeadsAndContacts(
+    List<Interaction> interactions = InteractionGetters.getInteractionsForLeadsAndContacts(
       extractWhoIds(requests, accountMap)
     );
     for (ContactRequest currentRequest : requests) {

@@ -34,29 +34,6 @@ public with sharing class InteractionDMLHelper {
   }
 
   /**
-   * @description gets Interactions
-   * @param interactionIds List of Ids of the interactions you wish to return
-   * @return List<Interaction> List of Interactions
-   */
-  public static List<Interaction> getInteractions(Set<Id> interactionIds) {
-    List<Interaction> interactions = new List<Interaction>();
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      interactions = [
-        SELECT Id, Interaction_External_Id__c, Interaction_Auto_Number__c
-        FROM Interaction
-        WHERE Id IN :interactionIds
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionDMLHelper',
-        'getInteractions',
-        'Not enough permissions to query Interaction.'
-      );
-    }
-    return interactions;
-  }
-
-  /**
    * @description Get the list of contact requests of those interactions which are cancelled
    * @param interactions The list of interactions which were cancelled
    * @return List<ContactRequest> List of ContactRequest records related to the interaction which were cancelled.
@@ -95,7 +72,7 @@ public with sharing class InteractionDMLHelper {
     Set<Id> accountIds
   ) {
     Map<Id, List<Interaction>> accountInteractionMap = new Map<Id, List<Interaction>>();
-    List<Interaction> interactionsForAccounts = existingUniqueInteractions(
+    List<Interaction> interactionsForAccounts = InteractionGetters.existingUniqueInteractions(
       accountIds
     );
     for (Interaction interact : interactionsForAccounts) {
@@ -109,40 +86,6 @@ public with sharing class InteractionDMLHelper {
     return accountInteractionMap;
   }
 
-  /** @description Method to get the list of existing scheduled interactions for the customer
-   * @param relatedIds Set of account, owner, and lead ids related to the new interactions
-   * @return  Map<Id, List<Interaction>> Map of account ids and list of scheduled interactions creared for the customer
-   */
-  public static List<Interaction> existingUniqueInteractions(
-    Set<Id> relatedIds
-  ) {
-    List<Interaction> interactionsForAccounts = new List<Interaction>();
-    if (PermissionUtils.canQuery('Interaction')) {
-      interactionsForAccounts = [
-        SELECT
-          Id,
-          AccountId,
-          StartTime,
-          Endtime,
-          OwnerId,
-          Interaction_External_Id__c
-        FROM Interaction
-        WHERE
-          (AccountId IN :relatedIds
-          OR Lead__c IN :relatedIds
-          OR OwnerId IN :relatedIds)
-          AND Status__c IN :InteractionConstants.UNIQUE_STATUSES
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'existingInteractions',
-        'Not enough permissions to query Interaction object.'
-      );
-    }
-    return interactionsForAccounts;
-  }
-
   /**
    * @description gets interactions related to a set of Ids
    * @param leadIds Set of Ids to search
@@ -150,7 +93,7 @@ public with sharing class InteractionDMLHelper {
    */
   public static List<Interaction> getInteractionsByLead(Set<Id> leadIds) {
     List<Interaction> interactionsForLeads = new List<Interaction>();
-    if (PermissionUtils.canQuery('Interaction')) {
+    if (Interaction.sObjectType.getDescribe().isQueryable()) {
       interactionsForLeads = [
         SELECT
           Id,
@@ -201,36 +144,5 @@ public with sharing class InteractionDMLHelper {
         'Not enough permissions to create Interactions.'
       );
     }
-  }
-
-  /**
-   * @description gets all interactions for leads and contacts
-   * @param whoIds list of WhoIds
-   * @return List of Interactions
-   */
-  public static List<Interaction> getInteractionsForLeadsAndContacts(
-    Set<Id> whoIds
-  ) {
-    List<Interaction> interactions = new List<Interaction>();
-    if (PermissionUtils.canQuery('Interaction')) {
-      interactions = [
-        SELECT
-          Id,
-          StartTime,
-          EndTime,
-          Interaction_External_Id__c,
-          AccountId,
-          Lead__c
-        FROM Interaction
-        WHERE AccountId IN :whoIds OR Lead__c IN :whoIds
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'InteractionActions',
-        'existingInteractions',
-        'Not enough permissions to query Interaction object.'
-      );
-    }
-    return interactions;
   }
 }

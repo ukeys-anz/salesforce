@@ -22,7 +22,7 @@ public with sharing class InteractionSetters {
    */
   @future
   public static void setExternalIds(Set<Id> interactionIds) {
-    List<Interaction> interactions = InteractionDMLHelper.getInteractions(
+    List<Interaction> interactions = InteractionGetters.getInteractions(
       interactionIds
     );
     if (!interactions.isEmpty()) {

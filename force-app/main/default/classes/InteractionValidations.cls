@@ -96,7 +96,7 @@ public with sharing class InteractionValidations {
     Set<Id> coachIds
   ) {
     Map<Id, List<Interaction>> coachInteractionsMap = new Map<Id, List<Interaction>>();
-    List<Interaction> coachInteractions = InteractionDMLHelper.existingUniqueInteractions(
+    List<Interaction> coachInteractions = InteractionGetters.existingUniqueInteractions(
       coachIds
     );
     for (Interaction interact : coachInteractions) {
