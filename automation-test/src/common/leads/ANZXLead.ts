@@ -68,12 +68,7 @@ export default class ANZXLead extends Lead implements IChatter {
     await emailInput!.setText(email);
 
     // Set Lead Source
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [1, 3, 2],
-      4,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 3, 2], 4);
 
     await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
   }

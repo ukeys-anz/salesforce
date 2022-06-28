@@ -33,9 +33,10 @@ export default class Card {
 
     const isInDetailsView = await viewCards.isInDetailsView();
 
-    if (!isInDetailsView) {
-      await viewCards.showDetails();
-    }
+    // utam compiler v1.0.6 has a bug when resolving json. comment out for now
+    // if (!isInDetailsView) {
+    await viewCards.showDetails();
+    // }
 
     const hasMoreCards = await viewCards.hasMoreCards();
 

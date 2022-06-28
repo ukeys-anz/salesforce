@@ -61,102 +61,42 @@ export default class KYCQA extends Case implements IAssignNewOwner {
 
     // select Yes for all below fields to close KYC QA Case
     // KYC Information is a Match & Complete
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 1, 1],
-      2,
-      "view"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 1, 1], 2);
 
     // Identity Document is Legible
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 1, 2],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 1, 2], 2);
 
     // Middle Name Missing
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 2, 1],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 1], 2);
 
     // Image is not a Picture of ID Document
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 2, 2],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 2], 2);
 
     // Middle Name Initial
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 3, 1],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 1], 2);
 
     // Customer's Photo is Not Modified
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 3, 2],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 2);
 
     // Selfie Comparison Match
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 4, 1],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 1], 2);
 
     // Security Features Visible
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 4, 2],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 2], 2);
 
     // Residential Address is Not a PO Box
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 5, 1],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 5, 1], 2);
 
     // Residential address is valid
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 6, 1],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 6, 1], 2);
 
     // Restraint Status
     // select N/A
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [2, 7, 1],
-      2,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 7, 1], 2);
 
     // Have All Defects Been Rectified
     // select Not Applicable
-    await commonUtils.selectPicklistOnRecordLayout(
-      recordLayout,
-      [3, 1, 1],
-      3,
-      "edit"
-    );
+    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [3, 1, 1], 3);
 
     // click save button
     await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
