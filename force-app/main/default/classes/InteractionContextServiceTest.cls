@@ -46,24 +46,12 @@ public with sharing class InteractionContextServiceTest {
 
       // Insert Account (Customer) record
       List<String> companyNames = faker.text.realWords(2);
-      Account testAccount = new Account(
-        Name = companyNames[0].capitalize() + companyNames[1].capitalize(),
-        OCV_ID__c = 'OCVID887766',
-        ANZx_Customer__c = true,
-        External_Id__c = 'OCVID887766CAPSYSID123',
-        // Criteria based sharing rules cannot be tested in APEX unit tests.
-        // Therefore, sharing the test Account record with user by assigning ownership.
-        OwnerId = apiUser.Id
-      );
-      insert testAccount;
     }
   }
 
   @isTest
   static void testValidInput() {
-    InteractionContextService.InteractionContextRequest intContext = prepareContext(
-      'OCVID887766'
-    );
+    InteractionContextService.InteractionContextRequest intContext = prepareContext();
 
     Test.startTest();
     InteractionContextService.doPost(intContext);
@@ -71,16 +59,18 @@ public with sharing class InteractionContextServiceTest {
 
     List<Interaction> intList = [SELECT Id, Direction__c FROM Interaction];
     System.assertEquals(1, intList.size());
-    System.assertEquals('Inbound', intList[0].Direction__c);
+    System.assertEquals(
+      InteractionContextService.INBOUND_DIRECTION,
+      intList[0].Direction__c
+    );
   }
 
   @isTest
   static void testInvalidDirection() {
+    Faker faker = new Faker('AU');
     User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
-    InteractionContextService.InteractionContextRequest intContext = prepareContext(
-      'OCVID887766'
-    );
-    intContext.direction = 'DummyText';
+    InteractionContextService.InteractionContextRequest intContext = prepareContext();
+    intContext.direction = faker.randomString(10);
 
     Test.startTest();
     System.runAs(usr) {
@@ -92,31 +82,12 @@ public with sharing class InteractionContextServiceTest {
     System.assertEquals(0, intList.size());
   }
 
-  @isTest
-  static void testInvalidOcvId() {
-    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
-    InteractionContextService.InteractionContextRequest intContext = prepareContext(
-      'WrongOcv'
-    );
-
-    Test.startTest();
-    System.runAs(usr) {
-      InteractionContextService.doPost(intContext);
-    }
-    Test.stopTest();
-
-    List<Interaction> intList = [SELECT Id, Direction__c FROM Interaction];
-    System.assertEquals(0, intList.size());
-  }
-
-  static InteractionContextService.InteractionContextRequest prepareContext(
-    String ocvId
-  ) {
+  static InteractionContextService.InteractionContextRequest prepareContext() {
+    Faker faker = new Faker('AU');
     InteractionContextService.InteractionContextRequest intContext = new InteractionContextService.InteractionContextRequest();
 
-    intContext.phoneNumber = '0412345678';
-    intContext.ocvId = ocvId;
-    intContext.direction = 'Inbound';
+    intContext.phoneNumber = String.valueOf(faker.randomDecimal(10, 0));
+    intContext.direction = InteractionContextService.INBOUND_DIRECTION;
 
     RestRequest req = new RestRequest();
     req.requestURI = '/InteractionContextRequests/';

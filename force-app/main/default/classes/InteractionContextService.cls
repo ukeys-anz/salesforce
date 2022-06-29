@@ -6,6 +6,8 @@
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
   global static final String INTERACTION_TYPE = 'Call';
+  global static final String INBOUND_DIRECTION = 'Inbound';
+  global static final String OUTBOUND_DIRECTION = 'Outbound';
   /**
    * @description HTTP POST method passing incoming interaction context in to Salesforce.
    * Salesforce would then return a interaction id created
@@ -13,24 +15,18 @@ global with sharing class InteractionContextService {
    */
   @HttpPost
   global static void doPost(InteractionContextRequest contextRequest) {
-    List<Account> accList = new List<Account>();
-    if (Schema.sObjectType.Account.isQueryable()) {
-      accList = [
-        SELECT Id, OCV_ID__c
-        FROM Account
-        WHERE OCV_ID__c = :contextRequest.ocvId
-      ];
-    }
     Integer finalStatus = 200;
     InteractionContextResponse resp;
 
-    if (accList.isEmpty()) {
-      resp = generateErrorResponse('Ocv Id is not valid');
+    if (
+      contextRequest.direction != INBOUND_DIRECTION &&
+      contextRequest.direction != OUTBOUND_DIRECTION
+    ) {
+      resp = generateErrorResponse('Direction should be inbound or outbound');
       finalStatus = 400;
     } else {
       Interaction intToInsert = new Interaction();
 
-      intToInsert.AccountId = accList[0].Id;
       intToInsert.Direction__c = contextRequest.direction;
       intToInsert.InteractionType = INTERACTION_TYPE;
       intToInsert.Contact_Mobile__c = contextRequest.phoneNumber;
