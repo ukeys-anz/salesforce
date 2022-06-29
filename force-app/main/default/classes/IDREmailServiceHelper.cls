@@ -5,7 +5,6 @@
  * @group IDR(Internal Dispute Resolution)
  */
 public with sharing class IDREmailServiceHelper {
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   /**
    * @description Creates a new case
    * @param email Inbound email object

@@ -3,6 +3,7 @@
  * @author Jasmine Nguyen
  * @since 02/2021
  * @description Helper class for @link GetHelpCaseActions
+ * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActionsHelper {

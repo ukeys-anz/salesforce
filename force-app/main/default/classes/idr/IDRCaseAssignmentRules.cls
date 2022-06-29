@@ -3,10 +3,9 @@
  * @since 03/2021
  * @description Contains Complaints Assignment rules conditions
  * @group IDR(Internal Dispute Resolution)
+ * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
-@SuppressWarnings(
-  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.CognitiveComplexity'
-)
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRCaseAssignmentRules {
   private static final Map<String, Id> QUEUE_MAP = getWorkbaskets();
   /**

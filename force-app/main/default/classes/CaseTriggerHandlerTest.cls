@@ -1,4 +1,5 @@
-@SuppressWarnings('PMD.CyclomaticComplexity,PMD.CognitiveComplexity')
+// CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+@SuppressWarnings('PMD.CyclomaticComplexity')
 @isTest
 private class CaseTriggerHandlerTest {
   public static Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(

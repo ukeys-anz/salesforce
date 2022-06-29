@@ -3,7 +3,6 @@
  * @since 2020
  * @description Forge Token Handler.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class ForgeTokenHandler {
   /**
    * @description Retrieve the Forge JWT token from cache or make request for new token

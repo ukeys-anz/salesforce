@@ -58,7 +58,6 @@ public with sharing class RequestUtils {
    * @param usedInLWC is usen in a LWC component
    * @return String response body
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static String processRequest(
     HttpRequest request,
     String processName,

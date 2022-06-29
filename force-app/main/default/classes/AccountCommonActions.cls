@@ -5,7 +5,6 @@
  * @description Common Account Action methods
  */
 
-@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class AccountCommonActions {
   // Variable used to store the account Ids into which matching leads were converted into
   // This is used to revert the changes on accounts that resulted from lead conversion process
@@ -77,7 +76,6 @@ public with sharing class AccountCommonActions {
    * @param records The Account records passed from Trigger.new()
    * @param oldMap old trigger values
    */
-  @SuppressWarnings('PMD.CyclomaticComplexity')
   public static void updateEntitlement(
     List<Account> records,
     Map<Id, SObject> oldMap
@@ -170,7 +168,6 @@ public with sharing class AccountCommonActions {
     }
   }
 
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static Entitlement createEntitlement(
     Id accountId,
     String entitlementName,

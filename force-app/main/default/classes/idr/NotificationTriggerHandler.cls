@@ -3,7 +3,6 @@
  * @since 10/2020
  * @description  NotificationTrigggerHandler is the handler class for Notification Handler Trigger which extends Lib_TriggerHandler the trigger framework used.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class NotificationTriggerHandler extends Lib_TriggerHandler {
   public static List<IDR_Notification_Event__e> idrNotifications;
   private static IDR_Notification_Hours__c nHours;

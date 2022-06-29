@@ -4,7 +4,6 @@
  * @group IDR(Internal Dispute Resolution)
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class NewCaseFlowWrapperController {
   public static final String COMPLAINT_RT = 'ANZx_Complaint';
   /**
