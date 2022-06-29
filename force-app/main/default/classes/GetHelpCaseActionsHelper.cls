@@ -104,6 +104,7 @@ public with sharing class GetHelpCaseActionsHelper {
       record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
       record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
       record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
+      record.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
       DISPUTE_RT_IDS.contains(record.RecordTypeId)
     ) {
       return true;
