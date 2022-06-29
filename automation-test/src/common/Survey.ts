@@ -7,15 +7,8 @@ import ObjectHome from "pageObjects/objectHome";
 import { CaseRecord, APIResult } from "../types/survey";
 import RecordPage from "pageObjects/recordPage";
 import { Queue } from "../constants/enums";
-import Lookup from "@salesforce-pageobjects/force/pageObjects/lookup";
 
 export default class Survey {
-  private ocvId: string | null;
-
-  constructor() {
-    this.ocvId = null;
-  }
-
   async createSurveyResponse(): Promise<APIResult | void> {
     const apiResult: APIResult = {
       CaseId: "",
@@ -39,8 +32,6 @@ export default class Survey {
           ["Id, OCV_Id__c"]
         )
         .limit(1);
-
-      this.ocvId = account[0].OCV_ID__c;
 
       const surveyResponse = {
         Name: "Test Survey Response",
@@ -138,7 +129,7 @@ export default class Survey {
       [1, 1, 1]
     );
 
-    const accountLookupField = await accountField.getOutputField(Lookup);
+    const accountLookupField = await accountField.getLookup();
     const lookupLink = await accountLookupField.getLookupLink();
     await lookupLink!.click();
 
