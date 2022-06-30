@@ -50,7 +50,7 @@ export default class Auth {
           process.env.FRAUDX_AGENT_PASSWORD
         );
         break;
-      case UserRole.CONTENT_WRITER:
+      case UserRole.Content_Writer:
         if (
           !process.env.CONTENT_WRITER_USERNAME ||
           !process.env.CONTENT_WRITER_PASSWORD
@@ -66,7 +66,7 @@ export default class Auth {
           process.env.CONTENT_WRITER_PASSWORD
         );
         break;
-      case UserRole.QUALITY_ANALYST:
+      case UserRole.Quality_Analyst:
         if (
           !process.env.QUALITY_ANALYST_USERNAME ||
           !process.env.QUALITY_ANALYST_PASSWORD
@@ -82,7 +82,7 @@ export default class Auth {
           process.env.QUALITY_ANALYST_PASSWORD
         );
         break;
-      case UserRole.COACH_LEAD:
+      case UserRole.Coach_Lead:
         if (
           !process.env.COACH_LEAD_USERNAME ||
           !process.env.COACH_LEAD_PASSWORD
@@ -98,7 +98,7 @@ export default class Auth {
           process.env.COACH_LEAD_PASSWORD
         );
         break;
-      case UserRole.SUPPORT_COACH:
+      case UserRole.Support_Coach:
         if (
           !process.env.SUPPORT_COACH_USERNAME ||
           !process.env.SUPPORT_COACH_PASSWORD

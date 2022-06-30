@@ -45,16 +45,6 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
     });
 
-    it("Login as Coach", async (): Promise<void> => {
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
-    });
-
-    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
-      // redirect test user to Coaches Workbench and Account home page
-      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
-    });
-
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
       await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
@@ -98,16 +88,6 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
     });
 
-    it("Login as Coach", async (): Promise<void> => {
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
-    });
-
-    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
-      // redirect test user to Coaches Workbench and Account home page
-      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
-    });
-
     it("Go to Transaction History", async (): Promise<void> => {
       // search financial account in global search and redirect
       await searchRecordInGlobalSearchAndRedirect(caseData.checkAccountNumber);
@@ -144,16 +124,6 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
       await Auth.loginSalesforceAsRole(UserRole.Coach);
-    });
-
-    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
-      // redirect test user to Coaches Workbench and Account home page
-      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
-    });
-
-    it("Login as Coach", async (): Promise<void> => {
-      // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
     });
 
     it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {

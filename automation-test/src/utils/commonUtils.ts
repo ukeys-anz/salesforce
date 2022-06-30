@@ -175,7 +175,7 @@ export const searchAndSelectNewOwner = async (
   await changeOwnerModalRoot.save();
 
   // wait for page reload
-  await browser.pause(3000);
+  await browser.pause(5000);
 };
 
 /**

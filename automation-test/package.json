@@ -4,7 +4,7 @@
   "description": "Salesforce development project - Automation Test",
   "scripts": {
     "delete-cache": "rm -rf ./all-logs & rm -rf ./allure-results",
-    "test": "yarn delete-cache & npx wdio wdio.conf.js",
+    "test": "yarn delete-cache && npx wdio wdio.conf.js",
     "result": "yarn result:generate && yarn result:open",
     "result:generate": "npx allure generate allure-results --clean",
     "result:open": "npx allure open",

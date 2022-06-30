@@ -161,6 +161,7 @@ export const fillInFields = async (
   }
 
   await browser.pause(1000);
+
   return fieldIndexMap;
 };
 
