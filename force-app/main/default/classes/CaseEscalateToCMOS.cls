@@ -83,6 +83,7 @@ public without sharing class CaseEscalateToCMOS {
     record.OwnerId = queue.Id;
     record.Status = IDRConstants.ESCALATED_STATUS;
     record.SLA_Status__C = BREACHED_STATUS;
+    record.IDR_Customer_Identifier__c = IDRConstants.CUSTOMER_IDENTIFIER_CAP_ID;
 
     record.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
 

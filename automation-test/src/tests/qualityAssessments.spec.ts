@@ -1,12 +1,12 @@
-import Auth from "common/Auth";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { UserRole, OwnerType } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import GeneralEnquiry from "common/cases/GeneralEnquiry";
-import ANZXComplaint from "common/cases/ANZXComplaint";
-import QualityAssessment from "common/QualityAssessment";
-import qualityAssessmentData from "data/qualityAssessmentData";
-import caseData from "data/caseData";
+import Auth from "../common/Auth";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import { UserRole, OwnerType } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import GeneralEnquiry from "../common/cases/GeneralEnquiry";
+import ANZXComplaint from "../common/cases/ANZXComplaint";
+import Quality_Assessment from "../common/QualityAssessment";
+import qualityAssessmentData from "../data/qualityAssessmentData";
+import caseData from "../data/caseData";
 
 describe("AR-4500: Quality Workbench", async (): Promise<void> => {
   // pre test steps
@@ -26,12 +26,12 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
   });
 
   describe("AR-10346: Quality Analyst processes Quality Assessment for General Enquiry case", async (): Promise<void> => {
-    const generalEnquiryCase = new GeneralEnquiry(UserRole.QUALITY_ANALYST);
-    const qualityAssessment = new QualityAssessment(UserRole.QUALITY_ANALYST);
+    const generalEnquiryCase = new GeneralEnquiry(UserRole.Quality_Analyst);
+    const qualityAssessment = new Quality_Assessment(UserRole.Quality_Analyst);
 
     it("Login as Quality Aanalyst", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
     it("Go to Quality Workbench and Case Tab", async (): Promise<void> => {
@@ -95,15 +95,15 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
   });
 
   describe("AR-10347: Quality Analyst processes Quality Assessment for ANZ Plus Complaint case", async (): Promise<void> => {
-    const anzxComplaintCase = new ANZXComplaint(UserRole.QUALITY_ANALYST);
-    const qualityAssessment = new QualityAssessment(UserRole.QUALITY_ANALYST);
+    const anzxComplaintCase = new ANZXComplaint(UserRole.Quality_Analyst);
+    const qualityAssessment = new Quality_Assessment(UserRole.Quality_Analyst);
 
     it("Login as Quality Aanalyst", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
-    it("Go to Coaches Workbench and Case tab", async (): Promise<void> => {
+    it("Go to Quality Workbench and Case tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Quality_Workbench, AppTab.Cases);
     });
 
@@ -115,10 +115,6 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
 
     it("Close ANZ Plus Complaint Case", async (): Promise<void> => {
       await anzxComplaintCase.close();
-    });
-
-    it("Go to Quality Workbench Home Page", async (): Promise<void> => {
-      await navigateToAppAndTab(App.Quality_Workbench, AppTab.Home);
     });
 
     it("View Outstanding Quality Assessments List View", async (): Promise<void> => {
@@ -138,12 +134,12 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
   });
 
   describe("AR-10348: Quality Analyst completes Quality Assessment and shares with Coach", async (): Promise<void> => {
-    const generalEnquiryCase = new GeneralEnquiry(UserRole.QUALITY_ANALYST);
-    const qualityAssessment = new QualityAssessment(UserRole.QUALITY_ANALYST);
+    const generalEnquiryCase = new GeneralEnquiry(UserRole.Quality_Analyst);
+    const qualityAssessment = new Quality_Assessment(UserRole.Quality_Analyst);
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Quality Workbench and Case Tab", async (): Promise<void> => {
@@ -171,7 +167,7 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
 
     it("Login as Quality Analyst", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
     it("Go to Quality Workbench Home Page", async (): Promise<void> => {
@@ -204,7 +200,7 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Coach View Shared QA", async (): Promise<void> => {
@@ -218,12 +214,12 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
   });
 
   describe("AR-10349: Quality Analyst escalates Quality Assessment to Coach Lead who shares with Coach", async (): Promise<void> => {
-    const generalEnquiryCase = new GeneralEnquiry(UserRole.QUALITY_ANALYST);
-    const qualityAssessment = new QualityAssessment(UserRole.QUALITY_ANALYST);
+    const generalEnquiryCase = new GeneralEnquiry(UserRole.Quality_Analyst);
+    const qualityAssessment = new Quality_Assessment(UserRole.Quality_Analyst);
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Quality Workbench and Case Tab", async (): Promise<void> => {
@@ -251,7 +247,7 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
 
     it("Login as Quality Analyst", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
     it("Go to Quality Workbench Home Page", async (): Promise<void> => {
@@ -281,7 +277,7 @@ describe("AR-4500: Quality Workbench", async (): Promise<void> => {
 
     it("Login as Coach Lead", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH_LEAD);
+      await Auth.loginSalesforceAsRole(UserRole.Coach_Lead);
     });
 
     it("Coach Lead View the Escalated QA in Coaches Workench", async (): Promise<void> => {

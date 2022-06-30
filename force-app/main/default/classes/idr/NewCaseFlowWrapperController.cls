@@ -6,7 +6,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class NewCaseFlowWrapperController {
-  public static final String SUPPORT_ARC_ROLE = 'Support_Staff_ARC';
   public static final String COMPLAINT_RT = 'ANZx_Complaint';
   /**
    * @description Get the Developer Name of a Case record type based on its Id
@@ -31,7 +30,6 @@ public with sharing class NewCaseFlowWrapperController {
     String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
     Map<String, String> caseDetails = new Map<String, String>();
     caseDetails.put('IDR_AFCA_Status__c', '');
-    string returnIDRAFCAStatus = '';
     if (
       Case.sObjectType.getDescribe().isQueryable() &&
       (newRecordTypeName == 'Non_Customer_Complaint' ||
@@ -131,6 +129,7 @@ public with sharing class NewCaseFlowWrapperController {
     for (Case_Record_Type_To_Exclude__mdt mdt : [
       SELECT DeveloperName
       FROM Case_Record_Type_To_Exclude__mdt
+      LIMIT 10
     ]) {
       recordTypesToExcl.add(mdt.DeveloperName);
     }
@@ -154,19 +153,6 @@ public with sharing class NewCaseFlowWrapperController {
           FROM UserRole
           WHERE Id = :UserInfo.getUserRoleId()
         ];
-        if (
-          roleList.size() > 0 &&
-          roleList[0].DeveloperName ==
-          NewCaseFlowWrapperController.SUPPORT_ARC_ROLE
-        ) {
-          List<RecordType> filteredRt = new List<RecordType>();
-          for (RecordType rt : rtToDisplay) {
-            if (rt.DeveloperName == NewCaseFlowWrapperController.COMPLAINT_RT) {
-              filteredRt.add(rt);
-            }
-          }
-          rtToDisplay = filteredRt;
-        }
         return JSON.serialize(rtToDisplay);
       }
       return null;

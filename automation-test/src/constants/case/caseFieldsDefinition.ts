@@ -1,4 +1,4 @@
-import { FieldDefinition } from "types/field";
+import { FieldDefinition } from "../../types/field";
 import CaseFields from "./caseFields";
 
 export default new Map<string, FieldDefinition>([

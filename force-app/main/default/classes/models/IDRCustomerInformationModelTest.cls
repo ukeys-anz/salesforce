@@ -57,6 +57,9 @@ public with sharing class IDRCustomerInformationModelTest {
       '  ]' +
       '}';
     IDRCustomerInformationModel obj = IDRCustomerInformationModel.parse(json);
-    System.assert(obj != null);
+    System.assert(
+      obj != null,
+      'The IDRCustomerInformationModel should not be null.'
+    );
   }
 }

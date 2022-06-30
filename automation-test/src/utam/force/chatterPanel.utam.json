@@ -56,6 +56,14 @@
           ]
         }
       ]
+    },
+    {
+      "name": "posts",
+      "selector": {
+        "css": ".cuf-feedElementIterationItem",
+        "returnAll": true
+      },
+      "public": true
     }
   ],
   "methods": [

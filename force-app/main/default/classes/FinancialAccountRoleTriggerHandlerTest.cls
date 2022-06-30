@@ -122,6 +122,10 @@ public with sharing class FinancialAccountRoleTriggerHandlerTest {
     Test.startTest();
     try {
       insert financialAccount;
+      System.assert(
+        false,
+        'Failed to prevent against user creating financial account'
+      );
     } catch (Exception e) {
       System.assertEquals(
         true,
@@ -155,9 +159,13 @@ public with sharing class FinancialAccountRoleTriggerHandlerTest {
     finAccRole.FinServ__RelatedAccount__c = customerAccount.Id;
     finAccRole.FinServ__FinancialAccount__c = financialAccount.Id;
     finAccRole.FinServ__Role__c = 'Authorized Individual';
-
+    finAccRole.FinServ__StartDate__c = null;
     try {
       insert finAccRole;
+      System.assert(
+        false,
+        'Failed to prevent against user creating financial account role'
+      );
     } catch (Exception e) {
       System.assertEquals(
         true,
@@ -182,6 +190,10 @@ public with sharing class FinancialAccountRoleTriggerHandlerTest {
     Test.startTest();
     try {
       insert financialAccount;
+      System.assert(
+        false,
+        'Failed to prevent against user creating financial account'
+      );
     } catch (Exception e) {
       System.assertEquals(
         true,
@@ -211,6 +223,10 @@ public with sharing class FinancialAccountRoleTriggerHandlerTest {
     Test.startTest();
     try {
       insert financialAccount;
+      System.assert(
+        false,
+        'Failed to prevent against user creating financial account'
+      );
     } catch (Exception e) {
       System.assertEquals(
         true,

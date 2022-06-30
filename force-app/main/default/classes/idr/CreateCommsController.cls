@@ -19,6 +19,7 @@ public with sharing class CreateCommsController {
       templatedetails = [
         SELECT Id, IDR_Template__c
         FROM IDR_Template_Detail__c
+        LIMIT 2
       ];
     }
     set<string> uniqueTemplateNames = new Set<string>();

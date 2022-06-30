@@ -104,7 +104,8 @@ private with sharing class IDRTaskActionsTest {
       //THEN restrict the user from updating task due date
       System.assertEquals(
         IDRTaskActions.SI_DUE_DATE_ERROR_MESSAGE,
-        e.getDmlMessage(0)
+        e.getDmlMessage(0),
+        'Error message should be as expected.'
       );
     }
   }
@@ -184,7 +185,11 @@ private with sharing class IDRTaskActionsTest {
     Test.stopTest();
 
     for (Task task : [SELECT Status FROM Task WHERE Id = :taskToinsert]) {
-      System.assertEquals(IDRConstants.TASK_STATUS_COMPLETED, task.Status);
+      System.assertEquals(
+        IDRConstants.TASK_STATUS_COMPLETED,
+        task.Status,
+        'Task Status should be as expected.'
+      );
     }
   }
 
@@ -212,7 +217,8 @@ private with sharing class IDRTaskActionsTest {
     for (Database.SaveResult result : results) {
       System.assertEquals(
         'You are not authorized to make updates to this record.',
-        result.errors[0].getMessage()
+        result.errors[0].getMessage(),
+        'Error message should be as expected.'
       );
     }
   }
@@ -242,18 +248,12 @@ private with sharing class IDRTaskActionsTest {
     update newTasks;
 
     //THEN ensure the Queue name is updated
-    Task c = [
-            SELECT OwnerId, Queue__c
-            FROM Task
-            WHERE Id = :newTasks[0].Id
-    ];
-    Group oQueue = [SELECT Id, Name
-                  FROM Group
-                  WHERE Id = :c.OwnerId];
+    Task c = [SELECT OwnerId, Queue__c FROM Task WHERE Id = :newTasks[0].Id];
+    Group oQueue = [SELECT Id, Name FROM Group WHERE Id = :c.OwnerId];
     System.assertEquals(
-            oQueue.Name,
-            c.Queue__c,
-            'Task Queue owner not updated'
+      oQueue.Name,
+      c.Queue__c,
+      'Task Queue owner not updated'
     );
     // Change owner to test user
     for (Task oTask : newTasks) {
@@ -262,15 +262,11 @@ private with sharing class IDRTaskActionsTest {
     update newTasks;
 
     //THEN ensure the Queue name is preserved
-    c = [
-            SELECT Queue__c
-            FROM Task
-            WHERE Id = :newTasks[0].Id
-    ];
+    c = [SELECT Queue__c FROM Task WHERE Id = :newTasks[0].Id];
     System.assertEquals(
-            oQueue.Name,
-            c.Queue__c,
-            'Task Queue name not preserved'
+      oQueue.Name,
+      c.Queue__c,
+      'Task Queue name not preserved'
     );
   }
 }

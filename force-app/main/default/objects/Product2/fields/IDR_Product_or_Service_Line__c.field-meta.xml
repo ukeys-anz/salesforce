@@ -59,6 +59,17 @@ Keys and values match ASIC specifications (refer to ASIC&apos;s &quot;Internal d
             <value>
                 <fullName>9</fullName>
                 <default>false</default>
+                <label>Financial advice or credit assistance</label>
+            </value>
+            <value>
+                <fullName>10</fullName>
+                <default>false</default>
+                <label>Not product/service related</label>
+            </value>
+            <value>
+                <fullName>91</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
                 <label>Financial advice</label>
             </value>
         </valueSetDefinition>

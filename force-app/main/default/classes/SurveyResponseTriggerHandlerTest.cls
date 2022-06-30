@@ -118,6 +118,10 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       Test.startTest();
       try {
         insert sr;
+        System.assert(
+          false,
+          'Failed to prevent against user creating qualtrics survey response.'
+        );
       } catch (DmlException e) {
         System.assertEquals(
           true,

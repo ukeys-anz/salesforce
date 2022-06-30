@@ -1,7 +1,7 @@
 import RecordPage from "pageObjects/recordPage";
 import RootPageModal from "pageObjects/rootPageModal";
-import IChatter from "interfaces/IChatter";
-import { getCreditCardNumberString } from "utils/commonUtils";
+import IChatter from "../interfaces/IChatter";
+import { getCreditCardNumberString } from "../utils/commonUtils";
 
 const generalComment = `Automation Test @ ${new Date().toLocaleString()}. `;
 

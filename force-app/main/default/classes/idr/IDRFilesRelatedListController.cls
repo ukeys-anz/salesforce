@@ -12,7 +12,6 @@ public with sharing class IDRFilesRelatedListController {
    */
   @AuraEnabled
   public static list<IDRFilesRelatedListData> getCaseRelatedFiles(id caseId) {
-    string filesDataString = '';
 
     //if there are emails associated with this case. we need to get any documents
     //that are sent as attachment on the email.
@@ -157,7 +156,6 @@ public with sharing class IDRFilesRelatedListController {
     String picklistValue
   ) {
     Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
-    Map<String, String> fieldMap = new Map<String, String>();
     for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
       if (f.getValue() == picklistValue) {
         return f.getLabel();

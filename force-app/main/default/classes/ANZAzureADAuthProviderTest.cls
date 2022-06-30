@@ -8,8 +8,6 @@
 public class ANZAzureADAuthProviderTest {
   public static final String AUTH_URL = 'https://login.microsoftonline.com/7f0788f7-3634-419b-bf74-bbe48147830c/oauth2/v2.0/authorize';
   public static final String REDIRECT_URL = 'https://anz--ssopoc.my.salesforce.com/services/authcallback/Azure_AD_Custom_Test_OIDC';
-  public static final String CONTENT_TYPE_HEADER = 'Content-Type';
-  public static final String CONTENT_TYPE_JSON = 'application/json';
   public static final String USER_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 
   private static final String ID_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlBlM1h1eVFHQXFzNEcxVU9qMUhaT1EyQmhEayJ9.eyJhdWQiOiJkZmI4MmI4OC1mMWFmLTQ5MzQtYmNmZC04YWFhMzUxNGRmY2YiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vN2YwNzg4ZjctMzYzNC00MTliLWJmNzQtYmJlNDgxNDc4MzBjL3YyLjAiLCJpYXQiOjE2MDIyNDA3MTEsIm5iZiI6MTYwMjI0MDcxMSwiZXhwIjoxNjAyMjQ0NjExLCJhY2N0IjowLCJhaW8iOiJFMlJnWUhEZ1QrL2c1L2J6dlhaL3o0TzkyajRuSnZySy8rMmJ2Q3NxT3ExcDNxYkcyQzRBIiwiYXV0aF90aW1lIjoxNjAxODczOTExLCJlbWFpbCI6IllhbmcuU2hpQGFuem5wLmNvbSIsImdyb3VwcyI6WyJBVSBBTlp4IENSTSJdLCJuYW1lIjoiWWFuZyBTaGkiLCJvaWQiOiJjMTk5MjYxOS1mNzZjLTQ1ZGUtODIyZi0wNGU4NjAxMDFkYTkiLCJwbGF0ZiI6IjUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJZYW5nLlNoaUBhbnpucC5jb20iLCJyaCI6IjAuQUFBQTk0Z0hmelEybTBHX2RMdmtnVWVERElncnVOLXY4VFJKdlAyS3FqVVUzODhsQUg0LiIsInN1YiI6IkdwQTJCdEhRc0ZoYVlZTGNEbWxEMEljaTVjUVByV2tzNkVVT1VfRzlIZW8iLCJ0aWQiOiI3ZjA3ODhmNy0zNjM0LTQxOWItYmY3NC1iYmU0ODE0NzgzMGMiLCJ1cG4iOiJZYW5nLlNoaUBhbnpucC5jb20iLCJ1dGkiOiJDaG04NzcwcnIwNkpka0JMcnQtYUFBIiwidmVyIjoiMi4wIiwid2lkcyI6WyJiNzlmYmY0ZC0zZWY5LTQ2ODktODE0My03NmIxOTRlODU1MDkiXSwic2FtQWNjb3VudE5hbWUiOiJzaGl5MiJ9.C4dOoIx9DAYNNIC17iipcRyVfadvlVAQBH8NmT4SOSD6P_DUsTKUZ0582ynZRKcsCK6m_NsjyrzreCf86GvutUGkS5jIYa2goa6tbJfzI3S3TL4lXCUhlD_y2irSxZykj0VB_sS6JiMeGZr0RzdXfwDQmKvqrf2VjOjJcbx-JnNf4ekL3c0A-Fb39KFXjPMr6SsfiD1dPT-yMHDGBcMHO_kJuOEINRcirFP5RJFWi_5AlRmHSHgZVp2NeQu7qXRwMCXBPZuuTFmoMoz_HDYbGudscnygG5ER72d6UtQWXyVIw2UmY0sZZU5Be3vIddbeny1_dYriuCD3SQREmwMgJg';
@@ -43,7 +41,11 @@ public class ANZAzureADAuthProviderTest {
   public static void testMetadataType() {
     final ANZAzureADAuthProvider provider = new ANZAzureADAuthProvider();
     final String actual = provider.getCustomMetadataType();
-    System.assertEquals('AzureAD_Identity__mdt', actual);
+    System.assertEquals(
+      'AzureAD_Identity__mdt',
+      actual,
+      'Provider type should be AzureAD_Identity'
+    );
   }
 
   /**
@@ -65,7 +67,8 @@ public class ANZAzureADAuthProviderTest {
 
     System.assertEquals(
       expectedUrl.getParameters().get('state'),
-      actualUrl.getParameters().get('state')
+      actualUrl.getParameters().get('state'),
+      'State of actual URL should be as expected.'
     );
   }
 
@@ -100,19 +103,23 @@ public class ANZAzureADAuthProviderTest {
 
     System.assertEquals(
       expectedAuthProvResponse.provider,
-      actualAuthProvResponse.provider
+      actualAuthProvResponse.provider,
+      'Auth provider should be as expected.'
     );
     System.assertEquals(
       expectedAuthProvResponse.oauthToken,
-      actualAuthProvResponse.oauthToken
+      actualAuthProvResponse.oauthToken,
+      'Auth provider oauthToken should be as expected.'
     );
     System.assertEquals(
       expectedAuthProvResponse.oauthSecretOrRefreshToken,
-      actualAuthProvResponse.oauthSecretOrRefreshToken
+      actualAuthProvResponse.oauthSecretOrRefreshToken,
+      'Auth provider refresh token should be as expected.'
     );
     System.assertEquals(
       expectedAuthProvResponse.state,
-      actualAuthProvResponse.state
+      actualAuthProvResponse.state,
+      'Auth provider state should be as expected.'
     );
   }
 
@@ -152,6 +159,10 @@ public class ANZAzureADAuthProviderTest {
       null,
       provMap
     );
-    System.assertEquals(expectedData.email, actualData.email);
+    System.assertEquals(
+      expectedData.email,
+      actualData.email,
+      'Actual data email should be as expected.'
+    );
   }
 }

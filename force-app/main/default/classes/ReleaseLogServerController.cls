@@ -47,7 +47,7 @@ public with sharing class ReleaseLogServerController {
   public static Integer countTotalRecords() {
     Integer count;
     if (Release__c.sObjectType.getDescribe().isQueryable()) {
-      count = [SELECT COUNT() FROM Release__c];
+      count = [SELECT COUNT() FROM Release__c WHERE Name != NULL];
     }
 
     return count;

@@ -273,6 +273,17 @@
       "type": "user"
     },
     {
+      "name": "SaaS Splunk Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Splunk_Integration_Sec_Ops",
+        "Splunk_Integration_Tech_Ops"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Splunk Sec Ops Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
@@ -358,23 +369,9 @@
       "type": "system"
     },
     {
-      "name": "Support Staff AR&C",
-      "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Support_Staff_ARC"],
-      "permissionsets": ["Enforce_SSO"],
-      "type": "user"
-    },
-    {
       "name": "Support Coach",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Support_Coach"],
-      "permissionsets": ["Enforce_SSO"],
-      "type": "user"
-    },
-    {
-      "name": "Super Support Admin",
-      "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Super_Support_Admin"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },

@@ -36,7 +36,7 @@
               "elements": [
                 {
                   "name": "modalBaseRecordForm",
-                  "type": "utam-records/pageObjects/baseRecordForm",
+                  "type": "salesforce-pageobjects/records/pageObjects/baseRecordForm",
                   "selector": {
                     "css": "records-base-record-form"
                   },
@@ -64,7 +64,7 @@
               "elements": [
                 {
                   "name": "relatedListBaseRecordForm",
-                  "type": "utam-records/pageObjects/baseRecordForm",
+                  "type": "salesforce-pageobjects/records/pageObjects/baseRecordForm",
                   "selector": {
                     "css": "records-base-record-form"
                   },

@@ -17,6 +17,7 @@
                 "elements": [
                   {
                     "name": "rowHeaderLookup",
+                    "type": "salesforce-pageobjects/force/pageObjects/lookup",
                     "selector": {
                       "css": "force-lookup"
                     },

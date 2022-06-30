@@ -24,6 +24,7 @@
                     "css": "li a",
                     "returnAll": true
                   },
+                  "nullable": true,
                   "filter": {
                     "apply": "getTitle",
                     "findFirst": true,
@@ -37,7 +38,8 @@
                       ]
                     }
                   },
-                  "type": "clickable"
+                  "type": "clickable",
+                  "public": true
                 }
               ]
             }

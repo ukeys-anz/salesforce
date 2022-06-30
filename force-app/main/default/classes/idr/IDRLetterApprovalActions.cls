@@ -16,6 +16,9 @@ public with sharing class IDRLetterApprovalActions {
   ) {
     Map<Id, Case> capIdMap = new Map<Id, Case>();
     Set<Id> caseIds = new Set<Id>();
+
+    Map<Id, Map<String, String>> ocvCalloutInfo = new Map<Id, Map<String, String>>();
+
     for (IDR_Letter_Approval__c app : approvalRecords) {
       if (
         app.IDR_Status__c == 'Approved' &&
@@ -41,11 +44,17 @@ public with sharing class IDRLetterApprovalActions {
     }
 
     for (Id appRecId : capIdMap.keySet()) {
-      makeOCVCallout(
-        capIdMap.get(appRecId).IDR_Customer_Number__c,
-        capIdMap.get(appRecId).IDR_Customer_Identifier__c,
-        appRecId
-      );
+      Map<String, String> idrInfo = new Map<String, string>{
+        'idrCustomerNumber' => capIdMap.get(appRecId).IDR_Customer_Number__c,
+        'idrCustomerIdentifier' => capIdMap.get(appRecId)
+          .IDR_Customer_Identifier__c
+      };
+      ocvCalloutInfo.put(appRecId, idrInfo);
+    }
+
+    if (ocvCalloutInfo.size() > 0) {
+      String ocvCalloutInfoJson = JSON.serialize(ocvCalloutInfo);
+      makeMultipleOCVCallout(ocvCalloutInfoJson);
     }
   }
 
@@ -69,8 +78,109 @@ public with sharing class IDRLetterApprovalActions {
       System.JSON.serialize(responseMap.profile)
     );
 
-    List<IDR_Letter_Approval_Details__c> appDetailsList = new List<IDR_Letter_Approval_Details__c>();
+    List<IDR_Letter_Approval_Details__c> appDetailsList = buildAllDetailsList(
+      customerData,
+      approvalRecId
+    );
+    List<IDR_Letter_Approval__c> allAppRec = new List<IDR_Letter_Approval__c>();
+    allAppRec.add(buildLetterApproval(approvalRecId));
 
+    insertAllAppDetailsList(appDetailsList);
+    updateAllAppRecords(allAppRec);
+  }
+
+  /**
+   * @description populateCustomerData is to make multiple OCV call and create the detail record with customer data
+   * @param ocvCalloutInfoJson which is a serialized string made out of Map<approvalRecId, Map<String,String>{customerNumber,customerIdentifier}>
+   * point: We can not use makeOCVCallout method inside this method, as using future method inside a loop is critical.
+   */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
+  @future(callOut=true)
+  public static void makeMultipleOCVCallout(String ocvCalloutInfoJson) {
+    Map<String, Object> ocvCalloutInfo = (Map<String, Object>) JSON.deserializeUntyped(
+      ocvCalloutInfoJson
+    );
+
+    List<IDR_Letter_Approval_Details__c> allAppDetailsList = new List<IDR_Letter_Approval_Details__c>();
+    List<IDR_Letter_Approval__c> allAppRec = new List<IDR_Letter_Approval__c>();
+
+    for (String approvalRecId : ocvCalloutInfo.keySet()) {
+      Map<String, Object> customerData = customerDataMap(
+        ocvCalloutInfo,
+        approvalRecId
+      );
+      allAppDetailsList.addAll(
+        buildAllDetailsList(customerData, approvalRecId)
+      );
+
+      IDR_Letter_Approval__c appRec = buildLetterApproval(approvalRecId);
+      allAppRec.add(appRec);
+    }
+
+    insertAllAppDetailsList(allAppDetailsList);
+    updateAllAppRecords(allAppRec);
+  }
+
+  /**
+   * @description insertAllAppDetailsList is to check all the fields on IDR_Letter_Approval_Details__c is creatable and if -
+   * - there is at least one member in allAppDetailsList. then insert all of them.
+   * @param allAppDetailsList which is List<IDR_Letter_Approval_Details__c>
+   */
+  public static void insertAllAppDetailsList(
+    List<IDR_Letter_Approval_Details__c> allAppDetailsList
+  ) {
+    if (
+      allAppDetailsList.size() > 0 &&
+      IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Field_Name__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Letter_Approval__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Value__c.isCreateable() &&
+      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.Name.isCreateable()
+    ) {
+      insert allAppDetailsList;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRLetterApprovalActions',
+        'makeOCVCallout',
+        'Not enough permissions to create IDR_Letter_Approval_Details__c.'
+      );
+    }
+  }
+
+  /**
+   * @description updateAllAppRecords is to check Customer_Data_updated__c field on IDR_Letter_Approval__c is updateable and if -
+   * - there is at least one member in allAppRec. then update all of them.
+   * @param allAppRec which is List<IDR_Letter_Approval__c>
+   */
+  public static void updateAllAppRecords(
+    List<IDR_Letter_Approval__c> allAppRec
+  ) {
+    if (
+      allAppRec.size() > 0 &&
+      IDR_Letter_Approval__c.sObjectType.getDescribe().isUpdateable() &&
+      Schema.sObjectType.IDR_Letter_Approval__c.fields.Customer_Data_updated__c.isUpdateable()
+    ) {
+      update allAppRec;
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'IDRLetterApprovalActions',
+        'makeOCVCallout',
+        'Not enough permissions to update IDR_Letter_Approval__c.'
+      );
+    }
+  }
+
+  /**
+   * @description buildAllDetailsList is to build all app details according to customerData and approvalRecordId
+   * @param customerData which is Map<String, Object> which will be achieved from ocvCalloutInfo
+   * @param approvalRecId which is the Id of approval record.
+   * @return List<IDR_Letter_Approval_Details__c>
+   */
+  public static List<IDR_Letter_Approval_Details__c> buildAllDetailsList(
+    Map<String, Object> customerData,
+    String approvalRecId
+  ) {
+    List<IDR_Letter_Approval_Details__c> appDetailsList = new List<IDR_Letter_Approval_Details__c>();
     Map<String, String> customerFields = new Map<String, String>{
       'street' => 'AddressStreet',
       'suburb' => 'AddressSuburb',
@@ -78,7 +188,6 @@ public with sharing class IDRLetterApprovalActions {
       'postCode' => 'AddressPostCode',
       'email' => 'EmailAddress'
     };
-
     for (String field : customerFields.keySet()) {
       appDetailsList.add(
         createAppDetailRecord(
@@ -88,39 +197,48 @@ public with sharing class IDRLetterApprovalActions {
         )
       );
     }
+    return appDetailsList;
+  }
 
-    if (
-      IDR_Letter_Approval_Details__c.sObjectType.getDescribe().isCreateable() &&
-      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Field_Name__c.isCreateable() &&
-      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Letter_Approval__c.isCreateable() &&
-      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.IDR_Value__c.isCreateable() &&
-      Schema.sObjectType.IDR_Letter_Approval_Details__c.fields.Name.isCreateable()
-    ) {
-      insert appDetailsList;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'IDRLetterApprovalActions',
-        'makeOCVCallout',
-        'Not enough permissions to create IDR_Letter_Approval_Details__c.'
-      );
-    }
-
+  /**
+   * @description buildLetterApproval is to build app record.
+   * @param approvalRecId which is the Id of approval record.
+   * @return IDR_Letter_Approval__c
+   */
+  public static IDR_Letter_Approval__c buildLetterApproval(
+    String approvalRecId
+  ) {
     IDR_Letter_Approval__c appRec = new IDR_Letter_Approval__c(
       id = approvalRecId
     );
     appRec.Customer_Data_updated__c = true;
-    if (
-      IDR_Letter_Approval__c.sObjectType.getDescribe().isUpdateable() &&
-      Schema.sObjectType.IDR_Letter_Approval__c.fields.Customer_Data_updated__c.isUpdateable()
-    ) {
-      update appRec;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'IDRLetterApprovalActions',
-        'makeOCVCallout',
-        'Not enough permissions to update IDR_Letter_Approval__c.'
-      );
-    }
+    return appRec;
+  }
+
+  /**
+   * @description customerDataMap is to find the customerData out of ocv callout
+   * @param ocvCalloutInfo which is Map<String, Object> which will be achieved from ocv callout
+   * @param approvalRecId which is the Id of approval record.
+   * @return Map<String, Object>
+   */
+  public static Map<String, Object> customerDataMap(
+    Map<String, Object> ocvCalloutInfo,
+    String approvalRecId
+  ) {
+    Map<string, Object> idrInfo = (Map<string, Object>) ocvCalloutInfo.get(
+      approvalRecId
+    );
+    String customerNumber = (String) idrInfo.get('idrCustomerNumber');
+    String customerIdentifier = (String) idrInfo.get('idrCustomerIdentifier');
+
+    IDRCustomerInformationModel responseMap = IDRAPIRepository.getCustomerInfoLWC(
+      customerNumber,
+      customerIdentifier
+    );
+    Map<String, Object> cData = (Map<String, Object>) System.JSON.deserializeUntyped(
+      System.JSON.serialize(responseMap.profile)
+    );
+    return cData;
   }
 
   /**

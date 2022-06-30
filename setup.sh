@@ -3,6 +3,10 @@
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
 
+# to use all the functions that we need and do not repeat the code
+source ./bash-scripts/commonFunctions.sh
+
+
 trap ctrl_c INT
 
 function ctrl_c() {
@@ -19,9 +23,6 @@ function ctrl_c() {
     exit 1
     echo "${red}-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-${reset}"
 }
-
-# to use all the functions that we need and do not repeat the code
-source ./bash-scripts/commonFunctions.sh
 
 # to clean the artefact and tmp folders
 rm -rf ./artefact

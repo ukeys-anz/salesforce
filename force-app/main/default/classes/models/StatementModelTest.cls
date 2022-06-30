@@ -13,8 +13,14 @@ public with sharing class StatementModelTest {
       WHERE Name = 'mock_statement'
     ];
     StatementModel obj = StatementModel.parse(sr.body.toString());
-    System.assert(obj.statements != null);
-    System.assert(obj.statements.size() == 4);
+    System.assert(
+      obj.statements != null,
+      'Object statements should not be empty.'
+    );
+    System.assert(
+      obj.statements.size() == 4,
+      'Object statements size should as expected.'
+    );
   }
   @isTest
   public static void testStatementUrl() {
@@ -24,7 +30,13 @@ public with sharing class StatementModelTest {
       WHERE Name = 'mock_statementUrl'
     ];
     StatementModel obj = StatementModel.parse(sr.body.toString());
-    System.assert(obj.statement != null);
-    System.assert(obj.statement.url != null);
+    System.assert(
+      obj.statement != null,
+      'Object statements should not be empty.'
+    );
+    System.assert(
+      obj.statement.url != null,
+      'Object statement url should not be empty.'
+    );
   }
 }
