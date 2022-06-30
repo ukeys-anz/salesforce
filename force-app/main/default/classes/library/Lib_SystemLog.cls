@@ -4,6 +4,7 @@
  * @since 2019
  * @group Logging
  * @description This class handle Exception log and can be use for trigger batch or anything in the code that need to handle proper errors
+ * ExcessivePublicCount Surpressed : Lib_SystemLog to have all the public methods and attributes together.
  * @example
  * Database.SaveResult[] results = Database.update(contactToUpdate, false);
  *
@@ -12,9 +13,7 @@
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  * @group Library
  */
-@SuppressWarnings(
-  'PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity'
-)
+@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
 public without sharing class Lib_SystemLog {
   public enum Severity {
     TRACE,

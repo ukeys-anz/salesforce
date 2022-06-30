@@ -175,7 +175,6 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param bucketIds list of bucket ids to filter transactions by
    * @return String the url with params to retrieve transactions
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList, PMD.CyclomaticComplexity')
   private static String getTransactionParamUrl(
     String startDate,
     String endDate,
