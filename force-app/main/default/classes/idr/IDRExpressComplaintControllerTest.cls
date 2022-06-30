@@ -139,6 +139,7 @@ public with sharing class IDRExpressComplaintControllerTest {
     List<Known_Issues__c> knownIssueList = new List<Known_Issues__c>();
     // GIVEN known issue records present in system
     Boolean exceptionOccured = false;
+    String errorMessage = '';
     System.runAs(contextUser) {
       // WHEN a user without IDR User permission is trying to access known issue records via CMOS complaint creation screen
       Test.startTest();
@@ -146,6 +147,7 @@ public with sharing class IDRExpressComplaintControllerTest {
         knownIssueList = IDRExpressComplaintController.getAllKnownIssues();
       } catch (Exception e) {
         exceptionOccured = true;
+        errorMessage = e.getMessage();
       }
       Test.stopTest();
       // THEN the user should not be able to access those records
@@ -156,7 +158,7 @@ public with sharing class IDRExpressComplaintControllerTest {
       System.assertEquals(
         true,
         exceptionOccured,
-        'Exception should have occured'
+        'Exception should have occured|\n' +errorMessage
       );
     }
   }

@@ -17,6 +17,9 @@ public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
     checkDuplicates(records);
   }
 
+  private static final String RELATE_SAME_PRODUCT_TO_SAME_CASE_ERROR = 'Trying to relate the same product to the same case more than once.';
+  private static final String INSUFFICIENT_PERMISSIONS_ERROR = 'Insufficient permissions';
+  private static final String PRODUCT_HAS_RELATED_CASE_ERROR = 'Product has already been related to case.';
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     List<Case_Product__c> recordsToCheck = new List<Case_Product__c>();
     for (Integer i = 0; i < records.size(); i++) {
@@ -55,10 +58,7 @@ public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
             records[i].Case__c == records[j].Case__c &&
             records[i].Product__c == records[j].Product__c
           ) {
-            records[j]
-              .AddError(
-                'Trying to relate the same product to the same case more than once.'
-              );
+            records[j].AddError(RELATE_SAME_PRODUCT_TO_SAME_CASE_ERROR);
             return;
           }
         }
@@ -93,7 +93,7 @@ public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
       );
       log.error('InsufficientAccessException', e.getMessage(), e.getTypeName());
       log.publishEvent();
-      records[0].AddError('Insufficient permissions');
+      records[0].AddError(INSUFFICIENT_PERMISSIONS_ERROR);
       return;
     }
     if (!cps.isEmpty()) {
@@ -103,7 +103,7 @@ public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
             record.Case__c == cp.Case__c &&
             record.Product__c == cp.Product__c
           ) {
-            record.AddError('Product has already been related to case.');
+            record.AddError(PRODUCT_HAS_RELATED_CASE_ERROR);
             return;
           }
         }

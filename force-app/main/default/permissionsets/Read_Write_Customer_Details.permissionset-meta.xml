@@ -81,11 +81,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Hardship__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.Has_Customer_Provided_TFN__c</field>
         <readable>true</readable>
     </fieldPermissions>

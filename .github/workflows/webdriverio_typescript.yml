@@ -30,6 +30,7 @@ jobs:
         run: |
           echo "Building Page Objects"
           npx utam && npx prettier --write ./src/pageObjects
+          npx utam -c utam.config.json && npx prettier --write ./pageObjects
 
       - name: "Enforce Style Guidelines"
         working-directory: automation-test

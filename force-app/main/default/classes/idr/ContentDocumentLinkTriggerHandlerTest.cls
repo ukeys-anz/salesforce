@@ -83,7 +83,11 @@ public class ContentDocumentLinkTriggerHandlerTest {
         FROM ContentDocumentLink
         WHERE LinkedEntityId = :testCase.Id
       ];
-      System.assertEquals(testCase.Id, cdList[0].LinkedEntityId);
+      System.assertEquals(
+        testCase.Id,
+        cdList[0].LinkedEntityId,
+        'The content document link Id should be as expected.'
+      );
     }
   }
 }

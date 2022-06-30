@@ -48,7 +48,7 @@ public with sharing class RecordAccessLogControllerTest {
       thisUser.Id
     );
 
-    System.assertEquals(true, success);
+    System.assertEquals(true, success, 'Log should be created successfully.');
 
     Test.stopTest();
   }

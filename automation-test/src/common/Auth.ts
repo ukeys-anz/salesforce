@@ -1,7 +1,7 @@
 import SalesforceLogin from "pageObjects/salesforceLogin";
 import SalesforceLogout from "pageObjects/salesforceLogout";
 import TwilioLogin from "pageObjects/twilioLogin";
-import { UserRole } from "constants/enums";
+import { UserRole } from "../constants/enums";
 
 export default class Auth {
   /**
@@ -21,7 +21,7 @@ export default class Auth {
     const salesforceLoginRoot = await utam.load(SalesforceLogin);
 
     switch (role) {
-      case UserRole.COACH:
+      case UserRole.Coach:
         if (!process.env.COACH_USERNAME || !process.env.COACH_PASSWORD) {
           console.error(
             "Error: Trying to login as Coach but missing COACH_USERNAME or COACH_PASSWORD."
@@ -34,7 +34,7 @@ export default class Auth {
           process.env.COACH_PASSWORD
         );
         break;
-      case UserRole.FRAUDX_AGENT:
+      case UserRole.FraudX_Agent:
         if (
           !process.env.FRAUDX_AGENT_USERNAME ||
           !process.env.FRAUDX_AGENT_PASSWORD
@@ -112,6 +112,22 @@ export default class Auth {
         await salesforceLoginRoot.login(
           process.env.SUPPORT_COACH_USERNAME,
           process.env.SUPPORT_COACH_PASSWORD
+        );
+        break;
+      case UserRole.Business_Admin:
+        if (
+          !process.env.BUSINESS_ADMIN_USERNAME ||
+          !process.env.BUSINESS_ADMIN_PASSWORD
+        ) {
+          console.error(
+            "Error: Trying to login as Business Admin but missing BUSINESS_ADMIN_USERNAME or BUSINESS_ADMIN_PASSWORD."
+          );
+          process.exit(-1);
+        }
+
+        await salesforceLoginRoot.login(
+          process.env.BUSINESS_ADMIN_USERNAME,
+          process.env.BUSINESS_ADMIN_PASSWORD
         );
         break;
 

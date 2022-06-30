@@ -39,12 +39,16 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
       comment.commentBody = 'This is edit'; /* Since we have disabled Chatter post "Edit" feature in Chatter settings
        Move this into try block to catch "Field is not Writeable" exception*/
       update comment;
+      System.assert(
+        false,
+        'Failed to prevent against user updating a not writeable feed comment.'
+      );
     } catch (SObjectException e) {
       exceptionThrown = (e.getMessage().contains('Field is not writeable'))
         ? true
         : false;
     }
-    System.assertEquals(true, exceptionThrown);
+    System.assertEquals(true, exceptionThrown, 'Field is not writeable');
   }
   @isTest
   static void testDeleteFeedItem() {
@@ -56,12 +60,20 @@ public with sharing class ChatterFeedCommentTriggerHandlerTest {
     Boolean exceptionThrown = false;
     try {
       delete comment;
+      System.assert(
+        false,
+        'Failed to prevent against user deleting feed comment when lack of permission'
+      );
     } catch (Exception e) {
       exceptionThrown = (e.getMessage()
           .contains('You do not have permission to delete this comment'))
         ? true
         : false;
     }
-    System.assertEquals(true, exceptionThrown);
+    System.assertEquals(
+      true,
+      exceptionThrown,
+      'You do not have permission to delete this comment'
+    );
   }
 }

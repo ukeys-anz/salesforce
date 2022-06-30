@@ -174,7 +174,8 @@ private with sharing class IDRCaseActionsTest {
       update newCases;
     } catch (DMLexception e) {
       system.assert(
-        e.getMessage().contains('This field can no longer be edited.')
+        e.getMessage().contains('This field can no longer be edited.'),
+        'Error message should be as expected.'
       );
     }
   }
@@ -371,7 +372,7 @@ private with sharing class IDRCaseActionsTest {
     }
     insert newTasks;
     Boolean preventCaseCloseErrorThrown = false;
-
+    String errorMessage = '';
     //Scenario where it Case Closure should be allowed
     for (Case c : newCases) {
       c.Status = 'Closed';
@@ -383,11 +384,13 @@ private with sharing class IDRCaseActionsTest {
       update newCases;
     } catch (Exception e) {
       preventCaseCloseErrorThrown = true;
+      errorMessage = e.getMessage();
     }
     System.assertEquals(
       false,
       preventCaseCloseErrorThrown,
-      'Expected update to Closed status to be allowed, however Status update was prevented, throwing an error'
+      'Expected update to Closed status to be allowed, however Status update was prevented, throwing an error|\n' +
+      errorMessage
     );
   }
 
@@ -403,7 +406,8 @@ private with sharing class IDRCaseActionsTest {
     );
     insert p;
     Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+    //Using 10 instead of Integer.valueOf(Label.Test_Bulk_Size) as it was breaking deployments
+    for (Integer i = 0; i < 10; i++) {
       newCases.add(
         new Case(
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,

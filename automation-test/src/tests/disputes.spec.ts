@@ -1,13 +1,13 @@
-import Auth from "common/Auth";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
-import { UserRole, TransactionType } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import ATM from "common/cases/ATM";
-import Card from "common/cases/Card";
-import DirectEntry from "common/cases/DirectEntry";
-import Dispute from "common/Dispute";
-import caseData from "data/caseData";
+import Auth from "../common/Auth";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import { searchRecordInGlobalSearchAndRedirect } from "../utils/commonUtils";
+import { UserRole, TransactionType } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import ATM from "../common/cases/ATM";
+import Card from "../common/cases/Card";
+import DirectEntry from "../common/cases/DirectEntry";
+import Dispute from "../common/Dispute";
+import caseData from "../data/caseData";
 
 describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
   // pre test steps
@@ -28,12 +28,22 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
 
   describe("AR-10291: Coach disputes ATM transaction", async (): Promise<void> => {
     const depositDispute = new Dispute(
-      UserRole.COACH,
-      TransactionType.DEPOSIT_WITHDRAWAL
+      UserRole.Coach,
+      TransactionType.Deposit_Withdrawal
     );
 
     // Deposit Withdrawal Dispute will raise ATM case
-    const atmCase = new ATM(UserRole.COACH);
+    const atmCase = new ATM(UserRole.Coach);
+
+    it("Login as Coach", async (): Promise<void> => {
+      // login as test user
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
+    });
+
+    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
+      // redirect test user to Coaches Workbench and Account home page
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    });
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
@@ -58,6 +68,10 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
       await atmCase.create();
     });
 
+    it("Update ATM Case", async (): Promise<void> => {
+      await atmCase.update();
+    });
+
     it("Close ATM Case", async (): Promise<void> => {
       await atmCase.close();
     });
@@ -69,10 +83,20 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
   });
 
   describe("AR-10292: Coach disputes Direct Entry transaction", async (): Promise<void> => {
-    const bsbAccDispute = new Dispute(UserRole.COACH, TransactionType.BSB_ACC);
+    const bsbAccDispute = new Dispute(UserRole.Coach, TransactionType.BSB_ACC);
 
     // BSB-ACC Dispute will raise Direct Entry case
-    const directEntryCase = new DirectEntry(UserRole.COACH);
+    const directEntryCase = new DirectEntry(UserRole.Coach);
+
+    it("Login as Coach", async (): Promise<void> => {
+      // login as test user
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
+    });
+
+    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
+      // redirect test user to Coaches Workbench and Account home page
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    });
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
@@ -97,6 +121,10 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
       await directEntryCase.create(caseData);
     });
 
+    it("Update Direct Entry Case", async (): Promise<void> => {
+      await directEntryCase.update();
+    });
+
     it("Close Direct Entry Case", async (): Promise<void> => {
       await directEntryCase.close();
     });
@@ -108,10 +136,20 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
   });
 
   describe("AR-10294: Coach disputes Card transaction", async (): Promise<void> => {
-    const cardDispute = new Dispute(UserRole.COACH, TransactionType.CARD);
+    const cardDispute = new Dispute(UserRole.Coach, TransactionType.Card);
 
     // Card Dispute will raise Card case
-    const cardCase = new Card(UserRole.COACH);
+    const cardCase = new Card(UserRole.Coach);
+
+    it("Login as Coach", async (): Promise<void> => {
+      // login as test user
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
+    });
+
+    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
+      // redirect test user to Coaches Workbench and Account home page
+      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    });
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
@@ -134,6 +172,10 @@ describe("AR-10290: Salesforce Dispute", async (): Promise<void> => {
 
     it("Create Card Case", async (): Promise<void> => {
       await cardCase.create();
+    });
+
+    it("Update Card Case", async (): Promise<void> => {
+      await cardCase.update();
     });
 
     it("Close Card Case", async (): Promise<void> => {

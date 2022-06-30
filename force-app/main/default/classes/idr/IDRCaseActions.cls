@@ -13,8 +13,6 @@ public with sharing class IDRCaseActions {
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
-  private static final String YES_VALUE = 'Yes';
-
   private static final String CRC_QUEUE_DEVELOPER_NAME = 'CRC_Team';
 
   public static final String QUEUE_TYPE = 'Queue';
@@ -244,7 +242,9 @@ public with sharing class IDRCaseActions {
         new List<String>{
           '21-day IDR Response Due',
           '30-day IDR Response Due',
-          'Open_Escalation_Time'
+          'Open_Escalation_Time',
+          'AFCA Response Due',
+          'FPR 5 Business Day Resolution target'
         },
         System.now()
       );

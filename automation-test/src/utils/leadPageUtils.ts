@@ -2,10 +2,9 @@ import { UtamBasePageObject } from "utam";
 import RecordPage from "pageObjects/recordPage";
 import LeadDetailsTab from "pageObjects/leadDetailsTab";
 import LeadNotesTab from "pageObjects/leadNotesTab";
-import BaseRecordForm from "pageObjects/baseRecordForm";
-import Tabset2 from "pageObjects/tabset2";
-import * as commonUtils from "utils/commonUtils";
-import LeadRecordPage from "pageObjects/leadRecordPage";
+import BaseRecordForm from "@salesforce-pageobjects/records/pageObjects/baseRecordForm";
+import Tabset2 from "@salesforce-pageobjects/flexipage/pageObjects/tabset2";
+import * as commonUtils from "../utils/commonUtils";
 
 export const getRecordForm = async (): Promise<BaseRecordForm | undefined> => {
   const detailsTab = await getTabContent("Details");

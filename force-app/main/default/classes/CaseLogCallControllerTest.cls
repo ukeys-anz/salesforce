@@ -22,8 +22,16 @@ public with sharing class CaseLogCallControllerTest {
     Task newTask = CaseLogCallController.createTask(fields);
     Task findTask = [SELECT Id, Subject FROM Task WHERE Subject = 'Call'];
 
-    System.assertEquals(newTask.Id, findTask.Id);
-    System.assertEquals(newTask.Subject, 'Call');
+    System.assertEquals(
+      newTask.Id,
+      findTask.Id,
+      'The new task id should be sames as the one that has been found.'
+    );
+    System.assertEquals(
+      newTask.Subject,
+      'Call',
+      'The new task subject should be as expected.'
+    );
   }
 
   /**
@@ -40,12 +48,16 @@ public with sharing class CaseLogCallControllerTest {
       };
 
       // This should throw an error
-      Task tsk = CaseLogCallController.createTask(fields);
+      CaseLogCallController.createTask(fields);
 
       // If we get to here, the test has failed
       System.assert(false, 'Task Creation Expected to fail');
     } catch (AuraHandledException e) {
-      System.assertEquals(e.getMessage(), 'Script-thrown exception');
+      System.assertEquals(
+        e.getMessage(),
+        'Script-thrown exception',
+        'Error should be thrown.'
+      );
     }
   }
 
@@ -63,14 +75,18 @@ public with sharing class CaseLogCallControllerTest {
       };
 
       // This should throw an error because the Voice SID is empty
-      Task tsk = CaseLogCallController.createTask(fields);
+      CaseLogCallController.createTask(fields);
 
       System.assert(
         false,
         'Task has an empty Voice ID and was expected to fail'
       );
     } catch (AuraHandledException e) {
-      System.assertEquals(e.getMessage(), 'Script-thrown exception');
+      System.assertEquals(
+        e.getMessage(),
+        'Script-thrown exception',
+        'Error should be thrown.'
+      );
     }
   }
 }

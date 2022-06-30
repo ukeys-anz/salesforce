@@ -1,10 +1,10 @@
-import Auth from "common/Auth";
-import Chatter from "common/Chatter";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { UserRole } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
-import accountData from "data/accountData";
+import Auth from "../common/Auth";
+import Chatter from "../common/Chatter";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import { UserRole } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import { searchRecordInGlobalSearchAndRedirect } from "../utils/commonUtils";
+import accountData from "../data/accountData";
 
 describe("AR-10341: Salesforce Chatter", async (): Promise<void> => {
   // pre test steps
@@ -13,7 +13,7 @@ describe("AR-10341: Salesforce Chatter", async (): Promise<void> => {
     await browser.maximizeWindow();
 
     // login as test user
-    await Auth.loginSalesforceAsRole(UserRole.COACH);
+    await Auth.loginSalesforceAsRole(UserRole.Coach);
   });
 
   beforeEach(async (): Promise<void> => {

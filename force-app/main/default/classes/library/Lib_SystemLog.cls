@@ -652,8 +652,9 @@ public without sharing class Lib_SystemLog {
 
     // Call method to publish events
     List<Database.SaveResult> results = EventBus.publish(logEvents);
-
-    this.logList = new Traced_Application_Log__b[0];
+    if (results.size() > 0) {
+      this.logList = new Traced_Application_Log__b[0];
+    }
   }
 
   /**

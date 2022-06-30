@@ -37,7 +37,11 @@ public class IDRFilesRelatedListControllerTest {
     c = [SELECT id FROM case LIMIT 1];
     list<IDRFilesRelatedListdata> dataList = new List<IDRFilesRelatedListdata>();
     dataList = IDRFilesRelatedListController.getCaseRelatedFiles(c.id);
-    system.assertEquals(1, datalist.size());
+    system.assertEquals(
+      1,
+      datalist.size(),
+      'IDR files related list data size should be as expected.'
+    );
   }
   /**
    * @description searchFileContentTest covers the functionality of searchFileContent method
@@ -66,7 +70,7 @@ public class IDRFilesRelatedListControllerTest {
     );
     //salesforce test class limitation- sosl will always return zero items when executed from test class
     //https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing_SOSL.htm
-    system.assertEquals(0, retlist1.size());
-    system.assertEquals(0, retlist2.size());
+    system.assertEquals(0, retlist1.size(), 'The size should be as expected.');
+    system.assertEquals(0, retlist2.size(), 'The size should be as expected.');
   }
 }

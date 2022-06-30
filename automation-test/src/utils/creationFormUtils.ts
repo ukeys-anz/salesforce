@@ -1,14 +1,14 @@
 import RecordCreationForm from "pageObjects/recordCreationForm";
 import RecordCreationFormField from "pageObjects/recordCreationFormField";
 import RecordCreationFormPicklistOption from "pageObjects/recordCreationFormPicklistOption";
-import { PicklistOptionIndexRange } from "types/layout";
-import { FieldOptions, FieldDefinition } from "types/field";
-import CaseFieldsDefinition from "constants/case/caseFieldsDefinition";
-import KnowledgeFieldsDefinition from "constants/knowledge/knowledgeFieldsDefinition";
+import { PicklistOptionIndexRange } from "../types/layout";
+import { FieldOptions, FieldDefinition } from "../types/field";
+import CaseFieldsDefinition from "../constants/case/caseFieldsDefinition";
+import KnowledgeFieldsDefinition from "../constants/knowledge/knowledgeFieldsDefinition";
 import * as faker from "faker";
-import * as creationFormUtils from "utils/creationFormUtils";
-import * as commonUtils from "utils/commonUtils";
-import { SObject } from "constants/enums";
+import * as creationFormUtils from "../utils/creationFormUtils";
+import * as commonUtils from "../utils/commonUtils";
+import { SObject } from "../constants/enums";
 
 export const selectPicklist = async (
   picklistField: RecordCreationFormField,
@@ -169,6 +169,10 @@ export const fillInField = async (
   field: RecordCreationFormField,
   fieldOptions?: FieldOptions
 ): Promise<void> => {
+  // scroll field to the viewport top
+  const fieldRoot = await field.getRoot();
+  await fieldRoot.scrollToTop();
+
   const type = getFieldTypeByLabel(sobject, await field.getLabel());
 
   switch (type) {
@@ -252,7 +256,7 @@ const fillInLookupField = async (
   await field.clickLookup();
   await browser.pause(1000);
   await field.searchLookup(lookupText);
-  await browser.pause(1000);
+  await browser.pause(3000);
   await field.selectLookupResultByTitle(lookupText);
   await browser.pause(1000);
 };
