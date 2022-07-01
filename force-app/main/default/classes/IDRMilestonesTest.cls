@@ -137,7 +137,7 @@ public class IDRMilestonesTest {
 
     Product2 p = [SELECT Id FROM Product2 LIMIT 1];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases[i].Type = '4';
+      newCases[i].Type = '17';
       newCases[i].IDR_Subsequent_Issue__c = '25';
       newCases[i].IDR_Second_Issue__c = true;
       newCases[i].IDR_Third_Issue__c = true;
@@ -273,7 +273,7 @@ public class IDRMilestonesTest {
     ];
 
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases[i].Type = '4';
+      newCases[i].Type = '17';
       newCases[i].IDR_Subsequent_Issue__c = '25';
       newCases[i].IDR_Issue_Type_2__c = '9';
       newCases[i].IDR_Subsequent_Issue_2__c = '57';
