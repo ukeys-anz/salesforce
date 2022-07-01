@@ -15,8 +15,7 @@ public with sharing class AppointmentCommitmentDMLHelper {
     //Update the appointment commitment records with the updated confirmed count.
 
     if (
-      Appointment_Commitment__c.sObjectType.getDescribe().isUpdateable() &&
-      Schema.sObjectType.Appointment_Commitment__c.fields.Confirmed__c.isUpdateable()
+      Appointment_Commitment__c.sObjectType.getDescribe().isUpdateable()
     ) {
       List<Database.SaveResult> results = Database.Update(apptCommtList, false);
 
