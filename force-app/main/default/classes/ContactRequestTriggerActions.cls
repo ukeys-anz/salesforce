@@ -33,10 +33,7 @@ public with sharing class ContactRequestTriggerActions {
 
     //Get the current confirmed count from each appointment commitment record and increase the count by 1.
     List<Appointment_Commitment__c> apptCommtList = new List<Appointment_Commitment__c>();
-    if (
-      Appointment_Commitment__c.SObjectType.getDescribe().isAccessible() &&
-      Schema.SObjectType.Appointment_Commitment__c.fields.Confirmed__c.isAccessible()
-    ) {
+    if (Appointment_Commitment__c.sObjectType.getDescribe().isQueryable()) {
       List<Appointment_Commitment__c> appointmentCommitments = [
         SELECT ID, Confirmed__c, Available__c
         FROM Appointment_Commitment__c
