@@ -11,6 +11,7 @@
     <permissionSets>Complaint_Read_Only</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
+    <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>Fraud_Lock_Card</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>TwilioSF__Twilio_User</permissionSets>
