@@ -3,16 +3,6 @@
     <description>Read Only Permission to complaint case fields</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Collections__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.Hardship__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>CFMS_Migrated_Document__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
