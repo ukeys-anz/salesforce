@@ -231,7 +231,8 @@ public with sharing class IDRCollectionActions {
       (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status)) ||
       //AR-14452 Below scenario is for shell cases ingested by NLP model, hence why it only in checkIssueOne method
-      (String.isBlank(oldRec.IDR_Account_Card_Policy_Number__c) &&
+      ((String.isBlank(oldRec.IDR_Account_Card_Policy_Number__c) ||
+      oldRec.IDR_Account_Card_Policy_Number__c == 'N/A') &&
       oldRec.IDR_Account_Card_Policy_Number__c !=
       c.IDR_Account_Card_Policy_Number__c)) &&
       String.isNotBlank(c.IDR_Collection_Number__c) &&
