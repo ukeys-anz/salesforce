@@ -4,16 +4,7 @@
  * @description  NotificationHandlerBatch is to send the notification, via PE, which were generated outside the allowed AEST hours.
  */
 
-public with sharing class NotificationHandlerBatch implements Database.Batchable<sObject>, Database.Stateful {
-  Lib_SystemLog log1 = new Lib_SystemLog(
-    NotificationTriggerHandler.class.getName(),
-    'sendNotifications'
-  );
-  Lib_SystemLog log2 = new Lib_SystemLog(
-    NotificationHandlerBatch.class.getName(),
-    'execute'
-  );
-
+public with sharing class NotificationHandlerBatch implements Database.Batchable<sObject> {
   /**
    * @description Get all the Notification records which are due to be sent out
    * @param bc Database.BatchableContext
@@ -53,13 +44,7 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
   ) {
     //Send the Notification for the records in context and save the Platform event enqueued status in peresults
     List<Database.SaveResult> peResults = NotificationTriggerHandler.sendNotifications(
-      handlerRecords,
-      true
-    );
-    log1.addDatabaseSaveResult(
-      'IDR_Notification_Event__e',
-      peResults,
-      NotificationTriggerHandler.idrNotifications
+      handlerRecords
     );
 
     //process the PE enqueued results and update the handler records accordingly
@@ -79,11 +64,16 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
     ) {
       List<Database.saveResult> result = Database.update(handlerRecords, false);
 
-      log2.addDatabaseSaveResult(
+      Lib_SystemLog log = new Lib_SystemLog(
+        NotificationHandlerBatch.class.getName(),
+        'execute'
+      );
+      log.addDatabaseSaveResult(
         'Notification_Handler__c',
         result,
         handlerRecords
       );
+      log.insertLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'NotificationHandlerBatch',
@@ -97,8 +87,8 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
    * @description To execute any post processing steps
    * @param bc Database.BatchableContext
    */
+  @SuppressWarnings('PMD.EmptyStatementBlock')
   public void finish(Database.BatchableContext bc) {
-    log1.insertLog();
-    log2.insertLog();
+    System.debug(LoggingLevel.debug, NO_POST_PROCESSING_STEPS_MSG);
   }
 }

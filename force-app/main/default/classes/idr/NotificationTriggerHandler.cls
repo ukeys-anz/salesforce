@@ -31,7 +31,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
    * @description onAfterInsert
    */
   public override void onAfterInsert() {
-    peSaveResults = sendNotifications(notificationList, false);
+    peSaveResults = sendNotifications(notificationList);
 
     updateNotification(notificationList, peSaveResults);
   }
@@ -65,8 +65,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         false
       );
       Lib_SystemLog log = new Lib_SystemLog(
-        NotificationTriggerHandler.class.getName(),
-        'updateNotification'
+        NotificationHandlerBatch.class.getName(),
+        'execute'
       );
       log.addDatabaseSaveResult(
         'Notification_Handler__c',
@@ -104,12 +104,10 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   /**
    * @description Publish the notification platform event.
    * @param custNotifications list of  Notification_Handler__c in the current trigger  context
-   * @param isExecutedFromBatch boolean to verify if the method is being called from a batch
    * @return List of <Database.SaveResult> consists of status on PE enqueued status
    */
   public static List<Database.SaveResult> sendNotifications(
-    List<Notification_Handler__c> custNotifications,
-    Boolean isExecutedFromBatch
+    List<Notification_Handler__c> custNotifications
   ) {
     Set<Id> caseIds = new Set<Id>();
     idrNotifications = new List<IDR_Notification_Event__e>();
@@ -154,21 +152,16 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     }
     if (!idrNotifications.isEmpty()) {
       peSaveResults = EventBus.publish(idrNotifications);
-      //If it is not exeuted from batch then log the errors here
-      if (!isExecutedFromBatch) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          NotificationTriggerHandler.class.getName(),
-          'sendNotifications'
-        );
-        log.addDatabaseSaveResult(
-          'IDR_Notification_Event__e',
-          peSaveResults,
-          idrNotifications
-        );
-        log.insertLogAsync();
-      }
-      /**** Else log the errors in batch itself
-       To avoid future method being called from batch exception ****/
+      Lib_SystemLog log = new Lib_SystemLog(
+        NotificationTriggerHandler.class.getName(),
+        'sendNotifications'
+      );
+      log.addDatabaseSaveResult(
+        'IDR_Notification_Event__e',
+        peSaveResults,
+        idrNotifications
+      );
+      log.insertLog();
       return peSaveResults;
     }
     return null;
