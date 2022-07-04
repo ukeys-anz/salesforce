@@ -150,7 +150,8 @@ public with sharing class AccessRequestCommonActionsTest {
       } catch (DmlException error) {
         System.assert(
           true,
-          'This Exception was expected and is preventing self-elevation of PAM'
+          'This Exception was expected and is preventing self-elevation of PAM |\n' +
+          error.getMessage()
         );
       }
 
@@ -207,7 +208,7 @@ public with sharing class AccessRequestCommonActionsTest {
 
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
     Access_Request__c pamRequest = getAccessRequest(engineerUser.Id);
-
+    pamRequest.Status__c = 'Rejected';
     Test.stopTest();
 
     // THEN

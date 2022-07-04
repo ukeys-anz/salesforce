@@ -1,6 +1,6 @@
 import RecordPage from "pageObjects/recordPage";
 import FinancialAccountTab from "pageObjects/financialAccountTab";
-import * as commonUtils from "utils/commonUtils";
+import * as commonUtils from "../utils/commonUtils";
 
 export default class TransactionHistory {
   private financialAccountTab: FinancialAccountTab | null;

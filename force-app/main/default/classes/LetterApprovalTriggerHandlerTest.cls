@@ -59,19 +59,27 @@ public class LetterApprovalTriggerHandlerTest {
     Test.startTest();
     Approval.ProcessSubmitRequest app = new Approval.ProcessSubmitRequest();
     app.setObjectId(lApp.id);
-    Approval.ProcessResult result = Approval.process(app);
+    Approval.process(app);
     Test.stopTest();
     IDR_Letter_Approval__c letterApp = [
       SELECT id, IDR_Status__c
       FROM IDR_Letter_Approval__c
       WHERE id = :lApp.id
     ];
-    System.assertEquals('Approved', letterApp.IDR_Status__c);
+    System.assertEquals(
+      'Approved',
+      letterApp.IDR_Status__c,
+      'The status of IDR letter approval should be as expected.'
+    );
     List<IDR_Letter_Approval_Details__c> appDetFinalList = [
       SELECT Id
       FROM IDR_Letter_Approval_Details__c
       WHERE IDR_Letter_Approval__c = :lApp.Id
     ];
-    System.assertEquals(7, appDetFinalList.size());
+    System.assertEquals(
+      7,
+      appDetFinalList.size(),
+      'The size on IDR_Letter_Approval_Details__c list should be as expected.'
+    );
   }
 }

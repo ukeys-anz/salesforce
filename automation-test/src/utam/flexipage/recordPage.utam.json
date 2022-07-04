@@ -42,7 +42,7 @@
                   "shadow": {
                     "elements": [
                       {
-                        "type": "utam-record-flexipage/pageObjects/recordPageDecorator",
+                        "type": "salesforce-pageobjects/record/flexipage/pageObjects/recordPageDecorator",
                         "public": true,
                         "name": "decorator",
                         "selector": {
@@ -59,6 +59,21 @@
       }
     },
     {
+      "name": "waveWaveHomeTab",
+      "selector": {
+        "css": ".active.lafPageHost .waveWaveHomeTab"
+      },
+      "elements": [
+        {
+          "name": "analyticsContainer",
+          "type": "frame",
+          "selector": {
+            "css": "iframe[title='Analytics']"
+          }
+        }
+      ]
+    },
+    {
       "name": "knowledgeFlexipage",
       "selector": {
         "css": ".active.lafPageHost .flexipagePage"
@@ -71,13 +86,17 @@
       "name": "getRecordLayoutBroker",
       "compose": [
         {
+          "element": "oneRecordHomeFlexipage2",
+          "apply": "waitForVisible"
+        },
+        {
           "element": "decorator",
-          "returnType": "utam-record_flexipage/pageObjects/recordPageDecorator"
+          "returnType": "salesforce-pageobjects/record/flexipage/pageObjects/recordPageDecorator"
         },
         {
           "chain": true,
           "element": "eventBroker",
-          "returnType": "utam-records/pageObjects/recordLayoutEventBroker"
+          "returnType": "salesforce-pageobjects/records/pageObjects/recordLayoutEventBroker"
         }
       ]
     },
@@ -85,7 +104,7 @@
       "name": "getCaseRecordPage",
       "compose": [
         {
-          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "returnType": "salesforce-pageobjects/records/pageObjects/recordLayoutEventBroker",
           "apply": "getRecordLayoutBroker"
         },
         {
@@ -105,7 +124,7 @@
       "name": "getAccountRecordPage",
       "compose": [
         {
-          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "returnType": "salesforce-pageobjects/records/pageObjects/recordLayoutEventBroker",
           "apply": "getRecordLayoutBroker"
         },
         {
@@ -125,7 +144,7 @@
       "name": "getFinancialAccountRecordPage",
       "compose": [
         {
-          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "returnType": "salesforce-pageobjects/records/pageObjects/recordLayoutEventBroker",
           "apply": "getRecordLayoutBroker"
         },
         {
@@ -145,7 +164,7 @@
       "name": "getQualityAssessmentRecordPage",
       "compose": [
         {
-          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "returnType": "salesforce-pageobjects/records/pageObjects/recordLayoutEventBroker",
           "apply": "getRecordLayoutBroker"
         },
         {
@@ -174,7 +193,7 @@
       "name": "getLeadRecordPage",
       "compose": [
         {
-          "returnType": "utam-records/pageObjects/recordLayoutEventBroker",
+          "returnType": "salesforce-pageobjects/records/pageObjects/recordLayoutEventBroker",
           "apply": "getRecordLayoutBroker"
         },
         {
@@ -185,6 +204,25 @@
             {
               "type": "pageObject",
               "value": "anzx-utam-flexipage/pageObjects/leadRecordPage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "enterAnalyticsIframe",
+      "compose": [
+        {
+          "element": "document",
+          "apply": "enterFrame",
+          "args": [
+            {
+              "type": "elementReference",
+              "value": "analyticsContainer"
+            },
+            {
+              "type": "rootPageObject",
+              "value": "anzx-utam-flexipage/pageObjects/analyticsContainer"
             }
           ]
         }

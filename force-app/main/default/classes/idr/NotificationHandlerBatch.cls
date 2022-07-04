@@ -19,6 +19,9 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
    * @param bc Database.BatchableContext
    * @return Database.QueryLocator scope
    */
+
+  private static final String NO_POST_PROCESSING_STEPS_MSG = 'No post processing steps as of now';
+
   public Database.QueryLocator start(Database.BatchableContext bc) {
     return Database.getQueryLocator(
       'SELECT Id, Case__c, Status__c, CreatedDate FROM Notification_Handler__c ' +

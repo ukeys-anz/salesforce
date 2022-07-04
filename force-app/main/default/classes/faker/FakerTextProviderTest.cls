@@ -11,8 +11,16 @@ class FakerTextProviderTest {
     Faker faker = new Faker('US');
 
     Test.startTest();
-    System.assertNotEquals(null, faker.text.text);
-    System.assertNotEquals(null, faker.text.sentences);
+    System.assertNotEquals(
+      null,
+      faker.text.text,
+      'Faker should generate correct information'
+    );
+    System.assertNotEquals(
+      null,
+      faker.text.sentences,
+      'Faker should generate correct information'
+    );
     Test.stopTest();
   }
 
@@ -22,10 +30,17 @@ class FakerTextProviderTest {
 
     Test.startTest();
     List<String> realWords = faker.text.realWords(3);
-    System.assertEquals(3, realWords.size());
+    System.assertEquals(
+      3,
+      realWords.size(),
+      'Faker should generate correct information'
+    );
 
     String realTextLimited = faker.text.realText(100, 600);
-    System.assert(realTextLimited.length() <= 500);
+    System.assert(
+      realTextLimited.length() <= 500,
+      'Faker should generate correct information'
+    );
     Test.stopTest();
   }
 

@@ -1,15 +1,15 @@
 import RecordCreationForm from "pageObjects/recordCreationForm";
-import CaseType from "constants/case/caseType";
-import { OwnerType } from "constants/enums";
+import CaseType from "../../constants/case/caseType";
+import { OwnerType } from "../../constants/enums";
 import Case from "./Case";
 import * as faker from "faker";
-import * as commonUtils from "utils/commonUtils";
-import * as creationFormUtils from "utils/creationFormUtils";
-import * as casePageUtils from "utils/casePageUtils";
-import { FieldDefinition } from "types/field";
-import { FieldSectionIndex } from "types/layout";
-import CaseFields from "constants/case/caseFields";
-import IAssignNewOwner from "interfaces/IAssignNewOwner";
+import * as commonUtils from "../../utils/commonUtils";
+import * as creationFormUtils from "../../utils/creationFormUtils";
+import * as casePageUtils from "../../utils/casePageUtils";
+import { FieldDefinition } from "../../types/field";
+import { FieldSectionIndex } from "../../types/layout";
+import CaseFields from "../../constants/case/caseFields";
+import IAssignNewOwner from "../../interfaces/IAssignNewOwner";
 
 export default class KYCQA extends Case implements IAssignNewOwner {
   static creationFormFieldIndexMap = new Map<string, number>();
@@ -57,70 +57,116 @@ export default class KYCQA extends Case implements IAssignNewOwner {
 
   async update(): Promise<void> {
     const baseRecordForm = (await casePageUtils.getRecordForm())!;
-
-    const recordLayout = await baseRecordForm.getRecordLayout();
-
-    // Chat Topic ID
-    const chatTopicField = await commonUtils.getFieldFromRecordLayout(
-      recordLayout,
-      [1, 3, 2]
-    );
-
-    const chatTopicId = `CH${faker.datatype.string(32)}`;
-    await commonUtils.inputText(chatTopicField, chatTopicId);
-
-    // click save button
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
-  }
-
-  async close(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // select Yes for all below fields to close KYC QA Case
     // KYC Information is a Match & Complete
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 1, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 1, 1],
+      2,
+      "view"
+    );
 
     // Identity Document is Legible
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 1, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 1, 2],
+      2,
+      "edit"
+    );
 
     // Middle Name Missing
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 2, 1],
+      2,
+      "edit"
+    );
 
     // Image is not a Picture of ID Document
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 2, 2],
+      2,
+      "edit"
+    );
 
     // Middle Name Initial
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 3, 1],
+      2,
+      "edit"
+    );
 
     // Customer's Photo is Not Modified
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 3, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 3, 2],
+      2,
+      "edit"
+    );
 
     // Selfie Comparison Match
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 4, 1],
+      2,
+      "edit"
+    );
 
     // Security Features Visible
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 4, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 4, 2],
+      2,
+      "edit"
+    );
 
     // Residential Address is Not a PO Box
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 5, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 5, 1],
+      2,
+      "edit"
+    );
 
     // Residential address is valid
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 6, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 6, 1],
+      2,
+      "edit"
+    );
 
     // Restraint Status
     // select N/A
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 7, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 7, 1],
+      2,
+      "edit"
+    );
 
     // Have All Defects Been Rectified
     // select Not Applicable
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [3, 1, 1], 3);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [3, 1, 1],
+      3,
+      "edit"
+    );
 
+    // click save button
+    await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
+  }
+
+  async close(): Promise<void> {
     // Status
     // select Closed status
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 4, 2], 3);
-    await baseRecordForm.clickFooterButton("Save");
-    await browser.pause(3000);
+    const statusFieldIndex: FieldSectionIndex = [1, 4, 2];
+    const closedOptionIndex = 3;
+    await casePageUtils.closeCase(statusFieldIndex, closedOptionIndex);
   }
 }

@@ -25,7 +25,11 @@ public class ForgeTokenHandlerTest {
     Test.startTest();
     IdentityModel respModel = ForgeTokenHandler.getForgeJWTToken('1111');
     String accessToken = respModel.accessToken;
-    System.assertEquals(accessToken, 'xxxxx');
+    System.assertEquals(
+      accessToken,
+      'xxxxx',
+      'The accessToken should be as expected.'
+    );
     Test.stopTest();
   }
 }

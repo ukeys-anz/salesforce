@@ -56,7 +56,11 @@ public class TestCreateCommsController {
   @istest
   static void testgetTemplateList() {
     list<string> returnedList = CreateCommsController.getTemplateList();
-    system.assertEquals(2, returnedList.size());
+    system.assertEquals(
+      2,
+      returnedList.size(),
+      'The size of template list should be as expected.'
+    );
   }
   /**
    * @description This method is used to test fetchTemplateFields method from CreateCommsController
@@ -112,7 +116,7 @@ public class TestCreateCommsController {
       lineItems
     );
     Test.stopTest();
-    system.assertNotEquals(null, returnedId);
+    system.assertNotEquals(null, returnedId, 'The method should return an Id.');
   }
 
   /**
@@ -138,6 +142,6 @@ public class TestCreateCommsController {
       otherDetails,
       lineItems
     );
-    system.assertNotEquals(null, returnedId);
+    system.assertNotEquals(null, returnedId, 'The method should return an Id.');
   }
 }

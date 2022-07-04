@@ -14,6 +14,10 @@ public with sharing class CardReplaceControllerTest {
     String result = CardReplaceController.replaceCard('1111', '1234', 'stolen');
     Test.stopTest();
 
-    System.assertEquals('9741329257534100', result);
+    System.assertEquals(
+      '9741329257534100',
+      result,
+      'The replace card number should be as expected.'
+    );
   }
 }

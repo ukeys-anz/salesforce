@@ -13,8 +13,6 @@ public with sharing class IDRCaseActions {
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
-  private static final String YES_VALUE = 'Yes';
-
   private static final String CRC_QUEUE_DEVELOPER_NAME = 'CRC_Team';
 
   public static final String QUEUE_TYPE = 'Queue';

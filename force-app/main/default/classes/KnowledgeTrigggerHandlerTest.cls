@@ -25,9 +25,14 @@ public class KnowledgeTrigggerHandlerTest {
     ];
     System.assert(
       (article.Reason_for_Change__c == null) ||
-      (article.Reason_for_Change__c == '')
+      (article.Reason_for_Change__c == ''),
+      'Reason for change of the article should be null/empty.'
     );
-    System.assertEquals('testnullreasonunit', article.urlName);
+    System.assertEquals(
+      'testnullreasonunit',
+      article.urlName,
+      'The article urlName should be as expected.'
+    );
 
     article.urlName = 'UpdatedUrlName';
     update article;
@@ -37,6 +42,10 @@ public class KnowledgeTrigggerHandlerTest {
       FROM Knowledge__kav
       WHERE Id = :article.Id
     ];
-    System.assertEquals('updatedurlname', article.urlName);
+    System.assertEquals(
+      'updatedurlname',
+      article.urlName,
+      'The article urlName should be as expected.'
+    );
   }
 }

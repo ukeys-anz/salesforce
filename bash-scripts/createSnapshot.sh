@@ -3,22 +3,6 @@
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
 
-trap ctrl_c INT
-
-function ctrl_c() {
-    if [ -f ./bash-scripts/snapshot.js ];then
-        rm -rf ./bash-scripts/snapshot.js
-    fi
-    if [ -f ./bash-scripts/managedPackages.js ]; then
-        rm -rf ./bash-scripts/managedPackages.js
-    fi
-    git checkout .
-    echo "${red}"
-    echo "Creating snapshot has been stopped."
-    echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-    exit 1
-}
-
 # to use all the functions that we need and do not repeat the code
 source ./commonFunctions.sh
 
@@ -50,27 +34,24 @@ sfdx force:mdapi:deploy -d mdapi-source/packages/
 echoMessageCreator "" $stepNo false
 ########################
 
-# the install managed packages will take a while to be finished, this will make a copy of 
-# `sfdxCommandJsonInfo.js`, then will add a command to that copy file to execute a function to check
-# if the installation has been finished or not. 
-# every 3 mins, it will check it again, until it is finished and then will remove the copy file
-cp ./bash-scripts/sfdxCommandJsonInfo.js ./bash-scripts/managedPackages.js
-echo -e "executeFunctionArgs('managedPackages')" >> ./bash-scripts/managedPackages.js
+# this will check if all the packages has been deployed successfully or still inProgress, every 3 mins.
+# if it is deployed successfully, then it will continue the job.
 waitToInstallPackages=false;
 
 echoMessageCreator "waiting step for a command" $stepNo true
 while [[ $waitToInstallPackages == false ]]; do
     echo ""
-    sfdx force:mdapi:deploy:report
-    waitToInstallPackages=$(node ./bash-scripts/managedPackages.js);
-    if [[ $waitToInstallPackages == false ]]; then
+    sfdx force:mdapi:deploy:report 
+    report=$(sfdx force:mdapi:deploy:report --json)
+    if [[ ($report == *'InProgress'*) ]]; then
         echo "${green}"
         echo "wait for another 3 mins"
         sleep 180
         echo "${reset}"
+    else
+        waitToInstallPackages=true
     fi
 done
-rm -rf ./bash-scripts/managedPackages.js
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -93,32 +74,23 @@ source ./bash-scripts/snapshotScratch.sh
 echoMessageCreator "" $stepNo false
 ########################
 
-# check if you need to delete any existed snapshot 
-# if there are 5 snapshots, it will ask the engineer to delete on of them
-# this will make a copy of `sfdxCommandJsonInfo.js`, then will add a command to that copy file to execute a function to check
-# how many snapshots do we have. if it is 5, then user is needed to delete one.
-# after executing the number of snapshots, the copy file will be removed.
-cp ./bash-scripts/sfdxCommandJsonInfo.js ./bash-scripts/snapshot.js
-echo -e "executeFunctionArgs('snapshot')" >> ./bash-scripts/snapshot.js
-scratchOrgsCount=$(node ./bash-scripts/snapshot.js);
-rm -rf ./bash-scripts/snapshot.js
 
-if [[ $scratchOrgsCount == 5 ]]; then
-
-    echoMessageCreator "check if you want to delete an existed snapshot" $stepNo true
-    sfdx force:org:snapshot:list
-    echo "${green}"
-    read -rp "Do you want to delete ReleaseSnapshot snapshot (y/n)? " deleteSnapshot
-    case ${deleteSnapshot:0:1} in
-        y | Y)        
-            snapshotName=ReleaseSnapshot
-            sfdx force:org:snapshot:delete -s $snapshotName
-            echo "************************"
-            ;;
-        *) echo  ;;
-    esac
-    echoMessageCreator "" $stepNo false
-fi
+echoMessageCreator "check if you want to delete an existed snapshot" $stepNo true
+sfdx force:org:snapshot:list
+echo "${green}"
+read -rp "Do you want to delete ReleaseSnapshot snapshot (y/n)? " deleteSnapshot
+case ${deleteSnapshot:0:1} in
+    y | Y)        
+        snapshotName=ReleaseSnapshot
+        sfdx force:org:snapshot:delete -s $snapshotName
+        echo "************************"
+        ;;
+    *)
+        echo "${red}Job has been skipped."
+        exit 1
+        ;;
+esac
+echoMessageCreator "" $stepNo false
 ########################
 
 # create a new snapshot

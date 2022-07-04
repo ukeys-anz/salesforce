@@ -1,10 +1,10 @@
-import Auth from "common/Auth";
-import VirtualGoal from "common/VirtualGoal";
-import { navigateToAppAndTab } from "utils/navigationUtils";
-import { UserRole } from "constants/enums";
-import { App, AppTab } from "constants/appsDefinition";
-import { searchRecordInGlobalSearchAndRedirect } from "utils/commonUtils";
-import accountData from "data/accountData";
+import Auth from "../common/Auth";
+import VirtualGoal from "../common/VirtualGoal";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
+import { UserRole } from "../constants/enums";
+import { App, AppTab } from "../constants/appsDefinition";
+import { searchRecordInGlobalSearchAndRedirect } from "../utils/commonUtils";
+import accountData from "../data/accountData";
 
 describe("AR-10286: Salesforce Virual Goals", async (): Promise<void> => {
   // pre test steps
@@ -26,7 +26,7 @@ describe("AR-10286: Salesforce Virual Goals", async (): Promise<void> => {
   describe("AR-10285: Coach views VG on Person Account page", async (): Promise<void> => {
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
@@ -51,7 +51,7 @@ describe("AR-10286: Salesforce Virual Goals", async (): Promise<void> => {
   describe("AR-10287: Coach views VG on Financial Account page", async (): Promise<void> => {
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.COACH);
+      await Auth.loginSalesforceAsRole(UserRole.Coach);
     });
 
     it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
@@ -78,11 +78,11 @@ describe("AR-10286: Salesforce Virual Goals", async (): Promise<void> => {
   describe("AR-10288: Quality Analyst views VG on Person Account page", async (): Promise<void> => {
     it("Login as Quality Analyst", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
-    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
-      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    it("Go to Quality Workbench and Account tab", async (): Promise<void> => {
+      await navigateToAppAndTab(App.Quality_Workbench, AppTab.Accounts);
     });
 
     it("Go to Account", async (): Promise<void> => {
@@ -103,11 +103,11 @@ describe("AR-10286: Salesforce Virual Goals", async (): Promise<void> => {
   describe("AR-10289: Quality Analyst views VG on Financial Account page", async (): Promise<void> => {
     it("Login as Quality Analyst", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.QUALITY_ANALYST);
+      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
     });
 
-    it("Go to Coaches Workbench and Account tab", async (): Promise<void> => {
-      await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
+    it("Go to Quality Workbench and Account tab", async (): Promise<void> => {
+      await navigateToAppAndTab(App.Quality_Workbench, AppTab.Accounts);
     });
 
     it("Go to Financial Account", async (): Promise<void> => {

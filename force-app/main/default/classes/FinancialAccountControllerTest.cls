@@ -59,7 +59,11 @@ public with sharing class FinancialAccountControllerTest {
         accountTypes
       );
 
-      System.assertEquals(3, finAccountList.size());
+      System.assertEquals(
+        3,
+        finAccountList.size(),
+        'Financial Account list size should be as expected.'
+      );
 
       Test.stopTest();
     }

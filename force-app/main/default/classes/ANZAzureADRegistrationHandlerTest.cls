@@ -58,7 +58,11 @@ private class ANZAzureADRegistrationHandlerTest {
 
     Test.stopTest();
 
-    System.assertEquals(null, u);
-    System.assertEquals(testUser.Id, u1.Id);
+    System.assertEquals(null, u, 'No user with Federation id');
+    System.assertEquals(
+      testUser.Id,
+      u1.Id,
+      'The test user id should be as expected.'
+    );
   }
 }

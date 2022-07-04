@@ -17,6 +17,10 @@ public with sharing class LeadValidationTest {
     try {
       l.Status = 'Converted';
       update l;
+      System.assert(
+        false,
+        'Failed to prevent against user coverting lead when status is converted manually'
+      );
     } catch (DmlException e) {
       System.assertEquals(
         true,
@@ -35,6 +39,10 @@ public with sharing class LeadValidationTest {
 
     try {
       insert l;
+      System.assert(
+        false,
+        'Failed to prevent against user creating lead when mobile number is missing'
+      );
     } catch (DmlException e) {
       System.assertEquals(
         true,
@@ -73,6 +81,10 @@ public with sharing class LeadValidationTest {
 
     try {
       insert l;
+      System.assert(
+        false,
+        'Failed to prevent against user creating lead when email address is missing.'
+      );
     } catch (DmlException e) {
       System.assertEquals(
         true,

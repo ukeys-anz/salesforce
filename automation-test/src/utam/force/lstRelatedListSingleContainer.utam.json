@@ -37,7 +37,7 @@
                                 "elements": [
                                   {
                                     "name": "actionsRibbon",
-                                    "type": "utam-action/pageObjects/actionsRibbon",
+                                    "type": "salesforce-pageobjects/action/pageObjects/actionsRibbon",
                                     "selector": {
                                       "css": "runtime_platform_actions-actions-ribbon"
                                     }
@@ -160,7 +160,7 @@
       "compose": [
         {
           "element": "actionsRibbon",
-          "returnType": "utam-action/pageObjects/actionsRibbon"
+          "returnType": "salesforce-pageobjects/action/pageObjects/actionsRibbon"
         },
         {
           "chain": true,
@@ -171,7 +171,7 @@
               "type": "string"
             }
           ],
-          "returnType": "utam-action/pageObjects/actionRenderer"
+          "returnType": "salesforce-pageobjects/action/pageObjects/actionRenderer"
         },
         {
           "chain": true,
@@ -190,15 +190,20 @@
       "compose": [
         {
           "element": "actionsRibbon",
-          "returnType": "utam-action/pageObjects/actionsRibbon"
+          "returnType": "salesforce-pageobjects/action/pageObjects/actionsRibbon"
         },
         {
           "chain": true,
-          "apply": "expandDropdown"
+          "apply": "getDropdownButton",
+          "returnType": "salesforce-pageobjects/lightning/pageObjects/buttonMenu"
+        },
+        {
+          "chain": true,
+          "apply": "clickButton"
         },
         {
           "element": "actionsRibbon",
-          "returnType": "utam-action/pageObjects/actionsRibbon"
+          "returnType": "salesforce-pageobjects/action/pageObjects/actionsRibbon"
         },
         {
           "chain": true,
@@ -209,17 +214,16 @@
               "type": "argumentReference"
             }
           ],
-          "returnType": "utam-action/pageObjects/actionRenderer"
+          "returnType": "salesforce-pageobjects/action/pageObjects/actionRenderer"
         },
         {
           "chain": true,
-          "apply": "clickItemByText",
-          "args": [
-            {
-              "name": "buttonTitle",
-              "type": "argumentReference"
-            }
-          ]
+          "element": "ribbonMenuItem",
+          "returnType": "salesforce-pageobjects/action/pageObjects/ribbonMenuItem"
+        },
+        {
+          "chain": true,
+          "apply": "clickLinkItem"
         }
       ]
     }

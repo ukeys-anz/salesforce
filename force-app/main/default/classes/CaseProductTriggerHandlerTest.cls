@@ -46,15 +46,19 @@ public with sharing class CaseProductTriggerHandlerTest {
 
     //THEN it worked
     Boolean exceptionThrown = false;
+    String errorMessage = '';
     try {
       update cp;
     } catch (Exception e) {
       exceptionThrown = true;
+      errorMessage = e.getMessage();
+      System.assert(false, 'Failed to update the record');
     }
     System.assertEquals(
       false,
       exceptionThrown,
-      'An exception should not have been thrown on updating the record.'
+      'An exception should not have been thrown on updating the record.|\n' +
+      errorMessage
     );
   }
   @isTest
@@ -81,6 +85,10 @@ public with sharing class CaseProductTriggerHandlerTest {
     Boolean exceptionThrown = false;
     try {
       insert cps;
+      System.assert(
+        false,
+        'Failed to prevent duplicating product relation to case'
+      );
     } catch (Exception e) {
       exceptionThrown = true;
       Boolean expectedExceptionThrown = (e.getMessage()
@@ -118,6 +126,10 @@ public with sharing class CaseProductTriggerHandlerTest {
     Boolean exceptionThrown = false;
     try {
       insert cps;
+      System.assert(
+        false,
+        'Failed to prevent duplicating product relation to the same case'
+      );
     } catch (Exception e) {
       exceptionThrown = true;
       Boolean expectedExceptionThrown = (e.getMessage()
@@ -170,6 +182,10 @@ public with sharing class CaseProductTriggerHandlerTest {
       }
       try {
         insert cps;
+        System.assert(
+          false,
+          'Failed to prevent creation of new case product when user has insufficient permissions'
+        );
       } catch (Exception e) {
         //THEN he or she will get an insufficient permission error
         exceptionThrown = true;
