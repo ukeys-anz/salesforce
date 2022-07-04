@@ -596,6 +596,51 @@ public without sharing class Lib_SystemLog {
   }
 
   /**
+   * @description  The method addDeleteResult is used for for creating logs when permorfing DML operation delete
+   * The delete results are checked to see if its successful and if there are any failures we add to the log list. At the end the caller should call {@link insertLog()} method
+   * to create record/records in Traced_Application_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
+   * @param objectName The name of the object used to create the log record.
+   * @param results List of delete results which will be evaluated for logging.
+   * @param records actual records which are used for DML delete
+   * @return Boolean
+   */
+  public Boolean addDatabaseDeleteResult(
+    String objectName,
+    List<Database.DeleteResult> results,
+    List<SObject> records
+  ) {
+    Boolean hasError = false;
+    for (Integer i = 0; i < records.size(); i++) {
+      Database.DeleteResult sr = results[i];
+      SObject rec = records[i];
+      if (!sr.isSuccess()) {
+        hasError = true;
+        // Operation failed, so get all errors
+        for (Database.Error err : sr.getErrors()) {
+          String errNo = String.valueof(err.getStatusCode());
+          if (errNo.length() > 50) {
+            errNo = errNo.substring(0, 50);
+          }
+          this.addObjectMessage(
+            objectName,
+            rec.Id,
+            errNo,
+            'Id=' +
+            rec.Id +
+            ',Message: ' +
+            err.getMessage() +
+            'Fields:' +
+            err.getFields(),
+            Severity.ERROR
+          );
+        }
+      }
+    }
+
+    return hasError;
+  }
+
+  /**
    * @description  The method publishEvent is used for creating a platform event for Async logging
    * The Lib_SystemLog object needs to be created with required fields  before calling this method
    * The information used to create the object is serialized as JSON and published as platform event.
@@ -696,5 +741,79 @@ public without sharing class Lib_SystemLog {
         'Traced_Application_Log__b'
       );
     }
+  }
+
+  /**
+   * @description calculates the difference in minutes between the start time and end time
+   * @param startTime the Earliest Time
+   * @param endTime the Latest Time
+   * @return Integer the difference in minutes between the two times.
+   */
+  public static Integer getDifferenceInMinutes(
+    DateTime startTime,
+    DateTime endTime
+  ) {
+    Long duration = endTime.getTime() - startTime.getTime();
+    duration = duration / (60 * 1000);
+    return duration.intValue();
+  }
+
+  /**
+   * @description Checks to see if two date periods intersect
+   * @param firstStartDate the start date of the first period
+   * @param firstEndDate the end date of the first period
+   * @param secondStartDate the start date of the second period
+   * @param secondEndDate the end date of the second period
+   * @return Do the two periods intersect?
+   */
+  public static Boolean doPeriodsIntersect(
+    DateTime firstStartDate,
+    DateTime firstEndDate,
+    DateTime secondStartDate,
+    DateTime secondEndDate
+  ) {
+    //   2nd SD -----  1st SD  ------ 2nd ED
+    Boolean startDateIsBetween = isDateBetween(
+      firstStartDate,
+      secondStartDate,
+      secondEndDate
+    );
+
+    //   2nd SD -----  1st ED  ------ 2nd ED
+    Boolean endDateIsBetween = isDateBetween(
+      firstEndDate,
+      secondStartDate,
+      secondEndDate
+    );
+
+    //   2nd SD ----- 1st SD --- 1st ED ----- 2nd ED
+    Boolean isFirstDateContained =
+      firstStartDate >= secondStartDate &&
+      firstEndDate <= secondEndDate;
+
+    //   2st SD ----- 2nd SD --- 2nd ED ----- 1st ED
+    Boolean isSecondDateContained =
+      secondStartDate >= firstStartDate &&
+      secondEndDate <= firstEndDate;
+
+    return startDateIsBetween ||
+      endDateIsBetween ||
+      isFirstDateContained ||
+      isSecondDateContained;
+  }
+
+  /**
+   * @description checks to see if a datetime is in between two other date times.
+   * @param dateTimeToTest the date to do the test on.
+   * @param startTime the earliest start time
+   * @param endTime the latest end time
+   * @return is the date specified in between the other two?
+   */
+  public static Boolean isDateBetween(
+    DateTime dateTimeToTest,
+    DateTime startTime,
+    DateTime endTime
+  ) {
+    return endTime >= dateTimeToTest && dateTimeToTest >= startTime;
   }
 }
