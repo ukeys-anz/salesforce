@@ -13,7 +13,9 @@
  * log.addDatabaseSaveResult(results, 'Contact', contactToUpdate);
  * @group Library
  */
-@SuppressWarnings('PMD.ExcessiveParameterList, PMD.ExcessivePublicCount')
+@SuppressWarnings(
+  'PMD.ExcessiveParameterList, PMD.ExcessivePublicCount, PMD.CyclomaticComplexity'
+)
 public without sharing class Lib_SystemLog {
   public enum Severity {
     TRACE,
