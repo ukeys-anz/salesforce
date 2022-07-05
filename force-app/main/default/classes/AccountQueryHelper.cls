@@ -17,4 +17,27 @@ public with sharing class AccountQueryHelper {
     ];
     return accounts;
   }
+
+  /**
+   * @description find accounts based on a set of Ids
+   * @param accountIds Set of account ids to search
+   * @return List<Account> the result of accounts
+   */
+  public List<Account> findAccountsByAccountIds(Set<Id> accountIds) {
+    List<Account> accounts = new List<Account>();
+    if (Account.SObjectType.getDescribe().isQueryable()) {
+      accounts = [
+        SELECT Id, Name, PersonContactId, FirstName, PersonEmail
+        FROM Account
+        WHERE Id IN :accountIds
+      ];
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'AccountQueryHelper',
+        'findAccountsByAccountIds',
+        'Not enough permissions to query Accounts.'
+      );
+    }
+    return accounts;
+  }
 }
