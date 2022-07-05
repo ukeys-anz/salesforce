@@ -3,6 +3,7 @@
  * @since 09/07/2018
  * @group Faker
  * @description  Class extending FakerBase which defines FakerAddressProvider.
+ * ExcessivePublicCount Surpressed : FakerAddressProvider to have all the public methods and attributes together.
  */
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public with sharing virtual class FakerAddressProvider extends FakerBase {

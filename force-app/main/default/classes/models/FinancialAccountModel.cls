@@ -3,6 +3,7 @@
  * @since December 2021
  * @description model for financial accounts
  * @group Models
+ * ExcessivePublicCount Surpressed : FinancialAccountModel to have all the public methods and attributes together.
  */
 @SuppressWarnings(
   'PMD.ExcessivePublicCount, PMD.VariableNamingConventions, PMD.FieldNamingConventions'

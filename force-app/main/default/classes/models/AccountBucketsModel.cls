@@ -3,6 +3,7 @@
  * @since December 2021
  * @description model for account buckets
  * @group Models
+ * ExcessivePublicCount Surpressed : AccountBucketsModel to have all the public methods and attributes together.
  */
 // Suppressing below warnings as response returns snake case values, which triggers PMD warnings
 @SuppressWarnings(
