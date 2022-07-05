@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subject</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The purpose behind this task record, for example, to record a call</description>
+    <securityClassification>Confidential</securityClassification>
+    <type>Picklist</type>
+</CustomField>
