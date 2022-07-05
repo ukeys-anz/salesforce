@@ -165,7 +165,6 @@ public with sharing virtual class Service {
    * @return `Map<String, String>` header map
    * @description sets all headers required for a mulesoft callout, loads client id and secret from named credential
    */
-  @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
   public Map<String, String> setMuleCommonHeaders(Map<String, String> headers) {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');

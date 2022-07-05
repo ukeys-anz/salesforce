@@ -10,9 +10,6 @@ stepNo=$(($stepNum))
 JOB_START_TIME=""
 JOB_END_TIME=""
 
-
-# Using SOAP over REST is much faster for scratch org creations while pushing content.
-sfdx force:config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
@@ -25,6 +22,8 @@ echoMessageCreator "change the forceignore to the proper one" $stepNo true
 mv .forceignore ci.forceignore
 mv harness.forceignore .forceignore
 echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
+echo -e "\nforce-app/main/default/sharingRules/Case.sharingRules-meta.xml" >> .forceignore
+
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -122,6 +121,7 @@ echoMessageCreator "" $stepNo false
 
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
+sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
 git checkout .
 
 f1=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml

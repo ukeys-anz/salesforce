@@ -25,9 +25,7 @@
  *              }
  *          }
  * @group Library
- * Suppressing warning for CyclomaticComplexity as this class has a method to check current Trigger Context
  */
-@SuppressWarnings('PMD.EmptyStatementBlock, PMD.CyclomaticComplexity')
 public virtual with sharing class Lib_TriggerHandler {
   /**
    * @description Provides access to the data represented by this domain class
@@ -173,9 +171,7 @@ public virtual with sharing class Lib_TriggerHandler {
   }
   /**
    * @description set current trigger handler and event (context) name
-   * Suppressing warning for CyclomaticComplexity as this method has too many if conditon to check Trigger Context
    */
-  @SuppressWarnings('PMD.CognitiveComplexity, PMD.CyclomaticComplexity')
   private void setObjectEventName() {
     // set current trigger execution context
     if (Trigger.isExecuting) {

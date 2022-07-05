@@ -13,7 +13,6 @@ public with sharing class IDREmailServiceHandler {
    * @param technicalEmailAddress The technical email address of email services
    * @return isSpam If it is a spam or not
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static Boolean checkSpamming(
     String senderEmail,
     String fromEmail,
@@ -49,7 +48,6 @@ public with sharing class IDREmailServiceHandler {
    * @param senderEmail The email address to whom the email was sent to
    * @return Boolean if the case is updated or not successfully
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static Boolean updateExistingEmail(
     Messaging.InboundEmail email,
     String fromEmail,
@@ -100,7 +98,6 @@ public with sharing class IDREmailServiceHandler {
    * @param fromEmail The email address recieved from
    * @param caseOrigin The case origin
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static void createNewCaseAndEmailMsg(
     Messaging.InboundEmail email,
     String senderEmail,
