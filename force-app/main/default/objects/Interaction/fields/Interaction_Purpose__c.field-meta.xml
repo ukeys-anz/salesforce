@@ -16,9 +16,24 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>Customer</fullName>
+                <default>false</default>
+                <label>Customer</label>
+            </value>
+            <value>
+                <fullName>Digital Support</fullName>
+                <default>false</default>
+                <label>Digital Support</label>
+            </value>
+            <value>
                 <fullName>Financial Wellbeing</fullName>
                 <default>false</default>
                 <label>Financial Wellbeing</label>
+            </value>
+            <value>
+                <fullName>Non-Customer</fullName>
+                <default>false</default>
+                <label>Non-Customer</label>
             </value>
             <value>
                 <fullName>Other</fullName>
@@ -26,9 +41,14 @@
                 <label>Other</label>
             </value>
             <value>
-                <fullName>Digital Support</fullName>
+                <fullName>Testing</fullName>
                 <default>false</default>
-                <label>Digital Support</label>
+                <label>Testing</label>
+            </value>
+            <value>
+                <fullName>Wrong Number</fullName>
+                <default>false</default>
+                <label>Wrong Number</label>
             </value>
         </valueSetDefinition>
     </valueSet>

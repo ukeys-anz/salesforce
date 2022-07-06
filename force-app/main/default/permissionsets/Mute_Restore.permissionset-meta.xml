@@ -2497,16 +2497,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>User.TwilioSF__Twilio_Personal_Number_Is_Valid__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>User.TwilioSF__Twilio_Personal_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>trailheadapp__User_Badge__c.trailheadapp__Archived__c</field>
         <readable>true</readable>
     </fieldPermissions>

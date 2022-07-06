@@ -106,10 +106,6 @@ public with sharing class ContactRequestActions {
       leadId = request.WhoId;
     }
 
-    Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
-      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
-      .getRecordTypeId();
-
     string defaultInteractionStatus = InteractionConstants.UNASSIGNED_STATUS;
     Interaction newInteraction = new Interaction(
       Status__c = defaultInteractionStatus,
@@ -125,7 +121,7 @@ public with sharing class ContactRequestActions {
       OwnerId = appointmentQueue.Id,
       InteractionType = request.PreferredChannel,
       Channel_Booked__c = request.Channel_Booked__c,
-      RecordTypeId = appointmentRecordTypeId,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Interaction_External_Id__c = 'CR-' + request.Name,
       LocationId = request.Location__c,
       Optional_Notes__c = request.RequestDescription,

@@ -357,6 +357,7 @@
         "API_Only",
         "API_Access_Twilio",
         "Chat_Read_Write",
+        "Interaction_Read_Write",
         "Enforce_mTLS"
       ],
       "type": "system"

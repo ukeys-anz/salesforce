@@ -49,6 +49,9 @@ public with sharing class InteractionSetters {
     Set<Id> requestIds = new Set<Id>();
 
     for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.ContactRequestId__c != null) {
+        continue;
+      }
       requestIds.add(currentInteraction.ContactRequestId__c);
     }
 
@@ -88,12 +91,22 @@ public with sharing class InteractionSetters {
     }
   }
 
-  /** @description Method to set the Interaction Name for manual interaction creations
+  /** @description Method to set the Interaction Name for manual appointment rt creations
+   * and all general rt creations
    * @param interactions list of new interactions created.
    */
-  public static void setNameOfInteractions(List<Interaction> interactions) {
+  public void setNameOfInteractions(List<Interaction> interactions) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     for (Interaction interact : interactions) {
-      interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+      if (interact.RecordTypeId != appointmentRTID) {
+        interact.Name = interact.Direction__c + ' ' + interact.InteractionType;
+      } else if (
+        AutomatedRequestMetadataProvider.getInstance()
+          .getMap()
+          .containsKey(interact.Interaction_Purpose__c)
+      ) {
+        interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+      }
     }
   }
 
@@ -102,9 +115,12 @@ public with sharing class InteractionSetters {
    * @param interactions List of newly created interactions.
    */
   public static void setOwnerNewInteractions(List<Interaction> interactions) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     for (Interaction interact : interactions) {
-      interact.OwnerID = InteractionConstants.APPOINTMENT_QUEUE_ID;
-      interact.Status__c = InteractionConstants.UNASSIGNED_STATUS;
+      if (interact.RecordTypeId == appointmentRTID) {
+        interact.OwnerID = InteractionConstants.APPOINTMENT_QUEUE_ID;
+        interact.Status__c = InteractionConstants.UNASSIGNED_STATUS;
+      }
     }
   }
 
@@ -113,8 +129,11 @@ public with sharing class InteractionSetters {
    * @param interactions The list of interactions where the owner is updated from Queue to Coach
    */
   public static void setStatustoScheduled(List<Interaction> interactions) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     for (Interaction interact : interactions) {
-      interact.Status__c = InteractionConstants.SCHEDULED_STATUS;
+      if (interact.RecordTypeId == appointmentRTID) {
+        interact.Status__c = InteractionConstants.SCHEDULED_STATUS;
+      }
     }
   }
 }

@@ -84,13 +84,15 @@ public with sharing class InteractionFilter {
   public static List<Interaction> returnInteractionsWithAutomatedPurpose(
     List<Interaction> interactions
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Interaction> result = new List<Interaction>();
     if (!interactions.isEmpty()) {
       for (Interaction currentInteraction : interactions) {
         if (
           AutomatedRequestMetadataProvider.getInstance()
             .getMap()
-            .containsKey(currentInteraction.Interaction_Purpose__c)
+            .containsKey(currentInteraction.Interaction_Purpose__c) &&
+          currentInteraction.RecordTypeId != appointmentRTID
         ) {
           result.add(currentInteraction);
         }
