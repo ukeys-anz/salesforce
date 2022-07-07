@@ -22,12 +22,12 @@
         <value>Interaction.General</value>
     </filters>
     <filters>
-        <field>Attendees__c</field>
+        <field>Attendees_and_Roles__c</field>
         <operation>contains</operation>
         <value>Fraud</value>
     </filters>
     <filters>
-        <field>Attendees__c</field>
+        <field>Attendees_and_Roles__c</field>
         <operation>contains</operation>
         <value>Card</value>
     </filters>
