@@ -64,6 +64,7 @@ public with sharing class AppointmentNotificationTest {
     insert testAccount;
 
     Interaction interactionSubject = createInteraction();
+    interactionSubject.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactionSubject.AccountId = testAccount.Id;
     interactionSubject.Status__c = STATUS_CANCELLED;
     Integer duration = 30;

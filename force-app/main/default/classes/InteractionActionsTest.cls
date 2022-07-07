@@ -222,7 +222,7 @@ public with sharing class InteractionActionsTest {
     insert contactRequestList;
 
     List<Interaction> testInteraction = [
-      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, RecordTypeId
       FROM Interaction
     ];
 
@@ -379,7 +379,7 @@ public with sharing class InteractionActionsTest {
     );
 
     Interaction testInteraction = [
-      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, RecordTypeId
       FROM Interaction
     ];
 

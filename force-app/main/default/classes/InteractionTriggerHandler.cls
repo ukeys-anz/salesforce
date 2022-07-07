@@ -173,7 +173,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     InteractionSetters.setOwnerNewInteractions(interactions);
 
-    InteractionSetters.setNameOfInteractions(interactions);
+    InteractionSetters.setNameOfInteractions(records);
 
     List<Interaction> newInteractions = InteractionFilter.getInteractionsWithoutEnddate(
       interactions

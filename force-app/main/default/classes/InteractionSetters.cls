@@ -49,7 +49,7 @@ public with sharing class InteractionSetters {
     Set<Id> requestIds = new Set<Id>();
 
     for (Interaction currentInteraction : interactions) {
-      if (currentInteraction.ContactRequestId__c != null) {
+      if (currentInteraction.ContactRequestId__c == null) {
         continue;
       }
       requestIds.add(currentInteraction.ContactRequestId__c);
@@ -95,7 +95,7 @@ public with sharing class InteractionSetters {
    * and all general rt creations
    * @param interactions list of new interactions created.
    */
-  public void setNameOfInteractions(List<Interaction> interactions) {
+  public static void setNameOfInteractions(List<Interaction> interactions) {
     Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     for (Interaction interact : interactions) {
       if (interact.RecordTypeId != appointmentRTID) {

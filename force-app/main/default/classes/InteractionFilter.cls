@@ -92,7 +92,7 @@ public with sharing class InteractionFilter {
           AutomatedRequestMetadataProvider.getInstance()
             .getMap()
             .containsKey(currentInteraction.Interaction_Purpose__c) &&
-          currentInteraction.RecordTypeId != appointmentRTID
+          currentInteraction.RecordTypeId == appointmentRTID
         ) {
           result.add(currentInteraction);
         }
