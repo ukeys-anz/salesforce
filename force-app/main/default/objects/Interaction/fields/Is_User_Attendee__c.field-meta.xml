@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
     <description>Is the current user an attendee or owner?</description>
     <externalId>false</externalId>
-    <formula>CONTAINS(Attendees__c, $User.Id) ||  OwnerId =  $User.Id</formula>
+    <formula>CONTAINS(Attendees_and_Roles__c, $User.Id) ||  OwnerId =  $User.Id</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is User Attendee</label>
     <securityClassification>Internal</securityClassification>
