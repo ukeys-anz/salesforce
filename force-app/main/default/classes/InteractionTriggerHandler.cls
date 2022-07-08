@@ -49,7 +49,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       for (Interaction currentInteraction : changedOwnerInteractions) {
         if (
           currentInteraction.OwnerId !=
-          InteractionConstants.APPOINTMENT_QUEUE_ID
+          InteractionConstants.APPOINTMENT_QUEUE_ID &&
+          currentInteraction.RecordTypeId ==
+          GetHelpConstants.INTERACTION_APPT_RT_ID
         ) {
           userOwnedInteractions.add(currentInteraction);
         } else {
@@ -171,7 +173,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     InteractionSetters.setOwnerNewInteractions(interactions);
 
-    InteractionSetters.setNameOfInteractions(interactions);
+    InteractionSetters.setNameOfInteractions(records);
 
     List<Interaction> newInteractions = InteractionFilter.getInteractionsWithoutEnddate(
       interactions
