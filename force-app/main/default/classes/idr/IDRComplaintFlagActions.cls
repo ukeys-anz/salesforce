@@ -4,7 +4,6 @@
  * @description  IDRComplaintFlagActions class is used to publish complaint flag event during case creation and closure.
  * @group IDR(Internal Dispute Resolution)
  */
-@SuppressWarnings('PMD.ApexCRUDViolation,PMD.StdCyclomaticComplexity')
 public with sharing class IDRComplaintFlagActions {
   private static final String ADD_COMPLAINT_TASK_SUBJECT = 'Add Complaint event is triggered from Salesforce';
 
@@ -23,7 +22,6 @@ public with sharing class IDRComplaintFlagActions {
    * @param records List of Case records in current  trigger context
    * @param oldMap old Map of Case records in current  trigger context
    */
-  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
   public static void setComplaintsFlag(
     List<Case> records,
     Map<Id, SObject> oldMap
