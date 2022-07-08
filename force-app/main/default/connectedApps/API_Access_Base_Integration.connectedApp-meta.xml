@@ -4,7 +4,7 @@
     <description>Mulesoft Connected App</description>
     <label>Base Integration (API Access)</label>
     <oauthConfig>
-        <callbackUrl>https://anz--anzxbau.lightning.force.com/</callbackUrl>
+        <callbackUrl>https://login.salesforce.com/services/oauth2/callback</callbackUrl>
         <isAdminApproved>true</isAdminApproved>
         <isConsumerSecretOptional>false</isConsumerSecretOptional>
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
