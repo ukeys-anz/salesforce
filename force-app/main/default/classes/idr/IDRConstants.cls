@@ -71,7 +71,6 @@ public with sharing class IDRConstants {
     OPEN_STATUS,
     UNDER_INVESTIGATION_STATUS,
     ESCALATED_STATUS,
-    PROVISIONALLY_CLOSED_STATUS,
     REOPENED_STATUS
   };
 
