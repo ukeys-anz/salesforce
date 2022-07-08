@@ -92,12 +92,12 @@ public with sharing class GetHelpConstants {
     .get('Non_Customer_Complaint')
     .getRecordTypeId();
 
-  // Interactions - Appointment Interaction RT Id
+  // Interaction - Appointment Interaction RT Id
   public static final Id INTERACTION_APPT_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('Appointment')
     .getRecordTypeId();
 
-  // Account - General Interaction RT Id
+  // Interaction - General Interaction RT Id
   public static final Id INTERACTION_GENERAL_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('General')
     .getRecordTypeId();

@@ -7,7 +7,6 @@
 public with sharing class AppointmentNotificationTest {
   private final static string TEST_MOBILE = '01189998819991197253';
   private static final String STATUS_CANCELLED = 'Cancelled';
-  private static final String STATUS_ASSIGNED = 'Scheduled';
   private static final String TEMPLATE_BOOKED = 'AgANZxApptBooked';
   private static final String TEMPLATE_CANCELLED = 'AgANZxApptCancelled';
 
@@ -37,10 +36,11 @@ public with sharing class AppointmentNotificationTest {
     insert testLocation;
 
     Interaction interactionSubject = new Interaction();
+    interactionSubject.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactionSubject.StartTime = startDate;
     interactionSubject.InteractionType = 'Email';
     interactionSubject.LocationId = testLocation.Id;
-    interactionSubject.Interaction_Purpose__c = 'Other';
+    interactionSubject.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
     interactionSubject.Status__c = STATUS_CANCELLED;
     return interactionSubject;
   }
@@ -64,13 +64,32 @@ public with sharing class AppointmentNotificationTest {
     insert testAccount;
 
     Interaction interactionSubject = createInteraction();
+    interactionSubject.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactionSubject.AccountId = testAccount.Id;
     interactionSubject.Status__c = STATUS_CANCELLED;
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
+    insert interactionSubject;
 
     Test.startTest();
+    interactionSubject = [
+      SELECT
+        Interaction_External_Id__c,
+        StartTime,
+        EndTime,
+        AccountId,
+        Interaction_Purpose__c,
+        Status__c,
+        Lead__c,
+        ContactRequestId__c,
+        Interaction_Auto_Number__c,
+        InteractionType,
+        LocationId
+      FROM Interaction
+      WHERE Id = :interactionSubject.Id
+    ];
+
     IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
       interactionSubject
     );
@@ -114,9 +133,22 @@ public with sharing class AppointmentNotificationTest {
     );
 
     System.assertEquals(
-      TEMPLATE_CANCELLED,
+      TEMPLATE_BOOKED,
       notificationEvent.EmailTemplate__c,
       'EmailTemplate__c should be set'
+    );
+
+    string expectedEmail = testAccount.PersonEmail.toLowerCase();
+    System.assertEquals(
+      expectedEmail,
+      notificationEvent.AuthorisedEmail__c,
+      'Email on the event must match that of the related account'
+    );
+
+    System.assertNotEquals(
+      null,
+      notificationEvent.Record_Id__c,
+      'Interaction External Id must be copied over to the events record Id'
     );
   }
 
@@ -130,11 +162,16 @@ public with sharing class AppointmentNotificationTest {
     testLead.LastName = 'Doe';
     testLead.Company = testLead.FirstName;
     testLead.RecordTypeId = leadRecordTypeId;
+    testLead.Email =
+      testLead.FirstName +
+      '.' +
+      testLead.LastName +
+      '@test.test';
     insert testLead;
 
     Interaction interactionSubject = createInteraction();
     interactionSubject.Lead__c = testLead.Id;
-    interactionSubject.Status__c = STATUS_ASSIGNED;
+    interactionSubject.Status__c = InteractionConstants.SCHEDULED_STATUS;
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
@@ -185,6 +222,13 @@ public with sharing class AppointmentNotificationTest {
       notificationEvent.EmailTemplate__c,
       'EmailTemplate__c should be set'
     );
+
+    string expectedEmail = testLead.Email.toLowerCase();
+    System.assertEquals(
+      expectedEmail,
+      notificationEvent.AuthorisedEmail__c,
+      'Event Email must match the Leads Email'
+    );
   }
 
   @isTest
@@ -202,6 +246,7 @@ public with sharing class AppointmentNotificationTest {
     Interaction createdInteraction = new Interaction();
 
     Interaction cancelledInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Status__c = STATUS_CANCELLED
     );
 
@@ -247,6 +292,7 @@ public with sharing class AppointmentNotificationTest {
     testAccount.OCV_ID__c = ocvId;
     testAccount.RecordTypeId = personAccountRecordTypeId;
     testAccount.PersonMobilePhone = TEST_MOBILE;
+    testAccount.PersonEmail = firstName + '.' + lastName + '@test.test';
 
     return testAccount;
   }

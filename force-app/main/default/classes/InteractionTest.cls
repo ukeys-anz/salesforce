@@ -53,6 +53,7 @@ public with sharing class InteractionTest {
     startDate = startDate.addHours(1);
 
     Interaction testInteraction2 = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount.Id,
       StartTime = startDate,
       Interaction_Purpose__c = purpose,

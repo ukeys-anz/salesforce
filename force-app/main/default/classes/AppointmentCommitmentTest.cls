@@ -18,18 +18,36 @@ public with sharing class AppointmentCommitmentTest {
 
     Appointment_Commitment__c appointmentCommitment = new Appointment_Commitment__c(
       Available__c = 2,
-      Type__c = 'Financial Wellbeing',
+      Type__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       Date_and_Time__c = startDate,
       Appointment_Channel__c = 'Call'
     );
     insert appointmentCommitment;
 
+    Faker testFaker = new Faker('AU');
+
+    Account person1 = InteractionInterceptTest.createTestAccount(
+      testFaker.randomString(8),
+      testFaker.randomString(8)
+    );
+    Account person2 = InteractionInterceptTest.createTestAccount(
+      testFaker.randomString(8),
+      testFaker.randomString(8)
+    );
+    Account person3 = InteractionInterceptTest.createTestAccount(
+      testFaker.randomString(8),
+      testFaker.randomString(8)
+    );
+
     ContactRequest testRequest1 = createRequest(appointmentCommitment);
+    testRequest1.WhoId = person1.PersonContactId;
     ContactRequest testRequest2 = createRequest(appointmentCommitment);
+    testRequest2.WhoId = person2.PersonContactId;
     insert testRequest1;
     insert testRequest2;
 
     ContactRequest testRequest3 = createRequest(appointmentCommitment);
+    testRequest3.WhoId = person3.PersonContactId;
 
     test.startTest();
     Exception thrownException;

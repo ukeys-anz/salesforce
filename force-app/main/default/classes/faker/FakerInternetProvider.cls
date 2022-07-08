@@ -3,6 +3,7 @@
  * @since 09/07/2018
  * @group Faker
  * @description Class having internet related fake data population methods
+ * ExcessivePublicCount Surpressed : FakerInternetProvider to have all the public methods and attributes together.
  */
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public with sharing class FakerInternetProvider extends FakerBase {

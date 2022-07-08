@@ -132,16 +132,18 @@
     "Account": "The contact details, and other personal information pertaining to a customer",
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
     "Activity": "Supertype to task or event, an item assigned to a Salesforce user",
+    "Appointment_Commitment__c": "Timeslots available to be booked by Coach or Customer for a customer to speak with a coach.",
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
-    "Coaching Summary": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
+    "Coaching_Summary__c": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
     "Contact": "Contact details of an individual person. Forms part of a person account",
     "ContactRequest": "Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "EmailMessage": "Represents an email in Salesforce.",
+    "Event": "Represents a calendar entry in Salesforce",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -259,6 +261,21 @@
       ],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c"]
+    },
+    "Appointment_Commitment__c": {
+      "IA-2453595": [
+        "Appointment_Channel__c",
+        "Available__c",
+        "Confirmed__c",
+        "CreatedById",
+        "Date_and_Time__c",
+        "LastModifiedById",
+        "Location__c",
+        "Name",
+        "OwnerId",
+        "Slot_Available__c",
+        "Type__c"
+      ]
     },
     "CampaignMember": {
       "IA-2453595": ["Status"],
@@ -672,6 +689,7 @@
     "Coaching_Summary__c": {
       "IA-2415840": [
         "Account__c",
+        "Mobile__c",
         "Name",
         "Name__c",
         "Lead__c",
@@ -679,7 +697,7 @@
         "Reason__c",
         "Status__c"
       ],
-      "IA36": [
+      "IA-2530753": [
         "Id",
         "CreatedById",
         "CreatedDate",
@@ -707,11 +725,14 @@
     },
     "ContactRequest": {
       "IA-2453595": [
+        "Account_Name__c",
         "Appointment_Commitment__c",
         "Appointment_date_and_Time__c",
-        "Contact_Request_Auto_Number__c",
         "Channel_Booked__c",
+        "Contact_Request_Auto_Number__c",
+        "Duration__c",
         "Interaction__c",
+        "Location__c",
         "OwnerId",
         "RequestDescription",
         "RequestReason",
@@ -770,6 +791,31 @@
         "LastModifiedDate",
         "Id"
       ]
+    },
+    "Event": {
+      "IA-2468715": [
+        "ActivityDate",
+        "ActivityDateTime",
+        "Attendees",
+        "Description",
+        "DurationInMinutes",
+        "EndDateTime",
+        "EventSubtype",
+        "IsAllDayEvent",
+        "IsPrivate",
+        "IsRecurrence2",
+        "IsReminderSet",
+        "Location",
+        "OwnerId",
+        "ServiceAppointment",
+        "ShowAs",
+        "StartDateTime",
+        "Subject",
+        "Type",
+        "WhatId",
+        "WhoId"
+      ],
+      "IA-2460507": ["Email", "Phone"]
     },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
@@ -855,7 +901,7 @@
       ]
     },
     "Interaction": {
-      "IA-2468715": [
+      "IA-2530753": [
         "AccountId",
         "ANZ_Number__c",
         "AppointmentId__c",
@@ -865,6 +911,7 @@
         "CaseId__c",
         "Channel_Booked__c",
         "Chat_or_Call_SID__c",
+        "Coaching_Summary__c",
         "Contact_Mobile__c",
         "ContactRequestId__c",
         "CreatedById",
@@ -873,8 +920,10 @@
         "Direction__c",
         "EndTime",
         "Escalated__c",
+        "Escalated_Flag__c",
         "Event_Id__c",
         "Interaction_Auto_Number__c",
+        "Interaction_External_Id__c",
         "Interaction_Number__c",
         "Interaction_Number_Link__c",
         "Interaction_Purpose__c",
@@ -885,16 +934,18 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
+        "Lead__c",
+        "Mobile__c",
         "Name",
+        "Optional_Notes__c",
         "OwnerId",
+        "Record_Type__c",
         "RecordTypeId",
         "ReferenceIdentifier",
         "Referred_To__c",
         "Resolution__c",
         "StartTime",
-        "Status__c",
-        "Voice_Call_SID__c",
-        "Escalated_Flag__c"
+        "Status__c"
       ]
     },
     "Interaction_Attendee": {

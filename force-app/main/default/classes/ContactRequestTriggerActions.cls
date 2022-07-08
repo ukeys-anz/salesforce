@@ -4,7 +4,6 @@
  * @description  ContactRequestTriggerActions is the helper class for ContactRequestTriggerHandler class which handles
  * all the actions on the ContactRequest object.
  */
-
 public with sharing class ContactRequestTriggerActions {
   public static final String STATUS_CANCELLED = 'Cancelled';
 
@@ -15,7 +14,6 @@ public with sharing class ContactRequestTriggerActions {
    * @param records The list of newly created contact request records.
    * @param apptBooked Boolean parameter to indicate if its appointment booking or cancellation
    */
-
   public static void updateConfirmedCount(
     List<ContactRequest> records,
     Boolean apptBooked
@@ -35,10 +33,7 @@ public with sharing class ContactRequestTriggerActions {
 
     //Get the current confirmed count from each appointment commitment record and increase the count by 1.
     List<Appointment_Commitment__c> apptCommtList = new List<Appointment_Commitment__c>();
-    if (
-      Appointment_Commitment__c.SObjectType.getDescribe().isAccessible() &&
-      Schema.SObjectType.Appointment_Commitment__c.fields.Confirmed__c.isAccessible()
-    ) {
+    if (Appointment_Commitment__c.sObjectType.getDescribe().isQueryable()) {
       List<Appointment_Commitment__c> appointmentCommitments = [
         SELECT ID, Confirmed__c, Available__c
         FROM Appointment_Commitment__c
@@ -64,47 +59,7 @@ public with sharing class ContactRequestTriggerActions {
       );
     }
     if (apptCommtList.size() > 0) {
-      updateAppointmentCommitment(apptCommtList);
-    }
-  }
-
-  /**
-   * @description Method which updates the confirmed count on the appointment commitment record
-   * @param apptCommtList The list of appointment commitment records to be updated.
-   */
-
-  public static void updateAppointmentCommitment(
-    List<Appointment_Commitment__c> apptCommtList
-  ) {
-    //Update the appointment commitment records with the updated confirmed count.
-
-    if (
-      Appointment_Commitment__c.sObjectType.getDescribe().isUpdateable() &&
-      Schema.sObjectType.Appointment_Commitment__c.fields.Confirmed__c.isUpdateable()
-    ) {
-      List<Database.SaveResult> results = Database.Update(apptCommtList, false);
-
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        'ContactRequestTriggerActions',
-        'updateConfirmedCountBug'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Appointment_Commitment__c',
-        results,
-        new List<Appointment_Commitment__c>()
-      );
-      if (hasError) {
-        //if there is an error add an entry to the application log
-        log.insertLog();
-      }
-    } else {
-      //If the user does not have permission to update the appointment commitment object log an error.
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'updateAppointmentCommitment',
-        'Not enough permissions to update Appointment Commitment.'
-      );
+      AppointmentCommitmentDMLHelper.updateAppointmentCommitment(apptCommtList);
     }
   }
 
@@ -118,7 +73,7 @@ public with sharing class ContactRequestTriggerActions {
     Map<Id, SObject> oldMap,
     List<ContactRequest> records
   ) {
-    List<Id> interactionIdList = new List<Id>();
+    Set<Id> interactionIdList = new Set<Id>();
     List<Interaction> interactionCancelList = new List<Interaction>();
 
     //Loop through contact requests and get records updated to cancel
@@ -133,40 +88,38 @@ public with sharing class ContactRequestTriggerActions {
       }
     }
 
-    if (
-      !interactionIdList.isEmpty() &&
-      Schema.sObjectType.Interaction.isQueryable()
-    ) {
-      for (Interaction interaction : [
-        SELECT Id, Status__c
-        FROM Interaction
-        WHERE Id IN :interactionIdList AND Status__c != :STATUS_CANCELLED
-      ]) {
-        interaction.Status__c = STATUS_CANCELLED;
-        interactionCancelList.add(interaction);
-      }
+    List<Interaction> notCancelledInteractions = InteractionGetters.getCancelledInteractions(
+      interactionIdList
+    );
 
-      //Update interactions to cancelled
-      if (
-        !interactionCancelList.isEmpty() &&
-        Interaction.sObjectType.getDescribe().isUpdateable()
-      ) {
-        update interactionCancelList;
-      }
+    for (Interaction interaction : notCancelledInteractions) {
+      interaction.Status__c = STATUS_CANCELLED;
+      interactionCancelList.add(interaction);
+    }
+
+    //Update interactions to cancelled
+    if (
+      !interactionCancelList.isEmpty() &&
+      Interaction.sObjectType.getDescribe().isUpdateable()
+    ) {
+      update interactionCancelList;
     }
   }
 
   /** @description Map the appointment commitment field values to the corresponding contact request records
    * @param crList List of new contact request records to be updated.
    * @param appointmentCommitmentMap Map of appointment commitment records related to the contact request.
+   * @return returns the Contact Requests that can be created
    */
-
-  public void prepopulateAppointmentCommitmentValues(
+  public List<ContactRequest> prepopulateAppointmentCommitmentValues(
     List<ContactRequest> crList,
     Map<Id, Appointment_Commitment__c> appointmentCommitmentMap
   ) {
-    if (ContactRequest.sObjectType.getDescribe().isUpdateable()) {
-      for (ContactRequest contReq : crList) {
+    List<ContactRequest> goodRequests = new List<ContactRequest>();
+    for (ContactRequest contReq : crList) {
+      if (
+        appointmentCommitmentMap.containsKey(contReq.Appointment_Commitment__c)
+      ) {
         Appointment_Commitment__c apptCommt = appointmentCommitmentMap.get(
           contReq.Appointment_Commitment__c
         );
@@ -177,16 +130,13 @@ public with sharing class ContactRequestTriggerActions {
           contReq.Appointment_date_and_Time__c = apptCommt.Date_and_Time__c;
           contReq.Location__c = apptCommt.Location__c;
           contReq.PreferredChannel = apptCommt.Appointment_Channel__c;
+          goodRequests.add(contReq);
         }
+      } else {
+        goodRequests.add(contReq);
       }
-    } else {
-      //If the user does not have permission to update the contact request object log an error.
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'prepopulateAppointmentCommitmentValues',
-        'Not enough permissions to update Contact Request.'
-      );
     }
+    return goodRequests;
   }
 
   /** @description Map the appointment commitment field values to the corresponding contact request records
@@ -230,17 +180,85 @@ public with sharing class ContactRequestTriggerActions {
   }
 
   /**
-   * @description goes through a list of ContactRequests and adds an error if any have a channel of store, but no location
+   * @description goes through a list of ContactRequests and adds an error if any
+   * have a channel of store, but no location
    * @param requests List<ContactRequest> to search through for offenders.
    */
   public void validateContactRequests(List<ContactRequest> requests) {
+    ContactRequestActions actions = new ContactRequestActions();
+    Map<Id, Account> accountMap = actions.getWhoIdAccountMap(requests);
+    Set<Id> whoIds = new Set<Id>();
+
+    List<Interaction> interactions = InteractionGetters.getInteractionsForLeadsAndContacts(
+      extractWhoIds(requests, accountMap)
+    );
     for (ContactRequest currentRequest : requests) {
-      if (
-        currentRequest.PreferredChannel == 'Store' &&
-        currentRequest.Location__c == null
-      ) {
-        currentRequest.addError(System.Label.Interaction_Store_Required);
+      if (currentRequest.Appointment_date_and_Time__c == null) {
+        currentRequest.addError('Please select a date for the Contact Request');
+        continue;
+      }
+      Id requestId = currentRequest.WhoId;
+      if (accountMap.containsKey(currentRequest.WhoId)) {
+        requestId = accountMap.get(currentRequest.WhoId).Id;
+      }
+
+      validateStore(currentRequest);
+      //if interaction at same time add error
+      for (Interaction currentInteraction : interactions) {
+        Integer duration = AutomatedRequestMetadataProvider.getInstance()
+          .getPurposeDuration(currentRequest.RequestReason);
+
+        if (
+          // need to also check that it is of a relevant account/lead
+          (currentInteraction.AccountId == requestId ||
+          currentInteraction.Lead__c == requestId) &&
+          Lib_SystemLog.doPeriodsIntersect(
+            currentInteraction.StartTime,
+            currentInteraction.EndTime,
+            currentRequest.Appointment_date_and_Time__c,
+            currentRequest.Appointment_date_and_Time__c.addMinutes(duration)
+          )
+        ) {
+          currentRequest.addError(
+            System.Label.Interaction_User_Created_Error_Message +
+            currentInteraction.Interaction_External_Id__c
+          );
+        }
       }
     }
+  }
+
+  /**
+   * @description Validates if the ContactRequest is at a store but has no store assigned
+   * @param currentRequest request to check
+   */
+  private void validateStore(ContactRequest currentRequest) {
+    if (
+      currentRequest.PreferredChannel == 'Store' &&
+      currentRequest.Location__c == null
+    ) {
+      currentRequest.addError(System.Label.Interaction_Store_Required);
+    }
+  }
+
+  /**
+   * @description extracts whoIds from a list of Contact Requests
+   * @param requests List of Requests
+   * @param accountMap Map of Accounts
+   * @return Set of WhoIds
+   */
+  private Set<Id> extractWhoIds(
+    List<ContactRequest> requests,
+    Map<Id, Account> accountMap
+  ) {
+    Set<Id> whoIds = new Set<Id>();
+    for (ContactRequest currentRequest : requests) {
+      if (accountMap.containsKey(currentRequest.WhoId)) {
+        whoIds.add(accountMap.get(currentRequest.WhoId).Id);
+      } else {
+        whoIds.add(currentRequest.WhoId);
+      }
+    }
+    return whoIds;
   }
 }

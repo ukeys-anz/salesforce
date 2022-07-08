@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Account__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Customer this summary is associated with.</description>
     <externalId>false</externalId>
@@ -12,6 +12,7 @@
     <relationshipName>Coaching_Summaries</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

@@ -5,24 +5,22 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
-  public static final String APPOINTMENTS_QUEUE = 'Appointments_Queue';
-  public static final Id QUEUE_ID = CommonUtil.getGroupId(APPOINTMENTS_QUEUE);
-
   /**
    * @description override of the onAfterInsert to create Events & Interaction Summaries
    */
   public override void onAfterInsert() {
+    InteractionActions intActions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
-    List<Interaction> interactions = cRActions.returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
     );
 
-    cRActions.setInteractionIds(interactions);
+    InteractionSetters.setInteractionIds(interactions);
 
     Map<Id, SObject> interactionMap = new Map<Id, SObject>(records);
     Set<Id> interactionIds = new Set<Id>(interactionMap.keyset());
 
-    InteractionActions.setExternalIds(interactionIds);
+    InteractionSetters.setExternalIds(interactionIds);
 
     AppointmentNotificationHandler.sendNotifications(interactions);
   }
@@ -49,36 +47,41 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     if (!changedOwnerInteractions.isEmpty()) {
       for (Interaction currentInteraction : changedOwnerInteractions) {
-        if (currentInteraction.OwnerId != QUEUE_ID) {
+        if (
+          currentInteraction.OwnerId !=
+          InteractionConstants.APPOINTMENT_QUEUE_ID &&
+          currentInteraction.RecordTypeId ==
+          GetHelpConstants.INTERACTION_APPT_RT_ID
+        ) {
           userOwnedInteractions.add(currentInteraction);
         } else {
           assignedBacktoQueueInteractions.add(currentInteraction);
         }
       }
       if (!userOwnedInteractions.isEmpty()) {
-        List<Event> events = actionsForContactRequests.createEventsFromInteractions(
+        List<Event> events = EventHelper.createEventsFromInteractions(
           userOwnedInteractions
         );
         if (events.isEmpty() == false) {
-          actionsForContactRequests.insertEvents(events);
+          EventHelper.insertEvents(events);
         }
-        createCoachingSummaryInteractions = actionsForInteractions.getInteractionswithoutCoachingSummary(
+        createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
           userOwnedInteractions
         );
-        assignCoachingSummaryOwnerInteractions = actionsForInteractions.getInteractionswithCoachingSummary(
+        assignCoachingSummaryOwnerInteractions = InteractionFilter.getInteractionswithCoachingSummary(
           userOwnedInteractions
         );
       }
     }
 
     if (!createCoachingSummaryInteractions.isEmpty()) {
-      List<Coaching_Summary__c> newCoachingSummary = actionsForInteractions.createCoachingSummaryfromInteraction(
+      List<Coaching_Summary__c> newCoachingSummary = CoachingSummaryHelper.createCoachingSummaryfromInteraction(
         createCoachingSummaryInteractions
       );
 
       if (newCoachingSummary.isEmpty() == false) {
-        actionsForInteractions.insertCoachingSummary(newCoachingSummary);
-        actionsForInteractions.assignSummaryToInteraction(
+        CoachingSummaryHelper.insertCoachingSummary(newCoachingSummary);
+        CoachingSummaryHelper.assignSummaryToInteraction(
           records,
           newCoachingSummary
         );
@@ -86,11 +89,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!assignCoachingSummaryOwnerInteractions.isEmpty()) {
-      List<Coaching_Summary__c> updateCoachingSummaryRecords = actionsForInteractions.assignCoachingSummaryOwner(
+      List<Coaching_Summary__c> updateCoachingSummaryRecords = CoachingSummaryHelper.assignCoachingSummaryOwner(
         assignCoachingSummaryOwnerInteractions
       );
       if (!updateCoachingSummaryRecords.isEmpty()) {
-        actionsForInteractions.updateCoachingSummary(
+        CoachingSummaryHelper.updateCoachingSummary(
           updateCoachingSummaryRecords
         );
       }
@@ -100,7 +103,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> interactionToDeleteEvents = assignedBacktoQueueInteractions.Clone();
 
     if (!assignedBacktoQueueInteractions.isEmpty()) {
-      actionsForInteractions.deleteInteractionEvents(
+      InteractionEventHelper.deleteInteractionEvents(
         assignedBacktoQueueInteractions
       );
     }
@@ -112,7 +115,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     AppointmentNotificationHandler.sendNotifications(cancelledInteractions);
 
-    List<Interaction> noShowInteractions = actionsForInteractions.getNoShowInteractions(
+    List<Interaction> noShowInteractions = InteractionComparisonHelper.getNoShowInteractions(
       oldMap,
       records
     );
@@ -121,8 +124,8 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     interactionToDeleteEvents.addAll(noShowInteractions);
 
     if (!interactionToDeleteEvents.isEmpty()) {
-      actionsForInteractions.deleteInteractionEvents(interactionToDeleteEvents);
-      contactRequestList = actionsForInteractions.getRelatedContactRequest(
+      InteractionEventHelper.deleteInteractionEvents(interactionToDeleteEvents);
+      contactRequestList = InteractionDMLHelper.getRelatedContactRequest(
         cancelledInteractions
       );
     }
@@ -130,16 +133,16 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<ContactRequest> requestsToRecalculate = contactRequestList.Clone();
     List<ContactRequest> rescheduledContactRequestList = new List<ContactRequest>();
 
-    List<Interaction> rescheduledInteractions = actionsForInteractions.getRescheduledInteractions(
+    List<Interaction> rescheduledInteractions = InteractionComparisonHelper.getRescheduledInteractions(
       oldMap,
       records
     );
-    List<Event> relatedEvents = actionsForInteractions.getRelatedEvents(
+    List<Event> relatedEvents = InteractionEventHelper.getRelatedEvents(
       records
     );
 
     if (!rescheduledInteractions.isEmpty()) {
-      rescheduledContactRequestList = actionsForInteractions.getRelatedContactRequest(
+      rescheduledContactRequestList = InteractionDMLHelper.getRelatedContactRequest(
         rescheduledInteractions
       );
     }
@@ -154,7 +157,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     if (!relatedEvents.isEmpty()) {
-      actionsForInteractions.updateEventSchedule(relatedEvents, records);
+      InteractionEventHelper.updateEventSchedule(relatedEvents, records);
     }
   }
 
@@ -164,15 +167,15 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     InteractionActions actions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
-    List<Interaction> interactions = cRActions.returnInteractionsWithAutomatedPurpose(
+    List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
     );
 
-    actions.updateOwnerNewInteractions(interactions);
+    InteractionSetters.setOwnerNewInteractions(interactions);
 
-    actions.setNameOfInteractions(records);
+    InteractionSetters.setNameOfInteractions(records);
 
-    List<Interaction> newInteractions = actions.getInteractionsWithoutEnddate(
+    List<Interaction> newInteractions = InteractionFilter.getInteractionsWithoutEnddate(
       interactions
     );
 
@@ -180,9 +183,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       actions.updateEndTime(newInteractions);
     }
 
-    actions.setInteractionsMobile(records);
-
-    actions.validateInteractions(interactions);
+    InteractionValidations.validateInteractions(interactions);
   }
 
   /** @description onBeforeUpdate to handle before update trigger actions.
@@ -191,22 +192,24 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     InteractionActions actions = new InteractionActions();
 
-    List<Interaction> acceptedInteractions = actions.getAcceptedInteractions(
+    List<Interaction> acceptedInteractions = InteractionComparisonHelper.getAcceptedInteractions(
       oldMap,
       records
     );
     if (acceptedInteractions.size() > 0) {
-      actions.updateStatustoScheduled(acceptedInteractions);
-      actions.validateCoachAssignment(acceptedInteractions);
+      InteractionSetters.setStatustoScheduled(acceptedInteractions);
+      InteractionValidations.validateCoachAssignment(acceptedInteractions);
     }
 
-    List<Interaction> assignedBacktoQueueInteractions = actions.getInteractionsAssignedBacktoQueue(
+    List<Interaction> assignedBacktoQueueInteractions = InteractionComparisonHelper.getInteractionsAssignedBacktoQueue(
       oldMap,
       records
     );
 
     if (assignedBacktoQueueInteractions.size() > 0) {
-      actions.updateOwnerNewInteractions(assignedBacktoQueueInteractions);
+      InteractionSetters.setOwnerNewInteractions(
+        assignedBacktoQueueInteractions
+      );
     }
 
     List<Interaction> reasonOrStartTimeUpdatedInteractions = actions.getInteractionsRequiringEndTimeUpdate(
@@ -217,7 +220,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     if (!reasonOrStartTimeUpdatedInteractions.isEmpty()) {
       actions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
-    actions.setInteractionsMobile(records);
     actions.unassignInteractions(oldMap, records);
   }
 }

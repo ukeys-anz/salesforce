@@ -335,67 +335,11 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CaseTriggerHandlerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CaseUtils</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatChannelModel</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatContextService</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatContextServiceTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatTopicRelatedListController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatTopicRelatedListControllerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatterFeedCommentTriggerHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatterFeedCommentTriggerHandlerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatterFeedItemTriggerHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatterFeedItemTriggerHandlerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>ChatterMigrationService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>ChatterMigrationServiceController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatterMigrationServiceTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatterUtils</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ChatterUtilsTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1487,6 +1431,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.PPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Collections__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Hardship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Application_Log__c.Batch_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1628,41 +1587,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Appointment_Commitment__c.Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Appointment_Notification_Event__e.Date_and_Time__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Appointment_Notification_Event__e.Duration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Appointment_Notification_Event__e.Email_Template__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Appointment_Notification_Event__e.First_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Appointment_Notification_Event__e.Location__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Appointment_Notification_Event__e.Preferred_Channel__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Appointment_Notification_Event__e.Request_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2716,11 +2640,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.IDR_Real_Form_Ref_No__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.IDR_Real_Form_Req__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2795,8 +2714,58 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IDR_Time_To_Escalation__c</field>
+        <editable>true</editable>
+        <field>Case.Fraud_Customer_Provided_Selfie__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Device_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Failed_Verification_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_PIN_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Phone_Number_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Provided_Document_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Recipient_Remitter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Review_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Selfie_Match__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Selfie_Comparison_Match__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Product_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3251,11 +3220,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.Tactical_Fix__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.Trace_Request_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3371,17 +3335,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>ContactRequest.Account_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Net_Promoter_Score__c</field>
+        <field
+    >qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3391,17 +3346,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Overall_Satisfaction__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>ContactRequest.Appointment_date_and_Time__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3492,11 +3437,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Disputes_PEGA_Integration_Event__e.Transaction_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Escalated_Flag_Id__mdt.Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3826,7 +3766,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__BalanceLastStatement__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__BalanceLastStatement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3881,12 +3822,14 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__CurrentPostedBalance__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__CurrentPostedBalance__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__DailyWithdrawalLimit__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__DailyWithdrawalLimit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3911,27 +3854,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__ExpectedCloseDate__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__ExpectedCloseDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountChargesAndFees__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountChargesAndFees__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountSource__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountSource__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3976,7 +3924,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__InvestmentObjectives__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__InvestmentObjectives__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3986,7 +3935,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__LastTransactionDate__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__LastTransactionDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4036,7 +3986,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__NextStatementDate__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__NextStatementDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4061,12 +4012,14 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__OverdraftLinkedAccount__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__OverdraftLinkedAccount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__OverdraftProtection__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__OverdraftProtection__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4081,7 +4034,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__PaperlessDelivery__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__PaperlessDelivery__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4106,7 +4060,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__PendingWithdrawals__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__PendingWithdrawals__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4161,7 +4116,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__RebalanceFrequency__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__RebalanceFrequency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4176,7 +4132,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__RepaymentPeriodMonths__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__RepaymentPeriodMonths__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4211,7 +4168,8 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.FinServ__StatementFrequency__c</field>
+        <field
+    >FinServ__FinancialAccount__c.FinServ__StatementFrequency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4300,11 +4258,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>FinServ__ReciprocalRole__c.FinServ__InverseRelationship__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Forgerock_Auth__mdt.Encrypted_Forge_Client_Secret__c</field>
         <readable>true</readable>
@@ -4325,11 +4278,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>FinServ__RollupByLookupConfig__c.FinServ__FromRecordType__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>IDR_Collections_Event__e.IDR_Complaint_Number__c</field>
         <readable>true</readable>
@@ -4342,16 +4290,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>IDR_Collections_Event__e.IDR_Complaint_Resolved_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FinServ__RollupByLookupConfig__c.FinServ__RollupOperation__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FinServ__RollupByLookupConfig__c.FinServ__UpdateOnChange__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4641,22 +4579,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Interaction.Call_Recording_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Interaction.CaseId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Interaction.Channel_Booked__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Interaction.Chat_or_Call_SID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4716,16 +4639,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Interaction.Interaction_Number_Link__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Interaction.Is_User_Attendee__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Interaction.Lead__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4740,16 +4653,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.Referred_To__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Interaction.Resolution__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Status__c</field>
         <readable>true</readable>
@@ -4757,11 +4660,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Twilio_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>InteractionAttendee.Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5426,41 +5324,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Traced_Application_Log__b.Trace_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Knowledge__kav.IDR_Issue_Type__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Knowledge__kav.IDR_Subsequent_Issue_Type__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Knowledge__kav.Reason_for_Change__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Known_Issues__c.IDR_Issue_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Known_Issues__c.Product__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Known_Issues__c.IDR_Sub_Issue_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Known_Issues__c.IDR_Description_of_Issue__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5551,12 +5414,14 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Privileged_Access_Request__c.Actual_Access_Granted_Time__c</field>
+        <field
+    >Privileged_Access_Request__c.Actual_Access_Granted_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
+        <field
+    >Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5627,11 +5492,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Reported_Bug__c.Number_of_Related_Cases__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>User.Active_Directory_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6370,7 +6230,8 @@
         <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
+        <layout
+    >FinServ__FinancialAccount__c-Financial Account %28Staging Account%29 Layout</layout>
         <recordType>FinServ__FinancialAccount__c.Staging_Account</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -6395,15 +6256,12 @@
         <layout>Interaction-Interaction Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Interaction-Interaction Layout</layout>
+        <layout>Interaction-Appointment Layout</layout>
         <recordType>Interaction.Appointment</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>InteractionAttendee-Interaction Attendee Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>InteractionSummary-Interaction Summary Layout</layout>
@@ -6430,7 +6288,8 @@
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Privileged_Access_Request__c-Privileged Access Request Layout</layout>
+        <layout
+    >Privileged_Access_Request__c-Privileged Access Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Product2-ANZ Product and Service Layout</layout>
@@ -6482,10 +6341,12 @@
         <layout>UserAlt-User Profile Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>User_Provisioning_Request__c-User Provisioning Request Layout</layout>
+        <layout
+    >User_Provisioning_Request__c-User Provisioning Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
+        <layout
+    >User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>WorkType-ANZ Work Type Layout</layout>
@@ -6548,15 +6409,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Appointment_Commitment__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>Appointment_Notification_Event__e</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -7007,17 +6859,20 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__CreditCard</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__CreditCard</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -7032,17 +6887,20 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__InsurancePolicy</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__InsurancePolicy</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__InvestmentAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__InvestmentAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__LoanAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__LoanAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -7052,12 +6910,14 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
-        <recordType>FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
+        <recordType
+    >FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
@@ -7069,11 +6929,6 @@
         <default>false</default>
         <recordType>Interaction.Appointment</recordType>
         <visible>false</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>true</default>
-        <recordType>Interaction.General</recordType>
-        <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
@@ -7152,10 +7007,6 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>IDR_Template_Detail__c</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>Interaction_List_View</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>

@@ -5,10 +5,7 @@
  */
 @isTest
 public with sharing class InteractionInterceptTest {
-  private static final string FIRST_NAME = 'Fred';
-  private static final string LAST_NAME = 'Smith';
-  private static final string PHONE_NUMBER = '01189998819991197253';
-
+  static final String CANCELLED = 'Cancelled';
   @isTest
   static void isInterceptInteractions() {
     DateTime startDate = DateTime.newInstance(
@@ -21,7 +18,7 @@ public with sharing class InteractionInterceptTest {
     );
     Account testAccount = createTestAccount();
 
-    string purpose = 'Financial Wellbeing';
+    string purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Interaction testInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
@@ -31,8 +28,17 @@ public with sharing class InteractionInterceptTest {
     );
     insert testInteraction;
 
-    testInteraction.Status__c = 'Unassigned';
-    update testInteraction;
+    testInteraction = [
+      SELECT Id, AccountId, StartTime, Interaction_Purpose__c, Status__c
+      FROM Interaction
+      WHERE Id = :testInteraction.Id
+    ];
+
+    System.assertEquals(
+      InteractionConstants.UNASSIGNED_STATUS,
+      testInteraction.Status__c,
+      'A newly created interaction should be unassigned'
+    );
 
     test.startTest();
     Interaction testInteraction2 = new Interaction(
@@ -51,7 +57,7 @@ public with sharing class InteractionInterceptTest {
     System.assertEquals(
       null,
       testInteraction2.Id,
-      'ID must not be set as this means it exists'
+      'The Account cannot have two interactions at the same time'
     );
 
     System.assertNotEquals(
@@ -61,7 +67,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Scheduled';
+    testInteraction.Status__c = InteractionConstants.SCHEDULED_STATUS;
     update testInteraction;
 
     try {
@@ -82,7 +88,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Rescheduled';
+    testInteraction.Status__c = InteractionConstants.RESCHEDULED_STATUS;
     update testInteraction;
 
     try {
@@ -103,7 +109,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Walk In';
+    testInteraction.Status__c = InteractionConstants.WALKIN_STATUS;
     update testInteraction;
 
     try {
@@ -124,7 +130,7 @@ public with sharing class InteractionInterceptTest {
     );
 
     thrownException = null;
-    testInteraction.Status__c = 'Cancelled';
+    testInteraction.Status__c = CANCELLED;
     update testInteraction;
 
     try {
@@ -171,19 +177,204 @@ public with sharing class InteractionInterceptTest {
   }
 
   /**
+   * @description  As a coach lead, I have a rescheduled (Rescheduled Status) appointment (IR-00000166)
+   * with Pete from 1:00am-1:30am on 16/06/2022, but I have successfully accepted another appointment
+   * with David from 12:30am - 1:15am on the same day which has 15 mins overlap.*/
+  @isTest
+  static void test48304Issue4() {
+    Faker faker = new Faker('AU');
+    Integer year = DateTime.now().year() + 1;
+    String purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
+
+    //Pete Account
+    Account peteAccount = createTestAccount();
+
+    DateTime peteStartTime = DateTime.newInstance(year, 6, 16, 1, 0, 0);
+
+    //Rescheduled Appointment.
+    Interaction peteInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      Name = faker.randomString(10),
+      AccountId = peteAccount.Id,
+      StartTime = peteStartTime,
+      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
+    );
+    insert peteInteraction;
+
+    peteInteraction.OwnerId = UserInfo.getUserId();
+    update peteInteraction;
+
+    DateTime expectedPeteEndDate = DateTime.newInstance(year, 6, 16, 1, 30, 0);
+    peteInteraction = [
+      SELECT Id, EndTime
+      FROM Interaction
+      WHERE Id = :peteInteraction.Id
+    ];
+    System.assertEquals(
+      expectedPeteEndDate,
+      peteInteraction.EndTime,
+      'Make sure the date is set as expected.'
+    );
+
+    peteInteraction.Status__c = InteractionConstants.RESCHEDULED_STATUS;
+    update peteInteraction;
+
+    peteInteraction = [
+      SELECT Id, Status__c
+      FROM Interaction
+      WHERE Id = :peteInteraction.Id
+    ];
+    System.assertEquals(
+      InteractionConstants.RESCHEDULED_STATUS,
+      peteInteraction.Status__c,
+      'Status must be Rescheduled for this to work'
+    );
+
+    //David Interaction
+    Account davidAccount = createTestAccount();
+
+    DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
+
+    DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
+
+    Interaction davidInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      Name = faker.randomString(10),
+      AccountId = davidAccount.Id,
+      StartTime = davidStartTime,
+      Interaction_Purpose__c = purpose
+    );
+    insert davidInteraction;
+
+    test.startTest();
+    davidInteraction.OwnerId = UserInfo.getUserId();
+
+    Exception thrownException;
+    try {
+      update davidInteraction;
+    } catch (Exception exc) {
+      thrownException = exc;
+    }
+    test.stopTest();
+
+    System.assertNotEquals(
+      null,
+      thrownException,
+      'An exception should have been thrown as these two dates overlap.'
+    );
+  }
+
+  @isTest
+  static void test48304Issue4ChangingTime() {
+    Faker faker = new Faker('AU');
+    Integer year = DateTime.now().year() + 1;
+    String purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
+
+    //Pete Account
+    Account peteAccount = createTestAccount();
+
+    DateTime peteStartTime = DateTime.newInstance(year, 6, 15, 1, 0, 0);
+
+    //Rescheduled Appointment.
+    Interaction peteInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      Name = faker.randomString(10),
+      AccountId = peteAccount.Id,
+      StartTime = peteStartTime,
+      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
+    );
+    insert peteInteraction;
+
+    peteInteraction.OwnerId = UserInfo.getUserId();
+    update peteInteraction;
+
+    DateTime expectedPeteEndDate = DateTime.newInstance(year, 6, 15, 1, 30, 0);
+    peteInteraction = [
+      SELECT Id, EndTime
+      FROM Interaction
+      WHERE Id = :peteInteraction.Id
+    ];
+    System.assertEquals(
+      expectedPeteEndDate,
+      peteInteraction.EndTime,
+      'Make sure the date is set as expected.'
+    );
+
+    DateTime peteNewStartTime = DateTime.newInstance(year, 6, 16, 1, 0, 0);
+    peteInteraction.Status__c = InteractionConstants.RESCHEDULED_STATUS;
+    peteInteraction.StartTime = peteNewStartTime;
+    update peteInteraction;
+
+    peteInteraction = [
+      SELECT Id, Status__c
+      FROM Interaction
+      WHERE Id = :peteInteraction.Id
+    ];
+    System.assertEquals(
+      InteractionConstants.RESCHEDULED_STATUS,
+      peteInteraction.Status__c,
+      'Status must be Rescheduled for this to work'
+    );
+
+    //David Interaction
+    Account davidAccount = createTestAccount();
+
+    DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
+
+    DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
+
+    Interaction davidInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      Name = faker.randomString(10),
+      AccountId = davidAccount.Id,
+      StartTime = davidStartTime,
+      Interaction_Purpose__c = purpose
+    );
+    insert davidInteraction;
+
+    test.startTest();
+    davidInteraction.OwnerId = UserInfo.getUserId();
+
+    Exception thrownException;
+    try {
+      update davidInteraction;
+    } catch (Exception exc) {
+      thrownException = exc;
+    }
+    test.stopTest();
+
+    System.assertNotEquals(
+      null,
+      thrownException,
+      'An exception should have been thrown as these two dates overlap.'
+    );
+  }
+
+  /**
    * @description helper method to create a person account
    * @return Account a Person Account with Name Fred Smith, OCV ID 123456
    */
   static Account createTestAccount() {
     Faker faker = new Faker('AU');
+    return createTestAccount(faker.randomString(5), faker.randomString(5));
+  }
+
+  /**
+   * @description creates a testAccount
+   * @param firstName First Name to put on the account
+   * @param lastName Last Name to put on the account
+   * @return Account newly created account
+   */
+  public static Account createTestAccount(String firstName, String lastName) {
+    Faker faker = new Faker('AU');
     Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')
       .getRecordTypeId();
     Account testAccount = new Account();
-    testAccount.FirstName = FIRST_NAME;
-    testAccount.LastName = LAST_NAME;
+    testAccount.FirstName = firstName;
+    testAccount.LastName = lastName;
     testAccount.OCV_ID__c = faker.randomString(10);
-    testAccount.PersonMobilePhone = PHONE_NUMBER;
+    testAccount.PersonMobilePhone = String.valueOf(faker.randomDecimal(10, 0));
     testAccount.RecordTypeId = personAccountRecordTypeId;
     insert testAccount;
 

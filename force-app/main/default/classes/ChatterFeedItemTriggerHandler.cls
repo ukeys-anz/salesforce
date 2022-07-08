@@ -19,7 +19,6 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
   /**
    * @description  Mask the comments where applicable.
    */
-  @SuppressWarnings('PMD.CyclomaticComplexity')
   public override void onApplyDefaults() {
     List<Id> parentIdList = new List<Id>();
     for (FeedItem record : (List<FeedItem>) records) {

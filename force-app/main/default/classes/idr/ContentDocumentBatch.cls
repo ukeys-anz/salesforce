@@ -17,8 +17,6 @@ public with sharing class ContentDocumentBatch implements Database.Batchable<sOb
     '"Owner",' +
     '"File Type"'
   };
-  private Map<Id, Datetime> mpCaseId2ClosedDate = new Map<Id, Datetime>();
-  private Map<Id, List<ContentDocumentLink>> mpCaseId2Documents = new Map<Id, List<ContentDocumentLink>>();
 
   /**
    * @description Return a QueryLocator for All Closed Cases
@@ -40,6 +38,9 @@ public with sharing class ContentDocumentBatch implements Database.Batchable<sOb
    * @param lstCases List of Cases for scope
    */
   public void execute(Database.BatchableContext param1, List<Case> lstCases) {
+    Map<Id, Datetime> mpCaseId2ClosedDate = new Map<Id, Datetime>();
+    Map<Id, List<ContentDocumentLink>> mpCaseId2Documents = new Map<Id, List<ContentDocumentLink>>();
+
     for (Case oCase : lstCases) {
       mpCaseId2ClosedDate.put(oCase.Id, oCase.ClosedDate);
     }
@@ -77,15 +78,16 @@ public with sharing class ContentDocumentBatch implements Database.Batchable<sOb
           lstContentDocuments.add(cdlObject);
         }
       }
-      buildCSV(lstCases);
+      buildCSV(lstCases, mpCaseId2Documents);
     }
   }
 
   /**
    * @description Take documents and add CSV lines
    * @param lstCases original scope List of Cases
+   * @param mpCaseId2Documents ContentDocumentLink records arranged by CaseId
    */
-  private void buildCSV(List<Case> lstCases) {
+  private void buildCSV(List<Case> lstCases, Map<Id, List<ContentDocumentLink>> mpCaseId2Documents) {
     Map<Id, Case> mpCaseId2Case = new Map<Id, Case>();
     for (Case oCase : lstCases) {
       if (mpCaseId2Documents.containsKey(oCase.Id)) {
@@ -126,6 +128,6 @@ public with sharing class ContentDocumentBatch implements Database.Batchable<sOb
    * @param param1 BatchableContext ignored
    */
   public void finish(Database.BatchableContext param1) {
-    System.debug(String.join(lstOutputLines, '\n'));
+    System.debug(LoggingLevel.INFO, String.join(lstOutputLines, '\n'));
   }
 }

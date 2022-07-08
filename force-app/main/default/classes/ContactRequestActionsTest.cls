@@ -1,11 +1,7 @@
 @isTest
 public with sharing class ContactRequestActionsTest {
-  private static string contactRequestQueueName = 'Contact Request';
-  private static string appointmentQueueName = 'Appointments Queue';
-  private static string otherPurposeName = 'Other';
-  private static string financialWellbeingPurposeName = 'Financial Wellbeing';
-  private static string defaultInteractionStatus = 'Unassigned';
-  private static string appointmentRTName = 'Appointment';
+  private static final String OUTBOUND = 'Outbound';
+  private static final String ANZ_LOCATION = 'ANZ Location';
 
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
@@ -19,16 +15,19 @@ public with sharing class ContactRequestActionsTest {
   }
   static void setup() {
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
-    otherPurpose.MasterLabel = otherPurposeName;
+    otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
     otherPurpose.Duration__c = otherPurposeDuration;
 
     Automated_Request_Purpose__mdt financialWellbeingPurpose = new Automated_Request_Purpose__mdt();
-    financialWellbeingPurpose.MasterLabel = financialWellbeingPurposeName;
+    financialWellbeingPurpose.MasterLabel = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     financialWellbeingPurpose.Duration__c = financialWellbeingPurposeDuration;
 
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
-    purposeMap.put(otherPurposeName, otherPurpose);
-    purposeMap.put(financialWellbeingPurposeName, financialWellbeingPurpose);
+    purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
+    purposeMap.put(
+      InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      financialWellbeingPurpose
+    );
 
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
   }
@@ -37,15 +36,15 @@ public with sharing class ContactRequestActionsTest {
   static void testDirectionChoice() {
     ContactRequestActions actions = new ContactRequestActions();
 
-    String direction = actions.getDirection('Call');
+    String direction = actions.getDirection(InteractionConstants.CALL);
 
     System.assertEquals(
-      'Outbound',
+      OUTBOUND,
       direction,
       'Direction must be Outbound when channel is Call'
     );
 
-    direction = actions.getDirection('Store');
+    direction = actions.getDirection(InteractionConstants.STORE);
     System.assertEquals(
       '',
       direction,
@@ -55,7 +54,11 @@ public with sharing class ContactRequestActionsTest {
 
   @isTest
   static void testInteractionExternalIdNotFromCR() {
-    Interaction testInteraction = new Interaction(Name = 'Test Interaction');
+    Faker faker = new Faker('AU');
+    Interaction testInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      Name = faker.randomString(15)
+    );
     test.startTest();
     insert testInteraction;
     test.stopTest();
@@ -74,15 +77,16 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testCreateInteractionFromRequest() {
     setup();
+    Faker faker = new Faker('AU');
     Schema.Location testLocation = new Schema.Location(
-      Name = 'ANZ Location',
-      LocationType = 'Store'
+      Name = ANZ_LOCATION,
+      LocationType = InteractionConstants.STORE
     );
     insert testLocation;
 
     Account testAccount = createTestAccount();
 
-    string requestReason = financialWellbeingPurposeName;
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Integer duration = financialWellbeingPurposeDuration;
 
@@ -90,16 +94,17 @@ public with sharing class ContactRequestActionsTest {
     DateTime expectedEndDate = appointmentDate.addMinutes(duration);
 
     Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
-      .get(appointmentRTName)
+      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
       .getRecordTypeId();
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
-    request.RequestDescription = 'Test';
-    request.PreferredChannel = 'Call';
-    request.Channel_Booked__c = 'Chat';
+    String desp = faker.randomString(4);
+    request.RequestDescription = desp;
+    request.PreferredChannel = InteractionConstants.CALL;
+    request.Channel_Booked__c = InteractionConstants.CHAT;
     request.Location__c = testLocation.Id;
     Test.startTest();
     insert request;
@@ -156,7 +161,7 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      defaultInteractionStatus,
+      InteractionConstants.UNASSIGNED_STATUS,
       newInteraction.Status__c,
       'Interaction Status must default to Unassigned'
     );
@@ -189,13 +194,13 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      'Test',
+      desp,
       newInteraction.Description,
       'Description on the Interaction must match that of the request.'
     );
 
     System.assertEquals(
-      'Outbound',
+      OUTBOUND,
       newInteraction.Direction__c,
       'Direction must be "Outbound"'
     );
@@ -213,7 +218,9 @@ public with sharing class ContactRequestActionsTest {
       'Contact Request Id must be populated on Interaction'
     );
 
-    QueueSObject appointmentQueue = getQueue(appointmentQueueName);
+    QueueSObject appointmentQueue = getQueue(
+      InteractionConstants.APPOINTMENT_QUEUE_NAME
+    );
 
     System.assertEquals(
       appointmentQueue.Queue.Id,
@@ -269,9 +276,10 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testCreateInteractionFromRequestForLead() {
     setup();
+    Faker faker = new Faker('AU');
     Lead testLead = createTestLead();
 
-    string requestReason = financialWellbeingPurposeName;
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Integer duration = financialWellbeingPurposeDuration;
 
@@ -282,8 +290,9 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = appointmentDate;
     request.RequestReason = requestReason;
     request.WhoId = testLead.Id;
-    request.RequestDescription = 'Test';
-    request.PreferredChannel = 'Call';
+    String desp = faker.randomString(4);
+    request.RequestDescription = desp;
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
@@ -302,7 +311,7 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      defaultInteractionStatus,
+      InteractionConstants.UNASSIGNED_STATUS,
       newInteraction.Status__c,
       'Interaction Status must default to Unassigned'
     );
@@ -335,13 +344,13 @@ public with sharing class ContactRequestActionsTest {
     );
 
     System.assertEquals(
-      'Test',
+      desp,
       newInteraction.Description,
       'Description on the Interaction must match that of the request.'
     );
 
     System.assertEquals(
-      'Outbound',
+      OUTBOUND,
       newInteraction.Direction__c,
       'Direction must be "Outbound"'
     );
@@ -357,9 +366,10 @@ public with sharing class ContactRequestActionsTest {
   @isTest
   static void testHandleNullAppointmentDate() {
     setup();
+    Faker faker = new Faker('AU');
     Account testAccount = createTestAccount();
 
-    string requestReason = financialWellbeingPurposeName;
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Integer duration = financialWellbeingPurposeDuration;
 
@@ -367,8 +377,9 @@ public with sharing class ContactRequestActionsTest {
     request.Appointment_date_and_Time__c = null;
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
-    request.RequestDescription = 'Test';
-    request.PreferredChannel = 'Call';
+    String desp = faker.randomString(4);
+    request.RequestDescription = desp;
+    request.PreferredChannel = InteractionConstants.CALL;
 
     Boolean exceptionThrown = false;
     try {
@@ -388,8 +399,8 @@ public with sharing class ContactRequestActionsTest {
   static void testAutomatedPurposeCheck() {
     setup();
     Account testAccount = createTestAccount();
-    string nonAutomatedPurposeName = 'Financial Wellbeing';
-    string automatedPurposeName = 'Other';
+    string nonAutomatedPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
+    string automatedPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
 
     Automated_Request_Purpose__mdt notautomatedPurpose = new Automated_Request_Purpose__mdt();
     notautomatedPurpose.MasterLabel = nonAutomatedPurposeName;
@@ -401,13 +412,13 @@ public with sharing class ContactRequestActionsTest {
     ContactRequest autoRequest = new ContactRequest();
     autoRequest.RequestReason = automatedPurposeName;
     autoRequest.Appointment_date_and_Time__c = DateTime.now();
-    autoRequest.PreferredChannel = 'Call';
+    autoRequest.PreferredChannel = InteractionConstants.CALL;
     autoRequest.WhoId = testAccount.PersonContactId;
 
     ContactRequest notAutoRequest = new ContactRequest();
     notAutoRequest.RequestReason = nonAutomatedPurposeName;
     notAutoRequest.Appointment_date_and_Time__c = DateTime.now();
-    notAutoRequest.PreferredChannel = 'Call';
+    notAutoRequest.PreferredChannel = InteractionConstants.CALL;
     notAutoRequest.WhoId = testAccount.PersonContactId;
 
     List<ContactRequest> requests = new List<ContactRequest>();
@@ -447,13 +458,13 @@ public with sharing class ContactRequestActionsTest {
     Account testAccount = createTestAccount();
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
 
-    string requestReason = 'Financial Wellbeing';
+    string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = DateTime.now();
     request.RequestReason = requestReason;
     request.WhoId = testAccount.PersonContactId;
-    request.PreferredChannel = 'Call';
+    request.PreferredChannel = InteractionConstants.CALL;
     insert request;
 
     Map<Id, Account> contactIdAccountIdMap = contactRequestActionHelper.getWhoIdAccountMap(
@@ -480,160 +491,6 @@ public with sharing class ContactRequestActionsTest {
   }
 
   @isTest
-  static void testEventCreation() {
-    setup();
-    DateTime appointmentDateTime = DateTime.Now();
-    DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
-
-    Account testAccount = createTestAccount();
-
-    Interaction testInteraction = new Interaction();
-    testInteraction.Name = otherPurposeName + ' Appointment';
-    testInteraction.AccountId = testAccount.Id;
-    testInteraction.StartTime = appointmentDateTime;
-    testInteraction.EndTime = endDateTime;
-    insert testInteraction;
-
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    Event testEvent = contactRequestActionHelper.createEventFromInteraction(
-      testInteraction
-    );
-
-    System.assertNotEquals(null, testEvent, 'Must return an Event');
-
-    String expectedName = 'Appointment with Fred Smith';
-    System.assertEquals(
-      expectedName,
-      testEvent.Subject,
-      'Subject must match the expected Name'
-    );
-
-    System.assertEquals(
-      appointmentDateTime,
-      testEvent.StartDateTime,
-      'Event start time should be the same as the interactions'
-    );
-
-    Id eventWhoId = testEvent.WhoId;
-    System.assertEquals(
-      testAccount.PersonContactId,
-      eventWhoId,
-      'Name should link to the PersonContact'
-    );
-
-    System.assertEquals(
-      testInteraction.Id,
-      testEvent.WhatId,
-      'Interaction should be mapped with the whatId of the Event'
-    );
-
-    System.assertEquals(
-      testInteraction.OwnerId,
-      testEvent.OwnerId,
-      'Owner Id of Event must match the Interactions'
-    );
-
-    System.assertEquals(
-      endDateTime,
-      testEvent.EndDateTime,
-      'The End Date of the Event must match the Interactions End Date'
-    );
-
-    System.assertEquals(
-      true,
-      testEvent.IsReminderSet,
-      'Reminder should be set to true'
-    );
-
-    DateTime expectedReminderDate = appointmentDateTime.addMinutes(
-      -1 * reminderMinutes
-    );
-
-    System.assertEquals(
-      expectedReminderDate,
-      testEvent.ReminderDateTime,
-      'Reminder should be 15 minutes before the start time'
-    );
-  }
-
-  @isTest
-  static void testEventCreationForLead() {
-    setup();
-    DateTime appointmentDateTime = DateTime.Now();
-    DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
-
-    Lead testLead = createTestLead();
-
-    List<Event> events = [SELECT Id FROM Event];
-
-    system.assertEquals(0, events.size(), 'No events should be available');
-
-    Interaction testInteraction = new Interaction();
-    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    testInteraction.Name = otherPurposeName + ' Appointment';
-    testInteraction.Lead__c = testLead.Id;
-    testInteraction.StartTime = appointmentDateTime;
-    testInteraction.EndTime = endDateTime;
-    testInteraction.Interaction_Purpose__c = otherPurposeName;
-    insert testInteraction;
-
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    Event testEvent = contactRequestActionHelper.createEventFromInteraction(
-      testInteraction
-    );
-
-    events = [SELECT Id FROM Event];
-
-    system.assertEquals(
-      true,
-      events.isEmpty(),
-      'Events should not be created at this stage'
-    );
-
-    System.assertNotEquals(null, testEvent, 'Must return an Event');
-
-    String expectedName = 'Appointment with Test CR Lead';
-    System.assertEquals(
-      expectedName,
-      testEvent.Subject,
-      'Subject must match the expected Name'
-    );
-
-    System.assertEquals(
-      appointmentDateTime,
-      testEvent.StartDateTime,
-      'Event start time should be the same as the interactions'
-    );
-
-    Id eventWhoId = testEvent.Lead__c;
-    System.assertEquals(
-      testLead.Id,
-      eventWhoId,
-      'The Lead Id should match with the Lead created'
-    );
-
-    System.assertEquals(
-      testInteraction.OwnerId,
-      testEvent.OwnerId,
-      'Owner Id of Event must match the Interactions'
-    );
-
-    System.assertEquals(
-      testInteraction.Id,
-      testEvent.WhatId,
-      'Interaction should be mapped with the whatId of the Event'
-    );
-
-    System.assertEquals(
-      endDateTime,
-      testEvent.EndDateTime,
-      'The End Date of the Event must match the Interactions End Date'
-    );
-  }
-
-  @isTest
   static void testCreateInteractionSummaryForLead() {
     setup();
 
@@ -652,121 +509,13 @@ public with sharing class ContactRequestActionsTest {
 
     Interaction testInteraction = new Interaction();
     testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    testInteraction.Name = otherPurposeName + ' Appointment';
+    testInteraction.Name =
+      InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.Lead__c = testLead.Id;
     testInteraction.StartTime = appointmentDateTime;
     testInteraction.EndTime = endDateTime;
-    testInteraction.Interaction_Purpose__c = otherPurposeName;
+    testInteraction.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
     insert testInteraction;
-
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    InteractionSummary testInteractionSummary = contactRequestActionHelper.createInteractionSummaryFromInteraction(
-      testInteraction
-    );
-
-    System.assertNotEquals(
-      null,
-      testInteractionSummary,
-      'Must return an Interaction Summary'
-    );
-
-    System.assertEquals(
-      otherPurposeName + ' Appointment Summary',
-      testInteractionSummary.Name,
-      'Interaction Summary Name must be the purpose + Appointment Summary'
-    );
-
-    System.assertEquals(
-      'In Progress',
-      testInteractionSummary.Status,
-      'Status must equal In Progress'
-    );
-
-    System.assertEquals(
-      testInteraction.Id,
-      testInteractionSummary.InteractionId,
-      'Interaction must be set on the Interaction Summary'
-    );
-
-    System.assertEquals(
-      testInteraction.OwnerId,
-      testInteractionSummary.OwnerId,
-      'Owner Id must be set on the Interactions OwnerId'
-    );
-
-    System.assertEquals(
-      '',
-      testInteractionSummary.Meeting_Notes__c,
-      'Meeting Notes must be blank'
-    );
-  }
-
-  @isTest
-  static void testCreateInteractionSummary() {
-    setup();
-
-    DateTime appointmentDateTime = DateTime.Now();
-    DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
-
-    Account testAccount = createTestAccount();
-
-    Interaction testInteraction = new Interaction();
-    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    testInteraction.Name = otherPurposeName + ' Appointment';
-    testInteraction.AccountId = testAccount.Id;
-    testInteraction.StartTime = appointmentDateTime;
-    testInteraction.EndTime = endDateTime;
-    testInteraction.Interaction_Purpose__c = otherPurposeName;
-    insert testInteraction;
-
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    InteractionSummary testInteractionSummary = contactRequestActionHelper.createInteractionSummaryFromInteraction(
-      testInteraction
-    );
-
-    System.assertNotEquals(
-      null,
-      testInteractionSummary,
-      'Must return an Interaction Summary'
-    );
-
-    System.assertEquals(
-      otherPurposeName + ' Appointment Summary',
-      testInteractionSummary.Name,
-      'Interaction Summary Name must be the purpose + Appointment Summary'
-    );
-
-    System.assertEquals(
-      'In Progress',
-      testInteractionSummary.Status,
-      'Status must equal In Progress'
-    );
-
-    System.assertEquals(
-      testInteraction.Id,
-      testInteractionSummary.InteractionId,
-      'Interaction must be set on the Interaction Summary'
-    );
-
-    System.assertEquals(
-      testInteraction.AccountId,
-      testInteractionSummary.AccountId,
-      'Account must be set on the Interactions Account'
-    );
-
-    System.assertEquals(
-      testInteraction.OwnerId,
-      testInteractionSummary.OwnerId,
-      'Owner Id must be set on the Interactions OwnerId'
-    );
-
-    System.assertEquals(
-      '',
-      testInteractionSummary.Meeting_Notes__c,
-      'Meeting Notes must be blank'
-    );
   }
 
   @isTest
@@ -775,10 +524,10 @@ public with sharing class ContactRequestActionsTest {
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
 
     Integer testOtherDuration = contactRequestActionHelper.getDuration(
-      otherPurposeName
+      InteractionConstants.OTHER_PURPOSE_NAME
     );
     Integer testFWDuration = contactRequestActionHelper.getDuration(
-      financialWellbeingPurposeName
+      InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME
     );
 
     System.assertEquals(
@@ -804,49 +553,20 @@ public with sharing class ContactRequestActionsTest {
     );
   }
 
-  @isTest
-  static void returnInteractionsWithAutomatedPurpose() {
-    setup();
-    ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
-
-    Interaction automatedInteraction = new Interaction(
-      Interaction_Purpose__c = otherPurposeName
-    );
-    Interaction nonAutomatedInteraction = new Interaction(
-      Interaction_Purpose__c = 'NotAutomated'
-    );
-
-    List<Interaction> interactions = new List<Interaction>{
-      automatedInteraction,
-      nonAutomatedInteraction
-    };
-
-    test.startTest();
-    List<Interaction> automatedInteractions = contactRequestActionHelper.returnInteractionsWithAutomatedPurpose(
-      interactions
-    );
-    test.stopTest();
-
-    system.assertEquals(
-      1,
-      automatedInteractions.size(),
-      'Should only return automated interactions'
-    );
-  }
-
   /**
    * @description helper method to create a person account
    * @return Account a Person Account with Name Fred Smith, OCV ID 123456
    */
   static Account createTestAccount() {
+    Faker faker = new Faker('AU');
     Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')
       .getRecordTypeId();
     Account testAccount = new Account();
-    testAccount.FirstName = 'Fred';
-    testAccount.LastName = 'Smith';
-    testAccount.OCV_ID__c = '123456';
-    testAccount.PersonMobilePhone = '01189998819991197253';
+    testAccount.FirstName = faker.randomString(5);
+    testAccount.LastName = faker.randomString(5);
+    testAccount.OCV_ID__c = faker.randomString(6);
+    testAccount.PersonMobilePhone = String.valueOf(faker.randomDecimal(10, 0));
     testAccount.RecordTypeId = personAccountRecordTypeId;
     insert testAccount;
 
@@ -868,10 +588,11 @@ public with sharing class ContactRequestActionsTest {
     Id leadRecordTypeId = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
       .get('General')
       .getRecordTypeId();
+    Faker faker = new Faker('AU');
 
     Lead testLead = new Lead();
-    testLead.LastName = 'Test CR Lead';
-    testLead.Company = 'Test CR Lead';
+    testLead.LastName = faker.randomString(12);
+    testLead.Company = faker.randomString(12);
     testLead.RecordTypeId = leadRecordTypeId;
     insert testLead;
 

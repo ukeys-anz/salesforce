@@ -3,7 +3,6 @@
  * @since 12/2020
  * @description  ContentDocumentLinkTriggerHandler is the handler class for Content Document Link Trigger which extends Lib_TriggerHandler the trigger framework used.
  */
-@SuppressWarnings('PMD.ApexCRUDViolation')
 public without sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description onAfterInsert to manage after insert actions to handle notifications

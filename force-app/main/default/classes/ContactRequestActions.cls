@@ -3,10 +3,7 @@
  * @since 20220324
  * @description class for Automating object creation from accepting a Contact Request
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class ContactRequestActions {
-  private static string appointmentQueueName = 'Appointments_Queue';
-
   //local variable holding the Appointment Queue
   private Group localAppointmentQueue;
 
@@ -16,7 +13,9 @@ public with sharing class ContactRequestActions {
   private Group appointmentQueue {
     get {
       if (localAppointmentQueue == null) {
-        localAppointmentQueue = CommonUtil.getQueueByName(appointmentQueueName);
+        localAppointmentQueue = CommonUtil.getQueueByName(
+          InteractionConstants.APPOINTMENTS_QUEUE
+        );
       }
       return localAppointmentQueue;
     }
@@ -44,64 +43,6 @@ public with sharing class ContactRequestActions {
     }
 
     return results;
-  }
-
-  /**
-   * @description does the database call to insert Interactions
-   * @param interactions List<Interaction> list of interactions.
-   */
-  public void insertInteractions(List<Interaction> interactions) {
-    if (Interaction.SObjectType.getDescribe().isCreateable()) {
-      List<Database.SaveResult> results = Database.Insert(interactions);
-      lib_systemLog log = new lib_systemLog(
-        'ContactRequestActions',
-        'insertInteractions'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Interaction',
-        results,
-        interactions
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'insertInteractions',
-        'Not enough permissions to create Interactions.'
-      );
-    }
-  }
-
-  /**
-   * @description does the database call to insert Interaction Summaries
-   * @param summaries List<InteractionSummary> list of interaction summaries.
-   */
-  public void insertSummaries(List<InteractionSummary> summaries) {
-    if (InteractionSummary.SObjectType.getDescribe().isCreateable()) {
-      List<Database.SaveResult> results = Database.Insert(summaries);
-      lib_systemLog log = new lib_systemLog(
-        'ContactRequestActions',
-        'insertSummaries'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'InteractionSummary',
-        results,
-        summaries
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'insertSummaries',
-        'Not enough permissions to create Interaction Summaries.'
-      );
-    }
   }
 
   /**
@@ -165,12 +106,10 @@ public with sharing class ContactRequestActions {
       leadId = request.WhoId;
     }
 
-    Id appointmentRecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByName()
-      .get('Appointment')
-      .getRecordTypeId();
-
-    string defaultInteractionStatus = 'Unassigned';
+    String defaultInteractionStatus = InteractionConstants.UNASSIGNED_STATUS;
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     Interaction newInteraction = new Interaction(
+      RecordTypeId = appointmentRTID,
       Status__c = defaultInteractionStatus,
       Interaction_Purpose__c = request.RequestReason,
       StartTime = request.Appointment_date_and_Time__c,
@@ -184,7 +123,6 @@ public with sharing class ContactRequestActions {
       OwnerId = appointmentQueue.Id,
       InteractionType = request.PreferredChannel,
       Channel_Booked__c = request.Channel_Booked__c,
-      RecordTypeId = appointmentRecordTypeId,
       Interaction_External_Id__c = 'CR-' + request.Name,
       LocationId = request.Location__c,
       Optional_Notes__c = request.RequestDescription,
@@ -235,29 +173,6 @@ public with sharing class ContactRequestActions {
   }
 
   /**
-   * @description goes through a list of interactions and returns the ones that have an automated purpose
-   * @param interactions List<Interaction> list of interactions to search through.
-   * @return List<Interaction> List of interactions that have an automated purpose
-   */
-  public List<Interaction> returnInteractionsWithAutomatedPurpose(
-    List<Interaction> interactions
-  ) {
-    List<Interaction> result = new List<Interaction>();
-    if (!interactions.isEmpty()) {
-      for (Interaction currentInteraction : interactions) {
-        if (
-          AutomatedRequestMetadataProvider.getInstance()
-            .getMap()
-            .containsKey(currentInteraction.Interaction_Purpose__c)
-        ) {
-          result.add(currentInteraction);
-        }
-      }
-    }
-    return result;
-  }
-
-  /**
    * @description goes through a list of ContactRequests and returns a map
    * of ContactId to AccountId based on the WhoId
    * @param requests List<ContactRequest> requests to search through
@@ -299,203 +214,6 @@ public with sharing class ContactRequestActions {
   }
 
   /**
-   * @description creates events from Interactions
-   * @param interactions List<Interaction> subject from which to create Events
-   * @return List<Event> newly created Events.
-   */
-  public List<Event> createEventsFromInteractions(
-    List<Interaction> interactions
-  ) {
-    Map<Id, Account> accountMap = getAccountMapFromInteractions(interactions);
-    Map<Id, Lead> leadMap = getLeadMapFromInteractions(interactions);
-    List<Event> result = new List<Event>();
-    if (!interactions.isEmpty()) {
-      for (Interaction currentInteraction : interactions) {
-        result.add(
-          createEventFromInteraction(currentInteraction, accountMap, leadMap)
-        );
-      }
-    }
-    return result;
-  }
-
-  /**
-   * @description does the database call to insert Events
-   * @param events List<Event> list of events.
-   */
-  public void insertEvents(List<Event> events) {
-    if (events != null && Event.SObjectType.getDescribe().isCreateable()) {
-      List<Database.SaveResult> results = Database.Insert(events);
-
-      lib_systemLog log = new lib_systemLog(
-        'ContactRequestActions',
-        'insertEvents'
-      );
-      Boolean hasError = log.addDatabaseSaveResult('Events', results, events);
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'insertEvents',
-        'Not enough permissions to create Events.'
-      );
-    }
-  }
-
-  /**
-   * @description creates an event from an Interaction
-   * @param interactionSubject Interaction subject from which to create an Event
-   * @return Event newly created Event.
-   */
-  public Event createEventFromInteraction(Interaction interactionSubject) {
-    Map<Id, Account> accountMap = getAccountMapFromInteractions(
-      new List<Interaction>{ interactionSubject }
-    );
-    Map<Id, Lead> leadMap = getLeadMapFromInteractions(
-      new List<Interaction>{ interactionSubject }
-    );
-    return createEventFromInteraction(interactionSubject, accountMap, leadMap);
-  }
-
-  /**
-   * @description creates an event from an Interaction
-   * @param interactionSubject Interaction subject from which to create an Event
-   * @param accountMap Map<Id,Account> map of Accounts to their Id.
-   * @param leadMap Map<Id,Lead> map of leads to their Id.
-   * @return Event newly created Event.
-   */
-  public Event createEventFromInteraction(
-    Interaction interactionSubject,
-    Map<Id, Account> accountMap,
-    Map<Id, Lead> leadMap
-  ) {
-    Account interactionAccount = accountMap.get(interactionSubject.AccountId);
-    Event result = new Event();
-    result.StartDateTime = interactionSubject.StartTime;
-    result.WhatId = interactionSubject.Id;
-    if (interactionAccount != null) {
-      result.WhoId = interactionAccount.PersonContactId;
-      result.Subject = 'Appointment with ' + interactionAccount.Name;
-    } else {
-      result.Lead__c = interactionSubject.Lead__c;
-      Lead interactionLead = leadMap.get(interactionSubject.Lead__c);
-      result.Subject = 'Appointment with ' + interactionLead.Name;
-    }
-    result.EndDateTime = interactionSubject.EndTime;
-    result.IsReminderSet = true;
-    result.ReminderDateTime = result.StartDateTime.addMinutes(-15);
-    return result;
-  }
-
-  /**
-   * @description gets accounts related to an list of interactions in a map.
-   * @param interactions List<Interaction> interactions for which to get the accounts
-   * @return Map<Id,Account> map of accounts.
-   */
-  public Map<Id, Account> getAccountMapFromInteractions(
-    List<Interaction> interactions
-  ) {
-    Map<Id, Account> result = new Map<Id, Account>();
-
-    Set<Id> accountIds = new Set<Id>();
-    if (!interactions.isEmpty()) {
-      for (Interaction currentInteraction : interactions) {
-        accountIds.add(currentInteraction.AccountId);
-      }
-    }
-    if (!accountIds.isEmpty()) {
-      if (Account.SObjectType.getDescribe().isQueryable()) {
-        result = new Map<Id, Account>(
-          [
-            SELECT Id, Name, PersonContactId, FirstName
-            FROM Account
-            WHERE Id IN :accountIds
-          ]
-        );
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'ContactRequestActions',
-          'getAccountMapFromInteractions',
-          'Not enough permissions to query Accounts.'
-        );
-      }
-    }
-    return result;
-  }
-
-  /**
-   * @description gets leads related to a list of interactions in a map.
-   * @param interactions List<Interaction> interactions for which to get the leads
-   * @return Map<Id,Lead> map of leads.
-   */
-  public Map<Id, Lead> getLeadMapFromInteractions(
-    List<Interaction> interactions
-  ) {
-    Map<Id, Lead> result = new Map<Id, Lead>();
-
-    Set<Id> leadIds = new Set<Id>();
-    if (!interactions.isEmpty()) {
-      for (Interaction currentInteraction : interactions) {
-        if (currentInteraction.Lead__c != null) {
-          leadIds.add(currentInteraction.Lead__c);
-        }
-      }
-    }
-    if (!leadIds.isEmpty()) {
-      if (Lead.SObjectType.getDescribe().isQueryable()) {
-        result = new Map<Id, Lead>(
-          [SELECT Id, Name, FirstName FROM Lead WHERE Id IN :leadIds]
-        );
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'ContactRequestActions',
-          'getLeadMapFromInteractions',
-          'Not enough permissions to query Leads.'
-        );
-      }
-    }
-    return result;
-  }
-
-  /**
-   * @description Creates Interaction Summaries from a Interactions
-   * @param interactions List<Interaction> Interactions from which to create Interaction Summaries
-   * @return List<InteractionSummary> the resultant Interaction Summaries
-   */
-  public List<InteractionSummary> createInteractionSummariesFromInteractions(
-    List<Interaction> interactions
-  ) {
-    List<InteractionSummary> result = new List<InteractionSummary>();
-    if (!interactions.isEmpty()) {
-      for (Interaction currentInteraction : interactions) {
-        result.add(createInteractionSummaryFromInteraction(currentInteraction));
-      }
-    }
-    return result;
-  }
-
-  /**
-   * @description Creates an Interaction Summary from an Interaction
-   * @param interactionSubject Interaction Interaction from which to create an Interaction Summary
-   * @return Interaction Summary the resultant Interaction Summary
-   */
-  public InteractionSummary createInteractionSummaryFromInteraction(
-    Interaction interactionSubject
-  ) {
-    InteractionSummary summary = new InteractionSummary(
-      Name = interactionSubject.Interaction_Purpose__c + ' Appointment Summary',
-      Status = 'In Progress',
-      InteractionId = interactionSubject.Id,
-      AccountId = interactionSubject.AccountId,
-      Meeting_Notes__c = ''
-    );
-    return summary;
-  }
-
-  /**
    * @description Gets the duration for the specified purpose
    * @param purpose String purpose for which to get the Duration
    * @return Integer Duration in minutes
@@ -503,98 +221,5 @@ public with sharing class ContactRequestActions {
   public Integer getDuration(String purpose) {
     return AutomatedRequestMetadataProvider.getInstance()
       .getPurposeDuration(purpose);
-  }
-
-  /**
-   * @description goes through a list of interactions and sets the Interaction Id
-   * on the linked Contact Request by searching the database for requests related to the Interactionss.
-   * @param interactions List<Interaction> list of interactions to cycle through
-   */
-  public void setInteractionIds(List<Interaction> interactions) {
-    Set<Id> requestIds = new Set<Id>();
-
-    for (Interaction currentInteraction : interactions) {
-      requestIds.add(currentInteraction.ContactRequestId__c);
-    }
-
-    List<ContactRequest> contactRequests = new List<ContactRequest>();
-    if (ContactRequest.SObjectType.getDescribe().isQueryable()) {
-      contactRequests = [
-        SELECT Id, Interaction__c
-        FROM ContactRequest
-        WHERE Id IN :requestIds
-      ];
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'setInteractionIds',
-        'Not enough permissions to query Contact Request.'
-      );
-      return;
-    }
-    setInteractionIds(contactRequests, interactions);
-
-    if (ContactRequest.SObjectType.getDescribe().isUpdateable()) {
-      update contactRequests;
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'setInteractionIds',
-        'Not enough permissions to update Contact Request.'
-      );
-      return;
-    }
-  }
-
-  /**
-   * @description goes through a list of requests and sets the Interaction Id
-   * by searching the database for interactions related to the Contact Requests.
-   * @param requests List<ContactRequest> list of contact requests to cycle through
-   */
-  public void setInteractionIds(List<ContactRequest> requests) {
-    Set<Id> requestIds = (new Map<Id, ContactRequest>(requests)).keyset();
-
-    if (Interaction.SObjectType.getDescribe().isQueryable()) {
-      List<Interaction> interactions = [
-        SELECT Id, ContactRequestId__c
-        FROM Interaction
-        WHERE Id IN :requestIds
-      ];
-      setInteractionIds(requests, interactions);
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestActions',
-        'setInteractionIds',
-        'Not enough permissions to query Interactions.'
-      );
-    }
-  }
-
-  /**
-   * @description goes through a list of requests and sets the Interaction Id
-   * based upon a list of interactions
-   * @param requests List<ContactRequest> list of contact requests to cycle through
-   * @param interactions List<Interaction> list of interactions to draw from.
-   */
-  public void setInteractionIds(
-    List<ContactRequest> requests,
-    List<Interaction> interactions
-  ) {
-    if (requests.isEmpty() || interactions.isEmpty()) {
-      return;
-    }
-    Map<Id, Id> contactRequestInteractionIdMap = new Map<Id, Id>();
-    for (Interaction currentInteraction : interactions) {
-      contactRequestInteractionIdMap.put(
-        currentInteraction.ContactRequestId__c,
-        currentInteraction.Id
-      );
-    }
-
-    for (ContactRequest request : requests) {
-      if (contactRequestInteractionIdMap.containsKey(request.Id)) {
-        request.Interaction__c = contactRequestInteractionIdMap.get(request.Id);
-      }
-    }
   }
 }

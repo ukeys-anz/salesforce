@@ -3,7 +3,6 @@
  * @since 03/2022
  * @description  ContactRequestTriggerHandler is the handler class for ContactRequestTrigger which extends Lib_TriggerHandler the trigger framework used.
  */
-
 public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to call the trigger framework
@@ -29,7 +28,7 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
       List<Interaction> interactions = actions.createInteractionsFromRequests(
         automatedRequests
       );
-      actions.insertInteractions(interactions);
+      InteractionDMLHelper.insertInteractions(interactions);
     }
   }
 
@@ -47,12 +46,15 @@ public with sharing class ContactRequestTriggerHandler extends Lib_TriggerHandle
     Map<Id, Appointment_Commitment__c> appointmentCommitmentMap = crActions.getRelatedAppCommtDetails(
       records
     );
-    crActions.validateContactRequests(records);
+
+    List<ContactRequest> goodRequests = records;
     if (!appointmentCommitmentMap.isEmpty()) {
-      crActions.prepopulateAppointmentCommitmentValues(
+      goodRequests = crActions.prepopulateAppointmentCommitmentValues(
         records,
         appointmentCommitmentMap
       );
     }
+
+    crActions.validateContactRequests(goodRequests);
   }
 }

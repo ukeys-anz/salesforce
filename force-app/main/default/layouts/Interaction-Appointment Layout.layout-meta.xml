@@ -20,8 +20,8 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Contact_Mobile__c</field>
+                <behavior>Readonly</behavior>
+                <field>Mobile__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -59,7 +59,7 @@
                 <field>LocationId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>StartTime</field>
             </layoutItems>
             <layoutItems>
@@ -105,8 +105,8 @@
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>true</editHeading>
+        <detailHeading>false</detailHeading>
+        <editHeading>false</editHeading>
         <label>Notes</label>
         <layoutColumns>
             <layoutItems>

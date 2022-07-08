@@ -12,6 +12,7 @@
     <relationshipName>Coaching_Summaries</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

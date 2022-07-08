@@ -336,6 +336,13 @@
       "type": "system"
     },
     {
+      "name": "FinCrime Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["FinCrime_Agent"],
+      "permissionsets": [],
+      "type": "user"
+    },
+    {
       "name": "FraudX Agent",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["FraudX_Agent"],
