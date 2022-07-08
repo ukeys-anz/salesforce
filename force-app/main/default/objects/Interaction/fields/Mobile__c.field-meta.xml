@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_OCV</complianceGroup>
+    <description>The contact mobile number for either the Contact or Lead associated with the interaction.</description>
+    <fullName>Mobile__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( ISBLANK( AccountId ) == false ,  Account.PersonContact.MobilePhone , IF(ISBLANK( Lead__c )==false, Lead__r.MobilePhone ,&apos;&apos; ))</formula>
+    <label>Contact Mobile</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

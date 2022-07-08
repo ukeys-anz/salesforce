@@ -94,7 +94,6 @@ public with sharing class IDRLetterApprovalActions {
    * @param ocvCalloutInfoJson which is a serialized string made out of Map<approvalRecId, Map<String,String>{customerNumber,customerIdentifier}>
    * point: We can not use makeOCVCallout method inside this method, as using future method inside a loop is critical.
    */
-  @SuppressWarnings('PMD.CyclomaticComplexity')
   @future(callOut=true)
   public static void makeMultipleOCVCallout(String ocvCalloutInfoJson) {
     Map<String, Object> ocvCalloutInfo = (Map<String, Object>) JSON.deserializeUntyped(

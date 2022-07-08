@@ -3,7 +3,6 @@
  * @since  07/2020
  * @description Registration handler for Azure AD Open ID connect
  */
-@SuppressWarnings('PMD.AvoidGlobalModifier')
 global with sharing class ANZAzureADRegistrationHandler implements Auth.RegistrationHandler {
   /**
    * @description Here we never create a User .. either we find one in Salesforce or we don't
@@ -22,7 +21,6 @@ global with sharing class ANZAzureADRegistrationHandler implements Auth.Registra
    * @param portalId from Azure AD
    * @param data User data from Azure AD
    */
-  @SuppressWarnings('PMD.EmptyStatementBlock')
   global void updateUser(Id userId, Id portalId, Auth.UserData data) {
     //do nothing
     getUser(data);

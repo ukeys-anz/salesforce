@@ -2,10 +2,10 @@
  * @author Shermal Warnakula
  * @since  11/2020
  * @description APEX REST API class to handle incoming requests from Twilio.
+ * StdCyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * Note: StdCyclomaticComplexity | for each decision point, but not including boolean operators unlike CyclomaticComplexityRule
  */
-@SuppressWarnings(
-  'PMD.ApexCRUDViolation,PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
-)
+@SuppressWarnings('PMD.StdCyclomaticComplexity')
 @RestResource(urlMapping='/ChatContextRequests/*')
 global with sharing class ChatContextService {
   // General Inquiry Record Type Id
@@ -31,10 +31,11 @@ global with sharing class ChatContextService {
    * @description HTTP POST method passing incoming Chat context in to Salesforce.
    * Salesforce would then return a unique customer identifier, or a related Case Number to include on Twilio tasks as "sfdcSearchString".
    * @param contextRequests List of Chat Context Requests
+   * NcssMethodCount Surpressed : To have all the code lines together in one place.
+   * StdCyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+   * Note: StdCyclomaticComplexity | for each decision point, but not including boolean operators unlike CyclomaticComplexityRule
    */
-  @SuppressWarnings(
-    'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount'
-  )
+  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.NcssMethodCount')
   @HttpPost
   global static void doPost(List<ChatContextRequest> contextRequests) {
     List<ChatContextResponse> responseList = new List<ChatContextResponse>();
@@ -348,7 +349,6 @@ global with sharing class ChatContextService {
    * @param subTypeLabel subtype parsed through
    * @return `ChatContextResponse`
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static ChatContextResponse generateResponse(
     String ocvId,
     String sfdcSearchString,
@@ -375,7 +375,6 @@ global with sharing class ChatContextService {
    * @param subTypeLabel subtype parsed through
    * @return `ChatContextResponse`
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static ChatContextResponse generateErrorResponse(
     String ocvId,
     String sfdcSearchString,
@@ -452,8 +451,6 @@ global with sharing class ChatContextService {
    * @param responseList list of response instances
    * @param responseStatusByOCVId response status by OCVId
    */
-  //Need parameters to handle case inferring
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   private static void populateTypeFromSubtype(
     Case newCase,
     String subtype,

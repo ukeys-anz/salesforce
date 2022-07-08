@@ -3,12 +3,15 @@
   "objectwhitelist": [
     "Access_Request__c",
     "Account",
+    "Appointment_Commitment__c",
     "Activity",
     "CampaignMember",
     "CaseComment",
     "Case",
     "CFMS_Migrated_Document__c",
+    "Coaching_Summary__c",
     "Contact",
+    "ContactRequest",
     "ContentDocumentLink",
     "ContentVersion",
     "EmailMessage",
@@ -16,6 +19,8 @@
     "FinServ__FinancialAccountRole__c",
     "IDR_Letter_Approval_Details__c",
     "IDR_Template_Detail__c",
+    "Interaction",
+    "InteractionSummary",
     "Knowledge__kav",
     "Known_Issues__c",
     "Lead",
@@ -289,7 +294,7 @@
       "name": "System Administrator",
       "profile": "Admin",
       "permissionsetgroups": [],
-      "permissionsets": [],
+      "permissionsets": ["Appointment_Booking_System_Admin"],
       "type": "user"
     },
     {
@@ -329,6 +334,13 @@
       "permissionsetgroups": [],
       "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access"],
       "type": "system"
+    },
+    {
+      "name": "FinCrime Agent",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["FinCrime_Agent"],
+      "permissionsets": [],
+      "type": "user"
     },
     {
       "name": "FraudX Agent",

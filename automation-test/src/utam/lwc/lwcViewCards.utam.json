@@ -61,7 +61,8 @@
       "compose": [
         {
           "element": "collapseExpandButton",
-          "apply": "isVisible"
+          "apply": "isVisible",
+          "returnType": "boolean"
         }
       ]
     },

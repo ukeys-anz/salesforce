@@ -25,9 +25,7 @@
  *              }
  *          }
  * @group Library
- * Suppressing warning for CyclomaticComplexity as this class has a method to check current Trigger Context
  */
-@SuppressWarnings('PMD.EmptyStatementBlock, PMD.CyclomaticComplexity')
 public virtual with sharing class Lib_TriggerHandler {
   /**
    * @description Provides access to the data represented by this domain class
@@ -86,7 +84,7 @@ public virtual with sharing class Lib_TriggerHandler {
    */
   private static String contextId;
   /**
-   * @description The current context of the trigger, overridable in tests
+   * @description TriggerContext The current context of the trigger, overridable in tests
    */
   private TriggerContext context;
   /**
@@ -121,15 +119,12 @@ public virtual with sharing class Lib_TriggerHandler {
     } else {
       this.records = Trigger.new.clone();
     }
-
     Salesforce_Library_Settings__c settings = Salesforce_Library_Settings__c.getInstance(
       UserInfo.getUserId()
     );
-
     Salesforce_Bypass_Trigger_Actions__c bypassActions = Salesforce_Bypass_Trigger_Actions__c.getInstance(
       UserInfo.getUserId()
     );
-
     this.objectType = records.getSObjectType();
     this.objectDescribe = objectType.getDescribe();
     this.bypassDelete =
@@ -143,11 +138,8 @@ public virtual with sharing class Lib_TriggerHandler {
     this.log = new lib_SystemLog(objectType + ' Trigger');
 
     setObjectEventName();
-
     addToLoopCount(maxLoopCount);
-
     triggerHandler();
-
     this.log.insertLog();
   }
 
@@ -179,9 +171,7 @@ public virtual with sharing class Lib_TriggerHandler {
   }
   /**
    * @description set current trigger handler and event (context) name
-   * Suppressing warning for CyclomaticComplexity as this method has too many if conditon to check Trigger Context
    */
-  @SuppressWarnings('PMD.CognitiveComplexity, PMD.CyclomaticComplexity')
   private void setObjectEventName() {
     // set current trigger execution context
     if (Trigger.isExecuting) {
