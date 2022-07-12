@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Lead_Ownership_Check</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+        RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+        $Profile.Name = &quot;ANZ Standard User&quot;,
+        $User.Id !=  Owner:User.Id, 
+        NOT(ISCHANGED( OwnerId ))
+    )</errorConditionFormula>
+    <errorMessage>You cannot update this Lead.</errorMessage>
+</ValidationRule>

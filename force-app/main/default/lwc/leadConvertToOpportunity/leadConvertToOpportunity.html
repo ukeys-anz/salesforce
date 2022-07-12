@@ -1,0 +1,61 @@
+<template>
+  <template if:true={isModalOpen}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      class="slds-modal slds-fade-in-open slds-modal_small"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+    >
+      <div class="slds-modal__container">
+        <lightning-card title={leadTitle}>
+          <template if:false={validLead}>
+            <div>
+              <ul class="slds-m-around_medium">
+                Please resolve below list of errors in order to proceed for Lead
+                Conversion.
+                <template for:each={validationMessage} for:item="message">
+                  <li key={message.Id}>{message.id}) {message.body}</li>
+                </template>
+              </ul>
+              <br />
+            </div>
+          </template>
+          <template if:true={validLead}>
+            <div
+              class="slds-modal__content slds-p-around_medium"
+              id="modal-content-id-2"
+            >
+              {leadTitle} You will be automatically redirected to the new
+              Opportunity page.
+            </div>
+            <div style="margin-left: 2%">
+              <lightning-progress-bar
+                size="medium"
+                value={progress}
+                variant="circular"
+              >
+              </lightning-progress-bar>
+            </div>
+            <div
+              class="slds-text-align--center slds-text-title"
+              style="color: forestgreen"
+            >
+              {processStatus} ({progress}/100)
+            </div>
+          </template>
+          <div class="slds-modal__footer">
+            <lightning-button
+              variant="brand"
+              class="slds-var-p-around_x-small"
+              label="OK"
+              onclick={closeAction}
+              >OK
+            </lightning-button>
+          </div>
+        </lightning-card>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

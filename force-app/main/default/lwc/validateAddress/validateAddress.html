@@ -1,0 +1,167 @@
+<template>
+  <lightning-quick-action-panel header="Add/ Edit Address">
+    <lightning-record-edit-form
+      record-id={recordId}
+      object-api-name={objectAPIName}
+      onsuccess={handleSuccess}
+      onsubmit={handleSubmit}
+    >
+      <div class="slds-combobox_container">
+        <div
+          class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+          aria-expanded="true"
+          aria-haspopup="listbox"
+          role="combobox"
+        >
+          <div
+            class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+            role="none"
+          >
+            <lightning-input
+              class="inputBox .slds-form-element_readonly"
+              onkeyup={handleSearchKeyChange}
+              label="Search for address"
+              value={searchString}
+              placeholder="type here..."
+            ></lightning-input>
+          </div>
+          <!-- Address List -->
+          <template if:true={showAddresses}>
+            <div
+              id="listbox-id-3"
+              class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
+            >
+              <ul
+                class="slds-listbox slds-listbox_vertical recordListBox"
+                role="presentation"
+              >
+                <template if:true={displayAddresses}>
+                  <template for:each={addressList} for:item="addr">
+                    <li
+                      key={addr.encodedAddressId}
+                      data-id={addr.encodedAddressId}
+                      onmousedown={selectAddress}
+                      role="presentation"
+                      class={addr.background}
+                    >
+                      <div
+                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                        role="option"
+                      >
+                        <span
+                          class="slds-media__figure slds-listbox__option-icon"
+                        >
+                          <lightning-icon
+                            icon-name="standard:address"
+                            alternative-text="Address"
+                            title="Address"
+                          ></lightning-icon>
+                        </span>
+                        <span class="slds-media__body">
+                          <span
+                            class="slds-listbox__option-text slds-listbox__option-text_entity"
+                            >{addr.address}</span
+                          >
+                        </span>
+                      </div>
+                    </li>
+                  </template>
+                  <li onmousedown={displayAddressFields}>
+                    <div
+                      class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                      role="option"
+                    >
+                      <span
+                        class="slds-media__figure slds-listbox__option-icon"
+                      >
+                        <lightning-icon
+                          icon-name="utility:add"
+                          alternative-text="Add Address"
+                          title="Add Address"
+                        ></lightning-icon>
+                      </span>
+                      <span class="slds-media__body">
+                        <span
+                          class="slds-listbox__option-text slds-listbox__option-text_entity"
+                          >{message}</span
+                        >
+                      </span>
+                    </div>
+                  </li>
+                </template>
+                <template if:true={displayMessage}>
+                  <li onmousedown={displayAddressFields}>
+                    <div
+                      class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                      role="option"
+                    >
+                      <span
+                        class="slds-media__figure slds-listbox__option-icon"
+                      >
+                        <lightning-icon
+                          icon-name="utility:add"
+                          alternative-text="Add Address"
+                          title="Add Address"
+                        ></lightning-icon>
+                      </span>
+                      <span class="slds-media__body">
+                        <span
+                          class="slds-listbox__option-text slds-listbox__option-text_entity"
+                          >{message}</span
+                        >
+                      </span>
+                    </div>
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </template>
+        </div>
+      </div>
+      <lightning-messages> </lightning-messages>
+      <lightning-input-address
+        if:false={resetValidationError}
+        disabled={disabled}
+        address-label="Address"
+        street-label="Street"
+        city-label="City"
+        country-label="Country"
+        province-label="State/ Province"
+        postal-code-label="Zip/ Postal Code"
+        street={strStreet}
+        city={strCity}
+        country={strCountry}
+        province={strState}
+        postal-code={strPostalCode}
+        onchange={addressInputChange}
+        required
+      >
+      </lightning-input-address>
+      <template if:false={disabled}>
+        <footer class="slds-modal__footer stickyFooter">
+          <lightning-button
+            class="slds-m-top_small"
+            type="submit"
+            label="Save"
+            onclick={validateFields}
+          >
+          </lightning-button>
+        </footer>
+      </template>
+      <template if:true={loading}>
+        <div style="height: 6rem">
+          <div class="slds-spinner_container">
+            <div
+              role="status"
+              class="slds-spinner slds-spinner_medium slds-spinner_brand slds-is-relative"
+            >
+              <span class="slds-assistive-text">Loading</span>
+              <div class="slds-spinner__dot-a"></div>
+              <div class="slds-spinner__dot-b"></div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </lightning-record-edit-form>
+  </lightning-quick-action-panel>
+</template>
