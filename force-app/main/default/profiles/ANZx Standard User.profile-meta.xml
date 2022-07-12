@@ -1,57 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
   <fullName>ANZx Standard User</fullName>
-  <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
-  <loginIpRanges>
-    <description>CIDR range for AU - TM - MW - ZIA</description>
-    <endAddress>203.110.235.255</endAddress>
-    <startAddress>203.110.235.0</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for IN - RM - ZIA</description>
-    <endAddress>202.128.96.255</endAddress>
-    <startAddress>202.128.96.0</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for IN - MN - ZIA</description>
-    <endAddress>202.128.97.255</endAddress>
-    <startAddress>202.128.97.0</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for NZ - Lady Ruby</description>
-    <endAddress>156.13.220.15</endAddress>
-    <startAddress>156.13.220.0</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for NZ - Aintree Avenue</description>
-    <endAddress>156.13.219.15</endAddress>
-    <startAddress>156.13.219.0</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for SG - KC - ZIA</description>
-    <endAddress>156.13.71.255</endAddress>
-    <startAddress>156.13.71.0</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for SG - IB - ZIA</description>
-    <endAddress>156.13.70.255</endAddress>
-    <startAddress>156.13.70.0</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for UK - Bank Street</description>
-    <endAddress>213.161.71.120</endAddress>
-    <startAddress>213.161.71.120</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for UK - Sungard LTC</description>
-    <endAddress>217.20.23.170</endAddress>
-    <startAddress>217.20.23.170</startAddress>
-  </loginIpRanges>
-  <loginIpRanges>
-    <description>CIDR range for GUAM - Hagatna</description>
-    <endAddress>67.98.163.68</endAddress>
-    <startAddress>67.98.163.68</startAddress>
-  </loginIpRanges>
+  <description
+  >This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
   <applicationVisibilities>
         <application>standard__Insights</application>
         <default>false</default>
@@ -3951,7 +3902,8 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__AccountAccountRelation__c.FinServ__AssociationType__c</field>
+    <field
+    >FinServ__AccountAccountRelation__c.FinServ__AssociationType__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -3966,7 +3918,8 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__AccountAccountRelation__c.FinServ__InverseRelationship__c</field>
+    <field
+    >FinServ__AccountAccountRelation__c.FinServ__InverseRelationship__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4031,12 +3984,14 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__AssetsAndLiabilities__c.FinServ__AssetsAndLiabilitiesSource__c</field>
+    <field
+    >FinServ__AssetsAndLiabilities__c.FinServ__AssetsAndLiabilitiesSource__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__AssetsAndLiabilities__c.FinServ__AssetsAndLiabilitiesType__c</field>
+    <field
+    >FinServ__AssetsAndLiabilities__c.FinServ__AssetsAndLiabilitiesType__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4081,17 +4036,20 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__B2CLeadToOpportunityMapping__mdt.FinServ__LeadRecordTypeNamespace__c</field>
+    <field
+    >FinServ__B2CLeadToOpportunityMapping__mdt.FinServ__LeadRecordTypeNamespace__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__B2CLeadToOpportunityMapping__mdt.FinServ__OpportunityRecordTypeNamespace__c</field>
+    <field
+    >FinServ__B2CLeadToOpportunityMapping__mdt.FinServ__OpportunityRecordTypeNamespace__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__B2CLeadToOpportunityMapping__mdt.FinServ__OpportunityRecordType__c</field>
+    <field
+    >FinServ__B2CLeadToOpportunityMapping__mdt.FinServ__OpportunityRecordType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4376,7 +4334,8 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__ContactContactRelation__c.FinServ__InverseRelationship__c</field>
+    <field
+    >FinServ__ContactContactRelation__c.FinServ__InverseRelationship__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4541,7 +4500,8 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FeatureServiceMapping__mdt.FinServ__IsMappingActive__c</field>
+    <field
+    >FinServ__FeatureServiceMapping__mdt.FinServ__IsMappingActive__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4596,12 +4556,14 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__BillingStatements__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__BillingStatements__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__CardAccountID__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__CardAccountID__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4611,32 +4573,38 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__Description__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__Description__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__DisputeReason__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__DisputeReason__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__FinancialAccount__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__FinancialAccount__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__InsurancePolicy__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__InsurancePolicy__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__IsDisputed__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__IsDisputed__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__MerchantCategoryCode__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__MerchantCategoryCode__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4646,42 +4614,50 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__RunningBalance__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__RunningBalance__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__SourceSystemId__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__SourceSystemId__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__SourceTransactionType__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__SourceTransactionType__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__TransactionId__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__TransactionId__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__TransactionStatus__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__TransactionStatus__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__TransactionSubtype__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__TransactionSubtype__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__TransactionType__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__TransactionType__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccountTransaction__c.FinServ__WaiverReason__c</field>
+    <field
+    >FinServ__FinancialAccountTransaction__c.FinServ__WaiverReason__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4811,17 +4787,20 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountChargesAndFees__c</field>
+    <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountChargesAndFees__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
+    <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountSource__c</field>
+    <field
+    >FinServ__FinancialAccount__c.FinServ__FinancialAccountSource__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -4951,7 +4930,8 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccount__c.FinServ__OverdraftLinkedAccount__c</field>
+    <field
+    >FinServ__FinancialAccount__c.FinServ__OverdraftLinkedAccount__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -5066,7 +5046,8 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>false</editable>
-    <field>FinServ__FinancialAccount__c.FinServ__RepaymentPeriodMonths__c</field>
+    <field
+    >FinServ__FinancialAccount__c.FinServ__RepaymentPeriodMonths__c</field>
     <readable>false</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -5266,12 +5247,14 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__GroupRecordTypeMapper__mdt.FinServ__AccountRecordTypeNamespace__c</field>
+    <field
+    >FinServ__GroupRecordTypeMapper__mdt.FinServ__AccountRecordTypeNamespace__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__GroupRecordTypeMapper__mdt.FinServ__AccountRecordType__c</field>
+    <field
+    >FinServ__GroupRecordTypeMapper__mdt.FinServ__AccountRecordType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -5321,47 +5304,56 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__AccountRecordTypeNamespace__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__AccountRecordTypeNamespace__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__AccountRecordType__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__AccountRecordType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__ContactRecordTypeNamespace__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__ContactRecordTypeNamespace__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__ContactRecordType__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__ContactRecordType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__DetailPage__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__DetailPage__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__IndividualType__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__IndividualType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__LeadRecordTypeNamespace__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__LeadRecordTypeNamespace__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__IndividualRecordTypeMapper__mdt.FinServ__LeadRecordType__c</field>
+    <field
+    >FinServ__IndividualRecordTypeMapper__mdt.FinServ__LeadRecordType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__InteractionFieldUpdate__mdt.FinServ__RecordTypeName__c</field>
+    <field
+    >FinServ__InteractionFieldUpdate__mdt.FinServ__RecordTypeName__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -5471,12 +5463,14 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__ReferralRecordTypeMapper__mdt.FinServ__LeadRecordTypeNamespace__c</field>
+    <field
+    >FinServ__ReferralRecordTypeMapper__mdt.FinServ__LeadRecordTypeNamespace__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__ReferralRecordTypeMapper__mdt.FinServ__LeadRecordType__c</field>
+    <field
+    >FinServ__ReferralRecordTypeMapper__mdt.FinServ__LeadRecordType__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -5596,7 +5590,8 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
-    <field>FinServ__Transaction_Dispute_Approval_Limit__mdt.FinServ__AgentApprovalLimit__c</field>
+    <field
+    >FinServ__Transaction_Dispute_Approval_Limit__mdt.FinServ__AgentApprovalLimit__c</field>
     <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
@@ -9136,7 +9131,8 @@
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__AssetsAndLiabilities__c.FinServ__NonfinancialAsset</recordType>
+    <recordType
+    >FinServ__AssetsAndLiabilities__c.FinServ__NonfinancialAsset</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
@@ -9161,12 +9157,14 @@
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccountRole__c.FinServ__AccountRole</recordType>
+    <recordType
+    >FinServ__FinancialAccountRole__c.FinServ__AccountRole</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccountRole__c.FinServ__ContactRole</recordType>
+    <recordType
+    >FinServ__FinancialAccountRole__c.FinServ__ContactRole</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
@@ -9176,12 +9174,14 @@
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
+    <recordType
+    >FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
+    <recordType
+    >FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
@@ -9201,12 +9201,14 @@
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccount__c.FinServ__InsurancePolicy</recordType>
+    <recordType
+    >FinServ__FinancialAccount__c.FinServ__InsurancePolicy</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccount__c.FinServ__InvestmentAccount</recordType>
+    <recordType
+    >FinServ__FinancialAccount__c.FinServ__InvestmentAccount</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
@@ -9221,12 +9223,14 @@
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
+    <recordType
+    >FinServ__FinancialAccount__c.FinServ__SavingsAccount</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
     <default>false</default>
-    <recordType>FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
+    <recordType
+    >FinServ__FinancialAccount__c.FinServ__TreasuryService</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>
