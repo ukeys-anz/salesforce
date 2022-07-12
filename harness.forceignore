@@ -120,3 +120,8 @@ force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml
 
 force-app/main/default/duplicateRules/
 force-app/main/default/matchingRules/
+
+#AR-11570 to avoid errors regarding managed package fields cannot be deleted
+force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_Recipient_ID__c.field-meta.xml
+force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_SurveyID__c.field-meta.xml
+force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Other_Feedback__c.field-meta.xml

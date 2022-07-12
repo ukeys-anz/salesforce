@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>qualtrics__Q_SurveyID__c</fullName>
+    <fullName>SurveyId__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Qualtrics</complianceGroup>
-    <deprecated>false</deprecated>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Qualtrics</complianceGroup>
+    <description>The unique customer survey response ID from Qualtrics</description>
     <externalId>true</externalId>
-    <label>Q_SurveyID</label>
-    <length>40</length>
+    <label>Survey Id</label>
+    <length>55</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
