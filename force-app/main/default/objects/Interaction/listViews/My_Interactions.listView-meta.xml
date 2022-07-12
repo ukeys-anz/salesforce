@@ -4,15 +4,20 @@
     <columns>Interaction_Number_Link__c</columns>
     <columns>Account</columns>
     <columns>Interaction_Purpose__c</columns>
-    <columns>StartTime</columns>
     <columns>InteractionType</columns>
-    <columns>Status__c</columns>
-    <columns>Owner</columns>
-    <filterScope>Mine</filterScope>
+    <columns>Resolution__c</columns>
+    <columns>StartTime</columns>
+    <columns>Attendees__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>Interaction.General</value>
+    </filters>
+    <filters>
+        <field>Is_User_Attendee__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
     <label>My Interactions</label>
-    <sharedTo>
-        <role>Coach</role>
-        <role>Coach_Lead</role>
-        <role>Quality_Analyst</role>
-    </sharedTo>
 </ListView>

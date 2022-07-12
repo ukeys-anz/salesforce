@@ -61,6 +61,7 @@ private class ContactRequestTriggerHandlerTest {
     List<Interaction> interactionList = new List<Interaction>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       Interaction interaction = new Interaction(
+        RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
         AccountId = account.Id,
         Name = faker.randomString(10) + i,
         Status__c = InteractionConstants.NEW_STATUS

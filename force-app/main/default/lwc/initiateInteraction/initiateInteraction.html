@@ -1,0 +1,115 @@
+<template>
+  <div class="slds-card">
+    <div class="slds-tabs_default">
+      <template if:false={loading}>
+        <ul class="slds-tabs_default__nav" role="tablist">
+          <template if:true={contactCustomer}>
+            <li class={contactTab} title="Contact" role="presentation">
+              <div
+                class="slds-tabs_default__link"
+                role="tab"
+                onclick={handleShowContactTab}
+              >
+                <lightning-icon
+                  class="dialing"
+                  icon-name="utility:dialing"
+                  alternative-text="Dialing"
+                  title="Dialing"
+                  size="small"
+                ></lightning-icon>
+                Contact Customer
+              </div>
+            </li>
+          </template>
+          <li class={dialTab} title="Dial" role="presentation">
+            <div
+              class="slds-tabs_default__link"
+              role="tab"
+              onclick={handleShowDialTab}
+            >
+              <lightning-icon
+                class="keypad"
+                icon-name="utility:keypad"
+                alternative-text="Keypad"
+                title="Keypad"
+                size="small"
+              ></lightning-icon>
+              Dial Number
+            </div>
+          </li>
+        </ul>
+        <template if:true={showContactTab}>
+          <div>
+            <div class="slds-m-around_x-small">
+              <template if:true={enableChat}>
+                <div class="slds-m-top_x-small slds-align_absolute-center">
+                  <lightning-button
+                    variant="brand-outline"
+                    label="Message Customer"
+                    title="Message"
+                    onclick={handleMessageCustomer}
+                    icon-name="utility:chat"
+                    class="slds-p-around_x-small"
+                    style="display: grid; width: 85%"
+                  >
+                  </lightning-button>
+                </div>
+              </template>
+              <div class="slds-m-top_x-small slds-align_absolute-center">
+                <lightning-button
+                  variant="brand-outline"
+                  label={callPhoneNumber}
+                  title="Call"
+                  onclick={handleCallCustomer}
+                  icon-name="utility:call"
+                  class="slds-p-around_x-small"
+                  style="display: grid; width: 85%"
+                >
+                </lightning-button>
+              </div>
+              <div
+                class="slds-m-top_x-small slds-m-bottom_small slds-align_absolute-center"
+              >
+                * Let the customer know we record our calls
+              </div>
+            </div>
+          </div>
+        </template>
+        <template if:true={showDialTab}>
+          <div>
+            <div class="slds-m-around-small dial-tab">
+              <label class="slds-form-element__label"> Enter a number </label>
+              <lightning-helptext
+                content="Calling internationally? Ensure you use the country code in E.146 formatting."
+              ></lightning-helptext>
+              <lightning-input
+                type="tel"
+                placeholder="+61"
+                onchange={handleInputChange}
+                pattern="^([^a-zA-Z]*)$"
+                message-when-pattern-mismatch="Please enter the number in a valid format"
+                min-length="2"
+                max-length="15"
+              ></lightning-input>
+              <div class="slds-m-bottom_medium slds-align_absolute-center">
+                * Let the customer know we record our calls
+              </div>
+              <div class="slds-m-bottom_x-small slds-align_absolute-center">
+                <lightning-button
+                  variant="brand"
+                  label="Call Now"
+                  title="Call"
+                  onclick={handleCallNow}
+                  icon-name="utility:call"
+                  class="slds-p-around_x-small"
+                  style="display: grid; width: 70%"
+                >
+                </lightning-button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </div>
+</template>

@@ -12,6 +12,7 @@
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>InteractionType</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -21,15 +22,81 @@
                 <label>Authenticated by Coach</label>
             </value>
             <value>
+                <fullName>Call Transfer - Authenticated</fullName>
+                <default>false</default>
+                <label>Call Transfer - Authenticated</label>
+            </value>
+            <value>
+                <fullName>Could not authenticate</fullName>
+                <default>false</default>
+                <label>Could not authenticate</label>
+            </value>
+            <value>
                 <fullName>Customer cannot be authenticated</fullName>
                 <default>false</default>
                 <label>Customer cannot be authenticated</label>
+            </value>
+            <value>
+                <fullName>Manually Authenticated</fullName>
+                <default>false</default>
+                <label>Manually Authenticated</label>
             </value>
             <value>
                 <fullName>Non Customer Call</fullName>
                 <default>false</default>
                 <label>Non Customer Call</label>
             </value>
+            <value>
+                <fullName>Not Required</fullName>
+                <default>false</default>
+                <label>Not Required</label>
+            </value>
+            <value>
+                <fullName>Sighted App Profile</fullName>
+                <default>false</default>
+                <label>Sighted App Profile</label>
+            </value>
+            <value>
+                <fullName>Sighted ID</fullName>
+                <default>false</default>
+                <label>Sighted ID</label>
+            </value>
+            <value>
+                <fullName>SMS - OTP</fullName>
+                <default>false</default>
+                <label>SMS - OTP</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <valueName>Call Transfer - Authenticated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Could not authenticate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <valueName>Manually Authenticated</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <valueName>Not Required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <valueName>SMS - OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Sighted App Profile</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Sighted ID</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

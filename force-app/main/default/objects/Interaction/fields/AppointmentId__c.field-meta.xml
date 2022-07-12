@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AppointmentId__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Appointment this Interaction is related with</description>
+    <externalId>false</externalId>
+    <label>Appointment ID</label>
+    <referenceTo>Appointment_Commitment__c</referenceTo>
+    <relationshipLabel>Interactions</relationshipLabel>
+    <relationshipName>Interactions</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>
