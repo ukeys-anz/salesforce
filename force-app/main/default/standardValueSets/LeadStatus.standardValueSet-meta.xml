@@ -38,15 +38,39 @@
         <converted>false</converted>
     </standardValue>
     <standardValue>
-        <fullName>Converted</fullName>
-        <default>false</default>
-        <label>Converted</label>
-        <converted>true</converted>
-    </standardValue>
-    <standardValue>
         <fullName>Declined</fullName>
         <default>false</default>
         <label>Declined</label>
         <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>In progress</fullName>
+        <default>false</default>
+        <label>In progress</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Expired</fullName>
+        <default>false</default>
+        <label>Expired</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Referred</fullName>
+        <default>false</default>
+        <label>Referred</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Completed</fullName>
+        <default>false</default>
+        <label>Completed</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Converted</fullName>
+        <default>false</default>
+        <label>Converted</label>
+        <converted>true</converted>
     </standardValue>
 </StandardValueSet>

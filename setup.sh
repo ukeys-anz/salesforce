@@ -154,6 +154,13 @@ sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
 echoMessageCreator "" $stepNo false
 ###########################
 
+echoMessageCreator "Import post-deployment plan" $stepNo true
+JOB_START_TIME=$(date +%s)
+sfdx force:data:bulk:upsert --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) ]]; then
+    exit 1
+fi
+JOB_END_TIME=$(date +%s)
 # apply perm sets
 echoMessageCreator "apply customer details perm set" $stepNo true
 sfdx force:user:permset:assign -n Read_Write_Customer_Details 

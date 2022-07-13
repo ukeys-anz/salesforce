@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>CCRM Lead Layout</layout>
+        <sections>
+            <label>
+                <!-- Lead Detail -->
+            </label>
+            <section>Lead Detail</section>
+        </sections>
+        <sections>
+            <label>
+                <!-- New Section -->
+            </label>
+            <section>New Section</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <description>
+            <!-- Create a new AR&amp;C commercial lead -->
+        </description>
+        <label>
+            <!-- Commercial CRM Lead -->
+        </label>
+        <name>CCRM_Lead</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage>
+            <!-- Company field is Mandatory if &quot;Company Not Yet Registered&quot; is not checked. -->
+        </errorMessage>
+        <name>CCRM_Company_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- Company and Not Registered Value should not be provided at the same time. -->
+        </errorMessage>
+        <name>CCRM_Company_NotRegistered_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- At least one type of Contact method is required. -->
+        </errorMessage>
+        <name>CCRM_ContactDetails_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- Please enter Email in correct format. -->
+        </errorMessage>
+        <name>CCRM_Email_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- First Name is a mandatory field. -->
+        </errorMessage>
+        <name>CCRM_Firstname_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- Please enter Home Phone Number in +61212345678 format. -->
+        </errorMessage>
+        <name>CCRM_HomePhone_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- Lead cannot be updated at this stage. -->
+        </errorMessage>
+        <name>CCRM_Lead_Not_Editable</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- You cannot update this Lead. -->
+        </errorMessage>
+        <name>CCRM_Lead_Ownership_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- Please enter Mobile Number in +61412345678 format. -->
+        </errorMessage>
+        <name>CCRM_MobilePhone_Check</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- This is not a valid status change in lead process -->
+        </errorMessage>
+        <name>CCRM_Restrict_Status_Change</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>
+            <!-- Please enter Work Phone Number in +61212345678 format. -->
+        </errorMessage>
+        <name>CCRM_WorkPhone_Check</name>
+    </validationRules>
+</CustomObjectTranslation>

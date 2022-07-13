@@ -996,14 +996,75 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2415984": ["Email", "FirstName", "LastName", "MobilePhone"],
-      "IA-2415860": [
-        "Status",
-        "LeadSource",
-        "MarketingConsent",
-        "PrivacyConsent"
+      "IA-2415984": [
+        "ABN__c",
+        "ABN_Status__c",
+        "ABN_Validation_Status__c",
+        "ACN__c",
+        "ABN_Status__c",
+        "ACN_Validation_Status__c",
+        "City",
+        "Company",
+        "Country",
+        "Email",
+        "FirstName",
+        "Home_Phone__c",
+        "Industry__c",
+        "LastName",
+        "MobilePhone",
+        "PostalCode",
+        "State",
+        "Street",
+        "Title__c",
+        "Work_Phone__c"
       ],
-      "IA-2530753": ["Description"]
+      "IA-2415860": [
+        "Business_ID__c",
+        "CCRM_DuplicateLeadCheck__c",
+        "CLG_ID__c",
+        "CLG_Name__c",
+        "Controlling_Post_ID__c",
+        "Customer_ID__c",
+        "Expiry_Date__c",
+        "Expiry_Indicator__c",
+        "FinServ__PotentialValue__c",
+        "FinServ__RelatedAccount__c",
+        "Followup_Date__c",
+        "LeadSource",
+        "Lead_Auto_Number__c",
+        "Lead_Id__c",
+        "Lead_Originator_c",
+        "Lead_Quality__c",
+        "New_to_Bank__c",
+        "Notes__c",
+        "Not_Registered__c",
+        "OwnerId",
+        "Previous_Lead__c",
+        "Priority__c",
+        "Prospect_Id__c",
+        "Record_Id__c",
+        "Status",
+        "SubStatus__c",
+        "UNICA_Treatment_Code__c"
+      ]
+    },
+    "Lead_Flex_Field__c": {
+      "IA-2415860": [
+        "Campaign_Flex_Field__c",
+        "Campaign__c",
+        "FlexFieldValue__c",
+        "Lead__c",
+        "LeadIdSequence__c",
+        "Sequence__c",
+        "UUID__C"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Location": {
       "IA-2468715": [
@@ -1026,6 +1087,24 @@
         "User__c"
       ],
       "IA-2468715": ["CreatedById", "CreatedDate", "Id"]
+    },
+    "Opportunity": {
+      "IA-2415840": [
+        "Name",
+        "Description",
+        "OwnerId",
+        "CloseDate",
+        "CampaignId",
+        "StageName",
+        "Loss_Reason__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Privileged_Access_Request__c": {
       "IA-2468715": [
@@ -1186,6 +1265,27 @@
         "SRE_Team__c",
         "Status__c",
         "What_Customer_was_Trying_to_Do__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "Response_Type__c": {
+      "IA-2415860": [
+        "Campaign__c",
+        "Close_To_Do_Activities__c",
+        "Create_Activities_From_Template__c",
+        "Create_To_Do_Activities__c",
+        "Display_Order__c",
+        "Follow_Up_State__c",
+        "Is_Active__c",
+        "Response_Status__c",
+        "SRE_TeaCreate_Opportunity__cm__c",
+        "UNICA_Lead_SubStatus__c"
       ],
       "IA-2468715": [
         "CreatedById",

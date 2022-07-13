@@ -17,6 +17,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     IDRTaskActions.beforeInsertActions(records);
     GetHelpTaskActions.beforeInsertActions(records);
+    CCRMTaskActions.validateLeadAbnACN(records);
   }
   /**
    * @description onAfterInsert to perform processing during the after insert phase
@@ -24,6 +25,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     manageNotification((List<Task>) records);
     IDRTaskActions.afterInsertActions(records);
+    CCRMTaskActions.updateCCRMLeads(records);
   }
   /**
    * @description onBeforeUpdate to handle after update trigger actions.
