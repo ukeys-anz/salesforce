@@ -8,14 +8,12 @@ import * as leadPageUtils from "../../utils/leadPageUtils";
 import RecordPage from "pageObjects/recordPage";
 import {
   navigateToAppAndTab,
-  gotoRecordPageById
+  openRecordPageById
 } from "../../utils/navigationUtils";
 import { App, AppTab } from "../../constants/appsDefinition";
 import ObjectHome from "pageObjects/objectHome";
-import { loginJSForce } from "../../utils/apiUtils";
 import UAM from "../../common/UAM";
 import { UserRole, Access } from "../../constants/enums";
-import { RecordTypeAPIName } from "../../constants/enums";
 
 const generalComment = `Automation Test General Comment.`;
 
@@ -74,7 +72,7 @@ export default class ANZXLead extends Lead implements IChatter {
   }
 
   async verifyCannotManuallyConvert(): Promise<void> {
-    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const baseRecordForm = await leadPageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Attempt to change Status to Converted
@@ -102,22 +100,18 @@ export default class ANZXLead extends Lead implements IChatter {
 
   async postChatterComment(): Promise<void> {
     const leadNotesTab = await leadPageUtils.getTabContent("Lead Notes");
-    if (leadNotesTab instanceof LeadNotesTab) {
-      const chatterPanel = await leadNotesTab.getChatterPanel();
-      await chatterPanel.clickShareButton();
-      await browser.pause(2000);
-      await chatterPanel.postComment(generalComment);
-    }
+    const chatterPanel = await (leadNotesTab as LeadNotesTab).getChatterPanel();
+    await chatterPanel.clickShareButton();
+    await browser.pause(2000);
+    await chatterPanel.postComment(generalComment);
   }
 
   async verifyChatterComment(): Promise<void> {
     const leadNotesTab = await leadPageUtils.getTabContent("Lead Notes");
-    if (leadNotesTab instanceof LeadNotesTab) {
-      const chatterPanel = await leadNotesTab.getChatterPanel();
-      expect(
-        await chatterPanel.latestPostContentEquals(generalComment)
-      ).toEqual(true);
-    }
+    const chatterPanel = await (leadNotesTab as LeadNotesTab).getChatterPanel();
+    expect(await chatterPanel.latestPostContentEquals(generalComment)).toEqual(
+      true
+    );
   }
 
   async verifyDuplicate(hasDuplicates: boolean): Promise<void> {
@@ -151,56 +145,29 @@ export default class ANZXLead extends Lead implements IChatter {
     await objectHomeRoot.selectListViewByTitle(listViewTile);
     await browser.pause(5000);
 
-    // Added a sorting logic to sort by CreatedDate
-    const record = await objectHomeRoot.getRecordLinkByTitle(
-      `${this.firstName} ${this.lastName}`
+    // check if current list view has any lead records
+    const hasLeads = await objectHomeRoot.containsElement(
+      utam.By.css("tbody tr th span a")
     );
 
-    expect(!!(await record?.isVisible())).toBe(visible);
-  }
-
-  async createAccountFromOCVIntegration(): Promise<void> {
-    // Log in as OCV User
-    const conn = await loginJSForce(
-      process.env.OCV_AUTOMATION_USERNAME!,
-      process.env.OCV_AUTOMATION_PASSWORD!
-    );
-
-    if (conn) {
-      // query Person Account record type and id
-      const personAccountRT = await conn.sobject("RecordType").findOne(
-        {
-          DeveloperName: { $eq: RecordTypeAPIName.Person_Account }
-        },
-        ["Id"]
+    // if no lead records in current list view, and visible is false, pass.
+    // otherwise it's a failure
+    if (!hasLeads) {
+      expect(visible).toBeFalsy();
+    }
+    // if has lead records, check if can find specific lead by title
+    else if (hasLeads) {
+      // Added a sorting logic to sort by CreatedDate
+      const record = await objectHomeRoot.getRecordLinkByTitle(
+        `${this.firstName} ${this.lastName}`
       );
-
-      // Construct Account payload
-      const ocvPayload = {
-        FirstName: this.firstName,
-        LastName: this.lastName,
-        PersonMobilePhone: this.mobile,
-        PersonEmail: this.email,
-        RecordTypeId: personAccountRT?.Id,
-        OCV_ID__c: this.ocvId
-      };
-
-      const sr = await conn.sobject("Account").create(ocvPayload);
-
-      if (!sr.success) {
-        console.log("Error in creating Account through jsforce API call.");
-        console.log("Error: ", JSON.stringify(sr.errors));
-      }
-
-      if (sr.id) {
-        this.accountId = sr.id;
-      }
+      expect(!!(await record?.isVisible())).toBe(visible);
     }
   }
 
-  async openAccount(): Promise<void> {
+  async openConvertedAccount(): Promise<void> {
     await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Accounts);
-    await gotoRecordPageById(this.accountId!);
+    await openRecordPageById(this.accountId!);
 
     const recordPageRoot = await utam.load(RecordPage);
     const accountRecordPage = await recordPageRoot.getAccountRecordPage();
@@ -212,12 +179,15 @@ export default class ANZXLead extends Lead implements IChatter {
     const accountRecordPage = await recordPageRoot.getAccountRecordPage();
 
     const chatterPanel = await accountRecordPage.getChatterPanel();
-    const posts = await chatterPanel.getPosts();
+    const allPosts = await chatterPanel.getPosts();
 
-    // there should be 2 posts
-    // first one is convert message
-    // second one is a copy from converted lead
-    expect(posts.length).toBe(2);
+    // there should be 1 posts, contains convert message
+    expect(allPosts.length).toBe(1);
+
+    const containsConvertMessage = await chatterPanel.latestPostHeaderContains(
+      "converted a lead to this account."
+    );
+    expect(containsConvertMessage).toBeTruthy();
   }
 
   async verifyLeadFieldsAreReadOnly(): Promise<void> {
@@ -225,53 +195,8 @@ export default class ANZXLead extends Lead implements IChatter {
     qualityAnalystUAM.verifyLeadAccess(Access.Read_Only);
   }
 
-  async receiveLeadViaQualtricsIntegration(): Promise<string | void> {
-    // Log in as Qualtrics Integration User
-    const conn = await loginJSForce(
-      process.env.QUALTRICS_AUTOMATION_USERNAME!,
-      process.env.QUALTRICS_AUTOMATION_PASSWORD!
-    );
-
-    if (conn) {
-      // query ANZX_Leads record type and id
-      const anzxLeadsRT = await conn.sobject("RecordType").findOne(
-        {
-          DeveloperName: { $eq: RecordTypeAPIName.ANZX_Leads }
-        },
-        ["Id"]
-      );
-
-      // Construct lead payload
-      const qualtricsPayload = {
-        FirstName: this.firstName,
-        LastName: this.lastName,
-        MobilePhone: this.mobile,
-        Email: this.email,
-        Marketing_Consent__c: true,
-        Privacy_Consent__c: true,
-        LeadSource: "Marketing",
-        RecordTypeId: anzxLeadsRT?.Id
-      };
-
-      const optionHeader = { headers: { "SForce-Auto-Assign": "FALSE" } };
-
-      const sr = await conn
-        .sobject("Lead")
-        .create(qualtricsPayload, optionHeader);
-
-      if (!sr.success) {
-        console.log("Error in creating Lead through jsforce API call.");
-        console.log("Error: ", JSON.stringify(sr.errors));
-      }
-
-      if (sr.id) {
-        this.id = sr.id;
-      }
-    }
-  }
-
   async verifyQualtricsLead() {
-    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const baseRecordForm = await leadPageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Assert Status field is New
