@@ -302,6 +302,7 @@
       "IA-2468715": [
         "AccountId",
         "BusinessHoursId",
+        "Campaign_flag__c"
         "CaseNumber",
         "RecordTypeId",
         "SI_Repository_ID__c",
