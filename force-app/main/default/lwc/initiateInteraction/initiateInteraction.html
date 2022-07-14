@@ -47,7 +47,7 @@
                     variant="brand-outline"
                     label="Message Customer"
                     title="Message"
-                    onclick={handleMessageCustomer}
+                    onclick={handleShowChatWindow}
                     icon-name="utility:chat"
                     class="slds-p-around_x-small"
                     style="display: grid; width: 85%"
@@ -85,7 +85,7 @@
               <lightning-input
                 type="tel"
                 placeholder="+61"
-                onchange={handleInputChange}
+                onchange={handlePhoneChange}
                 pattern="^([^a-zA-Z]*)$"
                 message-when-pattern-mismatch="Please enter the number in a valid format"
                 min-length="2"
@@ -103,8 +103,64 @@
                   icon-name="utility:call"
                   class="slds-p-around_x-small"
                   style="display: grid; width: 70%"
+                  disabled={invalidNumber}
                 >
                 </lightning-button>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template if:true={showChatWindow}>
+          <div>
+            <div class="slds-m-around-small chat-window">
+              <div class="slds-m-top_medium">
+                <div class="slds-grid">
+                  <div
+                    class="slds-col slds-size_1-of-7 slds-p-bottom_small slds-align_absolute-center"
+                  >
+                    <lightning-icon icon-name="utility:chat"> </lightning-icon>
+                  </div>
+                  <div class="slds-col slds-size_6-of-7">
+                    <b>Send a message</b><br />
+                    <label class="slds-form-element__label">
+                      Start a conversation with the first outbound message.<br />
+                      Reinitiate in Twilio Flex to continue.
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <lightning-textarea
+                placeholder="Start typing here..."
+                onchange={handleMessageChange}
+                min-length="2"
+                maxlength="1000"
+                message-when-too-long="A maximum of 1000 characters are allowed"
+                message-when-value-missing="Please enter a valid message"
+              ></lightning-textarea>
+              <div class="slds-m-around_small">
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col slds-size_1-of-2">
+                    <lightning-button
+                      variant="brand-outline"
+                      title="Cancel"
+                      label="Cancel"
+                      onclick={handleShowContactTab}
+                      class="cancel"
+                    >
+                    </lightning-button>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                    <lightning-button
+                      variant="brand"
+                      label="Send Now"
+                      title="Send"
+                      onclick={handleMessageCustomer}
+                      disabled={invalidMessage}
+                      class="slds-float_right send-now"
+                    >
+                    </lightning-button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

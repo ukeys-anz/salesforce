@@ -25,7 +25,7 @@
         <operation>equals</operation>
     </filters>
     <filters>
-        <field>Attendees__c</field>
+        <field>Attendees_and_Roles__c</field>
         <operation>contains</operation>
         <value>Fraud</value>
     </filters>

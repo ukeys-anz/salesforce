@@ -21,13 +21,17 @@ const ACTIVE_TAB = "slds-tabs_default__item slds-is-active";
 export default class InitiateInteraction extends LightningElement {
   showContactTab;
   showDialTab;
+  showChatWindow;
   contactTab;
   dialTab;
   enableChat = false;
   phoneNumber = "";
+  messageToSend;
   numberToDial;
   callPhoneNumber;
   newInteraction;
+  invalidMessage = true;
+  invalidNumber = true;
   outboundError =
     "Uh-oh, there was an error and we couldn't automatically create the interaction. Please manually create a call interaction";
   contactCustomer;
@@ -78,6 +82,7 @@ export default class InitiateInteraction extends LightningElement {
     } else {
       this.contactCustomer = false;
       this.showContactTab = false;
+      this.showChatWindow = false;
       this.showDialTab = true;
       this.dialTab = ACTIVE_TAB;
       this.contactTab = NORMAL_TAB;
@@ -113,6 +118,7 @@ export default class InitiateInteraction extends LightningElement {
         this.contactCustomer = true;
         this.showContactTab = true;
         this.showDialTab = false;
+        this.showChatWindow = false;
         this.contactTab = ACTIVE_TAB;
         this.dialTab = NORMAL_TAB;
       }
@@ -122,6 +128,7 @@ export default class InitiateInteraction extends LightningElement {
   handleShowContactTab() {
     this.showContactTab = true;
     this.showDialTab = false;
+    this.showChatWindow = false;
     this.contactTab = ACTIVE_TAB;
     this.dialTab = NORMAL_TAB;
   }
@@ -129,8 +136,14 @@ export default class InitiateInteraction extends LightningElement {
   handleShowDialTab() {
     this.showContactTab = false;
     this.showDialTab = true;
+    this.showChatWindow = false;
     this.contactTab = NORMAL_TAB;
     this.dialTab = ACTIVE_TAB;
+  }
+
+  handleShowChatWindow() {
+    this.showContactTab = false;
+    this.showChatWindow = true;
   }
 
   async handleCallCustomer() {
@@ -174,11 +187,30 @@ export default class InitiateInteraction extends LightningElement {
   }
 
   async handleMessageCustomer() {
-    this.fields.interactionType = "Chat";
+    // this is a placeholder for chat
   }
 
-  handleInputChange(event) {
-    this.numberToDial = event.detail.value;
+  handlePhoneChange(event) {
+    let regex = "[a-zA-Z]+";
+    if (
+      event.target.value.length < 3 ||
+      event.target.value.length > 15 ||
+      event.detail.value.match(regex)
+    ) {
+      this.invalidNumber = true;
+    } else {
+      this.numberToDial = event.detail.value;
+      this.invalidNumber = false;
+    }
+  }
+
+  handleMessageChange(event) {
+    if (event.target.value.length < 2 || event.target.value.length > 1000) {
+      this.invalidMessage = true;
+    } else {
+      this.messageToSend = event.detail.value;
+      this.invalidMessage = false;
+    }
   }
 
   async handleCallNow() {
