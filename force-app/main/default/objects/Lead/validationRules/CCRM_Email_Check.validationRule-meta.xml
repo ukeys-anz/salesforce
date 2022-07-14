@@ -5,6 +5,7 @@
     <description>Validation to check if Email value is provided in proper format.</description>
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
     NOT ISBLANK( Email ) ,
     NOT REGEX( Email , &quot;^[a-zA-Z0-9.'+-]{2,}@[a-zA-Z0-9.-]{2,}.[a-zA-Z]{2,}$&quot; )
 )</errorConditionFormula>
