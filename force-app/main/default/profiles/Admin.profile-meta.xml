@@ -1988,11 +1988,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Campaign.TwilioSF__Opt_In_Keyword__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Campaign.Type</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5342,11 +5337,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Title__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Lead.TwilioSF__Last_Message_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
