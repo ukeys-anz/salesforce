@@ -36,6 +36,7 @@ public with sharing class AppointmentNotificationTest {
     insert testLocation;
 
     Interaction interactionSubject = new Interaction();
+    interactionSubject.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactionSubject.StartTime = startDate;
     interactionSubject.InteractionType = 'Email';
     interactionSubject.LocationId = testLocation.Id;
@@ -63,6 +64,7 @@ public with sharing class AppointmentNotificationTest {
     insert testAccount;
 
     Interaction interactionSubject = createInteraction();
+    interactionSubject.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactionSubject.AccountId = testAccount.Id;
     interactionSubject.Status__c = STATUS_CANCELLED;
     Integer duration = 30;
@@ -244,6 +246,7 @@ public with sharing class AppointmentNotificationTest {
     Interaction createdInteraction = new Interaction();
 
     Interaction cancelledInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Status__c = STATUS_CANCELLED
     );
 

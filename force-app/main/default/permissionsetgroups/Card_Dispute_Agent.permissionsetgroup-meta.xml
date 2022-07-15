@@ -15,13 +15,13 @@
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>Fraud_Lock_Card</permissionSets>
+    <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Raise_Dispute</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
-    <permissionSets>TwilioSF__Twilio_User</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>

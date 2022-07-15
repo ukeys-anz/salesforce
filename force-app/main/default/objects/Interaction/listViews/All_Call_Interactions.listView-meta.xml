@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Call_Interactions</fullName>
+    <columns>Interaction_Number_Link__c</columns>
+    <columns>Account</columns>
+    <columns>Lead__c</columns>
+    <columns>Interaction_Purpose__c</columns>
+    <columns>InteractionType</columns>
+    <columns>Direction__c</columns>
+    <columns>Resolution__c</columns>
+    <columns>StartTime</columns>
+    <columns>Attendees__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>InteractionType</field>
+        <operation>equals</operation>
+        <value>Call</value>
+    </filters>
+    <label>All Call Interactions</label>
+</ListView>

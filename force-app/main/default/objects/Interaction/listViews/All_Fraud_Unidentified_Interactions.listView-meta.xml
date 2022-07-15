@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Fraud_Unidentified_Interactions</fullName>
+    <booleanFilter>1 AND (2 OR 3) AND (4 OR 5)</booleanFilter>
+    <columns>Interaction_Number_Link__c</columns>
+    <columns>Interaction_Purpose__c</columns>
+    <columns>Contact_Mobile__c</columns>
+    <columns>InteractionType</columns>
+    <columns>Direction__c</columns>
+    <columns>Resolution__c</columns>
+    <columns>Attendees__c</columns>
+    <columns>ANZ_Number__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>Interaction.General</value>
+    </filters>
+    <filters>
+        <field>CaseId__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Account</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>Attendees_and_Roles__c</field>
+        <operation>contains</operation>
+        <value>Fraud</value>
+    </filters>
+    <filters>
+        <field>Attendees_and_Roles__c</field>
+        <operation>contains</operation>
+        <value>Card</value>
+    </filters>
+    <label>All Fraud Unidentified Interactions</label>
+</ListView>
