@@ -5,32 +5,42 @@
     "Account",
     "Appointment_Commitment__c",
     "Activity",
+    "Campaign",
     "CampaignMember",
+    "Campaign_Document__c",
+    "Campaign_Flex_Field__c",
     "CaseComment",
     "Case",
     "CFMS_Migrated_Document__c",
     "Coaching_Summary__c",
     "Contact",
     "ContactRequest",
+    "ContactPointAddress",
     "ContentDocumentLink",
     "ContentVersion",
+    "Controlling_Post__c",
     "EmailMessage",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
+    "Identifier__c",
     "IDR_Letter_Approval_Details__c",
     "IDR_Template_Detail__c",
     "Interaction",
     "InteractionSummary",
+    "Industry__c",
     "Knowledge__kav",
     "Known_Issues__c",
     "Lead",
+    "Lead_Flex_Field__c",
     "Log_Record_Access__b",
+    "Opportunity",
     "Privileged_Access_Request__c",
     "Product2",
     "Product_Family__c",
     "Quality_Assessment__c",
     "qualtrics__Survey_Response__c",
     "Release__c",
+    "Response_Type__c",
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
     "Task",
@@ -421,6 +431,39 @@
         "API_Only",
         "Enforce_mTLS",
         "IDR_Xpression_Integration"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Commercial Integration User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "CCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Adobe Integration User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "CCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Unica Integration User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "CCRM_Marketing_Integration_User"
       ],
       "type": "system"
     }

@@ -58,6 +58,55 @@ export function handleErrorShowToast(
   showToast(cmp, title, errorMessage, "", "error", mode);
 }
 
+export function handleErrors(error) {
+  this.hasError = true;
+  this.errorMessage = "";
+  if (typeof error === "string") {
+    this.errorMessage = error;
+  } else if (error.body) {
+    if (Array.isArray(error.body)) {
+      this.errorMessage = error.body.map((e) => e.message).join(", ");
+    } else if (typeof error.body.message === "string") {
+      this.errorMessage = "Error Message: " + error.body.message;
+    } else if (typeof error.body === "object") {
+      let fieldErrors = error.body.fieldErrors;
+      let pageErrors = error.body.pageErrors;
+      let exceptionErrors = error.body.message;
+      if (fieldErrors && fieldErrors.length > 0) {
+        for (let fieldName in fieldErrors) {
+          if (fieldName) {
+            let errorList = fieldErrors[fieldName];
+            for (let i = 0; i < errorList.length; i++) {
+              this.errorMessage +=
+                errorList[i].statusCode +
+                " " +
+                fieldName +
+                " " +
+                errorList[i].message +
+                "\n ";
+            }
+          }
+        }
+      }
+      if (pageErrors && pageErrors.length > 0) {
+        for (let j = 0; j < pageErrors.length; j++) {
+          this.errorMessage += "\nError Message: " + pageErrors[j].message;
+        }
+      }
+      if (
+        exceptionErrors &&
+        typeof exceptionErrors === "string" &&
+        exceptionErrors.length > 0
+      ) {
+        this.errorMessage += exceptionErrors;
+      }
+    } else {
+      this.errorMessage =
+        "Error Message: Something went wrong. Unable to complete the action.";
+    }
+  }
+}
+
 // General navigation function by warapping NavigationMixin.Navigate
 export function navigate(cmp, type, attributes) {
   cmp[NavigationMixin.Navigate]({

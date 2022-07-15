@@ -261,4 +261,37 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+
+  /**
+   * @param calloutUrl ABN or ACN callout url
+   * @param abnOrAcn number to be validated
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches ABN info api callout
+   */
+  public virtual HttpCalloutResponse getAbnAcnInformation(
+    String calloutUrl,
+    String abnOrAcn
+  ) {
+    return null;
+  }
+
+  /**
+   * @param lookupString from address search bar
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches addresses list
+   */
+  public virtual HttpCalloutResponse getAddresses(String lookupString) {
+    return null;
+  }
+
+  /**
+   * @param encodedAddressId from selected address
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches address details
+   */
+  public virtual HttpCalloutResponse getSelectedAddress(
+    String encodedAddressId
+  ) {
+    return null;
+  }
 }

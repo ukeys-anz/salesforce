@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Company_Check</fullName>
+    <active>true</active>
+    <description>Company field is Mandatory if &quot;Company Not Yet Registered&quot; is not checked.</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+    OR(AND(ISBLANK(Company) ,
+    NOT(Not_Registered__c)), AND(NOT(ISBLANK(Company)) ,
+    Not_Registered__c))
+)</errorConditionFormula>
+    <errorMessage>Please enter a Company Name OR Check Not Registered, but not both.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Lead</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Commercial CRM Lead Path</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Customer has changed their contact detail? Make sure you preform a maintenance request to update customer profile.&lt;/li&gt;&lt;li&gt;Looking to further build that relationship with your customer? Create a future task to check on how things are going. &lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Completed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <picklistValueName>Converted</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Having trouble to contact customer? Ensure Customer contact details are correct on customer profile&lt;/li&gt;&lt;li&gt;Have you tried a different contact method? &lt;/li&gt;&lt;li&gt;Has customer changed their contact detail? Make sure you perform a maintenance request to update customer profile.&lt;/li&gt;&lt;li&gt;Ready to convert the lead? Please ensure you have collected as much detail as you can from your customer. &lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>In progress</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Missing Customer contact details? Try view Customer profile and ensure the correct Contact is load against the customer profile.&lt;/li&gt;&lt;li&gt;High risk customer? Make sure you view customer details (i.e. PI Scores, Risk Grades) prior making a contact&lt;/li&gt;&lt;li&gt;Need more information on the lead? Check out the Related tab. &lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>New</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;Want to make a Referral? Make sure you have the correct customer details and provide as much detail on customer needs as possible. &lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Referred</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>CCRM_Lead</recordTypeName>
+</PathAssistant>
