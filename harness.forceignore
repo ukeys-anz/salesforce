@@ -1,7 +1,5 @@
 # .forceignore v2
 
-# This forceignore is only used by harness CI/CD, not when making scratch org
-
 *.md
 package.xml
 
@@ -32,7 +30,9 @@ force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
 force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
+force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
@@ -74,7 +74,6 @@ force-app/main/default/layouts/FinServ__FinancialGoal__c-FinServ__Financial Goal
 
 #Ignoring these fields as they are no longer used and should not be created. Entitlement Process has a dependency on them so can't delete them.
 force-app/main/default/objects/Case/fields/IDR_EntitlementStartDate__c.field-meta.xml
-force-app/main/default/objects/Case/fields/IDR_AFCA_ResponseDue365DaysDateTime__c.field-meta.xml
 
 #Ignoring apex classes below as they have been renamed
 force-app/main/default/classes/EverydayAccountController.cls
@@ -92,6 +91,7 @@ force-app/main/default/datacategorygroups
 #Ignoring deleted platform event for Nov 10 develop merge - CMOS
 force-app/main/default/objects/IDR_CRC_Escalation_Event__e
 
+#Ignoring the deploy user's pset, likely to break scratch org creation
 force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
 
 #Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
@@ -107,21 +107,21 @@ force-app/main/default/flows/Send_Notification_to_New_User.flow-meta.xml
 #to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
 force-app/main/default/flows/Knowledge_Process.flow-meta.xml
 
+#ignore pushing harness stuffs for making a scratchOrg
+force-app/main/default/duplicateRules/
+force-app/main/default/matchingRules/
+# Now that entitlementProcesses are versioned we no longer need to ignore them.
+#force-app/main/default/entitlementProcesses/
+force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
+force-app/main/default/transactionSecurityPolicies
+
 #to prevent issues when deploying looking for depracated process name
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
 force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
 force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
-
-#AR-10035 Ignore attempts to delete prior version of complaints entitlement process. May not be present.
-force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
 
 #to prevent issues when deploying looking for deleted objects tab
 force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml
 
-force-app/main/default/duplicateRules/
-force-app/main/default/matchingRules/
 
-#AR-11570 to avoid errors regarding managed package fields cannot be deleted
-force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_Recipient_ID__c.field-meta.xml
-force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_SurveyID__c.field-meta.xml
-force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Other_Feedback__c.field-meta.xml

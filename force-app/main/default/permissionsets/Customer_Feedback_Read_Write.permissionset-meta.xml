@@ -68,12 +68,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.RecipientId__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.SurveyId__c</field>
+        <field>qualtrics__Survey_Response__c.qualtrics__Q_SurveyID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

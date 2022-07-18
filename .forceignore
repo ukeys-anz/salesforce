@@ -123,8 +123,3 @@ force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
 
 #to prevent issues when deploying looking for deleted objects tab
 force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml
-
-#AR-11570 to avoid errors regarding managed package fields cannot be deleted
-force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_Recipient_ID__c.field-meta.xml
-force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_SurveyID__c.field-meta.xml
-force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Other_Feedback__c.field-meta.xml
