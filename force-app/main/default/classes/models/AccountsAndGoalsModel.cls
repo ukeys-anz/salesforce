@@ -3,6 +3,7 @@
  * @since Feb 2020
  * @description model for accounts and goals API, extending the base
  * @group Models
+ * ExcessivePublicCount Surpressed : AccountsAndGoalsModel to have all the public methods and attributes together.
  */
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public with sharing class AccountsAndGoalsModel extends CalloutModel {

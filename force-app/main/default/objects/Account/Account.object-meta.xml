@@ -234,6 +234,28 @@
     <enableFeeds>true</enableFeeds>
     <enableHistory>false</enableHistory>
     <externalSharingModel>Private</externalSharingModel>
+    <profileSearchLayouts>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>CLG__c</fields>
+        <fields>ACCOUNT.ADDRESS2_CITY</fields>
+        <fields>ACCOUNT.ADDRESS2_ZIP</fields>
+        <fields>CPID__c</fields>
+        <fields>ACCOUNT.PHONE1</fields>
+        <fields>PC_PHONE3</fields>
+        <fields>FinServ__KYCStatus__c</fields>
+        <profileName>System Administrator</profileName>
+    </profileSearchLayouts>
+    <profileSearchLayouts>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>CLG__c</fields>
+        <fields>ACCOUNT.ADDRESS1_CITY</fields>
+        <fields>ACCOUNT.ADDRESS1_ZIP</fields>
+        <fields>CPID__c</fields>
+        <fields>ACCOUNT.PHONE1</fields>
+        <fields>PC_PHONE3</fields>
+        <fields>FinServ__KYCStatus__c</fields>
+        <profileName>ANZ Standard User</profileName>
+    </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <searchLayouts>
         <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
@@ -245,6 +267,8 @@
         <excludedStandardButtons>MassCreateCallList</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
         <excludedStandardButtons>DiscoveryGetAccountsAction</excludedStandardButtons>
+        <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <excludedStandardButtons>MassCreateCallList</excludedStandardButtons>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CORE.USERS.ALIAS</lookupDialogsAdditionalFields>

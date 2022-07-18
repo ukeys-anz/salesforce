@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Response</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Lead_Response</compactLayoutAssignment>
+    <description>Record Type to log Responses for Commercial CRM Leads</description>
+    <label>Lead Response</label>
+    <picklistValues>
+        <picklist>Outcome_Reason__c</picklist>
+        <values>
+            <fullName>Appointment booked</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Response_Status__c</picklist>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Subject</picklist>
+    </picklistValues>
+</RecordType>

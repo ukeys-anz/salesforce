@@ -500,7 +500,6 @@ public with sharing class ChatContextServiceTest {
    * @return `List<ChatContextService.ChatContextRequest>` List of 'ChatContextService.ChatContextRequest'
    */
   //Suppress warnings for parameters to prepare request
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static List<ChatContextService.ChatContextRequest> prepareRequest(
     String ocvId,
     String channelSid,

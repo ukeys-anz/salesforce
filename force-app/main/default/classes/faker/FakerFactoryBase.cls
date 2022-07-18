@@ -35,7 +35,6 @@ public with sharing virtual class FakerFactoryBase implements FakerFactoryInterf
    * @description Creates and returns an object instance
    * @return `SObject`
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public SObject create() {
     SObject newObject = this.getObject(null);
     if (newObject.getSObjectType().getDescribe().isCreateable()) {
@@ -49,7 +48,6 @@ public with sharing virtual class FakerFactoryBase implements FakerFactoryInterf
    * @param values Map<String, Object> map of values to be pre-polulated on object attributes
    * @return `SObject`
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public SObject create(Map<String, Object> values) {
     SObject newObject = this.getObject(values);
     if (newObject.getSObjectType().getDescribe().isCreateable()) {

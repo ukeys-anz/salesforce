@@ -165,7 +165,6 @@ public with sharing virtual class Service {
    * @return `Map<String, String>` header map
    * @description sets all headers required for a mulesoft callout, loads client id and secret from named credential
    */
-  @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
   public Map<String, String> setMuleCommonHeaders(Map<String, String> headers) {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
@@ -259,6 +258,39 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse getAccountBuckets(
     String ocvId,
     String paramUrl
+  ) {
+    return null;
+  }
+
+  /**
+   * @param calloutUrl ABN or ACN callout url
+   * @param abnOrAcn number to be validated
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches ABN info api callout
+   */
+  public virtual HttpCalloutResponse getAbnAcnInformation(
+    String calloutUrl,
+    String abnOrAcn
+  ) {
+    return null;
+  }
+
+  /**
+   * @param lookupString from address search bar
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches addresses list
+   */
+  public virtual HttpCalloutResponse getAddresses(String lookupString) {
+    return null;
+  }
+
+  /**
+   * @param encodedAddressId from selected address
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches address details
+   */
+  public virtual HttpCalloutResponse getSelectedAddress(
+    String encodedAddressId
   ) {
     return null;
   }

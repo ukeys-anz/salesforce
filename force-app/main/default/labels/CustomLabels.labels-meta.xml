@@ -17,6 +17,100 @@
         <value>Anonymous</value>
     </labels>
     <labels>
+        <fullName>CCRM_ChatterPostMessageBody</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Chatter Post Message Body</shortDescription>
+        <value>New lead #{LeadId}# available to action.Please check your leads list view. #{LeadListViewId}#</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_LeadDefaultPriorityValue</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lead Default Priority Value</shortDescription>
+        <value>99</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExpiryDateDays</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of days to calculate Expiry Date at which the Lead gets Expired.</shortDescription>
+        <value>14</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExpiryReminderDays</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of days to send Reminders before Lead gets Expired.</shortDescription>
+        <value>2</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_NewSourceLeadMessage</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Lead from Source Message.</shortDescription>
+        <value>New Lead #{LeadId}# is now available from #{Lead.Lead_Originator__c}#. Please check your leads list view. #{LeadListViewId}#</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExpiryReminderMessage</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Expiry Reminder Message.</shortDescription>
+        <value>You have a lead #{LeadId}# approaching expiry. Please check your leads list view #{LeadListViewId}#.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ListViewName</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial CRM List View name.</shortDescription>
+        <value>My Commercial Leads</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_NonEditableLeadStages</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial CRM List of Lead Stages which should not allow to be edited.</shortDescription>
+        <value>'Completed','Converted','Expired','Referred'</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExtendLeadExpiryDateWhenResponseLogCreated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of days Lead expiry to extend when response log created</shortDescription>
+        <value>5</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_MaxDaysExpiryDateExtends</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Maximum Number of days Lead expiry to extend</shortDescription>
+        <value>45</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_MinDaysExpiryDateExtends</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Minimum Number of days Lead expiry to extend</shortDescription>
+        <value>10</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Today_Date</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Used in testing for adding and substracting days from todays date</shortDescription>
+        <value>0</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -63,6 +157,22 @@
         <protected>false</protected>
         <shortDescription>MS_Fraud_Lock_Card</shortDescription>
         <value>/card-management/v1/cards</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Abr_Abn</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Abr_Abn</shortDescription>
+        <value>/abr/v1/abn/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Abr_Acn</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Abr_Acn</shortDescription>
+        <value>/abr/v1/acn/</value>
     </labels>
     <labels>
         <fullName>MS_Forge_Token</fullName>
@@ -119,6 +229,22 @@
         <protected>false</protected>
         <shortDescription>MS_Get_Transactions</shortDescription>
         <value>/coach-banking/v1beta1/transactions</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Qas_Address</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_Address</shortDescription>
+        <value>/sfdc/addresses/v1/addresses?lookupString=</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Qas_AddressById</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_AddressById</shortDescription>
+        <value>/sfdc/addresses/v1/addresses/</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -232,5 +358,40 @@
         <protected>false</protected>
         <shortDescription>IDR_Window_For_Task_Reminders</shortDescription>
         <value>1,3,5,7</value>
+    </labels>
+    <labels>
+        <fullName>Interaction_User_Created_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction_User_Created_Error_Message</shortDescription>
+        <value>You already have an appointment at this date and time. Please select another date and time:</value>
+    </labels>
+    <labels>
+        <fullName>Interaction_Coach_Created_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction_Coach_Created_Error_Message</shortDescription>
+        <value>The customer already has an appointment at this date and time. Please select another date and time.</value>
+    </labels>
+    <labels>
+        <fullName>Coach_Existing_Interaction_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Coach_Existing_Interaction_Error_Message</shortDescription>
+        <value>You already have an appointment at this date and time. Please select another date and time.</value>
+    </labels>
+    <labels>
+        <fullName>Appointment_Commitment_Full</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment Commitment Full</shortDescription>
+        <value>This appointment slot is no longer available, please choose a different date and time.</value>
+    </labels>
+    <labels>
+        <fullName>Interaction_Store_Required</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interaction_Store_Required</shortDescription>
+        <value>Please select store location.</value>
     </labels>
 </CustomLabels>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unassigned_Appointments</fullName>
+    <columns>Interaction_Number_Link__c</columns>
+    <columns>Account</columns>
+    <columns>Lead__c</columns>
+    <columns>Interaction_Purpose__c</columns>
+    <columns>StartTime</columns>
+    <columns>InteractionType</columns>
+    <columns>Location</columns>
+    <columns>Status__c</columns>
+    <columns>Escalated__c</columns>
+    <columns>Owner</columns>
+    <filterScope>Queue</filterScope>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>Interaction.Appointment</value>
+    </filters>
+    <label>Unassigned Appointments</label>
+    <queue>Appointments_Queue</queue>
+</ListView>

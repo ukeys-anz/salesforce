@@ -4,7 +4,6 @@
  * @since 2020
  */
 public with sharing class SFConstants {
-  @SuppressWarnings('PMD.EmptyStatementBlock')
   private SFConstants() {
     // restrict instantiation
   }

@@ -70,7 +70,6 @@ public with sharing class CaseProductTriggerHandler extends Lib_TriggerHandler {
    * @description Prevents the same product from being related to the same case if it has already been
    * @param records list of Case_Products to process
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   private void errorIfDuplicate(List<Case_Product__c> records) {
     Set<Id> caseIDs = new Set<Id>();
     Set<Id> productIDs = new Set<Id>();

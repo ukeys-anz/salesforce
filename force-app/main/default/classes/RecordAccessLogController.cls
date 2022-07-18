@@ -14,7 +14,6 @@ public with sharing class RecordAccessLogController {
    * @param userId Id the Id of the user accessing the record
    * @return Boolean success of insert
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
   @AuraEnabled
   public static Boolean createLog(
     String browserDetails,

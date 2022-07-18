@@ -5,7 +5,8 @@
  */
 @IsTest
 public class FinancialAccountModelTest {
-  static testMethod void testParse() {
+  @isTest
+  static void testParse() {
     StaticResource sr = [
       SELECT body
       FROM StaticResource
