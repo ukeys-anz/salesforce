@@ -132,8 +132,7 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
-      //AR-15023 Using IDRTaskActions.insertSystemTasks as it has without sharing, as task creation is failing due to user access
-      IDRTaskActions.insertSystemTasks(stopCollectionTaskList);
+      insertSystemTasks(stopCollectionTaskList);
       stopCollectionTaskList.clear();
     }
   }
