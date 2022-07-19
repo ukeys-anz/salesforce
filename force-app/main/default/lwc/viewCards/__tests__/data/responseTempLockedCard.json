@@ -1,0 +1,40 @@
+{
+  "cards": [
+    {
+      "name": "Prudence Clearwater",
+      "tokenized_card_number": "6565656565",
+      "last_4_digits": "4123",
+      "status": "Issued",
+      "expiry_date": {
+        "year": { "value": 2024 },
+        "month": { "value": 6 }
+      },
+      "isValid": true,
+      "account_number": "",
+      "eligibilities": [
+        "ELIGIBILITY_APPLE_PAY",
+        "ELIGIBILITY_GOOGLE_PAY",
+        "ELIGIBILITY_SAMSUNG_PAY",
+        "ELIGIBILITY_SET_PIN",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
+        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CARD_CONTROLS",
+        "ELIGIBILITY_BLOCK"
+      ],
+      "wallets": {
+        "applePay": 0,
+        "googlePay": 0,
+        "samsungPay": 1,
+        "fitness": 0,
+        "eCommerce": 0,
+        "other": 0
+      },
+      "walletList": ["SamsungPay - 1"],
+      "hasWallet": false,
+      "card_controls_enabled": true,
+      "cardControlsList": [{ "control_type": "GCT_GLOBAL" }]
+    }
+  ]
+}

@@ -3,7 +3,8 @@ const cardDisputesFieldsMapping = {
   Card_Number__c: "card.last_four_digits",
   Card_Scheme__c: "card.scheme",
   Transaction_Amount__c: "international_amount.charged.value",
-  Transaction_Currency__c: "international_amount.charged.currency_code"
+  Transaction_Currency__c: "international_amount.charged.currency_code",
+  Card_Token_Number__c: "tokenizedCardNumber"
 };
 
 const atmDisputesFieldsMapping = {
@@ -11,7 +12,8 @@ const atmDisputesFieldsMapping = {
   Transaction_Currency__c: "international_amount.charged.currency_code",
   Bank_ATM__c: "long_desc",
   Location__c: "long_desc",
-  Card_Scheme__c: "cash.card_scheme"
+  Card_Scheme__c: "cash.card_scheme",
+  Card_Token_Number__c: "tokenizedCardNumber"
 };
 
 const directDebitDisputesFieldsMapping = {
@@ -61,6 +63,7 @@ function prepopulateCommonFields(
     transaction,
     defaultFieldValuesObj
   );
+
   return defaultFieldValuesObj;
 }
 
@@ -69,7 +72,8 @@ export function prepopulateDisputesFields(
   personAccountId,
   financialAccountId,
   disputeType,
-  transaction
+  transaction,
+  tokenizedCardNumberString
 ) {
   let defaultFieldValuesObj = prepopulateCommonFields(
     personAccountId,
@@ -96,7 +100,12 @@ export function prepopulateDisputesFields(
   }
 
   defaultFieldValuesObj = mappingObj
-    ? prepopulateFieldsValues(mappingObj, transaction, defaultFieldValuesObj)
+    ? prepopulateFieldsValues(
+        mappingObj,
+        transaction,
+        defaultFieldValuesObj,
+        tokenizedCardNumberString
+      )
     : defaultFieldValuesObj;
 
   return defaultFieldValuesObj;
@@ -106,7 +115,8 @@ export function prepopulateDisputesFields(
 const prepopulateFieldsValues = (
   fieldMappings,
   transaction,
-  defaultFieldValuesObj
+  defaultFieldValuesObj,
+  tokenizedCardNumberString
 ) => {
   Object.entries(fieldMappings).forEach(([key, value], index) => {
     //Posted date is only available the day after the transaction is made,
@@ -118,10 +128,16 @@ const prepopulateFieldsValues = (
     ) {
       return;
     }
+
     let keyString = value;
     defaultFieldValuesObj[key] = !keyString.includes(".") // If this key does not contain nested value
       ? transaction[keyString] // extract the value using the native way
       : getNestedValue(transaction, keyString); // otherwise call getNestedValue
+
+    // Set Tokenized Card field with String received from API call
+    if (value === "tokenizedCardNumber" && tokenizedCardNumberString) {
+      defaultFieldValuesObj[key] = tokenizedCardNumberString;
+    }
 
     //Check if the value is unknown so we don't prepopulate the field
     //to avoid validation rules preventing case creation
