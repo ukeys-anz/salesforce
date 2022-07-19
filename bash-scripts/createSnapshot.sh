@@ -41,9 +41,9 @@ waitToInstallPackages=false;
 echoMessageCreator "waiting step for a command" $stepNo true
 while [[ $waitToInstallPackages == false ]]; do
     echo ""
-    sfdx force:mdapi:deploy:report | tee stderr
-
-    if [[ ($(cat stderr) == *'InProgress'*) ]]; then
+    sfdx force:mdapi:deploy:report 
+    report=$(sfdx force:mdapi:deploy:report --json)
+    if [[ ($report == *'InProgress'*) ]]; then
         echo "${green}"
         echo "wait for another 3 mins"
         sleep 180

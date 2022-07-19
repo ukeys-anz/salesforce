@@ -70,6 +70,7 @@ public without sharing class AccessRequestCommonActions {
    * If so, throw an error to prevent any unexpected issues during Privilaged Access
    * @param records list of new Access Request records being inserted or updated
    **/
+  @SuppressWarnings('PMD.OperationWithLimitsInLoop')
   public static void checkIfRecordsOverlap(List<Access_Request__c> records) {
     for (Access_Request__c record : records) {
       //If the record is being rejected we can ignore checking if this record overlaps
@@ -113,9 +114,11 @@ public without sharing class AccessRequestCommonActions {
 
   /**
    * @description creates a PAR record when Access Request gets Approved
+   * Suppressed 'ApexCRUDViolation' warning as PAR record creation should happen regardless of the executing user permissions
    * @param newRecords list of new Access Request records
    * @param oldRecordMap map of old Access Request records
    */
+  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void createPARequestRecords(
     List<Access_Request__c> newRecords,
     Map<Id, SObject> oldRecordMap

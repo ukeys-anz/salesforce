@@ -5,15 +5,15 @@ import hasReplaceCardsPermission from "@salesforce/customPermission/ANZx_Replace
 import hasViewCardsPermission from "@salesforce/customPermission/ANZx_View_Cards";
 
 export const CARD_IMAGES = {
-  default: `${card_images}/card_active.png`,
-  active: `${card_images}/card_active.png`,
-  locked: `${card_images}/card_locked.png`,
-  disabled: `${card_images}/card_disabled.png`
+    default: `${card_images}/card_active.png`,
+    active: `${card_images}/card_active.png`,
+    locked: `${card_images}/card_locked.png`,
+    disabled: `${card_images}/card_disabled.png`
 };
 
 export const USER_PERMISSION = {
-  hasLockPermission: hasLockCardsPermission,
-  hasFraudPermission: hasFraudLockCardsPermission,
-  hasReplacePermission: hasReplaceCardsPermission,
-  hasViewPermission: hasViewCardsPermission
+    hasLockPermission: hasLockCardsPermission,
+    hasFraudPermission: hasFraudLockCardsPermission,
+    hasReplacePermission: hasReplaceCardsPermission,
+    hasViewPermission: hasViewCardsPermission
 };

@@ -4,6 +4,7 @@
  * @since 11/2020
  * @description CaseHistoryObject allows the modelling of the status changes from CaseHistory into when the case changed to that status, when the status ended and the time difference it has remained in this status
  */
+@SuppressWarnings('PMD.ExcessiveParameterList')
 public with sharing class CaseHistoryObject {
   public String status;
   public DateTime startDateTime;

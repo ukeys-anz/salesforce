@@ -419,7 +419,7 @@ public with sharing class AccessRequestCommonActionsTest {
       'Error occured while assigning profiles via PAM flow'
     );
   }
-  /*
+
   @isTest
   private static void testupdateUserSameProfile() {
     // GIVEN
@@ -478,7 +478,7 @@ public with sharing class AccessRequestCommonActionsTest {
       'Flow should not try to assign invalid profiles on user records'
     );
   }
-*/
+
   @isTest
   private static void testSetAccessGrantedTimestamp() {
     // GIVEN

@@ -5,8 +5,7 @@
  */
 @IsTest
 public class AccountBucketsModelTest {
-  @isTest
-  static void testParse() {
+  static testMethod void testParse() {
     StaticResource sr = [
       SELECT body
       FROM StaticResource

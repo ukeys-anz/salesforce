@@ -1,8 +1,5 @@
 import Auth from "../common/Auth";
-import {
-  navigateToAppAndTab,
-  gotoRecordPageById
-} from "../utils/navigationUtils";
+import { navigateToAppAndTab } from "../utils/navigationUtils";
 import { UserRole } from "../constants/enums";
 import { App, AppTab } from "../constants/appsDefinition";
 import ANZXLead from "../common/leads/ANZXLead";
@@ -118,10 +115,12 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   });
 
   describe("AR-11384: Lead creation by Qualtrics Integration", async (): Promise<void> => {
+    let apiResult: string | void;
+
     const anzxLead = new ANZXLead(UserRole.Coach);
 
     it("Create Lead Record via Qualtrics Integration", async (): Promise<void> => {
-      await anzxLead.receiveLeadViaQualtricsIntegration()!;
+      apiResult = await anzxLead.receiveLeadViaQualtricsIntegration()!;
     });
 
     it("Go to Lead record", async (): Promise<void> => {
@@ -131,7 +130,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
       // Open Lead record by navigating to record page using Id
       // As Lead search results contains Einstein results recommendations
       // Which is not predictable when searching via contact details
-      await gotoRecordPageById(anzxLead.id!);
+      await anzxLead.openById(apiResult!);
     });
 
     it("Verify Lead Fields", async (): Promise<void> => {

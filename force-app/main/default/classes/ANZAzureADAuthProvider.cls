@@ -4,6 +4,7 @@
  * @since 2020
  * @description ANZAzureADAuthProvider is the plugin for Azure AD SSO
  */
+@SuppressWarnings('PMD.AvoidGlobalModifier, PMD.ApexOpenRedirect')
 global class ANZAzureADAuthProvider extends Auth.AuthProviderPluginClass {
   public static final String FIELD_REDIRECT_URL = 'redirectURL__c';
   public static final String FIELD_AUTH_URL = 'Auth_URL__c';

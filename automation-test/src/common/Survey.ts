@@ -6,9 +6,15 @@ import * as casePageUtils from "../utils/casePageUtils";
 import ObjectHome from "pageObjects/objectHome";
 import { CaseRecord, APIResult } from "../types/survey";
 import RecordPage from "pageObjects/recordPage";
-import { Queue } from "../constants/enums";
+import { searchRecordInGlobalSearchAndRedirect } from "../utils/commonUtils";
 
 export default class Survey {
+  private ocvId: string | null;
+
+  constructor() {
+    this.ocvId = null;
+  }
+
   async createSurveyResponse(): Promise<APIResult | void> {
     const apiResult: APIResult = {
       CaseId: "",
@@ -32,6 +38,8 @@ export default class Survey {
           ["Id, OCV_Id__c"]
         )
         .limit(1);
+
+      this.ocvId = account[0].OCV_ID__c;
 
       const surveyResponse = {
         Name: "Test Survey Response",
@@ -117,7 +125,9 @@ export default class Survey {
 
     const ownerLookup = await ownerField.getOwnerLookup();
     const outputLookup = await ownerLookup.getOutputLookup();
-    expect(await outputLookup.getlookupText()).toEqual(Queue.Coach_Queue);
+    //TODO: salesforce-pageobjects v1.1.0 force-lookup element does not have method to get Queue text.
+    // comment below method out until bug fix.
+    // expect(await outputLookup.getText()).toEqual(Queue.Coach_Queue);
   }
 
   async verifyAccount() {
@@ -129,9 +139,14 @@ export default class Survey {
       [1, 1, 1]
     );
 
-    const accountLookupField = await accountField.getLookup();
-    const lookupLink = await accountLookupField.getLookupLink();
-    await lookupLink!.click();
+    //TODO: salesforce-pageobjects v1.1.0 RecordLayoutItem does not have force-lookup element.
+    // comment below method out until bug fix.
+    // const accountLookupField = await accountField.getOutputField(ForceLookup);
+    // await accountLookupField.openLookupLink();
+
+    // search by Account OCV Id from global search as a temp solution for Account redirection.
+    // remove after above bug fix
+    await searchRecordInGlobalSearchAndRedirect(this.ocvId!);
 
     const recordPageRoot = await utam.load(RecordPage);
     const accountRecordPage = await recordPageRoot.getAccountRecordPage();

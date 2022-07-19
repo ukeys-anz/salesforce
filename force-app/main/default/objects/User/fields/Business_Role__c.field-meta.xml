@@ -6,7 +6,7 @@
     <description>Placeholder to store actual business role name</description>
     <externalId>false</externalId>
     <label>Business Role</label>
-    <length>100</length>
+    <length>50</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

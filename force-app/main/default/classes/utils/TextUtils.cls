@@ -120,22 +120,4 @@ public with sharing class TextUtils {
     }
     return false;
   }
-
-  /**
-   * @description maskSObjectData(records, fieldApiName) method is used to mask data of a given text field from a list of records.
-   * This method utilizes maskData(input)
-   * @param records list of records that need to mask data
-   * @param fieldApiName API name of the field to be masked. Must be of type String
-   */
-  public static void maskSObjectData(
-    List<SObject> records,
-    String fieldApiName
-  ) {
-    for (SObject obj : records) {
-      Object value = obj.get(fieldApiName);
-      if (value != null && value instanceof String) {
-        obj.put(fieldApiName, maskData(value.toString()));
-      }
-    }
-  }
 }

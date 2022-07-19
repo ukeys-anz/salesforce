@@ -4,6 +4,7 @@
  * @description SICaseActions is class to handle all the Actions related to CMOS Systemic Issues.
  * Set as with sharing because updates on SI may follow updates on complaints, only by SI Team users who have write access to SI.
  */
+@SuppressWarnings('PMD.ApexCRUDViolation,PMD.CyclomaticComplexity')
 public with sharing class SICaseActions {
   /**
    * @description applyDefaults method is called before onBeforeInsert to set the default values for the records.

@@ -92,7 +92,6 @@
           },
           {
             "name": "loadMoreButton",
-            "public": true,
             "selector": {
               "css": "button[class*='load-more']"
             },
@@ -123,6 +122,10 @@
         {
           "element": "loadMoreButton",
           "apply": "click"
+        },
+        {
+          "element": "transactionHistoryRecords",
+          "apply": "waitForVisible"
         }
       ]
     }

@@ -87,7 +87,8 @@ export default class ATM extends Case {
     await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
       [4, 6, 1],
-      [2, 4]
+      [2, 4],
+      "edit"
     );
 
     await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);

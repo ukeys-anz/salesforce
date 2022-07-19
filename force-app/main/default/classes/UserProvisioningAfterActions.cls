@@ -3,7 +3,6 @@
  * @since  04/2020
  * @description UserProvisioningAfterActions class is called in UserTriggerHandler to assign Permission set, Permission Set Group
  * and Public group automatically based on Buesiness Function and Role combinations in User Provisioning Custom Metadata object.
- * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class UserProvisioningAfterActions {

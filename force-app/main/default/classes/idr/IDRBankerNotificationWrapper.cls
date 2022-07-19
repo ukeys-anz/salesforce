@@ -34,6 +34,7 @@ public class IDRBankerNotificationWrapper {
    * @param msgBody custom notification body
    * @param relatedCaseRecord related case record
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public IDRBankerNotificationWrapper(
     Sobject sfObject,
     List<Id> recipientList,

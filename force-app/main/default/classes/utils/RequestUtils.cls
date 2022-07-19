@@ -23,6 +23,7 @@ public with sharing class RequestUtils {
    * @param ocvID Customer OCV ID
    * @param requestMethod HTTP request method
    */
+  @SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
   public static void setAuthHeaders(
     HttpRequest request,
     String ocvID,
@@ -58,6 +59,7 @@ public with sharing class RequestUtils {
    * @param usedInLWC is usen in a LWC component
    * @return String response body
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public static String processRequest(
     HttpRequest request,
     String processName,

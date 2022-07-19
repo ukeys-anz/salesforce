@@ -5,8 +5,7 @@
  */
 @IsTest
 public class TransactionHistoryModelTest {
-  @isTest
-  static void testParse() {
+  static testMethod void testParse() {
     StaticResource sr = [
       SELECT body
       FROM StaticResource

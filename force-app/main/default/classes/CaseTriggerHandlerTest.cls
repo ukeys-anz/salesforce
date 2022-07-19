@@ -1,5 +1,4 @@
-// CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity,PMD.CognitiveComplexity')
 @isTest
 private class CaseTriggerHandlerTest {
   public static Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
@@ -2626,6 +2625,7 @@ private class CaseTriggerHandlerTest {
   }
 
   // Test when an ATM dispute is submitted on insert, a platform event is published
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testDisputesPEGAIntegrationOnInsertWithoutCaseNumber() {
     // GIVEN
@@ -2671,6 +2671,7 @@ private class CaseTriggerHandlerTest {
 
   // Test when an ATM dispute is submitted on insert with CaseNumber__c value provided, a platform event is published
   // with the provided CaseNumber__c value
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testDisputesPEGAIntegrationOnInsertWithCaseNumber() {
     // GIVEN
@@ -2715,6 +2716,7 @@ private class CaseTriggerHandlerTest {
   }
 
   // Test when an ATM dispute is submitted on Update, a platform event is published
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testDisputesPEGAIntegrationOnUpdate() {
     // GIVEN

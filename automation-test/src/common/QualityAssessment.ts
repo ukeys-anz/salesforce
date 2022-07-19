@@ -168,7 +168,7 @@ export default class Quality_Assessment implements IAssignNewOwner {
       await baseCombobox.setTriggerText(this.caseNumber!);
       await browser.pause(2000);
 
-      //TODO: salesforce-pageobjects v1.1.0 baseCombobox has bugs when selecting items.
+      // salesforce-pageobjects v1.1.0 baseCombobox has bugs when selecting items.
       // use below as workaround
       const items = await baseCombobox.getItems();
       await items[1].clickItem();
@@ -178,7 +178,8 @@ export default class Quality_Assessment implements IAssignNewOwner {
     await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
       [1, 3, 2],
-      [2, 8]
+      [2, 8],
+      "edit"
     );
 
     await baseRecordForm.clickFooterButton("Save");
@@ -206,40 +207,100 @@ export default class Quality_Assessment implements IAssignNewOwner {
 
     // select Yes for all below fields to complete evaluation of a Quality Assessment
     // Risk and Compliance Category
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 1, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 1, 1],
+      2,
+      "view"
+    );
 
     // Preparation and Framing
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 3, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 3, 1],
+      2,
+      "edit"
+    );
 
     // Connection and Trust
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 4, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 4, 1],
+      2,
+      "edit"
+    );
 
     // Discover and Align
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 5, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 5, 1],
+      2,
+      "edit"
+    );
 
     // Insights and Focus
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 6, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 6, 1],
+      2,
+      "edit"
+    );
 
     // Actions and Momentum
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 7, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 7, 1],
+      2,
+      "edit"
+    );
 
     // Accountability and Next Steps
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 8, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 8, 1],
+      2,
+      "edit"
+    );
 
     // Energy and Adaptability
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 9, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 9, 1],
+      2,
+      "edit"
+    );
 
     // Finishing Touches
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [4, 10, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [4, 10, 1],
+      2,
+      "edit"
+    );
 
     // Rating
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [3, 1, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [3, 1, 2],
+      2,
+      "edit"
+    );
 
     // Compliance Outcome
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [3, 2, 1], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [3, 2, 1],
+      2,
+      "edit"
+    );
 
     // Interaction Type
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [2, 2, 2], 2);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [2, 2, 2],
+      2,
+      "edit"
+    );
 
     // Status
     if (status === "Referred") {
@@ -247,28 +308,32 @@ export default class Quality_Assessment implements IAssignNewOwner {
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 1],
-        4
+        4,
+        "edit"
       );
 
       // Sub-Status - Compliance Review
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 2],
-        2
+        2,
+        "edit"
       );
     } else {
       // Complete
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 1],
-        5
+        5,
+        "edit"
       );
 
       // Sub-Status - Evaluation Completed
       await commonUtils.selectPicklistOnRecordLayout(
         recordLayout,
         [2, 5, 2],
-        2
+        2,
+        "edit"
       );
     }
 

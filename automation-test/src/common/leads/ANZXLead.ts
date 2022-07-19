@@ -12,10 +12,8 @@ import {
 } from "../../utils/navigationUtils";
 import { App, AppTab } from "../../constants/appsDefinition";
 import ObjectHome from "pageObjects/objectHome";
+import leadData from "../../data/leadData";
 import { loginJSForce } from "../../utils/apiUtils";
-import UAM from "../../common/UAM";
-import { UserRole, Access } from "../../constants/enums";
-import { RecordTypeAPIName } from "../../constants/enums";
 
 const generalComment = `Automation Test General Comment.`;
 
@@ -24,7 +22,7 @@ export default class ANZXLead extends Lead implements IChatter {
     const recordCreationFormRoot = await utam.load(RecordCreationForm);
 
     await recordCreationFormRoot.createNewLead();
-    await browser.pause(5000);
+    await browser.pause(2000);
 
     const lwcRecordCreationFormRoot = await utam.load(LwcRecordCreationForm);
 
@@ -68,7 +66,12 @@ export default class ANZXLead extends Lead implements IChatter {
     await emailInput!.setText(email);
 
     // Set Lead Source
-    await commonUtils.selectPicklistOnRecordLayout(recordLayout, [1, 3, 2], 4);
+    await commonUtils.selectPicklistOnRecordLayout(
+      recordLayout,
+      [1, 3, 2],
+      4,
+      "edit"
+    );
 
     await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);
   }
@@ -167,21 +170,13 @@ export default class ANZXLead extends Lead implements IChatter {
     );
 
     if (conn) {
-      // query Person Account record type and id
-      const personAccountRT = await conn.sobject("RecordType").findOne(
-        {
-          DeveloperName: { $eq: RecordTypeAPIName.Person_Account }
-        },
-        ["Id"]
-      );
-
       // Construct Account payload
       const ocvPayload = {
         FirstName: this.firstName,
         LastName: this.lastName,
         PersonMobilePhone: this.mobile,
         PersonEmail: this.email,
-        RecordTypeId: personAccountRT?.Id,
+        RecordTypeId: leadData.individualAccountRecordTypeId,
         OCV_ID__c: this.ocvId
       };
 
@@ -221,11 +216,20 @@ export default class ANZXLead extends Lead implements IChatter {
   }
 
   async verifyLeadFieldsAreReadOnly(): Promise<void> {
-    const qualityAnalystUAM = new UAM(UserRole.Quality_Analyst);
-    qualityAnalystUAM.verifyLeadAccess(Access.Read_Only);
+    const baseRecordForm = (await leadPageUtils.getRecordForm())!;
+    const recordLayout = await baseRecordForm.getRecordLayout();
+
+    // Mobile Phone Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 1]);
+    // Status Picklist
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
+    // Email Field
+    await commonUtils.editButtonIsNotVisible(recordLayout, [1, 2, 2]);
   }
 
   async receiveLeadViaQualtricsIntegration(): Promise<string | void> {
+    let apiResult = "";
+
     // Log in as Qualtrics Integration User
     const conn = await loginJSForce(
       process.env.QUALTRICS_AUTOMATION_USERNAME!,
@@ -233,14 +237,6 @@ export default class ANZXLead extends Lead implements IChatter {
     );
 
     if (conn) {
-      // query ANZX_Leads record type and id
-      const anzxLeadsRT = await conn.sobject("RecordType").findOne(
-        {
-          DeveloperName: { $eq: RecordTypeAPIName.ANZX_Leads }
-        },
-        ["Id"]
-      );
-
       // Construct lead payload
       const qualtricsPayload = {
         FirstName: this.firstName,
@@ -250,7 +246,7 @@ export default class ANZXLead extends Lead implements IChatter {
         Marketing_Consent__c: true,
         Privacy_Consent__c: true,
         LeadSource: "Marketing",
-        RecordTypeId: anzxLeadsRT?.Id
+        RecordTypeId: process.env.ANZX_LEADS_RECORD_TYPE_ID
       };
 
       const optionHeader = { headers: { "SForce-Auto-Assign": "FALSE" } };
@@ -259,15 +255,17 @@ export default class ANZXLead extends Lead implements IChatter {
         .sobject("Lead")
         .create(qualtricsPayload, optionHeader);
 
-      if (!sr.success) {
-        console.log("Error in creating Lead through jsforce API call.");
-        console.log("Error: ", JSON.stringify(sr.errors));
-      }
+      expect(sr.success);
 
-      if (sr.id) {
-        this.id = sr.id;
-      }
+      apiResult = await sr.id!;
+      return apiResult;
     }
+  }
+
+  async openById(leadId: string) {
+    await browser.pause(1000);
+    await gotoRecordPageById(leadId);
+    await browser.pause(1000);
   }
 
   async verifyQualtricsLead() {

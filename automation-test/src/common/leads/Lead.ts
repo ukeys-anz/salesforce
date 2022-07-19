@@ -10,7 +10,7 @@ export default abstract class Lead {
   protected readonly mobile: string;
   protected readonly email: string;
   protected readonly ocvId: string;
-  public id: string | undefined;
+  protected leadId: string | undefined;
   protected accountId: string | undefined; // converted Account Id
 
   constructor(userRole: UserRole) {

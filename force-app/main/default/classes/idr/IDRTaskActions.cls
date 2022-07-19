@@ -3,9 +3,8 @@
  * @since  02/2021
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
  * @group IDR(Internal Dispute Resolution)
- * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
   private static final String SI_QUEUE_DEVELOPER_NAME = 'Systemic_Issue_Team';
 

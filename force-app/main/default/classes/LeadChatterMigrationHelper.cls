@@ -86,6 +86,7 @@ public with sharing class LeadChatterMigrationHelper {
      * @param convertedLeadsList | List<Lead> | The converted Lead records
      * @return | List<FeedItem> | Returns related Chatter Posts from the converted Leads
      */
+    @SuppressWarnings('PMD.ApexCRUDViolation')
     private List<FeedItem> queryFeedItems(List<Lead> convertedLeadsList) {
       List<FeedItem> chatterToMigrate = new List<FeedItem>();
       return chatterToMigrate = [

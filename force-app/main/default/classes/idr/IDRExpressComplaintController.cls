@@ -7,8 +7,10 @@
 public with sharing class IDRExpressComplaintController {
   /**
    * @description retrieves all active known issue records
+   * Suppressed 'ApexCRUDViolation' as AccessCheckUtil covers the access check
    * @return List<Known_Issues__c> list of known issue records from query
    */
+  @SuppressWarnings('PMD.ApexCRUDViolation')
   @AuraEnabled(cacheable=true)
   public static List<Known_Issues__c> getAllKnownIssues() {
     try {

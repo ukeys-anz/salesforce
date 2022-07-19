@@ -45,6 +45,7 @@ public with sharing class IDRPendCaseTaskRemindersBatch implements Database.Batc
    * @description To execute any post processing steps
    * @param bc Database.BatchableContext
    */
+  @SuppressWarnings('PMD.EmptyStatementBlock')
   public void finish(Database.BatchableContext bc) {
     System.debug(LoggingLevel.debug, NO_POST_PROCESSING_STEPS_MSG);
   }

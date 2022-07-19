@@ -87,10 +87,7 @@ public with sharing class ContentDocumentBatch implements Database.Batchable<sOb
    * @param lstCases original scope List of Cases
    * @param mpCaseId2Documents ContentDocumentLink records arranged by CaseId
    */
-  private void buildCSV(
-    List<Case> lstCases,
-    Map<Id, List<ContentDocumentLink>> mpCaseId2Documents
-  ) {
+  private void buildCSV(List<Case> lstCases, Map<Id, List<ContentDocumentLink>> mpCaseId2Documents) {
     Map<Id, Case> mpCaseId2Case = new Map<Id, Case>();
     for (Case oCase : lstCases) {
       if (mpCaseId2Documents.containsKey(oCase.Id)) {
@@ -104,24 +101,24 @@ public with sharing class ContentDocumentBatch implements Database.Batchable<sOb
       lstContentDocuments = mpCaseId2Documents.get(idCase);
       for (ContentDocumentLink oLink : lstContentDocuments) {
         lstOutputLines.add(
-          oCase2.CaseNumber +
-          ',' +
-          oCase2.Status +
-          ',"' +
-          oCase2.ClosedDate +
-          '","' +
-          oLink.ContentDocument.Title +
-          '"' +
-          ',"' +
-          oLink.ContentDocument.CreatedDate +
-          '","' +
-          oLink.ContentDocument.CreatedBy.Name +
-          '"' +
-          ',,,"' +
-          oLink.ContentDocument.Owner.Name +
-          '","' +
-          oLink.ContentDocument.FileType +
-          '"'
+                oCase2.CaseNumber +
+                        ',' +
+                        oCase2.Status +
+                        ',"' +
+                        oCase2.ClosedDate +
+                        '","' +
+                        oLink.ContentDocument.Title +
+                        '"' +
+                        ',"' +
+                        oLink.ContentDocument.CreatedDate +
+                        '","' +
+                        oLink.ContentDocument.CreatedBy.Name +
+                        '"' +
+                        ',,,"' +
+                        oLink.ContentDocument.Owner.Name +
+                        '","' +
+                        oLink.ContentDocument.FileType +
+                        '"'
         );
       }
     }

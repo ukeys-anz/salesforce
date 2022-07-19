@@ -3,6 +3,7 @@
  * @since  02/2020
  * @description UserProvisioningCommonActions class contains the common set of methods used for User Provisioning.
  */
+@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class UserProvisioningCommonActions {
   /**
    * @description This function is to check if the user business function and business role is not empty.

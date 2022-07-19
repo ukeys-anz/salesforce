@@ -7,38 +7,22 @@ then
 fi
 
 npm install
-npm install yarn
+ls -al
 
 # below code is used for debugging network traffic
 # sudo tcpdump -s 65535 -w out.pcap &
 
 # Start chromedriver
 echo "START CHROMEDRIVER"
-echo "=================="
-echo ""
 chromedriver --port=9515 --log-path=/app/chromedriver.log &
 sleep 5
 ps ax
 netstat -an
-echo ""
-
 # Build ts and utam
 echo "BUILD THE TESTS"
-echo "=================="
-echo ""
-npm run build
-echo ""
+npm run-script build:utam
+npm run-script build:ts
 
 # Run test scripts
 echo "RUN WDIO TEST"
-echo "=================="
-echo ""
-npm run test
-echo ""
-
-# Generate test report
-echo "GENERATE ALLURE REPORT"
-echo "=================="
-echo ""
-npm run result:generate
-echo ""
+npx wdio run wdio.conf.js

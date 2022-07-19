@@ -3,6 +3,7 @@
  * @since 2021
  * @description CardTempLockController is used to handle the temporary card block with the Card Temp Block LWC
  */
+@SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
 public with sharing class CardTempLockController {
   /**
    * @description  The lockCard(cardNumber, ocvId) is the method to make the Http callout to Mulesoft to temporarily block the card.

@@ -39,21 +39,31 @@ export const getFieldFromRecordLayout = async (
 export const selectPicklistOnRecordLayout = async (
   recordLayout: RecordLayout,
   fieldSectionIndex: FieldSectionIndex,
-  picklistOptionIndexRange: PicklistOptionIndexRange
+  picklistOptionIndexRange: PicklistOptionIndexRange,
+  currentLayoutMode?: "view" | "edit"
 ): Promise<void> => {
   const field = await getFieldFromRecordLayout(recordLayout, fieldSectionIndex);
 
-  // scroll current field to window (viewport) center
   const fieldRoot = await field.getRoot();
   await fieldRoot.scrollToCenter();
 
-  // if is output field, click inline edit button
-  // otherwise it's an input field, which is already in edit mode
-  if (!(await field.isInputField())) {
+  //TODO: salesforce-pageobjects v1.1.0 has a bug with getInlineEditButton
+  // comment below line out and refactor code till the bug fix
+
+  if (currentLayoutMode !== "edit") {
     await field.edit();
     await browser.pause(5000);
   }
 
+  /** 
+  const fieldInlineEditButton = await field.getInlineEditButton();
+
+  // decide if it's in view mode or creation mode
+  if (fieldInlineEditButton) {
+    await fieldInlineEditButton.click();
+    await browser.pause(2000);
+  }
+  */
   // click picklist and get selection items list
   const recordPicklist = await field.getRecordPicklist();
   const formPicklist = await recordPicklist!.getFormPicklist();
@@ -259,7 +269,7 @@ export const openListViewByIndex = async (index: number) => {
 export const openFirstRecordInListView = async () => {
   const objectHomeRoot = await utam.load(ObjectHome);
   await objectHomeRoot.openFirstRow();
-  await browser.pause(5000);
+  await browser.pause(1000);
 };
 
 export const editButtonIsNotVisible = async (

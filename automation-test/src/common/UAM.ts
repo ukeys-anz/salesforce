@@ -375,28 +375,4 @@ export default class UAM {
 
     await recordPageDocument.exitFrame();
   }
-
-  /**
-   * @description check if user has record access by checking if the Edit button present
-   * @param accessLevel
-   */
-  async verifyLeadAccess(accessLevel: AccessLevel): Promise<void> {
-    // load Lead flexi page
-    const recordPageRoot = await utam.load(RecordPage);
-    const leadRecordPage = await recordPageRoot.getLeadRecordPage();
-
-    const highlightsPanel = await leadRecordPage.getHighlightsPanel();
-    const actionsRibbon = await highlightsPanel.getActions();
-
-    // verify there's no Edit button on Highlights Panel
-    const hasEditButton = await actionsRibbon.containsElement(
-      utam.By.css("runtime_platform_actions-action-renderer[title='Edit']")
-    );
-
-    if (accessLevel === Access.Read_Only) {
-      expect(hasEditButton).toBeFalsy();
-    } else if (accessLevel === Access.Edit) {
-      expect(hasEditButton).toBeTruthy();
-    }
-  }
 }

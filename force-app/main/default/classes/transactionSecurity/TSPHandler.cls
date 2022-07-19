@@ -2,7 +2,9 @@
  * @author Farid Masjedi
  * @since Nov 2021
  * @description Transaction security policy to block/notify different events and according different conditions
+ * Point: `PMD.ApexCRUDViolation` To get user record regardless of the executing user permissions
  */
+@SuppressWarnings('PMD.AvoidGlobalModifier, PMD.ApexCRUDViolation')
 global with sharing class TSPHandler implements TxnSecurity.EventCondition {
   /**
    * @description Used to check what is the event that has been triggered and

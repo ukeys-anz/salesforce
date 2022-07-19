@@ -19,6 +19,7 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
   /**
    * @description  Mask the comments where applicable.
    */
+  @SuppressWarnings('PMD.CyclomaticComplexity')
   public override void onApplyDefaults() {
     List<Id> parentIdList = new List<Id>();
     for (FeedComment record : (List<FeedComment>) records) {

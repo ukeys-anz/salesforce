@@ -92,7 +92,8 @@ export default class DirectEntry extends Case {
     await commonUtils.selectPicklistOnRecordLayout(
       recordLayout,
       [7, 6, 1],
-      [2, 4]
+      [2, 4],
+      "edit"
     );
 
     await commonUtils.clickFormFooterButtonByTitle("Save", baseRecordForm);

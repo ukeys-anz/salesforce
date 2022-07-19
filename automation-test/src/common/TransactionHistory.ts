@@ -87,11 +87,7 @@ export default class TransactionHistory {
     ).length;
 
     // click load more button
-    const loadMoreButton = await finHistoryBoard.getLoadMoreButton();
-
-    if (await loadMoreButton.isPresent()) {
-      await finHistoryBoard.loadMore();
-    }
+    await finHistoryBoard.loadMore();
 
     const recordsAfterLoadMore = (
       await finHistoryBoard.getTransactionHistoryRecords()

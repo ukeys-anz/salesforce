@@ -451,21 +451,6 @@
             <value>Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>RTs_FinCrimeAgents_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>All Cases having Fraud record types, disputes, General Enquiry, Customer Feedback are to be shared with FinCrime Agents with Read only access.</description>
-        <label>RTs-FinCrimeAgents-RO</label>
-        <sharedTo>
-            <role>FinCrime_Agent</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>
         <accessLevel>Edit</accessLevel>

@@ -18,8 +18,7 @@ public with sharing class DisputesValidationTest {
         new Map<String, Object>{
           'FirstName' => 'CoachTest',
           'ProfileId' => profile.Id,
-          'UserRoleId' => coachRole.Id,
-          'Username' => 'This.Is.A@Test.User'
+          'UserRoleId' => coachRole.Id
         }
       );
       insert coach;

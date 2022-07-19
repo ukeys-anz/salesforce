@@ -4,6 +4,7 @@
  * @since 2021
  * @description CreateCommsController is the apex side controller for the CreateCaseComms LWC
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CreateCommsController {
   /**
    * @description The getTemplateList used to fetch availabe templates from IDR_Template_Detail__c .

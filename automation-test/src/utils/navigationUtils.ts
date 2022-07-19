@@ -168,5 +168,5 @@ export const gotoRecordPageById = async (recordId: string): Promise<void> => {
   const recordPageUrl = `${origin}/${recordId}`;
 
   await browser.navigateTo(recordPageUrl);
-  await browser.pause(5000);
+  await browser.pause(3000);
 };

@@ -15,6 +15,7 @@ public with sharing class Lib_HttpCallout {
    * @return `HttpCalloutResponse` response type which handles all callout responses.
    * @description handler to build and send REST requests, and handle response errors
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public HttpCalloutResponse makeRestCallout(
     String endpoint,
     HTTP_METHOD method,

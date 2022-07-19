@@ -3,7 +3,6 @@
  * @author Jasmine Nguyen
  * @since 02/2021
  * @description Helper class for @link GetHelpCaseActions
- * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActionsHelper {
@@ -104,7 +103,6 @@ public with sharing class GetHelpCaseActionsHelper {
       record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
       record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
       record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
       DISPUTE_RT_IDS.contains(record.RecordTypeId)
     ) {
       return true;
@@ -168,6 +166,9 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param bugIdSet a list of cases that we need to check for bugs
    * @return list of reported bugs
    */
+  @SuppressWarnings(
+    'PMD.ApexCRUDViolation'
+  ) // Already check for CRUD permissions in the parent method
   public static List<Reported_Bug__c> getReportedBugs(Set<Id> bugIdSet) {
     return [
       SELECT Id, (SELECT Id FROM Cases__r)
@@ -203,6 +204,9 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param name name of the entitilement
    * @return list of account ids
    */
+  @SuppressWarnings(
+    'PMD.ApexCRUDViolation'
+  ) // Already check for CRUD permission in the parent method
   public static List<Entitlement> getEntitlements(
     List<Id> accountIds,
     String name

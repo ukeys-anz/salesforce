@@ -47,22 +47,4 @@ public with sharing class TextUtilsTest {
       'The reactiveLogging method should return true.'
     );
   }
-
-  @isTest
-  static void testMaskSObjectData() {
-    String inputData = 'A sample text with card 1234-5678-98 , second card 1234-5678-98 and a third 1234-5678 9876 card and a unmasked one too 1234567';
-    String maskedData = TextUtils.maskData(inputData);
-    List<Lead> records = new List<Lead>{
-      new Lead(Description = inputData),
-      new Lead(Description = inputData)
-    };
-    TextUtils.maskSObjectData(records, 'Description');
-    for (Lead record : records) {
-      System.assertEquals(
-        maskedData,
-        record.Description,
-        'Description field from all lead records should be masked'
-      );
-    }
-  }
 }

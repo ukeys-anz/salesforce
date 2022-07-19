@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This metadata contains mapping between following object:
-Lead Response Event (Platform event) and Task
-Lead Response Event (Platform event) and Lead</description>
-    <label>CCRM Lead Response Event Mapping</label>
-    <pluralLabel>CCRM Lead Response Event Mappings</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>

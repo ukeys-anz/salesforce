@@ -3,6 +3,7 @@
  * @since  04/2020
  * @description UserProvisioningBeforeActions class is called in UserTriggerHandler to assign Profile, Role automatically based on Buesiness Function and Role combinations in User Provisioning Custom Metadata object.
  */
+@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class UserProvisioningBeforeActions {
   /**
    * @description This method is called in OnBeforeInsert & OnBeforeUpdate to assign Profile and Role to user record.

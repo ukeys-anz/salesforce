@@ -20,6 +20,7 @@ public class Lib_HttpMockCallout implements HttpCalloutMock {
    * @param responseHeaders
    * @description  Mock constructor
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public Lib_HttpMockCallout(
     Integer code,
     String status,
@@ -41,6 +42,7 @@ public class Lib_HttpMockCallout implements HttpCalloutMock {
    * @param responseHeaders
    * @description Mock constructor
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public Lib_HttpMockCallout(
     Integer code,
     String status,

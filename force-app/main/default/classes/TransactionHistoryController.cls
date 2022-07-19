@@ -4,6 +4,7 @@
  * @since 2020
  * @description TransactionHistoryController is apex side controller for Transaction history LWC
  */
+@SuppressWarnings('PMD.ApexCRUDViolation,PMD.ApexSuggestUsingNamedCred')
 public with sharing class TransactionHistoryController {
   /**
    * @author Jasmine Nguyen

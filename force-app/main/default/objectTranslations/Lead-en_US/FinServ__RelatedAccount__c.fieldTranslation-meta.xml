@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <help><!-- This field associates lead to Customer / Business / CLG upon selection of a record. --></help>
-    <label>Related Party</label>
-    <name>FinServ__RelatedAccount__c</name>
-    <relationshipLabel><!-- Related Leads --></relationshipLabel>
-</CustomFieldTranslation>

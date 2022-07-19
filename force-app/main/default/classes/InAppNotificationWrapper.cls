@@ -33,6 +33,7 @@ public with sharing class InAppNotificationWrapper {
    * @param msgTitle custom notification title
    * @param msgBody custom notification body
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public InAppNotificationWrapper(
     String notificationTypeId,
     String targetObjectId,
@@ -55,6 +56,7 @@ public with sharing class InAppNotificationWrapper {
    * @param msgTitle custom notification title
    * @param msgBody custom notification body
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   public InAppNotificationWrapper(
     String notificationTypeId,
     String targetObjectId,

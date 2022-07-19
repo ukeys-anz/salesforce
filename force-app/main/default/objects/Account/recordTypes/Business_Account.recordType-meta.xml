@@ -2,24 +2,15 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Account</fullName>
     <active>true</active>
-    <compactLayoutAssignment>Business_Compact_Layout</compactLayoutAssignment>
     <label>Organisation</label>
     <picklistValues>
         <picklist>AccountSource</picklist>
         <values>
-            <fullName>ANZ%2Ecom</fullName>
+            <fullName>Advertisement</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Accountant</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Broker</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Referral</fullName>
+            <fullName>Employee Referral</fullName>
             <default>false</default>
         </values>
         <values>
@@ -27,23 +18,35 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>External Seminar</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Go Biz</fullName>
+            <fullName>Partner</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Internal Referral</fullName>
+            <fullName>Public Relations</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Internal Seminar</fullName>
+            <fullName>Seminar - Internal</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Self-Sourced</fullName>
+            <fullName>Seminar - Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Show</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Word of mouth</fullName>
             <default>false</default>
         </values>
     </picklistValues>

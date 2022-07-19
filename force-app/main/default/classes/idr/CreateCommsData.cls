@@ -4,6 +4,7 @@
  * @since 2021
  * @description CreateCommsData is the data class for CreateCaseComms LWC
  */
+@SuppressWarnings('PMD.ExcessiveParameterList')
 public class CreateCommsData {
   @AuraEnabled
   public string fieldLabel;
