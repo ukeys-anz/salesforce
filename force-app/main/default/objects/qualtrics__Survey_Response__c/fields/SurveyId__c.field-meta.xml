@@ -2,9 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SurveyId__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Qualtrics</complianceGroup>
-    <description>The unique customer survey response ID from Qualtrics</description>
-    <externalId>true</externalId>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source - Qualtrics</complianceGroup>
+    <description>The survey Id from Qualtrics</description>
+    <externalId>false</externalId>
     <label>Survey Id</label>
     <length>55</length>
     <required>false</required>
