@@ -77,6 +77,11 @@ public with sharing class GetHelpConstants {
     .get('ANZX_Leads')
     .getRecordTypeId();
 
+  //Lead - ANZx RT Id
+  public static final Id LEAD_GENERAL_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
+    .get('General')
+    .getRecordTypeId();
+
   // Account - Person Account RT Id
   public static final Id ACCOUNT_PERSON_ACCOUNT_RT_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
     .get('PersonAccount')
@@ -85,6 +90,16 @@ public with sharing class GetHelpConstants {
   // Case - Non Customer Complaint
   public static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Non_Customer_Complaint')
+    .getRecordTypeId();
+
+  // Interaction - Appointment Interaction RT Id
+  public static final Id INTERACTION_APPT_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('Appointment')
+    .getRecordTypeId();
+
+  // Interaction - General Interaction RT Id
+  public static final Id INTERACTION_GENERAL_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('General')
     .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';

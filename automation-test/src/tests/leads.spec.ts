@@ -1,12 +1,11 @@
 import Auth from "../common/Auth";
 import {
   navigateToAppAndTab,
-  gotoRecordPageById
+  openRecordPageById
 } from "../utils/navigationUtils";
 import { UserRole } from "../constants/enums";
 import { App, AppTab } from "../constants/appsDefinition";
 import ANZXLead from "../common/leads/ANZXLead";
-import { cleanupTestData } from "../utils/wdioUtils";
 import * as commonUtils from "../utils/commonUtils";
 
 describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
@@ -26,15 +25,11 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     await browser.pause(500);
   });
 
-  after(async (): Promise<void> => {
-    await cleanupTestData(UserRole.Qualtrics_Automation_User, ["Lead"]);
-  });
-
   async function createAndNurtureLeadByRole(role: UserRole): Promise<void> {
     const anzxLead = new ANZXLead(role);
 
     it(`Login as ${role}`, async (): Promise<void> => {
-      await Auth.loginSalesforceAsRole(role);
+      await Auth.loginSalesforceAsRole(anzxLead.userRole!);
     });
 
     it("Go to Coaches Workbench and Leads Tab", async (): Promise<void> => {
@@ -85,7 +80,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
 
     it("Login as Coach", async (): Promise<void> => {
       // login as test user
-      await Auth.loginSalesforceAsRole(UserRole.Coach);
+      await Auth.loginSalesforceAsRole(anzxLead.userRole);
     });
 
     it("Go to Coaches Workbench and Leads Tab", async (): Promise<void> => {
@@ -118,20 +113,18 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   });
 
   describe("AR-11384: Lead creation by Qualtrics Integration", async (): Promise<void> => {
-    const anzxLead = new ANZXLead(UserRole.Coach);
-
-    it("Create Lead Record via Qualtrics Integration", async (): Promise<void> => {
-      await anzxLead.receiveLeadViaQualtricsIntegration()!;
+    const anzxLead = new ANZXLead(UserRole.Coach, {
+      id: process.env.ANZX_LEAD_ID
     });
 
-    it("Go to Lead record", async (): Promise<void> => {
+    it("Go to Lead record created by Qualtrics Integration", async (): Promise<void> => {
       // Login in as a Coach
-      await Auth.loginSalesforceAsRole(UserRole.Coach);
+      await Auth.loginSalesforceAsRole(anzxLead.userRole!);
 
       // Open Lead record by navigating to record page using Id
       // As Lead search results contains Einstein results recommendations
       // Which is not predictable when searching via contact details
-      await gotoRecordPageById(anzxLead.id!);
+      await openRecordPageById(anzxLead.id!);
     });
 
     it("Verify Lead Fields", async (): Promise<void> => {
@@ -145,39 +138,26 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
   });
 
   describe("AR-11386: Lead conversion upon account creation", async (): Promise<void> => {
-    const anzxLead = new ANZXLead(UserRole.Coach);
+    const anzxLead = new ANZXLead(UserRole.Coach, {
+      firstName: process.env.ANZX_LEAD_TO_CONVERT_FIRST_NAME,
+      lastName: process.env.ANZX_LEAD_TO_CONVERT_LAST_NAME,
+      accountId: process.env.ANZX_LEAD_TO_CONVERT_ACCOUNT_ID
+    });
 
     it("Login as Coach", async (): Promise<void> => {
-      await Auth.loginSalesforceAsRole(UserRole.Coach);
+      await Auth.loginSalesforceAsRole(anzxLead.userRole!);
     });
 
     it("Go to Coaches Workbench and Leads Tab", async (): Promise<void> => {
       await navigateToAppAndTab(App.Coaches_Workbench, AppTab.Leads);
     });
 
-    it("Create an ANZX Lead", async (): Promise<void> => {
-      await anzxLead.create();
-    });
-
-    it("Post chatter on Lead", async (): Promise<void> => {
-      await anzxLead.postChatterComment();
-    });
-
-    it("Verify Lead in List View", async (): Promise<void> => {
-      await anzxLead.verifyVisibleInListView(`Today's Leads`, true);
-    });
-
-    // for now just create Account Through UI
-    it("Create Account through API", async (): Promise<void> => {
-      await anzxLead.createAccountFromOCVIntegration();
-    });
-
-    it("Cannot find previously created Lead in List View", async (): Promise<void> => {
+    it("Cannot find converted Lead in List View", async (): Promise<void> => {
       await anzxLead.verifyVisibleInListView(`Today's Leads`, false);
     });
 
     it("Open Account", async (): Promise<void> => {
-      await anzxLead.openAccount();
+      await anzxLead.openConvertedAccount();
     });
 
     it("Verify Chatter Post migrated to Account", async (): Promise<void> => {
@@ -193,7 +173,7 @@ describe("AR-11357: Salesforce Leads", async (): Promise<void> => {
     const anzxLead = new ANZXLead(UserRole.Quality_Analyst);
 
     it("Login as Quality Analyst", async (): Promise<void> => {
-      await Auth.loginSalesforceAsRole(UserRole.Quality_Analyst);
+      await Auth.loginSalesforceAsRole(anzxLead.userRole!);
     });
 
     it("Go to Quality Workbench and Leads Tab", async (): Promise<void> => {

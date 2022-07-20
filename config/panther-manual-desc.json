@@ -45,8 +45,8 @@
       "qualtrics__Date_Responded__c": "Date created",
       "qualtrics__Net_Promoter_Score__c": "Captures the NPS response from the survey",
       "qualtrics__Overall_Satisfaction__c": "Customers overall satisfaction with the product/service topic of the survey",
-      "qualtrics__Q_Recipient_ID__c": "The recipient or the customer ID in Qualtrics",
-      "qualtrics__Q_Survey_ID__c": "The uniique customer survey response ID from Qualtrics"
+      "RecipientId__c": "The recipient or the customer ID in Qualtrics",
+      "SurveyId__c": "The unique customer survey response ID from Qualtrics"
     },
     "Task": {
       "IDR_Pend_Reason__c": "Reason why a case is pending",
@@ -302,6 +302,7 @@
       "IA-2468715": [
         "AccountId",
         "BusinessHoursId",
+        "Campaign_flag__c"
         "CaseNumber",
         "RecordTypeId",
         "SI_Repository_ID__c",

@@ -8,7 +8,7 @@ export default class Auth {
    * @description login Salesforce as test user
    * @param role role of the test user
    */
-  static loginSalesforceAsRole = async (role: string): Promise<void> => {
+  static loginSalesforceAsRole = async (role: UserRole): Promise<void> => {
     if (!process.env.SALESFORCE_LOGIN_URL) {
       console.error("Error: missing SALESFORCE_LOGIN_URL.");
       process.exit(-1);

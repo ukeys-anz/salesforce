@@ -92,6 +92,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Campaign_flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Card_In_Possession_During_Transaction__c</field>
         <readable>true</readable>
     </fieldPermissions>

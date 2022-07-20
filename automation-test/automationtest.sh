@@ -29,11 +29,25 @@ echo ""
 npm run build
 echo ""
 
+# Create test data
+echo "CREATE TEST DATA"
+echo "=================="
+echo ""
+npm run data:create
+echo ""
+
 # Run test scripts
 echo "RUN WDIO TEST"
 echo "=================="
 echo ""
-npm run test
+npm run test:all 
+echo ""
+
+# Delete test data
+echo "DELETE TEST DATA"
+echo "=================="
+echo ""
+npm run data:delete
 echo ""
 
 # Generate test report

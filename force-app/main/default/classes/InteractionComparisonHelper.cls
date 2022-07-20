@@ -14,9 +14,13 @@ public with sharing class InteractionComparisonHelper {
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Interaction> assignedToQueueInteractions = new List<Interaction>();
 
     for (Interaction interact : interactions) {
+      if (interact.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
       if (
         interact.OwnerId != oldInteraction.OwnerId &&
@@ -39,8 +43,12 @@ public with sharing class InteractionComparisonHelper {
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Interaction> noShowInteractions = new List<Interaction>();
     for (Interaction interact : interactions) {
+      if (interact.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       Interaction oldInteraction = (Interaction) Trigger.oldMap
         .get(interact.Id);
       if (
@@ -65,12 +73,15 @@ public with sharing class InteractionComparisonHelper {
     List<Interaction> interactions
   ) {
     List<Interaction> result = new List<Interaction>();
-
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     if (interactions.isEmpty()) {
       return result;
     }
 
     for (Interaction currentInteraction : interactions) {
+      if (currentInteraction.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       if (
         currentInteraction.Status__c != InteractionConstants.CANCELLED_STATUS ||
         !oldMap.containsKey(currentInteraction.Id)
@@ -97,8 +108,12 @@ public with sharing class InteractionComparisonHelper {
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Interaction> acceptedInteractions = new List<Interaction>();
     for (Interaction interact : interactions) {
+      if (interact.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
       if (
         oldInteraction.OwnerId != interact.OwnerId &&
@@ -120,8 +135,12 @@ public with sharing class InteractionComparisonHelper {
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Interaction> rescheduledInteractions = new List<Interaction>();
     for (Interaction interact : interactions) {
+      if (interact.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
       if (
         oldInteraction.Status__c != interact.Status__c &&
@@ -143,8 +162,12 @@ public with sharing class InteractionComparisonHelper {
     Map<Id, SObject> oldMap,
     List<Interaction> records
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Interaction> result = new List<Interaction>();
     for (Interaction currentInteraction : records) {
+      if (currentInteraction.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       if (oldMap.containsKey(currentInteraction.Id)) {
         Interaction oldInteraction = (Interaction) oldMap.get(
           currentInteraction.Id

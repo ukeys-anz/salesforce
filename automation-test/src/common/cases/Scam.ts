@@ -70,7 +70,7 @@ export default class Scam extends Case implements IAssignNewOwner {
   }
 
   async update(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const baseRecordForm = await casePageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Chat Topic ID

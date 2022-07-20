@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR1_Resolution_Referred_To</fullName>
+    <active>true</active>
+    <description>When Resolution is &apos;Referred&apos; then Referred To is mandatory.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+Record_Type__c = &apos;General&apos;,
+ISPICKVAL(Resolution__c, &apos;Referred&apos;),
+ISPICKVAL(Referred_To__c, &apos;&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>Resolution__c</errorDisplayField>
+    <errorMessage>A Referred To selection is required when Resolution is &apos;Referred&apos;.</errorMessage>
+</ValidationRule>

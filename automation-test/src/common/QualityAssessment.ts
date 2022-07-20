@@ -201,7 +201,7 @@ export default class Quality_Assessment implements IAssignNewOwner {
   }
 
   async evaluate(status: "Referred" | "Complete"): Promise<void> {
-    const baseRecordForm = (await qaPageUtils.getRecordForm())!;
+    const baseRecordForm = await qaPageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // select Yes for all below fields to complete evaluation of a Quality Assessment

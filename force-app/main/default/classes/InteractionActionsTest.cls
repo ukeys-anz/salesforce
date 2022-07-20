@@ -135,9 +135,11 @@ public with sharing class InteractionActionsTest {
   static void testFindingInteractionsWithoutMobile() {
     Faker faker = new Faker('AU');
     Interaction interactionWithoutPhoneNumber = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10)
     );
     Interaction interactionWithPhoneNumber = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       Contact_Mobile__c = String.valueOf(faker.randomDecimal(10, 0))
     );
@@ -220,7 +222,7 @@ public with sharing class InteractionActionsTest {
     insert contactRequestList;
 
     List<Interaction> testInteraction = [
-      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, RecordTypeId
       FROM Interaction
     ];
 
@@ -277,6 +279,7 @@ public with sharing class InteractionActionsTest {
 
     for (Interaction oldInteract : testInteraction) {
       Interaction oldInteraction = new Interaction(
+        RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
         Id = oldInteract.Id,
         Status__c = oldInteract.Status__c
       );
@@ -376,7 +379,7 @@ public with sharing class InteractionActionsTest {
     );
 
     Interaction testInteraction = [
-      SELECT Id, Status__c, OwnerId, ContactRequestId__c
+      SELECT Id, Status__c, OwnerId, ContactRequestId__c, RecordTypeId
       FROM Interaction
     ];
 
@@ -426,6 +429,7 @@ public with sharing class InteractionActionsTest {
     System.assertEquals(1, events.size(), 'One event must be created');
 
     Interaction oldInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Id = testInteraction.Id,
       Status__c = testInteraction.Status__c
     );
@@ -474,11 +478,13 @@ public with sharing class InteractionActionsTest {
   static void testDoesntFindNotOrStillCancelledInteractions() {
     Faker faker = new Faker('AU');
     Interaction notCancelledInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       Status__c = InteractionConstants.SCHEDULED_STATUS
     );
 
     Interaction stillCancelledInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       Status__c = InteractionConstants.CANCELLED
     );
@@ -497,6 +503,7 @@ public with sharing class InteractionActionsTest {
     List<Interaction> newInteractions = new List<Interaction>();
     for (Interaction currentInteraction : oldInteractions) {
       Interaction newInteraction = new Interaction(
+        RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
         Name = currentInteraction.Name,
         Id = currentInteraction.Id,
         Status__c = currentInteraction.Status__c
@@ -518,14 +525,10 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testUnassigningInteraction() {
     Faker faker = new Faker('AU');
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
-      .getRecordTypeId();
-
     Interaction testInteraction = new Interaction(
       OwnerId = UserInfo.getUserId(),
       Name = faker.randomString(10),
-      RecordTypeId = appointmentRTID
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID
     );
     insert testInteraction;
 
@@ -535,7 +538,7 @@ public with sharing class InteractionActionsTest {
       Id = testInteraction.Id,
       Status__c = InteractionConstants.UNASSIGNED_STATUS,
       OwnerId = UserInfo.getUserId(),
-      RecordTypeId = appointmentRTID
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID
     );
 
     Map<Id, Interaction> oldMap = new Map<Id, Interaction>();
@@ -652,12 +655,14 @@ public with sharing class InteractionActionsTest {
     Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
 
     Interaction testInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       OwnerId = groupId
     );
     insert testInteraction;
 
     Interaction newInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = testInteraction.Name,
       Id = testInteraction.Id,
       OwnerId = myId
@@ -937,6 +942,7 @@ public with sharing class InteractionActionsTest {
     insert psa;
 
     Interaction interactNew = new Interaction();
+    interactNew.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactNew.Coaching_Summary__c = coachingSummaryList[0].Id;
     String randInteractName = faker.randomString(10);
     interactNew.Name = randInteractName;
@@ -1057,12 +1063,9 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testLeadCreatingOverlappingInteraction() {
     Faker faker = new Faker('AU');
-    Id generalLeadRTID = Schema.sOBjectType.Lead.getRecordTypeInfosByDeveloperName()
-      .get('General')
-      .getRecordTypeId();
     Lead testLead = new Lead(
       LastName = faker.randomString(10),
-      RecordTypeId = generalLeadRTID
+      RecordTypeId = GetHelpConstants.LEAD_GENERAL_RT_ID
     );
     testLead.MobilePhone = String.valueOf(faker.randomDecimal(10, 0));
     insert testLead;
@@ -1130,9 +1133,6 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testCoachCreatingOverlappingInteraction() {
     Faker faker = new Faker('AU');
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
-      .getRecordTypeId();
 
     Account testAccount1 = createTestAccount();
     insert testAccount1;
@@ -1149,7 +1149,7 @@ public with sharing class InteractionActionsTest {
 
     Interaction existingInteraction = new Interaction(
       Name = faker.randomString(10),
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       OwnerId = UserInfo.getUserId(),
@@ -1163,7 +1163,7 @@ public with sharing class InteractionActionsTest {
     Interaction testInteraction2;
     testInteraction2 = new Interaction(
       Name = faker.randomString(10),
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = appointmentDate,
@@ -1192,9 +1192,6 @@ public with sharing class InteractionActionsTest {
   static void testCoachUpdatingOverlappingInteraction() {
     Faker faker = new Faker('AU');
     InteractionActions actions = new InteractionActions();
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
-      .getRecordTypeId();
 
     Account testAccount1 = createTestAccount();
     insert testAccount1;
@@ -1219,7 +1216,7 @@ public with sharing class InteractionActionsTest {
 
     Interaction existingInteraction = new Interaction(
       Name = faker.randomString(10),
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       OwnerId = UserInfo.getUserId(),
@@ -1247,7 +1244,7 @@ public with sharing class InteractionActionsTest {
     Interaction testInteraction2;
     testInteraction2 = new Interaction(
       Name = faker.randomString(10),
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount2.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = appointmentDate,
@@ -1305,15 +1302,12 @@ public with sharing class InteractionActionsTest {
   }
 
   /**
-   * @description testing that a interaction record will have
+   * @description testing that a appointment rt record will have
    * the name populated for manual creations.
    */
   @isTest
-  static void testsetNameOfInteractions() {
+  static void testsetNameOfAppointments() {
     InteractionActions actions = new InteractionActions();
-    Id appointmentRTID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
-      .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
-      .getRecordTypeId();
 
     Account testAccount1 = createTestAccount();
     insert testAccount1;
@@ -1330,7 +1324,7 @@ public with sharing class InteractionActionsTest {
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
     DateTime endDate = appointmentDate.addMinutes(45);
     Interaction newInteraction = new Interaction(
-      RecordTypeId = appointmentRTID,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       Status__c = InteractionConstants.UNASSIGNED_STATUS,
@@ -1404,9 +1398,11 @@ public with sharing class InteractionActionsTest {
     InteractionActions actions = new InteractionActions();
 
     Interaction automatedInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
     );
     Interaction nonAutomatedInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Interaction_Purpose__c = NOT_AUTOMATED_PURPOSE
     );
 

@@ -21,15 +21,10 @@ export const getCaseNumber = async (): Promise<string> => {
   return caseNumber;
 };
 
-export const getRecordForm = async (): Promise<BaseRecordForm | undefined> => {
+export const getRecordForm = async (): Promise<BaseRecordForm> => {
   const detailsTab = await getTabContent("Details");
-
-  if (detailsTab instanceof CaseDetailsTab) {
-    const detailPanel = await detailsTab.getDetailPanel();
-    return detailPanel.getBaseRecordForm();
-  }
-
-  return;
+  const detailPanel = await (detailsTab as CaseDetailsTab).getDetailPanel();
+  return detailPanel.getBaseRecordForm();
 };
 
 export const getTabContent = async (

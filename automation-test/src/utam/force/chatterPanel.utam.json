@@ -28,6 +28,12 @@
       },
       "elements": [
         {
+          "name": "latestPostHeader",
+          "selector": {
+            "css": ".cuf-feedItemHeader"
+          }
+        },
+        {
           "name": "latestPostContent",
           "selector": {
             "css": ".cuf-body .uiOutputText"
@@ -106,6 +112,24 @@
             "args": [
               {
                 "value": "************"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "latestPostHeaderContains",
+      "compose": [
+        {
+          "element": "latestPostHeader",
+          "apply": "getText",
+          "matcher": {
+            "type": "stringContains",
+            "args": [
+              {
+                "name": "content",
+                "type": "string"
               }
             ]
           }

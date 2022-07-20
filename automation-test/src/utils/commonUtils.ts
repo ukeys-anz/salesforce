@@ -119,9 +119,9 @@ export const assignNewOwner = async (
   let baseRecordForm: BaseRecordForm | undefined;
 
   if (sobject === SObject.Case) {
-    baseRecordForm = (await casePageUtils.getRecordForm())!;
+    baseRecordForm = await casePageUtils.getRecordForm();
   } else if (sobject === SObject.Quality_Assessment) {
-    baseRecordForm = (await qaPageUtils.getRecordForm())!;
+    baseRecordForm = await qaPageUtils.getRecordForm();
   }
 
   if (baseRecordForm !== undefined) {
