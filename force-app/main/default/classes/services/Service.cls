@@ -96,10 +96,10 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param cardNumber card number to get blocked
+   * @param cardNumber card number to be locked
    * @param ocvId customer id
    * @return `HttpCalloutResponse` the api response
-   * @description virtual temporarily lock cards api
+   * @description virtual card controls api to temp lock card
    */
   public virtual HttpCalloutResponse lockCard(String cardNumber, String ocvId) {
     return null;
@@ -274,7 +274,7 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
-
+  
   /**
    * @param lookupString from address search bar
    * @return `HttpCalloutResponse` api response
@@ -291,6 +291,28 @@ public with sharing virtual class Service {
    */
   public virtual HttpCalloutResponse getSelectedAddress(
     String encodedAddressId
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @return `HttpCalloutResponse` api response
+   * @description virtual card control list callout
+   */
+  public virtual HttpCalloutResponse getCardControlsList(String ocvId) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param transactionId transaction id
+   * @return `HttpCalloutResponse` api response
+   * @description virtual disputes search tokenized card number callout
+   */
+  public virtual HttpCalloutResponse getTokenizedCardNumber(
+    String ocvId,
+    String transactionId
   ) {
     return null;
   }

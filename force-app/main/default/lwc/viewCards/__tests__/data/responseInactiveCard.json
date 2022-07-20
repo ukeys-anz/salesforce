@@ -1,0 +1,36 @@
+{
+  "cards": [
+    {
+      "name": "ELVA KOELPIN",
+      "tokenized_card_number": "8051997368527878",
+      "isValid": true,
+      "last_4_digits": "0647",
+      "status": "Issued",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390845569"],
+      "eligibilities": [
+        "ELIGIBILITY_APPLE_PAY",
+        "ELIGIBILITY_GOOGLE_PAY",
+        "ELIGIBILITY_SAMSUNG_PAY",
+        "ELIGIBILITY_CARD_ACTIVATION",
+        "ELIGIBILITY_SET_PIN",
+        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
+        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CARD_CONTROLS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": {
+        "applePay": 3
+      },
+      "card_controls_enabled": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+<template>
+  <div class="slds-grid slds-wrap">
+    <template for:each={card.controls} for:item="con">
+      <div key={con.key} class="slds-col slds-size_1-of-2" data-id={con.key}>
+        <template if:true={con.visible}>
+          <div class="slds-p-bottom_medium">
+            <p class="slds-text-title_bold">
+              {con.label}
+              <template if:true={con.tooltip}>
+                <lightning-helptext class="tooltip" content={con.tooltip}>
+                </lightning-helptext>
+              </template>
+            </p>
+            {con.value}
+          </div>
+        </template>
+      </div>
+    </template>
+  </div>
+</template>

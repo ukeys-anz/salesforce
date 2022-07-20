@@ -35,6 +35,7 @@ export SFDX_DOMAIN_RETRY=0
 # user input
 echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
 read -rp "${green}Enter scratch org alias (optional): " scratchorgalias
+read -rp "Is this Scratch Org for Commercial CRM Project? (y/n) " ccrmpartycheck
 read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
 read -rp "Preload CMOS test data (y/n)? " preloadCMOSData
 echoMessageCreator "" $stepNo false
@@ -154,13 +155,6 @@ sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
 echoMessageCreator "" $stepNo false
 ###########################
 
-echoMessageCreator "Import post-deployment plan" $stepNo true
-JOB_START_TIME=$(date +%s)
-sfdx force:data:bulk:upsert --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) ]]; then
-    exit 1
-fi
-JOB_END_TIME=$(date +%s)
 # apply perm sets
 echoMessageCreator "apply customer details perm set" $stepNo true
 sfdx force:user:permset:assign -n Read_Write_Customer_Details 
@@ -199,7 +193,19 @@ y | Y)
 esac
 ###########################
 
+case ${ccrmpartycheck:0:1} in
+y | Y)
+    echoMessageCreator "Pre-loading CCRM Industry data" $stepNo true
+    sfdx force:data:bulk:upsert --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        exit 1
+    fi
 
+    echoMessageCreator "" $stepNo false
+    ;;
+*) echo "${green}Skipping CCRM Industry data preload${reset}" ;;
+esac
+###########################
 
 ALL_END_TIME=$(date +%s)
 echo "${green}"

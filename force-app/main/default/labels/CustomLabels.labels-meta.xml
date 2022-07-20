@@ -196,7 +196,15 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/cards</value>
+        <value>/coach-banking/v1beta1/cards</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Card_Control_List</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Card_Control_List</shortDescription>
+        <value>/coach-banking/v1beta2/cardcontrols</value>
     </labels>
     <labels>
         <fullName>MS_Get_CaseChatChannel</fullName>
@@ -255,12 +263,12 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
     </labels>
     <labels>
-        <fullName>MS_Temp_Block_Card</fullName>
+        <fullName>MS_Temp_Lock_Card</fullName>
         <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>MS_Temp_Block_Card</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+        <shortDescription>MS_Temp_Lock_Card</shortDescription>
+        <value>/coach-banking/v1beta2/cardcontrols/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Financial_Accounts</fullName>
@@ -269,6 +277,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_Financial_Accounts</shortDescription>
         <value>/coach-banking/v1beta1/accounts</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Tokenized_Card</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Tokenized_Card</shortDescription>
+        <value>/coach-banking/v1/disputes/transactions/</value>
     </labels>
     <labels>
         <fullName>MS_Get_StatementList</fullName>
