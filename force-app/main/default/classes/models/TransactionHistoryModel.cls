@@ -332,6 +332,8 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     public String method;
     @AuraEnabled
     public String wallet;
+    @AuraEnabled
+    public String last_four_digits;
   }
 
   /**

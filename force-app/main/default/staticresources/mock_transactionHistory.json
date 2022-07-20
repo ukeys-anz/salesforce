@@ -159,6 +159,7 @@
         "type": "TRANSACTION_TYPE_DEPOSIT_WITHDRAWL",
         "cash": {
           "card_scheme": "CARD_SCHEME_MASTERCARD",
+          "last_four_digits": "7265",
           "method": "CARD_METHOD_SWIPE",
           "wallet": "CARD_WALLET_OTHER_NFC_WALLET"
         },
