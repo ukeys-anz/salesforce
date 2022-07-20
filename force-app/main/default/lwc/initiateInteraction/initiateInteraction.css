@@ -16,3 +16,6 @@
   padding-left: 5%;
   padding-right: 5%;
 }
+.lightning-textarea {
+  height: 13em;
+}

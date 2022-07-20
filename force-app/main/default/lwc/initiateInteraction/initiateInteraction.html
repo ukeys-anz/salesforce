@@ -1,6 +1,6 @@
 <template>
   <div class="slds-card">
-    <div class="slds-tabs_default">
+    <div class="slds-tabs_default slds-tabs_medium">
       <template if:false={loading}>
         <ul class="slds-tabs_default__nav" role="tablist">
           <template if:true={contactCustomer}>
@@ -78,8 +78,11 @@
         <template if:true={showDialTab}>
           <div>
             <div class="slds-m-around-small dial-tab">
-              <label class="slds-form-element__label"> Enter a number </label>
+              <label class="slds-form-element__label slds-p-top_small">
+                Enter a number
+              </label>
               <lightning-helptext
+                class="vertical-align"
                 content="Calling internationally? Ensure you use the country code in E.146 formatting."
               ></lightning-helptext>
               <lightning-input
@@ -91,7 +94,9 @@
                 min-length="2"
                 max-length="15"
               ></lightning-input>
-              <div class="slds-m-bottom_medium slds-align_absolute-center">
+              <div
+                class="slds-m-bottom_medium slds-p-top_small slds-align_absolute-center"
+              >
                 * Let the customer know we record our calls
               </div>
               <div class="slds-m-bottom_x-small slds-align_absolute-center">
@@ -116,11 +121,11 @@
               <div class="slds-m-top_medium">
                 <div class="slds-grid">
                   <div
-                    class="slds-col slds-size_1-of-7 slds-p-bottom_small slds-align_absolute-center"
+                    class="slds-col slds-size_1-of-8 slds-p-bottom_small slds-align_absolute-left"
                   >
                     <lightning-icon icon-name="utility:chat"> </lightning-icon>
                   </div>
-                  <div class="slds-col slds-size_6-of-7">
+                  <div class="slds-col slds-size_7-of-8">
                     <b>Send a message</b><br />
                     <label class="slds-form-element__label">
                       Start a conversation with the first outbound message.<br />
@@ -137,7 +142,7 @@
                 message-when-too-long="A maximum of 1000 characters are allowed"
                 message-when-value-missing="Please enter a valid message"
               ></lightning-textarea>
-              <div class="slds-m-around_small">
+              <div class="slds-m-top_small slds-m-bottom_small">
                 <div class="slds-grid slds-gutters">
                   <div class="slds-col slds-size_1-of-2">
                     <lightning-button

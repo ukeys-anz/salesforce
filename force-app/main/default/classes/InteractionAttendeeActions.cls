@@ -4,9 +4,7 @@
  * @description class for Interaction Attendee Actions
  */
 
-@SuppressWarnings(
-  'PMD.ApexCRUDViolation, PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity'
-)
+@SuppressWarnings('PMD.ApexCRUDViolation')
 public with sharing class InteractionAttendeeActions {
   public static final String DUPLICATE_ATTENDEE_ERROR = 'Error occurred while adding attendee. This attendee already exists for this interaction.';
   /**
