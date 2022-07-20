@@ -70,6 +70,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Attendees_and_Roles__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Authentication_Method__c</field>
         <readable>true</readable>
@@ -167,6 +172,10 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Interaction_Summary__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Interaction.Is_User_Attendee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
