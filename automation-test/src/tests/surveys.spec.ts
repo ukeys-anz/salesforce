@@ -1,8 +1,6 @@
 import Survey from "../common/Survey";
 import Auth from "../common/Auth";
 import { UserRole } from "../constants/enums";
-import { APIResult } from "../types/survey";
-import { cleanupTestData } from "../utils/wdioUtils";
 
 describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
   // pre test steps
@@ -22,23 +20,20 @@ describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
   });
 
   describe("AR-13669: Create Survey Response and Automatic Case Creation", async (): Promise<void> => {
-    const survey = new Survey();
-    let apiResult: APIResult | void;
-
-    it("Create Survey Record through API", async (): Promise<void> => {
-      apiResult = await survey.createSurveyResponse()!;
+    const survey = new Survey({
+      id: process.env.SURVEY_ID,
+      caseId: process.env.SURVEY_CASE_ID
     });
 
-    it("Go to Auto Created Case", async (): Promise<void> => {
+    it("Go to Case Record Created from Survey Response", async (): Promise<void> => {
       // Login as test user
       await Auth.loginSalesforceAsRole(UserRole.Coach);
 
       // Open case record
-      await survey.openCase(apiResult!.CaseId);
+      await survey.openCase(survey.caseId!);
     });
 
     it("Verify Case Fields", async (): Promise<void> => {
-      // Verify case fields
       await survey.verifyCase();
     });
 
@@ -47,18 +42,11 @@ describe("AR-11402: Salesforce NPS", async (): Promise<void> => {
     });
 
     it("Verify Open Survey Response from Account Page", async (): Promise<void> => {
-      await survey.verifySurveyResponse(apiResult!.SurveyResId);
+      await survey.verifySurveyResponse(survey.id!);
     });
 
     it("Logout", async (): Promise<void> => {
       await Auth.logoutSalesforce();
     });
-  });
-
-  after(async (): Promise<void> => {
-    await cleanupTestData(UserRole.Qualtrics_Automation_User, [
-      "Case",
-      "qualtrics__Survey_Response__c"
-    ]);
   });
 });

@@ -80,7 +80,7 @@ export default class GeneralEnquiry
   }
 
   async update(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const baseRecordForm = await casePageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Priority
@@ -95,36 +95,30 @@ export default class GeneralEnquiry
   async updateCallDetails(): Promise<void> {
     const callsTab = await casePageUtils.getTabContent("Calls");
 
-    if (callsTab instanceof CaseCallsTab) {
-      const randomCallSID = `CA${faker.finance.account(32)}`;
-      const randomAuthMethodIndex = faker.datatype.number({ min: 2, max: 4 });
+    const randomCallSID = `CA${faker.finance.account(32)}`;
+    const randomAuthMethodIndex = faker.datatype.number({ min: 2, max: 4 });
 
-      const caseLogACall = await callsTab.getCaseLogACall();
-      await caseLogACall.logACall(randomCallSID, randomAuthMethodIndex);
-      await browser.pause(2000);
-    }
+    const caseLogACall = await (callsTab as CaseCallsTab).getCaseLogACall();
+    await caseLogACall.logACall(randomCallSID, randomAuthMethodIndex);
+    await browser.pause(2000);
   }
 
   async postChatterComment(): Promise<void> {
     const caseNotesTab = await casePageUtils.getTabContent("Case Notes");
 
-    if (caseNotesTab instanceof CaseNotesTab) {
-      const chatterPanel = await caseNotesTab.getChatterPanel();
-      await chatterPanel.clickShareButton();
-      await browser.pause(2000);
-      await chatterPanel.postComment(generalComment);
-    }
+    const chatterPanel = await (caseNotesTab as CaseNotesTab).getChatterPanel();
+    await chatterPanel.clickShareButton();
+    await browser.pause(2000);
+    await chatterPanel.postComment(generalComment);
   }
 
   async verifyChatterComment(): Promise<void> {
     const caseNotesTab = await casePageUtils.getTabContent("Case Notes");
 
-    if (caseNotesTab instanceof CaseNotesTab) {
-      const chatterPanel = await caseNotesTab.getChatterPanel();
-      expect(
-        await chatterPanel.latestPostContentEquals(generalComment)
-      ).toEqual(true);
-    }
+    const chatterPanel = await (caseNotesTab as CaseNotesTab).getChatterPanel();
+    expect(await chatterPanel.latestPostContentEquals(generalComment)).toEqual(
+      true
+    );
   }
 
   async close(): Promise<void> {

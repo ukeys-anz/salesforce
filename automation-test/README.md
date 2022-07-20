@@ -116,7 +116,7 @@
 
 4. Change wdio.conf.js.
 
-   4.1 edit `goog:chromeoptions` and comment headless from the argument list, leave other arguments as is.
+   4.1 Edit `goog:chromeoptions` and comment headless from the argument list, leave other arguments as is.
 
    ```txt
    "goog:chromeOptions": {
@@ -126,7 +126,7 @@
    }
    ```
 
-   4.2 comment out proxy setting. This part is required for running in harness.
+   4.2 Comment out proxy setting. This part is required for running in harness.
 
    ```text
    // proxy: {
@@ -135,19 +135,6 @@
    //   sslProxy: "http-forward-proxy:3128",
    //   noProxy: "localhost,127.0.0.1"
    // }
-   ```
-
-   4.3 comment out other spec files and only leave the ones you want to run locally. For exmaple, blow only qualityAssesments test will be invoked.
-
-   ```text
-   specs: [
-      // [
-      //   "./build/tests/cases/*.spec.js",
-      //   "./build/tests/disputes.spec.js",
-      //   "./build/tests/digitalWallets.spec.js",
-      "./build/tests/qualityAssessments.spec.js"
-      // ]
-   ],
    ```
 
 5. Build locally
@@ -174,17 +161,41 @@
    tsc -w
    ```
 
-8. start chromedriver
+8. Start chromedriver in a different terminal
 
    ```bash
    chromedriver
    ```
 
-9. run test
+9. Run one specific test locally
 
    ```bash
-   npm run test
+   npm run test cases
    ```
+
+   OR
+
+   ```bash
+   npm run test knowledge
+   ```
+
+10. Run test in local Docker container
+
+    (Note: Some tests, e.g Leads and Surveys, depend on dynamically created test data. Run these tests in a container to have those test data created beforehand. You can optionally modify the wdio to run a subset of tests.)
+
+    ```bash
+    docker-compose up
+    ```
+
+## Tests of integration scenario
+
+- We use [jsforce](https://jsforce.github.io/) to create test data in some scenarios in which requires daynamic data or relies on Salesforce triggers to complete subsequent processes, and delete all test data after all tests done.
+
+- A `TestDataService` class has been created to centralize the test data provisioning and deletion processes.
+
+- The `TestDataService` also helps to avoid the proxy errors raised from the conflicts between the WebdriverIO and ANZ Squid Proxy
+
+### TestDataService
 
 ## Resources
 

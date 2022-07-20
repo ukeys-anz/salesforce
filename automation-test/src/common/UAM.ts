@@ -253,7 +253,7 @@ export default class UAM {
     const transactionHistoryRecord =
       await dispute.getTransactionHistoryRecordByType(transactionType);
 
-    const recordRoot = await transactionHistoryRecord!.getRoot();
+    const recordRoot = await transactionHistoryRecord.getRoot();
     await recordRoot.scrollToCenter();
     await transactionHistoryRecord!.clickDropdown();
 
