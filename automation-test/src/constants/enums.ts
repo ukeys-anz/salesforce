@@ -39,6 +39,11 @@ export const enum SObjectAPIName {
   Lead = "Lead"
 }
 
+export const enum RecordTypeAPIName {
+  ANZX_Leads = "ANZX_Leads",
+  Person_Account = "PersonAccount"
+}
+
 export const enum OwnerType {
   Users = "Users",
   Queues = "Queues"

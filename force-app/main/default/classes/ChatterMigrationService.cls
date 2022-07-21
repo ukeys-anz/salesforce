@@ -4,8 +4,6 @@
  * @description Provides the Migration service class for use with the API Controller and the LWC
  */
 
-@SuppressWarnings('PMD.ApexCRUDViolation')
-//Supressing warning in this function because we are checking for CRUD but PMD doesn't want to validate it. The HasPermission Method will check for CRUD - Mo 17/02/22
 public with sharing class ChatterMigrationService {
   /**
    * @description Clones all Chatter Feed from the VictimId to the SurvivorId

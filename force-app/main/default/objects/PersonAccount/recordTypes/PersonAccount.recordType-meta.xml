@@ -7,11 +7,19 @@
     <picklistValues>
         <picklist>AccountSource</picklist>
         <values>
-            <fullName>Advertisement</fullName>
+            <fullName>ANZ%2Ecom</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Employee Referral</fullName>
+            <fullName>Accountant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Referral</fullName>
             <default>false</default>
         </values>
         <values>
@@ -19,35 +27,23 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>External Seminar</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Partner</fullName>
+            <fullName>Go Biz</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Public Relations</fullName>
+            <fullName>Internal Referral</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Seminar - Internal</fullName>
+            <fullName>Internal Seminar</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Seminar - Partner</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trade Show</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Web</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Word of mouth</fullName>
+            <fullName>Self-Sourced</fullName>
             <default>false</default>
         </values>
     </picklistValues>

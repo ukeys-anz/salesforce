@@ -13,7 +13,6 @@
     <type>Picklist</type>
     <valueSet>
         <controllingField>Type</controllingField>
-        <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>

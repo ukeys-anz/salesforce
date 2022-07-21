@@ -28,8 +28,6 @@ function ctrl_c() {
 rm -rf ./artefact
 rm -rf ./tmp
 
-# Using SOAP over REST is much faster for scratch org creations while pushing content.
-sfdx force:config:set restDeploy=false
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
@@ -37,6 +35,7 @@ export SFDX_DOMAIN_RETRY=0
 # user input
 echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
 read -rp "${green}Enter scratch org alias (optional): " scratchorgalias
+read -rp "Is this Scratch Org for Commercial CRM Project? (y/n) " ccrmpartycheck
 read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
 read -rp "Preload CMOS test data (y/n)? " preloadCMOSData
 echoMessageCreator "" $stepNo false
@@ -194,7 +193,19 @@ y | Y)
 esac
 ###########################
 
+case ${ccrmpartycheck:0:1} in
+y | Y)
+    echoMessageCreator "Pre-loading CCRM Industry data" $stepNo true
+    sfdx force:data:bulk:upsert --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        exit 1
+    fi
 
+    echoMessageCreator "" $stepNo false
+    ;;
+*) echo "${green}Skipping CCRM Industry data preload${reset}" ;;
+esac
+###########################
 
 ALL_END_TIME=$(date +%s)
 echo "${green}"

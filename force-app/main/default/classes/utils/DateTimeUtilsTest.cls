@@ -157,4 +157,42 @@ public with sharing class DateTimeUtilsTest {
       'UTC Times match.'
     );
   }
+
+  @IsTest
+  static void testGetWeekday() {
+    Date friday = Date.newInstance(2022, 6, 17);
+    System.assertEquals(
+      Date.newInstance(2022, 6, 20),
+      DateTimeUtils.getWeekday(friday, true, true),
+      'Next expiry date from Friday should be Monday'
+    );
+
+    Date monday = Date.newInstance(2022, 6, 13);
+    System.assertEquals(
+      Date.newInstance(2022, 6, 15),
+      DateTimeUtils.getWeekday(monday, true, true),
+      'Next expiry date from Monday should be Wednesday'
+    );
+
+    Date thursday = Date.newInstance(2022, 6, 16);
+    System.assertEquals(
+      Date.newInstance(2022, 6, 17),
+      DateTimeUtils.getWeekday(thursday, true, true),
+      'Next expiry date from Thursday should be Friday'
+    );
+
+    Date saturday = Date.newInstance(2022, 6, 18);
+    System.assertEquals(
+      Date.newInstance(2022, 6, 20),
+      DateTimeUtils.getWeekday(saturday, false, false),
+      'Next expiry date from Saturday should be Monday'
+    );
+
+    Date sunday = Date.newInstance(2022, 6, 19);
+    System.assertEquals(
+      Date.newInstance(2022, 6, 20),
+      DateTimeUtils.getWeekday(sunday, false, false),
+      'Next expiry date from Sunday should be Monday'
+    );
+  }
 }

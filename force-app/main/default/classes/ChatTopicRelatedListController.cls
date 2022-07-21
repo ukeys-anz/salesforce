@@ -4,7 +4,6 @@
  * @lastModified: March 2021
  * @description ChatTopicRelatedListController is the apex side controller for the chatTopicRelatedList LWC
  */
-@SuppressWarnings('PMD.ApexSuggestUsingNamedCred')
 public with sharing class ChatTopicRelatedListController {
   public static AccountQueryHelper accountHelper = new AccountQueryHelper();
   public static CaseQueryHelper caseHelper = new CaseQueryHelper();

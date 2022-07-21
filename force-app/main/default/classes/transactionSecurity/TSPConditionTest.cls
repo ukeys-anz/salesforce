@@ -104,11 +104,14 @@ public with sharing class TSPConditionTest {
     insert thisUser;
     System.runAs(thisUser) {
       //WHEN the user want to query ReportAnomalyEvent
-      ReportAnomalyEvent testEvent = new ReportAnomalyEvent(Score=0);
+      ReportAnomalyEvent testEvent = new ReportAnomalyEvent(Score = 0);
 
       //THEN the condition should be false
       Boolean result = TSPCondition.condition('Integration User', testEvent);
-      System.assert(!result, 'Should return false as the score is less than 50');
+      System.assert(
+        !result,
+        'Should return false as the score is less than 50'
+      );
     }
   }
 
@@ -119,7 +122,7 @@ public with sharing class TSPConditionTest {
     insert thisUser;
     System.runAs(thisUser) {
       //WHEN the user want to query ReportAnomalyEvent
-      ReportAnomalyEvent testEvent = new ReportAnomalyEvent(Score=99.9);
+      ReportAnomalyEvent testEvent = new ReportAnomalyEvent(Score = 99.9);
 
       //THEN the condition should be false
       Boolean result = TSPCondition.condition('Integration User', testEvent);

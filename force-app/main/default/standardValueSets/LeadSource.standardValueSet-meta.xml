@@ -12,6 +12,36 @@
         <label>Employee Referral</label>
     </standardValue>
     <standardValue>
+        <fullName>ANZ.com</fullName>
+        <default>false</default>
+        <label>ANZ.com</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Go Biz</fullName>
+        <default>false</default>
+        <label>Go Biz</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Broker</fullName>
+        <default>false</default>
+        <label>Broker</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Accountant</fullName>
+        <default>false</default>
+        <label>Accountant</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Customer Referral</fullName>
+        <default>false</default>
+        <label>Customer Referral</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Internal Referral</fullName>
+        <default>false</default>
+        <label>Internal Referral</label>
+    </standardValue>
+    <standardValue>
         <fullName>External Referral</fullName>
         <default>false</default>
         <label>External Referral</label>
@@ -55,6 +85,21 @@
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Self-Sourced</fullName>
+        <default>false</default>
+        <label>Self-Sourced</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Internal Seminar</fullName>
+        <default>false</default>
+        <label>Internal Seminar</label>
+    </standardValue>
+    <standardValue>
+        <fullName>External Seminar</fullName>
+        <default>false</default>
+        <label>External Seminar</label>
     </standardValue>
     <standardValue>
         <fullName>Store</fullName>

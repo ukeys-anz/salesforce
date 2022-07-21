@@ -75,9 +75,6 @@ public class PicklistUtil {
    * @param controlValues list of picklist entry objects in the controlling field
    * @return `Map<String, List<String>>` a map of dependent picklist value, to a list of controlling values
    */
-  // Suppressing cyclomatic complexity as algorithm was re-used and we want to leave it in one place
-  // PDR - https://docs.salesforce.apps.x.gcpnp.anz/docs/governance/platform-decision-register/pdr015-picklist-dependency/
-  @SuppressWarnings('PMD.CyclomaticComplexity')
   private static Map<String, List<String>> assignDependentValues(
     List<Schema.PicklistEntry> dependentValues,
     List<Schema.PicklistEntry> controlValues

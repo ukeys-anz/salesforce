@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Business_Admin_RW_ANZX</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides read/write access to coaching summary for business admin role</description>
+        <label>Business Admin RW ANZX</label>
+        <sharedTo>
+            <role>Business_Admin</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Coach_Lead_RW_ANZX</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides Read/Write access to Coach Lead for Coaching Summary records</description>
+        <label>Coach Lead RW ANZX</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Coach_RW_ANZX</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides read/write access to Coaching summary for Coach role.</description>
+        <label>Coach RW ANZX</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>QA_RW_ANZX</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides Read access to Coaching summary record for QA Role.</description>
+        <label>QA R ANZX</label>
+        <sharedTo>
+            <role>Quality_Analyst</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
