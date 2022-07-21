@@ -1176,6 +1176,7 @@
         "qualtrics__Overall_Satisfaction__c",
         "qualtrics__Q_Recipient_ID__c",
         "qualtrics__Q_Survey_ID__c",
+        "Survey_Name__c",
         "Survey_Trigger__c",
         "Survey_Variation__c",
         "UUID__c"
