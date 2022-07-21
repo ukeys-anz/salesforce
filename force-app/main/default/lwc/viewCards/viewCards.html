@@ -90,7 +90,7 @@
                         label={btn.label}
                         slot="actions"
                         data-button="card-button"
-                        data-card-number={card.tokenizedCardNumber}
+                        data-card-number={card.tokenized_card_number}
                         disabled={btn.disable}
                         onclick={handleActionAccordingClickedButton}
                         variant={btn.variant}
@@ -129,7 +129,7 @@
                                 class="slds-text-body_regular"
                                 data-test-id="last-4-digits"
                               >
-                                {card.last4Digits}
+                                {card.last_4_digits}
                               </p>
                             </div>
                           </div>
@@ -165,7 +165,7 @@
                                 class="slds-text-body_regular"
                                 data-test-id="expiry-date"
                               >
-                                {card.expiryDate}
+                                {card.expiry_date.month.value}/{card.expiry_date.year.value}
                               </p>
                             </div>
                           </div>
@@ -192,6 +192,32 @@
                           </div>
                         </div>
                       </div>
+                      <template if:true={card.isIssued}>
+                        <div
+                          class="cardDetail cardControl"
+                          data-id="loaded-card-controls"
+                        >
+                          <div class="slds-col slds-size_1-of-3"></div>
+                          <div class="slds-col slds-size_2-of-3">
+                            <c-card-control card={card}> </c-card-control>
+                          </div>
+                        </div>
+                      </template>
+                      <template if:true={card.isFraudBlocked}>
+                        <div class="slds-col slds-size_1-of-1">
+                          <div class="slds-col slds-size_1-of-1">
+                            <div class="slds-p-bottom_medium">
+                              <p
+                                class="slds-text-align_center slds-text-title_bold"
+                                data-id="fraud-no-controls"
+                              >
+                                Card controls are unavailable due to an existing
+                                fraud block. See chatter posts for more details.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </template>
                     </article>
                   </div>
                 </lightning-card>

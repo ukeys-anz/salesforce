@@ -55,6 +55,16 @@
                 <default>false</default>
                 <label>Not Completed</label>
             </value>
+            <value>
+                <fullName>Created</fullName>
+                <default>false</default>
+                <label>Created</label>
+            </value>
+            <value>
+                <fullName>Linked</fullName>
+                <default>false</default>
+                <label>Linked</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

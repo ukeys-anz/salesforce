@@ -1,12 +1,12 @@
 import { LightningElement, wire, api, track } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import { createButtonsFromArray } from "./helper/helper-button-class";
+import { mapCardDetailsHandler } from "./helper/helper-cards";
 
 import { errorHandler } from "./helper/helper-errors";
 import { cardImageHandler } from "./helper/helper-cardImages";
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
-import getCardList from "@salesforce/apex/CoachBankingAPIRepository.getCardListAura";
+import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 import { subscribe, MessageContext } from "lightning/messageService";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import {
@@ -157,7 +157,7 @@ export default class ViewCards extends LightningElement {
     const label = event.target.label;
     const cardNumber = event.target.dataset.cardNumber;
     const card = this.initialCardsDetails.find(
-      (theCard) => theCard.tokenizedCardNumber === cardNumber
+      (theCard) => theCard.tokenized_card_number === cardNumber
     );
     const inputObject = {
       card,
@@ -180,10 +180,8 @@ export default class ViewCards extends LightningElement {
   };
 
   mapCardDetails = (cards) => {
-    let mappedCards = createButtonsFromArray(cards, userPermission);
-    mappedCards.forEach(
-      (c) => (c.image = cardImageHandler(cardImages, c.status))
-    );
+    let mappedCards = mapCardDetailsHandler(cards, userPermission);
+    mappedCards.forEach((c) => (c.image = cardImageHandler(cardImages, c)));
     return mappedCards;
   };
 }

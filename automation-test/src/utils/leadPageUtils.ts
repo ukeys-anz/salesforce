@@ -6,15 +6,10 @@ import BaseRecordForm from "@salesforce-pageobjects/records/pageObjects/baseReco
 import Tabset2 from "@salesforce-pageobjects/flexipage/pageObjects/tabset2";
 import * as commonUtils from "../utils/commonUtils";
 
-export const getRecordForm = async (): Promise<BaseRecordForm | undefined> => {
+export const getRecordForm = async (): Promise<BaseRecordForm> => {
   const detailsTab = await getTabContent("Details");
-
-  if (detailsTab instanceof LeadDetailsTab) {
-    const detailPanel = await detailsTab.getDetailPanel();
-    return detailPanel.getBaseRecordForm();
-  }
-
-  return;
+  const detailPanel = await (detailsTab as LeadDetailsTab).getDetailPanel();
+  return detailPanel.getBaseRecordForm();
 };
 
 export const getTabContent = async (

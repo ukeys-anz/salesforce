@@ -119,7 +119,6 @@
         "css": "tbody tr th span a"
       },
       "type": "clickable",
-      "nullable": true,
       "public": true
     },
     {
@@ -218,6 +217,10 @@
         {
           "element": "listViewSelector",
           "apply": "click"
+        },
+        {
+          "element": "listViewList",
+          "apply": "waitForVisible"
         },
         {
           "element": "listViewByTitle",

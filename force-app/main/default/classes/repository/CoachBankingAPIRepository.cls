@@ -5,6 +5,9 @@
  * @group Repository
  */
 public with sharing class CoachBankingAPIRepository extends RepositoryBase {
+  private static final String VIEW_CARD_PERMISSION_ERROR = 'User does not have the view cards permission';
+  private static final String ACCOUNTS_AND_GOALS_PERMISSION_ERROR = 'User does not have the ANZx Accounts and Goals permission';
+
   /**
    * @param ocvId customer id
    * @param accountNumbers contains account numbers to provide as parameters for account filtering
@@ -34,9 +37,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     } else {
       handleErrors(
         null,
-        new PermissionException(
-          'User does not have the ANZx Accounts and Goals permission'
-        ),
+        new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
         CoachBankingAPIRepository.class
       );
     }
@@ -100,7 +101,12 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   ) {
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
     paramUrl = String.isBlank(paramUrl)
-      ? getTransactionParamUrl(startDate, endDate, accountNumber, bucketIds)
+      ? CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+          startDate,
+          endDate,
+          accountNumber,
+          bucketIds
+        )
       : paramUrl;
     try {
       TransactionHistoryModel responseModel = coachapi.getTransactionHistory(
@@ -128,17 +134,8 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       if (response.successful) {
         try {
           result = CardListModel.parse(response.body);
-          for (CardListModel.CardCls card : result.cards) {
-            if (!card.isValid) {
-              handleErrors(
-                null,
-                new InvalidInformationException(
-                  'Card Information is invalid. Please reach out to your system administrator.'
-                ),
-                CoachBankingAPIRepository.class
-              );
-            }
-          }
+          CoachBankingAPIRepositoryHelper helper = new CoachBankingAPIRepositoryHelper();
+          helper.handleCardIsValidCheck(result);
         } catch (Exception e) {
           handleErrors(null, e, CoachBankingAPIRepository.class);
         }
@@ -148,7 +145,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     } else {
       handleErrors(
         null,
-        new PermissionException('User does not have the view cards permission'),
+        new PermissionException(VIEW_CARD_PERMISSION_ERROR),
         CoachBankingAPIRepository.class
       );
     }
@@ -156,79 +153,25 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   }
 
   /**
+   * @param cardNumber card number to be locked
    * @param ocvId customer id
-   * @return `CardListModel` model class constructed from api response
-   * @description fetches card list from fabric, deserialized to a model used in lwc
+   * @return `CardControlModel.CardControlWrapper` the card control response
+   * @description calls card controls api to place card temp lock
    */
-  @AuraEnabled(cacheable=false)
-  public static CardListModel getCardListAura(String ocvId) {
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    CardListModel result = coachapi.getCardList(ocvId);
-    return result;
-  }
-
-  /**
-   * @description Construct the transaction param URL from startDate and endDate
-   * @param startDate start date in the transaction search
-   * @param endDate end date in the transaction search
-   * @param accountNumber account number for which we want to fetch the transactions
-   * @param bucketIds list of bucket ids to filter transactions by
-   * @return String the url with params to retrieve transactions
-   */
-  private static String getTransactionParamUrl(
-    String startDate,
-    String endDate,
-    String accountNumber,
-    List<String> bucketIds
+  public CardControlModel.CardControlWrapper lockCard(
+    String cardNumber,
+    String ocvId
   ) {
-    String accNum = '';
-    String startTime = '';
-    String endTime = '';
-    String goalIds = '';
-    String params = '';
-    if (String.isNotBlank(accountNumber)) {
-      accNum = 'account_numbers=' + accountNumber + '&';
-    }
-    if (String.isNotBlank(startDate)) {
-      String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
-      startTime += 'start_time=' + utcStartDate + '&';
-    }
-    if (String.isNotBlank(endDate)) {
-      String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
-      endTime += 'end_time=' + utcEndDate + '&';
-    }
-    if (!bucketIds.isEmpty()) {
-      for (String bucketId : bucketIds) {
-        goalIds += 'bucket_ids=' + bucketId + '&';
-      }
-    }
-    if (
-      String.isNotBlank(accNum) ||
-      String.isNotBlank(startTime) ||
-      String.isNotBlank(endTime) ||
-      String.isNotBlank(goalIds)
-    ) {
-      params = '?' + accNum + startTime + endTime + goalIds;
-    }
-    return params;
-  }
-
-  /**
-   * @param cardNumber card number to get locked
-   * @param ocvId customer id
-   * @return `Boolean` the status of the response
-   * @description temporarily block cards api
-   */
-  public Boolean lockCard(String cardNumber, String ocvId) {
     Service s = ServiceProvider.getService(FabricService.class);
+
     HttpCalloutResponse response = s.lockCard(cardNumber, ocvId);
     if (!response.successful) {
       handleErrors(response, null, CoachBankingAPIRepository.class);
     }
-    Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
+    CardControlModel.CardControlWrapper result = CardControlModel.parseCardControl(
       response.body
     );
-    return (Boolean) responseMap.get('status');
+    return result;
   }
 
   /**
@@ -239,16 +182,9 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @description replace card with a new one when lost, stolen or damaged situation
    */
   public String replaceCard(String cardNumber, String ocvId, String reason) {
-    String reasonFormatted = reason.toUpperCase();
-    //Reason list found here: https://github.com/anzx/fabricapis/blob/28e579f0a95a94ff45eaf667197f81c0a3b0d7a6/proto/fabric/service/card/v1beta1/card_api.proto#L359
-    List<String> reasonList = new List<String>{ 'LOST', 'STOLEN', 'DAMAGED' };
-    if (!reasonList.contains(reasonFormatted)) {
-      handleErrors(
-        null,
-        new InvalidInformationException('The replace reason is not valid.'),
-        CoachBankingAPIRepository.class
-      );
-    }
+    CoachBankingAPIRepositoryHelper helper = new CoachBankingAPIRepositoryHelper();
+    helper.validateReplaceReason(reason);
+
     Service s = ServiceProvider.getService(FabricService.class);
     HttpCalloutResponse response = s.replaceCard(cardNumber, ocvId, reason);
     if (!response.successful) {
@@ -275,12 +211,11 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     AccountBucketsModel result;
     if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
       Service s = ServiceProvider.getService(FabricService.class);
-      String paramUrl = '?status_filter=BUCKET_STATUS_FILTER_OPEN';
-      if (String.isBlank(nextPageToken)) {
-        paramUrl += '&page_size=' + pageSize;
-      } else {
-        paramUrl += '&page_token=' + nextPageToken;
-      }
+
+      String paramUrl = CoachBankingAPIRepositoryHelper.constructGetAccountsBucketParamUrl(
+        pageSize,
+        nextPageToken
+      );
 
       HttpCalloutResponse response = s.getAccountBuckets(ocvId, paramUrl);
       if (response.successful) {
@@ -295,9 +230,37 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     } else {
       handleErrors(
         null,
-        new PermissionException(
-          'User does not have the ANZx Accounts and Goals permission'
-        ),
+        new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
+        CoachBankingAPIRepository.class
+      );
+    }
+    return result;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @return `CardControlModel` card controls constructed from ListControlsResponse
+   * @description getCardControlsList retrieves the list of controls for all the customers cards
+   */
+  public CardControlModel getCardControlsList(String ocvId) {
+    CardControlModel result;
+    if (FeatureManagement.checkPermission('ANZx_View_Cards')) {
+      Service s = ServiceProvider.getService(FabricService.class);
+      HttpCalloutResponse response = s.getCardControlsList(ocvId);
+
+      if (response.successful) {
+        try {
+          result = CardControlModel.parseCardControlList(response.body);
+        } catch (Exception e) {
+          handleErrors(null, e, CoachBankingAPIRepository.class);
+        }
+      } else {
+        handleErrors(response, null, CoachBankingAPIRepository.class);
+      }
+    } else {
+      handleErrors(
+        null,
+        new PermissionException(VIEW_CARD_PERMISSION_ERROR),
         CoachBankingAPIRepository.class
       );
     }

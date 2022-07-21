@@ -83,6 +83,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Campaign_flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Card_Expiry_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>

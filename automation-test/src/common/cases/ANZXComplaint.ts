@@ -1,5 +1,5 @@
 import RecordCreationForm from "pageObjects/recordCreationForm";
-import { UserRole, OwnerType } from "../../constants/enums";
+import { OwnerType } from "../../constants/enums";
 import CaseType from "../../constants/case/caseType";
 import CaseFields from "../../constants/case/caseFields";
 import { FieldSectionIndex } from "../../types/layout";
@@ -97,7 +97,7 @@ export default class ANZXComplaint extends Case implements IAssignNewOwner {
   }
 
   async update(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const baseRecordForm = await casePageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // Priority

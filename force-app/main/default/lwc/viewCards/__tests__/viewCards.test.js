@@ -6,23 +6,27 @@ import { getRecord } from "lightning/uiRecordApi";
 import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 import ViewCards from "c/viewCards";
-import getCardList from "@salesforce/apex/CoachBankingAPIRepository.getCardListAura";
+import CardControl from "c/cardControl";
+import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 
 const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 const MessageContext = createTestWireAdapter();
 const APEX_NO_CARDS = require("./data/noCard.json");
 const APEX_CARDS_SUCCESS = require("./data/response.json");
+const APEX_CARDS_INACTIVE = require("./data/responseInactiveCard.json");
 const APEX_CARDS_INVALID = require("./data/invalidResp.json");
 const APEX_CARDS_NO_ELIGIBILITIES = require("./data/responseNoEligibilities.json");
+const APEX_CARDS_TEMP_LOCK = require("./data/responseTempLockedCard.json");
 const APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS = require("./data/fraudLockCards-notTemporaryLockStatus.json");
 const APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS = require("./data/fraudLockCards-temporaryLockStatus.json");
 const APEX_CARD_BLOCK_CNP = require("./data/fraudLockCards-fraudStatus.json");
 const APEX_GET_CARD_LIST_FAILURE = require("./data/getCardList-failure.json");
+const APEX_STORE_CARD_CONTROLS_FAILURE = require("./data/storeCardControls-failure.json");
 const mockOcvId = require("./data/wire-mock-OCV_ID.json");
 
 jest.mock(
-  "@salesforce/apex/CoachBankingAPIRepository.getCardListAura",
+  "@salesforce/apex/CardDetailsController.getCardList",
   () => {
     return {
       default: jest.fn()
@@ -226,7 +230,7 @@ describe("c-view-cards", () => {
   });
 
   it("8. tests if lock card is disabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_NO_ELIGIBILITIES);
+    getCardList.mockResolvedValue(APEX_CARDS_TEMP_LOCK);
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
@@ -257,7 +261,39 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("9. tests if replace card is enabled", () => {
+  it("9. tests if lock card is invisible", () => {
+    getCardList.mockResolvedValue(APEX_CARD_BLOCK_CNP);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='loaded-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let buttons = element.shadowRoot.querySelectorAll(
+        "lightning-button[data-button='card-button']"
+      );
+
+      let lockButton;
+      buttons.forEach((btn) => {
+        if (btn.label === "Lock Card") {
+          lockButton = btn;
+        }
+      });
+
+      expect(lockButton).toBeFalsy();
+    });
+  });
+
+  it("10. tests if replace card is enabled", () => {
     getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -289,7 +325,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("10. tests if replace card is disabled", () => {
+  it("11. tests if replace card is disabled", () => {
     getCardList.mockResolvedValue(APEX_CARDS_NO_ELIGIBILITIES);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -320,7 +356,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("11. tests if fraud lock button is enabled", () => {
+  it("12. tests if fraud lock button is enabled", () => {
     getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -351,7 +387,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("12. tests if fraud unlock button is disabled", () => {
+  it("13. tests if fraud unlock button is disabled", () => {
     getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -382,7 +418,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("13. tests if fraud unlock button is enabled", () => {
+  it("14. tests if fraud unlock button is enabled", () => {
     getCardList.mockResolvedValue(APEX_CARD_BLOCK_CNP);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -413,7 +449,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("14. tests if cancel card button is visible", () => {
+  it("15. tests if cancel card button is visible", () => {
     getCardList.mockResolvedValue(
       APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
     );
@@ -446,7 +482,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("15. tests if rempove temporary lock button is invisible", () => {
+  it("16. tests if remove temporary lock button is invisible", () => {
     getCardList.mockResolvedValue(
       APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
     );
@@ -480,7 +516,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("16. tests if rempove temporary lock button is visible", () => {
+  it("17. tests if remove temporary lock button is visible", () => {
     getCardList.mockResolvedValue(APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -511,7 +547,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("17. tests if fraud lock and fraud unlock button are invisible", () => {
+  it("18. tests if fraud lock and fraud unlock button are invisible", () => {
     getCardList.mockResolvedValue(APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -546,7 +582,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("18. check if there is no cards", () => {
+  it("19. check if there is no cards", () => {
     getCardList.mockResolvedValue(APEX_NO_CARDS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -564,7 +600,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("19. check clicking on fraud lock button take us to the cardFraudLock component", () => {
+  it("20. check clicking on fraud lock button take us to the cardFraudLock component", () => {
     getCardList.mockResolvedValue(
       APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
     );
@@ -600,7 +636,7 @@ describe("c-view-cards", () => {
       });
   });
 
-  it("20. check clicking on lock button take us to the cardTempLock component", () => {
+  it("21. check clicking on lock button take us to the cardTempLock component", () => {
     getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -634,7 +670,7 @@ describe("c-view-cards", () => {
       });
   });
 
-  it("21. check clicking on replace card button take us to the replaceCard component", () => {
+  it("22. check clicking on replace card button take us to the replaceCard component", () => {
     getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -668,7 +704,64 @@ describe("c-view-cards", () => {
       });
   });
 
-  it("22. check the show toast", () => {
+  it("23. tests clicking on lock card within replace/lost path takes us to the lockCard component", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+    const viewCardsElement = createElement("c-view-cards", {
+      is: ViewCards
+    });
+
+    document.body.appendChild(viewCardsElement);
+
+    let button = viewCardsElement.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+
+    return flushPromises()
+      .then(() => {
+        let cardButtons = viewCardsElement.shadowRoot.querySelectorAll(
+          "lightning-button[data-button='card-button']"
+        );
+        let replaceButton;
+        cardButtons.forEach((btn) => {
+          if (btn.label === "Replace Card") {
+            replaceButton = btn;
+          }
+        });
+
+        replaceButton.click();
+      })
+      .then(() => {
+        let replaceCardComponent = viewCardsElement.shadowRoot.querySelector(
+          "c-replace-card"
+        );
+
+        replaceCardComponent.replaceLostUnavailable = false;
+        replaceCardComponent.replaceLockUnavailable = false;
+        return flushPromises()
+          .then(() => {
+            let lostButton = replaceCardComponent.shadowRoot.querySelector(
+              "button[data-id='lost-path']"
+            );
+
+            lostButton.click();
+          })
+          .then(() => {
+            let lockButtonPath = replaceCardComponent.shadowRoot.querySelector(
+              "button[data-id='lock-button-path']"
+            );
+            lockButtonPath.click();
+          })
+          .then(() => {
+            let lockCardComponent = viewCardsElement.shadowRoot.querySelector(
+              "c-card-temp-lock"
+            );
+            expect(lockCardComponent).toBeTruthy();
+          });
+      });
+  });
+
+  it("24. check the show toast", () => {
     getCardList.mockRejectedValue(APEX_GET_CARD_LIST_FAILURE);
     const element = createElement("c-view-cards", {
       is: ViewCards
@@ -690,7 +783,7 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("23. check the first subscribe and it's toast message", () => {
+  it("25. check the first subscribe and it's toast message", () => {
     getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
 
     const element = createElement("c-view-cards", {
@@ -724,6 +817,118 @@ describe("c-view-cards", () => {
     };
     return flushPromises().then(() => {
       makeDifferentPublish();
+    });
+  });
+
+  it("26. tests if not activated flag is visible when applicable", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_INACTIVE);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='loaded-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let cardControls = element.shadowRoot.querySelector(
+        "div[data-id='loaded-card-controls']"
+      );
+      expect(cardControls).toBeTruthy();
+      let status = element.shadowRoot.querySelector(".status");
+
+      expect(status.textContent).toBe("Issued (Not Activated)");
+    });
+  });
+
+  it("27. tests failure of storing card controls for issued card renders error message", () => {
+    getCardList.mockResolvedValue(APEX_STORE_CARD_CONTROLS_FAILURE);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let error = element.shadowRoot.querySelector("c-error");
+      expect(error).toBeTruthy();
+    });
+  });
+
+  it("28. tests if card controls are visible", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='loaded-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let cardControls = element.shadowRoot.querySelector(
+        "div[data-id='loaded-card-controls']"
+      );
+      expect(cardControls).toBeTruthy();
+    });
+  });
+
+  it("29. tests if controls are hidden on fraud statuses", () => {
+    getCardList.mockResolvedValue(
+      APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
+    );
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let fraudMessage = element.shadowRoot.querySelectorAll(
+        "p[data-id='fraud-no-controls']"
+      );
+      expect(fraudMessage).toBeTruthy();
+    });
+  });
+
+  it("30. tests if temp lock flag is visible when applicable", () => {
+    getCardList.mockResolvedValue(APEX_CARDS_TEMP_LOCK);
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    document.body.appendChild(element);
+    let button = element.shadowRoot.querySelector(
+      "lightning-button[data-id='get-cards-button']"
+    );
+    button.click();
+    return flushPromises().then(() => {
+      let card = element.shadowRoot.querySelector(
+        "div[data-id='loaded-card-details']"
+      );
+      expect(card).toBeTruthy();
+
+      let cardControls = element.shadowRoot.querySelector(
+        "div[data-id='loaded-card-controls']"
+      );
+      expect(cardControls).toBeTruthy();
+      let status = element.shadowRoot.querySelector(".status");
+
+      expect(status.textContent).toBe("Issued (Temporary Lock)");
     });
   });
 });

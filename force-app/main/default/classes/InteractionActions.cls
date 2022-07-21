@@ -46,8 +46,12 @@ public with sharing class InteractionActions {
   public List<Coaching_Summary__c> assignCoachingSummaryOwner(
     List<Interaction> interactions
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Coaching_Summary__c> coachingSummaryList = new List<Coaching_Summary__c>();
     for (Interaction interact : interactions) {
+      if (interact.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       Coaching_Summary__c coachSummary = new Coaching_Summary__c(
         Id = interact.Coaching_Summary__c
       );
@@ -62,8 +66,12 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> list of interaction records without end time.
    */
   public void updateEndTime(List<Interaction> interactions) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     ContactRequestActions crActions = new ContactRequestActions();
     for (Interaction interact : interactions) {
+      if (interact.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       Integer duration = interact.Interaction_Purpose__c != null
         ? crActions.getDuration(interact.Interaction_Purpose__c)
         : 0;
@@ -84,8 +92,11 @@ public with sharing class InteractionActions {
     List<Interaction> interactions
   ) {
     List<Interaction> interactionList = new List<Interaction>();
-
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     for (Interaction interact : interactions) {
+      if (interact.RecordTypeId != appointmentRTID) {
+        continue;
+      }
       Interaction oldInteraction = (Interaction) oldMap.get(interact.Id);
       if (
         oldInteraction.Interaction_Purpose__c !=

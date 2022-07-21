@@ -30,6 +30,7 @@ public with sharing class InteractionTriggerHandlerTest {
     Interaction testInteraction = new Interaction(
       Status__c = InteractionConstants.UNASSIGNED_STATUS,
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME,
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       StartTime = startTime,
       AccountId = testAccount.Id,
       Name = 'Other Appointment',
@@ -461,6 +462,7 @@ public with sharing class InteractionTriggerHandlerTest {
   @isTest
   static void testEndTimePopulationOnInsert() {
     Interaction newInteractionWithoutEndtime = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = System.now()
@@ -482,6 +484,7 @@ public with sharing class InteractionTriggerHandlerTest {
   @isTest
   static void testEndTimePopulationOnUpdate() {
     Interaction newInteractionWithoutEndtime = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = System.now()

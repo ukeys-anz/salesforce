@@ -123,10 +123,10 @@ public with sharing class FabricService extends Service {
   }
 
   /**
-   * @param cardNumber card number to get blocked
+   * @param cardNumber card number to be locked
    * @param ocvId customer id
    * @return `HttpCalloutResponse` the api response
-   * @description temporarily lock cards api
+   * @description calls card controls api to place a temp card lock
    */
   public override HttpCalloutResponse lockCard(
     String cardNumber,
@@ -139,12 +139,12 @@ public with sharing class FabricService extends Service {
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
-      Label.MS_Temp_Block_Card +
+      Label.MS_Temp_Lock_Card +
       cardNumber +
-      '/block',
+      '/set',
       HTTP_METHOD.HTTP_POST,
       headers,
-      '{"action":"ACTION_BLOCK"}'
+      '{"card_controls" : [{ "control_type": "GCT_GLOBAL"}]}'
     );
     return response;
   }
@@ -254,6 +254,52 @@ public with sharing class FabricService extends Service {
       headers,
       null
     );
+    return response;
+  }
+
+  /**
+   * @param ocvId customer id to get card controls list for
+   * @return `HttpCalloutResponse` the api response
+   * @description retrieves the list of card controls
+   */
+  public override HttpCalloutResponse getCardControlsList(String ocvId) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(ocvId, headers);
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.MS_Get_Card_Control_List,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+    return response;
+  }
+
+  /**
+   * @param ocvId required to make the callout to Mulesoft
+   * @param transactionId transaction id to get related tokenized card number for
+   * @return `HttpCalloutResponse` the api response
+   * @description retrieves the tokenized card number relating to the transaction
+   */
+  public override HttpCalloutResponse getTokenizedCardNumber(
+    String ocvId,
+    String transactionId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(ocvId, headers);
+
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' +
+      Label.MS_Get_Tokenized_Card +
+      transactionId +
+      '/tokenized-card',
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
     return response;
   }
 }

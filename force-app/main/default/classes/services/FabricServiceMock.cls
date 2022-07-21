@@ -17,7 +17,9 @@ public with sharing class FabricServiceMock extends Service {
   private static final String FORGE_TOKEN_RESPONSE = '{"access_token":"xxxxx","expires_in":900}';
 
   @TestVisible
-  private static final String LOCK_CARD_RESPONSE = '{"status": true,"eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_LOST","ELIGIBILITY_CARD_REPLACEMENT_STOLEN","ELIGIBILITY_CARD_REPLACEMENT_DAMAGED","ELIGIBILITY_UNBLOCK"]}';
+  private static final String LOCK_CARD_RESPONSE = getStaticResource(
+    'mock_cardControl'
+  );
 
   @TestVisible
   private static final String FINANCIAL_ACCOUNTS_SUCCESS_RESPONSE = getStaticResource(
@@ -52,6 +54,16 @@ public with sharing class FabricServiceMock extends Service {
   @TestVisible
   private static final String ACCOUNT_BUCKETS_RESPONSE = getStaticResource(
     'mock_accountBuckets'
+  );
+
+  @TestVisible
+  private static final String GET_CARD_CONTROL_LIST = getStaticResource(
+    'mock_cardControlList'
+  );
+
+  @TestVisible
+  private static final String SEARCH_TOKENIZED_CARD_RESPONSE = getStaticResource(
+    'mock_searchTokenizedCard'
   );
 
   /**
@@ -188,6 +200,34 @@ public with sharing class FabricServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = FabricServiceMock.ACCOUNT_BUCKETS_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @return `HttpCalloutResponse` the api response
+   * @description retrieves mock card control list response
+   */
+  public override HttpCalloutResponse getCardControlsList(String ocvId) {
+    if (!preset) {
+      response.body = FabricServiceMock.GET_CARD_CONTROL_LIST;
+    }
+    return response;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param transactionId transaction id
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches the mock search tokenized card response
+   */
+  public override HttpCalloutResponse getTokenizedCardNumber(
+    String ocvId,
+    String transactionId
+  ) {
+    if (!preset) {
+      response.body = FabricServiceMock.SEARCH_TOKENIZED_CARD_RESPONSE;
     }
     return response;
   }

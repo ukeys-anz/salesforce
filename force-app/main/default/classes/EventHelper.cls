@@ -102,6 +102,7 @@ public with sharing class EventHelper {
   public static List<Event> createEventsFromInteractions(
     List<Interaction> interactions
   ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     InteractionActions actions = new InteractionActions();
     Map<Id, Account> accountMap = actions.getAccountMapFromInteractions(
       interactions
@@ -110,6 +111,9 @@ public with sharing class EventHelper {
     List<Event> result = new List<Event>();
     if (!interactions.isEmpty()) {
       for (Interaction currentInteraction : interactions) {
+        if (currentInteraction.RecordTypeId != appointmentRTID) {
+          continue;
+        }
         result.add(
           createEventFromInteraction(currentInteraction, accountMap, leadMap)
         );
