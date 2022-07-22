@@ -1,0 +1,10 @@
+{
+  "cards": [
+    {
+      "name": "Bruce Willis",
+      "tokenized_card_number": "1234567890",
+      "status": "Closed",
+      "card_controls_enabled": true
+    }
+  ]
+}

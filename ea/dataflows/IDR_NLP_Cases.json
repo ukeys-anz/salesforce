@@ -1,0 +1,411 @@
+{
+  "nodes": {
+    "ComputeNLPCalcsToTrueFalse": {
+      "action": "computeExpression",
+      "parameters": {
+        "computedFields": [
+          {
+            "label": "isEditedByNLP",
+            "name": "isEditedByNLP",
+            "saqlExpression": "case when 'Computed.EditedByNLPUser' == 1 then \"true\" else \"false\" end",
+            "type": "Text"
+          },
+          {
+            "label": "isShellCase",
+            "name": "isShellCase",
+            "saqlExpression": "case \nwhen 'Record.Name' == \"General Inquiry CMOS\" \nthen \"true\"\nwhen 'Computed.OriginallyAShell' == 1 then \"true\" \nelse \"false\" end",
+            "type": "Text"
+          },
+          {
+            "defaultValue": "null",
+            "label": "IDR Subsequent Issue Text",
+            "name": "IDR_Subsequent_Issue_Text",
+            "precision": 255,
+            "saqlExpression": "case IDR_Subsequent_Issue__c\n when  \"20\" then \"Request for financial assistance\"\n when \"21\" then \"Failure to respond or process request for assistance\"\n when \"22\" then \"Declines financial assistance\"\n when \"23\" then \"Arrangement considered unsuitable\"\n when \"24\" then \"Inappropriate or excessive contact\"\n when \"25\" then \"Pledged or blocked account\"\n when \"26\" then \"Disputed debt\"\n when \"27\" then \"Collector/agent conduct\"\n when \"28\" then \"Information/correspondence incorrect/not provided\"\n when \"42\" then \"Default listing dispute\"\n when \"38\" then \"Inappropriate lending/maladministration\"\nwhen \"96\" then \"Delay to assess request for financial assistance \"\n when \"97\" then \"Default notices\"\n when \"98\" then \"Enforcement proceedings\"\n \nelse \"Unknown\"\nend",
+            "type": "Text"
+          },
+          {
+            "defaultValue": "false",
+            "label": "Stop Collection False Positive",
+            "name": "isStopCollectionFalsePositive",
+            "precision": 255,
+            "saqlExpression": "case when 'Performance.isStopCollectionFP' == 1 then \"true\"\nelse \"false\"\nend",
+            "type": "Text"
+          },
+          {
+            "defaultValue": "false",
+            "label": "Stop Collection False Negative",
+            "name": "isCollectionFalseNegative",
+            "precision": 255,
+            "saqlExpression": "case when 'Performance.isStopCollectionFN' == 1 then \"true\"\nelse \"false\"\nend",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      },
+      "sources": ["appendPerformance_FP"]
+    },
+    "registerNLPCases": {
+      "action": "register",
+      "parameters": {
+        "label": "NLPCases",
+        "name": "NLP_Cases",
+        "rowLevelSecurityFilter": ""
+      },
+      "sources": ["computerStopCollection"]
+    },
+    "digestPicklist": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "DurableId" },
+          { "name": "EntityParticleId" },
+          { "name": "Id" },
+          { "name": "Label" },
+          { "name": "Value" }
+        ],
+        "object": "PicklistValueInfo"
+      }
+    },
+    "calcPerformanceMetrics": {
+      "action": "computeRelative",
+      "parameters": {
+        "computedFields": [
+          {
+            "description": "Calculate False Positives ",
+            "expression": {
+              "default": "0",
+              "saqlExpression": "case \nwhen (\nprevious('User.Alias') == \"nlpinteg\" &&\n'User.Alias' != \"nlpinteg\" && \n'wasStopCollection' == \"true\" && \n'isStopCollection' == \"false\") then 1\nelse 0\nend",
+              "type": "Numeric",
+              "scale": 10
+            },
+            "label": "stopCollectionFP",
+            "name": "stopCollectionFP"
+          },
+          {
+            "description": "False Negative Stop Collection",
+            "expression": {
+              "default": "0",
+              "saqlExpression": "case \nwhen (\nprevious('User.Alias') == \"nlpinteg\" &&\n'User.Alias' != \"nlpinteg\" && \n'wasStopCollection' == \"false\" &&\n'isStopCollection' == \"true\"\n) then 1\nelse 0\nend",
+              "type": "Numeric",
+              "scale": 10
+            },
+            "label": "stopCollectionFN",
+            "name": "stopCollectionFN"
+          },
+          {
+            "expression": {
+              "offset": "previous()",
+              "sourceField": "User.Alias",
+              "default": "null"
+            },
+            "label": "previousUser",
+            "name": "previousUser"
+          }
+        ],
+        "orderBy": [{ "direction": "asc", "name": "CreatedDate" }],
+        "partitionBy": ["CaseId"]
+      },
+      "sources": ["calcStopCollection"]
+    },
+    "getHighFalseNegatives": {
+      "action": "computeRelative",
+      "parameters": {
+        "computedFields": [
+          {
+            "expression": {
+              "offset": "first()",
+              "sourceField": "stopCollectionFN",
+              "default": "0"
+            },
+            "label": "isStopCollectionFN",
+            "name": "isStopCollectionFN"
+          }
+        ],
+        "orderBy": [{ "direction": "desc", "name": "CaseId" }],
+        "partitionBy": ["CaseId"]
+      },
+      "sources": ["calcPerformanceMetrics"]
+    },
+    "augmentUserInfo": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["CreatedById"],
+        "operation": "LookupSingleValue",
+        "relationship": "User",
+        "rightKey": ["Id"],
+        "rightSelect": ["FirstName", "Alias"]
+      },
+      "sources": ["digestCaseHistory", "digestUser"]
+    },
+    "registerCaseHistory": {
+      "action": "register",
+      "parameters": {
+        "label": "registerCaseHistory",
+        "name": "registerCaseHistory"
+      },
+      "sources": ["computedValues"]
+    },
+    "computeGetHighestShell": {
+      "action": "computeRelative",
+      "parameters": {
+        "computedFields": [
+          {
+            "expression": {
+              "offset": "first()",
+              "sourceField": "WasAShellCase",
+              "default": "0"
+            },
+            "label": "Originally A Shell Case",
+            "name": "OriginallyAShell"
+          }
+        ],
+        "orderBy": [{ "direction": "desc", "name": "WasAShellCase" }],
+        "partitionBy": ["CaseId"]
+      },
+      "sources": ["computedValues"]
+    },
+    "digestUser": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "Id" },
+          { "name": "Alias" },
+          { "name": "FirstName" }
+        ],
+        "object": "User"
+      }
+    },
+    "filterIDROnly": {
+      "action": "filter",
+      "parameters": { "filter": "Record.DeveloperName:EQ:Customer_Complaint" },
+      "sources": ["leftJoinRecordType"]
+    },
+    "leftJoinRecordType": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["RecordTypeId"],
+        "operation": "LookupSingleValue",
+        "relationship": "Record",
+        "rightKey": ["Id"],
+        "rightSelect": ["DeveloperName", "Name"]
+      },
+      "sources": ["digestCase", "digestRecordType"]
+    },
+    "getHighestFalsePositives": {
+      "action": "computeRelative",
+      "parameters": {
+        "computedFields": [
+          {
+            "expression": {
+              "offset": "first()",
+              "sourceField": "stopCollectionFP",
+              "default": "0"
+            },
+            "label": "isStopCollectionFP",
+            "name": "isStopCollectionFP"
+          }
+        ],
+        "orderBy": [{ "direction": "desc", "name": "stopCollectionFP" }],
+        "partitionBy": ["CaseId"]
+      },
+      "sources": ["calcPerformanceMetrics"]
+    },
+    "appendNLPShellCase": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "Computed",
+        "rightKey": ["CaseId"],
+        "rightSelect": [
+          "OriginallyAShell",
+          "CreatedById",
+          "User.Alias",
+          "User.FirstName",
+          "UpdatedByNLPUser"
+        ]
+      },
+      "sources": ["filterIDROnly", "computeGetHighestShell"]
+    },
+    "appendPicklistValueType": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Type"],
+        "operation": "LookupSingleValue",
+        "relationship": "Picklist",
+        "rightKey": ["Value"],
+        "rightSelect": ["Label"]
+      },
+      "sources": ["appendUpdatedByNLP", "digestPicklist"]
+    },
+    "appendUpdatedByNLP": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "Computed",
+        "rightKey": ["CaseId"],
+        "rightSelect": ["EditedByNLPUser"]
+      },
+      "sources": ["appendNLPShellCase", "computeNLPUserEdited"]
+    },
+    "digestCase": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "CaseNumber" },
+          { "name": "RecordTypeId" },
+          { "name": "Id" },
+          { "name": "Type" },
+          { "name": "Sub_Type__c" },
+          { "name": "IDR_Subsequent_Issue__c" },
+          { "name": "CreatedDate" },
+          { "name": "ClosedDate" }
+        ],
+        "object": "Case"
+      }
+    },
+    "computeNLPUserEdited": {
+      "action": "computeRelative",
+      "parameters": {
+        "computedFields": [
+          {
+            "expression": {
+              "offset": "first()",
+              "sourceField": "UpdatedByNLPUser"
+            },
+            "label": "EditedByNLPUser",
+            "name": "EditedByNLPUser"
+          }
+        ],
+        "orderBy": [{ "direction": "desc", "name": "UpdatedByNLPUser" }],
+        "partitionBy": ["CaseId"]
+      },
+      "sources": ["computedValues"]
+    },
+    "computedValues": {
+      "action": "computeRelative",
+      "parameters": {
+        "computedFields": [
+          {
+            "description": "Was this case ever a General Inquiry CMOS Record Type?",
+            "expression": {
+              "default": "0",
+              "saqlExpression": "case\nwhen \n('OldValue' == \"General Inquiry CMOS\" && 'Field' == \"RecordType\") then 1\nelse 0\nend",
+              "type": "Numeric",
+              "scale": 1
+            },
+            "label": "Started as a Shell?",
+            "name": "WasAShellCase"
+          },
+          {
+            "expression": {
+              "default": "0",
+              "saqlExpression": "case when 'User.Alias' == \"nlpinteg\" then 1 else 0 end",
+              "type": "Numeric",
+              "scale": 1
+            },
+            "label": "Updated By NLP User",
+            "name": "UpdatedByNLPUser"
+          }
+        ],
+        "orderBy": [{ "direction": "asc", "name": "CreatedDate" }],
+        "partitionBy": ["CaseId"]
+      },
+      "sources": ["augmentUserInfo"]
+    },
+    "appendPerformance_FN": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "Performance",
+        "rightKey": ["CaseId"],
+        "rightSelect": ["isStopCollectionFN"]
+      },
+      "sources": ["appendPicklistValueType", "getHighFalseNegatives"]
+    },
+    "appendPerformance_FP": {
+      "action": "augment",
+      "parameters": {
+        "leftKey": ["Id"],
+        "operation": "LookupSingleValue",
+        "relationship": "Performance",
+        "rightKey": ["CaseId"],
+        "rightSelect": ["stopCollectionFP", "isStopCollectionFP"]
+      },
+      "sources": ["appendPerformance_FN", "getHighestFalsePositives"]
+    },
+    "digestCaseHistory": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "CaseId" },
+          { "name": "Field" },
+          { "name": "NewValue" },
+          { "name": "OldValue" },
+          { "name": "CreatedDate" },
+          { "name": "CreatedById" }
+        ],
+        "object": "CaseHistory"
+      }
+    },
+    "filterTypeOnly": {
+      "action": "filter",
+      "parameters": { "saqlFilter": "'Field'==\"Type\"" },
+      "sources": ["augmentUserInfo"]
+    },
+    "calcStopCollection": {
+      "action": "computeExpression",
+      "parameters": {
+        "computedFields": [
+          {
+            "defaultValue": "false",
+            "label": "Is Stop Collection (Case History)",
+            "name": "isStopCollection",
+            "precision": 255,
+            "saqlExpression": "case 'NewValue'\nwhen \"4\" then \"true\"\nwhen \"5\" then \"true\"\nwhen \"17\" then \"true\"\nwhen \"19\" then \"true\"\nelse \"false\"\nend",
+            "type": "Text"
+          },
+          {
+            "defaultValue": "false",
+            "label": "wasStopCollection",
+            "name": "wasStopCollection",
+            "precision": 255,
+            "saqlExpression": "case 'OldValue'\nwhen \"4\" then \"true\"\nwhen \"5\" then \"true\"\nwhen \"17\" then \"true\"\nwhen \"19\" then \"true\"\nelse \"false\"\nend",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      },
+      "sources": ["filterTypeOnly"]
+    },
+    "digestRecordType": {
+      "action": "sobjectDigest",
+      "parameters": {
+        "fields": [
+          { "name": "Id" },
+          { "name": "DeveloperName" },
+          { "name": "Name" }
+        ],
+        "object": "RecordType"
+      }
+    },
+    "computerStopCollection": {
+      "action": "computeExpression",
+      "parameters": {
+        "computedFields": [
+          {
+            "label": "isStopCollection",
+            "name": "isStopCollection",
+            "saqlExpression": "case when \n'IDR_Subsequent_Issue_Text'  != \"Unknown\" then\n(case 'Type'\nwhen \"4\" then \"true\"\nwhen \"5\" then \"true\"\nwhen \"17\" then \"true\"\nwhen \"19\" then \"true\"\nelse \"false\" \nend)\nelse \"false\"\nend",
+            "type": "Text"
+          }
+        ],
+        "mergeWithSource": true
+      },
+      "sources": ["ComputeNLPCalcsToTrueFalse"]
+    }
+  }
+}

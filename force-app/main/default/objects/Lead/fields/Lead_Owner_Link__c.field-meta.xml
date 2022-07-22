@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lead_Owner_Link__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Lead Owner Link</description>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/lightning/r/User/&quot;+  OwnerId +&quot;/view/&quot;,Owner:User.FirstName &amp; &quot; &quot; &amp; Owner:User.LastName,&quot;_blank&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Lead Owner</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

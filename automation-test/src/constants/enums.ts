@@ -28,7 +28,8 @@ export const enum SObject {
   Knowledge = "Knowledge",
   Quality_Assessment = "Quality Assessment",
   Lead = "Lead",
-  Financial_Account = "Financial Account"
+  Financial_Account = "Financial Account",
+  Survey_Response = "Survey Response"
 }
 
 export const enum SObjectAPIName {
@@ -36,7 +37,9 @@ export const enum SObjectAPIName {
   Case = "Case",
   Knowledge = "Knowledge__kav",
   Quality_Assessment = "Quality_Assessment__c",
-  Lead = "Lead"
+  Lead = "Lead",
+  Survey_Response = "qualtrics__Survey_Response__c",
+  Record_Type = "RecordType"
 }
 
 export const enum RecordTypeAPIName {

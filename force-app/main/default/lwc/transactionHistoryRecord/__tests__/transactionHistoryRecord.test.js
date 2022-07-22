@@ -217,12 +217,14 @@ describe("c-transactionHistoryRecord", () => {
     expect(raiseDisputeButton).not.toBeNull();
     raiseDisputeButton.click();
 
-    return Promise.resolve().then(() => {
-      // Check if modal is displayed
-      const recordTypeSelectionModal = element.shadowRoot.querySelector(
-        "div.slds-modal__container"
-      );
-      expect(recordTypeSelectionModal).not.toBeNull();
-    });
+    setTimeout(() => {
+      return Promise.resolve().then(() => {
+        // Check if modal is displayed
+        const recordTypeSelectionModal = element.shadowRoot.querySelector(
+          "div.slds-modal__container"
+        );
+        expect(recordTypeSelectionModal).not.toBeNull();
+      });
+    }, 1000);
   });
 });

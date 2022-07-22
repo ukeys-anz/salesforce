@@ -97,6 +97,9 @@ public with sharing class GetHelpCaseActions {
         if (oldRecord.Status != record.Status) {
           record.SLA_Status__c = '';
         }
+
+        //Checks if card token number needs to be deleted
+        GetHelpCaseActionsHelper.handleCardTokenNumber(record);
       }
     }
 

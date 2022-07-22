@@ -66,30 +66,25 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: [
-    [
-      "./src/tests/cases/*.spec.ts",
-      "./src/tests/disputes.spec.ts",
-      "./src/tests/qualityAssessments.spec.ts"
-    ],
-    [
-      "./src/tests/transactionHistories.spec.ts",
-      "./src/tests/cards.spec.ts",
-      "./src/tests/financialAccounts.spec.ts"
-    ],
-    [
-      "./src/tests/virtualGoals.spec.ts",
-      "./src/tests/chatters.spec.ts",
-      "./src/tests/knowledge.spec.ts",
-      "./src/tests/survey.spec.ts",
-      "./src/tests/leads.spec.ts"
-    ],
-    ["./src/tests/uam/*.spec.ts"]
-  ],
+  specs: ["./src/tests/**/*.spec.ts"],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
   ],
+  suites: {
+    cards: ["./src/tests/cards.spec.ts"],
+    cases: ["./src/tests/cases/*.spec.ts"],
+    chatters: ["./src/tests/chatters.spec.ts"],
+    disputes: ["./src/tests/disputes.spec.ts"],
+    financialAccounts: ["./src/tests/financialAccounts.spec.ts"],
+    knowledge: ["./src/tests/knowledge.spec.ts"],
+    leads: ["./src/tests/leads.spec.ts"],
+    qualityAssessments: ["./src/tests/qualityAssessments.spec.ts"],
+    surveys: ["./src/tests/surveys.spec.ts"],
+    transactionHistories: ["./src/tests/transactionHistories.spec.ts"],
+    uam: ["./src/tests/uam/*.spec.ts"],
+    virtualGoals: ["./src/tests/virtualGoals.spec.ts"]
+  },
   //
   // ============
   // Capabilities
@@ -307,7 +302,7 @@ exports.config = {
    */
   before: function (capabilities, specs) {
     require("@babel/register");
-  },
+  }
 
   /**
    * Runs before a WebdriverIO command gets executed.
@@ -321,7 +316,7 @@ exports.config = {
    * @param {Object} suite suite details
    */
   // beforeSuite: function (suite) {
-  // },
+  // }
   /**
    * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
@@ -349,15 +344,8 @@ exports.config = {
    * @param {Boolean} result.passed    true if test has passed, otherwise false
    * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  afterTest: function (
-    test,
-    context,
-    { error, result, duration, passed, retries }
-  ) {
-    if (error !== undefined) {
-      browser.takeScreenshot();
-    }
-  }
+  // afterTest: function (test, context, { error, result, duration, passed, retries }) {
+  //}
 
   /**
    * Runs after a WebdriverIO command gets executed
@@ -376,9 +364,6 @@ exports.config = {
    * @param {Array.<String>} specs List of spec file paths that ran
    */
   // after: function (result, capabilities, specs) {
-  //   if (result === 1) {
-  //     browser.debug();
-  //   }
   // }
   /**
    * Gets executed right after terminating the webdriver session.

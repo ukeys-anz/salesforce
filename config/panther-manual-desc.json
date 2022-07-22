@@ -45,8 +45,8 @@
       "qualtrics__Date_Responded__c": "Date created",
       "qualtrics__Net_Promoter_Score__c": "Captures the NPS response from the survey",
       "qualtrics__Overall_Satisfaction__c": "Customers overall satisfaction with the product/service topic of the survey",
-      "qualtrics__Q_Recipient_ID__c": "The recipient or the customer ID in Qualtrics",
-      "qualtrics__Q_Survey_ID__c": "The uniique customer survey response ID from Qualtrics"
+      "RecipientId__c": "The recipient or the customer ID in Qualtrics",
+      "SurveyId__c": "The unique customer survey response ID from Qualtrics"
     },
     "Task": {
       "IDR_Pend_Reason__c": "Reason why a case is pending",
@@ -302,6 +302,7 @@
       "IA-2468715": [
         "AccountId",
         "BusinessHoursId",
+        "Campaign_flag__c"
         "CaseNumber",
         "RecordTypeId",
         "SI_Repository_ID__c",
@@ -499,15 +500,16 @@
         "IDR_NC_Is_Consent_Obtained__c",
         "IDR_Office__c",
         "IDR_Office_Created_By__c",
-        "ID_Other_Remedy_Provided__c",
-        "ID_Other_Remedy_Provided_2__c",
-        "ID_Other_Remedy_Provided_3__c",
+        "IDR_Other_Remedy_Provided__c",
+        "IDR_Other_Remedy_Provided_2__c",
+        "IDR_Other_Remedy_Provided_3__c",
         "IDR_Owner_Type__c",
         "IDR_Possible_Systemic_Issues__c",
         "IDR_Previously_raised_with_ANZ__c",
         "IDR_Product_2__c",
         "IDR_Product_3__c",
         "IDR_Product_Category__c",
+        "IDR_Product_Manufacturer__c",
         "IDR_Real_Form_Ref_No__c",
         "IDR_Real_Form_Req__c",
         "IDR_Real_Form_Submitted__c",
@@ -525,6 +527,7 @@
         "IDR_Systemic_Issue_Description__c",
         "IDR_Third_Issue__c",
         "IDR_Time_To_Escalation__c",
+        "IDR_Total_Financial_Compensation__c",
         "IsClosedOnCreate",
         "IsEscalated",
         "IsOwner__c",
@@ -996,14 +999,75 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2415984": ["Email", "FirstName", "LastName", "MobilePhone"],
-      "IA-2415860": [
-        "Status",
-        "LeadSource",
-        "MarketingConsent",
-        "PrivacyConsent"
+      "IA-2415984": [
+        "ABN__c",
+        "ABN_Status__c",
+        "ABN_Validation_Status__c",
+        "ACN__c",
+        "ABN_Status__c",
+        "ACN_Validation_Status__c",
+        "City",
+        "Company",
+        "Country",
+        "Email",
+        "FirstName",
+        "Home_Phone__c",
+        "Industry__c",
+        "LastName",
+        "MobilePhone",
+        "PostalCode",
+        "State",
+        "Street",
+        "Title__c",
+        "Work_Phone__c"
       ],
-      "IA-2530753": ["Description"]
+      "IA-2415860": [
+        "Business_ID__c",
+        "CCRM_DuplicateLeadCheck__c",
+        "CLG_ID__c",
+        "CLG_Name__c",
+        "Controlling_Post_ID__c",
+        "Customer_ID__c",
+        "Expiry_Date__c",
+        "Expiry_Indicator__c",
+        "FinServ__PotentialValue__c",
+        "FinServ__RelatedAccount__c",
+        "Followup_Date__c",
+        "LeadSource",
+        "Lead_Auto_Number__c",
+        "Lead_Id__c",
+        "Lead_Originator_c",
+        "Lead_Quality__c",
+        "New_to_Bank__c",
+        "Notes__c",
+        "Not_Registered__c",
+        "OwnerId",
+        "Previous_Lead__c",
+        "Priority__c",
+        "Prospect_Id__c",
+        "Record_Id__c",
+        "Status",
+        "SubStatus__c",
+        "UNICA_Treatment_Code__c"
+      ]
+    },
+    "Lead_Flex_Field__c": {
+      "IA-2415860": [
+        "Campaign_Flex_Field__c",
+        "Campaign__c",
+        "FlexFieldValue__c",
+        "Lead__c",
+        "LeadIdSequence__c",
+        "Sequence__c",
+        "UUID__C"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Location": {
       "IA-2468715": [
@@ -1026,6 +1090,24 @@
         "User__c"
       ],
       "IA-2468715": ["CreatedById", "CreatedDate", "Id"]
+    },
+    "Opportunity": {
+      "IA-2415840": [
+        "Name",
+        "Description",
+        "OwnerId",
+        "CloseDate",
+        "CampaignId",
+        "StageName",
+        "Loss_Reason__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
     },
     "Privileged_Access_Request__c": {
       "IA-2468715": [
@@ -1186,6 +1268,27 @@
         "SRE_Team__c",
         "Status__c",
         "What_Customer_was_Trying_to_Do__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "Response_Type__c": {
+      "IA-2415860": [
+        "Campaign__c",
+        "Close_To_Do_Activities__c",
+        "Create_Activities_From_Template__c",
+        "Create_To_Do_Activities__c",
+        "Display_Order__c",
+        "Follow_Up_State__c",
+        "Is_Active__c",
+        "Response_Status__c",
+        "SRE_TeaCreate_Opportunity__cm__c",
+        "UNICA_Lead_SubStatus__c"
       ],
       "IA-2468715": [
         "CreatedById",

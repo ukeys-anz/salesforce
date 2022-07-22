@@ -1,4 +1,8 @@
 /**
+ * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
+ */
+@SuppressWarnings('PMD.FieldNamingConventions, PMD.VariableNamingConventions')
+/**
  * @author Lance Shi
  * @since April 2021
  * @description Model for card list API
@@ -10,23 +14,49 @@ public with sharing class CardListModel extends CalloutModel {
   /**
    * @description the card information wrapper
    */
+  public class ExpiryDateCls {
+    @AuraEnabled
+    public DateCls year;
+    @AuraEnabled
+    public DateCls month;
+  }
+
+  /**
+   * @description the card information wrapper
+   */
+  public class DateCls {
+    @AuraEnabled
+    public Integer value;
+  }
+
+  /**
+   * @description the card information wrapper
+   */
   public class CardCls {
     @AuraEnabled
     public String name;
     @AuraEnabled
-    public String tokenizedCardNumber;
+    public String tokenized_card_number;
     @AuraEnabled
-    public String last4Digits;
+    public String last_4_digits;
     @AuraEnabled
     public String status;
     @AuraEnabled
-    public String expiryDate;
+    public ExpiryDateCls expiry_date;
     @AuraEnabled
-    public String accountNumber;
+    public String account_number;
     @AuraEnabled
     public List<String> eligibilities;
     @AuraEnabled
     public Map<String, Integer> wallets;
+    @AuraEnabled
+    public Boolean card_controls_enabled;
+
+    /**
+     * @description stores the card controls for the card
+     */
+    @AuraEnabled
+    public List<CardControlModel.CardControlCls> cardControlsList;
 
     /**
      * @description validates response for expected values by the UI
@@ -35,8 +65,9 @@ public with sharing class CardListModel extends CalloutModel {
     public Boolean isValid {
       get {
         return (String.isNotBlank(this.name) &&
-          String.isNotBlank(this.last4Digits) &&
-          String.isNotBlank(this.expiryDate) &&
+          String.isNotBlank(this.last_4_digits) &&
+          this.expiry_date.month.value != null &&
+          this.expiry_date.year.value != null &&
           String.isNotBlank(this.status))
           ? true
           : false;
@@ -77,6 +108,23 @@ public with sharing class CardListModel extends CalloutModel {
           !walletList.isEmpty() &&
           (status == 'Issued' ||
           status == 'Temporary Block')
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      set;
+    }
+
+    /**
+     * @description tells whether this card has controls enabled
+     */
+    public Boolean hasControlsEnabled {
+      get {
+        if (
+          this.card_controls_enabled != null &&
+          this.card_controls_enabled == true
         ) {
           return true;
         } else {

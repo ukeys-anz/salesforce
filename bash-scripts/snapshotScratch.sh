@@ -72,6 +72,10 @@ changeMetadata force-app/main/default/permissionsets/SFDX_Snapshots.permissionse
 changeMetadata force-app/main/default/permissionsets/View_All_Data.permissionset-meta.xml viewAll
 changeMetadata force-app/main/default/permissionsets/View_All_Files.permissionset-meta.xml viewFiles
 changeMetadata force-app/main/default/objects/Account/Account.object-meta.xml IsotopeSubscription
+changeMetadata force-app/main/default/objects/Campaign_Document__c/Campaign_Document__c.object-meta.xml IsotopeSubscription
+changeMetadata force-app/main/default/objects/Campaign_Flex_Field__c/Campaign_Flex_Field__c.object-meta.xml IsotopeSubscription
+changeMetadata force-app/main/default/objects/Industry__c/Industry__c.object-meta.xml IsotopeSubscription
+changeMetadata force-app/main/default/objects/Lead/Lead.object-meta.xml IsotopeSubscription
 changeMetadata force-app/main/default/objects/Quality_Assessment__c/Quality_Assessment__c.object-meta.xml IsotopeSubscription
 changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum
 changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard
