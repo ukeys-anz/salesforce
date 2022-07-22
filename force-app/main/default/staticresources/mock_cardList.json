@@ -1,141 +1,198 @@
 {
   "cards": [
     {
-      "name": "Bruce Willis",
-      "tokenizedCardNumber": "0987654321",
-      "last4Digits": "4123",
-      "status": "Closed",
-      "expiryDate": "9/14",
-      "accountNumber": "",
+      "name": "ELVA KOELPIN",
+      "tokenized_card_number": "8051997368527878",
+      "last_4_digits": "0647",
+      "status": "Issued",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390845569"],
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",
         "ELIGIBILITY_SAMSUNG_PAY",
+        "ELIGIBILITY_CARD_ACTIVATION",
         "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
         "ELIGIBILITY_CARD_REPLACEMENT_LOST",
         "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
         "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
         "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK"
+        "ELIGIBILITY_CARD_ON_FILE"
       ],
       "wallets": {
-        "applePay": 3,
-        "googlePay": 0,
-        "samsungPay": 0,
-        "fitness": 0,
-        "eCommerce": 0,
-        "other": 0
-      }
+        "applePay": 3
+      },
+      "card_controls_enabled": true
     },
     {
-      "name": "Peter Charalambous",
-      "tokenizedCardNumber": "746352948",
-      "last4Digits": "9876",
+      "name": "JAIRO REYNOLDS",
+      "tokenized_card_number": "0900601361295097",
+      "last_4_digits": "0654",
       "status": "Issued",
-      "expiryDate": "9/14",
-      "accountNumber": "",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390845585"],
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",
         "ELIGIBILITY_SAMSUNG_PAY",
         "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
         "ELIGIBILITY_CARD_REPLACEMENT_LOST",
         "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
         "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
         "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK"
+        "ELIGIBILITY_BLOCK",
+        "ELIGIBILITY_GET_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
       ],
       "wallets": {
         "applePay": 3,
         "googlePay": 2,
         "samsungPay": 1,
-        "fitness": 0,
-        "eCommerce": 0,
-        "other": 0
-      }
+        "fitness": 3,
+        "eCommerce": 2,
+        "other": 1
+      },
+      "card_controls_enabled": true
     },
     {
-      "name": "Bernie Sanders",
-      "tokenizedCardNumber": "0192837465",
-      "last4Digits": "1111",
+      "name": "YVONNE KUHLMAN",
+      "tokenized_card_number": "9630441141612226",
+      "last_4_digits": "0662",
       "status": "Temporary Block",
-      "expiryDate": "9/14",
-      "accountNumber": "",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390845606"],
+      "eligibilities": [
+        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
+        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_UNBLOCK"
+      ],
+      "wallets": {
+        "samsungPay": 1
+      }
+    },
+    {
+      "name": "MARCELINO SMITH",
+      "tokenized_card_number": "9651661556625127",
+      "last_4_digits": "1686",
+      "status": "Issued",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390845622"],
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",
         "ELIGIBILITY_SAMSUNG_PAY",
         "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
         "ELIGIBILITY_CARD_REPLACEMENT_LOST",
         "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
         "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
         "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_UNBLOCK"
+        "ELIGIBILITY_BLOCK",
+        "ELIGIBILITY_GET_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
       ],
       "wallets": {
-        "applePay": 0,
-        "googlePay": 0,
-        "samsungPay": 1,
-        "fitness": 0,
-        "eCommerce": 0,
-        "other": 0
-      }
+        "eCommerce": 1
+      },
+      "card_controls_enabled": true
     },
     {
-      "name": "John Travolta",
-      "tokenizedCardNumber": "0192837465",
-      "last4Digits": "1111",
-      "status": "Replace Status",
-      "expiryDate": "9/14",
-      "accountNumber": "",
-      "eligibilities": [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_UNBLOCK"
-      ],
-      "wallets": {
-        "applePay": 0,
-        "googlePay": 0,
-        "samsungPay": 0,
-        "fitness": 0,
-        "eCommerce": 0,
-        "other": 0
-      }
+      "name": "JED SWANIAWSKI",
+      "tokenized_card_number": "7895348427213347",
+      "last_4_digits": "0902",
+      "status": "Block ATM & POS (Exclude CNP)",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390846203"],
+      "eligibilities": ["ELIGIBILITY_FRAUD_SUSPECTED"],
+      "wallets": {}
     },
     {
-      "name": "Quentin Tarantino",
-      "tokenizedCardNumber": "23572357",
-      "last4Digits": "1113",
-      "status": "Block CNP",
-      "expiryDate": "9/22",
-      "accountNumber": "",
-      "eligibilities": [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK"
-      ],
-      "wallets": {
-        "applePay": 0,
-        "googlePay": 0,
-        "samsungPay": 0,
-        "fitness": 0,
-        "eCommerce": 0,
-        "other": 0
-      }
+      "name": "SANTA DUBUQUE",
+      "tokenized_card_number": "1822515293220403",
+      "last_4_digits": "0969",
+      "status": "Lost",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390846334"],
+      "eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_LOST"],
+      "new_tokenized_card_number": "1832419570176708",
+      "wallets": {}
+    },
+    {
+      "name": "EMMA TURNER",
+      "tokenized_card_number": "5787250584894327",
+      "last_4_digits": "0977",
+      "status": "Stolen",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390846369"],
+      "eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_STOLEN"],
+      "new_tokenized_card_number": "3337796764029075",
+      "wallets": {}
+    },
+    {
+      "name": "J CITIZEN200331",
+      "tokenized_card_number": "8934156628107049",
+      "last_4_digits": "0589",
+      "status": "Delinquent (Retain Card)",
+      "expiry_date": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "account_numbers": ["390845489"],
+      "eligibilities": ["ELIGIBILITY_FRAUD_CARD_CANCELLED"],
+      "wallets": {}
     }
   ]
 }

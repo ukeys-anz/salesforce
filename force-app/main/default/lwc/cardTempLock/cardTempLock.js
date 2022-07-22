@@ -10,11 +10,16 @@ import lockCard from "@salesforce/apex/CardTempLockController.lockCard";
 
 import hasLockCardsPermission from "@salesforce/customPermission/ANZx_Temp_Lock_Card";
 
+const LOCK_SUCCESS_MSG =
+  "The physical card has been successfully locked. This means all physical transactions are blocked, including ATM and point of sale.";
+const LOCK_FAILURE_MSG =
+  "Oh no! There was an issue locking this card. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
 export default class CardTempLock extends LightningElement {
   @api recordId;
   @api showModal;
   @api cardNumber;
   ocvId;
+  loading;
 
   @wire(MessageContext)
   messageContext;
@@ -39,20 +44,21 @@ export default class CardTempLock extends LightningElement {
 
   handleLock() {
     if (hasLockCardsPermission) {
+      this.loading = true;
       lockCard({ cardNumber: this.cardNumber, ocvId: this.ocvId })
         .then((result) => {
           if (result) {
             publish(this.messageContext, CloseModal, {
               name: "lock",
               show: !this.showModal,
-              message: "Card successfully locked.",
+              message: LOCK_SUCCESS_MSG,
               success: true
             });
           }
+          this.loading = false;
         })
         .catch((error) => {
-          let errorMessage =
-            "Oh no! There was an issue locking this card. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
+          let errorMessage = LOCK_FAILURE_MSG;
           if (error.body && error.body.message) {
             errorMessage = error.body.message;
           }
@@ -62,6 +68,7 @@ export default class CardTempLock extends LightningElement {
             message: errorMessage,
             success: false
           });
+          this.loading = false;
         });
     }
   }

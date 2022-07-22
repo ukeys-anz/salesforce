@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolution__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Outcome of the Interaction</description>
+    <externalId>false</externalId>
+    <label>Resolution</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Did not Answer</fullName>
+                <default>false</default>
+                <label>Did not Answer</label>
+            </value>
+            <value>
+                <fullName>Follow-up Required</fullName>
+                <default>false</default>
+                <label>Follow-up Required</label>
+            </value>
+            <value>
+                <fullName>Referred</fullName>
+                <default>false</default>
+                <label>Referred</label>
+            </value>
+            <value>
+                <fullName>Resolved</fullName>
+                <default>false</default>
+                <label>Resolved</label>
+            </value>
+            <value>
+                <fullName>Voice Mail</fullName>
+                <default>false</default>
+                <label>Voice Mail</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

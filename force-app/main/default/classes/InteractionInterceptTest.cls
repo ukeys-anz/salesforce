@@ -21,6 +21,7 @@ public with sharing class InteractionInterceptTest {
     string purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
     Interaction testInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount.Id,
       StartTime = startDate,
       Interaction_Purpose__c = purpose
@@ -41,6 +42,7 @@ public with sharing class InteractionInterceptTest {
 
     test.startTest();
     Interaction testInteraction2 = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount.Id,
       StartTime = startDate,
       Interaction_Purpose__c = purpose
@@ -191,6 +193,7 @@ public with sharing class InteractionInterceptTest {
 
     //Rescheduled Appointment.
     Interaction peteInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       AccountId = peteAccount.Id,
       StartTime = peteStartTime,
@@ -235,6 +238,7 @@ public with sharing class InteractionInterceptTest {
     DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
 
     Interaction davidInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       AccountId = davidAccount.Id,
       StartTime = davidStartTime,
@@ -273,6 +277,7 @@ public with sharing class InteractionInterceptTest {
 
     //Rescheduled Appointment.
     Interaction peteInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       AccountId = peteAccount.Id,
       StartTime = peteStartTime,
@@ -319,6 +324,7 @@ public with sharing class InteractionInterceptTest {
     DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
 
     Interaction davidInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
       AccountId = davidAccount.Id,
       StartTime = davidStartTime,

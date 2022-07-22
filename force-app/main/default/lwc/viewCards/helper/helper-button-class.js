@@ -1,4 +1,4 @@
-import { STATUS, CARD_ELIGIBILITY, MAPPED_STATUS } from "./model";
+import { STATUS, CARD_ELIGIBILITY } from "./model";
 // to create a button and make it visible | disable
 
 class ButtonFactory {
@@ -19,29 +19,19 @@ class ButtonFactory {
   }
 }
 
-const inactiveStatuses = [
-  STATUS.Closed,
-  STATUS.Delinquent_Retain_Card,
-  STATUS.Replace_Status,
-  STATUS.Card_Status_Invalid,
-  STATUS.Delinquent_Return_Card,
-  STATUS.Lost,
-  STATUS.Stolen,
-  STATUS.Un_Issued
-];
-
 // functions according to each button - will be passed to parent
 function lockCardAction(inputInfo) {
   return {
-    tokenizedCardNumber: inputInfo.card.tokenizedCardNumber,
+    tokenizedCardNumber: inputInfo.card.tokenized_card_number,
     showLock: !inputInfo.showLock
   };
 }
 
 function replaceCardAction(inputInfo) {
   let cardEligibilities = inputInfo.card.eligibilities;
+
   return {
-    tokenizedCardNumber: inputInfo.card.tokenizedCardNumber,
+    tokenizedCardNumber: inputInfo.card.tokenized_card_number,
     replaceLostUnavailable: !cardEligibilities.includes(
       "ELIGIBILITY_CARD_REPLACEMENT_LOST"
     ),
@@ -51,7 +41,7 @@ function replaceCardAction(inputInfo) {
     replaceDamagedUnavailable: !cardEligibilities.includes(
       "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED"
     ),
-    replaceLockUnavailable: !cardEligibilities.includes("ELIGIBILITY_BLOCK"),
+    replaceLockUnavailable: lockCardDisabled(inputInfo.card),
     showReplace: !inputInfo.showReplace
   };
 }
@@ -59,10 +49,10 @@ function replaceCardAction(inputInfo) {
 function fraudCardsAction(inputInfo) {
   return {
     buttonClicked: inputInfo.label,
-    tokenizedCardNumber: inputInfo.card.tokenizedCardNumber,
+    tokenizedCardNumber: inputInfo.card.tokenized_card_number,
     showFraudLock: !inputInfo.showFraudLock,
     cardFraudLockStatus: inputInfo.card.status,
-    last4Digits: inputInfo.card.last4Digits
+    last4Digits: inputInfo.card.last_4_digits
   };
 }
 
@@ -86,14 +76,7 @@ function removeTemporaryLockVisible(card, userPermission) {
 }
 
 function lockCardVisible(card, userPermission) {
-  let allowedStatus = [
-    STATUS.Issued,
-    STATUS.Temporary_Block,
-    STATUS.Temporary_Lock
-  ];
-  return (
-    userPermission.hasLockPermission && allowedStatus.includes(card.status)
-  );
+  return userPermission.hasLockPermission && card.status == STATUS.Issued;
 }
 
 function replaceCardVisible(card, userPermission) {
@@ -106,7 +89,6 @@ function replaceCardVisible(card, userPermission) {
     userPermission.hasReplacePermission && allowedStatus.includes(card.status)
   );
 }
-//cancel
 
 function cancelCardVisible(card, userPermission) {
   let allowedStatus = [
@@ -130,8 +112,12 @@ function fraudUnlockDisabled(card) {
   return card.status == STATUS.Issued;
 }
 
+// If Temp Lock is applied or eligibility does not include Controls, then Lock Button should be disabled
 function lockCardDisabled(card) {
-  return !card.eligibilities.includes(CARD_ELIGIBILITY.Card_Block);
+  const cardControlEligExists = card.eligibilities.includes(
+    "ELIGIBILITY_CARD_CONTROLS"
+  );
+  return card.cardIsTempLocked || !cardControlEligExists;
 }
 
 function replaceDisabled(card) {
@@ -141,30 +127,6 @@ function replaceDisabled(card) {
     CARD_ELIGIBILITY.Card_Stolen
   ];
   return !card.eligibilities.some((el) => replaceEligibility.includes(el));
-}
-
-function mappingStatusOnACard(card) {
-  for (let key in STATUS) {
-    if (card.status === STATUS[key]) {
-      card.statusToShow = MAPPED_STATUS[key];
-    }
-  }
-  return card;
-}
-
-function sortCardsHandler(cards) {
-  if (cards.length > 1) {
-    cards.sort((cardA, cardB) => {
-      if (cardA.status === STATUS.Issued) {
-        return -1;
-      }
-      if (inactiveStatuses.includes(cardB.status)) {
-        return -1;
-      }
-      return 1;
-    });
-  }
-  return cards;
 }
 
 // function according to the label of the button
@@ -210,6 +172,7 @@ const cardButtonContainerClassName = (card) => {
 };
 
 // for each card: will make a buttons array according to button schema and make the cards to have new schema with cards.buttons
+// and set statusToShow and cardIsTempLocked on each card then sort the list of cards
 export function createButtonsFromArray(cards, userPermission) {
   for (let i = 0; i < cards.length; i++) {
     let buttonArray = [];
@@ -225,9 +188,6 @@ export function createButtonsFromArray(cards, userPermission) {
     }
     cards[i].buttons = buttonArray;
     cards[i] = cardButtonContainerClassName(cards[i]);
-    cards[i] = mappingStatusOnACard(cards[i]);
   }
-
-  cards = sortCardsHandler(cards);
   return cards;
 }

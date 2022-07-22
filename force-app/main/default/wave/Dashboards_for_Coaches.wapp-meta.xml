@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <assetIcon>/analytics/wave/web/proto/images/app/icons/15.png</assetIcon>
     <folder>Dashboards_for_Coaches</folder>
@@ -21,6 +21,11 @@
     <shares>
         <accessLevel>View</accessLevel>
         <sharedTo>FraudX_Agent</sharedTo>
+        <sharedToType>RoleAndSubordinates</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Coach_Lead</sharedTo>
         <sharedToType>RoleAndSubordinates</sharedToType>
     </shares>
     <shares>

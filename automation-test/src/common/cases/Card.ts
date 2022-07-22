@@ -106,7 +106,7 @@ export default class Card extends Case {
   }
 
   async update(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const baseRecordForm = await casePageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // External Case ID

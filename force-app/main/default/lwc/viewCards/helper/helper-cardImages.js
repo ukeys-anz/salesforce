@@ -1,6 +1,6 @@
 import { STATUS } from "./model";
 
-function cardIsLockedForUse(status) {
+function cardIsLockedForUse(card) {
   let lockedStatus = [
     STATUS.Temporary_Block,
     STATUS.Temporary_Lock,
@@ -11,10 +11,10 @@ function cardIsLockedForUse(status) {
     STATUS.Block_ATM_POS_CNP,
     STATUS.Block_POS_Exclude_CNP
   ];
-  return lockedStatus.includes(status);
+  return lockedStatus.includes(card.status) || card.cardIsTempLocked;
 }
 
-function cardIsDisabledForUse(status) {
+function cardIsDisabledForUse(card) {
   let disabledStatus = [
     STATUS.Closed,
     STATUS.Delinquent_Retain_Card,
@@ -25,18 +25,21 @@ function cardIsDisabledForUse(status) {
     STATUS.Stolen,
     STATUS.Un_Issued
   ];
-  return disabledStatus.includes(status);
+  return disabledStatus.includes(card.status);
 }
 
-export function cardImageHandler(card_images, status = "") {
+export function cardImageHandler(card_images, card) {
   let imagePath = card_images.default;
 
-  if (status == STATUS.Issued) {
-    imagePath = card_images.active;
-  } else if (cardIsLockedForUse(status)) {
-    imagePath = card_images.locked;
-  } else if (cardIsDisabledForUse(status)) {
-    imagePath = card_images.disabled;
+  if (card) {
+    // When GCT_Global lock is applied, Status is still issued
+    if (card.status == STATUS.Issued && !card.cardIsTempLocked) {
+      imagePath = card_images.active;
+    } else if (cardIsLockedForUse(card)) {
+      imagePath = card_images.locked;
+    } else if (cardIsDisabledForUse(card)) {
+      imagePath = card_images.disabled;
+    }
   }
   return imagePath;
 }

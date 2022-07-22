@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Related_Party_Check</fullName>
+    <active>true</active>
+    <description>Related Party for UNICA leads cannot be changed after it is set.</description>
+    <errorConditionFormula>AND(
+!ISNEW(),
+ISCHANGED( FinServ__RelatedAccount__c ),
+!ISBLANK( PRIORVALUE( FinServ__RelatedAccount__c ) ),
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+TEXT(Lead_Originator__c) = &apos;UNICA&apos;        
+)</errorConditionFormula>
+    <errorDisplayField>FinServ__RelatedAccount__c</errorDisplayField>
+    <errorMessage>Related Party cannot be changed for UNICA Leads</errorMessage>
+</ValidationRule>

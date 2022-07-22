@@ -17,6 +17,100 @@
         <value>Anonymous</value>
     </labels>
     <labels>
+        <fullName>CCRM_ChatterPostMessageBody</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Chatter Post Message Body</shortDescription>
+        <value>New lead #{LeadId}# available to action.Please check your leads list view. #{LeadListViewId}#</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_LeadDefaultPriorityValue</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Lead Default Priority Value</shortDescription>
+        <value>99</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExpiryDateDays</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of days to calculate Expiry Date at which the Lead gets Expired.</shortDescription>
+        <value>14</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExpiryReminderDays</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of days to send Reminders before Lead gets Expired.</shortDescription>
+        <value>2</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_NewSourceLeadMessage</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Lead from Source Message.</shortDescription>
+        <value>New Lead #{LeadId}# is now available from #{Lead.Lead_Originator__c}#. Please check your leads list view. #{LeadListViewId}#</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExpiryReminderMessage</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Expiry Reminder Message.</shortDescription>
+        <value>You have a lead #{LeadId}# approaching expiry. Please check your leads list view #{LeadListViewId}#.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ListViewName</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial CRM List View name.</shortDescription>
+        <value>My Commercial Leads</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_NonEditableLeadStages</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commercial CRM List of Lead Stages which should not allow to be edited.</shortDescription>
+        <value>'Completed','Converted','Expired','Referred'</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_ExtendLeadExpiryDateWhenResponseLogCreated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of days Lead expiry to extend when response log created</shortDescription>
+        <value>5</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_MaxDaysExpiryDateExtends</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Maximum Number of days Lead expiry to extend</shortDescription>
+        <value>45</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_MinDaysExpiryDateExtends</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Minimum Number of days Lead expiry to extend</shortDescription>
+        <value>10</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Today_Date</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Used in testing for adding and substracting days from todays date</shortDescription>
+        <value>0</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -65,6 +159,22 @@
         <value>/card-management/v1/cards</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Abr_Abn</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Abr_Abn</shortDescription>
+        <value>/abr/v1/abn/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Abr_Acn</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Abr_Acn</shortDescription>
+        <value>/abr/v1/acn/</value>
+    </labels>
+    <labels>
         <fullName>MS_Forge_Token</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -86,7 +196,15 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/cards</value>
+        <value>/coach-banking/v1beta1/cards</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Card_Control_List</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Card_Control_List</shortDescription>
+        <value>/coach-banking/v1beta2/cardcontrols</value>
     </labels>
     <labels>
         <fullName>MS_Get_CaseChatChannel</fullName>
@@ -121,6 +239,22 @@
         <value>/coach-banking/v1beta1/transactions</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Qas_Address</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_Address</shortDescription>
+        <value>/sfdc/addresses/v1/addresses?lookupString=</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Qas_AddressById</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_AddressById</shortDescription>
+        <value>/sfdc/addresses/v1/addresses/</value>
+    </labels>
+    <labels>
         <fullName>MS_Replace_Card</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -129,12 +263,12 @@
         <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
     </labels>
     <labels>
-        <fullName>MS_Temp_Block_Card</fullName>
+        <fullName>MS_Temp_Lock_Card</fullName>
         <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>MS_Temp_Block_Card</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+        <shortDescription>MS_Temp_Lock_Card</shortDescription>
+        <value>/coach-banking/v1beta2/cardcontrols/</value>
     </labels>
     <labels>
         <fullName>MS_Get_Financial_Accounts</fullName>
@@ -143,6 +277,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_Financial_Accounts</shortDescription>
         <value>/coach-banking/v1beta1/accounts</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Tokenized_Card</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Tokenized_Card</shortDescription>
+        <value>/coach-banking/v1/disputes/transactions/</value>
     </labels>
     <labels>
         <fullName>MS_Get_StatementList</fullName>

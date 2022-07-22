@@ -36,8 +36,8 @@ ENV NODE_OPTIONS=--max-old-space-size=4096
 ENV GENERATE_SOURCEMAP=false
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
-COPY salesforce/automation-test/package.json /app
-COPY salesforce/automation-test/.npmrc /app
+COPY ./package.json /app
+COPY ./.npmrc /app
 
 RUN chown -hR seluser:seluser /app
 RUN chmod 777 /app

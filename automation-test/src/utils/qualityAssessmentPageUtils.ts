@@ -4,15 +4,12 @@ import QualityAssessmentDetailsTab from "pageObjects/qualityAssessmentDetailsTab
 import BaseRecordForm from "@salesforce-pageobjects/records/pageObjects/baseRecordForm";
 import * as commonUtils from "../utils/commonUtils";
 
-export const getRecordForm = async (): Promise<BaseRecordForm | undefined> => {
+export const getRecordForm = async (): Promise<BaseRecordForm> => {
   const detailsTab = await getTabContent("Details");
-
-  if (detailsTab instanceof QualityAssessmentDetailsTab) {
-    const detailPanel = await detailsTab.getDetailPanel();
-    return detailPanel.getBaseRecordForm();
-  }
-
-  return;
+  const detailPanel = await (
+    detailsTab as QualityAssessmentDetailsTab
+  ).getDetailPanel();
+  return detailPanel.getBaseRecordForm();
 };
 
 export const getTabContent = async (

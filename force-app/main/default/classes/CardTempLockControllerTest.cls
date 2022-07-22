@@ -11,11 +11,8 @@ public with sharing class CardTempLockControllerTest {
   @isTest
   public static void validResponse() {
     Test.startTest();
-    Boolean response = CardTempLockController.lockCard(
-      '4444444444444444',
-      '1111'
-    );
-    System.assertEquals(true, response, 'Lock card is successful.');
+    Boolean response = CardTempLockController.lockCard('746352948', '1111');
+    System.assertEquals(true, response, 'Card should be locked');
     Test.stopTest();
   }
 }

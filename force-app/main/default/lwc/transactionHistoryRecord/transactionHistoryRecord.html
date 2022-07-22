@@ -408,4 +408,8 @@
     </section>
     <div class="slds-backdrop slds-backdrop_open"></div>
   </template>
+  <template if:true={loading}>
+    <lightning-spinner alternative-text="Loading..." variant="brand">
+    </lightning-spinner>
+  </template>
 </template>

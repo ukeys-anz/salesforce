@@ -1,0 +1,99 @@
+<template>
+  <lightning-spinner if:true={isLoading}></lightning-spinner>
+  <template if:true={hasError}>
+    <c-error message={errorMessage}></c-error>
+  </template>
+  <template if:false={hasError}>
+    <lightning-card title="Response" icon-name="action:new_task">
+      <lightning-layout multiple-rows>
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-combobox
+            name="Response Status"
+            class="responseStatus"
+            label="Response Status"
+            placeholder="Select Response Status"
+            options={responseStatusOptions}
+            onchange={handleResponseStatusChange}
+            value={selectedResponseStatusValue}
+            required
+            message-when-value-missing="Please select a Response Status."
+          >
+          </lightning-combobox>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-combobox
+            if:false={resetValidationError}
+            name="Outcome Reason"
+            class="outcomeReason"
+            label="Outcome Reason"
+            placeholder="Select Outcome Reason"
+            options={outcomeReasonOptions}
+            onchange={handleOutcomeResponseChange}
+            value={selectedOutcomeResponseValue}
+            required
+            message-when-value-missing="Please select an Outcome Reason."
+          >
+          </lightning-combobox>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-combobox
+            if:false={resetValidationError}
+            name="Lead Quality"
+            class="leadQuality"
+            label="Lead Quality"
+            placeholder="Select Lead Quality"
+            options={leadQualityOptions}
+            onchange={handleLeadQualityChange}
+            value={selectedLeadQualityValue}
+            disabled={isLeadQualityDisabled}
+            required={isLeadQualityRequired}
+            message-when-value-missing="Lead Quality is mandatory for the selected Response Status"
+          >
+          </lightning-combobox>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" padding="around-small">
+          <lightning-input
+            if:false={resetValidationError}
+            name="followUpDate"
+            class="followUpDate"
+            label="Follow-Up Date"
+            type="date"
+            placeholder="Select Follow-Up Date"
+            value={selectedFollowUpDateValue}
+            onchange={handleFollowUpDateChange}
+            disabled={followUpDateDisable}
+            required={isFollowUpDateRequired}
+            message-when-value-missing="Follow-Up date is mandatory for the selected Outcome Reason."
+            min={minFollowUpDate}
+            message-when-range-underflow="Follow-Up Date value should be in future."
+          >
+          </lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" padding="around-small">
+          <lightning-textarea
+            class="comment"
+            placeholder="Comment"
+            value={commentValue}
+            label="Comment"
+            onchange={handleCommentChange}
+            max-length="300"
+          >
+          </lightning-textarea>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+          <lightning-button label="Cancel" onclick={handleCancel}>
+          </lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small">
+          <lightning-button
+            variant="brand"
+            label="Log Response"
+            onclick={submitResponse}
+            disabled={isDisable}
+          >
+          </lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-card>
+  </template>
+</template>

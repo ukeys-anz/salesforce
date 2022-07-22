@@ -72,14 +72,6 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     }
   }
 
-  private static HttpCalloutResponse getFinancialAccountInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Get accounts failed');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
-  }
-
   /**
    * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
@@ -129,14 +121,6 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
   }
 
-  private static HttpCalloutResponse getTransactionHistoryInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Get transaction history failed');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
-  }
-
   /**
    * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
@@ -174,7 +158,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
       System.assertEquals(
-        5,
+        8,
         cardsModel.cards.size(),
         'The number of cards should be as expected.'
       );
@@ -325,35 +309,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       // THEN
       // parsing data on to CardListModel should not fail
       System.assertEquals(
-        5,
+        8,
         cardsModel.cards.size(),
         'Error occured while parsing JSON payload related to cards'
       );
     }
-  }
-
-  private static HttpCalloutResponse getCardListIncompleteInformation() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.statusCode = 200;
-    response.successful = true;
-    response.body = '{"cards":[{"name":"Bruce Willis","tokenizedCardNumber":"1234567890"}]}';
-    return response;
-  }
-
-  private static HttpCalloutResponse getCardListInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Get card list failed');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
-  }
-
-  private static HttpCalloutResponse replaceCardInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Replace card failed');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
   }
 
   /**
@@ -405,9 +365,165 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     }
   }
 
+  /**
+   * @description fetch valid card control list, mocked values in force-app/main/default/staticresources/mock_cardControlList.json
+   * called in force-app/main/default/classes/services/FabricServiceMock.cls
+   */
+  @isTest
+  static void cardControlListValidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+
+    System.runAs(thisUser) {
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      CardControlModel cardControlModel = coachAPI.getCardControlsList('1111');
+      Test.stopTest();
+
+      System.assertEquals(
+        6,
+        cardControlModel.card_controls.size(),
+        'Card control mock response should be received'
+      );
+    }
+  }
+
+  /**
+   * @description fetch invalid card controls list
+   */
+  @isTest
+  static void cardControlListInvalidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+
+    System.runAs(thisUser) {
+      CardControlModel cardControlModel;
+      HttpCalloutResponse res = getCardControlsListInvalidResponse();
+
+      Service s = ServiceProvider.getService(FabricService.class);
+      s.setCalloutResponse(res);
+      Exception resultException;
+
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      try {
+        cardControlModel = coachAPI.getCardControlsList('1111');
+      } catch (Exception e) {
+        resultException = e;
+      }
+      Test.stopTest();
+      System.assertEquals(
+        'Get card control list failed',
+        resultException.getMessage(),
+        'Exception should be returned for failed call'
+      );
+    }
+  }
+
+  /**
+   * @description call card controls to place temp lock on card, mocked values in force-app/main/default/staticresources/mock_cardControl.json
+   * called in force-app/main/default/classes/services/FabricServiceMock.cls
+   */
+  @isTest
+  static void testLockCardValidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+
+    System.runAs(thisUser) {
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      CardControlModel.CardControlWrapper lockCardResponse = coachAPI.lockCard(
+        '746352948',
+        '1111'
+      );
+      Test.stopTest();
+
+      System.assertEquals(
+        CardTempLockController.GCT_GLOBAL_CONTROL_STRING,
+        lockCardResponse?.card_controls[0].control_type,
+        'Successful lock card control response should be received'
+      );
+    }
+  }
+  /**
+   * @description invalid lock card response
+   */
+  @isTest
+  static void testLockCardInvalidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+
+    System.runAs(thisUser) {
+      CardControlModel.CardControlWrapper lockCardResponse;
+      HttpCalloutResponse res = lockCardInvalidResponse();
+
+      Service s = ServiceProvider.getService(FabricService.class);
+      s.setCalloutResponse(res);
+      Exception resultException;
+
+      Test.startTest();
+      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+      try {
+        lockCardResponse = coachAPI.lockCard('746352948', '1111');
+      } catch (Exception e) {
+        resultException = e;
+      }
+      Test.stopTest();
+      System.assertEquals(
+        'Place lock on card failed',
+        resultException.getMessage(),
+        'Exception should be returned for failed call'
+      );
+    }
+  }
+
+  private static HttpCalloutResponse getFinancialAccountInvalidResponse() {
+    return generateInvalidResponse('Get accounts failed');
+  }
+
+  private static HttpCalloutResponse getTransactionHistoryInvalidResponse() {
+    return generateInvalidResponse('Get transaction history failed');
+  }
+
   private static HttpCalloutResponse getAccountBucketsInvalidResponse() {
+    return generateInvalidResponse('Get account buckets failed');
+  }
+
+  private static HttpCalloutResponse getCardListIncompleteInformation() {
+    String responseBody = '{"cards":[{"name":"Bruce Willis","tokenizedCardNumber":"1234567890"}]}';
+    return generateValidResponse(responseBody);
+  }
+
+  private static HttpCalloutResponse getCardListInvalidResponse() {
+    return generateInvalidResponse('Get card list failed');
+  }
+
+  private static HttpCalloutResponse replaceCardInvalidResponse() {
+    return generateInvalidResponse('Replace card failed');
+  }
+
+  private static HttpCalloutResponse getCardControlsValidResponse() {
+    String responseBody = '{"card_controls": [{"tokenized_card_number": "5444345466667776","card_controls": {"control_type": "GCT_GLOBAL"}}]}';
+    return generateValidResponse(responseBody);
+  }
+
+  private static HttpCalloutResponse getCardControlsListInvalidResponse() {
+    return generateInvalidResponse('Get card control list failed');
+  }
+
+  private static HttpCalloutResponse lockCardInvalidResponse() {
+    return generateInvalidResponse('Place lock on card failed');
+  }
+
+  private static HttpCalloutResponse generateValidResponse(String bodyString) {
     HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('Get account buckets failed');
+    response.body = bodyString;
+    response.statusCode = 200;
+    response.successful = true;
+    return response;
+  }
+
+  private static HttpCalloutResponse generateInvalidResponse(
+    String exceptionMsg
+  ) {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.error = new CalloutException(exceptionMsg);
     response.statusCode = 500;
     response.successful = false;
     return response;

@@ -56,6 +56,7 @@ public with sharing class ContactRequestActionsTest {
   static void testInteractionExternalIdNotFromCR() {
     Faker faker = new Faker('AU');
     Interaction testInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(15)
     );
     test.startTest();
@@ -507,6 +508,7 @@ public with sharing class ContactRequestActionsTest {
     );
 
     Interaction testInteraction = new Interaction();
+    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     testInteraction.Name =
       InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.Lead__c = testLead.Id;

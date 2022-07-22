@@ -15,7 +15,7 @@ export default class Dispute {
 
   async getTransactionHistoryRecordByType(
     transactionType: TransactionType = this.transactionType
-  ): Promise<TransactionHistoryRecord | null> {
+  ): Promise<TransactionHistoryRecord> {
     // load Financial Account flexi page
     const recordPageRoot = await utam.load(RecordPage);
     const financialAccountRecordPage =
@@ -28,22 +28,20 @@ export default class Dispute {
       FinancialAccountTab
     );
 
-    if (accountTab instanceof FinancialAccountTab) {
-      // get Financial Account Parent lwc component
-      const financialAccount = await accountTab.getFinancialAccountParent();
+    // get Financial Account Parent lwc component
+    const financialAccount = await (
+      accountTab as FinancialAccountTab
+    ).getFinancialAccountParent();
 
-      // load Transaction History Board lwc component
-      const board = await financialAccount.getTransactionHistoryBoard();
+    // load Transaction History Board lwc component
+    const board = await financialAccount.getTransactionHistoryBoard();
 
-      // get a transaction history record of type
-      const record = await board.getTransactionHistoryRecordByType(
-        transactionType
-      );
+    // get a transaction history record of type
+    const record = await board.getTransactionHistoryRecordByType(
+      transactionType
+    );
 
-      return record;
-    }
-
-    return null;
+    return record;
   }
 
   async raiseDispute(
@@ -54,7 +52,7 @@ export default class Dispute {
     );
 
     // click Raise Dispute button
-    await record!.raiseDispute();
+    await record.raiseDispute();
 
     // wait window load case creation form
     await browser.pause(3000);

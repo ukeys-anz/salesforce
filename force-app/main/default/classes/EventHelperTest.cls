@@ -42,6 +42,7 @@ public with sharing class EventHelperTest {
     Account testAccount = createTestAccount();
 
     Interaction testInteraction = new Interaction();
+    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     testInteraction.Name =
       InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.AccountId = testAccount.Id;
@@ -121,6 +122,7 @@ public with sharing class EventHelperTest {
     system.assertEquals(0, events.size(), 'No events should be available');
 
     Interaction testInteraction = new Interaction();
+    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     testInteraction.Name =
       InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.Lead__c = testLead.Id;

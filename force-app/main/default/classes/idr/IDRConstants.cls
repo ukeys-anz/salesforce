@@ -66,6 +66,14 @@ public with sharing class IDRConstants {
     .get('Systemic_Issue_Task')
     .getRecordTypeId();
 
+  //Complaint Status' for STOP collection
+  public static final Set<String> STATUS_STOP_COLLECTIONS = new Set<String>{
+    OPEN_STATUS,
+    UNDER_INVESTIGATION_STATUS,
+    ESCALATED_STATUS,
+    REOPENED_STATUS
+  };
+
   //Complaint Type and Subsequent Issue Type Set for collections
   public static final Set<String> ISSUE_TYPE_COLLECTIONS = new Set<String>{
     '4',

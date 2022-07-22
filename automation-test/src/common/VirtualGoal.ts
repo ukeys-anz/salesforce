@@ -40,27 +40,27 @@ export default class VirtualGoal {
       FinancialAccountTab
     );
 
-    if (accountTab instanceof FinancialAccountTab) {
-      // get Financial Account Parent lwc component
-      const financialAccount = await accountTab.getFinancialAccountParent();
+    // get Financial Account Parent lwc component
+    const financialAccount = await (
+      accountTab as FinancialAccountTab
+    ).getFinancialAccountParent();
 
-      // get Financial Goals lwc component
-      const financialGoals = await financialAccount.getFinancialGoals();
+    // get Financial Goals lwc component
+    const financialGoals = await financialAccount.getFinancialGoals();
 
-      const goals = await financialGoals.getGoals();
+    const goals = await financialGoals.getGoals();
 
-      // assert there are 6 goals on page
-      expect(goals.length).toEqual(6);
+    // assert there are 6 goals on page
+    expect(goals.length).toEqual(6);
 
-      for await (const goal of goals) {
-        // assert the Target Value of each goal is Visible
-        const targetValue = await goal.getTargetValue();
-        expect(await targetValue.isVisible()).toEqual(true);
+    for await (const goal of goals) {
+      // assert the Target Value of each goal is Visible
+      const targetValue = await goal.getTargetValue();
+      expect(await targetValue.isVisible()).toEqual(true);
 
-        // assert the Total Saved of each goal is Visible
-        const totalSaved = await goal.getTotalSaved();
-        expect(await totalSaved.isVisible()).toEqual(true);
-      }
+      // assert the Total Saved of each goal is Visible
+      const totalSaved = await goal.getTotalSaved();
+      expect(await totalSaved.isVisible()).toEqual(true);
     }
   }
 }

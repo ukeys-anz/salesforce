@@ -2,12 +2,15 @@
   "cards": [
     {
       "name": "Peter Charalambous",
-      "tokenizedCardNumber": "1234567890",
-      "last4Digits": "9876",
+      "tokenized_card_number": "1234567890",
+      "last_4_digits": "9876",
       "status": "Issued",
-      "expiryDate": "9/14",
+      "expiry_date": {
+        "year": { "value": 2014 },
+        "month": { "value": 9 }
+      },
       "isValid": true,
-      "accountNumber": "",
+      "account_number": "",
       "eligibilities": []
     }
   ]
