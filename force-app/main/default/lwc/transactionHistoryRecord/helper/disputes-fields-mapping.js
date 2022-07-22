@@ -13,7 +13,7 @@ const atmDisputesFieldsMapping = {
   Bank_ATM__c: "long_desc",
   Location__c: "long_desc",
   Card_Scheme__c: "cash.card_scheme",
-  Card_Number__c: "cash.last_four_digits",
+  Card_Number__c: "cash.card_last_four_digits",
   Card_Token_Number__c: "tokenizedCardNumber"
 };
 

@@ -333,7 +333,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     @AuraEnabled
     public String wallet;
     @AuraEnabled
-    public String last_four_digits;
+    public String card_last_four_digits;
   }
 
   /**
