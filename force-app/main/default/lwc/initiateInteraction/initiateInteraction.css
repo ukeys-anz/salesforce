@@ -2,20 +2,34 @@
   padding-left: 1px;
   vertical-align: bottom;
 }
+
 .dialing {
-  margin-right: 5px;
+  margin-right: 10px;
 }
+
 .keypad {
-  margin-right: 5px;
+  margin-right: 10px;
 }
+
 .dial-tab {
   padding-left: 10%;
   padding-right: 10%;
 }
+
 .chat-window {
   padding-left: 5%;
   padding-right: 5%;
 }
-.lightning-textarea {
-  height: 13em;
+
+.message-header {
+  font-size: 15px;
+}
+
+.tabs_default__link {
+  width: 50%;
+}
+
+.slds-tabs_medium .slds-tabs_default__item {
+  width: 50%;
+  letter-spacing: 0.5px;
 }

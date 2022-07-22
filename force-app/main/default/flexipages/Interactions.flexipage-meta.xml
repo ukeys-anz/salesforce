@@ -28,6 +28,44 @@
                     <value>6</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Coach Lead</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Support Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Quality Analyst</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>FraudX Agent</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Card Dispute Agent</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Business Admin</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -58,10 +96,31 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
-                        <operator>CONTAINS</operator>
+                        <operator>EQUAL</operator>
                         <rightValue>Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Coach Lead</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Support Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Quality Analyst</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Business Admin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -94,10 +153,31 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
-                        <operator>CONTAINS</operator>
+                        <operator>EQUAL</operator>
                         <rightValue>Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Coach Lead</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Support Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Quality Analyst</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Business Admin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -130,16 +210,26 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Fraud</rightValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>FraudX Agent</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Card</rightValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Card Dispute Agent</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Quality Analyst</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Business Admin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -172,16 +262,26 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Fraud</rightValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>FraudX Agent</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.Name}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Card</rightValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Card Dispute Agent</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Quality Analyst</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Business Admin</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
