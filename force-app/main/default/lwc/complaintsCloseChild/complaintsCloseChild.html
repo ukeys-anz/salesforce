@@ -393,6 +393,36 @@
             </div>
           </template>
         </template>
+        <template if:true={showAvoidableEscalation}>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input
+              type="checkbox"
+              label="Avoidable Escalation?"
+              name="avoidableEscalation"
+              data-id="avoidableEscalation-id"
+              onchange={handleAvoidableEscalation}
+              checked={avoidableEscalationToggle}
+            ></lightning-input>
+          </div>
+        </template>
+        <template if:true={showAvoidableEscalationReason}>
+          <div
+            class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+          >
+            <lightning-input
+              type="text"
+              variant="label-stacked"
+              label="Avoidable Escalation Reason"
+              required="true"
+              field-name={avoidableEscalationReason}
+              onchange={handleAvoidableEscalationReason}
+              value={avoidableEscalationReasonValue}
+              data-id="avoidableEscalationReason-id"
+            ></lightning-input>
+          </div>
+        </template>
       </div>
     </lightning-record-edit-form>
   </template>
