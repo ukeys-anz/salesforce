@@ -1120,9 +1120,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.avoidableEscalationToggle = event.detail.checked;
     this.showAvoidableEscalationReason = event.detail.checked;
 
-    if (this.showAvoidableEscalationReason === false) {
-      this.updateAvoidableEscalationReason();
-    }
+    this.updateAvoidableEscalationReason();
 
     this.sendFieldValue(sendVal);
   }
@@ -1134,7 +1132,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
 
     sendVal.field = "IDR_Avoidable_Escalation_Reason__c";
-    if (this.showAvoidableEscalationReason === false) {
+
+    if (
+      this.showAvoidableEscalationReason === false ||
+      !this.avoidableEscalationReasonValue
+    ) {
       sendVal.value = "";
     } else {
       sendVal.value = this.avoidableEscalationReasonValue;

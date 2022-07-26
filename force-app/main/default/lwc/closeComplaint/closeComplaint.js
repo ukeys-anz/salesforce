@@ -684,7 +684,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     let validToSave = true;
     if (
       this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] === true &&
-      this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] !== null
+      (!(AVOIDABLE_ESCALATION_REASON.fieldApiName in this.closeFields) ||
+        !this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName])
     ) {
       validToSave = false;
       this.errMsg += "Avoidable Escalation Reason";
