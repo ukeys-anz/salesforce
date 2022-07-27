@@ -1,10 +1,5 @@
 .balances {
   border: 1px solid #dddbda !important;
-  user-select: none;
-  /* iOS Safari */
-  -webkit-touch-callout: none;
-  /* Safari */
-  -webkit-user-select: none;
 }
 
 .slds-item_label {

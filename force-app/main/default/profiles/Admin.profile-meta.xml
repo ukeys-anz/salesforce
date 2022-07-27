@@ -6619,6 +6619,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>qualtrics__Survey_Response__c.Survey_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>qualtrics__Survey_Response__c.qualtrics__Respondent_Role__c</field>
         <readable>true</readable>
     </fieldPermissions>

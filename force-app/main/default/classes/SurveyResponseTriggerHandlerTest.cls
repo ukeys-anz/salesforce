@@ -321,4 +321,33 @@ public with sharing class SurveyResponseTriggerHandlerTest {
       'Subject should match.'
     );
   }
+
+  @isTest
+  static void testSetNameOfSurveyResponse() {
+    qualtrics__Survey_Response__c sr = new qualtrics__Survey_Response__c();
+    sr.OCV_ID__c = OCV_ID_1;
+    sr.Survey_Name__c = 'Join';
+    sr.Survey_Trigger__c = 'Chat';
+    sr.qualtrics__Net_Promoter_Score__c = 2;
+    sr.Customer_Feedback__c = 'Customer Feedback';
+    sr.Other_Feedback__c = 'Some other feedback';
+    sr.qualtrics__Overall_Satisfaction__c = 'Satisfied';
+
+    Test.startTest();
+    insert sr;
+    Test.stopTest();
+
+    qualtrics__Survey_Response__c newSr = [
+      SELECT Id, Name
+      FROM qualtrics__Survey_Response__c
+      WHERE OCV_ID__c = :OCV_ID_1
+      LIMIT 1
+    ];
+
+    System.assertEquals(
+      newSr.Name,
+      'Join - Chat',
+      'Survey Name has been concatenated with Survey_Trigger__c'
+    );
+  }
 }
