@@ -5,5 +5,5 @@
     <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
     <description>Unique reference of the interaction</description>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
 </CustomField>

@@ -9,7 +9,7 @@
     <label>Optional Notes</label>
     <length>32768</length>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Html</type>
     <visibleLines>25</visibleLines>
 </CustomField>
