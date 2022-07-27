@@ -15,8 +15,8 @@ import CS_ACC from "@salesforce/schema/Coaching_Summary__c.Account__c";
 import CS_LEAD from "@salesforce/schema/Coaching_Summary__c.Lead__c";
 import LEAD_MP from "@salesforce/schema/Lead.MobilePhone";
 
-const NORMAL_TAB = "slds-tabs_default__item";
-const ACTIVE_TAB = "slds-tabs_default__item slds-is-active";
+const NORMAL_TAB = "slds-tabs_scoped__item";
+const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
 
 export default class InitiateInteraction extends LightningElement {
   showContactTab;
@@ -114,15 +114,15 @@ export default class InitiateInteraction extends LightningElement {
     }).then((result) => {
       if (result != null) {
         this.phoneNumber = result;
-        this.callPhoneNumber = "Call " + result;
-        this.contactCustomer = true;
-        this.showContactTab = true;
-        this.showDialTab = false;
-        this.showChatWindow = false;
-        this.contactTab = ACTIVE_TAB;
-        this.dialTab = NORMAL_TAB;
+        this.enableContactTab();
+        this.handleShowContactTab();
       }
     });
+  }
+
+  enableContactTab() {
+    this.callPhoneNumber = "Call " + this.phoneNumber;
+    this.contactCustomer = true;
   }
 
   handleShowContactTab() {

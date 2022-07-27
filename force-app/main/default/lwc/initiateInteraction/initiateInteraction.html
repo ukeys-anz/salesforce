@@ -1,12 +1,12 @@
 <template>
   <div class="slds-card">
-    <div class="slds-tabs_default slds-tabs_medium">
+    <div class="slds-tabs_scoped slds-tabs_medium">
       <template if:false={loading}>
-        <ul class="slds-tabs_default__nav" role="tablist">
+        <ul class="slds-tabs_scoped__nav" role="tablist">
           <template if:true={contactCustomer}>
             <li class={contactTab} title="Contact" role="presentation">
               <div
-                class="slds-tabs_default__link slds-text-align_center"
+                class="slds-tabs_scoped__link slds-text-align_center"
                 role="tab"
                 onclick={handleShowContactTab}
               >
@@ -23,7 +23,7 @@
           </template>
           <li class={dialTab} title="Dial" role="presentation">
             <div
-              class="slds-tabs_default__link slds-text-align_center"
+              class="slds-tabs_scoped__link slds-text-align_center"
               role="tab"
               onclick={handleShowDialTab}
             >
@@ -82,7 +82,7 @@
                 Enter a number
                 <lightning-helptext
                   class="slds-p-left_x-small slds-m-bottom_small"
-                  content="Calling internationally? Ensure you use the country code in E.146 formatting."
+                  content="Calling internationally? Ensure you use the country code including the '+' symbol."
                 >
                 </lightning-helptext>
               </label>
@@ -131,7 +131,7 @@
                     <b class="message-header">Send a message</b>
                     <br />
                     <label class="slds-form-element__label">
-                      Start a conversation with the first outbound message.<br />
+                      Start a conversation with the first outbound message.
                       Reinitiate in Twilio Flex to continue.
                     </label>
                   </div>
