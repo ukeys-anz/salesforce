@@ -929,6 +929,7 @@
         "Interaction_Purpose__c",
         "Interaction_Summary__c",
         "Is_User_Attendee__c",
+        "Is_Record_UnIdentified__c",
         "Lead__c",
         "InteractionType",
         "Id",
