@@ -94,6 +94,10 @@
                 <behavior>Readonly</behavior>
                 <field>IsStopped</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Campaign_flag__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

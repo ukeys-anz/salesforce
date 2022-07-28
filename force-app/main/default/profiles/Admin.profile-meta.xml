@@ -218,15 +218,19 @@
     <classAccesses>
         <apexClass>CalloutModelTest</apexClass>
         <enabled>true</enabled>
+    </classAccesses>    
+    <classAccesses>
+        <apexClass>CardControlModel</apexClass>
+        <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>CardDetailsController</apexClass>
         <enabled>true</enabled>
-    </classAccesses>
+    </classAccesses> 
     <classAccesses>
         <apexClass>CardDetailsControllerTest</apexClass>
         <enabled>true</enabled>
-    </classAccesses>
+    </classAccesses>        
     <classAccesses>
         <apexClass>CardListModel</apexClass>
         <enabled>true</enabled>
@@ -440,6 +444,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CoachBankingAPIRepositoryHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>    
+    <classAccesses>
         <apexClass>CommonUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -504,6 +512,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>DisputesAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>        
+    <classAccesses>
+        <apexClass>DisputesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>    
+    <classAccesses>
         <apexClass>DisputesValidationTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -518,7 +534,7 @@
     <classAccesses>
         <apexClass>FabricServiceTest</apexClass>
         <enabled>true</enabled>
-    </classAccesses>
+    </classAccesses>    
     <classAccesses>
         <apexClass>Faker</apexClass>
         <enabled>true</enabled>
@@ -6622,12 +6638,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Q_Recipient_ID__c</field>
+        <field>qualtrics__Survey_Response__c.RecipientId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>qualtrics__Survey_Response__c.qualtrics__Q_SurveyID__c</field>
+        <field>qualtrics__Survey_Response__c.SurveyId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -39,7 +39,7 @@ public with sharing class SubmitDisputeControllerTest {
 
   @isTest
   static void submitDisputeFlagTest() {
-    Case c = (Case) [SELECT Id FROM Case LIMIT 1];
+    Case c = [SELECT Id FROM Case LIMIT 1];
     Test.startTest();
     try {
       Boolean result = SubmitDisputeController.updateSubmitFlag(c.Id);
@@ -56,5 +56,62 @@ public with sharing class SubmitDisputeControllerTest {
       }
     }
     Test.stopTest();
+  }
+
+  @isTest
+  static void testMissingCardTokenNumberCardDispute() {
+    Case c = [SELECT Id FROM Case LIMIT 1];
+
+    Test.startTest();
+    Boolean cardNumberIsMissing = SubmitDisputeController.verifyCardTokenNumber(
+      c.Id
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      true,
+      cardNumberIsMissing,
+      'The controller should confirm card number is missing.'
+    );
+  }
+
+  @isTest
+  static void testCardTokenNumberNotStoredDirectEntryDispute() {
+    Case c = [SELECT Id FROM Case LIMIT 1];
+    c.RecordTypeId = GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID;
+    update c;
+
+    Test.startTest();
+    Boolean cardNumberIsMissing = SubmitDisputeController.verifyCardTokenNumber(
+      c.Id
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      false,
+      cardNumberIsMissing,
+      'The controller should confirm card number is not missing as not required for this dispute type.'
+    );
+  }
+
+  @isTest
+  static void testCardTokenNumberExists() {
+    Case c = [SELECT Id, Card_Token_Number__c FROM Case LIMIT 1];
+
+    c.Card_Token_Number__c = '8051997368527878';
+    update c;
+
+    Test.startTest();
+    Boolean cardNumberIsMissing = SubmitDisputeController.verifyCardTokenNumber(
+      c.Id
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      false,
+      cardNumberIsMissing,
+      'The controller should confirm card number was not missing.'
+    );
   }
 }

@@ -161,7 +161,7 @@ export const openTabHomeInCurrentApp = async (
   await browser.pause(5000);
 };
 
-export const gotoRecordPageById = async (recordId: string): Promise<void> => {
+export const openRecordPageById = async (recordId: string): Promise<void> => {
   const domDocument = utam.getCurrentDocument();
   const url = await domDocument.getUrl();
   const origin = new URL(url).origin;

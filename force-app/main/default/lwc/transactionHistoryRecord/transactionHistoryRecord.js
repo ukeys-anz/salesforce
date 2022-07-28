@@ -9,7 +9,7 @@ import canRaiseDispute from "@salesforce/customPermission/ANZx_Raise_Dispute";
 import { prepopulateDisputesFields } from "./helper/disputes-fields-mapping";
 import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
 import logMissedTransaction from "@salesforce/apex/TransactionHistoryController.logMissedTransaction";
-
+import getTokenizedCardNumber from "@salesforce/apex/DisputesController.getTokenizedCardNumber";
 import {
   TRANSACTION_STATUSES,
   TRANSACTION_TYPES
@@ -56,6 +56,9 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   selectedDisputeRecordType;
   @api personAccountId;
   @api financialAccountId;
+  @api ocvId;
+  tokenizedCardNumber;
+  loading;
 
   connectedCallback() {
     this.subscription = subscribe(
@@ -197,15 +200,20 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   }
 
   // Navigating to dispute capture form
-  handleNavigateToDisputeForm() {
+  async handleNavigateToDisputeForm() {
     let disputeType = this.handleGetDisputeTypeFromRecordTypeId(
       this.selectedDisputeRecordType
     );
+
+    this.loading = true;
+    await this.handleTokenizedCardSearch(disputeType);
+
     let defaultFieldValuesObj = prepopulateDisputesFields(
       this.personAccountId,
       this.financialAccountId,
       disputeType,
-      this.transactionRecord
+      this.transactionRecord,
+      this.tokenizedCardNumber
     );
 
     //If we fail to automatically infer record type, log error
@@ -222,6 +230,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       });
     }
 
+    this.loading = false;
     this[NavigationMixin.Navigate]({
       type: "standard__objectPage",
       attributes: {
@@ -251,5 +260,16 @@ export default class TransactionHistoryRecord extends NavigationMixin(
       (disputeRecordType) => disputeRecordType.value === recordTypeId
     )[0].label;
     return disputeType;
+  }
+
+  async handleTokenizedCardSearch(disputeType) {
+    // Retrieve tokenized card # for Card and ATM Disputes only
+    if (disputeType === "Card" || disputeType === "ATM") {
+      let result = await getTokenizedCardNumber({
+        ocvId: this.ocvId,
+        transactionId: this.transactionRecord.transaction_id
+      });
+      this.tokenizedCardNumber = result;
+    }
   }
 }

@@ -2,7 +2,6 @@ import RecordCreationForm from "pageObjects/recordCreationForm";
 import CaseType from "../../constants/case/caseType";
 import { OwnerType } from "../../constants/enums";
 import Case from "./Case";
-import * as faker from "faker";
 import * as commonUtils from "../../utils/commonUtils";
 import * as creationFormUtils from "../../utils/creationFormUtils";
 import * as casePageUtils from "../../utils/casePageUtils";
@@ -56,7 +55,7 @@ export default class KYCQA extends Case implements IAssignNewOwner {
   }
 
   async update(): Promise<void> {
-    const baseRecordForm = (await casePageUtils.getRecordForm())!;
+    const baseRecordForm = await casePageUtils.getRecordForm();
     const recordLayout = await baseRecordForm.getRecordLayout();
 
     // select Yes for all below fields to close KYC QA Case

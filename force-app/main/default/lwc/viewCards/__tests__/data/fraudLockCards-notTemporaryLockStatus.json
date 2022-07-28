@@ -2,12 +2,15 @@
   "cards": [
     {
       "name": "Lucasel Wilton",
-      "tokenizedCardNumber": "1234567891",
+      "tokenized_card_number": "1234567891",
       "isValid": true,
-      "last4Digits": "1111",
+      "last_4_digits": "1111",
       "status": "Issued",
-      "expiryDate": "9/14",
-      "accountNumber": "",
+      "expiry_date": {
+        "year": { "value": 2014 },
+        "month": { "value": 9 }
+      },
+      "account_number": "",
       "eligibilities": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",

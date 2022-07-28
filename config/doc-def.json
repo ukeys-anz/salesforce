@@ -294,6 +294,13 @@
       "type": "system"
     },
     {
+      "name": "Shared Administrator",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": ["Shared_Admin"],
+      "permissionsets": [],
+      "type": "system"
+    },
+    {
       "name": "Splunk Sec Ops Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],

@@ -460,4 +460,14 @@ public with sharing class GetHelpCaseActionsHelper {
     }
     return false;
   }
+
+  /**
+   * @description Set card to null if status isn't open
+   * @param record Case to process
+   */
+  public static void handleCardTokenNumber(Case record) {
+    if (record.Status != GetHelpConstants.OPEN_STATUS) {
+      record.Card_Token_Number__c = null;
+    }
+  }
 }

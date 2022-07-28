@@ -1437,6 +1437,36 @@
         <startAddress>35.244.94.174</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>3.24.14.191</endAddress>
+        <startAddress>3.24.14.191</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>3.104.176.148</endAddress>
+        <startAddress>3.104.176.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>13.236.106.152</endAddress>
+        <startAddress>13.236.106.152</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>13.55.93.82</endAddress>
+        <startAddress>13.55.93.82</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>13.237.141.149</endAddress>
+        <startAddress>13.237.141.149</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>54.253.163.36</endAddress>
+        <startAddress>54.253.163.36</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <description>Salesforce Australia (Public Cloud) 1</description>
         <endAddress>13.210.7.255</endAddress>
         <startAddress>13.210.4.0</startAddress>
