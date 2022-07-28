@@ -221,7 +221,7 @@
     <sharingCriteriaRules>
         <fullName>RTs_Support_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback are to be shared with Support Coach with Read/Write access.</description>
+        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, KYC QA, Customer Feedback are to be shared with Support Coach with Read/Write access.</description>
         <label>RTs_Support_Coaches_RW</label>
         <sharedTo>
             <role>Support_Coach</role>
@@ -229,7 +229,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback</value>
+            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,Card,NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
