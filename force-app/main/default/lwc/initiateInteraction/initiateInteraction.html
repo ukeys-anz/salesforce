@@ -1,0 +1,179 @@
+<template>
+  <div class="slds-card">
+    <div class="slds-tabs_scoped slds-tabs_medium">
+      <template if:false={loading}>
+        <ul class="slds-tabs_scoped__nav" role="tablist">
+          <template if:true={contactCustomer}>
+            <li class={contactTab} title="Contact" role="presentation">
+              <div
+                class="slds-tabs_scoped__link slds-text-align_center"
+                role="tab"
+                onclick={handleShowContactTab}
+              >
+                <lightning-icon
+                  class="dialing"
+                  icon-name="utility:dialing"
+                  alternative-text="Dialing"
+                  title="Dialing"
+                  size="small"
+                ></lightning-icon>
+                Contact Customer
+              </div>
+            </li>
+          </template>
+          <li class={dialTab} title="Dial" role="presentation">
+            <div
+              class="slds-tabs_scoped__link slds-text-align_center"
+              role="tab"
+              onclick={handleShowDialTab}
+            >
+              <lightning-icon
+                class="keypad"
+                icon-name="utility:keypad"
+                alternative-text="Keypad"
+                title="Keypad"
+                size="small"
+              ></lightning-icon>
+              Dial Number
+            </div>
+          </li>
+        </ul>
+        <template if:true={showContactTab}>
+          <div>
+            <div class="slds-m-around_small">
+              <template if:true={enableChat}>
+                <div class="slds-align_absolute-center">
+                  <lightning-button
+                    variant="brand-outline"
+                    label="Message Customer"
+                    title="Message"
+                    onclick={handleShowChatWindow}
+                    icon-name="utility:chat"
+                    class="slds-p-around_x-small"
+                    style="display: grid; width: 85%"
+                  >
+                  </lightning-button>
+                </div>
+              </template>
+              <div class="slds-align_absolute-center">
+                <lightning-button
+                  variant="brand-outline"
+                  label={callPhoneNumber}
+                  title="Call"
+                  onclick={handleCallCustomer}
+                  icon-name="utility:call"
+                  class="slds-p-around_x-small"
+                  style="display: grid; width: 85%"
+                >
+                </lightning-button>
+              </div>
+              <div
+                class="slds-m-top_x-small slds-m-bottom_small slds-align_absolute-center"
+              >
+                * Let the customer know we record our calls
+              </div>
+            </div>
+          </div>
+        </template>
+        <template if:true={showDialTab}>
+          <div>
+            <div class="slds-m-around-small dial-tab">
+              <label class="slds-form-element__label slds-p-top_small">
+                Enter a number
+                <lightning-helptext
+                  class="slds-p-left_x-small slds-m-bottom_small"
+                  content="Calling internationally? Ensure you use the country code including the '+' symbol."
+                >
+                </lightning-helptext>
+              </label>
+
+              <lightning-input
+                type="tel"
+                placeholder="+61"
+                onchange={handlePhoneChange}
+                pattern="^([^a-zA-Z]*)$"
+                message-when-pattern-mismatch="Please enter the number in a valid format"
+                min-length="2"
+                max-length="15"
+              ></lightning-input>
+              <div
+                class="slds-m-bottom_medium slds-p-top_small slds-align_absolute-center"
+              >
+                * Let the customer know we record our calls
+              </div>
+              <div class="slds-m-bottom_x-small slds-align_absolute-center">
+                <lightning-button
+                  variant="brand"
+                  label="Call Now"
+                  title="Call"
+                  onclick={handleCallNow}
+                  icon-name="utility:call"
+                  class="slds-p-around_x-small"
+                  style="display: grid; width: 70%"
+                  disabled={invalidNumber}
+                >
+                </lightning-button>
+              </div>
+            </div>
+          </div>
+        </template>
+        <template if:true={showChatWindow}>
+          <div>
+            <div class="slds-m-around-small chat-window">
+              <div class="slds-m-top_medium">
+                <div class="slds-grid">
+                  <div
+                    class="slds-col slds-size_1-of-8 slds-p-bottom_small slds-align_absolute-left"
+                  >
+                    <lightning-icon icon-name="utility:chat"> </lightning-icon>
+                  </div>
+                  <div class="slds-col slds-size_7-of-8">
+                    <b class="message-header">Send a message</b>
+                    <br />
+                    <label class="slds-form-element__label">
+                      Start a conversation with the first outbound message.
+                      Reinitiate in Twilio Flex to continue.
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <lightning-textarea
+                placeholder="Start typing here..."
+                onchange={handleMessageChange}
+                min-length="2"
+                maxlength="1000"
+                message-when-too-long="A maximum of 1000 characters are allowed"
+                message-when-value-missing="Please enter a valid message"
+              ></lightning-textarea>
+              <div class="slds-m-top_small slds-m-bottom_small">
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col slds-size_1-of-2">
+                    <lightning-button
+                      variant="brand-outline"
+                      title="Cancel"
+                      label="Cancel"
+                      onclick={handleShowContactTab}
+                      class="cancel"
+                    >
+                    </lightning-button>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                    <lightning-button
+                      variant="brand"
+                      label="Send Now"
+                      title="Send"
+                      onclick={handleMessageCustomer}
+                      disabled={invalidMessage}
+                      class="slds-float_right send-now"
+                    >
+                    </lightning-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </template>
+    </div>
+  </div>
+</template>

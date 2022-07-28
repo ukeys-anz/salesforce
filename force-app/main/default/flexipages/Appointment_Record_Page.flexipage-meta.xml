@@ -106,10 +106,26 @@
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Interaction Record Page</masterLabel>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>initiateInteraction</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Coach</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <name>sidebar</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Appointment Record Page</masterLabel>
     <sobjectType>Interaction</sobjectType>
     <template>
-        <name>flexipage:recordHomeSimpleViewTemplate</name>
+        <name>flexipage:recordHomeTemplateDesktop</name>
     </template>
     <type>RecordPage</type>
 </FlexiPage>

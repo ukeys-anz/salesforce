@@ -3,6 +3,6 @@
     <fullName>LocationId</fullName>
     <businessStatus>Hidden</businessStatus>
     <inlineHelpText>If Channel is store, then enter the location of the store that the appointment will be held. If Channel is call, then location is not required.</inlineHelpText>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Lookup</type>
 </CustomField>

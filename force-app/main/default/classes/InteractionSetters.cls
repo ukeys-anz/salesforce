@@ -47,6 +47,7 @@ public with sharing class InteractionSetters {
    */
   public static void setInteractionIds(List<Interaction> interactions) {
     Set<Id> requestIds = new Set<Id>();
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
 
     for (Interaction currentInteraction : interactions) {
       if (currentInteraction.ContactRequestId__c == null) {
@@ -54,15 +55,14 @@ public with sharing class InteractionSetters {
       }
       requestIds.add(currentInteraction.ContactRequestId__c);
     }
-
-    List<ContactRequest> contactRequests = ContactRequestDMLHelper.getContactRequest(
-      requestIds
-    );
-    setInteractionIds(contactRequests, interactions);
-
-    ContactRequestDMLHelper.updateContactRequests(contactRequests);
+    if (!requestIds.isEmpty()) {
+      List<ContactRequest> contactRequests = ContactRequestDMLHelper.getContactRequest(
+        requestIds
+      );
+      setInteractionIds(contactRequests, interactions);
+      ContactRequestDMLHelper.updateContactRequests(contactRequests);
+    }
   }
-
   /**
    * @description goes through a list of requests and sets the Interaction Id
    * based upon a list of interactions
@@ -83,7 +83,6 @@ public with sharing class InteractionSetters {
         currentInteraction.Id
       );
     }
-
     for (ContactRequest request : requests) {
       if (contactRequestInteractionIdMap.containsKey(request.Id)) {
         request.Interaction__c = contactRequestInteractionIdMap.get(request.Id);
