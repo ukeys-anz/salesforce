@@ -52,6 +52,7 @@ public with sharing class InitiateInteractionController {
   @AuraEnabled
   public static Interaction createInteraction(Map<String, String> fields) {
     try {
+      Interaction intToReturn = new Interaction();
       Interaction newInteraction = new Interaction(
         RecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
           .get(fields.get('recordType'))
@@ -67,7 +68,14 @@ public with sharing class InitiateInteractionController {
       );
       if (Interaction.sObjectType.getDescribe().isCreateable()) {
         insert newInteraction;
-        return newInteraction;
+        if (Interaction.sObjectType.getDescribe().isQueryable()) {
+          intToReturn = [
+            SELECT Id, Interaction_External_Id__c
+            FROM Interaction
+            WHERE Id = :newInteraction.Id
+          ];
+        }
+        return intToReturn;
       } else {
         throw new System.AuraHandledException(PERMISSIONS_ERROR);
       }

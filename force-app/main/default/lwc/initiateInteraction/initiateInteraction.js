@@ -164,6 +164,7 @@ export default class InitiateInteraction extends LightningElement {
     } finally {
       const message = {
         recordId: this.newInteraction.Id,
+        externalId: this.newInteraction.Interaction_External_Id__c,
         number: this.phoneNumber
       };
       this.publishLightningMessage(
@@ -231,6 +232,7 @@ export default class InitiateInteraction extends LightningElement {
     } finally {
       const message = {
         recordId: this.newInteraction.Id,
+        externalId: this.newInteraction.Interaction_External_Id__c,
         number: this.numberToDial
       };
       this.publishLightningMessage(

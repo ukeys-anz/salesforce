@@ -41,14 +41,36 @@ public with sharing class InteractionSetters {
   }
 
   /**
+   * @description method to set the external Id after creation
+   * of general interactions
+   * @param interactionIds the Ids to update
+   */
+  public static void setGeneralExternalIds(Set<Id> interactionIds) {
+    List<Interaction> interactions = InteractionGetters.getInteractions(
+      interactionIds
+    );
+    if (!interactions.isEmpty()) {
+      List<Interaction> interactionsToSet = new List<Interaction>();
+      for (Interaction currentInteraction : interactions) {
+        if (currentInteraction.Interaction_External_Id__c == null) {
+          interactionsToSet.add(currentInteraction);
+        }
+      }
+
+      if (!interactionsToSet.isEmpty()) {
+        setExternalIds(interactions);
+        InteractionDMLHelper.updateInteractions(interactions);
+      }
+    }
+  }
+
+  /**
    * @description goes through a list of interactions and sets the Interaction Id
    * on the linked Contact Request by searching the database for requests related to the Interactionss.
    * @param interactions List<Interaction> list of interactions to cycle through
    */
   public static void setInteractionIds(List<Interaction> interactions) {
     Set<Id> requestIds = new Set<Id>();
-    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
-
     for (Interaction currentInteraction : interactions) {
       if (currentInteraction.ContactRequestId__c == null) {
         continue;
