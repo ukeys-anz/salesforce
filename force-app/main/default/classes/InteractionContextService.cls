@@ -32,10 +32,21 @@ global with sharing class InteractionContextService {
       intToInsert.Contact_Mobile__c = contextRequest.phoneNumber;
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
 
-      if (Interaction.sObjectType.getDescribe().isCreateable()) {
+      if (PermissionUtils.canCreate('Interaction')) {
         insert intToInsert;
       }
-      resp = generateResponse(intToInsert.Id);
+      Interaction newInt;
+      if (PermissionUtils.canQuery('Interaction')) {
+        newInt = [
+          SELECT Id, Interaction_External_Id__c
+          FROM Interaction
+          WHERE Id = :intToInsert.Id
+        ];
+      }
+      resp = generateResponse(
+        intToInsert.Id,
+        newInt.Interaction_External_Id__c
+      );
     }
 
     String jsonRes = JSON.serialize(resp);
@@ -46,13 +57,16 @@ global with sharing class InteractionContextService {
 
   /**
    * @description Method to generate a response instance
-   * @param interactionId interaction ID of the newly generated interaction.
+   * @param recordId interaction ID of the newly generated interaction.
+   * @param interactionId external id of the newly generated interaction.
    * @return `InteractionContextResponse`
    */
   private static InteractionContextResponse generateResponse(
+    String recordId,
     String interactionId
   ) {
     InteractionContextResponse response = new InteractionContextResponse();
+    response.recordId = recordId;
     response.interactionId = interactionId;
     response.success = true;
     response.statusCode = 200;
@@ -83,10 +97,6 @@ global with sharing class InteractionContextService {
      */
     public String phoneNumber { get; set; }
     /**
-     * @description ocv ID of the account from Twilio
-     */
-    public String ocvId { get; set; }
-    /**
      * @description Direction from Twillio
      */
     public String direction { get; set; }
@@ -104,6 +114,10 @@ global with sharing class InteractionContextService {
      * @description Response code. 200 for success. 400 for failure.
      */
     public Integer statusCode { get; set; }
+    /**
+     * @description Record ID
+     */
+    public String recordId { get; set; }
     /**
      * @description Interaction ID
      */
