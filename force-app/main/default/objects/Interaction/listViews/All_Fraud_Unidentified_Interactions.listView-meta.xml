@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_Fraud_Unidentified_Interactions</fullName>
-    <booleanFilter>1 AND 2 AND 3 AND (4 OR 5)</booleanFilter>
+    <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
     <columns>Interaction_Number_Link__c</columns>
     <columns>Interaction_Purpose__c</columns>
     <columns>Contact_Mobile__c</columns>
@@ -17,12 +17,9 @@
         <value>Interaction.General</value>
     </filters>
     <filters>
-        <field>CaseId__c</field>
+        <field>Is_Record_Unidentified__c</field>
         <operation>equals</operation>
-    </filters>
-    <filters>
-        <field>Account</field>
-        <operation>equals</operation>
+        <value>1</value>
     </filters>
     <filters>
         <field>Attendees_and_Roles__c</field>
