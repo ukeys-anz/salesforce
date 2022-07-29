@@ -208,6 +208,9 @@ function formatRecommendedSavings(amount) {
   //If amount is greater than 10, round up to nearest whole number
   if (amount >= 10) {
     return Math.ceil(amount);
+  } else if (amount > 0 && amount < 0.01) {
+    //If amount is more than 0 but less than 1 cent, default to 1 cent
+    return 0.01;
   } else {
     //If amount is less than 10 fix amount to 2 decimal places
     return amount.toFixed(2);
