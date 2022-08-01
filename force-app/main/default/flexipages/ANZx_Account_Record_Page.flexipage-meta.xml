@@ -53,12 +53,12 @@
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>FraudX_Agent</rightValue>
+                        <rightValue>Coach_Lead</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Quality_Analyst</rightValue>
+                        <rightValue>FraudX_Agent</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
