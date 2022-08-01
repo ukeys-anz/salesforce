@@ -2,15 +2,16 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Resolution__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Outcome of the Interaction</description>
     <externalId>false</externalId>
-    <label>Resolution</label>
+    <label>Action Taken</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Interaction_Purpose__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -39,6 +40,45 @@
                 <default>false</default>
                 <label>Voice Mail</label>
             </value>
+            <value>
+                <fullName>No Action</fullName>
+                <default>false</default>
+                <label>No Action</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <valueName>No Action</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <valueName>Did not Answer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <valueName>Follow-up Required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <valueName>Referred</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <valueName>Resolved</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <valueName>Voice Mail</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>
