@@ -11,5 +11,5 @@
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Text</type>
-    <unique>false</unique>
+    <unique>true</unique>
 </CustomField>
