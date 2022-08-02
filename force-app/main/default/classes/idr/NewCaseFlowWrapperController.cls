@@ -4,7 +4,7 @@
  * @group IDR(Internal Dispute Resolution)
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity')
 public with sharing class NewCaseFlowWrapperController {
   public static final String COMPLAINT_RT = 'ANZx_Complaint';
   /**
@@ -47,7 +47,8 @@ public with sharing class NewCaseFlowWrapperController {
           IDR_Escalation_Reason__c,
           IDR_Complainant_Type__c,
           RecordType.DeveloperName,
-          RecordTypeId
+          RecordTypeId,
+          IDR_Product_Category__c
         FROM case
         WHERE
           Id = :caseid
@@ -59,6 +60,12 @@ public with sharing class NewCaseFlowWrapperController {
       if (caseLst[0].Origin == '11') {
         caseDetails.put('IDR_AFCA_Status__c', '10');
       }
+      caseDetails.put(
+        'IDR_Product_Category__c',
+        (caseLst[0].IDR_Product_Category__c != null)
+          ? caseLst[0].IDR_Product_Category__c
+          : ''
+      );
       caseDetails.put(
         'IDR_Subsequent_Issue__c',
         (caseLst[0].IDR_Subsequent_Issue__c != null)
