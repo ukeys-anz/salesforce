@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
         <fullName>ANZPlus_Complaints_RT_Card_Dispute_Agent_RO</fullName>
@@ -105,8 +105,8 @@
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant edit access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
+        <accessLevel>Read</accessLevel>
+        <description>Grant read access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RO</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
@@ -242,7 +242,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,General Enquiry,NPP,Customer Feedback</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,KYC QA,General Enquiry,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -255,7 +255,7 @@
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
-            <value/>
+            <value />
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -268,7 +268,7 @@
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
-            <value/>
+            <value />
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -281,12 +281,25 @@
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
-            <value/>
+            <value />
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>RTs_CardDisputeAgents_RW</fullName>
-        <accessLevel>Edit</accessLevel>
+        <fullName>Escalated_Complaint_for_Coach_Lead_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Escalated Complaint for Coach Leads</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value />
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RTs_CardDisputeAgents_RO</fullName>
+        <accessLevel>Read</accessLevel>
         <description>All Cases having Fraud, record types are to be shared with Card Dispute Agents with Read access.</description>
         <label>RTs_CardDisputeAgents_RO</label>
         <sharedTo>
