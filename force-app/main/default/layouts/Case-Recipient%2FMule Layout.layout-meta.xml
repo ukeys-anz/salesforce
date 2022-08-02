@@ -280,8 +280,14 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
+        <fields>Interaction_Number_Link__c</fields>
+        <fields>Account</fields>
+        <fields>Lead__c</fields>
+        <fields>Interaction_Purpose__c</fields>
+        <fields>InteractionType</fields>
         <fields>StartTime</fields>
         <fields>Owner</fields>
+        <fields>Attendees__c</fields>
         <relatedList>Interaction.CaseId__c</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>

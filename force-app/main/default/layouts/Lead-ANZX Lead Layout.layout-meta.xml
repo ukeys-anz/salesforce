@@ -112,6 +112,17 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>Name</fields>
+        <fields>Interaction_Number_Link__c</fields>
+        <fields>Account</fields>
+        <fields>Interaction_Purpose__c</fields>
+        <fields>InteractionType</fields>
+        <fields>StartTime</fields>
+        <fields>Owner</fields>
+        <fields>Attendees__c</fields>
+        <relatedList>Interaction.Lead__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedLists>

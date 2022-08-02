@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
     <description>Checks if an Interaction is linked to Account, Case or Lead.</description>
     <externalId>false</externalId>
-    <formula>AND(ISBLANK(Account.Id), ISBLANK(Lead__r.Id), ISBLANK(CaseId__r.Id))</formula>
+    <formula>AND(ISBLANK(Account.Id), ISBLANK(Lead__r.Id), ISBLANK(CaseId__r.Id), ISBLANK(AppointmentId__r.Id ), ISBLANK(Coaching_Summary__r.Id))</formula>
     <label>Is Record UnIdentified</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
