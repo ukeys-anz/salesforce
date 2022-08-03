@@ -184,8 +184,12 @@
                 <field>Type</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Product__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Avoidable_Escalation__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -208,6 +212,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Escalation_Reason__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Avoidable_Escalation_Reason__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

@@ -36,6 +36,201 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SI_Tribe_BU__c</picklist>
+        <values>
+            <fullName>APRA Remediation Tribe %28ART%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australian Branch Network</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banker Digital Experience %28BDX%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Execution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Owners Engagement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Owners Lighthouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Platform Service %28BPS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Broker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Credit Cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Cash Solutions %28CCS%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Collections %26 Service Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Contact Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Digital Experience %28CDX%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Protection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Servicing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deposits Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Origination and Innovation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Sales Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship and Vulnerable Customers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Know Your Customer %28KYC%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lending Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Migration Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments %26 Merchants %28MARST%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private Banking and Advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remediation%2FResponsible Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Broker Distribution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Customer Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retail Transformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Risk%2C Portfolio %26 Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Self Service Adoption %28SSA%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Operations Engineering %28SOE%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Shout for Good</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Simplification Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialised Distribution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialised Product Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transformation %26 TCS Tribe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth Tribe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Status</picklist>
         <values>
             <fullName>Completed</fullName>

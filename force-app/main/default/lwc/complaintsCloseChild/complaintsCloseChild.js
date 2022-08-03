@@ -4,6 +4,7 @@ import { getRecord } from "lightning/uiRecordApi";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
+import STATUS_FIELD from "@salesforce/schema/Case.Status";
 
 //Remedy1 fields
 import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
@@ -31,6 +32,10 @@ import OTHER_REMDY3 from "@salesforce/schema/Case.IDR_Other_Remedy_Provided_3__c
 import REMEDY_DURATION3 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_3__c";
 import FINANCIAL_COMPENSATION3 from "@salesforce/schema/Case.IDR_Financial_Compensation_3__c";
 import THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3 from "@salesforce/schema/Case.Provided_details_to_Prod_Manufacturer_3__c";
+
+//Avoidable Escalation fields
+import AVOIDABLE_ESCALATION from "@salesforce/schema/Case.IDR_Avoidable_Escalation__c";
+import AVOIDABLE_ESCALATION_REASON from "@salesforce/schema/Case.IDR_Avoidable_Escalation_Reason__c";
 
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_NON_FIN_VALUE = "2";
@@ -69,8 +74,13 @@ export default class complaintsResolveLWC extends NavigationMixin(
   otherNonFinRemedy3 = OTHER_REMDY3;
   remedyDuration3 = REMEDY_DURATION3;
 
+  //Avoidable Escalation
+  avoidableEscalation = AVOIDABLE_ESCALATION;
+  avoidableEscalationReason = AVOIDABLE_ESCALATION_REASON;
+
   showRemedy2 = false;
   showRemedy3 = false;
+  showAvoidableEscalation = false;
 
   @api recordId;
   @api recordTypeId;
@@ -151,6 +161,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
   remedyDurationValue2 = "";
   remedyDurationValue3 = "";
 
+  avoidableEscalationToggle = false;
+  avoidableEscalationReasonValue = "";
+  showAvoidableEscalationReason = false;
+
   @api set expressCaseCreationDataObj(value) {
     this.dataChange = true;
     if (value !== undefined) {
@@ -174,6 +188,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
   @wire(getRecord, {
     recordId: "$recordId",
     fields: [
+      STATUS_FIELD,
       COMPLAINT_REMEDY,
       COMPLAINT_REMEDY2,
       COMPLAINT_REMEDY3,
@@ -194,7 +209,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
       REMEDY_DURATION3,
       THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER,
       THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2,
-      THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3
+      THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER3,
+      AVOIDABLE_ESCALATION,
+      AVOIDABLE_ESCALATION_REASON
     ]
   })
   wiredProject({ data }) {
@@ -231,6 +248,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.remedyDurationValue = data.fields.IDR_Duration_of_Remedy__c.value;
       this.remedyDurationValue2 = data.fields.IDR_Duration_of_Remedy_2__c.value;
       this.remedyDurationValue3 = data.fields.IDR_Duration_of_Remedy_3__c.value;
+
+      this.avoidableEscalationToggle =
+        data.fields.IDR_Avoidable_Escalation__c.value;
+      this.avoidableEscalationReasonValue =
+        data.fields.IDR_Avoidable_Escalation_Reason__c.value;
 
       switch (this.caseRemedyValue) {
         case COMPLAINT_REMEDY_FIN_VALUE:
@@ -352,6 +374,13 @@ export default class complaintsResolveLWC extends NavigationMixin(
           this.showDuration3 = true;
           break;
         default:
+      }
+
+      if (data.fields.Status.value === "Escalated") {
+        this.showAvoidableEscalation = true;
+        if (this.avoidableEscalationToggle === true) {
+          this.showAvoidableEscalationReason = true;
+        }
       }
     }
   }
@@ -1077,6 +1106,55 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
     sendVal.field = "Provided_details_to_Prod_Manufacturer_3__c";
     sendVal.value = false;
+    this.sendFieldValue(sendVal);
+  }
+
+  handleAvoidableEscalation(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+
+    sendVal.field = "IDR_Avoidable_Escalation__c";
+    sendVal.value = event.detail.checked;
+    this.avoidableEscalationToggle = event.detail.checked;
+    this.showAvoidableEscalationReason = event.detail.checked;
+
+    this.updateAvoidableEscalationReason();
+
+    this.sendFieldValue(sendVal);
+  }
+
+  updateAvoidableEscalationReason() {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+
+    sendVal.field = "IDR_Avoidable_Escalation_Reason__c";
+
+    if (
+      this.showAvoidableEscalationReason === false ||
+      !this.avoidableEscalationReasonValue
+    ) {
+      sendVal.value = "";
+    } else {
+      sendVal.value = this.avoidableEscalationReasonValue;
+    }
+
+    this.sendFieldValue(sendVal);
+  }
+
+  handleAvoidableEscalationReason(event) {
+    let sendVal = {
+      field: "",
+      value: ""
+    };
+
+    sendVal.field = "IDR_Avoidable_Escalation_Reason__c";
+    sendVal.value = event.detail.value;
+    this.avoidableEscalationReasonValue = event.detail.value;
+
     this.sendFieldValue(sendVal);
   }
 
