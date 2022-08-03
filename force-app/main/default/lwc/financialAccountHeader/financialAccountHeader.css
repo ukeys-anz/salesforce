@@ -4,11 +4,6 @@
 
 .financialAccount {
   min-height: 200px;
-  user-select: none;
-  /* iOS Safari */
-  -webkit-touch-callout: none;
-  /* Safari */
-  -webkit-user-select: none;
 }
 
 .lastUpdated {
