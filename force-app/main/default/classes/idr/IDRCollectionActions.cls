@@ -166,7 +166,8 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           accNumber,
-          productNameMap.get(rec.Product__c).Name
+          productNameMap.get(rec.Product__c)?.Name,
+          rec.IDR_Product_Category__c
         )
       );
       stopCollectionTaskList.add(
@@ -187,7 +188,8 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           accNumber2,
-          productNameMap.get(rec.IDR_Product_2__c).Name
+          productNameMap.get(rec.IDR_Product_2__c)?.Name,
+          rec.IDR_Product_Category__c
         )
       );
       stopCollectionTaskList.add(
@@ -208,7 +210,8 @@ public with sharing class IDRCollectionActions {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           accNumber3,
-          productNameMap.get(rec.IDR_Product_3__c).Name
+          productNameMap.get(rec.IDR_Product_3__c)?.Name,
+          rec.IDR_Product_Category__c
         )
       );
       stopCollectionTaskList.add(
@@ -583,7 +586,8 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber,
-              productNameMap.get(rec.Product__c).Name
+              productNameMap.get(rec.Product__c)?.Name,
+              rec.IDR_Product_Category__c
             )
           );
           startCollectionTaskList.add(
@@ -622,7 +626,8 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber2,
-              productNameMap.get(rec.IDR_Product_2__c).Name
+              productNameMap.get(rec.IDR_Product_2__c)?.Name,
+              rec.IDR_Product_Category__c
             )
           );
           startCollectionTaskList.add(
@@ -661,7 +666,8 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber3,
-              productNameMap.get(rec.IDR_Product_3__c).Name
+              productNameMap.get(rec.IDR_Product_3__c)?.Name,
+              rec.IDR_Product_Category__c
             )
           );
           startCollectionTaskList.add(
