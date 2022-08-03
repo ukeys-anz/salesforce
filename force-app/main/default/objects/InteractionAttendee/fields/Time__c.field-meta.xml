@@ -3,6 +3,7 @@
     <fullName>Time__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <defaultValue>DATETIMEVALUE(NOW())</defaultValue>
     <description>Time Interaction Attendee was added</description>
     <externalId>false</externalId>
     <label>Time</label>

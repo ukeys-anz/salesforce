@@ -3,12 +3,12 @@
     <sorted>false</sorted>
     <standardValue>
         <fullName>Internal</fullName>
-        <default>false</default>
+        <default>true</default>
         <label>Internal</label>
     </standardValue>
     <standardValue>
         <fullName>External</fullName>
-        <default>true</default>
+        <default>false</default>
         <label>External</label>
     </standardValue>
 </StandardValueSet>
