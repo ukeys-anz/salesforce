@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
         <fullName>ANZPlus_Complaints_RT_Card_Dispute_Agent_RO</fullName>
@@ -242,7 +242,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,KYC QA,General Enquiry,NPP,Customer Feedback</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,General Enquiry,KYC QA,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -255,7 +255,7 @@
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
-            <value />
+            <value/>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -268,7 +268,7 @@
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
-            <value />
+            <value/>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -281,20 +281,7 @@
         <criteriaItems>
             <field>Original_Case_Owner__c</field>
             <operation>notEqual</operation>
-            <value />
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Escalated_Complaint_for_Coach_Lead_Role_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>Escalated Complaint for Coach Leads</label>
-        <sharedTo>
-            <role>Coach_Lead</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>Original_Case_Owner__c</field>
-            <operation>notEqual</operation>
-            <value />
+            <value/>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
