@@ -30,7 +30,7 @@ public with sharing class IDRCollectionActions {
    * @param record Case record from the trigger
    */
   public static void populateCollectionNumber(Case record) {
-    if (record.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+    if (record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
       if (
         String.isNotBlank(record.IDR_Account_Card_Policy_Number__c) &&
         record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
@@ -61,7 +61,7 @@ public with sharing class IDRCollectionActions {
    * @param oldRecord trigger context variable to check on old values.
    */
   public static void validateAccNumberPattern(Case record, Case oldRecord) {
-    if (record.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+    if (record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
       if (
         String.isNotBlank(record.IDR_Account_Card_Policy_Number__c) &&
         record.IDR_Account_Card_Policy_Number__c !=
@@ -119,7 +119,7 @@ public with sharing class IDRCollectionActions {
 
     for (Case rec : records) {
       Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
-      if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+      if (rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
         validateRecordForStopCollection(rec, oldRec);
         if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
           collectionsCasesEventList.add(
@@ -230,8 +230,13 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue__c
       ) ||
-      (oldRec.status != c.status &&
-      c.status == IDRConstants.REOPENED_STATUS)) &&
+      (oldRec.Status != c.Status &&
+      IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status)) ||
+      //AR-14452 Below scenario is for shell cases ingested by NLP model, hence why it only in checkIssueOne method
+      ((String.isBlank(oldRec.IDR_Account_Card_Policy_Number__c) ||
+      oldRec.IDR_Account_Card_Policy_Number__c == 'N/A') &&
+      oldRec.IDR_Account_Card_Policy_Number__c !=
+      c.IDR_Account_Card_Policy_Number__c)) &&
       String.isNotBlank(c.IDR_Collection_Number__c) &&
       productNameMap.containsKey(c.Product__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.Type) &&
@@ -260,8 +265,8 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_2__c
       ) ||
-      (oldRec.status != c.status &&
-      c.status == IDRConstants.REOPENED_STATUS)) &&
+      (oldRec.Status != c.Status &&
+      IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_2__c) &&
       productNameMap.containsKey(c.IDR_Product_2__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_2__c) &&
@@ -290,8 +295,8 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_3__c
       ) ||
-      (oldRec.status != c.status &&
-      c.status == IDRConstants.REOPENED_STATUS)) &&
+      (oldRec.Status != c.Status &&
+      IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_3__c) &&
       productNameMap.containsKey(c.IDR_Product_3__c) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_3__c) &&
@@ -346,7 +351,7 @@ public with sharing class IDRCollectionActions {
     collectionsEvent.IDR_OCV_Id__c = c.OCV_Id__c; // When AR&C Customer are in SF replace this line with Account's OCV
     collectionsEvent.IDR_Complaint_Received_Date__c = c.IDR_Date_Received__c;
 
-    if (c.isClosed) {
+    if (c.IsClosed) {
       collectionsEvent.IDR_Complaint_Resolved_Date__c = (c.ClosedDate == null
         ? System.now()
         : c.ClosedDate);
@@ -397,7 +402,7 @@ public with sharing class IDRCollectionActions {
       collectionTaskList,
       false
     );
-    lib_systemLog log = new lib_systemLog(
+    Lib_SystemLog log = new Lib_SystemLog(
       'IDRCollectionActions',
       'insertSystemTasks'
     );
@@ -424,8 +429,8 @@ public with sharing class IDRCollectionActions {
     for (Case rec : records) {
       Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
       if (
-        rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
-        rec.isClosed &&
+        rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
+        rec.IsClosed &&
         (oldRec == null ||
         oldRec.Status != rec.Status)
       ) {
@@ -489,7 +494,7 @@ public with sharing class IDRCollectionActions {
     }
 
     //query all stop collections task and put it in map with key as account number
-    if (Task.sObjectType.getDescribe().isQueryable()) {
+    if (Task.SObjectType.getDescribe().isQueryable()) {
       if (!collectionAcctsList.isEmpty()) {
         for (Task taskRec : [
           SELECT WhatId, IDR_Collection_Number__c
@@ -497,9 +502,9 @@ public with sharing class IDRCollectionActions {
           WHERE
             IDR_Collection_Number__c IN :collectionAcctsList
             AND WhatId IN (
-              SELECT id
-              FROM case
-              WHERE isClosed = FALSE OR Id IN :caseIds
+              SELECT Id
+              FROM Case
+              WHERE IsClosed = FALSE OR Id IN :caseIds
             )
         ]) {
           if (
@@ -682,7 +687,7 @@ public with sharing class IDRCollectionActions {
     Map<Id, Product2> productMap = new Map<Id, Product2>();
 
     for (Case rec : records) {
-      if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+      if (rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
         if (String.isNotBlank(rec.Product__c)) {
           productIds.add(rec.Product__c);
         }
@@ -695,7 +700,7 @@ public with sharing class IDRCollectionActions {
       }
     }
     if (
-      !productIds.isEmpty() && Product2.sObjectType.getDescribe().isQueryable()
+      !productIds.isEmpty() && Product2.SObjectType.getDescribe().isQueryable()
     ) {
       productMap = new Map<Id, Product2>(
         [SELECT Id, Name FROM Product2 WHERE Id IN :productIds]
