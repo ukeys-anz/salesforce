@@ -43,7 +43,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
-            <value>IDR</value>
+            <value>IDR,Hardship</value>
         </criteriaItems>
         <criteriaItems>
             <column>CLOSED</column>
