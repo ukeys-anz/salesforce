@@ -87,11 +87,6 @@ img {
 
 .transaction-date {
   padding-bottom: 25px;
-  user-select: none;
-  /* iOS Safari */
-  -webkit-touch-callout: none;
-  /* Safari */
-  -webkit-user-select: none;
 }
 
 .chevron {
@@ -103,11 +98,6 @@ img {
 
 .transaction-item {
   padding: 20px !important;
-  user-select: none;
-  /* iOS Safari */
-  -webkit-touch-callout: none;
-  /* Safari */
-  -webkit-user-select: none;
 }
 
 .odd {

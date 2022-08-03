@@ -110,4 +110,23 @@ public with sharing class SurveyResponseActions {
       log.insertLog();
     }
   }
+
+  /**
+   * @description setSurveyReponseName to set the subject to the Survey Name with Survey Trigger if present
+   * @param surveyResponses The Survey Response record list.
+   */
+  public static void setSurveyResponseName(
+    List<qualtrics__Survey_Response__c> surveyResponses
+  ) {
+    for (qualtrics__Survey_Response__c response : surveyResponses) {
+      if (String.isNotBlank(response.Survey_Trigger__c)) {
+        response.Name =
+          response.Survey_Name__c +
+          ' - ' +
+          response.Survey_Trigger__c;
+      } else {
+        response.Name = response.Survey_Name__c;
+      }
+    }
+  }
 }
