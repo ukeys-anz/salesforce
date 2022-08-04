@@ -351,7 +351,29 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         .catch((error) => {
           let message = "Unknown error";
           if (error.body.output) {
-            message = message = error.body.output.message;
+            message = "";
+            if (
+              Array.isArray(error.body.output.errors) &&
+              error.body.output.errors.length > 0
+            ) {
+              message =
+                message +
+                error.body.output.errors.map((e) => e.message).join(", ");
+            }
+            if (error.body.output.fieldErrors) {
+              for (const i in error.body.output.fieldErrors) {
+                if (
+                  Array.isArray(error.body.output.fieldErrors[i]) &&
+                  error.body.output.fieldErrors[i].length > 0
+                ) {
+                  message =
+                    message +
+                    error.body.output.fieldErrors[i]
+                      .map((e) => e.message)
+                      .join(", ");
+                }
+              }
+            }
           } else if (Array.isArray(error.body)) {
             message = error.body.map((e) => e.message).join(", ");
           } else if (typeof error.body.message === "string") {
