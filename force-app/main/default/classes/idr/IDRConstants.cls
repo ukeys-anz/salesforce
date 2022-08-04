@@ -99,6 +99,14 @@ public with sharing class IDRConstants {
     '98'
   };
 
+  //To auto assign cases checking for Subsequent Issue Type Set
+  public static final Set<String> SUB_ISSUE_TYPE_HARDSHIP = new Set<String>{
+    '21',
+    '22',
+    '23',
+    '96'
+  };
+
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
@@ -254,7 +262,8 @@ public with sharing class IDRConstants {
           'IDR_Home_Owners',
           'IDR_Wealth',
           'IDR_Early_Resolution',
-          'CCR_Complaints'
+          'CCR_Complaints',
+          'Hardship_IDR_Letter'
         };
       }
       return workBasketNames;
@@ -282,4 +291,5 @@ public with sharing class IDRConstants {
 
   //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
   public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
+
 }
