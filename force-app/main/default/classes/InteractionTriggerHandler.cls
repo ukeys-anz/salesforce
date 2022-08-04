@@ -35,10 +35,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount'
   )
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    InteractionActions actionsForInteractions = new InteractionActions();
     ContactRequestActions actionsForContactRequests = new ContactRequestActions();
 
-    List<Interaction> changedOwnerInteractions = actionsForInteractions.findInteractionsOwnershipChanged(
+    List<Interaction> changedOwnerInteractions = InteractionActions.findInteractionsOwnershipChanged(
       oldMap,
       records
     );
@@ -110,7 +109,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
-    List<Interaction> cancelledInteractions = actionsForInteractions.findCancelledInteractions(
+    List<Interaction> cancelledInteractions = InteractionActions.findCancelledInteractions(
       oldMap,
       records
     );
@@ -169,7 +168,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    *  @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
-    InteractionActions actions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
     List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
@@ -184,7 +182,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     );
 
     if (!newInteractions.isEmpty()) {
-      actions.updateEndTime(newInteractions);
+      InteractionActions.updateEndTime(newInteractions);
     }
 
     InteractionValidations.validateInteractions(interactions);
@@ -216,14 +214,14 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
-    List<Interaction> reasonOrStartTimeUpdatedInteractions = actions.getInteractionsRequiringEndTimeUpdate(
+    List<Interaction> reasonOrStartTimeUpdatedInteractions = InteractionActions.getInteractionsRequiringEndTimeUpdate(
       oldMap,
       records
     );
 
     if (!reasonOrStartTimeUpdatedInteractions.isEmpty()) {
-      actions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
+      InteractionActions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
-    actions.unassignInteractions(oldMap, records);
+    InteractionActions.unassignInteractions(oldMap, records);
   }
 }

@@ -154,11 +154,12 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
 
   protected override Map<Id, SObject> getData(List<SObject> objects) {
     List<Interaction> interactions = new List<Interaction>(uniqueInteractions);
-    InteractionActions intActions = new InteractionActions();
-    Map<Id, Account> accountMap = intActions.getAccountMapFromInteractions(
+    Map<Id, Account> accountMap = InteractionActions.getAccountMapFromInteractions(
       interactions
     );
-    Map<Id, Lead> leadMap = intActions.getLeadMapFromInteractions(interactions);
+    Map<Id, Lead> leadMap = InteractionActions.getLeadMapFromInteractions(
+      interactions
+    );
     List<IDR_Notification_Event__e> result = new List<IDR_Notification_Event__e>();
 
     Set<Id> contactRequestIds = new Set<Id>();
