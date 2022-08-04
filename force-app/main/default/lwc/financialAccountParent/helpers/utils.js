@@ -160,8 +160,8 @@ function handleRecommendedSavings(goal) {
   const today = new Date();
   //Calculate time difference between two dates
   let timeDifference = targetDate.getTime() - today.getTime();
-  //Calculate days remaining
-  goal.daysRemaining = Math.round(timeDifference / (1000 * 60 * 60 * 24));
+  //Calculate days remaining and round up
+  goal.daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
   //Value to determine if savings will be recommended as daily or weekly
   let dailySavings;
   if (goal.daysRemaining > 0) {
