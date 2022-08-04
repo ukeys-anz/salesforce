@@ -147,8 +147,8 @@ public with sharing class IDRCaseAssignmentRules {
              IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(rec.IDR_Subsequent_Issue_2__c)) || 
              (rec.IDR_Issue_Type_3__c == '4' && 
              IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(rec.IDR_Subsequent_Issue_3__c))) &&
-            (FeatureManagement.checkPermission('IDR_User_Level_2') || 
-             FeatureManagement.checkPermission('IDR_User_Level_3')))
+            (FeatureManagement.checkPermission('IDR_Level_2') || 
+             FeatureManagement.checkPermission('IDR_Level_3')))
             { return QUEUE_MAP.get('Hardship_IDR_Letter'); }
 
     //Not escalated, don't change owner
