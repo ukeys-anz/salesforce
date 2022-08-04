@@ -40,7 +40,7 @@ jobs:
           checkmarx_password: ${{ steps.secrets.outputs.CHECKMARX_PASSWORD }}
           checkmarx_client_secret: ${{ steps.secrets.outputs.CHECKMARX_CLIENT_SECRET }}
           github_token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
-          incremental: true
+          incremental: false
           break_build: true
           bug_tracker: GitHubPull
           zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,rulesets\/.*,createCmosEntitlment.js
