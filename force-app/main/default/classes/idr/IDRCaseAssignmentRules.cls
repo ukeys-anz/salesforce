@@ -19,9 +19,7 @@ public with sharing class IDRCaseAssignmentRules {
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-        String productWorkbasketName = c.IDR_Product_Family__c != null
-          ? (productFamilyMap.get(c.IDR_Product_Family__c)).IDR_Workbasket__c
-          : null;
+        String productWorkbasketName = productFamilyMap.get(c.IDR_Product_Family__c)?.IDR_Workbasket__c;
         c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
           c,
           productWorkbasketName,

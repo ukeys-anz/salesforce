@@ -241,7 +241,8 @@ public with sharing class IDRCollectionActions {
       oldRec.IDR_Account_Card_Policy_Number__c !=
       c.IDR_Account_Card_Policy_Number__c)) &&
       String.isNotBlank(c.IDR_Collection_Number__c) &&
-      productNameMap.containsKey(c.Product__c) &&
+      (productNameMap.containsKey(c.Product__c) ||
+      c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.Type) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue__c
@@ -271,7 +272,8 @@ public with sharing class IDRCollectionActions {
       (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_2__c) &&
-      productNameMap.containsKey(c.IDR_Product_2__c) &&
+      (productNameMap.containsKey(c.IDR_Product_2__c) ||
+      c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_2__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_2__c
@@ -301,7 +303,8 @@ public with sharing class IDRCollectionActions {
       (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_3__c) &&
-      productNameMap.containsKey(c.IDR_Product_3__c) &&
+      (productNameMap.containsKey(c.IDR_Product_3__c) ||
+      c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_3__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_3__c
@@ -591,8 +594,8 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber,
-              productNameMap.get(rec.Product__c)?.Name,
-              rec.IDR_Product_Category__c
+              productNameMap.get(rec.Product__c).Name,
+              null
             )
           );
           startCollectionTaskList.add(
@@ -631,8 +634,8 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber2,
-              productNameMap.get(rec.IDR_Product_2__c)?.Name,
-              rec.IDR_Product_Category__c
+              productNameMap.get(rec.IDR_Product_2__c).Name,
+              null
             )
           );
           startCollectionTaskList.add(
@@ -671,8 +674,8 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber3,
-              productNameMap.get(rec.IDR_Product_3__c)?.Name,
-              rec.IDR_Product_Category__c
+              productNameMap.get(rec.IDR_Product_3__c).Name,
+              null
             )
           );
           startCollectionTaskList.add(
