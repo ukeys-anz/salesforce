@@ -22,7 +22,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     InteractionSetters.setExternalIds(interactionIds);
 
-    AppointmentNotificationHandler.sendNotifications(interactions);
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteractions(interactions);
+    AppointmentNotificationEventCreator.getInstance().publishEvents();
   }
 
   /**
@@ -113,7 +115,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    AppointmentNotificationHandler.sendNotifications(cancelledInteractions);
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteractions(cancelledInteractions);
+    AppointmentNotificationEventCreator.getInstance().publishEvents();
 
     List<Interaction> noShowInteractions = InteractionComparisonHelper.getNoShowInteractions(
       oldMap,
