@@ -1621,7 +1621,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "125",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "24",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "177",
       "IDR_Workbasket__c": "IDR_Wealth"
     },
@@ -1634,7 +1634,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "126",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "172",
       "IDR_Workbasket__c": "IDR_Wealth"
     },
@@ -1647,7 +1647,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "127",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "177",
       "IDR_Workbasket__c": "IDR_Wealth"
     },
