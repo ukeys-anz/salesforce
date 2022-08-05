@@ -18,40 +18,6 @@ public with sharing class ContactRequestTriggerActions {
     List<ContactRequest> records,
     Boolean apptBooked
   ) {
-    Map<Id, Integer> confirmCountMap = getConfirmationMap(records);
-
-    Set<Id> appointmentCommitmentIds = confirmCountMap.keySet();
-
-    if (Appointment_Commitment__c.sObjectType.getDescribe().isQueryable()) {
-      List<Appointment_Commitment__c> appointmentCommitments = [
-        SELECT ID, Confirmed__c, Available__c
-        FROM Appointment_Commitment__c
-        WHERE ID IN :appointmentCommitmentIds
-      ];
-
-      //Get the current confirmed count from each appointment commitment record and increase the count by 1.
-      List<Appointment_Commitment__c> apptCommtList = getAppointmentCommitmentUpdates(
-        appointmentCommitments,
-        confirmCountMap,
-        apptBooked
-      );
-      if (apptCommtList.size() > 0) {
-        AppointmentCommitmentDMLHelper.updateAppointmentCommitment(
-          apptCommtList
-        );
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'ContactRequestTriggerActions',
-        'updateAppointmentCommitment',
-        'Not enough permissions to query Appointment Commitment object.'
-      );
-    }
-  }
-
-  private static Map<Id, Integer> getConfirmationMap(
-    List<ContactRequest> records
-  ) {
     Set<Id> appointmentCommitmentIds = new Set<Id>();
     Map<Id, Integer> confirmCountMap = new Map<Id, Integer>();
 
@@ -65,28 +31,36 @@ public with sharing class ContactRequestTriggerActions {
       confirmCountMap.put(contReq.Appointment_Commitment__c, tempCount + 1);
     }
 
-    return confirmCountMap;
-  }
-
-  private static List<Appointment_Commitment__c> getAppointmentCommitmentUpdates(
-    List<Appointment_Commitment__c> appointmentCommitments,
-    Map<Id, Integer> confirmCountMap,
-    Boolean apptBooked
-  ) {
+    //Get the current confirmed count from each appointment commitment record and increase the count by 1.
     List<Appointment_Commitment__c> apptCommtList = new List<Appointment_Commitment__c>();
+    if (Appointment_Commitment__c.sObjectType.getDescribe().isQueryable()) {
+      List<Appointment_Commitment__c> appointmentCommitments = [
+        SELECT ID, Confirmed__c, Available__c
+        FROM Appointment_Commitment__c
+        WHERE ID IN :appointmentCommitmentIds
+      ];
 
-    for (Appointment_Commitment__c apptCommt : appointmentCommitments) {
-      if (apptBooked) {
-        apptCommt.Confirmed__c = apptCommt.Confirmed__c == null
-          ? 1
-          : apptCommt.Confirmed__c + confirmCountMap.get(apptCommt.Id);
-      } else {
-        apptCommt.Confirmed__c =
-          apptCommt.Confirmed__c - confirmCountMap.get(apptCommt.Id);
+      for (Appointment_Commitment__c apptCommt : appointmentCommitments) {
+        if (apptBooked) {
+          apptCommt.Confirmed__c = apptCommt.Confirmed__c == null
+            ? 1
+            : apptCommt.Confirmed__c + confirmCountMap.get(apptCommt.Id);
+        } else {
+          apptCommt.Confirmed__c =
+            apptCommt.Confirmed__c - confirmCountMap.get(apptCommt.Id);
+        }
+        apptCommtList.add(apptCommt);
       }
-      apptCommtList.add(apptCommt);
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'ContactRequestActions',
+        'updateAppointmentCommitment',
+        'Not enough permissions to query Appointment Commitment object.'
+      );
     }
-    return apptCommtList;
+    if (apptCommtList.size() > 0) {
+      AppointmentCommitmentDMLHelper.updateAppointmentCommitment(apptCommtList);
+    }
   }
 
   /** @description checks if record has been updated to cancelled and if so,
@@ -94,6 +68,7 @@ public with sharing class ContactRequestTriggerActions {
    * @param oldMap Map of contact requests containing original values prior to update.
    * @param records The list of updated contact request records.
    */
+
   public static void handleCancelledRequest(
     Map<Id, SObject> oldMap,
     List<ContactRequest> records
