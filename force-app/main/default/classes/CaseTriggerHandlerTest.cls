@@ -1434,6 +1434,7 @@ private class CaseTriggerHandlerTest {
         )
       );
     }
+    newCases[1].IDR_Subsequent_Issue__c = '39';
     insert newCases;
     Test.startTest();
     newCases[0].Status = 'Escalated';
@@ -1445,15 +1446,14 @@ private class CaseTriggerHandlerTest {
     System.assertEquals(
       Group.SobjectType,
       caseRec.OwnerId.getSobjectType(),
-      'The workbasket assignment for Afca referred compalints on update should have the same Sobject type.'
+      'The workbasket assignment for AFCA referred complaints on update should have the same Sobject type.'
     );
     System.assertEquals(
       queueList[1].Id,
       caseRec.OwnerId,
-      'The workbasket assignment for Afca referred compalints on update should have the same OwnerId.'
+      'The workbasket assignment for AFCA referred complaints on update should be EDR_Early_Resolution.'
     );
 
-    newCases[1].IDR_Subsequent_Issue__c = '39';
     newCases[1].Status = 'Escalated';
     newCases[1].IDR_Escalation_Reason__c = '1';
     update newCases[1];
@@ -1462,12 +1462,12 @@ private class CaseTriggerHandlerTest {
     System.assertEquals(
       Group.SobjectType,
       caseRec1.OwnerId.getSobjectType(),
-      'The workbasket assignment for Afca referred compalints on update should have the same Sobject type.'
+      'The workbasket assignment for AFCA referred complaints on update should have the same Sobject type.'
     );
     System.assertEquals(
       queueList[0].Id,
       caseRec1.OwnerId,
-      'The workbasket assignment for Afca referred compalints on update should have the same OwnerId.'
+      'The workbasket assignment for AFCA referred complaints on update should be Specialised_EarlyRes_Responsible_Lending.'
     );
 
     Test.stopTest();

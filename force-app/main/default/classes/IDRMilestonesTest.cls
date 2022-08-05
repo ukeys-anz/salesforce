@@ -281,8 +281,8 @@ public class IDRMilestonesTest {
       newCases[i].IDR_Subsequent_Issue__c = '25';
       newCases[i].IDR_Issue_Type_2__c = '9';
       newCases[i].IDR_Subsequent_Issue_2__c = '57';
-      newCases[i].IDR_Issue_Type_3__c = '15';
-      newCases[i].IDR_Subsequent_Issue_3__c = '67';
+      newCases[i].IDR_Issue_Type_3__c = '19';
+      newCases[i].IDR_Subsequent_Issue_3__c = '27';
     }
     update newCases;
 

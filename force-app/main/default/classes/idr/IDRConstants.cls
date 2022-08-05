@@ -114,6 +114,7 @@ public with sharing class IDRConstants {
 
   //Message Text
   public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
+  public static final String CANNOT_CHANGE_ISSUE_MESSAGE = 'You cannot change a collections issue to a non collections issue.';
 
   //Milestone Sla
   public static final String MILESTONE_SLA_NORMAL = 'Normal';
@@ -140,7 +141,7 @@ public with sharing class IDRConstants {
   public static final String TASK_AFCA_SUBJECT_DAY10 = 'AFCA Response is due in 10 days';
   public static final String TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
 
-  //Channel Recieved
+  //Channel Received
   public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';
 
   //IDREmailServiceConstants
