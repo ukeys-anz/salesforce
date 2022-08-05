@@ -58,16 +58,16 @@ global with sharing class InteractionContextService {
   /**
    * @description Method to generate a response instance
    * @param recordId interaction ID of the newly generated interaction.
-   * @param interactionId external id of the newly generated interaction.
+   * @param externalId external id of the newly generated interaction.
    * @return `InteractionContextResponse`
    */
   private static InteractionContextResponse generateResponse(
     String recordId,
-    String interactionId
+    String externalId
   ) {
     InteractionContextResponse response = new InteractionContextResponse();
     response.recordId = recordId;
-    response.interactionId = interactionId;
+    response.externalId = externalId;
     response.success = true;
     response.statusCode = 200;
     return response;
@@ -121,7 +121,7 @@ global with sharing class InteractionContextService {
     /**
      * @description Interaction ID
      */
-    public String interactionId { get; set; }
+    public String externalId { get; set; }
     /**
      * @description Error Message for failure response
      */
