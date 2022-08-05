@@ -44,19 +44,6 @@ public with sharing class AppointmentNotificationTest {
     interactionSubject.Status__c = STATUS_CANCELLED;
     return interactionSubject;
   }
-  @isTest
-  static void testSendNotification() {
-    Interaction interactionSubject = createInteraction();
-    interactionSubject.EndTime = interactionSubject.StartTime.addMinutes(30);
-    List<Interaction> interactions = new List<Interaction>();
-    interactions.add(interactionSubject);
-
-    List<Database.SaveResult> result = AppointmentNotificationHandler.sendNotifications(
-      interactions
-    );
-    System.assertNotEquals(null, result, 'Nothing should not come back');
-    System.assertEquals(false, result.isEmpty(), 'List should not be empty');
-  }
 
   @isTest
   static void testCreatingAppointmentNotificationEventForAccount() {
@@ -85,14 +72,24 @@ public with sharing class AppointmentNotificationTest {
         ContactRequestId__c,
         Interaction_Auto_Number__c,
         InteractionType,
-        LocationId
+        LocationId,
+        RecordTypeId
       FROM Interaction
       WHERE Id = :interactionSubject.Id
     ];
 
-    IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
-      interactionSubject
-    );
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteraction(interactionSubject);
+
+    Map<Id, SObject> dataMap = new Map<Id, SObject>();
+    dataMap.put(testAccount.Id, testAccount);
+
+    IDR_Notification_Event__e platformEvent = AppointmentNotificationEventCreator.getInstance()
+      .createBaseIDRNotificationEvent(interactionSubject);
+
+    IDR_Notification_Event__e notificationEvent = AppointmentNotificationEventCreator.getInstance()
+      .newPlatformEvent(interactionSubject, dataMap, platformEvent);
+
     Test.stopTest();
     System.assertNotEquals(null, notificationEvent, 'Should return an Event');
 
@@ -138,7 +135,7 @@ public with sharing class AppointmentNotificationTest {
       'EmailTemplate__c should be set'
     );
 
-    string expectedEmail = testAccount.PersonEmail.toLowerCase();
+    string expectedEmail = testAccount.PersonEmail;
     System.assertEquals(
       expectedEmail,
       notificationEvent.AuthorisedEmail__c,
@@ -176,9 +173,18 @@ public with sharing class AppointmentNotificationTest {
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
 
-    IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
-      interactionSubject
-    );
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteraction(interactionSubject);
+
+    Map<Id, SObject> dataMap = new Map<Id, SObject>();
+    dataMap.put(testLead.Id, testLead);
+
+    IDR_Notification_Event__e platformEvent = AppointmentNotificationEventCreator.getInstance()
+      .createBaseIDRNotificationEvent(interactionSubject);
+
+    IDR_Notification_Event__e notificationEvent = AppointmentNotificationEventCreator.getInstance()
+      .newPlatformEvent(interactionSubject, dataMap, platformEvent);
+
     System.assertNotEquals(null, notificationEvent, 'Should return an Event');
 
     System.assertEquals(
@@ -223,7 +229,7 @@ public with sharing class AppointmentNotificationTest {
       'EmailTemplate__c should be set'
     );
 
-    string expectedEmail = testLead.Email.toLowerCase();
+    string expectedEmail = testLead.Email;
     System.assertEquals(
       expectedEmail,
       notificationEvent.AuthorisedEmail__c,
@@ -250,10 +256,10 @@ public with sharing class AppointmentNotificationTest {
       Status__c = STATUS_CANCELLED
     );
 
-    String createdTemplate = AppointmentNotificationHandler.getNotificationTemplate(
+    String createdTemplate = AppointmentNotificationEventCreator.getNotificationTemplate(
       createdInteraction
     );
-    String cancelledTemplate = AppointmentNotificationHandler.getNotificationTemplate(
+    String cancelledTemplate = AppointmentNotificationEventCreator.getNotificationTemplate(
       cancelledInteraction
     );
 

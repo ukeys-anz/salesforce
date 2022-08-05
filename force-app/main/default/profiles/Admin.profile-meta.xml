@@ -132,10 +132,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>AppointmentNotificationHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>AppointmentNotificationMetadataProvider</apexClass>
         <enabled>true</enabled>
     </classAccesses>

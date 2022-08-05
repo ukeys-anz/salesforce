@@ -22,7 +22,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     InteractionSetters.setExternalIds(interactionIds);
 
-    AppointmentNotificationHandler.sendNotifications(interactions);
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteractions(interactions);
+    AppointmentNotificationEventCreator.getInstance().publishEvents();
   }
 
   /**
@@ -33,10 +35,10 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount'
   )
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    InteractionActions actionsForInteractions = new InteractionActions();
+    List<Interaction> interactiontoDeleteEvents = new List<Interaction>();
     ContactRequestActions actionsForContactRequests = new ContactRequestActions();
 
-    List<Interaction> changedOwnerInteractions = actionsForInteractions.findInteractionsOwnershipChanged(
+    List<Interaction> changedOwnerInteractions = InteractionActions.findInteractionsOwnershipChanged(
       oldMap,
       records
     );
@@ -45,7 +47,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> createCoachingSummaryInteractions = new List<Interaction>();
     List<Interaction> assignCoachingSummaryOwnerInteractions = new List<Interaction>();
 
-    if (!changedOwnerInteractions.isEmpty()) {
+    if (changedOwnerInteractions.isEmpty() == false) {
       for (Interaction currentInteraction : changedOwnerInteractions) {
         if (
           currentInteraction.OwnerId !=
@@ -54,27 +56,27 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
           GetHelpConstants.INTERACTION_APPT_RT_ID
         ) {
           userOwnedInteractions.add(currentInteraction);
-        } else {
-          assignedBacktoQueueInteractions.add(currentInteraction);
         }
       }
-      if (!userOwnedInteractions.isEmpty()) {
-        List<Event> events = EventHelper.createEventsFromInteractions(
-          userOwnedInteractions
-        );
-        if (events.isEmpty() == false) {
-          EventHelper.insertEvents(events);
-        }
-        createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
-          userOwnedInteractions
-        );
-        assignCoachingSummaryOwnerInteractions = InteractionFilter.getInteractionswithCoachingSummary(
-          userOwnedInteractions
-        );
-      }
+      interactiontoDeleteEvents.addAll(changedOwnerInteractions);
     }
 
-    if (!createCoachingSummaryInteractions.isEmpty()) {
+    if (userOwnedInteractions.isEmpty() == false) {
+      List<Event> events = EventHelper.createEventsFromInteractions(
+        userOwnedInteractions
+      );
+      if (events.isEmpty() == false) {
+        EventHelper.insertEvents(events);
+      }
+      createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
+        userOwnedInteractions
+      );
+      assignCoachingSummaryOwnerInteractions = InteractionFilter.getInteractionswithCoachingSummary(
+        userOwnedInteractions
+      );
+    }
+
+    if (createCoachingSummaryInteractions.isEmpty() == false) {
       List<Coaching_Summary__c> newCoachingSummary = CoachingSummaryHelper.createCoachingSummaryfromInteraction(
         createCoachingSummaryInteractions
       );
@@ -88,11 +90,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       }
     }
 
-    if (!assignCoachingSummaryOwnerInteractions.isEmpty()) {
+    if (assignCoachingSummaryOwnerInteractions.isEmpty() == false) {
       List<Coaching_Summary__c> updateCoachingSummaryRecords = CoachingSummaryHelper.assignCoachingSummaryOwner(
         assignCoachingSummaryOwnerInteractions
       );
-      if (!updateCoachingSummaryRecords.isEmpty()) {
+      if (updateCoachingSummaryRecords.isEmpty() == false) {
         CoachingSummaryHelper.updateCoachingSummary(
           updateCoachingSummaryRecords
         );
@@ -100,20 +102,15 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     }
 
     List<ContactRequest> contactRequestList = new List<ContactRequest>();
-    List<Interaction> interactionToDeleteEvents = assignedBacktoQueueInteractions.Clone();
 
-    if (!assignedBacktoQueueInteractions.isEmpty()) {
-      InteractionEventHelper.deleteInteractionEvents(
-        assignedBacktoQueueInteractions
-      );
-    }
-
-    List<Interaction> cancelledInteractions = actionsForInteractions.findCancelledInteractions(
+    List<Interaction> cancelledInteractions = InteractionActions.findCancelledInteractions(
       oldMap,
       records
     );
 
-    AppointmentNotificationHandler.sendNotifications(cancelledInteractions);
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteractions(cancelledInteractions);
+    AppointmentNotificationEventCreator.getInstance().publishEvents();
 
     List<Interaction> noShowInteractions = InteractionComparisonHelper.getNoShowInteractions(
       oldMap,
@@ -123,11 +120,20 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     interactionToDeleteEvents.addAll(cancelledInteractions);
     interactionToDeleteEvents.addAll(noShowInteractions);
 
-    if (!interactionToDeleteEvents.isEmpty()) {
+    if (interactionToDeleteEvents.isEmpty() == false) {
       InteractionEventHelper.deleteInteractionEvents(interactionToDeleteEvents);
       contactRequestList = InteractionDMLHelper.getRelatedContactRequest(
         cancelledInteractions
       );
+    }
+
+    if (userOwnedInteractions.isEmpty() == false) {
+      List<Event> events = EventHelper.createEventsFromInteractions(
+        userOwnedInteractions
+      );
+      if (events.isEmpty() == false) {
+        EventHelper.insertEvents(events);
+      }
     }
 
     List<ContactRequest> requestsToRecalculate = contactRequestList.Clone();
@@ -141,7 +147,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
-    if (!rescheduledInteractions.isEmpty()) {
+    if (rescheduledInteractions.isEmpty() == false) {
       rescheduledContactRequestList = InteractionDMLHelper.getRelatedContactRequest(
         rescheduledInteractions
       );
@@ -149,14 +155,14 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     requestsToRecalculate.addAll(rescheduledContactRequestList);
 
-    if (!requestsToRecalculate.isEmpty()) {
+    if (requestsToRecalculate.isEmpty() == false) {
       ContactRequestTriggerActions.updateConfirmedCount(
         requestsToRecalculate,
         false
       );
     }
 
-    if (!relatedEvents.isEmpty()) {
+    if (relatedEvents.isEmpty() == false) {
       InteractionEventHelper.updateEventSchedule(relatedEvents, records);
     }
   }
@@ -165,7 +171,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    *  @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
-    InteractionActions actions = new InteractionActions();
     ContactRequestActions cRActions = new ContactRequestActions();
     List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
@@ -180,7 +185,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     );
 
     if (!newInteractions.isEmpty()) {
-      actions.updateEndTime(newInteractions);
+      InteractionActions.updateEndTime(newInteractions);
     }
 
     InteractionValidations.validateInteractions(interactions);
@@ -212,14 +217,14 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
-    List<Interaction> reasonOrStartTimeUpdatedInteractions = actions.getInteractionsRequiringEndTimeUpdate(
+    List<Interaction> reasonOrStartTimeUpdatedInteractions = InteractionActions.getInteractionsRequiringEndTimeUpdate(
       oldMap,
       records
     );
 
     if (!reasonOrStartTimeUpdatedInteractions.isEmpty()) {
-      actions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
+      InteractionActions.updateEndTime(reasonOrStartTimeUpdatedInteractions);
     }
-    actions.unassignInteractions(oldMap, records);
+    InteractionActions.unassignInteractions(oldMap, records);
   }
 }
