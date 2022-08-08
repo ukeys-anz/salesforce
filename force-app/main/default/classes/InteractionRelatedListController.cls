@@ -124,7 +124,7 @@ public with sharing class InteractionRelatedListController {
    * @return query string to be used in appointments and interactions query
    */
   private static String buildQueryStr(Id sId) {
-    String interactionQuery = 'SELECT Id, Name, Owner.Name, StartTime FROM Interaction WHERE ';
+    String interactionQuery = 'SELECT Id, Name, Owner.Name, StartTime, CreatedDate FROM Interaction WHERE ';
     String sobjectType = sId.getSObjectType().getDescribe().getName();
     switch on sobjectType {
       when 'Account' {
@@ -170,7 +170,7 @@ public with sharing class InteractionRelatedListController {
       if (record.StartTime != null) {
         this.interactTime = record.StartTime.format('dd/MM/yyyy h:mm a');
       } else {
-        this.interactTime = '';
+        this.interactTime = record.CreatedDate.format('dd/MM/yyyy h:mm a');
       }
     }
   }
