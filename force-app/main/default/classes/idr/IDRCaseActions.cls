@@ -233,24 +233,26 @@ public with sharing class IDRCaseActions {
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
     for (Case c : records) {
-      Case oldCase = (oldMap.containsKey(c.Id))
-        ? (Case) oldMap.get(c.Id)
-        : null;
-      if (
-        (oldCase != null &&
-        ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
-        c.Status == IDRConstants.ESCALATED_STATUS) ||
-        (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
-        c.IDR_Milestone_Sla__c == 'Completed'))
-      ) {
-        escalationCases.add(c.Id);
-      }
-      if (
-        (oldCase != null &&
-        (!oldCase.isClosed &&
-        (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
-      ) {
-        maxTimeFrameCases.add(c.Id);
+      if (isIDRComplaintType(c)) {
+        Case oldCase = (oldMap.containsKey(c.Id))
+          ? (Case) oldMap.get(c.Id)
+          : null;
+        if (
+          (oldCase != null &&
+          ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
+          c.Status == IDRConstants.ESCALATED_STATUS) ||
+          (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
+          c.IDR_Milestone_Sla__c == 'Completed'))
+        ) {
+          escalationCases.add(c.Id);
+        }
+        if (
+          (oldCase != null &&
+          (!oldCase.isClosed &&
+          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+        ) {
+          maxTimeFrameCases.add(c.Id);
+        }
       }
     }
 
