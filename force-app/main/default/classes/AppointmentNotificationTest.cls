@@ -5,7 +5,8 @@
  */
 @isTest
 public with sharing class AppointmentNotificationTest {
-  private final static string TEST_MOBILE = '01189998819991197253';
+  private final static Faker TESTFAKER = new Faker('AU');
+  private final static string TEST_MOBILE = TESTFAKER.person.phone();
   private static final String STATUS_CANCELLED = 'Cancelled';
   private static final String TEMPLATE_BOOKED = 'AgANZxApptBooked';
   private static final String TEMPLATE_CANCELLED = 'AgANZxApptCancelled';
@@ -47,7 +48,11 @@ public with sharing class AppointmentNotificationTest {
 
   @isTest
   static void testCreatingAppointmentNotificationEventForAccount() {
-    Account testAccount = createTestAccount('Joe', 'Bloggs', '123456');
+    Account testAccount = createTestAccount(
+      TESTFAKER.randomString(10),
+      TESTFAKER.randomString(10),
+      TESTFAKER.randomString(6)
+    );
     insert testAccount;
 
     Interaction interactionSubject = createInteraction();
@@ -91,13 +96,8 @@ public with sharing class AppointmentNotificationTest {
       .newPlatformEvent(interactionSubject, dataMap, platformEvent);
 
     Test.stopTest();
-    System.assertNotEquals(null, notificationEvent, 'Should return an Event');
 
-    System.assertEquals(
-      interactionSubject.StartTime,
-      notificationEvent.Date_and_Time__c,
-      'Date_and_Time__c should be set'
-    );
+    interactionEventComparison(interactionSubject, notificationEvent);
 
     System.assertEquals(
       duration,
@@ -112,24 +112,6 @@ public with sharing class AppointmentNotificationTest {
     );
 
     System.assertEquals(
-      interactionSubject.LocationId,
-      notificationEvent.Location__c,
-      'Location__c should be set'
-    );
-
-    System.assertEquals(
-      interactionSubject.InteractionType,
-      notificationEvent.Preferred_Channel__c,
-      'Preferred_Channel__c should be set'
-    );
-
-    System.assertEquals(
-      interactionSubject.Interaction_Purpose__c,
-      notificationEvent.Request_Type__c,
-      'Request_Type__c should be set'
-    );
-
-    System.assertEquals(
       TEMPLATE_BOOKED,
       notificationEvent.EmailTemplate__c,
       'EmailTemplate__c should be set'
@@ -141,12 +123,6 @@ public with sharing class AppointmentNotificationTest {
       notificationEvent.AuthorisedEmail__c,
       'Email on the event must match that of the related account'
     );
-
-    System.assertNotEquals(
-      null,
-      notificationEvent.Record_Id__c,
-      'Interaction External Id must be copied over to the events record Id'
-    );
   }
 
   @isTest
@@ -155,8 +131,8 @@ public with sharing class AppointmentNotificationTest {
       .get('General')
       .getRecordTypeId();
     Lead testLead = new Lead();
-    testLead.FirstName = 'Jane';
-    testLead.LastName = 'Doe';
+    testLead.FirstName = TESTFAKER.randomString(10);
+    testLead.LastName = TESTFAKER.randomString(10);
     testLead.Company = testLead.FirstName;
     testLead.RecordTypeId = leadRecordTypeId;
     testLead.Email =
@@ -172,6 +148,26 @@ public with sharing class AppointmentNotificationTest {
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
+    insert interactionSubject;
+
+    test.startTest();
+    interactionSubject = [
+      SELECT
+        Interaction_External_Id__c,
+        StartTime,
+        EndTime,
+        AccountId,
+        Interaction_Purpose__c,
+        Status__c,
+        Lead__c,
+        ContactRequestId__c,
+        Interaction_Auto_Number__c,
+        InteractionType,
+        LocationId,
+        RecordTypeId
+      FROM Interaction
+      WHERE Id = :interactionSubject.Id
+    ];
 
     AppointmentNotificationEventCreator.getInstance()
       .addInteraction(interactionSubject);
@@ -185,13 +181,7 @@ public with sharing class AppointmentNotificationTest {
     IDR_Notification_Event__e notificationEvent = AppointmentNotificationEventCreator.getInstance()
       .newPlatformEvent(interactionSubject, dataMap, platformEvent);
 
-    System.assertNotEquals(null, notificationEvent, 'Should return an Event');
-
-    System.assertEquals(
-      interactionSubject.StartTime,
-      notificationEvent.Date_and_Time__c,
-      'Date_and_Time__c should be set'
-    );
+    interactionEventComparison(interactionSubject, notificationEvent);
 
     System.assertEquals(
       duration,
@@ -203,6 +193,32 @@ public with sharing class AppointmentNotificationTest {
       testLead.FirstName,
       notificationEvent.First_Name__c,
       'First_Name__c should be set'
+    );
+
+    System.assertEquals(
+      TEMPLATE_BOOKED,
+      notificationEvent.EmailTemplate__c,
+      'EmailTemplate__c should be set'
+    );
+
+    string expectedEmail = testLead.Email;
+    System.assertEquals(
+      expectedEmail,
+      notificationEvent.AuthorisedEmail__c,
+      'Event Email must match the Leads Email'
+    );
+  }
+
+  static void interactionEventComparison(
+    Interaction interactionSubject,
+    IDR_Notification_Event__e notificationEvent
+  ) {
+    System.assertNotEquals(null, notificationEvent, 'Should return an Event');
+
+    System.assertEquals(
+      interactionSubject.StartTime,
+      notificationEvent.Date_and_Time__c,
+      'Date_and_Time__c should be set'
     );
 
     System.assertEquals(
@@ -223,17 +239,10 @@ public with sharing class AppointmentNotificationTest {
       'Request_Type__c should be set'
     );
 
-    System.assertEquals(
-      TEMPLATE_BOOKED,
-      notificationEvent.EmailTemplate__c,
-      'EmailTemplate__c should be set'
-    );
-
-    string expectedEmail = testLead.Email;
-    System.assertEquals(
-      expectedEmail,
-      notificationEvent.AuthorisedEmail__c,
-      'Event Email must match the Leads Email'
+    System.assertNotEquals(
+      null,
+      notificationEvent.Record_Id__c,
+      'Interaction External Id must be copied over to the events record Id'
     );
   }
 
