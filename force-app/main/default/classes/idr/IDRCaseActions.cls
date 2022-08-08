@@ -130,6 +130,35 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
+        if (
+          oldRecord != null &&
+          ((IDRCollectionActions.isCollectionsIssue(
+            oldRecord.Type,
+            oldRecord.IDR_Subsequent_Issue__c
+          ) &&
+          !IDRCollectionActions.isCollectionsIssue(
+            record.Type,
+            record.IDR_Subsequent_Issue__c
+          )) ||
+          (IDRCollectionActions.isCollectionsIssue(
+            oldRecord.IDR_Issue_Type_2__c,
+            oldRecord.IDR_Subsequent_Issue_2__c
+          ) &&
+          !IDRCollectionActions.isCollectionsIssue(
+            record.IDR_Issue_Type_2__c,
+            record.IDR_Subsequent_Issue_2__c
+          )) ||
+          (IDRCollectionActions.isCollectionsIssue(
+            oldRecord.IDR_Issue_Type_3__c,
+            oldRecord.IDR_Subsequent_Issue_3__c
+          ) &&
+          !IDRCollectionActions.isCollectionsIssue(
+            record.IDR_Issue_Type_3__c,
+            record.IDR_Subsequent_Issue_3__c
+          )))
+        ) {
+          record.addError(IDRConstants.CANNOT_CHANGE_ISSUE_MESSAGE);
+        }
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);

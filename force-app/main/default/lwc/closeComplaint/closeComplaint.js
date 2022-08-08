@@ -40,6 +40,9 @@ import REMEDY_DURATION3 from "@salesforce/schema/Case.IDR_Duration_of_Remedy_3__
 import AVOIDABLE_ESCALATION from "@salesforce/schema/Case.IDR_Avoidable_Escalation__c";
 import AVOIDABLE_ESCALATION_REASON from "@salesforce/schema/Case.IDR_Avoidable_Escalation_Reason__c";
 
+//Product field
+import PRODUCT_OR_SERVICE_NAME from "@salesforce/schema/Case.Product__c";
+
 const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
@@ -80,7 +83,8 @@ const FIELDS = [
   OTHER_REMDY3,
   REMEDY_DURATION3,
   AVOIDABLE_ESCALATION,
-  AVOIDABLE_ESCALATION_REASON
+  AVOIDABLE_ESCALATION_REASON,
+  PRODUCT_OR_SERVICE_NAME
 ];
 
 export default class closeComplaint extends NavigationMixin(LightningElement) {
@@ -98,12 +102,23 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   avoidableEscalation = false;
   caseStatus = CLOSED_STATUS_API_NAME;
 
+  isValidToClose = true;
+  validityMessage = "";
+
   //Get the recordType to send to the API
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
   wiredProject({ data }) {
     if (data) {
       this.recordTypeId = data.fields.RecordTypeId.value;
-      this.updateCloseFieldsWithExistingValues(data);
+      //check validity before closing
+      if (!data.fields[PRODUCT_OR_SERVICE_NAME.fieldApiName].value) {
+        this.isValidToClose = false;
+        this.validityMessage +=
+          "Please update Product or Service Name before closing the case";
+      } else {
+        this.isValidToClose = true;
+        this.updateCloseFieldsWithExistingValues(data);
+      }
     }
   }
 
@@ -351,7 +366,29 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         .catch((error) => {
           let message = "Unknown error";
           if (error.body.output) {
-            message = message = error.body.output.message;
+            message = "";
+            if (
+              Array.isArray(error.body.output.errors) &&
+              error.body.output.errors.length > 0
+            ) {
+              message =
+                message +
+                error.body.output.errors.map((e) => e.message).join(", ");
+            }
+            if (error.body.output.fieldErrors) {
+              for (const i in error.body.output.fieldErrors) {
+                if (
+                  Array.isArray(error.body.output.fieldErrors[i]) &&
+                  error.body.output.fieldErrors[i].length > 0
+                ) {
+                  message =
+                    message +
+                    error.body.output.fieldErrors[i]
+                      .map((e) => e.message)
+                      .join(", ");
+                }
+              }
+            }
           } else if (Array.isArray(error.body)) {
             message = error.body.map((e) => e.message).join(", ");
           } else if (typeof error.body.message === "string") {
