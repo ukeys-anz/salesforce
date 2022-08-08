@@ -6,6 +6,7 @@
 .husky/_
 
 # Caches
+.sf
 .sfdx/
 .eslintcache
 .pmdCache
@@ -81,3 +82,6 @@ allure-results/*
 allure-report
 .env
 .env.example.original
+
+# automation-test
+automation-test/*

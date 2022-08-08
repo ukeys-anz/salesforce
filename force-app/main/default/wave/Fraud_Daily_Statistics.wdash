@@ -5,7 +5,15 @@
       "dataset": { "name": "FraudX" },
       "dependent": true,
       "fields": ["Record.Name"],
-      "label": "Case type",
+      "label": "Case Type",
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "FraudX" },
+      "dependent": true,
+      "fields": ["Type"],
+      "label": "Compromise Type",
       "locked": false,
       "operator": "in"
     },
@@ -34,6 +42,7 @@
       "dataset": { "name": "FraudX" },
       "dependent": true,
       "fields": ["Origin"],
+      "label": "Detection Method",
       "locked": false,
       "operator": "in"
     }
@@ -73,7 +82,7 @@
             },
             {
               "colspan": 2,
-              "column": 2,
+              "column": 4,
               "name": "filterpanel_2",
               "row": 2,
               "rowspan": 5,
@@ -87,7 +96,7 @@
             },
             {
               "colspan": 2,
-              "column": 4,
+              "column": 10,
               "name": "filterpanel_3",
               "row": 2,
               "rowspan": 5,
@@ -115,7 +124,7 @@
             },
             {
               "colspan": 2,
-              "column": 6,
+              "column": 2,
               "name": "filterpanel_5",
               "row": 2,
               "rowspan": 5,
@@ -131,6 +140,20 @@
               "colspan": 2,
               "column": 8,
               "name": "filterpanel_6",
+              "row": 2,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 6,
+              "name": "filterpanel_4",
               "row": 2,
               "rowspan": 5,
               "widgetStyle": {
@@ -259,8 +282,9 @@
     "lens_1": {
       "broadcastFacet": true,
       "groups": [],
+      "label": "lens_1",
       "numbers": [],
-      "query": "q = load \"FraudX\";\nq = foreach q generate 'CaseNumber' as 'Case Number', \n'Record.Name' as 'Case Type',\n'CreatedDate' as 'Case Created Date', \n'Account.OCV_ID__c' as 'OCV ID', \n'Type' as 'Compromise Type',\n(case 'Origin'\n      when \"Falcon\" then 1    \n      when \"Fraud Staff\" then 1 \n      else 0\nend) as 'Detection Status',\n'Origin' as 'Detection Method',  \n'Fraud_Total_Scam_Value__c' as 'Total Scam Value', \n'Fraud_Total_Fraud_Value__c' as 'Total Fraud Value', \n'Fraud_Total_Falcon_Recalled__c' as 'Total Falcon Recalled', \n'Fraud_Total_Recovered__c' as 'Total Recovered', \n'Fraud_Total_Customer_Loss__c' as 'Total Customer Loss', \n'Fraud_Total_Customer_Exposure__c' as 'Total Customer Exposure', \n'Fraud_Total_Fraud_Received__c' as 'Total Fraud Received', \n'Fraud_Total_Recipient_Loss__c' as 'Total Recipient Loss', \n'Fraud_Loss_Reason_Code__c' as 'Loss Reason Code',\n'Fraud_Summary_of_Events__c' as 'Summary of Event', \n'ClosedDate' as 'Case Closed Date';\nq = filter q by 'Case Type' in [\"Fraud\",\"Scam\",\"Recipient/Mule\"];\nq = order q by 'Case Created Date' desc;",
+      "query": "q = load \"FraudX\";\nq = foreach q generate 'CaseNumber' as 'Case Number',\n'Record.Name' as 'Case Type',\n'CreatedDate' as 'Case Created Date',\n'Account.OCV_ID__c' as 'OCV ID',\n'Type' as 'Compromise Type',\n(case 'Origin'\nwhen \"Falcon\" then 1\nwhen \"Fraud Staff\" then 1\nelse 0\nend) as 'Detection Status',\n'Origin' as 'Detection Method',\ncase when 'Fraud_Total_Scam_Value__c' is null then 0 else 'Fraud_Total_Scam_Value__c' end as 'Total Scam Value',\ncase when 'Fraud_Total_Fraud_Value__c' is null then 0 else 'Fraud_Total_Fraud_Value__c' end as 'Total Fraud Value',\ncase when 'Fraud_Total_Falcon_Recalled__c' is null then 0 else 'Fraud_Total_Falcon_Recalled__c' end as 'Total Falcon Recalled',\ncase when 'Fraud_Total_Recovered__c' is null then 0 else 'Fraud_Total_Recovered__c' end as 'Total Recovered',\n(case 'Record.Name'\nwhen \"Recipient/Mule\" then 0\nelse 'Fraud_Total_Customer_Loss__c'\nend) as 'Total Customer Loss',\ncase when 'Fraud_Total_Customer_Exposure__c' is null then 0 else 'Fraud_Total_Customer_Exposure__c' end as 'Total Customer Exposure',\ncase when 'Fraud_Total_Fraud_Received__c' is null then 0 else 'Fraud_Total_Fraud_Received__c' end as 'Total Fraud Received',\ncase when 'Fraud_Total_Recipient_Loss__c' is null then 0 else 'Fraud_Total_Recipient_Loss__c' end as 'Total Recipient Loss',\n'Fraud_Loss_Reason_Code__c' as 'Loss Reason Code',\n'Fraud_Summary_of_Events__c' as 'Summary of Event',\n'ClosedDate' as 'Case Closed Date';\nq = filter q by 'Case Type' in [\"Fraud\",\"Scam\",\"Recipient/Mule\"];\nq = filter q by 'Compromise Type' not in [\"Not Fraud\",\"Not a Scam\",\"Not a Recipient\"];\nq = order q by 'Case Created Date' desc;",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -404,6 +428,17 @@
       "type": "filterpanel"
     },
     "filterpanel_5": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [{ "dataset": { "name": "FraudX" }, "field": "Type" }],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_4": {
       "parameters": {
         "filterItemOptions": {
           "propertyColor": "#54698D",

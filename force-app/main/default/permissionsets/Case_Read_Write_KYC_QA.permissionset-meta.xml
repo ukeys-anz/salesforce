@@ -414,7 +414,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Fraud_Security_Features__c</field>
         <readable>true</readable>
     </fieldPermissions>
