@@ -46,4 +46,31 @@ public with sharing class InitiateInteractionControllerTest {
       'Interaction is not found.'
     );
   }
+
+  /**
+   * @description createInteractionSuccessTest tests creation of an interaction
+   */
+  @isTest
+  static void createInteractionFailureTest() {
+    Account testAcc = [SELECT Id FROM Account LIMIT 1];
+    Map<String, String> fields = new Map<String, String>{
+      'accountId' => testAcc.Id,
+      'interactionType' => 'Call',
+      'direction' => 'Outbound',
+      'reason' => 'Customer'
+    };
+    try {
+      InitiateInteractionController.createInteraction(fields);
+      System.assert(
+        false,
+        'Interaction is missing record type and was expected to fail'
+      );
+    } catch (AuraHandledException e) {
+      System.assertEquals(
+        e.getMessage(),
+        'Script-thrown exception',
+        'Error should be thrown.'
+      );
+    }
+  }
 }
