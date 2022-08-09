@@ -19,7 +19,10 @@ public with sharing class IDRCaseAssignmentRules {
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-        String productWorkbasketName = productFamilyMap.get(c.IDR_Product_Family__c)?.IDR_Workbasket__c;
+        String productWorkbasketName = productFamilyMap.get(
+            c.IDR_Product_Family__c
+          )
+          ?.IDR_Workbasket__c;
         c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
           c,
           productWorkbasketName,
@@ -46,7 +49,9 @@ public with sharing class IDRCaseAssignmentRules {
         oldCase.Product__c != c.Product__c)
       ) {
         c.IDR_Product_Family__c = (productMap.get(c.Product__c))
-          .IDR_Product_Family__c;
+          ?.IDR_Product_Family__c;
+        c.IDR_Product_Category__c = (productMap.get(c.Product__c))
+          ?.IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c;
       } else if (
         c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
         c.IDR_Product_Category__c != null &&
@@ -131,22 +136,29 @@ public with sharing class IDRCaseAssignmentRules {
       } else {
         return QUEUE_MAP.get('IDR_Early_Resolution');
       }
+    } else if (
+      (rec.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS ||
+      rec.Status == IDRConstants.CLOSED_STATUS) &&
+      (oldCase == null ||
+      oldCase.Status != IDRConstants.ESCALATED_STATUS) &&
+      ((rec.Type == '4' &&
+      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+        rec.IDR_Subsequent_Issue__c
+      )) ||
+      (rec.IDR_Issue_Type_2__c == '4' &&
+      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+        rec.IDR_Subsequent_Issue_2__c
+      )) ||
+      (rec.IDR_Issue_Type_3__c == '4' &&
+      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+        rec.IDR_Subsequent_Issue_3__c
+      ))) &&
+      (FeatureManagement.checkPermission('IDR_Level_2') ||
+      FeatureManagement.checkPermission('IDR_Level_3'))
+    ) {
+      //To auto assign cases to the workbasket 'Hardship_IDR_Letter'
+      return QUEUE_MAP.get('Hardship_IDR_Letter');
     }
-    //To auto assign cases to the workbasket 'Hardship_IDR_Letter'
-    else if (
-            (rec.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS || 
-             rec.Status == IDRConstants.CLOSED_STATUS) && 
-            (oldCase == null || 
-             oldCase.Status != IDRConstants.ESCALATED_STATUS) &&
-            ((rec.Type == '4' &&
-             IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(rec.IDR_Subsequent_Issue__c)) || 
-             (rec.IDR_Issue_Type_2__c == '4' && 
-             IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(rec.IDR_Subsequent_Issue_2__c)) || 
-             (rec.IDR_Issue_Type_3__c == '4' && 
-             IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(rec.IDR_Subsequent_Issue_3__c))) &&
-            (FeatureManagement.checkPermission('IDR_Level_2') || 
-             FeatureManagement.checkPermission('IDR_Level_3')))
-            { return QUEUE_MAP.get('Hardship_IDR_Letter'); }
 
     //Not escalated, don't change owner
     return rec.OwnerId;
@@ -208,7 +220,10 @@ public with sharing class IDRCaseAssignmentRules {
     Map<Id, Product2> productMap = new Map<Id, Product2>();
     if (Product2.sObjectType.getDescribe().isQueryable()) {
       for (Product2 p : [
-        SELECT Name, IDR_Product_Family__c
+        SELECT
+          Name,
+          IDR_Product_Family__c,
+          IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c
         FROM Product2
         WHERE Id IN :productIds
       ]) {
