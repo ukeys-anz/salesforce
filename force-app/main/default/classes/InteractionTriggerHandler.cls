@@ -47,34 +47,24 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> createCoachingSummaryInteractions = new List<Interaction>();
     List<Interaction> assignCoachingSummaryOwnerInteractions = new List<Interaction>();
 
-    if (changedOwnerInteractions.isEmpty() == false) {
-      for (Interaction currentInteraction : changedOwnerInteractions) {
-        if (
-          currentInteraction.OwnerId !=
-          InteractionConstants.APPOINTMENT_QUEUE_ID &&
-          currentInteraction.RecordTypeId ==
-          GetHelpConstants.INTERACTION_APPT_RT_ID
-        ) {
-          userOwnedInteractions.add(currentInteraction);
-        }
+    for (Interaction currentInteraction : changedOwnerInteractions) {
+      if (
+        currentInteraction.OwnerId !=
+        InteractionConstants.APPOINTMENT_QUEUE_ID &&
+        currentInteraction.RecordTypeId ==
+        GetHelpConstants.INTERACTION_APPT_RT_ID
+      ) {
+        userOwnedInteractions.add(currentInteraction);
       }
-      interactiontoDeleteEvents.addAll(changedOwnerInteractions);
     }
+    interactiontoDeleteEvents.addAll(changedOwnerInteractions);
 
-    if (userOwnedInteractions.isEmpty() == false) {
-      List<Event> events = EventHelper.createEventsFromInteractions(
-        userOwnedInteractions
-      );
-      if (events.isEmpty() == false) {
-        EventHelper.insertEvents(events);
-      }
-      createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
-        userOwnedInteractions
-      );
-      assignCoachingSummaryOwnerInteractions = InteractionFilter.getInteractionswithCoachingSummary(
-        userOwnedInteractions
-      );
-    }
+    createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
+      userOwnedInteractions
+    );
+    assignCoachingSummaryOwnerInteractions = InteractionFilter.getInteractionswithCoachingSummary(
+      userOwnedInteractions
+    );
 
     if (createCoachingSummaryInteractions.isEmpty() == false) {
       List<Coaching_Summary__c> newCoachingSummary = CoachingSummaryHelper.createCoachingSummaryfromInteraction(
@@ -127,13 +117,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
-    if (userOwnedInteractions.isEmpty() == false) {
-      List<Event> events = EventHelper.createEventsFromInteractions(
-        userOwnedInteractions
-      );
-      if (events.isEmpty() == false) {
-        EventHelper.insertEvents(events);
-      }
+    List<Event> events = EventHelper.createEventsFromInteractions(
+      userOwnedInteractions
+    );
+    if (events.isEmpty() == false) {
+      EventHelper.insertEvents(events);
     }
 
     List<ContactRequest> requestsToRecalculate = contactRequestList.Clone();
