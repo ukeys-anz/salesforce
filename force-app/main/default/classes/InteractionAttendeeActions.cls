@@ -107,23 +107,34 @@ public with sharing class InteractionAttendeeActions {
         if (attendant.InteractionId != interact.Id) {
           continue;
         }
+        String roleName = '';
+        if (attendant.User.UserRole != null) {
+          roleName = attendant.User.UserRole.Name;
+        } else {
+          Lib_SystemLog.createSingleLog(
+            InteractionAttendeeActions.class.getName(),
+            'updateAttendees',
+            null,
+            'User ' +
+            attendant.UserId +
+            ' has no role in Salesforce.',
+            Lib_systemLog.Severity.WARNING
+          );
+        }
         if (Trigger.isAfter && Trigger.isInsert) {
           // add the attendee to the map
-          roleMappingInstance.addAttendee(
-            attendant.UserId,
-            attendant.User.UserRole.Name
-          );
+          roleMappingInstance.addAttendee(attendant.UserId, roleName);
         }
         if (Trigger.isAfter && Trigger.isUpdate) {
           // update the attendee to the map
           InteractionAttendee oldAttendee = (InteractionAttendee) oldAttendeesMap.get(
             attendant.Id
           );
-          roleMappingInstance.deleteAttendee(oldAttendee.UserId);
-          roleMappingInstance.addAttendee(
-            attendant.UserId,
-            attendant.User.UserRole.Name
-          );
+          if (oldAttendee != null) {
+            // Null check since after update can be entered twice
+            roleMappingInstance.deleteAttendee(oldAttendee.UserId);
+            roleMappingInstance.addAttendee(attendant.UserId, roleName);
+          }
         }
         if (Trigger.isAfter && Trigger.isDelete) {
           // remove the attendee to the map
