@@ -65,7 +65,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Card_Scheme__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -373,6 +373,11 @@
         <field>Case.Submitted_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Card_Token_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>    
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Trace_Request_Date_and_Time_Posted__c</field>

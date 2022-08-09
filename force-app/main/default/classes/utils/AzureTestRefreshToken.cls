@@ -4,7 +4,6 @@
  * @since 2021
  */
 public without sharing class AzureTestRefreshToken {
-  @SuppressWarnings('PMD.EmptyStatementBlock')
   private AzureTestRefreshToken() {
     // restrict instantiation
   }

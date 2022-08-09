@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_New_to_Bank_Check</fullName>
+    <active>true</active>
+    <description>Validation to check New to Bank when creating or updating a lead.</description>
+    <errorConditionFormula>AND(
+        (ISCHANGED( New_to_Bank__c ) || ISCHANGED( FinServ__RelatedAccount__c ) || ISNEW()),
+        $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+        RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+        NOT ISBLANK( FinServ__RelatedAccount__c ) , 
+        TEXT( New_to_Bank__c ) = &quot;Yes&quot;
+    )</errorConditionFormula>
+    <errorDisplayField>New_to_Bank__c</errorDisplayField>
+    <errorMessage>This lead has an existing customer linked, please set New to Bank as No.</errorMessage>
+</ValidationRule>

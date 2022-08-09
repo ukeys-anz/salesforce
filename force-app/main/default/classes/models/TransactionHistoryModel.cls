@@ -1,5 +1,6 @@
 /**
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
+ * ExcessivePublicCount Surpressed : TransactionHistoryModel to have all the public methods and attributes together.
  */
 @SuppressWarnings(
   'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.TooManyFields, PMD.PropertyNamingConventions'
@@ -331,6 +332,8 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
     public String method;
     @AuraEnabled
     public String wallet;
+    @AuraEnabled
+    public String card_last_four_digits;
   }
 
   /**

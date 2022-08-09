@@ -44,3 +44,53 @@ export const MAPPED_STATUS = {
   Block_ATM_POS_CNP: "Block ATM, POS & CNP",
   Block_POS_Exclude_CNP: "Block POS (exclude CNP)"
 };
+
+export const CARD_CONTROLS_DEFINITION = [
+  {
+    key: "TCT_CONTACTLESS",
+    label: "Contactless Payments",
+    value: "Enabled",
+    visible: true
+  },
+  {
+    key: "TCT_ATM_WITHDRAW",
+    label: "ATM Withdrawals",
+    value: "Enabled",
+    visible: true
+  },
+  {
+    key: "TCT_E_COMMERCE",
+    label: "Online Transactions",
+    value: "Enabled",
+    visible: true
+  },
+  {
+    key: "TCT_CROSS_BORDER",
+    label: "Overseas Transactions (In-Store)",
+    value: "Enabled",
+    visible: true
+  },
+  {
+    key: "MCT_GAMBLING",
+    label: "Gambling Block",
+    value: "Off",
+    tooltip:
+      "Transactions categorised as gambling such as online betting and lottery tickets may be blocked when turned on.",
+    visible: true
+  },
+  {
+    key: "MCT_GAMBLING",
+    label: "Gambling Block Delay Status",
+    type: "text",
+    value: "N/A",
+    tooltip:
+      "There is a 48-hour delay after a customer requests to unblock gambling. The customer can return to their app to remove the block once the 48-hour delay has ended.",
+    visible: true
+  },
+  {
+    key: "GCT_GLOBAL",
+    label: "Physical Lock",
+    value: "Off",
+    visible: false
+  }
+];

@@ -3,8 +3,9 @@
  * @since 05/2021
  * @description  IDRCollectionActions class is used to handle all collection related activities in case trigger
  * @group IDR(Internal Dispute Resolution)
+ * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRCollectionActions {
   private static final String STOP_COLLEC_TASK_SUBJECT = 'STOP Collection is triggered from Salesforce for ';
 
@@ -420,7 +421,6 @@ public with sharing class IDRCollectionActions {
    * @param records List of Case records in current  trigger context
    * @param oldMap old Map of Case records in current  trigger context
    */
-  @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
   public static void startCollections(
     List<Case> records,
     Map<Id, SObject> oldMap
@@ -489,9 +489,6 @@ public with sharing class IDRCollectionActions {
    * @param caseIds list of case ids
    * @return startCollectionMap start collection map
    */
-  @SuppressWarnings(
-    'PMD.ApexCRUDViolation'
-  ) //Apex CRUD validation already added below
   public static Map<String, Set<Id>> getStartCollectionMap(
     Set<String> collectionAcctsList,
     List<Id> caseIds

@@ -1,65 +1,69 @@
 <template>
   <section class="slds-modal slds-fade-in-open">
     <div class="slds-modal__container">
-      <article class="slds-card">
-        <div class="slds-card__header slds-grid header-div">
-          <header class="slds-has-flexi-truncate card-header">
-            <h2>Temporary Card Lock</h2>
-          </header>
-        </div>
-        <div class="slds-card__body slds-p-horizontal--small">
-          <div class="slds-p-around_medium slds-m-bottom_medium">
-            <p>
-              Are you sure you want to place a temporary lock on the customer's
-              card?
-            </p>
-            <br />
-            <p>
-              This will<span class="slds-text-title_bold"> not</span> trigger an
-              automated card replacement, and the customer will be able to
-              unlock their card via their mobile app.
-            </p>
-          </div>
-          <div class="slds-p-around_medium">
-            <strong>What’s Blocked</strong>
-            <div class="slds-p-top_small">
-              <li>
-                Payments or withdrawals attempted using the physical card or
-                card details
-              </li>
-              <li>
-                Digital Wallets (as applicable - Apple Pay, Samsung Pay, Google
-                Pay and Garmin Pay)
-              </li>
-              <li>
-                Any services or recurring payments the customer has set up using
-                their card details
-              </li>
+      <template if:true={loading}>
+        <article class="slds-card slds-m-bottom_small">
+          <div class="slds-align_absolute-center" style="height: 4rem">
+            <div role="status" class="slds-spinner_inline">
+              <lightning-spinner
+                alternative-text="Loading"
+                variant="brand"
+              ></lightning-spinner>
             </div>
-            <p class="slds-m-top_small slds-m-bottom_small">
-              Please advise the customer that their physical card and digital
-              wallet will be locked pretty much instantly. If the customer would
-              only like their physical card locked, they can do this via their
-              app.
-            </p>
           </div>
-          <button
-            class="slds-button slds-button--brand lock-button"
-            onclick={handleLock}
-            data-id="lock-button"
-          >
-            Temporarily Lock Card
-          </button>
-        </div>
-        <footer class="slds-modal__footer">
-          <button
-            class="slds-button slds-button--neutral"
-            onclick={closeAction}
-          >
-            Cancel
-          </button>
-        </footer>
-      </article>
+        </article>
+      </template>
+      <template if:false={loading}>
+        <article class="slds-card">
+          <div class="slds-card__header slds-grid header-div">
+            <header class="slds-has-flexi-truncate card-header">
+              <h2>Temporary Card Lock</h2>
+            </header>
+          </div>
+          <div class="slds-card__body slds-p-horizontal--small">
+            <div class="slds-p-around_medium">
+              <p>
+                Are you sure you want to place a temporary lock on the
+                customer's card?
+              </p>
+              <br />
+              <p>
+                This will<span class="slds-text-title_bold"> not</span> trigger
+                an automated card replacement, and the customer will be able to
+                unlock their card via their mobile app.
+              </p>
+              <br />
+              <strong>What&apos;s Blocked</strong>
+              <p>
+                Payments attempted using your physical card. This may take up to
+                15 minutes to take effect.
+              </p>
+              <br />
+              <strong>What Still Works</strong>
+              <p>
+                Digital Wallets and any services or recurring payments
+                you&apos;ve set up using your card details.
+              </p>
+              <br />
+            </div>
+            <button
+              class="slds-button slds-button--brand lock-button"
+              onclick={handleLock}
+              data-id="lock-button"
+            >
+              Temporarily Lock Card
+            </button>
+          </div>
+          <footer class="slds-modal__footer">
+            <button
+              class="slds-button slds-button--neutral"
+              onclick={closeAction}
+            >
+              Cancel
+            </button>
+          </footer>
+        </article>
+      </template>
     </div>
   </section>
   <div class="slds-backdrop slds-backdrop_open"></div>

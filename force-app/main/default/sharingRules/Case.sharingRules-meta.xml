@@ -105,8 +105,8 @@
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant edit access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
+        <accessLevel>Read</accessLevel>
+        <description>Grant read access to ANZx and CFMS migrated complaint records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RO</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
@@ -221,7 +221,7 @@
     <sharingCriteriaRules>
         <fullName>RTs_Support_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback are to be shared with Support Coach with Read/Write access.</description>
+        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, KYC QA, Customer Feedback are to be shared with Support Coach with Read/Write access.</description>
         <label>RTs_Support_Coaches_RW</label>
         <sharedTo>
             <role>Support_Coach</role>
@@ -229,7 +229,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback</value>
+            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,Card,NPP</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -242,7 +242,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,General Enquiry,NPP,Customer Feedback</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,General Enquiry,KYC QA,NPP,Customer Feedback</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -285,8 +285,8 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>RTs_CardDisputeAgents_RW</fullName>
-        <accessLevel>Edit</accessLevel>
+        <fullName>RTs_CardDisputeAgents_RO</fullName>
+        <accessLevel>Read</accessLevel>
         <description>All Cases having Fraud, record types are to be shared with Card Dispute Agents with Read access.</description>
         <label>RTs_CardDisputeAgents_RO</label>
         <sharedTo>
@@ -450,6 +450,21 @@
             <operation>equals</operation>
             <value>Customer Feedback</value>
         </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RTs_FinCrimeAgents_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All Cases having Fraud record types, disputes, General Enquiry, Customer Feedback are to be shared with FinCrime Agents with Read only access.</description>
+        <label>RTs-FinCrimeAgents-RO</label>
+        <sharedTo>
+            <role>FinCrime_Agent</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>

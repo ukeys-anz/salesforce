@@ -2,7 +2,7 @@
   "cards": [
     {
       "name": "Bruce Willis",
-      "tokenizedCardNumber": "1234567890"
+      "tokenized_card_number": "1234567890"
     }
   ]
 }

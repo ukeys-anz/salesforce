@@ -3,8 +3,9 @@
  * @author Boobalakrishnan Duraisamy
  * @since 04/2020
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
+ * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
@@ -33,7 +34,6 @@ public with sharing class GetHelpCaseActions {
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onBeforeUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
    * @param records from the trigger
    */
-  @SuppressWarnings('PMD.StdCyclomaticComplexity')
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     List<Id> caseIds = new List<Id>();
     List<Case> validateCaseList = new List<Case>();
@@ -97,6 +97,9 @@ public with sharing class GetHelpCaseActions {
         if (oldRecord.Status != record.Status) {
           record.SLA_Status__c = '';
         }
+
+        //Checks if card token number needs to be deleted
+        GetHelpCaseActionsHelper.handleCardTokenNumber(record);
       }
     }
 
@@ -345,7 +348,6 @@ public with sharing class GetHelpCaseActions {
    * @param records new trigger case records to calculate rollups for
    * @param oldRecords old trigger case records to calculate rollups for
    */
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void rollupRelatedBug(
     List<Case> records,
     List<Case> oldRecords
@@ -378,7 +380,6 @@ public with sharing class GetHelpCaseActions {
    * @param bugIdSet set of salesforce bug id's to recalculate
    */
   @future
-  @SuppressWarnings('PMD.ApexCRUDViolation')
   public static void futureRollupRelatedBug(Set<Id> bugIdSet) {
     List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
     if (

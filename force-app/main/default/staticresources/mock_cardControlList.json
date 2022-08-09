@@ -1,0 +1,59 @@
+{
+  "card_controls": [
+    {
+      "tokenized_card_number": "8051997368527878",
+      "card_controls": [
+        {
+          "control_type": "TCT_ATM_WITHDRAW"
+        },
+        {
+          "control_type": "MCT_GAMBLING",
+          "impulse_delay_start": "2022-07-03T16:06:44.482Z",
+          "impulse_delay_period": "157784760s"
+        },
+        {
+          "control_type": "TCT_CONTACTLESS"
+        }
+      ]
+    },
+    {
+      "tokenized_card_number": "0900601361295097",
+      "card_controls": [
+        {
+          "control_type": "TCT_CROSS_BORDER"
+        },
+        {
+          "control_type": "MCT_GAMBLING"
+        },
+        {
+          "control_type": "TCT_E_COMMERCE"
+        }
+      ]
+    },
+    {
+      "tokenized_card_number": "9651661556625127",
+      "card_controls": [
+        {
+          "control_type": "GCT_GLOBAL"
+        },
+        {
+          "control_type": "MCT_GAMBLING",
+          "impulse_delay_start": "2022-06-02T00:00:00.000Z",
+          "impulse_delay_period": "172800s"
+        },
+        {
+          "control_type": "TCT_CONTACTLESS"
+        }
+      ]
+    },
+    {
+      "tokenized_card_number": "1832419570176708"
+    },
+    {
+      "tokenized_card_number": "3337796764029075"
+    },
+    {
+      "tokenized_card_number": "2397229091652090"
+    }
+  ]
+}

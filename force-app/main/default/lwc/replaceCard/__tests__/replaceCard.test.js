@@ -97,13 +97,6 @@ describe("c-replace-card", () => {
         );
         expect(lockButtonPath).toHaveProperty("disabled", false);
         lockButtonPath.click();
-      })
-      .then(() => {
-        let lockButton = element.shadowRoot.querySelector(
-          "button[data-id='lock-button']"
-        );
-
-        expect(lockButton).toBeTruthy();
       });
   });
 

@@ -4,9 +4,6 @@ import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import { getRecord } from "lightning/uiRecordApi";
 
 import hasReplaceCardsPermission from "@salesforce/customPermission/ANZx_Replace_Card";
-import hasLockCardsPermission from "@salesforce/customPermission/ANZx_Temp_Lock_Card";
-
-import lockCard from "@salesforce/apex/CardTempLockController.lockCard";
 import replaceCard from "@salesforce/apex/CardReplaceController.replaceCard";
 
 const RECORD_FIELDS = [
@@ -39,6 +36,7 @@ export default class ReplaceCard extends LightningElement {
   replaceOption;
   @wire(MessageContext)
   messageContext;
+  loading;
 
   //Get the OCVID to send to the API
   @wire(getRecord, {
@@ -60,7 +58,6 @@ export default class ReplaceCard extends LightningElement {
     //reset the order for the menus
     this.showSelectionMenu = true;
     this.showLostMenu = false;
-    this.showLockMenu = false;
     publish(this.messageContext, CloseModal, {
       name: "replace",
       show: !this.showModal
@@ -81,13 +78,19 @@ export default class ReplaceCard extends LightningElement {
   }
 
   handleLockMenu() {
-    this.showSelectionMenu = false;
-    this.showLostMenu = false;
-    this.showLockMenu = true;
+    // close the replace modal
+    this.closeAction();
+
+    // open the lock modal
+    publish(this.messageContext, CloseModal, {
+      name: "lock",
+      show: true
+    });
   }
 
   handleReplaceCard() {
     if (hasReplaceCardsPermission) {
+      this.loading = true;
       replaceCard({
         cardNumber: this.cardNumber,
         ocvId: this.ocvId,
@@ -102,39 +105,12 @@ export default class ReplaceCard extends LightningElement {
               success: true
             });
           }
+          this.loading = false;
         })
         .catch((error) => {
+          this.loading = false;
           let errorMessage =
             "Oh no! There was an issue replacing this card. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
-          if (error.body && error.body.message) {
-            errorMessage = error.body.message;
-          }
-          publish(this.messageContext, CloseModal, {
-            name: "replace",
-            show: !this.showModal,
-            message: errorMessage,
-            success: false
-          });
-        });
-    }
-  }
-
-  handleLockCard() {
-    if (hasLockCardsPermission) {
-      lockCard({ cardNumber: this.cardNumber, ocvId: this.ocvId })
-        .then((result) => {
-          if (result) {
-            publish(this.messageContext, CloseModal, {
-              name: "replace",
-              show: !this.showModal,
-              message: "Card successfully locked.",
-              success: true
-            });
-          }
-        })
-        .catch((error) => {
-          let errorMessage =
-            "Oh no! There was an issue locking this card. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
           if (error.body && error.body.message) {
             errorMessage = error.body.message;
           }

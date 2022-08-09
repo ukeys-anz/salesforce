@@ -90,6 +90,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   //Triggers the load more button to be a spinner so we dont
   //trigger loading on the whole component to append new data
   @api transactionLoadMore;
+  @api ocvId;
 
   @wire(MessageContext)
   messageContext;

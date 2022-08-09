@@ -1,4 +1,5 @@
-@SuppressWarnings('PMD.CyclomaticComplexity,PMD.CognitiveComplexity')
+// CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+@SuppressWarnings('PMD.CyclomaticComplexity')
 @isTest
 private class CaseTriggerHandlerTest {
   public static Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
@@ -2625,7 +2626,6 @@ private class CaseTriggerHandlerTest {
   }
 
   // Test when an ATM dispute is submitted on insert, a platform event is published
-  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testDisputesPEGAIntegrationOnInsertWithoutCaseNumber() {
     // GIVEN
@@ -2671,7 +2671,6 @@ private class CaseTriggerHandlerTest {
 
   // Test when an ATM dispute is submitted on insert with CaseNumber__c value provided, a platform event is published
   // with the provided CaseNumber__c value
-  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testDisputesPEGAIntegrationOnInsertWithCaseNumber() {
     // GIVEN
@@ -2716,7 +2715,6 @@ private class CaseTriggerHandlerTest {
   }
 
   // Test when an ATM dispute is submitted on Update, a platform event is published
-  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   @isTest
   static void testDisputesPEGAIntegrationOnUpdate() {
     // GIVEN
@@ -2849,5 +2847,45 @@ private class CaseTriggerHandlerTest {
     );
 
     Test.stopTest();
+  }
+
+  //Tests if the card number is deleted after an update occurs on the dispute
+  @isTest
+  static void testCardDisputeDeleteCardNumber() {
+    Case[] newCases = new List<Case>();
+    Account acc = [SELECT Id FROM Account LIMIT 1];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+          Type = '',
+          Dispute_Reason__c = 'Charged for a cancelled payment',
+          AccountId = acc.Id,
+          Is_The_Card_Lost_Stolen__c = 'Lost',
+          Description = 'Some description',
+          Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
+          Customer_Contacted_Merchant__c = 'Yes',
+          Merchant_Description__c = 'Coles',
+          Card_Token_Number__c = '4444444444444444'
+        )
+      );
+    }
+    insert newCases;
+    for (Case c : newCases) {
+      c.Status = 'Escalated';
+      c.External_System__c = 'CARBe';
+      c.External_Case_Id__c = 'ABC123';
+    }
+    update newCases;
+    newCases = [
+      SELECT Card_Token_Number__c
+      FROM Case
+      WHERE Card_Token_Number__c = '4444444444444444'
+    ];
+    System.assertEquals(
+      0,
+      newCases.size(),
+      'Card token number should be deleted'
+    );
   }
 }

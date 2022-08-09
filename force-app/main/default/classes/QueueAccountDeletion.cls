@@ -3,7 +3,6 @@
  * @since 08/2020
  * @description Queueable apex class to delete Account and their related records asynchronously
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class QueueAccountDeletion implements Queueable {
   Account accountToDelete;
 

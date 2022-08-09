@@ -15,48 +15,13 @@ export function handleGoalData(goalData) {
       }) +
       " " +
       createdDate.getFullYear();
-    goal.daysRemainingText = "Days remaining: ";
-    // Override potential null values with generic values
+
     if (goal?.goal?.target_date) {
-      const targetDate = new Date(
-        `${goal.goal.target_date.year.value}-${goal.goal.target_date.month.value}-${goal.goal.target_date.day.value}`
-      );
-      const today = new Date();
-
-      if (targetDate > today) {
-        //Calculate time difference between two dates
-        let timeDifference = targetDate.getTime() - today.getTime();
-
-        //Calculate days remaining
-        goal.daysRemaining = Math.round(timeDifference / (1000 * 60 * 60 * 24));
-
-        goal.recommendedSavings = goal.balanceRemaining
-          ? (goal.balanceRemaining / goal.daysRemaining) * 7
-          : "";
-
-        goal.daysRemainingText += goal.daysRemaining;
-      } else {
-        goal.daysRemainingText = "Target date has passed";
-      }
-
-      goal.goal.target_date =
-        targetDate.getDate() +
-        " " +
-        targetDate.toLocaleString("en-AU", {
-          month: "long"
-        }) +
-        " " +
-        targetDate.getFullYear();
+      handleRecommendedSavings(goal);
     } else {
       goal.goal.target_date = "None set";
+      goal.recommendedSavings = "N/A";
     }
-
-    goal.recommendedSavings = goal.recommendedSavings
-      ? new Intl.NumberFormat("en-AU", {
-          style: "currency",
-          currency: "AUD"
-        }).format(goal.recommendedSavings)
-      : "N/A";
   });
 
   return goalList;
@@ -185,4 +150,69 @@ export function handleComponentTitle(goals, goalMap) {
     title = title + '"' + goalMap.get(goal) + '", ';
   });
   return title.substring(0, title.length - 2);
+}
+
+//This function handles the calculation and formatting of the recommended savings amounts
+function handleRecommendedSavings(goal) {
+  const targetDate = new Date(
+    `${goal.goal.target_date.year.value}-${goal.goal.target_date.month.value}-${goal.goal.target_date.day.value}`
+  );
+  const today = new Date();
+  //Calculate time difference between two dates
+  let timeDifference = targetDate.getTime() - today.getTime();
+  //Calculate days remaining and round up
+  goal.daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+  //Value to determine if savings will be recommended as daily or weekly
+  let dailySavings;
+  if (goal.daysRemaining > 0) {
+    if (goal.balanceRemaining > 0) {
+      if (goal.daysRemaining > 7) {
+        dailySavings = false;
+        //Round down weeks
+        let weeksRemaining = Math.floor(goal.daysRemaining / 7);
+        goal.recommendedSavings = formatRecommendedSavings(
+          goal.balanceRemaining / weeksRemaining
+        );
+      } else if (goal.daysRemaining <= 7) {
+        dailySavings = true;
+        goal.recommendedSavings = formatRecommendedSavings(
+          goal.balanceRemaining / goal.daysRemaining
+        );
+      }
+
+      //Determine text to display for weekly/daily
+      let savingFrequency = dailySavings ? "day" : "week";
+      goal.recommendedSavings = `About $${goal.recommendedSavings} per ${savingFrequency}`;
+    } else {
+      goal.recommendedSavings = "Savings goal reached";
+    }
+  } else {
+    goal.recommendedSavings = "Target date elapsed";
+  }
+
+  //Format target date
+  goal.goal.target_date =
+    targetDate.getDate() +
+    " " +
+    targetDate.toLocaleString("en-AU", {
+      month: "long"
+    }) +
+    " " +
+    targetDate.getFullYear();
+
+  return goal;
+}
+
+//This function formats the amount for recommended savings
+function formatRecommendedSavings(amount) {
+  //If amount is greater than 10, round up to nearest whole number
+  if (amount >= 10) {
+    return Math.ceil(amount);
+  } else if (amount > 0 && amount < 0.01) {
+    //If amount is more than 0 but less than 1 cent, default to 1 cent
+    return 0.01;
+  } else {
+    //If amount is less than 10 fix amount to 2 decimal places
+    return amount.toFixed(2);
+  }
 }
