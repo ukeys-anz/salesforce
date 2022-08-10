@@ -206,7 +206,10 @@ export default class InitiateInteraction extends LightningElement {
   }
 
   handleMessageChange(event) {
-    if (event.target.value.length < 2 || event.target.value.length > 1000) {
+    if (
+      event.target.value.trim().length < 4 ||
+      event.target.value.length > 1000
+    ) {
       this.invalidMessage = true;
     } else {
       this.messageToSend = event.detail.value;

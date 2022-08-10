@@ -32,17 +32,16 @@ global with sharing class InteractionContextService {
       intToInsert.Contact_Mobile__c = contextRequest.phoneNumber;
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
 
-      if (PermissionUtils.canCreate('Interaction')) {
-        insert intToInsert;
-      }
+      //not doing permission checks as the integration user fails on POST
+      //this is the same issue faced in ChatContextService and test classes
+      //for the integration user
+      insert intToInsert;
       Interaction newInt;
-      if (PermissionUtils.canQuery('Interaction')) {
-        newInt = [
-          SELECT Id, Interaction_External_Id__c
-          FROM Interaction
-          WHERE Id = :intToInsert.Id
-        ];
-      }
+      newInt = [
+        SELECT Id, Interaction_External_Id__c
+        FROM Interaction
+        WHERE Id = :intToInsert.Id
+      ];
       resp = generateResponse(
         intToInsert.Id,
         newInt.Interaction_External_Id__c

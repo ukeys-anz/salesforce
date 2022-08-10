@@ -56,10 +56,10 @@ public with sharing class InteractionSetters {
           interactionsToSet.add(currentInteraction);
         }
       }
-
       if (!interactionsToSet.isEmpty()) {
-        setExternalIds(interactions);
-        InteractionDMLHelper.updateInteractions(interactions);
+        setExternalIds(interactionsToSet);
+        //not doing permission checks as the integration user fails on POST
+        update interactionsToSet;
       }
     }
   }
