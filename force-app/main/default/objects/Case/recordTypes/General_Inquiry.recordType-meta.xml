@@ -4631,10 +4631,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Video Call</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Voice Call</fullName>
             <default>false</default>
         </values>
