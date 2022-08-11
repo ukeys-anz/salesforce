@@ -151,4 +151,42 @@ public with sharing class TestUtil {
     }
     insert psaList;
   }
+
+  /**
+   * @description assign a list of permission sets by name to a list of users
+   * @param psNames List of string of permission set names
+   * @param users List of Users
+   */
+  public static void assignPermissionSets(List<String> psNames, List<User> users){
+    List<PermissionSetAssignment> psAssignments = new List<PermissionSetAssignment>();
+    for(String permissionSetName : psNames){
+      PermissionSet ps = CommonUtil.getPermissionSetByName(permissionSetName);
+      for(User currentUser : users){
+        psAssignments.add(TestUtil.createPSAssignment(currentUser.id, ps.Id));
+      }
+    }
+    insert psAssignments;
+  }
+
+  /**
+   * @description assign a list of permission set groups by name to a list of users
+   * @param psgNames List of string of permission set group names
+   * @param users List of Users
+   */
+  public static void assignPermissionSetGroups(List<String> psgNames, List<User> users){
+    List<PermissionSetAssignment> psAssignments = new List<PermissionSetAssignment>();
+    Map<String, PermissionSetGroup> pSetGroupMap = UserProvisioningCommonActions.getAllPsetGroupMap();
+
+    for(String permissionSetGroupName : psgNames){
+      PermissionSetGroup psg = pSetGroupMap.get(permissionSetGroupName);
+      for(User currentUser : users){
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = currentUser.Id,
+          PermissionSetGroupId = psg.Id
+        );
+        psAssignments.add(psa);
+      }
+    }
+    insert psAssignments;
+  }
 }

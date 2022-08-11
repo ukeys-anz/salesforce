@@ -60,4 +60,26 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Interaction_Coach_Lead_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Interaction Coach Lead Sharing</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Interaction_Coach_Sharing</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Interaction Coach Sharing</label>
+        <sharedTo>
+            <role>Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

@@ -50,28 +50,6 @@ public with sharing class EventHelper {
   }
 
   /**
-   * @description deletes a list of events
-   * @param events to delete.
-   */
-  public static void deleteEvents(List<Event> events) {
-    if (PermissionUtils.canDelete('Event')) {
-      List<Database.DeleteResult> results = Database.Delete(events);
-      lib_systemLog log = new lib_systemLog('EventHelper', 'deleteEvents');
-      Boolean hasError = log.addDatabaseDeleteResult('Events', results, events);
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'EventHelper',
-        'deleteEvents',
-        'Not enough permissions to delete Events'
-      );
-    }
-  }
-
-  /**
    * @description returns Events related to a set of WhatIds
    * @param whatIds Set of whatIds
    * @return List<Event> events that relate to the what Ids
@@ -103,11 +81,12 @@ public with sharing class EventHelper {
     List<Interaction> interactions
   ) {
     Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    InteractionActions actions = new InteractionActions();
-    Map<Id, Account> accountMap = actions.getAccountMapFromInteractions(
+    Map<Id, Account> accountMap = InteractionActions.getAccountMapFromInteractions(
       interactions
     );
-    Map<Id, Lead> leadMap = actions.getLeadMapFromInteractions(interactions);
+    Map<Id, Lead> leadMap = InteractionActions.getLeadMapFromInteractions(
+      interactions
+    );
     List<Event> result = new List<Event>();
     if (!interactions.isEmpty()) {
       for (Interaction currentInteraction : interactions) {
@@ -130,11 +109,10 @@ public with sharing class EventHelper {
   public static Event createEventFromInteraction(
     Interaction interactionSubject
   ) {
-    InteractionActions actions = new InteractionActions();
-    Map<Id, Account> accountMap = actions.getAccountMapFromInteractions(
+    Map<Id, Account> accountMap = InteractionActions.getAccountMapFromInteractions(
       new List<Interaction>{ interactionSubject }
     );
-    Map<Id, Lead> leadMap = actions.getLeadMapFromInteractions(
+    Map<Id, Lead> leadMap = InteractionActions.getLeadMapFromInteractions(
       new List<Interaction>{ interactionSubject }
     );
     return createEventFromInteraction(interactionSubject, accountMap, leadMap);
@@ -153,7 +131,8 @@ public with sharing class EventHelper {
     Map<Id, Lead> leadMap
   ) {
     Account interactionAccount = accountMap.get(interactionSubject.AccountId);
-    Event result = new Event();
+    Id ownerId = interactionSubject.OwnerId;
+    Event result = new Event(OwnerId = ownerId);
     result.StartDateTime = interactionSubject.StartTime;
     result.WhatId = interactionSubject.Id;
     if (interactionAccount != null) {

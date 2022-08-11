@@ -13,7 +13,7 @@ public with sharing class ContactRequestDMLHelper {
     List<ContactRequest> requests = new List<ContactRequest>();
     if (ContactRequest.SObjectType.getDescribe().isQueryable()) {
       requests = [
-        SELECT Id, Interaction__c
+        SELECT Id, Interaction__c, Name
         FROM ContactRequest
         WHERE Id IN :requestIds
       ];
