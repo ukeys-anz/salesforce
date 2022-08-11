@@ -131,6 +131,7 @@ public with sharing class IDRCaseActions {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
         if (
+          record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
           oldRecord != null &&
           ((IDRCollectionActions.isCollectionsIssue(
             oldRecord.Type,
