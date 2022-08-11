@@ -259,6 +259,19 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Escalated_Complaint_for_Coach_Lead_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Escalated Complaint for Coach Lead Role RO</label>
+        <sharedTo>
+            <role>Coach_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Escalated_Complaint_for_FraudX_Agent_Role_RO</fullName>
         <accessLevel>Read</accessLevel>
         <label>Escalated Complaint for FraudX Agent Role RO</label>

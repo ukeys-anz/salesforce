@@ -17,7 +17,7 @@ public with sharing class InteractionEventHelper {
     List<Event> linkedEvents = EventHelper.queryRelatedEvents(interactionIds);
 
     if (!linkedEvents.isEmpty()) {
-      EventHelper.deleteEvents(linkedEvents);
+      EventDeleteHelper.deleteEvents(linkedEvents);
     }
   }
 
@@ -49,11 +49,25 @@ public with sharing class InteractionEventHelper {
       interactionMap.put(interact.Id, interact);
     }
 
+    List<Event> eventsToUpdate = new List<Event>();
+
     for (Event evt : eventRecords) {
-      evt.StartDateTime = interactionMap.get(evt.WhatId).StartTime;
-      evt.EndDateTime = interactionMap.get(evt.WhatId).EndTime;
+      Interaction eventsInteraction = interactionMap.get(evt.WhatId);
+      if (eventsInteraction == null) {
+        continue;
+      }
+      if (
+        evt.StartDateTime != eventsInteraction.StartTime ||
+        evt.EndDateTime != eventsInteraction.EndTime
+      ) {
+        evt.StartDateTime = eventsInteraction.StartTime;
+        evt.EndDateTime = eventsInteraction.EndTime;
+        eventsToUpdate.add(evt);
+      }
     }
 
-    EventHelper.updateEvents(eventRecords);
+    if (!eventsToUpdate.isEmpty()) {
+      EventHelper.updateEvents(eventsToUpdate);
+    }
   }
 }
