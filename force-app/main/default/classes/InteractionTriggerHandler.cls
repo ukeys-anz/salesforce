@@ -117,21 +117,11 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
-    List<Event> events = EventHelper.createEventsFromInteractions(
-      userOwnedInteractions
-    );
-    if (events.isEmpty() == false) {
-      EventHelper.insertEvents(events);
-    }
-
     List<ContactRequest> requestsToRecalculate = contactRequestList.Clone();
     List<ContactRequest> rescheduledContactRequestList = new List<ContactRequest>();
 
     List<Interaction> rescheduledInteractions = InteractionComparisonHelper.getRescheduledInteractions(
       oldMap,
-      records
-    );
-    List<Event> relatedEvents = InteractionEventHelper.getRelatedEvents(
       records
     );
 
@@ -150,8 +140,19 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
+    List<Event> relatedEvents = InteractionEventHelper.getRelatedEvents(
+      records
+    );
+
     if (relatedEvents.isEmpty() == false) {
       InteractionEventHelper.updateEventSchedule(relatedEvents, records);
+    }
+
+    List<Event> events = EventHelper.createEventsFromInteractions(
+      userOwnedInteractions
+    );
+    if (events.isEmpty() == false) {
+      EventHelper.insertEvents(events);
     }
   }
 
