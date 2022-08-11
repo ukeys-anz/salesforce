@@ -106,6 +106,13 @@
       "type": "user"
     },
     {
+      "name": "Content Viewer",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Content_Viewer"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "COSMOS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],

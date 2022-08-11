@@ -25,6 +25,11 @@
     </shares>
     <shares>
         <accessLevel>View</accessLevel>
+        <sharedTo>Quality_Analyst</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Support_Coach</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>

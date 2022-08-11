@@ -17,6 +17,7 @@ public with sharing class SurveyResponseTriggerHandler extends Lib_TriggerHandle
    */
   public override void onBeforeInsert() {
     SurveyResponseActions.beforeInsertActions(records);
+    SurveyResponseActions.setSurveyResponseName(records);
   }
 
   /**

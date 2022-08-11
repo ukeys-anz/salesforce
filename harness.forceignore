@@ -129,3 +129,6 @@ force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml
 force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_Recipient_ID__c.field-meta.xml
 force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_SurveyID__c.field-meta.xml
 force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Other_Feedback__c.field-meta.xml 
+
+# ignore all Connected Apps as these are manually created. Subsequent pushes will result in invalid cross reference id
+force-app/main/default/connectedApps
