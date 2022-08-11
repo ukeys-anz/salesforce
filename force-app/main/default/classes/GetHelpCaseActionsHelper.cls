@@ -7,6 +7,8 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActionsHelper {
+  public static final String YES = 'Yes';
+
   public static final Set<Id> FRAUD_RT_IDS = new Set<Id>{
     GetHelpConstants.FRAUD_RT_ID,
     GetHelpConstants.IDENTITY_RT_ID,
@@ -469,5 +471,24 @@ public with sharing class GetHelpCaseActionsHelper {
     if (record.Status != GetHelpConstants.OPEN_STATUS) {
       record.Card_Token_Number__c = null;
     }
+  }
+
+  /**
+   * @description populate default fields on KYC QA cases
+   * @param record record
+   */
+  public static void populateKYCQACaseClosedNoDefectDefaults(Case record) {
+    record.Fraud_Customer_Details__c = YES;
+    record.Fraud_Middle_Name__c = YES;
+    record.Fraud_Middle_Initial__c = YES;
+    record.Fraud_Selfie_Comparison_Match__c = YES;
+    record.Fraud_PO_Box__c = YES;
+    record.Fraud_Address_Valid__c = YES;
+    record.Fraud_ID_Legible__c = YES;
+    record.Fraud_ID_Not_Picture__c = YES;
+    record.Fraud_Customer_Photo_Modified__c = YES;
+    record.Fraud_Security_Features__c = YES;
+    record.Fraud_Restraint_Status__c = 'N/A';
+    record.Fraud_Defects_Rectified__c = 'Not Applicable';
   }
 }

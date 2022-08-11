@@ -144,4 +144,7 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
+
+  //ANZx Case Sub Status
+  public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
 }

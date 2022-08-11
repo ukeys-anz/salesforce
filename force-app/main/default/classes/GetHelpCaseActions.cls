@@ -5,7 +5,7 @@
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity')
 public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
 
@@ -100,6 +100,17 @@ public with sharing class GetHelpCaseActions {
 
         //Checks if card token number needs to be deleted
         GetHelpCaseActionsHelper.handleCardTokenNumber(record);
+      } else if (record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+        if (
+          ((oldRecord != null &&
+          oldRecord.Sub_Status__c !=
+          GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT) || oldRecord == null) &&
+          record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+        ) {
+          GetHelpCaseActionsHelper.populateKYCQACaseClosedNoDefectDefaults(
+            record
+          );
+        }
       }
     }
 
@@ -703,6 +714,25 @@ public with sharing class GetHelpCaseActions {
     if (!accountList.isEmpty() && PermissionUtils.canQuery('Account')) {
       for (Case c : records) {
         c.OCV_Id__c = accountList.get(c.AccountId).OCV_ID__c;
+      }
+    }
+  }
+
+  /**
+   * @description populate default fields on KYC QA cases if the status is Closed and Sub Status is No Defect
+   * @param records List of cases
+   */
+  public static void populateKYCQACasesClosedNoDefectDefaults(
+    List<Case> records
+  ) {
+    for (Case record : records) {
+      if (
+        record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
+        record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+      ) {
+        GetHelpCaseActionsHelper.populateKYCQACaseClosedNoDefectDefaults(
+          record
+        );
       }
     }
   }

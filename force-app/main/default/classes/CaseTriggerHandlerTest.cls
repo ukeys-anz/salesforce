@@ -2888,4 +2888,100 @@ private class CaseTriggerHandlerTest {
       'Card token number should be deleted'
     );
   }
+
+  //Tests change KYC QA Case to Closed and Sub Status to No Defect, and set related fields with predefined value
+  @isTest
+  static void testPopulateKYCQACasesClosedNoDefectDefaults() {
+    // GIVEN login as FraudX Agent user
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
+
+    // WHEN FraudX Agent user creates or updates a Fraud case
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+          Type = 'KYC QA Sample',
+          AccountId = acc.Id
+        )
+      );
+    }
+    Test.startTest();
+    System.runAs(usr) {
+      insert newCases;
+    }
+
+    // Verify new record fields have no value
+    Case sampleCase1 = [
+      SELECT
+        Id,
+        Type,
+        RecordType.Name,
+        Fraud_Customer_Details__c,
+        Fraud_Restraint_Status__c,
+        Fraud_Defects_Rectified__c,
+        Status,
+        Sub_Status__c
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      null,
+      sampleCase1.Fraud_Customer_Details__c,
+      'KYC QA: KYC Information is a Match & Complete field should be null after inserting.'
+    );
+    system.assertEquals(
+      null,
+      sampleCase1.Fraud_Restraint_Status__c,
+      'KYC QA: Restraint Status field should be null after inserting.'
+    );
+    system.assertEquals(
+      null,
+      sampleCase1.Fraud_Defects_Rectified__c,
+      'KYC QA: Have All Defects Been Rectified field should be null after inserting.'
+    );
+
+    sampleCase1.Status = GetHelpConstants.CLOSED_STATUS;
+    sampleCase1.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+    update sampleCase1;
+
+    Test.stopTest();
+
+    Case closedSampleCase1 = [
+      SELECT
+        Id,
+        Type,
+        RecordType.Name,
+        Fraud_Customer_Details__c,
+        Fraud_Restraint_Status__c,
+        Fraud_Defects_Rectified__c,
+        Status
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      'Yes',
+      closedSampleCase1.Fraud_Customer_Details__c,
+      'KYC QA: KYC Information is a Match & Complete field should be Yes after closing Case as No Defect.'
+    );
+    system.assertEquals(
+      'N/A',
+      closedSampleCase1.Fraud_Restraint_Status__c,
+      'KYC QA: Restraint Status field should be empty after closing Case as No Defect.'
+    );
+    system.assertEquals(
+      'Not Applicable',
+      closedSampleCase1.Fraud_Defects_Rectified__c,
+      'KYC QA: Have All Defects Been Rectified field should be empty after closing Case as No Defect.'
+    );
+  }
 }
