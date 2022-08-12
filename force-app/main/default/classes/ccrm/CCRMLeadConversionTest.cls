@@ -72,12 +72,10 @@ public with sharing class CCRMLeadConversionTest {
         JSON.serialize(leadResponseData1)
       );
       CCRMLeadConversion.getLeadRecordForConversion(updatedLeads[0].Id);
-/*
       CCRMLeadConversion.convertLead(
         updatedLeads[0].Id,
         updatedLeads[0].FinServ__RelatedAccount__c
       );
-*/
       String oppName =
         updatedLeads[0].FinServ__RelatedAccount__r.Name +
         ' ' +
@@ -89,7 +87,7 @@ public with sharing class CCRMLeadConversionTest {
     Test.stopTest();
 
     //THEN Owners are notified on Leads getting Expired.
-//    System.assertEquals(!opps.isEmpty(), true, 'CCRM Opportunity Created');
+    System.assertEquals(!opps.isEmpty(), true, 'CCRM Opportunity Created');
   }
 
   @IsTest
