@@ -68,7 +68,7 @@
             <column>STATUS</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
+            <operator>notEqual</operator>
             <value>Withdrawn,Resolved</value>
         </criteriaItems>
         <criteriaItems>
