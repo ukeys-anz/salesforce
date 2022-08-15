@@ -7,7 +7,7 @@
 public with sharing class UniqueIdUtil {
   private static String version = '';
   private static String traceId = '';
-  private static String parentId = '';
+  private static String spanId = '';
   private static String traceFlag = '';
 
   /**
@@ -44,15 +44,29 @@ public with sharing class UniqueIdUtil {
    * @description Get a unique w3 standard 8 byte hex string
    * @return a hex string which suits w3 standard
    */
-  public static String getParentId() {
-    if (parentId == '') {
-      String orgId = SFConstants.ORG_ID;
-      String composedStr = orgId.subString(3, 5) + orgId.subString(9, 15);
-      Blob sampleBlob = Blob.valueOf(composedStr);
-      parentId = EncodingUtil.convertToHex(sampleBlob);
+  public static String getSpanId() {
+    if (spanId == '') {
+      return generateSpanId();
     }
 
-    return parentId;
+    return spanId;
+  }
+
+  /**
+   * @description Generate a random hex string
+   * @return a random lowercase hex string
+   */
+  public static String generateSpanId() {
+    final String chars = '0123456789abcdef';
+    String randStr = '';
+    while (randStr.length() < 16) {
+      Integer idx = Math.mod(
+        Math.abs(Crypto.getRandomInteger()),
+        chars.length()
+      );
+      randStr += chars.substring(idx, idx + 1);
+    }
+    return randStr;
   }
 
   /**
@@ -76,7 +90,7 @@ public with sharing class UniqueIdUtil {
   ) {
     //Note: Not a typo - SpanId and TraceId come from Mulesoft Lower Case
     if (request.headers.containsKey('spanid')) {
-      parentId = request.headers.get('spanid');
+      spanId = request.headers.get('spanid');
     }
 
     if (request.headers.containsKey('traceid')) {

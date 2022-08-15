@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalERROREntries__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <description>The total of Error log entries.</description>
+    <externalId>false</externalId>
+    <label>Total ERROR Entries</label>
+    <securityClassification>Confidential</securityClassification>
+    <summaryFilterItems>
+        <field>LogEntry__c.LoggingLevel__c</field>
+        <operation>equals</operation>
+        <value>ERROR</value>
+    </summaryFilterItems>
+    <summaryForeignKey>LogEntry__c.Log__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>
