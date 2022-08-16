@@ -4,23 +4,6 @@
  * @description class for Automating object creation from accepting a Contact Request
  */
 public with sharing class ContactRequestActions {
-  //local variable holding the Appointment Queue
-  private Group localAppointmentQueue;
-
-  /**
-   * @description lazy loads the appointment queue and stores in a local variable to save on database calls.
-   */
-  private Group appointmentQueue {
-    get {
-      if (localAppointmentQueue == null) {
-        localAppointmentQueue = CommonUtil.getQueueByName(
-          InteractionConstants.APPOINTMENTS_QUEUE
-        );
-      }
-      return localAppointmentQueue;
-    }
-  }
-
   /**
    * @description goes through a list of Contact Requests, if the purpose is
    * marked as automated, creates Interactions, Interaction Summaries, and events.
@@ -120,7 +103,7 @@ public with sharing class ContactRequestActions {
       Description = request.RequestDescription,
       Direction__c = getDirection(request.PreferredChannel),
       ContactRequestId__c = request.Id,
-      OwnerId = appointmentQueue.Id,
+      OwnerId = InteractionConstants.APPOINTMENT_QUEUE_ID,
       InteractionType = request.PreferredChannel,
       Channel_Booked__c = request.Channel_Booked__c,
       Interaction_External_Id__c = 'CR-' + request.Name,

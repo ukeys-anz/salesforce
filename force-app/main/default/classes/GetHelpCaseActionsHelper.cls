@@ -418,7 +418,7 @@ public with sharing class GetHelpCaseActionsHelper {
           .getRecordTypeInfosById()
           .get(record.RecordTypeId)
           .getName(),
-        Span_Id__c = UniqueIdUtil.getParentId(),
+        Span_Id__c = UniqueIdUtil.generateSpanId(),
         Correlation_Id__c = UniqueIdUtil.getTraceId()
       );
       peList.add(pe);

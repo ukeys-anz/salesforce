@@ -151,4 +151,118 @@ public with sharing class TestUtil {
     }
     insert psaList;
   }
+
+  /**
+   * @description assign a list of permission sets by name to a list of users
+   * @param psNames List of string of permission set names
+   * @param users List of Users
+   */
+  public static void assignPermissionSets(
+    List<String> psNames,
+    List<User> users
+  ) {
+    List<PermissionSetAssignment> psAssignments = new List<PermissionSetAssignment>();
+    for (String permissionSetName : psNames) {
+      PermissionSet ps = CommonUtil.getPermissionSetByName(permissionSetName);
+      for (User currentUser : users) {
+        psAssignments.add(TestUtil.createPSAssignment(currentUser.id, ps.Id));
+      }
+    }
+    insert psAssignments;
+  }
+
+  /**
+   * @description assign a list of permission set groups by name to a list of users
+   * @param psgNames List of string of permission set group names
+   * @param users List of Users
+   */
+  public static void assignPermissionSetGroups(
+    List<String> psgNames,
+    List<User> users
+  ) {
+    List<PermissionSetAssignment> psAssignments = new List<PermissionSetAssignment>();
+    Map<String, PermissionSetGroup> pSetGroupMap = UserProvisioningCommonActions.getAllPsetGroupMap();
+
+    for (String permissionSetGroupName : psgNames) {
+      PermissionSetGroup psg = pSetGroupMap.get(permissionSetGroupName);
+      for (User currentUser : users) {
+        PermissionSetAssignment psa = new PermissionSetAssignment(
+          AssigneeId = currentUser.Id,
+          PermissionSetGroupId = psg.Id
+        );
+        psAssignments.add(psa);
+      }
+    }
+    insert psAssignments;
+  }
+
+  /**
+   * @description Returns a mock Database.SaveResult record
+   * @param mockSaveResultString The mock save result string
+   * @return A mock Database.SaveResult record
+   */
+  public static Database.SaveResult getMockSaveResult(
+    String mockSaveResultString
+  ) {
+    return (Database.SaveResult) JSON.deserialize(
+      mockSaveResultString,
+      Database.SaveResult.class
+    );
+  }
+
+  /**
+   * @description Returns a mock Database.MergeResult record
+   * @param mockMergeResultString The mock merge result string
+   * @return A mock Database.MergeResult record
+   */
+  public static Database.MergeResult getMockMergeResult(
+    String mockMergeResultString
+  ) {
+    return (Database.MergeResult) JSON.deserialize(
+      mockMergeResultString,
+      Database.MergeResult.class
+    );
+  }
+
+  /**
+   * @description Returns a mock Database.UpsertResult record
+   * @param mockUpsertResultString The mock upsert result string
+   * @return A mock Database.UpsertResult record
+   */
+  public static Database.UpsertResult getMockUpsertResult(
+    String mockUpsertResultString
+  ) {
+    return (Database.UpsertResult) JSON.deserialize(
+      mockUpsertResultString,
+      Database.UpsertResult.class
+    );
+  }
+
+  /**
+   * @description Returns a mock Database.DeleteResult record
+   * @param mockDeleteResultString The mock delete result string
+   * @return A mock Database.DeleteResult record
+   */
+  public static Database.DeleteResult getMockDeleteResult(
+    String mockDeleteResultString
+  ) {
+    return (Database.DeleteResult) JSON.deserialize(
+      mockDeleteResultString,
+      Database.DeleteResult.class
+    );
+  }
+
+  /**
+   * @description Returns a mock Database.UndeleteResult record
+   * @param mockUndeleteResultString The mock undelete result string
+   * @return A mock Database.UndeleteResult record
+   */
+  public static Database.UndeleteResult getMockUndeleteResult(
+    String mockUndeleteResultString
+  ) {
+    return (Database.UndeleteResult) JSON.deserialize(
+      mockUndeleteResultString,
+      Database.UndeleteResult.class
+    );
+  }
 }
