@@ -44,11 +44,6 @@
         <field>Case.IDR_DEH_Date_information_received__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.IDR_Additional_Correspondence_reviewed__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>IDR User Level 1</label>
 </PermissionSet>

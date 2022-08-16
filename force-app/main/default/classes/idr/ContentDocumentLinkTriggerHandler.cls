@@ -17,7 +17,6 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
    */
   public static void manageNotification(List<ContentDocumentLink> records) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    List<CaseComment> caseCommentList = new List<CaseComment>();
     Map<Id, Case> caseMap = getCaseRecords(records);
     Map<Id, ContentDocument> contentDocMap = getContentDocRecords(records);
 
@@ -30,37 +29,19 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         caseMap.get(record.LinkedEntityId).OwnerId !=
         contentDocMap.get(record.ContentDocumentId).OwnerId &&
         IDRCaseActions.isIDRComplaintType(caseMap.get(record.LinkedEntityId))
-          ) {
-            wrapperList.add(
-              createNotification(
-              caseMap.get(record.LinkedEntityId),
-              contentDocMap.get(record.ContentDocumentId)
-            )
-         ); 
-        }
-
-        if (
-        record.LinkedEntityId.getSobjectType() ==
-        Schema.getGlobalDescribe().get('Case') &&
-        caseMap.containsKey(record.LinkedEntityId) &&
-        contentDocMap.containsKey(record.ContentDocumentId) &&
-        caseMap.get(record.LinkedEntityId).Status == 'Closed'
-        ) {
-            caseCommentList.add(
-            createCaseCloseNotification(
-            record,
+      ) {
+        wrapperList.add(
+          createNotification(
+            caseMap.get(record.LinkedEntityId),
             contentDocMap.get(record.ContentDocumentId)
           )
-        ); 
+        );
       }
     }
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
-    if (!caseCommentList.isEmpty()) {
-      insert caseCommentList;
- }
   }
 
   /**
@@ -84,7 +65,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     }
 
     for (Case c : [
-      SELECT Id, RecordTypeId, CaseNumber, OwnerId, Status
+      SELECT Id, RecordTypeId, CaseNumber, OwnerId
       FROM Case
       WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {
@@ -114,7 +95,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     }
 
     for (ContentDocument cd : [
-      SELECT Id, OwnerId, Title
+      SELECT Id, OwnerId
       FROM ContentDocument
       WHERE Id IN :contentDocIds
     ]) {
@@ -142,20 +123,4 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     );
     return wrapper;
   }
-  /**
-   * @description Builds a notification using CaseComment
-   * @param cdlRecord ContentDocumentLink record from the trigger
-   * @param cdRecord ContentDocument record from the trigger
-   * @return caseCommentObject
-   */ 
-  private static CaseComment createCaseCloseNotification(
-    ContentDocumentLink cdlRecord, 
-    ContentDocument cdRecord
-   ) {
-       CaseComment caseCommentObject = new CaseComment(
-       isPublished = true,
-       ParentId = cdlRecord.LinkedEntityId,
-       commentBody = 'New attachment ' + cdRecord.Title + ' has been added to the case');
-       return caseCommentObject;
-   }
 }

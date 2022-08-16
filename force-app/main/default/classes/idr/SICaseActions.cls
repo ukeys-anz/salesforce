@@ -204,12 +204,13 @@ public with sharing class SICaseActions {
     ) {
       Set<Id> caseIds = (new Map<Id, Case>(casesToProcessWhenReopened))
         .keySet();
-      Task[] tasksFilter = new List<Task>([
+      tasksToReplace.addAll(
+        [
           SELECT Id
           FROM Task
           WHERE Type = 'Monitoring' AND IsClosed = FALSE AND WhatId IN :caseIds
-        ]);
-      tasksToReplace.addAll(tasksFilter);
+        ]
+      );
       if (
         Task.sObjectType.getDescribe().isDeletable() &&
         tasksToReplace.size() > 0
