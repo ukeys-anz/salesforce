@@ -75,7 +75,7 @@
             "description": "Calculate False Positives ",
             "expression": {
               "default": "0",
-              "saqlExpression": "case \nwhen (\nprevious('User.Alias') == \"nlpinteg\" &&\n'User.Alias' != \"nlpinteg\" && \n'wasStopCollection' == \"true\" && \n'isStopCollection' == \"false\") then 1\nelse 0\nend",
+              "saqlExpression": "case \nwhen (\nprevious('User.Username') like \"%nlpintegration.user@anz%\" &&\n!('User.Username' like \"%nlpintegration.user@anz%\") && \n'wasStopCollection' == \"true\" && \n'isStopCollection' == \"false\") then 1\nelse 0\nend",
               "type": "Numeric",
               "scale": 10
             },
@@ -86,7 +86,7 @@
             "description": "False Negative Stop Collection",
             "expression": {
               "default": "0",
-              "saqlExpression": "case \nwhen (\nprevious('User.Alias') == \"nlpinteg\" &&\n'User.Alias' != \"nlpinteg\" && \n'wasStopCollection' == \"false\" &&\n'isStopCollection' == \"true\"\n) then 1\nelse 0\nend",
+              "saqlExpression": "case \nwhen (\nprevious('User.Username') like \"%nlpintegration.user@anz%\" &&\n!('User.Username' like\"%nlpintegration.user@anz%\") && \n'wasStopCollection' == \"false\" &&\n'isStopCollection' == \"true\"\n) then 1\nelse 0\nend",
               "type": "Numeric",
               "scale": 10
             },
@@ -96,7 +96,7 @@
           {
             "expression": {
               "offset": "previous()",
-              "sourceField": "User.Alias",
+              "sourceField": "User.Username",
               "default": "null"
             },
             "label": "previousUser",
@@ -134,7 +134,7 @@
         "operation": "LookupSingleValue",
         "relationship": "User",
         "rightKey": ["Id"],
-        "rightSelect": ["FirstName", "Alias"]
+        "rightSelect": ["FirstName", "Username"]
       },
       "sources": ["digestCaseHistory", "digestUser"]
     },
@@ -170,7 +170,7 @@
       "parameters": {
         "fields": [
           { "name": "Id" },
-          { "name": "Alias" },
+          { "name": "Username" },
           { "name": "FirstName" }
         ],
         "object": "User"
@@ -221,7 +221,7 @@
         "rightSelect": [
           "OriginallyAShell",
           "CreatedById",
-          "User.Alias",
+          "User.Username",
           "User.FirstName",
           "UpdatedByNLPUser"
         ]
@@ -302,7 +302,7 @@
           {
             "expression": {
               "default": "0",
-              "saqlExpression": "case when 'User.Alias' == \"nlpinteg\" then 1 else 0 end",
+              "saqlExpression": "case when 'User.Username' like \"%nlpintegration.user@anz%\" then 1 else 0 end",
               "type": "Numeric",
               "scale": 1
             },

@@ -675,7 +675,9 @@
         "Alerting_Reason__c",
         "Feedback_Type__c",
         "Original_Feedback_Record__c",
-        "ANZx_Customer__c"
+        "ANZx_Customer__c",
+        "IDR_Avoidable_Escalation__c",
+        "IDR_Avoidable_Escalation_Reason__c"
       ]
     },
     "CFMS_Migrated_Document__c": {

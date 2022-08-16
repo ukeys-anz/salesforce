@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR_23_Mandate_ProductOnComplaints</fullName>
+    <active>true</active>
+    <description>This is to ensure a Product is selected all time during complaint lifecycle, except via shell case conversion hence not included isnew and only trigger when its changed from Escalated status</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+!ISNEW(),
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+),
+ISCHANGED(Status),
+ISPICKVAL(PRIORVALUE(Status), &apos;Escalated&apos;) ,
+NOT(ISCHANGED(RecordTypeId)),
+NOT(ISBLANK(IDR_Inbox_Email_Address__c)),
+ISBLANK(Product__c)
+)</errorConditionFormula>
+    <errorMessage>Product or service name is mandatory</errorMessage>
+</ValidationRule>
