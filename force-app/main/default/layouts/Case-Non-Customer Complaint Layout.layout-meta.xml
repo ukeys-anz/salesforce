@@ -221,6 +221,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Avoidable_Escalation_Reason__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Additional_Correspondence_reviewed__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
