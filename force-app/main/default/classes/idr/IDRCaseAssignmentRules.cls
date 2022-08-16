@@ -65,6 +65,43 @@ public with sharing class IDRCaseAssignmentRules {
   }
 
   /**
+   * @description Assign cases that aren't escalated. Do this after any prior work has been done.
+   * @param lstCases list of cases being updated
+   * @param mpOldCases map of old version of cases
+   */
+  public static void assignUnescalatedCases(List<Case> lstCases, Map<Id, Case> mpOldCases) {
+    Case oOldCase;
+    List<Case> lstUpdates = new List<Case>();
+    Id idOwner;
+    for (Case oCase : lstCases) {
+      if (IDRCaseActions.isIDRComplaintType(oCase)) {
+        oOldCase = (mpOldCases != null ? mpOldCases.get(oCase.Id) : null);
+        idOwner = IDRCaseAssignmentRules.getOwnerId(
+        oCase,
+        oOldCase
+        );
+        if ( oCase.OwnerId != idOwner) {
+          lstUpdates.add(new Case(Id = oCase.Id, OwnerId = idOwner));
+        }
+      }
+    }
+    if ( !lstUpdates.isEmpty() ) {
+      if (
+      Case.SObjectType.getDescribe().isUpdateable() &&
+      Schema.SObjectType.Case.fields.OwnerId.isUpdateable()
+      ) {
+        update lstUpdates;
+      } else {
+        CommonUtil.logAndThrowIAE(
+        'IDRCaseAssignmentRules',
+        'assignUnescalatedCases',
+        'Not enough permissions to update Case.'
+        );
+      }
+    }
+  }
+
+  /**
    * @description method to run the Case assignment rules conditions
    * @param rec case record
    * @param productWorkbasketName name of the product the case relates to
@@ -136,34 +173,48 @@ public with sharing class IDRCaseAssignmentRules {
       } else {
         return QUEUE_MAP.get('IDR_Early_Resolution');
       }
-    } else if (
-      (rec.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS ||
-      rec.Status == IDRConstants.CLOSED_STATUS) &&
-      (oldCase == null ||
-      oldCase.Status != IDRConstants.ESCALATED_STATUS) &&
-      ((rec.Type == '4' &&
-      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
-        rec.IDR_Subsequent_Issue__c
-      )) ||
-      (rec.IDR_Issue_Type_2__c == '4' &&
-      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
-        rec.IDR_Subsequent_Issue_2__c
-      )) ||
-      (rec.IDR_Issue_Type_3__c == '4' &&
-      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
-        rec.IDR_Subsequent_Issue_3__c
-      ))) &&
-      (FeatureManagement.checkPermission('IDR_Level_2') ||
-      FeatureManagement.checkPermission('IDR_Level_3'))
-    ) {
-      //To auto assign cases to the workbasket 'Hardship_IDR_Letter'
-      return QUEUE_MAP.get('Hardship_IDR_Letter');
     }
 
     //Not escalated, don't change owner
     return rec.OwnerId;
   }
 
+  /**
+   * @description get OwnerId without product workbasket
+   * @param rec Case record
+   * @param oldCase Previous version of Case record
+   *
+   * @return Calculated Owner Id
+   */
+  private static ID getOwnerId(
+  Case rec,
+  Case oldCase
+  ) {
+    if (
+    (rec.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS ||
+    rec.Status == IDRConstants.CLOSED_STATUS) &&
+    (oldCase == null ||
+    oldCase.Status != IDRConstants.ESCALATED_STATUS) &&
+    ((rec.Type == '4' &&
+    IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+    rec.IDR_Subsequent_Issue__c
+    )) ||
+    (rec.IDR_Issue_Type_2__c == '4' &&
+    IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+    rec.IDR_Subsequent_Issue_2__c
+    )) ||
+    (rec.IDR_Issue_Type_3__c == '4' &&
+    IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+    rec.IDR_Subsequent_Issue_3__c
+    ))) &&
+    (FeatureManagement.checkPermission('IDR_Level_2') ||
+    FeatureManagement.checkPermission('IDR_Level_3'))
+    ) {
+      //To auto assign cases to the workbasket 'Hardship_IDR_Letter'
+      return QUEUE_MAP.get('Hardship_IDR_Letter');
+    }
+    return rec.OwnerId;
+  }
   /**
    * @description method to get a map of Cmos workbasket queues, API names and Ids
    * @return a map of workbasket queues, API names and Ids
