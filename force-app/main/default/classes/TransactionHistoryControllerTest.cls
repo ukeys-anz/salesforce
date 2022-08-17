@@ -34,10 +34,10 @@ public with sharing class TransactionHistoryControllerTest {
   }
 
   /*
-   * @description test method for getPersonContactId
+   * @description test method for getPersonAccount
    */
   @isTest
-  public static void testGetPersonAccounttId() {
+  public static void testGetPersonAccount() {
     String recTypeId = [
       SELECT Id
       FROM RecordType
@@ -61,13 +61,13 @@ public with sharing class TransactionHistoryControllerTest {
     );
     insert finAcc;
     Test.startTest();
-    String personAccountId = TransactionHistoryController.getPersonAccountId(
+    Map<String, Object> returnMap = TransactionHistoryController.getPersonAccount(
       finAcc.Id
     );
     Test.stopTest();
     System.assertEquals(
       acc.Id,
-      personAccountId,
+      returnMap.get('AccountId'),
       'Person Account Id was retrieved'
     );
   }

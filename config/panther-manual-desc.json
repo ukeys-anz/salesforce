@@ -11,7 +11,12 @@
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy",
       "IDR_Restriction_Level__c": "Indicates whether a complaint is visible to all CMOS users or only to CRP.",
       "IDR_Subsequent_Issue__c": "Sub categorisation of first issue",
-      "IDR_Time_To_Escalation__c": "Formula to visually represent the image based on IDR_Milestone_Sla__c"
+      "IDR_Time_To_Escalation__c": "Formula to visually represent the image based on IDR_Milestone_Sla__c",
+      "Address__c": "Field used to capture Address details from the customer for BPAY Dispute Case",
+      "Biller_Code__c": "Biller Code which identifies the biller to which the payment is made.",
+      "Biller_Name__c": "Name of the Merchant or Organisation to which the BPAY Payment is made.",
+      "Correct_Customer_Reference_Number__c": "Reference Number which correctly identifies the customer or invoice against which the payment is expected to be made.",
+      "Customer_Reference_Number__c": "Reference Number which identifies the customer or invoice against which the payment is made."
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -576,8 +581,11 @@
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
         "Amount_Of_Credit_Due__c",
+        "Biller_Code__c",
+        "Biller_Name__c",
         "Claimed_Amount__c",
         "Company__c",
+        "Correct_Customer_Reference_Number__c",
         "CPID__c",
         "Crediting_Account_BSB__c",
         "Crediting_Account_Name__c",
@@ -589,6 +597,7 @@
         "Customer_Account_BSB__c",
         "Customer_Account_Name__c",
         "Customer_Account_Number__c",
+        "Customer_Reference_Number__c",
         "Date_Posted__c",
         "Debit_User_Name__c",
         "Debit_or_Credit__c",
@@ -624,7 +633,13 @@
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c"
       ],
+      "IA-2415998": [
+        "Correct_Customer_Reference_Number__c",
+        "Customer_Reference_Number__c",
+        "Registration_Number__c"
+      ],
       "IA-2415984": [
+        "Address__c",
         "Case_Age_in_Days__c",
         "SI_Repository_COM_IDs__c",
         "SI_Category__c",
@@ -668,7 +683,13 @@
         "SI_PSI_Source_Other__c",
         "SI_PSI_Source__c"
       ],
-      "IA-2415720": ["Date_Account_Last_Debited__c", "IDR_Customer_Number__c"],
+      "IA-2415720": [
+        "Biller_Code__c",
+        "Biller_Name__c",
+        "Date_Account_Last_Debited__c",
+        "IDR_Customer_Number__c",
+        "Settlement_Date__c"
+      ],
       "IA-2530753": ["IDR_Product_Family__c"],
       "IA-2415840": [
         "Advocacy_Score__c",
