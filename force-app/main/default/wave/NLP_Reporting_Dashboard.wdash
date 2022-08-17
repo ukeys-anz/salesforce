@@ -189,20 +189,6 @@
               "row": 11,
               "rowspan": 6,
               "widgetStyle": { "borderEdges": [] }
-            },
-            {
-              "colspan": 7,
-              "column": 0,
-              "name": "text_1",
-              "row": 0,
-              "rowspan": 4,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#091A3E",
-                "borderEdges": ["bottom"],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
             }
           ]
         },
@@ -287,8 +273,8 @@
               "colspan": 2,
               "column": 6,
               "name": "text_2",
-              "row": 42,
-              "rowspan": 4,
+              "row": 43,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -329,8 +315,8 @@
               "colspan": 2,
               "column": 0,
               "name": "text_4",
-              "row": 42,
-              "rowspan": 4,
+              "row": 43,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -371,8 +357,8 @@
               "colspan": 4,
               "column": 2,
               "name": "pillbox_3",
-              "row": 8,
-              "rowspan": 4,
+              "row": 9,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -385,8 +371,8 @@
               "colspan": 2,
               "column": 0,
               "name": "text_10",
-              "row": 8,
-              "rowspan": 4,
+              "row": 9,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -413,8 +399,8 @@
               "colspan": 4,
               "column": 2,
               "name": "pillbox_4",
-              "row": 29,
-              "rowspan": 4,
+              "row": 30,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -427,8 +413,8 @@
               "colspan": 2,
               "column": 0,
               "name": "text_11",
-              "row": 29,
-              "rowspan": 4,
+              "row": 30,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -455,8 +441,8 @@
               "colspan": 4,
               "column": 2,
               "name": "text_12",
-              "row": 15,
-              "rowspan": 4,
+              "row": 16,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -469,8 +455,8 @@
               "colspan": 2,
               "column": 0,
               "name": "text_13",
-              "row": 15,
-              "rowspan": 4,
+              "row": 16,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -497,8 +483,8 @@
               "colspan": 4,
               "column": 2,
               "name": "text_14",
-              "row": 22,
-              "rowspan": 4,
+              "row": 23,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -511,8 +497,8 @@
               "colspan": 2,
               "column": 0,
               "name": "text_15",
-              "row": 22,
-              "rowspan": 4,
+              "row": 23,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -539,8 +525,8 @@
               "colspan": 4,
               "column": 2,
               "name": "text_16",
-              "row": 36,
-              "rowspan": 4,
+              "row": 37,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -553,8 +539,8 @@
               "colspan": 2,
               "column": 0,
               "name": "text_17",
-              "row": 36,
-              "rowspan": 4,
+              "row": 37,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -581,8 +567,8 @@
               "colspan": 4,
               "column": 8,
               "name": "text_18",
-              "row": 36,
-              "rowspan": 4,
+              "row": 37,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -595,8 +581,8 @@
               "colspan": 2,
               "column": 6,
               "name": "text_19",
-              "row": 36,
-              "rowspan": 4,
+              "row": 37,
+              "rowspan": 2,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -886,6 +872,96 @@
         "type": "chart"
       }
     },
+    "Recall_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Recall % String",
+      "numbers": [],
+      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\n\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate number_to_string(TP/(TP + FN), \"0.00000%\") as 'Recall';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
     "Precision___String_1": {
       "broadcastFacet": true,
       "groups": [],
@@ -979,9 +1055,9 @@
     "Recall_1": {
       "broadcastFacet": true,
       "groups": [],
-      "label": "Recall % String",
+      "label": "Recall",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\n\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate number_to_string(TP/(TP + FN), \"0.00000%\") as 'Recall';",
+      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\n\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate (TP/(TP + FN)) * 100 as 'Recall';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1695,7 +1771,7 @@
       "groups": [],
       "label": "Accuracy % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate number_to_string(((TP + TN) / (N + P)), \"0.00000%\") as 'result';\n",
+      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate number_to_string(((TP + TN) / (N + P)), \"0.00000%\") as 'Accuracy';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1843,7 +1919,7 @@
       "groups": [],
       "label": "Accuracy",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate ((TP + TN) / (N + P)) * 100 as 'result';\n",
+      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate ((TP + TN) / (N + P)) * 100 as 'Accuracy';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1852,16 +1928,21 @@
       "visualizationParameters": {
         "parameters": {
           "autoFitMode": "keepLabels",
-          "max": 1,
-          "showPercentage": false,
+          "max": 100,
+          "showPercentage": true,
           "visualizationType": "gauge",
           "medium": 33,
           "title": {
             "fontSize": 14,
             "subtitleFontSize": 11,
-            "label": "Accuracy",
+            "label": "",
             "align": "center",
             "subtitleLabel": ""
+          },
+          "bands": {
+            "high": { "color": "#008000", "label": "High" },
+            "low": { "color": "#B22222", "label": "Low" },
+            "medium": { "color": "#ffa500", "label": "Medium" }
           },
           "trellis": {
             "flipLabels": false,
@@ -1871,17 +1952,12 @@
             "type": "x",
             "chartsPerLine": 4
           },
-          "bands": {
-            "high": { "color": "#008000", "label": "High" },
-            "low": { "color": "#B22222", "label": "Low" },
-            "medium": { "color": "#ffa500", "label": "Medium" }
-          },
-          "showRange": false,
-          "showLabel": false,
-          "showValue": false,
+          "showRange": true,
+          "showLabel": true,
+          "showValue": true,
           "high": 66,
-          "showActionMenu": false,
           "min": 0,
+          "showActionMenu": true,
           "angle": 240,
           "theme": "wave",
           "applyConditionalFormatting": true
@@ -2427,10 +2503,10 @@
     "text_18": {
       "parameters": {
         "content": {
-          "displayTemplate": "[result]\n\n",
+          "displayTemplate": "[Accuracy]\n",
           "values": {
-            "result": {
-              "field": "result",
+            "Accuracy": {
+              "field": "Accuracy",
               "sourceType": "result",
               "step": "Accuracy___String_1"
             }
@@ -2445,7 +2521,7 @@
     },
     "text_17": {
       "parameters": {
-        "content": { "displayTemplate": "Correct Rejection:\n\n\n" },
+        "content": { "displayTemplate": "Correct Rejection:\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2463,7 +2539,7 @@
     },
     "text_19": {
       "parameters": {
-        "content": { "displayTemplate": "Accuracy:\n\n\n" },
+        "content": { "displayTemplate": "Accuracy:\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2474,9 +2550,9 @@
     "text_14": {
       "parameters": {
         "content": {
-          "displayTemplate": "[F1_Score_1]\n\n",
+          "displayTemplate": "[F1_Score]\n",
           "values": {
-            "F1_Score_1": {
+            "F1_Score": {
               "field": "F1_Score",
               "sourceType": "result",
               "step": "F1_Score___String_1"
@@ -2492,7 +2568,7 @@
     },
     "text_13": {
       "parameters": {
-        "content": { "displayTemplate": "Recall:\n\n\n" },
+        "content": { "displayTemplate": "Recall:\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2503,9 +2579,9 @@
     "text_16": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Correct_Rejection_1]\n\n",
+          "displayTemplate": "[Correct_Rejection]\n",
           "values": {
-            "Correct_Rejection_1": {
+            "Correct_Rejection": {
               "field": "Correct_Rejection",
               "sourceType": "result",
               "step": "Correct_Rejection____1"
@@ -2521,7 +2597,7 @@
     },
     "text_15": {
       "parameters": {
-        "content": { "displayTemplate": "F1 Score:\n\n\n" },
+        "content": { "displayTemplate": "F1 Score:\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2531,7 +2607,7 @@
     },
     "text_10": {
       "parameters": {
-        "content": { "displayTemplate": "Precision:\n\n\n" },
+        "content": { "displayTemplate": "Precision:\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2542,12 +2618,12 @@
     "text_12": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Recall_2]\n\n",
+          "displayTemplate": "[Recall]\n",
           "values": {
-            "Recall_2": {
+            "Recall": {
               "field": "Recall",
               "sourceType": "result",
-              "step": "Recall_1"
+              "step": "Recall_2"
             }
           }
         },
@@ -2560,7 +2636,7 @@
     },
     "text_11": {
       "parameters": {
-        "content": { "displayTemplate": "Prevalence:\n\n\n" },
+        "content": { "displayTemplate": "Prevalence:\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2756,7 +2832,7 @@
     },
     "text_2": {
       "parameters": {
-        "content": { "displayTemplate": "False Negatives:\n\n" },
+        "content": { "displayTemplate": "False Negatives:\n\n\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2821,7 +2897,7 @@
     },
     "text_4": {
       "parameters": {
-        "content": { "displayTemplate": "False Positive:\n\n" },
+        "content": { "displayTemplate": "False Positive:\n\n\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -3103,7 +3179,7 @@
     "text_9": {
       "parameters": {
         "content": {
-          "displayTemplate": "Case Closed with Record Type: \nCustomer Complaint\n\n\n\n"
+          "displayTemplate": "Case Closed with Record Type: \nCustomer Complaint\n\n\n\n\n\n\n\n"
         },
         "fontSize": 16,
         "showActionMenu": true,
@@ -3199,16 +3275,6 @@
         "applyConditionalFormatting": true
       },
       "type": "chart"
-    },
-    "text_1": {
-      "parameters": {
-        "content": { "displayTemplate": "NLP Reporting Dashboard\n\n\n\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
     },
     "filterpanel_2": {
       "parameters": {
@@ -3404,9 +3470,9 @@
     "pillbox_4": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Prevalence_1]\n\n",
+          "displayTemplate": "[Prevalence]\n",
           "values": {
-            "Prevalence_1": {
+            "Prevalence": {
               "field": "Prevalence",
               "sourceType": "result",
               "step": "Prevalence___String_1"
@@ -3423,9 +3489,9 @@
     "pillbox_3": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Precision_2]\n\n",
+          "displayTemplate": "[Precision]\n",
           "values": {
-            "Precision_2": {
+            "Precision": {
               "field": "Precision",
               "sourceType": "result",
               "step": "Precision___String_1"
