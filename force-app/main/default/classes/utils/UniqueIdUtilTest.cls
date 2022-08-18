@@ -9,7 +9,7 @@ public with sharing class UniqueIdUtilTest {
   @isTest
   static void testGenerateIds() {
     String version = UniqueIdUtil.getVersion();
-    String parentId = UniqueIdUtil.getParentId();
+    String spanId = UniqueIdUtil.getSpanId();
     String traceId = UniqueIdUtil.getTraceId();
     String traceFlag = UniqueIdUtil.getTraceFlag();
 
@@ -20,8 +20,8 @@ public with sharing class UniqueIdUtilTest {
     );
     System.assertEquals(
       16,
-      parentId.length(),
-      'The parentId length should be as expected.'
+      spanId.length(),
+      'The spanId length should be as expected.'
     );
     System.assertEquals(
       32,

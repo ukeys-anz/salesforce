@@ -11,7 +11,12 @@
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy",
       "IDR_Restriction_Level__c": "Indicates whether a complaint is visible to all CMOS users or only to CRP.",
       "IDR_Subsequent_Issue__c": "Sub categorisation of first issue",
-      "IDR_Time_To_Escalation__c": "Formula to visually represent the image based on IDR_Milestone_Sla__c"
+      "IDR_Time_To_Escalation__c": "Formula to visually represent the image based on IDR_Milestone_Sla__c",
+      "Address__c": "Field used to capture Address details from the customer for BPAY Dispute Case",
+      "Biller_Code__c": "Biller Code which identifies the biller to which the payment is made.",
+      "Biller_Name__c": "Name of the Merchant or Organisation to which the BPAY Payment is made.",
+      "Correct_Customer_Reference_Number__c": "Reference Number which correctly identifies the customer or invoice against which the payment is expected to be made.",
+      "Customer_Reference_Number__c": "Reference Number which identifies the customer or invoice against which the payment is made."
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -154,6 +159,9 @@
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
     "Location": "This standard object would contain all the store locations for ANZ",
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
+    "Log__c": "The parent log object, which stores logging information on a transaction level.",
+    "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
+    "Logging_Settings__c": "Custom settings for more control on logging.",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
     "Product Family": "Custom object that holds work basket details for cases",
@@ -161,6 +169,7 @@
     "qualtrics__Survey_Response__c": "Customers answers to a given Qualtrics Survey",
     "Release__c": "System documentation on a given Salesforce release of features",
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
+    "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
     "Task": "A task to remind a user to follow up on something",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
@@ -302,7 +311,7 @@
       "IA-2468715": [
         "AccountId",
         "BusinessHoursId",
-        "Campaign_flag__c"
+        "Campaign_flag__c",
         "CaseNumber",
         "RecordTypeId",
         "SI_Repository_ID__c",
@@ -572,8 +581,11 @@
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
         "Amount_Of_Credit_Due__c",
+        "Biller_Code__c",
+        "Biller_Name__c",
         "Claimed_Amount__c",
         "Company__c",
+        "Correct_Customer_Reference_Number__c",
         "CPID__c",
         "Crediting_Account_BSB__c",
         "Crediting_Account_Name__c",
@@ -585,6 +597,7 @@
         "Customer_Account_BSB__c",
         "Customer_Account_Name__c",
         "Customer_Account_Number__c",
+        "Customer_Reference_Number__c",
         "Date_Posted__c",
         "Debit_User_Name__c",
         "Debit_or_Credit__c",
@@ -620,7 +633,13 @@
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c"
       ],
+      "IA-2415998": [
+        "Correct_Customer_Reference_Number__c",
+        "Customer_Reference_Number__c",
+        "Registration_Number__c"
+      ],
       "IA-2415984": [
+        "Address__c",
         "Case_Age_in_Days__c",
         "SI_Repository_COM_IDs__c",
         "SI_Category__c",
@@ -664,14 +683,22 @@
         "SI_PSI_Source_Other__c",
         "SI_PSI_Source__c"
       ],
-      "IA-2415720": ["Date_Account_Last_Debited__c", "IDR_Customer_Number__c"],
+      "IA-2415720": [
+        "Biller_Code__c",
+        "Biller_Name__c",
+        "Date_Account_Last_Debited__c",
+        "IDR_Customer_Number__c",
+        "Settlement_Date__c"
+      ],
       "IA-2530753": ["IDR_Product_Family__c"],
       "IA-2415840": [
         "Advocacy_Score__c",
         "Alerting_Reason__c",
         "Feedback_Type__c",
         "Original_Feedback_Record__c",
-        "ANZx_Customer__c"
+        "ANZx_Customer__c",
+        "IDR_Avoidable_Escalation__c",
+        "IDR_Avoidable_Escalation_Reason__c"
       ]
     },
     "CFMS_Migrated_Document__c": {
@@ -1080,6 +1107,58 @@
         "LocationType"
       ]
     },
+    "Log__c": {
+      "IA-2468710": [
+        "APIVersion__c",
+        "EnvironmentType__c",
+        "InstanceName__c",
+        "StartTime__c",
+        "TotalERROREntries__c",
+        "TotalDEBUGEntries__c",
+        "TotalINFOEntries__c",
+        "TraceId__c",
+        "TransactionContext__c",
+        "UserProfile__c",
+        "UserRole__c",
+        "UserId__c"
+      ]
+    },
+    "LogEntry__c": {
+      "IA-2468710": [
+        "ApexClassName__c",
+        "ApexMethodName__c",
+        "BrowserName__c",
+        "ComponentName__c",
+        "DatabaseResult__c",
+        "ExceptionMessage__c",
+        "ExceptionType__c",
+        "Log__c",
+        "LogMessage__c",
+        "LoggingLevel__c",
+        "Origin__c",
+        "RecordId__c",
+        "RecordObjectName__c",
+        "RecordsJson__c",
+        "SpanId__c",
+        "StackTrace__c",
+        "UsedCallouts__c",
+        "UsedCPUTime__c",
+        "UsedDMLStatements__c",
+        "UsedFutureCalls__c",
+        "UsedHeapSize__c",
+        "UsedQueueableJobs__c",
+        "UsedSOQLQueries__c"
+      ]
+    },
+    "LoggingSettings__c": {
+      "IA-2468710": [
+        "DefaultLoggingLevel__c",
+        "DefaultLogRetentionDuration__c",
+        "DefaultSaveMethod__c",
+        "LogEnabled__c",
+        "SecureLogEnabled__c"
+      ]
+    },
     "Log_Record_Access__b": {
       "IA-2468710": [
         "Access_Id__c",
@@ -1297,6 +1376,15 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "SecureLogEntry__c": {
+      "IA-2415720": ["Payload__c"],
+      "IA-2468710": [
+        "ApexClassName__c",
+        "ApexMethodName__c",
+        "Log__c",
+        "SpanId__c"
       ]
     },
     "SkyhighNetworks__SHNEvent__c": {

@@ -32,26 +32,39 @@
 
   // Handle populating defaults and navigating user to case edit form
   handleNext: function (component, event, helper) {
+    var selectedRecordTypeName = component.get("v.selectedRecordTypeName");
     var action = component.get("c.getCaseDetailsById");
     action.setParams({
       caseId: component.get("v.recordId"),
       newRecordTypeId: component.get("v.selectedRecordTypeId")
     });
     action.setCallback(this, function (response) {
-      $A.get("e.force:closeQuickAction").fire();
       var state = response.getState();
       if (state === "SUCCESS") {
         var result = JSON.parse(response.getReturnValue());
-        var autoFillFieldsString = "";
-        for (var i in result) {
-          autoFillFieldsString =
-            autoFillFieldsString + "," + i + "=" + result[i];
+        if (
+          !result.IDR_Product_Category__c &&
+          (selectedRecordTypeName == "Customer_Complaint" ||
+            selectedRecordTypeName == "Non_Customer_Complaint")
+        ) {
+          helper.showToast(
+            "error",
+            "Product category is mandatory before converting it to a complaint.",
+            "Error!"
+          );
+        } else {
+          $A.get("e.force:closeQuickAction").fire();
+          var autoFillFieldsString = "";
+          for (var i in result) {
+            autoFillFieldsString =
+              autoFillFieldsString + "," + i + "=" + result[i];
+          }
+          component.set("v.autoFillFieldsString", autoFillFieldsString);
+          helper.handleNavig(component);
         }
-        component.set("v.autoFillFieldsString", autoFillFieldsString);
-        helper.handleNavig(component);
       } else {
         console.error("Failed with state: " + state);
-        this.showToast(
+        helper.showToast(
           "error",
           "Failed to retrieve case details, please contact system administrator for assistance.",
           "Error!"

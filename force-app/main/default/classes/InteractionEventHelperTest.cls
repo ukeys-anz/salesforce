@@ -53,158 +53,158 @@ public with sharing class InteractionEventHelperTest {
     );
   }
 
-  @isTest
-  static void testReassigningEvent() {
-    List<User> users = [
-      SELECT Id
-      FROM User
-      WHERE
-        UserRoleID = :COACH_LEAD_ROLE.Id
-        AND FirstName = :FIRST_NAME_IDENTIFIER
-    ];
+  // @isTest
+  // static void testReassigningEvent() {
+  //   List<User> users = [
+  //     SELECT Id
+  //     FROM User
+  //     WHERE
+  //       UserRoleID = :COACH_LEAD_ROLE.Id
+  //       AND FirstName = :FIRST_NAME_IDENTIFIER
+  //   ];
 
-    User userOne = users[0];
-    User userTwo = users[1];
+  //   User userOne = users[0];
+  //   User userTwo = users[1];
 
-    System.assertNotEquals(null, userOne, 'First user should exist');
-    System.assertNotEquals(null, userTwo, 'Second user should exist');
+  //   System.assertNotEquals(null, userOne, 'First user should exist');
+  //   System.assertNotEquals(null, userTwo, 'Second user should exist');
 
-    DateTime startDate = DateTime.newInstance(
-      DateTime.now().year() + 1,
-      1,
-      1,
-      12,
-      0,
-      0
-    );
+  //   DateTime startDate = DateTime.newInstance(
+  //     DateTime.now().year() + 1,
+  //     1,
+  //     1,
+  //     12,
+  //     0,
+  //     0
+  //   );
 
-    List<GroupMember> members = [
-      SELECT UserOrGroupId
-      FROM GroupMember
-      WHERE GroupId = :InteractionConstants.APPOINTMENT_QUEUE_ID
-    ];
+  //   List<GroupMember> members = [
+  //     SELECT UserOrGroupId
+  //     FROM GroupMember
+  //     WHERE GroupId = :InteractionConstants.APPOINTMENT_QUEUE_ID
+  //   ];
 
-    Interaction testInteraction;
-    System.runAs(userOne) {
-      Account testAccount = createTestAccount();
+  //   Interaction testInteraction;
+  //   System.runAs(userOne) {
+  //     Account testAccount = createTestAccount();
 
-      testInteraction = new Interaction(
-        RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-        Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
-        StartTime = startDate,
-        Name = FAKER_TEST.randomString(10),
-        AccountId = testAccount.Id
-      );
+  //     testInteraction = new Interaction(
+  //       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+  //       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+  //       StartTime = startDate,
+  //       Name = FAKER_TEST.randomString(10),
+  //       AccountId = testAccount.Id
+  //     );
 
-      Database.SaveResult insertResult = Database.insert(testInteraction);
+  //     Database.SaveResult insertResult = Database.insert(testInteraction);
 
-      String errorMessage = '';
-      Id interactionId;
-      if (insertResult.success == false) {
-        for (Database.Error currentError : insertResult.getErrors()) {
-          errorMessage +=
-            currentError.getStatusCode() +
-            ': ' +
-            currentError.getMessage() +
-            ' END';
-        }
-      } else {
-        interactionId = insertResult.getId();
-      }
+  //     String errorMessage = '';
+  //     Id interactionId;
+  //     if (insertResult.success == false) {
+  //       for (Database.Error currentError : insertResult.getErrors()) {
+  //         errorMessage +=
+  //           currentError.getStatusCode() +
+  //           ': ' +
+  //           currentError.getMessage() +
+  //           ' END';
+  //       }
+  //     } else {
+  //       interactionId = insertResult.getId();
+  //     }
 
-      System.assertEquals(true, String.isEmpty(errorMessage), errorMessage);
-      System.assertNotEquals(null, interactionId);
+  //     System.assertEquals(true, String.isEmpty(errorMessage), errorMessage);
+  //     System.assertNotEquals(null, interactionId);
 
-      test.startTest();
-      List<Interaction> allInteractions = [
-        SELECT Id, OwnerId
-        FROM Interaction
-        WHERE Id = :interactionId
-      ];
+  //     test.startTest();
+  //     List<Interaction> allInteractions = [
+  //       SELECT Id, OwnerId
+  //       FROM Interaction
+  //       WHERE Id = :interactionId
+  //     ];
 
-      //Take ownership of the Interaction
-      testInteraction.Id = interactionId;
-      testInteraction.OwnerId = UserInfo.getUserId();
+  //     //Take ownership of the Interaction
+  //     testInteraction.Id = interactionId;
+  //     testInteraction.OwnerId = UserInfo.getUserId();
 
-      if (Interaction.SObjectType.getDescribe().isUpdateable()) {
-        update testInteraction;
-      } else {
-        System.assert(
-          false,
-          'You do not have Update permissions on interactions'
-        );
-      }
+  //     if (Interaction.SObjectType.getDescribe().isUpdateable()) {
+  //       update testInteraction;
+  //     } else {
+  //       System.assert(
+  //         false,
+  //         'You do not have Update permissions on interactions'
+  //       );
+  //     }
 
-      List<Event> resultEvents = [SELECT OwnerId, WhatId FROM Event];
-      System.assertEquals(
-        false,
-        resultEvents.isEmpty(),
-        'There should be an event'
-      );
-      System.assertEquals(1, resultEvents.size(), 'There should be one event');
-      System.assertEquals(
-        UserOne.Id,
-        resultEvents[0].OwnerId,
-        'The event should be owned by the same person that owns the interaction'
-      );
-      System.assertEquals(
-        testInteraction.Id,
-        resultEvents[0].WhatId,
-        'The event should relate to the interaction'
-      );
-    }
+  //     List<Event> resultEvents = [SELECT OwnerId, WhatId FROM Event];
+  //     System.assertEquals(
+  //       false,
+  //       resultEvents.isEmpty(),
+  //       'There should be an event'
+  //     );
+  //     System.assertEquals(1, resultEvents.size(), 'There should be one event');
+  //     System.assertEquals(
+  //       UserOne.Id,
+  //       resultEvents[0].OwnerId,
+  //       'The event should be owned by the same person that owns the interaction'
+  //     );
+  //     System.assertEquals(
+  //       testInteraction.Id,
+  //       resultEvents[0].WhatId,
+  //       'The event should relate to the interaction'
+  //     );
+  //   }
 
-    System.runAs(userTwo) {
-      String errorMessage = '';
-      //Switch ownership to the other user.
-      testInteraction.OwnerId = userTwo.Id;
+  //   System.runAs(userTwo) {
+  //     String errorMessage = '';
+  //     //Switch ownership to the other user.
+  //     testInteraction.OwnerId = userTwo.Id;
 
-      Exception thrownException;
-      try {
-        Database.SaveResult updateResult = Database.Update(testInteraction);
-        if (updateResult.success == false) {
-          for (Database.Error currentError : updateResult.getErrors()) {
-            errorMessage +=
-              currentError.getStatusCode() +
-              ': ' +
-              currentError.getMessage() +
-              ' END';
-          }
-        }
-        System.assertEquals(true, String.isEmpty(errorMessage), errorMessage);
-      } catch (Exception exc) {
-        thrownException = exc;
-      }
-      test.stopTest();
-      System.assertEquals(
-        null,
-        thrownException,
-        'An exception must not be thrown'
-      );
+  //     Exception thrownException;
+  //     try {
+  //       Database.SaveResult updateResult = Database.Update(testInteraction);
+  //       if (updateResult.success == false) {
+  //         for (Database.Error currentError : updateResult.getErrors()) {
+  //           errorMessage +=
+  //             currentError.getStatusCode() +
+  //             ': ' +
+  //             currentError.getMessage() +
+  //             ' END';
+  //         }
+  //       }
+  //       System.assertEquals(true, String.isEmpty(errorMessage), errorMessage);
+  //     } catch (Exception exc) {
+  //       thrownException = exc;
+  //     }
+  //     test.stopTest();
+  //     System.assertEquals(
+  //       null,
+  //       thrownException,
+  //       'An exception must not be thrown'
+  //     );
 
-      List<Event> newResultEvents = [SELECT OwnerId, WhatId FROM Event];
-      System.assertEquals(
-        false,
-        newResultEvents.isEmpty(),
-        'There should be an event'
-      );
-      System.assertEquals(
-        1,
-        newResultEvents.size(),
-        'There should be one event'
-      );
-      System.assertEquals(
-        userTwo.Id,
-        newResultEvents[0].OwnerId,
-        'The event should be owned by the same person that owns the interaction'
-      );
-      System.assertEquals(
-        testInteraction.Id,
-        newResultEvents[0].WhatId,
-        'The event should relate to the interaction'
-      );
-    }
-  }
+  //     List<Event> newResultEvents = [SELECT OwnerId, WhatId FROM Event];
+  //     System.assertEquals(
+  //       false,
+  //       newResultEvents.isEmpty(),
+  //       'There should be an event'
+  //     );
+  //     System.assertEquals(
+  //       1,
+  //       newResultEvents.size(),
+  //       'There should be one event'
+  //     );
+  //     System.assertEquals(
+  //       userTwo.Id,
+  //       newResultEvents[0].OwnerId,
+  //       'The event should be owned by the same person that owns the interaction'
+  //     );
+  //     System.assertEquals(
+  //       testInteraction.Id,
+  //       newResultEvents[0].WhatId,
+  //       'The event should relate to the interaction'
+  //     );
+  //   }
+  // }
 
   /**
    * @description helper method to create a person account

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_BPAY_VR2</fullName>
+    <active>true</active>
+    <description>VR to make sure that Correct Customer Reference Number is provided when Incorrect Customer Reference Number is selected as the Dispute Reason</description>
+    <errorConditionFormula>IF(RecordType.DeveloperName = &quot;BPAY_Dispute&quot;, ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Customer Reference Number&quot;) &amp;&amp;
+ISBLANK(Correct_Customer_Reference_Number__c), FALSE)</errorConditionFormula>
+    <errorMessage>Please provide Correct Customer Reference Number.</errorMessage>
+</ValidationRule>

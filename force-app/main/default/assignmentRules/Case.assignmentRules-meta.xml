@@ -13,9 +13,14 @@
                     ISCHANGED(Submitted__c)
                   )
                 &amp;&amp; Submitted__c = true,
-                RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
-                )
+                OR(
+                    RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
+                ),              
+                ISPICKVAL(
+                    Dispute_Reason__c, &quot;Unauthorised Transaction&quot;
+                )                 
+            )
             </formula>
         </ruleEntry>
         <ruleEntry>
@@ -26,11 +31,16 @@
                 OR(
                     ISNEW(),
                     ISCHANGED(Submitted__c)
-                   )
+                )
                 &amp;&amp; Submitted__c = true,
-                RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
-                NOT(ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;))
-               )
+                OR(
+                    RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
+                    RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
+                ),             
+                NOT(
+                    ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
+                )
+            )
             </formula>
         </ruleEntry>
         <ruleEntry>

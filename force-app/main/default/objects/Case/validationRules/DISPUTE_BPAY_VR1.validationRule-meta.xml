@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DISPUTE_BPAY_VR1</fullName>
+    <active>true</active>
+    <description>VR to make sure that all required fields are populated</description>
+    <errorConditionFormula>IF(RecordType.DeveloperName = &quot;BPAY_Dispute&quot;, OR(
+ISBLANK(Biller_Code__c),
+ISBLANK(Biller_Name__c),
+ISBLANK(Customer_Reference_Number__c),
+ISBLANK(Receipt__c),
+ISBLANK(Registration_Number__c),
+ISBLANK(Description),
+ISBLANK(Subject)), FALSE )</errorConditionFormula>
+    <errorMessage>Please provide Description of Issue.</errorMessage>
+</ValidationRule>

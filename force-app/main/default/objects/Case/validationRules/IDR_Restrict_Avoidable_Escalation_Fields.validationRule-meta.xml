@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Restrict_Avoidable_Escalation_Fields</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;),
+!ISNEW(),
+OR( ISCHANGED( IDR_Avoidable_Escalation__c ),
+ ISCHANGED( IDR_Avoidable_Escalation_Reason__c )),
+AND(AND(TEXT(Status)!=&apos;Escalated&apos;,
+TEXT(Status)!=&apos;Provisionally Closed&apos;,
+TEXT(Status)!=&apos;Closed&apos;),
+!OR(PRIORVALUE(Status)=&apos;Escalated&apos;,
+PRIORVALUE(Status)=&apos;Provisionally Closed&apos;,
+PRIORVALUE(Status)=&apos;Closed&apos;))
+)</errorConditionFormula>
+    <errorMessage>&apos;Avoidable Escalation&apos; and &apos;Avoidable Escalation Reason&apos; can only be updated on Escalated, Closed or Provisionally Closed cases.</errorMessage>
+</ValidationRule>

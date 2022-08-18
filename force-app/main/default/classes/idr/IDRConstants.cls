@@ -99,6 +99,14 @@ public with sharing class IDRConstants {
     '98'
   };
 
+  //To auto assign cases checking for Subsequent Issue Type Set
+  public static final Set<String> SUB_ISSUE_TYPE_HARDSHIP = new Set<String>{
+    '21',
+    '22',
+    '23',
+    '96'
+  };
+
   //NotificationHandler Status
   public static final String NOTIFICATION_PUBLISH_STATUS = 'Published';
   public static final String NOTIFICATION_PENDING_PUBLISH_STATUS = 'Pending Publish';
@@ -106,6 +114,7 @@ public with sharing class IDRConstants {
 
   //Message Text
   public static final String RESTRICTED_ACTION_MESSAGE = 'You are not authorised to perform this action.';
+  public static final String CANNOT_CHANGE_ISSUE_MESSAGE = 'You cannot change a collections issue to a non collections issue.';
 
   //Milestone Sla
   public static final String MILESTONE_SLA_NORMAL = 'Normal';
@@ -132,7 +141,7 @@ public with sharing class IDRConstants {
   public static final String TASK_AFCA_SUBJECT_DAY10 = 'AFCA Response is due in 10 days';
   public static final String TASK_AFCA_SUBJECT_DAY1 = 'AFCA Response is due in 1 day';
 
-  //Channel Recieved
+  //Channel Received
   public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';
 
   //IDREmailServiceConstants
@@ -254,7 +263,8 @@ public with sharing class IDRConstants {
           'IDR_Home_Owners',
           'IDR_Wealth',
           'IDR_Early_Resolution',
-          'CCR_Complaints'
+          'CCR_Complaints',
+          'Hardship_IDR_Letter'
         };
       }
       return workBasketNames;
