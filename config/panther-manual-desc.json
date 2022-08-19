@@ -1039,18 +1039,22 @@
         "Lead_Id__c",
         "Lead_Originator_c",
         "Lead_Quality__c",
+        "Marketing_Consent__c",
+        "Name",
         "New_to_Bank__c",
         "Notes__c",
         "Not_Registered__c",
         "OwnerId",
         "Previous_Lead__c",
         "Priority__c",
+        "Privacy_Consent__c",
         "Prospect_Id__c",
         "Record_Id__c",
         "Status",
         "SubStatus__c",
         "UNICA_Treatment_Code__c"
-      ]
+      ],
+      "IA-2530753": ["Description"]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [

@@ -351,4 +351,9 @@
         <default>false</default>
         <label>Assisted Tax Verification</label>
     </standardValue>
+    <standardValue>
+        <fullName>KYC Reverification</fullName>
+        <default>false</default>
+        <label>KYC Reverification</label>
+    </standardValue>
 </StandardValueSet>
