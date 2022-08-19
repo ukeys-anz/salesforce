@@ -6,6 +6,7 @@
       "displayValue": null,
       "value": "0122N00000314ujQAA"
     },
+    "Status": "Open",
     "IDR_Complaint_Outcome__c": "3",
     "IDR_Description_of_Outcome__c": "******************************************5356",
     "IDR_Complaint_Remedy__c": "2",
@@ -28,7 +29,10 @@
     "IDR_Complaint_Sub_Remedy_3__c": "",
     "IDR_Financial_Remedy_Points_3__c": "",
     "IDR_Other_Remedy_Provided_3__c": "",
-    "IDR_Duration_of_Remedy_3__c": ""
+    "IDR_Duration_of_Remedy_3__c": "",
+    "IDR_Avoidable_Escalation__c": false,
+    "IDR_Avoidable_Escalation_Reason__c": "",
+    "Product__c": { "displayValue": null, "value": "01t5P000000L3COQA0" }
   },
   "id": "5002N00000Dwe1iQAB",
   "lastModifiedById": "0052N000004DtsAQAS",

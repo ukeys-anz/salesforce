@@ -1,5 +1,5 @@
 import { LightningElement, track, wire, api } from "lwc";
-import getPersonAccountId from "@salesforce/apex/TransactionHistoryController.getPersonAccountId";
+import getPersonAccount from "@salesforce/apex/TransactionHistoryController.getPersonAccount";
 import { getRecord } from "lightning/uiRecordApi";
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 import { publish, MessageContext } from "lightning/messageService";
@@ -76,7 +76,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   @api loading;
   @api disputeRecordTypesFromParent;
   @api transactionTypeDisputeIdMapFromParent;
-  personAccountId = "";
+  personAccount;
   showWarning = true;
   lastDateInPayload;
   allTags;
@@ -102,7 +102,7 @@ export default class TransactionHistoryBoard extends LightningElement {
     if (data) {
       this.startDate = this.inputStartDate(this.tstartDate);
       this.endDate = this.inputEndDate(this.tendDate);
-      this.handleGetPersonAccountId();
+      this.handleGetPersonAccount();
     }
   }
 
@@ -383,13 +383,13 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   // Getting person contact Id so we can pre-populated it on the data capture form
-  handleGetPersonAccountId() {
-    getPersonAccountId({
+  handleGetPersonAccount() {
+    getPersonAccount({
       financialAccountId: this.recordId
     })
       .then((result) => {
         if (result != null) {
-          this.personAccountId = result;
+          this.personAccount = result;
         }
       })
       .catch((error) => {
@@ -492,6 +492,8 @@ export default class TransactionHistoryBoard extends LightningElement {
         return this.transactionTypeDisputeIdMapFromParent.NPP_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.Direct_Debit:
         return this.transactionTypeDisputeIdMapFromParent.Direct_Debit_Dispute;
+      case transaction.formatted_type === TRANSACTION_TYPES.BPAY:
+        return this.transactionTypeDisputeIdMapFromParent.BPAY_Dispute;
       default:
         return "";
     }

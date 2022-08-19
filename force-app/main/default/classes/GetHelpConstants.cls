@@ -29,6 +29,10 @@ public with sharing class GetHelpConstants {
     .get('NPP_Dispute')
     .getRecordTypeId();
 
+  public static final Id BPAY_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('BPAY_Dispute')
+    .getRecordTypeId();
+
   public static final Id COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('ANZx_Complaint')
     .getRecordTypeId();

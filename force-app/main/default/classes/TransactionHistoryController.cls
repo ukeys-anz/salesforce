@@ -38,33 +38,69 @@ public with sharing class TransactionHistoryController {
   }
 
   /**
-   * @author Jasmine Nguyen
-   * @since 02/2021
-   * @description Get the contact Id of the person account that will linked to the case
+   * @description Get the data from the person account
    * @param financialAccountId Financial Account Id related
-   * @return the Id of the person account used as the primary owner of this financial account
+   * @return Map<String, Object> field-value map of the person account used as the primary owner of this financial account
    */
   @AuraEnabled
-  public static String getPersonAccountId(String financialAccountId) {
+  public static Map<String, Object> getPersonAccount(
+    String financialAccountId
+  ) {
+    Map<String, Object> returnMap = new Map<String, Object>();
     Lib_SystemLog log = new Lib_SystemLog(
       'TransactionHistoryController',
-      'getPersonAccountId'
+      'getPersonAccount'
     );
 
-    if (Account.SObjectType.getDescribe().isAccessible()) {
+    if (
+      Account.SObjectType.getDescribe().isAccessible() &&
+      FinServ__FinancialAccount__c.SObjectType.getDescribe().isAccessible()
+    ) {
       FinServ__FinancialAccount__c financialAccount = [
-        SELECT Id, FinServ__PrimaryOwner__c
+        SELECT
+          Id,
+          FinServ__PrimaryOwner__r.Id,
+          FinServ__PrimaryOwner__r.BillingStreet,
+          FinServ__PrimaryOwner__r.BillingCity,
+          FinServ__PrimaryOwner__r.BillingState,
+          FinServ__PrimaryOwner__r.BillingPostalCode,
+          FinServ__PrimaryOwner__r.BillingCountry,
+          FinServ__PrimaryOwner__r.OCV_ID__c
         FROM FinServ__FinancialAccount__c
         WHERE Id = :financialAccountId
         LIMIT 1
       ];
-
+      returnMap.put('AccountId', financialAccount.FinServ__PrimaryOwner__r.Id);
+      returnMap.put(
+        'BillingStreet',
+        financialAccount.FinServ__PrimaryOwner__r.BillingStreet
+      );
+      returnMap.put(
+        'BillingCity',
+        financialAccount.FinServ__PrimaryOwner__r.BillingCity
+      );
+      returnMap.put(
+        'BillingState',
+        financialAccount.FinServ__PrimaryOwner__r.BillingState
+      );
+      returnMap.put(
+        'BillingPostalCode',
+        financialAccount.FinServ__PrimaryOwner__r.BillingPostalCode
+      );
+      returnMap.put(
+        'BillingCountry',
+        financialAccount.FinServ__PrimaryOwner__r.BillingCountry
+      );
+      returnMap.put(
+        'OCV_ID__c',
+        financialAccount.FinServ__PrimaryOwner__r.OCV_ID__c
+      );
       log.trace(
         'Person Account retrieved with Id: ' +
         financialAccount.FinServ__PrimaryOwner__c
       );
       log.publishEvent();
-      return financialAccount.FinServ__PrimaryOwner__c;
+      return returnMap;
     }
     log.trace('Unable to retrieve person account');
     log.insertLogAsync();

@@ -289,7 +289,6 @@ public with sharing class InteractionActionsTest {
 
     test.startTest();
     List<Interaction> updatedInteractions = new List<Interaction>();
-    InteractionActions actions = new InteractionActions();
 
     for (Interaction updateInteraction : testInteraction) {
       updateInteraction.Status__c = InteractionConstants.CANCELLED;
@@ -297,7 +296,7 @@ public with sharing class InteractionActionsTest {
     }
     update updatedInteractions;
 
-    List<Interaction> interactions = actions.findCancelledInteractions(
+    List<Interaction> interactions = InteractionActions.findCancelledInteractions(
       oldMap,
       updatedInteractions
     );
@@ -308,7 +307,7 @@ public with sharing class InteractionActionsTest {
       'The interaction must be returned'
     );
 
-    actions.deleteInteractionEvents(interactions);
+    InteractionActions.deleteInteractionEvents(interactions);
 
     test.stopTest();
 
@@ -438,12 +437,12 @@ public with sharing class InteractionActionsTest {
 
     test.startTest();
     testInteraction.Status__c = InteractionConstants.CANCELLED;
-    InteractionActions actions = new InteractionActions();
+
     List<Interaction> updatedInteractions = new List<Interaction>();
     updatedInteractions.add(testInteraction);
     update updatedInteractions;
 
-    List<Interaction> interactions = actions.findCancelledInteractions(
+    List<Interaction> interactions = InteractionActions.findCancelledInteractions(
       oldMap,
       updatedInteractions
     );
@@ -454,7 +453,7 @@ public with sharing class InteractionActionsTest {
       'The interaction must be returned'
     );
 
-    actions.deleteInteractionEvents(interactions);
+    InteractionActions.deleteInteractionEvents(interactions);
 
     test.stopTest();
 
@@ -510,8 +509,7 @@ public with sharing class InteractionActionsTest {
       );
     }
 
-    InteractionActions actions = new InteractionActions();
-    List<Interaction> cancelledInteractions = actions.findCancelledInteractions(
+    List<Interaction> cancelledInteractions = InteractionActions.findCancelledInteractions(
       oldMap,
       newInteractions
     );
@@ -546,9 +544,7 @@ public with sharing class InteractionActionsTest {
 
     List<Interaction> records = new List<Interaction>{ unassignedInteraction };
 
-    InteractionActions actions = new InteractionActions();
-
-    List<Interaction> unassignedInteractions = actions.unassignInteractions(
+    List<Interaction> unassignedInteractions = InteractionActions.unassignInteractions(
       oldMap,
       records
     );
@@ -650,7 +646,6 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testFindInteractionOwnershipChanged() {
     Faker faker = new Faker('AU');
-    InteractionActions actions = new InteractionActions();
     Id myId = UserInfo.getUserId();
     Id groupId = CommonUtil.getGroupId(InteractionConstants.APPOINTMENTS_QUEUE);
 
@@ -674,7 +669,7 @@ public with sharing class InteractionActionsTest {
 
     List<Interaction> records = new List<Interaction>{ newInteraction };
 
-    List<Interaction> result = actions.findInteractionsOwnershipChanged(
+    List<Interaction> result = InteractionActions.findInteractionsOwnershipChanged(
       oldMap,
       records
     );
@@ -688,7 +683,10 @@ public with sharing class InteractionActionsTest {
     newInteraction.OwnerId = groupId;
     records = new List<Interaction>{ newInteraction };
 
-    result = actions.findInteractionsOwnershipChanged(oldMap, records);
+    result = InteractionActions.findInteractionsOwnershipChanged(
+      oldMap,
+      records
+    );
 
     System.assertEquals(
       true,
@@ -1191,7 +1189,6 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void testCoachUpdatingOverlappingInteraction() {
     Faker faker = new Faker('AU');
-    InteractionActions actions = new InteractionActions();
 
     Account testAccount1 = createTestAccount();
     insert testAccount1;
@@ -1258,7 +1255,7 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :testInteraction2.Id
     ];
 
-    Map<Id, List<Interaction>> interactionMap = actions.getCoachExistingInteractions(
+    Map<Id, List<Interaction>> interactionMap = InteractionActions.getCoachExistingInteractions(
       new Set<Id>{ UserInfo.getUserId() }
     );
     System.assertEquals(

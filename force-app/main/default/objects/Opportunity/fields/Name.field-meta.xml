@@ -3,6 +3,7 @@
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <description>A name for this opportunity.</description>
     <securityClassification>Internal</securityClassification>
     <encryptionScheme>None</encryptionScheme>
     <trackFeedHistory>false</trackFeedHistory>
