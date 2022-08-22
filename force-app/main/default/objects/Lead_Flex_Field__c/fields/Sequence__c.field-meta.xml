@@ -3,6 +3,7 @@
     <fullName>Sequence__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Uncontrolled;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Lead ID + Sequence to identify associated Lead Flex field record of Lead records.</description>
     <externalId>false</externalId>
     <label>Sequence</label>
     <precision>2</precision>

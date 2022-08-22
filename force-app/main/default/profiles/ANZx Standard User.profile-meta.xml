@@ -8033,6 +8033,10 @@
     <recordType>Case.ANZx_Complaint</recordType>
   </layoutAssignments>
   <layoutAssignments>
+        <layout>Case-BPAY Dispute Layout</layout>
+        <recordType>Case.BPAY_Dispute</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
       <layout>Case-Card Dispute Layout</layout>
       <recordType>Case.Card_Dispute</recordType>
   </layoutAssignments>
@@ -9484,10 +9488,6 @@
   </tabVisibilities>
   <tabVisibilities>
     <tab>standard-EmailTemplate</tab>
-    <visibility>DefaultOff</visibility>
-  </tabVisibilities>
-  <tabVisibilities>
-    <tab>standard-EnhancedLetterhead</tab>
     <visibility>DefaultOff</visibility>
   </tabVisibilities>
   <tabVisibilities>

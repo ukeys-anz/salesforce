@@ -36,77 +36,113 @@ public with sharing class EventHelperTest {
   @isTest
   static void testEventCreation() {
     setup();
-    DateTime appointmentDateTime = DateTime.Now();
-    DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
 
-    Account testAccount = createTestAccount();
-
-    Interaction testInteraction = new Interaction();
-    testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
-    testInteraction.Name =
-      InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
-    testInteraction.AccountId = testAccount.Id;
-    testInteraction.StartTime = appointmentDateTime;
-    testInteraction.EndTime = endDateTime;
-    insert testInteraction;
-
-    Event testEvent = EventHelper.createEventFromInteraction(testInteraction);
-
-    System.assertNotEquals(null, testEvent, 'Must return an Event');
-
-    String expectedName = 'Appointment with Fred Smith';
-    System.assertEquals(
-      expectedName,
-      testEvent.Subject,
-      'Subject must match the expected Name'
+    User testUser1 = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'Test User1',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => anzxRole.Id
+      }
     );
-
-    System.assertEquals(
-      appointmentDateTime,
-      testEvent.StartDateTime,
-      'Event start time should be the same as the interactions'
+    User testUser2 = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'Test User2',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => anzxRole.Id
+      }
     );
+    insert testUser1;
+    insert testUser2;
 
-    Id eventWhoId = testEvent.WhoId;
-    System.assertEquals(
-      testAccount.PersonContactId,
-      eventWhoId,
-      'Name should link to the PersonContact'
-    );
+    Id userId = testUser1.Id;
 
-    System.assertEquals(
-      testInteraction.Id,
-      testEvent.WhatId,
-      'Interaction should be mapped with the whatId of the Event'
+    List<PermissionSetAssignment> psAssigments = new List<PermissionSetAssignment>();
+    PermissionSet ps = CommonUtil.getPermissionSetByName(
+      'Appointment_Booking_Read_Write'
     );
+    psAssigments.add(TestUtil.createPSAssignment(testUser1.id, ps.Id));
+    psAssigments.add(TestUtil.createPSAssignment(testUser2.id, ps.Id));
+    insert psAssigments;
 
-    System.assertEquals(
-      testInteraction.OwnerId,
-      testEvent.OwnerId,
-      'Owner Id of Event must match the Interactions'
-    );
+    System.runAs(testUser2) {
+      DateTime appointmentDateTime = DateTime.Now();
+      DateTime endDateTime = appointmentDateTime.addMinutes(
+        otherPurposeDuration
+      );
 
-    System.assertEquals(
-      endDateTime,
-      testEvent.EndDateTime,
-      'The End Date of the Event must match the Interactions End Date'
-    );
+      Account testAccount = createTestAccount();
 
-    System.assertEquals(
-      true,
-      testEvent.IsReminderSet,
-      'Reminder should be set to true'
-    );
+      Interaction testInteraction = new Interaction();
+      testInteraction.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
+      testInteraction.Name =
+        InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
+      testInteraction.AccountId = testAccount.Id;
+      testInteraction.StartTime = appointmentDateTime;
+      testInteraction.EndTime = endDateTime;
+      insert testInteraction;
 
-    DateTime expectedReminderDate = appointmentDateTime.addMinutes(
-      -1 * reminderMinutes
-    );
+      testInteraction.OwnerId = userId;
 
-    System.assertEquals(
-      expectedReminderDate,
-      testEvent.ReminderDateTime,
-      'Reminder should be 15 minutes before the start time'
-    );
+      Event testEvent = EventHelper.createEventFromInteraction(testInteraction);
+
+      System.assertNotEquals(null, testEvent, 'Must return an Event');
+
+      String expectedName = 'Appointment with Fred Smith';
+      System.assertEquals(
+        expectedName,
+        testEvent.Subject,
+        'Subject must match the expected Name'
+      );
+
+      System.assertEquals(
+        appointmentDateTime,
+        testEvent.StartDateTime,
+        'Event start time should be the same as the interactions'
+      );
+
+      Id eventWhoId = testEvent.WhoId;
+      System.assertEquals(
+        testAccount.PersonContactId,
+        eventWhoId,
+        'Name should link to the PersonContact'
+      );
+
+      System.assertEquals(
+        testInteraction.Id,
+        testEvent.WhatId,
+        'Interaction should be mapped with the whatId of the Event'
+      );
+
+      System.assertEquals(
+        testInteraction.OwnerId,
+        testEvent.OwnerId,
+        'Owner Id of Event must match the Interactions'
+      );
+
+      System.assertEquals(
+        endDateTime,
+        testEvent.EndDateTime,
+        'The End Date of the Event must match the Interactions End Date'
+      );
+
+      System.assertEquals(
+        true,
+        testEvent.IsReminderSet,
+        'Reminder should be set to true'
+      );
+
+      DateTime expectedReminderDate = appointmentDateTime.addMinutes(
+        -1 * reminderMinutes
+      );
+
+      System.assertEquals(
+        expectedReminderDate,
+        testEvent.ReminderDateTime,
+        'Reminder should be 15 minutes before the start time'
+      );
+    }
   }
 
   @isTest
