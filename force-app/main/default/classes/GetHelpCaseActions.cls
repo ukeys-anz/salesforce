@@ -195,6 +195,13 @@ public with sharing class GetHelpCaseActions {
       if (GetHelpCaseActionsHelper.isComplaint(record, oldCaseMap)) {
         populateComplaintCaseSubject(record);
       }
+
+      // Check for ANZx Non Customer Complaint Cases
+      if (
+        GetHelpCaseActionsHelper.isANZxNonCustomerComplaint(record, oldCaseMap)
+      ) {
+        populateANZxNonCustomerComplaintCaseSubject(record);
+      }
     }
   }
 
@@ -274,6 +281,18 @@ public with sharing class GetHelpCaseActions {
       record.Type
     );
     record.Subject = 'ANZ Plus Complaint - ' + typeLabel;
+  }
+
+  /**
+   * @description  This method populates ANZx Non Customer Complaint Case subject based on Case record type
+   * @param record Case record from trigger
+   */
+  public static void populateANZxNonCustomerComplaintCaseSubject(Case record) {
+    String typeLabel = CommonUtil.getSinglePicklistLabel(
+      Case.Type,
+      record.Type
+    );
+    record.Subject = 'Non-Customer Complaint - ' + typeLabel;
   }
 
   /**
@@ -495,7 +514,7 @@ public with sharing class GetHelpCaseActions {
     }
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
-    GetHelpCaseActionsHelper.isNonCustomerComplaint(records);
+    GetHelpCaseActionsHelper.setANZxCustomerNonCustomerComplaints(records);
   }
 
   /**

@@ -55,7 +55,8 @@ private class CaseTriggerHandlerTest {
       List<String> coachPSs = new List<String>{
         'Case_Read_Write_Get_Help',
         'Customer_Read_Only',
-        'Quality_Assessment_Read_Only'
+        'Quality_Assessment_Read_Only',
+        'Case_Read_Write_Non_Customer_Complaints'
       };
       List<PermissionSet> coachPsList = [
         SELECT Id
@@ -2982,6 +2983,85 @@ private class CaseTriggerHandlerTest {
       'Not Applicable',
       closedSampleCase1.Fraud_Defects_Rectified__c,
       'KYC QA: Have All Defects Been Rectified field should be empty after closing Case as No Defect.'
+    );
+  }
+
+  // Tests if the Non Customer Complaint Case Subject is populated correctly
+  // based on case record type and issue and when created/updated by ANZx user only
+  @isTest
+  public static void testPopulateNonCustomerComplaintSubject() {
+    User coachUser = TestUtil.getUserByFirstName('CoachTest');
+
+    List<Case> casesToInsert = new List<Case>();
+    Account acc = [SELECT Id FROM Account LIMIT 1];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      casesToInsert.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = GetHelpConstants.OPEN_STATUS,
+          Type = 'Cards'
+        )
+      );
+    }
+    Test.startTest();
+
+    System.runAs(coachUser) {
+      // Insert NCC cases as ANZx user
+      insert casesToInsert;
+    }
+    Test.stopTest();
+    Case newCase = [
+      SELECT Id, Subject
+      FROM Case
+      WHERE Id = :casesToInsert[0].Id
+    ];
+
+    String expectedCaseSubjectString = 'Non-Customer Complaint - ' + 'Cards';
+
+    System.assertEquals(
+      expectedCaseSubjectString,
+      newCase.Subject,
+      'ANZx Non Customer Complaint Subject should be populated as expected'
+    );
+  }
+
+  // Tests to ensure the CMOS Non Customer Complaint Case Subject is not auto-populated
+  // As this subject auto-pop should apply to ANZx NCCs only
+  @isTest
+  public static void testNoAutoPopulateForCMOSNonCustomerComplaintSubject() {
+    List<Case> casesToInsert = new List<Case>();
+    Account acc = [SELECT Id FROM Account LIMIT 1];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      casesToInsert.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Type = '2',
+          IDR_Subsequent_Issue__c = 'Fee or interest dispute',
+          AccountId = acc.Id,
+          Description = 'Some description',
+          Origin = 'Phone',
+          Priority = 'Standard',
+          Subject = 'CMOS Specific Subject'
+        )
+      );
+    }
+    Test.startTest();
+
+    insert casesToInsert;
+
+    Test.stopTest();
+    Case newCase = [
+      SELECT Id, Subject
+      FROM Case
+      WHERE Id = :casesToInsert[0].Id
+    ];
+
+    String expectedCaseSubjectString = 'CMOS Specific Subject';
+
+    System.assertEquals(
+      expectedCaseSubjectString,
+      newCase.Subject,
+      'CMOS Non Customer Complaint Subject should not be auto-populated on insert or update'
     );
   }
 }

@@ -321,6 +321,30 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Check if a case is an ANZx Non Customer Complaint case
+   * @param record The case record to check
+   * @param oldCaseMap old case map
+   * @return if the case is an ANZx Non Customer Complaint case
+   */
+  public static Boolean isANZxNonCustomerComplaint(
+    Case record,
+    Map<Id, Case> oldCaseMap
+  ) {
+    if (
+      record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+      String.isNotBlank(record.Type) &&
+      record.ANZx_Customer__c &&
+      (oldCaseMap == null ||
+      record.Type != oldCaseMap.get(record.Id).Type ||
+      record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * @description getCaseNumberByTransactionId is called to get all open cases that are linked to a set of transaction Ids
    * @param transactionIds set of transaction Ids
    * @return Map<String, String> a map of case number by their transaction Id
@@ -433,7 +457,7 @@ public with sharing class GetHelpCaseActionsHelper {
    * is ANZx
    * @param records New record instances to process
    */
-  public static void isNonCustomerComplaint(List<Case> records) {
+  public static void setANZxCustomerNonCustomerComplaints(List<Case> records) {
     for (Case record : records) {
       if (
         record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
