@@ -5,7 +5,8 @@
  */
 @isTest
 public with sharing class AppointmentNotificationTest {
-  private final static string TEST_MOBILE = '01189998819991197253';
+  private final static Faker TESTFAKER = new Faker('AU');
+  private final static string TEST_MOBILE = TESTFAKER.person.phone();
   private static final String STATUS_CANCELLED = 'Cancelled';
   private static final String TEMPLATE_BOOKED = 'AgANZxApptBooked';
   private static final String TEMPLATE_CANCELLED = 'AgANZxApptCancelled';
@@ -44,23 +45,14 @@ public with sharing class AppointmentNotificationTest {
     interactionSubject.Status__c = STATUS_CANCELLED;
     return interactionSubject;
   }
-  @isTest
-  static void testSendNotification() {
-    Interaction interactionSubject = createInteraction();
-    interactionSubject.EndTime = interactionSubject.StartTime.addMinutes(30);
-    List<Interaction> interactions = new List<Interaction>();
-    interactions.add(interactionSubject);
-
-    List<Database.SaveResult> result = AppointmentNotificationHandler.sendNotifications(
-      interactions
-    );
-    System.assertNotEquals(null, result, 'Nothing should not come back');
-    System.assertEquals(false, result.isEmpty(), 'List should not be empty');
-  }
 
   @isTest
   static void testCreatingAppointmentNotificationEventForAccount() {
-    Account testAccount = createTestAccount('Joe', 'Bloggs', '123456');
+    Account testAccount = createTestAccount(
+      TESTFAKER.randomString(10),
+      TESTFAKER.randomString(10),
+      TESTFAKER.randomString(6)
+    );
     insert testAccount;
 
     Interaction interactionSubject = createInteraction();
@@ -85,22 +77,27 @@ public with sharing class AppointmentNotificationTest {
         ContactRequestId__c,
         Interaction_Auto_Number__c,
         InteractionType,
-        LocationId
+        LocationId,
+        RecordTypeId
       FROM Interaction
       WHERE Id = :interactionSubject.Id
     ];
 
-    IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
-      interactionSubject
-    );
-    Test.stopTest();
-    System.assertNotEquals(null, notificationEvent, 'Should return an Event');
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteraction(interactionSubject);
 
-    System.assertEquals(
-      interactionSubject.StartTime,
-      notificationEvent.Date_and_Time__c,
-      'Date_and_Time__c should be set'
-    );
+    Map<Id, SObject> dataMap = new Map<Id, SObject>();
+    dataMap.put(testAccount.Id, testAccount);
+
+    IDR_Notification_Event__e platformEvent = AppointmentNotificationEventCreator.getInstance()
+      .createBaseIDRNotificationEvent(interactionSubject);
+
+    IDR_Notification_Event__e notificationEvent = AppointmentNotificationEventCreator.getInstance()
+      .newPlatformEvent(interactionSubject, dataMap, platformEvent);
+
+    Test.stopTest();
+
+    interactionEventComparison(interactionSubject, notificationEvent);
 
     System.assertEquals(
       duration,
@@ -115,40 +112,16 @@ public with sharing class AppointmentNotificationTest {
     );
 
     System.assertEquals(
-      interactionSubject.LocationId,
-      notificationEvent.Location__c,
-      'Location__c should be set'
-    );
-
-    System.assertEquals(
-      interactionSubject.InteractionType,
-      notificationEvent.Preferred_Channel__c,
-      'Preferred_Channel__c should be set'
-    );
-
-    System.assertEquals(
-      interactionSubject.Interaction_Purpose__c,
-      notificationEvent.Request_Type__c,
-      'Request_Type__c should be set'
-    );
-
-    System.assertEquals(
       TEMPLATE_BOOKED,
       notificationEvent.EmailTemplate__c,
       'EmailTemplate__c should be set'
     );
 
-    string expectedEmail = testAccount.PersonEmail.toLowerCase();
+    string expectedEmail = testAccount.PersonEmail;
     System.assertEquals(
       expectedEmail,
       notificationEvent.AuthorisedEmail__c,
       'Email on the event must match that of the related account'
-    );
-
-    System.assertNotEquals(
-      null,
-      notificationEvent.Record_Id__c,
-      'Interaction External Id must be copied over to the events record Id'
     );
   }
 
@@ -158,8 +131,8 @@ public with sharing class AppointmentNotificationTest {
       .get('General')
       .getRecordTypeId();
     Lead testLead = new Lead();
-    testLead.FirstName = 'Jane';
-    testLead.LastName = 'Doe';
+    testLead.FirstName = TESTFAKER.randomString(10);
+    testLead.LastName = TESTFAKER.randomString(10);
     testLead.Company = testLead.FirstName;
     testLead.RecordTypeId = leadRecordTypeId;
     testLead.Email =
@@ -175,17 +148,40 @@ public with sharing class AppointmentNotificationTest {
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
+    insert interactionSubject;
 
-    IDR_Notification_Event__e notificationEvent = AppointmentNotificationHandler.createAppointmentNotificationEvent(
-      interactionSubject
-    );
-    System.assertNotEquals(null, notificationEvent, 'Should return an Event');
+    test.startTest();
+    interactionSubject = [
+      SELECT
+        Interaction_External_Id__c,
+        StartTime,
+        EndTime,
+        AccountId,
+        Interaction_Purpose__c,
+        Status__c,
+        Lead__c,
+        ContactRequestId__c,
+        Interaction_Auto_Number__c,
+        InteractionType,
+        LocationId,
+        RecordTypeId
+      FROM Interaction
+      WHERE Id = :interactionSubject.Id
+    ];
 
-    System.assertEquals(
-      interactionSubject.StartTime,
-      notificationEvent.Date_and_Time__c,
-      'Date_and_Time__c should be set'
-    );
+    AppointmentNotificationEventCreator.getInstance()
+      .addInteraction(interactionSubject);
+
+    Map<Id, SObject> dataMap = new Map<Id, SObject>();
+    dataMap.put(testLead.Id, testLead);
+
+    IDR_Notification_Event__e platformEvent = AppointmentNotificationEventCreator.getInstance()
+      .createBaseIDRNotificationEvent(interactionSubject);
+
+    IDR_Notification_Event__e notificationEvent = AppointmentNotificationEventCreator.getInstance()
+      .newPlatformEvent(interactionSubject, dataMap, platformEvent);
+
+    interactionEventComparison(interactionSubject, notificationEvent);
 
     System.assertEquals(
       duration,
@@ -197,6 +193,32 @@ public with sharing class AppointmentNotificationTest {
       testLead.FirstName,
       notificationEvent.First_Name__c,
       'First_Name__c should be set'
+    );
+
+    System.assertEquals(
+      TEMPLATE_BOOKED,
+      notificationEvent.EmailTemplate__c,
+      'EmailTemplate__c should be set'
+    );
+
+    string expectedEmail = testLead.Email;
+    System.assertEquals(
+      expectedEmail,
+      notificationEvent.AuthorisedEmail__c,
+      'Event Email must match the Leads Email'
+    );
+  }
+
+  static void interactionEventComparison(
+    Interaction interactionSubject,
+    IDR_Notification_Event__e notificationEvent
+  ) {
+    System.assertNotEquals(null, notificationEvent, 'Should return an Event');
+
+    System.assertEquals(
+      interactionSubject.StartTime,
+      notificationEvent.Date_and_Time__c,
+      'Date_and_Time__c should be set'
     );
 
     System.assertEquals(
@@ -217,17 +239,10 @@ public with sharing class AppointmentNotificationTest {
       'Request_Type__c should be set'
     );
 
-    System.assertEquals(
-      TEMPLATE_BOOKED,
-      notificationEvent.EmailTemplate__c,
-      'EmailTemplate__c should be set'
-    );
-
-    string expectedEmail = testLead.Email.toLowerCase();
-    System.assertEquals(
-      expectedEmail,
-      notificationEvent.AuthorisedEmail__c,
-      'Event Email must match the Leads Email'
+    System.assertNotEquals(
+      null,
+      notificationEvent.Record_Id__c,
+      'Interaction External Id must be copied over to the events record Id'
     );
   }
 
@@ -250,10 +265,10 @@ public with sharing class AppointmentNotificationTest {
       Status__c = STATUS_CANCELLED
     );
 
-    String createdTemplate = AppointmentNotificationHandler.getNotificationTemplate(
+    String createdTemplate = AppointmentNotificationEventCreator.getNotificationTemplate(
       createdInteraction
     );
-    String cancelledTemplate = AppointmentNotificationHandler.getNotificationTemplate(
+    String cancelledTemplate = AppointmentNotificationEventCreator.getNotificationTemplate(
       cancelledInteraction
     );
 

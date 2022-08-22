@@ -287,7 +287,7 @@ public without sharing class Lib_SystemLog {
     Traced_Application_Log__b curLog = new Traced_Application_Log__b();
     curLog.Timestamp__c = DateTime.Now();
     curLog.Trace_Id__c = traceId;
-    curLog.Span_Id__c = UniqueIdUtil.getParentId();
+    curLog.Span_Id__c = UniqueIdUtil.getSpanId();
     curLog.Severity_Text__c = severity.name();
     curLog.Severity_Number__c = severityMap.get(severity);
     Map<String, String> resourceMap = new Map<String, String>();
@@ -371,7 +371,7 @@ public without sharing class Lib_SystemLog {
     Traced_Application_Log__b curLog = new Traced_Application_Log__b();
     curLog.Timestamp__c = DateTime.Now();
     curLog.Trace_Id__c = traceId;
-    curLog.Span_Id__c = UniqueIdUtil.getParentId();
+    curLog.Span_Id__c = UniqueIdUtil.getSpanId();
     curLog.Severity_Text__c = severity.name();
     curLog.Severity_Number__c = severityMap.get(severity);
 
@@ -459,7 +459,7 @@ public without sharing class Lib_SystemLog {
     Traced_Application_Log__b curLog = new Traced_Application_Log__b();
     curLog.Timestamp__c = DateTime.Now();
     curLog.Trace_Id__c = traceId;
-    curLog.Span_Id__c = UniqueIdUtil.getParentId();
+    curLog.Span_Id__c = UniqueIdUtil.getSpanId();
     curLog.Severity_Text__c = severity.name();
     curLog.Severity_Number__c = severityMap.get(severity);
     Map<String, String> resourceMap = new Map<String, String>();

@@ -12,7 +12,7 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> list of interactions through which to search.
    * @return List<Interaction> list of cancelled interactions
    */
-  public List<Interaction> findCancelledInteractions(
+  public static List<Interaction> findCancelledInteractions(
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
   ) {
@@ -28,7 +28,7 @@ public with sharing class InteractionActions {
    * @param records List<Interaction> list of the interaction through which to iterate.
    * @return List<Interaction> list of interaction that have had their ownership changed.
    */
-  public List<Interaction> findInteractionsOwnershipChanged(
+  public static List<Interaction> findInteractionsOwnershipChanged(
     Map<Id, SObject> oldMap,
     List<Interaction> records
   ) {
@@ -43,7 +43,7 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> list of the interaction through which to iterate.
    * @return List<Coaching_Summary> list of coaching summary records updated with new owner.
    */
-  public List<Coaching_Summary__c> assignCoachingSummaryOwner(
+  public static List<Coaching_Summary__c> assignCoachingSummaryOwner(
     List<Interaction> interactions
   ) {
     Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
@@ -65,7 +65,7 @@ public with sharing class InteractionActions {
    * @description Method to updated interactions without end time
    * @param interactions List<Interaction> list of interaction records without end time.
    */
-  public void updateEndTime(List<Interaction> interactions) {
+  public static void updateEndTime(List<Interaction> interactions) {
     Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     ContactRequestActions crActions = new ContactRequestActions();
     for (Interaction interact : interactions) {
@@ -87,7 +87,7 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> list of interactions through which to search.
    * @return List<Interaction> list of interactions where end time needs to be updated.
    */
-  public List<Interaction> getInteractionsRequiringEndTimeUpdate(
+  public static List<Interaction> getInteractionsRequiringEndTimeUpdate(
     Map<Id, SObject> oldMap,
     List<Interaction> interactions
   ) {
@@ -115,7 +115,7 @@ public with sharing class InteractionActions {
    * @param records List<Interaction> list of interactions of which to search
    * @return List<Interaction> interactions that have been updated
    */
-  public List<Interaction> unassignInteractions(
+  public static List<Interaction> unassignInteractions(
     Map<Id, sObject> oldMap,
     List<Interaction> records
   ) {
@@ -150,7 +150,7 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> interactions for which to get the accounts
    * @return Map<Id,Account> map of accounts.
    */
-  public Map<Id, Account> getAccountMapFromInteractions(
+  public static Map<Id, Account> getAccountMapFromInteractions(
     List<Interaction> interactions
   ) {
     Map<Id, Account> result = new Map<Id, Account>();
@@ -175,7 +175,7 @@ public with sharing class InteractionActions {
    * @param interactions List<Interaction> interactions for which to get the leads
    * @return Map<Id,Lead> map of leads.
    */
-  public Map<Id, Lead> getLeadMapFromInteractions(
+  public static Map<Id, Lead> getLeadMapFromInteractions(
     List<Interaction> interactions
   ) {
     Map<Id, Lead> result = new Map<Id, Lead>();
@@ -198,7 +198,7 @@ public with sharing class InteractionActions {
    * @description deletes events linked to a list of interactions
    * @param interactions List of interactions to search through and delete related events.
    */
-  public void deleteInteractionEvents(List<Interaction> interactions) {
+  public static void deleteInteractionEvents(List<Interaction> interactions) {
     InteractionEventHelper.deleteInteractionEvents(interactions);
   }
 
@@ -206,7 +206,7 @@ public with sharing class InteractionActions {
    * @param coachIds Set of coach ids related to the new interactions
    * @return  Map<Id, List<Interaction>> Map of owner ids and list of scheduled interactions creared for the corresponding coach
    */
-  public Map<Id, List<Interaction>> getCoachExistingInteractions(
+  public static Map<Id, List<Interaction>> getCoachExistingInteractions(
     Set<Id> coachIds
   ) {
     return InteractionValidations.getCoachExistingInteractions(coachIds);

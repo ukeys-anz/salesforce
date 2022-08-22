@@ -19,9 +19,10 @@ public with sharing class IDRCaseAssignmentRules {
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-        String productWorkbasketName = c.IDR_Product_Family__c != null
-          ? (productFamilyMap.get(c.IDR_Product_Family__c)).IDR_Workbasket__c
-          : null;
+        String productWorkbasketName = productFamilyMap.get(
+            c.IDR_Product_Family__c
+          )
+          ?.IDR_Workbasket__c;
         c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
           c,
           productWorkbasketName,
@@ -48,7 +49,9 @@ public with sharing class IDRCaseAssignmentRules {
         oldCase.Product__c != c.Product__c)
       ) {
         c.IDR_Product_Family__c = (productMap.get(c.Product__c))
-          .IDR_Product_Family__c;
+          ?.IDR_Product_Family__c;
+        c.IDR_Product_Category__c = (productMap.get(c.Product__c))
+          ?.IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c;
       } else if (
         c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
         c.IDR_Product_Category__c != null &&
@@ -57,6 +60,43 @@ public with sharing class IDRCaseAssignmentRules {
       ) {
         c.IDR_Product_Family__c = (categoryMap.get(c.IDR_Product_Category__c))
           .Id;
+      }
+    }
+  }
+
+  /**
+   * @description Assign cases that aren't escalated. Do this after any prior work has been done.
+   * @param lstCases list of cases being updated
+   * @param mpOldCases map of old version of cases
+   */
+  public static void assignUnescalatedCases(
+    List<Case> lstCases,
+    Map<Id, Case> mpOldCases
+  ) {
+    Case oOldCase;
+    List<Case> lstUpdates = new List<Case>();
+    Id idOwner;
+    for (Case oCase : lstCases) {
+      if (IDRCaseActions.isIDRComplaintType(oCase)) {
+        oOldCase = (mpOldCases != null ? mpOldCases.get(oCase.Id) : null);
+        idOwner = IDRCaseAssignmentRules.getOwnerId(oCase, oOldCase);
+        if (oCase.OwnerId != idOwner) {
+          lstUpdates.add(new Case(Id = oCase.Id, OwnerId = idOwner));
+        }
+      }
+    }
+    if (!lstUpdates.isEmpty()) {
+      if (
+        Case.SObjectType.getDescribe().isUpdateable() &&
+        Schema.SObjectType.Case.fields.OwnerId.isUpdateable()
+      ) {
+        update lstUpdates;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRCaseAssignmentRules',
+          'assignUnescalatedCases',
+          'Not enough permissions to update Case.'
+        );
       }
     }
   }
@@ -134,10 +174,44 @@ public with sharing class IDRCaseAssignmentRules {
         return QUEUE_MAP.get('IDR_Early_Resolution');
       }
     }
+
     //Not escalated, don't change owner
     return rec.OwnerId;
   }
 
+  /**
+   * @description get OwnerId without product workbasket
+   * @param rec Case record
+   * @param oldCase Previous version of Case record
+   *
+   * @return Calculated Owner Id
+   */
+  private static ID getOwnerId(Case rec, Case oldCase) {
+    if (
+      (rec.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS ||
+      rec.Status == IDRConstants.CLOSED_STATUS) &&
+      (oldCase == null ||
+      oldCase.Status != IDRConstants.ESCALATED_STATUS) &&
+      ((rec.Type == '4' &&
+      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+        rec.IDR_Subsequent_Issue__c
+      )) ||
+      (rec.IDR_Issue_Type_2__c == '4' &&
+      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+        rec.IDR_Subsequent_Issue_2__c
+      )) ||
+      (rec.IDR_Issue_Type_3__c == '4' &&
+      IDRConstants.SUB_ISSUE_TYPE_HARDSHIP.contains(
+        rec.IDR_Subsequent_Issue_3__c
+      ))) &&
+      (FeatureManagement.checkPermission('IDR_Level_2') ||
+      FeatureManagement.checkPermission('IDR_Level_3'))
+    ) {
+      //To auto assign cases to the workbasket 'Hardship_IDR_Letter'
+      return QUEUE_MAP.get('Hardship_IDR_Letter');
+    }
+    return rec.OwnerId;
+  }
   /**
    * @description method to get a map of Cmos workbasket queues, API names and Ids
    * @return a map of workbasket queues, API names and Ids
@@ -194,7 +268,10 @@ public with sharing class IDRCaseAssignmentRules {
     Map<Id, Product2> productMap = new Map<Id, Product2>();
     if (Product2.sObjectType.getDescribe().isQueryable()) {
       for (Product2 p : [
-        SELECT Name, IDR_Product_Family__c
+        SELECT
+          Name,
+          IDR_Product_Family__c,
+          IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c
         FROM Product2
         WHERE Id IN :productIds
       ]) {

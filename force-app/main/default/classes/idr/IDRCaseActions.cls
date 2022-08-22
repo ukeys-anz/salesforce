@@ -116,6 +116,7 @@ public with sharing class IDRCaseActions {
     IDRTaskActions.possibleSystemicIssueActions(records, null);
     IDRCollectionActions.stopCollections(records, null);
     IDRCollectionActions.startCollections(records, null);
+    IDRCaseAssignmentRules.assignUnescalatedCases(records, null);
     IDRComplaintFlagActions.setComplaintsFlag(records, null);
   }
 
@@ -130,6 +131,36 @@ public with sharing class IDRCaseActions {
     for (Case record : records) {
       if (isIDRComplaintType(record)) {
         Case oldRecord = (case) oldMap.get(record.id);
+        if (
+          record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
+          oldRecord != null &&
+          ((IDRCollectionActions.isCollectionsIssue(
+            oldRecord.Type,
+            oldRecord.IDR_Subsequent_Issue__c
+          ) &&
+          !IDRCollectionActions.isCollectionsIssue(
+            record.Type,
+            record.IDR_Subsequent_Issue__c
+          )) ||
+          (IDRCollectionActions.isCollectionsIssue(
+            oldRecord.IDR_Issue_Type_2__c,
+            oldRecord.IDR_Subsequent_Issue_2__c
+          ) &&
+          !IDRCollectionActions.isCollectionsIssue(
+            record.IDR_Issue_Type_2__c,
+            record.IDR_Subsequent_Issue_2__c
+          )) ||
+          (IDRCollectionActions.isCollectionsIssue(
+            oldRecord.IDR_Issue_Type_3__c,
+            oldRecord.IDR_Subsequent_Issue_3__c
+          ) &&
+          !IDRCollectionActions.isCollectionsIssue(
+            record.IDR_Issue_Type_3__c,
+            record.IDR_Subsequent_Issue_3__c
+          )))
+        ) {
+          record.addError(IDRConstants.CANNOT_CHANGE_ISSUE_MESSAGE);
+        }
         populateSuppliedEmail(record, oldRecord);
         updateKnowledgeKeyWordCaseFields(records, (Map<Id, Case>) OldMap);
         validateCaseNumber(record, oldRecord);
@@ -190,6 +221,10 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
+    IDRCaseAssignmentRules.assignUnescalatedCases(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     completeMilestone(records, oldMap);
   }
 
@@ -205,24 +240,26 @@ public with sharing class IDRCaseActions {
     Set<Id> escalationCases = new Set<Id>();
     Set<Id> maxTimeFrameCases = new Set<Id>();
     for (Case c : records) {
-      Case oldCase = (oldMap.containsKey(c.Id))
-        ? (Case) oldMap.get(c.Id)
-        : null;
-      if (
-        (oldCase != null &&
-        ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
-        c.Status == IDRConstants.ESCALATED_STATUS) ||
-        (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
-        c.IDR_Milestone_Sla__c == 'Completed'))
-      ) {
-        escalationCases.add(c.Id);
-      }
-      if (
-        (oldCase != null &&
-        (!oldCase.isClosed &&
-        (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
-      ) {
-        maxTimeFrameCases.add(c.Id);
+      if (isIDRComplaintType(c)) {
+        Case oldCase = (oldMap.containsKey(c.Id))
+          ? (Case) oldMap.get(c.Id)
+          : null;
+        if (
+          (oldCase != null &&
+          ((oldCase.Status != IDRConstants.ESCALATED_STATUS &&
+          c.Status == IDRConstants.ESCALATED_STATUS) ||
+          (oldCase.IDR_Milestone_Sla__c != 'Completed') &&
+          c.IDR_Milestone_Sla__c == 'Completed'))
+        ) {
+          escalationCases.add(c.Id);
+        }
+        if (
+          (oldCase != null &&
+          (!oldCase.isClosed &&
+          (c.isClosed || c.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS)))
+        ) {
+          maxTimeFrameCases.add(c.Id);
+        }
       }
     }
 

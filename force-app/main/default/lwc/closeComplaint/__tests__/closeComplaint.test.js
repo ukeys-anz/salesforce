@@ -7,7 +7,11 @@ const CLOSED_STATUS_API_NAME = "Closed";
 const DUMMY_RECORD_ID = "5002N00000Dwe1iQAB";
 
 const mockGetCaseRecord = require("./data/getCaseRecord.json");
+const mockGetCaseRecordInvalid = require("./data/getCaseRecordInvalid.json");
 const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
+
+const validationMessage =
+  "Please update Product or Service Name before closing the case";
 
 describe("c-close-complaint test suite", () => {
   beforeEach(() => {
@@ -21,6 +25,19 @@ describe("c-close-complaint test suite", () => {
     const element = document.querySelector("c-close-complaint");
     const divElement = element.shadowRoot.querySelector(".title");
     expect(divElement.textContent).toBe("Close Complaint");
+  });
+
+  it("display error for invalid case befor closure", () => {
+    const element = document.querySelector("c-close-complaint");
+    element.recordId = DUMMY_RECORD_ID;
+    getRecordAdapter.emit(mockGetCaseRecordInvalid);
+    return Promise.resolve().then(() => {
+      const errorMessageDivElement = element.shadowRoot.querySelector(
+        ".validationMessage"
+      );
+      expect(errorMessageDivElement).not.toBeNull;
+      expect(errorMessageDivElement.textContent).toBe(validationMessage);
+    });
   });
 
   it("set recordId and recordTypeId correctly and render child component", () => {

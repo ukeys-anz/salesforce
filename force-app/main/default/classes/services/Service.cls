@@ -175,7 +175,7 @@ public with sharing virtual class Service {
       '-' +
       UniqueIdUtil.getTraceId() +
       '-' +
-      UniqueIdUtil.getParentId() +
+      UniqueIdUtil.generateSpanId() +
       '-' +
       UniqueIdUtil.getTraceFlag()
     );
@@ -274,7 +274,7 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
-  
+
   /**
    * @param lookupString from address search bar
    * @return `HttpCalloutResponse` api response
