@@ -32,7 +32,19 @@
     "IDR_Duration_of_Remedy_3__c": "",
     "IDR_Avoidable_Escalation__c": false,
     "IDR_Avoidable_Escalation_Reason__c": "",
-    "Product__c": ""
+    "Product__c": "",
+    "IDR_Second_Issue__c": {
+      "value": false
+    },
+    "IDR_Product_2__c": {
+      "value": ""
+    },
+    "IDR_Third_Issue__c": {
+      "value": false
+    },
+    "IDR_Product_3__c": {
+      "value": ""
+    }
   },
   "id": "5002N00000Dwe1iQAB",
   "lastModifiedById": "0052N000004DtsAQAS",
