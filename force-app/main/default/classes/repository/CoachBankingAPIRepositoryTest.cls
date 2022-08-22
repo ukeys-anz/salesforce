@@ -473,6 +473,58 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     }
   }
 
+  /**
+   * @description test getAccountsBucket param construct method
+   */
+  @isTest
+  static void testParamBuilderGetAccountsBucket() {
+    Integer pageSize = 7;
+    String nextPageToken = '';
+
+    Test.startTest();
+    String paramUrlString = CoachBankingAPIRepositoryHelper.constructGetAccountsBucketParamUrl(
+      pageSize,
+      nextPageToken
+    );
+    Test.stopTest();
+
+    String expectedString = '?status_filter=BUCKET_STATUS_FILTER_OPEN&page_size=7';
+
+    System.assertEquals(
+      expectedString,
+      paramUrlString,
+      'Parameter URL string should be built as expected'
+    );
+  }
+
+  /**
+   * @description test getTransactionHistory param construct method
+   */
+  @isTest
+  static void testParamBuilderGetTransactionHistory() {
+    String accountNumber = '000000000';
+    String startDate = '2018-07-03 00:00:00';
+    String endDate = '2018-07-26 23:59:59';
+    List<String> bucketIds = new List<String>();
+
+    Test.startTest();
+    String paramUrlString = CoachBankingAPIRepositoryHelper.getTransactionParamUrl(
+      startDate,
+      endDate,
+      accountNumber,
+      bucketIds
+    );
+    Test.stopTest();
+
+    String expectedString = '?account_numbers=000000000&start_time=2018-07-02T14:00:00.000Z&end_time=2018-07-26T13:59:59.000Z';
+
+    System.assertEquals(
+      expectedString,
+      paramUrlString,
+      'Parameter URL string should be built as expected'
+    );
+  }
+
   private static HttpCalloutResponse getFinancialAccountInvalidResponse() {
     return generateInvalidResponse('Get accounts failed');
   }

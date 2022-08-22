@@ -3,6 +3,7 @@
     <fullName>ABN_Validation_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>ABN validation status received from australian business registry</description>
     <externalId>false</externalId>
     <label>ABN Validation Status</label>
     <required>false</required>

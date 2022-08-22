@@ -37,7 +37,7 @@ public with sharing class CardManagementService extends Service {
     Map<String, String> headers = new Map<String, String>();
 
     setCalloutCommonHeaders(ocvID, headers);
-    headers.put('x-span-id', UniqueIdUtil.getParentId());
+    headers.put('x-span-id', UniqueIdUtil.generateSpanId());
     headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     headers.put('Content-Type', 'application/json');
 

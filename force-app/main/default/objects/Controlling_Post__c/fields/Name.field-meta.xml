@@ -4,6 +4,7 @@
     <length>20</length>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Controlling Post ID</description>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
 </CustomField>

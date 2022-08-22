@@ -25,13 +25,16 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     Integer pageSize,
     String nextPageToken
   ) {
-    String paramUrl = '?status_filter=BUCKET_STATUS_FILTER_OPEN';
+    ParameterBuilder builder = new ParameterBuilder();
+    builder.append('status_filter', 'BUCKET_STATUS_FILTER_OPEN');
 
     if (String.isBlank(nextPageToken)) {
-      paramUrl += '&page_size=' + pageSize;
+      builder.append('page_size', pageSize);
     } else {
-      paramUrl += '&page_token=' + nextPageToken;
+      builder.append('page_token', nextPageToken);
     }
+
+    String paramUrl = builder.get();
 
     return paramUrl;
   }
@@ -51,36 +54,23 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     String accountNumber,
     List<String> bucketIds
   ) {
-    String accNum = '';
-    String startTime = '';
-    String endTime = '';
-    String goalIds = '';
-    String params = '';
-    if (String.isNotBlank(accountNumber)) {
-      accNum = 'account_numbers=' + accountNumber + '&';
-    }
-    if (String.isNotBlank(startDate)) {
-      String utcStartDate = DateTimeUtils.getUTCTimeFromString(startDate);
-      startTime += 'start_time=' + utcStartDate + '&';
-    }
-    if (String.isNotBlank(endDate)) {
-      String utcEndDate = DateTimeUtils.getUTCTimeFromString(endDate);
-      endTime += 'end_time=' + utcEndDate + '&';
-    }
+    String paramUrlString = '';
+
+    ParameterBuilder builder = new ParameterBuilder();
+
+    builder.append('account_numbers', accountNumber)
+      .append('start_time', DateTimeUtils.getUTCTimeFromString(startDate))
+      .append('end_time', DateTimeUtils.getUTCTimeFromString(endDate));
+
     if (!bucketIds.isEmpty()) {
       for (String bucketId : bucketIds) {
-        goalIds += 'bucket_ids=' + bucketId + '&';
+        builder.append('bucket_ids', bucketId);
       }
     }
-    if (
-      String.isNotBlank(accNum) ||
-      String.isNotBlank(startTime) ||
-      String.isNotBlank(endTime) ||
-      String.isNotBlank(goalIds)
-    ) {
-      params = '?' + accNum + startTime + endTime + goalIds;
-    }
-    return params;
+
+    paramUrlString = builder.get();
+
+    return paramUrlString;
   }
 
   /**
