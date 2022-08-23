@@ -198,28 +198,6 @@
           "navigationHidden": false,
           "widgets": [
             {
-              "colspan": 6,
-              "column": 6,
-              "name": "chart_8",
-              "row": 10,
-              "rowspan": 21,
-              "widgetStyle": { "borderEdges": [] }
-            },
-            {
-              "colspan": 6,
-              "column": 6,
-              "name": "container_2",
-              "row": 7,
-              "rowspan": 27,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
               "colspan": 7,
               "column": 0,
               "name": "navigation_1",
@@ -237,93 +215,9 @@
               "colspan": 12,
               "column": 0,
               "name": "table_2",
-              "row": 47,
+              "row": 26,
               "rowspan": 23,
               "widgetStyle": { "borderEdges": [] }
-            },
-            {
-              "colspan": 4,
-              "column": 2,
-              "name": "pillbox_1",
-              "row": 42,
-              "rowspan": 4,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 4,
-              "column": 8,
-              "name": "pillbox_2",
-              "row": 42,
-              "rowspan": 4,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
-              "column": 6,
-              "name": "text_2",
-              "row": 43,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 6,
-              "column": 0,
-              "name": "container_4",
-              "row": 42,
-              "rowspan": 4,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 6,
-              "column": 6,
-              "name": "container_5",
-              "row": 42,
-              "rowspan": 4,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
-              "column": 0,
-              "name": "text_4",
-              "row": 43,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
             },
             {
               "colspan": 5,
@@ -340,11 +234,11 @@
               }
             },
             {
-              "colspan": 6,
+              "colspan": 5,
               "column": 0,
               "name": "container_8",
-              "row": 7,
-              "rowspan": 6,
+              "row": 14,
+              "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -354,25 +248,11 @@
               }
             },
             {
-              "colspan": 4,
-              "column": 2,
-              "name": "pillbox_3",
-              "row": 9,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
+              "colspan": 5,
               "column": 0,
               "name": "text_10",
-              "row": 9,
-              "rowspan": 2,
+              "row": 15,
+              "rowspan": 3,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -382,53 +262,11 @@
               }
             },
             {
-              "colspan": 6,
-              "column": 0,
-              "name": "container_9",
-              "row": 28,
-              "rowspan": 6,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 4,
-              "column": 2,
-              "name": "pillbox_4",
-              "row": 30,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
-              "column": 0,
-              "name": "text_11",
-              "row": 30,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 6,
+              "colspan": 5,
               "column": 0,
               "name": "container_10",
-              "row": 14,
-              "rowspan": 6,
+              "row": 8,
+              "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -438,25 +276,11 @@
               }
             },
             {
-              "colspan": 4,
-              "column": 2,
-              "name": "text_12",
-              "row": 16,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
+              "colspan": 5,
               "column": 0,
               "name": "text_13",
-              "row": 16,
-              "rowspan": 2,
+              "row": 9,
+              "rowspan": 3,
               "widgetStyle": {
                 "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
@@ -466,95 +290,11 @@
               }
             },
             {
-              "colspan": 6,
+              "colspan": 5,
               "column": 0,
-              "name": "container_11",
-              "row": 21,
-              "rowspan": 6,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 4,
-              "column": 2,
-              "name": "text_14",
-              "row": 23,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
-              "column": 0,
-              "name": "text_15",
-              "row": 23,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 6,
-              "column": 0,
-              "name": "container_12",
-              "row": 35,
-              "rowspan": 6,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 4,
-              "column": 2,
-              "name": "text_16",
-              "row": 37,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
-              "column": 0,
-              "name": "text_17",
-              "row": 37,
-              "rowspan": 2,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 6,
-              "column": 6,
               "name": "container_13",
-              "row": 35,
-              "rowspan": 6,
+              "row": 20,
+              "rowspan": 5,
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#E6ECF2",
@@ -564,29 +304,149 @@
               }
             },
             {
-              "colspan": 4,
-              "column": 8,
-              "name": "text_18",
-              "row": 37,
-              "rowspan": 2,
+              "colspan": 5,
+              "column": 0,
+              "name": "text_19",
+              "row": 21,
+              "rowspan": 3,
               "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
+                "backgroundColor": "rgba(255, 255, 255, 0)",
                 "borderColor": "#E6ECF2",
                 "borderEdges": [],
-                "borderRadius": 16,
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 7,
+              "column": 5,
+              "name": "container_4",
+              "row": 7,
+              "rowspan": 18,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 7,
+              "column": 5,
+              "name": "text_1",
+              "row": 7,
+              "rowspan": 3,
+              "widgetStyle": {
+                "backgroundColor": "#E6ECF2",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
                 "borderWidth": 1
               }
             },
             {
               "colspan": 2,
-              "column": 6,
-              "name": "text_19",
-              "row": 37,
-              "rowspan": 2,
+              "column": 8,
+              "name": "text_7",
+              "row": 10,
+              "rowspan": 5,
               "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 10,
+              "name": "text_8",
+              "row": 10,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 10,
+              "name": "text_17",
+              "row": 15,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#C6D3E1",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 10,
+              "name": "text_20",
+              "row": 20,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#C6D3E1",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 8,
+              "name": "text_21",
+              "row": 20,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#C6D3E1",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 2,
+              "column": 8,
+              "name": "text_22",
+              "row": 15,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#C6D3E1",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 5,
+              "name": "text_23",
+              "row": 15,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 5,
+              "name": "text_24",
+              "row": 20,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#7D98B3",
+                "borderEdges": ["all"],
                 "borderRadius": 0,
                 "borderWidth": 1
               }
@@ -877,7 +737,7 @@
       "groups": [],
       "label": "Recall % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\n\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate number_to_string(TP/(TP + FN), \"0.00000%\") as 'Recall';",
+      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\n\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate number_to_string(TP/(TP + FN), \"0.00%\") as 'Recall';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -967,7 +827,7 @@
       "groups": [],
       "label": "Precision % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFP = filter q by 'isStopCollectionFalsePositive' == \"true\";\nFP = group FP by 'isStopCollectionFalsePositive';\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'c';\n\nresult = cogroup TP by all full, FP by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FP.c), 0) as 'FP';\nresult = foreach result generate number_to_string(TP/(TP + FP), \"0.00000%\") as 'Precision';",
+      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFP = filter q by 'isStopCollectionFalsePositive' == \"true\";\nFP = group FP by 'isStopCollectionFalsePositive';\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'c';\n\nresult = cogroup TP by all full, FP by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FP.c), 0) as 'FP';\nresult = foreach result generate number_to_string(TP/(TP + FP), \"0.00%\") as 'Precision';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1142,12 +1002,107 @@
         "type": "chart"
       }
     },
+    "False_Negatives_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "False Negatives",
+      "numbers": [],
+      "query": "q = load \"NLP_Cases\";\nq = filter q by 'isCollectionFalseNegative' == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'FN';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
     "Prevalence___String_1": {
       "broadcastFacet": true,
       "groups": [],
       "label": "Prevalence % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nresult = cogroup P by all full, N by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N';\nresult = foreach result generate number_to_string(P / (P + N), \"0.00000%\") as 'Prevalence';",
+      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nresult = cogroup P by all full, N by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N';\nresult = foreach result generate number_to_string(P / (P + N), \"0.00%\") as 'Prevalence';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1446,12 +1401,386 @@
         "type": "chart"
       }
     },
+    "all_3": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "NLP_Cases" }],
+      "isGlobal": false,
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"filters\":[[\"isStopCollection\",[\"true\"],\"in\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnProperties": {},
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "all_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Positives",
+      "numbers": [],
+      "query": "q = load \"NLP_Cases\";\nq = filter q by 'isStopCollection' == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'P';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnProperties": {},
+          "columnMap": { "trellis": [], "dimensionAxis": [], "plots": ["P"] },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "all_4": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Negatives",
+      "numbers": [],
+      "query": "q = load \"NLP_Cases\";\nq = filter q by 'isStopCollection' == \"false\";\nq = group q by all;\nq = foreach q generate count() as 'N';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "True_Negatives_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "True Negatives",
+      "numbers": [],
+      "query": "q = load \"NLP_Cases\";\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\nresult = cogroup N by all full, FN by all full, TN by all;\n\nresult = foreach result generate max(TN.TN) as 'TN';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
     "F1_Score___String_1": {
       "broadcastFacet": true,
       "groups": [],
       "label": "F1 Score % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n--Get False Positives\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'FP';\n\n--Get False Negatives\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate count() as 'FN';\n\nresult = cogroup TP by all full, FN by all full, FP by all;\nresult = foreach result generate coalesce(max(FP.FP), 0) as 'FP', coalesce(max(FN.FN), 0) as 'FN', coalesce(max(TP.TP), 0) as 'TP';\n\nresult = foreach result generate number_to_string((2*TP) / (2*TP + FP + FN), \"0.00000%\") as 'F1_Score';\n",
+      "query": "q = load \"NLP_Cases\";\n\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n--Get False Positives\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'FP';\n\n--Get False Negatives\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate count() as 'FN';\n\nresult = cogroup TP by all full, FN by all full, FP by all;\nresult = foreach result generate coalesce(max(FP.FP), 0) as 'FP', coalesce(max(FN.FN), 0) as 'FN', coalesce(max(TP.TP), 0) as 'TP';\n\nresult = foreach result generate number_to_string((2*TP) / (2*TP + FP + FN), \"0.00%\") as 'F1_Score';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1766,12 +2095,102 @@
         "type": "chart"
       }
     },
+    "False_Positives_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "False Positives",
+      "numbers": [],
+      "query": "q = load \"NLP_Cases\";\nq = filter q by 'isStopCollectionFalsePositive' == \"true\";\nq = group q by all;\nq = foreach q generate count() as 'FP';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
     "Accuracy___String_1": {
       "broadcastFacet": true,
       "groups": [],
       "label": "Accuracy % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate number_to_string(((TP + TN) / (N + P)), \"0.00000%\") as 'Accuracy';\n",
+      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate number_to_string(((TP + TN) / (N + P)), \"0.00%\") as 'Accuracy';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2219,7 +2638,7 @@
       "groups": [],
       "label": "Correct Rejection % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\nresult = cogroup N by all full, TN by all;\n\nresult = foreach result generate max(N.N) as 'N', max(TN.TN) as 'TN';\n\nresult = foreach result generate number_to_string((TN / N), \"0.00000%\") as 'Correct_Rejection';",
+      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\nresult = cogroup N by all full, TN by all;\n\nresult = foreach result generate max(N.N) as 'N', max(TN.TN) as 'TN';\n\nresult = foreach result generate number_to_string((TN / N), \"0.00%\") as 'Correct_Rejection';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2447,6 +2866,96 @@
         "type": "chart"
       }
     },
+    "True_Positives_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "True Positives",
+      "numbers": [],
+      "query": "q = load \"NLP_Cases\";\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate 'isStopCollectionFalsePositive', count() as 'FP';\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\nresult = cogroup P by all full, TP by all full, FP by all;\n\nresult = foreach result generate max(TP.TP) as 'TP';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "showBinLabel": true,
+            "measures": "",
+            "showNullValues": true,
+            "showPercentage": true,
+            "showDimensions": true,
+            "showMeasures": true,
+            "customizeTooltip": false,
+            "dimensions": ""
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
     "lens_2": {
       "broadcastFacet": true,
       "datasets": [{ "name": "NLP_Cases" }],
@@ -2500,28 +3009,18 @@
     "borderWidth": 1
   },
   "widgets": {
-    "text_18": {
+    "text_17": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Accuracy]\n",
+          "displayTemplate": "FP = [FP]\n",
           "values": {
-            "Accuracy": {
-              "field": "Accuracy",
+            "FP": {
+              "field": "FP",
               "sourceType": "result",
-              "step": "Accuracy___String_1"
+              "step": "False_Positives_1"
             }
           }
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_17": {
-      "parameters": {
-        "content": { "displayTemplate": "Correct Rejection:\n\n\n\n" },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2539,23 +3038,13 @@
     },
     "text_19": {
       "parameters": {
-        "content": { "displayTemplate": "Accuracy:\n\n\n\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_14": {
-      "parameters": {
         "content": {
-          "displayTemplate": "[F1_Score]\n",
+          "displayTemplate": "Accuracy: [Accuracy]\n",
           "values": {
-            "F1_Score": {
-              "field": "F1_Score",
+            "Accuracy": {
+              "field": "Accuracy",
               "sourceType": "result",
-              "step": "F1_Score___String_1"
+              "step": "Accuracy___String_1"
             }
           }
         },
@@ -2568,57 +3057,8 @@
     },
     "text_13": {
       "parameters": {
-        "content": { "displayTemplate": "Recall:\n\n\n\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_16": {
-      "parameters": {
         "content": {
-          "displayTemplate": "[Correct_Rejection]\n",
-          "values": {
-            "Correct_Rejection": {
-              "field": "Correct_Rejection",
-              "sourceType": "result",
-              "step": "Correct_Rejection____1"
-            }
-          }
-        },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_15": {
-      "parameters": {
-        "content": { "displayTemplate": "F1 Score:\n\n\n\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_10": {
-      "parameters": {
-        "content": { "displayTemplate": "Precision:\n\n\n\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_12": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "[Recall]\n",
+          "displayTemplate": "Recall: [Recall]\n",
           "values": {
             "Recall": {
               "field": "Recall",
@@ -2634,9 +3074,18 @@
       },
       "type": "text"
     },
-    "text_11": {
+    "text_10": {
       "parameters": {
-        "content": { "displayTemplate": "Prevalence:\n\n\n\n" },
+        "content": {
+          "displayTemplate": "Precision: [Precision_1]\n",
+          "values": {
+            "Precision_1": {
+              "field": "Precision",
+              "sourceType": "result",
+              "step": "Precision___String_1"
+            }
+          }
+        },
         "fontSize": 16,
         "showActionMenu": true,
         "textAlignment": "left",
@@ -2645,14 +3094,6 @@
       "type": "text"
     },
     "container_1": {
-      "parameters": {
-        "alignmentX": "left",
-        "alignmentY": "top",
-        "fit": "original"
-      },
-      "type": "container"
-    },
-    "container_2": {
       "parameters": {
         "alignmentX": "left",
         "alignmentY": "top",
@@ -2669,14 +3110,6 @@
       "type": "container"
     },
     "container_4": {
-      "parameters": {
-        "alignmentX": "left",
-        "alignmentY": "top",
-        "fit": "original"
-      },
-      "type": "container"
-    },
-    "container_5": {
       "parameters": {
         "alignmentX": "left",
         "alignmentY": "top",
@@ -2830,63 +3263,6 @@
       },
       "type": "chart"
     },
-    "text_2": {
-      "parameters": {
-        "content": { "displayTemplate": "False Negatives:\n\n\n\n\n\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "chart_8": {
-      "parameters": {
-        "autoFitMode": "keepLabels",
-        "max": 100,
-        "showPercentage": false,
-        "legend": {
-          "showHeader": true,
-          "show": false,
-          "position": "right-top",
-          "inside": false
-        },
-        "visualizationType": "gauge",
-        "exploreLink": true,
-        "medium": 33,
-        "title": {
-          "fontSize": 14,
-          "subtitleFontSize": 11,
-          "label": "Accuracy",
-          "align": "center",
-          "subtitleLabel": ""
-        },
-        "trellis": {
-          "flipLabels": false,
-          "showGridLines": true,
-          "size": [100, 100],
-          "enable": false,
-          "type": "x",
-          "chartsPerLine": 4
-        },
-        "bands": {
-          "high": { "color": "#008000", "label": "High" },
-          "low": { "color": "#B22222", "label": "Low" },
-          "medium": { "color": "#ffa500", "label": "Medium" }
-        },
-        "showRange": false,
-        "showLabel": false,
-        "showValue": false,
-        "high": 66,
-        "showActionMenu": false,
-        "min": 0,
-        "angle": 240,
-        "theme": "wave",
-        "step": "Accuracy_1",
-        "applyConditionalFormatting": true
-      },
-      "type": "chart"
-    },
     "container_8": {
       "parameters": {
         "alignmentX": "left",
@@ -2894,16 +3270,6 @@
         "fit": "original"
       },
       "type": "container"
-    },
-    "text_4": {
-      "parameters": {
-        "content": { "displayTemplate": "False Positive:\n\n\n\n\n\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
     },
     "chart_7": {
       "parameters": {
@@ -2990,14 +3356,6 @@
       },
       "type": "chart"
     },
-    "container_9": {
-      "parameters": {
-        "alignmentX": "left",
-        "alignmentY": "top",
-        "fit": "original"
-      },
-      "type": "container"
-    },
     "chart_2": {
       "parameters": {
         "centerText": "",
@@ -3052,6 +3410,16 @@
         "applyConditionalFormatting": true
       },
       "type": "chart"
+    },
+    "text_7": {
+      "parameters": {
+        "content": { "displayTemplate": "Is collections related\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
     },
     "chart_1": {
       "parameters": {
@@ -3179,7 +3547,7 @@
     "text_9": {
       "parameters": {
         "content": {
-          "displayTemplate": "Case Closed with Record Type: \nCustomer Complaint\n\n\n\n\n\n\n\n"
+          "displayTemplate": "Case Closed with Record Type: \nCustomer Complaint\n\n\n\n\n\n\n\n\n\n\n"
         },
         "fontSize": 16,
         "showActionMenu": true,
@@ -3276,6 +3644,26 @@
       },
       "type": "chart"
     },
+    "text_8": {
+      "parameters": {
+        "content": { "displayTemplate": "Not collections related\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_1": {
+      "parameters": {
+        "content": { "displayTemplate": "Confusion Matrix\n" },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "filterpanel_2": {
       "parameters": {
         "filterItemOptions": {
@@ -3302,6 +3690,21 @@
       },
       "type": "filterpanel"
     },
+    "text_24": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Not collections related (N = [N])\n",
+          "values": {
+            "N": { "field": "N", "sourceType": "result", "step": "all_4" }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "link_1": {
       "parameters": {
         "destinationLink": { "name": "6d1f02eb-599c-4955-ac0f-e9cb7c39d1c5" },
@@ -3326,6 +3729,25 @@
       },
       "type": "link"
     },
+    "text_21": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "FN = [FN]\n",
+          "values": {
+            "FN": {
+              "field": "FN",
+              "sourceType": "result",
+              "step": "False_Negatives_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "navigation_1": {
       "parameters": {
         "fontSize": 16,
@@ -3340,6 +3762,59 @@
         "textColor": "#54698D"
       },
       "type": "navigation"
+    },
+    "text_20": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "TN = [TN]\n",
+          "values": {
+            "TN": {
+              "field": "TN",
+              "sourceType": "result",
+              "step": "True_Negatives_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_23": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Is collections related (P = [P])\n",
+          "values": {
+            "P": { "field": "P", "sourceType": "result", "step": "all_2" }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
+    "text_22": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "TP = [TP]\n",
+          "values": {
+            "TP": {
+              "field": "TP",
+              "sourceType": "result",
+              "step": "True_Positives_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
     },
     "table_1": {
       "parameters": {
@@ -3426,100 +3901,6 @@
         }
       },
       "type": "number"
-    },
-    "pillbox_2": {
-      "parameters": {
-        "compact": false,
-        "displayTemplate": "[isCollectionFalseNegative]",
-        "exploreLink": false,
-        "fontSize": 14,
-        "measureField": "count",
-        "selectedTab": {
-          "backgroundColor": "#0070D2",
-          "borderColor": "#C6D3E1",
-          "borderEdges": ["all"],
-          "borderWidth": 1,
-          "textColor": "#FFFFFF"
-        },
-        "showActionMenu": true,
-        "step": "isCollectionFalseNeg_1",
-        "textColor": "#0070D2"
-      },
-      "type": "pillbox"
-    },
-    "pillbox_1": {
-      "parameters": {
-        "compact": false,
-        "displayTemplate": "[isStopCollectionFalsePositive]",
-        "exploreLink": false,
-        "fontSize": 14,
-        "measureField": "count",
-        "selectedTab": {
-          "backgroundColor": "#0070D2",
-          "borderColor": "#C6D3E1",
-          "borderEdges": ["all"],
-          "borderWidth": 1,
-          "textColor": "#FFFFFF"
-        },
-        "showActionMenu": true,
-        "step": "isStopCollectionFals_1",
-        "textColor": "#0070D2"
-      },
-      "type": "pillbox"
-    },
-    "pillbox_4": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "[Prevalence]\n",
-          "values": {
-            "Prevalence": {
-              "field": "Prevalence",
-              "sourceType": "result",
-              "step": "Prevalence___String_1"
-            }
-          }
-        },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "pillbox_3": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "[Precision]\n",
-          "values": {
-            "Precision": {
-              "field": "Precision",
-              "sourceType": "result",
-              "step": "Precision___String_1"
-            }
-          }
-        },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "container_12": {
-      "parameters": {
-        "alignmentX": "left",
-        "alignmentY": "top",
-        "fit": "original"
-      },
-      "type": "container"
-    },
-    "container_11": {
-      "parameters": {
-        "alignmentX": "left",
-        "alignmentY": "top",
-        "fit": "original"
-      },
-      "type": "container"
     },
     "container_10": {
       "parameters": {
