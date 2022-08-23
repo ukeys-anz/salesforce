@@ -76,6 +76,12 @@ function changeMetadata(){
         if [[ $2 == 'manageUsers' ]];then
             replace=$( sed 's+<enabled>false</enabled> <name>ManageSharing</name>+<enabled>true</enabled> <name>ManageSharing</name>+g' "$1")
             echo $replace > "$1"
+        elif [[ $2 == 'keyManager' ]];then
+            replace=$( sed 's+<userPermissions> <enabled>true</enabled> <name>CustomizeApplication</name> </userPermissions>++g' "$1")
+            echo $replace > "$1"
+        elif [[ $2 == 'NLPReporting' ]]; then
+            replace=$( sed 's+<shares> <accessLevel>Manage</accessLevel> <sharedTo>Engineer</sharedTo> <sharedToType>RoleAndSubordinates</sharedToType> </shares>+<shares> <accessLevel>View</accessLevel> <sharedTo>Engineer</sharedTo> <sharedToType>RoleAndSubordinates</sharedToType> </shares>+g' "$1")
+            echo $replace > "$1"
         else
             replace=$( sed 's+<objectPermissions> <allowCreate>true</allowCreate> <allowDelete>true</allowDelete> <allowEdit>true</allowEdit> <allowRead>true</allowRead> <modifyAllRecords>true</modifyAllRecords> <object>OrgSnapshot</object> <viewAllRecords>true</viewAllRecords> </objectPermissions>+<!-- -->+g' "$1" )
             echo $replace > "$1"
@@ -112,5 +118,17 @@ function waitForManualSteps(){
         echo "Creating snapshot has been stopped."
         echo ""
         exit 1
+    fi
+}
+
+function continueTheJob(){
+    if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then            
+        echo "${green}"
+        echo ""
+        read -rp "Do you want to continue (y/n)? ${reset}" continueFlag
+        if [[ $continueFlag == 'N' || $continueFlag == 'n' ]];then
+            exit 1
+        fi
+        echo "${reset}"
     fi
 }
