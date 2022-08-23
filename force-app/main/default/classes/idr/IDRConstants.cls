@@ -292,5 +292,4 @@ public with sharing class IDRConstants {
 
   //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
   public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
-
 }

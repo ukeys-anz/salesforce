@@ -20,7 +20,8 @@ public with sharing class GetHelpCaseActionsHelper {
     GetHelpConstants.CARD_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
     GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
-    GetHelpConstants.NPP_DISPUTE_RT_ID
+    GetHelpConstants.NPP_DISPUTE_RT_ID,
+    GetHelpConstants.BPAY_DISPUTE_RT_ID
   };
 
   // Set of record type Ids that will be sent to PEGA

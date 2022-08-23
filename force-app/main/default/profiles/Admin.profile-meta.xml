@@ -7216,6 +7216,10 @@
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-BPAY Dispute Layout</layout>
+        <recordType>Case.BPAY_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-CFMS Migrated Complaint Layout</layout>
         <recordType>Case.CFMS_Migrated_Case</recordType>
     </layoutAssignments>

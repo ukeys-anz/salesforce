@@ -36,6 +36,15 @@ const nppDisputesFieldsMapping = {
   Receipt__c: "pay_anyone.payment_receipt_number.value"
 };
 
+const bpayDisputesFieldsMapping = {
+  Biller_Code__c: "bpay.biller_code",
+  Biller_Name__c: "bpay.biller_name",
+  Customer_Reference_Number__c: "bpay.customer_reference_number",
+  Transaction_Amount__c: "amount.value",
+  Transaction_Currency__c: "amount.currency_code",
+  Settlement_Date__c: "transaction_posted_date"
+};
+
 const commonFieldsMapping = {
   Effective_Date__c: "transaction_date",
   Posted_Amount__c: "amount.value",
@@ -70,14 +79,14 @@ function prepopulateCommonFields(
 
 // Pre-populate all disputes field, including common and dispute-type-specific fields
 export function prepopulateDisputesFields(
-  personAccountId,
+  personAccount,
   financialAccountId,
   disputeType,
   transaction,
   tokenizedCardNumberString
 ) {
   let defaultFieldValuesObj = prepopulateCommonFields(
-    personAccountId,
+    personAccount["AccountId"],
     financialAccountId,
     transaction
   );
@@ -98,6 +107,14 @@ export function prepopulateDisputesFields(
     case "NPP":
       mappingObj = nppDisputesFieldsMapping;
       break;
+    case "BPAY":
+      mappingObj = bpayDisputesFieldsMapping;
+      defaultFieldValuesObj = setBPAYDisputeSpecificFields(
+        transaction,
+        personAccount,
+        defaultFieldValuesObj
+      );
+      break;
   }
 
   defaultFieldValuesObj = mappingObj
@@ -110,6 +127,36 @@ export function prepopulateDisputesFields(
     : defaultFieldValuesObj;
 
   return defaultFieldValuesObj;
+}
+
+function setBPAYDisputeSpecificFields(
+  transaction,
+  personAccount,
+  defaultFieldValuesObj
+) {
+  let shortDescription = transaction["short_desc"];
+  defaultFieldValuesObj["Receipt__c"] = shortDescription.substring(
+    shortDescription.length - 6
+  );
+  defaultFieldValuesObj["Registration_Number__c"] = personAccount["OCV_ID__c"];
+  var address = addressBuilder("", personAccount["BillingStreet"]);
+  address = addressBuilder(address, personAccount["BillingCity"]);
+  address = addressBuilder(address, personAccount["BillingState"]);
+  address = addressBuilder(address, personAccount["BillingPostalCode"]);
+  address = addressBuilder(address, personAccount["BillingCountry"]);
+  defaultFieldValuesObj["Address__c"] = address;
+  return defaultFieldValuesObj;
+}
+
+function addressBuilder(address, addressComponent) {
+  if (addressComponent != undefined && addressComponent != "") {
+    if (address == "") {
+      address += addressComponent;
+    } else {
+      address += ", " + addressComponent;
+    }
+  }
+  return address;
 }
 
 // Pre-populate default field values object using the mappings above

@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <label>Expressed Interest</label>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>

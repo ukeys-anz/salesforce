@@ -3,6 +3,7 @@
     <fullName>OwnerId</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <description>ID of the User who has been assigned to work this opportunity.</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
     <trackTrending>false</trackTrending>

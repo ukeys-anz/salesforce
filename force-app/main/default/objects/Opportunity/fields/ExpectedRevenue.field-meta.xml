@@ -3,6 +3,7 @@
     <fullName>ExpectedRevenue</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <description>Read-only field that is equal to the product of the opportunity Amount field and the Probability. </description>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
 </CustomField>

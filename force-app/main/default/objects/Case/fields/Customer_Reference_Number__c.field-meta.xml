@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Reference_Number__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Reference Number which identifies the customer or invoice against which the payment is made.</description>
+    <encryptionScheme>None</encryptionScheme>
+    <externalId>false</externalId>
+    <inlineHelpText>Reference Number used in the BPAY payment.</inlineHelpText>
+    <label>Customer Reference Number</label>
+    <length>20</length>
+    <required>false</required>
+    <securityClassification>Restricted</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

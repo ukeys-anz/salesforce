@@ -724,8 +724,11 @@ public with sharing class IDRCollectionActions {
    * @param strSubIssueType Secondary type of Issue
    * @return Boolean if Issue Type and Subsequent Issue Type together represent a collection issue.
    */
-  public static Boolean isCollectionsIssue(String strIssueType, String strSubIssueType) {
-    return IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(strIssueType)
-        && IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(strSubIssueType);
+  public static Boolean isCollectionsIssue(
+    String strIssueType,
+    String strSubIssueType
+  ) {
+    return IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(strIssueType) &&
+      IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(strSubIssueType);
   }
 }

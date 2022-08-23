@@ -24,7 +24,8 @@ const ALLOWED_TRANSACTION_TYPES = [
   TRANSACTION_TYPES.Salary,
   TRANSACTION_TYPES.Payment,
   TRANSACTION_TYPES.Interest,
-  TRANSACTION_TYPES.PAYID
+  TRANSACTION_TYPES.PAYID,
+  TRANSACTION_TYPES.BPAY
 ]; // Transaction types that a coach can raise a dispute for, as specified in ANZX-5492
 
 const ALLOWED_DISPUTE_TYPES_FOR_SALARY = [
@@ -32,7 +33,7 @@ const ALLOWED_DISPUTE_TYPES_FOR_SALARY = [
   "Direct_Entry_Dispute"
 ]; //Allowed dispute types for salary transaction
 
-const BPAY_AND_TRANSFER_MESSAGE =
+const TRANSFER_MESSAGE =
   "You can't raise a transaction dispute for a transfer between the ANZ Plus and ANZ Save accounts. Please let the customer know they can amend the payment themselves in the app.";
 const PENDING_TRANSACTION_MESSAGE =
   "You can’t raise a dispute on a pending transaction. Please try again once payment has cleared.";
@@ -54,7 +55,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   @api disputeRecordTypesFromParent;
   disputeRecordTypes;
   selectedDisputeRecordType;
-  @api personAccountId;
+  @api personAccount;
   @api financialAccountId;
   @api ocvId;
   tokenizedCardNumber;
@@ -90,10 +91,8 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   // Tooltip for Raise Dispute button if disabled
   get disputeButtonTooltip() {
     switch (true) {
-      case [TRANSACTION_TYPES.BPAY, TRANSACTION_TYPES.Transfer].includes(
-        this.transactionRecord.formatted_type
-      ):
-        return BPAY_AND_TRANSFER_MESSAGE;
+      case this.transactionRecord.formatted_type === TRANSACTION_TYPES.Transfer:
+        return TRANSFER_MESSAGE;
       case this.transactionRecord.status === TRANSACTION_STATUSES.Pending:
         return PENDING_TRANSACTION_MESSAGE;
       case this.transactionRecord.status === TRANSACTION_STATUSES.Unspecified:
@@ -209,7 +208,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     await this.handleTokenizedCardSearch(disputeType);
 
     let defaultFieldValuesObj = prepopulateDisputesFields(
-      this.personAccountId,
+      this.personAccount,
       this.financialAccountId,
       disputeType,
       this.transactionRecord,

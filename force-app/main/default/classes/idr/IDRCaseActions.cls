@@ -221,7 +221,10 @@ public with sharing class IDRCaseActions {
     IDRCollectionActions.stopCollections(records, oldMap);
     IDRCollectionActions.startCollections(records, oldMap);
     IDRComplaintFlagActions.setComplaintsFlag(records, oldMap);
-    IDRCaseAssignmentRules.assignUnescalatedCases(records, (Map<Id, Case>) oldMap);
+    IDRCaseAssignmentRules.assignUnescalatedCases(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     completeMilestone(records, oldMap);
   }
 
