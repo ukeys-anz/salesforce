@@ -581,7 +581,10 @@ public without sharing class IDRTaskActions {
       FeatureManagement.checkPermission('IDR_Level_1') && //is user level 1 or higher?
       record.IsClosed &&
       (oldRec == null || //if case is created closed
-      oldRec.Status != record.Status) //if case is updated from non-closed to closed status
+      (oldRec.Status != record.Status &&
+      !(String.isBlank(record.IDR_Escalation_Reason__c))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
+      //make sure the case is an Escalated case. Task should not be created if case was never escalated.
+      oldRec.IDR_Is_Common__c != record.IDR_Is_Common__c) // when case is already closed and L1 updates PSI flag to yes
     ) {
       return true;
     } else {
