@@ -127,7 +127,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Interaction_Record_Page1</content>
+        <content>Appointment_Record_Page</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -138,8 +138,7 @@
     </actionOverrides>
     <compactLayoutAssignment>Appointment</compactLayoutAssignment>
     <enableFeeds>false</enableFeeds>
-    <externalSharingModel>Private</externalSharingModel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>
         <customTabListAdditionalFields>LastModifiedBy</customTabListAdditionalFields>
@@ -154,10 +153,14 @@
         <lookupPhoneDialogsAdditionalFields>Account</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Location</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>Mobile__c</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedDate</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>LastModifiedBy</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Interaction_Number_Link__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Account</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Location</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Lead__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Interaction_Purpose__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>InteractionType</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>StartTime</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Owner</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Attendees__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
 </CustomObject>

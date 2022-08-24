@@ -41,28 +41,50 @@ public with sharing class InteractionSetters {
   }
 
   /**
+   * @description method to set the external Id after creation
+   * of general interactions
+   * @param interactionIds the Ids to update
+   */
+  public static void setGeneralExternalIds(Set<Id> interactionIds) {
+    List<Interaction> interactions = InteractionGetters.getInteractions(
+      interactionIds
+    );
+    if (!interactions.isEmpty()) {
+      List<Interaction> interactionsToSet = new List<Interaction>();
+      for (Interaction currentInteraction : interactions) {
+        if (currentInteraction.Interaction_External_Id__c == null) {
+          interactionsToSet.add(currentInteraction);
+        }
+      }
+      if (!interactionsToSet.isEmpty()) {
+        setExternalIds(interactionsToSet);
+        //not doing permission checks as the integration user fails on POST
+        update interactionsToSet;
+      }
+    }
+  }
+
+  /**
    * @description goes through a list of interactions and sets the Interaction Id
    * on the linked Contact Request by searching the database for requests related to the Interactionss.
    * @param interactions List<Interaction> list of interactions to cycle through
    */
   public static void setInteractionIds(List<Interaction> interactions) {
     Set<Id> requestIds = new Set<Id>();
-
     for (Interaction currentInteraction : interactions) {
       if (currentInteraction.ContactRequestId__c == null) {
         continue;
       }
       requestIds.add(currentInteraction.ContactRequestId__c);
     }
-
-    List<ContactRequest> contactRequests = ContactRequestDMLHelper.getContactRequest(
-      requestIds
-    );
-    setInteractionIds(contactRequests, interactions);
-
-    ContactRequestDMLHelper.updateContactRequests(contactRequests);
+    if (!requestIds.isEmpty()) {
+      List<ContactRequest> contactRequests = ContactRequestDMLHelper.getContactRequest(
+        requestIds
+      );
+      setInteractionIds(contactRequests, interactions);
+      ContactRequestDMLHelper.updateContactRequests(contactRequests);
+    }
   }
-
   /**
    * @description goes through a list of requests and sets the Interaction Id
    * based upon a list of interactions
@@ -83,7 +105,6 @@ public with sharing class InteractionSetters {
         currentInteraction.Id
       );
     }
-
     for (ContactRequest request : requests) {
       if (contactRequestInteractionIdMap.containsKey(request.Id)) {
         request.Interaction__c = contactRequestInteractionIdMap.get(request.Id);

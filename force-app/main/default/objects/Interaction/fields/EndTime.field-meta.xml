@@ -6,5 +6,5 @@
     <description>When interaction ended</description>
     <inlineHelpText>The expected date and time for the appointment to end. The end time is pre-filled based on the duration for that appointment reason.</inlineHelpText>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
 </CustomField>

@@ -9,7 +9,7 @@
     <label>Status</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>

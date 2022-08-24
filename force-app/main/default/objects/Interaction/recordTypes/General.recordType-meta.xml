@@ -141,6 +141,10 @@
             <fullName>Voice Mail</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>No Action</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Status__c</picklist>
