@@ -17,30 +17,63 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
    */
   public static void manageNotification(List<ContentDocumentLink> records) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
+    List<CaseComment> caseCommentList = new List<CaseComment>();
     Map<Id, Case> caseMap = getCaseRecords(records);
     Map<Id, ContentDocument> contentDocMap = getContentDocRecords(records);
+    Case oCase;
 
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-      if (
-        record.LinkedEntityId.getSobjectType() ==
-        Schema.getGlobalDescribe().get('Case') &&
-        caseMap.containsKey(record.LinkedEntityId) &&
-        contentDocMap.containsKey(record.ContentDocumentId) &&
-        caseMap.get(record.LinkedEntityId).OwnerId !=
+      if (record.LinkedEntityId.getSobjectType() ==
+          Schema.getGlobalDescribe().get('Case') &&
+          contentDocMap.containsKey(record.ContentDocumentId) &&
+          (oCase = caseMap.get(record.LinkedEntityId)) != null
+         ) {
+        if (
+        oCase.OwnerId !=
         contentDocMap.get(record.ContentDocumentId).OwnerId &&
-        IDRCaseActions.isIDRComplaintType(caseMap.get(record.LinkedEntityId))
-      ) {
-        wrapperList.add(
-          createNotification(
-            caseMap.get(record.LinkedEntityId),
+        IDRCaseActions.isIDRComplaintType(oCase)
+        ) {
+            wrapperList.add(
+              createNotification(
+              oCase,
+              contentDocMap.get(record.ContentDocumentId)
+            )
+          ); 
+        }
+        if (
+        oCase.Status == 'Closed'
+        ) {
+            caseCommentList.add(
+            createCaseCloseNotification(
+            record,
             contentDocMap.get(record.ContentDocumentId)
           )
-        );
+         );
+        } 
       }
     }
 
+
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
+    }
+    try{
+    if (!caseCommentList.isEmpty()) {
+      insert caseCommentList;
+    }
+    }
+    catch (Exception err) {
+      Lib_SystemLog log = new Lib_SystemLog(
+        ContentDocumentLinkTriggerHandler.class.getName(),
+        'manageNotification'
+      );
+      log.error(
+        'DMLException',
+        'Error in creating Case Comment when attachment is added for the existing Case :' +
+        oCase.Id +
+        err.getMessage()
+      );
+      log.publishEvent();
     }
   }
 
@@ -65,7 +98,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     }
 
     for (Case c : [
-      SELECT Id, RecordTypeId, CaseNumber, OwnerId
+      SELECT Id, RecordTypeId, CaseNumber, OwnerId, Status
       FROM Case
       WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {
@@ -95,7 +128,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     }
 
     for (ContentDocument cd : [
-      SELECT Id, OwnerId
+      SELECT Id, OwnerId, Title
       FROM ContentDocument
       WHERE Id IN :contentDocIds
     ]) {
@@ -123,4 +156,21 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     );
     return wrapper;
   }
+
+  /**
+   * @description Builds a notification using CaseComment
+   * @param cdlRecord ContentDocumentLink record from the trigger
+   * @param cdRecord ContentDocument record from the trigger
+   * @return caseCommentObject
+   */ 
+  private static CaseComment createCaseCloseNotification(
+    ContentDocumentLink cdlRecord, 
+    ContentDocument cdRecord
+   ) {
+       CaseComment caseCommentObject = new CaseComment(
+       isPublished = true,
+       ParentId = cdlRecord.LinkedEntityId,
+       commentBody = 'New attachment ' + cdRecord.Title + ' has been added to the case');
+       return caseCommentObject;
+   }
 }
