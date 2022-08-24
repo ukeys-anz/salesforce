@@ -3,7 +3,7 @@
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Captures first and last name of the Lead</description>
+    <description>Concatenation of FirstName, MiddleName, LastName, and Suffix up to 203 characters, including whitespaces.</description>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>

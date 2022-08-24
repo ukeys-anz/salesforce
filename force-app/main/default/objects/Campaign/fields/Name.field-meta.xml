@@ -3,5 +3,6 @@
     <fullName>Name</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Name of the campaign i.e Term Deposit Maturity lead</description>
     <securityClassification>Public</securityClassification>
 </CustomField>

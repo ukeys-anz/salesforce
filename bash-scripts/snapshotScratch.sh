@@ -23,7 +23,7 @@ mv .forceignore ci.forceignore
 mv harness.forceignore .forceignore
 echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
 echo -e "\nforce-app/main/default/sharingRules/Case.sharingRules-meta.xml" >> .forceignore
-
+echo -e "\nforce-app/main/default/permissionsetgroups/Shared_Admin.permissionsetgroup-meta.xml" >> .forceignore
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -80,11 +80,14 @@ changeMetadata force-app/main/default/objects/Quality_Assessment__c/Quality_Asse
 changeMetadata "force-app/main/default/profiles/Minimum Access - External Apps.profile-meta.xml" minimum
 changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.xml" anzxStandard
 changeMetadata force-app/main/default/permissionsets/Manage_Users.permissionset-meta.xml manageUsers
+changeMetadata force-app/main/default/permissionsets/Key_Manager.permissionset-meta.xml keyManager
+changeMetadata force-app/main/default/wave/NLP_Reporting.wapp-meta.xml NLPReporting
 echoMessageCreator "" $stepNo false
 ###########################
 
 # manual pre-deploy steps
 echoMessageCreator "Manual pre-deploy steps" $stepNo true
+echo "Please open the scratchOrg and ensure that Translation Workbench is enabled."
 waitForManualSteps $scratchorgalias "pre-deploy"
 echoMessageCreator "" $stepNo false
 

@@ -3,6 +3,7 @@
     <fullName>Sequence__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Uncontrolled;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Field Label sequence to map the labels of each flex field</description>
     <externalId>false</externalId>
     <label>Sequence</label>
     <precision>2</precision>

@@ -1,0 +1,49 @@
+{
+  "apiName": "Case",
+  "childRelationships": {},
+  "fields": {
+    "RecordTypeId": {
+      "displayValue": null,
+      "value": "0122N00000314ujQAA"
+    },
+    "Status": "Open",
+    "IDR_Complaint_Outcome__c": "3",
+    "IDR_Description_of_Outcome__c": "******************************************5356",
+    "IDR_Complaint_Remedy__c": "2",
+    "Provided_details_to_Product_Manufacturer__c": false,
+    "IDR_Financial_Compensation__c": "",
+    "IDR_Complaint_Sub_Remedy__c": "1",
+    "IDR_Financial_Remedy_Points__c": "",
+    "IDR_Other_Remedy_Provided__c": "",
+    "IDR_Duration_of_Remedy__c": "",
+    "IDR_Complaint_Remedy_2__c": "",
+    "Provided_details_to_Prod_Manufacturer_2__c": false,
+    "IDR_Financial_Compensation_2__c": "",
+    "IDR_Complaint_Sub_Remedy_2__c": "",
+    "IDR_Financial_Remedy_Points_2__c": "",
+    "IDR_Other_Remedy_Provided_2__c": "",
+    "IDR_Duration_of_Remedy_2__c": "",
+    "IDR_Complaint_Remedy_3__c": "",
+    "Provided_details_to_Prod_Manufacturer_3__c": false,
+    "IDR_Financial_Compensation_3__c": "",
+    "IDR_Complaint_Sub_Remedy_3__c": "",
+    "IDR_Financial_Remedy_Points_3__c": "",
+    "IDR_Other_Remedy_Provided_3__c": "",
+    "IDR_Duration_of_Remedy_3__c": "",
+    "IDR_Avoidable_Escalation__c": false,
+    "IDR_Avoidable_Escalation_Reason__c": "",
+    "Product__c": ""
+  },
+  "id": "5002N00000Dwe1iQAB",
+  "lastModifiedById": "0052N000004DtsAQAS",
+  "lastModifiedDate": "2022-05-22T04:25:53.000Z",
+  "recordTypeId": "0122N00000314ujQAA",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Customer Complaint",
+    "recordTypeId": "0122N00000314ujQAA"
+  },
+  "systemModstamp": "2022-05-22T04:25:53.000Z"
+}

@@ -3,6 +3,7 @@
     <fullName>Gender__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Lead gender</description>
     <externalId>false</externalId>
     <label>Gender</label>
     <required>false</required>

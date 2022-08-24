@@ -3,39 +3,47 @@
     class="slds-modal__content slds-p-around_medium maxwidth"
     id="modal-content-id-0"
   >
-    <div class="title">Close Complaint</div>
-    <lightning-combobox
-      name="ComplaintStatus"
-      class="statusSelect"
-      label="Complaint Status"
-      aria-label="Dropdown Complaint Status"
-      value={caseStatus}
-      options={statusOptions}
-      onchange={handleStatusChange}
-      required="true"
-      data-id="caseStatus-id"
-    ></lightning-combobox>
-    <template if:true={loadChild}>
-      <c-complaints-Close-Child
-        record-id={recordId}
-        record-type-id={recordTypeId}
-        onfieldvalueupdate={handleFieldUpdate}
-      >
-      </c-complaints-Close-Child>
-    </template>
+    <template if:false={isValidToClose}
+      ><div style="text-align: center" class="validationMessage">
+        {validityMessage}
+      </div></template
+    >
 
-    <div class="slds-float slds-align_absolute-center">
-      <lightning-button
-        variant="brand"
-        type="submit"
-        onclick={validateFields}
-        class="saveButton"
-        name="save"
-        label="Save Complaint"
-        data-id="submit-id"
-        aria-label="Press to save the form and create the case"
-      ></lightning-button>
-    </div>
+    <template if:true={isValidToClose}>
+      <div class="title">Close Complaint</div>
+      <lightning-combobox
+        name="ComplaintStatus"
+        class="statusSelect"
+        label="Complaint Status"
+        aria-label="Dropdown Complaint Status"
+        value={caseStatus}
+        options={statusOptions}
+        onchange={handleStatusChange}
+        required="true"
+        data-id="caseStatus-id"
+      ></lightning-combobox>
+      <template if:true={loadChild}>
+        <c-complaints-Close-Child
+          record-id={recordId}
+          record-type-id={recordTypeId}
+          onfieldvalueupdate={handleFieldUpdate}
+        >
+        </c-complaints-Close-Child>
+      </template>
+
+      <div class="slds-float slds-align_absolute-center">
+        <lightning-button
+          variant="brand"
+          type="submit"
+          onclick={validateFields}
+          class="saveButton"
+          name="save"
+          label="Save Complaint"
+          data-id="submit-id"
+          aria-label="Press to save the form and create the case"
+        ></lightning-button>
+      </div>
+    </template>
   </div>
   <template if:true={showModal}>
     <section

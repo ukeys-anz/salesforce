@@ -3,6 +3,7 @@
     <fullName>IqScore</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <description>The likelihood, measured on a scale of 1 to 99, that an opportunity will be won.</description>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
 </CustomField>

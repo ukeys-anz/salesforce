@@ -30,7 +30,8 @@ echoMessageCreator "" $stepNo false
 
 # install managed packages
 echoMessageCreator "install managed packages" $stepNo true
-sfdx force:mdapi:deploy -d mdapi-source/packages/
+sfdx force:mdapi:deploy -d mdapi-source/packages/ | tee stderr
+continueTheJob
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -48,10 +49,13 @@ while [[ $waitToInstallPackages == false ]]; do
         echo "wait for another 3 mins"
         sleep 180
         echo "${reset}"
-    else
+    else 
         waitToInstallPackages=true
     fi
 done
+
+continueTheJob
+
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -61,10 +65,16 @@ echoMessageCreator "install unmanaged packages" $stepNo true
 # open http://industries.force.com/financialservicescloudextension
 # if it is not like below, change it to the new one
 apvId=04t1E000001Iql5
-sfdx force:package:install --package $apvId -w 20 --securitytype AllUsers
-sfdx force:package:install -p 04t2J000000IzriQAC --securitytype AdminsOnly
+sfdx force:package:install --package $apvId -w 20 --securitytype AllUsers | tee stderr
+continueTheJob
+
+sfdx force:package:install -p 04t2J000000IzriQAC --securitytype AdminsOnly | tee stderr
+continueTheJob
+
 echo "wait for 5 mins to finish deploying"
 sleep 300
+continueTheJob
+
 echoMessageCreator "" $stepNo false
 ########################
 

@@ -162,6 +162,21 @@
                 <default>false</default>
                 <label>Claim not for value</label>
             </value>
+            <value>
+                <fullName>Incorrect Biller Code</fullName>
+                <default>false</default>
+                <label>Incorrect Biller Code</label>
+            </value>
+            <value>
+                <fullName>Incorrect Customer Reference Number</fullName>
+                <default>false</default>
+                <label>Incorrect Customer Reference Number</label>
+            </value>
+            <value>
+                <fullName>Payment not received by biller</fullName>
+                <default>false</default>
+                <label>Payment not received by biller</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
