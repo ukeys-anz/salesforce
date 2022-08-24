@@ -1,0 +1,37 @@
+name: Add PR Merge Reminder
+on: [pull_request]
+jobs:
+  run:
+    runs-on: [self-hosted, salesforce-prod]
+    steps:
+      - name: "Checkout Repo"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: "Checkout Action Repo"
+        uses: actions/checkout@v2
+        with:
+          repository: anzx/salesforce-actions
+          token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
+          path: .github/actions
+          ref: v3
+
+      - name: "Add Comment Reminder"
+        uses: ./.github/actions/auto-comment
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pullRequestOpened: |
+            👋 @{{ author }} here's a reminder for merging PR's:
+
+            | Squash &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |     |         |
+            | ------- | --- | ------- |
+            | feature | ➡️  | epic    |
+            | feature | ➡️  | develop |
+
+            | Merge Commit |     |         |
+            | ------------ | --- | ------- |
+            | epic         | ➡️  | develop |
+            | develop      | ➡️  | master  |
+            | develop      | ➡️  | epic    |
+            | master       | ➡️  | develop |
