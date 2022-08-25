@@ -4,6 +4,9 @@
         <field>CASE_NUMBER</field>
     </columns>
     <columns>
+        <field>Case.IDR_Date_Received__c</field>
+    </columns>
+    <columns>
         <field>STATUS</field>
     </columns>
     <columns>
@@ -62,7 +65,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
-            <value>IDR</value>
+            <value>IDR,CCR</value>
         </criteriaItems>
         <criteriaItems>
             <column>STATUS</column>
