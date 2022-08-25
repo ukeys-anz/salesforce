@@ -4925,6 +4925,10 @@
             <fullName>Digital Wallet Provisioning</fullName>
             <default>false</default>
         </values>
+         <values>
+            <fullName>KYC Reverification</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>Open Banking</fullName>
             <default>false</default>

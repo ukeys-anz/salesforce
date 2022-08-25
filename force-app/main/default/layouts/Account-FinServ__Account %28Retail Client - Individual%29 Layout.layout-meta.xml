@@ -8,7 +8,7 @@
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
-        <label>Account Information</label>
+        <label>Customer Information</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
