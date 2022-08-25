@@ -6,6 +6,6 @@
     <description>How interaction happened</description>
     <inlineHelpText>The channel that the appointment will be held through e.g. through phone or store</inlineHelpText>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
 </CustomField>

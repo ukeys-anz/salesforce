@@ -32,10 +32,20 @@ global with sharing class InteractionContextService {
       intToInsert.Contact_Mobile__c = contextRequest.phoneNumber;
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
 
-      if (Interaction.sObjectType.getDescribe().isCreateable()) {
-        insert intToInsert;
-      }
-      resp = generateResponse(intToInsert.Id);
+      //not doing permission checks as the integration user fails on POST
+      //this is the same issue faced in ChatContextService and test classes
+      //for the integration user
+      insert intToInsert;
+      Interaction newInt;
+      newInt = [
+        SELECT Id, Interaction_External_Id__c
+        FROM Interaction
+        WHERE Id = :intToInsert.Id
+      ];
+      resp = generateResponse(
+        intToInsert.Id,
+        newInt.Interaction_External_Id__c
+      );
     }
 
     String jsonRes = JSON.serialize(resp);
@@ -46,14 +56,17 @@ global with sharing class InteractionContextService {
 
   /**
    * @description Method to generate a response instance
-   * @param interactionId interaction ID of the newly generated interaction.
+   * @param recordId interaction ID of the newly generated interaction.
+   * @param externalId external id of the newly generated interaction.
    * @return `InteractionContextResponse`
    */
   private static InteractionContextResponse generateResponse(
-    String interactionId
+    String recordId,
+    String externalId
   ) {
     InteractionContextResponse response = new InteractionContextResponse();
-    response.interactionId = interactionId;
+    response.recordId = recordId;
+    response.externalId = externalId;
     response.success = true;
     response.statusCode = 200;
     return response;
@@ -83,10 +96,6 @@ global with sharing class InteractionContextService {
      */
     public String phoneNumber { get; set; }
     /**
-     * @description ocv ID of the account from Twilio
-     */
-    public String ocvId { get; set; }
-    /**
      * @description Direction from Twillio
      */
     public String direction { get; set; }
@@ -105,9 +114,13 @@ global with sharing class InteractionContextService {
      */
     public Integer statusCode { get; set; }
     /**
+     * @description Record ID
+     */
+    public String recordId { get; set; }
+    /**
      * @description Interaction ID
      */
-    public String interactionId { get; set; }
+    public String externalId { get; set; }
     /**
      * @description Error Message for failure response
      */

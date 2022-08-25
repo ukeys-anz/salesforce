@@ -985,8 +985,15 @@
     "Interaction": {
       "IA-2530753": [
         "AccountId",
+        "ANZ_Number__c",
+        "Appointment__c",
+        "AppointmentId__c",
+        "Attendees__c",
         "Authentication_Method__c",
+        "Call_Recording_ID__c",
+        "CaseId__c",
         "Channel_Booked__c",
+        "Chat_or_Call_SID__c",
         "Coaching_Summary__c",
         "Contact_Mobile__c",
         "ContactRequestId__c",
@@ -1000,8 +1007,13 @@
         "Event_Id__c",
         "Interaction_Auto_Number__c",
         "Interaction_External_Id__c",
+        "Interaction_Number__c",
+        "Interaction_Number_Link__c",
         "Interaction_Purpose__c",
         "Interaction_Summary__c",
+        "Is_User_Attendee__c",
+        "Is_Record_UnIdentified__c",
+        "Lead__c",
         "InteractionType",
         "Id",
         "LastModifiedById",
@@ -1014,9 +1026,14 @@
         "Record_Type__c",
         "RecordTypeId",
         "ReferenceIdentifier",
+        "Referred_To__c",
+        "Resolution__c",
         "StartTime",
         "Status__c"
       ]
+    },
+    "Interaction_Attendee": {
+      "IA-2468715": ["AttendeeType", "UserId", "Time__c"]
     },
     "Known_Issues__c": {
       "IA-2468715": [
@@ -1705,6 +1722,7 @@
         "FederationIdentifier"
       ],
       "IA-2468715": [
+        "Active_Directory_ID__c",
         "ManagerId",
         "IsActive",
         "LocaleSidKey",

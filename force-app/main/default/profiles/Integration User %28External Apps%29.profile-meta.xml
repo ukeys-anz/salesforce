@@ -208,6 +208,17 @@
         <layout>Case-Complaint Layout</layout>
         <recordType>Case.Non_Customer_Complaint</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Interaction Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Appointment Layout</layout>
+        <recordType>Interaction.Appointment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Interaction Layout</layout>
+        <recordType>Interaction.General</recordType>
+    </layoutAssignments>
     <loginIpRanges>
         <description>Splunk Prod</description>
         <endAddress>203.110.235.255</endAddress>

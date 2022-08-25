@@ -5,14 +5,6 @@
  */
 @isTest
 public with sharing class InteractionAttendeeTriggerHandlerTest {
-  private static final string TEST_MOBILE = '01189998819991197253';
-  private static final String VIC_FIRST_NAME = 'TestVictoria';
-  private static final String VIC_LAST_NAME = 'Beckham';
-  private static final String VIC_FULL_NAME =
-    VIC_FIRST_NAME +
-    ' ' +
-    VIC_LAST_NAME;
-
   @testSetup
   static void setup() {
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
@@ -21,8 +13,7 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
     // Create coach user
     User coachUser = TestUtil.createTestUser(
       new Map<String, Object>{
-        'FirstName' => VIC_FIRST_NAME,
-        'LastName' => VIC_LAST_NAME,
+        'FirstName' => 'TestCoach',
         'ProfileId' => stdUserProfile.Id,
         'UserRoleId' => coachRole.Id
       }
@@ -33,10 +24,11 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
   @isTest
   static void testUpdateAttendee() {
     Faker faker = new Faker('AU');
+    User coachUser = TestUtil.getUserByFirstName('TestCoach');
     User userData = [
       SELECT Id, UserRole.Name, Name
       FROM User
-      WHERE FirstName = :VIC_FIRST_NAME
+      WHERE Id = :coachUser.Id
       LIMIT 1
     ];
 
@@ -87,7 +79,7 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
       LIMIT 1
     ];
     System.assertEquals(
-      VIC_FULL_NAME,
+      userData.Name,
       parentInteraction.Attendees__c,
       'Incorrect value for Attendees__c'
     );
@@ -112,6 +104,7 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
     String lastName,
     String ocvId
   ) {
+    Faker faker = new Faker('AU');
     Id personAccountRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
       .get('PersonAccount')
       .getRecordTypeId();
@@ -120,7 +113,7 @@ public with sharing class InteractionAttendeeTriggerHandlerTest {
     testAccount.LastName = lastName;
     testAccount.OCV_ID__c = ocvId;
     testAccount.RecordTypeId = personAccountRecordTypeId;
-    testAccount.PersonMobilePhone = TEST_MOBILE;
+    testAccount.PersonMobilePhone = String.valueOf(faker.randomDecimal(10, 0));
 
     return testAccount;
   }
