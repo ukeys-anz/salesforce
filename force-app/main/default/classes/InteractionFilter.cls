@@ -100,4 +100,39 @@ public with sharing class InteractionFilter {
     }
     return result;
   }
+  /**
+   * @description Returns the list of appointment interactions
+   * @param interactions List<Interaction> list of new interaction records.
+   * @return List<Interaction> list of appointment interactions.
+   */
+  public static List<Interaction> getApptInteractions(
+    List<Interaction> interactions
+  ) {
+    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      if (interact.RecordTypeId == appointmentRTID) {
+        interactionList.add(interact);
+      }
+    }
+    return interactionList;
+  }
+
+  /**
+   * @description Returns the list of general interactions
+   * @param interactions List<Interaction> list of new interaction records.
+   * @return List<Interaction> list of general interactions.
+   */
+  public static List<Interaction> getGeneralInteractions(
+    List<Interaction> interactions
+  ) {
+    Id generalRTID = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      if (interact.RecordTypeId == generalRTID) {
+        interactionList.add(interact);
+      }
+    }
+    return interactionList;
+  }
 }

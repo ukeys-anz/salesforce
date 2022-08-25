@@ -2235,6 +2235,17 @@
         <layout>Global-Global Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Interaction Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Appointment Layout</layout>
+        <recordType>Interaction.Appointment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Interaction Layout</layout>
+        <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

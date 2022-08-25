@@ -208,6 +208,17 @@
         <layout>Case-Complaint Layout</layout>
         <recordType>Case.Non_Customer_Complaint</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Interaction Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Appointment Layout</layout>
+        <recordType>Interaction.Appointment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Interaction Layout</layout>
+        <recordType>Interaction.General</recordType>
+    </layoutAssignments>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Business_Account</recordType>

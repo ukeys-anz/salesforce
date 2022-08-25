@@ -9,7 +9,7 @@
     <length>34</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Text</type>
     <unique>true</unique>
 </CustomField>
