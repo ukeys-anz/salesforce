@@ -71,12 +71,4 @@ public with sharing class LoggingSettingsController {
   public static String getDefaultSaveMethod() {
     return userSettings.DefaultSaveMethod__c;
   }
-
-  /**
-   * @description Returns the default number of days to retain logs
-   * @return Integer Number of days to retain logs
-   */
-  public static Integer getLogsRetentionDuration() {
-    return Integer.valueOf(userSettings.DefaultLogRetentionDuration__c);
-  }
 }

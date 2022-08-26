@@ -15,7 +15,7 @@ public with sharing class UniqueIdUtil {
    * @return a hex string which suits w3 standard
    */
   public static String getVersion() {
-    if (version == '') {
+    if (String.isBlank(version)) {
       version = '00';
     }
 
@@ -27,7 +27,7 @@ public with sharing class UniqueIdUtil {
    */
   public static String getTraceId() {
     // if session id is null, we are in a session where Request class will fail with internal exception, such as SSO context
-    if (traceId == '' && UserInfo.getSessionId() != null) {
+    if (String.isBlank(traceId) && UserInfo.getSessionId() != null) {
       Request reqInfo = Request.getCurrent();
       String currentRequestId = reqInfo.getRequestId();
       if (!String.isBlank(currentRequestId)) {
@@ -45,7 +45,7 @@ public with sharing class UniqueIdUtil {
    * @return a hex string which suits w3 standard
    */
   public static String getSpanId() {
-    if (spanId == '') {
+    if (String.isBlank(spanId)) {
       return generateSpanId();
     }
 
@@ -74,7 +74,7 @@ public with sharing class UniqueIdUtil {
    * @return a hex string which suits w3 standard
    */
   public static String getTraceFlag() {
-    if (traceFlag == '') {
+    if (String.isBlank(traceFlag)) {
       traceFlag = '01';
     }
 
