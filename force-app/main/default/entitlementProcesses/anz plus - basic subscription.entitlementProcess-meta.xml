@@ -338,7 +338,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM, Card, Direct Debit, Direct Entry, NPP</value>
+            <value>ATM, BPAY, Card, Direct Debit, Direct Entry, NPP</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Priority</field>
@@ -375,7 +375,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM, Card, Direct Debit, Direct Entry, NPP</value>
+            <value>ATM, BPAY, Card, Direct Debit, Direct Entry, NPP</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Priority</field>
@@ -524,7 +524,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>Card, Direct Entry, NPP</value>
+            <value>Card, BPAY, Direct Entry, NPP</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>

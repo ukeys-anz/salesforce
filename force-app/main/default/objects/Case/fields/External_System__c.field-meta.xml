@@ -23,6 +23,11 @@
                 <label>CARBe</label>
             </value>
             <value>
+                <fullName>EFT Dispute Portal</fullName>
+                <default>false</default>
+                <label>EFT Dispute Portal</label>
+            </value>
+            <value>
                 <fullName>Pega_Smarts</fullName>
                 <default>false</default>
                 <label>Pega Smarts</label>
