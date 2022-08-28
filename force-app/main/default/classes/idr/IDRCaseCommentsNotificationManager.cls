@@ -24,7 +24,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
         ) {
           wrapperList.add(createNotification(caseRec));
         }
-        if (caseRec.Status == 'Closed' &&
+        if ((caseRec.Status == 'Closed' || caseRec.Status == 'Withdrawn' || caseRec.Status == 'Resolved') &&
             caseRec.IDR_Additional_Correspondence_reviewed__c == true
         ) {
             caseRec.IDR_Additional_Correspondence_reviewed__c = false;

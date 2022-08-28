@@ -41,7 +41,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           ); 
         }
         if (
-        oCase.Status == 'Closed'
+        oCase.Status == 'Closed' || oCase.Status == 'Withdrawn' || oCase.Status == 'Resolved'
         ) {
             caseCommentList.add(
             createCaseCloseNotification(
