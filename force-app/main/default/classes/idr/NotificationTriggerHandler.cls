@@ -139,7 +139,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           IDR_NC_Mobile__c,
           RecordTypeId,
           IDR_SwicthOff_3rd_Party_Notification__c,
-          IDR_SwitchOff_Customer_Notification__c
+          IDR_SwitchOff_Customer_Notification__c,
+          IDR_3rdParty_Relationship_To_Complainant__c
         FROM Case
         WHERE id IN :caseIds
       ]
@@ -186,12 +187,17 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
     if (c.RecordTypeId != GetHelpConstants.COMPLAINT_RT_ID) {
       if (c.IDR_SwicthOff_3rd_Party_Notification__c == false) {
-        //Avoid null scenario
+        if (
+          c.IDR_3rdParty_Relationship_To_Complainant__c == '20' &&
+          !String.isEmpty(c.Account.PersonContact.FirstName)
+        ) {
+          notification.AuthorisedFirstName__c = c.Account.PersonContact.FirstName;
+        } else {
+          notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
+        }
         notification.AuthorisedEmail__c = c.IDR_3rdParty_Email__c;
-        notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
         notification.AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c;
       }
-
       if (c.IDR_SwitchOff_Customer_Notification__c == false) {
         notification.CAP_CIS_ID__c = c.IDR_Customer_Number__c;
         notification.Customer_Identifier__c = ((String.isNotBlank(
