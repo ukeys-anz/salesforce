@@ -41,6 +41,16 @@
     "Known_Issues__c": {
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
     },
+    "Lead": {
+      "FinServ__ExpressedInterest__c": "The type of needs customer require",
+      "FinServ__PotentialValue__c": "Dollar amount for a lead",
+      "FinServ__RelatedAccount__c": "Look up field for financial account, relates a lead to customer's financial account"
+    },
+    "Opportunity": {
+      "FinServ__FinancialAccount__c": "Financial account associated with this opportunity",
+      "FinServ__Household__c": "ID of the household record associated with the opportunity record",
+      "FinServ__ReferredByContact__c": "External contact referring this opportunity"
+    },
     "Product2": {
       "ProductCode": "Default product code for this record. Your org defines the product code naming pattern."
     },
@@ -264,12 +274,21 @@
         "IDR_Team__c",
         "IDR_Tribe__c",
         "PSI_or_DSI__c",
+        "Queue__c",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
         "Task_Sub_Type__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
-      "IA-2468715": ["Voice_Call_SID__c"]
+      "IA-2468715": ["Voice_Call_SID__c"],
+      "IA-2415860": [
+        "Lead_Quality__c",
+        "Lead__c",
+        "Outcome_Reason__c",
+        "Response_Status__c",
+        "Response_Type__c",
+        "Skip_Validations__c"
+      ]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -284,6 +303,39 @@
         "OwnerId",
         "Slot_Available__c",
         "Type__c"
+      ]
+    },
+    "Campaign": {
+      "IA-2415860": [
+        "Channel__c",
+        "Code__c",
+        "Description__c",
+        "EndDate",
+        "Is_Routable__c",
+        "Name",
+        "Organization__c",
+        "Priority__c",
+        "Source__c",
+        "StartDate",
+        "Type"
+      ]
+    },
+    "Campaign_Document__c": {
+      "IA-2415860": [
+        "Campaign__c",
+        "Comments__c",
+        "Is_Private__c",
+        "URL__c",
+        "UUID__c"
+      ]
+    },
+    "Campaign_Flex_Field__c": {
+      "IA-2415860": [
+        "CampaignCodeSequence__c",
+        "Campaign__c",
+        "FlexFieldName__c",
+        "Sequence__c",
+        "UUID__c"
       ]
     },
     "CampaignMember": {
@@ -1026,12 +1078,13 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
+      "IA-2415983": ["FinServ__ExpressedInterest__c"],
       "IA-2415984": [
         "ABN__c",
         "ABN_Status__c",
         "ABN_Validation_Status__c",
         "ACN__c",
-        "ABN_Status__c",
+        "ACN_Status__c",
         "ACN_Validation_Status__c",
         "City",
         "Company",
@@ -1039,9 +1092,11 @@
         "Email",
         "FirstName",
         "Home_Phone__c",
+        "Industry",
         "Industry__c",
         "LastName",
         "MobilePhone",
+        "Name",
         "PostalCode",
         "State",
         "Street",
@@ -1055,6 +1110,7 @@
         "CLG_Name__c",
         "Controlling_Post_ID__c",
         "Customer_ID__c",
+        "Entity_Type__c",
         "Expiry_Date__c",
         "Expiry_Indicator__c",
         "FinServ__PotentialValue__c",
@@ -1063,20 +1119,24 @@
         "LeadSource",
         "Lead_Auto_Number__c",
         "Lead_Id__c",
-        "Lead_Originator_c",
+        "Lead_Originator__c",
         "Lead_Quality__c",
         "New_to_Bank__c",
-        "Notes__c",
+        "Note__c",
         "Not_Registered__c",
         "OwnerId",
         "Previous_Lead__c",
         "Priority__c",
-        "Prospect_Id__c",
+        "Prospect_ID__c",
         "Record_Id__c",
+        "Skip_Validations__c",
         "Status",
         "SubStatus__c",
         "UNICA_Treatment_Code__c"
-      ]
+      ],
+      "IA-2415720": ["Account_Number__c"],
+      "IA-2415999": ["Address"],
+      "IA-2415840": ["Description"]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
@@ -1086,7 +1146,7 @@
         "Lead__c",
         "LeadIdSequence__c",
         "Sequence__c",
-        "UUID__C"
+        "UUID__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -1186,7 +1246,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2415987": ["Amount"]
     },
     "Privileged_Access_Request__c": {
       "IA-2468715": [
@@ -1362,10 +1423,12 @@
         "Campaign__c",
         "Close_To_Do_Activities__c",
         "Create_Activities_From_Template__c",
+        "Create_Opportunity__c",
         "Create_To_Do_Activities__c",
         "Display_Order__c",
         "Follow_Up_State__c",
         "Is_Active__c",
+        "Outcome_Reason__c",
         "Response_Status__c",
         "SRE_TeaCreate_Opportunity__cm__c",
         "UNICA_Lead_SubStatus__c"
@@ -1441,6 +1504,14 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
+      ],
+      "IA-2415860": [
+        "Lead_Quality__c",
+        "Lead__c",
+        "Outcome_Reason__c",
+        "Response_Status__c",
+        "Response_Type__c",
+        "Skip_Validations__c"
       ]
     },
     "Traced_Application_Log__b": {
