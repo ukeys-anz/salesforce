@@ -106,4 +106,9 @@
         <default>false</default>
         <label>Source - ANZ Plus Website</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_Loan_Domain</fullName>
+        <default>false</default>
+        <label>Source - Loan Domain</label>
+    </standardValue>
 </StandardValueSet>
