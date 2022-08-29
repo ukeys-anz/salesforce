@@ -250,20 +250,6 @@
             {
               "colspan": 5,
               "column": 0,
-              "name": "text_10",
-              "row": 15,
-              "rowspan": 3,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 5,
-              "column": 0,
               "name": "container_10",
               "row": 8,
               "rowspan": 5,
@@ -278,20 +264,6 @@
             {
               "colspan": 5,
               "column": 0,
-              "name": "text_13",
-              "row": 9,
-              "rowspan": 3,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 5,
-              "column": 0,
               "name": "container_13",
               "row": 20,
               "rowspan": 5,
@@ -300,20 +272,6 @@
                 "borderColor": "#E6ECF2",
                 "borderEdges": [],
                 "borderRadius": 16,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 5,
-              "column": 0,
-              "name": "text_19",
-              "row": 21,
-              "rowspan": 3,
-              "widgetStyle": {
-                "backgroundColor": "rgba(255, 255, 255, 0)",
-                "borderColor": "#E6ECF2",
-                "borderEdges": [],
-                "borderRadius": 0,
                 "borderWidth": 1
               }
             },
@@ -362,20 +320,6 @@
               "widgetStyle": {
                 "backgroundColor": "#FFFFFF",
                 "borderColor": "#7D98B3",
-                "borderEdges": ["all"],
-                "borderRadius": 0,
-                "borderWidth": 1
-              }
-            },
-            {
-              "colspan": 2,
-              "column": 10,
-              "name": "text_17",
-              "row": 15,
-              "rowspan": 5,
-              "widgetStyle": {
-                "backgroundColor": "#FFFFFF",
-                "borderColor": "#C6D3E1",
                 "borderEdges": ["all"],
                 "borderRadius": 0,
                 "borderWidth": 1
@@ -450,6 +394,44 @@
                 "borderRadius": 0,
                 "borderWidth": 1
               }
+            },
+            {
+              "colspan": 2,
+              "column": 10,
+              "name": "text_3",
+              "row": 15,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#C6D3E1",
+                "borderEdges": ["all"],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 5,
+              "column": 0,
+              "name": "text_2",
+              "row": 9,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 5,
+              "column": 0,
+              "name": "text_5",
+              "row": 15,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 5,
+              "column": 0,
+              "name": "text_6",
+              "row": 21,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
             }
           ]
         },
@@ -676,7 +658,7 @@
       "groups": [],
       "label": "IDR_StopCollectionsI_1",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\nq = group q by 'isStopCollection';\nq = foreach q generate 'isStopCollection' as 'isStopCollection', count() as 'count';\nq = order q by 'isStopCollection' asc;\n\n",
+      "query": "q = load \"NLP_Cases\";\nq = group q by 'isStopCollection';\nq = foreach q generate 'isStopCollection' as 'isStopCollection', count() as 'count';\nq = order q by 'isStopCollection' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "start": "[]",
@@ -737,7 +719,7 @@
       "groups": [],
       "label": "Recall % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\n\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate number_to_string(TP/(TP + FN), \"0.00%\") as 'Recall';",
+      "query": "q = load \"NLP_Cases\";\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate number_to_string(TP/(TP + FN), \"0.00%\") as 'Recall';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -827,7 +809,7 @@
       "groups": [],
       "label": "Precision % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFP = filter q by 'isStopCollectionFalsePositive' == \"true\";\nFP = group FP by 'isStopCollectionFalsePositive';\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'c';\n\nresult = cogroup TP by all full, FP by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FP.c), 0) as 'FP';\nresult = foreach result generate number_to_string(TP/(TP + FP), \"0.00%\") as 'Precision';",
+      "query": "q = load \"NLP_Cases\";\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\nFP = filter q by 'isStopCollectionFalsePositive' == \"true\";\nFP = group FP by 'isStopCollectionFalsePositive';\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'c';\nresult = cogroup TP by all full, FP by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FP.c), 0) as 'FP';\nresult = foreach result generate number_to_string(TP/(TP + FP), \"0.00%\") as 'Precision';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -917,7 +899,7 @@
       "groups": [],
       "label": "Recall",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\n\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate (TP/(TP + FN)) * 100 as 'Recall';",
+      "query": "q = load \"NLP_Cases\";\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by 'isCollectionFalseNegative';\nFN = foreach FN generate isCollectionFalseNegative, count() as 'c';\nresult = cogroup TP by all full, FN by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FN.c), 0) as 'FN';\nresult = foreach result generate (TP/(TP + FN)) * 100 as 'Recall';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1102,7 +1084,7 @@
       "groups": [],
       "label": "Prevalence % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nresult = cogroup P by all full, N by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N';\nresult = foreach result generate number_to_string(P / (P + N), \"0.00%\") as 'Prevalence';",
+      "query": "q = load \"NLP_Cases\";\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\nresult = cogroup P by all full, N by all;\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N';\nresult = foreach result generate number_to_string(P / (P + N), \"0.00%\") as 'Prevalence';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1220,7 +1202,7 @@
       "groups": [],
       "label": "Correct Rejection",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\nresult = cogroup N by all full, TN by all;\n\nresult = foreach result generate max(N.N) as 'N', max(TN.TN) as 'TN';\n\nresult = foreach result generate (TN / N) * 100 as 'Correct_Rejection';\n",
+      "query": "q = load \"NLP_Cases\";\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\nresult = cogroup N by all full, TN by all;\nresult = foreach result generate max(N.N) as 'N', max(TN.TN) as 'TN';\nresult = foreach result generate (TN / N) * 100 as 'Correct_Rejection';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1690,7 +1672,7 @@
       "groups": [],
       "label": "True Negatives",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\nresult = cogroup N by all full, FN by all full, TN by all;\n\nresult = foreach result generate max(TN.TN) as 'TN';",
+      "query": "q = load \"NLP_Cases\";\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\nresult = cogroup N by all full, FN by all full, TN by all;\nresult = foreach result generate max(TN.TN) as 'TN';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -1780,7 +1762,7 @@
       "groups": [],
       "label": "F1 Score % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n--Get False Positives\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'FP';\n\n--Get False Negatives\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate count() as 'FN';\n\nresult = cogroup TP by all full, FN by all full, FP by all;\nresult = foreach result generate coalesce(max(FP.FP), 0) as 'FP', coalesce(max(FN.FN), 0) as 'FN', coalesce(max(TP.TP), 0) as 'TP';\n\nresult = foreach result generate number_to_string((2*TP) / (2*TP + FP + FN), \"0.00%\") as 'F1_Score';\n",
+      "query": "q = load \"NLP_Cases\";\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n--Get False Positives\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'FP';\n--Get False Negatives\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate count() as 'FN';\nresult = cogroup TP by all full, FN by all full, FP by all;\nresult = foreach result generate coalesce(max(FP.FP), 0) as 'FP', coalesce(max(FN.FN), 0) as 'FN', coalesce(max(TP.TP), 0) as 'TP';\nresult = foreach result generate number_to_string((2*TP) / (2*TP + FP + FN), \"0.00%\") as 'F1_Score';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2010,7 +1992,7 @@
       "groups": [],
       "label": "Prevalence",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nresult = cogroup P by all full, N by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N';\nresult = foreach result generate (P / (P + N)) * 100 as 'Prevalence';\n",
+      "query": "q = load \"NLP_Cases\";\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\nresult = cogroup P by all full, N by all;\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N';\nresult = foreach result generate (P / (P + N)) * 100 as 'Prevalence';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2190,7 +2172,7 @@
       "groups": [],
       "label": "Accuracy % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate number_to_string(((TP + TN) / (N + P)), \"0.00%\") as 'Accuracy';\n",
+      "query": "q = load \"NLP_Cases\";\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\nresult = foreach result generate number_to_string(((TP + TN) / (N + P)), \"0.00%\") as 'Accuracy';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2338,7 +2320,7 @@
       "groups": [],
       "label": "Accuracy",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\n\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\n\nresult = foreach result generate ((TP + TN) / (N + P)) * 100 as 'Accuracy';\n",
+      "query": "q = load \"NLP_Cases\";\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\nresult = cogroup P by all full, N by all full, TN by all full, TP by all;\nresult = foreach result generate max(P.P) as 'P', max(N.N) as 'N', max(TN.TN) as 'TN', max(TP.TP) as 'TP';\nresult = foreach result generate ((TP + TN) / (N + P)) * 100 as 'Accuracy';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2389,7 +2371,7 @@
       "groups": [],
       "label": "F1 Score",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\n--Get False Positives\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'FP';\n\n--Get False Negatives\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate count() as 'FN';\n\nresult = cogroup TP by all full, FN by all full, FP by all;\nresult = foreach result generate coalesce(max(FP.FP), 0) as 'FP', coalesce(max(FN.FN), 0) as 'FN', coalesce(max(TP.TP), 0) as 'TP';\n\nresult = foreach result generate ((2*TP) / (2*TP + FP + FN))*100 as 'F1_Score';\n",
+      "query": "q = load \"NLP_Cases\";\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n--Get False Positives\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'FP';\n--Get False Negatives\nFN = filter q by 'isCollectionFalseNegative' == \"true\";\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate count() as 'FN';\nresult = cogroup TP by all full, FN by all full, FP by all;\nresult = foreach result generate coalesce(max(FP.FP), 0) as 'FP', coalesce(max(FN.FN), 0) as 'FN', coalesce(max(TP.TP), 0) as 'TP';\nresult = foreach result generate ((2*TP) / (2*TP + FP + FN))*100 as 'F1_Score';\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2479,7 +2461,7 @@
       "groups": [],
       "label": "Precision",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\n\nFP = filter q by 'isStopCollectionFalsePositive' == \"true\";\nFP = group FP by 'isStopCollectionFalsePositive';\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'c';\n\nresult = cogroup TP by all full, FP by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FP.c), 0) as 'FP';\nresult = foreach result generate (TP/(TP + FP)) * 100 as 'Precision';",
+      "query": "q = load \"NLP_Cases\";\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'c';\nFP = filter q by 'isStopCollectionFalsePositive' == \"true\";\nFP = group FP by 'isStopCollectionFalsePositive';\nFP = foreach FP generate isStopCollectionFalsePositive, count() as 'c';\nresult = cogroup TP by all full, FP by all;\nresult = foreach result generate first(TP.c) as 'TP', coalesce(first(FP.c), 0) as 'FP';\nresult = foreach result generate (TP/(TP + FP)) * 100 as 'Precision';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2638,7 +2620,7 @@
       "groups": [],
       "label": "Correct Rejection % String",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\n\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\n\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\n\nresult = cogroup N by all full, TN by all;\n\nresult = foreach result generate max(N.N) as 'N', max(TN.TN) as 'TN';\n\nresult = foreach result generate number_to_string((TN / N), \"0.00%\") as 'Correct_Rejection';",
+      "query": "q = load \"NLP_Cases\";\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n-- Calculates the True Negatives\nN = filter q by 'isStopCollection' == \"false\";\nN = group N by isStopCollection;\nN = foreach N generate 'isStopCollection', count() as 'N';\nFN = filter q by ('isCollectionFalseNegative' == \"true\");\nFN = group FN by isCollectionFalseNegative;\nFN = foreach FN generate 'isCollectionFalseNegative', count() as 'FN';\nTN = cogroup N by all full, FN by all;\n-- Remove the False negatives predicted from the model to get True Negatives\nTN = foreach TN generate (max(N.N)-max(FN.FN)) as 'TN';\nresult = cogroup N by all full, TN by all;\nresult = foreach result generate max(N.N) as 'N', max(TN.TN) as 'TN';\nresult = foreach result generate number_to_string((TN / N), \"0.00%\") as 'Correct_Rejection';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -2772,7 +2754,7 @@
       "groups": [],
       "label": "lens_1",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\nq = filter q by 'isStopCollection' == \"true\";\nq = filter q by 'Type' in [\"17\", \"19\", \"4\", \"5\"];\nq = group q by ('Type', 'Picklist.Label');\nq = foreach q generate 'Type', 'Picklist.Label', count() as 'count';\nq = order q by 'count' asc;\n\n\n",
+      "query": "q = load \"NLP_Cases\";\nq = filter q by 'isStopCollection' == \"true\";\nq = filter q by 'Type' in [\"17\", \"19\", \"4\", \"5\"];\nq = group q by ('Type', 'Picklist.Label');\nq = foreach q generate 'Type', 'Picklist.Label', count() as 'count';\nq = order q by 'count' asc;\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "multi",
       "start": "[]",
@@ -2871,7 +2853,7 @@
       "groups": [],
       "label": "True Positives",
       "numbers": [],
-      "query": "q = load \"NLP_Cases\";\n\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\n\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate 'isStopCollectionFalsePositive', count() as 'FP';\n\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\n\nresult = cogroup P by all full, TP by all full, FP by all;\n\nresult = foreach result generate max(TP.TP) as 'TP';",
+      "query": "q = load \"NLP_Cases\";\n-- Calc Positives\nP = filter q by 'isStopCollection' == \"true\";\nP = group P by isStopCollection;\nP = foreach P generate 'isStopCollection', count() as 'P';\nFP = filter q by ('isStopCollectionFalsePositive' == \"true\");\nFP = group FP by isStopCollectionFalsePositive;\nFP = foreach FP generate 'isStopCollectionFalsePositive', count() as 'FP';\n--Calculate True Positives. This is done by checking if the Case is set to Stop Collection == true, minus the number of False Positives records;\nTP = filter q by ('isStopCollection' == \"true\");\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate 'isStopCollectionFalsePositive', count() as 'c';\nTP = foreach TP generate 'isStopCollectionFalsePositive', case when 'isStopCollectionFalsePositive' == \"true\" then -(c) else c end as 'c';\nTP = group TP by isStopCollectionFalsePositive;\nTP = foreach TP generate sum(sum(c)) over([..] partition by all) as 'TP';\nresult = cogroup P by all full, TP by all full, FP by all;\nresult = foreach result generate max(TP.TP) as 'TP';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -3009,25 +2991,6 @@
     "borderWidth": 1
   },
   "widgets": {
-    "text_17": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "FP = [FP]\n",
-          "values": {
-            "FP": {
-              "field": "FP",
-              "sourceType": "result",
-              "step": "False_Positives_1"
-            }
-          }
-        },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
     "container_13": {
       "parameters": {
         "alignmentX": "left",
@@ -3035,63 +2998,6 @@
         "fit": "original"
       },
       "type": "container"
-    },
-    "text_19": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "Accuracy: [Accuracy]\n",
-          "values": {
-            "Accuracy": {
-              "field": "Accuracy",
-              "sourceType": "result",
-              "step": "Accuracy___String_1"
-            }
-          }
-        },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_13": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "Recall: [Recall]\n",
-          "values": {
-            "Recall": {
-              "field": "Recall",
-              "sourceType": "result",
-              "step": "Recall_2"
-            }
-          }
-        },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
-    },
-    "text_10": {
-      "parameters": {
-        "content": {
-          "displayTemplate": "Precision: [Precision_1]\n",
-          "values": {
-            "Precision_1": {
-              "field": "Precision",
-              "sourceType": "result",
-              "step": "Precision___String_1"
-            }
-          }
-        },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
-      },
-      "type": "text"
     },
     "container_1": {
       "parameters": {
@@ -3208,6 +3114,25 @@
       },
       "type": "container"
     },
+    "text_3": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "FP = [FP]\n",
+          "values": {
+            "FP": {
+              "field": "FP",
+              "sourceType": "result",
+              "step": "False_Positives_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "chart_5": {
       "parameters": {
         "autoFitMode": "keepLabels",
@@ -3263,6 +3188,25 @@
       },
       "type": "chart"
     },
+    "text_2": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Recall: [Recall]%\n",
+          "values": {
+            "Recall": {
+              "field": "Recall",
+              "sourceType": "result",
+              "step": "Recall_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "container_8": {
       "parameters": {
         "alignmentX": "left",
@@ -3270,6 +3214,25 @@
         "fit": "original"
       },
       "type": "container"
+    },
+    "text_5": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Precision: [Precision]%\n",
+          "values": {
+            "Precision": {
+              "field": "Precision",
+              "sourceType": "result",
+              "step": "Precision_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
     },
     "chart_7": {
       "parameters": {
@@ -3477,6 +3440,25 @@
       },
       "type": "chart"
     },
+    "text_6": {
+      "parameters": {
+        "content": {
+          "displayTemplate": "Accuracy: [Accuracy]%\n",
+          "values": {
+            "Accuracy": {
+              "field": "Accuracy",
+              "sourceType": "result",
+              "step": "Accuracy_1"
+            }
+          }
+        },
+        "fontSize": 16,
+        "showActionMenu": true,
+        "textAlignment": "left",
+        "textColor": "#091A3E"
+      },
+      "type": "text"
+    },
     "chart_4": {
       "parameters": {
         "autoFitMode": "keepLabels",
@@ -3547,7 +3529,7 @@
     "text_9": {
       "parameters": {
         "content": {
-          "displayTemplate": "Case Closed with Record Type: \nCustomer Complaint\n\n\n\n\n\n\n\n\n\n\n"
+          "displayTemplate": "Case Closed with Record Type: \nCustomer Complaint\n"
         },
         "fontSize": 16,
         "showActionMenu": true,
