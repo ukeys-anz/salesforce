@@ -11,6 +11,106 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     manageNotification((List<ContentDocumentLink>) records);
   }
 
+  public override void onBeforeDelete() {
+    logFileDelete((List<ContentDocumentLink>) records);
+  }
+  /**
+   * @description Assesses whether or not to generate a log (generate only for CMOS complaint and enquiry) and creates a log entry.
+   * @param records ContentDocumentLink records in current trigger context
+   */
+  public void logFileDelete(List<ContentDocumentLink> records) {
+    List<ContentDocumentLink> docList = new List<ContentDocumentLink>();
+    Set<Id> linkedEntityIdList = new Set<Id>();
+    Set<Id> linkIdList = new Set<Id>();
+
+    Map<Id, Case> caseMap = getCaseRecords(records);
+
+    if ( !caseMap.isEmpty()) {
+      Lib_SystemLog log = new Lib_SystemLog(
+      ContentDocumentLinkTriggerHandler.class.getName(),
+      'logFileDelete'
+      );
+      Case oCase;
+      for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
+        if (
+        record.LinkedEntityId.getSobjectType() ==
+        Schema.getGlobalDescribe().get('Case') &&
+        (oCase = caseMap.get(record.LinkedEntityId)) != null &&
+        (oCase.RecordTypeId ==
+        IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
+        IDRCaseActions.isIDRComplaintType(oCase))
+        ) {
+          linkedEntityIdList.add(oCase.Id);
+          linkIdList.add(record.Id);
+        }
+      }
+      if (ContentDocumentLink.SObjectType.getDescribe().isQueryable()) {
+        docList = [
+        SELECT
+        Id,
+        ContentDocument.LatestPublishedVersion.Document_Flag__c,
+        ContentDocument.Title,
+        LinkedEntityId,
+        ContentDocument.CreatedDate,
+        ContentDocument.Owner.Name,
+        ContentDocument.FileExtension,
+        ContentDocument.LatestPublishedVersion.FileType,
+        ContentDocument.LatestPublishedVersion.Date_of_Document__c,
+        ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c,
+        ContentDocument.LatestPublishedVersion.Document_Category__c,
+        ContentDocumentId
+        FROM ContentDocumentLink
+        WHERE LinkedEntityId IN :linkedEntityIdList AND Id IN :linkIdList
+        ORDER BY
+        ContentDocument.CreatedDate DESC,
+        ContentDocument.Title ASC,
+        ContentDocument.FileExtension ASC
+        ];
+      }
+
+      for (ContentDocumentLink record : docList) {
+        String objectAPIName = 'ContentDocumentLink';
+        String errorNo = String.valueOf(Datetime.now());
+        String strUserName = UserInfo.getName();
+        String strDocTitle = (record.ContentDocument.Title == null)
+        ? ''
+        : record.ContentDocument.Title;
+        String strDocCategory = (record.ContentDocument.LatestPublishedVersion.Document_Category__c ==
+        null)
+        ? ''
+        : record.ContentDocument.LatestPublishedVersion.Document_Category__c;
+
+        String errorDescription =
+        'Following file will be deleted from CMOS system. ' +
+        'Content Document ID : ' +
+        record.ContentDocumentId +
+        ', User who deleted the document : ' +
+        strUserName +
+        ', Date/timestamp when document was deleted : ' +
+        errorNo +
+        ', Document name that was deleted : ' +
+        strDocTitle +
+        ', Document type that was deleted : ' +
+        record.ContentDocument.LatestPublishedVersion.FileType +
+        ', Document category that was deleted : ' +
+        strDocCategory +
+        ', Associated Case : ' +
+        record.LinkedEntityId;
+
+        log.addObjectMessage(
+        objectAPIName,
+        record.Id,
+        errorNo,
+        errorDescription,
+        Lib_SystemLog.Severity.INFO,
+        strUserName
+        );
+      }
+      System.debug(log);
+      log.publishEvent();
+    }
+  }
+
   /**
    * @description Assesses whether or not to generate a banker notification
    * @param records ContentDocumentLink records in current trigger context
@@ -100,9 +200,9 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     for (Case c : [
       SELECT Id, RecordTypeId, CaseNumber, OwnerId, Status
       FROM Case
-      WHERE Id IN :caseIds AND Owner.isActive = TRUE
+      WHERE Id IN :caseIds AND Owner.IsActive = TRUE
     ]) {
-      getCaseMap.put(c.id, c);
+      getCaseMap.put(c.Id, c);
     }
     return getCaseMap;
   }
@@ -162,15 +262,18 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
    * @param cdlRecord ContentDocumentLink record from the trigger
    * @param cdRecord ContentDocument record from the trigger
    * @return caseCommentObject
-   */ 
+   */
   private static CaseComment createCaseCloseNotification(
-    ContentDocumentLink cdlRecord, 
+    ContentDocumentLink cdlRecord,
     ContentDocument cdRecord
-   ) {
-       CaseComment caseCommentObject = new CaseComment(
-       isPublished = true,
-       ParentId = cdlRecord.LinkedEntityId,
-       commentBody = 'New attachment ' + cdRecord.Title + ' has been added to the case');
-       return caseCommentObject;
-   }
+  ) {
+    CaseComment caseCommentObject = new CaseComment(
+      IsPublished = true,
+      ParentId = cdlRecord.LinkedEntityId,
+      CommentBody = 'New attachment ' +
+        cdRecord.Title +
+        ' has been added to the case'
+    );
+    return caseCommentObject;
+  }
 }
