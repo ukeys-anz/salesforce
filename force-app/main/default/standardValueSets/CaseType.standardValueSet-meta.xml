@@ -351,4 +351,14 @@
         <default>false</default>
         <label>Assisted Tax Verification</label>
     </standardValue>
+    <standardValue>
+        <fullName>KYC Reverification</fullName>
+        <default>false</default>
+        <label>KYC Reverification</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Home Loans</fullName>
+        <default>false</default>
+        <label>Home Loans</label>
+    </standardValue>
 </StandardValueSet>

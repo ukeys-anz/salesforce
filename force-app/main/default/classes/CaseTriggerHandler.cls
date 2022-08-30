@@ -36,6 +36,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
     GetHelpCaseActions.populateOCVOnComplaint(records);
+    GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
   }
 
   /**

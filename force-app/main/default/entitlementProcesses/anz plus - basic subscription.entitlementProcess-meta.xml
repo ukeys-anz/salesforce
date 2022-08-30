@@ -10,7 +10,7 @@
         <operation>equals</operation>
         <value>true</value>
     </exitCriteriaFilterItems>
-    <isVersionDefault>false</isVersionDefault>
+    <isVersionDefault>true</isVersionDefault>
     <milestones>
         <businessHours>ANZx Case Business Hours</businessHours>
         <milestoneCriteriaFilterItems>
@@ -375,7 +375,7 @@
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM, Card, Direct Debit, Direct Entry, NPP</value>
+            <value>ATM, BPAY, Card, Direct Debit, Direct Entry, NPP</value>
         </milestoneCriteriaFilterItems>
         <milestoneCriteriaFilterItems>
             <field>Case.Priority</field>

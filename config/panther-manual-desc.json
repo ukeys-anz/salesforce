@@ -683,7 +683,8 @@
       "IA-2415992": ["SI_Potential_Consequence_to_Customer__c"],
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
-        "SI_Total_Payment_Amount__c"
+        "SI_Total_Payment_Amount__c",
+        "Sub_Status__c"
       ],
       "IA-2415998": [
         "Correct_Customer_Reference_Number__c",
@@ -1138,6 +1139,8 @@
         "Lead_Id__c",
         "Lead_Originator__c",
         "Lead_Quality__c",
+        "Marketing_Consent__c",
+        "Name",
         "New_to_Bank__c",
         "Note__c",
         "Not_Registered__c",
@@ -1145,6 +1148,8 @@
         "Previous_Lead__c",
         "Priority__c",
         "Prospect_ID__c",
+        "Privacy_Consent__c",
+        "Prospect_Id__c",
         "Record_Id__c",
         "Skip_Validations__c",
         "Status",

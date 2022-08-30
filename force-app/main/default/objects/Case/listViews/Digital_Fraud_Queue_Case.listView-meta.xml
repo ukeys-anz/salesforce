@@ -10,9 +10,9 @@
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
     <filters>
-        <field>CASES.STATUS</field>
-        <operation>notEqual</operation>
-        <value>Closed</value>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
     </filters>
     <label>Digital Fraud Queue</label>
     <queue>Digital_Fraud_Queue</queue>
