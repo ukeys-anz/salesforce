@@ -28,10 +28,12 @@ jobs:
             | ------- | --- | ------- |
             | feature | ➡️  | epic    |
             | feature | ➡️  | develop |
+            | epic **   | ➡️  | develop |
 
             | Merge Commit |     |         |
             | ------------ | --- | ------- |
-            | epic         | ➡️  | develop |
             | develop      | ➡️  | master  |
             | develop      | ➡️  | epic    |
             | master       | ➡️  | develop |
+
+            ** *epic branch can be squashed into develop except in scenario where epic/x contains multiple epics*
