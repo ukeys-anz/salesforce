@@ -4,7 +4,7 @@
  * @group Logging
  * @description  The main class for logging, from which engineers will call functions to create logs
  */
-@SuppressWarnings('PMD.ExcessivePublicCount')
+@SuppressWarnings('PMD.ExcessivePublicCount, PMD.CyclomaticComplexity')
 public with sharing class Logger {
   // ERROR logging level methods
   /**
@@ -74,6 +74,19 @@ public with sharing class Logger {
 
   /**
    * @description Creates a new log entry with logging level == `LoggingLevel.ERROR`
+   * @param  message      The string to use to set the entry's message field
+   * @param  emptyRecycleBinResult The instance of `Database.EmptyRecycleBinResult` to log
+   * @return              The new entry's instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public static LogEventBuilder error(
+    String message,
+    Database.EmptyRecycleBinResult emptyRecycleBinResult
+  ) {
+    return error().setDatabaseResult(emptyRecycleBinResult).setMessage(message);
+  }
+
+  /**
+   * @description Creates a new log entry with logging level == `LoggingLevel.ERROR`
    * @param  message       The string to use to set the entry's message field
    * @param  deleteResults The list of `Database.DeleteResult` instances to log
    * @return               The new entry's instance of `LogEventBuilder`, useful for chaining methods
@@ -135,6 +148,21 @@ public with sharing class Logger {
     List<Database.UpsertResult> upsertResults
   ) {
     return error().setDatabaseResult(upsertResults).setMessage(message);
+  }
+
+  /**
+   * @description Creates a new log entry with logging level == `LoggingLevel.ERROR`
+   * @param  message       The string to use to set the entry's message field
+   * @param  emptyRecycleBinResults The list of `Database.EmptyRecycleBinResult` instances to log
+   * @return               The new entry's instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public static LogEventBuilder error(
+    String message,
+    List<Database.EmptyRecycleBinResult> emptyRecycleBinResults
+  ) {
+    return error()
+      .setDatabaseResult(emptyRecycleBinResults)
+      .setMessage(message);
   }
 
   /**
@@ -308,6 +336,19 @@ public with sharing class Logger {
 
   /**
    * @description Creates a new log entry with logging level == `LoggingLevel.INFO`
+   * @param  message      The string to use to set the entry's message field
+   * @param  emptyRecycleBinResult The instance of `Database.EmptyRecycleBinResult` to log
+   * @return              The new entry's instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public static LogEventBuilder info(
+    String message,
+    Database.EmptyRecycleBinResult emptyRecycleBinResult
+  ) {
+    return info().setDatabaseResult(emptyRecycleBinResult).setMessage(message);
+  }
+
+  /**
+   * @description Creates a new log entry with logging level == `LoggingLevel.INFO`
    * @param  message       The string to use to set the entry's message field
    * @param  deleteResults The list of `Database.DeleteResult` instances to log
    * @return               The new entry's instance of `LogEventBuilder`, useful for chaining methods
@@ -369,6 +410,19 @@ public with sharing class Logger {
     List<Database.UpsertResult> upsertResults
   ) {
     return info().setDatabaseResult(upsertResults).setMessage(message);
+  }
+
+  /**
+   * @description Creates a new log entry with logging level == `LoggingLevel.INFO`
+   * @param  message       The string to use to set the entry's message field
+   * @param  emptyRecycleBinResults The list of `Database.EmptyRecycleBinResult` instances to log
+   * @return               The new entry's instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public static LogEventBuilder info(
+    String message,
+    List<Database.EmptyRecycleBinResult> emptyRecycleBinResults
+  ) {
+    return info().setDatabaseResult(emptyRecycleBinResults).setMessage(message);
   }
 
   /**
