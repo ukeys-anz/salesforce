@@ -81,7 +81,7 @@
                 <field>Date_Posted__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Readonly</behavior>
                 <field>Effective_Date__c</field>
             </layoutItems>
             <layoutItems>
