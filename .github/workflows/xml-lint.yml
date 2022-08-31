@@ -1,0 +1,41 @@
+name: Lint XMLs
+
+# This workflow will only run on Pull Requests against master , develop and epic/*
+on:
+  pull_request:
+    branches: [develop, master, epic/*]
+env:
+  PIP_INDEX_URL: "https://artifactory.gcp.anz/artifactory/api/pypi/pypi/simple"
+  LINT_JOB: "YES"
+
+jobs:
+  xml_checker:
+    runs-on: [self-hosted, salesforce]
+    env:
+      BASE_BRANCH: ${{ github.base_ref }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: "Get Changed Files"
+        id: get_changed_files
+        shell: bash
+        run: |
+          git fetch --tags 
+          ci/package.sh
+
+      - name: "Checkout Python"
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.7.9
+
+      - name: Install Dependencies
+        run: python3 -m pip install lxml
+
+      - name: "Checking XML Files"
+        run: |
+          echo "Linting XML files in diff"
+          python ci/xml_linter.py

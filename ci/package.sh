@@ -20,6 +20,11 @@ if [ -z "$TAG_PREFIX" ]; then
    TAG_PREFIX="$SOURCE_BRANCH"
 fi
 
+# If TAG_PREFIX is specified in the yml, do not overwrite
+if [ -z "$LINT_JOB" ]; then
+   LINT_JOB="NO"
+fi
+
 ## Make a deploy and destroy directories to start building artefacts
 mkdir -p tmp
 mkdir ${DEPLOY_DIR}
@@ -50,52 +55,56 @@ fi
 copyMandatoryFilesToPackage ${DEPLOY_DIR}
 copyMandatoryFilesToPackage ${DESTRUCTIVE_DIR}
 
-# Convert the DX project to a metadata api package and commit the changes to the artefact
-CURRENT_DIR=$(pwd)
-# This error message means the artifact is empty, either ci changes only, or everything is forceignored
-ERROR_MSG="No matching source was found within the package root directory"
+# If the current job is not a lint
+if [ "${LINT_JOB}" == "NO" ]; then
 
-# Only generate artefacts where files are found
-if [ "${CHANGED_FILES}" -gt "0" ]; then
-    cd ${DEPLOY_DIR}
-    if result=$(npx sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug 2>&1); then
-        echo "Deploy conversion successful"
-    else
-        if [[ $result == *$ERROR_MSG* ]]; then
-            echo "No files found in artifact, all files forceignored or no changes in deployable meta"
-            exit 0
+    # Convert the DX project to a metadata api package and commit the changes to the artefact
+    CURRENT_DIR=$(pwd)
+    # This error message means the artifact is empty, either ci changes only, or everything is forceignored
+    ERROR_MSG="No matching source was found within the package root directory"
+
+    # Only generate artefacts where files are found
+    if [ "${CHANGED_FILES}" -gt "0" ]; then
+        cd ${DEPLOY_DIR}
+        if result=$(npx sfdx force:source:convert -r ./force-app -d ${CURRENT_DIR}/artefact --loglevel debug 2>&1); then
+            echo "Deploy conversion successful"
         else
-            echo $result
-            exit 1
-        fi        
+            if [[ $result == *$ERROR_MSG* ]]; then
+                echo "No files found in artifact, all files forceignored or no changes in deployable meta"
+                exit 0
+            else
+                echo $result
+                exit 1
+            fi        
+        fi
+        echo "::set-output name=ARTEFACT_GENERATED::true"
+        # Return to working DIR
+        cd ${CURRENT_DIR}
     fi
-    echo "::set-output name=ARTEFACT_GENERATED::true"
-    # Return to working DIR
-    cd ${CURRENT_DIR}
-fi
 
-if [ "${DELETED_FILES}" -gt "0" ]; then
-    cd ${DESTRUCTIVE_DIR}
+    if [ "${DELETED_FILES}" -gt "0" ]; then
+        cd ${DESTRUCTIVE_DIR}
 
-    if result=$(npx sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug 2>&1); then
-        echo "Destroy conversion successful"
-    else
-        if [[ $result == *$ERROR_MSG* ]]; then
-            echo "No files found in destructive artifact, all files forceignored or no changes in deployable meta"
-            exit 0
+        if result=$(npx sfdx force:source:convert -r ./force-app -d tmp/ --loglevel debug 2>&1); then
+            echo "Destroy conversion successful"
         else
-            echo $result
-            exit 1
-        fi        
+            if [[ $result == *$ERROR_MSG* ]]; then
+                echo "No files found in destructive artifact, all files forceignored or no changes in deployable meta"
+                exit 0
+            else
+                echo $result
+                exit 1
+            fi        
+        fi
+        echo "::set-output name=ARTEFACT_GENERATED::true"
+        echo "Creating destroy manifest"
+        cd ./tmp/
+        if [ ! -d ${CURRENT_DIR}/artefact ]; then
+            mkdir ${CURRENT_DIR}/artefact
+            echo '<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://soap.sforce.com/2006/04/metadata"><version>50.0</version></Package>' > ${CURRENT_DIR}/artefact/package.xml
+        fi
+        mv package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml
+        # Return to working DIR
+        cd ${CURRENT_DIR}
     fi
-    echo "::set-output name=ARTEFACT_GENERATED::true"
-    echo "Creating destroy manifest"
-    cd ./tmp/
-    if [ ! -d ${CURRENT_DIR}/artefact ]; then
-        mkdir ${CURRENT_DIR}/artefact
-        echo '<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://soap.sforce.com/2006/04/metadata"><version>50.0</version></Package>' > ${CURRENT_DIR}/artefact/package.xml
-    fi
-    mv package.xml ${CURRENT_DIR}/artefact/destructiveChanges.xml
-    # Return to working DIR
-    cd ${CURRENT_DIR}
 fi
