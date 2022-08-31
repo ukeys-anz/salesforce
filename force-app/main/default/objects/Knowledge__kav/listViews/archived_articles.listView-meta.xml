@@ -19,5 +19,6 @@
         <role>Business_Admin</role>
         <role>Content_Writer</role>
         <role>IDR_Content_Writer</role>
+        <role>Coach_Lead</role>
     </sharedTo>
 </ListView>
