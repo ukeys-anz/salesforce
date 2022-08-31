@@ -9,13 +9,16 @@
         <useOther>false</useOther>
     </buckets>
     <columns>
-        <field>Case$CaseNumber</field>
+        <field>Case$Owner</field>
+    </columns>
+    <columns>
+        <field>Case$Status</field>
+    </columns>
+    <columns>
+        <field>Case.CaseComments$Id</field>
     </columns>
     <columns>
         <field>Case.CaseComments$CreatedDate</field>
-    </columns>
-    <columns>
-        <field>Case$Date_Closed__c</field>
     </columns>
     <columns>
         <field>Case.CaseComments$CommentBody</field>
@@ -55,10 +58,10 @@
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case$Owner</field>
+        <field>Case$CaseNumber</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>New Correspondence on Closed Complaints</name>
+    <name>New correspondence on closed complaint</name>
     <params>
         <name>co</name>
         <value>1</value>
@@ -68,6 +71,8 @@
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <sortColumn>Case$Owner</sortColumn>
+    <sortOrder>Asc</sortOrder>
     <timeFrameFilter>
         <dateColumn>Case$CreatedDate</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>

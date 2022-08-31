@@ -11,5 +11,5 @@ OR(ISPICKVAL( Status , &quot;Closed&quot;),
    ISPICKVAL( Status , &quot;Resolved&quot;))),  IDR_Additional_Correspondence_reviewed__c = True
 )</errorConditionFormula>
     <errorDisplayField>IDR_Additional_Correspondence_reviewed__c</errorDisplayField>
-    <errorMessage>Field only editable on closed complaints</errorMessage>
+    <errorMessage>Field only editable on Closed, Withdrawn and Resolved Complaints</errorMessage>
 </ValidationRule>
