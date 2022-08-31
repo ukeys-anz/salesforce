@@ -189,9 +189,9 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       if (c.IDR_SwicthOff_3rd_Party_Notification__c == false) {
         if (
           c.IDR_3rdParty_Relationship_To_Complainant__c == '20' &&
-          !String.isEmpty(c.Account.PersonContact.FirstName)
+          !String.isEmpty(c.IDR_NC_First_Name__c)
         ) {
-          notification.AuthorisedFirstName__c = c.Account.PersonContact.FirstName;
+          notification.AuthorisedFirstName__c = c.IDR_NC_First_Name__c;
         } else {
           notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
         }
