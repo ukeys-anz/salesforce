@@ -20,7 +20,7 @@ if [ -z "$TAG_PREFIX" ]; then
    TAG_PREFIX="$SOURCE_BRANCH"
 fi
 
-# If TAG_PREFIX is specified in the yml, do not overwrite
+# If LINT_JOB is specified in the yml, do not overwrite
 if [ -z "$LINT_JOB" ]; then
    LINT_JOB="NO"
 fi
