@@ -12,10 +12,7 @@
         <field>Case$Owner</field>
     </columns>
     <columns>
-        <field>Case$Status</field>
-    </columns>
-    <columns>
-        <field>Case.CaseComments$Id</field>
+        <field>Case$Date_Closed__c</field>
     </columns>
     <columns>
         <field>Case.CaseComments$CreatedDate</field>
