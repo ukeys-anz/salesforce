@@ -25,20 +25,19 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
 
     Map<Id, Case> caseMap = getCaseRecords(records);
 
-    if ( !caseMap.isEmpty()) {
+    if (!caseMap.isEmpty()) {
       Lib_SystemLog log = new Lib_SystemLog(
-      ContentDocumentLinkTriggerHandler.class.getName(),
-      'logFileDelete'
+        ContentDocumentLinkTriggerHandler.class.getName(),
+        'logFileDelete'
       );
       Case oCase;
       for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
         if (
-        record.LinkedEntityId.getSobjectType() ==
-        Schema.getGlobalDescribe().get('Case') &&
-        (oCase = caseMap.get(record.LinkedEntityId)) != null &&
-        (oCase.RecordTypeId ==
-        IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
-        IDRCaseActions.isIDRComplaintType(oCase))
+          record.LinkedEntityId.getSobjectType() ==
+          Schema.getGlobalDescribe().get('Case') &&
+          (oCase = caseMap.get(record.LinkedEntityId)) != null &&
+          (oCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
+          IDRCaseActions.isIDRComplaintType(oCase))
         ) {
           linkedEntityIdList.add(oCase.Id);
           linkIdList.add(record.Id);
@@ -46,25 +45,25 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       }
       if (ContentDocumentLink.SObjectType.getDescribe().isQueryable()) {
         docList = [
-        SELECT
-        Id,
-        ContentDocument.LatestPublishedVersion.Document_Flag__c,
-        ContentDocument.Title,
-        LinkedEntityId,
-        ContentDocument.CreatedDate,
-        ContentDocument.Owner.Name,
-        ContentDocument.FileExtension,
-        ContentDocument.LatestPublishedVersion.FileType,
-        ContentDocument.LatestPublishedVersion.Date_of_Document__c,
-        ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c,
-        ContentDocument.LatestPublishedVersion.Document_Category__c,
-        ContentDocumentId
-        FROM ContentDocumentLink
-        WHERE LinkedEntityId IN :linkedEntityIdList AND Id IN :linkIdList
-        ORDER BY
-        ContentDocument.CreatedDate DESC,
-        ContentDocument.Title ASC,
-        ContentDocument.FileExtension ASC
+          SELECT
+            Id,
+            ContentDocument.LatestPublishedVersion.Document_Flag__c,
+            ContentDocument.Title,
+            LinkedEntityId,
+            ContentDocument.CreatedDate,
+            ContentDocument.Owner.Name,
+            ContentDocument.FileExtension,
+            ContentDocument.LatestPublishedVersion.FileType,
+            ContentDocument.LatestPublishedVersion.Date_of_Document__c,
+            ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c,
+            ContentDocument.LatestPublishedVersion.Document_Category__c,
+            ContentDocumentId
+          FROM ContentDocumentLink
+          WHERE LinkedEntityId IN :linkedEntityIdList AND Id IN :linkIdList
+          ORDER BY
+            ContentDocument.CreatedDate DESC,
+            ContentDocument.Title ASC,
+            ContentDocument.FileExtension ASC
         ];
       }
 
@@ -73,37 +72,37 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         String errorNo = String.valueOf(Datetime.now());
         String strUserName = UserInfo.getName();
         String strDocTitle = (record.ContentDocument.Title == null)
-        ? ''
-        : record.ContentDocument.Title;
+          ? ''
+          : record.ContentDocument.Title;
         String strDocCategory = (record.ContentDocument.LatestPublishedVersion.Document_Category__c ==
-        null)
-        ? ''
-        : record.ContentDocument.LatestPublishedVersion.Document_Category__c;
+          null)
+          ? ''
+          : record.ContentDocument.LatestPublishedVersion.Document_Category__c;
 
         String errorDescription =
-        'Following file will be deleted from CMOS system. ' +
-        'Content Document ID : ' +
-        record.ContentDocumentId +
-        ', User who deleted the document : ' +
-        strUserName +
-        ', Date/timestamp when document was deleted : ' +
-        errorNo +
-        ', Document name that was deleted : ' +
-        strDocTitle +
-        ', Document type that was deleted : ' +
-        record.ContentDocument.LatestPublishedVersion.FileType +
-        ', Document category that was deleted : ' +
-        strDocCategory +
-        ', Associated Case : ' +
-        record.LinkedEntityId;
+          'Following file will be deleted from CMOS system. ' +
+          'Content Document ID : ' +
+          record.ContentDocumentId +
+          ', User who deleted the document : ' +
+          strUserName +
+          ', Date/timestamp when document was deleted : ' +
+          errorNo +
+          ', Document name that was deleted : ' +
+          strDocTitle +
+          ', Document type that was deleted : ' +
+          record.ContentDocument.LatestPublishedVersion.FileType +
+          ', Document category that was deleted : ' +
+          strDocCategory +
+          ', Associated Case : ' +
+          record.LinkedEntityId;
 
         log.addObjectMessage(
-        objectAPIName,
-        record.Id,
-        errorNo,
-        errorDescription,
-        Lib_SystemLog.Severity.INFO,
-        strUserName
+          objectAPIName,
+          record.Id,
+          errorNo,
+          errorDescription,
+          Lib_SystemLog.Severity.INFO,
+          strUserName
         );
       }
       System.debug(log);
@@ -123,46 +122,47 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Case oCase;
 
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-      if (record.LinkedEntityId.getSobjectType() ==
-          Schema.getGlobalDescribe().get('Case') &&
-          contentDocMap.containsKey(record.ContentDocumentId) &&
-          (oCase = caseMap.get(record.LinkedEntityId)) != null
-         ) {
+      if (
+        record.LinkedEntityId.getSobjectType() ==
+        Schema.getGlobalDescribe().get('Case') &&
+        contentDocMap.containsKey(record.ContentDocumentId) &&
+        (oCase = caseMap.get(record.LinkedEntityId)) != null
+      ) {
         if (
-        oCase.OwnerId !=
-        contentDocMap.get(record.ContentDocumentId).OwnerId &&
-        IDRCaseActions.isIDRComplaintType(oCase)
+          oCase.OwnerId !=
+          contentDocMap.get(record.ContentDocumentId).OwnerId &&
+          IDRCaseActions.isIDRComplaintType(oCase)
         ) {
-            wrapperList.add(
-              createNotification(
+          wrapperList.add(
+            createNotification(
               oCase,
               contentDocMap.get(record.ContentDocumentId)
             )
-          ); 
+          );
         }
         if (
-        oCase.Status == 'Closed' || oCase.Status == 'Withdrawn' || oCase.Status == 'Resolved'
+          oCase.Status == 'Closed' ||
+          oCase.Status == 'Withdrawn' ||
+          oCase.Status == 'Resolved'
         ) {
-            caseCommentList.add(
+          caseCommentList.add(
             createCaseCloseNotification(
-            record,
-            contentDocMap.get(record.ContentDocumentId)
-          )
-         );
-        } 
+              record,
+              contentDocMap.get(record.ContentDocumentId)
+            )
+          );
+        }
       }
     }
-
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
-    try{
-    if (!caseCommentList.isEmpty()) {
-      insert caseCommentList;
-    }
-    }
-    catch (Exception err) {
+    try {
+      if (!caseCommentList.isEmpty()) {
+        insert caseCommentList;
+      }
+    } catch (Exception err) {
       Lib_SystemLog log = new Lib_SystemLog(
         ContentDocumentLinkTriggerHandler.class.getName(),
         'manageNotification'
@@ -270,9 +270,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     CaseComment caseCommentObject = new CaseComment(
       IsPublished = true,
       ParentId = cdlRecord.LinkedEntityId,
-      CommentBody = 'New attachment ' +
-        cdRecord.Title +
-        ' has been added to the case'
+      CommentBody = 'New attachment added; ' + cdRecord.Title
     );
     return caseCommentObject;
   }

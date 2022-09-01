@@ -58,7 +58,7 @@
         <field>Case$CaseNumber</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>New correspondence on closed complaint</name>
+    <name>New correspondence on closed complaints</name>
     <params>
         <name>co</name>
         <value>1</value>
