@@ -152,5 +152,5 @@
         <searchResultsAdditionalFields>AmortizationTerm</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ApplicationExtIdentifier</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <sharingModel>Private</sharingModel>
 </CustomObject>
