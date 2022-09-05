@@ -55,7 +55,8 @@ private class CaseTriggerHandlerTest {
       List<String> coachPSs = new List<String>{
         'Case_Read_Write_Get_Help',
         'Customer_Read_Only',
-        'Quality_Assessment_Read_Only'
+        'Quality_Assessment_Read_Only',
+        'Case_Read_Write_Non_Customer_Complaints'
       };
       List<PermissionSet> coachPsList = [
         SELECT Id
@@ -2886,6 +2887,181 @@ private class CaseTriggerHandlerTest {
       0,
       newCases.size(),
       'Card token number should be deleted'
+    );
+  }
+
+  //Tests change KYC QA Case to Closed and Sub Status to No Defect, and set related fields with predefined value
+  @isTest
+  static void testPopulateKYCQACasesClosedNoDefectDefaults() {
+    // GIVEN login as FraudX Agent user
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
+
+    // WHEN FraudX Agent user creates or updates a Fraud case
+    Case[] newCases = new List<Case>();
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+          Type = 'KYC QA Sample',
+          AccountId = acc.Id
+        )
+      );
+    }
+    Test.startTest();
+    System.runAs(usr) {
+      insert newCases;
+    }
+
+    // Verify new record fields have no value
+    Case sampleCase1 = [
+      SELECT
+        Id,
+        Type,
+        RecordType.Name,
+        Fraud_Customer_Details__c,
+        Fraud_Restraint_Status__c,
+        Fraud_Defects_Rectified__c,
+        Status,
+        Sub_Status__c
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      null,
+      sampleCase1.Fraud_Customer_Details__c,
+      'KYC QA: KYC Information is a Match & Complete field should be null after inserting.'
+    );
+    system.assertEquals(
+      null,
+      sampleCase1.Fraud_Restraint_Status__c,
+      'KYC QA: Restraint Status field should be null after inserting.'
+    );
+    system.assertEquals(
+      null,
+      sampleCase1.Fraud_Defects_Rectified__c,
+      'KYC QA: Have All Defects Been Rectified field should be null after inserting.'
+    );
+
+    sampleCase1.Status = GetHelpConstants.CLOSED_STATUS;
+    sampleCase1.Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+    update sampleCase1;
+
+    Test.stopTest();
+
+    Case closedSampleCase1 = [
+      SELECT
+        Id,
+        Type,
+        RecordType.Name,
+        Fraud_Customer_Details__c,
+        Fraud_Restraint_Status__c,
+        Fraud_Defects_Rectified__c,
+        Status
+      FROM Case
+      WHERE Id = :newCases[0].Id
+      LIMIT 1
+    ];
+    system.assertEquals(
+      'Yes',
+      closedSampleCase1.Fraud_Customer_Details__c,
+      'KYC QA: KYC Information is a Match & Complete field should be Yes after closing Case as No Defect.'
+    );
+    system.assertEquals(
+      'N/A',
+      closedSampleCase1.Fraud_Restraint_Status__c,
+      'KYC QA: Restraint Status field should be empty after closing Case as No Defect.'
+    );
+    system.assertEquals(
+      'Not Applicable',
+      closedSampleCase1.Fraud_Defects_Rectified__c,
+      'KYC QA: Have All Defects Been Rectified field should be empty after closing Case as No Defect.'
+    );
+  }
+
+  // Tests if the Non Customer Complaint Case Subject is populated correctly
+  // based on case record type and issue and when created/updated by ANZx user only
+  @isTest
+  public static void testPopulateNonCustomerComplaintSubject() {
+    User coachUser = TestUtil.getUserByFirstName('CoachTest');
+
+    List<Case> casesToInsert = new List<Case>();
+    Account acc = [SELECT Id FROM Account LIMIT 1];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      casesToInsert.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = GetHelpConstants.OPEN_STATUS,
+          Type = 'Cards'
+        )
+      );
+    }
+    Test.startTest();
+
+    System.runAs(coachUser) {
+      // Insert NCC cases as ANZx user
+      insert casesToInsert;
+    }
+    Test.stopTest();
+    Case newCase = [
+      SELECT Id, Subject
+      FROM Case
+      WHERE Id = :casesToInsert[0].Id
+    ];
+
+    String expectedCaseSubjectString = 'Non-Customer Complaint - ' + 'Cards';
+
+    System.assertEquals(
+      expectedCaseSubjectString,
+      newCase.Subject,
+      'ANZx Non Customer Complaint Subject should be populated as expected'
+    );
+  }
+
+  // Tests to ensure the CMOS Non Customer Complaint Case Subject is not auto-populated
+  // As this subject auto-pop should apply to ANZx NCCs only
+  @isTest
+  public static void testNoAutoPopulateForCMOSNonCustomerComplaintSubject() {
+    List<Case> casesToInsert = new List<Case>();
+    Account acc = [SELECT Id FROM Account LIMIT 1];
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      casesToInsert.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Type = '2',
+          IDR_Subsequent_Issue__c = 'Fee or interest dispute',
+          AccountId = acc.Id,
+          Description = 'Some description',
+          Origin = 'Phone',
+          Priority = 'Standard',
+          Subject = 'CMOS Specific Subject'
+        )
+      );
+    }
+    Test.startTest();
+
+    insert casesToInsert;
+
+    Test.stopTest();
+    Case newCase = [
+      SELECT Id, Subject
+      FROM Case
+      WHERE Id = :casesToInsert[0].Id
+    ];
+
+    String expectedCaseSubjectString = 'CMOS Specific Subject';
+
+    System.assertEquals(
+      expectedCaseSubjectString,
+      newCase.Subject,
+      'CMOS Non Customer Complaint Subject should not be auto-populated on insert or update'
     );
   }
 }

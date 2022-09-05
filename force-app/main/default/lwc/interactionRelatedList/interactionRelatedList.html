@@ -1,0 +1,133 @@
+<template>
+  <article class="slds-card">
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-tabs_scoped">
+          <ul class="slds-tabs_scoped__nav slds-grid" role="tablist">
+            <template if:true={showCaseChatTabHead}>
+              <li class={chatTab} title="Dial" role="presentation">
+                <div
+                  class="slds-tabs_scoped__link"
+                  role="tab"
+                  onclick={handleShowChatTab}
+                >
+                  Chats
+                </div>
+              </li>
+            </template>
+            <template if:true={showAppTab}>
+              <li class={appointmentTab} title="Contact" role="presentation">
+                <div
+                  class="slds-tabs_scoped__link"
+                  role="tab"
+                  onclick={handleShowAppointmentTab}
+                >
+                  Appointments
+                </div>
+              </li>
+            </template>
+            <template if:true={showIntTab}>
+              <li class={interactionTab} title="Dial" role="presentation">
+                <div
+                  class="slds-tabs_scoped__link"
+                  role="tab"
+                  onclick={handleShowInteractionTab}
+                >
+                  Interactions
+                </div>
+              </li>
+            </template>
+            <template if:true={showAccChatTabHead}>
+              <li class={chatTab} title="Dial" role="presentation">
+                <div
+                  class="slds-tabs_scoped__link"
+                  role="tab"
+                  onclick={handleShowChatTab}
+                >
+                  Chats
+                </div>
+              </li>
+            </template>
+            <li class="slds-tabs_scoped__item slds-col slds-m-right_xx-small">
+              <button
+                class="slds-button slds-float_right slds-button_neutral slds-m-top_xx-small"
+                onclick={handleNewButton}
+              >
+                New
+              </button>
+            </li>
+          </ul>
+        </div>
+      </header>
+    </div>
+    <div class="slds-card__body slds-card__body_inner">
+      <template if:true={showAppointmentTab}>
+        <template for:each={appointmentList} for:item="appt">
+          <div class="slds-m-top_small" key={appt.interactId}>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <a
+                  href="#"
+                  onclick={handleViewRecord}
+                  data-id={appt.interactId}
+                >
+                  {appt.interactName}
+                </a>
+              </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Date and Time:</div>
+              <div class="slds-col slds-size_1-of-2">{appt.interactTime}</div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Owner Name:</div>
+              <div class="slds-col slds-size_1-of-2">{appt.ownerName}</div>
+            </div>
+          </div>
+        </template>
+      </template>
+      <template if:true={showInteractionTab}>
+        <template for:each={interactionList} for:item="interact">
+          <div class="slds-m-top_small" key={interact.interactId}>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col">
+                <a
+                  href="#"
+                  onclick={handleViewRecord}
+                  data-id={interact.interactId}
+                >
+                  {interact.interactName}
+                </a>
+              </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Date and Time:</div>
+              <div class="slds-col slds-size_1-of-2">
+                {interact.interactTime}
+              </div>
+            </div>
+            <div class="slds-grid slds-gutters">
+              <div class="slds-col slds-size_1-of-2">Owner Name:</div>
+              <div class="slds-col slds-size_1-of-2">{interact.ownerName}</div>
+            </div>
+          </div>
+        </template>
+      </template>
+      <template if:true={showChatTab}>
+        <div>
+          <c-chat-topic-related-list
+            record-id={recordId}
+            object-name={sObjectType}
+          >
+          </c-chat-topic-related-list>
+        </div>
+      </template>
+    </div>
+    <footer class="slds-card__footer">
+      <a class="slds-card__footer-action" href="#" onclick={handleViewAll}
+        >View All
+        <span class="slds-assistive-text">Interactions</span>
+      </a>
+    </footer>
+  </article>
+</template>

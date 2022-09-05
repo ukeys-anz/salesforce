@@ -4734,6 +4734,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Close Home Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Coaching</fullName>
             <default>false</default>
         </values>
@@ -4774,11 +4778,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>General Home Loan Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>General fraud enquiry</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Hardship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loan Statements</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4791,6 +4803,10 @@
         </values>
         <values>
             <fullName>Making payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managing Repayments</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4862,6 +4878,10 @@
         </values>
         <values>
             <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans</fullName>
             <default>false</default>
         </values>
         <values>

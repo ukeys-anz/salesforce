@@ -43,6 +43,12 @@ import AVOIDABLE_ESCALATION_REASON from "@salesforce/schema/Case.IDR_Avoidable_E
 //Product field
 import PRODUCT_OR_SERVICE_NAME from "@salesforce/schema/Case.Product__c";
 
+//Product2 and Product3 fields
+import HAS_SECOND_ISSUE from "@salesforce/schema/Case.IDR_Second_Issue__c";
+import HAS_THIRD_ISSUE from "@salesforce/schema/Case.IDR_Third_Issue__c";
+import PRODUCT_OR_SERVICE_NAME_2 from "@salesforce/schema/Case.IDR_Product_2__c";
+import PRODUCT_OR_SERVICE_NAME_3 from "@salesforce/schema/Case.IDR_Product_3__c";
+
 const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
@@ -84,7 +90,11 @@ const FIELDS = [
   REMEDY_DURATION3,
   AVOIDABLE_ESCALATION,
   AVOIDABLE_ESCALATION_REASON,
-  PRODUCT_OR_SERVICE_NAME
+  PRODUCT_OR_SERVICE_NAME,
+  HAS_SECOND_ISSUE,
+  HAS_THIRD_ISSUE,
+  PRODUCT_OR_SERVICE_NAME_2,
+  PRODUCT_OR_SERVICE_NAME_3
 ];
 
 export default class closeComplaint extends NavigationMixin(LightningElement) {
@@ -104,6 +114,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
   isValidToClose = true;
   validityMessage = "";
+  validityMessageFields = new Array();
 
   //Get the recordType to send to the API
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
@@ -113,11 +124,29 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       //check validity before closing
       if (!data.fields[PRODUCT_OR_SERVICE_NAME.fieldApiName].value) {
         this.isValidToClose = false;
-        this.validityMessage +=
-          "Please update Product or Service Name before closing the case";
-      } else {
-        this.isValidToClose = true;
+        this.validityMessageFields.push("Product or Service Name");
+      }
+      if (
+        data.fields[HAS_SECOND_ISSUE.fieldApiName].value &&
+        !data.fields[PRODUCT_OR_SERVICE_NAME_2.fieldApiName].value
+      ) {
+        this.isValidToClose = false;
+        this.validityMessageFields.push("Product or Service Name 2");
+      }
+      if (
+        data.fields[HAS_THIRD_ISSUE.fieldApiName].value &&
+        !data.fields[PRODUCT_OR_SERVICE_NAME_3.fieldApiName].value
+      ) {
+        this.isValidToClose = false;
+        this.validityMessageFields.push("Product or Service Name 3");
+      }
+      if (this.isValidToClose) {
         this.updateCloseFieldsWithExistingValues(data);
+      } else {
+        this.validityMessage =
+          "Please update " +
+          this.validityMessageFields.join() +
+          " before closing the case.";
       }
     }
   }

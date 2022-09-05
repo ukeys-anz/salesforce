@@ -36,7 +36,6 @@ public with sharing class LoggerTest {
 
     System.runAs(engineerUser) {
       LoggingSettings__c userCustomSetting = new LoggingSettings__c(
-        DefaultLogRetentionDuration__c = 15,
         DefaultSaveMethod__c = 'QUEUEABLE',
         DefaultLoggingLevel__c = 'DEBUG',
         SecureLogEnabled__c = false,

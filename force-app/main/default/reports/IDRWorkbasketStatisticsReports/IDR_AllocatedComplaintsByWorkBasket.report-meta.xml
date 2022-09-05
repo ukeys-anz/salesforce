@@ -51,7 +51,7 @@
     </customDetailFormulas>
     <description>Cases that are allocated to a user</description>
     <filter>
-        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <booleanFilter>1 AND 2 AND ((3 AND 4) OR (5 AND 6))</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -71,7 +71,28 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
-            <value>IDR,Hardship</value>
+            <value>IDR,CCR</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Withdrawn,Resolved,Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Queue__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Hardship IDR Letter</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Withdrawn,Resolved</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>

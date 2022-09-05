@@ -1,0 +1,39 @@
+.slds-m-bottom_small {
+  padding-left: 1px;
+  vertical-align: bottom;
+}
+
+.dialing {
+  margin-right: 10px;
+}
+
+.keypad {
+  margin-right: 10px;
+}
+
+.dial-tab {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.chat-window {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.message-header {
+  font-size: 15px;
+}
+
+.tabs_scoped__link {
+  width: 50%;
+}
+
+.slds-tabs_medium .slds-tabs_scoped__item {
+  width: 50%;
+  letter-spacing: 0.5px;
+}
+
+.message-area {
+  --sds-c-textarea-sizing-min-height: 11rem;
+}

@@ -58,7 +58,7 @@ public with sharing class LogEventTriggerHandlerTest {
       FROM LogEntry__c
       WHERE Log__c = :logs[0].Id
     ];
-    System.assert(logEntries.size() == 2, 'Error in Log Entries creation');
+    System.assertEquals(2, logEntries.size(), 'Error in Log Entries creation');
   }
 
   @IsTest
@@ -102,6 +102,6 @@ public with sharing class LogEventTriggerHandlerTest {
       FROM LogEntry__c
       WHERE Log__c = :logs[0].Id
     ];
-    System.assert(logEntries.size() == 1, 'Error in Log Entries creation');
+    System.assertEquals(1, logEntries.size(), 'Error in Log Entries creation');
   }
 }

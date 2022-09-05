@@ -3,14 +3,14 @@
  * @since June 2022
  * @description Builder class for  `LogEvent__e` platform events and normalises the data into `Log__c`, `LogEntry__c` and `SecureLogEntry__c` records
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public without sharing class LogEventBuilder {
   @TestVisible
   private static final String API_VERSION = LogEventBuilderHelper.getApiVersion();
 
   private final LogEvent__e logEvent;
   private final LoggingLevel entryLoggingLevel;
-  private Boolean shouldSave;
+  private Boolean shouldSave = false;
 
   /**
    * @description Used by `Logger` to instantiate a new instance of `LogEventBuilder`
@@ -39,11 +39,11 @@ public without sharing class LogEventBuilder {
    * @return The `LogEvent__e` record
    */
   public LogEvent__e getLogEvent() {
-    if (this.shouldSave == false) {
-      return null;
+    if (this.shouldSave == true) {
+      return this.logEvent;
     }
 
-    return this.logEvent;
+    return null;
   }
 
   /**
@@ -270,6 +270,45 @@ public without sharing class LogEventBuilder {
   }
 
   /**
+   * @description Sets the log entry event's database operation result fields
+   * @param  emptyRecycleBinResult The instance of `Database.EmptyRecycleBinResult` to log
+   * @return              The same instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public LogEventBuilder setDatabaseResult(
+    Database.EmptyRecycleBinResult emptyRecycleBinResult
+  ) {
+    List<Database.EmptyRecycleBinResult> emptyRecycleBinResults = new List<Database.EmptyRecycleBinResult>{
+      emptyRecycleBinResult
+    };
+    this.setDatabaseResult(emptyRecycleBinResults);
+
+    return this.setRecord(emptyRecycleBinResult.getId());
+  }
+
+  /**
+   * @description Sets the log entry event's database operation result fields
+   * @param  emptyRecycleBinResults The list of `Database.EmptyRecycleBinResult` instances to log
+   * @return               The same instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public LogEventBuilder setDatabaseResult(
+    List<Database.EmptyRecycleBinResult> emptyRecycleBinResults
+  ) {
+    if (this.shouldSave == false || emptyRecycleBinResults == null) {
+      return this;
+    }
+
+    String emptyRecycleBinResultsWithError = DatabaseResultHelper.getEmptyRecycleBinResultError(
+      emptyRecycleBinResults
+    );
+    this.logEvent.DatabaseResult__c = LogEventBuilderHelper.truncateFieldValue(
+      Schema.LogEvent__e.DatabaseResult__c,
+      emptyRecycleBinResultsWithError
+    );
+
+    return this;
+  }
+
+  /**
    * @description Sets the log entry event's record fields
    * @param  recordId The ID of the SObject record related to the entry
    * @return          The same instance of `LogEventBuilder`, useful for chaining methods
@@ -292,13 +331,14 @@ public without sharing class LogEventBuilder {
    * @return        The same instance of `LogEventBuilder`, useful for chaining methods
    */
   public LogEventBuilder setRecord(SObject record) {
-    if (this.shouldSave && record != null) {
-      this.logEvent.RecordId__c = record.Id;
-      this.logEvent.RecordsJson__c = JSON.serializePretty(record);
-      this.logEvent.RecordObjectName__c = record.getSObjectType() == null
-        ? 'Unknown'
-        : record.getSObjectType().getDescribe().getName();
+    if (this.shouldSave == false || record == null) {
+      return this;
     }
+    this.logEvent.RecordId__c = record.Id;
+    this.logEvent.RecordsJson__c = JSON.serializePretty(record);
+    this.logEvent.RecordObjectName__c = record.getSObjectType() == null
+      ? 'Unknown'
+      : record.getSObjectType().getDescribe().getName();
     return this;
   }
 
@@ -372,7 +412,10 @@ public without sharing class LogEventBuilder {
    * @return The same instance of `LogEventBuilder`, useful for chaining methods
    */
   public LogEventBuilder setPayload(String payload) {
-    if (this.shouldSave && LoggingSettingsController.isSecureLogEnabled()) {
+    if (
+      this.shouldSave == true &&
+      LoggingSettingsController.isSecureLogEnabled() == true
+    ) {
       this.logEvent.Payload__c = payload;
     }
     return this;
@@ -384,7 +427,7 @@ public without sharing class LogEventBuilder {
    * @return The same instance of `LogEventBuilder`, useful for chaining methods
    */
   public LogEventBuilder setComponentName(String cmpName) {
-    if (this.shouldSave) {
+    if (this.shouldSave == true) {
       this.logEvent.ComponentName__c = cmpName;
     }
     return this;
@@ -396,7 +439,7 @@ public without sharing class LogEventBuilder {
    * @return The same instance of `LogEventBuilder`, useful for chaining methods
    */
   public LogEventBuilder setBrowserName(String browserName) {
-    if (this.shouldSave) {
+    if (this.shouldSave == true) {
       this.logEvent.BrowserName__c = browserName;
     }
     return this;
@@ -408,7 +451,7 @@ public without sharing class LogEventBuilder {
    * @return The same instance of `LogEventBuilder`, useful for chaining methods
    */
   public LogEventBuilder setSpanId(String spanId) {
-    if (this.shouldSave) {
+    if (this.shouldSave == true) {
       this.logEvent.SpanId__c = spanId;
     }
     return this;

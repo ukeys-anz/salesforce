@@ -234,6 +234,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>EFT Dispute Portal</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>NA</fullName>
             <default>true</default>
         </values>

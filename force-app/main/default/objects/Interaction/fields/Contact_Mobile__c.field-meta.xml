@@ -7,6 +7,6 @@
     <externalId>false</externalId>
     <label>Contact Mobile</label>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Phone</type>
 </CustomField>

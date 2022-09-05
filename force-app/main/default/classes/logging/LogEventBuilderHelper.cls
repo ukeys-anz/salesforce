@@ -119,23 +119,22 @@ public with sharing class LogEventBuilderHelper {
    * @return String The calling context
    */
   public static String getTransactionContext() {
-    String context = 'Synchronous Apex';
     if (isBatchRunning()) {
-      context = 'Batch';
+      return 'Batch';
     }
     if (isFutureRunning()) {
-      context = 'Future';
+      return 'Future';
     }
     if (isQueuableRunning()) {
-      context = 'Queueable';
+      return 'Queueable';
     }
     if (isScheduledRunning()) {
-      context = 'Schedulable';
+      return 'Schedulable';
     }
     if (isTriggerRunning()) {
-      context = 'Trigger';
+      return 'Trigger';
     }
-    return context;
+    return 'Synchronous Apex';
   }
 
   /**

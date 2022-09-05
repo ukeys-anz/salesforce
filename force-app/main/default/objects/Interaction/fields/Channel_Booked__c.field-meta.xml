@@ -9,7 +9,7 @@
     <label>Channel Booked</label>
     <required>false</required>
     <securityClassification>Public</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
