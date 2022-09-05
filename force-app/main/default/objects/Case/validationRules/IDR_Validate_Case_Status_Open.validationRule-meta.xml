@@ -4,12 +4,12 @@
     <active>true</active>
     <description>To validate Additional Correspondence reviewed checkbox to be true only when Case Status is Closed.</description>
     <errorConditionFormula>AND(
-($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false), 
+($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
 NOT(
 OR(ISPICKVAL( Status , &quot;Closed&quot;),
    ISPICKVAL( Status , &quot;Withdrawn&quot;),
    ISPICKVAL( Status , &quot;Resolved&quot;))),  IDR_Additional_Correspondence_reviewed__c = True
 )</errorConditionFormula>
     <errorDisplayField>IDR_Additional_Correspondence_reviewed__c</errorDisplayField>
-    <errorMessage>Field only editable on Closed, Withdrawn and Resolved Complaints</errorMessage>
+    <errorMessage>Additional Correspondence Reviewed field can only be ticked on Closed, Withdrawn and Resolved complaints</errorMessage>
 </ValidationRule>
