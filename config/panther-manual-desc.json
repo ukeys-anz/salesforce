@@ -228,16 +228,35 @@
         "LastModifiedDate"
       ],
       "IA-2415984": [
+        "Advertising_Indicator__c",
+        "Bankrupt_Date__c",
         "BillingAddress",
         "Deceased_Date__c",
+        "Disclosure_Indicator__c",
         "Display_Name__c",
         "Employee_Indicator__c",
         "Employer_Name__c",
+        "Establishment_Date__c",
+        "Mailing_Name__c",
         "Name",
         "Occupation__c",
         "PersonBirthdate",
         "PersonEmail",
-        "PersonMobilePhone"
+        "PersonMobilePhone",
+        "Phone",
+        "Self_Certified_Tax_Date__c",
+        "Self_Certified_Tax_Residency__c"
+      ],
+      "IA-2415831": [
+        "ABN__c",
+        "ACN__c",
+        "ARBN__c"
+      ],
+      "IA-2530753": [
+        "CLG__c",
+        "Controlling_Post__c",
+        "CPID_Link__c",
+        "CPID__c"
       ]
     },
     "Access_Request__c": {
@@ -331,7 +350,12 @@
         "Comments__c",
         "Is_Private__c",
         "URL__c",
-        "UUID__c"
+        "UUID__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Campaign_Flex_Field__c": {
@@ -340,7 +364,12 @@
         "Campaign__c",
         "FlexFieldName__c",
         "Sequence__c",
-        "UUID__c"
+        "UUID__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "CampaignMember": {
@@ -807,8 +836,26 @@
         "Birthdate",
         "Email",
         "Gender__c",
+        "Is_Preferred_Contact__c",
         "MobilePhone",
         "OtherAddress"
+      ]
+    },
+    "ContactPointAddress": {
+      "IA-2530753": [
+        "Building_Name__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2415984": [
+        "P_O_Box__c",
+        "Street_Name__c",
+        "Street_Number__c",
+        "Street_Type__c",
+        "Unit__c"
       ]
     },
     "ContactRequest": {
@@ -861,6 +908,28 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
+      ]
+    },
+    "Controlling_Post__c": {
+      "IA-2415984": [
+        "Area_Code_c",
+        "CPID_c",
+        "CreatedById",
+        "CreatedDate",
+        "End_Date_c",
+        "Geo_State_Code_c",
+        "Id",
+        "Industry_Code_c",
+        "Is_Active_c",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name",
+        "Responsible_Employee_Id_c",
+        "Responsible_Employee_Name_c",
+        "Responsible_Employee_c",
+        "Segment_c",
+        "Start_Date_c",
+        "State_Code_c"
       ]
     },
     "EmailMessage": {
@@ -984,6 +1053,17 @@
         "Id",
         "CreatedById",
         "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "Industry__c": {
+      "IA-2530401": [
+        "Code_c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "IsActive_c",
         "LastModifiedById",
         "LastModifiedDate"
       ]
@@ -1126,6 +1206,7 @@
         "Country",
         "Email",
         "FirstName",
+        "Gender__c",
         "Home_Phone__c",
         "Industry",
         "Industry__c",
@@ -1140,10 +1221,14 @@
       ],
       "IA-2415860": [
         "Business_ID__c",
+        "Campaign_Code__c",
         "CCRM_DuplicateLeadCheck__c",
         "CLG_ID__c",
         "CLG_Name__c",
+        "Controlling_Post__c",
         "Controlling_Post_ID__c",
+        "CPID_Owner__c",
+        "CPID__c",
         "Customer_ID__c",
         "Entity_Type__c",
         "Expiry_Date__c",
@@ -1151,12 +1236,15 @@
         "FinServ__PotentialValue__c",
         "FinServ__RelatedAccount__c",
         "Followup_Date__c",
+        "Is_Valid_Address__c",
         "LeadSource",
         "Lead_Auto_Number__c",
         "Lead_Id__c",
         "Lead_Originator__c",
+        "Lead_Owner_Link__c",
         "Lead_Quality__c",
         "Marketing_Consent__c",
+        "My_Region_Flag__c",
         "Name",
         "New_to_Bank__c",
         "Note__c",
@@ -1175,7 +1263,10 @@
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
-      "IA-2415840": ["Description"]
+      "IA-2415840": [
+        "CCRM_ExpiryNotificationCheck__c",
+        "Description"
+      ]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
@@ -1271,13 +1362,18 @@
     },
     "Opportunity": {
       "IA-2415840": [
-        "Name",
-        "Description",
-        "OwnerId",
-        "CloseDate",
+        "AccountId",
         "CampaignId",
+        "CloseDate",
+        "Description",
+        "Loss_Reason__c",
+        "Name",
+        "OwnerId",
+        "Pricebook2Id",
+        "Probability",
+        "RecordTypeId",
         "StageName",
-        "Loss_Reason__c"
+        "TotalOpportunityQuantity"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -1743,7 +1839,8 @@
         "Phone",
         "MobilePhone",
         "Alias",
-        "FederationIdentifier"
+        "FederationIdentifier",
+        "Employee_Id__c"
       ],
       "IA-2468715": [
         "Active_Directory_ID__c",

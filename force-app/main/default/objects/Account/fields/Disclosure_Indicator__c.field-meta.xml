@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <externalId>false</externalId>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <description>Disclosure Indicator</description>
     <label>Disclosure Indicator</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
