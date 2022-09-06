@@ -60,6 +60,8 @@
       "qualtrics__Date_Responded__c": "Date created",
       "qualtrics__Net_Promoter_Score__c": "Captures the NPS response from the survey",
       "qualtrics__Overall_Satisfaction__c": "Customers overall satisfaction with the product/service topic of the survey",
+      "qualtrics__Q_Recipient_ID__c": "The recipient or the customer ID in Qualtrics - managed package field, no longer used",
+      "qualtrics__Q_SurveyID__c": "The unique customer survey response ID from Qualtrics - managed package field, no longer used",
       "RecipientId__c": "The recipient or the customer ID in Qualtrics",
       "SurveyId__c": "The unique customer survey response ID from Qualtrics"
     },
@@ -296,8 +298,11 @@
         "Available__c",
         "Confirmed__c",
         "CreatedById",
+        "CreatedDate",
         "Date_and_Time__c",
+        "Id",
         "LastModifiedById",
+        "LastModifiedDate",
         "Location__c",
         "Name",
         "OwnerId",
@@ -990,6 +995,7 @@
         "Appointment__c",
         "AppointmentId__c",
         "Attendees__c",
+        "Attendees_and_Roles__c",
         "Authentication_Method__c",
         "Call_Recording_ID__c",
         "CaseId__c",
@@ -1030,7 +1036,18 @@
         "Referred_To__c",
         "Resolution__c",
         "StartTime",
-        "Status__c"
+        "Status__c",
+        "Twilio_ID__c"
+      ]
+    },
+    "InteractionSummary": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "Interaction_Summary_Number__c",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Interaction_Attendee": {
@@ -1330,14 +1347,16 @@
       "IA-2415840": [
         "Additional_Feedback__c",
         "Alerting_Reason__c",
-        "qualtrics__Date_Responsed__c",
+        "qualtrics__Date_Responded__c",
         "Customer_Feedback__c",
         "Create_Case__c",
         "qualtrics__Net_Promoter_Score__c",
         "Other_Feedback__c",
         "qualtrics__Overall_Satisfaction__c",
         "qualtrics__Q_Recipient_ID__c",
-        "qualtrics__Q_Survey_ID__c",
+        "qualtrics__Q_SurveyID__c",
+        "RecipientId__c",
+        "SurveyId__c",
         "Survey_Name__c",
         "Survey_Trigger__c",
         "Survey_Variation__c",
