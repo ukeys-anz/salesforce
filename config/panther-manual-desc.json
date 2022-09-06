@@ -912,24 +912,24 @@
     },
     "Controlling_Post__c": {
       "IA-2415984": [
-        "Area_Code_c",
-        "CPID_c",
+        "Area_Code__c",
+        "CPID__c",
         "CreatedById",
         "CreatedDate",
-        "End_Date_c",
-        "Geo_State_Code_c",
+        "End_Date__c",
+        "Geo_State_Code__c",
         "Id",
-        "Industry_Code_c",
-        "Is_Active_c",
+        "Industry_Code__c",
+        "Is_Active__c",
         "LastModifiedById",
         "LastModifiedDate",
         "Name",
-        "Responsible_Employee_Id_c",
-        "Responsible_Employee_Name_c",
-        "Responsible_Employee_c",
-        "Segment_c",
-        "Start_Date_c",
-        "State_Code_c"
+        "Responsible_Employee_Id__c",
+        "Responsible_Employee_Name__c",
+        "Responsible_Employee__c",
+        "Segment__c",
+        "Start_Date__c",
+        "State_Code__c"
       ]
     },
     "EmailMessage": {
@@ -1059,11 +1059,11 @@
     },
     "Industry__c": {
       "IA-2530401": [
-        "Code_c",
+        "Code__c",
         "CreatedById",
         "CreatedDate",
         "Id",
-        "IsActive_c",
+        "IsActive__c",
         "LastModifiedById",
         "LastModifiedDate"
       ]
