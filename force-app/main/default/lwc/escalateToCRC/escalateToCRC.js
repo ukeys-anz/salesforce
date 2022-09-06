@@ -9,7 +9,7 @@ import { NavigationMixin } from "lightning/navigation";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import escalateCaseToCMOS from "@salesforce/apex/CaseEscalateToCMOSController.escalateCaseToCMOS";
-
+import { handleErrorShowToast, handleErrors } from "c/utils";
 export default class EscalateToCRC extends NavigationMixin(LightningElement) {
   @api recordId;
   @track isLoading = false;
@@ -38,25 +38,16 @@ export default class EscalateToCRC extends NavigationMixin(LightningElement) {
         this.closeAction();
       })
       .catch((error) => {
-        var message;
-
-        console.log(error);
-
-        if (typeof error.body != "undefined") {
-          message = error.body.message;
-        } else {
-          message = error;
-          console.error(error);
-        }
-
-        const title = "Error";
-        const variant = "error";
-
-        const event = new ShowToastEvent({ title, message, variant });
-        this.dispatchEvent(event);
+        this.handleError(error);
       })
       .finally(() => {
         this.isLoading = false;
       });
   }
+
+  handleError = (error) => {
+    handleErrors.call(this, error);
+    handleErrorShowToast(this, "Error", "", this.errorMessage, "pester");
+    this.closeAction();
+  };
 }
