@@ -332,7 +332,12 @@
         "Priority__c",
         "Source__c",
         "StartDate",
-        "Type"
+        "Type",
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Campaign_Document__c": {
@@ -1361,7 +1366,9 @@
         "Probability",
         "RecordTypeId",
         "StageName",
-        "TotalOpportunityQuantity"
+        "TotalOpportunityQuantity",
+        "Opp_Id__c",
+        "Type"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -1828,7 +1835,11 @@
         "MobilePhone",
         "Alias",
         "FederationIdentifier",
-        "Employee_Id__c"
+        "Employee_Id__c",
+        "Lan_Id__c",
+        "Leads_Count__c",
+        "Team_Code__c",
+        "Commercial_Segment__c"
       ],
       "IA-2468715": [
         "Active_Directory_ID__c",
