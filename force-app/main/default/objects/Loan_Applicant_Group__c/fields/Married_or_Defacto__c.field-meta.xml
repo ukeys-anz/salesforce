@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Married_or_Defacto__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Loan_Domain;Integrity_Accurate</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>Boolean that captures if the applicant  or applicants in the group are married or defacto</description>
+    <externalId>false</externalId>
+    <label>Married or Defacto</label>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
