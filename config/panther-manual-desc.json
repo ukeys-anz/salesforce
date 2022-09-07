@@ -247,17 +247,8 @@
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c"
       ],
-      "IA-2415831": [
-        "ABN__c",
-        "ACN__c",
-        "ARBN__c"
-      ],
-      "IA-2530753": [
-        "CLG__c",
-        "Controlling_Post__c",
-        "CPID_Link__c",
-        "CPID__c"
-      ]
+      "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
+      "IA-2530753": ["CLG__c", "Controlling_Post__c", "CPID_Link__c", "CPID__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -1263,10 +1254,7 @@
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
-      "IA-2415840": [
-        "CCRM_ExpiryNotificationCheck__c",
-        "Description"
-      ]
+      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
@@ -1852,7 +1840,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"]
     }
   }
 }
