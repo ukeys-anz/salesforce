@@ -86,7 +86,8 @@ public class NotificationTriggerHandlerAnzxTest {
         IDR_NC_Mobile__c,
         RecordTypeId,
         IDR_SwicthOff_3rd_Party_Notification__c,
-        IDR_SwitchOff_Customer_Notification__c
+        IDR_SwitchOff_Customer_Notification__c,
+        IDR_3rdParty_Relationship_To_Complainant__c
       FROM Case
       LIMIT 1
     ];

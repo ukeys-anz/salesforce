@@ -775,6 +775,7 @@
         "Feedback_Type__c",
         "Original_Feedback_Record__c",
         "ANZx_Customer__c",
+        "IDR_Additional_Correspondence_reviewed__c"
         "IDR_Avoidable_Escalation__c",
         "IDR_Avoidable_Escalation_Reason__c"
       ]

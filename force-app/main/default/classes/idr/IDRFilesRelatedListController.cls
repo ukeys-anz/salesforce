@@ -152,7 +152,7 @@ public with sharing class IDRFilesRelatedListController {
    */
   @TestVisible
   private static String getPicklistLabel(
-    Schema.SobjectField field,
+    Schema.SObjectField field,
     String picklistValue
   ) {
     Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
@@ -162,5 +162,26 @@ public with sharing class IDRFilesRelatedListController {
       }
     }
     return '';
+  }
+
+  /**
+   * @description removeFileFromCase
+   * @param idCase Id of Case
+   * @param idFile Id of File being removed
+   * @return TRUE if successful, FALSE if link is not deletable.
+   */
+  @AuraEnabled
+  public static Boolean removeFileFromCase(String idCase, String idFile) {
+
+    System.debug('Case: ' + idCase + ', File: ' + idFile);
+    if ( ContentDocumentLink.SObjectType.getDescribe().isDeletable()) {
+      ContentDocumentLink oLink = [SELECT Id
+                                    FROM ContentDocumentLink
+                                    WHERE LinkedEntityId = :idCase
+                                    AND ContentDocumentId = :idFile];
+      delete oLink;
+      return true;
+    }
+    return false;
   }
 }
