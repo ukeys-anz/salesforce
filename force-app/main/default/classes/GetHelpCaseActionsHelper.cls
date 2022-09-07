@@ -7,6 +7,8 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class GetHelpCaseActionsHelper {
+  public static final String YES = 'Yes';
+
   public static final Set<Id> FRAUD_RT_IDS = new Set<Id>{
     GetHelpConstants.FRAUD_RT_ID,
     GetHelpConstants.IDENTITY_RT_ID,
@@ -320,6 +322,30 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Check if a case is an ANZx Non Customer Complaint case
+   * @param record The case record to check
+   * @param oldCaseMap old case map
+   * @return if the case is an ANZx Non Customer Complaint case
+   */
+  public static Boolean isANZxNonCustomerComplaint(
+    Case record,
+    Map<Id, Case> oldCaseMap
+  ) {
+    if (
+      record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+      String.isNotBlank(record.Type) &&
+      record.ANZx_Customer__c &&
+      (oldCaseMap == null ||
+      record.Type != oldCaseMap.get(record.Id).Type ||
+      record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * @description getCaseNumberByTransactionId is called to get all open cases that are linked to a set of transaction Ids
    * @param transactionIds set of transaction Ids
    * @return Map<String, String> a map of case number by their transaction Id
@@ -432,7 +458,7 @@ public with sharing class GetHelpCaseActionsHelper {
    * is ANZx
    * @param records New record instances to process
    */
-  public static void isNonCustomerComplaint(List<Case> records) {
+  public static void setANZxCustomerNonCustomerComplaints(List<Case> records) {
     for (Case record : records) {
       if (
         record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
@@ -470,5 +496,24 @@ public with sharing class GetHelpCaseActionsHelper {
     if (record.Status != GetHelpConstants.OPEN_STATUS) {
       record.Card_Token_Number__c = null;
     }
+  }
+
+  /**
+   * @description populate default fields on KYC QA cases
+   * @param record record
+   */
+  public static void populateKYCQACaseClosedNoDefectDefaults(Case record) {
+    record.Fraud_Customer_Details__c = YES;
+    record.Fraud_Middle_Name__c = YES;
+    record.Fraud_Middle_Initial__c = YES;
+    record.Fraud_Selfie_Comparison_Match__c = YES;
+    record.Fraud_PO_Box__c = YES;
+    record.Fraud_Address_Valid__c = YES;
+    record.Fraud_ID_Legible__c = YES;
+    record.Fraud_ID_Not_Picture__c = YES;
+    record.Fraud_Customer_Photo_Modified__c = YES;
+    record.Fraud_Security_Features__c = YES;
+    record.Fraud_Restraint_Status__c = 'N/A';
+    record.Fraud_Defects_Rectified__c = 'Not Applicable';
   }
 }

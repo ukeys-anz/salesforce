@@ -282,6 +282,26 @@
                 <default>false</default>
                 <label>Withholding tax refund</label>
             </value>
+            <value>
+                <fullName>General Home Loan Enquiry</fullName>
+                <default>false</default>
+                <label>General Home Loan Enquiry</label>
+            </value>
+            <value>
+                <fullName>Managing Repayments</fullName>
+                <default>false</default>
+                <label>Managing Repayments</label>
+            </value>
+            <value>
+                <fullName>Close Home Loan</fullName>
+                <default>false</default>
+                <label>Close Home Loan</label>
+            </value>
+            <value>
+                <fullName>Loan Statements</fullName>
+                <default>false</default>
+                <label>Loan Statements</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>

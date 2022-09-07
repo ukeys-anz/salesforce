@@ -905,6 +905,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>InitiateInteractionController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InitiateInteractionControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>InteractionActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -913,7 +921,27 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>InteractionAttendeeActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionAttendeeActionsTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionAttendeeTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionAttendeeTriggerHandlerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>InteractionInterceptTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionRelatedListController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1541,11 +1569,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Jurisdiction__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.KYC_Verification_Level__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1977,11 +2000,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Campaign.Status</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Campaign.TwilioSF__Opt_In_Keyword__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5028,7 +5046,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Industry__c.IsActive__c</field>
+        <field>Interaction.ANZ_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Appointment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.AppointmentId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Attendees__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Attendees_and_Roles__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5509,11 +5547,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Lead.Title__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Lead.TwilioSF__Last_Message_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7355,8 +7388,12 @@
         <layout>Interaction-Interaction Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Interaction-Interaction Layout</layout>
+        <layout>Interaction-Appointment Layout</layout>
         <recordType>Interaction.Appointment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Interaction Layout</layout>
+        <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>InteractionSummary-Interaction Summary Layout</layout>

@@ -30,7 +30,6 @@ force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
 force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
-force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
@@ -131,3 +130,7 @@ force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__O
 
 # ignore all Connected Apps as these are manually created. Subsequent pushes will result in invalid cross reference id
 force-app/main/default/connectedApps
+
+#ignoring file as we dont need it to be deployed, just need to see the settings enabled without going through PAM
+#not ignoring will result in a generated key error
+force-app/main/default/settings/PlatformEncryption.settings-meta.xml

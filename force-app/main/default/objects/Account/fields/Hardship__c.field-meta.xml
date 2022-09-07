@@ -3,6 +3,7 @@
     <fullName>Hardship__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <description>Customer is in collections (one or more of their ANZx or AR&amp;C accounts are currently in Collections)</description>
     <defaultValue>false</defaultValue>
     <externalId>false</externalId>
     <inlineHelpText>Customer is currently in hardship (requested hardship assistance OR hardship request under review OR under hardship arrangement)</inlineHelpText>

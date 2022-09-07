@@ -3,6 +3,7 @@
     <fullName>Settlement_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Posted Date for a disputed BPay Transaction</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Settlement Date</label>
