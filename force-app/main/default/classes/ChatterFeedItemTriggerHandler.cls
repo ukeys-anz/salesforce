@@ -8,7 +8,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
   private static final String EDIT_ERROR = 'You cannot edit feed items.';
   private static final string FILE_ERROR = 'Files cannot be shared via chatter. Please remove the file from your message before you post.';
   private static final string IMAGE_ERROR = 'Images cannot be shared via chatter. Please remove the image from your message before you post.';
-  private static final string EXCESSIVE_LENGTH_ERROR = 'Content must not exceed 4000 bytes';
+  private static final string EXCESSIVE_LENGTH_ERROR = 'Error: Your post is too long';
 
   /**
    * @description Constructor to initialise Trigger Handler library

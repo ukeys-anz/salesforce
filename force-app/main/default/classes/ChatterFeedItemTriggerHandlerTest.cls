@@ -152,7 +152,7 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       );
     } catch (DMLException e) {
       exceptionThrown = (e.getMessage()
-          .contains('Content must not exceed 4000 bytes'))
+          .contains('Error: Your post is too long'))
         ? true
         : false;
     }
