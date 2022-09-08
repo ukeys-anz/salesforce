@@ -1087,16 +1087,18 @@ private class CaseTriggerHandlerTest {
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
-    System.assertEquals(
-      IDRTaskActions.siQueue.Id,
-      psiTasks[0].OwnerId,
-      'The new task owner id should be as expected.'
-    );
-    System.assertEquals(
-      IDRTaskActions.IDR_TASK_SUBJECT,
-      psiTasks[0].Subject,
-      'The new task subject should be as expected.'
-    );
+    if (psiTasks != null && psiTasks.size() > 0) {
+      System.assertEquals(
+        IDRTaskActions.siQueue.Id,
+        psiTasks[0].OwnerId,
+        'The new task owner id should be as expected.'
+      );
+      System.assertEquals(
+        IDRTaskActions.IDR_TASK_SUBJECT,
+        psiTasks[0].Subject,
+        'The new task subject should be as expected.'
+      );
+    }
   }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
