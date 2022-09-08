@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LoanPurpose</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Text field that captures customer&apos;s reason for taking out a loan.
+Many downstream systems such as Reporting, Risk, CAP and Credit utilize this field. For now it&apos;s defaulted to an OFI HL (Other Financial Institution Home Loan) customer refinancing with ANZ</description>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+</CustomField>
