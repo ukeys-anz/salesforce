@@ -8,6 +8,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
   private static final String EDIT_ERROR = 'You cannot edit feed items.';
   private static final string FILE_ERROR = 'Files cannot be shared via chatter. Please remove the file from your message before you post.';
   private static final string IMAGE_ERROR = 'Images cannot be shared via chatter. Please remove the image from your message before you post.';
+  private static final string EXCESSIVE_LENGTH_ERROR = 'Content must not exceed 4000 bytes';
 
   /**
    * @description Constructor to initialise Trigger Handler library
@@ -17,7 +18,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
   }
 
   /**
-   * @description  Mask the comments where applicable.
+   * @description actions performed onBeforeInsert
    */
   public override void onApplyDefaults() {
     List<Id> parentIdList = new List<Id>();
@@ -34,6 +35,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
     for (FeedItem record : (List<FeedItem>) records) {
       Case relatedCase = relatedCaseMap.get(record.parentId);
       Account relatedAcc = relatedAccMap.get(record.parentId);
+
       if (
         (relatedCase != null &&
         GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)) ||
@@ -68,8 +70,22 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
       } else {
         record.Body = TextUtils.maskData(record.Body);
       }
+
       if (record.type == 'ContentPost' && record.RelatedRecordId != null) {
         record.addError(FILE_ERROR);
+      }
+
+      // Handle Excessive Chatter Body
+      // Limit of Case CommentBody is 4000 bytes. We are allowing small buffer
+      // for the CreatedDate string which is pre-pended during conversion
+      if (
+        relatedCase != null &&
+        relatedCase.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID
+      ) {
+        Blob bodyBlob = Blob.valueOf(record.Body);
+        if (bodyBlob.size() >= 3970) {
+          record.addError(EXCESSIVE_LENGTH_ERROR);
+        }
       }
     }
   }

@@ -13,15 +13,29 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
     accnt.ANZx_Customer__c = true;
     accnt.External_Id__c = '82jfsa80534';
     insert accnt;
+
+    List<Case> caseList = new List<Case>();
+
     Case newCase = new Case(
       RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
       AccountId = accnt.Id,
       Origin = 'Email',
       Status = 'Open',
       Type = 'Cards',
-      Subject = 'Test Subject'
+      Subject = 'Test Subject - NCC'
     );
-    insert newCase;
+    caseList.add(newCase);
+
+    Case newANZxComplaintCase = new Case(
+      RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
+      AccountId = accnt.Id,
+      Origin = 'Email',
+      Status = 'Open',
+      Type = 'Cards',
+      Subject = 'Test Subject - ANZx Complaint'
+    );
+    caseList.add(newANZxComplaintCase);
+    insert caseList;
   }
   @isTest
   static void testEditFeedItem() {
@@ -71,6 +85,83 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       true,
       exceptionThrown,
       'You do not have permission to delete this comment'
+    );
+  }
+
+  @isTest
+  static void testInsertFeedItem() {
+    //GIVEN a Case chatter is created with non-excessive body length
+    Case newCase = [
+      SELECT Id
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
+      LIMIT 1
+    ];
+
+    List<FeedItem> postList = new List<FeedItem>();
+
+    FeedItem post = new FeedItem();
+    post.ParentId = newCase.Id;
+    post.Body = 'Test Post 🎉';
+
+    // WHEN the Chatter is inserted
+    Test.startTest();
+    insert post;
+    Test.stopTest();
+
+    FeedItem insertedPost = [
+      SELECT Id, Body
+      FROM FEEDITEM
+      WHERE ParentId = :newCase.Id
+    ];
+
+    // THEN the chatter should be successfully created
+    System.assertNotEquals(
+      null,
+      insertedPost,
+      'FeedItem should be successfully inserted.'
+    );
+  }
+
+  @isTest
+  static void testInsertFeedItemExcessiveSize() {
+    //GIVEN a Case chatter is created with an excessive body length
+    Faker faker = new Faker('AU');
+    String longBody = faker.randomString(5000);
+
+    Case newCase = [
+      SELECT Id
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
+      LIMIT 1
+    ];
+
+    List<FeedItem> postList = new List<FeedItem>();
+
+    FeedItem post = new FeedItem();
+    post.ParentId = newCase.Id;
+    post.Body = longBody;
+
+    // WHEN the Chatter is inserted
+    Boolean exceptionThrown = false;
+    try {
+      insert post;
+      System.assert(
+        false,
+        'Failed to prevent against inserting excessive feed item body.'
+      );
+    } catch (DMLException e) {
+      exceptionThrown = (e.getMessage()
+          .contains('Content must not exceed 4000 bytes'))
+        ? true
+        : false;
+    }
+
+    // THEN the chatter should not be created and an exception should be thrown
+    System.assertEquals(
+      true,
+      exceptionThrown,
+      'Exception should be thrown if content exceeds 4000 bytes'
     );
   }
 }
