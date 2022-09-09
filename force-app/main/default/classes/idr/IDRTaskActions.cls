@@ -522,7 +522,6 @@ public without sharing class IDRTaskActions {
     Task[] existingTasks = new List<Task>();
     Set<Id> caseIds = new Set<Id>();
     Map<Id, Task> siCaseTasks = new Map<Id, Task>();
-    Map<Id, Boolean> l1CaseMap = calculateL1Map(records,oldMap);
     
     for (Case record : records) {
       if (oldMap != null && 
@@ -574,12 +573,7 @@ public without sharing class IDRTaskActions {
         }
       }
       //validate case for PSI task creation
-      //Validate only when case was either Escalated or created by Level 1 user).
-      if (
-        (!(String.isBlank(record.IDR_Escalation_Reason__c)) ||
-        (l1CaseMap != null &&
-        l1CaseMap.containsKey(record.CreatedById))) &&
-        validateCaseForPSITask(record, oldRec, siCaseTasks)
+      if (validateCaseForPSITask(record, oldRec, siCaseTasks)
       ) {
           siTasks.add(populateTaskFields(record));
       }
@@ -609,46 +603,7 @@ public without sharing class IDRTaskActions {
       }
     }
   }
-  /**
-   * @description calculateL1Map will find cases created by Level 1 users.
-   * @param records from the trigger
-   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate.
-   * @return Map<Id, Boolean> Map with L1 case creator's ID and True value.
-   */
-  private static Map<Id, Boolean> calculateL1Map(
-    List<Case> records,
-    Map<Id, SObject> oldMap
-  ) {
-    Map<Id, Boolean> l1CaseMap = new Map<Id, Boolean>();
-    Set<Id> userIds = new Set<Id>();
-    for (Case record : records) {
-      if (oldMap != null && 
-        oldMap.containsKey(record.Id) &&
-        IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
-        record.IDR_Is_Common__c == 'Yes'  //is case PSI
-      ) {
-        userIds.add(record.CreatedById);
-      }
-    }
-    if (
-      !userIds.isEmpty() && PermissionSetAssignment.SObjectType.getDescribe().isQueryable()
-    ) {
-      
-      List<PermissionSetAssignment> l1users = [
-        SELECT Id, AssigneeId, PermissionSet.Name
-        FROM PermissionSetAssignment
-        WHERE
-          AssigneeId IN :userIds
-          AND PermissionSet.Name = :IDR_LEVEL_1
-      ];
-      
-      for(PermissionSetAssignment record : l1users){
-          l1CaseMap.put(record.AssigneeId,True);
-      }
-
-    }
-    return l1CaseMap;
-  }
+  
   /**
    * @description Validates a complaint record for creating PSI task
    * @param record from case trigger
