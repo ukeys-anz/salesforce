@@ -7,6 +7,7 @@
     <externalId>false</externalId>
     <label>Contact Mobile</label>
     <required>false</required>
+    <securityClassification>Confidential</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Phone</type>
 </CustomField>

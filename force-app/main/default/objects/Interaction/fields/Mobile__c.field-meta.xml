@@ -8,6 +8,7 @@
     <formula>IF( ISBLANK( AccountId ) == false ,  Account.PersonContact.MobilePhone , IF(ISBLANK( Lead__c )==false, Lead__r.MobilePhone ,&apos;&apos; ))</formula>
     <label>Contact Mobile</label>
     <required>false</required>
+    <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>
