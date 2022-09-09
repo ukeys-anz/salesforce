@@ -19,7 +19,8 @@
     "PlatformEncryption",
     "EinsteinAnalyticsPlus",
     "IndustriesActionPlan",
-    "DocumentChecklist"
+    "DocumentChecklist",
+    "WorkThanksPref"
   ],
   "settings": {
     "chatterSettings": {
@@ -58,6 +59,13 @@
       "enableInteractionSummaryPref": true,
       "enableInteractionSummaryRoleHierarchy": true,
       "enableInteractionRoleHierarchy": true
+    },
+    "languageSettings": {
+      "enableTranslationWorkbench": true
+    },
+    "workDotComSettings": {
+      "enableWorkThanksPref": true,
+      "enableProfileSkills": true
     }
   }
 }

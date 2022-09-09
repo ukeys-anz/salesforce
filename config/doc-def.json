@@ -382,7 +382,8 @@
         "API_Access_Twilio",
         "Chat_Read_Write",
         "Enforce_mTLS",
-        "Interaction_Integration"
+        "Interaction_Integration",
+        "Password_Never_Expires"
       ],
       "type": "system"
     },
