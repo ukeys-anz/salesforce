@@ -13,6 +13,7 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Type</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -27,5 +28,153 @@
                 <label>New Number</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
+            <controllingFieldValue>Dating &amp; Romance</controllingFieldValue>
+            <controllingFieldValue>Investment</controllingFieldValue>
+            <controllingFieldValue>Remote Access</controllingFieldValue>
+            <controllingFieldValue>Business Email Compromise</controllingFieldValue>
+            <controllingFieldValue>Threats &amp; Extortion</controllingFieldValue>
+            <controllingFieldValue>Fake Charity</controllingFieldValue>
+            <controllingFieldValue>Jobs &amp; Employment</controllingFieldValue>
+            <controllingFieldValue>Unexpected Money/Winnings</controllingFieldValue>
+            <controllingFieldValue>ID Takeover Mule</controllingFieldValue>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <controllingFieldValue>Claimed no Knowledge</controllingFieldValue>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Unable to Contact</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Not a Recipient</controllingFieldValue>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <controllingFieldValue>Malware</controllingFieldValue>
+            <controllingFieldValue>Deceased Estate</controllingFieldValue>
+            <controllingFieldValue>Phishing</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>Account Takeover</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
+            <controllingFieldValue>18</controllingFieldValue>
+            <controllingFieldValue>2</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <controllingFieldValue>Phone Porting</controllingFieldValue>
+            <controllingFieldValue>Civil</controllingFieldValue>
+            <controllingFieldValue>Not Fraud</controllingFieldValue>
+            <controllingFieldValue>Assisted PIN Recovery</controllingFieldValue>
+            <controllingFieldValue>17</controllingFieldValue>
+            <controllingFieldValue>Assisted Verification</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>Mobile Number Dispute</controllingFieldValue>
+            <controllingFieldValue>15</controllingFieldValue>
+            <controllingFieldValue>Legal Name Update</controllingFieldValue>
+            <controllingFieldValue>16</controllingFieldValue>
+            <controllingFieldValue>Awaiting Details</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>Not a Scam</controllingFieldValue>
+            <controllingFieldValue>19</controllingFieldValue>
+            <controllingFieldValue>KYC QA Sample</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>20</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <controllingFieldValue>Potential Recipient</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
+            <controllingFieldValue>Open Banking</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>Verified by Visa</controllingFieldValue>
+            <controllingFieldValue>7</controllingFieldValue>
+            <controllingFieldValue>Assisted Tax Verification</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>KYC Reverification</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>21</controllingFieldValue>
+            <controllingFieldValue>App Support</controllingFieldValue>
+            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
+            <controllingFieldValue>Coaching</controllingFieldValue>
+            <controllingFieldValue>Customer Feedback (NPS)</controllingFieldValue>
+            <controllingFieldValue>Customer Update &amp; Details</controllingFieldValue>
+            <controllingFieldValue>Dispute</controllingFieldValue>
+            <controllingFieldValue>Join / KYC</controllingFieldValue>
+            <controllingFieldValue>My Security</controllingFieldValue>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Existing Number</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
+            <controllingFieldValue>Dating &amp; Romance</controllingFieldValue>
+            <controllingFieldValue>Investment</controllingFieldValue>
+            <controllingFieldValue>Remote Access</controllingFieldValue>
+            <controllingFieldValue>Business Email Compromise</controllingFieldValue>
+            <controllingFieldValue>Threats &amp; Extortion</controllingFieldValue>
+            <controllingFieldValue>Fake Charity</controllingFieldValue>
+            <controllingFieldValue>Jobs &amp; Employment</controllingFieldValue>
+            <controllingFieldValue>Unexpected Money/Winnings</controllingFieldValue>
+            <controllingFieldValue>ID Takeover Mule</controllingFieldValue>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <controllingFieldValue>Claimed no Knowledge</controllingFieldValue>
+            <controllingFieldValue>Fraud</controllingFieldValue>
+            <controllingFieldValue>Unable to Contact</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Not a Recipient</controllingFieldValue>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <controllingFieldValue>Malware</controllingFieldValue>
+            <controllingFieldValue>Deceased Estate</controllingFieldValue>
+            <controllingFieldValue>Phishing</controllingFieldValue>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>Account Takeover</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
+            <controllingFieldValue>18</controllingFieldValue>
+            <controllingFieldValue>2</controllingFieldValue>
+            <controllingFieldValue>4</controllingFieldValue>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <controllingFieldValue>Cards</controllingFieldValue>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <controllingFieldValue>Phone Porting</controllingFieldValue>
+            <controllingFieldValue>Civil</controllingFieldValue>
+            <controllingFieldValue>Not Fraud</controllingFieldValue>
+            <controllingFieldValue>Assisted PIN Recovery</controllingFieldValue>
+            <controllingFieldValue>17</controllingFieldValue>
+            <controllingFieldValue>Assisted Verification</controllingFieldValue>
+            <controllingFieldValue>6</controllingFieldValue>
+            <controllingFieldValue>Mobile Number Dispute</controllingFieldValue>
+            <controllingFieldValue>15</controllingFieldValue>
+            <controllingFieldValue>Legal Name Update</controllingFieldValue>
+            <controllingFieldValue>16</controllingFieldValue>
+            <controllingFieldValue>Awaiting Details</controllingFieldValue>
+            <controllingFieldValue>5</controllingFieldValue>
+            <controllingFieldValue>Not a Scam</controllingFieldValue>
+            <controllingFieldValue>19</controllingFieldValue>
+            <controllingFieldValue>KYC QA Sample</controllingFieldValue>
+            <controllingFieldValue>10</controllingFieldValue>
+            <controllingFieldValue>14</controllingFieldValue>
+            <controllingFieldValue>20</controllingFieldValue>
+            <controllingFieldValue>8</controllingFieldValue>
+            <controllingFieldValue>Potential Recipient</controllingFieldValue>
+            <controllingFieldValue>11</controllingFieldValue>
+            <controllingFieldValue>Digital Wallet Provisioning</controllingFieldValue>
+            <controllingFieldValue>Open Banking</controllingFieldValue>
+            <controllingFieldValue>1</controllingFieldValue>
+            <controllingFieldValue>Verified by Visa</controllingFieldValue>
+            <controllingFieldValue>7</controllingFieldValue>
+            <controllingFieldValue>Assisted Tax Verification</controllingFieldValue>
+            <controllingFieldValue>3</controllingFieldValue>
+            <controllingFieldValue>KYC Reverification</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>21</controllingFieldValue>
+            <controllingFieldValue>App Support</controllingFieldValue>
+            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
+            <controllingFieldValue>Coaching</controllingFieldValue>
+            <controllingFieldValue>Customer Feedback (NPS)</controllingFieldValue>
+            <controllingFieldValue>Customer Update &amp; Details</controllingFieldValue>
+            <controllingFieldValue>Dispute</controllingFieldValue>
+            <controllingFieldValue>Join / KYC</controllingFieldValue>
+            <controllingFieldValue>My Security</controllingFieldValue>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>New Number</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>
