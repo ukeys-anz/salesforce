@@ -394,7 +394,7 @@
                 <name>SLA_Status_Warning_Update</name>
                 <type>FieldUpdate</type>
             </actions>
-            <timeLength>-480</timeLength>
+            <timeLength>-240</timeLength>
             <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
         </timeTriggers>
         <timeTriggers>
