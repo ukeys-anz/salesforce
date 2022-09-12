@@ -15,11 +15,11 @@ public with sharing class DatabaseResultHelper {
   ) {
     List<Database.SaveResult> saveResultErrors = new List<Database.SaveResult>();
     for (Database.SaveResult sr : saveResults) {
-      if (!sr.isSuccess()) {
+      if (sr.isSuccess() == false) {
         saveResultErrors.add(sr);
       }
     }
-    String result = saveResultErrors.size() > 0
+    String result = saveResultErrors.isEmpty() == false
       ? JSON.serializePretty(saveResultErrors)
       : '';
     return result;
@@ -35,11 +35,11 @@ public with sharing class DatabaseResultHelper {
   ) {
     List<Database.DeleteResult> deleteResultErrors = new List<Database.DeleteResult>();
     for (Database.DeleteResult dr : deleteResults) {
-      if (!dr.isSuccess()) {
+      if (dr.isSuccess() == false) {
         deleteResultErrors.add(dr);
       }
     }
-    String result = deleteResultErrors.size() > 0
+    String result = deleteResultErrors.isEmpty() == false
       ? JSON.serializePretty(deleteResultErrors)
       : '';
     return result;
@@ -55,11 +55,11 @@ public with sharing class DatabaseResultHelper {
   ) {
     List<Database.MergeResult> mergeResultErrors = new List<Database.MergeResult>();
     for (Database.MergeResult mr : mergeResults) {
-      if (!mr.isSuccess()) {
+      if (mr.isSuccess() == false) {
         mergeResultErrors.add(mr);
       }
     }
-    String result = mergeResultErrors.size() > 0
+    String result = mergeResultErrors.isEmpty() == false
       ? JSON.serializePretty(mergeResultErrors)
       : '';
     return result;
@@ -75,11 +75,11 @@ public with sharing class DatabaseResultHelper {
   ) {
     List<Database.UpsertResult> upsertResultErrors = new List<Database.UpsertResult>();
     for (Database.UpsertResult ur : upsertResults) {
-      if (!ur.isSuccess()) {
+      if (ur.isSuccess() == false) {
         upsertResultErrors.add(ur);
       }
     }
-    String result = upsertResultErrors.size() > 0
+    String result = upsertResultErrors.isEmpty() == false
       ? JSON.serializePretty(upsertResultErrors)
       : '';
     return result;
@@ -95,12 +95,32 @@ public with sharing class DatabaseResultHelper {
   ) {
     List<Database.UndeleteResult> undeleteResultErrors = new List<Database.UndeleteResult>();
     for (Database.UndeleteResult ur : undeleteResults) {
-      if (!ur.isSuccess()) {
+      if (ur.isSuccess() == false) {
         undeleteResultErrors.add(ur);
       }
     }
-    String result = undeleteResultErrors.size() > 0
+    String result = undeleteResultErrors.isEmpty() == false
       ? JSON.serializePretty(undeleteResultErrors)
+      : '';
+    return result;
+  }
+
+  /**
+   * @description Checks if a list of Database.EmptyRecycleBinResult is successful, if not return the serialised results with errors
+   * @param emptyRecycleBinResults A list of empty recycle bin results to check
+   * @return Serialised string of the empty recycle bin result
+   */
+  public static String getEmptyRecycleBinResultError(
+    List<Database.EmptyRecycleBinResult> emptyRecycleBinResults
+  ) {
+    List<Database.EmptyRecycleBinResult> emptyRecycleBinResultErrors = new List<Database.EmptyRecycleBinResult>();
+    for (Database.EmptyRecycleBinResult er : emptyRecycleBinResults) {
+      if (er.isSuccess() == false) {
+        emptyRecycleBinResultErrors.add(er);
+      }
+    }
+    String result = emptyRecycleBinResults.isEmpty() == false
+      ? JSON.serializePretty(emptyRecycleBinResults)
       : '';
     return result;
   }

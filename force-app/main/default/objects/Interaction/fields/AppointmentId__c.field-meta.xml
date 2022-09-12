@@ -12,6 +12,6 @@
     <relationshipName>Interactions</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Lookup</type>
 </CustomField>

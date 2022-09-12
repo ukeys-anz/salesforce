@@ -30,7 +30,8 @@ echoMessageCreator "" $stepNo false
 
 # install managed packages
 echoMessageCreator "install managed packages" $stepNo true
-sfdx force:mdapi:deploy -d mdapi-source/packages/
+sfdx force:mdapi:deploy -d mdapi-source/packages/ | tee stderr
+continueTheJob
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -48,10 +49,13 @@ while [[ $waitToInstallPackages == false ]]; do
         echo "wait for another 3 mins"
         sleep 180
         echo "${reset}"
-    else
+    else 
         waitToInstallPackages=true
     fi
 done
+
+continueTheJob
+
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -61,10 +65,12 @@ echoMessageCreator "install unmanaged packages" $stepNo true
 # open http://industries.force.com/financialservicescloudextension
 # if it is not like below, change it to the new one
 apvId=04t1E000001Iql5
-sfdx force:package:install --package $apvId -w 20 --securitytype AllUsers
-sfdx force:package:install -p 04t2J000000IzriQAC --securitytype AdminsOnly
-echo "wait for 5 mins to finish deploying"
-sleep 300
+sfdx force:package:install --package $apvId -w 20 --securitytype AllUsers | tee stderr
+continueTheJob
+
+sfdx force:package:install -p 04t2J000000IzriQAC --securitytype AdminsOnly | tee stderr
+continueTheJob
+
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -118,32 +124,9 @@ echoMessageCreator "" $stepNo false
 echoMessageCreator "removing all changes made during creating snapshot" $stepNo true
 rm -rf ci.forceignore
 git checkout .
+
+echo ""
+echo "${green}new snapshot has been created${reset}"
+echo ""
 echoMessageCreator "" $stepNo false
 #######################
-
-read -rp "Do you want to make a PR into develop (y/n)? " makePrFlag
-if [[ $makePrFlag == y || $makePrFlag == Y ]]; then
-
-    # make new pr into develop
-    echoMessageCreator "make a new pr into develop" $stepNo true
-    CURRENT_DATE="$(date +%F)"
-    branch=feature/new-snapshot-"${CURRENT_DATE//-}"
-    git checkout -b $branch
-    snapshotTemplate='{\n\t"orgName": "ANZx",\n\t"snapshot": "'$name'"\n}'
-
-    echo -ne $snapshotTemplate > config/snapshot-scratch-def-template.json
-    echo "${green}"
-
-    read -rp "Do you want to push it (y/n)? " pushPR
-    if [[ $pushPR == y || $pushPR == Y ]]; then
-        echo "${reset}"
-        git add .
-        git commit -m "[ANZX-0000] New snapshot"
-        git push origin $branch
-        open https://github.com/anzx/salesforce/compare/develop...$branch || start https://github.com/anzx/salesforce/compare/develop...$branch
-    else
-        echo -ne "${green}\nSnapshot has been made, PR has not been pushed."
-    fi
-    echoMessageCreator "" $stepNo false
-    #########################
-fi

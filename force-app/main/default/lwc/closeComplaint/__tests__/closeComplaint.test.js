@@ -11,7 +11,7 @@ const mockGetCaseRecordInvalid = require("./data/getCaseRecordInvalid.json");
 const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 
 const validationMessage =
-  "Please update Product or Service Name before closing the case";
+  "Please update Product or Service Name before closing the case.";
 
 describe("c-close-complaint test suite", () => {
   beforeEach(() => {
@@ -19,6 +19,14 @@ describe("c-close-complaint test suite", () => {
       is: CloseComplaintComponent
     });
     document.body.appendChild(element);
+  });
+
+  afterEach(() => {
+    // The jsdom instance is shared across test cases in a single file so reset the DOM
+    while (document.body.firstChild) {
+      document.body.removeChild(document.body.firstChild);
+    }
+    jest.restoreAllMocks();
   });
 
   it("Load close complaint page", () => {

@@ -1602,6 +1602,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Sub_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Sub_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2493,16 +2498,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>User.Start_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>User.TwilioSF__Twilio_Personal_Number_Is_Valid__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>User.TwilioSF__Twilio_Personal_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

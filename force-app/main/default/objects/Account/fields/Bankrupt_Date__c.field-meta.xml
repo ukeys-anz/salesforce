@@ -3,6 +3,7 @@
     <fullName>Bankrupt_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <description>Bankrupt Date</description>
     <externalId>false</externalId>
     <label>Bankrupt Date</label>
     <required>false</required>

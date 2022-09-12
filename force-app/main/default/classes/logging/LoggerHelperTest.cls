@@ -26,8 +26,7 @@ public with sharing class LoggerHelperTest {
 
     System.runAs(engineerUser) {
       LoggingSettings__c userCustomSetting = new LoggingSettings__c(
-        DefaultLogRetentionDuration__c = 15,
-        DefaultSaveMethod__c = 'QUEUEABLE',
+        DefaultSaveMethod__c = String.valueOf(Logger.SaveMethod.QUEUEABLE),
         DefaultLoggingLevel__c = 'DEBUG',
         SecureLogEnabled__c = false,
         SetupOwnerId = engineerUser.Id
@@ -195,9 +194,6 @@ public with sharing class LoggerHelperTest {
         LoggerHelper.getBufferSize(),
         'Log buffer should have been flushed'
       );
-
-      // TO DO: Validating that log and log entries are created
-      // To be done when AR-14093 - LogEventTriggerHandler class is completed
     }
   }
 

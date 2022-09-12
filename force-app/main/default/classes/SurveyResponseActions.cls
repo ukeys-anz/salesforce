@@ -65,9 +65,9 @@ public with sharing class SurveyResponseActions {
           'OCV ID: ' +
           ocvId +
           '; Q_SurveyID: ' +
-          sr.qualtrics__Q_SurveyID__c +
+          sr.SurveyId__c +
           '; Q_Recipient ID: ' +
-          sr.qualtrics__Q_Recipient_ID__c
+          sr.RecipientId__c
         );
         log.publishEvent();
       }

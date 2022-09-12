@@ -20,11 +20,9 @@ public with sharing class LoggingSettingsControllerTest {
     Boolean isSecureLogEnabled;
     String defaultLoggingLevel;
     String defaultSaveMethod;
-    Integer logsRetentionDuration;
     Test.startTest();
     System.runAs(engineerUser) {
       LoggingSettings__c userCustomSetting = new LoggingSettings__c(
-        // DefaultLogRetentionDuration__c = deliberately not set for testing purpose
         // DefaultSaveMethod__c = deliberately not set for testing purpose
         DefaultLoggingLevel__c = 'ERROR',
         // SecureLogEnabled__c = = deliberately not set for testing purpose
@@ -35,7 +33,6 @@ public with sharing class LoggingSettingsControllerTest {
       isSecureLogEnabled = LoggingSettingsController.isSecureLogEnabled();
       defaultLoggingLevel = LoggingSettingsController.getDefaultLoggingLevel();
       defaultSaveMethod = LoggingSettingsController.getDefaultSaveMethod();
-      logsRetentionDuration = LoggingSettingsController.getLogsRetentionDuration();
     }
     Test.stopTest();
     System.assertEquals(
@@ -53,11 +50,6 @@ public with sharing class LoggingSettingsControllerTest {
       defaultSaveMethod,
       'Default save method should be EVENT_BUS as this is the default value.'
     );
-    System.assertEquals(
-      30,
-      logsRetentionDuration,
-      'Default logs retention duration should be 30 as the default value.'
-    );
   }
 
   @isTest
@@ -72,7 +64,6 @@ public with sharing class LoggingSettingsControllerTest {
     insert coachUser;
     // Create custom setting at profile level
     LoggingSettings__c profileCustomSetting = new LoggingSettings__c(
-      DefaultLogRetentionDuration__c = 35,
       DefaultSaveMethod__c = 'QUEUABLE',
       // DefaultLoggingLevel__c = deliberately not set for testing purpose
       // SecureLogEnabled__c = deliberately not set for testing purpose
@@ -89,7 +80,6 @@ public with sharing class LoggingSettingsControllerTest {
       isSecureLogEnabled = LoggingSettingsController.isSecureLogEnabled();
       defaultLoggingLevel = LoggingSettingsController.getDefaultLoggingLevel();
       defaultSaveMethod = LoggingSettingsController.getDefaultSaveMethod();
-      logsRetentionDuration = LoggingSettingsController.getLogsRetentionDuration();
     }
     Test.stopTest();
     System.assertEquals(
@@ -107,11 +97,6 @@ public with sharing class LoggingSettingsControllerTest {
       defaultSaveMethod,
       'Default save method should match.'
     );
-    System.assertEquals(
-      35,
-      logsRetentionDuration,
-      'Default logs retention duration should match.'
-    );
   }
 
   @isTest
@@ -119,7 +104,6 @@ public with sharing class LoggingSettingsControllerTest {
     // Create custom setting at org level
     Organization currentOrg = [SELECT Id FROM Organization LIMIT 1];
     LoggingSettings__c orgCustomSetting = new LoggingSettings__c(
-      DefaultLogRetentionDuration__c = 45,
       DefaultSaveMethod__c = 'QUEUEABLE',
       DefaultLoggingLevel__c = 'DEBUG',
       SecureLogEnabled__c = true,
@@ -135,7 +119,6 @@ public with sharing class LoggingSettingsControllerTest {
     isSecureLogEnabled = LoggingSettingsController.isSecureLogEnabled();
     defaultLoggingLevel = LoggingSettingsController.getDefaultLoggingLevel();
     defaultSaveMethod = LoggingSettingsController.getDefaultSaveMethod();
-    logsRetentionDuration = LoggingSettingsController.getLogsRetentionDuration();
     Test.stopTest();
     System.assertEquals(
       true,
@@ -152,17 +135,11 @@ public with sharing class LoggingSettingsControllerTest {
       defaultSaveMethod,
       'Default save method should match.'
     );
-    System.assertEquals(
-      45,
-      logsRetentionDuration,
-      'Default logs retention duration should match.'
-    );
   }
 
   @isTest
   static void testSetUserSettings() {
     LoggingSettings__c setting = new LoggingSettings__c(
-      DefaultLogRetentionDuration__c = 25,
       DefaultSaveMethod__c = 'QUEUEABLE',
       DefaultLoggingLevel__c = 'INFO',
       SecureLogEnabled__c = true,
@@ -185,11 +162,6 @@ public with sharing class LoggingSettingsControllerTest {
       'QUEUEABLE',
       LoggingSettingsController.getDefaultSaveMethod(),
       'Default save method should match.'
-    );
-    System.assertEquals(
-      25,
-      LoggingSettingsController.getLogsRetentionDuration(),
-      'Default logs retention duration should match.'
     );
   }
 

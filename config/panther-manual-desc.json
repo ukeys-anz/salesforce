@@ -38,6 +38,9 @@
       "Name": "The name of the financial account provided to us by Fabric.",
       "Total_Number_of_Cards__c": "Total number of cards"
     },
+    "FinServ__FinancialAccountRole__c": {
+      "FinServ__SourceSystemId__c": "Identifier from the original data source application."
+    },
     "Known_Issues__c": {
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
     },
@@ -60,6 +63,8 @@
       "qualtrics__Date_Responded__c": "Date created",
       "qualtrics__Net_Promoter_Score__c": "Captures the NPS response from the survey",
       "qualtrics__Overall_Satisfaction__c": "Customers overall satisfaction with the product/service topic of the survey",
+      "qualtrics__Q_Recipient_ID__c": "The recipient or the customer ID in Qualtrics - managed package field, no longer used",
+      "qualtrics__Q_SurveyID__c": "The unique customer survey response ID from Qualtrics - managed package field, no longer used",
       "RecipientId__c": "The recipient or the customer ID in Qualtrics",
       "SurveyId__c": "The unique customer survey response ID from Qualtrics"
     },
@@ -226,17 +231,27 @@
         "LastModifiedDate"
       ],
       "IA-2415984": [
+        "Advertising_Indicator__c",
+        "Bankrupt_Date__c",
         "BillingAddress",
         "Deceased_Date__c",
+        "Disclosure_Indicator__c",
         "Display_Name__c",
         "Employee_Indicator__c",
         "Employer_Name__c",
+        "Establishment_Date__c",
+        "Mailing_Name__c",
         "Name",
         "Occupation__c",
         "PersonBirthdate",
         "PersonEmail",
-        "PersonMobilePhone"
-      ]
+        "PersonMobilePhone",
+        "Phone",
+        "Self_Certified_Tax_Date__c",
+        "Self_Certified_Tax_Residency__c"
+      ],
+      "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
+      "IA-2530753": ["CLG__c", "Controlling_Post__c", "CPID_Link__c", "CPID__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -296,8 +311,11 @@
         "Available__c",
         "Confirmed__c",
         "CreatedById",
+        "CreatedDate",
         "Date_and_Time__c",
+        "Id",
         "LastModifiedById",
+        "LastModifiedDate",
         "Location__c",
         "Name",
         "OwnerId",
@@ -317,7 +335,12 @@
         "Priority__c",
         "Source__c",
         "StartDate",
-        "Type"
+        "Type",
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Campaign_Document__c": {
@@ -326,7 +349,12 @@
         "Comments__c",
         "Is_Private__c",
         "URL__c",
-        "UUID__c"
+        "UUID__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Campaign_Flex_Field__c": {
@@ -335,7 +363,12 @@
         "Campaign__c",
         "FlexFieldName__c",
         "Sequence__c",
-        "UUID__c"
+        "UUID__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "CampaignMember": {
@@ -683,7 +716,8 @@
       "IA-2415992": ["SI_Potential_Consequence_to_Customer__c"],
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
-        "SI_Total_Payment_Amount__c"
+        "SI_Total_Payment_Amount__c",
+        "Sub_Status__c"
       ],
       "IA-2415998": [
         "Correct_Customer_Reference_Number__c",
@@ -801,8 +835,26 @@
         "Birthdate",
         "Email",
         "Gender__c",
+        "Is_Preferred_Contact__c",
         "MobilePhone",
         "OtherAddress"
+      ]
+    },
+    "ContactPointAddress": {
+      "IA-2530753": [
+        "Building_Name__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2415984": [
+        "P_O_Box__c",
+        "Street_Name__c",
+        "Street_Number__c",
+        "Street_Type__c",
+        "Unit__c"
       ]
     },
     "ContactRequest": {
@@ -855,6 +907,28 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
+      ]
+    },
+    "Controlling_Post__c": {
+      "IA-2415984": [
+        "Area_Code__c",
+        "CPID__c",
+        "CreatedById",
+        "CreatedDate",
+        "End_Date__c",
+        "Geo_State_Code__c",
+        "Id",
+        "Industry_Code__c",
+        "Is_Active__c",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name",
+        "Responsible_Employee_Id__c",
+        "Responsible_Employee_Name__c",
+        "Responsible_Employee__c",
+        "Segment__c",
+        "Start_Date__c",
+        "State_Code__c"
       ]
     },
     "EmailMessage": {
@@ -942,6 +1016,7 @@
         "FinServ__RelatedAccount__c",
         "FinServ__RelatedContact__c",
         "FinServ__Role__c",
+        "FinServ__SourceSystemId__c",
         "FinServ__StartDate__c",
         "CreatedById",
         "CreatedDate",
@@ -982,11 +1057,30 @@
         "LastModifiedDate"
       ]
     },
+    "Industry__c": {
+      "IA-2530401": [
+        "Code__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "IsActive__c",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
     "Interaction": {
       "IA-2530753": [
         "AccountId",
+        "ANZ_Number__c",
+        "Appointment__c",
+        "AppointmentId__c",
+        "Attendees__c",
+        "Attendees_and_Roles__c",
         "Authentication_Method__c",
+        "Call_Recording_ID__c",
+        "CaseId__c",
         "Channel_Booked__c",
+        "Chat_or_Call_SID__c",
         "Coaching_Summary__c",
         "Contact_Mobile__c",
         "ContactRequestId__c",
@@ -1000,8 +1094,13 @@
         "Event_Id__c",
         "Interaction_Auto_Number__c",
         "Interaction_External_Id__c",
+        "Interaction_Number__c",
+        "Interaction_Number_Link__c",
         "Interaction_Purpose__c",
         "Interaction_Summary__c",
+        "Is_User_Attendee__c",
+        "Is_Record_UnIdentified__c",
+        "Lead__c",
         "InteractionType",
         "Id",
         "LastModifiedById",
@@ -1014,9 +1113,25 @@
         "Record_Type__c",
         "RecordTypeId",
         "ReferenceIdentifier",
+        "Referred_To__c",
+        "Resolution__c",
         "StartTime",
-        "Status__c"
+        "Status__c",
+        "Twilio_ID__c"
       ]
+    },
+    "InteractionSummary": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "Interaction_Summary_Number__c",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "Interaction_Attendee": {
+      "IA-2468715": ["AttendeeType", "UserId", "Time__c"]
     },
     "Known_Issues__c": {
       "IA-2468715": [
@@ -1091,6 +1206,7 @@
         "Country",
         "Email",
         "FirstName",
+        "Gender__c",
         "Home_Phone__c",
         "Industry",
         "Industry__c",
@@ -1105,10 +1221,14 @@
       ],
       "IA-2415860": [
         "Business_ID__c",
+        "Campaign_Code__c",
         "CCRM_DuplicateLeadCheck__c",
         "CLG_ID__c",
         "CLG_Name__c",
+        "Controlling_Post__c",
         "Controlling_Post_ID__c",
+        "CPID_Owner__c",
+        "CPID__c",
         "Customer_ID__c",
         "Entity_Type__c",
         "Expiry_Date__c",
@@ -1116,11 +1236,16 @@
         "FinServ__PotentialValue__c",
         "FinServ__RelatedAccount__c",
         "Followup_Date__c",
+        "Is_Valid_Address__c",
         "LeadSource",
         "Lead_Auto_Number__c",
         "Lead_Id__c",
         "Lead_Originator__c",
+        "Lead_Owner_Link__c",
         "Lead_Quality__c",
+        "Marketing_Consent__c",
+        "My_Region_Flag__c",
+        "Name",
         "New_to_Bank__c",
         "Note__c",
         "Not_Registered__c",
@@ -1128,6 +1253,8 @@
         "Previous_Lead__c",
         "Priority__c",
         "Prospect_ID__c",
+        "Privacy_Consent__c",
+        "Prospect_Id__c",
         "Record_Id__c",
         "Skip_Validations__c",
         "Status",
@@ -1136,7 +1263,7 @@
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
-      "IA-2415840": ["Description"]
+      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
@@ -1232,13 +1359,20 @@
     },
     "Opportunity": {
       "IA-2415840": [
-        "Name",
-        "Description",
-        "OwnerId",
-        "CloseDate",
+        "AccountId",
         "CampaignId",
+        "CloseDate",
+        "Description",
+        "Loss_Reason__c",
+        "Name",
+        "OwnerId",
+        "Pricebook2Id",
+        "Probability",
+        "RecordTypeId",
         "StageName",
-        "Loss_Reason__c"
+        "TotalOpportunityQuantity",
+        "Opp_Id__c",
+        "Type"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -1308,14 +1442,16 @@
       "IA-2415840": [
         "Additional_Feedback__c",
         "Alerting_Reason__c",
-        "qualtrics__Date_Responsed__c",
+        "qualtrics__Date_Responded__c",
         "Customer_Feedback__c",
         "Create_Case__c",
         "qualtrics__Net_Promoter_Score__c",
         "Other_Feedback__c",
         "qualtrics__Overall_Satisfaction__c",
         "qualtrics__Q_Recipient_ID__c",
-        "qualtrics__Q_Survey_ID__c",
+        "qualtrics__Q_SurveyID__c",
+        "RecipientId__c",
+        "SurveyId__c",
         "Survey_Name__c",
         "Survey_Trigger__c",
         "Survey_Variation__c",
@@ -1702,9 +1838,15 @@
         "Phone",
         "MobilePhone",
         "Alias",
-        "FederationIdentifier"
+        "FederationIdentifier",
+        "Employee_Id__c",
+        "Lan_Id__c",
+        "Leads_Count__c",
+        "Team_Code__c",
+        "Commercial_Segment__c"
       ],
       "IA-2468715": [
+        "Active_Directory_ID__c",
         "ManagerId",
         "IsActive",
         "LocaleSidKey",
@@ -1713,7 +1855,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"]
     }
   }
 }
