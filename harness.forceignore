@@ -62,8 +62,6 @@ force-app/main/default/objects/FinServ__Securities__c/
 force-app/main/default/objects/FinServ__ReciprocalRole__c/
 force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
 force-app/main/default/objects/SocialPost/
-force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__RelatedContact__c.field-meta.xml
-force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__SourceSystemId__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__SourceSystemId__c.field-meta.xml
 force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
