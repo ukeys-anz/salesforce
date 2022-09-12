@@ -2,12 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Organization__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Only ANZ Commercial bank is applicable for CCRM. Mulesoft will filter the other campaigns.</description>
-    <securityClassification>Internal</securityClassification>
     <externalId>false</externalId>
     <label>Organization</label>
-    <required>false</required>
+    <required>true</required>
+    <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>

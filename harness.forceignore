@@ -32,6 +32,8 @@ force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
+force-app/main/default/sharingRules/Opportunity.sharingRules-meta.xml
 force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
@@ -122,6 +124,9 @@ force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
 
 #to prevent issues when deploying looking for deleted objects tab
 force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml
+
+force-app/main/default/duplicateRules/
+force-app/main/default/matchingRules/
 
 #AR-11570 to avoid errors regarding managed package fields cannot be deleted
 force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_Recipient_ID__c.field-meta.xml

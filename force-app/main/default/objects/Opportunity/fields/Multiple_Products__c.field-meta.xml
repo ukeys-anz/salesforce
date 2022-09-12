@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Multiple_Products__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <securityClassification>Internal</securityClassification>
+    <description>There are more than one product in this Opportunity</description>
+    <externalId>false</externalId>
+    <formula>Product_Count__c &gt; 1</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Multiple Products</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

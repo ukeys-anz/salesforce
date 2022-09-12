@@ -172,11 +172,14 @@
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
+    "Legal_Entity__c": "This object contains multiple entities for opportunity product",
     "Location": "This standard object would contain all the store locations for ANZ",
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
     "Log__c": "The parent log object, which stores logging information on a transaction level.",
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
+    "Opportunity": "Is a record of a sale or a pending deal",
+    "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
     "Product Family": "Custom object that holds work basket details for cases",
@@ -1294,6 +1297,14 @@
         "LocationType"
       ]
     },
+    "Legal_Entity__c": {
+      "IA-2415987": [
+        "Account__c",
+        "Opportunity_Product__c",
+        "Opportunity_Id__c"
+      ],
+      "IA-2468715": ["CreatedById", "OwnerId", "Name", "LastModifiedById"]
+    },
     "Log__c": {
       "IA-2468710": [
         "APIVersion__c",
@@ -1374,12 +1385,47 @@
         "Opp_Id__c",
         "Type"
       ],
+      "IA-2415984": [
+        "Contact__c",
+        "Lead_Converted__c",
+        "Has_Close_Date_Changed__c",
+        "CLG__c"
+      ],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
         "Id",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Amount",
+        "CloseDate",
+        "AccountId",
+        "Description",
+        "Name",
+        "OwnerId",
+        "StageName"
+      ]
+    },
+    "OpportunityLineItem": {
+      "IA-2415987": [
+        "Application_Number__c",
+        "Application_Status__c",
+        "Has_Legal_Entity__c"
+      ],
+      "IA-2415720": ["Reference_Number__c"],
+      "IA-2415840": ["Purpose__c"],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Product2Id",
+        "Quantity",
+        "UnitPrice",
+        "ServiceDate"
       ],
       "IA-2415987": ["Amount"]
     },

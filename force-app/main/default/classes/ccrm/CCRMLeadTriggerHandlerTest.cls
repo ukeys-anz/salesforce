@@ -100,11 +100,11 @@ private class CCRMLeadTriggerHandlerTest {
   @isTest
   static void testPopulateFromPreviousLead() {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      Lead[] leads = [
+      Lead prevLead = [
         SELECT Id, LastName, Description, Business_Id__c
         FROM Lead
+        LIMIT 1
       ];
-      Test.startTest();
       //GIVEN an Adobe lead with previous lead id
       Lead leadRecord = new Lead();
       leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
@@ -114,22 +114,15 @@ private class CCRMLeadTriggerHandlerTest {
       leadRecord.LeadSource = 'Partner';
       leadRecord.New_to_Bank__c = 'Yes';
       leadRecord.Lead_Originator__c = 'Adobe';
-      leadRecord.Previous_Lead__c = leads[0].Id;
+      leadRecord.Previous_Lead__c = prevLead.Id;
       //WHEN it is inserted
-      Database.DMLOptions dml = new Database.DMLOptions();
-      dml.DuplicateRuleHeader.AllowSave = true;
-      Database.SaveResult sr = Database.insert(leadRecord, dml);
+      Test.startTest();
+      CCRMLeadActions.populateFromPreviousLead(new List<Lead>{ leadRecord });
       Test.stopTest();
       //THEN the field values will be copied from previous lead to new lead
-      Lead record;
-      record = [
-        SELECT LastName, Description, Business_Id__c
-        FROM Lead
-        WHERE Previous_Lead__c = :leads[0].Id
-      ];
-      system.assertEquals(leads[0].LastName, record.LastName);
-      system.assertEquals(leads[0].Description, record.Description);
-      system.assertEquals(leads[0].Business_Id__c, record.Business_Id__c);
+      system.assertEquals(prevLead.LastName, leadRecord.LastName);
+      system.assertEquals(prevLead.Description, leadRecord.Description);
+      system.assertEquals(prevLead.Business_Id__c, leadRecord.Business_Id__c);
     }
   }
 }
