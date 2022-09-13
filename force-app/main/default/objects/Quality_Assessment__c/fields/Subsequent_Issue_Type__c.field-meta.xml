@@ -4,11 +4,13 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Subsequent Issue Type(IDR_Subsequent_Issue__c) of Related Case</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Subsequent Issue Type</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

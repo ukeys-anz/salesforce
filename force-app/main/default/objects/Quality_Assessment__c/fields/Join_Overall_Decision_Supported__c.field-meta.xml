@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Join_Overall_Decision_Supported__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Was any decision made by the agent made in line with regulatory and business obligations?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Was any decision made by the agent made in line with regulatory and business obligations?</inlineHelpText>
+    <label>Overall Decision Supported</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Quality_Assessment_Rating_4_Values</valueSetName>
+    </valueSet>
+</CustomField>

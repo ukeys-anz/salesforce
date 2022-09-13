@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Join</fullName>
+    <active>true</active>
+    <description>Join quality assessment</description>
+    <label>Join</label>
+    <picklistValues>
+        <picklist>Accountability_and_Next_Steps__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Actions_and_Momentum__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Best_Interest_Duty__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Customer_understanding_of_scope__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Decline_advice_and_refer__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Define_Scope__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Dispute_Resolution__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Fact_Find__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Incomplete_Inaccurate_warning__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Initial_Contact__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Limit_scope_of_advice__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Outcome__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Substantive_Advice_OFSN__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Advice_Supplement__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Checklist__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Customers_Focus__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Fact_Find__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_OFSN__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Out_of_Scope__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Scope_Provided__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CN_Substantive_Advice__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Compliance_Outcome__c</picklist>
+        <values>
+            <fullName>Requirements Met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Connection_and_Trust__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Discover_and_Align__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Energy_and_Adaptability__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Evaluation_Type__c</picklist>
+        <values>
+            <fullName>Fraud %26 Dispute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity %26 KYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interaction QI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Finishing_Touches__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Insights_and_Focus__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interaction_Type__c</picklist>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Actions_Taken__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Blocks_Applied_where_Appropriate__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Business_Actions_Taken__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Business_Case_Record__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Business_Information__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Case_Data_Field_Accuracy__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Case_Record_Accuracy__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Behaviour__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Disclaimers__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Identification__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Compliance_Information__c</picklist>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Accountable__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Caring__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Interested__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Respect__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Customer_Welcoming__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Financial_Operation_Accuracy__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Join_Overall_Decision_Supported__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Quite There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Key_scoping_and_disclaimers__c</picklist>
+        <values>
+            <fullName>Almost there</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Requirements not met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Preparation_and_Framing__c</picklist>
+        <values>
+            <fullName>Almost There</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Effective</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not There Yet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outstanding</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Rating__c</picklist>
+        <values>
+            <fullName>Did Not Meet Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeded Expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Met Expectations</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Risk_and_Compliance_Category__c</picklist>
+        <values>
+            <fullName>Advice %2F Consent %2F Disclaimers %2F Warnings Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ID %26 Privacy Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multiple Categories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Obligations %2F Anti-Hawking Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potential Financial Impacts%2C Information %26 Actions Category</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - Requirements met</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Risk_and_Compliance_Sub_Category__c</picklist>
+        <values>
+            <fullName>Action completed incorrectly %28Financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Action completed incorrectly %28No financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Action not completed %28Financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Action not completed %28No financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Advice %2F information provided for non-accredited solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Anti-hawking requirements not followed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Appropriate customer consent not obtained</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint not logged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer not identified correctly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DDO obligations not met</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>False or misleading information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud %2F Vulnerable Customer %2F Hardship not appropriately referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Customer Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect or incomplete information %28Financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect or incomplete information %28No financial impact%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opt out of marketing request not followed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal details not updated when requested</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy Breach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy Disclaimer not provided when required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recommendation made was not made based on identified customer needs %2F circumstances</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recording not stopped when requested %2F required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Relevant disclaimers %2F warnings not provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Required scripting not completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sensitive %2F inappropriate notes left in system %28specifics about medical conditions%2C non-factual etc%2E%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unassigned</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Stream__c</picklist>
+        <values>
+            <fullName>Get Help</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Join</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Status__c</picklist>
+        <values>
+            <fullName>Compliance Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Evaluation Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Withdrawn%2FNot Required</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

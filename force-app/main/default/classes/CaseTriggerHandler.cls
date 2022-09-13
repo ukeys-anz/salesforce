@@ -53,10 +53,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
     SICaseActions.afterInsert(records);
-    QualityAssessmentActions.createQualityAssessmentWithRelatedCase(
-      records,
-      null
-    );
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
   }
 
@@ -106,10 +102,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
     SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
-    QualityAssessmentActions.createQualityAssessmentWithRelatedCase(
-      records,
-      (Map<Id, Case>) oldMap
-    );
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleDisputesPEGAIntegration(
       records,

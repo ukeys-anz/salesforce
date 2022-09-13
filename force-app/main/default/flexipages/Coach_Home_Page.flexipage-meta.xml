@@ -28,6 +28,7 @@
                     <value>5</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
@@ -64,6 +65,7 @@
                     <value>5</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard2</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
@@ -100,6 +102,7 @@
                     <value>5</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard3</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
@@ -152,11 +155,13 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>wave:waveDashboard</componentName>
+                <identifier>wave_waveDashboard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>releaseLogLink</componentName>
+                <identifier>releaseLogLink</identifier>
             </componentInstance>
         </itemInstances>
         <name>top</name>
@@ -198,6 +203,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard4</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -219,6 +225,7 @@
                     <value>2</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:recentItems</componentName>
+                <identifier>flexipage_recentItems</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-be7e3bf2-e2bb-45e4-bd30-c0b5a6dae440</name>
@@ -240,6 +247,7 @@
                     <value>Standard.Tab.knowledge</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>knowledgeTab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-c96430c3-eb94-4699-b773-f51ab74d1e23</name>
@@ -249,6 +257,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>initiateInteraction</componentName>
+                <identifier>initiateInteraction</identifier>
                 <visibilityRule>
                     <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
                     <criteria>
@@ -291,6 +300,50 @@
                     <value>Facet-c96430c3-eb94-4699-b773-f51ab74d1e23</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>enableInlineEdit</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>entityName</name>
+                    <value>Quality_Assessment__c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterName</name>
+                    <value>My_Evaluations</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideSearchBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageSize</name>
+                    <value>5</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard5</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>FraudX_Agent</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Card_Dispute_Agent</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -320,22 +373,12 @@
                     <value>5</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard6</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Coach</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Support_Coach</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>FraudX_Agent</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -343,6 +386,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>pageBackgroundModal</componentName>
+                <identifier>pageBackgroundModal</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

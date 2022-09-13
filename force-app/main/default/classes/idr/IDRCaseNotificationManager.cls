@@ -200,8 +200,10 @@ public with sharing class IDRCaseNotificationManager {
     for (Case record : toBeEsclationCases) {
       notificationList.add(buildEscalationNotificationEvent(record, ownerMap));
     }
+    if (notificationList.isEmpty()) {
+      return;
+    }
     List<Database.SaveResult> sr = EventBus.publish(notificationList);
-
     Lib_SystemLog log = new Lib_SystemLog(
       IDRCaseActions.class.getName(),
       'notifyBankersForEscalation'

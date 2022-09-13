@@ -12,7 +12,7 @@ public class FakerUserFactory extends FakerFactoryBase {
   public override Map<String, Object> define() {
     return new Map<String, Object>{
       'Alias' => faker.randomString(5),
-      'Email' => faker.internet.email(),
+      'Email' => faker.internet.anzEmail(),
       'LastName' => faker.person.lastName(),
       'UserName' => faker.internet.email(),
       'LocaleSidKey' => 'en_AU',
