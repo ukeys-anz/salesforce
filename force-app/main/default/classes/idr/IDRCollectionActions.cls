@@ -589,13 +589,15 @@ public with sharing class IDRCollectionActions {
         stCaseIds.contains(rec.Id))
       ) {
         if (
-          (stCaseIds.size() == 1) && productNameMap.containsKey(rec.Product__c)
+          (stCaseIds.size() == 1) &&
+          (productNameMap.containsKey(rec.Product__c) ||
+          rec.IDR_Product_Category__c != null)
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber,
-              productNameMap.get(rec.Product__c).Name,
-              null
+              productNameMap.get(rec.Product__c)?.Name,
+              rec.IDR_Product_Category__c
             )
           );
           startCollectionTaskList.add(
@@ -629,13 +631,14 @@ public with sharing class IDRCollectionActions {
       ) {
         if (
           (stCaseIds.size() == 1) &&
-          productNameMap.containsKey(rec.IDR_Product_2__c)
+          (productNameMap.containsKey(rec.IDR_Product_2__c) ||
+          rec.IDR_Product_Category__c != null)
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber2,
-              productNameMap.get(rec.IDR_Product_2__c).Name,
-              null
+              productNameMap.get(rec.IDR_Product_2__c)?.Name,
+              rec.IDR_Product_Category__c
             )
           );
           startCollectionTaskList.add(
@@ -669,13 +672,14 @@ public with sharing class IDRCollectionActions {
       ) {
         if (
           (stCaseIds.size() == 1) &&
-          productNameMap.containsKey(rec.IDR_Product_3__c)
+          (productNameMap.containsKey(rec.IDR_Product_3__c) ||
+          rec.IDR_Product_Category__c != null)
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber3,
-              productNameMap.get(rec.IDR_Product_3__c).Name,
-              null
+              productNameMap.get(rec.IDR_Product_3__c)?.Name,
+              rec.IDR_Product_Category__c
             )
           );
           startCollectionTaskList.add(
