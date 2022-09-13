@@ -85,7 +85,10 @@ public with sharing class IDRComplaintFlagActions {
    */
   private static void validateComplaintFlag(Case rec, Case oldRec) {
     if (rec.recordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
-      if (oldRec == null) {
+      if (
+        oldRec == null ||
+        oldRec.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      ) {
         complaintTaskList.add(
           IDRCollectionActions.populateSystemTask(
             rec,
