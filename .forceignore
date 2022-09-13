@@ -134,3 +134,6 @@ force-app/main/default/connectedApps
 #ignoring file as we dont need it to be deployed, just need to see the settings enabled without going through PAM
 #not ignoring will result in a generated key error
 force-app/main/default/settings/PlatformEncryption.settings-meta.xml
+
+#ignoring report for deployment issues
+force-app/main/default/reports/IDRReports/IDR_New_Correspondence_on_Closed_Complaints.report-meta.xml
