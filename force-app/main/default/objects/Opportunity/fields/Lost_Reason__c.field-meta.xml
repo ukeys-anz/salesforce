@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lost_Reason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <externalId>false</externalId>
+    <label>Lost Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>StageName</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accessibility</fullName>
+                <default>false</default>
+                <label>Accessibility</label>
+            </value>
+            <value>
+                <fullName>Convenience</fullName>
+                <default>false</default>
+                <label>Convenience</label>
+            </value>
+            <value>
+                <fullName>Customer Needs Change</fullName>
+                <default>false</default>
+                <label>Customer Needs Change</label>
+            </value>
+            <value>
+                <fullName>Declined by Credit</fullName>
+                <default>false</default>
+                <label>Declined by Credit</label>
+            </value>
+            <value>
+                <fullName>Declined by Manager</fullName>
+                <default>false</default>
+                <label>Declined by Manager</label>
+            </value>
+            <value>
+                <fullName>Not Proceeding</fullName>
+                <default>false</default>
+                <label>Not Proceeding</label>
+            </value>
+            <value>
+                <fullName>Package</fullName>
+                <default>false</default>
+                <label>Package</label>
+            </value>
+            <value>
+                <fullName>Price</fullName>
+                <default>false</default>
+                <label>Price</label>
+            </value>
+            <value>
+                <fullName>Proposition</fullName>
+                <default>false</default>
+                <label>Proposition</label>
+            </value>
+            <value>
+                <fullName>Service</fullName>
+                <default>false</default>
+                <label>Service</label>
+            </value>
+            <value>
+                <fullName>Simplicity</fullName>
+                <default>false</default>
+                <label>Simplicity</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Accessibility</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Convenience</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Customer Needs Change</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Declined by Credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Declined by Manager</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Not Proceeding</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Package</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Price</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Proposition</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Service</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Opportunity Lost</controllingFieldValue>
+            <valueName>Simplicity</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

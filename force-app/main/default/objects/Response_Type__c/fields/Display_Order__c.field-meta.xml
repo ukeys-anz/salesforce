@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <label>Display Order</label>
     <precision>3</precision>
-    <required>false</required>
+    <required>true</required>
     <scale>0</scale>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>

@@ -13,6 +13,10 @@ public with sharing class CCRMConstants {
   public static final String ORIGINATOR_ADOBE = 'Adobe';
   public static final String ORIGINATOR_CCRM = 'CCRM';
   public static final String ORIGINATOR_UNICA = 'UNICA';
+  public static final String ORIGINATOR_UNICA_OR_ADOBE_OR_CCRM = 'CCRM OR UNICA OR ADOBE';
+  public static final String INTEGRATION_USER_UNICA = 'unica.integration@anzx.com';
+  public static final String INTEGRATION_USER_ADOBE = 'adobe.integration@anzx.com';
+  public static final String LEAD_SUBSTATUS_NEW = 'New';
   public static final String STATUS_COMPLETED = 'Completed';
   public static final String ACCOUNT_TYPE_BUSINESS = 'Business';
   public static final String ACCOUNT_TYPE_CUSTOMER = 'Customer';
@@ -40,6 +44,11 @@ public with sharing class CCRMConstants {
   //CCRM Lead record type Ids
   public static final Id CCRM_LEAD_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
     .get('CCRM_Lead')
+    .getRecordTypeId();
+
+  //CCRM Opportunity record type Ids
+  public static final Id CCRM_OPP_RT_ID = Schema.SObjectType.Opportunity.getRecordTypeInfosByDeveloperName()
+    .get('Commercial_Opportunity')
     .getRecordTypeId();
 
   //Lead Response Record Type Ids

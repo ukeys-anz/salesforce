@@ -3,14 +3,14 @@
     <fullName>Campaign__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <deleteConstraint>SetNull</deleteConstraint>
+    <deleteConstraint>Cascade</deleteConstraint>
     <description>Campaign Code to identify the record with the related Campaign parent record.</description>
     <externalId>false</externalId>
     <label>Campaign</label>
     <referenceTo>Campaign</referenceTo>
     <relationshipLabel>Response Types</relationshipLabel>
     <relationshipName>Response_Types</relationshipName>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
