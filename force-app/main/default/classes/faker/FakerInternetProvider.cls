@@ -11,6 +11,8 @@ public with sharing class FakerInternetProvider extends FakerBase {
 
   public FakerTextProvider text;
 
+  public List<String> anzEmailDomain = new List<String>{ 'anz.com' };
+
   public List<String> freeEmailDomain = new List<String>{
     'gmail.com',
     'yahoo.com',
@@ -378,6 +380,13 @@ public with sharing class FakerInternetProvider extends FakerBase {
     'gravatar'
   };
 
+  public List<String> anzEmailFormats = new List<String>{
+    '{{lastName}}.{{firstNameMale}}@{{anzEmailDomain}}',
+    '{{firstNameFemale}}.{{lastName}}@{{anzEmailDomain}}',
+    '{{firstNameMale}}##@{{anzEmailDomain}}',
+    '?{{lastName}}@{{anzEmailDomain}}'
+  };
+
   public List<String> emailFormats = new List<String>{
     '{{lastName}}.{{firstNameMale}}@{{domainName}}',
     '{{firstNameFemale}}.{{lastName}}@{{freeEmailDomain}}',
@@ -440,6 +449,8 @@ public with sharing class FakerInternetProvider extends FakerBase {
 
     this.mapValues = new Map<String, List<String>>();
     this.mapValues.put('freeEmailDomain', this.freeEmailDomain);
+    this.mapValues.put('anzEmailDomain', this.anzEmailDomain);
+    this.mapValues.put('anzEmailFormat', this.anzEmailFormats);
     this.mapValues.put('tld', this.tld);
     this.mapValues.put('urlFormats', this.urlFormats);
     this.mapValues.put('emailFormats', this.emailFormats);
@@ -494,6 +505,14 @@ public with sharing class FakerInternetProvider extends FakerBase {
    */
   public String email() {
     return this.generate(this.randomElement(this.emailFormats));
+  }
+
+  /**
+   * @description Returns a random anz email address
+   * @return `String`
+   */
+  public String anzEmail() {
+    return this.generate(this.randomElement(this.anzEmailFormats));
   }
 
   /**

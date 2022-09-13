@@ -4,10 +4,12 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>A field for the analyst to capture the Energy and Adaptability Comments</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Energy and Adaptability Comments</label>
     <length>32768</length>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>LongTextArea</type>

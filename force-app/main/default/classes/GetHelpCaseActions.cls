@@ -394,8 +394,10 @@ public with sharing class GetHelpCaseActions {
     for (Reported_Bug__c bug : bugs) {
       bug.Number_of_Related_Cases__c = bug.Cases__r.size();
     }
+    if (bugs.isEmpty()) {
+      return;
+    }
     List<Database.SaveResult> results = Database.Update(bugs, false);
-
     //log errors to application log
     lib_systemLog log = new lib_systemLog(
       'GetHelpCaseActions',
@@ -422,16 +424,17 @@ public with sharing class GetHelpCaseActions {
     for (Reported_Bug__c bug : bugs) {
       bug.Number_of_Related_Cases__c = bug.Cases__r.size();
     }
+    if (!bugs.isEmpty()) {
+      List<Database.SaveResult> results = Database.Update(bugs, false);
 
-    List<Database.SaveResult> results = Database.Update(bugs, false);
-
-    //log errors to application log
-    lib_systemLog log = new lib_systemLog(
-      'GetHelpCaseActions',
-      'futureRollupRelatedBug'
-    );
-    log.addDatabaseSaveResult('Case', results, new List<Case>());
-    log.insertLog();
+      //log errors to application log
+      lib_systemLog log = new lib_systemLog(
+        'GetHelpCaseActions',
+        'futureRollupRelatedBug'
+      );
+      log.addDatabaseSaveResult('Case', results, new List<Case>());
+      log.insertLog();
+    }
   }
 
   /**
