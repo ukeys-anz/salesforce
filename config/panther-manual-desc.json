@@ -1430,6 +1430,22 @@
       ],
       "IA-2415987": ["Amount"]
     },
+    "Process_Effectiveness__c":{
+      "IA-2415840":[
+        "Name",
+        "Quality_Assessment__c",
+        "Effectiveness__c",
+        "Comments__c",
+        "Relevant_Process__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
     "Privileged_Access_Request__c": {
       "IA-2468715": [
         "Access_Request__c",
@@ -1525,6 +1541,7 @@
         "Advice_Best_Interest_Duty__c",
         "Advice_Best_Interests_Duty_Comments__c",
         "Advice_Customer_understanding_of_scope__c",
+        "Advice_Cust_Understanding_Scope_Comments__c",
         "Advice_Decline_advice_and_refer__c",
         "Advice_Decline_Advice_and_Refer_Comments__c",
         "Advice_Define_Scope__c",
