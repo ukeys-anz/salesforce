@@ -3,9 +3,11 @@
  * @since  12/2021
  * @group CCRM (Commercial CRM)
  * @description CCRMLeadConversion is class to handle Lead Conversion process
+ * Added without sharing to bypass sharing settings as Account OWD is Public Read Only and will remain as is for customer accounts.
+ * Lead conversion requires an Edit permission on account object otherwise it will throw insufficient access to account records error.
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
-public with sharing class CCRMLeadConversion {
+public without sharing class CCRMLeadConversion {
   /**
    * @description Checks if Related Party is having a valid Related Party for Lead Conversion.
    * @name getLeadRecordForConversion
