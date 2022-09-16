@@ -3,6 +3,7 @@
     <fullName>Feedback_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Qualtrics</complianceGroup>
+    <description>Type of Qualtrics Feedback</description>
     <externalId>false</externalId>
     <label>Feedback Type</label>
     <required>false</required>

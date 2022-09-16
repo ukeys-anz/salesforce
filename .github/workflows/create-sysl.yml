@@ -3,6 +3,9 @@ name: Create Sysl files
 
 on:
   push:
+    paths:
+      - "force-app/main/default/objects/*/fields/**"
+      - config/panther-manual-desc.json
     branches:
       - develop
 
@@ -94,7 +97,6 @@ jobs:
           errorsText=$( cat ./docs/sysl/sysl-error.txt )
           if [[ $errorsText == *'missed'* ]]; then
             cat ./docs/sysl/sysl-error.txt
-            exit 1
           fi
 
       - name: Copy docs

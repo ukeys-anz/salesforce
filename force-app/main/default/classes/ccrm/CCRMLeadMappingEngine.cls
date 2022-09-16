@@ -232,6 +232,76 @@ public with sharing class CCRMLeadMappingEngine {
   }
 
   /**
+   * @description This method map lead fields to opportunity for
+   * opportunity creation when lead is converted
+   * @name mapLeadToOpportunityFields
+   * @param leadIds The record ids of Leads.
+   * @return Map<Id, Opportunity> Map of lead and opportunities
+   */
+  public Map<Id, Opportunity> mapLeadToOpportunityFields(Set<Id> leadIds) {
+    List<Lead> records = [
+      SELECT
+        FinServ__RelatedAccount__r.Name,
+        FirstName,
+        LastName,
+        Title__c,
+        Work_Phone__c,
+        Email,
+        MobilePhone,
+        Home_Phone__c,
+        FinServ__RelatedAccount__c,
+        (SELECT CampaignId FROM CampaignMembers),
+        FinServ__PotentialValue__c,
+        Description,
+        OwnerId,
+        FinServ__ExpressedInterest__c
+      FROM lead
+      WHERE Id IN :leadIds
+      WITH SECURITY_ENFORCED
+    ];
+
+    Map<Id, Opportunity> mapOfLeadsWithOpportunities = new Map<Id, Opportunity>();
+
+    for (Lead lead : records) {
+      Opportunity opportunity = new Opportunity();
+      opportunity.Name = 'placeholder';
+      opportunity.Amount = lead.FinServ__PotentialValue__c;
+      opportunity.Description = lead.Description;
+      opportunity.AccountId = lead.FinServ__RelatedAccount__c;
+      opportunity.CampaignId = lead.CampaignMembers[0].CampaignId;
+      opportunity.OwnerID = lead.OwnerID;
+      opportunity.Lead_Converted__c = true;
+      String contactField = '';
+      if (String.isNotBlank(lead.FirstName)) {
+        contactField = lead.FirstName;
+      }
+      if (String.isNotBlank(lead.LastName)) {
+        contactField = contactField + '\n' + lead.LastName;
+      }
+      if (String.isNotBlank(lead.Title__c)) {
+        contactField = contactField + '\n' + lead.Title__c;
+      }
+      if (String.isNotBlank(lead.Email)) {
+        contactField = contactField + '\n' + lead.Email;
+      }
+      if (String.isNotBlank(lead.Work_Phone__c)) {
+        contactField = contactField + '\n' + lead.Work_Phone__c;
+      }
+      if (String.isNotBlank(lead.MobilePhone)) {
+        contactField = contactField + '\n' + lead.MobilePhone;
+      }
+      if (String.isNotBlank(lead.Home_Phone__c)) {
+        contactField = contactField + '\n' + lead.Home_Phone__c;
+      }
+      opportunity.Contact__c = contactField;
+      opportunity.StageName = 'Opportunity Identified';
+      opportunity.CloseDate = system.today().addDays(90);
+      mapOfLeadsWithOpportunities.put(lead.Id, opportunity);
+    }
+    return mapOfLeadsWithOpportunities;
+  }
+
+  /**
    * @description This method map account fields to lead fields using custom metadata
    * @name mapAccountFieldsToLead
    * @param accountToLeadMapping Map of accounts fields to lead fields

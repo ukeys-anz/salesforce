@@ -48,3 +48,48 @@ jobs:
         run: |
           echo "Linting Lightning Web Components"
           npx eslint force-app/main/default/lwc/**/*.js -c .lwc-eslintrc.json
+
+  xml-lint:
+    runs-on: [self-hosted, salesforce]
+    env:
+      PIP_INDEX_URL: "https://artifactory.gcp.anz/artifactory/api/pypi/pypi/simple"
+      LINT_JOB: "YES"
+      BASE_BRANCH: ${{ github.base_ref }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: "Check Changed Files"
+        id: check_changed_files
+        shell: pwsh
+        run: |
+          $diff = git diff --name-only HEAD^ HEAD
+          $SourceDiff = $diff | Where-Object { $_ -match '.xml$' }
+          $HasDiff = $SourceDiff.Length -gt 0
+          Write-Host "::set-output name=run_linter::$HasDiff"
+
+      - name: "Get Changed Files"
+        id: get_changed_files
+        if: steps.check_changed_files.outputs.run_linter == 'True'
+        shell: bash
+        run: |
+          git fetch --tags 
+          ci/package.sh
+
+      - name: "Checkout Python"
+        if: steps.check_changed_files.outputs.run_linter == 'True'
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.7.9
+
+      - name: Install Dependencies
+        run: python3 -m pip install lxml
+
+      - name: "Checking XML Files"
+        if: steps.check_changed_files.outputs.run_linter == 'True'
+        run: |
+          echo "Linting XML files in diff"
+          python ci/xml_linter.py

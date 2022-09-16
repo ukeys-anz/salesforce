@@ -5,6 +5,8 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class CCRMTaskActions {
+  @TestVisible
+  private static final String RESPONSE_DELETE_ERROR_MESSAGE = 'You cannot delete Responses.';
   private static final String LEAD_AUTO_UPDATE_ERROR_MESSAGE = 'Error Message: Lead cannot be auto updated. Please contact your System Administrator.';
 
   /**
@@ -245,6 +247,54 @@ public with sharing class CCRMTaskActions {
             ? campaignExpiryDate
             : updatedDate;
         }
+      }
+    }
+  }
+
+  /**
+   * @description General function to populate fields
+   * @name populateData
+   * @param records tasks to populate
+   * @param oldMap contains the map which holds the previous values of task records
+   */
+  public static void populateData(Task[] records, Map<Id, Task> oldMap) {
+    for (Task record : records) {
+      maskDescription(record);
+      maskSubject(record);
+    }
+  }
+
+  /**
+   * @description Mask Description of Task
+   * @name maskDescription
+   * @param record Task to mask
+   */
+  public static void maskDescription(Task record) {
+    if (!String.isBlank(record.Description)) {
+      record.Description = TextUtils.maskData(record.Description);
+    }
+  }
+
+  /**
+   * @description Mask Subject of Task
+   * @name maskSubject
+   * @param record Task to mask
+   */
+  public static void maskSubject(Task record) {
+    if (!String.isBlank(record.Subject)) {
+      record.Subject = TextUtils.maskData(record.Subject);
+    }
+  }
+
+  /**
+   * @description Prevent deletion of tasks that is a response logged to a lead
+   * @name preventDelete
+   * @param records tasks to check for preventing deletion
+   */
+  public static void preventDelete(List<Task> records) {
+    for (Task record : records) {
+      if (record.RecordTypeId == CCRMConstants.LEAD_RESPONSE_RT_ID) {
+        record.addError(RESPONSE_DELETE_ERROR_MESSAGE);
       }
     }
   }

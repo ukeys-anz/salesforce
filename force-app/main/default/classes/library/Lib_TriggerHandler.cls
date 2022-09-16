@@ -26,6 +26,7 @@
  *          }
  * @group Library
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public virtual with sharing class Lib_TriggerHandler {
   /**
    * @description Provides access to the data represented by this domain class
@@ -269,6 +270,7 @@ public virtual with sharing class Lib_TriggerHandler {
   protected virtual void handleBeforeInsert() {
     onApplyDefaults();
     onBeforeInsert();
+    onValidateBefore();
   }
   /**
    * @description Base handler for the Apex Trigger event Before Update, calls the onBeforeUpdate method
@@ -276,6 +278,7 @@ public virtual with sharing class Lib_TriggerHandler {
    **/
   protected virtual void handleBeforeUpdate(Map<Id, SObject> oldMap) {
     onBeforeUpdate(oldMap);
+    onValidateBefore();
   }
   /**
    * @description Base handler for the Apex Trigger event Before Delete, calls the onBeforeDelete method
@@ -314,6 +317,17 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Override this to apply defaults to the records, this is called by the handleBeforeInsert method
    **/
   protected virtual void onApplyDefaults() {
+  }
+  /**
+   * @description Override this to apply general validation to be performed during insert or update, called by the handleBeforeInsert and handleBeforeUpdate methods
+   **/
+  protected virtual void onValidateBefore() {
+  }
+  /**
+   * @description Override this to apply general validation to be performed during insert or update, called by the handleBeforeInsert and handleBeforeUpdate methods
+   * @param oldMap Trigger's oldMap
+   **/
+  protected virtual void onValidateBefore(Map<Id, SObject> oldMap) {
   }
   /**
    * @description Override this to apply general validation to be performed during insert or update, called by the handleAfterInsert and handleAfterUpdate methods

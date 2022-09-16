@@ -29,20 +29,27 @@ echoMessageCreator "" $stepNo false
 
 # assign permission sets
 echoMessageCreator "Assign Permission sets" $stepNo true
-sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-    git checkout .
-    exit 1
-fi
+flag=true
+while [[ $flag = true ]];do
+    flag=false
+    sfdx force:user:permset:assign -n "FinancialServicesCloudStandard,EinsteinAnalyticsPlusAdmin" 2>&1 | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*) && ($(cat stderr) != *'Duplicate PermissionSetAssignment'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        flag=true
+    fi
+done
 echoMessageCreator "" $stepNo false
 ###########################
 
 # deploy settings and content assests
 echoMessageCreator "Deploy settings and content assets" $stepNo true
-sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml,force-app/main/default/contentassets,force-app/main/default/objects/Case/fields/SLA_Status__c.field-meta.xml,force-app/main/default/settings/Entitlement.settings-meta.xml 2>&1 | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
-    exit 1
-fi
+flag=true
+while [[ $flag = true ]];do
+    flag=false
+    sfdx force:source:deploy -p force-app/main/default/settings/BusinessHours.settings-meta.xml,force-app/main/default/settings/Quote.settings-meta.xml,force-app/main/default/settings/Forecasting.settings-meta.xml,force-app/main/default/contentassets,force-app/main/default/objects/Case/fields/SLA_Status__c.field-meta.xml,force-app/main/default/settings/Entitlement.settings-meta.xml 2>&1 | tee stderr
+    if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+        flag=true
+    fi
+done
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -128,12 +135,11 @@ echoMessageCreator "" $stepNo false
 
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
-sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
 git checkout .
 
-f1=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-f2=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
-sfdx force:source:deploy -u $scratchorgalias -p $f1,$f2
+sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
+sfdx force:source:deploy -u $scratchorgalias -p force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
+
 waitForManualSteps $scratchorgalias "post-deploy"
 echoMessageCreator "" $stepNo false
 ###########################
@@ -143,13 +149,18 @@ echoMessageCreator "Import post-deployment plan" $stepNo true
 read -rp "${green}Do you want to import post-deployment plan(y/n)? " importPlan
 echo "${reset}"
 if [[ $importPlan == Y || $importPlan == y ]];then
-    sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
-    sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
-    node createCmosEntitlment.js 2>&1 | tee stderr
-    sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
-    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-        exit 1
-    fi
+    flag=true
+    while [[ $flag = true ]];do
+        flag=false
+        sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
+        sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
+        node createCmosEntitlment.js 2>&1 | tee stderr
+        sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
+
+        if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
+            flag=true
+        fi
+    done
 else
     echo "${green}Importing post-deployment plan has been skipped."
 fi
@@ -163,11 +174,5 @@ echo "${green}$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s.${reset}
 # reset source tracking
 echoMessageCreator "Resetting source tracking" $stepNo true
 sfdx force:source:tracking:reset -p
-echoMessageCreator "" $stepNo false
-###########################
-
-# open scratch org
-echoMessageCreator "Open scratch org" $stepNo true
-sfdx force:org:open
 echoMessageCreator "" $stepNo false
 ###########################

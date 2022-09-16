@@ -21,7 +21,9 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
   public override void onAfterInsert() {
-    QualityAssessmentActions.populateFields(records);
+    QualityAssessmentActions.populateFields(records, null);
+    QualityAssessmentActions.updateRelatedCases(records, null);
+    QualityAssessmentActions.createChatterPost(records, null);
     QualityAssessmentTaskActions.createComplianceTasks(records, null);
   }
 
@@ -30,7 +32,23 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    QualityAssessmentActions.populateFields(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    QualityAssessmentActions.updateRelatedCases(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    QualityAssessmentActions.createChatterPost(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     QualityAssessmentTaskActions.createComplianceTasks(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
+    QualityAssessmentActions.createQAShareRecord(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap
     );
@@ -62,6 +80,13 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
   }
 
   /**
+   * @description onValidateBefore method is called on before insert and before update to validate qa values
+   */
+  public override void onValidateBefore() {
+    QualityAssessmentActions.validateEvaluationType(records);
+  }
+
+  /**
    * @description validates qa records
    * @param records the QA records being validated
    */
@@ -77,7 +102,8 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
       ]) {
         if (
           record.Customer__c != null &&
-          record.Customer__c != record.Related_Case__r?.AccountId
+          record.Related_Case__c != null &&
+          record.Customer__c != record.Related_Case__r.AccountId
         ) {
           qaMap.get(record.Id).addError(QA_RECORD_VALIDATION_ERROR_MSG);
         }

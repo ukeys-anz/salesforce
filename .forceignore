@@ -30,8 +30,11 @@ force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
 force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
+force-app/main/default/sharingRules/Opportunity.sharingRules-meta.xml
 force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
@@ -62,8 +65,6 @@ force-app/main/default/objects/FinServ__Securities__c/
 force-app/main/default/objects/FinServ__ReciprocalRole__c/
 force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
 force-app/main/default/objects/SocialPost/
-force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__RelatedContact__c.field-meta.xml
-force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__SourceSystemId__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__SourceSystemId__c.field-meta.xml
 force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml
@@ -116,6 +117,7 @@ force-app/main/default/transactionSecurityPolicies
 
 #to prevent issues when deploying looking for depracated process name
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/anz plus - basic subscription.entitlementProcess-meta.xml
 force-app/main/default/entitlementProcesses/complaints.entitlementProcess-meta.xml
 force-app/main/default/customindex/Account.Source_System_ID__c.indx-meta.xml
 force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
@@ -137,3 +139,4 @@ force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 
 #to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
+

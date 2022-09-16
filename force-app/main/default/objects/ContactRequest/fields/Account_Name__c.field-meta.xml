@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Account_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>The first and last name of the customer requesting the contact request</description>
     <externalId>false</externalId>
     <formula>Interaction__r.Account.FirstName + &quot; &quot; + Interaction__r.Account.LastName</formula>

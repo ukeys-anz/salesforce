@@ -38,6 +38,9 @@
       "Name": "The name of the financial account provided to us by Fabric.",
       "Total_Number_of_Cards__c": "Total number of cards"
     },
+    "FinServ__FinancialAccountRole__c": {
+      "FinServ__SourceSystemId__c": "Identifier from the original data source application."
+    },
     "Known_Issues__c": {
       "IDR_Non_Financial_Remedy__c": "Required when Complaint Remedy is chosen as 'Non-Functional Remedy' to capture the appropriate remedy"
     },
@@ -60,6 +63,8 @@
       "qualtrics__Date_Responded__c": "Date created",
       "qualtrics__Net_Promoter_Score__c": "Captures the NPS response from the survey",
       "qualtrics__Overall_Satisfaction__c": "Customers overall satisfaction with the product/service topic of the survey",
+      "qualtrics__Q_Recipient_ID__c": "The recipient or the customer ID in Qualtrics - managed package field, no longer used",
+      "qualtrics__Q_SurveyID__c": "The unique customer survey response ID from Qualtrics - managed package field, no longer used",
       "RecipientId__c": "The recipient or the customer ID in Qualtrics",
       "SurveyId__c": "The unique customer survey response ID from Qualtrics"
     },
@@ -167,11 +172,14 @@
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
+    "Legal_Entity__c": "This object contains multiple entities for opportunity product",
     "Location": "This standard object would contain all the store locations for ANZ",
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
     "Log__c": "The parent log object, which stores logging information on a transaction level.",
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
+    "Opportunity": "Is a record of a sale or a pending deal",
+    "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product2": "ANZ or ANZx product",
     "Product Family": "Custom object that holds work basket details for cases",
@@ -226,17 +234,27 @@
         "LastModifiedDate"
       ],
       "IA-2415984": [
+        "Advertising_Indicator__c",
+        "Bankrupt_Date__c",
         "BillingAddress",
         "Deceased_Date__c",
+        "Disclosure_Indicator__c",
         "Display_Name__c",
         "Employee_Indicator__c",
         "Employer_Name__c",
+        "Establishment_Date__c",
+        "Mailing_Name__c",
         "Name",
         "Occupation__c",
         "PersonBirthdate",
         "PersonEmail",
-        "PersonMobilePhone"
-      ]
+        "PersonMobilePhone",
+        "Phone",
+        "Self_Certified_Tax_Date__c",
+        "Self_Certified_Tax_Residency__c"
+      ],
+      "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
+      "IA-2530753": ["CLG__c", "Controlling_Post__c", "CPID_Link__c", "CPID__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -296,8 +314,11 @@
         "Available__c",
         "Confirmed__c",
         "CreatedById",
+        "CreatedDate",
         "Date_and_Time__c",
+        "Id",
         "LastModifiedById",
+        "LastModifiedDate",
         "Location__c",
         "Name",
         "OwnerId",
@@ -317,7 +338,12 @@
         "Priority__c",
         "Source__c",
         "StartDate",
-        "Type"
+        "Type",
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Campaign_Document__c": {
@@ -326,7 +352,12 @@
         "Comments__c",
         "Is_Private__c",
         "URL__c",
-        "UUID__c"
+        "UUID__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Campaign_Flex_Field__c": {
@@ -335,7 +366,12 @@
         "Campaign__c",
         "FlexFieldName__c",
         "Sequence__c",
-        "UUID__c"
+        "UUID__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "CampaignMember": {
@@ -694,6 +730,7 @@
       "IA-2415984": [
         "Address__c",
         "Case_Age_in_Days__c",
+        "Has_Assessment__c",
         "SI_Repository_COM_IDs__c",
         "SI_Category__c",
         "SI_Complaint_Count__c",
@@ -802,8 +839,26 @@
         "Birthdate",
         "Email",
         "Gender__c",
+        "Is_Preferred_Contact__c",
         "MobilePhone",
         "OtherAddress"
+      ]
+    },
+    "ContactPointAddress": {
+      "IA-2530753": [
+        "Building_Name__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
+      "IA-2415984": [
+        "P_O_Box__c",
+        "Street_Name__c",
+        "Street_Number__c",
+        "Street_Type__c",
+        "Unit__c"
       ]
     },
     "ContactRequest": {
@@ -856,6 +911,28 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
+      ]
+    },
+    "Controlling_Post__c": {
+      "IA-2415984": [
+        "Area_Code__c",
+        "CPID__c",
+        "CreatedById",
+        "CreatedDate",
+        "End_Date__c",
+        "Geo_State_Code__c",
+        "Id",
+        "Industry_Code__c",
+        "Is_Active__c",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name",
+        "Responsible_Employee_Id__c",
+        "Responsible_Employee_Name__c",
+        "Responsible_Employee__c",
+        "Segment__c",
+        "Start_Date__c",
+        "State_Code__c"
       ]
     },
     "EmailMessage": {
@@ -943,6 +1020,7 @@
         "FinServ__RelatedAccount__c",
         "FinServ__RelatedContact__c",
         "FinServ__Role__c",
+        "FinServ__SourceSystemId__c",
         "FinServ__StartDate__c",
         "CreatedById",
         "CreatedDate",
@@ -983,6 +1061,17 @@
         "LastModifiedDate"
       ]
     },
+    "Industry__c": {
+      "IA-2530401": [
+        "Code__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "IsActive__c",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
     "Interaction": {
       "IA-2530753": [
         "AccountId",
@@ -990,6 +1079,7 @@
         "Appointment__c",
         "AppointmentId__c",
         "Attendees__c",
+        "Attendees_and_Roles__c",
         "Authentication_Method__c",
         "Call_Recording_ID__c",
         "CaseId__c",
@@ -1030,7 +1120,18 @@
         "Referred_To__c",
         "Resolution__c",
         "StartTime",
-        "Status__c"
+        "Status__c",
+        "Twilio_ID__c"
+      ]
+    },
+    "InteractionSummary": {
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "Interaction_Summary_Number__c",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "Interaction_Attendee": {
@@ -1109,6 +1210,7 @@
         "Country",
         "Email",
         "FirstName",
+        "Gender__c",
         "Home_Phone__c",
         "Industry",
         "Industry__c",
@@ -1123,10 +1225,14 @@
       ],
       "IA-2415860": [
         "Business_ID__c",
+        "Campaign_Code__c",
         "CCRM_DuplicateLeadCheck__c",
         "CLG_ID__c",
         "CLG_Name__c",
+        "Controlling_Post__c",
         "Controlling_Post_ID__c",
+        "CPID_Owner__c",
+        "CPID__c",
         "Customer_ID__c",
         "Entity_Type__c",
         "Expiry_Date__c",
@@ -1134,12 +1240,15 @@
         "FinServ__PotentialValue__c",
         "FinServ__RelatedAccount__c",
         "Followup_Date__c",
+        "Is_Valid_Address__c",
         "LeadSource",
         "Lead_Auto_Number__c",
         "Lead_Id__c",
         "Lead_Originator__c",
+        "Lead_Owner_Link__c",
         "Lead_Quality__c",
         "Marketing_Consent__c",
+        "My_Region_Flag__c",
         "Name",
         "New_to_Bank__c",
         "Note__c",
@@ -1158,7 +1267,7 @@
       ],
       "IA-2415720": ["Account_Number__c"],
       "IA-2415999": ["Address"],
-      "IA-2415840": ["Description"]
+      "IA-2415840": ["CCRM_ExpiryNotificationCheck__c", "Description"]
     },
     "Lead_Flex_Field__c": {
       "IA-2415860": [
@@ -1188,6 +1297,14 @@
         "Location_External_Id__c",
         "LocationType"
       ]
+    },
+    "Legal_Entity__c": {
+      "IA-2415987": [
+        "Account__c",
+        "Opportunity_Product__c",
+        "Opportunity_Id__c"
+      ],
+      "IA-2468715": ["CreatedById", "OwnerId", "Name", "LastModifiedById"]
     },
     "Log__c": {
       "IA-2468710": [
@@ -1254,13 +1371,72 @@
     },
     "Opportunity": {
       "IA-2415840": [
-        "Name",
-        "Description",
-        "OwnerId",
-        "CloseDate",
+        "AccountId",
         "CampaignId",
+        "CloseDate",
+        "Description",
+        "Loss_Reason__c",
+        "Name",
+        "OwnerId",
+        "Pricebook2Id",
+        "Probability",
+        "RecordTypeId",
         "StageName",
-        "Loss_Reason__c"
+        "TotalOpportunityQuantity",
+        "Opp_Id__c",
+        "Type"
+      ],
+      "IA-2415984": [
+        "Contact__c",
+        "Lead_Converted__c",
+        "Has_Close_Date_Changed__c",
+        "CLG__c"
+      ],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Amount",
+        "CloseDate",
+        "AccountId",
+        "Description",
+        "Name",
+        "OwnerId",
+        "StageName"
+      ]
+    },
+    "OpportunityLineItem": {
+      "IA-2415987": [
+        "Application_Number__c",
+        "Application_Status__c",
+        "Has_Legal_Entity__c"
+      ],
+      "IA-2415720": ["Reference_Number__c"],
+      "IA-2415840": ["Purpose__c"],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId",
+        "Product2Id",
+        "Quantity",
+        "UnitPrice",
+        "ServiceDate"
+      ],
+      "IA-2415987": ["Amount"]
+    },
+    "Process_Effectiveness__c":{
+      "IA-2415840":[
+        "Name",
+        "Quality_Assessment__c",
+        "Effectiveness__c",
+        "Comments__c",
+        "Relevant_Process__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -1268,8 +1444,7 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ],
-      "IA-2415987": ["Amount"]
+      ]
     },
     "Privileged_Access_Request__c": {
       "IA-2468715": [
@@ -1330,14 +1505,16 @@
       "IA-2415840": [
         "Additional_Feedback__c",
         "Alerting_Reason__c",
-        "qualtrics__Date_Responsed__c",
+        "qualtrics__Date_Responded__c",
         "Customer_Feedback__c",
         "Create_Case__c",
         "qualtrics__Net_Promoter_Score__c",
         "Other_Feedback__c",
         "qualtrics__Overall_Satisfaction__c",
         "qualtrics__Q_Recipient_ID__c",
-        "qualtrics__Q_Survey_ID__c",
+        "qualtrics__Q_SurveyID__c",
+        "RecipientId__c",
+        "SurveyId__c",
         "Survey_Name__c",
         "Survey_Trigger__c",
         "Survey_Variation__c",
@@ -1361,36 +1538,99 @@
         "Action_Taken__c",
         "Actions_and_Momentum__c",
         "Actions_and_Momentum_Comments__c",
+        "Advice_Best_Interest_Duty__c",
+        "Advice_Best_Interests_Duty_Comments__c",
+        "Advice_Customer_understanding_of_scope__c",
+        "Advice_Cust_Understanding_Scope_Comments__c",
+        "Advice_Decline_advice_and_refer__c",
+        "Advice_Decline_Advice_and_Refer_Comments__c",
+        "Advice_Define_Scope__c",
+        "Advice_Define_Scope_Comments__c",
+        "Advice_Dispute_Resolution__c",
+        "Advice_Dispute_Resolution_Comments__c",
+        "Advice_Fact_Find__c",
+        "Advice_Fact_Find_Comments__c",
+        "Advice_Incomplete_Inaccurate_warning__c",
+        "Advice_Initial_Contact__c",
+        "Advice_Initial_Contact_Comments__c",
+        "Advice_Limit_scope_of_advice__c",
+        "Advice_Limit_scope_of_advice_Comments__c",
+        "Advice_Outcome__c",
+        "Advice_Substantive_Advice_OFSN__c",
+        "Advice_Substantive_Advice_OFSN_Comments__c",
+        "Advice_Supplement__c",
+        "Assigned_to__c",
+        "CN_Checklist__c",
+        "CN_Checklist_Comments__c",
+        "CN_Customers_Focus__c",
+        "CN_Customers_Focus_Comments__c",
+        "CN_Fact_Find__c",
+        "CN_Fact_Find_Comments__c",
+        "CN_OFSN__c",
+        "CN_OFSN_Comments__c",
+        "CN_Out_of_Scope__c",
+        "CN_Out_of_Scope_Comments__c",
+        "CN_Scope_Provided__c",
+        "CN_Scope_Provided_Comments__c",
+        "CN_Substantive_Advice__c",
+        "CN_Substantive_Advice_Comments__c",
         "Compliance_Outcome__c",
         "Connection_and_Trust__c",
         "Connection_and_Trust_Comments__c",
         "Context_and_General_Comments__c",
+        "COR_Event__c",
+        "COR_Event_Number__c",
         "Discover_and_Align__c",
         "Discover_and_Align_Comments__c",
         "Energy_and_Adaptability__c",
         "Energy_and_Adaptability_Comments__c",
+        "Evaluation_Type__c",
         "Finishing_Touches__c",
         "Finishing_Touches_Comments__c",
+        "Incomplete_Inaccurate_Warning_Comments__c",
         "Insights_and_Focus__c",
         "Insights_and_Focus_Comments__c",
         "Interaction_Date_Time__c",
         "Interaction_Type__c",
         "Issue_Type__c",
+        "Key_scoping_and_disclaimers__c",
+        "Key_scoping_and_disclaimers_Comments__c",
+        "Join_Actions_Taken__c",
+        "Join_Blocks_Applied_where_Appropriate__c",
+        "Join_Business_Actions_Taken__c",
+        "Join_Business_Case_Record__c",
+        "Join_Business_Information__c",
+        "Join_Case_Data_Field_Accuracy__c",
+        "Join_Case_Record_Accuracy__c",
+        "Join_Compliance_Behaviour__c",
+        "Join_Compliance_Disclaimers__c",
+        "Join_Compliance_Identification__c",
+        "Join_Compliance_Information__c",
+        "Join_Customer_Accountable__c",
+        "Join_Customer_Caring__c",
+        "Join_Customer_Interested__c",
+        "Join_Customer_Respect__c",
+        "Join_Customer_Welcoming__c",
+        "Join_Financial_Operation_Accuracy__c",
+        "Join_Overall_Decision_Supported__c",
         "Preparation_and_Framing__c",
         "Preparation_and_Framing_Comments__c",
         "Rating__c",
+        "Reference__c",
         "Related_Case__c",
         "Risk_and_Compliance_Category__c",
         "Risk_and_Compliance_Comments__c",
         "Risk_and_Compliance_Sub_Category__c",
         "Score__c",
         "Status__c",
+        "Stream__c",
         "Sub_Status__c",
         "Subsequent_Issue_Type__c"
       ],
-      "IA-2415984": ["Customer__c"],
+      "IA-2415984": ["Customer__c", "Calculated__c"],
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": [
+        "Case_Closure_Date__c",
         "CreatedById",
         "CreatedDate",
         "Id",
@@ -1724,7 +1964,12 @@
         "Phone",
         "MobilePhone",
         "Alias",
-        "FederationIdentifier"
+        "FederationIdentifier",
+        "Employee_Id__c",
+        "Lan_Id__c",
+        "Leads_Count__c",
+        "Team_Code__c",
+        "Commercial_Segment__c"
       ],
       "IA-2468715": [
         "Active_Directory_ID__c",
@@ -1736,7 +1981,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"]
     }
   }
 }

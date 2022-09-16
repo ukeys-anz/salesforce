@@ -6,7 +6,7 @@
     <description>Lead sub status value to be updated in the lead record based on the Lead status updated in the lead record</description>
     <externalId>false</externalId>
     <label>UNICA Lead SubStatus</label>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

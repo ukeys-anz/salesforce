@@ -63,6 +63,8 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
+
+    CCRMRegionSharingUtil.addUsersToRegion(this.records);
   }
 
   /**
@@ -135,5 +137,10 @@ public with sharing class UserTriggerHandler extends Lib_TriggerHandler {
         businessFuncAndRoles
       );
     }
+
+    CCRMRegionSharingUtil.updateUserRegion(
+      this.records,
+      (Map<Id, User>) oldMap
+    );
   }
 }

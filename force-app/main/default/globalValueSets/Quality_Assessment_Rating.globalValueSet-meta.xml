@@ -21,9 +21,19 @@
         <label>Not There Yet</label>
     </customValue>
     <customValue>
-        <fullName>N/A</fullName>
+        <fullName>Did Not Meet Expectations</fullName>
         <default>false</default>
-        <label>N/A</label>
+        <label>Did Not Meet Expectations</label>
+    </customValue>
+    <customValue>
+        <fullName>Exceeded Expectations</fullName>
+        <default>false</default>
+        <label>Exceeded Expectations</label>
+    </customValue>
+    <customValue>
+        <fullName>Met Expectations</fullName>
+        <default>false</default>
+        <label>Met Expectations</label>
     </customValue>
     <description>Used by multiple fields on Quality Assessment object</description>
     <masterLabel>Quality Assessment Rating</masterLabel>

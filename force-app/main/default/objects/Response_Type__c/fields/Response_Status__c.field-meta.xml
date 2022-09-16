@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <label>Response Status</label>
     <length>80</length>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
