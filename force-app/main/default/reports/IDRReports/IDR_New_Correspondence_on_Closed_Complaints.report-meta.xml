@@ -16,7 +16,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Case.CFMS_Migrated_Case,Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
+            <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case$Status</column>

@@ -10,6 +10,11 @@
         <name>IDR_Level_1</name>
     </customPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Date_Closed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.Has_complaint_met_RG_271_delay_criteria__c</field>
         <readable>true</readable>
