@@ -35,7 +35,7 @@ public with sharing class IDRCaseNotificationManager {
     ) {
       Map<Id, Case> parentIdWithCaseMap = new Map<Id, Case>();
       for (Case c : [
-        SELECT id, Origin, CaseNumber
+        SELECT id, Origin, CaseNumber, IDR_NC_First_Name__c, IDR_NC_Last_Name__c
         FROM Case
         WHERE id IN :caseWithParentId.values()
       ]) {
@@ -99,6 +99,13 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     IDRBankerNotificationWrapper wrapper;
     String msgBody;
+    String customerName = (c.IDR_NC_First_Name__c != null ||
+      c.IDR_NC_Last_Name__c != null)
+      ? ('Customer Name : ' +
+        (c.IDR_NC_First_Name__c != null ? c.IDR_NC_First_Name__c + ' ' : '') +
+        (c.IDR_NC_Last_Name__c != null ? c.IDR_NC_Last_Name__c : '') +
+        '\n')
+      : '';
     if (fieldLabel == 'Parent Updated') {
       msgBody =
         'Your case ' +
@@ -114,7 +121,10 @@ public with sharing class IDRCaseNotificationManager {
       );
     } else if (fieldLabel == 'Email Response Attached') {
       msgBody =
-        'A new email response has been received on case : ' + c.CaseNumber;
+        customerName +
+        'A new email response has been received on case : ' +
+        c.CaseNumber;
+
       wrapper = new IDRBankerNotificationWrapper(
         c,
         new List<Id>{ c.OwnerId },
@@ -125,7 +135,11 @@ public with sharing class IDRCaseNotificationManager {
     } else {
       msgBody = fieldLabel + 'field has been changed';
       if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
-        msgBody = 'Case ' + c.CaseNumber + ' has been assigned to you';
+        msgBody =
+          customerName +
+          'Case ' +
+          c.CaseNumber +
+          ' has been assigned to you';
       }
       if (
         fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
