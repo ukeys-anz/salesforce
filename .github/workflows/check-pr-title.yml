@@ -19,4 +19,4 @@ jobs:
       - name: Check PR Title for Ticket
         uses: ./.github/actions/pr-title-action
         with:
-          jira-project: "(ABT|IDR|ANZX|APRART|AR)"
+          jira-project: "(ABT|IDR|ANZX|APRART|AR|CC)"

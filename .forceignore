@@ -140,3 +140,5 @@ force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 #to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 
+#ignoring report for deployment issues
+force-app/main/default/reports/IDRReports/IDR_New_Correspondence_on_Closed_Complaints.report-meta.xml
