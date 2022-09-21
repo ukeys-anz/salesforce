@@ -109,6 +109,27 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>Account__c</fields>
+        <fields>Primary_Borrower__c</fields>
+        <relatedList>LoanApplicants</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>Balance__c</fields>
+        <relatedList>LoanApplicationLiabilities</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>SOP_ID__c</fields>
+        <fields>Guarantor__c</fields>
+        <relatedList>Loan_Applicant_Group__c.Residential_Loan_Application__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Product_Preference__c.Residential_Loan_Application__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
