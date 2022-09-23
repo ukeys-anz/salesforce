@@ -11,7 +11,7 @@
         <label>Customer Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>AccountId</field>
             </layoutItems>
             <layoutItems>

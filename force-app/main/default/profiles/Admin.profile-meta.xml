@@ -7244,6 +7244,10 @@
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-ANZx Complaint Layout</layout>
+        <recordType>Case.ANZx_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-BPAY Dispute Layout</layout>
         <recordType>Case.BPAY_Dispute</recordType>
     </layoutAssignments>
@@ -7294,6 +7298,10 @@
     <layoutAssignments>
         <layout>Case-Non-Customer Complaint Layout</layout>
         <recordType>Case.Non_Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-NPP Dispute Layout</layout>
+        <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Recipient%2FMule Layout</layout>
