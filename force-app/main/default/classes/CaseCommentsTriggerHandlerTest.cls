@@ -156,7 +156,8 @@ public with sharing class CaseCommentsTriggerHandlerTest {
           RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
           Status = IDRConstants.OPEN_STATUS,
           Description = 'Test decription',
-          OwnerId = idrUser1.Id
+          OwnerId = idrUser1.Id,
+          IDR_Additional_Correspondence_reviewed__c = false
         )
       );
     }
@@ -189,7 +190,18 @@ public with sharing class CaseCommentsTriggerHandlerTest {
         appLogs.size(),
         'The application log size should be 0'
       );
-
+      //when user updates the status to closed
+      newCases[0].IDR_Additional_Correspondence_reviewed__c = true;
+      newCases[0].Status = 'Closed';
+      newCases[0].IDR_Description_of_Outcome__c = 'Test';
+      newCases[0].IDR_Complaint_Outcome__c = '1';
+      update newCases[0];
+      //when user adds a new comment
+      CaseComment testComments = new CaseComment(
+        CommentBody = 'Test',
+        ParentId = newCases[0].id
+      );
+      insert testComments;
       Test.stopTest();
     }
   }

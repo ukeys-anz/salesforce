@@ -135,7 +135,7 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_SIUsers_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Give read only access to Systemic issue users for customer and non customer complaints</description>
+        <description>Give read only access to Systemic issue users for CFMS Migrated Case</description>
         <label>Complaint_RTs_SIUsers_RO</label>
         <sharedTo>
             <role>Systemic_Issue_Team</role>
@@ -143,7 +143,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint,CFMS Migrated Case</value>
+            <value>CFMS Migrated Case</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -397,21 +397,15 @@
     <sharingCriteriaRules>
         <fullName>PSIComplaint_RTs_SITeam_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Grant edit access to possible systemic issue complaint records for systemic issue team</description>
+        <description>Grant edit access to parent systemic issue complaint records</description>
         <label>PSIComplaint_RTs_SITeam_RW</label>
         <sharedTo>
             <role>Systemic_Issue_Team</role>
         </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>IDR_Is_Common__c</field>
-            <operation>equals</operation>
-            <value>Yes</value>
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
