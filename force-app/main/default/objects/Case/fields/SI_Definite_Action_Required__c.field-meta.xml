@@ -13,7 +13,6 @@
     <trackTrending>false</trackTrending>
     <type>MultiselectPicklist</type>
     <valueSet>
-        <controllingField>SI_Definite__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -63,42 +62,6 @@
                 <label>Other</label>
             </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>1</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>2</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>3</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>4</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>5</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>9</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>7</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>6</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Yes</controllingFieldValue>
-            <valueName>8</valueName>
-        </valueSettings>
     </valueSet>
     <visibleLines>7</visibleLines>
 </CustomField>
