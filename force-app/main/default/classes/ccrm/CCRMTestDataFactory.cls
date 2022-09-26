@@ -386,10 +386,11 @@ public with sharing class CCRMTestDataFactory {
    * @return Account Business account
    */
   public static Account createBusinessAccount() {
+    Faker faker = new Faker('AU');
     List<Industry__c> createIndustries = createIndustries(1);
     Account accnt = new Account();
     accnt.Name = 'Test Pty Ltd';
-    accnt.OCV_ID__c = 'OCV1234';
+    accnt.OCV_ID__c = faker.randomString(10);
     accnt.Industry = createIndustries[0].Code__c;
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
     accnt.ABN__c = '50 110 219 460';
@@ -422,10 +423,11 @@ public with sharing class CCRMTestDataFactory {
    * @return Account PersonAccount
    */
   public static Account createPersonAccount() {
+    Faker faker = new Faker('AU');
     Account accnt = new Account();
     accnt.FirstName = 'Test';
     accnt.LastName = 'Account';
-    accnt.OCV_ID__c = 'OCV1234';
+    accnt.OCV_ID__c = faker.randomString(10);
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_PERSON_RT_ID;
     accnt.Phone = '+61333333333';
     accnt.BillingStreet = '833 Collins Street';
@@ -680,6 +682,7 @@ public with sharing class CCRMTestDataFactory {
     User ownerUser,
     Boolean doInsert
   ) {
+    Faker faker = new Faker('AU');
     //Deafault Count to 200 when in excess.
     count = count == null || count == 0 ? 1 : count;
     Account parentAccount = createBusinessAccount();
@@ -687,10 +690,11 @@ public with sharing class CCRMTestDataFactory {
     String staticNumber = Datetime.now().format('MMddHHmmss') + count + 1;
     Account objAccount = new Account();
     objAccount.Name = 'Test Account';
-    objAccount.OCV_ID__c = 'OCV1234';
+    objAccount.OCV_ID__c = faker.randomString(10);
     objAccount.FinServ__KYCStatus__c = 'Completed - Valid';
     objAccount.ParentId = parentAccount.Id;
     objAccount.FinServ__Status__c = 'Active';
+    objAccount.RecordTypeId = CCRMConstants.ACCOUNT_CLG_RT_ID;
     insert objAccount;
 
     List<Opportunity> newOpps = new List<Opportunity>();
