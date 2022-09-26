@@ -73,6 +73,13 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
         GetHelpCaseActions.maskTaxNumbers(record);
       }
+      Case oldrecord = (Case) oldMap.get(record.Id);
+      if (
+        !oldRecord.IDR_Additional_Correspondence_reviewed__c &&
+        record.IDR_Additional_Correspondence_reviewed__c
+      ) {
+        record.IDR_Correspondence_Reviewed_Date__c = Date.today();
+      }
     }
     IDRCaseNotificationManager.manageNotification(
       records,

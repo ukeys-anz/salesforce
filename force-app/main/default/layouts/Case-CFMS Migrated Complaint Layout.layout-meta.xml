@@ -205,6 +205,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Account_Card_Policy_Number__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Additional_Correspondence_reviewed__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

@@ -426,6 +426,7 @@
         "AuxDomId__c",
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
+        "Date_Closed__c",
         "RAG_Status__c",
         "RAG__c",
         "RAG_Comments__c",
@@ -551,6 +552,7 @@
         "IDR_Complaint_Sub_Remedy__c",
         "IDR_Complaint_Sub_Remedy_2__c",
         "IDR_Complaint_Sub_Remedy_3__c",
+        "IDR_Correspondence_Reviewed_Date__c",
         "IDR_Customer_Identifier__c",
         "IDR_Customer_Notification__c",
         "IDR_Date_Re_Opened__c",
@@ -775,7 +777,7 @@
         "Feedback_Type__c",
         "Original_Feedback_Record__c",
         "ANZx_Customer__c",
-        "IDR_Additional_Correspondence_reviewed__c"
+        "IDR_Additional_Correspondence_reviewed__c",
         "IDR_Avoidable_Escalation__c",
         "IDR_Avoidable_Escalation_Reason__c"
       ]

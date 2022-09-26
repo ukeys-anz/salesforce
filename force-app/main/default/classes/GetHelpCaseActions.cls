@@ -321,6 +321,7 @@ public with sharing class GetHelpCaseActions {
    */
   public static void setPriority(List<Case> caseList) {
     for (Case c : caseList) {
+      c.IDR_Correspondence_Reviewed_Date__c = Date.Today();
       if (
         (c.RecordTypeId == GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID ||
         c.RecordTypeId == GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID) &&
