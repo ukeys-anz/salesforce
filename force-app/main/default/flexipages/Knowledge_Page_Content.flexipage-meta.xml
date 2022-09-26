@@ -14,6 +14,13 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Knowledge__kav.Publish_Article</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.PublishStatus}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Online</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>CreateDraftFromOnlineKnowledgeArticleVersion</value>
