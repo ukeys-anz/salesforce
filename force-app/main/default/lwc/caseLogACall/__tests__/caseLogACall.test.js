@@ -2,7 +2,6 @@ import caseLogACall from "c/caseLogACall";
 import getPickListValuesIntoList from "@salesforce/apex/CaseLogCall.getPickListValuesIntoList";
 import createTask from "@salesforce/apex/CaseLogCall.createTask";
 import { createElement } from "lwc";
-import { setImmediate } from "timers";
 
 jest.mock(
   "@salesforce/apex/CaseLogCall.getPickListValuesIntoList",

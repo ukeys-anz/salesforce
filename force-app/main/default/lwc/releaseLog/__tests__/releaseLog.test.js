@@ -3,7 +3,6 @@ import countTotalRecords from "@salesforce/apex/ReleaseLogServerController.count
 import { createElement } from "lwc";
 import getReleases from "@salesforce/apex/ReleaseLogServerController.getReleases";
 import { release } from "os";
-import { setImmediate } from "timers";
 
 jest.mock(
   "@salesforce/apex/ReleaseLogServerController.getReleases",

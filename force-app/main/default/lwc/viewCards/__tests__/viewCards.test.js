@@ -3,13 +3,14 @@ import { ShowToastEventName } from "lightning/platformShowToastEvent";
 import { publish, subscribe } from "lightning/messageService";
 import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import { getRecord } from "lightning/uiRecordApi";
-import { setImmediate } from "timers";
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 import ViewCards from "c/viewCards";
 import CardControl from "c/cardControl";
 import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 
+const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 const MessageContext = createTestWireAdapter();
 const APEX_NO_CARDS = require("./data/noCard.json");
 const APEX_CARDS_SUCCESS = require("./data/response.json");
@@ -945,7 +946,7 @@ describe("c-view-cards | wire", () => {
     return new Promise((resolve) => setImmediate(resolve));
   }
   it("1. check wire OCV_ID", () => {
-    getRecord.emit(mockOcvId);
+    getRecordAdapter.emit(mockOcvId);
     return flushPromises().then(() => {
       const ocvID = mockOcvId.fields.OCV_ID__c.value;
       expect(ocvID).toBe("Test OCV_ID");
@@ -954,7 +955,7 @@ describe("c-view-cards | wire", () => {
 
   it("2. should through an error when there is no ocvId", () => {
     expect(() => {
-      getRecord.emit({});
+      getRecordAdapter.emit({});
     }).toThrow();
   });
 });

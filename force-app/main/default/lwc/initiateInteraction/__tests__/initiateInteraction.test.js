@@ -6,7 +6,6 @@ import { handleErrorShowToast } from "c/utils";
 import { publish } from "lightning/messageService";
 import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
-import { setImmediate } from "timers";
 
 jest.mock(
   "@salesforce/apex/InitiateInteractionController.getPhoneNumber",

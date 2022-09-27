@@ -3,7 +3,7 @@ import { createElement } from "lwc";
 import getTransactions from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import { publish } from "lightning/messageService";
 import { getRecord } from "lightning/uiRecordApi";
-import { setImmediate } from "timers";
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 const APEX_TRANSACTIONS_SUCCESS = require("./data/transactionSuccess.json");
 const APEX_TRANSACTIONS_SUCCESS_SECOND = require("./data/transactionSuccessTwo.json");
@@ -29,6 +29,7 @@ jest.mock(
 
 //https://github.com/salesforce/wire-service-jest-util/blob/master/docs/migrating-from-version-2.x-to-3.x.md
 /* eslint-disable-next-line @lwc/lwc/no-unexpected-wire-adapter-usages */
+const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 const mockGetRecord = require("./data/getRecord.json");
 
 describe("c-transactionHistoryBoard", () => {
@@ -54,7 +55,7 @@ describe("c-transactionHistoryBoard", () => {
     element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
-    getRecord.emit(mockGetRecord);
+    getRecordAdapter.emit(mockGetRecord);
 
     return flushPromises().then(() => {
       const titleDiv = element.shadowRoot.querySelector(
@@ -74,7 +75,7 @@ describe("c-transactionHistoryBoard", () => {
     element.transactionData = APEX_TRANSACTIONS_SUCCESS_PARTIAL;
 
     // Emit data from @wire
-    getRecord.emit(mockGetRecord);
+    getRecordAdapter.emit(mockGetRecord);
 
     return flushPromises().then(() => {
       const titleDiv = element.shadowRoot.querySelector(
@@ -93,7 +94,7 @@ describe("c-transactionHistoryBoard", () => {
     element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
-    getRecord.emit(mockGetRecord);
+    getRecordAdapter.emit(mockGetRecord);
 
     return Promise.resolve()
       .then(() => {})
@@ -142,7 +143,7 @@ describe("c-transactionHistoryBoard", () => {
     element.transactionData = APEX_TRANSACTIONS_SUCCESS;
 
     // Emit data from @wire
-    getRecord.emit(mockGetRecord);
+    getRecordAdapter.emit(mockGetRecord);
 
     return Promise.resolve()
       .then(() => {})

@@ -1,6 +1,5 @@
 import { createElement } from "lwc";
 import ReplaceCard from "c/replaceCard";
-import { setImmediate } from "timers";
 
 describe("c-replace-card", () => {
   afterEach(() => {

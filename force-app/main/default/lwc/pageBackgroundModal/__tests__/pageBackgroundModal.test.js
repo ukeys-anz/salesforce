@@ -1,7 +1,6 @@
 import PageBackgroundModal from "c/pageBackgroundModal";
 import { createElement } from "lwc";
 import getSessionIdToken from "@salesforce/apex/AuthTokenCacheUtil.getSessionIdToken";
-import { setImmediate } from "timers";
 
 jest.mock(
   "@salesforce/apex/AuthTokenCacheUtil.getSessionIdToken",

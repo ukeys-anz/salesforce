@@ -138,25 +138,23 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   }
 
   handleAccountInformation(finAccounts) {
-    if (finAccounts) {
-      finAccounts.forEach((account) => {
-        //Set the badge class based on the status
-        account.badgeClass =
-          account.FinServ__Status__c === "Active" ||
-          account.FinServ__Status__c === "Open"
-            ? "slds-badge slds-theme_success"
-            : "slds-badge slds-theme_error";
-        //Determine the type of financial account
-        if (
-          account.FinServ__FinancialAccountType__c.toLowerCase() === "checking"
-        ) {
-          this.accountData.checking.push(account);
-        } else {
-          this.accountData.savings.push(account);
-          this.savingsId = account.Id;
-        }
-      });
-    }
+    finAccounts.forEach((account) => {
+      //Set the badge class based on the status
+      account.badgeClass =
+        account.FinServ__Status__c === "Active" ||
+        account.FinServ__Status__c === "Open"
+          ? "slds-badge slds-theme_success"
+          : "slds-badge slds-theme_error";
+      //Determine the type of financial account
+      if (
+        account.FinServ__FinancialAccountType__c.toLowerCase() === "checking"
+      ) {
+        this.accountData.checking.push(account);
+      } else {
+        this.accountData.savings.push(account);
+        this.savingsId = account.Id;
+      }
+    });
 
     return finAccounts;
   }

@@ -1,9 +1,9 @@
 import { createElement } from "lwc";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
 import { getRecord } from "lightning/uiRecordApi";
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import { publish, subscribe } from "lightning/messageService";
-import { setImmediate } from "timers";
 
 import fraudLock from "@salesforce/apex/FraudCardStatusController.setFraudCardStatus";
 import CardFraudLock from "c/cardFraudLock";
@@ -12,6 +12,7 @@ import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 const mockApexSuccess = require("./data/apex-mock-success.json");
 const mockApexFailure = require("./data/apex-mock-failure.json");
 const mockOcvId = require("./data/wire-mock-OCV_ID.json");
+const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 const MessageContext = createTestWireAdapter();
 
 jest.mock(
@@ -335,11 +336,10 @@ describe("c-card-fraud-lock | wire", () => {
   });
 
   it("1. check wire OCV_ID", () => {
-    getRecord.emit(mockOcvId);
-
-    return Promise.resolve().then(() => {
-      const ocvID = mockOcvId.fields.OCV_ID__c.value;
-      expect(ocvID).toBe("Test OCV_ID");
-    });
+    getRecordAdapter.emit(mockOcvId);
+  });
+  return Promise.resolve().then(() => {
+    const ocvID = mockOcvId.fields.OCV_ID__c.value;
+    expect(ocvID).toBe("Test OCV_ID");
   });
 });

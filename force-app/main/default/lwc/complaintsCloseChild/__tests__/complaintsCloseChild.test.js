@@ -1,5 +1,7 @@
 import { createElement } from "lwc";
 import ComplaintsCloseChildComponent from "c/complaintsCloseChild";
+import { getRecord, updateRecord } from "lightning/uiRecordApi";
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 const DUMMY_RECORD_ID = "5002N00000Dwe1iQAB";
 const DUMMY_RECORD_TYPE_ID = "0122N00000314ujQAA";

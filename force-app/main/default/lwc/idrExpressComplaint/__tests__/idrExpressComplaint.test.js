@@ -1,17 +1,19 @@
 import { createElement } from "lwc";
 import IDRExpressComplaint from "c/idrExpressComplaint";
+import { registerApexTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import getAllKnownIssues from "@salesforce/apex/IDRExpressComplaintController.getAllKnownIssues";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
 
 const mockGetAllKnownIssues = require("./data/getAllKnownIssues.json");
 const mockGetAllKnownIssuesError = require("./data/getAllKnownIssuesError.json");
 
+const getAllKnownIssuesAdapter = registerApexTestWireAdapter(getAllKnownIssues);
+
 jest.mock(
   "@salesforce/apex/IDRExpressComplaintController.getAllKnownIssues",
   () => {
-    const { createApexTestWireAdapter } = require("@salesforce/sfdx-lwc-jest");
     return {
-      default: createApexTestWireAdapter(jest.fn())
+      default: jest.fn()
     };
   },
   { virtual: true }
@@ -29,14 +31,12 @@ describe("c-idr-express-complaint suite", () => {
 
   it("show known issue dropdown in UI", () => {
     getAllKnownIssues.mockResolvedValue(mockGetAllKnownIssues);
-
     const element = createElement("c-idr-express-complaint", {
       is: IDRExpressComplaint
     });
     document.body.appendChild(element);
 
-    getAllKnownIssues.emit(mockGetAllKnownIssues);
-
+    getAllKnownIssuesAdapter.emit(mockGetAllKnownIssues);
     return Promise.resolve().then(() => {
       const expressToggleElement = element.shadowRoot.querySelector(
         "lightning-input"
@@ -58,13 +58,11 @@ describe("c-idr-express-complaint suite", () => {
 
   it("verify if all known issues are loaded", () => {
     getAllKnownIssues.mockResolvedValue(mockGetAllKnownIssues);
-
     const element = createElement("c-idr-express-complaint", {
       is: IDRExpressComplaint
     });
     document.body.appendChild(element);
-    getAllKnownIssues.emit(mockGetAllKnownIssues);
-
+    getAllKnownIssuesAdapter.emit(mockGetAllKnownIssues);
     return Promise.resolve().then(() => {
       const expressToggleElement = element.shadowRoot.querySelector(
         "lightning-input"
@@ -98,7 +96,7 @@ describe("c-idr-express-complaint suite", () => {
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
 
-    getAllKnownIssues.error();
+    getAllKnownIssuesAdapter.error();
 
     return Promise.resolve().then(() => {
       expect(handler).toHaveBeenCalled();
