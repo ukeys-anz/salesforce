@@ -71,6 +71,16 @@ public with sharing class GetHelpConstants {
     .get('General')
     .getRecordTypeId();
 
+  //Quality Assessment - Join RT Id
+  public static final Id QUALITY_ASSESSMENT_JOIN_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+    .get('Join')
+    .getRecordTypeId();
+
+  //Quality Assessment - Get_Help RT Id
+  public static final Id QUALITY_ASSESSMENT_GETHELP_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
+    .get('Get_Help')
+    .getRecordTypeId();
+
   //Task - Compliance Task RT Id
   public static final Id TASK_COMPLIANCE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
     .get('Compliance_Task')

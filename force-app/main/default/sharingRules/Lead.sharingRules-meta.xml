@@ -28,4 +28,18 @@
             <value>ANZX Leads</value>
         </criteriaItems>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CCRM_Lead_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CCRM Lead Sharing Rule</label>
+        <sharedTo>
+            <group>BB_SBB_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial CRM Lead</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

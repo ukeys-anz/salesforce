@@ -32,11 +32,14 @@
     "Known_Issues__c",
     "Lead",
     "Lead_Flex_Field__c",
+    "Legal_Entity__c",
     "Log_Record_Access__b",
     "Opportunity",
+    "OpportunityLineItem",
     "Privileged_Access_Request__c",
     "Product2",
     "Product_Family__c",
+    "Process_Effectiveness__c",
     "Quality_Assessment__c",
     "qualtrics__Survey_Response__c",
     "Release__c",
@@ -207,6 +210,13 @@
       "name": "Customer Resolution Team Leaders",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_CRP_Team_Leaders"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Join Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["FraudX_Agent"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },

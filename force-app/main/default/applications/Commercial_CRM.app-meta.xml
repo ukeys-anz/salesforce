@@ -60,6 +60,7 @@
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Lead</tabs>
+    <tabs>standard-Opportunity</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Commercial_CRM_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -68,6 +69,9 @@
         </mappings>
         <mappings>
             <tab>standard-Lead</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Opportunity</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>

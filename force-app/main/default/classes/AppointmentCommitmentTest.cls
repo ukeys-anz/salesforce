@@ -3,6 +3,7 @@
  * @since 20220526
  * @author Adam Phillip Smith
  */
+
 @isTest
 public with sharing class AppointmentCommitmentTest {
   @isTest

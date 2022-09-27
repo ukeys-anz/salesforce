@@ -5,11 +5,11 @@
  */
 @isTest
 private class CCRMAccountActionsTest {
-  static User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
-  static User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
-
   @testSetup
   static void setup() {
+    User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
+    User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
+
     System.runAs(ccrmAdmin) {
       Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };
       CCRMTestDataFactory.createUsersWithEmployeeId(setOfEmployeeId);
@@ -25,7 +25,7 @@ private class CCRMAccountActionsTest {
 
   @isTest
   static void testCreateAccount() {
-    System.runAs(ccrmUser) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       Test.startTest();
       //Given when banker creates a new Account
       //When CPID is set to a valid CPID
@@ -50,7 +50,7 @@ private class CCRMAccountActionsTest {
     //Given when banker creates a new Account
     //When CPID is set to a invalid CPID
     //Then CPID Link will be null
-    System.runAs(ccrmUser) {
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       Test.startTest();
       Account acc1 = new Account(
         Name = 'Test ANZx Account',

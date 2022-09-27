@@ -36,7 +36,9 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     CCRMLeadActions.retrieveControllingPost(records, null);
     CCRMLeadActions.prefillManualLeadsFromAccountOnInsert(records);
     CCRMLeadActions.prefillUnicaLeadsFromAccountOnInsert(records);
+    CCRMLeadActions.setDefaultCampaign(records);
     CCRMLeadActions.setValidationStatus(records, null);
+    CCRMLeadActions.validateIngestedLeads(records);
   }
 
   /**
@@ -72,7 +74,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeDelete() {
     for (Lead record : (List<Lead>) records) {
-      if (CCRMLeadActions.isCCRMLeadType(record)) {
+      if (CCRMLeadUtil.isCCRMLeadType(record)) {
         record.addError(DELETE_ERROR);
       }
     }
@@ -83,12 +85,13 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @name onAfterInsert
    */
   public override void onAfterInsert() {
-    CCRMLeadActions.copyLeadId(records);
     CCRMLeadActions.notifyLeadOwners(null, records);
     CCRMLeadActions.createCampaignMember(records);
     CCRMLeadActions.validateAbnAcnForCallout(records, null);
-    //Keep this at end
+    //Keep these methods at end
     CCRMLeadActions.sendManualLeadsToUnica(records, null);
+    CCRMLeadActions.copyLeadId(records);
+    CCRMRegionSharingUtil.shareLeadsToOwnerRegion(records);
   }
 
   /**
@@ -97,23 +100,22 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values of Lead.
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    LeadChatterMigrationHelper.migrateChatterPostsOnConversion(records, oldMap);
     if (!checkRecursive.firstCall) {
       CheckRecursive.run();
       CCRMLeadActions.notifyLeadOwners((Map<Id, Lead>) oldMap, records);
       CCRMLeadActions.validateAbnAcnForCallout(records, (Map<Id, Lead>) oldMap);
       //Keep this at end
       if (!System.isFuture()) {
-        CCRMLeadActions.sendManualLeadsToUnica(records, (Map<Id, Lead>) oldMap);
         CCRMLeadActions.publishLeadResponseUpdateToAdobeOrUnica(
           records,
           (Map<Id, Lead>) oldMap
         );
-        CCRMLeadActions.sendAdobeLeadUpdateToAdobe(
+        CCRMLeadActions.sendLeadUpdateToUnicaOrAdobe(
           records,
           (Map<Id, Lead>) oldMap
         );
       }
     }
+    LeadChatterMigrationHelper.migrateChatterPostsOnConversion(records, oldMap);
   }
 }

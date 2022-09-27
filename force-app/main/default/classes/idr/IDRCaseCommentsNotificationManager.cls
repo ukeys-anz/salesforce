@@ -13,21 +13,33 @@ public with sharing class IDRCaseCommentsNotificationManager {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
 
     Map<Id, Case> caseMap = getCaseRecords(records);
+    List<Case> caseUpdatedList = new List<Case>();
 
     for (CaseComment record : (List<CaseComment>) records) {
-      if (caseMap.containsKey(record.ParentId)) {
+      Case caseRec = caseMap.get(record.ParentId);
+      if (caseRec != null) {
         if (
-          caseMap.get(record.ParentId).OwnerId != record.CreatedById &&
-          IDRCaseActions.isIDRComplaintType(caseMap.get(record.ParentId))
+          caseRec.OwnerId != record.CreatedById &&
+          IDRCaseActions.isIDRComplaintType(caseRec)
         ) {
-          wrapperList.add(createNotification(caseMap.get(record.ParentId)));
+          wrapperList.add(createNotification(caseRec));
+        }
+        if ((caseRec.Status == 'Closed' || caseRec.Status == 'Withdrawn' || caseRec.Status == 'Resolved') &&
+            caseRec.IDR_Additional_Correspondence_reviewed__c == true
+        ) {
+            caseRec.IDR_Additional_Correspondence_reviewed__c = false;
+            caseUpdatedList.add(caseRec);
         }
       }
-    }
+   }  
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
+
+    if (!caseUpdatedlist.isEmpty()) {
+      update caseUpdatedList;
+  }
   }
 
   /**
@@ -44,7 +56,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
     }
 
     for (Case c : [
-      SELECT Id, RecordTypeId, CaseNumber, OwnerId
+      SELECT Id, RecordTypeId, CaseNumber, OwnerId, Status, IDR_Additional_Correspondence_reviewed__c
       FROM Case
       WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {

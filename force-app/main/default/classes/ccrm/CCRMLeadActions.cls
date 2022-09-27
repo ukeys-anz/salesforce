@@ -6,6 +6,17 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class CCRMLeadActions {
+  @TestVisible
+  static final String CAMPAIGN_NOT_FOUND_ERROR_MESSAGE = 'CAMPAIGN DOES NOT EXIST OR NOT ACTIVE';
+  @TestVisible
+  static final String BUSINESS_NUMBER_NOT_FOUND_ERROR_MESSAGE = 'BUSINESS NUMBER NOT FOUND';
+  @TestVisible
+  static final String CUSTOMER_NUMBER_NOT_FOUND_ERROR_MESSAGE = 'CUSTOMER NUMBER NOT FOUND';
+  @TestVisible
+  static final String CLG_NOT_FOUND_ERROR_MESSAGE = 'CLG NOT FOUND';
+  @TestVisible
+  static final String EXPIRY_DATE_MISSING_ERROR_MESSAGE = 'EXPIRY DATE IS MISSING';
+
   /**
    * @description Before Update Automated actions of a completed Lead.
    * @name leadCompletedActionBeforeUpdate
@@ -20,8 +31,8 @@ public with sharing class CCRMLeadActions {
 
     for (Lead record : records) {
       if (
-        isCCRMLeadType(record) &&
-        isLeadStatusChanged(record, oldMap?.get(record.id)) &&
+        CCRMLeadUtil.isCCRMLeadType(record) &&
+        CCRMLeadUtil.isLeadStatusChanged(record, oldMap?.get(record.Id)) &&
         record.Status == CCRMConstants.STATUS_COMPLETED
       ) {
         record.Followup_Date__c = null;
@@ -46,9 +57,12 @@ public with sharing class CCRMLeadActions {
       Boolean isAdobeNewLead =
         oldRec == null &&
         record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE;
-      Boolean isLeadOwnerUpdated = isLeadOwnerChanged(record, oldRec);
+      Boolean isLeadOwnerUpdated = CCRMLeadUtil.isLeadOwnerChanged(
+        record,
+        oldRec
+      );
       if (
-        isCCRMLeadType(record) &&
+        CCRMLeadUtil.isCCRMLeadType(record) &&
         record.OwnerID.getsobjecttype() == User.sobjecttype &&
         (isAdobeNewLead || isLeadOwnerUpdated)
       ) {
@@ -75,7 +89,7 @@ public with sharing class CCRMLeadActions {
 
     for (Lead record : records) {
       if (
-        isCCRMLeadType(record) &&
+        CCRMLeadUtil.isCCRMLeadType(record) &&
         (String.isBlank(record.Lead_Id__c) ||
         record.Lead_Id__c.contains('null'))
       ) {
@@ -101,41 +115,6 @@ public with sharing class CCRMLeadActions {
   }
 
   /**
-   * @description Check if record type is of CCRM Lead type. As this Trigger will be used across various teams we identify lead record based on CCRM Lead record Type.
-   * @name isCCRMLeadType
-   * @param record The record for which the recordType needs to be checked
-   * @return `Boolean` True if the the record type is of CCRM Lead type otherwise false.
-   */
-  public static Boolean isCCRMLeadType(Lead record) {
-    if (record.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * @description Check if this Lead record is re-assigned to a different Lead Owner.
-   * @name isLeadOwnerChanged
-   * @param record lead record
-   * @param oldRec old lead record from trigger
-   * @return `Boolean` True if the Lead Owner is updated otherwise false.
-   */
-  public static Boolean isLeadOwnerChanged(Lead record, Lead oldRec) {
-    return oldRec != null && record.OwnerId != oldRec.OwnerId;
-  }
-
-  /**
-   * @description Check if this Lead record has updated status to Completed
-   * @name isLeadOwnerChanged
-   * @param record lead record
-   * @param oldRec old lead record from trigger
-   * @return `Boolean` True if the Lead Owner is updated otherwise false.
-   */
-  public static Boolean isLeadStatusChanged(Lead record, Lead oldRec) {
-    return oldRec != null && record.Status != oldRec.Status;
-  }
-
-  /**
    * @description Populate fields of New Leads before Inserting.
    *  - Priority__c: updated from campaign, or default value if not available
    *  - Description: updated from campaign if available
@@ -154,27 +133,54 @@ public with sharing class CCRMLeadActions {
       .getAccountsBySourceSystemId(records);
 
     for (Lead record : records) {
-      if (isCCRMLeadType(record) && !String.isBlank(record.Campaign_Code__c)) {
-        Decimal priorityValue = mapCampaignCodeRecord.containsKey(
-            record.Campaign_Code__c
-          ) &&
-          mapCampaignCodeRecord.get(record.Campaign_Code__c).Priority__c !=
-          Decimal.ValueOf(LABEL.CCRM_LeadDefaultPriorityValue)
+      if (
+        !CCRMLeadUtil.isCCRMLeadType(record) ||
+        String.isBlank(record.Campaign_Code__c)
+      ) {
+        continue;
+      }
+      if (mapCampaignCodeRecord.containsKey(record.Campaign_Code__c)) {
+        Decimal priorityValue = mapCampaignCodeRecord.get(
+              record.Campaign_Code__c
+            )
+            .Priority__c != Decimal.ValueOf(LABEL.CCRM_LeadDefaultPriorityValue)
           ? mapCampaignCodeRecord.get(record.Campaign_Code__c).Priority__c
           : Decimal.ValueOf(LABEL.CCRM_LeadDefaultPriorityValue);
-
-        record.FinServ__RelatedAccount__c = !String.isBlank(
-            record.Customer_ID__c
-          ) && mapAccountRecord.containsKey(record.Customer_ID__c)
-          ? mapAccountRecord.get(record.Customer_ID__c).Id
-          : !String.isBlank(record.Business_ID__c) &&
-              mapAccountRecord.containsKey(record.Business_ID__c)
-              ? mapAccountRecord.get(record.Business_ID__c).Id
-              : record.FinServ__RelatedAccount__c;
         record.Priority__c = priorityValue;
         record.Description = String.isBlank(record.Description)
           ? mapCampaignCodeRecord.get(record.Campaign_Code__c).Description
           : record.Description;
+      } else if (CCRMLeadUtil.isUnicaLead(record)) {
+        record.addError(CAMPAIGN_NOT_FOUND_ERROR_MESSAGE);
+      }
+
+      if (!String.isBlank(record.Business_ID__c)) {
+        if (mapAccountRecord.containsKey(record.Business_ID__c)) {
+          record.FinServ__RelatedAccount__c = mapAccountRecord.get(
+              record.Business_ID__c
+            )
+            .Id;
+        } else if (CCRMLeadUtil.isUnicaLead(record)) {
+          record.addError(BUSINESS_NUMBER_NOT_FOUND_ERROR_MESSAGE);
+        }
+      } else if (!String.isBlank(record.Customer_ID__c)) {
+        if (mapAccountRecord.containsKey(record.Customer_ID__c)) {
+          record.FinServ__RelatedAccount__c = mapAccountRecord.get(
+              record.Customer_ID__c
+            )
+            .Id;
+        } else if (CCRMLeadUtil.isUnicaLead(record)) {
+          record.addError(CUSTOMER_NUMBER_NOT_FOUND_ERROR_MESSAGE);
+        }
+      } else if (!String.isBlank(record.CLG_ID__c)) {
+        if (mapAccountRecord.containsKey(record.CLG_ID__c)) {
+          record.FinServ__RelatedAccount__c = mapAccountRecord.get(
+              record.CLG_ID__c
+            )
+            .Id;
+        } else if (CCRMLeadUtil.isUnicaLead(record)) {
+          record.addError(CLG_NOT_FOUND_ERROR_MESSAGE);
+        }
       }
     }
   }
@@ -193,7 +199,7 @@ public with sharing class CCRMLeadActions {
 
     for (Lead selectLead : records) {
       if (
-        isCCRMLeadType(selectLead) &&
+        CCRMLeadUtil.isCCRMLeadType(selectLead) &&
         !String.isBlank(selectLead.Campaign_Code__c) &&
         mapCampaignCodeRecord.containsKey(selectLead.Campaign_Code__c)
       ) {
@@ -237,7 +243,7 @@ public with sharing class CCRMLeadActions {
 
     for (Lead selectLead : records) {
       if (
-        isCCRMLeadType(selectLead) &&
+        CCRMLeadUtil.isCCRMLeadType(selectLead) &&
         !String.isBlank(selectLead.Campaign_Code__c)
       ) {
         campaignCodes.add(selectLead.Campaign_Code__c);
@@ -248,7 +254,7 @@ public with sharing class CCRMLeadActions {
       for (Campaign campaignRecord : [
         SELECT Id, Code__c, Priority__c, Description, Description__c
         FROM Campaign
-        WHERE Code__c IN :campaignCodes
+        WHERE Code__c IN :campaignCodes AND EndDate >= TODAY
       ]) {
         mapCampaignCodeRecord.put(campaignRecord.Code__c, campaignRecord);
       }
@@ -286,12 +292,26 @@ public with sharing class CCRMLeadActions {
 
         //On lead ownership change set Expiry date to Monday if it on Friday, Saturday or Sunday
         //If expiry date is today and weekday is from Mon-Thu then just add 1 day
-        if (isLeadOwnerChanged(record, oldRec) && isCCRMLeadType(record)) {
-          if (record.Expiry_Date__c == Date.today()) {
+        if (
+          CCRMLeadUtil.isLeadOwnerChanged(record, oldRec) &&
+          CCRMLeadUtil.isCCRMLeadType(record)
+        ) {
+          if (
+            record.Expiry_Date__c ==
+            Date.today().addDays(Integer.valueOf(System.Label.CCRM_Today_Date))
+          ) {
             string dayName = DateTimeUtils.getDay(record.Expiry_Date__c);
             switch on dayName {
               when 'Mon', 'Tue', 'Wed', 'Thu' {
                 record.Expiry_Date__c = record.Expiry_Date__c + 1;
+              }
+              when 'Fri' {
+                newExpiryDate = record.Expiry_Date__c;
+                includeFriday = true;
+              }
+              when 'Sat', 'Sun' {
+                newExpiryDate = record.Expiry_Date__c;
+                includeFriday = false;
               }
             }
           } else {
@@ -433,7 +453,7 @@ public with sharing class CCRMLeadActions {
     List<Lead> selectedLeads = new List<Lead>();
     for (Lead record : records) {
       if (
-        isCCRMLeadType(record) &&
+        CCRMLeadUtil.isCCRMLeadType(record) &&
         String.isNotBlank(record.Previous_Lead__c) &&
         record.Lead_Originator__c == 'Adobe'
       ) {
@@ -496,7 +516,7 @@ public with sharing class CCRMLeadActions {
     Set<String> relatedPartyIds = new Set<String>();
     for (Lead record : records) {
       if (
-        isCCRMLeadType(record) &&
+        CCRMLeadUtil.isCCRMLeadType(record) &&
         String.isNotBlank(record.FinServ__RelatedAccount__c)
       ) {
         Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
@@ -523,7 +543,7 @@ public with sharing class CCRMLeadActions {
     Set<String> relatedPartyIds = new Set<String>();
     for (Lead record : records) {
       if (
-        isCCRMLeadType(record) &&
+        CCRMLeadUtil.isCCRMLeadType(record) &&
         String.isNotBlank(record.FinServ__RelatedAccount__c)
       ) {
         relatedPartyIds.add(record.FinServ__RelatedAccount__c);
@@ -563,18 +583,14 @@ public with sharing class CCRMLeadActions {
     List<Lead> listOfLeads = new List<Lead>();
     for (Lead record : records) {
       if (
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM &&
-        CCRMLeadActions.isCCRMLeadType(record)
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM ||
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA
       ) {
         listOfLeads.add(record);
       }
     }
     if (listOfLeads.size() > 0) {
-      CCRMLeadActionsHelper.publishManualLeads(
-        listOfLeads,
-        oldMap,
-        CCRMConstants.ORIGINATOR_CCRM
-      );
+      CCRMLeadActionsHelper.publishManualLeads(listOfLeads);
     }
   }
 
@@ -593,6 +609,7 @@ public with sharing class CCRMLeadActions {
       Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
       if (
         (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA ||
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM ||
         record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) &&
         record.SubStatus__c != oldRec.SubStatus__c
       ) {
@@ -608,33 +625,33 @@ public with sharing class CCRMLeadActions {
   }
 
   /**
-   * @description This method send adobe lead update to adobe
-   * @name sendAdobeLeadUpdateToAdobe
+   * @description This method send CCRM/UNICA/ADOBE lead change update to UNICA or ADOBE
+   * @name sendLeadUpdateToUnicaOrAdobe
    * @param records List of lead records
    * @param oldMap Map of old lead records
    */
-  public static void sendAdobeLeadUpdateToAdobe(
+  public static void sendLeadUpdateToUnicaOrAdobe(
     List<Lead> records,
     Map<Id, Lead> oldMap
   ) {
     List<Lead> listOfLeads = new List<Lead>();
+
     for (Lead record : records) {
       Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
       if (
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE &&
-        (record.OwnerId != oldRec.OwnerId ||
+        ((record.OwnerId != oldRec.OwnerId ||
         record.Expiry_Date__c != oldRec.Expiry_Date__c ||
-        record.Status != oldRec.Status)
+        record.Status != oldRec.Status) && !CCRMLeadUtil.isIntegrationUser()) &&
+        (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE ||
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA ||
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM)
       ) {
         listOfLeads.add(record);
       }
     }
+
     if (listOfLeads.size() > 0) {
-      CCRMLeadActionsHelper.publishManualLeads(
-        listOfLeads,
-        oldMap,
-        CCRMConstants.ORIGINATOR_ADOBE
-      );
+      CCRMLeadActionsHelper.publishLeadUpdateToUnicaOrAdobe(listOfLeads);
     }
   }
 
@@ -651,6 +668,7 @@ public with sharing class CCRMLeadActions {
       if (oldRec != null) {
         removeValidationStatus(record, oldRec);
       }
+      setDuplicateBlock(record, oldRec);
     }
   }
 
@@ -785,10 +803,10 @@ public with sharing class CCRMLeadActions {
     Map<Id, List<Lead>> leadOwners = new Map<Id, List<Lead>>();
 
     for (Lead lead : records) {
-      if (CCRMLeadActions.isCCRMLeadType(lead)) {
+      if (CCRMLeadUtil.isCCRMLeadType(lead)) {
         if (
           oldMap != null &&
-          CCRMLeadActions.isLeadOwnerChanged(lead, (Lead) oldMap.get(lead.id))
+          CCRMLeadUtil.isLeadOwnerChanged(lead, (Lead) oldMap.get(lead.id))
         ) {
           lead.CPID__c = null;
           lead.CPID_Owner__c = null;
@@ -827,6 +845,12 @@ public with sharing class CCRMLeadActions {
       managerIds.add(user.ManagerId);
     }
 
+    CCRMLeadActionsHelper.updateCPIDs(
+      leadOwners,
+      employeeUsers,
+      CCRMLeadActionsHelper.getControllingPosts(employeeUsers.keySet())
+    );
+
     Map<String, User> managerUsers = new Map<String, User>();
     for (User user : [
       SELECT Id, Employee_Id__c
@@ -839,62 +863,77 @@ public with sharing class CCRMLeadActions {
       }
     }
 
-    List<Controlling_Post__c> employeeControllingPosts = getControllingPosts(
-      employeeUsers.keySet()
+    CCRMLeadActionsHelper.updateCPIDs(
+      mappedLeadOwners,
+      managerUsers,
+      CCRMLeadActionsHelper.getControllingPosts(managerUsers.keySet())
     );
-    List<Controlling_Post__c> managerControllingPosts = getControllingPosts(
-      managerUsers.keySet()
-    );
-
-    updateCPIDs(leadOwners, employeeUsers, employeeControllingPosts);
-
-    updateCPIDs(mappedLeadOwners, managerUsers, managerControllingPosts);
   }
 
   /**
-   * @description Get a List of Controlling Posts
-   * @name getControllingPosts
-   * @param employeeIds A Set of User.Employee_Id__c
-   * @return `List<Controlling_Post__c>` Returns List of Controlling Posts of Users
+   * @description Validate lead originated from UNICA and ADOBE
+   * @name validateIngestedLeads
+   * @param records List of lead NEW records.
    */
-  private static List<Controlling_Post__c> getControllingPosts(
-    Set<String> employeeIds
-  ) {
-    return [
-      SELECT Id, CPID__c, Responsible_Employee_Id__c
-      FROM Controlling_Post__c
-      WHERE Responsible_Employee_Id__c IN :employeeIds AND Is_Active__c = TRUE
-      WITH SECURITY_ENFORCED
-    ];
+  public static void validateIngestedLeads(List<Lead> records) {
+    CCRMLeadUtil.validateUnicaLeads(records);
+    CCRMLeadUtil.validateAdobeLeads(records);
   }
 
   /**
-   * @description Updates Leads if the User has a Controlling Post with CPID
-   * @name updateCPIDs
-   * @param leadOwners Map of Leads with Owner ID as key
-   * @param users Map of Employee Users with Employee ID as key
-   * @param controllingPosts List of Controlling Posts from employeer
+   * @description Set field CCRM_Duplicate_Block__c to true if the lead's status is New or In progress
+   * @name setDuplicateBlock
+   * @param record current record
+   * @param oldRec old record
    */
-  private static void updateCPIDs(
-    Map<Id, List<Lead>> leadOwners,
-    Map<String, User> users,
-    List<Controlling_Post__c> controllingPosts
-  ) {
-    for (Controlling_Post__c controllingPost : controllingPosts) {
-      if (users.containsKey(controllingPost.Responsible_Employee_Id__c)) {
-        User user = users.get(controllingPost.Responsible_Employee_Id__c);
-        List<Lead> mappedLeads = leadOwners.get(user.id);
+  private static void setDuplicateBlock(Lead record, Lead oldRec) {
+    if (!CCRMLeadUtil.isCCRMLeadType(record)) {
+      return;
+    }
+    if (oldRec != null && !CCRMLeadUtil.isLeadStatusChanged(record, oldRec)) {
+      return;
+    }
+    CCRMLeadActionsHelper.setDuplicateBlock(record, oldRec);
+  }
 
-        if (controllingPost.CPID__c != null) {
-          for (Lead mappedLead : mappedLeads) {
-            if (mappedLead.CPID__c == null) {
-              mappedLead.Controlling_Post__c = controllingPost.Id;
-              mappedLead.CPID__c = controllingPost.CPID__c;
-              mappedLead.CPID_Owner__c = user.id;
-            }
-          }
-        }
+  /**
+   * @description Set default campaign of manually created leads.
+   * @name setDefaultCampaign
+   * @param records List of leads to process
+   */
+  public static void setDefaultCampaign(List<Lead> records) {
+    List<Lead> leadsToUpdate = new List<Lead>();
+    for (Lead record : records) {
+      if (
+        CCRMLeadUtil.isCCRMLeadType(record) &&
+        String.isBlank(record.Campaign_Code__c)
+      ) {
+        leadsToUpdate.add(record);
       }
     }
+    if (leadsToUpdate.isEmpty()) {
+      return;
+    }
+    Campaign defaultCampaign = CCRMLeadActionsHelper.getDefaultCampaign();
+    if (defaultCampaign == null) {
+      return;
+    }
+    for (Lead record : leadsToUpdate) {
+      record.Campaign_Code__c = defaultCampaign.Code__c;
+    }
+  }
+
+  /**
+   * @description This method is used by Admin to resend PE Lead Update incase there is any error
+   * @name resendAdobeOrUnicaOrCcrmLeadUpdatePlatformEvent
+   * @param leadIds Set of lead ids
+   */
+  public static void resendAdobeOrUnicaOrCcrmLeadUpdatePlatformEvent(
+    Set<Id> leadIds
+  ) {
+    sendLeadUpdateToUnicaOrAdobe(
+      CCRMLeadActionsHelper.getLeadData(leadIds),
+      null
+    );
   }
 }

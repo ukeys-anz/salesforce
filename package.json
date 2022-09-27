@@ -37,7 +37,7 @@
     "prettier": "^2.2.1",
     "prettier-plugin-apex": "^1.10.0",
     "pretty-quick": "^3.0.2",
-    "sfdx-cli": "^7.156.1",
+    "sfdx-cli": "^7.168.0",
     "typescript": "^3.9.7"
   }
 }

@@ -5613,10 +5613,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Checking%2FSavings accounts</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Commercial cards</fullName>
             <default>false</default>
         </values>

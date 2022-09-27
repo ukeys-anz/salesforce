@@ -9,30 +9,32 @@ public with sharing class CCRMLeadActionsHelper {
   private static List<CCRM_Lead_to_Platform_Event_Mapping__mdt> mappingsInCustomMetadata = new List<CCRM_Lead_to_Platform_Event_Mapping__mdt>();
   private static Map<Id, User> mapOfLastModifiedUserLanIds = new Map<Id, User>();
   private static Map<String, String> mapOfResponseLogLeadSubStatus = new Map<String, String>();
-  private static Map<String, String> mapOfOpportunityIds = new Map<String, String>();
-
+  private static Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
   private static String action;
   private static string originator;
-  private static Boolean isleadUpdated = false;
-
   private static List<Lead> listOfLeads = new List<Lead>();
+
+  private static final Map<String, String> MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME = new Map<String, String>{
+    'Customer' => 'Customer_ID__c',
+    'Business' => 'Business_ID__c',
+    'CLG' => 'CLG_ID__c'
+  };
+  private static final Map<String, String> MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE = new Map<String, String>{
+    'Customer' => 'Individual',
+    'Business' => 'Company',
+    'CLG' => 'CLG'
+  };
+
   /**
    * @description Publish manual CCRM leads to UNICA via MuleSoft.
    * @param listOfLeads List of leads
-   * @param oldMap This Map<Id, Lead> contains the map old leads
-   * @param leadOriginator Lead Originator UNICA/CCRM/Adobe
    */
-  public static void publishManualLeads(
-    List<Lead> listOfLeads,
-    Map<Id, Lead> oldMap,
-    String leadOriginator
-  ) {
+  public static void publishManualLeads(List<Lead> listOfLeads) {
     if (listOfLeads.size() > 0) {
       List<Lead_Event__e> leadEventsList;
-      originator = leadOriginator;
 
       // Get a list of platform events
-      leadEventsList = generateLeadPlatformEvents(listOfLeads, oldMap);
+      leadEventsList = getLeadPlatformEvents(listOfLeads);
 
       // Publish platform events
       if (leadEventsList.size() > 0) {
@@ -83,11 +85,11 @@ public with sharing class CCRMLeadActionsHelper {
       }
     }
 
-    //Get task data for all the fields defined within custom metadata
+    //Get ONLY latest task data for all the fields defined within custom metadata
     string query =
       'SELECT ' +
       taskFields +
-      ' WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds';
+      ' WhoId, Response_Type__r.Unica_Lead_SubStatus__c FROM Task WHERE WhoId IN :leadIds order by createdDate desc LIMIT 1';
 
     List<Task> tasks = Database.query(query);
     for (Task task : tasks) {
@@ -102,10 +104,6 @@ public with sharing class CCRMLeadActionsHelper {
         task,
         responseEventMapping
       );
-      responseEvent.put(
-        'UNICA_Treatment_Code__c',
-        task.Response_Type__r.Unica_Lead_SubStatus__c
-      );
 
       if (mapOfLanIds.containsKey(record.LastModifiedById)) {
         responseEvent.put(
@@ -116,7 +114,7 @@ public with sharing class CCRMLeadActionsHelper {
 
       if (mapOfSourceSystemIds.containsKey(record.FinServ__RelatedAccount__c)) {
         responseEvent.put(
-          'Customer_Number__c',
+          'Customer_ID__c',
           mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c)
             .Source_System_ID__c
         );
@@ -133,6 +131,9 @@ public with sharing class CCRMLeadActionsHelper {
                 ? 'Company'
                 : accountType == 'CLG' ? 'CLG' : 'Prospect'
         );
+      } else if (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) {
+        //For Adobe lead add prospect Id to customer number if no related party exist
+        responseEvent.put('Customer_ID__c', record.Prospect_ID__c);
       }
 
       if (record.lead_originator__c == CCRMConstants.ORIGINATOR_ADOBE) {
@@ -140,6 +141,8 @@ public with sharing class CCRMLeadActionsHelper {
           'Lead_Owner_LAN_ID__c',
           mapOfLanIds.get(record.OwnerId).Lan_Id__c
         );
+        //Don't send follow up date for Adobe leads
+        responseEvent.put('Followup_Date__c', null);
       }
 
       leadResponseEventList.add(responseEvent);
@@ -148,6 +151,74 @@ public with sharing class CCRMLeadActionsHelper {
     if (leadResponseEventList.size() > 0) {
       PlatformEventUtils.publishEvents(leadResponseEventList);
     }
+  }
+
+  /**
+   * @description Publish CCRM/UNICA/ADOBE leads to UNICA or ADOBE via MuleSoft.
+   * @param listOfLeads List of leads
+   */
+  public static void publishLeadUpdateToUnicaOrAdobe(List<Lead> listOfLeads) {
+    if (listOfLeads.size() > 0) {
+      List<Lead_Event__e> leadEventsList;
+      originator = CCRMConstants.ORIGINATOR_UNICA_OR_ADOBE_OR_CCRM;
+      // Get a list of platform events
+      leadEventsList = getLeadUpdatePlatformEvents(listOfLeads);
+
+      // Publish platform events
+      if (leadEventsList.size() > 0) {
+        PlatformEventUtils.publishEvents(leadEventsList);
+      }
+    }
+  }
+
+  /**
+   * @description This method returns List of lead platform events
+   * @name getLeadUpdatePlatformEvents
+   * @param records List of leads
+   * @return List<Lead_Event__e> List of Lead platform events
+   */
+  private static List<Lead_Event__e> getLeadUpdatePlatformEvents(
+    List<Lead> records
+  ) {
+    List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
+
+    mappingsInCustomMetadata = CCRM_Lead_to_Platform_Event_Mapping__mdt.getall()
+      .Values();
+
+    //Get Map of Lan Ids for UNICA & ADOBE Leads
+    Map<Id, User> mapOfLanIds = getMapOfLanIds(records, false);
+    //Get Map of Source System Ids for UNICA & ADOBE Leads
+    Map<Id, Account> mapOfSourceSystemIds = getMapOfSourceSystemIdsByRelatedParties(
+      records
+    );
+
+    //Get Map of Last Modified User Lan Ids for ADOBE Leads only
+    mapOfLastModifiedUserLanIds = getMapOfLanIds(records, true);
+    mapOfResponseLogLeadSubStatus = getMapOfResponseLogLeadSubStatus(records);
+
+    for (Lead record : records) {
+      Lead_Event__e leadEvent = new Lead_Event__e();
+
+      //Static mapping for following fields:
+      //Owner Lan Id - Lan Id exist on User object which is a lookup on Lead
+      //Customer/Business/CLG Ids - No direct relationship to lead. These fields need to be mapped through related party on Lead
+      if (mapOfLanIds.containsKey(record.OwnerId)) {
+        leadEvent.put(
+          'Owner_Lan_ID__c',
+          mapOfLanIds.get(record.OwnerId).Lan_Id__c
+        );
+      }
+      leadEvent.put('Action__c', 'Update');
+
+      //Dynamic mapping
+      getLeadToPlatformEventMapping(record, leadEvent);
+
+      if (leadEvent != null) {
+        mapSourceSystemIds(mapOfSourceSystemIds, record, leadEvent);
+        leadEventList.add(leadEvent);
+      }
+    }
+    return leadEventList;
   }
 
   /**
@@ -189,52 +260,31 @@ public with sharing class CCRMLeadActionsHelper {
 
   /**
    * @description This method returns List of lead platform events
-   * @name generateLeadPlatformEvents
+   * @name getLeadPlatformEvents
    * @param records List of leads
-   * @param oldMap This Map<Id, Lead> contains the map old leads
    * @return List<Lead_Event__e> List of Lead platform events
    */
-  private static List<Lead_Event__e> generateLeadPlatformEvents(
-    List<Lead> records,
-    Map<Id, Lead> oldMap
-  ) {
+  private static List<Lead_Event__e> getLeadPlatformEvents(List<Lead> records) {
     List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
 
     mappingsInCustomMetadata = CCRM_Lead_to_Platform_Event_Mapping__mdt.getall()
       .Values();
 
-    //Get Map of Lan Ids for UNICA & ADOBE Leads
+    //Get Map of Lan Ids for UNICA
     Map<Id, User> mapOfLanIds = getMapOfLanIds(records, false);
-    //Get Map of Source System Ids for UNICA & ADOBE Leads
+    //Get Map of Source System Ids for UNICA
     Map<Id, Account> mapOfSourceSystemIds = getMapOfSourceSystemIdsByRelatedParties(
       records
     );
 
-    //Get Map of Last Modified User Lan Ids for ADOBE Leads only
-    if (originator == CCRMConstants.ORIGINATOR_ADOBE) {
-      mapOfLastModifiedUserLanIds = getMapOfLanIds(records, true);
-      mapOfResponseLogLeadSubStatus = getMapOfResponseLogLeadSubStatus(records);
-      mapOfOpportunityIds = getMapOfOpportunityIds(records);
-    }
-
     //Get Action i.e New or Update. Action will be passed to Platform Event
-    action = oldMap == null
-      ? CCRMConstants.MANUAL_LEADS_TO_UNICA_ACTION_NEW
-      : CCRMConstants.MANUAL_LEADS_TO_UNICA_ACTION_UPDATE;
+    action = CCRMConstants.MANUAL_LEADS_TO_UNICA_ACTION_NEW;
 
     for (Lead record : records) {
       Lead_Event__e leadEvent = new Lead_Event__e();
 
-      if (originator == CCRMConstants.ORIGINATOR_CCRM && oldMap != null) {
-        isleadUpdated = checkIfLeadUpdated(
-          mappingsInCustomMetadata,
-          record,
-          oldMap
-        );
-      }
-
       if (
-        originator == CCRMConstants.ORIGINATOR_CCRM &&
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM &&
         String.isBlank(record.FinServ__RelatedAccount__c)
       ) {
         leadEvent.put('Prospect_Id__c', 'New');
@@ -242,54 +292,27 @@ public with sharing class CCRMLeadActionsHelper {
       //Static mapping for following fields:
       //Owner Lan Id - Lan Id exist on User object which is a lookup on Lead
       //Action fields - Action field don't exist on Lead
-      //Customer/Business/CLG Ids - No direct relationship to lead. These fields need to be mapped through related party on Lead
-      leadEvent.put(
-        'Owner_Lan_ID__c',
-        mapOfLanIds.get(record.OwnerId).Lan_Id__c
-      );
-      leadEvent.put('Action__c', action);
-
-      //Dynamic mapping
-      if (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM) {
-        getUnicaPlatformEventMapping(record, leadEvent);
-      } else if (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) {
-        getAdobePlatformEventMapping(record, leadEvent);
+      //SubStatus will ne set to NEW on CCRM lead creation
+      if (mapOfLanIds.containsKey(record.OwnerId)) {
+        leadEvent.put(
+          'Owner_Lan_ID__c',
+          mapOfLanIds.get(record.OwnerId).Lan_Id__c
+        );
       }
 
+      leadEvent.put('Action__c', action);
+      leadEvent.put('SubStatus__c', CCRMConstants.LEAD_SUBSTATUS_NEW);
+
+      //Dynamic mapping
+      getUnicaPlatformEventMapping(record, leadEvent);
+
+      //Send PE for new Lead Or for updated lead only when required fields mentioned in Custom Metadata is changed
       if (leadEvent != null) {
         mapSourceSystemIds(mapOfSourceSystemIds, record, leadEvent);
         leadEventList.add(leadEvent);
       }
     }
     return leadEventList;
-  }
-
-  /**
-   * @description This method returns map of opportunity Ids for converted lead
-   * @name getMapOfOpportunityIds
-   * @param leadList List of leads
-   * @return Map<String, String> Map of related party and opportunity id
-   */
-  private static Map<String, String> getMapOfOpportunityIds(
-    List<Lead> leadList
-  ) {
-    Set<Id> accountIds = new Set<Id>();
-    Map<String, String> mapOpportunityIds = new Map<String, String>();
-
-    for (Lead lead : leadList) {
-      accountIds.add(lead.FinServ__RelatedAccount__c);
-    }
-
-    if (!accountIds.isEmpty() && Schema.sObjectType.Opportunity.isQueryable()) {
-      for (Opportunity opp : [
-        SELECT Opp_Id__c, AccountId
-        FROM Opportunity
-        WHERE AccountId = :accountIds
-      ]) {
-        mapOpportunityIds.put(opp.AccountId, opp.Opp_Id__c);
-      }
-    }
-    return mapOpportunityIds;
   }
 
   /**
@@ -301,20 +324,43 @@ public with sharing class CCRMLeadActionsHelper {
   private static Map<String, String> getMapOfResponseLogLeadSubStatus(
     List<Lead> leadList
   ) {
-    Set<Id> leadIds = new Map<Id, Lead>(leadList).keySet();
+    Set<Id> leadIds = new Set<Id>();
     Map<String, String> mapLeadSubStatus = new Map<String, String>();
 
-    if (!leadids.isEmpty() && Schema.sObjectType.Task.isQueryable()) {
-      for (Task task : [
-        SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId
-        FROM Task
-        WHERE whoId = :leadIds
-        ORDER BY createddate DESC
-        LIMIT 1
-      ]) {
+    for (Lead lead : leadList) {
+      leadIds.add(lead.Id);
+    }
+
+    Set<Id> oppIds = new Set<Id>(mapOfOpportunityId.values());
+
+    if (leadids.isEmpty() || !Schema.sObjectType.Task.isQueryable()) {
+      return mapLeadSubStatus;
+    }
+    for (Task task : [
+      SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId, WhatId
+      FROM Task
+      WHERE WhoId IN :leadIds OR WhatId IN :oppIds
+      ORDER BY createddate DESC
+    ]) {
+      if (
+        mapLeadSubStatus.containsKey(task.WhatId) ||
+        mapLeadSubStatus.containsKey(task.WhoId)
+      ) {
+        continue;
+      }
+      if (oppIds.contains(task.WhatId)) {
+        mapLeadSubStatus.put(
+          task.WhatId,
+          task.Response_Type__r.Unica_Lead_SubStatus__c
+        );
+      } else {
         mapLeadSubStatus.put(
           task.WhoId,
-          task.Response_Type__r.Unica_Lead_SubStatus__c
+          task.Response_Type__r.Unica_Lead_SubStatus__c = !String.isEmpty(
+              task.Response_Type__r.Unica_Lead_SubStatus__c
+            )
+            ? task.Response_Type__r.Unica_Lead_SubStatus__c
+            : CCRMConstants.LEAD_SUBSTATUS_NEW
         );
       }
     }
@@ -344,32 +390,18 @@ public with sharing class CCRMLeadActionsHelper {
           mapping.Platform_Event_Field_API_Name__c,
           record.get(mapping.Lead_Field_API_Name__c)
         );
-        //Lead UPDATE. Platform Event should ONLY publish if Lead fields that flow to UNICA are updated
-      } else if (
-        action == CCRMConstants.MANUAL_LEADS_TO_UNICA_ACTION_UPDATE &&
-        (mapping.Destination_System__c == CCRMConstants.ORIGINATOR_UNICA ||
-        mapping.Destination_System__c == 'All') &&
-        isleadUpdated
-      ) {
-        leadEvent.put(
-          mapping.Platform_Event_Field_API_Name__c,
-          record.get(mapping.Lead_Field_API_Name__c)
-        );
       }
-    }
-
-    if (!isleadUpdated) {
-      leadEvent = null;
     }
   }
 
   /**
-   * @description This method returns required platform event fields for ADOBE
-   * @name getAdobePlatformEventMapping
+   * @description This method returns mapped fields (Lead to Lead_Event__e (Platform Event))
+   * in Custom Metadata - CCRM Lead to Platform Event Mapping for ADOBE/UNICA/CCRM
+   * @name getLeadToPlatformEventMapping
    * @param record Lead record
    * @param leadEvent Platform event
    */
-  private static void getAdobePlatformEventMapping(
+  private static void getLeadToPlatformEventMapping(
     Lead record,
     Lead_Event__e leadEvent
   ) {
@@ -379,21 +411,22 @@ public with sharing class CCRMLeadActionsHelper {
     );
 
     //Map Response_Type - UNICA Lead SubStatus to PE SubStatus__c
-    leadEvent.put('SubStatus__c', mapOfResponseLogLeadSubStatus.get(record.Id));
-    if (record.Status == 'Converted') {
+    //Map from Opportunity if lead got converted otherwise from Lead
+    if (mapOfOpportunityId.containsKey(record.Id)) {
+      Id opId = mapOfOpportunityId.get(record.Id);
+      leadEvent.put('SubStatus__c', mapOfResponseLogLeadSubStatus.get(opId));
+      leadEvent.put('Opp_Id__c', mapOfOpportunityId.get(record.Id));
+    } else {
       leadEvent.put(
-        'Opp_Id__c',
-        mapOfOpportunityIds.get(record.FinServ__RelatedAccount__c)
+        'SubStatus__c',
+        mapOfResponseLogLeadSubStatus.get(record.Id)
       );
     }
 
     for (
       CCRM_Lead_to_Platform_Event_Mapping__mdt mapping : mappingsInCustomMetadata
     ) {
-      if (
-        mapping.Destination_System__c == CCRMConstants.ORIGINATOR_ADOBE ||
-        mapping.Destination_System__c == 'All'
-      ) {
+      if (mapping.Destination_System__c == 'All') {
         leadEvent.put(
           mapping.Platform_Event_Field_API_Name__c,
           record.get(mapping.Lead_Field_API_Name__c)
@@ -421,46 +454,26 @@ public with sharing class CCRMLeadActionsHelper {
       string accountType = CCRMLeadMappingEngine.getAccountType(
         mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c).RecordTypeId
       );
-      if (originator == CCRMConstants.ORIGINATOR_CCRM) {
-        switch on accountType {
-          when 'Customer' {
-            leadEvent.put(
-              'Customer_ID__c',
-              mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c)
-                .Source_System_ID__c
-            );
-          }
-          when 'Business' {
-            leadEvent.put(
-              'Business_ID__c',
-              mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c)
-                .Source_System_ID__c
-            );
-          }
-          when 'CLG' {
-            leadEvent.put(
-              'CLG_ID__c',
-              mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c)
-                .Source_System_ID__c
-            );
-          }
-        }
-      }
-      if (originator == CCRMConstants.ORIGINATOR_ADOBE) {
+
+      if (MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME.containsKey(accountType)) {
         leadEvent.put(
-          'Customer_Number__c',
+          MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME.get(accountType),
           mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c)
             .Source_System_ID__c
         );
-        leadEvent.put(
-          'Customer_Type__c',
-          accountType == 'Customer'
-            ? 'Individual'
-            : accountType == 'Business'
-                ? 'Company'
-                : accountType == 'CLG' ? 'CLG' : 'Prospect'
-        );
       }
+
+      if (originator == CCRMConstants.ORIGINATOR_UNICA_OR_ADOBE_OR_CCRM) {
+        String customerType = MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE.containsKey(
+            accountType
+          )
+          ? MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE.get(accountType)
+          : 'Prospect';
+        leadEvent.put('Customer_Type__c', customerType);
+      }
+    } else if (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) {
+      //For Adobe lead add prospect Id if no related party exist
+      leadEvent.put('Customer_ID__c', record.Prospect_ID__c);
     }
   }
 
@@ -493,34 +506,6 @@ public with sharing class CCRMLeadActionsHelper {
   }
 
   /**
-   * @description This method check any Lead fields that flow to UNICA are updated
-   * @name checkIfLeadUpdated
-   * @param mappingsInCustomMetadata Fields in metadata
-   * @param record Lead record
-   * @param oldRecords Map of old lead records
-   * @return Boolean Return true if any lead field that flow to UNICA is updated
-   */
-  private static Boolean checkIfLeadUpdated(
-    List<CCRM_Lead_to_Platform_Event_Mapping__mdt> mappingsInCustomMetadata,
-    Lead record,
-    Map<Id, Lead> oldRecords
-  ) {
-    for (
-      CCRM_Lead_to_Platform_Event_Mapping__mdt mapping : mappingsInCustomMetadata
-    ) {
-      if (
-        (mapping.Destination_System__c == CCRMConstants.ORIGINATOR_UNICA ||
-        mapping.Destination_System__c == 'All') &&
-        record.get(mapping.Lead_Field_API_Name__c) !=
-        oldRecords.get(record.Id).get(mapping.Lead_Field_API_Name__c)
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
    * @description This method gets the Lan Ids of lead owner and lead last modified user
    * @name getMapOfLanIds
    * @param leadList List of lead
@@ -544,11 +529,38 @@ public with sharing class CCRMLeadActionsHelper {
   }
 
   /**
+   * @description This method is to publish event when lead conversion is completed
+   * @name sendUpdateToUnicaOrAdobeOnLeadConversion
+   * @param leadIds Set of lead ids
+   * @param mapOppId Map of Oppotunities ids
+   */
+  public static void sendUpdateToUnicaOrAdobeOnLeadConversion(
+    Set<Id> leadIds,
+    Map<Id, Id> mapOppId
+  ) {
+    mapOfOpportunityId = mapOppId;
+    publishLeadUpdateToUnicaOrAdobe(getLeadData(leadIds));
+  }
+
+  /**
    * @description This method is used by Admin to resend PE incase there is any error
-   * @name resendLeadPlatformEvent
+   * @name resendManualLeadPlatformEvent
    * @param leadIds Set of lead ids
    */
-  public static void resendLeadPlatformEvent(Set<Id> leadIds) {
+  public static void resendManualLeadPlatformEvent(Set<Id> leadIds) {
+    List<Lead> leads = getLeadData(leadIds);
+    if (leads.size() > 0) {
+      publishManualLeads(leads);
+    }
+  }
+
+  /**
+   * @description This method get lead data to resend PE Lead Update event by Admin incase there is any error
+   * @name getLeadData
+   * @param leadIds Set of lead ids
+   * @return List<Lead> List of Lead records
+   */
+  public static List<Lead> getLeadData(Set<Id> leadIds) {
     List<CCRM_Lead_to_Platform_Event_Mapping__mdt> mappingsInCustomMetadata = CCRM_Lead_to_Platform_Event_Mapping__mdt.getall()
       .Values();
     string leadFields = '';
@@ -562,46 +574,115 @@ public with sharing class CCRMLeadActionsHelper {
       leadFields +
       ' OwnerId, FinServ__RelatedAccount__c, LastModifiedById FROM Lead WHERE Id IN :leadIds';
     List<Lead> leads = Database.query(query);
-    List<Lead> ccrmLeads = new List<Lead>();
-    List<Lead> adobeLeads = new List<Lead>();
-    for (Lead lead : leads) {
-      if (lead.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM) {
-        ccrmLeads.add(lead);
-      } else if (lead.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) {
-        adobeLeads.add(lead);
+    return leads;
+  }
+
+  /**
+   * @description Set default campaign of manually created leads.
+   * @name getDefaultCampaign
+   * @return `Campaign`
+   */
+  public static Campaign getDefaultCampaign() {
+    String defaultCampaignCode = Label.CCRM_DefaultCampaign;
+    if (String.isBlank(defaultCampaignCode)) {
+      return null;
+    }
+    try {
+      List<Campaign> defaultCampaign = [
+        SELECT Id, Code__c
+        FROM Campaign
+        WHERE Code__c = :defaultCampaignCode
+        WITH SECURITY_ENFORCED
+      ];
+      if (defaultCampaign.isEmpty()) {
+        return null;
       }
+      return defaultCampaign[0];
+    } catch (System.QueryException qe) {
+      lib_systemLog log = new lib_systemLog(
+        CCRMLeadActions.class.getName(),
+        'getDefaultCampaign'
+      );
+      log.error(
+        'InsufficientAccessException',
+        qe.getMessage(),
+        qe.getTypeName()
+      );
+      log.publishEvent();
     }
-    if (ccrmLeads.size() > 0) {
-      publishManualLeads(ccrmLeads, null, CCRMConstants.ORIGINATOR_CCRM);
-    }
-    if (adobeLeads.size() > 0) {
-      publishManualLeads(adobeLeads, null, CCRMConstants.ORIGINATOR_ADOBE);
+    return null;
+  }
+
+  /**
+   * @description Set field CCRM_Duplicate_Block__c to true if the lead's status is New or In progress
+   * @name setDuplicateBlock
+   * @param record current record
+   * @param oldRec old record
+   */
+  public static void setDuplicateBlock(Lead record, Lead oldRec) {
+    if (
+      record.Status == CCRMConstants.STATUS_NEW ||
+      record.Status == CCRMConstants.STATUS_IN_PROGRESS
+    ) {
+      record.CCRM_Duplicate_Block_Check__c = 'Yes';
+    } else {
+      record.CCRM_Duplicate_Block_Check__c = 'No';
     }
   }
 
   /**
-   * @description This method is used by Admin to resend PE incase there is any error
-   * @name resendLeadUpdatePlatformEvent
-   * @param leadIds Set of lead ids
+   * @description Get a List of Controlling Posts
+   * @name getControllingPosts
+   * @param employeeIds A Set of User.Employee_Id__c
+   * @return `List<Controlling_Post__c>` Returns List of Controlling Posts of Users
    */
-  public static void resendLeadUpdatePlatformEvent(Set<String> leadIds) {
-    List<CCRM_Lead_Response_Event_Mapping__mdt> mappingsInCustomMetadata = CCRM_Lead_Response_Event_Mapping__mdt.getall()
-      .Values();
-    string leadFields = '';
-    for (
-      CCRM_Lead_Response_Event_Mapping__mdt mapping : mappingsInCustomMetadata
+  public static List<Controlling_Post__c> getControllingPosts(
+    Set<String> employeeIds
+  ) {
+    if (
+      !Schema.sObjectType.Controlling_Post__c.isQueryable() &&
+      !Schema.sObjectType.Controlling_Post__c.fields.CPID__c.isAccessible() &&
+      !Schema.sObjectType.Controlling_Post__c.fields.Responsible_Employee_Id__c.isAccessible()
     ) {
-      if (mapping.Object__c == 'Lead') {
-        leadFields += mapping.Task_or_Lead_Field_API_Name__c + ',';
-      }
+      return new List<Controlling_Post__c>();
     }
-    string query =
-      'SELECT ' +
-      leadFields +
-      ' OwnerId, FinServ__RelatedAccount__c, LastModifiedById FROM Lead WHERE Lead_Id__c IN :leadIds';
-    List<Lead> leads = Database.query(query);
-    if (leads.size() > 0) {
-      publishLeadResponseUpdateToAdobeOrUnica(leads, null);
+    return [
+      SELECT Id, CPID__c, Responsible_Employee_Id__c
+      FROM Controlling_Post__c
+      WHERE Responsible_Employee_Id__c IN :employeeIds AND Is_Active__c = TRUE
+      WITH SECURITY_ENFORCED
+    ];
+  }
+
+  /**
+   * @description Updates Leads if the User has a Controlling Post with CPID
+   * @name updateCPIDs
+   * @param leadOwners Map of Leads with Owner ID as key
+   * @param users Map of Employee Users with Employee ID as key
+   * @param controllingPosts List of Controlling Posts from employeer
+   */
+  public static void updateCPIDs(
+    Map<Id, List<Lead>> leadOwners,
+    Map<String, User> users,
+    List<Controlling_Post__c> controllingPosts
+  ) {
+    for (Controlling_Post__c controllingPost : controllingPosts) {
+      if (controllingPost.CPID__c == null) {
+        continue;
+      }
+      User user = users.get(controllingPost.Responsible_Employee_Id__c);
+      List<Lead> mappedLeads = leadOwners.get(user?.id);
+
+      if (mappedLeads == null) {
+        continue;
+      }
+      for (Lead mappedLead : mappedLeads) {
+        if (mappedLead.CPID__c == null) {
+          mappedLead.Controlling_Post__c = controllingPost.Id;
+          mappedLead.CPID__c = controllingPost.CPID__c;
+          mappedLead.CPID_Owner__c = user.id;
+        }
+      }
     }
   }
 }

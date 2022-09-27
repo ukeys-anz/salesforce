@@ -1,140 +1,5 @@
 @isTest
 private class QualityAssessmentTriggerHandlerTest {
-  //method to test pre-populated fields when create Quality Assessment record, value are from Related Case lookup
-  @isTest
-  static void testPopulateFieldsFromCaseWhenCreateQA() {
-    //Add New Account to Case
-    Account account = new Account();
-    account.Name = 'TestAccount';
-    account.OCV_ID__c = '1';
-    account.ANZx_Customer__c = true;
-    account.External_Id__c = '82jfsa80534';
-    insert account;
-
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
-          Status = GetHelpConstants.CLOSED_STATUS,
-          AccountId = account.Id,
-          Origin = 'Phone',
-          Type = 'About Us'
-        )
-      );
-    }
-
-    Test.startTest();
-
-    insert newCases;
-
-    Test.stopTest();
-
-    List<Quality_Assessment__c> newQARecords = [
-      SELECT
-        Id,
-        Related_Case__c,
-        Related_Case__r.Owner.Type,
-        Related_Case__r.OwnerId,
-        Interaction_Owner__c,
-        Interaction_Type__c,
-        Issue_Type__c,
-        Customer__c
-      FROM Quality_Assessment__c
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newQARecords.size(),
-      'Should have ' +
-      Label.Test_Bulk_Size +
-      ' Quality Assessment records.'
-    );
-
-    for (Quality_Assessment__c record : newQARecords) {
-      System.assertNotEquals(
-        null,
-        record.Related_Case__c,
-        'Related Case field should not be null if Quality Assessment record is created from Case closure.'
-      );
-
-      //Case.Origin = Phone is mapped to Quality_Assessment__c.Interaction_Type__c = Voice Call
-      System.assertEquals(
-        'Voice Call',
-        record.Interaction_Type__c,
-        'Interaction Type of Quality Assessment should be Voice Call if realated case origin is Phone.'
-      );
-
-      //Check Issue Type
-      System.assertEquals(
-        'About Us',
-        record.Issue_Type__c,
-        'Interaction Issue Type should match the Case Origin (About Us)'
-      );
-
-      //Check Account ID
-      System.assertEquals(
-        account.Id,
-        record.Customer__c,
-        'Customer Id does not match with the origin account'
-      );
-
-      if (record.Related_Case__r?.Owner.Type == 'Queue') {
-        System.assertEquals(
-          null,
-          record.Interaction_Owner__c,
-          'Interaction Owner field should be null if Related Case owner is a queue.'
-        );
-      } else if (record.Related_Case__r?.Owner.Type == 'User') {
-        System.assertNotEquals(
-          null,
-          record.Interaction_Owner__c,
-          'Interaction Owner field should not be null if Related Case owner is a user.'
-        );
-      }
-    }
-  }
-
-  //method to test format Name field when create Quality Assessment record
-  @isTest
-  static void testFormatQARecordName() {
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
-          Status = GetHelpConstants.CLOSED_STATUS
-        )
-      );
-    }
-
-    Test.startTest();
-
-    insert newCases;
-
-    Test.stopTest();
-
-    List<Quality_Assessment__c> newQARecords = [
-      SELECT Id, Name
-      FROM Quality_Assessment__c
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newQARecords.size(),
-      'Should have ' +
-      Label.Test_Bulk_Size +
-      ' Quality Assessment records.'
-    );
-
-    for (Quality_Assessment__c record : newQARecords) {
-      System.assert(
-        record.Name.contains('Q-'),
-        'Name field should have format Q-00000000. Actual is ' + record.Name
-      );
-    }
-  }
-
   //method to test the Assign to Coach Lead Escalation Queue when QA updates to Breached
   @isTest
   static void testAssignTocoachLeadQueueWhenQAUpdatedToBreached() {
@@ -172,45 +37,6 @@ private class QualityAssessmentTriggerHandlerTest {
         coachLeadQueue.Id,
         records[i].OwnerId,
         'Breached QA should be assigned to Coach Lead Escalation queue'
-      );
-    }
-  }
-
-  //method to test the Assign to Quality Assessor Queue when QA is created
-  @isTest
-  static void testAssignToqualityAssessorQueueWhenQACreated() {
-    Quality_Assessment__c[] newQARecords = new List<Quality_Assessment__c>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newQARecords.add(
-        new Quality_Assessment__c(
-          RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
-          Status__c = QualityAssessmentActions.STATUS_UNASSIGNED
-        )
-      );
-    }
-
-    Test.startTest();
-    insert newQARecords;
-
-    Test.stopTest();
-
-    Group qualityAssessorQueue = [
-      SELECT Id
-      FROM Group
-      WHERE type = 'Queue' AND DeveloperName = 'Quality_Assessor'
-      LIMIT 1
-    ];
-
-    List<Quality_Assessment__c> records = [
-      SELECT Id, OwnerId
-      FROM Quality_Assessment__c
-    ];
-
-    for (Integer i = 0; i < records.size(); i++) {
-      System.assertEquals(
-        qualityAssessorQueue.Id,
-        records[i].OwnerId,
-        'Unassigned QA should be assigned to Quality Assessor queue'
       );
     }
   }
@@ -484,7 +310,7 @@ private class QualityAssessmentTriggerHandlerTest {
   }
 
   @istest
-  static void testQAvalidation() {
+  static void testQAValidation() {
     Faker faker = new Faker('AU');
     // insert an account
     Account caseTestAccount = new Account(
@@ -519,6 +345,7 @@ private class QualityAssessmentTriggerHandlerTest {
         new Quality_Assessment__c(
           RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
           Related_Case__c = caseRecord.Id,
+          Evaluation_Type__c = 'Chat',
           Interaction_Type__c = 'Email',
           Customer__c = unlinkedTestAccount.Id
         )
@@ -547,5 +374,267 @@ private class QualityAssessmentTriggerHandlerTest {
     Test.stopTest();
 
     System.assert(exceptionWasThrown, 'The exception error should be thrown.');
+  }
+
+  @isTest
+  static void testCreateQAShareRecord() {
+    Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole role = CommonUtil.getUserRoleByDevName('FraudX_Agent');
+    User fraudXAgent = new User();
+    System.runAs(new User(Id = UserInfo.getUserId())) {
+      fraudXAgent = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'FraudXTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => role.Id
+        }
+      );
+      insert fraudXAgent;
+    }
+    Quality_Assessment__c[] newQARecords = new List<Quality_Assessment__c>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newQARecords.add(
+        new Quality_Assessment__c(
+          Status__c = QualityAssessmentActions.STATUS_IN_PROGRESS,
+          Interaction_Owner__c = fraudXAgent.Id
+        )
+      );
+    }
+    insert newQARecords;
+    Set<Id> qaIds = new Set<Id>();
+    for (Integer i = 0; i < newQARecords.size(); i++) {
+      newQARecords[i].Status__c = QualityAssessmentActions.STATUS_COMPLETE;
+      newQARecords[i]
+        .Sub_Status__c = QualityAssessmentActions.SUB_STATUS_EVALUATION_COMPLETED;
+      newQARecords[i].Context_and_General_Comments__c = 'test comment';
+      qaIds.add(newQARecords[i].Id);
+    }
+
+    Test.startTest();
+    update newQARecords;
+    Test.stopTest();
+    Quality_Assessment__Share[] shareRecords = [
+      SELECT Id, AccessLevel, ParentId, UserOrGroupId
+      FROM Quality_Assessment__Share
+      WHERE ParentId IN :qaIds AND AccessLevel != 'All'
+    ];
+    System.assertEquals(
+      newQARecords.size(),
+      shareRecords.size(),
+      'sharing record number does not match'
+    );
+    System.assertEquals(
+      'Read',
+      shareRecords[0].AccessLevel,
+      'wrong access level'
+    );
+    System.assertEquals(
+      fraudXAgent.Id,
+      shareRecords[0].UserOrGroupId,
+      'assign to the wrong user'
+    );
+  }
+
+  @isTest
+  static void testValidateEvaluationType() {
+    Case scamCase = new Case(RecordTypeId = GetHelpConstants.SCAM_RT_ID);
+    insert scamCase;
+    System.assertNotEquals(
+      null,
+      scamCase.Id,
+      'scam case should be created with an Id'
+    );
+    Quality_Assessment__c[] newQARecords = new List<Quality_Assessment__c>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newQARecords.add(
+        new Quality_Assessment__c(
+          RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID,
+          Related_Case__c = scamCase.Id,
+          Evaluation_Type__c = 'Identity & KYC'
+        )
+      );
+    }
+    Boolean exceptionThrown = false;
+    try {
+      Test.startTest();
+      insert newQARecords;
+      Test.stopTest();
+    } catch (Exception e) {
+      exceptionThrown = true;
+      System.AssertEquals(
+        true,
+        e.getMessage()
+          .contains(QualityAssessmentActions.EVALUATION_TYPE_MAPPING_ERROR),
+        'not expected error'
+      );
+    }
+    System.assertEquals(true, exceptionThrown, 'No exception was thrown');
+  }
+
+  // method to test updating related cases in afterInsert and afterUpdate trigger
+  @isTest
+  private static void testUpdateRelatedCases() {
+    List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
+    List<Case> testCases = new List<Case>();
+    testCases.add(new Case(RecordTypeId = GetHelpConstants.FRAUD_RT_ID));
+    testCases.add(
+      new Case(
+        Subject = 'Dispute Case',
+        RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+        Origin = 'Chat'
+      )
+    );
+    insert testCases;
+
+    Test.startTest();
+    Quality_Assessment__c qaRecord = new Quality_Assessment__c(
+      RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID,
+      Related_Case__c = testCases[0].Id,
+      Evaluation_type__c = 'Fraud & Dispute'
+    );
+    qaRecords.add(qaRecord);
+    Quality_Assessment__c qaRecord1 = new Quality_Assessment__c(
+      RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GETHELP_RT_ID,
+      //Related_Case__c = testCases[1].Id,
+      Evaluation_type__c = 'Email',
+      Interaction_Type__c = 'Email'
+    );
+    qaRecords.add(qaRecord1);
+    insert qaRecords;
+    qaRecord1.Related_Case__c = testCases[1].Id;
+    update qaRecord1;
+    Test.stopTest();
+
+    System.assertEquals(
+      true,
+      [SELECT Has_Assessment__c FROM Case WHERE Id = :testCases[0].Id]
+      .Has_Assessment__c,
+      'case has assessment should be true'
+    );
+    System.assertEquals(
+      true,
+      [SELECT Has_Assessment__c FROM Case WHERE Id = :testCases[1].Id]
+      .Has_Assessment__c,
+      'case has assessment should be true'
+    );
+  }
+
+  //method to test createChatterPost method, need SeeAllData=true to test ConnectApi
+  @isTest(SeeAllData=true)
+  private static void testCreateChatterPost() {
+    User groupUser = TestUtil.createTestUserWithProfile('System Administrator');
+    insert groupUser;
+    List<String> groupPSs = new List<String>{
+      'Quality_Assessment_Read_Write',
+      'Case Read/Write - Quality Analyst'
+    };
+    List<PermissionSet> groupPsList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :groupPSs
+    ];
+    List<PermissionSetAssignment> groupPsaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : groupPsList) {
+      groupPsaList.add(TestUtil.createPSAssignment(groupUser.id, ps.Id));
+    }
+    insert groupPsaList;
+    //create chatter groups if missing
+    List<CollaborationGroup> groups = [
+      SELECT Id
+      FROM CollaborationGroup
+      WHERE
+        Name IN (
+          :QualityAssessmentActions.GROUP_ASSURANCE_TEAM,
+          :QualityAssessmentActions.GROUP_COACH_LEAD,
+          :QualityAssessmentActions.GROUP_JOIN_LEAD
+        )
+    ];
+    if (groups.size() == 0) {
+      groups.add(
+        new CollaborationGroup(
+          Name = QualityAssessmentActions.GROUP_ASSURANCE_TEAM,
+          CollaborationType = 'Private'
+        )
+      );
+      groups.add(
+        new CollaborationGroup(
+          Name = QualityAssessmentActions.GROUP_COACH_LEAD,
+          CollaborationType = 'Private'
+        )
+      );
+      groups.add(
+        new CollaborationGroup(
+          Name = QualityAssessmentActions.GROUP_JOIN_LEAD,
+          CollaborationType = 'Private'
+        )
+      );
+      insert groups;
+    }
+
+    System.runAs(groupUser) {
+      List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
+      for (CollaborationGroup cg : groups) {
+        CollaborationGroupMember member = new CollaborationGroupMember();
+        member.MemberId = groupUser.Id;
+        member.CollaborationGroupId = cg.Id;
+        collGroupMembers.add(member);
+      }
+      upsert collGroupMembers;
+
+      List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
+      List<Case> testCases = new List<Case>();
+      testCases.add(new Case(RecordTypeId = GetHelpConstants.FRAUD_RT_ID));
+      testCases.add(
+        new Case(
+          Subject = 'Dispute Case',
+          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          Origin = 'Chat'
+        )
+      );
+      insert testCases;
+
+      Test.startTest();
+      Quality_Assessment__c qaRecord = new Quality_Assessment__c(
+        RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID,
+        Related_Case__c = testCases[0].Id,
+        Evaluation_type__c = 'Fraud & Dispute',
+        Status__c = 'Referred',
+        Sub_Status__c = 'Other'
+      );
+      qaRecords.add(qaRecord);
+      Quality_Assessment__c qaRecord1 = new Quality_Assessment__c(
+        RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GETHELP_RT_ID,
+        //Related_Case__c = testCases[1].Id,
+        Evaluation_type__c = 'Email',
+        Interaction_Type__c = 'Email'
+      );
+      qaRecords.add(qaRecord1);
+      insert qaRecords;
+      qaRecord1.Status__c = 'Referred';
+      qaRecord1.Sub_Status__c = 'Compliance Review';
+      update qaRecord1;
+      Test.stopTest();
+
+      System.assertEquals(
+        true,
+        [
+            SELECT Body, HasLink, ParentId, Status, RelatedRecordId, Title
+            FROM FeedItem
+            WHERE ParentId = :qaRecord.Id
+          ]
+          ?.Body.contains('There is a new item for review.'),
+        'failed to create the chatter feed'
+      );
+      System.assertEquals(
+        true,
+        [
+            SELECT Body, HasLink, ParentId, Status, RelatedRecordId, Title
+            FROM FeedItem
+            WHERE ParentId = :qaRecord1.Id
+          ]
+          ?.Body.contains('There is a new item for review.'),
+        'failed to create the chatter feed'
+      );
+    }
   }
 }

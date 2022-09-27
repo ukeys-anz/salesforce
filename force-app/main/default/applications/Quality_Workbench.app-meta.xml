@@ -18,14 +18,6 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
     </actionOverrides>
-    <actionOverrides>
-        <actionName>Tab</actionName>
-        <content>Quality_Workbench_Home_Page</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>standard-home</pageOrSobjectType>
-    </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
         <logo>ANZx</logo>
@@ -58,6 +50,33 @@
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Join_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.Join</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Get_Help_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.Get_Help</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Get_Help_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.Get_Help</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
         <actionName>Tab</actionName>
         <content>Quality_Workbench_Home_Page</content>
         <formFactor>Large</formFactor>
@@ -88,6 +107,15 @@
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
         <recordType>Quality_Assessment__c.General</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Join_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.Join</recordType>
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>

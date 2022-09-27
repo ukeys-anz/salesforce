@@ -23,6 +23,8 @@ public without sharing class IDRTaskActions {
 
   @TestVisible
   private static final String SI_DUE_DATE_ERROR_MESSAGE = 'Only the case owner is allowed to edit the due date';
+  private static final String IDR_LEVEL_1 = 'IDR_Level_1';
+
 
   public static Group siQueue = [
     SELECT Id
@@ -517,6 +519,39 @@ public without sharing class IDRTaskActions {
   ) {
     Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     Task[] siTasks = new List<Task>();
+    Task[] existingTasks = new List<Task>();
+    Set<Id> caseIds = new Set<Id>();
+    Map<Id, Task> siCaseTasks = new Map<Id, Task>();
+    
+    for (Case record : records) {
+      if (oldMap != null && 
+        oldMap.containsKey(record.Id) &&
+        IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
+        record.IDR_Is_Common__c == 'Yes'  //is case PSI
+      ) {
+        caseIds.add(record.Id);
+      }
+    }
+    if (
+      !caseIds.isEmpty() && Task.SObjectType.getDescribe().isQueryable()
+    ) {
+      existingTasks = [
+        SELECT Id, Status, Subject, WhatId
+        FROM Task
+        WHERE
+          WhatId IN :caseIds
+          AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
+          AND Type = :IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE
+          AND Subject = :IDR_TASK_SUBJECT
+      ];
+      
+      for (Task record : existingTasks) {
+          siCaseTasks.put(record.WhatId,record);
+      }
+      
+    }
+    
+    
     for (Case record : records) {
       Case oldRec;
       if (oldMap != null) {
@@ -538,8 +573,9 @@ public without sharing class IDRTaskActions {
         }
       }
       //validate case for PSI task creation
-      if (validateCaseForPSITask(record, oldRec)) {
-        siTasks.add(populateTaskFields(record));
+      if (validateCaseForPSITask(record, oldRec, siCaseTasks)
+      ) {
+          siTasks.add(populateTaskFields(record));
       }
     }
     //rollup on parent systemic issue
@@ -567,21 +603,30 @@ public without sharing class IDRTaskActions {
       }
     }
   }
-
+  
   /**
    * @description Validates a complaint record for creating PSI task
    * @param record from case trigger
    * @param oldRec from case trigger
+   * @param siCaseTasks store existing SI task on a case
    * @return Boolean returns true or false based on validation
    */
-  private static Boolean validateCaseForPSITask(Case record, Case oldRec) {
+  private static Boolean validateCaseForPSITask(
+    Case record,
+    Case oldRec,
+    Map<Id, Task> siCaseTasks
+  ) {
+    
     if (
       IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
       record.IDR_Is_Common__c == 'Yes' && //is case PSI
-      FeatureManagement.checkPermission('IDR_Level_1') && //is user level 1 or higher?
+      FeatureManagement.checkPermission(IDR_LEVEL_1) && //is user level 1 or higher?
       record.IsClosed &&
       (oldRec == null || //if case is created closed
-      oldRec.Status != record.Status) //if case is updated from non-closed to closed status
+      (oldRec.Status != record.Status &&
+      (!(siCaseTasks.containsKey(record.Id)))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
+      //This could be a Reopen to closure scenario therefore make sure another task is not created. 
+      oldRec.IDR_Is_Common__c != record.IDR_Is_Common__c) // when case is already closed and L1 updates PSI flag to yes
     ) {
       return true;
     } else {

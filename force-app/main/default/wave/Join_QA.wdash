@@ -1,0 +1,846 @@
+{
+  "dataSourceLinks": [],
+  "filters": [
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Interaction_Date_Time__c"],
+      "label": "Select Date",
+      "locked": false,
+      "operator": ">=<="
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["User.FirstName"],
+      "label": "Select Staff",
+      "locked": false,
+      "operator": "in"
+    }
+  ],
+  "gridLayouts": [
+    {
+      "maxWidth": 1680,
+      "name": "Default",
+      "numColumns": 36,
+      "pages": [
+        {
+          "label": "Join QA",
+          "name": "7dd6c10f-6924-4464-ad95-7341aa6a9ad5",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 36,
+              "column": 0,
+              "name": "container_1",
+              "row": 0,
+              "rowspan": 136,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 8,
+              "column": 0,
+              "name": "image_1",
+              "row": 0,
+              "rowspan": 17,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 28,
+              "column": 8,
+              "name": "table_2",
+              "row": 0,
+              "rowspan": 28,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 8,
+              "column": 0,
+              "name": "filterpanel_2",
+              "row": 17,
+              "rowspan": 16,
+              "widgetStyle": {
+                "backgroundColor": "#C6D3E1",
+                "borderColor": "#E6ECF2",
+                "borderEdges": [],
+                "borderRadius": 0,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 28,
+              "column": 8,
+              "name": "table_4",
+              "row": 28,
+              "rowspan": 5,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#091A3E",
+                "borderEdges": ["top"],
+                "borderRadius": 0,
+                "borderWidth": 4
+              }
+            },
+            {
+              "colspan": 36,
+              "column": 0,
+              "name": "chart_3",
+              "row": 36,
+              "rowspan": 48,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 36,
+              "column": 0,
+              "name": "chart_2",
+              "row": 88,
+              "rowspan": 48,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "fine",
+      "selectors": [],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#F2F6FA",
+        "cellSpacingX": 8,
+        "cellSpacingY": 0,
+        "fit": "original",
+        "gutterColor": "#C5D3E0"
+      },
+      "version": 1.0
+    }
+  ],
+  "layouts": [],
+  "steps": {
+    "Overall_Score_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "Quality_Assessment" }],
+      "isGlobal": false,
+      "label": "Overall Score",
+      "query": {
+        "query": "{\"measures\":[[\"avg\",\"Score__c\",\"A\"]],\"columns\":[{\"query\":{\"measures\":[[\"avg\",\"Score__c\"]],\"groups\":[[\"year\",\"Interaction_Date_Time__c\"],[\"month\",\"Interaction_Date_Time__c\"]]}}],\"groups\":[[\"year\",\"Interaction_Date_Time__c\"],[\"month\",\"Interaction_Date_Time__c\"]],\"filters\":[[\"RecordType.Name\",[\"Join\"],\"in\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showPoints": false,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": false,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "line",
+          "dashLine": { "measures": "", "showDashLine": false },
+          "title": {
+            "fontSize": 16,
+            "subtitleFontSize": 11,
+            "label": "Overall Score",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "split": [],
+            "trellis": [],
+            "dimensionAxis": [
+              "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c"
+            ],
+            "plots": ["A"]
+          },
+          "fillArea": true,
+          "showActionMenu": true,
+          "showZero": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "valueType": "none",
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": false,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "Clone_of_Overall_Hin_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "Quality_Assessment" }],
+      "isGlobal": false,
+      "label": "Clone of Overall Hindsight Test Results",
+      "query": {
+        "query": "{\"values\":[\"Name\",\"Score__c\"],\"filters\":[[\"RecordType.Name\",[\"Join\"],\"in\"],[\"Rating__c\",[\"Did Not Meet Expectations\",\"Exceeded Expectations\",\"Met Expectations\"],\"in\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "options": {},
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "year_Interaction_Dat_3": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Month/Year Total",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'Interaction_Date_Time__c' in [\"1 year ago\"..\"current day\"];\nq = filter q by 'RecordType.Name' == \"Join\";\nq = group q by all;\nq = foreach q generate \"Total\" as 'Month/Year', \n    sum('Exceeded_Expectations') as 'Exceeded_Expectations', sum('Met_Expectations') as 'Met_Expectations', \n    sum('Did_Not_Meet') as 'Did_Not_Meet', avg('Score_p') as 'avg_Score_p';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#98c6f5",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "evenRowColor": "#f4f6f9",
+          "header": {
+            "backgroundColor": "#1589ee",
+            "fontColor": "#ffffff",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#3290ed",
+          "innerMinorBorderColor": "#98c6f5",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "oddRowColor": "#ffffff",
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 12
+        },
+        "type": "table"
+      }
+    },
+    "Summary_Table_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Summary Table",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Join\";\nq = filter q by 'Interaction_Date_Time__c' in [\"12 months ago\"..\"current day\"];\nq = foreach q generate date_to_string('Interaction_Date_Time__c', \"yyyy-MM\") as 'Date_s', 'Did_Not_Meet', 'Met_Expectations', 'Exceeded_Expectations', 'Score_p';\nresult = group q by rollup('Date_s');\n\nresult = foreach result generate 'Date_s' as 'Date', sum(q.'Exceeded_Expectations') as 'Exceeded', sum(q.'Met_Expectations') as 'Met', sum(q.'Did_Not_Meet') as 'Did Not Meet', number_to_string(avg(q.'Score_p'), \"#.0#%\")  as 'Score__s';\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#98c6f5",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "evenRowColor": "#f4f6f9",
+          "header": {
+            "backgroundColor": "#1589ee",
+            "fontColor": "#ffffff",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#3290ed",
+          "innerMinorBorderColor": "#98c6f5",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "oddRowColor": "#ffffff",
+          "showActionMenu": true,
+          "showRowIndexColumn": false,
+          "totals": true,
+          "verticalPadding": 12
+        },
+        "type": "table"
+      }
+    },
+    "year_Interaction_Dat_1": {
+      "broadcastFacet": false,
+      "groups": [],
+      "label": "Month/Year Breakdown",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'Interaction_Date_Time__c' in [\"1 year ago\"..\"current day\"];\nq = filter q by 'RecordType.Name' == \"Join\";\nq = group q by (year('Interaction_Date_Time__c'), month('Interaction_Date_Time__c'));\nq = foreach q generate number_to_string(month('Interaction_Date_Time__c'), \"##\") + \" /  \" + number_to_string(year('Interaction_Date_Time__c'), \"####\") as 'Month/Year', \n    sum('Exceeded_Expectations') as 'Exceeded_Expectations', sum('Met_Expectations') as 'Met_Expectations', \n    sum('Did_Not_Meet') as 'Did_Not_Meet', avg('Score_p') as 'avg_Score_p';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#98c6f5",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "evenRowColor": "#f4f6f9",
+          "header": {
+            "backgroundColor": "#1589ee",
+            "fontColor": "#ffffff",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#3290ed",
+          "innerMinorBorderColor": "#98c6f5",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "oddRowColor": "#ffffff",
+          "pivoted": true,
+          "showActionMenu": true,
+          "verticalPadding": 12
+        },
+        "type": "table"
+      }
+    },
+    "Overall_Hindsight_Te_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "Quality_Assessment" }],
+      "isGlobal": false,
+      "label": "Overall Hindsight Test Results",
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[[\"year\",\"Interaction_Date_Time__c\"],[\"month\",\"Interaction_Date_Time__c\"],\"Rating__c\"],\"filters\":[[\"RecordType.Name\",[\"Join\"],\"in\"],[\"Rating__c\",[\"Did Not Meet Expectations\",\"Exceeded Expectations\",\"Met Expectations\"],\"in\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": false,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": true
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "vbar",
+          "title": {
+            "fontSize": 16,
+            "subtitleFontSize": 11,
+            "label": "Overall Hindsight Test Results",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "trellis": [],
+            "dimensionAxis": [
+              "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c",
+              "Rating__c"
+            ],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": false,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    }
+  },
+  "widgetStyle": {
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#E6ECF2",
+    "borderEdges": [],
+    "borderRadius": 0,
+    "borderWidth": 1
+  },
+  "widgets": {
+    "table_2": {
+      "parameters": {
+        "borderColor": "#98c6f5",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {
+          "Month/Year": {
+            "parameters": { "alignment": "left", "styles": { "bold": true } },
+            "type": "text"
+          }
+        },
+        "columns": [],
+        "customBulkActions": [],
+        "evenRowColor": "#f4f6f9",
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#1589ee",
+          "fontColor": "#ffffff",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#3290ed",
+        "innerMinorBorderColor": "#98c6f5",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "oddRowColor": "#ffffff",
+        "pivoted": false,
+        "showActionMenu": true,
+        "step": "year_Interaction_Dat_1",
+        "totals": true,
+        "verticalPadding": 12
+      },
+      "type": "table"
+    },
+    "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "table_4": {
+      "parameters": {
+        "borderColor": "#091A3E",
+        "borderWidth": 0,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 16
+        },
+        "columnProperties": {
+          "Month/Year": {
+            "parameters": { "alignment": "left", "styles": { "bold": true } },
+            "type": "text"
+          }
+        },
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#FFFFFF",
+          "fontColor": "#ffffff",
+          "fontSize": 2
+        },
+        "innerMajorBorderColor": "#FFFFFF",
+        "innerMinorBorderColor": "#FFFFFF",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "showActionMenu": true,
+        "showRowIndexColumn": false,
+        "step": "year_Interaction_Dat_3",
+        "totals": true,
+        "verticalPadding": 4
+      },
+      "type": "table"
+    },
+    "table_5": {
+      "parameters": {
+        "borderColor": "#e0e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "header": {
+          "backgroundColor": "#f4f6f9",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a8b7c7",
+        "innerMinorBorderColor": "#e0e5ee",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "showActionMenu": true,
+        "showRowIndexColumn": true,
+        "step": "Clone_of_Overall_Hin_1",
+        "totals": true,
+        "verticalPadding": 8
+      },
+      "type": "table"
+    },
+    "image_1": {
+      "parameters": {
+        "alignmentX": "center",
+        "alignmentY": "top",
+        "fit": "stretch",
+        "image": { "name": "FraudX_Hindsightpng", "namespace": "" }
+      },
+      "type": "image"
+    },
+    "filterpanel_2": {
+      "parameters": {
+        "filterItemOptions": {
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#E6ECF2",
+          "borderRadius": 4,
+          "borderWidth": 1,
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [],
+        "itemsPerRow": 1,
+        "showAllFilters": true,
+        "title": {
+          "separatorColor": "#E6ECF2",
+          "text": {
+            "align": "center",
+            "color": "#0D34B6",
+            "fontSize": 16,
+            "label": "Dashboard Filters"
+          },
+          "visible": true
+        }
+      },
+      "type": "filterpanel"
+    },
+    "chart_2": {
+      "parameters": {
+        "showValues": true,
+        "showPoints": false,
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": false,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
+        },
+        "visualizationType": "line",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 18,
+          "subtitleFontSize": 11,
+          "label": "Overall Score",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "showZero": true,
+        "valueType": "none",
+        "theme": "wave",
+        "dimensionAxis": {
+          "showTitle": false,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true,
+        "drawArea": {
+          "measure": "",
+          "showDrawArea": false,
+          "bounding1": "",
+          "bounding2": ""
+        },
+        "autoFitMode": "keepLabels",
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "dashLine": { "measures": "", "showDashLine": false },
+        "fillArea": true,
+        "columnMap": {
+          "split": [],
+          "trellis": [],
+          "dimensionAxis": [
+            "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c"
+          ],
+          "plots": ["A"]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "step": "Overall_Score_1"
+      },
+      "type": "chart"
+    },
+    "chart_3": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "showValues": false,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": true
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "content": {
+            "widget": { "name": "table_5" },
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
+        },
+        "visualizationType": "vbar",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 18,
+          "subtitleFontSize": 11,
+          "label": "Overall Hindsight Test Results",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "columnMap": {
+          "trellis": [],
+          "dimensionAxis": [
+            "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c",
+            "Rating__c"
+          ],
+          "plots": ["count"]
+        },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "theme": "wave",
+        "step": "Overall_Hindsight_Te_1",
+        "dimensionAxis": {
+          "showTitle": false,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    }
+  }
+}

@@ -138,10 +138,8 @@ echoMessageCreator "Post Deploy" $stepNo true
 git checkout .
 
 sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
+sfdx force:source:deploy -u $scratchorgalias -p force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
 
-f1=force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml
-f2=force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
-sfdx force:source:deploy -u $scratchorgalias -p $f1,$f2
 waitForManualSteps $scratchorgalias "post-deploy"
 echoMessageCreator "" $stepNo false
 ###########################
