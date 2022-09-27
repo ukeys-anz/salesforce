@@ -9,7 +9,7 @@
     <columns>
         <field>Case.CaseComments$CommentBody</field>
     </columns>
-    <description>This report is created to show Case comments on closed Complaints</description>
+    <description>This report is created to show Case comments on Closed Complaints</description>
     <filter>
         <criteriaItems>
             <column>Case$RecordType</column>
