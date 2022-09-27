@@ -7,32 +7,12 @@
     <description>The original case being assessed</description>
     <externalId>false</externalId>
     <label>Related Case</label>
-<!--    <lookupFilter>
-        <active>true</active>
-        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
-        <errorMessage>Related Case must under same Customer selected.</errorMessage>
-        <filterItems>
-            <field>$Source.Customer__c</field>
-            <operation>equals</operation>
-            <valueField>Case.AccountId</valueField>
-        </filterItems>
-        <filterItems>
-            <field>$Source.Customer__c</field>
-            <operation>equals</operation>
-            <value/>
-        </filterItems>
-        <filterItems>
-            <field>Case.AccountId</field>
-            <operation>notEqual</operation>
-            <value/>
-        </filterItems>
-        <isOptional>false</isOptional>
-    </lookupFilter> -->
     <referenceTo>Case</referenceTo>
     <relationshipLabel>Quality Assessments</relationshipLabel>
     <relationshipName>Quality_Assessments</relationshipName>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

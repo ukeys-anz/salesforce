@@ -6,7 +6,7 @@
     <description>Based on the outcome reason value set in the response record, the Follow-Up Date will be set Read Only /Optional /Mandatory</description>
     <externalId>false</externalId>
     <label>Follow-Up State</label>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

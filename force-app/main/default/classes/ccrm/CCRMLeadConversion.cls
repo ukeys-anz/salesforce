@@ -3,8 +3,11 @@
  * @since  12/2021
  * @group CCRM (Commercial CRM)
  * @description CCRMLeadConversion is class to handle Lead Conversion process
+ * Added without sharing to bypass sharing settings as Account OWD is Public Read Only and will remain as is for customer accounts.
+ * Lead conversion requires an Edit permission on account object otherwise it will throw insufficient access to account records error.
  */
-public with sharing class CCRMLeadConversion {
+@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
+public without sharing class CCRMLeadConversion {
   /**
    * @description Checks if Related Party is having a valid Related Party for Lead Conversion.
    * @name getLeadRecordForConversion
@@ -96,14 +99,6 @@ public with sharing class CCRMLeadConversion {
 
     checkSkipValidation(leads);
 
-    lc.setOpportunityName(
-      leads[0].FinServ__RelatedAccount__r.Name +
-      ' ' +
-      leads[0].FinServ__ExpressedInterest__c +
-      ' ' +
-      date.today().format()
-    );
-
     String converted = CCRMConstants.STATUS_CONVERTED;
     LeadStatus convertStatus = [
       SELECT Id, MasterLabel
@@ -114,22 +109,32 @@ public with sharing class CCRMLeadConversion {
     ];
     lc.setConvertedStatus(convertStatus.MasterLabel);
 
-    Map<Id, AccountContactRelation> contacts = new Map<Id, AccountContactRelation>(
-      [
-        SELECT Contact.Id, Account.Id
-        FROM AccountContactRelation
-        WHERE Account.Id = :accountId
-        WITH SECURITY_ENFORCED
-      ]
-    );
+    Set<Id> contactIds = new Set<Id>();
+    for (AccountContactRelation acr : [
+      SELECT ContactId
+      FROM AccountContactRelation
+      WHERE AccountId = :accountId
+      WITH SECURITY_ENFORCED
+    ]) {
+      contactIds.add(acr.ContactId);
+    }
+
+    //Do not create opportunity
+    //Opportunity creation required mapping of different type of fields
+    //which is not possible using OOTB salesforce functionality
+    lc.setDoNotCreateOpportunity(true);
 
     Database.LeadConvertResult lcr = Database.convertLead(lc);
 
     if (lcr.isSuccess()) {
       id accid = lcr.getAccountId();
       Id conid = lcr.getContactId();
-      Id oppId = lcr.getOpportunityId();
-      if (!contacts.containsKey(conid)) {
+      Id oppId = createOpportunity(recordId);
+
+      if (oppId != null) {
+        sendUpdateToUnicaOrAdobeOnLeadConversion(recordId, oppId);
+      }
+      if (!contactIds.contains(conid)) {
         deleteAutoCreatedContact(oppid, conid);
       }
       return oppId;
@@ -142,6 +147,51 @@ public with sharing class CCRMLeadConversion {
       CCRMLeadConversion.addLeadConvertResult(log, 'CCRMLeadConversion', lcr);
       return null;
     }
+  }
+
+  /**
+   * @description This method creates an opportunity when lead is converted
+   * @name createOpportunity
+   * @param leadId The record id of Lead.
+   * @return Id Opportunity Id
+   */
+  private static Id createOpportunity(Id leadId) {
+    Set<Id> leadIds = new Set<Id>();
+    leadIds.add(leadId);
+    Map<Id, Opportunity> mapOfLeadsWithOpportunities = new CCRMLeadMappingEngine()
+      .mapLeadToOpportunityFields(leadIds);
+    Id oppId = null;
+    if (
+      mapOfLeadsWithOpportunities.size() > 0 &&
+      Schema.sObjectType.Opportunity.isCreateable()
+    ) {
+      insert mapOfLeadsWithOpportunities.values();
+    }
+    if (mapOfLeadsWithOpportunities.containsKey(leadId)) {
+      oppId = mapOfLeadsWithOpportunities.get(leadId).Id;
+    }
+    return oppId;
+  }
+
+  /**
+   * @description This method send platform event when lead is converted
+   * @name sendUpdateToUnicaOrAdobeOnLeadConversion
+   * @param leadId The record id of Lead.
+   * @param oppId The record id of Opportunity.
+   */
+  private static void sendUpdateToUnicaOrAdobeOnLeadConversion(
+    Id leadId,
+    Id oppId
+  ) {
+    Set<Id> leadIds = new Set<Id>();
+    leadIds.add(leadId);
+
+    Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
+    mapOfOpportunityId.put(leadId, oppId);
+    CCRMLeadActionsHelper.sendUpdateToUnicaOrAdobeOnLeadConversion(
+      leadIds,
+      mapOfOpportunityId
+    );
   }
 
   /**
@@ -248,14 +298,6 @@ public with sharing class CCRMLeadConversion {
       LIMIT 1
     ];
 
-    OpportunityContactRole oppContact = [
-      SELECT Id
-      FROM OpportunityContactRole
-      WHERE ContactId = :conid AND OpportunityId = :oppid
-      WITH SECURITY_ENFORCED
-      LIMIT 1
-    ];
-
     lib_systemLog log = new lib_systemLog(
       CCRMLeadConversion.class.getName(),
       'deleteAutoCreatedContact'
@@ -271,11 +313,6 @@ public with sharing class CCRMLeadConversion {
     Database.DeleteResult result = Database.delete(leadContact, false);
     if (!result.isSuccess()) {
       logError('Contact', result, log);
-    }
-
-    Database.DeleteResult result1 = Database.delete(oppContact, false);
-    if (!result1.isSuccess()) {
-      logError('OpportunityContactRole', result1, log);
     }
   }
 

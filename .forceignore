@@ -33,6 +33,8 @@ force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
+force-app/main/default/sharingRules/Opportunity.sharingRules-meta.xml
 force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
@@ -138,3 +140,5 @@ force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 #to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 
+#ignoring report for deployment issues
+force-app/main/default/reports/IDRReports/IDR_New_Correspondence_on_Closed_Complaints.report-meta.xml

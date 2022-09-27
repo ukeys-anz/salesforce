@@ -48,4 +48,16 @@
             <role>Content_Writer</role>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_Users_Read_Access_to_NLP_Public_Group</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule is to give read access to the NLP Public Group, in particular to the NLP Integration User, which has no role</description>
+        <label>Grant Users Read Access to NLP Public Group</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <group>NLP_Public_Group</group>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

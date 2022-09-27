@@ -1,0 +1,1461 @@
+{
+  "dataSourceLinks": [],
+  "filters": [
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["RecordType.DeveloperName"],
+      "locked": false,
+      "operator": "in",
+      "value": "[\"Get_Help\"]"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Advice_Outcome__c"],
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Interaction_Type__c"],
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Evaluation_Type__c"],
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Case.Type"],
+      "label": "Case Type",
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Issue_Type__c"],
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Subsequent_Issue_Type__c"],
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Owner.User.Name"],
+      "label": "Interaction Role Name",
+      "locked": false,
+      "operator": "in"
+    },
+    {
+      "dataset": { "name": "Quality_Assessment" },
+      "dependent": true,
+      "fields": ["Interaction_Date_Time__c"],
+      "locked": false,
+      "operator": ">=<=",
+      "value": "[[[\"month\",0],[\"month\",0]]]"
+    }
+  ],
+  "gridLayouts": [
+    {
+      "maxWidth": 1440,
+      "name": "Default",
+      "numColumns": 24,
+      "pages": [
+        {
+          "label": "Metrics Table",
+          "name": "f3a1c35d-bf4a-45e1-bf53-2acc905e5945",
+          "navigationHidden": false,
+          "widgets": [
+            {
+              "colspan": 3,
+              "column": 0,
+              "name": "filterpanel_3",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 3,
+              "name": "filterpanel_2",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 6,
+              "name": "filterpanel_5",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 9,
+              "name": "filterpanel_6",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 12,
+              "name": "filterpanel_7",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 15,
+              "name": "filterpanel_1",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 18,
+              "name": "filterpanel_9",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 3,
+              "column": 21,
+              "name": "filterpanel_8",
+              "row": 1,
+              "rowspan": 1,
+              "widgetStyle": {
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#E6ECF2",
+                "borderEdges": ["all"],
+                "borderRadius": 4,
+                "borderWidth": 1
+              }
+            },
+            {
+              "colspan": 24,
+              "column": 0,
+              "name": "container_1",
+              "row": 2,
+              "rowspan": 13,
+              "widgetStyle": { "borderColor": "#FFFFFF", "borderEdges": [] }
+            },
+            {
+              "colspan": 11,
+              "column": 1,
+              "name": "text_6",
+              "row": 2,
+              "rowspan": 1,
+              "widgetStyle": { "borderColor": "#FFFFFF", "borderEdges": [] }
+            },
+            {
+              "colspan": 12,
+              "column": 12,
+              "name": "text_8",
+              "row": 2,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 11,
+              "column": 1,
+              "name": "chart_1",
+              "row": 3,
+              "rowspan": 6,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 12,
+              "column": 12,
+              "name": "chart_6",
+              "row": 3,
+              "rowspan": 6,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 10,
+              "column": 1,
+              "name": "text_4",
+              "row": 9,
+              "rowspan": 1,
+              "widgetStyle": {
+                "borderColor": "#E6E830",
+                "borderEdges": ["all"]
+              }
+            },
+            {
+              "colspan": 10,
+              "column": 1,
+              "name": "text_2",
+              "row": 10,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 10,
+              "column": 13,
+              "name": "text_5",
+              "row": 10,
+              "rowspan": 1,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 10,
+              "column": 1,
+              "name": "table_4",
+              "row": 11,
+              "rowspan": 4,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 10,
+              "column": 13,
+              "name": "table_3",
+              "row": 11,
+              "rowspan": 3,
+              "widgetStyle": { "borderEdges": [] }
+            },
+            {
+              "colspan": 24,
+              "column": 0,
+              "name": "table_1",
+              "row": 15,
+              "rowspan": 10,
+              "widgetStyle": { "borderEdges": [] }
+            }
+          ]
+        }
+      ],
+      "rowHeight": "normal",
+      "selectors": [],
+      "style": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "backgroundColor": "#F2F6FA",
+        "cellSpacingX": 4,
+        "cellSpacingY": 8,
+        "fit": "original",
+        "gutterColor": "#C5D3E0"
+      },
+      "version": 1.0
+    }
+  ],
+  "layouts": [],
+  "steps": {
+    "QA_Evaluations_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "QA Evaluations",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = foreach q generate 'Owner.Name' as 'Coach', 'Owner.User.Name' as 'Skill', 'Owner.FirstName' as 'Specialist', 'Name' as 'QAN', 'Case.CaseNumber' as 'Case Id', 'Interaction_Type__c' as 'Interaction Type', 'Interaction_Date_Time__c' as 'Segment Date', 'Case.Status' as 'Case Status', 'Status__c' as 'Assessment Status', 'Advice_Outcome__c' as 'Advice Outcome', 'Compliance_Outcome__c' as 'Compliance Outcome', 'Rating__c' as 'Rating', 'Score__c' as 'Score';\n--User.UserRole.Name' as 'Skill', ",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "mode": "fittocontainer",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "Average_Score_by_Rat_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Average Score by Rating",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = group q by 'Rating__c';\nq = foreach q generate 'Rating__c' as 'Rating__c', number_to_string(avg('Score__c')/100, \"00.00%\") as 'Average Score';\nq = order q by 'Rating__c' asc;\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "__of_Compliance_Outc_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "Quality_Assessment" }],
+      "isGlobal": false,
+      "label": "% of Compliance Outcomes",
+      "query": {
+        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[\"Compliance_Outcome__c\"],\"filters\":[[\"RecordType.Name\",[\"Get Help\"],\"in\"]],\"order\":[[\"count\",{\"ascending\":false}]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "centerText": "",
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": true
+          },
+          "showMeasureTitle": false,
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "pie",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "% of Compliance Outcomes",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "inner": 60,
+          "columnMap": {
+            "trellis": [],
+            "dimension": ["Compliance_Outcome__c"],
+            "plots": ["count"]
+          },
+          "showActionMenu": true,
+          "centerValueType": "number",
+          "valueType": "percent",
+          "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Average_Score_1": {
+      "broadcastFacet": true,
+      "datasets": [{ "name": "Quality_Assessment" }],
+      "isGlobal": false,
+      "label": "Average Score",
+      "query": {
+        "query": "{\"measures\":[[\"avg\",\"Score__c\"]],\"filters\":[[\"RecordType.Name\",[\"Get Help\"],\"in\"]]}",
+        "version": -1.0
+      },
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "type": "aggregateflex",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "max": 100,
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "polargauge",
+          "medium": 33,
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "" }
+          },
+          "inner": 80,
+          "colors": {
+            "mediumColor2": "#F29946",
+            "mediumColor1": "#FED444",
+            "lowColor1": "#F71979",
+            "lowColor2": "#CC203D",
+            "highColor1": "#7BDE4E",
+            "highColor2": "#169913"
+          },
+          "columnMap": { "trellis": [], "plots": ["avg_Score__c"] },
+          "high": 66,
+          "showActionMenu": true,
+          "min": 0,
+          "valueType": "compactNumber",
+          "theme": "wave",
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Assessments_by_Role_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Assessments by Role",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = filter q by 'Owner.User.Name' in [\"Coach\", \"Support Coach\"];\nq = group q by 'Owner.User.Name';\nq = foreach q generate 'Owner.User.Name' as 'Role', count() as '# of Assessments';\nq = order q by 'Role' asc;\n",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#98c6f5",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#1589ee",
+            "fontColor": "#ffffff",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#3290ed",
+          "innerMinorBorderColor": "#98c6f5",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "lens_3": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_3",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = group q by all;\nq = foreach q generate avg('Score__c') as 'avg_Score__c';\n\nq = foreach q generate \n(\n    case \n    when avg(avg_Score__c) > 89.9 then \"Outstanding\"\n    when avg(avg_Score__c) > 84.9 then \"Effective\"\n    when avg(avg_Score__c) > 70 then \"Almost there\"\n    else\n    \"Not there yet\"\n    end\n) as 'Rating';\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "showRowIndexColumn": false,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "Advice_Outcome_By_Ra_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Rating By Advice Outcome",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = group q by 'Advice_Outcome__c';\nq = foreach q generate 'Advice_Outcome__c' as 'Advice_Outcome__c', count() as 'Count';\nq = order q by 'Count' asc;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "start": "[]",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "showRowIndexColumn": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "lens_4": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Average Rating",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = group q by all;\nq = foreach q generate\n(\n   case\n   when avg(Score__c) > 89.9 then \"Outstanding\"\n   when avg(Score__c) > 84.9 then \"Effective\"\n   when avg(Score__c) > 69.9 then \"Almost there\"\n   else\n   \"Not there yet\"\n   end\n) as 'Rating';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "lens_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_1",
+      "numbers": [],
+      "query": "SELECT COUNT(*) AS \"A\" FROM \"Quality_Assessment\" LIMIT 2000",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "sql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "showRowIndexColumn": false,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    },
+    "lens_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "lens_2",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = group q by all;\nq = foreach q generate avg('Score__c') as 'avg_Score__c';\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "hbar",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
+    "Evaluation_Metrics_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "Evaluation Metrics",
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Get Help\";\nq = foreach q generate 'User.Name' as 'Coach'\n, 'User.UserRole.Name' as 'Skill'\n, 'User.FirstName' as 'Specialist'\n, 'Name' as 'QAN'\n, 'Case.CaseNumber' as 'Case Id'\n, 'Interaction_Type__c' as 'Interaction Type'\n, 'Interaction_Date_Time__c' as 'Segment Date'\n, 'Case.Status' as 'Case Status'\n, 'Status__c' as 'Assessment Status'\n, 'Advice_Outcome__c' as 'Outcome'\n, 'Compliance_Outcome__c' as 'Compliance'\n, 'Score__c' as 'Score';",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "borderColor": "#e0e5ee",
+          "borderWidth": 1,
+          "cell": {
+            "backgroundColor": "#ffffff",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "columnProperties": {},
+          "columns": [],
+          "customBulkActions": [],
+          "header": {
+            "backgroundColor": "#f4f6f9",
+            "fontColor": "#16325c",
+            "fontSize": 12
+          },
+          "innerMajorBorderColor": "#a8b7c7",
+          "innerMinorBorderColor": "#e0e5ee",
+          "maxColumnWidth": 300,
+          "minColumnWidth": 40,
+          "mode": "variable",
+          "numberOfLines": 1,
+          "showActionMenu": true,
+          "totals": true,
+          "verticalPadding": 8
+        },
+        "type": "table"
+      }
+    }
+  },
+  "widgetStyle": {
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#E6ECF2",
+    "borderEdges": [],
+    "borderRadius": 0,
+    "borderWidth": 1
+  },
+  "widgets": {
+    "filterpanel_2": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "Quality_Assessment" },
+            "field": "Interaction_Type__c"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_1": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "Quality_Assessment" },
+            "field": "Advice_Outcome__c"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "table_1": {
+      "parameters": {
+        "borderColor": "#e0e5ee",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#f4f6f9",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#a8b7c7",
+        "innerMinorBorderColor": "#e0e5ee",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "showActionMenu": true,
+        "showRowIndexColumn": true,
+        "step": "QA_Evaluations_1",
+        "totals": true,
+        "verticalPadding": 8
+      },
+      "type": "table"
+    },
+    "filterpanel_9": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "Quality_Assessment" },
+            "field": "Interaction_Date_Time__c"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "table_3": {
+      "parameters": {
+        "borderColor": "#98c6f5",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#1589ee",
+          "fontColor": "#ffffff",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#3290ed",
+        "innerMinorBorderColor": "#98c6f5",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "pivoted": false,
+        "showActionMenu": true,
+        "showRowIndexColumn": true,
+        "step": "Assessments_by_Role_1",
+        "totals": true,
+        "verticalPadding": 8
+      },
+      "type": "table"
+    },
+    "filterpanel_8": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "Quality_Assessment" },
+            "field": "Owner.User.Name"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "table_4": {
+      "parameters": {
+        "borderColor": "#98c6f5",
+        "borderWidth": 1,
+        "cell": {
+          "backgroundColor": "#ffffff",
+          "fontColor": "#16325c",
+          "fontSize": 12
+        },
+        "columnProperties": {},
+        "columns": [],
+        "customBulkActions": [],
+        "exploreLink": true,
+        "header": {
+          "backgroundColor": "#1589ee",
+          "fontColor": "#ffffff",
+          "fontSize": 12
+        },
+        "innerMajorBorderColor": "#3290ed",
+        "innerMinorBorderColor": "#98c6f5",
+        "mode": "fittocontainer",
+        "numberOfLines": 1,
+        "pivoted": false,
+        "showActionMenu": true,
+        "showRowIndexColumn": true,
+        "step": "Advice_Outcome_By_Ra_1",
+        "verticalPadding": 12
+      },
+      "type": "table"
+    },
+    "container_1": {
+      "parameters": {
+        "alignmentX": "left",
+        "alignmentY": "top",
+        "fit": "original"
+      },
+      "type": "container"
+    },
+    "filterpanel_7": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "Quality_Assessment" },
+            "field": "Subsequent_Issue_Type__c"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_6": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "Quality_Assessment" },
+            "field": "Issue_Type__c"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_5": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          { "dataset": { "name": "Quality_Assessment" }, "field": "Case.Type" }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "filterpanel_3": {
+      "parameters": {
+        "filterItemOptions": {
+          "propertyColor": "#54698D",
+          "valueColor": "#16325C"
+        },
+        "filters": [
+          {
+            "dataset": { "name": "Quality_Assessment" },
+            "field": "Evaluation_Type__c"
+          }
+        ],
+        "showAllFilters": false
+      },
+      "type": "filterpanel"
+    },
+    "chart_6": {
+      "parameters": {
+        "autoFitMode": "keepLabels",
+        "centerText": "",
+        "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": true
+        },
+        "showMeasureTitle": false,
+        "axisMode": "multi",
+        "tooltip": {
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
+        },
+        "visualizationType": "pie",
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "inner": 60,
+        "columnMap": {
+          "trellis": [],
+          "dimension": ["Compliance_Outcome__c"],
+          "plots": ["count"]
+        },
+        "showActionMenu": true,
+        "centerValueType": "number",
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "valueType": "percent",
+        "theme": "wave",
+        "step": "__of_Compliance_Outc_1",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true
+      },
+      "type": "chart"
+    },
+    "text_2": {
+      "parameters": {
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": {
+                "size": "16px",
+                "color": "#091a3e",
+                "underline": true
+              },
+              "insert": "# of Advice Outcomes By Rating"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
+      },
+      "type": "text"
+    },
+    "text_5": {
+      "parameters": {
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": {
+                "size": "16px",
+                "color": "#091a3e",
+                "underline": true
+              },
+              "insert": "# for Coach & Support Coach"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
+      },
+      "type": "text"
+    },
+    "text_4": {
+      "parameters": {
+        "content": {
+          "richTextContent": [
+            { "attributes": { "underline": true }, "insert": "Average Rating" },
+            { "attributes": {}, "insert": ":         " },
+            {
+              "attributes": { "bold": true, "italic": true },
+              "insert": "[Rating]"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ],
+          "values": {
+            "Rating": {
+              "field": "Rating",
+              "sourceType": "result",
+              "step": "lens_4"
+            }
+          }
+        },
+        "showActionMenu": true
+      },
+      "type": "text"
+    },
+    "chart_1": {
+      "parameters": {
+        "showValues": true,
+        "legend": {
+          "descOrder": false,
+          "showHeader": true,
+          "show": true,
+          "customSize": "auto",
+          "position": "right-top",
+          "inside": false
+        },
+        "axisMode": "multi",
+        "tooltip": {
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
+        },
+        "visualizationType": "polargauge",
+        "medium": 33,
+        "exploreLink": true,
+        "title": {
+          "fontSize": 14,
+          "subtitleFontSize": 11,
+          "label": "",
+          "align": "center",
+          "subtitleLabel": ""
+        },
+        "binValues": false,
+        "trellis": {
+          "flipLabels": false,
+          "showGridLines": true,
+          "size": [100, 100],
+          "enable": false,
+          "type": "x",
+          "chartsPerLine": 4
+        },
+        "colors": {
+          "mediumColor2": "#F29946",
+          "mediumColor1": "#FED444",
+          "lowColor1": "#F71979",
+          "lowColor2": "#CC203D",
+          "highColor1": "#7BDE4E",
+          "highColor2": "#169913"
+        },
+        "high": 66,
+        "min": 0,
+        "valueType": "compactNumber",
+        "theme": "wave",
+        "dimensionAxis": {
+          "showTitle": true,
+          "customSize": "auto",
+          "showAxis": true,
+          "title": "",
+          "icons": {
+            "useIcons": false,
+            "iconProps": { "fit": "cover", "column": "", "type": "round" }
+          }
+        },
+        "applyConditionalFormatting": true,
+        "autoFitMode": "keepLabels",
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
+        "max": 100,
+        "icons": {
+          "useIcons": false,
+          "iconProps": { "fit": "cover", "column": "" }
+        },
+        "inner": 80,
+        "columnMap": { "trellis": [], "plots": ["avg_Score__c"] },
+        "showActionMenu": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
+        "step": "Average_Score_1"
+      },
+      "type": "chart"
+    },
+    "text_6": {
+      "parameters": {
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": {
+                "size": "16px",
+                "color": "#091a3e",
+                "underline": true
+              },
+              "insert": "Average Score"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
+      },
+      "type": "text"
+    },
+    "text_8": {
+      "parameters": {
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": {
+                "size": "16px",
+                "color": "#091a3e",
+                "underline": true
+              },
+              "insert": "% of Compliance Outcomes"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
+      },
+      "type": "text"
+    }
+  }
+}

@@ -6,7 +6,7 @@
  */
 public with sharing class CCRMAccountActions {
   /**
-   * @description Before Update Automated actions of a completed Lead.
+   * @description This method will update Controlling Post field depending on the CPID provided in Account.
    * @name setControllingPost
    * @param records from the trigger
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in afterUpdate.
@@ -53,7 +53,7 @@ public with sharing class CCRMAccountActions {
   }
 
   /**
-   * @description Maps the Account to CPID
+   * @description Returns a map of Accounts with CPID as key
    * @name mapAccountsToCPID
    * @param records from the trigger
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in afterUpdate.
@@ -82,13 +82,13 @@ public with sharing class CCRMAccountActions {
   }
 
   /**
-   * @description Check if this Account record CPID was changed
+   * @description Returns true if this Account record CPID was changed, returns false otherwise
    * @name isCPIDChanged
    * @param record Account record
    * @param oldRec old Account record from trigger
    * @return `Boolean` True if the CPID is updated otherwise false.
    */
-  public static Boolean isCPIDChanged(Account record, Account oldRec) {
+  private static Boolean isCPIDChanged(Account record, Account oldRec) {
     if (oldRec != null && record.CPID__c != oldRec.CPID__c) {
       return true;
     }

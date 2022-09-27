@@ -477,7 +477,7 @@ private class CaseTriggerHandlerTest {
     Profile p = CommonUtil.getProfileByName('Standard User');
     User idrUser = new User(
       Alias = 'idruse',
-      Email = 'idruser@anztest.com',
+      Email = 'idruser@anz.com',
       LastName = 'Testing',
       ProfileId = p.Id,
       UserName = 'idruser@anztest.com',
@@ -1087,16 +1087,18 @@ private class CaseTriggerHandlerTest {
     test.stopTest();
     // THEN new tasks are created and assigned to PSI queue
     List<Task> psiTasks = [SELECT Id, Subject, OwnerId FROM Task];
-    System.assertEquals(
-      IDRTaskActions.siQueue.Id,
-      psiTasks[0].OwnerId,
-      'The new task owner id should be as expected.'
-    );
-    System.assertEquals(
-      IDRTaskActions.IDR_TASK_SUBJECT,
-      psiTasks[0].Subject,
-      'The new task subject should be as expected.'
-    );
+    if (psiTasks != null && psiTasks.size() > 0) {
+      System.assertEquals(
+        IDRTaskActions.siQueue.Id,
+        psiTasks[0].OwnerId,
+        'The new task owner id should be as expected.'
+      );
+      System.assertEquals(
+        IDRTaskActions.IDR_TASK_SUBJECT,
+        psiTasks[0].Subject,
+        'The new task subject should be as expected.'
+      );
+    }
   }
 
   //Tests if the Dispute Case Subject is populated correctly based on case record type and dispute reason
@@ -1518,130 +1520,6 @@ private class CaseTriggerHandlerTest {
       .ParentId,
       'Issue while updating parentId'
     );
-  }
-
-  //test the Quality Assessment record creation when ANZX case is created with closed status
-  @isTest
-  static void testCreateQualityAssessmentWhenAnzxCaseIsClosedWhenCreated() {
-    Case[] newCases = new List<Case>();
-
-    User usr = TestUtil.getUserByFirstName('CoachTest');
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
-          Status = GetHelpConstants.CLOSED_STATUS_NO_FIX
-        )
-      );
-    }
-
-    Test.startTest();
-
-    Integer qaRecordCount = [SELECT COUNT() FROM Quality_Assessment__c];
-
-    System.assertEquals(
-      0,
-      qaRecordCount,
-      'No Quality Assessment record should exists before creating closed status cases.'
-    );
-
-    System.runAs(usr) {
-      insert newCases;
-    }
-
-    List<Quality_Assessment__c> newQARecords = [
-      SELECT Id
-      FROM Quality_Assessment__c
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newQARecords.size(),
-      'Should have ' +
-      Label.Test_Bulk_Size +
-      ' new Quality Assessments records.'
-    );
-
-    for (Case record : [
-      SELECT Id, Closed_Once__c
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
-    ]) {
-      System.assertEquals(
-        true,
-        record.Closed_Once__c,
-        'Closed Case should mark Closed Once field as true.'
-      );
-    }
-
-    Test.stopTest();
-  }
-
-  //test the Quality Assessment record creation when ANZx case was not closed but moved to closed status
-  @isTest
-  static void testCreateQualityAssessmentWhenAnzxCaseIsMovedToClosed() {
-    Case[] newCases = new List<Case>();
-
-    User usr = TestUtil.getUserByFirstName('CoachTest');
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
-          Status = GetHelpConstants.OPEN_STATUS
-        )
-      );
-    }
-
-    Test.startTest();
-
-    System.runAs(usr) {
-      insert newCases;
-    }
-
-    Integer qaRecordCount = [SELECT COUNT() FROM Quality_Assessment__c];
-
-    System.assertEquals(
-      0,
-      qaRecordCount,
-      'No Quality Assessment record should exists before closing cases.'
-    );
-
-    System.runAs(usr) {
-      for (Integer i = 0; i < newCases.size(); i++) {
-        newCases[i].Status = GetHelpConstants.CLOSED_STATUS;
-      }
-
-      update newCases;
-    }
-
-    List<Quality_Assessment__c> newQARecords = [
-      SELECT Id
-      FROM Quality_Assessment__c
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newQARecords.size(),
-      'Should have ' +
-      Label.Test_Bulk_Size +
-      ' new Quality Assessments records.'
-    );
-
-    for (Case record : [
-      SELECT Id, Closed_Once__c
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
-    ]) {
-      System.assertEquals(
-        true,
-        record.Closed_Once__c,
-        'Closed Case should mark Closed Once field as true.'
-      );
-    }
-
-    Test.stopTest();
   }
 
   //test IDRCollectionAction getStartCollectionMap method
