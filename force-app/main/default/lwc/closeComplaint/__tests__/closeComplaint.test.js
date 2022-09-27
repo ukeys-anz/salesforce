@@ -1,14 +1,12 @@
 import { createElement } from "lwc";
 import CloseComplaintComponent from "c/closeComplaint";
 import { getRecord, updateRecord } from "lightning/uiRecordApi";
-import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 const CLOSED_STATUS_API_NAME = "Closed";
 const DUMMY_RECORD_ID = "5002N00000Dwe1iQAB";
 
 const mockGetCaseRecord = require("./data/getCaseRecord.json");
 const mockGetCaseRecordInvalid = require("./data/getCaseRecordInvalid.json");
-const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 
 const validationMessage =
   "Please update Product or Service Name before closing the case.";
@@ -38,7 +36,7 @@ describe("c-close-complaint test suite", () => {
   it("display error for invalid case befor closure", () => {
     const element = document.querySelector("c-close-complaint");
     element.recordId = DUMMY_RECORD_ID;
-    getRecordAdapter.emit(mockGetCaseRecordInvalid);
+    getRecord.emit(mockGetCaseRecordInvalid);
     return Promise.resolve().then(() => {
       const errorMessageDivElement = element.shadowRoot.querySelector(
         ".validationMessage"
@@ -51,7 +49,7 @@ describe("c-close-complaint test suite", () => {
   it("set recordId and recordTypeId correctly and render child component", () => {
     const element = document.querySelector("c-close-complaint");
     element.recordId = DUMMY_RECORD_ID;
-    getRecordAdapter.emit(mockGetCaseRecord);
+    getRecord.emit(mockGetCaseRecord);
     return Promise.resolve().then(() => {
       const childCompElement = element.shadowRoot.querySelectorAll(
         "c-complaints-close-child"
@@ -64,7 +62,7 @@ describe("c-close-complaint test suite", () => {
   it("close a complaint", () => {
     const element = document.querySelector("c-close-complaint");
     element.recordId = DUMMY_RECORD_ID;
-    getRecordAdapter.emit(mockGetCaseRecord);
+    getRecord.emit(mockGetCaseRecord);
     return Promise.resolve().then(() => {
       const childCompElement = element.shadowRoot.querySelector(
         "c-complaints-Close-Child"
@@ -218,7 +216,7 @@ describe("c-close-complaint test suite", () => {
   it("Display error for missing fields", () => {
     const element = document.querySelector("c-close-complaint");
     element.recordId = DUMMY_RECORD_ID;
-    getRecordAdapter.emit(mockGetCaseRecord);
+    getRecord.emit(mockGetCaseRecord);
     return Promise.resolve().then(() => {
       const childCompElement = element.shadowRoot.querySelector(
         "c-complaints-Close-Child"

@@ -4,6 +4,7 @@ import getRestrictedCaseData from "@salesforce/apex/IDRRestrictedCasesController
 import insertCaseComment from "@salesforce/apex/IDRRestrictedCasesController.insertCaseComment";
 import linkFileToCase from "@salesforce/apex/IDRRestrictedCasesController.linkFileToCase";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
+import { setImmediate } from "timers";
 
 const SUCCESS_TOAST_TITLE = "Success";
 const ERROR_TOAST_TITLE_CASECOMMENTS = "Error while inserting case comment";
