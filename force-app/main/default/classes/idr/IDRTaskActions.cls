@@ -840,15 +840,17 @@ public without sharing class IDRTaskActions {
       ) {
         String customerName = '';
         if (caseObj.IDR_NC_First_Name__c != null) {
-          customerName = caseObj.IDR_NC_First_Name__c;
+          customerName = caseObj.IDR_NC_First_Name__c + ' ';
         }
         if (caseObj.IDR_NC_Last_Name__c != null) {
           customerName = customerName + caseObj.IDR_NC_Last_Name__c;
         }
-
         record.Subject = record.Subject + ' | ' + caseObj.CaseNumber;
         if (customerName != '') {
-          record.Subject = record.Subject + '| Customer Name : ' + customerName;
+          record.Subject =
+            record.Subject +
+            ' | Customer Name : ' +
+            customerName;
         }
       }
     }
