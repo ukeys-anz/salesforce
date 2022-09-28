@@ -1,9 +1,9 @@
 import { createElement } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import ChatTopicRelatedList from "c/chatTopicRelatedList";
 import getChatTopicsOnAccount from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsOnAccount";
 import getChatTopicInfoOnCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicInfoOnCase";
+import { setImmediate } from "timers";
 
 jest.mock(
   "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsOnAccount",
@@ -30,7 +30,6 @@ const CHAT_TOPIC_EMPTY_CASE = {};
 const CHAT_TOPIC_MULTIPLE = require("./data/chatChannelsSuccess.json");
 const CHAT_TOPIC_SINGLE = require("./data/singleChatChannel.json");
 
-const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 const MOCK_ACCOUNT_RECORD = require("./data/getAccountRecord.json");
 const MOCK_CASE_RECORD = require("./data/getCaseRecord.json");
 
@@ -60,7 +59,7 @@ describe("c-chat-topic-related-list", () => {
 
     element.objectName = "Account";
     element.recordId = "08737HU6";
-    getRecordAdapter.emit(MOCK_ACCOUNT_RECORD);
+    getRecord.emit(MOCK_ACCOUNT_RECORD);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
@@ -79,7 +78,7 @@ describe("c-chat-topic-related-list", () => {
 
     element.objectName = "Account";
     element.recordId = "08737HU6";
-    getRecordAdapter.emit(MOCK_ACCOUNT_RECORD);
+    getRecord.emit(MOCK_ACCOUNT_RECORD);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
@@ -103,7 +102,7 @@ describe("c-chat-topic-related-list", () => {
 
     element.objectName = "Case";
     element.recordId = "08737HU6";
-    getRecordAdapter.emit(MOCK_CASE_RECORD);
+    getRecord.emit(MOCK_CASE_RECORD);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
@@ -123,7 +122,7 @@ describe("c-chat-topic-related-list", () => {
 
     element.objectName = "Case";
     element.recordId = "08737HU6";
-    getRecordAdapter.emit(MOCK_CASE_RECORD);
+    getRecord.emit(MOCK_CASE_RECORD);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
@@ -147,7 +146,7 @@ describe("c-chat-topic-related-list", () => {
 
     element.objectName = "Account";
     element.recordId = "0031700000pHcf8AAC";
-    getRecordAdapter.emit(MOCK_COACH_USER_RECORD);
+    getRecord.emit(MOCK_COACH_USER_RECORD);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
@@ -166,7 +165,7 @@ describe("c-chat-topic-related-list", () => {
 
     element.objectName = "Account";
     element.recordId = "0031700000pHcf8AAC";
-    getRecordAdapter.emit(MOCK_QA_USER_RECORD);
+    getRecord.emit(MOCK_QA_USER_RECORD);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
