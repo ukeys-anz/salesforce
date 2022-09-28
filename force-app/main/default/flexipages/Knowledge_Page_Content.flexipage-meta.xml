@@ -57,6 +57,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
+                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -66,6 +67,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-2e1e978d-eb4d-498a-a820-3318c63242bc</name>
@@ -75,6 +77,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleVersionHistory</componentName>
+                <identifier>forceKnowledge_articleVersionHistory</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-5ca68d96-0ef2-4aad-8a3e-3a67b8c49823</name>
@@ -96,6 +99,7 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>force:relatedListContainer</componentName>
+                <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-f525dbd4-22c3-4e16-b9d4-ba0b0ca93c69</name>
@@ -117,6 +121,7 @@
                     <value>Standard.Tab.detail</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>detailTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -130,6 +135,7 @@
                     <value>Versions</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -143,6 +149,7 @@
                     <value>Approval History</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-867f1634-283a-4645-92d7-969bcd843270</name>
@@ -156,21 +163,25 @@
                     <value>Facet-867f1634-283a-4645-92d7-969bcd843270</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleDataCategoryViewer</componentName>
+                <identifier>forceKnowledge_articleDataCategoryViewer</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleThumbVote</componentName>
+                <identifier>forceKnowledge_articleThumbVote</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
+                <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
