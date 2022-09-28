@@ -3,11 +3,11 @@
     <fullName>Fraud_PO_Box__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
-    <description>Check:
+    <description>Check: 
 
 The residential address populated in the customer profile in Fenergo is not a Post Office Box</description>
     <externalId>false</externalId>
-    <inlineHelpText>Check:
+    <inlineHelpText>Check: 
 
 The residential address populated in the customer profile in Fenergo is not a Post Office Box</inlineHelpText>
     <label>Residential Address is Not a PO Box</label>

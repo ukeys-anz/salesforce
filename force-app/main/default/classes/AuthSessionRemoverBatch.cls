@@ -7,12 +7,14 @@ public with sharing class AuthSessionRemoverBatch implements Database.Batchable<
   private static final String OCV_INTEGRATION_USERNAME_PREFIX = 'ocvintegration.user';
   private static final String DISPUTES_INTEGRATION_USERNAME_PREFIX = 'disputesintegration.user';
   private static final String PEGA_INTEGRATION_USERNAME_PREFIX = 'pegaintegration.user';
+  private static final String KYC_QA_INTEGRATION_USERNAME_PREFIX = 'kycqaintegration.user';
   private static final String NO_POST_PROCESSING_STEPS_MSG = 'No post processing steps as of now';
 
   private static final List<String> USERNAMES_PREFIX = new List<String>{
     OCV_INTEGRATION_USERNAME_PREFIX,
     DISPUTES_INTEGRATION_USERNAME_PREFIX,
-    PEGA_INTEGRATION_USERNAME_PREFIX
+    PEGA_INTEGRATION_USERNAME_PREFIX,
+    KYC_QA_INTEGRATION_USERNAME_PREFIX
   };
 
   // set default reserve session time for 1 hour so current active sessions won't be affected
