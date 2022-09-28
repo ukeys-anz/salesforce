@@ -2942,4 +2942,44 @@ private class CaseTriggerHandlerTest {
       'CMOS Non Customer Complaint Subject should not be auto-populated on insert or update'
     );
   }
+
+  // Test Prevent Duplicate KYC QA Against a Customer (Account)
+  @isTest
+  public static void testValidateDuplicateKYCQACasePerAccount() {
+    List<Account> accounts = [
+      SELECT Id, Name
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+    ];
+    Account customerAccount1 = accounts[0];
+
+    Case kycqa1 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      Status = 'Open',
+      Origin = 'Origination',
+      Priority = 'Medium'
+    );
+
+    insert kycqa1;
+
+    Case kycqa2 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      Status = 'Open',
+      Origin = 'Origination',
+      Priority = 'Medium'
+    );
+
+    Test.startTest();
+    try {
+      insert kycqa2;
+      System.assert(false, 'Failed to detect existing KYC QA case');
+    } catch (DmlException e) {
+      System.assert(
+        e.getMessage().contains(GetHelpCaseActions.DUPLICATE_KYCQA_ERROR)
+      );
+    }
+    Test.stopTest();
+  }
 }

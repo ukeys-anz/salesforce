@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignmentRule>
-        <fullName>Dispute Case Allocation Rule</fullName>
+        <fullName>Case Allocation Rule</fullName>
         <active>true</active>
         <ruleEntry>
             <assignedTo>Digital_Fraud_Queue</assignedTo>
@@ -101,6 +101,19 @@
                   )
                 )
             </formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Pending_KYC_QA</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>
+            AND(
+                ISNEW(),
+                RecordType.DeveloperName = &quot;KYC_QA&quot;
+            )
+            </formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;KYC_QA&quot;)</formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

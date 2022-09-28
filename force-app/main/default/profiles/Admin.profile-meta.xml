@@ -2260,6 +2260,11 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
+    <field>Case.Date_Closed__c</field>
+    <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>true</editable>
     <field>Case.Date_Goods_Were_Returned_Or_Services_can__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -2647,6 +2652,11 @@
       <editable>true</editable>
       <field>Case.IDR_3rdParty_Suburb__c</field>
       <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>true</editable>
+    <field>Case.IDR_Additional_Correspondence_reviewed__c</field>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
       <editable>true</editable>

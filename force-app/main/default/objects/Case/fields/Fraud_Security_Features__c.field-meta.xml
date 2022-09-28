@@ -3,13 +3,13 @@
     <fullName>Fraud_Security_Features__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
-    <description>Check:
+    <description>Check: 
 
-The identity document has holographic and other security features with judgement given to the amount of light that was present at the time the document was captured</description>
+The identity document has holographic and other security features with judgment given to the amount of light that was present at the time the document was captured</description>
     <externalId>false</externalId>
-    <inlineHelpText>Check:
+    <inlineHelpText>Check: 
 
-The identity document has holographic and other security features with judgement given to the amount of light that was present at the time the document was captured</inlineHelpText>
+The identity document has holographic and other security features with judgment given to the amount of light that was present at the time the document was captured</inlineHelpText>
     <label>Security Features Visible</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -3,21 +3,13 @@
     <fullName>Fraud_ID_Legible__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
-    <description>Confirm:
+    <description>Check: 
 
-The image quality is good and all customer details are legible and can easily be read.
-
-Check for:
-
-Image is not blurry, pixelated or poor quality.</description>
+The image quality is good and all customer details are legible and can easily be read. Check for: Image is not blurry, pixelated or poor quality.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Confirm:
+    <inlineHelpText>Check: 
 
-The image quality is good and all customer details are legible and can easily be read.
-
-Check for:
-
-Image is not blurry, pixelated or poor quality.</inlineHelpText>
+The image quality is good and all customer details are legible and can easily be read. Check for: Image is not blurry, pixelated or poor quality.</inlineHelpText>
     <label>Identity Document is Legible</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
