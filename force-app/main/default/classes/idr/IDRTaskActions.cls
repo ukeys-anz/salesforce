@@ -26,6 +26,16 @@ public without sharing class IDRTaskActions {
   private static final String IDR_LEVEL_1 = 'IDR_Level_1';
 
   @TestVisible
+  private static final String TASK_SUBJECT_AFCA10 =
+    '%' +
+    IDRConstants.TASK_AFCA_SUBJECT_DAY10 +
+    '%';
+  private static final String TASK_SUBJECT_AFCA1 =
+    '%' +
+    IDRConstants.TASK_AFCA_SUBJECT_DAY1 +
+    '%';
+
+  @TestVisible
   private static Map<Id, Case> caseMapGlobal;
 
   @TestVisible
@@ -244,8 +254,8 @@ public without sharing class IDRTaskActions {
         caseIds.add(record.WhatId);
       }
       if (
-        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY10 ||
-        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY1
+        record.Subject.contains(TASK_SUBJECT_AFCA10) ||
+        record.Subject.contains(TASK_SUBJECT_AFCA1)
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
@@ -836,7 +846,10 @@ public without sharing class IDRTaskActions {
       Case caseObj = caseMapGlobal.get(record.WhatId);
       if (
         (record.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
-        record.Subject == IDRConstants.TASK_SUBJECT_DAY1) && caseObj != null
+        record.Subject == IDRConstants.TASK_SUBJECT_DAY1 ||
+        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY10 ||
+        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY1) &&
+        caseObj != null
       ) {
         String customerName = '';
         if (caseObj.IDR_NC_First_Name__c != null) {
