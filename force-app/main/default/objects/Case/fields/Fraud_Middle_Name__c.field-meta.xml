@@ -3,13 +3,13 @@
     <fullName>Fraud_Middle_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
-    <description>Check:
+    <description>Check: 
 
-If a middle name exists on the identity document then the full form of the middle name is recorded on the customer profile in Fenergo </description>
+If a middle name exists on the identity document then the middle name in Fenergo is acceptable per the framework</description>
     <externalId>false</externalId>
-    <inlineHelpText>Check:
+    <inlineHelpText>Check: 
 
-If a middle name exists on the identity document then the full form of the middle name is recorded on the customer profile in Fenergo </inlineHelpText>
+If a middle name exists on the identity document then the middle name in Fenergo is acceptable per the framework</inlineHelpText>
     <label>Middle Name Missing</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -3,9 +3,9 @@
     <fullName>Fraud_Restraint_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Has a restraint been applied as part of a KYC QA defect and removed once the defect is rectified?</description>
+    <description>What is the current state of restraint on the customer&apos;s account?</description>
     <externalId>false</externalId>
-    <inlineHelpText>Has a restraint been applied as part of a KYC QA defect and removed once the defect is rectified?</inlineHelpText>
+    <inlineHelpText>What is the current state of restraint on the customer&apos;s account?</inlineHelpText>
     <label>Restraint Status</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
@@ -31,6 +31,11 @@
                 <fullName>Removed</fullName>
                 <default>false</default>
                 <label>Removed</label>
+            </value>
+            <value>
+                <fullName>Customer requested closure</fullName>
+                <default>false</default>
+                <label>Customer requested closure</label>
             </value>
         </valueSetDefinition>
     </valueSet>
