@@ -1,6 +1,7 @@
 import { createElement } from "lwc";
 import CreateComplaintForm from "c/createComplaintLWC";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
+import { setImmediate } from "timers";
 
 describe("c-create-complaint-l-w-c", () => {
   afterEach(() => {

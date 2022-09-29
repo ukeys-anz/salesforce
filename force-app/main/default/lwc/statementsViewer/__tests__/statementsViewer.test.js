@@ -2,9 +2,7 @@ import { createElement } from "lwc";
 import statementsViewer from "c/statementsViewer";
 import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
 import { getRecord } from "lightning/uiRecordApi";
-import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
-
-const wireAdapter = registerLdsTestWireAdapter(getRecord);
+import { setImmediate } from "timers";
 
 const RECORD_ID = "a0c2O000002XttOQAS";
 
@@ -56,7 +54,7 @@ describe("c-statements-viewer", () => {
     element.recordId = RECORD_ID;
     document.body.appendChild(element);
 
-    wireAdapter.emit(WIRED_FINANCIAL_ACCOUNT);
+    getRecord.emit(WIRED_FINANCIAL_ACCOUNT);
 
     // Wait for any asynchronous DOM updates
     await flushPromises();
@@ -75,7 +73,7 @@ describe("c-statements-viewer", () => {
     element.recordId = RECORD_ID;
     document.body.appendChild(element);
 
-    wireAdapter.emit(WIRED_FINANCIAL_ACCOUNT);
+    getRecord.emit(WIRED_FINANCIAL_ACCOUNT);
 
     // Wait for any asynchronous DOM updates
     await flushPromises();
@@ -96,7 +94,7 @@ describe("c-statements-viewer", () => {
     element.recordId = RECORD_ID;
     document.body.appendChild(element);
 
-    wireAdapter.emit(WIRED_FINANCIAL_ACCOUNT);
+    getRecord.emit(WIRED_FINANCIAL_ACCOUNT);
 
     // Wait for any asynchronous DOM updates
     await flushPromises();
@@ -127,7 +125,7 @@ describe("c-statements-viewer", () => {
     element.recordId = RECORD_ID;
     document.body.appendChild(element);
 
-    wireAdapter.emit(WIRED_FINANCIAL_ACCOUNT);
+    getRecord.emit(WIRED_FINANCIAL_ACCOUNT);
 
     // Wait for any asynchronous DOM updates
     await flushPromises();
