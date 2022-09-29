@@ -4,6 +4,8 @@
     <name>Content Writers Queue</name>
     <queueMembers>
         <roles>
+            <role>Business_Admin</role>
+            <role>Coach_Lead</role>
             <role>Content_Writer</role>
         </roles>
     </queueMembers>
