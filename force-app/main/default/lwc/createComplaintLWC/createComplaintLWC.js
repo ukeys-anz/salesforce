@@ -341,6 +341,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isAddressRequired = false;
   }
 
+  cleanupAccount(event) {
+    var myArray;
+    if (event.detail.payload === undefined) {
+      myArray = event.detail.values;
+    } else {
+      myArray = event.detail.payload.values;
+    }
+    if (myArray !== undefined) {
+      let myString = myArray.toString();
+      return myString.replace(/,/g, ";");
+    }
+    return "";
+  }
+
   get customerNumberTypeOptions() {
     return [
       { label: CUS_IDENTIFIER_CAPCIS_ID, value: CUS_IDENTIFIER_CAPCIS_ID },
@@ -399,23 +413,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.hasThirdIssue = event.target.checked;
   }
   handleAccountNumberChange(event) {
-    var myArray = event.detail.payload.values;
-    let myString = myArray.toString();
-    let final = myString.replace(/,/g, ";");
-    this.accountOrPolicyNumber = final;
+    this.accountOrPolicyNumber = this.cleanupAccount(event);
   }
 
   handleAccountNumber2Change(event) {
-    var myArray = event.detail.payload.values;
-    let myString = myArray.toString();
-    let final = myString.replace(/,/g, ";");
-    this.accountOrPolicyNumber2 = final;
+    this.accountOrPolicyNumber2 = this.cleanupAccount(event);
   }
   handleAccountNumber3Change(event) {
-    var myArray = event.detail.payload.values;
-    let myString = myArray.toString();
-    let final = myString.replace(/,/g, ";");
-    this.accountOrPolicyNumber3 = final;
+    this.accountOrPolicyNumber3 = this.cleanupAccount(event);
   }
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;
@@ -1018,9 +1023,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         }
         this.accountNumberOptions.push({ label: "N/A", value: "N/A" });
+        /*
         this.template
           .querySelectorAll("c-multi-select-combobox")[0]
           .processMyData(this.accountNumberOptions);
+*/
       }
     }
   }
@@ -1157,9 +1164,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
         '[data-id="accPolicyNum-id"]'
       );
       if (event === undefined) {
-        accountPolicyNoElement.deselectAllAccounts();
+        accountPolicyNoElement.deselectAll();
       } else {
-        accountPolicyNoElement.handleExpressCase();
+        accountPolicyNoElement.deselectAll();
+        accountPolicyNoElement.value = "N/A";
       }
     }
     const descriptionElement = this.template.querySelector(
@@ -1261,7 +1269,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         const accountPolicyNoElement = this.template.querySelector(
           '[data-id="accPolicyNum-id"]'
         );
-        accountPolicyNoElement.selectAllAccounts();
+        accountPolicyNoElement.selectAll();
       } else {
         this.disableAccNoOneField = false;
       }
@@ -1274,7 +1282,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const accountPolicyNoElement = this.template.querySelector(
         '[data-id="accPolicyNum2-id"]'
       );
-      accountPolicyNoElement.selectAllAccounts();
+      accountPolicyNoElement.selectAll();
     } else {
       this.disableAccNoTwoField = false;
     }
@@ -1286,7 +1294,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const accountPolicyNoElement = this.template.querySelector(
         '[data-id="accPolicyNum3-id"]'
       );
-      accountPolicyNoElement.selectAllAccounts();
+      accountPolicyNoElement.selectAll();
     } else {
       this.disableAccNoThreeField = false;
     }

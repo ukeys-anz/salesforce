@@ -29,7 +29,7 @@
                     size="medium"
                   ></lightning-icon>
                 </div>
-                <div class="slds-box slds-text-heading--small script-style">
+                <div class="slds-box slds-text-heading_small script-style">
                   <p>
                     In order to assist you further, we need to collect some
                     personal details such as your name and contact details from
@@ -66,6 +66,7 @@
         <lightning-radio-group
           class="slds-m-left_large"
           required
+          aria-required="true"
           name="consentGroup"
           label="Customer Decision"
           onchange={handleConsentChange}
@@ -89,7 +90,7 @@
                   size="medium"
                 ></lightning-icon>
               </div>
-              <div class="slds-box slds-text-heading--small script-style">
+              <div class="slds-box slds-text-heading_small script-style">
                 <p>
                   ANZ supports your decision to remain anonymous and appreciates
                   your feedback.
@@ -126,6 +127,7 @@
                     name="Customer Identifier"
                     label="Customer Identifier"
                     aria-label="Customer Identifier"
+                    aria-required="true"
                     value={customerIdentifierValue}
                     options={customerNumberTypeOptions}
                     onchange={handleCustomerIdentifierChange}
@@ -135,13 +137,14 @@
                   ></lightning-combobox>
                 </div>
                 <div class="slds-col slds-size_1-of-6" tabindex="0">
-                  <label class="slds-form-element__label" for="text-input-id-1">
+                  <label class="slds-form-element__label">
                     <abbr class="slds-required" title="required">* </abbr
                     >Customer Number</label
                   >
                   <lightning-input
                     class="input inputCapCisId"
                     variant="label-hidden"
+                    aria-required="true"
                     required
                     onchange={handleCustomerNumberChange}
                     data-id="customerNumber-id"
@@ -180,6 +183,7 @@
                     variant="label-stacked"
                     required
                     aria-label="Dropdown Customer Type"
+                    aria-required="true"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
                     data-id="customerType-id"
@@ -204,6 +208,7 @@
                     variant="label-stacked"
                     required
                     aria-label="Dropdown Customer Type"
+                    aria-required="true"
                     onchange={handleComplaintTypeChange}
                     field-name={complaintType}
                     data-id="customerType2-id"
@@ -222,6 +227,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={consentValue}
+                    aria-required={consentValue}
                     field-name={firstName}
                     data-id="firstName-id"
                   ></lightning-input-field>
@@ -236,6 +242,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={consentValue}
+                    aria-required={consentValue}
                     field-name={lastName}
                     data-id="lastName-id"
                   ></lightning-input-field>
@@ -244,6 +251,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     aria-label="Dropdown Age"
+                    aria-required="true"
                     required
                     field-name={age}
                     data-id="age-id"
@@ -254,6 +262,7 @@
                     variant="label-stacked"
                     required
                     aria-label="Dropdown Gender"
+                    aria-required="true"
                     field-name={gender}
                     data-id="gender-id"
                   ></lightning-input-field>
@@ -267,7 +276,7 @@
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <div class="slds-form-element__control">
-                    <label class="slds-form-element__label" for="mobileinput-id"
+                    <label class="slds-form-element__label"
                       >Mobile e.g. 61474977148</label
                     >
                     <lightning-input-field
@@ -287,6 +296,7 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     required={isAddressRequired}
+                    aria-required={isAddressRequired}
                     variant="label-stacked"
                     field-name={street}
                     data-id="street-id"
@@ -295,6 +305,7 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     required={isAddressRequired}
+                    aria-required={isAddressRequired}
                     variant="label-stacked"
                     field-name={suburb}
                     data-id="suburb-id"
@@ -303,6 +314,7 @@
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
                     required
+                    aria-required="true"
                     variant="label-stacked"
                     field-name={postcode}
                     data-id="postcode-id"
@@ -312,6 +324,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={isAddressRequired}
+                    aria-required={isAddressRequired}
                     aria-label="Dropdown State"
                     field-name={state}
                     data-id="state-id"
@@ -321,6 +334,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={isAddressRequired}
+                    aria-required={isAddressRequired}
                     aria-label="Dropdown Country"
                     field-name={country}
                     data-id="country-id"
@@ -374,6 +388,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required
+                    aria-required="true"
                     field-name={thirdPartyName}
                     data-id="thirdPartyName-id"
                   ></lightning-input-field>
@@ -383,6 +398,7 @@
                     variant="label-stacked"
                     required={hasNominatedThirdParty}
                     aria-label="Dropdown Relationship to the complainant"
+                    aria-required={hasNominatedThirdParty}
                     field-name={thirdPartyRelationShip}
                     data-id="thirdPartyRelationShip-id"
                   >
@@ -459,6 +475,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   aria-label="Dropdown Priority"
+                  aria-required="true"
                   required
                   field-name={Priority}
                   data-id="priority-id"
@@ -470,6 +487,7 @@
                   variant="label-stacked"
                   required
                   aria-label="Dropdown Channel Received"
+                  aria-required="true"
                   field-name={ChannelReceived}
                   data-id="channelReceived-id"
                 ></lightning-input-field>
@@ -478,6 +496,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   aria-label="Dropdown Issue Type"
+                  aria-required="true"
                   required
                   field-name={complaintIssue}
                   onchange={handleAccNoOneSelection}
@@ -488,6 +507,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   aria-label="Dropdown Subsequent Issue Type"
+                  aria-required="true"
                   required
                   field-name={complaintSubIssue}
                   data-id="subsequentIssue-id"
@@ -498,6 +518,7 @@
                   variant="label-stacked"
                   required
                   aria-label="Autocomplete Product or Service Name"
+                  aria-required="true"
                   field-name={Product}
                   value={productValue}
                   onchange={handleProductChange}
@@ -506,18 +527,36 @@
               </div>
               <template if:true={isCustomerComplaint}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                  <c-combobox
+                    name="accPolicyNum-id"
+                    label="Account/Policy Number"
+                    aria-label="Dropdown Account or Policy Number"
+                    options={accountNumberOptions}
+                    required="true"
+                    multi-select="true"
+                    disabled={disableAccNoOneField}
+                    show-item-count-in-label="true"
+                    show-selections="true"
+                    data-id="accPolicyNum-id"
+                    onchange={handleAccountNumberChange}
+                  ></c-combobox>
+                  <!--
                   <c-multi-select-combobox
                     options={accountNumberOptions}
                     onselect={handleAccountNumberChange}
                     disabled={disableAccNoOneField}
                     label="Account/Policy Number"
+                    aria-label="Dropdown Account or Policy Number"
+                    required="true"
                     data-id="accPolicyNum-id"
                   ></c-multi-select-combobox>
+-->
                 </div>
               </template>
               <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                 <lightning-textarea
                   required
+                  aria-required="true"
                   label="Description of Issue"
                   field-level-help="Provide a detailed, accurate and grammatically correct description of the customer's concern, from Customer's perspective. This field should not display subjective comments from your, or ANZ's perspective."
                   onchange={handleDescriptionChange}
@@ -528,6 +567,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   required
+                  aria-required="true"
                   field-name={ComplainantDesiredOutcome}
                   data-id="custOutCome"
                 ></lightning-input-field>
@@ -549,6 +589,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasSecondIssue}
+                    aria-required={hasSecondIssue}
                     field-name={issueType2}
                     onchange={handleAccNoTwoSelection}
                     data-id="issueType2-id"
@@ -558,6 +599,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasSecondIssue}
+                    aria-required={hasSecondIssue}
                     field-name={subsequentIssue2}
                     data-id="subsequentIssue2-id"
                   ></lightning-input-field>
@@ -566,12 +608,28 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasSecondIssue}
+                    aria-required={hasSecondIssue}
                     field-name={productValue2}
                     data-id="productValue2-id"
                   ></lightning-input-field>
                 </div>
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                    <!--
+                    <c-combobox
+                      name="accPolicyNum2-id"
+                      label="Account/Policy Number 2"
+                      aria-label="Dropdown Account or Policy Number"
+                      options={accountNumberOptions}
+                      disabled={disableAccNoTwoField}
+                      required="true"
+                      multi-select="true"
+                      show-item-count-in-label="true"
+                      show-selections="true"
+                      data-id="accPolicyNum2-id"
+                      onchange={handleAccountNumber2Change}
+                    ></c-combobox>
+-->
                     <c-multi-select-combobox
                       options={accountNumberOptions}
                       onselect={handleAccountNumber2Change}
@@ -602,6 +660,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasThirdIssue}
+                    aria-required={hasThirdIssue}
                     field-name={issueType3}
                     onchange={handleAccNoThreeSelection}
                     data-id="issueType3-id"
@@ -611,6 +670,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasThirdIssue}
+                    aria-required={hasThirdIssue}
                     field-name={subsequentIssue3}
                     data-id="subsequentIssue3-id"
                   ></lightning-input-field>
@@ -619,19 +679,36 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={hasThirdIssue}
+                    aria-required={hasThirdIssue}
                     field-name={productValue3}
                     data-id="productValue3-id"
                   ></lightning-input-field>
                 </div>
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
+                    <c-combobox
+                      name="accPolicyNum3-id"
+                      label="Account/Policy Number 3"
+                      aria-label="Dropdown Account or Policy Number"
+                      options={accountNumberOptions}
+                      disabled={disableAccNoThreeField}
+                      required="true"
+                      multi-select="true"
+                      show-item-count-in-label="true"
+                      show-selections="true"
+                      data-id="accPolicyNum3-id"
+                      onchange={handleAccountNumber3Change}
+                    ></c-combobox>
+                    <!--
                     <c-multi-select-combobox
                       options={accountNumberOptions}
                       onselect={handleAccountNumber3Change}
                       disabled={disableAccNoThreeField}
                       label="Account/Policy Number 3"
+                      required="true"
                       data-id="accPolicyNum3-id"
                     ></c-multi-select-combobox>
+-->
                   </div>
                 </template>
               </div>
@@ -648,6 +725,7 @@
                 <div class="slds-col slds-size_2-of-4">
                   <lightning-radio-group
                     required
+                    aria-required="true"
                     name="writtenResponseGroup"
                     label="Has the customer requested a written response? (Do not ask the customer, only record yes if customer has specifically requested a response in writing)"
                     onchange={handleWrittenResponseChange}
@@ -661,6 +739,7 @@
                 <div class="slds-col slds-size_2-of-4 slds-m-bottom_large">
                   <lightning-radio-group
                     required
+                    aria-required="true"
                     name="writtenRequiredGroup"
                     label="Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?"
                     onchange={handleWrittenRequiredChange}
@@ -686,7 +765,7 @@
                         size="medium"
                       ></lightning-icon>
                     </div>
-                    <div class="slds-box slds-text-heading--small script-style">
+                    <div class="slds-box slds-text-heading_small script-style">
                       <p>If Yes, the case must be Escalated</p>
                       <br />
                     </div>
@@ -703,6 +782,7 @@
                 </lightning-helptext>
                 <lightning-radio-group
                   required
+                  aria-required="true"
                   name="realFormRequiredGroup"
                   label="Is a REAL form required?"
                   onchange={handleRealFormNeeded}
@@ -717,6 +797,7 @@
                 >
                   <lightning-radio-group
                     required={isRealFormNeeded}
+                    aria-required={isRealFormNeeded}
                     name="realFormSubmittedGroup"
                     label="Has a REAL form been submitted?"
                     onchange={handleRealFormSubmitted}
@@ -762,6 +843,7 @@
                     variant="label-stacked"
                     aria-label="Dropdown Complaint Escalation Reason"
                     required={isComplaintEscalated}
+                    aria-required={isComplaintEscalated}
                     field-name={escalationReason}
                     data-id="escalationReason-id"
                   ></lightning-input-field>
@@ -773,6 +855,7 @@
                     variant="label-stacked"
                     aria-label="Restriction Level"
                     required={isComplaintEscalated}
+                    aria-required={isComplaintEscalated}
                     onchange={handleRestrictionLevel}
                     field-name={restrictionLevel}
                     data-id="restrictionLevel-id"
@@ -798,6 +881,7 @@
                 </lightning-helptext>
                 <lightning-radio-group
                   required
+                  aria-required="true"
                   name="commoncomplaintGroup"
                   label="Is this a possible systemic issue?"
                   onchange={handleCommonComplaint}
@@ -815,6 +899,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={isCommonComplaint}
+                    aria-required={isCommonComplaint}
                     field-name={systemicIssueDescription}
                     data-id="siDescription-id"
                   ></lightning-input-field>
@@ -825,6 +910,7 @@
                   <lightning-input-field
                     variant="label-stacked"
                     required={isCommonComplaint}
+                    aria-required={isCommonComplaint}
                     field-name={systemicIssueCategory}
                     data-id="siCategory-id"
                   ></lightning-input-field>
