@@ -4,6 +4,7 @@
   "description": "Salesforce development project",
   "scripts": {
     "ea:prettier": "node ./misc/ea-custom-prettier.js",
+    "xml:lint": "node ./misc/xml_linter.js",
     "test": "node webdriverURLsetup.js && node createUserJsonList.js && npx tsc && npx wdio webdriverIO-build/wdio.conf.js",
     "generate-report": "npx allure generate allure-results --clean",
     "open-report": "npx allure open",
@@ -37,7 +38,8 @@
     "prettier": "^2.2.1",
     "prettier-plugin-apex": "^1.10.0",
     "pretty-quick": "^3.0.2",
-    "sfdx-cli": "^7.168.0",
+    "saxon-js": "^2.4.0",
+    "sfdx-cli": "^7.168.1",
     "typescript": "^3.9.7"
   }
 }
