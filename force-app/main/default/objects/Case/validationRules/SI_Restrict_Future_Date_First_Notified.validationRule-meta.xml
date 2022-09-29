@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SI_Restrict_Future_Date_First_Notified</fullName>
+    <active>true</active>
+    <description>Restricts the &apos;Date First Notified to SI&apos; so it cannot be future dated.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+OR(
+RecordType.DeveloperName = &apos;Systemic_Issue&apos;
+),
+SI_First_Identified_Date__c &gt;  DATEVALUE(NOW()) 
+)</errorConditionFormula>
+    <errorDisplayField>SI_First_Identified_Date__c</errorDisplayField>
+    <errorMessage>You cannot select a future date</errorMessage>
+</ValidationRule>
