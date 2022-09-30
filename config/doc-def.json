@@ -311,6 +311,13 @@
       "type": "system"
     },
     {
+      "name": "SAF Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Access_SAF"],
+      "type": "system"
+    },
+    {
       "name": "Shared Administrator",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["Shared_Admin"],
