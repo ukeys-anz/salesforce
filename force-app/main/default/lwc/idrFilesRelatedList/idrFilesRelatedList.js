@@ -1,7 +1,13 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import getCaseRelatedFiles from "@salesforce/apex/IDRFilesRelatedListController.getCaseRelatedFiles";
 import searchFilesContent from "@salesforce/apex/IDRFilesRelatedListController.searchFilesContent";
+import removeFileFromCase from "@salesforce/apex/IDRFilesRelatedListController.removeFileFromCase";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { getRecord } from "lightning/uiRecordApi";
+import STATUS_FIELD from "@salesforce/schema/Case.Status";
+import IDR_LEVEL_1_CHECK from "@salesforce/customPermission/IDR_Level_1";
+
+const FIELDS = [STATUS_FIELD];
 
 const columns = [
   {
@@ -61,6 +67,7 @@ const columns = [
     initialWidth: 100
   }
 ];
+
 export default class IDRFilesRelatedList extends LightningElement {
   @api recordId;
   @track files;
@@ -78,6 +85,31 @@ export default class IDRFilesRelatedList extends LightningElement {
   sortDirection = "asc";
   sortedBy;
   activeSections = ["search", "filelist"];
+  displayRemovalConfirmation = false;
+  fileId;
+
+  @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
+  wiredProject({ data }) {
+    if (data) {
+      //replace console.log statement with logic to determine if delete button is appended to 'columns' array
+      console.log(data);
+      if (
+        data.apiName === "Case" &&
+        IDR_LEVEL_1_CHECK &&
+        (data.recordTypeInfo.name === "Customer Complaint" ||
+          data.recordTypeInfo.name === "General Inquiry CMOS" ||
+          data.recordTypeInfo.name === "Non-Customer Complaint")
+      ) {
+        this.columns = columns;
+        this.columns.push({
+          type: "action",
+          typeAttributes: {
+            rowActions: [{ label: "Remove from Case", name: "remove" }]
+          }
+        });
+      }
+    }
+  }
 
   columns = columns;
   connectedCallback() {
@@ -109,6 +141,56 @@ export default class IDRFilesRelatedList extends LightningElement {
         this.dispatchEvent(toastEvent);
       });
   }
+  closeRemovalConfirmation() {
+    this.displayRemovalConfirmation = false;
+  }
+  handleRemovalConfirmation() {
+    removeFileFromCase({
+      idCase: this.recordId,
+      idFile: this.fileId
+    })
+      .then((result) => {
+        if (result) {
+          const toastEvent = new ShowToastEvent({
+            title: "Success",
+            message: "File Removed",
+            variant: "success"
+          });
+          this.dispatchEvent(toastEvent);
+          this.displayRemovalConfirmation = false;
+          this.refreshFileList();
+        }
+      })
+      .catch((error) => {
+        console.log("error:" + error);
+        console.log("errorbody:" + JSON.stringify(error));
+        let errorMessage = "Failed to remove file from Case";
+        if (error.body) {
+          if (Array.isArray(error.body)) {
+            errorMessage = error.body.map((e) => e.message).join(", ");
+          } else if (typeof error.body.message === "string") {
+            errorMessage = error.body.message;
+          }
+        }
+        const toastEvent = new ShowToastEvent({
+          message: errorMessage,
+          variant: "error"
+        });
+        this.dispatchEvent(toastEvent);
+      });
+  }
+  handleRowAction(event) {
+    const actionName = event.detail.action.name;
+    const row = event.detail.row;
+    switch (actionName) {
+      case "remove":
+        this.fileId = row.fileId;
+        this.displayRemovalConfirmation = true;
+        break;
+      default:
+    }
+  }
+
   refreshFileList() {
     this.searchFileName = "";
     this.searchFileType = "";

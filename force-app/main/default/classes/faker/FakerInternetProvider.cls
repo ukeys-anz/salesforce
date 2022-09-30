@@ -388,10 +388,10 @@ public with sharing class FakerInternetProvider extends FakerBase {
   };
 
   public List<String> emailFormats = new List<String>{
-    '{{lastName}}.{{firstNameMale}}@{{domainName}}',
-    '{{firstNameFemale}}.{{lastName}}@{{freeEmailDomain}}',
+    '{{lastName}}.{{firstNameMale}}##@{{domainName}}',
+    '{{firstNameFemale}}.{{lastName}}##@{{freeEmailDomain}}',
     '{{firstNameMale}}##@{{domainName}}',
-    '?{{lastName}}@{{freeEmailDomain}}'
+    '?{{lastName}}##@{{freeEmailDomain}}'
   };
 
   public List<String> safeEmailFormats = new List<String>{

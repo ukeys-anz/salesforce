@@ -2260,6 +2260,11 @@
   </fieldPermissions>
   <fieldPermissions>
     <editable>true</editable>
+    <field>Case.Date_Closed__c</field>
+    <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>true</editable>
     <field>Case.Date_Goods_Were_Returned_Or_Services_can__c</field>
     <readable>true</readable>
   </fieldPermissions>
@@ -2647,6 +2652,11 @@
       <editable>true</editable>
       <field>Case.IDR_3rdParty_Suburb__c</field>
       <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+    <editable>true</editable>
+    <field>Case.IDR_Additional_Correspondence_reviewed__c</field>
+    <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
       <editable>true</editable>
@@ -7407,6 +7417,10 @@
     <recordType>Case.ATM_Dispute</recordType>
   </layoutAssignments>
   <layoutAssignments>
+        <layout>Case-ANZx Complaint Layout</layout>
+        <recordType>Case.ANZx_Complaint</recordType>
+    </layoutAssignments>
+  <layoutAssignments>
       <layout>Case-BPAY Dispute Layout</layout>
       <recordType>Case.BPAY_Dispute</recordType>
   </layoutAssignments>
@@ -7458,6 +7472,10 @@
     <layout>Case-Non-Customer Complaint Layout</layout>
     <recordType>Case.Non_Customer_Complaint</recordType>
   </layoutAssignments>
+  <layoutAssignments>
+        <layout>Case-NPP Dispute Layout</layout>
+        <recordType>Case.NPP_Dispute</recordType>
+    </layoutAssignments>
   <layoutAssignments>
     <layout>Case-Recipient%2FMule Layout</layout>
     <recordType>Case.Recipient_Mule</recordType>

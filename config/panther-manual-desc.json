@@ -787,6 +787,7 @@
         "Feedback_Type__c",
         "Original_Feedback_Record__c",
         "ANZx_Customer__c",
+        "IDR_Additional_Correspondence_reviewed__c",
         "IDR_Avoidable_Escalation__c",
         "IDR_Avoidable_Escalation_Reason__c"
       ]
@@ -1412,7 +1413,8 @@
       "IA-2415987": [
         "Application_Number__c",
         "Application_Status__c",
-        "Has_Legal_Entity__c"
+        "Has_Legal_Entity__c",
+        "Amount"
       ],
       "IA-2415720": ["Reference_Number__c"],
       "IA-2415840": ["Purpose__c"],
@@ -1427,11 +1429,10 @@
         "Quantity",
         "UnitPrice",
         "ServiceDate"
-      ],
-      "IA-2415987": ["Amount"]
+      ]
     },
-    "Process_Effectiveness__c":{
-      "IA-2415840":[
+    "Process_Effectiveness__c": {
+      "IA-2415840": [
         "Name",
         "Quality_Assessment__c",
         "Effectiveness__c",

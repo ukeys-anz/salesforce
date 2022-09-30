@@ -5,10 +5,12 @@
  */
 @isTest
 public with sharing class CCRMLegalEntityActionsTest {
+  static User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
+
   @isTest
   static void testLegalEntitiWithCorrectAccountShouldPass() {
     Integer count = 1;
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN
       List<Legal_Entity__c> entitiesList = CCRMTestDataFactory.createLegalEntities(
         count
@@ -29,7 +31,7 @@ public with sharing class CCRMLegalEntityActionsTest {
 
   @isTest
   static void testLegalEntityWithIncorrectAccountShouldFail() {
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN
       Integer count = 1;
       List<Legal_Entity__c> entitiesList = CCRMTestDataFactory.createLegalEntities(
@@ -60,7 +62,7 @@ public with sharing class CCRMLegalEntityActionsTest {
 
   @isTest
   static void testLegalEntityCreatedWithOpportunityId() {
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN
       Integer count = 1;
       List<Legal_Entity__c> entitiesList = CCRMTestDataFactory.createLegalEntities(
@@ -92,7 +94,7 @@ public with sharing class CCRMLegalEntityActionsTest {
 
   @isTest
   static void testOpportunityAccountUpdateWithSingleEntity() {
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN
       List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
         1,
@@ -105,7 +107,7 @@ public with sharing class CCRMLegalEntityActionsTest {
       Account childAccount = [
         SELECT Id
         FROM Account
-        WHERE Name = 'Test Account'
+        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_CLG_RT_ID
         LIMIT 1
       ];
       Legal_Entity__c entity = new Legal_Entity__c();
@@ -134,7 +136,7 @@ public with sharing class CCRMLegalEntityActionsTest {
 
   @isTest
   static void testOpportunityAccountUpdateWithMultipleEntities() {
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN
       //Create Opportunity
       List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
@@ -148,14 +150,14 @@ public with sharing class CCRMLegalEntityActionsTest {
       Account parentAccount = [
         SELECT Id
         FROM Account
-        WHERE Name = 'Test Pty Ltd'
+        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
         LIMIT 1
       ];
       //Child Account 1
       Account childAccount1 = [
         SELECT Id
         FROM Account
-        WHERE Name = 'Test Account'
+        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_CLG_RT_ID
         LIMIT 1
       ];
 
@@ -201,7 +203,7 @@ public with sharing class CCRMLegalEntityActionsTest {
 
   @isTest
   static void testFirstLegalEntityWithAccountNotMatchingOpportunityAccount() {
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+    System.runAs(ccrmUser) {
       //GIVEN
       Integer count = 1;
       List<Legal_Entity__c> entitiesList = CCRMTestDataFactory.createLegalEntities(
@@ -211,7 +213,7 @@ public with sharing class CCRMLegalEntityActionsTest {
       Account parentAccount = [
         SELECT Id
         FROM Account
-        WHERE Name = 'Test Pty Ltd'
+        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
         LIMIT 1
       ];
 
