@@ -143,7 +143,7 @@ export default class cCombobox extends LightningElement {
   }
 
   @api get variant() {
-    return this._variant || (this._multiSelect ? 'lookup' : VARIANT.STANDARD);
+    return this._variant || (this._multiSelect ? "lookup" : VARIANT.STANDARD);
   }
 
   set variant(value) {
@@ -359,9 +359,6 @@ export default class cCombobox extends LightningElement {
         this._selectedItem.highlight = false;
       }
       this._selectedItem = selectedItem;
-      if (this._multiSelect) {
-        this._selectedItems = this._items.filter((item) => item.checked);
-      }
       if (selectedItem) {
         if (this.multiSelect && selectedItem.checked) {
           selectedItem.checked = false;
@@ -372,6 +369,9 @@ export default class cCombobox extends LightningElement {
           this._selectedItem.highlight = true;
           this._selectedItem.checked = true;
         }
+      }
+      if (this._multiSelect) {
+        this._selectedItems = this._items.filter((item) => item.checked);
       }
 
       this._items = this._items.slice();

@@ -344,7 +344,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
   cleanupAccount(event) {
     var myArray;
     if (event.detail.payload === undefined) {
-      myArray = event.detail.values;
+      if (Array.isArray(event.detail.values)) {
+        myArray = event.detail.values
+          .filter((value) => value.checked)
+          .map((value) => {
+            return value.value;
+          });
+      }
     } else {
       myArray = event.detail.payload.values;
     }
