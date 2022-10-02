@@ -4,11 +4,16 @@ name: Checkmarx Scan
 on:
   pull_request:
     branches: [develop, master, epic/*]
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
 
 jobs:
   checkmarx-scan:
     runs-on: [self-hosted, salesforce-prod]
-
+    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@v2
       - env:

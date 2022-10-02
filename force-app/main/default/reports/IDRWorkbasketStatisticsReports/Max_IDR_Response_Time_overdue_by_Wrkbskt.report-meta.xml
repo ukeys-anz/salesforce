@@ -46,7 +46,7 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
-            <value>IDR</value>
+            <value>IDR,CCR</value>
         </criteriaItems>
         <criteriaItems>
             <column>DUE_DATE</column>

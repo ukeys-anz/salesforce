@@ -1987,6 +1987,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_Restraint_Status__c</picklist>
+        <values>
+            <fullName>Applied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer requested closure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Removed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Security_Features__c</picklist>
         <values>
             <fullName>No</fullName>

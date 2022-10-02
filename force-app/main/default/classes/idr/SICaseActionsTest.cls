@@ -124,6 +124,8 @@ private with sharing class SICaseActionsTest {
       c.SI_Workflow_step__c = 'Monitoring';
     }
 
+    Test.startTest();
+
     update newCases;
 
     //THEN 2 monitoring tasks are created per case
@@ -152,6 +154,7 @@ private with sharing class SICaseActionsTest {
       tasks.size(),
       'Monitoring tasks should be removed because cases are no longer in Monitoring'
     );
+    Test.stopTest();
   }
 
   @isTest
@@ -177,9 +180,10 @@ private with sharing class SICaseActionsTest {
     for (Integer i = 0; i < newComplaints.size(); i++) {
       newComplaints[i].IDR_Parent_Systemic_Issue__c = null;
     }
-    update newComplaints;
 
     Test.startTest();
+
+    update newComplaints;
 
     //THEN rollup count has updated
     newSIs = [

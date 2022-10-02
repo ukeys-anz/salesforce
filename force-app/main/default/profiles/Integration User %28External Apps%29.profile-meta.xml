@@ -227,7 +227,7 @@
     <loginIpRanges>
         <description>Splunk Non-Prod</description>
         <endAddress>59.154.134.109</endAddress>
-        <startAddress>59.154.134.109</startAddress>
+        <startAddress>59.154.134.108</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Qualtrics</description>

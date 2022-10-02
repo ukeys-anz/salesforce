@@ -54,7 +54,7 @@ public without sharing class AccessRequestFlowHandler {
     try {
       if (Schema.sObjectType.User.isQueryable()) {
         List<User> users = [
-          SELECT Id, ProfileId, UserRole.Name
+          SELECT Id, ProfileId, UserRole.DeveloperName
           FROM User
           WHERE Id = :flowInstance.userId
         ];
@@ -67,7 +67,7 @@ public without sharing class AccessRequestFlowHandler {
             String profileName = [
               SELECT Profile_Name__c
               FROM User_Provisioning_Setting__mdt
-              WHERE Role_Name__c = :users[0].UserRole.Name
+              WHERE Role_Name__c = :users[0].UserRole.DeveloperName
               LIMIT 1
             ][0]
             .Profile_Name__c;

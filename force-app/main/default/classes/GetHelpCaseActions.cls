@@ -5,9 +5,12 @@
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity')
+@SuppressWarnings(
+  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
+)
 public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
+  public static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
 
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
@@ -755,6 +758,34 @@ public with sharing class GetHelpCaseActions {
         GetHelpCaseActionsHelper.populateKYCQACaseClosedNoDefectDefaults(
           record
         );
+      }
+    }
+  }
+
+  /**
+   * @description Prevent Duplicate KYC QA Against a Customer (Account)
+   * @param theCases List of cases
+   */
+  public static void validateDuplicateKYCQACasePerAccount(List<Case> theCases) {
+    Map<Id, Case> accountIdAndCaseMap = new Map<Id, Case>();
+    for (Case theCase : theCases) {
+      if (theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+        accountIdAndCaseMap.put(theCase.AccountId, theCase);
+      }
+    }
+    if (
+      Schema.sObjectType.Case.isQueryable() && accountIdAndCaseMap.size() > 0
+    ) {
+      List<Case> existingKYCQACases = [
+        SELECT Id, CaseNumber, AccountId
+        FROM Case
+        WHERE
+          RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+          AND AccountId IN :accountIdAndCaseMap.keySet()
+      ];
+      for (Case existingKYCQACase : existingKYCQACases) {
+        Case theCase = accountIdAndCaseMap.get(existingKYCQACase.AccountId);
+        theCase.addError(DUPLICATE_KYCQA_ERROR + existingKYCQACase.CaseNumber);
       }
     }
   }
