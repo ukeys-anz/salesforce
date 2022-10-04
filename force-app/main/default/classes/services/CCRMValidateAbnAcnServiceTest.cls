@@ -18,7 +18,11 @@ public with sharing class CCRMValidateAbnAcnServiceTest {
     );
     Test.stopTest();
 
-    System.assertEquals(200, response.statusCode);
+    System.assertEquals(
+      200,
+      response.statusCode,
+      'Status code of 200 should be returned'
+    );
   }
 
   @isTest
@@ -28,7 +32,10 @@ public with sharing class CCRMValidateAbnAcnServiceTest {
       CCRMValidateAbnAcnService.class
     );
     Test.stopTest();
-    System.assert(serviceResult instanceof CCRMValidateAbnAcnServiceMock);
+    System.assert(
+      serviceResult instanceof CCRMValidateAbnAcnServiceMock,
+      'Invalid service returned.'
+    );
   }
 
   class MockAbnAcnCallout implements HttpCalloutMock {

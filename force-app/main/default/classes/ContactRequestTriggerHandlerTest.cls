@@ -366,7 +366,11 @@ private class ContactRequestTriggerHandlerTest {
       FROM Interaction
       WHERE Status__c = :InteractionConstants.NEW_STATUS
     ];
-    System.assertEquals(0, interactionList.size());
+    System.assertEquals(
+      0,
+      interactionList.size(),
+      'Interaction List should be empty'
+    );
   }
 
   @isTest
@@ -412,14 +416,14 @@ private class ContactRequestTriggerHandlerTest {
       'Interaction must be set on Contact Request'
     );
 
-    system.assertNotEquals(
+    System.assertNotEquals(
       null,
       interactions,
       'Interactions should not be null'
     );
 
     //failing as not setting the interaction id on the contact request
-    system.assertNotEquals(
+    System.assertNotEquals(
       0,
       interactions.size(),
       'At least 1 interaction must be created'
@@ -427,7 +431,7 @@ private class ContactRequestTriggerHandlerTest {
 
     List<Event> events = [SELECT Id FROM Event];
 
-    system.assertEquals(
+    System.assertEquals(
       true,
       events.isEmpty(),
       'Events should not be created at this point'

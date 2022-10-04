@@ -64,7 +64,7 @@ private class CCRMLeadTriggerHandlerTest {
       FROM FeedItem
       WHERE ParentId IN :updateleads
     ];
-    system.assert(
+    System.assert(
       feedItemCount.size() >= Integer.ValueOf(Label.Test_Bulk_Size),
       'Chatter Feed is not getting created automatically.'
     );
@@ -120,9 +120,21 @@ private class CCRMLeadTriggerHandlerTest {
       CCRMLeadActions.populateFromPreviousLead(new List<Lead>{ leadRecord });
       Test.stopTest();
       //THEN the field values will be copied from previous lead to new lead
-      system.assertEquals(prevLead.LastName, leadRecord.LastName);
-      system.assertEquals(prevLead.Description, leadRecord.Description);
-      system.assertEquals(prevLead.Business_Id__c, leadRecord.Business_Id__c);
+      System.assertEquals(
+        prevLead.LastName,
+        leadRecord.LastName,
+        'Lead LastName was not populated'
+      );
+      System.assertEquals(
+        prevLead.Description,
+        leadRecord.Description,
+        'Lead Description was not populated'
+      );
+      System.assertEquals(
+        prevLead.Business_Id__c,
+        leadRecord.Business_Id__c,
+        'Lead Business Id was not populated'
+      );
     }
   }
 }
