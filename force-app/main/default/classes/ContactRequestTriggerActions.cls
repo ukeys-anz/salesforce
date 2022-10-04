@@ -6,6 +6,7 @@
  */
 public with sharing class ContactRequestTriggerActions {
   public static final String STATUS_CANCELLED = 'Cancelled';
+  private static final String MISSING_APPT_DATE_ERROR = 'Please select a date for the Contact Request';
 
   /**
    * @description Method which updates the confirmed count on the appointment commitment record
@@ -219,7 +220,7 @@ public with sharing class ContactRequestTriggerActions {
     );
     for (ContactRequest currentRequest : requests) {
       if (currentRequest.Appointment_date_and_Time__c == null) {
-        currentRequest.addError('Please select a date for the Contact Request');
+        currentRequest.addError(MISSING_APPT_DATE_ERROR);
         continue;
       }
       Id requestId = currentRequest.WhoId;
