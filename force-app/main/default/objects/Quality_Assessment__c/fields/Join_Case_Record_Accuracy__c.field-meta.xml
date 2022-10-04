@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Join_Case_Record_Accuracy__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Are all notes captured in relation to the case an accurate reflection of what action has been taken in a clear and concise manner? In addition, is all correspondence related to the case been archived in the case folder?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Are all notes captured in relation to the case an accurate reflection of what action has been taken in a clear and concise manner? In addition, is all correspondence related to the case been archived in the case folder?</inlineHelpText>
+    <label>Case Record Accuracy</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Quality_Assessment_Rating_4_Values</valueSetName>
+    </valueSet>
+</CustomField>

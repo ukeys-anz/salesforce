@@ -32,7 +32,7 @@ public class RBACPermissionCheckTest {
     String[] objectList = new List<String>{
       'Asset',
       'Campaign',
-      'Opportunity',
+      // 'Opportunity',
       'Lead',
       'Order',
       'PriceBook2',

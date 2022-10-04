@@ -3,15 +3,15 @@
     <fullName>Fraud_Customer_Details__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Source - Salesforce;Privacy - Non Personal Information</complianceGroup>
-    <description>Check:
+    <description>Check: 
 
-The following customer information in Fenergo matches the details on the ID Document:
-first &amp; last name; middle name (passport only); date of birth; ID document number, expiry date and issuer state/country</description>
+The following customer information in Fenergo matches the details on the ID Document: 
+first &amp; last name; middle name (per framework); date of birth; ID document number, expiry date (if required), and issue state/country</description>
     <externalId>false</externalId>
-    <inlineHelpText>Check:
+    <inlineHelpText>Check: 
 
-The following customer information in Fenergo matches the details on the ID Document:
-first &amp; last name; middle name (passport only); date of birth; ID document number, expiry date and issuer state/country</inlineHelpText>
+The following customer information in Fenergo matches the details on the ID Document: 
+first &amp; last name; middle name (per framework); date of birth; ID document number, expiry date (if required), and issue state/country</inlineHelpText>
     <label>KYC Information is a Match &amp; Complete</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

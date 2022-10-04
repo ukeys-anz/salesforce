@@ -1,37 +1,5 @@
 @isTest
 private class QualityAssessmentActionsTest {
-  //method to test call initNewGeneralQARecords mehtod
-  @isTest
-  private static void testInitNewGeneralQARecordsWithRelatedList() {
-    List<Case> newCases = new List<Case>();
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
-          Status = GetHelpConstants.CLOSED_STATUS,
-          Origin = 'Phone'
-        )
-      );
-    }
-
-    Test.startTest();
-
-    insert newCases;
-
-    List<Quality_Assessment__c> qaRecords = QualityAssessmentActions.initNewGeneralQARecords(
-      newCases
-    );
-
-    Test.stopTest();
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      qaRecords.size(),
-      'Passing Case list into initNewGeneralQARecords method should return Quality Assessment list with same size.'
-    );
-  }
-
   //method to test negative case (return false) when calling isDisputeCaseType mehtod
   @isTest
   private static void testIsDisputeCaseTypeNegative() {
@@ -144,6 +112,7 @@ private class QualityAssessmentActionsTest {
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
       Related_Case__c = caseRecord.Id,
+      Evaluation_type__c = 'Email',
       Interaction_Type__c = 'Email'
     );
 

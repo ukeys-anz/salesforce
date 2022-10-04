@@ -7,6 +7,8 @@
 private class CCRMLeadActionsTest {
   @testSetup
   static void setup() {
+    User adobeUser = CCRMTestDataFactory.createAdobeIntegrationUser();
+    User unicaUser = CCRMTestDataFactory.createUnicaIntegrationUser();
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
     User ccrmAdminUser = CCRMTestDataFactory.createAdminUser();
 
@@ -168,6 +170,7 @@ private class CCRMLeadActionsTest {
     leadRecord.Lead_Originator__c = 'CCRM';
     leadRecord.Status = CCRMConstants.STATUS_NEW;
     leadRecord.OwnerId = ccrmUser.Id;
+
     Lead leadRecord2 = new Lead();
     leadRecord2.Email = 'sam2@test.com';
     leadRecord2.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
@@ -328,7 +331,7 @@ private class CCRMLeadActionsTest {
     //WHEN
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
-    CCRMLeadActionsHelper.resendLeadPlatformEvent(leadIds);
+    CCRMLeadActionsHelper.resendManualLeadPlatformEvent(leadIds);
 
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
@@ -354,7 +357,7 @@ private class CCRMLeadActionsTest {
     //WHEN
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
-    CCRMLeadActionsHelper.resendLeadPlatformEvent(leadIds);
+    CCRMLeadActionsHelper.resendManualLeadPlatformEvent(leadIds);
 
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
@@ -533,7 +536,6 @@ private class CCRMLeadActionsTest {
   @isTest
   static void testLogResponseLeadUpdateToUnica() {
     //GIVEN leads
-
     Lead unicaLead = [SELECT Id FROM Lead LIMIT 1];
     unicaLead.Lead_Originator__c = 'UNICA';
     unicaLead.Business_ID__c = 'BUS1234';
@@ -607,9 +609,8 @@ private class CCRMLeadActionsTest {
     }
 
     //WHEN
-    Set<String> leadIds = new Set<String>();
-    leadIds.add(leads[0].Lead_id__c);
-    CCRMLeadActionsHelper.resendLeadUpdatePlatformEvent(leadIds);
+    Set<Id> leadIds = new Set<Id>{ leads[0].Id };
+    CCRMLeadActions.resendAdobeOrUnicaOrCcrmLeadUpdatePlatformEvent(leadIds);
 
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
@@ -618,5 +619,253 @@ private class CCRMLeadActionsTest {
       'Partner',
       'Lead source should match.'
     );
+  }
+
+  @IsTest
+  static void testValidateUnicaLeadExpiryDate() {
+    //GIVEN new UNICA lead without expiry date info
+    User adobeUser = [
+      SELECT Id
+      FROM User
+      WHERE username = 'adobe.integration@anzx.com.unittest'
+    ];
+    Lead leadWithNoExpiryDate = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      OwnerId = adobeUser.Id
+    );
+
+    Test.startTest();
+    //WHEN validated
+    CCRMLeadUtil.validateUnicaLeads(new List<Lead>{ leadWithNoExpiryDate });
+    Test.stopTest();
+
+    //THEN expiry date validation error will be added
+    System.assert(
+      leadWithNoExpiryDate.hasErrors(),
+      'Record should have validation error'
+    );
+    System.assertEquals(
+      CCRMLeadUtil.EXPIRY_DATE_MISSING_ERROR_MESSAGE,
+      leadWithNoExpiryDate.getErrors()[0].getMessage(),
+      'Expiry date validation error should be added to record'
+    );
+  }
+
+  @IsTest
+  static void testValidateUnicaLeadCustomerLinking() {
+    Account acc = CCRMTestDataFactory.createBusinessAccount();
+    String invalidId = 'invalidId';
+    Campaign campaign = [SELECT Code__c FROM Campaign LIMIT 1];
+
+    //GIVEN some UNICA lead with invalid campaign code or account Source System ID
+    Lead leadWithInvalidCampaignCode = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      Campaign_Code__c = campaign.Code__c + 'invalid'
+    );
+    Lead leadWithValidCustomerId = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      Campaign_Code__c = campaign.Code__c,
+      Customer_ID__c = acc.Source_System_ID__c
+    );
+    Lead leadWithInvalidCustomerId = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      Campaign_Code__c = campaign.Code__c,
+      Customer_ID__c = invalidId
+    );
+    Lead leadWithValidClgId = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      Campaign_Code__c = campaign.Code__c,
+      CLG_ID__c = acc.Source_System_ID__c
+    );
+    Lead leadWithInvalidClgId = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      Campaign_Code__c = campaign.Code__c,
+      CLG_ID__c = invalidId
+    );
+    Lead leadWithValidBusinessId = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      Campaign_Code__c = campaign.Code__c,
+      Business_ID__c = acc.Source_System_ID__c
+    );
+    Lead leadWithInvalidBusinessId = new Lead(
+      RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID,
+      Lead_Originator__c = CCRMConstants.ORIGINATOR_UNICA,
+      Campaign_Code__c = campaign.Code__c,
+      Business_ID__c = invalidId
+    );
+
+    Test.startTest();
+    //WHEN validated
+    CCRMLeadActions.populateFields(
+      new List<Lead>{
+        leadWithInvalidCampaignCode,
+        leadWithValidCustomerId,
+        leadWithInvalidCustomerId,
+        leadWithValidClgId,
+        leadWithInvalidClgId,
+        leadWithValidBusinessId,
+        leadWithInvalidBusinessId
+      }
+    );
+    Test.stopTest();
+
+    //THEN leads with no matching campaign or related account will fail validation
+    System.assert(
+      leadWithInvalidCampaignCode.hasErrors(),
+      'Lead with invalid campaign code should fail validation'
+    );
+    System.assert(
+      leadWithInvalidCustomerId.hasErrors(),
+      'Lead with invalid Customer ID should fail validation'
+    );
+    System.assert(
+      leadWithInvalidClgId.hasErrors(),
+      'Lead with invalid CLG ID should fail validation'
+    );
+    System.assert(
+      leadWithInvalidBusinessId.hasErrors(),
+      'Lead with invalid Business ID should fail validation'
+    );
+  }
+
+  @isTest
+  static void testLeadCreatedByAdobeUserWithNoOwnerShouldFail() {
+    //GIVEN
+    User adobeUser = [
+      SELECT Id
+      FROM User
+      WHERE username = 'adobe.integration@anzx.com.unittest'
+    ];
+    Lead leadRecord = new Lead();
+    leadRecord.Email = 'sam21@test.com';
+    leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
+    leadRecord.Description = 'Need a new Credit Card';
+    leadRecord.Not_Registered__c = true;
+    leadRecord.Expiry_Date__c = System.today() + 10;
+    leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord.FinServ__PotentialValue__c = 12000;
+    leadRecord.FirstName = 'Adobe Ingested';
+    leadRecord.LastName = 'Lead1';
+    leadRecord.LeadSource = 'Partner';
+    leadRecord.New_to_Bank__c = 'Yes';
+    leadRecord.Lead_Originator__c = 'Adobe';
+    leadRecord.Status = CCRMConstants.STATUS_NEW;
+
+    System.runAs(adobeUser) {
+      try {
+        //WHEN
+        Test.startTest();
+        insert leadRecord;
+        Test.stopTest();
+      } catch (Exception ex) {
+        //THEN
+        if (
+          ex.getMessage()
+            .contains(CCRMLeadUtil.ADOBE_LEAD_OWNER_MISSING_ERROR_MESSAGE)
+        ) {
+          System.assert(true, 'Error message displayed');
+        } else {
+          System.assert(false, 'Incorrect error message');
+        }
+      }
+    }
+
+  }
+
+  @isTest
+  static void testLeadCreatedByUnicaUserWithNoOwnerShouldFail() {
+    //GIVEN
+    User unicaUser = [
+      SELECT Id
+      FROM User
+      WHERE username = 'unica.integration@anzx.com.unittest'
+    ];
+    Lead leadRecord = new Lead();
+    leadRecord.Email = 'sam1@test.com';
+    leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
+    leadRecord.Description = 'Need a new Credit Card';
+    leadRecord.Not_Registered__c = true;
+    leadRecord.Expiry_Date__c = System.today() + 10;
+    leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+    leadRecord.FinServ__PotentialValue__c = 12000;
+    leadRecord.FirstName = 'Unica Ingested';
+    leadRecord.LastName = 'Lead';
+    leadRecord.LeadSource = 'Partner';
+    leadRecord.New_to_Bank__c = 'Yes';
+    leadRecord.Lead_Originator__c = 'UNICA';
+    leadRecord.Status = CCRMConstants.STATUS_NEW;
+
+    System.runAs(unicaUser) {
+      try {
+        //WHEN
+        Test.startTest();
+        insert leadRecord;
+        Test.stopTest();
+      } catch (Exception ex) {
+        //THEN
+        if (
+          ex.getMessage()
+            .contains(CCRMLeadUtil.UNICA_LEAD_OWNER_MISSING_ERROR_MESSAGE)
+        ) {
+          System.assert(true, 'Error message displayed');
+        } else {
+          System.assert(false, 'Incorrect error message');
+        }
+      }
+    }
+  }
+
+  @isTest
+  static void testLeadCreatedWithDefaultCampaign() {
+    //GIVEN when I create a Lead
+    //When the lead is manually created
+    //Then campaign value is set to default
+    Id leadId;
+    Campaign campaign;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      campaign = [
+        SELECT Id
+        FROM Campaign
+        WHERE Code__c = :System.Label.CCRM_DefaultCampaign
+        LIMIT 1
+      ];
+    }
+    Test.startTest();
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Lead leadRecord = new Lead();
+      leadRecord.Email = 'sam1@test.com';
+      leadRecord.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
+      leadRecord.Description = 'Need a new Credit Card';
+      leadRecord.Not_Registered__c = true;
+      leadRecord.Expiry_Date__c = System.today() + 10;
+      leadRecord.FinServ__ExpressedInterest__c = 'Credit Card';
+      leadRecord.FinServ__PotentialValue__c = 12000;
+      leadRecord.FirstName = 'Default';
+      leadRecord.LastName = 'Campaign';
+      leadRecord.LeadSource = 'Partner';
+      leadRecord.New_to_Bank__c = 'Yes';
+      leadRecord.Lead_Originator__c = 'CCRM';
+      leadRecord.Status = CCRMConstants.STATUS_NEW;
+
+      insert leadRecord;
+      leadId = leadRecord.Id;
+    }
+    Test.stopTest();
+
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      List<CampaignMember> members = [
+        SELECT Id
+        FROM CampaignMember
+        WHERE CampaignId = :campaign.Id AND LeadId = :leadId
+      ];
+      System.assert(!members.isEmpty(), 'Campaign Member was created');
+    }
   }
 }

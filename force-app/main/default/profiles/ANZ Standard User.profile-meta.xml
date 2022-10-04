@@ -1721,6 +1721,13 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Opportunity-Commercial Opportunity Layout</layout>
+        <recordType>Opportunity.Commercial_Opportunity</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>OpportunityLineItem-Opportunity Product Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Release__c-Release Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

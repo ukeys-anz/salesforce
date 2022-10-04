@@ -13,7 +13,7 @@ public class ContentDocumentLinkTriggerHandlerTest {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
     User idrUser = new User(
       Alias = 'idruse',
-      Email = 'idruser@anztest.com',
+      Email = 'idruser@anz.com',
       LastName = 'Testing',
       ProfileId = p.Id,
       UserName = 'idruser@anztest.com',
@@ -89,5 +89,39 @@ public class ContentDocumentLinkTriggerHandlerTest {
         'The content document link Id should be as expected.'
       );
     }
+  }
+
+  @isTest
+  static void testCreateCaseCloseNotification() {
+    Case testCase = [
+      SELECT Id, status, IDR_Description_of_Outcome__c, IDR_Complaint_Outcome__c
+      FROM Case
+    ];
+    test.startTest();
+    testCase.Status = 'Closed';
+    testCase.IDR_Description_of_Outcome__c = 'Test';
+    testCase.IDR_Complaint_Outcome__c = '1';
+    update testCase;
+    ContentVersion cv = new ContentVersion();
+    cv.Title = 'Test File Delete';
+    cv.PathOnClient = 'Test File Delete' + '.txt';
+    cv.VersionData = Blob.valueOf('Test File Delete functionality');
+
+    insert cv;
+
+    // retrieve file to create an association with case
+    ContentDocument cd = [SELECT id FROM ContentDocument LIMIT 1];
+
+    // insert Content document link
+    ContentDocumentLink cdl = new ContentDocumentLink();
+    cdl.ContentDocumentId = cd.Id;
+    cdl.LinkedEntityId = testCase.Id;
+    cdl.ShareType = 'V';
+    cdl.Visibility = 'AllUsers';
+    insert cdl;
+    test.stopTest();
+
+    CaseComment cc = [SELECT Id FROM CaseComment WHERE ParentId = :testCase.Id];
+    System.assert(cc != null, 'casecomment not created');
   }
 }

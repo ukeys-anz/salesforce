@@ -6,5 +6,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Card Dispute Agent</name>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ANZx</parentRole>
+    <parentRole>Join_Lead</parentRole>
 </Role>

@@ -257,4 +257,46 @@ public with sharing class CCRMTaskActionsTest {
       );
     }
   }
+
+  @IsTest
+  static void testDeleteResponse() {
+    Exception e;
+    Task task;
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      //GIVEN a response is logged against lead
+      List<Lead> leads = [SELECT Id FROM Lead LIMIT 1];
+
+      Response_Type__c rtAccepted = [
+        SELECT Id, Name, Campaign__c, Response_Status__c, Create_Opportunity__c
+        FROM Response_Type__c
+        WHERE Response_Status__c = 'Accepted'
+        LIMIT 1
+      ];
+
+      task = new Task();
+      task.Response_Status__c = 'Accepted';
+      task.Status = CCRMConstants.STATUS_COMPLETED;
+      task.Outcome_Reason__c = 'Happy with the offer';
+      task.Subject = 'Accepted' + ': ' + 'Happy with the offer';
+      task.Description = 'Test delete response';
+      task.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
+      task.WhoId = leads[0].Id;
+      task.Response_Type__c = rtAccepted.Id;
+      insert task;
+
+      Test.startTest();
+      //WHEN the response is deleted
+      CCRMTaskActions.preventDelete(new List<Task>{ task });
+      Test.stopTest();
+    }
+
+    //THEN the delete action will fail
+    System.assert(
+      task.hasErrors() &&
+      task.getErrors()[0]
+        .getMessage()
+        .contains(CCRMTaskActions.RESPONSE_DELETE_ERROR_MESSAGE),
+      'Must not be able to delete response'
+    );
+  }
 }

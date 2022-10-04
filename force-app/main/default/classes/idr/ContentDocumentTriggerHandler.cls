@@ -17,7 +17,10 @@ public class ContentDocumentTriggerHandler extends Lib_TriggerHandler {
    */
   public static void restrictFileDeleteAction(List<ContentDocument> cdList) {
     for (ContentDocument cv : cdList) {
-      cv.addError(IDRConstants.RESTRICTED_ACTION_MESSAGE);
+      //AR-13518 : Allow level 1 or higher user to be able to delete document.
+      if (!FeatureManagement.checkPermission('IDR_Level_1')) {
+        cv.addError(IDRConstants.RESTRICTED_ACTION_MESSAGE);
+      }
     }
   }
 }

@@ -2,8 +2,8 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Commercial_Opportunity</fullName>
     <active>true</active>
-    <businessProcess>FinServ__Opportunity Process</businessProcess>
-    <description>Commercial Opportunity</description>
+    <businessProcess>CCRM Opportunity Process</businessProcess>
+    <compactLayoutAssignment>Commercial_Opportunity</compactLayoutAssignment>
     <label>Commercial Opportunity</label>
     <picklistValues>
         <picklist>ForecastCategoryName</picklist>
@@ -68,6 +68,53 @@
         </values>
         <values>
             <fullName>Self-Sourced</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Lost_Reason__c</picklist>
+        <values>
+            <fullName>Accessibility</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Convenience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Needs Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined by Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined by Manager</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Proceeding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Package</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Simplicity</fullName>
             <default>false</default>
         </values>
     </picklistValues>
