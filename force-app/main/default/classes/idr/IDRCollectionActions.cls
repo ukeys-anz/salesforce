@@ -116,19 +116,14 @@ public with sharing class IDRCollectionActions {
     productNameMap = getProductNames(records);
 
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
-    Map<Id, Boolean> openThirdPartyTasksMap = new Map<Id, Boolean>();
-    List<Id> caseIds = new List<Id>();
-    for (Case rec : records) {
-      caseIds.add(rec.Id);
-    }
-    openThirdPartyTasksMap = getOpenStopTasks(caseIds);
+
     for (Case rec : records) {
       Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
       if (rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
-        validateRecordForStopCollection(rec, oldRec, openThirdPartyTasksMap);
+        validateRecordForStopCollection(rec, oldRec);
         if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
           collectionsCasesEventList.add(
-            buildCollectionEvent(rec, stopCollectionAccList, null)
+            buildCollectionEvent(rec, stopCollectionAccList)
           );
         }
       }
@@ -147,14 +142,9 @@ public with sharing class IDRCollectionActions {
    * @description method to validate whether the complaint issues are eligible for stop collections
    * @param rec current record from trigger
    * @param oldRec old record from trigger
-   * @param openThirdPartyTasksMap map of third party stop tasks if it exists or not
    */
-  private static void validateRecordForStopCollection(
-    Case rec,
-    Case oldRec,
-    Map<Id, Boolean> openThirdPartyTasksMap
-  ) {
-    if (checkIssueOne(rec, oldRec, openThirdPartyTasksMap)) {
+  private static void validateRecordForStopCollection(Case rec, Case oldRec) {
+    if (checkIssueOne(rec, oldRec)) {
       stopCollectionForIssueOne(rec);
     }
     if (checkIssueTwo(rec, oldRec)) {
@@ -199,7 +189,7 @@ public with sharing class IDRCollectionActions {
         new IDRCollectionsAccounts(
           accNumber2,
           productNameMap.get(rec.IDR_Product_2__c)?.Name,
-          null
+          rec.IDR_Product_Category__c
         )
       );
       stopCollectionTaskList.add(
@@ -221,7 +211,7 @@ public with sharing class IDRCollectionActions {
         new IDRCollectionsAccounts(
           accNumber3,
           productNameMap.get(rec.IDR_Product_3__c)?.Name,
-          null
+          rec.IDR_Product_Category__c
         )
       );
       stopCollectionTaskList.add(
@@ -234,35 +224,17 @@ public with sharing class IDRCollectionActions {
    * @description method to check if issue one is eligible for stop collections
    * @param c Case record from the trigger
    * @param oldRec Old Case record from the trigger
-   * @param openThirdPartyTasksMap map of third party stop tasks if it exists or not
    * @return true or false
    */
-  private static Boolean checkIssueOne(
-    Case c,
-    Case oldRec,
-    Map<Id, Boolean> openThirdPartyTasksMap
-  ) {
-    Boolean openStopTasks = openThirdPartyTasksMap != null
-      ? openThirdPartyTasksMap.containsKey(c.Id)
-          ? openThirdPartyTasksMap.get(c.Id)
-          : false
-      : false;
+  private static Boolean checkIssueOne(Case c, Case oldRec) {
     if (
       (oldRec == null ||
       !IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(oldRec.Type) ||
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue__c
       ) ||
-      ((oldRec.Status != c.Status &&
+      (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status)) ||
-      (IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.Type) &&
-      IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
-        c.IDR_Subsequent_Issue__c
-      ) &&
-      IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status) &&
-      oldRec.IDR_Product_Category__c != c.IDR_Product_Category__c &&
-      c.IDR_Product_Category__c == 'Asset Finance' &&
-      !openStopTasks)) ||
       //AR-14452 Below scenario is for shell cases ingested by NLP model, hence why it only in checkIssueOne method
       ((String.isBlank(oldRec.IDR_Account_Card_Policy_Number__c) ||
       oldRec.IDR_Account_Card_Policy_Number__c == 'N/A') &&
@@ -300,7 +272,8 @@ public with sharing class IDRCollectionActions {
       (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_2__c) &&
-      productNameMap.containsKey(c.IDR_Product_2__c) &&
+      (productNameMap.containsKey(c.IDR_Product_2__c) ||
+      c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_2__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_2__c
@@ -330,7 +303,8 @@ public with sharing class IDRCollectionActions {
       (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_3__c) &&
-      productNameMap.containsKey(c.IDR_Product_3__c) &&
+      (productNameMap.containsKey(c.IDR_Product_3__c) ||
+      c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_3__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         c.IDR_Subsequent_Issue_3__c
@@ -372,13 +346,11 @@ public with sharing class IDRCollectionActions {
    * @description method to trigger collections activity in downstream systems when collections flag is turned on for a customer on a complaint.
    * @param c A case record
    * @param collectionAccList list of account number applicable for collections
-   * @param openThirdPartyStopTasksMap map of third party stop tasks for which start collections need to be applied
    * @return Platform event record
    */
   private static IDR_Collections_Event__e buildCollectionEvent(
     Case c,
-    List<IDRCollectionsAccounts> collectionAccList,
-    Map<Id, Boolean> openThirdPartyStopTasksMap
+    List<IDRCollectionsAccounts> collectionAccList
   ) {
     IDR_Collections_Event__e collectionsEvent = new IDR_Collections_Event__e();
     collectionsEvent.IDR_Customer_Number__c = c.IDR_Customer_Number__c;
@@ -391,12 +363,6 @@ public with sharing class IDRCollectionActions {
         : c.ClosedDate);
     }
 
-    collectionsEvent.IDR_Start_Tasks_Required__c = openThirdPartyStopTasksMap !=
-      null
-      ? openThirdPartyStopTasksMap.containsKey(c.Id)
-          ? openThirdPartyStopTasksMap.get(c.Id)
-          : false
-      : false;
     collectionsEvent.IDR_Complaint_Number__c = c.CaseNumber;
     collectionsEvent.IDR_Complaint_Status__c = c.Status;
     collectionsEvent.IDR_Complaint_Case_Id__c = c.Id;
@@ -404,57 +370,6 @@ public with sharing class IDRCollectionActions {
     collectionsEvent.IDR_Closed_On_Create__c = c.IsClosedOnCreate;
 
     return collectionsEvent;
-  }
-
-  private static Map<Id, Boolean> getOpenStopTasks(List<Id> caseIds) {
-    Map<Id, Boolean> returnMap = new Map<Id, Boolean>();
-    List<Task> taskList = new List<Task>();
-    Map<Id, List<Task>> mapCaseIdStartTask = new Map<Id, List<Task>>();
-    Map<Id, List<Task>> mapCaseIdStopTask = new Map<Id, List<Task>>();
-    if (Task.SObjectType.getDescribe().isQueryable()) {
-      taskList = [
-        SELECT Id, Subject, Description, WhatId, Type
-        FROM Task
-        WHERE
-          WhatId IN :caseIds
-          AND Type = 'Collections'
-          AND Subject LIKE '%Account with 3rd Party/Asset Finance%'
-      ];
-    }
-
-    if (taskList.size() > 0) {
-      for (Task t : taskList) {
-        if (t.Subject.contains('Stop')) {
-          if (mapCaseIdStopTask.containsKey(t.WhatId)) {
-            mapCaseIdStopTask.get(t.WhatId).add(t);
-          } else {
-            mapCaseIdStopTask.put(t.WhatId, new List<Task>{ t });
-          }
-        } else if (t.Subject.contains('Start')) {
-          if (mapCaseIdStartTask.containsKey(t.WhatId)) {
-            mapCaseIdStartTask.get(t.WhatId).add(t);
-          } else {
-            mapCaseIdStartTask.put(t.WhatId, new List<Task>{ t });
-          }
-        }
-      }
-    }
-
-    for (Id caseId : caseIds) {
-      Integer stopTaskSize = mapCaseIdStopTask.get(caseId)?.size() == null
-        ? 0
-        : mapCaseIdStopTask.get(caseId)?.size();
-      Integer startTaskSize = mapCaseIdStartTask.get(caseId)?.size() == null
-        ? 0
-        : mapCaseIdStartTask.get(caseId)?.size();
-      if (stopTaskSize > startTaskSize) {
-        returnMap.put(caseId, true);
-      } else {
-        returnMap.put(caseId, false);
-      }
-    }
-
-    return returnMap;
   }
 
   /**
@@ -514,7 +429,6 @@ public with sharing class IDRCollectionActions {
     List<Case> finalList = new List<Case>();
     List<Id> caseIds = new List<Id>();
     Map<String, Set<Id>> startCollecMap = new Map<String, Set<Id>>();
-    Map<Id, Boolean> openThirdPartyTasksMap = new Map<Id, Boolean>();
     List<IDR_Collections_Event__e> collectionsStartEventList = new List<IDR_Collections_Event__e>();
 
     //get only closed records for start collections
@@ -549,18 +463,12 @@ public with sharing class IDRCollectionActions {
     //Build collection map
     startCollecMap = getStartCollectionMap(collectionAcctsList, caseIds);
 
-    openThirdPartyTasksMap = getOpenStopTasks(caseIds);
-
     //validate all closed records whether the stop collection is already triggered or not
     for (Case rec : finalList) {
       validateRecordForStartCollection(rec, startCollecMap);
       if (!startCollectionAccList.isEmpty()) {
         collectionsStartEventList.add(
-          buildCollectionEvent(
-            rec,
-            startCollectionAccList,
-            openThirdPartyTasksMap
-          )
+          buildCollectionEvent(rec, startCollectionAccList)
         );
       }
     }
@@ -681,15 +589,13 @@ public with sharing class IDRCollectionActions {
         stCaseIds.contains(rec.Id))
       ) {
         if (
-          (stCaseIds.size() == 1) &&
-          (productNameMap.containsKey(rec.Product__c) ||
-          rec.IDR_Product_Category__c != null)
+          (stCaseIds.size() == 1) && productNameMap.containsKey(rec.Product__c)
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber,
-              productNameMap.get(rec.Product__c)?.Name,
-              rec.IDR_Product_Category__c
+              productNameMap.get(rec.Product__c).Name,
+              null
             )
           );
           startCollectionTaskList.add(
@@ -728,7 +634,7 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber2,
-              productNameMap.get(rec.IDR_Product_2__c)?.Name,
+              productNameMap.get(rec.IDR_Product_2__c).Name,
               null
             )
           );
@@ -768,7 +674,7 @@ public with sharing class IDRCollectionActions {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber3,
-              productNameMap.get(rec.IDR_Product_3__c)?.Name,
+              productNameMap.get(rec.IDR_Product_3__c).Name,
               null
             )
           );
