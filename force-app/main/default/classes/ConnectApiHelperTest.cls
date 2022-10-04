@@ -48,11 +48,12 @@ public class ConnectApiHelperTest {
     } catch (ConnectApi.ConnectApiException e) {
       System.assertEquals(
         'Only user and group IDs may be used in inline mentions.',
-        e.getMessage()
+        e.getMessage(),
+        'Expected invalid mention error was not received'
       );
       exceptionThrown = true;
     }
-    System.assert(exceptionThrown);
+    System.assert(exceptionThrown, 'Exception should be thrown');
   }
 
   @IsTest(SeeAllData=true)
@@ -65,7 +66,7 @@ public class ConnectApiHelperTest {
     } catch (ConnectApiHelper.InvalidParameterException e) {
       exceptionThrown = true;
     }
-    System.assert(exceptionThrown);
+    System.assert(exceptionThrown, 'Exception should be thrown');
   }
 
   @IsTest(SeeAllData=true)
@@ -73,7 +74,7 @@ public class ConnectApiHelperTest {
     List<ConnectApi.MessageSegmentInput> segments = ConnectApiHelper.getMessageSegmentInputs(
       ''
     );
-    System.assertEquals(0, segments.size());
+    System.assertEquals(0, segments.size(), 'Expected empty segments list');
   }
 
   @IsTest(SeeAllData=true)
@@ -83,12 +84,23 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(1, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.TextSegmentInput);
+    System.assertEquals(
+      1,
+      segments.size(),
+      'Segments List size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.TextSegmentInput,
+      'TextSegmentInput type was expected'
+    );
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       0
     );
-    System.assertEquals(text, textSegment.text);
+    System.assertEquals(
+      text,
+      textSegment.text,
+      'Text segment text should match input'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -99,12 +111,23 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(1, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.MentionSegmentInput);
+    System.assertEquals(
+      1,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.MentionSegmentInput,
+      'MentionSegmentInput type was expected'
+    );
     ConnectApi.MentionSegmentInput mentionSegment = (ConnectApi.MentionSegmentInput) segments.get(
       0
     );
-    System.assertEquals(mentionId, mentionSegment.id);
+    System.assertEquals(
+      mentionId,
+      mentionSegment.id,
+      'Mention segment Id should match input'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -116,19 +139,37 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(2, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.MentionSegmentInput);
-    System.assert(segments.get(1) instanceof ConnectApi.TextSegmentInput);
+    System.assertEquals(
+      2,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.MentionSegmentInput,
+      'MentionSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.TextSegmentInput,
+      'TextSegmentInput type was expected'
+    );
 
     ConnectApi.MentionSegmentInput mentionSegment = (ConnectApi.MentionSegmentInput) segments.get(
       0
     );
-    System.assertEquals(mentionId, mentionSegment.id);
+    System.assertEquals(
+      mentionId,
+      mentionSegment.id,
+      'Mention segment Id should match input'
+    );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       1
     );
-    System.assertEquals(restOfMessage, textSegment.text);
+    System.assertEquals(
+      restOfMessage,
+      textSegment.text,
+      'restOfMessage should match text'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -140,19 +181,37 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(2, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(1) instanceof ConnectApi.MentionSegmentInput);
+    System.assertEquals(
+      2,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.TextSegmentInput,
+      'TextSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.MentionSegmentInput,
+      'MentionSegmentInput type was expected'
+    );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       0
     );
-    System.assertEquals(restOfMessage, textSegment.text);
+    System.assertEquals(
+      restOfMessage,
+      textSegment.text,
+      'restOfMessage should match text'
+    );
 
     ConnectApi.MentionSegmentInput mentionSegment = (ConnectApi.MentionSegmentInput) segments.get(
       1
     );
-    System.assertEquals(mentionId, mentionSegment.id);
+    System.assertEquals(
+      mentionId,
+      mentionSegment.id,
+      'Mention segment Id should match'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -164,19 +223,37 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(2, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.MentionSegmentInput);
-    System.assert(segments.get(1) instanceof ConnectApi.MentionSegmentInput);
+    System.assertEquals(
+      2,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.MentionSegmentInput,
+      'MentionSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.MentionSegmentInput,
+      'MentionSegmentInput type was expected'
+    );
 
     ConnectApi.MentionSegmentInput mentionSegment = (ConnectApi.MentionSegmentInput) segments.get(
       0
     );
-    System.assertEquals(mentionId, mentionSegment.id);
+    System.assertEquals(
+      mentionId,
+      mentionSegment.id,
+      'Mention segment Id should match input'
+    );
 
     ConnectApi.MentionSegmentInput mentionSegment2 = (ConnectApi.MentionSegmentInput) segments.get(
       1
     );
-    System.assertEquals(mentionId2, mentionSegment2.id);
+    System.assertEquals(
+      mentionId2,
+      mentionSegment2.id,
+      'Mention segment Id should match input'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -216,43 +293,73 @@ public class ConnectApiHelperTest {
 
     List<ConnectApi.MessageSegment> segments = fi.body.messageSegments;
 
-    System.assertEquals(6, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.HashtagSegment);
-    System.assert(segments.get(1) instanceof ConnectApi.TextSegment);
-    System.assert(segments.get(2) instanceof ConnectApi.LinkSegment);
-    System.assert(segments.get(3) instanceof ConnectApi.TextSegment);
-    System.assert(segments.get(4) instanceof ConnectApi.MentionSegment);
-    System.assert(segments.get(5) instanceof ConnectApi.TextSegment);
+    System.assertEquals(
+      6,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.HashtagSegment,
+      'HashtagSegment type was expected'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.TextSegment,
+      'TextSegment type was expected'
+    );
+    System.assert(
+      segments.get(2) instanceof ConnectApi.LinkSegment,
+      'LinkSegment type was expected'
+    );
+    System.assert(
+      segments.get(3) instanceof ConnectApi.TextSegment,
+      'TextSegment type was expected'
+    );
+    System.assert(
+      segments.get(4) instanceof ConnectApi.MentionSegment,
+      'MentionSegment type was expected'
+    );
+    System.assert(
+      segments.get(5) instanceof ConnectApi.TextSegment,
+      'TextSegment type was expected'
+    );
 
     ConnectApi.HashtagSegment hashtagSegment = (ConnectApi.HashtagSegment) segments.get(
       0
     );
-    System.assertEquals(hashtag, hashtagSegment.tag);
+    System.assertEquals(
+      hashtag,
+      hashtagSegment.tag,
+      'Segment should match input'
+    );
 
     ConnectApi.TextSegment textSegment1 = (ConnectApi.TextSegment) segments.get(
       1
     );
-    System.assertEquals(text1, textSegment1.text);
+    System.assertEquals(text1, textSegment1.text, 'Segment should match input');
 
     ConnectApi.LinkSegment linkSegment = (ConnectApi.LinkSegment) segments.get(
       2
     );
-    System.assertEquals(link, linkSegment.url);
+    System.assertEquals(link, linkSegment.url, 'Segment should match input');
 
     ConnectApi.TextSegment textSegment2 = (ConnectApi.TextSegment) segments.get(
       3
     );
-    System.assertEquals(text2, textSegment2.text);
+    System.assertEquals(text2, textSegment2.text, 'Segment should match input');
 
     ConnectApi.MentionSegment mentionSegment = (ConnectApi.MentionSegment) segments.get(
       4
     );
-    System.assertEquals(mentionId, mentionSegment.record.id);
+    System.assertEquals(
+      mentionId,
+      mentionSegment.record.id,
+      'Segment should match input'
+    );
 
     ConnectApi.TextSegment textSegment3 = (ConnectApi.TextSegment) segments.get(
       5
     );
-    System.assertEquals(text3, textSegment3.text);
+    System.assertEquals(text3, textSegment3.text, 'Segment should match input');
   }
 
   @IsTest(SeeAllData=true)
@@ -272,12 +379,23 @@ public class ConnectApiHelperTest {
     );
 
     List<ConnectApi.MessageSegment> segments = comment.body.messageSegments;
-    System.assertEquals(1, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.MentionSegment);
+    System.assertEquals(
+      1,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.MentionSegment,
+      'MentionSegment type was expected'
+    );
     ConnectApi.MentionSegment mentionSegment = (ConnectApi.MentionSegment) segments.get(
       0
     );
-    System.assertEquals(mentionId, mentionSegment.record.id);
+    System.assertEquals(
+      mentionId,
+      mentionSegment.record.id,
+      'Segment should match input'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -502,41 +620,72 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(5, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.TextSegmentInput);
-    System.assert(
-      segments.get(1) instanceof ConnectApi.MarkupBeginSegmentInput
+    System.assertEquals(
+      5,
+      segments.size(),
+      'Segments list size should be as expected'
     );
-    System.assert(segments.get(2) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(3) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(4) instanceof ConnectApi.TextSegmentInput);
+    System.assert(
+      segments.get(0) instanceof ConnectApi.TextSegmentInput,
+      'TextSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'MarkupBeginSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(2) instanceof ConnectApi.TextSegmentInput,
+      'TextSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(3) instanceof ConnectApi.MarkupEndSegmentInput,
+      'MarkupEndSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(4) instanceof ConnectApi.TextSegmentInput,
+      'TextSegmentInput type was expected'
+    );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       0
     );
-    System.assertEquals(text1, textSegment.text);
+    System.assertEquals(
+      text1,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     ConnectApi.MarkupBeginSegmentInput markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(
       1
     );
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Bold'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(2);
-    System.assertEquals(text2, textSegment.text);
+    System.assertEquals(
+      text2,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     ConnectApi.MarkupEndSegmentInput markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(
       3
     );
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Bold'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(4);
-    System.assertEquals(text3, textSegment.text);
+    System.assertEquals(
+      text3,
+      textSegment.text,
+      'Segment input does not match'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -547,32 +696,49 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(3, segments.size());
-    System.assert(
-      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput
+    System.assertEquals(
+      3,
+      segments.size(),
+      'Segments list size should be as expected'
     );
-    System.assert(segments.get(1) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(2) instanceof ConnectApi.MarkupEndSegmentInput);
+    System.assert(
+      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'MarkupBeginSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.TextSegmentInput,
+      'TextSegmentInput type was expected'
+    );
+    System.assert(
+      segments.get(2) instanceof ConnectApi.MarkupEndSegmentInput,
+      'MarkupEndSegmentInput type was expected'
+    );
 
     ConnectApi.MarkupBeginSegmentInput markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(
       0
     );
     System.assertEquals(
       ConnectApi.MarkupType.Underline,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be underline'
     );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       1
     );
-    System.assertEquals(restOfMessage, textSegment.text);
+    System.assertEquals(
+      restOfMessage,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     ConnectApi.MarkupEndSegmentInput markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(
       2
     );
     System.assertEquals(
       ConnectApi.MarkupType.Underline,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be underline'
     );
   }
 
@@ -593,88 +759,137 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(11, segments.size());
-    System.assert(
-      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput
-    );
-    System.assert(segments.get(1) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(2) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(
-      segments.get(3) instanceof ConnectApi.MarkupBeginSegmentInput
-    );
-    System.assert(segments.get(4) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(5) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(
-      segments.get(6) instanceof ConnectApi.MarkupBeginSegmentInput
+    System.assertEquals(
+      11,
+      segments.size(),
+      'Segments list size should be as expected'
     );
     System.assert(
-      segments.get(7) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
-    System.assert(segments.get(8) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(9) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(10) instanceof ConnectApi.MarkupEndSegmentInput);
+    System.assert(
+      segments.get(1) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(2) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(3) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(4) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(5) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(6) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(7) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(8) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(9) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(10) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
 
     ConnectApi.MarkupBeginSegmentInput markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(
       0
     );
     System.assertEquals(
       ConnectApi.MarkupType.Underline,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Underline'
     );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       1
     );
-    System.assertEquals(text1, textSegment.text);
+    System.assertEquals(
+      text1,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     ConnectApi.MarkupEndSegmentInput markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(
       2
     );
     System.assertEquals(
       ConnectApi.MarkupType.Underline,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Underline'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(3);
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Bold'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(4);
-    System.assertEquals(text2, textSegment.text);
+    System.assertEquals(
+      text2,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(5);
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Bold'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(6);
     System.assertEquals(
       ConnectApi.MarkupType.OrderedList,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup Type should be as expected'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(7);
     System.assertEquals(
       ConnectApi.MarkupType.ListItem,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup Type should be as expected'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(8);
-    System.assertEquals(text3, textSegment.text);
+    System.assertEquals(
+      text3,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(9);
     System.assertEquals(
       ConnectApi.MarkupType.ListItem,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup Type should be as expected'
     );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(10);
     System.assertEquals(
       ConnectApi.MarkupType.OrderedList,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup Type should be as expected'
     );
   }
 
@@ -688,22 +903,42 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(2, segments.size());
-    System.assert(segments.get(0) instanceof ConnectApi.TextSegmentInput);
+    System.assertEquals(
+      2,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
     System.assert(
-      segments.get(1) instanceof ConnectApi.InlineImageSegmentInput
+      segments.get(0) instanceof ConnectApi.TextSegmentInput,
+      'Segment instance not expected type'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.InlineImageSegmentInput,
+      'Segment instance not expected type'
     );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       0
     );
-    System.assertEquals(restOfMessage, textSegment.text);
+    System.assertEquals(
+      restOfMessage,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     ConnectApi.InlineImageSegmentInput inlineImageSegment = (ConnectApi.InlineImageSegmentInput) segments.get(
       1
     );
-    System.assertEquals(imageId, inlineImageSegment.fileId);
-    System.assertEquals(altText, inlineImageSegment.altText);
+    System.assertEquals(
+      imageId,
+      inlineImageSegment.fileId,
+      'Segment value should match input'
+    );
+    System.assertEquals(
+      altText,
+      inlineImageSegment.altText,
+      'Segment value should match input'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -714,16 +949,29 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(1, segments.size());
+    System.assertEquals(
+      1,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
     System.assert(
-      segments.get(0) instanceof ConnectApi.InlineImageSegmentInput
+      segments.get(0) instanceof ConnectApi.InlineImageSegmentInput,
+      'Segment instance is not expected type'
     );
 
     ConnectApi.InlineImageSegmentInput inlineImageSegment = (ConnectApi.InlineImageSegmentInput) segments.get(
       0
     );
-    System.assertEquals(imageId, inlineImageSegment.fileId);
-    System.assertEquals(null, inlineImageSegment.altText);
+    System.assertEquals(
+      imageId,
+      inlineImageSegment.fileId,
+      'Segment value should match input'
+    );
+    System.assertEquals(
+      null,
+      inlineImageSegment.altText,
+      'Segment value should match input'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -749,36 +997,74 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(4, segments.size());
-    System.assert(
-      segments.get(0) instanceof ConnectApi.InlineImageSegmentInput
+    System.assertEquals(
+      4,
+      segments.size(),
+      'Segments list size should be as expected'
     );
     System.assert(
-      segments.get(1) instanceof ConnectApi.InlineImageSegmentInput
+      segments.get(0) instanceof ConnectApi.InlineImageSegmentInput,
+      'Instance type was not as expected'
     );
     System.assert(
-      segments.get(2) instanceof ConnectApi.InlineImageSegmentInput
+      segments.get(1) instanceof ConnectApi.InlineImageSegmentInput,
+      'Instance type was not as expected'
     );
-    System.assert(segments.get(3) instanceof ConnectApi.TextSegmentInput);
+    System.assert(
+      segments.get(2) instanceof ConnectApi.InlineImageSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(3) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
 
     ConnectApi.InlineImageSegmentInput inlineImageSegment = (ConnectApi.InlineImageSegmentInput) segments.get(
       0
     );
-    System.assertEquals(imageId15, inlineImageSegment.fileId);
-    System.assertEquals(altText1, inlineImageSegment.altText);
+    System.assertEquals(
+      imageId15,
+      inlineImageSegment.fileId,
+      'Segment value should match input'
+    );
+    System.assertEquals(
+      altText1,
+      inlineImageSegment.altText,
+      'Segment value should match input'
+    );
 
     inlineImageSegment = (ConnectApi.InlineImageSegmentInput) segments.get(1);
-    System.assertEquals(imageId18, inlineImageSegment.fileId);
-    System.assertEquals(null, inlineImageSegment.altText);
+    System.assertEquals(
+      imageId18,
+      inlineImageSegment.fileId,
+      'Segment value should match input'
+    );
+    System.assertEquals(
+      null,
+      inlineImageSegment.altText,
+      'Segment value should match input'
+    );
 
     inlineImageSegment = (ConnectApi.InlineImageSegmentInput) segments.get(2);
-    System.assertEquals(imageId15, inlineImageSegment.fileId);
-    System.assertEquals(badSyntax1, inlineImageSegment.altText);
+    System.assertEquals(
+      imageId15,
+      inlineImageSegment.fileId,
+      'Segment value should match input'
+    );
+    System.assertEquals(
+      badSyntax1,
+      inlineImageSegment.altText,
+      'Segment value should match input'
+    );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       3
     );
-    System.assertEquals(badSyntax2, textSegment.text);
+    System.assertEquals(
+      badSyntax2,
+      textSegment.text,
+      'Segment input does not match'
+    );
   }
 
   @IsTest(SeeAllData=true)
@@ -798,58 +1084,95 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(7, segments.size());
-    System.assert(
-      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput
+    System.assertEquals(
+      7,
+      segments.size(),
+      'Segments list size should be as expected'
     );
-    System.assert(segments.get(1) instanceof ConnectApi.TextSegmentInput);
     System.assert(
-      segments.get(2) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
-    System.assert(segments.get(3) instanceof ConnectApi.MentionSegmentInput);
-    System.assert(segments.get(4) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(5) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(6) instanceof ConnectApi.MarkupEndSegmentInput);
+    System.assert(
+      segments.get(1) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(2) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(3) instanceof ConnectApi.MentionSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(4) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(5) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(6) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
 
     ConnectApi.MarkupBeginSegmentInput markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(
       0
     );
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Bold'
     );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       1
     );
-    System.assertEquals(message, textSegment.text);
+    System.assertEquals(
+      message,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(2);
     System.assertEquals(
       ConnectApi.MarkupType.Italic,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Italic'
     );
 
     ConnectApi.MentionSegmentInput mentionSegment = (ConnectApi.MentionSegmentInput) segments.get(
       3
     );
-    System.assertEquals(mentionId, mentionSegment.id);
+    System.assertEquals(
+      mentionId,
+      mentionSegment.id,
+      'Segment value should match input'
+    );
 
     ConnectApi.MarkupEndSegmentInput markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(
       4
     );
     System.assertEquals(
       ConnectApi.MarkupType.Italic,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Italic'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(5);
-    System.assertEquals(questionMark, textSegment.text);
+    System.assertEquals(
+      questionMark,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(6);
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Bold'
     );
   }
   @SuppressWarnings('PMD.NcssMethodCount')
@@ -884,57 +1207,113 @@ public class ConnectApiHelperTest {
       text
     );
 
-    System.assertEquals(24, segments.size());
+    System.assertEquals(
+      24,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
     // <p><i>This is an italicized paragraph.</i></p>
     System.assert(
-      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(0) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
     System.assert(
-      segments.get(1) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(1) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
-    System.assert(segments.get(2) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(3) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(4) instanceof ConnectApi.MarkupEndSegmentInput);
+    System.assert(
+      segments.get(2) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(3) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(4) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
 
     // <ul><li><s>A completed item in an unordered list.</s></li></ul>
     System.assert(
-      segments.get(5) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(5) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
     System.assert(
-      segments.get(6) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(6) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
     System.assert(
-      segments.get(7) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(7) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
-    System.assert(segments.get(8) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(9) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(10) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(11) instanceof ConnectApi.MarkupEndSegmentInput);
+    System.assert(
+      segments.get(8) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(9) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(10) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(11) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
 
     // <ol><li><u>An underlined item in an ordered list.</u></li></ol>
     System.assert(
-      segments.get(12) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(12) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
     System.assert(
-      segments.get(13) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(13) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
     System.assert(
-      segments.get(14) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(14) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
-    System.assert(segments.get(15) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(16) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(17) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(18) instanceof ConnectApi.MarkupEndSegmentInput);
+    System.assert(
+      segments.get(15) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(16) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(17) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(18) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
 
     // <b>And, of course, an image for you:</b> {img:069B0000000q7hi:An image of something nice.}
     System.assert(
-      segments.get(19) instanceof ConnectApi.MarkupBeginSegmentInput
+      segments.get(19) instanceof ConnectApi.MarkupBeginSegmentInput,
+      'Instance type was not as expected'
     );
-    System.assert(segments.get(20) instanceof ConnectApi.TextSegmentInput);
-    System.assert(segments.get(21) instanceof ConnectApi.MarkupEndSegmentInput);
-    System.assert(segments.get(22) instanceof ConnectApi.TextSegmentInput);
     System.assert(
-      segments.get(23) instanceof ConnectApi.InlineImageSegmentInput
+      segments.get(20) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(21) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(22) instanceof ConnectApi.TextSegmentInput,
+      'Instance type was not as expected'
+    );
+    System.assert(
+      segments.get(23) instanceof ConnectApi.InlineImageSegmentInput,
+      'Segment instance is not expected type'
     );
 
     // <p><i>This is an italicized paragraph.</i></p>
@@ -955,43 +1334,56 @@ public class ConnectApiHelperTest {
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
       2
     );
-    System.assertEquals(text1, textSegment.text);
+    System.assertEquals(
+      text1,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     ConnectApi.MarkupEndSegmentInput markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(
       3
     );
     System.assertEquals(
       ConnectApi.MarkupType.Italic,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Italic'
     );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(4);
     System.assertEquals(
       ConnectApi.MarkupType.Paragraph,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Paragraph'
     );
 
     // <ul><li><s>A completed item in an unordered list.</s></li></ul>
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(5);
     System.assertEquals(
       ConnectApi.MarkupType.UnorderedList,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be UnorderedList'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(6);
     System.assertEquals(
       ConnectApi.MarkupType.ListItem,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be ListItem'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(7);
     System.assertEquals(
       ConnectApi.MarkupType.Strikethrough,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Strikethrough'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(8);
-    System.assertEquals(text2, textSegment.text);
+    System.assertEquals(
+      text2,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(9);
     System.assertEquals(
@@ -1027,53 +1419,79 @@ public class ConnectApiHelperTest {
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(14);
     System.assertEquals(
       ConnectApi.MarkupType.Underline,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Underline'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(15);
-    System.assertEquals(text3, textSegment.text);
+    System.assertEquals(
+      text3,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(16);
     System.assertEquals(
       ConnectApi.MarkupType.Underline,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Underline'
     );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(17);
     System.assertEquals(
       ConnectApi.MarkupType.ListItem,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be ListItem'
     );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(18);
     System.assertEquals(
       ConnectApi.MarkupType.OrderedList,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be OrderedList'
     );
 
     // <b>And, of course, an image for you:</b> {img:069B0000000q7hi:An image of something nice.}
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(19);
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Bold'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(20);
-    System.assertEquals(text4, textSegment.text);
+    System.assertEquals(
+      text4,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(21);
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Bold'
     );
 
     textSegment = (ConnectApi.TextSegmentInput) segments.get(22);
-    System.assertEquals(text5, textSegment.text);
+    System.assertEquals(
+      text5,
+      textSegment.text,
+      'Segment input does not match'
+    );
 
     ConnectApi.InlineImageSegmentInput inlineImageSegment = (ConnectApi.InlineImageSegmentInput) segments.get(
       23
     );
-    System.assertEquals(imageId, inlineImageSegment.fileId);
-    System.assertEquals(altText, inlineImageSegment.altText);
+    System.assertEquals(
+      imageId,
+      inlineImageSegment.fileId,
+      'Inline image should match input'
+    );
+    System.assertEquals(
+      altText,
+      inlineImageSegment.altText,
+      'Alt Text should match input'
+    );
   }
 }
