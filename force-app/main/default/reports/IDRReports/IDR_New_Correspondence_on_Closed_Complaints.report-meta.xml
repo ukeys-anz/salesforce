@@ -7,6 +7,9 @@
         <field>Case.CaseComments$CreatedDate</field>
     </columns>
     <columns>
+        <field>Case$Date_Closed__c</field>
+    </columns>
+    <columns>
         <field>Case.CaseComments$CommentBody</field>
     </columns>
     <description>This report is created to show Case comments on Closed Complaints</description>
