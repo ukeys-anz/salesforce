@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set group contains the (muted) access required to both backup and restore all records in our system. Access can be enabled by removing the Muted permission set from this group temporarily.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Muted Backup and Restore</label>
+    <mutingPermissionSets>Backup_and_Restore_Muted</mutingPermissionSets>
+    <permissionSets>Backup_and_Restore</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

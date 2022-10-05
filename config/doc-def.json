@@ -258,13 +258,8 @@
     {
       "name": "Odaseva  User",
       "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": [],
-      "permissionsets": [
-        "Mute_Restore",
-        "Backup_and_Restore",
-        "API_Only",
-        "Password_Never_Expires"
-      ],
+      "permissionsetgroups": ["Muted_Backup_and_Restore"],
+      "permissionsets": ["API_Only", "Password_Never_Expires"],
       "type": "system"
     },
     {
@@ -308,6 +303,13 @@
         "Splunk_Integration_Sec_Ops",
         "Splunk_Integration_Tech_Ops"
       ],
+      "type": "system"
+    },
+    {
+      "name": "SAF Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Access_SAF"],
       "type": "system"
     },
     {
