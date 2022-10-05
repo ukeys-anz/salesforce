@@ -2482,6 +2482,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quality_Assessment__c.Interaction__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.Interaction_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quality_Assessment__c.Interaction_Date_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2598,6 +2608,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quality_Assessment__c.Key_scoping_and_disclaimers__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quality_Assessment__c.Lead__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -56,7 +56,35 @@ public with sharing class QualityAssessmentActions {
   private static Boolean isDisputeCaseType(Case record) {
     return DISPUTE_CASE_RT_IDS.contains(record.RecordTypeId);
   }
+  /**
+   * @description populate fields on before triggers
+   * @param records new values
+   * @param oldMap old values
+   */
+  public static void populateFieldsBeforeTrigger(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    Set<Id> interactionIds = new Set<Id>();
+    for (Quality_Assessment__c record : records) {
+      Id oldRelatedInteraction = oldMap?.get(record.id).Interaction__c;
+      if (record.Interaction__c != oldRelatedInteraction) {
+        interactionIds.add(record.Interaction__c);
+      }
+    }
 
+    if (interactionIds.size() > 0) {
+      Map<Id, Interaction> interations = getInteractions(interactionIds);
+      for (Quality_Assessment__c record : records) {
+        record.Interaction_Date_Time__c = interations.get(record.Interaction__c)
+          ?.CreatedDate;
+        record.Lead__c = interations.get(record.Interaction__c)?.Lead__c;
+        record.Related_Case__c = interations.get(record.Interaction__c)
+          ?.CaseId__c;
+        record.Customer__c = interations.get(record.Interaction__c)?.AccountId;
+      }
+    }
+  }
   /**
    * @description populate fields on quality assessment record
    * @param records
@@ -149,7 +177,9 @@ public with sharing class QualityAssessmentActions {
       ?.IDR_Subsequent_Issue__c;
     record.Customer__c = record.Related_Case__r?.AccountId;
     record.Case_Closure_Date__c = record.Related_Case__r?.ClosedDate;
-    record.Interaction_Date_Time__c = record.Related_Case__r?.ClosedDate;
+    if (record.Interaction_Date_Time__c == null) {
+      record.Interaction_Date_Time__c = record.Related_Case__r?.ClosedDate;
+    }
     record.Interaction_Owner__c = record.Related_Case__r?.Owner.Type == 'User'
       ? record.Related_Case__r.OwnerId
       : null;
@@ -445,5 +475,23 @@ public with sharing class QualityAssessmentActions {
       }
     }
     return groupsByName;
+  }
+  /**
+   * @description get related interaction by ids
+   * @param interactionIds interaction ids
+   * @return  `Map<Id, Interaction>` map of interaction
+   */
+  public static Map<Id, Interaction> getInteractions(Set<Id> interactionIds) {
+    Map<Id, Interaction> interactions = new Map<ID, Interaction>();
+    if (Interaction.SObjectType.getDescribe().isQueryable()) {
+      interactions = new Map<ID, Interaction>(
+        [
+          SELECT Id, CreatedDate, Lead__c, CaseId__c, AccountId
+          FROM Interaction
+          WHERE Id IN :interactionIds
+        ]
+      );
+    }
+    return interactions;
   }
 }
