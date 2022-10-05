@@ -359,7 +359,7 @@ export default class cBaseCombobox extends LightningElement {
               .startsWith(searchString.toLowerCase().trim())
           ) {
             this._items[i].isVisible = true;
-//            this.filterOptionsData.push(this._items[i]);
+            //            this.filterOptionsData.push(this._items[i]);
             this._filterFlag = true;
             flag = false;
           } else {
@@ -414,8 +414,9 @@ export default class cBaseCombobox extends LightningElement {
 
   get listboxElement() {
     if (!this._listBoxElementCache) {
-      this._listBoxElementCache =
-        this.template.querySelector('[role="listbox"]');
+      this._listBoxElementCache = this.template.querySelector(
+        '[role="listbox"]'
+      );
     }
     return this._listBoxElementCache;
   }
@@ -584,8 +585,8 @@ export default class cBaseCombobox extends LightningElement {
 
   handleFocus() {
     this._inputHasFocus = true;
-    if ( this.multiSelect) {
-      this.inputText = '';
+    if (this.multiSelect) {
+      this.inputText = "";
     }
     this._events.dispatchFocus();
   }
@@ -593,7 +594,7 @@ export default class cBaseCombobox extends LightningElement {
   handleInput() {
     if (!this.hasInputPill) {
       this._events.dispatchTextInput(this.inputElement.value);
-      if ( this._variant == 'lookup') {
+      if (this._variant == "lookup") {
         this.filterItems(this.inputElement.value);
       }
     }

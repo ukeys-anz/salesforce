@@ -94,8 +94,9 @@ export default class cPrimitiveIcon extends LightningElement {
     const name = this.iconName;
     if (iconUtils.isValidName(name)) {
       const [spriteName, iconName] = name.split(":");
-      const template =
-        this.privateIconSvgTemplates[`${spriteName}_${iconName}`];
+      const template = this.privateIconSvgTemplates[
+        `${spriteName}_${iconName}`
+      ];
 
       if (template) {
         return template;

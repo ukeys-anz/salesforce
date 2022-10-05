@@ -517,7 +517,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   required
-                  aria-label="Autocomplete Product or Service Name"
+                  aria-label="Auto Complete Product or Service Name"
                   aria-required="true"
                   field-name={Product}
                   value={productValue}
@@ -546,8 +546,6 @@
                     onselect={handleAccountNumberChange}
                     disabled={disableAccNoOneField}
                     label="Account/Policy Number"
-                    aria-label="Dropdown Account or Policy Number"
-                    required="true"
                     data-id="accPolicyNum-id"
                   ></c-multi-select-combobox>
 -->
@@ -558,6 +556,7 @@
                   required
                   aria-required="true"
                   label="Description of Issue"
+                  aria-label="Description of Issue"
                   field-level-help="Provide a detailed, accurate and grammatically correct description of the customer's concern, from Customer's perspective. This field should not display subjective comments from your, or ANZ's perspective."
                   onchange={handleDescriptionChange}
                   data-id="descOfIssue-id"
@@ -567,6 +566,7 @@
                 <lightning-input-field
                   variant="label-stacked"
                   required
+                  aria-label="Customer Desired Outcome"
                   aria-required="true"
                   field-name={ComplainantDesiredOutcome}
                   data-id="custOutCome"
@@ -615,7 +615,6 @@
                 </div>
                 <template if:true={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                    <!--
                     <c-combobox
                       name="accPolicyNum2-id"
                       label="Account/Policy Number 2"
@@ -629,7 +628,7 @@
                       data-id="accPolicyNum2-id"
                       onchange={handleAccountNumber2Change}
                     ></c-combobox>
--->
+                    <!--
                     <c-multi-select-combobox
                       options={accountNumberOptions}
                       onselect={handleAccountNumber2Change}
@@ -637,6 +636,7 @@
                       label="Account/Policy Number 2"
                       data-id="accPolicyNum2-id"
                     ></c-multi-select-combobox>
+                    -->
                   </div>
                 </template>
               </div>
