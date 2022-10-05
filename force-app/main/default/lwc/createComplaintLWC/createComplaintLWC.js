@@ -1174,6 +1174,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       } else {
         accountPolicyNoElement.deselectAll();
         accountPolicyNoElement.value = "N/A";
+        this.accountOrPolicyNumber = "N/A";
       }
     }
     const descriptionElement = this.template.querySelector(
