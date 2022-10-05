@@ -5,7 +5,7 @@
  * @group Utils
  */
 @isTest
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class CCRMTestDataFactory {
   public static Id anzStandardProfileId = CommonUtil.getProfileByName(
       'ANZ Standard User'
@@ -144,6 +144,54 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create ADOBE Integration User
+   * @name createAdobeIntegrationUser
+   * @return ADOBE Integration User with API Only & CCRM Base User Permission Set.
+   */
+  public static User createAdobeIntegrationUser() {
+    String staticNumber = Datetime.now().format('MMddHHmmss');
+
+    Id integrationProfileId = CommonUtil.getProfileByName(
+        'Minimum Access - Salesforce'
+      )
+      .Id;
+    User adobeUser = (User) FakerFactory.make(new FakerUserFactory());
+    adobeUser.FirstName = 'IntegrationUser' + staticNumber;
+    adobeUser.LastName = 'Adobe ';
+    adobeUser.Username = 'adobe.integration@anzx.com.unittest';
+    adobeUser.UserRoleId = bankerRole.Id;
+    adobeUser.ProfileId = integrationProfileId;
+    insert adobeUser;
+    addCCRMUserPS(adobeUser.id, 'CCRM_User_Base');
+    addCCRMUserPS(adobeUser.id, 'API_Only');
+    return adobeUser;
+  }
+
+  /**
+   * @description Create ADOBE Integration User
+   * @name createUnicaIntegrationUser
+   * @return UNICA Integration User with API Only & CCRM Base User Permission Set.
+   */
+  public static User createUnicaIntegrationUser() {
+    String staticNumber = Datetime.now().format('MMddHHmmss');
+
+    Id integrationProfileId = CommonUtil.getProfileByName(
+        'Minimum Access - Salesforce'
+      )
+      .Id;
+    User unicaUser = (User) FakerFactory.make(new FakerUserFactory());
+    unicaUser.FirstName = 'IntegrationUser' + staticNumber;
+    unicaUser.LastName = 'Unica ';
+    unicaUser.Username = 'unica.integration@anzx.com.unittest';
+    unicaUser.UserRoleId = bankerRole.Id;
+    unicaUser.ProfileId = integrationProfileId;
+    insert unicaUser;
+    addCCRMUserPS(unicaUser.id, 'CCRM_User_Base');
+    addCCRMUserPS(unicaUser.id, 'API_Only');
+    return unicaUser;
+  }
+
+  /**
    * @description Add required PermissionSet - CCRM Base User
    * @name addCCRMUserPS
    * @param userId of User to which CCRM_User_Base Permission Set needed to be assigned.
@@ -175,6 +223,83 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create Product
+   * @name createProduct
+   * @return Product2
+   */
+  public static Product2 createProduct() {
+    //Create your product
+    Product2 prod = new Product2(
+      Name = 'Product X',
+      ProductCode = 'Pro-X',
+      isActive = true
+    );
+    insert prod;
+    return prod;
+  }
+
+  /**
+   * @description Create Pricebook
+   * @name createPriceBook
+   * @return PricebookEntry
+   */
+  public static PricebookEntry createPriceBook() {
+    //Create your pricebook entry
+    Id pricebookId = Test.getStandardPricebookId();
+    Product2 prod = createProduct();
+    PricebookEntry pbEntry = new PricebookEntry(
+      Pricebook2Id = pricebookId,
+      Product2Id = prod.Id,
+      UnitPrice = 100.00,
+      IsActive = true
+    );
+    insert pbEntry;
+    return pbEntry;
+  }
+
+  /**
+   * @description Create Opportunity Line Item
+   * @name createOpportunityLineItem
+   * @return OpportunityLineItem
+   */
+  public static OpportunityLineItem createOpportunityLineItem() {
+    //create your opportunity line item.
+    Opportunity opp = [SELECT Id FROM Opportunity LIMIT 1];
+    PricebookEntry pbEntry = createPriceBook();
+    OpportunityLineItem oli = new OpportunityLineItem(
+      OpportunityId = opp.Id,
+      PricebookEntryId = pbEntry.Id,
+      Quantity = 1,
+      TotalPrice = 1000.00
+    );
+    return oli;
+  }
+
+  /**
+   * @description Create Legal Entities
+   * @name createLegalEntities
+   * @param count Count of legal entity to be created
+   * @return List<Legal_Entity__c> Entities created
+   */
+  public static List<Legal_Entity__c> createLegalEntities(Integer count) {
+    List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
+      1,
+      null
+    );
+    OpportunityLineItem oli = createOpportunityLineItem();
+    insert oli;
+
+    List<Legal_Entity__c> entityList = new List<Legal_Entity__c>();
+    for (Integer i = 1; i <= count; i++) {
+      Legal_Entity__c entity = new Legal_Entity__c();
+      entity.Account__c = opps[0].AccountId;
+      entity.Opportunity_Product__c = oli.Id;
+      entityList.add(entity);
+    }
+    return entityList;
+  }
+
+  /**
    * @description Create leads with related parties
    * @name createLeadRecordsWithCustomerRelatedParty
    * @param leads List of leads.
@@ -199,7 +324,7 @@ public with sharing class CCRMTestDataFactory {
       accnt.BillingStreet = '833 Collins Street';
       accnt.BillingCity = 'Docklands';
       accnt.BillingPostalCode = '3008';
-      accnt.BillingState = 'VIC';
+      accnt.BillingState = 'Victoria';
       accnt.BillingCountry = 'Australia';
       accountList.add(accnt);
     }
@@ -261,10 +386,11 @@ public with sharing class CCRMTestDataFactory {
    * @return Account Business account
    */
   public static Account createBusinessAccount() {
+    Faker faker = new Faker('AU');
     List<Industry__c> createIndustries = createIndustries(1);
     Account accnt = new Account();
     accnt.Name = 'Test Pty Ltd';
-    accnt.OCV_ID__c = 'OCV1234';
+    accnt.OCV_ID__c = faker.randomString(10);
     accnt.Industry = createIndustries[0].Code__c;
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
     accnt.ABN__c = '50 110 219 460';
@@ -272,10 +398,11 @@ public with sharing class CCRMTestDataFactory {
     accnt.BillingStreet = '833 Collins Street';
     accnt.BillingCity = 'Docklands';
     accnt.BillingPostalCode = '3008';
-    accnt.BillingState = 'VIC';
+    accnt.BillingState = 'Victoria';
     accnt.BillingCountry = 'Australia';
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = 'CAP';
+    accnt.FinServ__Status__c = 'Active';
     insert accnt;
 
     Contact contact = new Contact();
@@ -291,12 +418,56 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create Person Account
+   * @name createPersonAccount
+   * @return Account PersonAccount
+   */
+  public static Account createPersonAccount() {
+    Faker faker = new Faker('AU');
+    Account accnt = new Account();
+    accnt.FirstName = 'Test';
+    accnt.LastName = 'Account';
+    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.RecordTypeId = CCRMConstants.ACCOUNT_PERSON_RT_ID;
+    accnt.Phone = '+61333333333';
+    accnt.BillingStreet = '833 Collins Street';
+    accnt.BillingCity = 'Docklands';
+    accnt.BillingPostalCode = '3008';
+    accnt.BillingState = 'VIC';
+    accnt.BillingCountry = 'Australia';
+    accnt.Source_System_ID__c = 'BUS1234';
+    accnt.Source_System_Name__c = 'CAP';
+    accnt.Finserv__KYCStatus__c = 'CO';
+    accnt.FinServ__Status__c = 'Active';
+    insert accnt;
+
+    return accnt;
+  }
+
+  /**
    * @description Create Lead Records for CCRM Testing
    * @name createLeadRecords
    * @param count Count of Lead records needed to be created
    * @param ownerUser User to which created records should be assigned.
+   * @return `List<Lead>` New lead records
    */
-  public static void createLeadRecords(Integer count, User ownerUser) {
+  public static List<Lead> createLeadRecords(Integer count, User ownerUser) {
+    return createLeadRecords(count, ownerUser, true);
+  }
+
+  /**
+   * @description Create Lead Records for CCRM Testing
+   * @name createLeadRecords
+   * @param count Count of Lead records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param doInsert Whether or not to insert the records.
+   * @return `List<Lead>` New lead records
+   */
+  public static List<Lead> createLeadRecords(
+    Integer count,
+    User ownerUser,
+    Boolean doInsert
+  ) {
     count = count == null || count == 0 ? 1 : count;
 
     List<Lead> newLeads = new List<Lead>();
@@ -324,7 +495,11 @@ public with sharing class CCRMTestDataFactory {
 
       newLeads.add(leadRecord);
     }
-    Database.insert(newLeads);
+    if (doInsert) {
+      Database.insert(newLeads);
+    }
+
+    return newLeads;
   }
 
   /**
@@ -339,15 +514,15 @@ public with sharing class CCRMTestDataFactory {
     count = count == null || count == 0 ? 1 : count;
 
     for (Integer i = 1; i <= count; i++) {
-      String staticNumber = Datetime.now().format('MMddHHmmss') + count + 1;
       Campaign campaignRecord = new Campaign();
-      campaignRecord.Name = 'Campaign Test Data';
-      campaignRecord.Code__c = staticNumber;
+      campaignRecord.Name = 'CRM Manual Leads';
+      campaignRecord.Code__c = System.Label.CCRM_DefaultCampaign;
       campaignRecord.Type = 'Targeted Offer';
       campaignRecord.StartDate = System.today();
       campaignRecord.EndDate = campaignRecord.StartDate.addMonths(1);
       campaignRecord.Source__c = 'CCM';
       campaignRecord.Organization__c = 'ANZ Commercial Bank';
+      campaignRecord.Description = 'Manual Leads created by bankers in CRM';
 
       newCampaignList.add(campaignRecord);
     }
@@ -491,13 +666,35 @@ public with sharing class CCRMTestDataFactory {
     Integer count,
     User ownerUser
   ) {
+    return createOpportunityRecords(count, ownerUser, true);
+  }
+
+  /**
+   * @description Create Lead Records for CCRM Testing
+   * @name createLeadRecords
+   * @param count Count of Lead records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param doInsert Whether or not to insert the records
+   * @return `List<Opportunity>`
+   */
+  public static List<Opportunity> createOpportunityRecords(
+    Integer count,
+    User ownerUser,
+    Boolean doInsert
+  ) {
+    Faker faker = new Faker('AU');
     //Deafault Count to 200 when in excess.
     count = count == null || count == 0 ? 1 : count;
+    Account parentAccount = createBusinessAccount();
 
     String staticNumber = Datetime.now().format('MMddHHmmss') + count + 1;
     Account objAccount = new Account();
     objAccount.Name = 'Test Account';
-    objAccount.OCV_ID__c = '123456';
+    objAccount.OCV_ID__c = faker.randomString(10);
+    objAccount.FinServ__KYCStatus__c = 'Completed - Valid';
+    objAccount.ParentId = parentAccount.Id;
+    objAccount.FinServ__Status__c = 'Active';
+    objAccount.RecordTypeId = CCRMConstants.ACCOUNT_CLG_RT_ID;
     insert objAccount;
 
     List<Opportunity> newOpps = new List<Opportunity>();
@@ -508,10 +705,14 @@ public with sharing class CCRMTestDataFactory {
       objOpportunity.StageName = 'Prospecting';
       objOpportunity.CloseDate = system.Today() + 3;
       objOpportunity.Description = '987654321';
+      objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
 
       newOpps.add(objOpportunity);
     }
-    Database.insert(newOpps);
+    if (doInsert) {
+      Database.insert(newOpps);
+    }
+
     return newOpps;
   }
 

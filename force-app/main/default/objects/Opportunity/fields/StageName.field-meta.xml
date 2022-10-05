@@ -6,6 +6,7 @@
     <description>Current stage of this record.</description>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
 </CustomField>

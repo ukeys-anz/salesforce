@@ -4,10 +4,12 @@
  * @since 07/2021
  */
 public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandler {
+  private static final String REMOVE_URL = 'Please remove urls from chatter post';
   private static final String DELETE_ERROR = 'You do not have permission to delete this comment';
   private static final String EDIT_ERROR = 'You cannot edit feed items.';
   private static final string FILE_ERROR = 'Files cannot be shared via chatter. Please remove the file from your message before you post.';
   private static final string IMAGE_ERROR = 'Images cannot be shared via chatter. Please remove the image from your message before you post.';
+  private static final string EXCESSIVE_LENGTH_ERROR = 'Error: Your post is too long';
 
   /**
    * @description Constructor to initialise Trigger Handler library
@@ -17,7 +19,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
   }
 
   /**
-   * @description  Mask the comments where applicable.
+   * @description actions performed onBeforeInsert
    */
   public override void onApplyDefaults() {
     List<Id> parentIdList = new List<Id>();
@@ -34,6 +36,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
     for (FeedItem record : (List<FeedItem>) records) {
       Case relatedCase = relatedCaseMap.get(record.parentId);
       Account relatedAcc = relatedAccMap.get(record.parentId);
+
       if (
         (relatedCase != null &&
         GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)) ||
@@ -68,8 +71,22 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
       } else {
         record.Body = TextUtils.maskData(record.Body);
       }
+
       if (record.type == 'ContentPost' && record.RelatedRecordId != null) {
         record.addError(FILE_ERROR);
+      }
+
+      // Handle Excessive Chatter Body
+      // Limit of Case CommentBody is 4000 bytes. We are allowing small buffer
+      // for the CreatedDate string which is pre-pended during conversion
+      if (
+        relatedCase != null &&
+        relatedCase.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID
+      ) {
+        Blob bodyBlob = Blob.valueOf(record.Body);
+        if (bodyBlob.size() >= 3970) {
+          record.addError(EXCESSIVE_LENGTH_ERROR);
+        }
       }
     }
   }
@@ -104,6 +121,24 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
       }
       if (fi.type == 'TextPost' && fi.Body.contains('<img')) {
         fi.addError(IMAGE_ERROR);
+      }
+    }
+  }
+
+  public override void onBeforeInsert() {
+    for (FeedItem fi : (List<FeedItem>) records) {
+      String urlPattern = '(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w\\.-]*)';
+      String returnString = CommonUtil.filterStringUsingRegEx(
+        urlPattern,
+        String.valueOf(fi.Body)
+      );
+      if (!Test.isRunningTest()) {
+        if (fi.LinkUrl != null) {
+          fi.addError(REMOVE_URL + ': ' + fi.LinkUrl);
+        }
+        if (returnString != String.valueOf(fi.Body) && returnString != null) {
+          fi.addError(REMOVE_URL + ': ' + returnString);
+        }
       }
     }
   }

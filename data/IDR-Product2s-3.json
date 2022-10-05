@@ -2131,6 +2131,32 @@
       "IDR_Product_or_Service_Category__c": "2",
       "IDR_Product_or_Service_Type__c": "15",
       "IDR_Workbasket__c": "IDR_Business_Owners"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref564"
+      },
+      "Name": "ANZ Plus - Standard Variable Home Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "564",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "15",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref565"
+      },
+      "Name": "ANZ Plus - Fixed Home Loan",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "565",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Category__c": "2",
+      "IDR_Product_or_Service_Type__c": "15",
+      "IDR_Workbasket__c": "IDR_Home_Owners"
     }
   ]
 }

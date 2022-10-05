@@ -8,6 +8,11 @@
         <sharedToType>User</sharedToType>
     </shares>
     <shares>
+        <accessLevel>Manage</accessLevel>
+        <sharedTo>Business_Admin</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
         <accessLevel>View</accessLevel>
         <sharedTo>Card_Dispute_Agent</sharedTo>
         <sharedToType>Role</sharedToType>
@@ -18,8 +23,8 @@
         <sharedToType>Role</sharedToType>
     </shares>
     <shares>
-        <accessLevel>Manage</accessLevel>
-        <sharedTo>Business_Admin</sharedTo>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Join_Lead</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>
 </WaveApplication>

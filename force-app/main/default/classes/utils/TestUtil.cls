@@ -58,13 +58,7 @@ public with sharing class TestUtil {
       .replace(':', '')
       .replace('-', '');
     Integer randomInt = Integer.valueOf(math.rint(math.random() * 1000000));
-    String uniqueUser =
-      orgId +
-      dateString +
-      randomInt +
-      '@test' +
-      orgId +
-      '.org';
+    String uniqueUser = orgId + dateString + randomInt + '@anz.com';
 
     Map<String, String> info = new Map<String, String>{
       'Alias' => 'test',

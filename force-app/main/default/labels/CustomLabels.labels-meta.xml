@@ -31,6 +31,14 @@
         <shortDescription>Lead Default Priority Value</shortDescription>
         <value>99</value>
     </labels>
+     <labels>
+        <fullName>CCRM_DefaultCampaign</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Campaign code of Default Campaign</shortDescription>
+        <value>IKCMP–1579</value>
+    </labels>
     <labels>
         <fullName>CCRM_ExpiryDateDays</fullName>
         <categories>CCRM</categories>
@@ -261,6 +269,14 @@
         <protected>false</protected>
         <shortDescription>MS_Replace_Card</shortDescription>
         <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Search_Party</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Search_Party</shortDescription>
+        <value>/dcrm/customers/v1/party/search?</value>
     </labels>
     <labels>
         <fullName>MS_Temp_Lock_Card</fullName>

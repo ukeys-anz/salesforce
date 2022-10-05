@@ -92,6 +92,7 @@ class FakerInternetProviderTest {
     String safeEmail = faker.internet.safeEmail();
     String companyEmail = faker.internet.companyEmail();
     String freeEmail = faker.internet.freeEmail();
+    String anzEmail = faker.internet.anzEmail();
     System.assert(
       password.length() > 4 &&
       password.length() < 11,
@@ -111,6 +112,10 @@ class FakerInternetProviderTest {
     );
     System.assert(
       freeEmail.contains('@'),
+      'Faker should generate correct information'
+    );
+    System.assert(
+      anzEmail.contains('@'),
       'Faker should generate correct information'
     );
 

@@ -81,9 +81,46 @@
       default-sort-direction={defaultSortDirection}
       sorted-direction={sortDirection}
       sorted-by={sortedBy}
+      onrowaction={handleRowAction}
       onsort={onHandleSort}
       wrap-text-max-lines="6"
     >
     </lightning-datatable>
+  </template>
+  <template if:true={displayRemovalConfirmation}>
+    <section class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container slds-grid">
+        <lightning-card>
+          <h2 slot="title" class="slds-p-around_small">
+            Confirm removal from Case
+          </h2>
+          <p class="slds-p-horizontal_small">
+            Are you sure you want to remove this file?
+          </p>
+          <p class="slds-p-horizontal_small">
+            If you remove this file, it will no longer be available to view or
+            access.
+          </p>
+          <div slot="footer" style="height: 44px">
+            <lightning-button
+              class="slds-float_right slds-p-around_x-small"
+              variant="neutral"
+              label="Cancel"
+              onclick={closeRemovalConfirmation}
+            >
+            </lightning-button>
+            <lightning-button
+              class="slds-float_right slds-p-around_x-small"
+              variant="brand"
+              label="Confirm"
+              onclick={handleRemovalConfirmation}
+              data-test-id="submit-button"
+            >
+            </lightning-button>
+          </div>
+        </lightning-card>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
   </template>
 </template>
