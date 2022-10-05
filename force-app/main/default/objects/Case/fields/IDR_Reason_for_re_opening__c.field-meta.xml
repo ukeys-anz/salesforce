@@ -27,6 +27,16 @@
                 <label>Additional information received/known</label>
             </value>
             <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <label>QC - Collections Stop/Re-start Trigger</label>
+            </value>
+            <value>
+                <fullName>5</fullName>
+                <default>false</default>
+                <label>QAF re-open recommendation</label>
+            </value>
+            <value>
                 <fullName>3</fullName>
                 <default>false</default>
                 <label>Other</label>
