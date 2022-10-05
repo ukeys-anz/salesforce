@@ -243,14 +243,32 @@ export default class cCombobox extends LightningElement {
     });
   }
 
-  @api selectAll() {
+  @api selectAll(config) {
     if (this._multiSelect) {
       this._items.forEach((item) => {
-        item.iconName = "utility:check";
-        item.highlight = true;
-        item.checked = true;
+        if (
+          config === undefined ||
+          !Array.isArray(config.exclude) ||
+          !config.exclude.includes(item.value)
+        ) {
+          item.iconName = "utility:check";
+          item.highlight = true;
+          item.checked = true;
+        }
       });
       this._selectedItems = this._items.filter((item) => item.checked);
+      this.updateSelectedLabelFromValue(null);
+
+      this.dispatchEvent(
+        new CustomEvent("change", {
+          composed: true,
+          bubbles: true,
+          detail: {
+            value: this.selectedValue,
+            values: this._selectedItems
+          }
+        })
+      );
     }
   }
 
@@ -379,17 +397,21 @@ export default class cCombobox extends LightningElement {
   }
 
   removePill(event) {
-    event.detail.value = event.detail.name;
-    this.handleSelect(event);
+    if (!this.disabled) {
+      event.detail.value = event.detail.name;
+      this.handleSelect(event);
+    }
   }
 
   updateSelectedLabelFromValue(newValue) {
-    if (this._multiSelect && this._showItemCountInLabel) {
-      const itemCount = this._items.reduce(
-        (prevCount, currentItem) => prevCount + (currentItem.checked ? 1 : 0),
-        0
-      );
-      this._selectedLabel = itemCount + " items selected.";
+    if (this._multiSelect) {
+      if (this._showItemCountInLabel) {
+        const itemCount = this._items.reduce(
+          (prevCount, currentItem) => prevCount + (currentItem.checked ? 1 : 0),
+          0
+        );
+        this._selectedLabel = itemCount + " items selected.";
+      }
     } else {
       this._selectedLabel = this.getOptionLabelByValue(newValue);
     }

@@ -1276,7 +1276,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         const accountPolicyNoElement = this.template.querySelector(
           '[data-id="accPolicyNum-id"]'
         );
-        accountPolicyNoElement.selectAll();
+        accountPolicyNoElement.selectAll({ exclude: ["N/A"] });
       } else {
         this.disableAccNoOneField = false;
       }
@@ -1289,7 +1289,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const accountPolicyNoElement = this.template.querySelector(
         '[data-id="accPolicyNum2-id"]'
       );
-      accountPolicyNoElement.selectAll();
+      accountPolicyNoElement.selectAll({ exclude: ["N/A"] });
     } else {
       this.disableAccNoTwoField = false;
     }
@@ -1301,7 +1301,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       const accountPolicyNoElement = this.template.querySelector(
         '[data-id="accPolicyNum3-id"]'
       );
-      accountPolicyNoElement.selectAll();
+      accountPolicyNoElement.selectAll({ exclude: ["N/A"] });
     } else {
       this.disableAccNoThreeField = false;
     }
