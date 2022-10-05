@@ -18,7 +18,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideActionBar</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideSearchBar</name>
@@ -55,7 +55,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideActionBar</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideSearchBar</name>
