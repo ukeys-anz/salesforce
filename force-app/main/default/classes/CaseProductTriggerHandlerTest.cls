@@ -161,7 +161,7 @@ public with sharing class CaseProductTriggerHandlerTest {
     Profile prof = [SELECT Id FROM Profile WHERE Name = 'Standard User'];
     User u = new User(
       Alias = 'stduser',
-      Email = 'standard.user@anztest.com',
+      Email = 'standard.user@anz.com',
       LastName = 'Testing',
       ProfileId = prof.Id,
       UserName = 'standard.user@anztest.com',

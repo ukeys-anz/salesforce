@@ -352,6 +352,22 @@
             <valueName>Making payments</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>General Home Loan Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Managing Repayments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Close Home Loan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Loan Statements</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Direct Debit or Recurring Payment</valueName>
         </valueSettings>

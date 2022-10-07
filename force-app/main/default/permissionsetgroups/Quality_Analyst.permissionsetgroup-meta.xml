@@ -8,6 +8,7 @@
     <permissionSets>Case_Read_Write_Non_Customer_Complaints</permissionSets>
     <permissionSets>Case_Read_Write_Quality_Analyst</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>
+    <permissionSets>Chatter_User</permissionSets>
     <permissionSets>Compliance_Task_R_W</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>

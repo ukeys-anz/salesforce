@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>General_Comment_Validation</fullName>
+    <active>true</active>
+    <description>General comment should not be empty if the sub status is evaluation completed</description>
+    <errorConditionFormula>ISPICKVAL(Sub_Status__c, &quot;Evaluation completed&quot;) &amp;&amp;  LEN(Context_and_General_Comments__c ) = 0</errorConditionFormula>
+    <errorMessage>Please add context or general comments</errorMessage>
+</ValidationRule>

@@ -477,7 +477,7 @@ private class CaseTriggerHandlerTest {
     Profile p = CommonUtil.getProfileByName('Standard User');
     User idrUser = new User(
       Alias = 'idruse',
-      Email = 'idruser@anztest.com',
+      Email = 'idruser@anz.com',
       LastName = 'Testing',
       ProfileId = p.Id,
       UserName = 'idruser@anztest.com',
@@ -1521,130 +1521,6 @@ private class CaseTriggerHandlerTest {
       .ParentId,
       'Issue while updating parentId'
     );
-  }
-
-  //test the Quality Assessment record creation when ANZX case is created with closed status
-  @isTest
-  static void testCreateQualityAssessmentWhenAnzxCaseIsClosedWhenCreated() {
-    Case[] newCases = new List<Case>();
-
-    User usr = TestUtil.getUserByFirstName('CoachTest');
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
-          Status = GetHelpConstants.CLOSED_STATUS_NO_FIX
-        )
-      );
-    }
-
-    Test.startTest();
-
-    Integer qaRecordCount = [SELECT COUNT() FROM Quality_Assessment__c];
-
-    System.assertEquals(
-      0,
-      qaRecordCount,
-      'No Quality Assessment record should exists before creating closed status cases.'
-    );
-
-    System.runAs(usr) {
-      insert newCases;
-    }
-
-    List<Quality_Assessment__c> newQARecords = [
-      SELECT Id
-      FROM Quality_Assessment__c
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newQARecords.size(),
-      'Should have ' +
-      Label.Test_Bulk_Size +
-      ' new Quality Assessments records.'
-    );
-
-    for (Case record : [
-      SELECT Id, Closed_Once__c
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
-    ]) {
-      System.assertEquals(
-        true,
-        record.Closed_Once__c,
-        'Closed Case should mark Closed Once field as true.'
-      );
-    }
-
-    Test.stopTest();
-  }
-
-  //test the Quality Assessment record creation when ANZx case was not closed but moved to closed status
-  @isTest
-  static void testCreateQualityAssessmentWhenAnzxCaseIsMovedToClosed() {
-    Case[] newCases = new List<Case>();
-
-    User usr = TestUtil.getUserByFirstName('CoachTest');
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
-          Status = GetHelpConstants.OPEN_STATUS
-        )
-      );
-    }
-
-    Test.startTest();
-
-    System.runAs(usr) {
-      insert newCases;
-    }
-
-    Integer qaRecordCount = [SELECT COUNT() FROM Quality_Assessment__c];
-
-    System.assertEquals(
-      0,
-      qaRecordCount,
-      'No Quality Assessment record should exists before closing cases.'
-    );
-
-    System.runAs(usr) {
-      for (Integer i = 0; i < newCases.size(); i++) {
-        newCases[i].Status = GetHelpConstants.CLOSED_STATUS;
-      }
-
-      update newCases;
-    }
-
-    List<Quality_Assessment__c> newQARecords = [
-      SELECT Id
-      FROM Quality_Assessment__c
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newQARecords.size(),
-      'Should have ' +
-      Label.Test_Bulk_Size +
-      ' new Quality Assessments records.'
-    );
-
-    for (Case record : [
-      SELECT Id, Closed_Once__c
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
-    ]) {
-      System.assertEquals(
-        true,
-        record.Closed_Once__c,
-        'Closed Case should mark Closed Once field as true.'
-      );
-    }
-
-    Test.stopTest();
   }
 
   //test IDRCollectionAction getStartCollectionMap method
@@ -3066,5 +2942,45 @@ private class CaseTriggerHandlerTest {
       newCase.Subject,
       'CMOS Non Customer Complaint Subject should not be auto-populated on insert or update'
     );
+  }
+
+  // Test Prevent Duplicate KYC QA Against a Customer (Account)
+  @isTest
+  public static void testValidateDuplicateKYCQACasePerAccount() {
+    List<Account> accounts = [
+      SELECT Id, Name
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+    ];
+    Account customerAccount1 = accounts[0];
+
+    Case kycqa1 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      Status = 'Open',
+      Origin = 'Origination',
+      Priority = 'Medium'
+    );
+
+    insert kycqa1;
+
+    Case kycqa2 = new Case(
+      AccountId = customerAccount1.Id,
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      Status = 'Open',
+      Origin = 'Origination',
+      Priority = 'Medium'
+    );
+
+    Test.startTest();
+    try {
+      insert kycqa2;
+      System.assert(false, 'Failed to detect existing KYC QA case');
+    } catch (DmlException e) {
+      System.assert(
+        e.getMessage().contains(GetHelpCaseActions.DUPLICATE_KYCQA_ERROR)
+      );
+    }
+    Test.stopTest();
   }
 }

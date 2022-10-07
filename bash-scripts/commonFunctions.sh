@@ -122,13 +122,19 @@ function waitForManualSteps(){
 }
 
 function continueTheJob(){
-    if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then            
-        echo "${green}"
+    read -rp "${green}Do you want to continue (y/n)? ${reset}" continueFlag
+    if [[ $continueFlag == 'N' || $continueFlag == 'n' ]];then
+        exit 1
+    fi
+    if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
         echo ""
-        read -rp "Do you want to continue (y/n)? ${reset}" continueFlag
-        if [[ $continueFlag == 'N' || $continueFlag == 'n' ]];then
-            exit 1
-        fi
+        echo "${red} check the deployment status from the scratchOrg"
+        echo "if the deployment is finished successfully, continue the job"
+        read -rp "Do you want to open the scratch org (y/n)? " manualDeploySteps
         echo "${reset}"
+        if [[ $manualDeploySteps == y || $manualDeploySteps == Y ]]; then
+            sfdx force:org:open 
+        fi
+        echo ""
     fi
 }

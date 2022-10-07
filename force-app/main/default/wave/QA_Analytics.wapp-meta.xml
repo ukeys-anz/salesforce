@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <folder>QA_Analytics</folder>
+    <masterLabel>QA Analytics</masterLabel>
+    <shares>
+        <accessLevel>Manage</accessLevel>
+        <sharedTo>David.dawson@anzx.com</sharedTo>
+        <sharedToType>User</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>Manage</accessLevel>
+        <sharedTo>Business_Admin</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Quality_Analyst</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+</WaveApplication>

@@ -3,13 +3,13 @@
     <fullName>Fraud_ID_Not_Picture__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_Salesforce</complianceGroup>
-    <description>Confirm:
+    <description>Confirm: 
 
-The image provided by customer does not look like a image of a picture of an actual identity document.</description>
+The image provided by customer does not look like an image of a picture of an actual identity document.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Confirm:
+    <inlineHelpText>Confirm: 
 
-The image provided by customer does not look like a image of a picture of an actual identity document.</inlineHelpText>
+The image provided by customer does not look like an image of a picture of an actual identity document.</inlineHelpText>
     <label>Image is not a Picture of ID Document</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

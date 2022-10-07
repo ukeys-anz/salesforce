@@ -13,7 +13,7 @@ public class ContentDocumentLinkTriggerHandlerTest {
     Profile p = [SELECT Id FROM Profile WHERE Name = 'ANZ Standard User'];
     User idrUser = new User(
       Alias = 'idruse',
-      Email = 'idruser@anztest.com',
+      Email = 'idruser@anz.com',
       LastName = 'Testing',
       ProfileId = p.Id,
       UserName = 'idruser@anztest.com',

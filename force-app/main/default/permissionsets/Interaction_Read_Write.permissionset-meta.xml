@@ -53,6 +53,10 @@
         <apexClass>InteractionTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>InteractionTwilioService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.ANZ_Number__c</field>

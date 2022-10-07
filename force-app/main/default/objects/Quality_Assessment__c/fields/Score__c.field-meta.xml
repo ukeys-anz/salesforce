@@ -6,10 +6,11 @@
     <description>The QA score for the record being assessed</description>
     <externalId>false</externalId>
     <label>Score</label>
-    <precision>18</precision>
+    <precision>17</precision>
     <required>false</required>
-    <scale>0</scale>
+    <scale>1</scale>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Number</type>

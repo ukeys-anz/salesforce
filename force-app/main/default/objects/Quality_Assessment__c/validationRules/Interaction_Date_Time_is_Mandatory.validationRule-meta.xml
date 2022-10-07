@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interaction_Date_Time_is_Mandatory</fullName>
+    <active>true</active>
+    <description>Interaction Date/Time is mandatory for Get Help Records</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = 'Get_Help',ISBLANK( Interaction_Date_Time__c ), ISPICKVAL(Sub_Status__c, "Evaluation completed") , $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false)</errorConditionFormula>
+    <errorDisplayField>Interaction_Date_Time__c</errorDisplayField>
+    <errorMessage>Please select interaction date and time</errorMessage>
+</ValidationRule>

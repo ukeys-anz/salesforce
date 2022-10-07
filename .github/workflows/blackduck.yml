@@ -1,12 +1,12 @@
 name: BlackDuck 🦆 Scan
 
 on:
-  push:
+  pull_request:
     paths:
-      - .github/workflows/blackduck.yml # Run on change to scan, or packages, in develop
+      - .github/workflows/blackduck.yml # Run on change to scan, or packages, in master
       - "package.json"
     branches:
-      - develop
+      - master
   schedule:
     - cron: "57 2 * * SAT" # Run every Saturday between 2-3am
 
@@ -20,6 +20,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: master
 
       - name: "Install npm packages"
         run: |

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Effective</fullName>
+        <default>false</default>
+        <label>Effective</label>
+    </customValue>
+    <customValue>
+        <fullName>Not Quite There</fullName>
+        <default>false</default>
+        <label>Not Quite There</label>
+    </customValue>
+    <description>Quality Assessment Rating 2 values(join)</description>
+    <masterLabel>Quality Assessment Rating 2 Values</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
