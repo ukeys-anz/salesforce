@@ -309,7 +309,7 @@
       "name": "SAF Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Access_SAF"],
+      "permissionsets": ["API_Access_SAF", "API_Only"],
       "type": "system"
     },
     {
