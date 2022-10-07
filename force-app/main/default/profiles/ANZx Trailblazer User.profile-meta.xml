@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
-        <application>Trailblazer</application>
+        <application>Case</application>
         <default>true</default>
         <visible>true</visible>
     </applicationVisibilities>
@@ -20,18 +20,6 @@
         <object>PushTopic</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <pageAccesses>
-        <apexPage>trailheadapp__TrailheadSetup</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
-    <tabVisibilities>
-        <tab>ANZx_Trailblazer</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>trailheadapp__TrailheadSetup</tab>
-        <visibility>Hidden</visibility>
-    </tabVisibilities>
     <userLicense>Identity</userLicense>
     <userPermissions>
         <enabled>false</enabled>
