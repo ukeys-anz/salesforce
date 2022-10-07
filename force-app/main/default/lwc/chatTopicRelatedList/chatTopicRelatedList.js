@@ -178,9 +178,7 @@ export default class ChatTopicRelatedList extends LightningElement {
       this.isPrivilegedRole === true &&
       row.status &&
       row.status !== STATUS_CLOSED &&
-      (row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD ||
-        row.chatFlowStatus === CHAT_FLOW_STATUS_NEW ||
-        row.chatFlowStatus === CHAT_FLOW_STATUS_OPEN)
+      row.chatFlowStatus === CHAT_FLOW_STATUS_ONHOLD
     ) {
       row.enableReinitiate = true;
     } else {
