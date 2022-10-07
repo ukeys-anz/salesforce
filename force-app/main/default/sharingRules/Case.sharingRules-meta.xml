@@ -461,20 +461,6 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Quality_Analyst_RT_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant read and write access on Case record types to Quality Analysts</description>
-        <label>Quality_Analyst_RT_RW</label>
-        <sharedTo>
-            <role>Quality_Analyst</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Customer Feedback</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>RTs_Join_Lead_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Join Lead</label>
