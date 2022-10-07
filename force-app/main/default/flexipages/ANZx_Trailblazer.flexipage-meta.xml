@@ -4,6 +4,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>trailheadapp:UserBadgeCount</componentName>
+                <identifier>trailheadapp_UserBadgeCount</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -17,6 +18,7 @@
                     <value>MTHSelfAssignment</value>
                 </componentInstanceProperties>
                 <componentName>flowruntime:interview</componentName>
+                <identifier>flowruntime_interview</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -38,6 +40,7 @@
                     <value>7</value>
                 </componentInstanceProperties>
                 <componentName>th_trailheadAssignments</componentName>
+                <identifier>th_trailheadAssignments</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
