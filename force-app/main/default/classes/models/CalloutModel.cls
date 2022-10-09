@@ -18,7 +18,8 @@ public virtual class CalloutModel {
     'number' => 'transactionAccountNumber',
     'date' => 'transactionDate',
     '_links' => 'links',
-    'set' => 'category_set'
+    'set' => 'category_set',
+    'closed_at' => 'closed_date'
   };
 
   /**
@@ -57,6 +58,24 @@ public virtual class CalloutModel {
    */
   public static Object deserialize(String jsonString, System.Type type) {
     jsonString = transformString(jsonString, RESERVED_KEY_MAPPINGS);
+    //deserializeStrict is not being used to reduce fragility - if API adds properties to the response,
+    //they will be thrown away instead of breaking the callout
+    return JSON.deserialize(jsonString, type);
+  }
+
+  /**
+   * @param jsonString the string to convert to Object
+   * @param type the type of Object to create
+   * @param keyMapping map of custom values to transform
+   * @return `Object` deserialized Object
+   * @description takes an input JSON string and Apex type and a custom key mapping, replaces reserved keys, and provides an Object
+   */
+  public static Object deserialize(
+    String jsonString,
+    System.Type type,
+    Map<String, String> keyMapping
+  ) {
+    jsonString = transformString(jsonString, keyMapping);
     //deserializeStrict is not being used to reduce fragility - if API adds properties to the response,
     //they will be thrown away instead of breaking the callout
     return JSON.deserialize(jsonString, type);

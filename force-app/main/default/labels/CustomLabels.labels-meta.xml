@@ -319,6 +319,14 @@
         <value>/document-management/v1beta2/statements/signed_url/</value>
     </labels>
     <labels>
+        <fullName>ST_Close_Package</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ST_Close_Package</shortDescription>
+        <value>/account-closure/v1/packages</value>
+    </labels>
+    <labels>
         <fullName>Test_Bulk_Size</fullName>
         <categories>Technical</categories>
         <language>en_US</language>

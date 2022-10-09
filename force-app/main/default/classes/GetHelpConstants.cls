@@ -116,6 +116,11 @@ public with sharing class GetHelpConstants {
     .get('General')
     .getRecordTypeId();
 
+  // Case - Account Closure
+  public static final Id ACCOUNT_CLOSURE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Account_Closure')
+    .getRecordTypeId();
+
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
   public static final String DIGITAL_FRAUD_QUEUE = 'Digital_Fraud_Queue';

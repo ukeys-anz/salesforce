@@ -789,8 +789,10 @@
         "ANZx_Customer__c",
         "IDR_Additional_Correspondence_reviewed__c",
         "IDR_Avoidable_Escalation__c",
-        "IDR_Avoidable_Escalation_Reason__c"
-      ]
+        "IDR_Avoidable_Escalation_Reason__c",
+        "Closure_Reason__c"
+      ],
+      "IA-2415860": ["Package_Id__c"]
     },
     "CFMS_Migrated_Document__c": {
       "IA-2453595": [

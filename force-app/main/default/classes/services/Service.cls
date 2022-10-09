@@ -263,6 +263,7 @@ public with sharing virtual class Service {
   }
 
   /**
+
    * @param calloutUrl ABN or ACN callout url
    * @param abnOrAcn number to be validated
    * @return `HttpCalloutResponse` api response
@@ -313,6 +314,23 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse getTokenizedCardNumber(
     String ocvId,
     String transactionId
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param packageId package id
+   * @param checkingAccount the account number for the checking account
+   * @param savingsAccount the account number for the savings account
+   * @return `PackageClosureParams` api response
+   * @description virtual account buckets callout
+   */
+  public virtual HttpCalloutResponse closePackage(
+    String ocvId,
+    String packageId,
+    String checkingAccount,
+    String savingsAccount
   ) {
     return null;
   }
