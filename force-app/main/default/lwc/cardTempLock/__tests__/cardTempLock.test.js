@@ -1,5 +1,6 @@
 import { createElement } from "lwc";
 import CardTempLock from "c/cardTempLock";
+import { setImmediate } from "timers";
 
 describe("c-card-temp-lock", () => {
   afterEach(() => {

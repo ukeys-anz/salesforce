@@ -4,6 +4,7 @@
   "description": "Salesforce development project",
   "scripts": {
     "ea:prettier": "node ./misc/ea-custom-prettier.js",
+    "xml:lint": "node ./misc/xml_linter.js",
     "test": "node webdriverURLsetup.js && node createUserJsonList.js && npx tsc && npx wdio webdriverIO-build/wdio.conf.js",
     "generate-report": "npx allure generate allure-results --clean",
     "open-report": "npx allure open",
@@ -25,8 +26,8 @@
     "@babel/preset-env": "^7.10.4",
     "@lwc/eslint-plugin-lwc": "^1.0.0",
     "@salesforce/eslint-config-lwc": "^1.0.0",
-    "@salesforce/sfdx-lwc-jest": "^0.10.4",
-    "@salesforce/wire-service-jest-util": "^3.0.0",
+    "@salesforce/sfdx-lwc-jest": "^1.1.3",
+    "@salesforce/wire-service-jest-util": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^3.7.0",
     "@typescript-eslint/parser": "^3.7.0",
     "eslint": "^7.5.0",
@@ -37,7 +38,8 @@
     "prettier": "^2.2.1",
     "prettier-plugin-apex": "^1.10.0",
     "pretty-quick": "^3.0.2",
-    "sfdx-cli": "^7.168.0",
+    "saxon-js": "^2.4.0",
+    "sfdx-cli": "^7.168.1",
     "typescript": "^3.9.7"
   }
 }

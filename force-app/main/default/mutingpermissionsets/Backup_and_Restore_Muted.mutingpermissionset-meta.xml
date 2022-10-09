@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MutingPermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+   <description>This permission set removes the ability to restore. This will need to be removed from the Permission Set Group by an admin via PAM if a restore needs to take place to ensure the Odaseva user has least privilege in order to only backup data.</description>
+   <label>Backup and Restore Muted</label>
+   <objectPermissions>
+      <allowCreate>false</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>false</allowEdit>
+      <allowRead>false</allowRead>
+      <modifyAllRecords>true</modifyAllRecords>
+      <object>Quality_Assessment__c</object>
+      <viewAllRecords>false</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>false</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>false</allowEdit>
+      <allowRead>false</allowRead>
+      <modifyAllRecords>true</modifyAllRecords>
+      <object>Release__c</object>
+      <viewAllRecords>false</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>false</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>false</allowEdit>
+      <allowRead>false</allowRead>
+      <modifyAllRecords>true</modifyAllRecords>
+      <object>Reported_Bug__c</object>
+      <viewAllRecords>false</viewAllRecords>
+   </objectPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>DebugApex</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>InstallPackaging</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ModifyAllData</name>
+   </userPermissions>
+</MutingPermissionSet>
