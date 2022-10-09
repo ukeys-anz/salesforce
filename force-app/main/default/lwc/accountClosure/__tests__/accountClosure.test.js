@@ -1,6 +1,7 @@
 import { createElement } from "lwc";
 import AccountClosure from "c/accountClosure";
 import getPackageClosureAura from "@salesforce/apex/StravinskyController.getPackageClosureAura";
+import { setImmediate } from "timers";
 
 jest.mock(
   "@salesforce/apex/StravinskyController.getPackageClosureAura",
