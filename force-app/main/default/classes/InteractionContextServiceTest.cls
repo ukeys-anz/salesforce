@@ -58,10 +58,15 @@ public with sharing class InteractionContextServiceTest {
     Test.stopTest();
 
     List<Interaction> intList = [SELECT Id, Direction__c FROM Interaction];
-    System.assertEquals(1, intList.size());
+    System.assertEquals(
+      1,
+      intList.size(),
+      'Interaction list size should be as expected'
+    );
     System.assertEquals(
       InteractionContextService.INBOUND_DIRECTION,
-      intList[0].Direction__c
+      intList[0].Direction__c,
+      'Interaction direction should match'
     );
   }
 
@@ -79,7 +84,11 @@ public with sharing class InteractionContextServiceTest {
     Test.stopTest();
 
     List<Interaction> intList = [SELECT Id, Direction__c FROM Interaction];
-    System.assertEquals(0, intList.size());
+    System.assertEquals(
+      0,
+      intList.size(),
+      'Interaction list should be empty for invalid direction'
+    );
   }
 
   static InteractionContextService.InteractionContextRequest prepareContext() {

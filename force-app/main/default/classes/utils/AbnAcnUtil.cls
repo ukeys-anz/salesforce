@@ -5,6 +5,8 @@
  * @description AbnAcnUtil is the utilitary class to check ABN and ACN are correctly formatted
  */
 public with sharing class AbnAcnUtil {
+  private static final String ABN_11_DIGIT_VALIDATION_ERROR = 'ABN should be 11 digits, optionally with spaces as separators.';
+  private static final String ABN_NOT_VALID_ERROR = ' is not a valid ABN.';
   /**
    * @description Check if the lead's ABN is valid and if so, format it to the recommended pattern
    * @name validateABN
@@ -16,11 +18,9 @@ public with sharing class AbnAcnUtil {
       Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
       if (isABNValueEntered(record, oldRec)) {
         if (!Pattern.matches('^(\\d *){11}$', record.ABN__c)) {
-          record.addError(
-            'ABN should be 11 digits, optionally with spaces as separators.'
-          );
+          record.addError(ABN_11_DIGIT_VALIDATION_ERROR);
         } else if (!isABNValid(record.ABN__c)) {
-          record.addError(record.ABN__c + ' is not a valid ABN.');
+          record.addError(record.ABN__c + ABN_NOT_VALID_ERROR);
         } else {
           record.ABN__c = formatABN(record.ABN__c);
         }

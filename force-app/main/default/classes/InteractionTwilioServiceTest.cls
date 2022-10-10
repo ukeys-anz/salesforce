@@ -46,7 +46,15 @@ private class InteractionTwilioServiceTest {
       FROM Interaction
       WHERE Id = :interactionRecord.Id
     ];
-    System.assertEquals('TWILIO_ID', updatedRecord.Twilio_ID__c);
-    System.assertEquals('CHAT_OR_CALL_ID', updatedRecord.Chat_or_Call_SID__c);
+    System.assertEquals(
+      'TWILIO_ID',
+      updatedRecord.Twilio_ID__c,
+      'Updated Record Twilio Id does not match'
+    );
+    System.assertEquals(
+      'CHAT_OR_CALL_ID',
+      updatedRecord.Chat_or_Call_SID__c,
+      'Updated Record Chat or Call SID does not match'
+    );
   }
 }

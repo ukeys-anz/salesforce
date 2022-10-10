@@ -564,7 +564,7 @@ private class CaseTriggerHandlerTest {
         'Failed to prevent against user adding parent case when it has already related to child cases'
       );
     } catch (DmlException e) {
-      system.assertEquals(
+      System.assertEquals(
         'You cannot add parent case. This case is associated with child cases',
         e.getDmlMessage(0),
         'Error message should be as expected.'
@@ -600,7 +600,7 @@ private class CaseTriggerHandlerTest {
         'Failed to prevent user selecting duplicate values in additional type when the value exists in primary type'
       );
     } catch (DMLexception e) {
-      system.assert(
+      System.assert(
         e.getMessage()
           .contains(
             'You cannot select a value in Additional Type that is already selected as the Primary Type.'
@@ -637,7 +637,7 @@ private class CaseTriggerHandlerTest {
         'Failed to prevent against user selecting two additional types'
       );
     } catch (DMLexception e) {
-      system.assert(
+      System.assert(
         e.getMessage()
           .contains('You cannot select more than two Additional Types.'),
         e.getDmlMessage(0)
@@ -674,7 +674,7 @@ private class CaseTriggerHandlerTest {
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
-    system.assertEquals(
+    System.assertEquals(
       'Cards - Damaged card',
       newCases[0].Subject,
       'New case subject shoudl be as expected.'
@@ -710,7 +710,7 @@ private class CaseTriggerHandlerTest {
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
-    system.assertEquals(
+    System.assertEquals(
       'Cards',
       newCases[0].Subject,
       'New case subject should be as expected.'
@@ -745,7 +745,7 @@ private class CaseTriggerHandlerTest {
 
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
 
-    system.assertEquals(
+    System.assertEquals(
       'Cards - Damaged card - Using card',
       newCases[0].Subject,
       'New case subject should be as expected.'
@@ -790,12 +790,12 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :complaintCaselist[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       et.Id,
       checkEntitlment.EntitlementId,
       'Complaint entitlement id should be as expected.'
     );
-    system.assertEquals(
+    System.assertEquals(
       'Normal',
       checkEntitlment.IDR_Milestone_Sla__c,
       'Complaint entitlement IDR_Milestone_Sla should be as expected.'
@@ -811,7 +811,7 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :complaintCaselist[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       'Normal',
       checkMilestone.IDR_Milestone_Sla__c,
       'IDR_Milestone_Sla should be as expected.'
@@ -1015,7 +1015,7 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :newCases[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       sampleCase1.RecordType.Name +
       ' - ' +
       caseTypeLabelByValue.get(sampleCase1.Type),
@@ -1033,7 +1033,7 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :newCases[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       sampleCase2.RecordType.Name +
       ' - ' +
       sampleCase2.Type,
@@ -1123,7 +1123,7 @@ private class CaseTriggerHandlerTest {
     }
     insert newCases;
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
-    system.assertEquals(
+    System.assertEquals(
       'Card - Charged for a cancelled payment',
       newCases[0].Subject,
       'New case subject should be as expected.'
@@ -1167,7 +1167,7 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :newCases[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       sampleCase1.RecordType.Name +
       ' - ' +
       caseTypeLabelByValue.get(sampleCase1.Type),
@@ -1185,7 +1185,7 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :newCases[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       sampleCase2.RecordType.Name +
       ' - ' +
       caseTypeLabelByValue.get(sampleCase2.Type),
@@ -1234,7 +1234,7 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :newCases[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       sampleCase1.Type,
       sampleCase1.Subject,
       'Failed to autopopulate Subject on KYC QA Fraud cases as expected, while inserting'
@@ -1360,7 +1360,7 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
 
     // THEN Contact Name lookup should be auto-populated
-    system.assertEquals(
+    System.assertEquals(
       acc.PersonContactId,
       newCases[0].ContactId,
       'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
@@ -2812,17 +2812,17 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :newCases[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       null,
       sampleCase1.Fraud_Customer_Details__c,
       'KYC QA: KYC Information is a Match & Complete field should be null after inserting.'
     );
-    system.assertEquals(
+    System.assertEquals(
       null,
       sampleCase1.Fraud_Restraint_Status__c,
       'KYC QA: Restraint Status field should be null after inserting.'
     );
-    system.assertEquals(
+    System.assertEquals(
       null,
       sampleCase1.Fraud_Defects_Rectified__c,
       'KYC QA: Have All Defects Been Rectified field should be null after inserting.'
@@ -2847,17 +2847,17 @@ private class CaseTriggerHandlerTest {
       WHERE Id = :newCases[0].Id
       LIMIT 1
     ];
-    system.assertEquals(
+    System.assertEquals(
       'Yes',
       closedSampleCase1.Fraud_Customer_Details__c,
       'KYC QA: KYC Information is a Match & Complete field should be Yes after closing Case as No Defect.'
     );
-    system.assertEquals(
+    System.assertEquals(
       'N/A',
       closedSampleCase1.Fraud_Restraint_Status__c,
       'KYC QA: Restraint Status field should be empty after closing Case as No Defect.'
     );
-    system.assertEquals(
+    System.assertEquals(
       'Not Applicable',
       closedSampleCase1.Fraud_Defects_Rectified__c,
       'KYC QA: Have All Defects Been Rectified field should be empty after closing Case as No Defect.'
@@ -2977,7 +2977,8 @@ private class CaseTriggerHandlerTest {
       System.assert(false, 'Failed to detect existing KYC QA case');
     } catch (DmlException e) {
       System.assert(
-        e.getMessage().contains(GetHelpCaseActions.DUPLICATE_KYCQA_ERROR)
+        e.getMessage().contains(GetHelpCaseActions.DUPLICATE_KYCQA_ERROR),
+        'Exception thrown, error message does not reflect duplicate KYC QA error'
       );
     }
     Test.stopTest();
