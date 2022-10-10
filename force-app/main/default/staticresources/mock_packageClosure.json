@@ -1,0 +1,28 @@
+{
+  "status": {
+    "code": 200,
+    "description": "SUCCESS"
+  },
+  "meta": {
+    "accountA1": {
+      "status": "200",
+      "number": "12345678",
+      "error": "none"
+    },
+    "accountS1": {
+      "status": "200",
+      "number": "12345678",
+      "error": "none"
+    },
+    "card": {
+      "status": "200",
+      "number": "12345678",
+      "error": "none"
+    },
+    "package": {
+      "status": "200",
+      "number": "12345678",
+      "error": "none"
+    }
+  }
+}
