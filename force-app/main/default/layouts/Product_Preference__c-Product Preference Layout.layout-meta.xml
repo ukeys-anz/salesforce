@@ -21,7 +21,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Subsequent_Index_Rate_Basis_Point__c</field>
+                <field>Subsequent_Index_Rate_Basis_Points__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

@@ -193,7 +193,7 @@
     "qualtrics__Survey_Response__c": "Customers answers to a given Qualtrics Survey",
     "Release__c": "System documentation on a given Salesforce release of features",
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
-    "ResidentialLoanApplication": "General information and identifiers to describe type of loan", 
+    "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
     "Task": "A task to remind a user to follow up on something",
@@ -1301,11 +1301,8 @@
         "Married_or_Defacto__c",
         "Number_of_Dependents__c"
       ],
-      "IA-2530753":[
-        "CreatedDate",
-        "LastModifiedDate"
-      ],
-      "IA-2594111":[
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": [
         "Loan_Applicant_Group_ID__c",
         "Residential_Loan_Application__c",
         "SOP_ID__c"
@@ -1318,10 +1315,7 @@
         "Sole_Applicant_Selected__c",
         "Sole_Income_Earner__c"
       ],
-      "IA-2530753": [
-        "CreatedDate",
-        "LastModifiedDate"
-      ],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": [
         "ApplicantExtIdentifier",
         "Loan_Applicant_Group__c",
@@ -1329,23 +1323,12 @@
       ]
     },
     "LoanApplicantLiability": {
-      "IA-2415983": [
-        "Proportion_Percent__c"
-      ],
-      "IA-2530753": [
-        "CreatedDate",
-        "LastModifiedDate"
-      ],
-      "IA-2594111": [
-        "LoanApplicantId",
-        "Loan_Applicant_Liability_ID__c"
-      ]
+      "IA-2415983": ["Proportion_Percent__c"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": ["LoanApplicantId", "Loan_Applicant_Liability_ID__c"]
     },
     "LoanApplicationLiability": {
-      "IA-2530753": [
-        "CreatedDate",
-        "LastModifiedDate"
-      ]
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"]
     },
     "Location": {
       "IA-2468715": [
@@ -1530,19 +1513,14 @@
         "Initial_Repayment_Frequency__c",
         "Initial_Repayment_Type__c",
         "Requested_Amount__c",
-        "Subsequent_Index_Rate_Basis_Point__c",
+        "Subsequent_Index_Rate_Basis_Points__c",
         "Subsequent_Margin_Basis_Points__c",
         "Subsequent_Period_Months__c",
         "Subsequent_Repayment_Frequency__c",
         "Subsequent_Repayment_Type__c"
       ],
-      "IA-2415987": [
-        "Product_Code__c"
-      ],
-      "IA-2530753": [
-        "CreatedDate",
-        "LastModifiedDate"
-      ],
+      "IA-2415987": ["Product_Code__c"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": [
         "Product_Preference_ID__c",
         "Residential_Loan_Application__c"
@@ -1767,23 +1745,11 @@
         "LastModifiedDate"
       ]
     },
-    "ResidentialLoanApplication":{
-      "IA-2415855": [
-        "Assessment_Outcome__c"
-      ],
-      "IA-2415983":[
-        "Status",
-        "LoanPurpose",
-        "Loan_Type__c"
-      ],
-      "IA-2530753":[
-        "CreatedDate",
-        "LastModifiedDate"
-      ],
-      "IA-2594111":[
-        "Credit_ID__c",
-        "ApplicationExtIdentifier"
-      ]
+    "ResidentialLoanApplication": {
+      "IA-2415855": ["Assessment_Outcome__c"],
+      "IA-2415983": ["Status", "LoanPurpose", "Loan_Type__c"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": ["Credit_ID__c", "ApplicationExtIdentifier"]
     },
     "Response_Type__c": {
       "IA-2415860": [
