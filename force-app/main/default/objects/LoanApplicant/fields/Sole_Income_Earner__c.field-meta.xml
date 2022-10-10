@@ -2,12 +2,12 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sole_Income_Earner__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Loan_Domain</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Loan_Domain</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>Boolean that captures if sole income earner</description>
     <externalId>false</externalId>
     <label>Sole Income Earner</label>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>

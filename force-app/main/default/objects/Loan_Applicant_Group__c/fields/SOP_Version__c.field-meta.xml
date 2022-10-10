@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SOP_Version__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Loan_Domain;Integrity_Accurate</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Source_Loan_Domain</complianceGroup>
     <description>SOP version related to the SOP</description>
     <externalId>false</externalId>
     <label>SOP Version</label>

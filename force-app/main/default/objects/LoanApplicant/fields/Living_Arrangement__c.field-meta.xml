@@ -2,13 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Living_Arrangement__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Loan_Domain</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Source_Loan_Domain</complianceGroup>
     <description>Living arrangement details</description>
     <externalId>false</externalId>
     <label>Living Arrangement</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>Internal</securityClassification>
+    <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>
