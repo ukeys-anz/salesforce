@@ -26,6 +26,9 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+  public static Group accountClosureQueue = CommonUtil.getQueueByName(
+    'Account_Closure_Queue'
+  );
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -114,6 +117,13 @@ public with sharing class GetHelpCaseActions {
             record
           );
         }
+      } else if (
+        GetHelpCaseActionsHelper.isAccountClosure(record, null) &&
+        record.Status == GetHelpConstants.ESCALATED_STATUS &&
+        oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
+      ) {
+        //Set owner of case to account closure queue if its set to escalated
+        record.OwnerId = accountClosureQueue.Id;
       }
     }
 
@@ -172,7 +182,10 @@ public with sharing class GetHelpCaseActions {
     List<Case> caseList,
     Map<Id, Case> oldCaseMap
   ) {
+    List<Case> accountClosureCases = new List<Case>();
+    Set<Id> accountIds = new Set<Id>();
     for (Case record : caseList) {
+      Case oldRecord = oldCaseMap != null ? oldCaseMap.get(record.Id) : null;
       // Check for General Inquiry Cases
       if (
         GetHelpCaseActionsHelper.isEnquiryOrAdditionalCheckRequired(
@@ -185,7 +198,7 @@ public with sharing class GetHelpCaseActions {
 
       // Check for Fraud Cases
       // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
-      if (GetHelpCaseActionsHelper.isFraud(record, oldCaseMap)) {
+      if (GetHelpCaseActionsHelper.isFraud(record, oldRecord)) {
         populateFraudCaseSubject(record);
       }
 
@@ -195,7 +208,7 @@ public with sharing class GetHelpCaseActions {
       }
 
       // Check for Complaint Cases
-      if (GetHelpCaseActionsHelper.isComplaint(record, oldCaseMap)) {
+      if (GetHelpCaseActionsHelper.isComplaint(record, oldRecord)) {
         populateComplaintCaseSubject(record);
       }
 
@@ -204,6 +217,21 @@ public with sharing class GetHelpCaseActions {
         GetHelpCaseActionsHelper.isANZxNonCustomerComplaint(record, oldCaseMap)
       ) {
         populateANZxNonCustomerComplaintCaseSubject(record);
+      }
+
+      // Check for Account Closure Cases
+      if (GetHelpCaseActionsHelper.isAccountClosure(record, oldRecord)) {
+        accountClosureCases.add(record);
+        accountIds.add(record.AccountId);
+      }
+    }
+
+    if (!accountClosureCases.isEmpty()) {
+      if (PermissionUtils.canQuery('Account')) {
+        Map<Id, Account> accountList = new Map<Id, Account>(
+          [SELECT Id, Name FROM Account WHERE Id IN :accountIds]
+        );
+        populateAccountClosureCaseSubject(accountClosureCases, accountList);
       }
     }
   }
@@ -787,6 +815,20 @@ public with sharing class GetHelpCaseActions {
         Case theCase = accountIdAndCaseMap.get(existingKYCQACase.AccountId);
         theCase.addError(DUPLICATE_KYCQA_ERROR + existingKYCQACase.CaseNumber);
       }
+    }
+  }
+
+  /**
+   * @description  This method populates Account Closure Case subject based on Case record type
+   * @param caseList Case records from trigger
+   * @param accountList List of accounts for cases
+   */
+  public static void populateAccountClosureCaseSubject(
+    List<Case> caseList,
+    Map<Id, Account> accountList
+  ) {
+    for (Case c : caseList) {
+      c.Subject = 'Account Closure - ' + accountList.get(c.AccountId).Name;
     }
   }
 }

@@ -1,0 +1,64 @@
+.field-title {
+  color: #54698d;
+  margin-bottom: 0.25rem;
+}
+
+.spinner-height {
+  height: 4rem;
+}
+
+.card-header {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.header-div {
+  background-color: #014486;
+  padding-bottom: 10px;
+}
+
+.close-button {
+  margin-left: 20px;
+}
+
+.slds-backdrop_open,
+.slds-backdrop--open {
+  opacity: 0.6;
+}
+
+.margin-correction {
+  /* Setting margin bottom to shift the empty component up
+  and remove empty space */
+  margin-bottom: -12px;
+}
+
+.disabled-description {
+  overflow: hidden;
+  float: right;
+  position: relative;
+  bottom: 34px;
+  right: 18px;
+}
+
+.disabled-tooltip {
+  visibility: hidden;
+  width: 30%;
+  background-color: #18315c;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: absolute;
+  left: 25%;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.disabled-description:hover + .disabled-tooltip {
+  visibility: visible;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+  margin-left: 135px;
+}

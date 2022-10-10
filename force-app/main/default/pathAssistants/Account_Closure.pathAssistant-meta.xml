@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Account Closure</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Prior to escalating the closure request, the following needs to be confirmed:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-size: 9.75pt;&quot;&gt;There are no pending transactions on the account(s)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 9.75pt;&quot;&gt;The card has been disabled in CTM&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 9.75pt;&quot;&gt;The account balances have been zeroed out&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 9.75pt;&quot;&gt;There is no interest accrued on the account(s)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;font-size: 9.75pt;&quot;&gt;The status of the account(s) has been set to&lt;/span&gt; &lt;span style=&quot;font-size: 9.75pt;&quot;&gt;Closed&lt;/span&gt; &lt;span style=&quot;font-size: 9.75pt;&quot;&gt;in CAP&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Escalated</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Prior to escalating the closure request, the following needs to be confirmed:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;There are no pending transactions on the account(s)&lt;/li&gt;&lt;li&gt;The account balances have been zeroed out&lt;/li&gt;&lt;li&gt;There is no interest accrued on the account(s)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>On Hold</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Prior to escalating the closure request, the following needs to be confirmed:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;There are no pending transactions on the account(s)&lt;/li&gt;&lt;li&gt;The account balances have been zeroed out&lt;/li&gt;&lt;li&gt;There is no interest accrued on the account(s)&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Open</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Account_Closure</recordTypeName>
+</PathAssistant>
