@@ -296,16 +296,27 @@ public class ConnectApiHelperTest {
 
     List<ConnectApi.MessageSegment> segments = fi.body.messageSegments;
 
-    System.assertEquals(4, segments.size(),
-      'Segments list size should be as expected');
-    System.assert(segments.get(0) instanceof ConnectApi.HashtagSegment,
-      'HashtagSegment type was expected');
-    System.assert(segments.get(1) instanceof ConnectApi.TextSegment,
-      'TextSegment type was expected');
-    System.assert(segments.get(2) instanceof ConnectApi.MentionSegment,
-      'MentionSegment type was expected');
-    System.assert(segments.get(3) instanceof ConnectApi.TextSegment,
-      'TextSegment type was expected');
+    System.assertEquals(
+      4,
+      segments.size(),
+      'Segments list size should be as expected'
+    );
+    System.assert(
+      segments.get(0) instanceof ConnectApi.HashtagSegment,
+      'HashtagSegment type was expected'
+    );
+    System.assert(
+      segments.get(1) instanceof ConnectApi.TextSegment,
+      'TextSegment type was expected'
+    );
+    System.assert(
+      segments.get(2) instanceof ConnectApi.MentionSegment,
+      'MentionSegment type was expected'
+    );
+    System.assert(
+      segments.get(3) instanceof ConnectApi.TextSegment,
+      'TextSegment type was expected'
+    );
 
     ConnectApi.HashtagSegment hashtagSegment = (ConnectApi.HashtagSegment) segments.get(
       0
@@ -320,7 +331,11 @@ public class ConnectApiHelperTest {
       1
     );
 
-    System.assertEquals(text1 + text2, textSegment1.text, 'Segment should match input');
+    System.assertEquals(
+      text1 + text2,
+      textSegment1.text,
+      'Segment should match input'
+    );
 
     // ConnectApi.LinkSegment linkSegment = (ConnectApi.LinkSegment) segments.get(
     //   2, 'Segment should match input'
@@ -494,6 +509,7 @@ public class ConnectApiHelperTest {
       input.messageSegments.get(2) instanceof ConnectApi.MentionSegmentInput,
       'Segment 2 is not a mention segment input.'
     );
+
     ConnectApi.MentionSegmentInput mentionInput = (ConnectApi.MentionSegmentInput) input.messageSegments.get(
       2
     );
