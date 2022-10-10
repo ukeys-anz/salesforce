@@ -558,6 +558,7 @@ private class CaseTriggerHandlerTest {
     // Update parent case to throw error
     try {
       parentCaseList[0].ParentId = parentCaseList[1].Id;
+      parentCaseList[0].IDR_Additional_Correspondence_Reviewed__c = true;
       update parentCaseList;
       System.assert(
         false,

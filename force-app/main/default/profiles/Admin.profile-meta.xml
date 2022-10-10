@@ -2654,11 +2654,6 @@
       <readable>true</readable>
   </fieldPermissions>
   <fieldPermissions>
-    <editable>true</editable>
-    <field>Case.IDR_Additional_Correspondence_reviewed__c</field>
-    <readable>true</readable>
-  </fieldPermissions>
-  <fieldPermissions>
       <editable>true</editable>
       <field>Case.IDR_AFCA_Date__c</field>
       <readable>true</readable>
@@ -2703,6 +2698,11 @@
       <field>Case.IDR_Account_Card_Policy_Number__c</field>
       <readable>true</readable>
   </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Additional_Correspondence_reviewed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
   <fieldPermissions>
       <editable>true</editable>
       <field>Case.IDR_AuthRep_Is_Related_to_Representative__c</field>
@@ -2763,6 +2763,11 @@
       <field>Case.IDR_Complaint_Remedy__c</field>
       <readable>true</readable>
   </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Correspondence_Reviewed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
   <fieldPermissions>
       <editable>true</editable>
       <field>Case.IDR_Customer_Identifier__c</field>
@@ -7718,15 +7723,6 @@
     <allowEdit>true</allowEdit>
     <allowRead>true</allowRead>
     <modifyAllRecords>true</modifyAllRecords>
-    <object>Account</object>
-    <viewAllRecords>true</viewAllRecords>
-  </objectPermissions>
-  <objectPermissions>
-    <allowCreate>true</allowCreate>
-    <allowDelete>true</allowDelete>
-    <allowEdit>true</allowEdit>
-    <allowRead>true</allowRead>
-    <modifyAllRecords>true</modifyAllRecords>
     <object>Access_Request__c</object>
     <viewAllRecords>true</viewAllRecords>
   </objectPermissions>
@@ -7739,6 +7735,15 @@
     <object>Accessed_Record_Log__b</object>
     <viewAllRecords>true</viewAllRecords>
   </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Account</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
   <objectPermissions>
     <allowCreate>true</allowCreate>
     <allowDelete>true</allowDelete>

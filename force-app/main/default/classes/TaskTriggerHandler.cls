@@ -15,6 +15,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
+    IDRTaskActions.updateNotificationSubject(records);
     IDRTaskActions.beforeInsertActions(records);
     GetHelpTaskActions.beforeInsertActions(records);
     CCRMTaskActions.validateLeadAbnACN(records);
@@ -32,6 +33,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    IDRTaskActions.updateNotificationSubject(records);
     IDRTaskActions.beforeUpdateActions(records, (Map<Id, Task>) oldMap);
   }
   /**

@@ -25,6 +25,28 @@ public without sharing class IDRTaskActions {
   private static final String SI_DUE_DATE_ERROR_MESSAGE = 'Only the case owner is allowed to edit the due date';
   private static final String IDR_LEVEL_1 = 'IDR_Level_1';
 
+  @TestVisible
+  private static final String TASK_AFCA_SUBJECT_DAY10_SEARCH =
+    '%' +
+    IDRConstants.TASK_AFCA_SUBJECT_DAY10 +
+    '%';
+  private static final String TASK_AFCA_SUBJECT_DAY1_SEARCH =
+    '%' +
+    IDRConstants.TASK_AFCA_SUBJECT_DAY1 +
+    '%';
+
+  @TestVisible
+  private static Map<Id, Case> caseMapGlobal;
+
+  @TestVisible
+  private static final String TASK_SUBJECT_DAY1_SEARCH =
+    '%' +
+    IDRConstants.TASK_SUBJECT_DAY1 +
+    '%';
+  private static final String TASK_SUBJECT_DAY5_SEARCH =
+    '%' +
+    IDRConstants.TASK_SUBJECT_DAY5 +
+    '%';
 
   public static Group siQueue = [
     SELECT Id
@@ -54,6 +76,7 @@ public without sharing class IDRTaskActions {
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
    * @param records The Task record list.
    */
+
   public static void beforeInsertActions(List<Task> records) {
     for (Task record : records) {
       if (
@@ -185,8 +208,8 @@ public without sharing class IDRTaskActions {
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND Id NOT IN :currentTask
           AND IsClosed = FALSE
-          AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
-          OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
+          AND (Subject LIKE :TASK_SUBJECT_DAY5_SEARCH
+          OR Subject LIKE :TASK_SUBJECT_DAY1_SEARCH)
       ];
     }
     for (Task t : oldTasks) {
@@ -221,8 +244,8 @@ public without sharing class IDRTaskActions {
     Set<Id> caseIds = new Set<Id>();
     for (Task record : taskRecs) {
       if (
-        record.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
-        record.Subject == IDRConstants.TASK_SUBJECT_DAY1
+        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) ||
+        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
@@ -231,8 +254,8 @@ public without sharing class IDRTaskActions {
         caseIds.add(record.WhatId);
       }
       if (
-        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY10 ||
-        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY1
+        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY10) ||
+        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY1)
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
@@ -241,7 +264,7 @@ public without sharing class IDRTaskActions {
       if (
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         (!caseTaskMap.keySet().contains(record.WhatId) ||
-        (record.Subject == IDRConstants.TASK_SUBJECT_DAY1))
+        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1))
       ) {
         caseTaskMap.put(record.WhatId, record.Subject);
       }
@@ -266,14 +289,20 @@ public without sharing class IDRTaskActions {
     if (
       Case.SObjectType.getDescribe().isQueryable() && caseTaskMap.size() > 0
     ) {
-      relatedCaseList = [
-        SELECT Id, BusinessHoursId, IDR_Date_Received__c, Priority
-        FROM Case
-        WHERE Id IN :caseTaskMap.keySet()
-      ];
+      if (caseMapGlobal == null || caseMapGlobal.size() == 0) {
+        relatedCaseList = [
+          SELECT Id, BusinessHoursId, IDR_Date_Received__c, Priority
+          FROM Case
+          WHERE Id IN :caseTaskMap.keySet()
+        ];
+      }
     }
-    for (Case c : relatedCaseList) {
-      caseMap.put(c.Id, c);
+    if (!relatedCaseList.isEmpty()) {
+      for (Case c : relatedCaseList) {
+        caseMap.put(c.Id, c);
+      }
+    } else {
+      caseMap = new Map<Id, Case>(caseMapGlobal);
     }
     for (Task record : idrMaximumTimeTasks) {
       Datetime expectedDueDate = calculateExpectedDue(
@@ -299,7 +328,7 @@ public without sharing class IDRTaskActions {
   public static Datetime calculateExpectedDue(Task record, Case caseRec) {
     Datetime expectedDueDate;
     if (
-      record.Subject == IDRConstants.TASK_SUBJECT_DAY5 &&
+      record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) &&
       caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY
     ) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
@@ -308,7 +337,7 @@ public without sharing class IDRTaskActions {
         25
       );
     } else if (
-      record.Subject == IDRConstants.TASK_SUBJECT_DAY5 &&
+      record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) &&
       caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY
     ) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
@@ -317,7 +346,7 @@ public without sharing class IDRTaskActions {
         16
       );
     } else if (
-      record.Subject == IDRConstants.TASK_SUBJECT_DAY1 &&
+      record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1) &&
       caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY
     ) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
@@ -326,7 +355,7 @@ public without sharing class IDRTaskActions {
         29
       );
     } else if (
-      record.Subject == IDRConstants.TASK_SUBJECT_DAY1 &&
+      record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1) &&
       caseRec.Priority != IDRConstants.TASK_STANDARD_PRIORITY
     ) {
       expectedDueDate = DateTimeUtils.addBusinessDays(
@@ -349,8 +378,8 @@ public without sharing class IDRTaskActions {
       if (
         t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
         t.Status == 'Completed' &&
-        (t.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
-        t.Subject == IDRConstants.TASK_SUBJECT_DAY1)
+        (t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) ||
+        t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1))
       ) {
         caseIDSet.add(t.WhatId);
       }
@@ -407,12 +436,16 @@ public without sharing class IDRTaskActions {
     Set<Id> caseIds
   ) {
     Map<Id, Case> caseMap = new Map<Id, Case>();
-    for (Case caseRecord : [
-      SELECT Id, OwnerId
-      FROM Case
-      WHERE Id IN :caseIds
-    ]) {
-      caseMap.put(caseRecord.Id, caseRecord);
+    if (caseMapGlobal == null || caseMapGlobal.size() > 0) {
+      for (Case caseRecord : [
+        SELECT Id, OwnerId
+        FROM Case
+        WHERE Id IN :caseIds
+      ]) {
+        caseMap.put(caseRecord.Id, caseRecord);
+      }
+    } else {
+      caseMap = new Map<Id, Case>(caseMapGlobal);
     }
     for (Task record : records) {
       if (caseMap.containsKey(record.WhatId)) {
@@ -453,8 +486,8 @@ public without sharing class IDRTaskActions {
           WhatId IN :caseMap.keySet()
           AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
           AND IsClosed = FALSE
-          AND (Subject = :IDRConstants.TASK_SUBJECT_DAY5
-          OR Subject = :IDRConstants.TASK_SUBJECT_DAY1)
+          AND (Subject LIKE :TASK_SUBJECT_DAY5_SEARCH
+          OR Subject LIKE :TASK_SUBJECT_DAY1_SEARCH)
       ];
     }
     for (Task t : idrTasks) {
@@ -522,19 +555,18 @@ public without sharing class IDRTaskActions {
     Task[] existingTasks = new List<Task>();
     Set<Id> caseIds = new Set<Id>();
     Map<Id, Task> siCaseTasks = new Map<Id, Task>();
-    
+
     for (Case record : records) {
-      if (oldMap != null && 
+      if (
+        oldMap != null &&
         oldMap.containsKey(record.Id) &&
         IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
-        record.IDR_Is_Common__c == 'Yes'  //is case PSI
+        record.IDR_Is_Common__c == 'Yes' //is case PSI
       ) {
         caseIds.add(record.Id);
       }
     }
-    if (
-      !caseIds.isEmpty() && Task.SObjectType.getDescribe().isQueryable()
-    ) {
+    if (!caseIds.isEmpty() && Task.SObjectType.getDescribe().isQueryable()) {
       existingTasks = [
         SELECT Id, Status, Subject, WhatId
         FROM Task
@@ -544,14 +576,12 @@ public without sharing class IDRTaskActions {
           AND Type = :IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE
           AND Subject = :IDR_TASK_SUBJECT
       ];
-      
+
       for (Task record : existingTasks) {
-          siCaseTasks.put(record.WhatId,record);
+        siCaseTasks.put(record.WhatId, record);
       }
-      
     }
-    
-    
+
     for (Case record : records) {
       Case oldRec;
       if (oldMap != null) {
@@ -573,9 +603,8 @@ public without sharing class IDRTaskActions {
         }
       }
       //validate case for PSI task creation
-      if (validateCaseForPSITask(record, oldRec, siCaseTasks)
-      ) {
-          siTasks.add(populateTaskFields(record));
+      if (validateCaseForPSITask(record, oldRec, siCaseTasks)) {
+        siTasks.add(populateTaskFields(record));
       }
     }
     //rollup on parent systemic issue
@@ -603,7 +632,7 @@ public without sharing class IDRTaskActions {
       }
     }
   }
-  
+
   /**
    * @description Validates a complaint record for creating PSI task
    * @param record from case trigger
@@ -616,7 +645,6 @@ public without sharing class IDRTaskActions {
     Case oldRec,
     Map<Id, Task> siCaseTasks
   ) {
-    
     if (
       IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
       record.IDR_Is_Common__c == 'Yes' && //is case PSI
@@ -625,7 +653,7 @@ public without sharing class IDRTaskActions {
       (oldRec == null || //if case is created closed
       (oldRec.Status != record.Status &&
       (!(siCaseTasks.containsKey(record.Id)))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
-      //This could be a Reopen to closure scenario therefore make sure another task is not created. 
+      //This could be a Reopen to closure scenario therefore make sure another task is not created.
       oldRec.IDR_Is_Common__c != record.IDR_Is_Common__c) // when case is already closed and L1 updates PSI flag to yes
     ) {
       return true;
@@ -782,6 +810,60 @@ public without sharing class IDRTaskActions {
       for (Task oTask : lstNewTasks) {
         if (mpId2Group.containsKey(oTask.OwnerId)) {
           oTask.Queue__c = mpId2Group.get(oTask.OwnerId).Name;
+        }
+      }
+    }
+  }
+
+  /**
+   * @description updates the Subject field on IDR Response due in 5 days Task record and IDR Response due in 1 day Task record to include Case Id and Customer Name.
+   * @param records List of collection Tasks.
+   */
+
+  public static void updateNotificationSubject(List<Task> records) {
+    Set<Id> caseIds = new Set<Id>();
+    for (Task record : records) {
+      caseIds.add(record.WhatId);
+    }
+    if (caseMapGlobal == null || caseMapGlobal.size() == 0) {
+      caseMapGlobal = new Map<Id, Case>(
+        [
+          SELECT
+            Id,
+            CaseNumber,
+            IDR_NC_First_Name__c,
+            IDR_NC_Last_Name__c,
+            OwnerId,
+            BusinessHoursId,
+            IDR_Date_Received__c,
+            Priority
+          FROM Case
+          WHERE Id IN :caseIds
+        ]
+      );
+    }
+    for (Task record : records) {
+      Case caseObj = caseMapGlobal.get(record.WhatId);
+      if (
+        (record.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
+        record.Subject == IDRConstants.TASK_SUBJECT_DAY1 ||
+        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY10 ||
+        record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY1) &&
+        caseObj != null
+      ) {
+        String customerName = '';
+        if (caseObj.IDR_NC_First_Name__c != null) {
+          customerName = caseObj.IDR_NC_First_Name__c + ' ';
+        }
+        if (caseObj.IDR_NC_Last_Name__c != null) {
+          customerName = customerName + caseObj.IDR_NC_Last_Name__c;
+        }
+        record.Subject = record.Subject + ' | ' + caseObj.CaseNumber;
+        if (customerName != '') {
+          record.Subject =
+            record.Subject +
+            ' | Customer Name : ' +
+            customerName;
         }
       }
     }

@@ -7,19 +7,16 @@
         <field>Case.CaseComments$CreatedDate</field>
     </columns>
     <columns>
-        <field>Case$Date_Closed__c</field>
-    </columns>
-    <columns>
         <field>Case.CaseComments$CommentBody</field>
     </columns>
-    <description>This report is created to show Case comments on Closed Complaints</description>
+    <description>This report is created to show Case comments on closed Complaints</description>
     <filter>
         <criteriaItems>
             <column>Case$RecordType</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
+            <value>Case.CFMS_Migrated_Case,Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case$Status</column>
