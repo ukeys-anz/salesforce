@@ -564,6 +564,7 @@
         "IDR_Complaint_Sub_Remedy_2__c",
         "IDR_Complaint_Sub_Remedy_3__c",
         "IDR_Correspondence_Reviewed_Date__c",
+        "IDR_Correspondence_Reviewed_Formula__c"
         "IDR_Customer_Identifier__c",
         "IDR_Customer_Notification__c",
         "IDR_Date_Re_Opened__c",

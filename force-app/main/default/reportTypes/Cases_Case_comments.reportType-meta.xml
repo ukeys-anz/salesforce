@@ -56,6 +56,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Correspondence_Reviewed_Formula__c</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Id</field>
             <table>Case</table>
         </columns>
@@ -87,6 +92,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>ClosedDate</field>
+            <table>Case</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Correspondence_Reviewed_Date__c</field>
             <table>Case</table>
         </columns>
         <columns>
