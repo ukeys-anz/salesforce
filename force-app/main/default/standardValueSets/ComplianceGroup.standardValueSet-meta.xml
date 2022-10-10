@@ -87,6 +87,11 @@
         <label>Source - Salesforce</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_Tableau</fullName>
+        <default>false</default>
+        <label>Source - Tableau</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Twilio</fullName>
         <default>false</default>
         <label>Source - Twilio</label>

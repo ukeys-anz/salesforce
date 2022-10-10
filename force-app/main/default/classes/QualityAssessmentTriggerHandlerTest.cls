@@ -1,11 +1,26 @@
+/**
+ * @description       : Test class for Quality Assessment Trigger Handler
+ * @author            : Prakash
+ * @group             :
+ * @last modified on  : 10-04-2022
+ **/
 @isTest
 private class QualityAssessmentTriggerHandlerTest {
-  //method to test the Assign to Coach Lead Escalation Queue when QA updates to Breached
+  private static final String CUSTOMER_PURPOSE = 'Customer';
+  private static final String STORE_LOCATION = 'Store';
+  public static final String REFERENCE_VALUE = 'TestRef';
+
+  //method to test the Assign to Coach Lead Escalation Queu e when QA updates to Breached
   @isTest
   static void testAssignTocoachLeadQueueWhenQAUpdatedToBreached() {
     Quality_Assessment__c[] newQARecords = new List<Quality_Assessment__c>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newQARecords.add(new Quality_Assessment__c(Status__c = 'In Progress'));
+      newQARecords.add(
+        new Quality_Assessment__c(
+          Status__c = 'In Progress',
+          Reference__c = REFERENCE_VALUE
+        )
+      );
     }
     insert newQARecords;
 
@@ -50,7 +65,8 @@ private class QualityAssessmentTriggerHandlerTest {
         new Quality_Assessment__c(
           RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
           Status__c = QualityAssessmentActions.STATUS_REFERRED,
-          Sub_Status__c = QualityAssessmentActions.SUB_STATUS_COMPLIANCE_REVIEW
+          Sub_Status__c = QualityAssessmentActions.SUB_STATUS_COMPLIANCE_REVIEW,
+          Reference__c = REFERENCE_VALUE
         )
       );
     }
@@ -90,7 +106,8 @@ private class QualityAssessmentTriggerHandlerTest {
         new Quality_Assessment__c(
           RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
           Status__c = QualityAssessmentActions.STATUS_REFERRED,
-          Sub_Status__c = QualityAssessmentActions.SUB_STATUS_COMPLIANCE_REVIEW
+          Sub_Status__c = QualityAssessmentActions.SUB_STATUS_COMPLIANCE_REVIEW,
+          Reference__c = REFERENCE_VALUE
         )
       );
     }
@@ -179,7 +196,8 @@ private class QualityAssessmentTriggerHandlerTest {
       newQAs.add(
         new Quality_Assessment__c(
           RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
-          Status__c = QualityAssessmentActions.STATUS_UNASSIGNED
+          Status__c = QualityAssessmentActions.STATUS_UNASSIGNED,
+          Reference__c = REFERENCE_VALUE
         )
       );
     }
@@ -396,7 +414,8 @@ private class QualityAssessmentTriggerHandlerTest {
       newQARecords.add(
         new Quality_Assessment__c(
           Status__c = QualityAssessmentActions.STATUS_IN_PROGRESS,
-          Interaction_Owner__c = fraudXAgent.Id
+          Interaction_Owner__c = fraudXAgent.Id,
+          Reference__c = REFERENCE_VALUE
         )
       );
     }
@@ -497,11 +516,13 @@ private class QualityAssessmentTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GETHELP_RT_ID,
       //Related_Case__c = testCases[1].Id,
       Evaluation_type__c = 'Email',
-      Interaction_Type__c = 'Email'
+      Interaction_Type__c = 'Email',
+      Reference__c = REFERENCE_VALUE
     );
     qaRecords.add(qaRecord1);
     insert qaRecords;
     qaRecord1.Related_Case__c = testCases[1].Id;
+    qaRecord1.Reference__c = '';
     update qaRecord1;
     Test.stopTest();
 
@@ -606,12 +627,14 @@ private class QualityAssessmentTriggerHandlerTest {
         RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GETHELP_RT_ID,
         //Related_Case__c = testCases[1].Id,
         Evaluation_type__c = 'Email',
-        Interaction_Type__c = 'Email'
+        Interaction_Type__c = 'Email',
+        Reference__c = REFERENCE_VALUE
       );
       qaRecords.add(qaRecord1);
       insert qaRecords;
       qaRecord1.Status__c = 'Referred';
       qaRecord1.Sub_Status__c = 'Compliance Review';
+      qaRecord1.Reference__c = REFERENCE_VALUE;
       update qaRecord1;
       Test.stopTest();
 
@@ -636,5 +659,52 @@ private class QualityAssessmentTriggerHandlerTest {
         'failed to create the chatter feed'
       );
     }
+  }
+
+  //method to test populateFieldsBeforeTrigger mehtod
+  @isTest
+  private static void testPopulateFieldsBeforeTrigger() {
+    Faker faker = new Faker('AU');
+
+    Lead testLead = new Lead(
+      RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID,
+      FirstName = faker.randomString(6),
+      LastName = faker.randomString(6),
+      Company = faker.randomString(6),
+      Email = faker.randomString(6) + '@testtest.com',
+      MobilePhone = faker.person.phone()
+    );
+    insert testLead;
+
+    Interaction interaction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+      Lead__c = testLead.Id,
+      Name = faker.randomString(10),
+      StartTime = Datetime.now(),
+      Interaction_Purpose__c = CUSTOMER_PURPOSE,
+      InteractionType = STORE_LOCATION
+    );
+    insert interaction;
+
+    Test.startTest();
+    Quality_Assessment__c qaRecord = new Quality_Assessment__c(
+      RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID,
+      Interaction__c = interaction.Id,
+      Evaluation_type__c = 'Fraud & Dispute'
+    );
+    insert qaRecord;
+    Quality_Assessment__c qa = [
+      SELECT Id, Lead__c, Interaction_Date_Time__c
+      FROM Quality_Assessment__c
+      WHERE Id = :qaRecord.Id
+    ];
+    System.assertEquals(testLead.Id, qa.Lead__c, 'lead field populated');
+    System.assertEquals(
+      Date.today(),
+      qa.Interaction_Date_Time__c.date(),
+      'interaction date not populated'
+    );
+
+    Test.stopTest();
   }
 }

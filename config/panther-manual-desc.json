@@ -789,8 +789,10 @@
         "ANZx_Customer__c",
         "IDR_Additional_Correspondence_reviewed__c",
         "IDR_Avoidable_Escalation__c",
-        "IDR_Avoidable_Escalation_Reason__c"
-      ]
+        "IDR_Avoidable_Escalation_Reason__c",
+        "Closure_Reason__c"
+      ],
+      "IA-2415860": ["Package_Id__c"]
     },
     "CFMS_Migrated_Document__c": {
       "IA-2453595": [
@@ -1591,11 +1593,14 @@
         "Incomplete_Inaccurate_Warning_Comments__c",
         "Insights_and_Focus__c",
         "Insights_and_Focus_Comments__c",
+        "Interaction__c",
+        "Interaction_Category__c",
         "Interaction_Date_Time__c",
         "Interaction_Type__c",
         "Issue_Type__c",
         "Key_scoping_and_disclaimers__c",
         "Key_scoping_and_disclaimers_Comments__c",
+        "Lead__c",
         "Join_Actions_Taken__c",
         "Join_Blocks_Applied_where_Appropriate__c",
         "Join_Business_Actions_Taken__c",

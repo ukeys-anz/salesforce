@@ -6,6 +6,7 @@
     <permissionSets>Bugs_Read_Write</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
+    <permissionSets>Case_Read_Write_Account_Closure</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>Case_Read_Write_Get_Help</permissionSets>
     <permissionSets>Case_Read_Write_Non_Customer_Complaints</permissionSets>
