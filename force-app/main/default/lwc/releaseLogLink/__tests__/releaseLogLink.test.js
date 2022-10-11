@@ -1,6 +1,7 @@
 import { createElement } from "lwc";
 import ReleaseLogLink from "c/releaseLogLink";
 import { getNavigateCalledWith } from "lightning/navigation";
+import { setImmediate } from "timers";
 
 describe("c-release-log-link", () => {
   afterEach(() => {

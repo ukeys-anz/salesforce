@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR01_Restrict_Modification_to_IDR_System</fullName>
-    <active>true</active>
-    <description>Do not allow any changes to IDR system task if the subject is changed or the task is completed. Except if the Subject Starts with IDR Response or AFCA Response and is being changed to include &apos;Customer Name&apos;.</description>
-    <errorConditionFormula>AND
+   <fullName>VR01_Restrict_Modification_to_IDR_System</fullName>
+   <active>true</active>
+   <description>Do not allow any changes to IDR system task if the subject is changed or the task is completed. Except if the Subject Starts with IDR Response or AFCA Response and is being changed to include &apos;Customer Name&apos;.</description>
+   <errorConditionFormula>AND
 (
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 NOT(ISNEW()),
@@ -36,5 +36,5 @@ AND(
 )
 )
 )</errorConditionFormula>
-    <errorMessage>You are not authorized to make updates to this record.</errorMessage>
+   <errorMessage>You are not authorized to make updates to this record.</errorMessage>
 </ValidationRule>

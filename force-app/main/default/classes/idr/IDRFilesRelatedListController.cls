@@ -12,7 +12,6 @@ public with sharing class IDRFilesRelatedListController {
    */
   @AuraEnabled
   public static list<IDRFilesRelatedListData> getCaseRelatedFiles(id caseId) {
-
     //if there are emails associated with this case. we need to get any documents
     //that are sent as attachment on the email.
     List<emailmessage> caseEmails = new List<emailmessage>();
@@ -172,13 +171,13 @@ public with sharing class IDRFilesRelatedListController {
    */
   @AuraEnabled
   public static Boolean removeFileFromCase(String idCase, String idFile) {
-
     System.debug('Case: ' + idCase + ', File: ' + idFile);
-    if ( ContentDocumentLink.SObjectType.getDescribe().isDeletable()) {
-      ContentDocumentLink oLink = [SELECT Id
-                                    FROM ContentDocumentLink
-                                    WHERE LinkedEntityId = :idCase
-                                    AND ContentDocumentId = :idFile];
+    if (ContentDocumentLink.SObjectType.getDescribe().isDeletable()) {
+      ContentDocumentLink oLink = [
+        SELECT Id
+        FROM ContentDocumentLink
+        WHERE LinkedEntityId = :idCase AND ContentDocumentId = :idFile
+      ];
       delete oLink;
       return true;
     }
