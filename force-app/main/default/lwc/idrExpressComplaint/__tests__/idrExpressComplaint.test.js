@@ -1,19 +1,17 @@
 import { createElement } from "lwc";
 import IDRExpressComplaint from "c/idrExpressComplaint";
-import { registerApexTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import getAllKnownIssues from "@salesforce/apex/IDRExpressComplaintController.getAllKnownIssues";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
 
 const mockGetAllKnownIssues = require("./data/getAllKnownIssues.json");
 const mockGetAllKnownIssuesError = require("./data/getAllKnownIssuesError.json");
 
-const getAllKnownIssuesAdapter = registerApexTestWireAdapter(getAllKnownIssues);
-
 jest.mock(
   "@salesforce/apex/IDRExpressComplaintController.getAllKnownIssues",
   () => {
+    const { createApexTestWireAdapter } = require("@salesforce/sfdx-lwc-jest");
     return {
-      default: jest.fn()
+      default: createApexTestWireAdapter(jest.fn())
     };
   },
   { virtual: true }
@@ -36,7 +34,7 @@ describe("c-idr-express-complaint suite", () => {
     });
     document.body.appendChild(element);
 
-    getAllKnownIssuesAdapter.emit(mockGetAllKnownIssues);
+    getAllKnownIssues.emit(mockGetAllKnownIssues);
     return Promise.resolve().then(() => {
       const expressToggleElement = element.shadowRoot.querySelector(
         "lightning-input"
@@ -62,7 +60,7 @@ describe("c-idr-express-complaint suite", () => {
       is: IDRExpressComplaint
     });
     document.body.appendChild(element);
-    getAllKnownIssuesAdapter.emit(mockGetAllKnownIssues);
+    getAllKnownIssues.emit(mockGetAllKnownIssues);
     return Promise.resolve().then(() => {
       const expressToggleElement = element.shadowRoot.querySelector(
         "lightning-input"
@@ -96,7 +94,7 @@ describe("c-idr-express-complaint suite", () => {
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
 
-    getAllKnownIssuesAdapter.error();
+    getAllKnownIssues.error();
 
     return Promise.resolve().then(() => {
       expect(handler).toHaveBeenCalled();

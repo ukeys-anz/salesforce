@@ -3,6 +3,7 @@ import IdrFilesRelatedList from "c/idrFilesRelatedList";
 import getCaseRelatedFiles from "@salesforce/apex/IDRFilesRelatedListController.getCaseRelatedFiles";
 import searchFilesContent from "@salesforce/apex/IDRFilesRelatedListController.searchFilesContent";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
+import { setImmediate } from "timers";
 
 const RECORD_ID = "a0c2O00000197sUQAD";
 const mockGetCaseRelatedFiles = require("./data/getCaseRelatedFiles.json");
