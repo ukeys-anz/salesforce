@@ -20,7 +20,6 @@ public with sharing class CCRMTaskActions {
     List<String> selectedLeadStatus = new List<String>();
     Set<String> selectedResponseType = new Set<String>();
     Map<Id, Response_Type__c> mapResponseTypeMeta;
-    Boolean isLeadResponse = false;
 
     for (Task leadResponseRec : listOfLeadResponses) {
       if (

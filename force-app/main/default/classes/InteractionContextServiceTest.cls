@@ -43,9 +43,6 @@ public with sharing class InteractionContextServiceTest {
         psaList.add(TestUtil.createPSAssignment(apiUser.id, ps.Id));
       }
       insert psaList;
-
-      // Insert Account (Customer) record
-      List<String> companyNames = faker.text.realWords(2);
     }
   }
 

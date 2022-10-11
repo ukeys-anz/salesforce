@@ -594,9 +594,7 @@ public with sharing class CCRMTestDataFactory {
     List<Lead> leadList,
     Id campaignId
   ) {
-    //Deafault Count to 200 when in excess.
     List<CampaignMember> newCampaignMember = new List<CampaignMember>();
-    Integer count = LeadList.size();
     for (Lead leadRecord : leadList) {
       CampaignMember campaignMemberRecord = new CampaignMember();
       campaignMemberRecord.LeadId = leadRecord.Id;
@@ -687,7 +685,6 @@ public with sharing class CCRMTestDataFactory {
     count = count == null || count == 0 ? 1 : count;
     Account parentAccount = createBusinessAccount();
 
-    String staticNumber = Datetime.now().format('MMddHHmmss') + count + 1;
     Account objAccount = new Account();
     objAccount.Name = 'Test Account';
     objAccount.OCV_ID__c = faker.randomString(10);

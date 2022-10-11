@@ -160,7 +160,6 @@ public with sharing class AppointmentNotificationEventCreator extends IDRNotific
     Map<Id, Lead> leadMap = InteractionActions.getLeadMapFromInteractions(
       interactions
     );
-    List<IDR_Notification_Event__e> result = new List<IDR_Notification_Event__e>();
 
     Set<Id> contactRequestIds = new Set<Id>();
     for (Interaction currentInteraction : interactions) {

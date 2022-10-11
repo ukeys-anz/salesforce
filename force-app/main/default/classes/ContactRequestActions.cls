@@ -15,7 +15,6 @@ public with sharing class ContactRequestActions {
     List<ContactRequest> requests
   ) {
     List<ContactRequest> results = new List<ContactRequest>();
-    List<Interaction> interactions = new List<Interaction>();
 
     List<ContactRequest> requestsWithAutomatedPurpose = returnRequestsWithAutomatedPurpose(
       requests

@@ -286,7 +286,6 @@ private class ContactRequestTriggerHandlerTest {
   @isTest
   static void testSuccessfulConfirmCountUpdateConfirmedNull() {
     Account testAccount = createTestAccounts(1)[0];
-    DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = new Appointment_Commitment__c();
     apptCommtRec.Available__c = 5;
@@ -343,12 +342,6 @@ private class ContactRequestTriggerHandlerTest {
   }
 
   static void testContactRequestCancellation() {
-    List<ContactRequest> contactRequestList = [
-      SELECT Id, Status
-      FROM ContactRequest
-      WHERE Status = :InteractionConstants.NEW_STATUS
-    ];
-
     List<ContactRequest> updatedRequests = new List<ContactRequest>();
     for (ContactRequest contactRequest : [
       SELECT Id, Status
@@ -449,14 +442,6 @@ private class ContactRequestTriggerHandlerTest {
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
     purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
-
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE
-        Queue.Type = 'Queue'
-        AND Queue.Name = :InteractionConstants.CONTACT_REQUEST_QUEUE
-    ];
 
     List<ContactRequest> requests = createContactRequests(
       accounts,

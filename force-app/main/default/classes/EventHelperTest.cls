@@ -5,9 +5,6 @@
  */
 @isTest
 public with sharing class EventHelperTest {
-  private static string contactRequestQueueName = 'Contact Request';
-  private static string appointmentQueueName = 'Appointments Queue';
-
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
 

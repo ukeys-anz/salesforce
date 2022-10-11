@@ -36,7 +36,7 @@ public with sharing class LogEventTriggerHandlerTest {
     logEvents.add(logEvent);
     logEvents.add(logEvent.clone());
     Test.startTest();
-    List<Database.SaveResult> results = EventBus.publish(logEvents);
+    EventBus.publish(logEvents);
     Test.stopTest();
     List<Log__c> logs = [
       SELECT Id, TraceId__c
@@ -89,7 +89,7 @@ public with sharing class LogEventTriggerHandlerTest {
     List<LogEvent__e> logEvents = new List<LogEvent__e>();
     logEvents.add(logEvent);
     Test.startTest();
-    List<Database.SaveResult> results = EventBus.publish(logEvents);
+    EventBus.publish(logEvents);
     Test.stopTest();
     List<Log__c> logs = [
       SELECT Id, TraceId__c

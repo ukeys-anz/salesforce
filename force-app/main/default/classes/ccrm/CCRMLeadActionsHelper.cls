@@ -12,7 +12,6 @@ public with sharing class CCRMLeadActionsHelper {
   private static Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
   private static String action;
   private static string originator;
-  private static List<Lead> listOfLeads = new List<Lead>();
 
   private static final Map<String, String> MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME = new Map<String, String>{
     'Customer' => 'Customer_ID__c',
@@ -59,9 +58,8 @@ public with sharing class CCRMLeadActionsHelper {
     }
 
     String taskFields = '';
-    //Get Platform Event data
-    List<Lead_Response_Event__e> leadEventList = new List<Lead_Response_Event__e>();
 
+    //Get Platform Event data
     List<CCRM_Lead_Response_Event_Mapping__mdt> responseEventMapping = CCRM_Lead_Response_Event_Mapping__mdt.getall()
       .Values();
 

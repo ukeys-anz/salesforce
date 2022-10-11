@@ -247,11 +247,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
       String errorMsg = '';
       try {
-        String replaceNumber = coachAPI.replaceCard(
-          '1111',
-          '1234',
-          'invalidReason'
-        );
+        coachAPI.replaceCard('1111', '1234', 'invalidReason');
       } catch (CoachBankingAPIRepository.InvalidInformationException e) {
         errorMsg = e.getMessage();
       }

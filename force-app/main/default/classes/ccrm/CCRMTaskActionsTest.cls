@@ -20,20 +20,13 @@ public with sharing class CCRMTaskActionsTest {
       List<Campaign> campaignRecord = CCRMTestDataFactory.createCCRMCampaignRecord(
         1
       );
-      List<Response_Type__C> responseTypeRecords = CCRMTestDataFactory.createResponseTypeRecords(
-        campaignRecord[0]
-      );
+      CCRMTestDataFactory.createResponseTypeRecords(campaignRecord[0]);
     }
   }
 
   @IsTest
   static void updateCCRMLeadsTest() {
     //GIVEN Campaign and Lead
-    List<Response_Type__C> types = [
-      SELECT Id, Name, Campaign__c, Response_Status__c
-      FROM Response_Type__c
-    ];
-
     Response_Type__c rtAccepted = [
       SELECT Id, Name, Campaign__c, Response_Status__c
       FROM Response_Type__c
@@ -102,11 +95,6 @@ public with sharing class CCRMTaskActionsTest {
   @IsTest
   static void callBackResponseTest() {
     //GIVEN Campaign and Lead
-    List<Response_Type__C> types = [
-      SELECT Id, Name, Campaign__c, Response_Status__c
-      FROM Response_Type__c
-    ];
-
     Response_Type__c rtCallBack = [
       SELECT Id, Name, Campaign__c, Response_Status__c
       FROM Response_Type__c
@@ -260,7 +248,6 @@ public with sharing class CCRMTaskActionsTest {
 
   @IsTest
   static void testDeleteResponse() {
-    Exception e;
     Task task;
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       //GIVEN a response is logged against lead

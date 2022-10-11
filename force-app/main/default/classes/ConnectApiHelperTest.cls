@@ -60,11 +60,12 @@ public class ConnectApiHelperTest {
   static void testNullString() {
     Boolean exceptionThrown = false;
     try {
-      List<ConnectApi.MessageSegmentInput> segments = ConnectApiHelper.getMessageSegmentInputs(
-        null
-      );
+      ConnectApiHelper.getMessageSegmentInputs(null);
     } catch (ConnectApiHelper.InvalidParameterException e) {
-      exceptionThrown = true;
+      exceptionThrown = e.getMessage()
+          .contains('The inputText parameter cannot be null')
+        ? true
+        : false;
     }
     System.assert(exceptionThrown, 'Exception should be thrown');
   }

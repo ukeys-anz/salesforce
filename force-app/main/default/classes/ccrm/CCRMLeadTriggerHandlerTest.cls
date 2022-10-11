@@ -8,7 +8,7 @@ private class CCRMLeadTriggerHandlerTest {
   @testSetup
   static void setup() {
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
-    User ccrmIntegrationUser = CCRMTestDataFactory.createCCRMIntegrationUser();
+    CCRMTestDataFactory.createCCRMIntegrationUser();
     //CREATE Test Lead Records
     System.runAs(ccrmUser) {
       CCRMTestDataFactory.createLeadRecords(

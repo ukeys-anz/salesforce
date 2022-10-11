@@ -23,7 +23,6 @@ public with sharing class CCRMOpportunityActions {
   ) {
     Set<Id> accountIds = new Set<Id>();
     for (Opportunity opp : records) {
-      Opportunity oldRec = oldMap != null ? oldMap.get(opp.id) : null;
       maskDescription(opp);
       accountIds.add(opp.AccountId);
     }

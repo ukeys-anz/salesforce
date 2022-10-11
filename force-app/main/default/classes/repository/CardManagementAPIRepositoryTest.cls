@@ -29,7 +29,7 @@ public inherited sharing class CardManagementAPIRepositoryTest {
 
   @isTest
   static void testSetFraudCardStatusFailure() {
-    Exception errorExpetion;
+    Exception errorException;
     Test.startTest();
     CardManagementAPIRepository cardManagementApi = new CardManagementAPIRepository();
     Map<String, String> fraudLockInformation = new Map<String, String>{
@@ -39,17 +39,15 @@ public inherited sharing class CardManagementAPIRepositoryTest {
       'reason' => ''
     };
     try {
-      Boolean successStatusChanged = cardManagementApi.setFraudCardStatus(
-        fraudLockInformation
-      );
+      cardManagementApi.setFraudCardStatus(fraudLockInformation);
     } catch (Exception e) {
-      errorExpetion = e;
+      errorException = e;
     }
 
     Test.stopTest();
     System.assertEquals(
       'Changing status on this card is not accepted',
-      errorExpetion.getMessage(),
+      errorException.getMessage(),
       false
     );
   }

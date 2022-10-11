@@ -2871,7 +2871,6 @@ private class CaseTriggerHandlerTest {
     User coachUser = TestUtil.getUserByFirstName('CoachTest');
 
     List<Case> casesToInsert = new List<Case>();
-    Account acc = [SELECT Id FROM Account LIMIT 1];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       casesToInsert.add(
         new Case(

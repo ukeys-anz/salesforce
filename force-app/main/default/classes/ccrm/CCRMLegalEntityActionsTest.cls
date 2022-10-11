@@ -96,10 +96,7 @@ public with sharing class CCRMLegalEntityActionsTest {
   static void testOpportunityAccountUpdateWithSingleEntity() {
     System.runAs(ccrmUser) {
       //GIVEN
-      List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
-        1,
-        null
-      );
+      CCRMTestDataFactory.createOpportunityRecords(1, null);
 
       OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
       insert oli;
@@ -139,10 +136,7 @@ public with sharing class CCRMLegalEntityActionsTest {
     System.runAs(ccrmUser) {
       //GIVEN
       //Create Opportunity
-      List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
-        1,
-        null
-      );
+      CCRMTestDataFactory.createOpportunityRecords(1, null);
       //Create Opportunity product
       OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
       insert oli;
@@ -188,11 +182,7 @@ public with sharing class CCRMLegalEntityActionsTest {
 
       //THEN
       Opportunity opp = [SELECT Id, AccountId FROM Opportunity LIMIT 1];
-      Legal_Entity__c entityCreated = [
-        SELECT Id, Account__c
-        FROM Legal_Entity__c
-        LIMIT 1
-      ];
+
       System.assertEquals(
         parentAccount.Id,
         opp.AccountId,

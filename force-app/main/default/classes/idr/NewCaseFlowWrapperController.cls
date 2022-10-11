@@ -5,7 +5,6 @@
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
 public with sharing class NewCaseFlowWrapperController {
-  public static final String COMPLAINT_RT = 'ANZx_Complaint';
   /**
    * @description Get the Developer Name of a Case record type based on its Id
    * @param id Record Type ID
@@ -150,11 +149,6 @@ public with sharing class NewCaseFlowWrapperController {
             SobjectType = 'Case'
             AND DeveloperName NOT IN :recordTypesToExcl
             AND Id IN :caseRecordTypeIds
-        ];
-        List<UserRole> roleList = [
-          SELECT Id, Name, DeveloperName
-          FROM UserRole
-          WHERE Id = :UserInfo.getUserRoleId()
         ];
         return JSON.serialize(rtToDisplay);
       }

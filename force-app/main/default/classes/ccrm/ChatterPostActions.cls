@@ -15,8 +15,6 @@ public with sharing class ChatterPostActions {
    */
   private static Map<Id, User> getLeadOwnerNames(List<Lead> listOfLeads) {
     Set<Id> ownerIds = new Set<Id>();
-    Map<Id, User> ownerDetails = new Map<Id, User>();
-
     if (!Schema.sObjectType.User.isQueryable() || listOfLeads.isEmpty()) {
       return new Map<Id, User>();
     }

@@ -127,7 +127,6 @@ public without sharing class CCRMLeadConversion {
     Database.LeadConvertResult lcr = Database.convertLead(lc);
 
     if (lcr.isSuccess()) {
-      id accid = lcr.getAccountId();
       Id conid = lcr.getContactId();
       Id oppId = createOpportunity(recordId);
 

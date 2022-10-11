@@ -213,7 +213,6 @@ public with sharing class ContactRequestTriggerActions {
   public void validateContactRequests(List<ContactRequest> requests) {
     ContactRequestActions actions = new ContactRequestActions();
     Map<Id, Account> accountMap = actions.getWhoIdAccountMap(requests);
-    Set<Id> whoIds = new Set<Id>();
 
     List<Interaction> interactions = InteractionGetters.getInteractionsForLeadsAndContacts(
       extractWhoIds(requests, accountMap)
