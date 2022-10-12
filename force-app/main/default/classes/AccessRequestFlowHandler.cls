@@ -2,6 +2,7 @@
  * @author Shermal Warnakula, Mouhamed "Mo" Assafiri
  * @since June 2021
  * @description Handler class related to 'PAM - Grant/Revoke Access' flow invocable actions
+ * without sharing: used to allow executing user to update User records relating to PAM process
  */
 public without sharing class AccessRequestFlowHandler {
   private static final String STATUS_GRANTED = 'Granted';

@@ -3,6 +3,7 @@
  * @author Shermal Warnakula
  * @since May 2021
  * @description Common Access Request Action methods
+ * without sharing: used to allow executing user to query User records to access PAM approver Id
  */
 public without sharing class AccessRequestCommonActions {
   @testVisible
