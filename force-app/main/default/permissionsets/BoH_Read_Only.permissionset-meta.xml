@@ -218,11 +218,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Loan_Applicant_Group__c.Residential_Loan_Application__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Loan_Applicant_Group__c.SOP_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -298,11 +293,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product_Preference__c.Residential_Loan_Application__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Product_Preference__c.Subsequent_Index_Rate_Basis_Points__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -343,6 +333,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Collateral_Assessment_Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Collateral_Assessment_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -373,6 +368,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.Max_Allowable_LVR_Basis_Points__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Main_Goal__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -389,6 +389,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Package_Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Settlement_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

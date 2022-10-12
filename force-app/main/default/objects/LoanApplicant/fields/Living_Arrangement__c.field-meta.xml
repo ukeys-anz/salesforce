@@ -6,10 +6,48 @@
     <description>Living arrangement details</description>
     <externalId>false</externalId>
     <label>Living Arrangement</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LIVING_BOARD</fullName>
+                <default>false</default>
+                <label>LIVING_BOARD</label>
+            </value>
+            <value>
+                <fullName>LIVING_CARAVAN</fullName>
+                <default>false</default>
+                <label>LIVING_CARAVAN</label>
+            </value>
+            <value>
+                <fullName>LIVING_WITH_PARENTS</fullName>
+                <default>false</default>
+                <label>LIVING_WITH_PARENTS</label>
+            </value>
+            <value>
+                <fullName>LIVING_HOME_MORTGAGE</fullName>
+                <default>false</default>
+                <label>LIVING_HOME_MORTGAGE</label>
+            </value>
+            <value>
+                <fullName>LIVING_HOME_NO_MORTGAGE</fullName>
+                <default>false</default>
+                <label>LIVING_HOME_NO_MORTGAGE</label>
+            </value>
+            <value>
+                <fullName>LIVING_RENT</fullName>
+                <default>false</default>
+                <label>LIVING_RENT</label>
+            </value>
+            <value>
+                <fullName>LIVING_OTHER</fullName>
+                <default>false</default>
+                <label>LIVING_OTHER</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

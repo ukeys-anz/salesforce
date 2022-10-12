@@ -6,10 +6,28 @@
     <description>Captures customer&apos;s preferred repayment type on the offered home loan product</description>
     <externalId>false</externalId>
     <label>Subsequent Repayment Type</label>
-    <length>255</length>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>RATE_TYPE_FIXED</fullName>
+                <default>false</default>
+                <label>RATE_TYPE_FIXED</label>
+            </value>
+            <value>
+                <fullName>RATE_TYPE_VARIABLE</fullName>
+                <default>false</default>
+                <label>RATE_TYPE_VARIABLE</label>
+            </value>
+            <value>
+                <fullName>RATE_TYPE_SPLIT</fullName>
+                <default>false</default>
+                <label>RATE_TYPE_SPLIT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

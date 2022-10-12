@@ -6,10 +6,28 @@
     <description>Captures the loan repayment frequency of the customer&apos;s current OFI home loan - customer confirms this as part of the their needs analysis step which is then used in predicting what the customer could end up saving if they refinance with ANZx</description>
     <externalId>false</externalId>
     <label>Repayment Frequency</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_MONTHLY</fullName>
+                <default>false</default>
+                <label>REPAYMENT_FREQUENCY_MONTHLY</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_FORTNIGHTLY</fullName>
+                <default>false</default>
+                <label>REPAYMENT_FREQUENCY_FORTNIGHTLY</label>
+            </value>
+            <value>
+                <fullName>REPAYMENT_FREQUENCY_WEEKLY</fullName>
+                <default>false</default>
+                <label>REPAYMENT_FREQUENCY_WEEKLY</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

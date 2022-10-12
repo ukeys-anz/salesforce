@@ -5,9 +5,33 @@
     <description>The goal a customer would like to achieve when refinancing their property.</description>
     <externalId>false</externalId>
     <label>Main Goal</label>
-    <length>255</length>
     <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MAIN_GOAL_PAY_LESS</fullName>
+                <default>false</default>
+                <label>MAIN_GOAL_PAY_LESS</label>
+            </value>
+            <value>
+                <fullName>MAIN_GOAL_PAY_OFF_SOONER</fullName>
+                <default>false</default>
+                <label>MAIN_GOAL_PAY_OFF_SOONER</label>
+            </value>
+            <value>
+                <fullName>MAIN_GOAL_CONSOLIDATE_LOANS</fullName>
+                <default>false</default>
+                <label>MAIN_GOAL_CONSOLIDATE_LOANS</label>
+            </value>
+            <value>
+                <fullName>MAIN_GOAL_TOPUP_EXISTING_LOAN</fullName>
+                <default>false</default>
+                <label>MAIN_GOAL_TOPUP_EXISTING_LOAN</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>
