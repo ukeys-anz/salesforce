@@ -6,7 +6,7 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Lookup to account</description>
     <externalId>false</externalId>
-    <label>Account</label>
+    <label>Customer</label>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Loan Applicants</relationshipLabel>
     <relationshipName>Loan_Applicants</relationshipName>
