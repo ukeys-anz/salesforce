@@ -7,8 +7,8 @@
         <label>Description</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Name_Link__c</field>
+                <behavior>Edit</behavior>
+                <field>Loan_Applicant_Liability_ID__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -21,10 +21,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Proportion_Percent__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Loan_Applicant_Liability_ID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>OneColumn</style>
@@ -62,7 +58,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000002m23Z</masterLabel>
+        <masterLabel>00h2N0000051xon</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
