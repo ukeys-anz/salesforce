@@ -569,14 +569,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -659,14 +663,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -754,14 +762,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -846,14 +858,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "line",
           "dashLine": { "measures": ["A"], "showDashLine": false },
@@ -946,14 +962,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1036,14 +1056,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1131,14 +1155,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1221,14 +1249,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1311,14 +1343,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1406,14 +1442,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1496,14 +1536,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1591,14 +1635,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1673,14 +1721,18 @@
           },
           "showMeasureTitle": false,
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "pie",
           "title": {
@@ -1741,14 +1793,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1878,14 +1934,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1968,14 +2028,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -2113,11 +2177,16 @@
     },
     "text_10": {
       "parameters": {
-        "content": { "displayTemplate": "Compliance SLA Met?\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "Compliance SLA Met?\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2178,12 +2247,15 @@
     "text_12": {
       "parameters": {
         "content": {
-          "displayTemplate": "SLA Met when over 80% of Cases created in the reporting month are closed within 16 hours\n"
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "SLA Met when over 80% of Cases created in the reporting month are closed within 16 hours\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2208,7 +2280,13 @@
     "text_11": {
       "parameters": {
         "content": {
-          "displayTemplate": "[SLA_Met]\n",
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "[SLA_Met]\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ],
           "values": {
             "SLA_Met": {
               "field": "SLA Met",
@@ -2217,10 +2295,7 @@
             }
           }
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2266,11 +2341,16 @@
     },
     "text_3": {
       "parameters": {
-        "content": { "displayTemplate": "JOIN: Identity Operations\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "JOIN: Identity Operations\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2284,40 +2364,59 @@
     },
     "text_2": {
       "parameters": {
-        "content": { "displayTemplate": "Reporting Month\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "Reporting Month\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
     "text_5": {
       "parameters": {
-        "content": { "displayTemplate": "Monthly Snapshot \n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "Monthly Snapshot \n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
     "text_4": {
       "parameters": {
         "content": {
-          "displayTemplate": "Aggregate Snapshot – All Time / Reporting Month\n"
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "Aggregate Snapshot – All Time / Reporting Month\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "showActionMenu": true
       },
       "type": "text"
     },
     "text_7": {
       "parameters": {
         "content": {
-          "displayTemplate": "Reporting Month: [Month]\n",
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "Reporting Month: [Month]\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ],
           "values": {
             "Month": {
               "field": "Month",
@@ -2326,10 +2425,7 @@
             }
           }
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2347,14 +2443,18 @@
         },
         "showMeasureTitle": false,
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "pie",
         "exploreLink": true,
@@ -2406,14 +2506,18 @@
         },
         "axisMode": "multi",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "line",
         "dashLine": { "measures": ["Complaince Rate"], "showDashLine": false },
@@ -2476,28 +2580,44 @@
     },
     "text_6": {
       "parameters": {
-        "content": { "displayTemplate": "All Time\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "All Time\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
     "text_9": {
       "parameters": {
-        "content": { "displayTemplate": "Compliance Rate\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "Compliance Rate\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
     "text_8": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Perc]\n",
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "[Perc]\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ],
           "values": {
             "Perc": {
               "field": "Perc",
@@ -2506,21 +2626,23 @@
             }
           }
         },
-        "fontSize": 16,
         "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF",
         "tooltip": "Compliance Rate"
       },
       "type": "text"
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "KYC Compliance Rate\n" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "KYC Compliance Rate\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },

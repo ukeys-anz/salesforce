@@ -241,14 +241,18 @@
           },
           "showMeasureTitle": true,
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "pyramid",
           "title": {
@@ -320,14 +324,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "vbar",
           "title": {
@@ -441,11 +449,16 @@
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "KYC QA Dashboard" },
-        "fontSize": 24,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "24px", "color": "#091A3E" },
+              "insert": "KYC QA Dashboard"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -465,12 +478,15 @@
     "text_2": {
       "parameters": {
         "content": {
-          "displayTemplate": "The below visualisation will only show cases that are currently open."
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#091A3E" },
+              "insert": "The below visualisation will only show cases that are currently open."
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -511,14 +527,18 @@
         },
         "axisMode": "multi",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "vbar",
         "exploreLink": true,
@@ -583,14 +603,18 @@
         },
         "showMeasureTitle": true,
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "pyramid",
         "exploreLink": true,

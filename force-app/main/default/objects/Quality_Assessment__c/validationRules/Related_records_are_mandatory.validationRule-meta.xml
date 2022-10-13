@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_records_are_mandatory</fullName>
+    <active>true</active>
+    <description>When a QA record is created it should be associated with either a case/interaction or reference field should be available.</description>
+    <errorConditionFormula>ISBLANK(Related_Case__c) &amp;&amp; ISBLANK(Reference__c) &amp;&amp; ISBLANK( Interaction__c ) &amp;&amp; $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false</errorConditionFormula>
+    <errorMessage>Please link the evaluation to the relevant Case or Interaction record. Otherwise, please populate the &apos;Reference&apos; field.</errorMessage>
+</ValidationRule>
