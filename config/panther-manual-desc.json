@@ -1746,7 +1746,7 @@
       ]
     },
     "ResidentialLoanApplication": {
-      "IA-2415855": ["Assessment_Outcome__c"],
+      "IA-2415855": ["Assessment_Outcome__c","Collateral_Assessment_Outcome__c"],
       "IA-2415983": ["Status", "LoanPurpose", "Loan_Type__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": ["Credit_ID__c", "ApplicationExtIdentifier"]
