@@ -24,6 +24,8 @@ var checkOnly = false;
 var checkAndFix = false;
 var gitbase = "HEAD";
 var compare = "HEAD^";
+var fileCheck = false;
+var filename;
 
 // Add to Exclutions to skip over certain files
 const EXCLUDES = [
@@ -53,6 +55,11 @@ process.argv.forEach(function (val, index, array) {
   if (args[0] == "--compare") {
     compare = args[1];
   }
+
+  if (args[0] == "--file") {
+    fileCheck = true;
+    filename = args[1];
+  }
 });
 
 var errorHandler = function (error) {
@@ -70,7 +77,12 @@ function linter(file, check) {
         destination: "serialized"
       });
 
-      fs.writeFileSync(file, lintedFile.principalResult);
+      // setting indent-spaces in xml_lint.xsl to 4 seems to have no effect. Manually fixing that here.
+      // Also file needs to end with \n to match sfdx format.
+      fs.writeFileSync(
+        file,
+        lintedFile.principalResult.replace(/   /g, "    ") + "\n"
+      );
 
       execSync(`git add "${file}"`);
       console.log(`Linted: ${file}`);
@@ -90,7 +102,9 @@ function linter(file, check) {
     try {
       let data = fs.readFileSync(file);
 
-      if (lintedFile.principalResult != data) {
+      // setting indent-spaces in xml_lint.xsl to 4 seems to have no effect. Manually fixing that here.
+      // Also file needs to end with \n to match sfdx format.
+      if (lintedFile.principalResult.replace(/   /g, "    ") + "\n" != data) {
         console.error(`${file} is not linted correctly, check your XML Linter`);
         return false;
       }
@@ -109,6 +123,9 @@ var execCmd = 'git diff --staged --name-only | grep ".xml$"';
 
 if (checkOnly || checkAndFix) {
   execCmd = `git diff ${gitbase} ${compare} --name-only| grep ".xml$"`;
+}
+if (fileCheck) {
+  execCmd = `echo ${filename} | grep ".xml$"`;
 }
 
 // Find the Staged Files and only look for WDF files
