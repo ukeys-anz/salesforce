@@ -26,16 +26,6 @@ public without sharing class IDRTaskActions {
   private static final String IDR_LEVEL_1 = 'IDR_Level_1';
 
   @TestVisible
-  private static final String TASK_AFCA_SUBJECT_DAY10_SEARCH =
-    '%' +
-    IDRConstants.TASK_AFCA_SUBJECT_DAY10 +
-    '%';
-  private static final String TASK_AFCA_SUBJECT_DAY1_SEARCH =
-    '%' +
-    IDRConstants.TASK_AFCA_SUBJECT_DAY1 +
-    '%';
-
-  @TestVisible
   private static Map<Id, Case> caseMapGlobal;
 
   @TestVisible
@@ -244,8 +234,9 @@ public without sharing class IDRTaskActions {
     Set<Id> caseIds = new Set<Id>();
     for (Task record : taskRecs) {
       if (
-        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) ||
-        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
+        String.isNotEmpty(record.Subject) &&
+        (record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) ||
+        record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1))
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
@@ -254,15 +245,17 @@ public without sharing class IDRTaskActions {
         caseIds.add(record.WhatId);
       }
       if (
-        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY10) ||
-        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY1)
+        String.isNotEmpty(record.Subject) &&
+        (record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY10) ||
+        record.Subject.contains(IDRConstants.TASK_AFCA_SUBJECT_DAY1))
       ) {
         record.RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID;
         record.Type = IDRConstants.TASK_TYPE_NOTIFICATION;
-        caseIds.add(record.whatId);
+        caseIds.add(record.WhatId);
       }
       if (
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
+        String.isNotEmpty(record.Subject) &&
         (!caseTaskMap.keySet().contains(record.WhatId) ||
         record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1))
       ) {
@@ -845,6 +838,7 @@ public without sharing class IDRTaskActions {
     for (Task record : records) {
       Case caseObj = caseMapGlobal.get(record.WhatId);
       if (
+        String.isNotEmpty(record.Subject) &&
         (record.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
         record.Subject == IDRConstants.TASK_SUBJECT_DAY1 ||
         record.Subject == IDRConstants.TASK_AFCA_SUBJECT_DAY10 ||
