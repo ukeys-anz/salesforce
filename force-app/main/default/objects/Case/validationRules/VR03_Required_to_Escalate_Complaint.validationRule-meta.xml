@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>VR03_Required_to_Escalate_Complaint</fullName>
-    <active>true</active>
-    <errorConditionFormula>AND(
+   <fullName>VR03_Required_to_Escalate_Complaint</fullName>
+   <active>true</active>
+   <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     OR(
     RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
@@ -14,7 +14,9 @@
 
     AND (NOT((ISPICKVAL(Status, &apos;Escalated&apos;))),
     NOT(ISPICKVAL(PRIORVALUE(Status),&apos;Escalated&apos;)),
-    ISCHANGED(IDR_Escalation_Reason__c)))
+    ISCHANGED(IDR_Escalation_Reason__c))),
+    ANZx_Customer__c = false,
+    NOT(ISPICKVAL(Origin, &apos;ANZ Plus Web&apos;)) 
     )</errorConditionFormula>
-    <errorMessage>Please make sure these fields are populated : Status, Escalation Reason</errorMessage>
+   <errorMessage>Please make sure these fields are populated : Status, Escalation Reason</errorMessage>
 </ValidationRule>

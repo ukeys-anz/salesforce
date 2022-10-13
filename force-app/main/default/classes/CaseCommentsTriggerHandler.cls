@@ -32,7 +32,11 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
       caseIdList.add(record.parentId);
     }
     Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
-      [SELECT Id, CaseNumber, RecordTypeId FROM Case WHERE Id IN :caseIdList]
+      [
+        SELECT Id, CaseNumber, RecordTypeId, Origin
+        FROM Case
+        WHERE Id IN :caseIdList
+      ]
     );
     for (CaseComment record : (List<CaseComment>) records) {
       Case relatedCase = relatedCaseMap.get(record.parentId);

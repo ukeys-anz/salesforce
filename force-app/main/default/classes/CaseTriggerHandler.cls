@@ -64,6 +64,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
+    GetHelpCaseActions.updateEntitlement(records);
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     for (Case record : (List<Case>) records) {
@@ -100,6 +102,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onValidate(Map<Id, SObject> oldMap) {
     IDRCaseActions.afterUpdate(oldMap, records);
+    GetHelpCaseActions.afterUpdate(oldMap, records);
   }
 
   /**
@@ -108,6 +111,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.completeAfterActions();
+    GetHelpCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
     SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);

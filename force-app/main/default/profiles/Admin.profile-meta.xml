@@ -2341,6 +2341,11 @@
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
+      <editable>false</editable>
+      <field>Case.IsOwnerCoachOrCoachLead__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
       <editable>true</editable>
       <field>Case.Fraud_Citizenship_Updated__c</field>
       <readable>true</readable>
@@ -7437,7 +7442,7 @@
       <recordType>Case.Fraud</recordType>
    </layoutAssignments>
    <layoutAssignments>
-      <layout>Case-General Inquiry CMOS Layout</layout>
+      <layout>Case-Unauthenticated Enquiry Layout</layout>
       <recordType>Case.General_Inquiry_CMOS</recordType>
    </layoutAssignments>
    <layoutAssignments>

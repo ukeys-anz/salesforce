@@ -140,6 +140,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           RecordTypeId,
           IDR_SwicthOff_3rd_Party_Notification__c,
           IDR_SwitchOff_Customer_Notification__c,
+          Origin,
+          ANZx_Customer__c,
           IDR_3rdParty_Relationship_To_Complainant__c
         FROM Case
         WHERE id IN :caseIds
@@ -185,7 +187,25 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     Notification_Handler__c handler
   ) {
     IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
-    if (c.RecordTypeId != GetHelpConstants.COMPLAINT_RT_ID) {
+    if (c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
+      notification.ComplainantMobile__c = c.Account.PersonMobilePhone;
+      if (!String.isEmpty(c.Account.PersonContact.FirstName)) {
+        notification.ComplainantFirstName__c = c.Account.PersonContact.FirstName;
+      } else {
+        notification.ComplainantFirstName__c = '';
+      }
+    } else if (
+      c.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+      c.ANZx_Customer__c &&
+      c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
+    ) {
+      notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
+      if (!String.isEmpty(c.IDR_NC_First_Name__c)) {
+        notification.ComplainantFirstName__c = c.IDR_NC_First_Name__c;
+      } else {
+        notification.ComplainantFirstName__c = '';
+      }
+    } else {
       if (c.IDR_SwicthOff_3rd_Party_Notification__c == false) {
         if (
           c.IDR_3rdParty_Relationship_To_Complainant__c == '20' &&
@@ -218,13 +238,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       }
       notification.EmailFlag__c = true;
       notification.EmailTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
-    } else {
-      notification.ComplainantMobile__c = c.Account.PersonMobilePhone;
-      if (!String.isEmpty(c.Account.PersonContact.FirstName)) {
-        notification.ComplainantFirstName__c = c.Account.PersonContact.FirstName;
-      } else {
-        notification.ComplainantFirstName__c = '';
-      }
     }
 
     notification.Case_ID__c = c.ID;

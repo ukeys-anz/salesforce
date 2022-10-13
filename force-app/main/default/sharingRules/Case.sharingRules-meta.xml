@@ -1,6 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
    <sharingCriteriaRules>
+      <fullName>AEM_Unauthenticade_Enquiry_To_Coach</fullName>
+      <accessLevel>Edit</accessLevel>
+      <criteriaItems>
+         <field>Origin</field>
+         <operation>equals</operation>
+         <value>ANZ Plus Web</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>RecordTypeId</field>
+         <operation>equals</operation>
+         <value>Unauthenticated Enquiry</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>True</value>
+      </criteriaItems>
+      <description>Sharing AEM Unauthenticated Enquiry Cases with Coach</description>
+      <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+      <label>AEM Unauthenticade Enquiry to Coach</label>
+      <sharedTo>
+         <role>Coach</role>
+      </sharedTo>
+   </sharingCriteriaRules>
+   <sharingCriteriaRules>
+      <fullName>AEM_Unauthenticade_Enquiry_To_Coach_Lead</fullName>
+      <accessLevel>Edit</accessLevel>
+      <criteriaItems>
+         <field>Origin</field>
+         <operation>equals</operation>
+         <value>ANZ Plus Web</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>RecordTypeId</field>
+         <operation>equals</operation>
+         <value>Unauthenticated Enquiry</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>True</value>
+      </criteriaItems>
+      <description>Sharing AEM Unauthenticated Enquiry Cases with Coach Lead</description>
+      <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+      <label>AEM Unauthenticade Enquiry to Coach Lead</label>
+      <sharedTo>
+         <role>Coach_Lead</role>
+      </sharedTo>
+   </sharingCriteriaRules>
+   <sharingCriteriaRules>
+      <fullName>AEM_Unauthenticade_Enquiry_To_Support_Coach</fullName>
+      <accessLevel>Edit</accessLevel>
+      <criteriaItems>
+         <field>Origin</field>
+         <operation>equals</operation>
+         <value>ANZ Plus Web</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>RecordTypeId</field>
+         <operation>equals</operation>
+         <value>Unauthenticated Enquiry</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>True</value>
+      </criteriaItems>
+      <description>Sharing AEM Unauthenticated Enquiry Cases with Support Coach</description>
+      <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+      <label>AEM Unauthenticade Enquiry to Support Coach</label>
+      <sharedTo>
+         <role>Support_Coach</role>
+      </sharedTo>
+   </sharingCriteriaRules>
+   <sharingCriteriaRules>
+      <fullName>AEM_Unauthenticade_Enquiry_To_Business_Admin</fullName>
+      <accessLevel>Edit</accessLevel>
+      <criteriaItems>
+         <field>Origin</field>
+         <operation>equals</operation>
+         <value>ANZ Plus Web</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>RecordTypeId</field>
+         <operation>equals</operation>
+         <value>Unauthenticated Enquiry</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>True</value>
+      </criteriaItems>
+      <description>Sharing AEM Unauthenticated Enquiry Cases with Business Admin</description>
+      <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+      <label>AEM Unauthenticade Enquiry to Business Admin</label>
+      <sharedTo>
+         <role>Business_Admin</role>
+      </sharedTo>
+   </sharingCriteriaRules>
+   <sharingCriteriaRules>
       <fullName>ANZPlus_Complaints_RT_Card_Dispute_Agent_RO</fullName>
       <accessLevel>Read</accessLevel>
       <criteriaItems>
@@ -70,14 +170,44 @@
       </sharedTo>
    </sharingCriteriaRules>
    <sharingCriteriaRules>
-      <fullName>Complaint_RTs_ANZRole_RO</fullName>
-      <accessLevel>Read</accessLevel>
+      <fullName>AEM_Non_Customer_Complaint</fullName>
+      <accessLevel>Edit</accessLevel>
       <criteriaItems>
          <field>RecordTypeId</field>
          <operation>equals</operation>
-         <value>General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
+         <value>Non-Customer Complaint</value>
       </criteriaItems>
-      <description>Great Read only access to Complaint and General Inquiry CMOS record types for all ANZ Role users.</description>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>true</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>Origin</field>
+         <operation>equals</operation>
+         <value>ANZ Plus Web</value>
+      </criteriaItems>
+      <description>Sharing rules for Changes Unauthenticated Enquiry to Non Customer Complaint from AEM</description>
+      <label>AEM Non Customer Complaint</label>
+      <sharedTo>
+         <roleAndSubordinates>ANZ</roleAndSubordinates>
+      </sharedTo>
+   </sharingCriteriaRules>
+   <sharingCriteriaRules>
+      <fullName>Complaint_RTs_ANZRole_RO</fullName>
+      <accessLevel>Read</accessLevel>
+      <booleanFilter>1 AND 2</booleanFilter>
+      <criteriaItems>
+         <field>RecordTypeId</field>
+         <operation>equals</operation>
+         <value>Unauthenticated Enquiry,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>false</value>
+      </criteriaItems>
+      <description>Great Read only access to Complaint and Unauthenticated Enquiry record types for all ANZ Role users.</description>
       <label>Complaint_RTs_ANZRole_RO</label>
       <sharedTo>
          <role>ANZ</role>
@@ -120,12 +250,18 @@
    <sharingCriteriaRules>
       <fullName>Complaint_RTs_CRPUsers_RW</fullName>
       <accessLevel>Edit</accessLevel>
+      <booleanFilter>1 AND 2</booleanFilter>
       <criteriaItems>
          <field>RecordTypeId</field>
          <operation>equals</operation>
-         <value>Customer Complaint,General Inquiry CMOS,Non-Customer Complaint</value>
+         <value>Customer Complaint,Unauthenticated Enquiry,Non-Customer Complaint</value>
       </criteriaItems>
-      <description>Great Read write access to complaint records and General Inquiry CMOS records for Customer Resolution Users</description>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>false</value>
+      </criteriaItems>
+      <description>Great Read write access to complaint records and Unauthenticated Enquiry records for Customer Resolution Users</description>
       <label>Complaint_RTs_CRPUsers_RW</label>
       <sharedTo>
          <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
@@ -176,7 +312,7 @@
    <sharingCriteriaRules>
       <fullName>Dispute_RTs_QA_RO</fullName>
       <accessLevel>Read</accessLevel>
-      <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+      <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR (9 AND 10 AND 11)</booleanFilter>
       <criteriaItems>
          <field>RecordTypeId</field>
          <operation>equals</operation>
@@ -216,6 +352,21 @@
          <field>RecordTypeId</field>
          <operation>equals</operation>
          <value>BPAY</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>Origin</field>
+         <operation>equals</operation>
+         <value>ANZ Plus Web</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>RecordTypeId</field>
+         <operation>equals</operation>
+         <value>Unauthenticated Enquiry</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>True</value>
       </criteriaItems>
       <description>All Cases having Dispute related record types are to be shared with Quality Analyst with Read access.</description>
       <label>Dispute_RTs-QA-RO</label>
@@ -367,12 +518,18 @@
    <sharingCriteriaRules>
       <fullName>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</fullName>
       <accessLevel>Edit</accessLevel>
+      <booleanFilter>1 AND 2</booleanFilter>
       <criteriaItems>
          <field>RecordTypeId</field>
          <operation>equals</operation>
-         <value>General Inquiry CMOS</value>
+         <value>Unauthenticated Enquiry</value>
       </criteriaItems>
-      <description>Read/Write access to the General Inquiry CMOS RecordType for members of the NLP Public Group (Integration User)</description>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>false</value>
+      </criteriaItems>
+      <description>Read/Write access to the Unauthenticated Enquiry RecordType for members of the NLP Public Group (Integration User)</description>
       <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
       <label>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</label>
       <sharedTo>
@@ -382,10 +539,16 @@
    <sharingCriteriaRules>
       <fullName>IDR_RT_Data_Analyst_RO</fullName>
       <accessLevel>Read</accessLevel>
+      <booleanFilter>1 AND 2</booleanFilter>
       <criteriaItems>
          <field>RecordTypeId</field>
          <operation>equals</operation>
-         <value>Systemic Issue,General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
+         <value>Systemic Issue,Unauthenticated Enquiry,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
+      </criteriaItems>
+      <criteriaItems>
+         <field>ANZx_Customer__c</field>
+         <operation>equals</operation>
+         <value>false</value>
       </criteriaItems>
       <description>Grant read only access to Data Analyst for Complaint and SI record types</description>
       <label>IDR_RT_Data_Analyst_RO</label>
