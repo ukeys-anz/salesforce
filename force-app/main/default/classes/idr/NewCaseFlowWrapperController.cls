@@ -225,14 +225,14 @@ public with sharing class NewCaseFlowWrapperController {
     }
 
     if (
-      caseRecord.RecordTypeId !=
+      caseRecord.RecordTypeId ==
       GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID &&
-      caseRecord.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
-      caseRecord.ANZx_Customer__c != true
+      caseRecord.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+      caseRecord.ANZx_Customer__c == true
     ) {
-      return getCaseRecordTypes();
-    } else {
       return getCaseRecordTypesForAEM();
+    } else {
+      return getCaseRecordTypes();
     }
   }
 
