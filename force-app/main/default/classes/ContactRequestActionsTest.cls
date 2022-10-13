@@ -368,8 +368,6 @@ public with sharing class ContactRequestActionsTest {
 
     string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
-    Integer duration = financialWellbeingPurposeDuration;
-
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = null;
     request.RequestReason = requestReason;

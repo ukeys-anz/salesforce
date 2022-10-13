@@ -460,7 +460,11 @@ public with sharing class QualityAssessmentActions {
   public static Map<String, Id> getCollaborationGroup() {
     Map<String, Id> groupsByName = new Map<String, Id>();
     if (CollaborationGroup.SObjectType.getDescribe().isQueryable()) {
-      for (CollaborationGroup gp : [SELECT Id, Name FROM CollaborationGroup]) {
+      for (CollaborationGroup gp : [
+        SELECT Id, Name
+        FROM CollaborationGroup
+        LIMIT 30000
+      ]) {
         groupsByName.put(gp.Name, gp.Id);
       }
     }

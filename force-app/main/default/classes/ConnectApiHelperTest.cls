@@ -1324,13 +1324,15 @@ public class ConnectApiHelperTest {
     );
     System.assertEquals(
       ConnectApi.MarkupType.Paragraph,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Paragraph'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(1);
     System.assertEquals(
       ConnectApi.MarkupType.Italic,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be Italic'
     );
 
     ConnectApi.TextSegmentInput textSegment = (ConnectApi.TextSegmentInput) segments.get(
@@ -1390,32 +1392,37 @@ public class ConnectApiHelperTest {
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(9);
     System.assertEquals(
       ConnectApi.MarkupType.Strikethrough,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be Strikethrough'
     );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(10);
     System.assertEquals(
       ConnectApi.MarkupType.ListItem,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be StrikeListItemthrough'
     );
 
     markupEndSegment = (ConnectApi.MarkupEndSegmentInput) segments.get(11);
     System.assertEquals(
       ConnectApi.MarkupType.UnorderedList,
-      markupEndSegment.markupType
+      markupEndSegment.markupType,
+      'Markup type should be UnorderedList'
     );
 
     // <ol><li><u>An underlined item in an ordered list.</u></li></ol>
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(12);
     System.assertEquals(
       ConnectApi.MarkupType.OrderedList,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be UnorderedList'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(13);
     System.assertEquals(
       ConnectApi.MarkupType.ListItem,
-      markupBeginSegment.markupType
+      markupBeginSegment.markupType,
+      'Markup type should be ListItem'
     );
 
     markupBeginSegment = (ConnectApi.MarkupBeginSegmentInput) segments.get(14);

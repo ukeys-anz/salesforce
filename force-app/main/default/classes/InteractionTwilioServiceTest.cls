@@ -14,7 +14,11 @@ private class InteractionTwilioServiceTest {
       InteractionTwilioService.updateInteraction(JSON.serialize(payload));
       System.assertEquals(true, false, 'The code should throw an exception');
     } catch (Exception e) {
-      System.assertEquals('Invalid id: 0123456789', e.getMessage());
+      System.assertEquals(
+        'Invalid id: 0123456789',
+        e.getMessage(),
+        'Exception message should be as expected'
+      );
     }
     Test.stopTest();
   }

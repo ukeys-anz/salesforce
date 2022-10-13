@@ -46,10 +46,11 @@ public with sharing class StravinskyAPIRepositoryTest {
     PackageClosureModel.Status status = response.status;
 
     Test.stopTest();
-    System.assertEquals(200, status.code);
+    System.assertEquals(200, status.code, 'Status code of 200 expected');
     System.assertEquals(
       'Package closure successfully completed',
-      status.description
+      status.description,
+      'Package closure was not successful'
     );
   }
 
@@ -89,7 +90,11 @@ public with sharing class StravinskyAPIRepositoryTest {
       resultException = e;
     }
     Test.stopTest();
-    System.assertEquals('exception occured', resultException.getMessage());
+    System.assertEquals(
+      'exception occured',
+      resultException.getMessage(),
+      'Exception was expected'
+    );
   }
 
   /**

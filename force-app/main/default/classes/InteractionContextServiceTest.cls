@@ -8,7 +8,6 @@
 public with sharing class InteractionContextServiceTest {
   @testSetup
   static void testSetup() {
-    Faker faker = new Faker('AU');
     Profile p = CommonUtil.getProfileByName('Minimum Access - External Apps');
     UserRole role = CommonUtil.getUserRoleByDevName('ANZx');
 
