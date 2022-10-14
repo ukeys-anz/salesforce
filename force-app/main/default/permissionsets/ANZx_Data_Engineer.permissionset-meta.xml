@@ -1336,10 +1336,10 @@
         <field>Case.IsStopped</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+    <!-- <fieldPermissions>
         <editable>false</editable>
         <field>Case.IsVisibleInSelfService</field>
-        <readable>true</readable>
+        <readable>true</ -->readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
