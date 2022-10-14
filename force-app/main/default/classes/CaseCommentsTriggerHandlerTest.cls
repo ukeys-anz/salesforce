@@ -97,7 +97,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCaseComments.add(
         new CaseComment(
-          CommentBody = 'Test comment 1234-5678-9101 check mask',
+          CommentBody = 'Test comment 1234-5678-9101-7632-3321 check mask',
           ParentId = c.id
         )
       );
@@ -111,7 +111,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
     ];
 
     System.assertEquals(
-      'Test comment ********9101 check mask',
+      'Test comment ****************3321 check mask',
       maskedComments[0].CommentBody,
       'Comment should be masked.'
     );

@@ -86,16 +86,7 @@ public with sharing class TextUtils {
       return false;
     }
     String inputUpper = input.toUpperCase();
-    List<String> keywords = new List<String>{
-      'TAX',
-      'TFN',
-      'FILE',
-      'ATO',
-      'TIN',
-      'SUPER',
-      'SUPERANNUATION',
-      'EMPLOYMENT'
-    };
+    List<String> keywords = Label.Reactive_logging_keywords.split(',');
     Boolean hasKeyword = false;
     for (String keyword : keywords) {
       if (inputUpper.contains(keyword)) {
