@@ -1339,8 +1339,8 @@
     <!-- <fieldPermissions>
         <editable>false</editable>
         <field>Case.IsVisibleInSelfService</field>
-        <readable>true</ -->readable>
-    </fieldPermissions>
+        <readable>true</readable>
+    </fieldPermissions> -->
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Is_Owner_s_Line_Manager_Me__c</field>
