@@ -188,22 +188,28 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   ) {
     IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
     if (c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
-      notification.ComplainantMobile__c = c.Account.PersonMobilePhone;
-      if (!String.isEmpty(c.Account.PersonContact.FirstName)) {
-        notification.ComplainantFirstName__c = c.Account.PersonContact.FirstName;
-      } else {
-        notification.ComplainantFirstName__c = '';
+      if (c.Customer_Notification_Consent__c == 'Yes') {
+        notification.ComplainantMobile__c = c.Account.PersonMobilePhone;
+        notification.ComplainantFirstName__c = String.isNotEmpty(
+            c.Account.PersonContact.FirstName
+          )
+          ? c.Account.PersonContact.FirstName
+          : '';
+        notification.SMSFlag__c = true;
       }
     } else if (
       c.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
       c.ANZx_Customer__c &&
       c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
     ) {
-      notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
-      if (!String.isEmpty(c.IDR_NC_First_Name__c)) {
-        notification.ComplainantFirstName__c = c.IDR_NC_First_Name__c;
-      } else {
-        notification.ComplainantFirstName__c = '';
+      if (!c.IDR_SwitchOff_Customer_Notification__c) {
+        notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
+        notification.ComplainantFirstName__c = String.isNotEmpty(
+            c.IDR_NC_First_Name__c
+          )
+          ? c.IDR_NC_First_Name__c
+          : '';
+        notification.SMSFlag__c = true;
       }
     } else {
       if (c.IDR_SwicthOff_3rd_Party_Notification__c == false) {
@@ -238,14 +244,12 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       }
       notification.EmailFlag__c = true;
       notification.EmailTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
+      notification.SMSFlag__c = true;
     }
-
     notification.Case_ID__c = c.ID;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
     notification.MessageID__c = '' + c.ID + Datetime.now().millisecond();
-    notification.SMSFlag__c = true;
     notification.SMSTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
-
     return notification;
   }
 
