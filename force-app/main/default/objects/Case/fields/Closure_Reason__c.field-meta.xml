@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Closure_Reason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Specifies a reason for why the customer has requested an account closure</description>
+    <externalId>false</externalId>
+    <label>Closure Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customer did not mean to proceed to account opening</fullName>
+                <default>false</default>
+                <label>Customer did not mean to proceed to account opening</label>
+            </value>
+            <value>
+                <fullName>Thought it was the ANZ App</fullName>
+                <default>false</default>
+                <label>Thought it was the ANZ App</label>
+            </value>
+            <value>
+                <fullName>Unable to access existing ANZ accounts via ANZPlus app</fullName>
+                <default>false</default>
+                <label>Unable to access existing ANZ accounts via ANZPlus app</label>
+            </value>
+            <value>
+                <fullName>Lack of features</fullName>
+                <default>false</default>
+                <label>Lack of features</label>
+            </value>
+            <value>
+                <fullName>Not satisfied with product</fullName>
+                <default>false</default>
+                <label>Not satisfied with product</label>
+            </value>
+            <value>
+                <fullName>No reason specified</fullName>
+                <default>false</default>
+                <label>No reason specified</label>
+            </value>
+            <value>
+                <fullName>Other - please specify</fullName>
+                <default>false</default>
+                <label>Other - please specify</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

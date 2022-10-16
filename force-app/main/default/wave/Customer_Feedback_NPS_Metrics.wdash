@@ -178,14 +178,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -277,7 +281,13 @@
     "text_1": {
       "parameters": {
         "content": {
-          "displayTemplate": "[Avg_of_Net_Promoter_Score]\n",
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#091A3E" },
+              "insert": "[Avg_of_Net_Promoter_Score]\n"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ],
           "values": {
             "Avg_of_Net_Promoter_Score": {
               "field": "avg_qualtrics__Net_Promoter_Score__c",
@@ -286,10 +296,7 @@
             }
           }
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "showActionMenu": true
       },
       "type": "text"
     },

@@ -1,3 +1,8 @@
+/**
+ * @description       : Test class for Quality Assesment task actions class
+ * @group             :
+ * @last modified on  : 09-30-2022
+ **/
 @isTest
 public class QualityAssessmentTaskActionsTest {
   //mehtod to test positive case (return true) when calling isBreachedQA method
@@ -8,7 +13,8 @@ public class QualityAssessmentTaskActionsTest {
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
       Status__c = QualityAssessmentActions.STATUS_REFERRED,
-      Sub_Status__c = QualityAssessmentActions.SUB_STATUS_COMPLIANCE_REVIEW
+      Sub_Status__c = QualityAssessmentActions.SUB_STATUS_COMPLIANCE_REVIEW,
+      Reference__c = 'TestRef'
     );
 
     insert qaRecord;
@@ -33,7 +39,8 @@ public class QualityAssessmentTaskActionsTest {
 
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_GENERAL_RT_ID,
-      Status__c = 'Unassigned'
+      Status__c = 'Unassigned',
+      Reference__c = 'TestRef'
     );
 
     insert qaRecord;

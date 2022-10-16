@@ -18,6 +18,13 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
   private static final String QA_RECORD_VALIDATION_ERROR_MSG = 'Related case must be under the same customer as the QA record.';
 
   /**
+   * @description onBeforeInsert to populate fields on the list of records before commit to database
+   */
+  public override void onBeforeInsert() {
+    QualityAssessmentActions.populateFieldsBeforeTrigger(records, null);
+  }
+
+  /**
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
   public override void onAfterInsert() {
@@ -59,6 +66,10 @@ public with sharing class QualityAssessmentTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    QualityAssessmentActions.populateFieldsBeforeTrigger(
+      records,
+      (Map<Id, Quality_Assessment__c>) oldMap
+    );
     QualityAssessmentActions.assignToQueue(
       records,
       (Map<Id, Quality_Assessment__c>) oldMap

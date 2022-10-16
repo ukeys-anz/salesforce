@@ -273,16 +273,16 @@ public with sharing class GetHelpCaseActionsHelper {
   /**
    * @description Check if a case is Fraud case
    * @param record The case record to check
-   * @param oldCaseMap old case map
+   * @param oldCase old case
    * @return if the case is a Fraud case
    */
-  public static Boolean isFraud(Case record, Map<Id, Case> oldCaseMap) {
+  public static Boolean isFraud(Case record, Case oldCase) {
     if (
       FRAUD_RT_IDS.contains(record.RecordTypeId) &&
       String.isNotBlank(record.Type) &&
-      (oldCaseMap == null ||
-      record.Type != oldCaseMap.get(record.Id).Type ||
-      record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId)
+      (oldCase == null ||
+      record.Type != oldCase.Type ||
+      record.RecordTypeId != oldCase.RecordTypeId)
     ) {
       return true;
     } else {
@@ -306,14 +306,14 @@ public with sharing class GetHelpCaseActionsHelper {
   /**
    * @description Check if a case is Complaint case
    * @param record The case record to check
-   * @param oldCaseMap old case map
+   * @param oldCase old case
    * @return if the case is a Complaint case
    */
-  public static Boolean isComplaint(Case record, Map<Id, Case> oldCaseMap) {
+  public static Boolean isComplaint(Case record, Case oldCase) {
     if (
       record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
-      (oldCaseMap == null ||
-      record.Type != oldCaseMap.get(record.Id).Type)
+      (oldCase == null ||
+      record.Type != oldCase.Type)
     ) {
       return true;
     } else {
@@ -515,5 +515,23 @@ public with sharing class GetHelpCaseActionsHelper {
     record.Fraud_Security_Features__c = YES;
     record.Fraud_Restraint_Status__c = 'N/A';
     record.Fraud_Defects_Rectified__c = 'Not Applicable';
+  }
+
+  /**
+   * @description Check if a case is Account Closure case
+   * @param record The case record to check
+   * @param oldCase old case
+   * @return if the case is a Complaint case
+   */
+  public static Boolean isAccountClosure(Case record, Case oldCase) {
+    if (
+      record.RecordTypeId == GetHelpConstants.ACCOUNT_CLOSURE_RT_ID &&
+      (oldCase == null ||
+      record.Type != oldCase.Type)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

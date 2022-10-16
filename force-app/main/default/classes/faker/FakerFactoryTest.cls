@@ -10,7 +10,11 @@ private with sharing class FakerFactoryTest {
   static void testFactoryMake() {
     Test.startTest();
     Contact c = (Contact) FakerFactory.make(new FakerExampleFactory());
-    System.assertNotEquals(null, c.FirstName, 'FakerFactory should work as expected.');
+    System.assertNotEquals(
+      null,
+      c.FirstName,
+      'FakerFactory should work as expected.'
+    );
     Test.stopTest();
   }
 
@@ -18,7 +22,11 @@ private with sharing class FakerFactoryTest {
   static void testFactoryCreate() {
     Test.startTest();
     Contact c = (Contact) FakerFactory.create(new FakerExampleFactory());
-    System.assertNotEquals(null, c.FirstName, 'FakerFactory should work as expected.');
+    System.assertNotEquals(
+      null,
+      c.FirstName,
+      'FakerFactory should work as expected.'
+    );
     Test.stopTest();
   }
 
@@ -29,7 +37,11 @@ private with sharing class FakerFactoryTest {
       new FakerExampleFactory(),
       new Map<String, Object>{ 'FirstName' => 'test123' }
     );
-    System.assertEquals('test123', c.FirstName, 'FakerFactory should work as expected.');
+    System.assertEquals(
+      'test123',
+      c.FirstName,
+      'FakerFactory should work as expected.'
+    );
     Test.stopTest();
   }
 
@@ -40,7 +52,11 @@ private with sharing class FakerFactoryTest {
       new FakerExampleFactory(),
       new Map<String, Object>{ 'FirstName' => 'test123' }
     );
-    System.assertEquals('test123', c.FirstName, 'FakerFactory should work as expected.');
+    System.assertEquals(
+      'test123',
+      c.FirstName,
+      'FakerFactory should work as expected.'
+    );
     Test.stopTest();
   }
 }

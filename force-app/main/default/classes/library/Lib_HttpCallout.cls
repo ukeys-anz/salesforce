@@ -30,6 +30,7 @@ public with sharing class Lib_HttpCallout {
       );
       return callResponse;
     }
+    request.setTimeout(20000);
     request.setEndpoint(endpoint);
     request.setMethod(method.name().remove('HTTP_'));
 
