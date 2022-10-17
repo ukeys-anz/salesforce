@@ -1,166 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
-   <sorted>false</sorted>
-   <standardValue>
-      <closed>false</closed>
-      <default>true</default>
-      <fullName>New</fullName>
-      <label>New</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Action Required</fullName>
-      <label>Action Required</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Open</fullName>
-      <label>Open</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Working</fullName>
-      <label>Working</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Under Investigation</fullName>
-      <label>Under Investigation</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>On Hold</fullName>
-      <label>On Hold</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Escalated</fullName>
-      <label>Escalated</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Withdrawn</fullName>
-      <label>Withdrawn</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Resolved</fullName>
-      <label>Resolved</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Closed</fullName>
-      <label>Closed</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Re-opened</fullName>
-      <label>Re-opened</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Customer Education</fullName>
-      <label>Customer Education</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Awaiting Recovery</fullName>
-      <label>Awaiting Recovery</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Pend 14 Days</fullName>
-      <label>Pend 14 Days</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Return Funds</fullName>
-      <label>Return Funds</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Reimbursement</fullName>
-      <label>Reimbursement</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Closed - Customer Educated</fullName>
-      <label>Closed - Customer Educated</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Closed - Future Release</fullName>
-      <label>Closed - Future Release</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Closed - Resolved</fullName>
-      <label>Closed - Resolved</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Closed - Won&apos;t Be Fixed</fullName>
-      <label>Closed - Won&apos;t Be Fixed</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Under Review</fullName>
-      <label>Under Review</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Rectify Defect</fullName>
-      <label>Rectify Defect</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Pending Documents</fullName>
-      <label>Pending Documents</label>
-   </standardValue>
-   <standardValue>
-      <closed>false</closed>
-      <default>false</default>
-      <fullName>Provisionally Closed</fullName>
-      <label>Provisionally Closed</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Spam / Advertising</fullName>
-      <label>Spam / Advertising</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Duplicate</fullName>
-      <label>Duplicate</label>
-   </standardValue>
-   <standardValue>
-      <closed>true</closed>
-      <default>false</default>
-      <fullName>Can’t Action</fullName>
-      <label>Can’t Action</label>
-   </standardValue>
+    <sorted>false</sorted>
+    <standardValue>
+        <closed>false</closed>
+        <default>true</default>
+        <fullName>New</fullName>
+        <label>New</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Action Required</fullName>
+        <label>Action Required</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Open</fullName>
+        <label>Open</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Working</fullName>
+        <label>Working</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Under Investigation</fullName>
+        <label>Under Investigation</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>On Hold</fullName>
+        <label>On Hold</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Escalated</fullName>
+        <label>Escalated</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Withdrawn</fullName>
+        <label>Withdrawn</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Resolved</fullName>
+        <label>Resolved</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Closed</fullName>
+        <label>Closed</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Re-opened</fullName>
+        <label>Re-opened</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Customer Education</fullName>
+        <label>Customer Education</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Awaiting Recovery</fullName>
+        <label>Awaiting Recovery</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Pend 14 Days</fullName>
+        <label>Pend 14 Days</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Return Funds</fullName>
+        <label>Return Funds</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Reimbursement</fullName>
+        <label>Reimbursement</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Closed - Customer Educated</fullName>
+        <label>Closed - Customer Educated</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Closed - Future Release</fullName>
+        <label>Closed - Future Release</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Closed - Won&apos;t Be Fixed</fullName>
+        <label>Closed - Won&apos;t Be Fixed</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Under Review</fullName>
+        <label>Under Review</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Rectify Defect</fullName>
+        <label>Rectify Defect</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Pending Documents</fullName>
+        <label>Pending Documents</label>
+    </standardValue>
+    <standardValue>
+        <closed>false</closed>
+        <default>false</default>
+        <fullName>Provisionally Closed</fullName>
+        <label>Provisionally Closed</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Spam / Advertising</fullName>
+        <label>Spam / Advertising</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Duplicate</fullName>
+        <label>Duplicate</label>
+    </standardValue>
+    <standardValue>
+        <closed>true</closed>
+        <default>false</default>
+        <fullName>Can’t Action</fullName>
+        <label>Can’t Action</label>
+    </standardValue>
 </StandardValueSet>
