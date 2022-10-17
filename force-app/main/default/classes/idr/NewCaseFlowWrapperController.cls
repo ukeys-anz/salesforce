@@ -79,6 +79,12 @@ public with sharing class NewCaseFlowWrapperController {
     String newRecordTypeName
   ) {
     Map<String, String> caseDetails = new Map<String, String>();
+    String cDescription = caseRecord.Description.replaceAll(',', '%2C');
+    String cDesiredOutcome = caseRecord.IDR_Complainant_Desired_Outcome__c.replaceAll(
+      ',',
+      '%2C'
+    );
+
     if (newRecordTypeName == GetHelpConstants.GENERAL_INQUIRY_RT) {
       caseDetails.put('Type', '');
       caseDetails.put('Priority', '');
@@ -87,9 +93,9 @@ public with sharing class NewCaseFlowWrapperController {
         'Web Submitted Enquiry\n\nIssue:\n  ' +
         PicklistUtil.getPicklistLabel('Case', 'Type', caseRecord.Type) +
         '\n\n' +
-        caseRecord.Description +
+        cDescription +
         '\n\nCustomer Desired Outcome:\n  ' +
-        caseRecord.IDR_Complainant_Desired_Outcome__c +
+        cDesiredOutcome +
         '\n\nPriority:\n  ' +
         PicklistUtil.getPicklistLabel('Case', 'Priority', caseRecord.Priority)
       );
@@ -101,7 +107,7 @@ public with sharing class NewCaseFlowWrapperController {
       caseDetails.put('Type', '');
       caseDetails.put(
         'Description',
-        'Web Submitted Enquiry\n\nIssue:\n  Other\n\n' + caseRecord.Description
+        'Web Submitted Enquiry\n\nIssue:\n  Other\n\n' + cDescription
       );
     }
 
