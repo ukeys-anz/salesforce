@@ -22,9 +22,9 @@
                 <label>Credit card</label>
             </value>
             <value>
-                <fullName>Checking/Savings accounts</fullName>
+                <fullName>Cheque/Savings account</fullName>
                 <default>false</default>
-                <label>Checking/Savings accounts</label>
+                <label>Cheque/Savings accounts</label>
             </value>
             <value>
                 <fullName>Home loans</fullName>

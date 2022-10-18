@@ -10,7 +10,7 @@ private with sharing class CFMSMigratedDocumentTriggerHandlerTest {
         new CFMS_Migrated_Document__c(
           Parent_Complaint__c = c.Id,
           URL__c = 'https://anz.com/12345678',
-          Description__c = 'Test description 1234-5678-9101 check mask',
+          Description__c = 'Test description 1234-5678-9101-7632-3321 check mask',
           UUID__c = CommonUtil.generateUUID()
         )
       );
@@ -46,7 +46,7 @@ private with sharing class CFMSMigratedDocumentTriggerHandlerTest {
     ]
     .Description__c;
     System.assertEquals(
-      'Test description ********9101 check mask',
+      'Test description ****************3321 check mask',
       Description,
       'Free text field should have been masked on insert.'
     );
@@ -61,7 +61,7 @@ private with sharing class CFMSMigratedDocumentTriggerHandlerTest {
     ];
     //WHEN I update it
     for (CFMS_Migrated_Document__c doc : docs) {
-      doc.Description__c = 'Test description 1234-5678-9999 check mask';
+      doc.Description__c = 'Test description 1234-5678-9101-7632-3321 check mask';
     }
     update docs;
     //THEN the updated description was masked
@@ -72,7 +72,7 @@ private with sharing class CFMSMigratedDocumentTriggerHandlerTest {
     ]
     .Description__c;
     System.assertEquals(
-      'Test description ********9999 check mask',
+      'Test description ****************3321 check mask',
       Description,
       'Free text field should have been masked'
     );

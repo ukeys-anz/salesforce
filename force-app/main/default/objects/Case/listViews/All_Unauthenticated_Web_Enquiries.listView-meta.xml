@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+   <fullName>All_Unauthenticated_Web_Enquiries</fullName>
+   <columns>CASES.CASE_NUMBER</columns>
+   <columns>IDR_NC_First_Name__c</columns>
+   <columns>IDR_NC_Last_Name__c</columns>
+   <columns>CASES.TYPE</columns>
+   <columns>CASES.STATUS</columns>
+   <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+   <columns>OWNER_NAME</columns>
+   <filters>
+      <field>CASES.ORIGIN</field>
+      <operation>equals</operation>
+      <value>ANZ Plus Web</value>
+   </filters>
+   <filters>
+      <field>CASES.RECORDTYPE</field>
+      <operation>equals</operation>
+      <value>Case.General_Inquiry_CMOS</value>
+   </filters>
+   <filterScope>Everything</filterScope>
+   <label>All Unauthenticated Web Enquiries</label>
+   <sharedTo>
+      <role>Business_Admin</role>
+      <role>Coach</role>
+      <role>Coach_Lead</role>
+      <role>Quality_Analyst</role>
+      <role>Support_Coach</role>
+   </sharedTo>
+</ListView>

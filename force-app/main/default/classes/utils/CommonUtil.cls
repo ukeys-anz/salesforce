@@ -4,6 +4,7 @@
  * @description Holds common util functions
  * @group Utils
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CommonUtil {
   /**
    * @description Get a picklist labels by values (API names).
@@ -134,6 +135,41 @@ public with sharing class CommonUtil {
         maskedAccList.add(TextUtils.maskData(accNumber));
       }
       record.put(fieldName, String.join(maskedAccList, ';'));
+    } else if (
+      fieldName == 'Description' ||
+      fieldName == 'IDR_Complainant_Desired_Outcome__c' ||
+      fieldName == 'IDR_Description_of_Outcome__c' ||
+      fieldName == 'How_has_delay_criteria_been_met_not_met__c' ||
+      fieldName == 'SI_Subject_of_Breach_Report_Comments__c' ||
+      fieldName == 'SI_Definite_Action_Completed__c' ||
+      fieldName == 'Subject' ||
+      fieldName == 'RAG_Comments__c' ||
+      fieldName == 'SI_Rec_Rem_Actions__c' ||
+      fieldName == 'IDR_Systemic_Issue_Description__c' ||
+      fieldName == 'IDR_Other_Remedy_Provided__c' ||
+      fieldName == 'IDR_Other_Remedy_Provided_2__c' ||
+      fieldName == 'IDR_Other_Remedy_Provided_3__c'
+    ) {
+      record.put(
+        fieldName,
+        TextUtils.maskDataAnzx((String) record.get(fieldName))
+      );
+      if (TextUtils.reactiveLogging((String) record.get(fieldName))) {
+        Id sfId = (Id) record.get('Id');
+        String loggerInitialString = sfId != null
+          ? sfId.getSObjectType().getDescribe().getName() == 'Case'
+              ? 'CaseNumber: ' + (String) record.get('CaseNumber') + '; '
+              : 'Id: ' + (Id) record.get('Id') + '; '
+          : '';
+        Logger.info(
+          loggerInitialString +
+          fieldName +
+          ': ' +
+          (String) record.get(fieldName) +
+          '; Reason for logging: User entered long digits without needing to mask'
+        );
+        Logger.saveLog();
+      }
     } else {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }

@@ -8,7 +8,7 @@ public with sharing class TextUtils {
   private static final String ACCOUNT_OR_CARD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final String TAX_REGEX_PATTERN = '[0-9][^a-zA-Z]{14,}[0-9]';
   private static final String LOG_REGEX_PATTERN = '[0-9][^a-zA-Z]{10,}[0-9]';
-  private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{7,}[0-9]';
+  private static final String LOG_KEYWORD_REGEX_PATTERN = '[0-9][^a-zA-Z]{6,}[0-9]';
   private static final Integer UNMASK_LENGTH = 4;
   private static Pattern accountOrCardPattern = Pattern.compile(
     ACCOUNT_OR_CARD_REGEX_PATTERN
@@ -86,16 +86,7 @@ public with sharing class TextUtils {
       return false;
     }
     String inputUpper = input.toUpperCase();
-    List<String> keywords = new List<String>{
-      'TAX',
-      'TFN',
-      'FILE',
-      'ATO',
-      'TIN',
-      'SUPER',
-      'SUPERANNUATION',
-      'EMPLOYMENT'
-    };
+    List<String> keywords = Label.Reactive_logging_keywords.split(',');
     Boolean hasKeyword = false;
     for (String keyword : keywords) {
       if (inputUpper.contains(keyword)) {
@@ -107,7 +98,7 @@ public with sharing class TextUtils {
     Integer digLength = 12;
     if (hasKeyword) {
       patToCompile = logKeywordPattern;
-      digLength = 9;
+      digLength = 8;
     }
 
     Matcher matchingPattern = patToCompile.matcher(input);

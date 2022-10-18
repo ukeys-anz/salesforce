@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-   <fullName>MyOpenCases</fullName>
+   <fullName>Unassigned_Coach_Queue</fullName>
    <columns>CASES.CASE_NUMBER</columns>
    <columns>NAME</columns>
    <columns>CASES.TYPE</columns>
@@ -14,6 +14,10 @@
       <operation>equals</operation>
       <value>Open</value>
    </filters>
-   <filterScope>Mine</filterScope>
-   <label>My Open Cases</label>
+   <filterScope>Queue</filterScope>
+   <label>Unassigned Coach Queue</label>
+   <queue>Coach_Queue</queue>
+   <sharedTo>
+      <roleAndSubordinates>ANZx</roleAndSubordinates>
+   </sharedTo>
 </ListView>

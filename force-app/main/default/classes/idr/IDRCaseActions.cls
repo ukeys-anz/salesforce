@@ -78,6 +78,14 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c == 'Yes') {
           updatePsiTicked.add(record);
         }
+      } else if (
+        record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      ) {
+        CommonUtil.handleMasking(
+          record,
+          null,
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
+        );
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
@@ -181,6 +189,14 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
+      } else if (
+        record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      ) {
+        CommonUtil.handleMasking(
+          record,
+          (case) oldMap.get(record.id),
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
+        );
       }
     }
     preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
