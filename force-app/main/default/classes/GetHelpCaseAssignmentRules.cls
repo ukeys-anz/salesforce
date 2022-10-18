@@ -128,6 +128,7 @@ public with sharing class GetHelpCaseAssignmentRules {
         record.ANZx_Customer__c == true
       ) {
         record.OwnerId = coachQueueId;
+        record.Queue__c = 'Coach Queue';
       }
     }
   }
