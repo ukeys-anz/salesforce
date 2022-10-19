@@ -52,10 +52,6 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PropertyExtIdentifier</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Property_ID__c</field>
             </layoutItems>
             <layoutItems>
