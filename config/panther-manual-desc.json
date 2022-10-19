@@ -1297,6 +1297,7 @@
     },
     "Loan_Applicant_Group__c": {
       "IA-2415983": [
+        "Deposit_Amount__c",
         "Guarantor__c",
         "Married_or_Defacto__c",
         "Number_of_Dependents__c"
@@ -1304,8 +1305,10 @@
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": [
         "Loan_Applicant_Group_ID__c",
+        "Name",
         "Residential_Loan_Application__c",
-        "SOP_ID__c"
+        "SOP_ID__c",
+        "SOP_Version__c"
       ]
     },
     "LoanApplicant": {
@@ -1319,16 +1322,54 @@
       "IA-2594111": [
         "ApplicantExtIdentifier",
         "Loan_Applicant_Group__c",
-        "Party_ID__c"
-      ]
+        "Party_ID__c",
+        "Name"
+      ],
+      "IA-2415720": ["Customer_Number__c"],
+      "IA-2415984": ["Eligibility_Accepted__c", "Occupation_Code__c"]
     },
     "LoanApplicantLiability": {
-      "IA-2415983": ["Proportion_Percent__c"],
+      "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
-      "IA-2594111": ["LoanApplicantId", "Loan_Applicant_Liability_ID__c"]
+      "IA-2594111": [
+        "LoanApplicantId",
+        "Loan_Applicant_Liability_ID__c",
+        "Name"
+      ]
     },
     "LoanApplicationLiability": {
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"]
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2415983": [
+        "Balance__c",
+        "Interest_Rate_Percent__c",
+        "Months_Remaining__c",
+        "Repayment_Amount__c",
+        "Repayment_Frequency__c"
+      ],
+      "IA-2594111": ["LiabilityExtIdentifier", "Name"]
+    },
+    "LoanApplicationProperty": {
+      "IA-2594113": [
+        "Bathrooms__c",
+        "Bedrooms__c",
+        "Carparks__c",
+        "Floor_Area__c",
+        "Image_Link__c",
+        "Land_Area__c",
+        "PropertyAddress",
+        "Property_ID__c",
+        "Property_Status__c",
+        "Property_Type__c",
+        "Year_Built__c"
+      ],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": ["LoanApplicationId", "PropertyExtIdentifier"],
+      "IA-2594114": [
+        "Primary_Valuation_Type__c",
+        "Risk_Description__c",
+        "Risk_Type__c",
+        "Supporting_Valuation_Type__c"
+      ]
     },
     "Location": {
       "IA-2468715": [
@@ -1506,22 +1547,29 @@
     },
     "Product_Preference__c": {
       "IA-2415983": [
+        "Final_Amount__c",
         "Initial_Index_Rate_Basis_Points__c",
         "Initial_Margin_Basis_Points__c",
         "Initial_Period_Months__c",
         "Initial_Rate_Type__c",
         "Initial_Repayment_Frequency__c",
         "Initial_Repayment_Type__c",
+        "Initial_Term_Months__c",
+        "Offset__c",
+        "Product_Sub_Code__c",
         "Requested_Amount__c",
         "Subsequent_Index_Rate_Basis_Points__c",
         "Subsequent_Margin_Basis_Points__c",
         "Subsequent_Period_Months__c",
         "Subsequent_Repayment_Frequency__c",
-        "Subsequent_Repayment_Type__c"
+        "Subsequent_Repayment_Type__c",
+        "Subsequent_Rate_Type__c",
+        "Subsequent_Term_Months__c"
       ],
       "IA-2415987": ["Product_Code__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": [
+        "Name",
         "Product_Preference_ID__c",
         "Residential_Loan_Application__c"
       ]
@@ -1746,10 +1794,27 @@
       ]
     },
     "ResidentialLoanApplication": {
-      "IA-2415855": ["Assessment_Outcome__c","Collateral_Assessment_Outcome__c"],
-      "IA-2415983": ["Status", "LoanPurpose", "Loan_Type__c"],
+      "IA-2415855": ["Assessment_Outcome__c", "Credit_Version__c"],
+      "IA-2415983": [
+        "First_Home__c",
+        "LoanPurpose",
+        "Loan_Type__c",
+        "Main_Goal__c",
+        "Owner_Occupied__c",
+        "Package_Code__c",
+        "Settlement_ID__c",
+        "Status"
+      ],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
-      "IA-2594111": ["Credit_ID__c", "ApplicationExtIdentifier"]
+      "IA-2594111": ["ApplicationExtIdentifier", "Credit_ID__c", "Name"],
+      "IA-2594114": [
+        "Collateral_Assessment_Expiry_Date__c",
+        "Collateral_Assessment_ID__c",
+        "Collateral_Assessment_Outcome__c",
+        "Max_Allowable_LVR_Basis_Points__c"
+      ],
+      "IA-2468706": ["Package_Version__c"],
+      "IA-2594113": ["State__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [
