@@ -1,7 +1,7 @@
 /**
  * @author Lance Shi
  * @since 12/2021
- * @description Contains ANZx Dispute Case Assignment rules conditions
+ * @description Contains ANZx Case Assignment rules conditions
  * @group ANZx
  */
 public with sharing class GetHelpCaseAssignmentRules {
@@ -10,7 +10,7 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final String DID_NOT_AUTHORISE_TRANSACTION = 'Didn\'t authorise transaction';
   public static final String DO_NOT_RECOGNISE_TRANSACTION = 'Don\'t recognise the transaction';
   /**
-   * @description method to call the Case assignment rules
+   * @description method to call the Case assignment rules for Disputes
    * @param cases Records in the current context
    * @param oldMap old map of case record in current trigger context
    */
@@ -111,6 +111,25 @@ public with sharing class GetHelpCaseAssignmentRules {
       return QUEUE_MAP.get(GetHelpConstants.PENDING_CARD_DISPUTE_FRAUD_QUEUE);
     } else {
       return QUEUE_MAP.get(GetHelpConstants.PENDING_CARD_DISPUTE_GENERAL_QUEUE);
+    }
+  }
+  /**
+   * @description method to call the Case assignment rules for unauthenticated enquiries
+   * Will assign those cases to Coach Queue
+   * @param records List<Case> to be checked.
+   */
+  public static void assignUnauthenticatedEnquriryCases(List<Case> records) {
+    Id coachQueueId = [SELECT Id FROM Group WHERE Name = 'Coach Queue' LIMIT 1]
+    .Id;
+    for (Case record : records) {
+      if (
+        record.RecordTypeId == GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID &&
+        record.Origin == 'ANZ Plus Web' &&
+        record.ANZx_Customer__c == true
+      ) {
+        record.OwnerId = coachQueueId;
+        record.Queue__c = 'Coach Queue';
+      }
     }
   }
 }

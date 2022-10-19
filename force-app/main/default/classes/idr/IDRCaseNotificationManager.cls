@@ -65,17 +65,21 @@ public with sharing class IDRCaseNotificationManager {
     List<Schema.FieldSetMember> fieldsList = getFields();
 
     for (Integer i = 0; i < records.size(); i++) {
-      for (Schema.FieldSetMember f : fieldsList) {
-        String fieldName = f.getFieldPath();
-        String fieldLabel = f.getLabel();
-        if (
-          oldMap.containsKey(records[i].Id) &&
-          records[i].get(fieldName) !=
-          oldMap.get(records[i].Id).get(fieldName) &&
-          Userinfo.getUserId() != records[i].ownerId &&
-          IDRCaseActions.isIDRComplaintType(records[i])
-        ) {
-          wrapperList.add(createNotification(fieldLabel, records[i], null));
+      Case oldRecord = (case) oldMap.get(records[i].Id);
+      if (
+        oldRecord.RecordTypeId != GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID
+      ) {
+        for (Schema.FieldSetMember f : fieldsList) {
+          String fieldName = f.getFieldPath();
+          String fieldLabel = f.getLabel();
+          if (
+            oldMap.containsKey(records[i].Id) &&
+            records[i].get(fieldName) != oldRecord.get(fieldName) &&
+            Userinfo.getUserId() != records[i].ownerId &&
+            IDRCaseActions.isIDRComplaintType(records[i])
+          ) {
+            wrapperList.add(createNotification(fieldLabel, records[i], null));
+          }
         }
       }
     }

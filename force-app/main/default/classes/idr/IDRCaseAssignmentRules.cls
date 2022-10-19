@@ -56,7 +56,8 @@ public with sharing class IDRCaseAssignmentRules {
         c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
         c.IDR_Product_Category__c != null &&
         (oldCase == null ||
-        oldCase.IDR_Product_Category__c != c.IDR_Product_Category__c)
+        oldCase.IDR_Product_Category__c != c.IDR_Product_Category__c) &&
+        c.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
       ) {
         c.IDR_Product_Family__c = (categoryMap.get(c.IDR_Product_Category__c))
           .Id;

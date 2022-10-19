@@ -30,7 +30,7 @@ public with sharing class CFMSMigratedDocumentTriggerHandler extends Lib_Trigger
     for (
       CFMS_Migrated_Document__c record : (List<CFMS_Migrated_Document__c>) records
     ) {
-      record.Description__c = TextUtils.maskData(record.Description__c);
+      record.Description__c = TextUtils.maskDataAnzx(record.Description__c);
     }
   }
 
@@ -42,7 +42,7 @@ public with sharing class CFMSMigratedDocumentTriggerHandler extends Lib_Trigger
     for (
       CFMS_Migrated_Document__c record : (List<CFMS_Migrated_Document__c>) records
     ) {
-      record.Description__c = TextUtils.maskData(record.Description__c);
+      record.Description__c = TextUtils.maskDataAnzx(record.Description__c);
     }
   }
 }

@@ -32,28 +32,31 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
       caseIdList.add(record.parentId);
     }
     Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
-      [SELECT Id, CaseNumber, RecordTypeId FROM Case WHERE Id IN :caseIdList]
+      [
+        SELECT Id, CaseNumber, RecordTypeId, Origin
+        FROM Case
+        WHERE Id IN :caseIdList
+      ]
     );
     for (CaseComment record : (List<CaseComment>) records) {
       Case relatedCase = relatedCaseMap.get(record.parentId);
       if (
         relatedCase != null &&
-        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)
+        (GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase) ||
+        IDRCaseActions.isIDRComplaintType(relatedCase) ||
+        relatedCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
+        relatedCase.RecordTypeId == IDRConstants.SI_RT_ID)
       ) {
         record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
         if (TextUtils.reactiveLogging(record.CommentBody)) {
-          lib_systemLog log = new lib_systemLog(
-            'CaseCommentTriggerHandler',
-            'onApplyDefaults'
-          );
-          log.info(
+          Logger.info(
             'CaseNumber: ' +
             relatedCase.CaseNumber +
             '; Comment Body: ' +
             record.CommentBody +
             '; Reason for logging: User entered long digits without needing to mask'
           );
-          log.publishEvent();
+          Logger.saveLog();
         }
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);

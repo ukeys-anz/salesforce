@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <assignmentRule>
-        <fullName>Case Allocation Rule</fullName>
-        <active>true</active>
-        <ruleEntry>
-            <assignedTo>Digital_Fraud_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
+   <assignmentRule>
+      <active>true</active>
+      <fullName>Case Allocation Rule</fullName>
+      <ruleEntry>
+         <assignedTo>Digital_Fraud_Queue</assignedTo>
+         <assignedToType>Queue</assignedToType>
+         <formula>
             AND(                  
                 OR(
                     ISNEW(),
@@ -22,11 +22,11 @@
                 )                 
             )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Support_Coach_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
+      </ruleEntry>
+      <ruleEntry>
+         <assignedTo>Support_Coach_Queue</assignedTo>
+         <assignedToType>Queue</assignedToType>
+         <formula>
             AND(
                 OR(
                     ISNEW(),
@@ -42,11 +42,11 @@
                 )
             )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Support_Coach_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
+      </ruleEntry>
+      <ruleEntry>
+         <assignedTo>Support_Coach_Queue</assignedTo>
+         <assignedToType>Queue</assignedToType>
+         <formula>
             AND(                     
                 OR(
                     ISNEW(),
@@ -59,11 +59,11 @@
                   )
                 )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Card_Dispute_General_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
+      </ruleEntry>
+      <ruleEntry>
+         <assignedTo>Card_Dispute_General_Queue</assignedTo>
+         <assignedToType>Queue</assignedToType>
+         <formula>
             AND(
                 OR(
                     ISNEW(),
@@ -79,11 +79,11 @@
                 NOT(ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised transaction&quot;))
                 )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Card_Dispute_Fraud_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
+      </ruleEntry>
+      <ruleEntry>
+         <assignedTo>Card_Dispute_Fraud_Queue</assignedTo>
+         <assignedToType>Queue</assignedToType>
+         <formula>
             AND(
                 OR(
                     ISNEW(),
@@ -101,19 +101,31 @@
                   )
                 )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Pending_KYC_QA</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
+      </ruleEntry>
+      <ruleEntry>
+         <assignedTo>Coach_Queue</assignedTo>
+         <assignedToType>Queue</assignedToType>
+         <formula>
+                AND(
+                    ISNEW(),
+                    RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
+                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),  
+                    ANZx_Customer__c = true
+                )
+            </formula>
+      </ruleEntry>
+      <ruleEntry>
+         <assignedTo>Pending_KYC_QA</assignedTo>
+         <assignedToType>Queue</assignedToType>
+         <formula>
             AND(
                 ISNEW(),
                 RecordType.DeveloperName = &quot;KYC_QA&quot;
             )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;KYC_QA&quot;)</formula>
-        </ruleEntry>
-    </assignmentRule>
+      </ruleEntry>
+      <ruleEntry>
+         <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;KYC_QA&quot;)</formula>
+      </ruleEntry>
+   </assignmentRule>
 </AssignmentRules>

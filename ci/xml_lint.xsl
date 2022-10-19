@@ -10,7 +10,7 @@
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 xmlns:sf="http://soap.sforce.com/2006/04/metadata"
 xmlns:saxon="http://saxon.sf.net/">
-    <xsl:output indent="yes" saxon:indent-spaces="3"/>
+    <xsl:output indent="yes" saxon:indent-spaces="4"/>
     <xsl:strip-space elements="*"/>
 
     <!-- Keep all of SFDX's encoding within the document -->

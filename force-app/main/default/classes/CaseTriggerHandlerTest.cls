@@ -210,10 +210,10 @@ private class CaseTriggerHandlerTest {
       casesWithNumberText.add(
         new Case(
           IDR_Account_Card_Policy_Number__c = '000001234',
-          Description = 'Test decription 1234-5678-9101 check mask',
-          IDR_Complainant_Desired_Outcome__c = 'Test decription 1234 5678 9101 check mask',
-          IDR_Description_of_Outcome__c = 'Test decription 123456789101 check mask',
-          IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101 check mask',
+          Description = 'Test decription 1234-5678-9101-7632-3321 check mask',
+          IDR_Complainant_Desired_Outcome__c = 'Test decription 1234-5678-9101-7632-3321 check mask',
+          IDR_Description_of_Outcome__c = 'Test decription 1234-5678-9101-7632-3321 check mask',
+          IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101-7632-3321 check mask',
           RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
           IDR_Customer_Number__c = '1234567890'
         )
@@ -240,22 +240,22 @@ private class CaseTriggerHandlerTest {
       'IDR_Account_Card_Policy_Number__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ********9101 check mask',
+      'Test decription ****************3321 check mask',
       c.Description,
       'Description should be masked.'
     );
     System.assertEquals(
-      'Test decription ********9101 check mask',
+      'Test decription ****************3321 check mask',
       c.IDR_Complainant_Desired_Outcome__c,
       'IDR_Complainant_Desired_Outcome__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ********9101 check mask',
+      'Test decription ****************3321 check mask',
       c.IDR_Description_of_Outcome__c,
       'IDR_Description_of_Outcome__c should be masked.'
     );
     System.assertEquals(
-      'Test decription ********9101 check mask',
+      'Test decription ****************3321 check mask',
       c.IDR_Systemic_Issue_Description__c,
       'IDR_Systemic_Issue_Description__c should be masked.'
     );
@@ -2003,6 +2003,80 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
   }
 
+  private static Boolean testEntitlementOnChangeRecordType(Id rtId) {
+    Faker faker = new Faker('AU');
+    // GIVEN
+    // an ANZ Plus customer record is created with relevant entitlements
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+
+    // We have one unauthenticated enquiry case
+    Case caseRecord = new Case();
+    caseRecord.Description = 'Test Unauthenticated Enquiry change to Non Customer Complaint';
+    caseRecord.Status = IDRConstants.OPEN_STATUS;
+    caseRecord.ANZx_Customer__c = true;
+    caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
+    caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.AccountId = acc.Id;
+    caseRecord.Type = '11';
+    insert caseRecord;
+
+    // WHEN
+    // the recordType is changed to new recordType
+    caseRecord.RecordTypeId = rtId;
+    update caseRecord;
+
+    // THEN
+    // the same Entitlement record on Account should be linked on the Case
+    Entitlement accountEntitlement = [
+      SELECT Id
+      FROM Entitlement
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
+
+    Id entitlementId;
+    if (rtId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID) {
+      entitlementId = IDRCaseActions.getEntitlement();
+    } else {
+      entitlementId = accountEntitlement.Id;
+    }
+
+    return entitlementId ==
+      [SELECT EntitlementId FROM Case WHERE Id = :caseRecord.Id LIMIT 1]
+      .EntitlementId;
+  }
+
+  @isTest
+  static void testEntitlementChangeUnauthToGeneralEnquiry() {
+    System.assert(
+      testEntitlementOnChangeRecordType(GetHelpConstants.GENERAL_INQUIRY_RT_ID),
+      'Link Entitlement from Account on converted unauthenticated enquiry to general enquiry.'
+    );
+  }
+
+  @isTest
+  static void testEntitlementChangeUnauthToANZXComplaint() {
+    System.assert(
+      testEntitlementOnChangeRecordType(GetHelpConstants.COMPLAINT_RT_ID),
+      'Link Entitlement from Account on converted unauthenticated enquiry to ANZ plus complaint.'
+    );
+  }
+
+  @isTest
+  static void testEntitlementChangeUnauthToNonCusotmerComplaint() {
+    System.assert(
+      testEntitlementOnChangeRecordType(
+        GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+      ),
+      'Link Entitlement from Account on converted unauthenticated enquiry to non-customer complaint.'
+    );
+  }
   // Test creating a dispute with the same transaction Id in another open dispute
   // the new dispute should not be created
   @isTest
