@@ -165,7 +165,9 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Loan Applicant Group</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Loan_Applicant_Group_ID__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
