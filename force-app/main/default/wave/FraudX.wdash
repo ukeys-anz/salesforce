@@ -686,14 +686,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "vbar",
           "title": {
@@ -782,14 +786,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "time",
           "missingValue": "connect",
@@ -929,118 +937,6 @@
         "{\"Display\":\"Dec\",\"Month\":12}"
       ]
     },
-    "CreatedDate_2": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "CreatedDate_2",
-      "numbers": [],
-      "query": "q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('CreatedDate_Year') + (string_to_number('CreatedDate_Month')/100) ) as 'filterDate',\n'CreatedDate_Year', 'CreatedDate_Month', 'Fraud_Total_Falcon_Recalled__c';\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' as 'CreatedDate_Year~~~CreatedDate_Month', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month' asc;\nq = limit q 2000;",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "showValues": true,
-          "showPoints": true,
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": true,
-            "customSize": "auto",
-            "position": "right-top",
-            "inside": false
-          },
-          "axisMode": "multi",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "time",
-          "missingValue": "connect",
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "Actual Scam Reimbursements",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "showZero": true,
-          "valueType": "compactNumber",
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true,
-          "drawArea": {
-            "measure": "",
-            "showDrawArea": false,
-            "bounding1": "",
-            "bounding2": ""
-          },
-          "autoFitMode": "keepLabels",
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "dashLine": {
-            "measures": ["sum_Fraud_Total_Falcon_Recalled__c"],
-            "showDashLine": false
-          },
-          "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
-          "fillArea": true,
-          "columnMap": {
-            "split": [],
-            "timeAxis": ["CreatedDate_Year~~~CreatedDate_Month"],
-            "trellis": [],
-            "plots": ["sum_Fraud_Total_Falcon_Recalled__c"]
-          },
-          "showActionMenu": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": true,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": false,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          }
-        },
-        "type": "chart"
-      }
-    },
     "Account_FinServ__Gen_1": {
       "broadcastFacet": true,
       "groups": [],
@@ -1075,14 +971,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "vbar",
           "title": {
@@ -1137,106 +1037,6 @@
         "type": "chart"
       }
     },
-    "CreatedDate_1": {
-      "broadcastFacet": true,
-      "groups": [],
-      "label": "CreatedDate_1",
-      "numbers": [],
-      "query": "q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('CreatedDate_Year') + (string_to_number('CreatedDate_Month')/100) ) as 'filterDate', \n'Record.Name' as 'Record.Name', CreatedDate_Year, CreatedDate_Month, CreatedDate_Day, Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Fraud_Value__c, Fraud_Total_Falcon_Recalled__c, Fraud_Total_Recipient_Loss__c, Fraud_Total_Customer_Loss__c;\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = filter q by 'Record.Name' == \"Scam\";\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' as 'CreatedDate_Year~~~CreatedDate_Month', sum('Fraud_Total_Fraud_Value__c') as 'sum_Fraud_Total_Fraud_Value__c', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c', sum('Fraud_Total_Customer_Loss__c') as 'sum_Fraud_Total_Customer_Loss__c', sum('Fraud_Total_Recipient_Loss__c') as 'sum_Fraud_Total_Recipient_Loss__c';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month' asc;\nq = limit q 2000;",
-      "receiveFacetSource": { "mode": "all", "steps": [] },
-      "selectMode": "single",
-      "strings": [],
-      "type": "saql",
-      "useGlobal": true,
-      "visualizationParameters": {
-        "parameters": {
-          "autoFitMode": "keepLabels",
-          "showValues": true,
-          "bins": {
-            "breakpoints": { "high": 100, "low": 0 },
-            "bands": {
-              "high": { "color": "#008000", "label": "" },
-              "low": { "color": "#B22222", "label": "" },
-              "medium": { "color": "#ffa500", "label": "" }
-            }
-          },
-          "legend": {
-            "descOrder": false,
-            "showHeader": true,
-            "show": true,
-            "customSize": "auto",
-            "position": "top-center",
-            "inside": false
-          },
-          "axisMode": "dual",
-          "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
-          },
-          "visualizationType": "time-bar",
-          "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
-          "title": {
-            "fontSize": 14,
-            "subtitleFontSize": 11,
-            "label": "Scam Victim Only Case Historical Financials",
-            "align": "center",
-            "subtitleLabel": ""
-          },
-          "binValues": false,
-          "trellis": {
-            "flipLabels": false,
-            "showGridLines": true,
-            "size": [100, 100],
-            "enable": false,
-            "type": "x",
-            "chartsPerLine": 4
-          },
-          "columnMap": {
-            "timeAxis": ["CreatedDate_Year~~~CreatedDate_Month"],
-            "trellis": [],
-            "plots": [
-              "sum_Fraud_Total_Fraud_Value__c",
-              "sum_Fraud_Total_Falcon_Recalled__c",
-              "sum_Fraud_Total_Recipient_Loss__c"
-            ]
-          },
-          "showActionMenu": true,
-          "measureAxis2": {
-            "sqrtScale": false,
-            "showTitle": false,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "measureAxis1": {
-            "sqrtScale": false,
-            "showTitle": false,
-            "showAxis": true,
-            "title": "",
-            "customDomain": { "showDomain": false }
-          },
-          "theme": "wave",
-          "dimensionAxis": {
-            "showTitle": true,
-            "customSize": "auto",
-            "showAxis": true,
-            "title": "",
-            "icons": {
-              "useIcons": false,
-              "iconProps": { "fit": "cover", "column": "", "type": "round" }
-            }
-          },
-          "applyConditionalFormatting": true
-        },
-        "type": "chart"
-      }
-    },
     "Type_1": {
       "broadcastFacet": true,
       "datasets": [{ "name": "FraudX" }],
@@ -1271,14 +1071,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1382,6 +1186,226 @@
         "type": "table"
       }
     },
+    "CreatedDate_2": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "CreatedDate_2",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('CreatedDate_Year') + (string_to_number('CreatedDate_Month')/100) ) as 'filterDate',\n'CreatedDate_Year', 'CreatedDate_Month', 'Fraud_Total_Falcon_Recalled__c';\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' as 'CreatedDate_Year~~~CreatedDate_Month', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "showValues": true,
+          "showPoints": true,
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "right-top",
+            "inside": false
+          },
+          "axisMode": "multi",
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "time",
+          "missingValue": "connect",
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Actual Scam Reimbursements",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "showZero": true,
+          "valueType": "compactNumber",
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true,
+          "drawArea": {
+            "measure": "",
+            "showDrawArea": false,
+            "bounding1": "",
+            "bounding2": ""
+          },
+          "autoFitMode": "keepLabels",
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "dashLine": {
+            "measures": ["sum_Fraud_Total_Falcon_Recalled__c"],
+            "showDashLine": false
+          },
+          "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+          "fillArea": true,
+          "columnMap": {
+            "split": [],
+            "timeAxis": ["CreatedDate_Year~~~CreatedDate_Month"],
+            "trellis": [],
+            "plots": ["sum_Fraud_Total_Falcon_Recalled__c"]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": true,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          }
+        },
+        "type": "chart"
+      }
+    },
+    "CreatedDate_1": {
+      "broadcastFacet": true,
+      "groups": [],
+      "label": "CreatedDate_1",
+      "numbers": [],
+      "query": "q = load \"FraudX\";\nq = foreach q generate \n({{cell(static_2.selection, 0, \"Year\").asObject()}}-1) + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100) as 'lowerFilterDate',\n(string_to_number('CreatedDate_Year') + (string_to_number('CreatedDate_Month')/100) ) as 'filterDate', \n'Record.Name' as 'Record.Name', CreatedDate_Year, CreatedDate_Month, CreatedDate_Day, Fraud_Total_Scam_Value__c, Fraud_Total_Recovered__c, Fraud_Total_Fraud_Value__c, Fraud_Total_Falcon_Recalled__c, Fraud_Total_Recipient_Loss__c, Fraud_Total_Customer_Loss__c;\nq = filter q by 'filterDate' >= lowerFilterDate;\nq = filter q by 'filterDate' <= {{cell(static_2.selection, 0, \"Year\").asObject()}} + ({{cell(static_1.selection, 0, \"Month\").asObject()}}/100);\nq = filter q by 'Record.Name' == \"Scam\";\nq = group q by ('CreatedDate_Year', 'CreatedDate_Month');\nq = foreach q generate 'CreatedDate_Year' + \"~~~\" + 'CreatedDate_Month' as 'CreatedDate_Year~~~CreatedDate_Month', sum('Fraud_Total_Fraud_Value__c') as 'sum_Fraud_Total_Fraud_Value__c', sum('Fraud_Total_Falcon_Recalled__c') as 'sum_Fraud_Total_Falcon_Recalled__c', sum('Fraud_Total_Customer_Loss__c') as 'sum_Fraud_Total_Customer_Loss__c', sum('Fraud_Total_Recipient_Loss__c') as 'sum_Fraud_Total_Recipient_Loss__c';\nq = order q by 'CreatedDate_Year~~~CreatedDate_Month' asc;\nq = limit q 2000;",
+      "receiveFacetSource": { "mode": "all", "steps": [] },
+      "selectMode": "single",
+      "strings": [],
+      "type": "saql",
+      "useGlobal": true,
+      "visualizationParameters": {
+        "parameters": {
+          "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
+          "legend": {
+            "descOrder": false,
+            "showHeader": true,
+            "show": true,
+            "customSize": "auto",
+            "position": "top-center",
+            "inside": false
+          },
+          "axisMode": "dual",
+          "tooltip": {
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
+          },
+          "visualizationType": "time-bar",
+          "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
+          "title": {
+            "fontSize": 14,
+            "subtitleFontSize": 11,
+            "label": "Scam Victim Only Case Historical Financials",
+            "align": "center",
+            "subtitleLabel": ""
+          },
+          "binValues": false,
+          "trellis": {
+            "flipLabels": false,
+            "showGridLines": true,
+            "size": [100, 100],
+            "enable": false,
+            "type": "x",
+            "chartsPerLine": 4
+          },
+          "columnMap": {
+            "timeAxis": ["CreatedDate_Year~~~CreatedDate_Month"],
+            "trellis": [],
+            "plots": [
+              "sum_Fraud_Total_Fraud_Value__c",
+              "sum_Fraud_Total_Falcon_Recalled__c",
+              "sum_Fraud_Total_Recipient_Loss__c"
+            ]
+          },
+          "showActionMenu": true,
+          "measureAxis2": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "measureAxis1": {
+            "sqrtScale": false,
+            "showTitle": false,
+            "showAxis": true,
+            "title": "",
+            "customDomain": { "showDomain": false }
+          },
+          "theme": "wave",
+          "dimensionAxis": {
+            "showTitle": true,
+            "customSize": "auto",
+            "showAxis": true,
+            "title": "",
+            "icons": {
+              "useIcons": false,
+              "iconProps": { "fit": "cover", "column": "", "type": "round" }
+            }
+          },
+          "applyConditionalFormatting": true
+        },
+        "type": "chart"
+      }
+    },
     "AgeBucket_1": {
       "broadcastFacet": true,
       "groups": [],
@@ -1416,14 +1440,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "hbar",
           "title": {
@@ -1502,14 +1530,18 @@
           },
           "axisMode": "multi",
           "tooltip": {
-            "showBinLabel": true,
-            "measures": "",
-            "showNullValues": true,
-            "showPercentage": true,
-            "showDimensions": true,
-            "showMeasures": true,
-            "customizeTooltip": false,
-            "dimensions": ""
+            "content": {
+              "legend": {
+                "showBinLabel": true,
+                "measures": [],
+                "showNullValues": true,
+                "customizeLegend": false,
+                "showPercentage": true,
+                "showDimensions": true,
+                "showMeasures": true,
+                "dimensions": []
+              }
+            }
           },
           "visualizationType": "line",
           "dashLine": { "measures": "", "showDashLine": false },
@@ -1668,11 +1700,16 @@
     },
     "text_3": {
       "parameters": {
-        "content": { "displayTemplate": "12 Mth Avg" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "12 Mth Avg"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -1690,14 +1727,18 @@
         },
         "axisMode": "multi",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "time",
         "missingValue": "connect",
@@ -1767,11 +1808,16 @@
     },
     "text_2": {
       "parameters": {
-        "content": { "displayTemplate": "Last Month" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "Last Month"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -1789,14 +1835,18 @@
         },
         "axisMode": "multi",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "time",
         "missingValue": "connect",
@@ -1887,21 +1937,31 @@
     },
     "text_5": {
       "parameters": {
-        "content": { "displayTemplate": "Top 5 Scam Types:" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#091A3E"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#091A3E" },
+              "insert": "Top 5 Scam Types:"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
     "text_4": {
       "parameters": {
-        "content": { "displayTemplate": "Scam Monthly Dashboard" },
-        "fontSize": 32,
-        "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#091A3E"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "32px", "color": "#091A3E" },
+              "insert": "Scam Monthly Dashboard"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -1927,14 +1987,18 @@
         },
         "axisMode": "multi",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "hbar",
         "exploreLink": true,
@@ -1993,7 +2057,13 @@
     "text_7": {
       "parameters": {
         "content": {
-          "displayTemplate": "In [Display]/[Year] the Scam Team worked a total of [Total_Cases_Worked] cases with [Scam_Only_Cases] cases of scam victims.",
+          "richTextContent": [
+            {
+              "attributes": { "size": "14px", "color": "#091A3E" },
+              "insert": "In [Display]/[Year] the Scam Team worked a total of [Total_Cases_Worked] cases with [Scam_Only_Cases] cases of scam victims."
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ],
           "values": {
             "Total_Cases_Worked": {
               "field": "Total Cases Worked",
@@ -2017,10 +2087,7 @@
             }
           }
         },
-        "fontSize": 14,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2046,14 +2113,18 @@
         },
         "axisMode": "multi",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "vbar",
         "exploreLink": true,
@@ -2111,11 +2182,16 @@
     },
     "text_6": {
       "parameters": {
-        "content": { "displayTemplate": "Top 5 Scam Funds Destination:" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "center",
-        "textColor": "#091A3E"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#091A3E" },
+              "insert": "Top 5 Scam Funds Destination:"
+            },
+            { "attributes": { "align": "center" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2141,14 +2217,18 @@
         },
         "axisMode": "dual",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "time-bar",
         "timeAxis": { "showTitle": false, "showAxis": true, "title": "" },
@@ -2212,7 +2292,13 @@
     "text_9": {
       "parameters": {
         "content": {
-          "displayTemplate": "Report Date: [Display_2] / [Year]",
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#091A3E" },
+              "insert": "Report Date: [Display_2] / [Year]"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ],
           "values": {
             "Display_2": {
               "field": "Display",
@@ -2226,10 +2312,7 @@
             }
           }
         },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "showActionMenu": true
       },
       "type": "text"
     },
@@ -2255,14 +2338,18 @@
         },
         "axisMode": "multi",
         "tooltip": {
-          "showBinLabel": true,
-          "measures": "",
-          "showNullValues": true,
-          "showPercentage": true,
-          "showDimensions": true,
-          "showMeasures": true,
-          "customizeTooltip": false,
-          "dimensions": ""
+          "content": {
+            "legend": {
+              "showBinLabel": true,
+              "measures": [],
+              "showNullValues": true,
+              "customizeLegend": false,
+              "showPercentage": true,
+              "showDimensions": true,
+              "showMeasures": true,
+              "dimensions": []
+            }
+          }
         },
         "visualizationType": "vbar",
         "exploreLink": true,
@@ -2321,7 +2408,13 @@
     "text_8": {
       "parameters": {
         "content": {
-          "displayTemplate": "Overall, [Count_of_Rows] of scam victims were located in [Account_BillingState] the most in the month. The top 3 scam types were {{cell(Type_2.result, 0, \"Type\").asString()}}, {{cell(Type_2.result, 1, \"Type\").asString()}}, {{cell(Type_2.result, 2, \"Type\").asString()}} which represented a combined total of [Percent]% of all scam cases worked.",
+          "richTextContent": [
+            {
+              "attributes": { "size": "14px", "color": "#091A3E" },
+              "insert": "Overall, [Count_of_Rows] of scam victims were located in [Account_BillingState] the most in the month. The top 3 scam types were {{cell(Type_2.result, 0, \"Type\").asString()}}, {{cell(Type_2.result, 1, \"Type\").asString()}}, {{cell(Type_2.result, 2, \"Type\").asString()}} which represented a combined total of [Percent]% of all scam cases worked."
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ],
           "values": {
             "Percent": {
               "field": "Percent",
@@ -2340,20 +2433,22 @@
             }
           }
         },
-        "fontSize": 14,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#091A3E"
+        "showActionMenu": true
       },
       "type": "text"
     },
     "text_1": {
       "parameters": {
-        "content": { "displayTemplate": "This Month" },
-        "fontSize": 16,
-        "showActionMenu": true,
-        "textAlignment": "left",
-        "textColor": "#FFFFFF"
+        "content": {
+          "richTextContent": [
+            {
+              "attributes": { "size": "16px", "color": "#FFFFFF" },
+              "insert": "This Month"
+            },
+            { "attributes": { "align": "left" }, "insert": "\n" }
+          ]
+        },
+        "showActionMenu": true
       },
       "type": "text"
     },
