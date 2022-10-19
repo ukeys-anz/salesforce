@@ -1,3 +1,10 @@
+/**
+ * @description       : Test class for QA rating (Join)calculation class
+ * @author            : Lei Fang
+ * @group             :
+ * @last modified on  : 10-04-2022
+ **/
+
 @isTest
 public with sharing class CalculateQARatingAssessmentForJoinTest {
   public static final String REQUIREMENTS_NOT_MET = 'Requirements not met';
@@ -13,6 +20,7 @@ public with sharing class CalculateQARatingAssessmentForJoinTest {
   public static final String EXCEED_RATING = 'Exceeded Expectations';
   public static final String MET_RATING = 'Met Expectations';
   public static final String NOT_MET_RATING = 'Did Not Meet Expectations';
+  public static final String REFERENCE_VALUE = 'TestRef';
 
   public static final String JOIN_RECORDTYPEID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
     .get('Join')
@@ -34,6 +42,7 @@ public with sharing class CalculateQARatingAssessmentForJoinTest {
     qa.Join_Compliance_Identification__c = EFFECTIVE;
     qa.Join_Compliance_Information__c = EFFECTIVE;
     qa.RecordTypeId = JOIN_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
     qaList.add(qa);
     Quality_Assessment__c qa1 = new Quality_Assessment__c();
     qa1.Evaluation_Type__c = EV_TYPE_INTERACTION;
@@ -51,6 +60,7 @@ public with sharing class CalculateQARatingAssessmentForJoinTest {
     qa1.Join_Compliance_Identification__c = EFFECTIVE;
     qa1.Join_Compliance_Information__c = EFFECTIVE;
     qa1.RecordTypeId = JOIN_RECORDTYPEID;
+    qa1.Reference__c = REFERENCE_VALUE;
     qaList.add(qa1);
     Quality_Assessment__c qa2 = new Quality_Assessment__c();
     qa2.Evaluation_Type__c = EV_TYPE_IDENTITY;
@@ -64,6 +74,7 @@ public with sharing class CalculateQARatingAssessmentForJoinTest {
     qa2.Join_Compliance_Identification__c = EFFECTIVE;
     qa2.Join_Compliance_Information__c = EFFECTIVE;
     qa2.RecordTypeId = JOIN_RECORDTYPEID;
+    qa2.Reference__c = REFERENCE_VALUE;
     qaList.add(qa2);
     insert qaList;
   }

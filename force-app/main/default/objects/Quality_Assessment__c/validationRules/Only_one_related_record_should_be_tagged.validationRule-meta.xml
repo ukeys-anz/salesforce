@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_one_related_record_should_be_tagged</fullName>
+    <active>true</active>
+    <description>A QA can only be tagged with either one of Case/Interaction or have a reference field. It cannot have more than one value updated on the related records.</description>
+    <errorConditionFormula>((NOT(ISBLANK( Related_Case__c )) &amp;&amp; NOT(ISBLANK( Reference__c ))) || 
+ (NOT(ISBLANK( Interaction__c  )) &amp;&amp; NOT(ISBLANK( Reference__c )))||
+ (NOT(ISBLANK( Interaction__c  )) &amp;&amp; NOT(ISBLANK( Related_Case__c)) &amp;&amp; ( Related_Case__c  &lt;&gt;  Interaction__r.CaseId__c )) ) &amp;&amp; $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false</errorConditionFormula>
+    <errorMessage>You may only select one record type per quality assessment. Please select one of the following records {Related Case, Interaction, Reference}</errorMessage>
+</ValidationRule>

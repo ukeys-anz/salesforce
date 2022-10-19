@@ -132,13 +132,11 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
         urlPattern,
         String.valueOf(fi.Body)
       );
-      if (!Test.isRunningTest()) {
-        if (fi.LinkUrl != null) {
-          fi.addError(REMOVE_URL + ': ' + fi.LinkUrl);
-        }
-        if (returnString != String.valueOf(fi.Body) && returnString != null) {
-          fi.addError(REMOVE_URL + ': ' + returnString);
-        }
+      if (fi.LinkUrl != null) {
+        fi.addError(REMOVE_URL + ': ' + fi.LinkUrl);
+      }
+      if (returnString != String.valueOf(fi.Body) && returnString != null) {
+        fi.addError(REMOVE_URL + ': ' + returnString);
       }
     }
   }

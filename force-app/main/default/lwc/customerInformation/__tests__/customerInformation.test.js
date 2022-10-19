@@ -1,18 +1,14 @@
 import { createElement } from "lwc";
-import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 import CustomerInfoComponent from "c/customerInformation";
 import { getRecord } from "lightning/uiRecordApi";
 import getCustomerData from "@salesforce/apex/IDRAPIRepository.getCustomerInfoLWC";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
+import { setImmediate } from "timers";
 
 const SUCCESS_TOAST_TITLE = "Success";
 const mockGetCustomerData = require("./data/getRecord.json");
-const getRecordWireAdapter = registerLdsTestWireAdapter(getRecord);
 const mockOCVCustomerDataResponse = require("./data/getCustomerData.json");
 const mockGetCustomerDataUpdate = require("./data/getRecordCustomerUpdate.json");
-const getRecordCustomerUpdateWireAdapter = registerLdsTestWireAdapter(
-  getRecord
-);
 const mockGetCustomerDataError = require("./data/getCustomerInfoError.json");
 
 jest.mock(
@@ -46,7 +42,7 @@ describe("c-customer-information", () => {
       is: CustomerInfoComponent
     });
     document.body.appendChild(element);
-    getRecordWireAdapter.emit(mockGetCustomerData);
+    getRecord.emit(mockGetCustomerData);
 
     // Resolve a promise to wait for a rerender of the new content.
     return flushPromises().then(() => {
@@ -90,7 +86,7 @@ describe("c-customer-information", () => {
     element.showMore = false;
     getCustomerData.mockResolvedValue(mockOCVCustomerDataResponse);
 
-    getRecordWireAdapter.emit(mockGetCustomerData);
+    getRecord.emit(mockGetCustomerData);
 
     // Resolve a promise to wait for a rerender of the new content.
     return flushPromises().then(() => {
@@ -141,7 +137,7 @@ describe("c-customer-information", () => {
     element.showMore = false;
     getCustomerData.mockResolvedValue(mockOCVCustomerDataResponse);
 
-    getRecordWireAdapter.emit(mockGetCustomerDataUpdate);
+    getRecord.emit(mockGetCustomerDataUpdate);
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
     // Resolve a promise to wait for a rerender of the new content.

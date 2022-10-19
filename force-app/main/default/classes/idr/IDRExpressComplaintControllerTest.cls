@@ -158,7 +158,7 @@ public with sharing class IDRExpressComplaintControllerTest {
       System.assertEquals(
         true,
         exceptionOccured,
-        'Exception should have occured|\n' +errorMessage
+        'Exception should have occured|\n' + errorMessage
       );
     }
   }

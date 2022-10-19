@@ -7,6 +7,7 @@
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
+export { classSet } from "./classSet";
 
 // Handle show toast message
 export function showToast(
