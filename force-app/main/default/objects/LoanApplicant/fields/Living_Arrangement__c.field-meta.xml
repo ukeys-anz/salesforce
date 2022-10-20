@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Living_Arrangement__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Source_Loan_Domain</complianceGroup>
+    <description>Living arrangement details</description>
+    <externalId>false</externalId>
+    <label>Living Arrangement</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LIVING_BOARD</fullName>
+                <default>false</default>
+                <label>LIVING_BOARD</label>
+            </value>
+            <value>
+                <fullName>LIVING_CARAVAN</fullName>
+                <default>false</default>
+                <label>LIVING_CARAVAN</label>
+            </value>
+            <value>
+                <fullName>LIVING_WITH_PARENTS</fullName>
+                <default>false</default>
+                <label>LIVING_WITH_PARENTS</label>
+            </value>
+            <value>
+                <fullName>LIVING_HOME_MORTGAGE</fullName>
+                <default>false</default>
+                <label>LIVING_HOME_MORTGAGE</label>
+            </value>
+            <value>
+                <fullName>LIVING_HOME_NO_MORTGAGE</fullName>
+                <default>false</default>
+                <label>LIVING_HOME_NO_MORTGAGE</label>
+            </value>
+            <value>
+                <fullName>LIVING_RENT</fullName>
+                <default>false</default>
+                <label>LIVING_RENT</label>
+            </value>
+            <value>
+                <fullName>LIVING_OTHER</fullName>
+                <default>false</default>
+                <label>LIVING_OTHER</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

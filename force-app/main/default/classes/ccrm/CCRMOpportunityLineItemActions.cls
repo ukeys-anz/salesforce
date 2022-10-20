@@ -35,9 +35,7 @@ public with sharing class CCRMOpportunityLineItemActions {
         if (
           oli.OpportunityId == record.OpportunityId && !oli.Has_Legal_Entity__c
         ) {
-          record.addError(
-            LEGAL_ENTITY_REQUIRED
-          );
+          record.addError(LEGAL_ENTITY_REQUIRED);
         }
       }
     }
