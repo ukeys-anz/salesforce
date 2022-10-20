@@ -25,7 +25,6 @@ Trial Customer Portal User.profile
 # SFDX based permissions that are only available in Production
 force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
 force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
-force-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionsetgroup-meta.xml
 
 # Ignoring sharing rules for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
@@ -66,6 +65,8 @@ force-app/main/default/objects/FinServ__Securities__c/
 force-app/main/default/objects/FinServ__ReciprocalRole__c/
 force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
 force-app/main/default/objects/SocialPost/
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__RelatedContact__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__SourceSystemId__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__SourceSystemId__c.field-meta.xml
 force-app/main/default/flows/Outbound_New_Appointment.flow-meta.xml

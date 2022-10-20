@@ -135,9 +135,9 @@ echoMessageCreator "" $stepNo false
 
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
-git checkout .
-
+git checkout "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
 sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
+git checkout .
 sfdx force:source:deploy -u $scratchorgalias -p force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
 
 waitForManualSteps $scratchorgalias "post-deploy"

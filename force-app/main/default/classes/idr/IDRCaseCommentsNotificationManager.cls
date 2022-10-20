@@ -24,14 +24,17 @@ public with sharing class IDRCaseCommentsNotificationManager {
         ) {
           wrapperList.add(createNotification(caseRec));
         }
-        if ((caseRec.Status == 'Closed' || caseRec.Status == 'Withdrawn' || caseRec.Status == 'Resolved') &&
-            caseRec.IDR_Additional_Correspondence_reviewed__c == true
+        if (
+          (caseRec.Status == 'Closed' ||
+          caseRec.Status == 'Withdrawn' ||
+          caseRec.Status == 'Resolved') &&
+          caseRec.IDR_Additional_Correspondence_reviewed__c == true
         ) {
-            caseRec.IDR_Additional_Correspondence_reviewed__c = false;
-            caseUpdatedList.add(caseRec);
+          caseRec.IDR_Additional_Correspondence_reviewed__c = false;
+          caseUpdatedList.add(caseRec);
         }
       }
-   }  
+    }
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
@@ -39,7 +42,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
 
     if (!caseUpdatedlist.isEmpty()) {
       update caseUpdatedList;
-  }
+    }
   }
 
   /**
@@ -56,7 +59,15 @@ public with sharing class IDRCaseCommentsNotificationManager {
     }
 
     for (Case c : [
-      SELECT Id, RecordTypeId, CaseNumber, OwnerId, Status, IDR_Additional_Correspondence_reviewed__c
+      SELECT
+        Id,
+        RecordTypeId,
+        CaseNumber,
+        OwnerId,
+        Status,
+        IDR_Additional_Correspondence_reviewed__c,
+        IDR_NC_First_Name__c,
+        IDR_NC_Last_Name__c
       FROM Case
       WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {
@@ -71,11 +82,22 @@ public with sharing class IDRCaseCommentsNotificationManager {
    * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
   private static IDRBankerNotificationWrapper createNotification(Case record) {
+    String customerName = (record.IDR_NC_First_Name__c != null ||
+      record.IDR_NC_Last_Name__c != null)
+      ? ('Customer Name : ' +
+        (record.IDR_NC_First_Name__c != null
+          ? record.IDR_NC_First_Name__c + ' '
+          : '') +
+        (record.IDR_NC_Last_Name__c != null ? record.IDR_NC_Last_Name__c : '') +
+        '\n')
+      : '';
     IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
       record,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      'New Case Comment added by ' + UserInfo.getName(),
+      customerName +
+      'New Case Comment added by ' +
+      UserInfo.getName(),
       record
     );
 
