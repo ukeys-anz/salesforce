@@ -499,4 +499,12 @@
         <object>ResidentialLoanApplication</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>Loan_Applicant_Group__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Product_Preference__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
 </PermissionSet>

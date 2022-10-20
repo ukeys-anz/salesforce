@@ -1320,7 +1320,8 @@
         "Living_Arrangement__c",
         "Primary_Borrower__c",
         "Sole_Applicant_Selected__c",
-        "Sole_Income_Earner__c"
+        "Sole_Income_Earner__c",
+        "Eligibility_Accepted__c"
       ],
       "IA-2530753": ["CreatedDate", "LastModifiedDate"],
       "IA-2594111": [
@@ -1330,7 +1331,7 @@
         "Name"
       ],
       "IA-2415720": ["Customer_Number__c"],
-      "IA-2415984": ["Eligibility_Accepted__c", "Occupation_Code__c"]
+      "IA-2415984": ["Occupation_Code__c"]
     },
     "LoanApplicantLiability": {
       "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
@@ -1809,6 +1810,7 @@
         "Main_Goal__c",
         "Owner_Occupied__c",
         "Package_Code__c",
+        "Package_Version__c",
         "Settlement_ID__c",
         "Status"
       ],
@@ -1820,7 +1822,6 @@
         "Collateral_Assessment_Outcome__c",
         "Max_Allowable_LVR_Basis_Points__c"
       ],
-      "IA-2468706": ["Package_Version__c"],
       "IA-2594113": ["State__c"]
     },
     "Response_Type__c": {
