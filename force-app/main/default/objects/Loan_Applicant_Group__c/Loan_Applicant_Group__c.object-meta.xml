@@ -168,6 +168,6 @@
     <searchLayouts>
         <searchResultsAdditionalFields>Loan_Applicant_Group_ID__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>Private</sharingModel>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
