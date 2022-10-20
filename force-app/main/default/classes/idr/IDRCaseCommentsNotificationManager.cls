@@ -65,7 +65,9 @@ public with sharing class IDRCaseCommentsNotificationManager {
         CaseNumber,
         OwnerId,
         Status,
-        IDR_Additional_Correspondence_reviewed__c
+        IDR_Additional_Correspondence_reviewed__c,
+        IDR_NC_First_Name__c,
+        IDR_NC_Last_Name__c
       FROM Case
       WHERE Id IN :caseIds AND Owner.isActive = TRUE
     ]) {
@@ -80,11 +82,22 @@ public with sharing class IDRCaseCommentsNotificationManager {
    * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
   private static IDRBankerNotificationWrapper createNotification(Case record) {
+    String customerName = (record.IDR_NC_First_Name__c != null ||
+      record.IDR_NC_Last_Name__c != null)
+      ? ('Customer Name : ' +
+        (record.IDR_NC_First_Name__c != null
+          ? record.IDR_NC_First_Name__c + ' '
+          : '') +
+        (record.IDR_NC_Last_Name__c != null ? record.IDR_NC_Last_Name__c : '') +
+        '\n')
+      : '';
     IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
       record,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      'New Case Comment added by ' + UserInfo.getName(),
+      customerName +
+      'New Case Comment added by ' +
+      UserInfo.getName(),
       record
     );
 

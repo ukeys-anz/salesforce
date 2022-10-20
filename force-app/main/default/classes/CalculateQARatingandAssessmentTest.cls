@@ -1,3 +1,9 @@
+/**
+ * @description       : Test class for QA rating (Get Help )calculation class
+ * @author            : Prakash
+ * @group             :
+ * @last modified on  : 10-04-2022
+ **/
 @isTest
 public with sharing class CalculateQARatingandAssessmentTest {
   public static final String REQUIREMENTS_NOT_MET = 'Requirements not met';
@@ -8,6 +14,7 @@ public with sharing class CalculateQARatingandAssessmentTest {
   public static final String ALMOSTTHERE = 'Almost There';
   public static final String NOT_THERE_YET = 'Not There Yet';
   public static final String OUTSTANDING = 'Outstanding';
+  public static final String REFERENCE_VALUE = 'TestRef';
 
   public static final String GET_HELP_RECORDTYPEID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
     .get('Get_Help')
@@ -18,6 +25,7 @@ public with sharing class CalculateQARatingandAssessmentTest {
     Quality_Assessment__c qa = new Quality_Assessment__c();
     qa.Risk_and_Compliance_Category__c = 'Yes - Requirements met';
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
     insert qa;
 
     Test.startTest();
@@ -48,6 +56,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     Quality_Assessment__c qa = new Quality_Assessment__c();
     qa.Risk_and_Compliance_Category__c = 'ID & Privacy Category';
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -93,6 +103,7 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.CN_Scope_Provided__c = NA_VALUE;
     qa.CN_Checklist__c = NA_VALUE;
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
 
     insert qa;
 
@@ -135,6 +146,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.CN_Scope_Provided__c = NA_VALUE;
     qa.CN_Checklist__c = NA_VALUE;
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -179,6 +192,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.CN_Scope_Provided__c = EFFECTIVE;
     qa.CN_Checklist__c = EFFECTIVE;
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -223,6 +238,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.CN_Scope_Provided__c = EFFECTIVE;
     qa.CN_Checklist__c = EFFECTIVE;
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -267,6 +284,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.CN_Scope_Provided__c = EFFECTIVE;
     qa.CN_Checklist__c = EFFECTIVE;
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -311,6 +330,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.CN_Scope_Provided__c = ALMOST_THERE;
     qa.CN_Checklist__c = ALMOST_THERE;
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -352,6 +373,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.CN_Scope_Provided__c = EFFECTIVE;
     qa.CN_Checklist__c = ALMOST_THERE;
     qa.RecordTypeId = GET_HELP_RECORDTYPEID;
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -381,6 +404,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.Actions_and_Momentum__c = ALMOSTTHERE; // Score should be 15
     qa.Accountability_and_Next_Steps__c = OUTSTANDING; // Score should be 20
     qa.Energy_and_Adaptability__c = OUTSTANDING; // Score should be 20
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -416,6 +441,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.Actions_and_Momentum__c = ALMOSTTHERE; // Score should be 15
     qa.Accountability_and_Next_Steps__c = ALMOSTTHERE; // Score should be 15
     qa.Energy_and_Adaptability__c = OUTSTANDING; // Score should be 20
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -451,6 +478,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.Actions_and_Momentum__c = ALMOSTTHERE; // Score should be 5
     qa.Accountability_and_Next_Steps__c = ALMOSTTHERE; // Score should be 5
     qa.Energy_and_Adaptability__c = NOT_THERE_YET; // Score should be 2
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();
@@ -489,6 +518,8 @@ public with sharing class CalculateQARatingandAssessmentTest {
     qa.Actions_and_Momentum__c = ALMOSTTHERE; // Score should be 9.5
     qa.Accountability_and_Next_Steps__c = ALMOSTTHERE; // Score should be 9.5
     qa.Energy_and_Adaptability__c = NOT_THERE_YET; // Score should be 2
+    qa.Reference__c = REFERENCE_VALUE;
+
     insert qa;
 
     Test.startTest();

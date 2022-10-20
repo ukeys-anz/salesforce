@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Sub_Type__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Based on the type of case, the sub type provides a more detailed categorisation of the case.</description>
     <externalId>false</externalId>
     <label>Issue Sub Type</label>
@@ -277,7 +277,7 @@
                 <default>false</default>
                 <label>Raising a concern</label>
             </value>
-             <value>
+            <value>
                 <fullName>Withholding tax refund</fullName>
                 <default>false</default>
                 <label>Withholding tax refund</label>
@@ -304,72 +304,20 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>About Us</controllingFieldValue>
-            <valueName>About ANZ Plus</valueName>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
+            <valueName>Overdraft</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>About Us</controllingFieldValue>
-            <valueName>Digital Support</valueName>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
+            <valueName>Round Ups</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>About Us</controllingFieldValue>
-            <valueName>Privacy</valueName>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
+            <valueName>Savings Goals</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>About Us</controllingFieldValue>
-            <valueName>ANZ branches</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Using account</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Savings and goals</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Using tiles</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Account closure</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Statements</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Transaction Disputes</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Withholding tax refund</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Making payments</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>General Home Loan Enquiry</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>Managing Repayments</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>Close Home Loan</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>Loan Statements</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Direct Debit or Recurring Payment</valueName>
+            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
+            <valueName>Transaction</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
@@ -416,20 +364,20 @@
             <valueName>Raising a concern</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>App Support</controllingFieldValue>
-            <valueName>App Guide</valueName>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>Digital Support</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>App Support</controllingFieldValue>
-            <valueName>Device Support</valueName>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>About ANZ Plus</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
-            <valueName>Bug Report</valueName>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>Privacy</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
-            <valueName>Feature Request</valueName>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>ANZ branches</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Cards</controllingFieldValue>
@@ -450,6 +398,54 @@
         <valueSettings>
             <controllingFieldValue>Cards</controllingFieldValue>
             <valueName>Digital wallet issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Using account</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Savings and goals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Using tiles</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Statements</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Transaction Disputes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Withholding tax refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Direct Debit or Recurring Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Making payments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>App Support</controllingFieldValue>
+            <valueName>App Guide</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>App Support</controllingFieldValue>
+            <valueName>Device Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
+            <valueName>Bug Report</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Bug Report &amp; Feature</controllingFieldValue>
+            <valueName>Feature Request</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Coaching</controllingFieldValue>
@@ -502,22 +498,6 @@
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
             <valueName>Product Info</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
-            <valueName>Overdraft</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
-            <valueName>Round Ups</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
-            <valueName>Savings Goals</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
-            <valueName>Transaction</valueName>
         </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>

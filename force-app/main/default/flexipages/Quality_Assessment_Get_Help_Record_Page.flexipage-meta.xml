@@ -166,6 +166,12 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldItem>Record.Lead__c</fieldItem>
+                <identifier>RecordLead_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
                     <value>readonly</value>
@@ -202,6 +208,12 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
+                <fieldItem>Record.Interaction__c</fieldItem>
+                <identifier>RecordInteraction_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
                     <value>none</value>
@@ -218,6 +230,12 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Interaction_Type__c</fieldItem>
                 <identifier>RecordInteraction_Type__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Interaction_Category__c</fieldItem>
+                <identifier>RecordInteraction_Category_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -998,6 +1016,52 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Advice_Define_Scope__c</fieldItem>
+                <identifier>RecordAdvice_Define_Scope__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Advice_Define_Scope_Comments__c</fieldItem>
+                <identifier>RecordAdvice_Define_Scope_Comments__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Advice_Customer_understanding_of_scope__c</fieldItem>
                 <identifier>RecordAdvice_Customer_understanding_of_scope__cField</identifier>
                 <visibilityRule>
@@ -1069,282 +1133,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Advice_Limit_scope_of_advice_Comments__c</fieldItem>
                 <identifier>RecordAdvice_Limit_scope_of_advice_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Advice_Substantive_Advice_OFSN__c</fieldItem>
-                <identifier>RecordAdvice_Substantive_Advice_OFSN__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Advice_Substantive_Advice_OFSN_Comments__c</fieldItem>
-                <identifier>RecordAdvice_Substantive_Advice_OFSN_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Advice_Best_Interest_Duty__c</fieldItem>
-                <identifier>RecordAdvice_Best_Interest_Duty__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Advice_Best_Interests_Duty_Comments__c</fieldItem>
-                <identifier>RecordAdvice_Best_Interests_Duty_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Advice_Incomplete_Inaccurate_warning__c</fieldItem>
-                <identifier>RecordAdvice_Incomplete_Inaccurate_warning__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Incomplete_Inaccurate_Warning_Comments__c</fieldItem>
-                <identifier>RecordIncomplete_Inaccurate_Warning_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CN_Substantive_Advice__c</fieldItem>
-                <identifier>RecordCN_Substantive_Advice__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CN_Substantive_Advice_Comments__c</fieldItem>
-                <identifier>RecordCN_Substantive_Advice_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CN_Scope_Provided__c</fieldItem>
-                <identifier>RecordCN_Scope_Provided__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CN_Scope_Provided_Comments__c</fieldItem>
-                <identifier>RecordCN_Scope_Provided_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Advice_Define_Scope__c</fieldItem>
-                <identifier>RecordAdvice_Define_Scope__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Advice_Define_Scope_Comments__c</fieldItem>
-                <identifier>RecordAdvice_Define_Scope_Comments__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -1504,6 +1292,144 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Advice_Substantive_Advice_OFSN__c</fieldItem>
+                <identifier>RecordAdvice_Substantive_Advice_OFSN__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Advice_Substantive_Advice_OFSN_Comments__c</fieldItem>
+                <identifier>RecordAdvice_Substantive_Advice_OFSN_Comments__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Advice_Best_Interest_Duty__c</fieldItem>
+                <identifier>RecordAdvice_Best_Interest_Duty__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Advice_Best_Interests_Duty_Comments__c</fieldItem>
+                <identifier>RecordAdvice_Best_Interests_Duty_Comments__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Advice_Incomplete_Inaccurate_warning__c</fieldItem>
+                <identifier>RecordAdvice_Incomplete_Inaccurate_warning__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Incomplete_Inaccurate_Warning_Comments__c</fieldItem>
+                <identifier>RecordIncomplete_Inaccurate_Warning_Comments__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Advice_Dispute_Resolution__c</fieldItem>
                 <identifier>RecordAdvice_Dispute_Resolution__cField</identifier>
                 <visibilityRule>
@@ -1529,52 +1455,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Advice_Dispute_Resolution_Comments__c</fieldItem>
                 <identifier>RecordAdvice_Dispute_Resolution_Comments__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CN_Fact_Find__c</fieldItem>
-                <identifier>RecordCN_Fact_Find__cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Yes</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CN_Fact_Find_Comments__c</fieldItem>
-                <identifier>RecordCN_Fact_Find_Comments__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
@@ -1642,6 +1522,98 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.CN_Scope_Provided__c</fieldItem>
+                <identifier>RecordCN_Scope_Provided__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CN_Scope_Provided_Comments__c</fieldItem>
+                <identifier>RecordCN_Scope_Provided_Comments__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CN_Fact_Find__c</fieldItem>
+                <identifier>RecordCN_Fact_Find__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CN_Fact_Find_Comments__c</fieldItem>
+                <identifier>RecordCN_Fact_Find_Comments__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.CN_OFSN__c</fieldItem>
                 <identifier>RecordCN_OFSN__cField</identifier>
                 <visibilityRule>
@@ -1667,6 +1639,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CN_OFSN_Comments__c</fieldItem>
                 <identifier>RecordCN_OFSN_Comments__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CN_Substantive_Advice__c</fieldItem>
+                <identifier>RecordCN_Substantive_Advice__cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Advice_Supplement__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Evaluation_Type__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Email</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CN_Substantive_Advice_Comments__c</fieldItem>
+                <identifier>RecordCN_Substantive_Advice_Comments__cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>

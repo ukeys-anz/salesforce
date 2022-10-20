@@ -527,7 +527,7 @@
   </classAccesses>
   <classAccesses>
     <apexClass>FinServ__MoiIBaseService</apexClass>
-    <enabled>true</enabled>
+    <enabled>true</enabled> 
   </classAccesses>
   <classAccesses>
     <apexClass>FinServ__MoiIBusinessLogicChain</apexClass>
@@ -8019,6 +8019,10 @@
       <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
   <layoutAssignments>
+      <layout>Case-Account Closure Layout</layout>
+      <recordType>Case.Account_Closure</recordType>
+  </layoutAssignments>
+  <layoutAssignments>
     <layout>Case-ANZx Complaint Layout</layout>
     <recordType>Case.ANZx_Complaint</recordType>
   </layoutAssignments>
@@ -9091,6 +9095,11 @@
   <recordTypeVisibilities>
     <default>false</default>
     <recordType>Account.FinServ__IndustriesInstitution</recordType>
+    <visible>false</visible>
+  </recordTypeVisibilities>
+  <recordTypeVisibilities>
+    <default>false</default>
+    <recordType>Case.Account_Closure</recordType>
     <visible>false</visible>
   </recordTypeVisibilities>
   <recordTypeVisibilities>

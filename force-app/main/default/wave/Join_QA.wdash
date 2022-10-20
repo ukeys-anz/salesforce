@@ -50,7 +50,7 @@
               "column": 8,
               "name": "table_2",
               "row": 0,
-              "rowspan": 28,
+              "rowspan": 26,
               "widgetStyle": { "borderEdges": [] }
             },
             {
@@ -118,20 +118,27 @@
   "steps": {
     "Overall_Score_1": {
       "broadcastFacet": true,
-      "datasets": [{ "name": "Quality_Assessment" }],
-      "isGlobal": false,
+      "groups": [],
       "label": "Overall Score",
-      "query": {
-        "query": "{\"measures\":[[\"avg\",\"Score__c\",\"A\"]],\"columns\":[{\"query\":{\"measures\":[[\"avg\",\"Score__c\"]],\"groups\":[[\"year\",\"Interaction_Date_Time__c\"],[\"month\",\"Interaction_Date_Time__c\"]]}}],\"groups\":[[\"year\",\"Interaction_Date_Time__c\"],[\"month\",\"Interaction_Date_Time__c\"]],\"filters\":[[\"RecordType.Name\",[\"Join\"],\"in\"]]}",
-        "version": -1.0
-      },
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Join\";\nresult = group q by ('Interaction_Date_Time__c_Year', 'Interaction_Date_Time__c_Month');\nresult = foreach result generate 'Interaction_Date_Time__c_Year' + \"/\" + 'Interaction_Date_Time__c_Month' as 'month_Interaction_Date_Time__c', avg(q.'Score__c') as 'A';\nresult = order result by ('month_Interaction_Date_Time__c' asc);\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "type": "aggregateflex",
+      "strings": [],
+      "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
           "autoFitMode": "keepLabels",
+          "showValues": true,
+          "bins": {
+            "breakpoints": { "high": 100, "low": 0 },
+            "bands": {
+              "high": { "color": "#008000", "label": "" },
+              "low": { "color": "#B22222", "label": "" },
+              "medium": { "color": "#ffa500", "label": "" }
+            }
+          },
           "showPoints": false,
           "legend": {
             "descOrder": false,
@@ -159,12 +166,13 @@
           "visualizationType": "line",
           "dashLine": { "measures": "", "showDashLine": false },
           "title": {
-            "fontSize": 16,
+            "fontSize": 18,
             "subtitleFontSize": 11,
             "label": "Overall Score",
             "align": "center",
             "subtitleLabel": ""
           },
+          "binValues": false,
           "trellis": {
             "flipLabels": false,
             "showGridLines": true,
@@ -172,14 +180,6 @@
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
-          },
-          "columnMap": {
-            "split": [],
-            "trellis": [],
-            "dimensionAxis": [
-              "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c"
-            ],
-            "plots": ["A"]
           },
           "fillArea": true,
           "showActionMenu": true,
@@ -191,6 +191,7 @@
             "title": "",
             "customDomain": { "showDomain": false }
           },
+          "valueType": "none",
           "measureAxis1": {
             "sqrtScale": false,
             "showTitle": false,
@@ -198,7 +199,6 @@
             "title": "",
             "customDomain": { "showDomain": false }
           },
-          "valueType": "none",
           "theme": "wave",
           "dimensionAxis": {
             "showTitle": false,
@@ -353,7 +353,7 @@
       "groups": [],
       "label": "Month/Year Breakdown",
       "numbers": [],
-      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'Interaction_Date_Time__c' in [\"1 year ago\"..\"current day\"];\nq = filter q by 'RecordType.Name' == \"Join\";\nq = group q by (year('Interaction_Date_Time__c'), month('Interaction_Date_Time__c'));\nq = foreach q generate number_to_string(month('Interaction_Date_Time__c'), \"##\") + \" /  \" + number_to_string(year('Interaction_Date_Time__c'), \"####\") as 'Month/Year', \n    sum('Exceeded_Expectations') as 'Exceeded_Expectations', sum('Met_Expectations') as 'Met_Expectations', \n    sum('Did_Not_Meet') as 'Did_Not_Meet', avg('Score_p') as 'avg_Score_p';",
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'Interaction_Date_Time__c' in [\"1 year ago\"..\"current day\"];\nq = filter q by 'RecordType.Name' == \"Join\";\nq = group q by ('Interaction_Date_Time__c_Year', 'Interaction_Date_Time__c_Month');\nq = foreach q generate 'Interaction_Date_Time__c_Year' + \"/\" + 'Interaction_Date_Time__c_Month' as 'Month/Year', \n    sum('Exceeded_Expectations') as 'Exceeded_Expectations', sum('Met_Expectations') as 'Met_Expectations', \n    sum('Did_Not_Meet') as 'Did_Not_Meet', avg('Score_p') as 'avg_Score_p';",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
       "strings": [],
@@ -382,8 +382,9 @@
           "mode": "fittocontainer",
           "numberOfLines": 1,
           "oddRowColor": "#ffffff",
-          "pivoted": true,
+          "pivoted": false,
           "showActionMenu": true,
+          "totals": true,
           "verticalPadding": 12
         },
         "type": "table"
@@ -391,16 +392,14 @@
     },
     "Overall_Hindsight_Te_1": {
       "broadcastFacet": true,
-      "datasets": [{ "name": "Quality_Assessment" }],
-      "isGlobal": false,
+      "groups": [],
       "label": "Overall Hindsight Test Results",
-      "query": {
-        "query": "{\"measures\":[[\"count\",\"*\"]],\"groups\":[[\"year\",\"Interaction_Date_Time__c\"],[\"month\",\"Interaction_Date_Time__c\"],\"Rating__c\"],\"filters\":[[\"RecordType.Name\",[\"Join\"],\"in\"],[\"Rating__c\",[\"Did Not Meet Expectations\",\"Exceeded Expectations\",\"Met Expectations\"],\"in\"]]}",
-        "version": -1.0
-      },
+      "numbers": [],
+      "query": "q = load \"Quality_Assessment\";\nq = filter q by 'RecordType.Name' == \"Join\";\nq = filter q by 'Rating__c' in [\"Did Not Meet Expectations\", \"Exceeded Expectations\", \"Met Expectations\"];\nq = group q by ('Interaction_Date_Time__c_Year', 'Interaction_Date_Time__c_Month', 'Rating__c');\nq = foreach q generate 'Interaction_Date_Time__c_Year' as 'year_Interaction_Date_Time__c', 'Interaction_Date_Time__c_Month' as 'month_Interaction_Date_Time__c', 'Rating__c' as 'Rating__c', count() as 'count';\nq = order q by ('year_Interaction_Date_Time__c' asc, 'month_Interaction_Date_Time__c' asc, 'Rating__c' asc);\n",
       "receiveFacetSource": { "mode": "all", "steps": [] },
       "selectMode": "single",
-      "type": "aggregateflex",
+      "strings": [],
+      "type": "saql",
       "useGlobal": true,
       "visualizationParameters": {
         "parameters": {
@@ -439,7 +438,7 @@
           },
           "visualizationType": "vbar",
           "title": {
-            "fontSize": 16,
+            "fontSize": 18,
             "subtitleFontSize": 11,
             "label": "Overall Hindsight Test Results",
             "align": "center",
@@ -453,14 +452,6 @@
             "enable": false,
             "type": "x",
             "chartsPerLine": 4
-          },
-          "columnMap": {
-            "trellis": [],
-            "dimensionAxis": [
-              "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c",
-              "Rating__c"
-            ],
-            "plots": ["count"]
           },
           "showActionMenu": true,
           "measureAxis2": {
@@ -511,12 +502,7 @@
           "fontColor": "#16325c",
           "fontSize": 12
         },
-        "columnProperties": {
-          "Month/Year": {
-            "parameters": { "alignment": "left", "styles": { "bold": true } },
-            "type": "text"
-          }
-        },
+        "columnProperties": {},
         "columns": [],
         "customBulkActions": [],
         "evenRowColor": "#f4f6f9",
@@ -648,7 +634,16 @@
     },
     "chart_2": {
       "parameters": {
+        "autoFitMode": "keepLabels",
         "showValues": true,
+        "bins": {
+          "breakpoints": { "high": 100, "low": 0 },
+          "bands": {
+            "high": { "color": "#008000", "label": "" },
+            "low": { "color": "#B22222", "label": "" },
+            "medium": { "color": "#ffa500", "label": "" }
+          }
+        },
         "showPoints": false,
         "legend": {
           "descOrder": false,
@@ -674,6 +669,7 @@
           }
         },
         "visualizationType": "line",
+        "dashLine": { "measures": "", "showDashLine": false },
         "exploreLink": true,
         "title": {
           "fontSize": 18,
@@ -691,9 +687,26 @@
           "type": "x",
           "chartsPerLine": 4
         },
+        "fillArea": true,
+        "showActionMenu": true,
         "showZero": true,
+        "measureAxis2": {
+          "sqrtScale": false,
+          "showTitle": true,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
         "valueType": "none",
+        "measureAxis1": {
+          "sqrtScale": false,
+          "showTitle": false,
+          "showAxis": true,
+          "title": "",
+          "customDomain": { "showDomain": false }
+        },
         "theme": "wave",
+        "step": "Overall_Score_1",
         "dimensionAxis": {
           "showTitle": false,
           "customSize": "auto",
@@ -710,42 +723,7 @@
           "showDrawArea": false,
           "bounding1": "",
           "bounding2": ""
-        },
-        "autoFitMode": "keepLabels",
-        "bins": {
-          "breakpoints": { "high": 100, "low": 0 },
-          "bands": {
-            "high": { "color": "#008000", "label": "" },
-            "low": { "color": "#B22222", "label": "" },
-            "medium": { "color": "#ffa500", "label": "" }
-          }
-        },
-        "dashLine": { "measures": "", "showDashLine": false },
-        "fillArea": true,
-        "columnMap": {
-          "split": [],
-          "trellis": [],
-          "dimensionAxis": [
-            "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c"
-          ],
-          "plots": ["A"]
-        },
-        "showActionMenu": true,
-        "measureAxis2": {
-          "sqrtScale": false,
-          "showTitle": true,
-          "showAxis": true,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
-        "measureAxis1": {
-          "sqrtScale": false,
-          "showTitle": false,
-          "showAxis": true,
-          "title": "",
-          "customDomain": { "showDomain": false }
-        },
-        "step": "Overall_Score_1"
+        }
       },
       "type": "chart"
     },
@@ -772,7 +750,6 @@
         "axisMode": "multi",
         "tooltip": {
           "content": {
-            "widget": { "name": "table_5" },
             "legend": {
               "showBinLabel": true,
               "measures": [],
@@ -802,14 +779,6 @@
           "enable": false,
           "type": "x",
           "chartsPerLine": 4
-        },
-        "columnMap": {
-          "trellis": [],
-          "dimensionAxis": [
-            "year_Interaction_Date_Time__c~~~month_Interaction_Date_Time__c",
-            "Rating__c"
-          ],
-          "plots": ["count"]
         },
         "showActionMenu": true,
         "measureAxis2": {

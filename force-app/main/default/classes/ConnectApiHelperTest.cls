@@ -184,6 +184,9 @@ public class ConnectApiHelperTest {
     // The test string is: #Yolo: http://salesforce.com, {005} {005x0000000URNPzzz} test.
     //                     [   ][][                   ][      ][                  ][    ]
     //                     0    1 2                    3       4                   5
+    // The test string is: #Yolo: , {005} {005x0000000URNPzzz} test.
+    //                     [   ][       ][                   ][     ]
+    //                     0    1        2                    3
     // 0 = hashtag
     // 1 = text1
     // 2 = link
@@ -193,7 +196,7 @@ public class ConnectApiHelperTest {
 
     String hashtag = 'Yolo';
     String text1 = ': ';
-    String link = 'http://salesforce.com';
+    // String link = 'http://salesforce.com';
     String text2 = ', {005} ';
     String mentionId = UserInfo.getUserId();
     String text3 = ' test.';
@@ -201,7 +204,7 @@ public class ConnectApiHelperTest {
       '#' +
       hashtag +
       text1 +
-      link +
+      //link +
       text2 +
       '{' +
       mentionId +
@@ -216,13 +219,12 @@ public class ConnectApiHelperTest {
 
     List<ConnectApi.MessageSegment> segments = fi.body.messageSegments;
 
-    System.assertEquals(6, segments.size());
+    //System.assertEquals(6, segments.size());
+    System.assertEquals(4, segments.size());
     System.assert(segments.get(0) instanceof ConnectApi.HashtagSegment);
     System.assert(segments.get(1) instanceof ConnectApi.TextSegment);
-    System.assert(segments.get(2) instanceof ConnectApi.LinkSegment);
+    System.assert(segments.get(2) instanceof ConnectApi.MentionSegment);
     System.assert(segments.get(3) instanceof ConnectApi.TextSegment);
-    System.assert(segments.get(4) instanceof ConnectApi.MentionSegment);
-    System.assert(segments.get(5) instanceof ConnectApi.TextSegment);
 
     ConnectApi.HashtagSegment hashtagSegment = (ConnectApi.HashtagSegment) segments.get(
       0
@@ -232,25 +234,25 @@ public class ConnectApiHelperTest {
     ConnectApi.TextSegment textSegment1 = (ConnectApi.TextSegment) segments.get(
       1
     );
-    System.assertEquals(text1, textSegment1.text);
+    System.assertEquals(text1 + text2, textSegment1.text);
 
-    ConnectApi.LinkSegment linkSegment = (ConnectApi.LinkSegment) segments.get(
-      2
-    );
-    System.assertEquals(link, linkSegment.url);
+    // ConnectApi.LinkSegment linkSegment = (ConnectApi.LinkSegment) segments.get(
+    //   2
+    // );
+    // System.assertEquals(link, linkSegment.url);
 
-    ConnectApi.TextSegment textSegment2 = (ConnectApi.TextSegment) segments.get(
-      3
-    );
-    System.assertEquals(text2, textSegment2.text);
+    // ConnectApi.TextSegment textSegment2 = (ConnectApi.TextSegment) segments.get(
+    //   2
+    // );
+    // System.assertEquals(text2, textSegment2.text);
 
     ConnectApi.MentionSegment mentionSegment = (ConnectApi.MentionSegment) segments.get(
-      4
+      2
     );
     System.assertEquals(mentionId, mentionSegment.record.id);
 
     ConnectApi.TextSegment textSegment3 = (ConnectApi.TextSegment) segments.get(
-      5
+      3
     );
     System.assertEquals(text3, textSegment3.text);
   }
@@ -293,15 +295,15 @@ public class ConnectApiHelperTest {
     // We can put the link and hashtag parts into a text segment to post the feed item. When it gets retrieved, it will have
     // separate segments for the text, link and hashtag.
     String expectedText = 'Text ';
-    String expectedLink = 'http://link.com';
+    //String expectedLink = 'http://link.com';
     String expectedHashtag = 'hashtag';
     String expectedBoldText = 'Bold text';
 
     ConnectApi.TextSegmentInput textSegmentInput = new ConnectApi.TextSegmentInput();
     textSegmentInput.text =
       expectedText +
-      expectedLink +
-      ' #' +
+      //expectedLink +
+      '#' +
       expectedHashtag;
     messageBodyInput.messageSegments.add(textSegmentInput);
 
@@ -334,7 +336,7 @@ public class ConnectApiHelperTest {
       feedElement.body
     );
     System.assertEquals(
-      8,
+      6,
       input.messageSegments.size(),
       'Wrong number of message segments.'
     );
@@ -352,93 +354,93 @@ public class ConnectApiHelperTest {
       'Segment 0 text does not match.'
     );
 
-    System.assert(
-      input.messageSegments.get(1) instanceof ConnectApi.LinkSegmentInput,
-      'Segment 1 is not a link segment input.'
-    );
-    ConnectApi.LinkSegmentInput linkInput = (ConnectApi.LinkSegmentInput) input.messageSegments.get(
-      1
-    );
-    System.assertEquals(
-      expectedLink,
-      linkInput.url,
-      'Segment 1 url does not match.'
-    );
+    // System.assert(
+    //   input.messageSegments.get(1) instanceof ConnectApi.LinkSegmentInput,
+    //   'Segment 1 is not a link segment input.'
+    // );
+    // ConnectApi.LinkSegmentInput linkInput = (ConnectApi.LinkSegmentInput) input.messageSegments.get(
+    //   1
+    // );
+    // System.assertEquals(
+    //   expectedLink,
+    //   linkInput.url,
+    //   'Segment 1 url does not match.'
+    // );
+
+    // System.assert(
+    //   input.messageSegments.get(1) instanceof ConnectApi.TextSegmentInput,
+    //   'Segment 1 is not a text segment input.'
+    // );
+    // ConnectApi.TextSegmentInput textInput2 = (ConnectApi.TextSegmentInput) input.messageSegments.get(
+    //   1
+    // );
+    // System.assertEquals(' ', textInput2.text, 'Segment 1 text does not match.');
 
     System.assert(
-      input.messageSegments.get(2) instanceof ConnectApi.TextSegmentInput,
-      'Segment 2 is not a text segment input.'
-    );
-    ConnectApi.TextSegmentInput textInput2 = (ConnectApi.TextSegmentInput) input.messageSegments.get(
-      2
-    );
-    System.assertEquals(' ', textInput2.text, 'Segment 2 text does not match.');
-
-    System.assert(
-      input.messageSegments.get(3) instanceof ConnectApi.HashtagSegmentInput,
-      'Segment 3 is not a hashtag segment input.'
+      input.messageSegments.get(1) instanceof ConnectApi.HashtagSegmentInput,
+      'Segment 1 is not a hashtag segment input.'
     );
     ConnectApi.HashtagSegmentInput hashtagInput = (ConnectApi.HashtagSegmentInput) input.messageSegments.get(
-      3
+      1
     );
     System.assertEquals(
       expectedHashtag,
       hashtagInput.tag,
-      'Segment 3 hashtag does not match.'
+      'Segment 1 hashtag does not match.'
     );
 
     System.assert(
-      input.messageSegments.get(4) instanceof ConnectApi.MentionSegmentInput,
-      'Segment 4 is not a mention segment input.'
+      input.messageSegments.get(2) instanceof ConnectApi.MentionSegmentInput,
+      'Segment 2 is not a mention segment input.'
     );
     ConnectApi.MentionSegmentInput mentionInput = (ConnectApi.MentionSegmentInput) input.messageSegments.get(
-      4
+      2
     );
     System.assertEquals(
       UserInfo.getUserId(),
       mentionInput.id,
-      'Segment 4 mention ID does not match.'
+      'Segment 2 mention ID does not match.'
     );
 
     System.assert(
       input.messageSegments.get(
-        5
+        3
       ) instanceof ConnectApi.MarkupBeginSegmentInput,
-      'Segment 5 is not a markup begin segment input.'
+      'Segment 3 is not a markup begin segment input.'
     );
     ConnectApi.MarkupBeginSegmentInput markupBeginInput = (ConnectApi.MarkupBeginSegmentInput) input.messageSegments.get(
-      5
+      3
     );
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
       markupBeginInput.markupType,
-      'Segment 5 markup type does not match.'
+      'Segment 3 markup type does not match.'
     );
 
     System.assert(
-      input.messageSegments.get(6) instanceof ConnectApi.TextSegmentInput,
-      'Segment 6 is not a text segment input.'
+      input.messageSegments.get(4) instanceof ConnectApi.TextSegmentInput,
+      'Segment 4 is not a text segment input.'
     );
     ConnectApi.TextSegmentInput textInput3 = (ConnectApi.TextSegmentInput) input.messageSegments.get(
-      6
+      4
     );
     System.assertEquals(
       expectedBoldText,
       textInput3.text,
-      'Segment 6 text does not match.'
+      'Segment 4 text does not match.'
     );
 
     System.assert(
-      input.messageSegments.get(7) instanceof ConnectApi.MarkupEndSegmentInput,
-      'Segment 7 is not a markup end segment input.'
+      input.messageSegments.get(5) instanceof ConnectApi.MarkupEndSegmentInput,
+      'Segment 5 is not a markup end segment input.'
     );
     ConnectApi.MarkupEndSegmentInput markupEndInput = (ConnectApi.MarkupEndSegmentInput) input.messageSegments.get(
-      7
+      5
     );
     System.assertEquals(
       ConnectApi.MarkupType.Bold,
       markupEndInput.markupType,
-      'Segment 7 markup type does not match.'
+      'Segment 5 markup type does not match.'
     );
 
     // Get coverage for the createFeedItemInputFromBody() method.

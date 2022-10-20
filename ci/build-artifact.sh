@@ -59,49 +59,53 @@ function unzipDeployPackageandCopyMetaFiles() {
     # Copy the additional -meta.xml files for all files that require them
     # ignoring quotes warning, expansion here is desireable for the for loop
     # shellcheck disable=SC2048
-    for dir in ${META_DIR[*]}; do
-        if [[ -d ${DEPLOY_DIR}/force-app/main/default/$dir ]]; then
-            echo ${DEPLOY_DIR}/force-app/main/default/"$dir"
-            if [[ $dir == "classes" ]]; then
-                # ignoring for loop find warning, this iterates through our class subdirs which are lowercase alpha no spaces
-                # shellcheck disable=SC2044
-                for subdirectory in $(find "${DEPLOY_DIR}/force-app/main/default/$dir" -type d -maxdepth 1 -mindepth 1); do
-                    subDir=classes/$(basename "${subdirectory}")
-                    for filename in "${DEPLOY_DIR}"/force-app/main/default/"${subDir}"/*; do
-                        filename=$(basename "$filename")
-                        [[ $filename == *.xml ]] && continue
-                        cp ${SOURCE_DIR}/main/default/"${subDir}"/"$filename"-meta.xml ${DEPLOY_DIR}/force-app/main/default/"${subDir}" || true
+    for p in "${DEPLOY_DIR}"/force-app/main/*; do
+        package=$(basename "$p")
+        for dir in ${META_DIR[*]}; do
+            if [[ -d ${DEPLOY_DIR}/force-app/main/"$package"/$dir ]]; then
+                echo ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"
+                if [[ $dir == "classes" ]]; then
+                    # ignoring for loop find warning, this iterates through our class subdirs which are lowercase alpha no spaces
+                    # shellcheck disable=SC2044
+                    for subdirectory in $(find "${DEPLOY_DIR}/force-app/main/""$package""/$dir" -type d -maxdepth 1 -mindepth 1); do
+                        subDir=classes/$(basename "${subdirectory}")
+                        for filename in "${DEPLOY_DIR}"/force-app/main/"$package"/"${subDir}"/*; do
+                            filename=$(basename "$filename")
+                            [[ $filename == *.xml ]] && continue
+                            cp ${SOURCE_DIR}/main/"$package"/"${subDir}"/"$filename"-meta.xml ${DEPLOY_DIR}/force-app/main/"$package"/"${subDir}" || true
+                        done
                     done
+                fi
+                for filename in "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/*; do
+                    filename=$(basename "$filename")
+                    if [[ $dir == "staticresources" ]]; then
+                        filename="$(echo "$filename" | cut -f 1 -d '.').resource"
+                    fi
+                    [[ $filename == *.xml ]] && continue
+                    echo "$filename"
+                    if [[ "$filename" == *"."* ]]; then
+                        cp ${SOURCE_DIR}/main/"$package"/"$dir"/"$filename"-meta.xml ${DEPLOY_DIR}/force-app/main/"$package"/"$dir" || true
+                    fi
                 done
             fi
-
-            for filename in "${DEPLOY_DIR}"/force-app/main/default/"$dir"/*; do
-                filename=$(basename "$filename")
-                if [[ $dir == "staticresources" ]]; then
-                    filename="$(echo "$filename" | cut -f 1 -d '.').resource"
-                fi
-                [[ $filename == *.xml ]] && continue
-                echo "$filename"
-                if [[ "$filename" == *"."* ]]; then
-                    cp ${SOURCE_DIR}/main/default/"$dir"/"$filename"-meta.xml ${DEPLOY_DIR}/force-app/main/default/"$dir" || true
-                fi
-            done
-
-        fi
+        done
     done
 
     # Copy full Aura, LWC, waveTemplate directories where at least one change has been made
     # ignoring quotes warning, expansion here is desireable for the for loop
     # shellcheck disable=SC2048
-    for dir in ${BUNDLE_DIR[*]}; do
-        if [[ -d ${DEPLOY_DIR}/force-app/main/default/$dir ]]; then
-            for d in "${DEPLOY_DIR}"/force-app/main/default/"$dir"/*; do
-                if [ -d "$d" ]; then
-                    directory=$(basename "$d")
-                    cp -R ${SOURCE_DIR}/main/default/"$dir"/"$directory"/* ${DEPLOY_DIR}/force-app/main/default/"$dir"/"$directory"/
-                fi
-            done
-        fi
+    for p in "${DEPLOY_DIR}"/force-app/main/*; do
+        package=$(basename "$p")
+        for dir in ${BUNDLE_DIR[*]}; do
+            if [[ -d ${DEPLOY_DIR}/force-app/main/"$package"/$dir ]]; then
+                for d in "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/*; do
+                    if [ -d "$d" ]; then
+                        directory=$(basename "$d")
+                        cp -R ${SOURCE_DIR}/main/"$package"/"$dir"/"$directory"/* ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory"/
+                    fi
+                done
+            fi
+        done
     done
 }
 
@@ -114,23 +118,26 @@ function unzipDestructivePackage() {
     # Check if file in bundle dir is deleted, check if bundle dir still exist in source
     # Check if the bundle dir does not exist in deploy dir (could have already been copied because because of change)
     # shellcheck disable=SC2048
-    for dir in ${BUNDLE_DIR[*]}; do
-        if [[ -d ${DESTRUCTIVE_DIR}/force-app/main/default/"$dir" ]]; then
-            for d in "${DESTRUCTIVE_DIR}"/force-app/main/default/"$dir"/*; do
-                if [ -d "$d" ]; then
-                    directory=$(basename "$d")
-                    if [[ -d ${SOURCE_DIR}/main/default/"$dir"/"$directory" ]]; then
-                        echo "$directory" "has a file deleted, needs to be redeployed"
-                        if [ ! -d ${DEPLOY_DIR}/force-app/main/default/"$dir"/"$directory" ]; then
-                            echo "$directory" "has a deleted file and does not exist in deploy directory, copying it to deploy full component"
-                            mkdir -p ${DEPLOY_DIR}/force-app/main/default/"$dir"/"$directory"
-                            cp -R ${SOURCE_DIR}/main/default/"$dir"/"$directory"/* ${DEPLOY_DIR}/force-app/main/default/"$dir"/"$directory"/
+    for p in "${DESTRUCTIVE_DIR}"/force-app/main/*; do
+        package=$(basename "$p")
+        for dir in ${BUNDLE_DIR[*]}; do
+            if [[ -d ${DESTRUCTIVE_DIR}/force-app/main/"$package"/"$dir" ]]; then
+                for d in "${DESTRUCTIVE_DIR}"/force-app/main/"$package"/"$dir"/*; do
+                    if [ -d "$d" ]; then
+                        directory=$(basename "$d")
+                        if [[ -d ${SOURCE_DIR}/main/"$package"/"$dir"/"$directory" ]]; then
+                            echo "$directory" "has a file deleted, needs to be redeployed"
+                            if [ ! -d ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory" ]; then
+                                echo "$directory" "has a deleted file and does not exist in deploy directory, copying it to deploy full component"
+                                mkdir -p ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory"
+                                cp -R ${SOURCE_DIR}/main/"$package"/"$dir"/"$directory"/* ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory"/
+                            fi
+                            rm -rf ${DESTRUCTIVE_DIR}/force-app/main/"$package"/"$dir"/"$directory"
                         fi
-                        rm -rf ${DESTRUCTIVE_DIR}/force-app/main/default/"$dir"/"$directory"
                     fi
-                fi
-            done
-        fi
+                done
+            fi
+        done
     done
 
     #delete any empty directories left

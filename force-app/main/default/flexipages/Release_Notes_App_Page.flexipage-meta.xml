@@ -8,6 +8,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>releaseLog</componentName>
+                <identifier>releaseLog</identifier>
             </componentInstance>
         </itemInstances>
         <name>region2</name>

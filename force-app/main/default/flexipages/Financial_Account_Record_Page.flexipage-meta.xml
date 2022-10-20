@@ -20,6 +20,7 @@
                     <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
+                <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -30,6 +31,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>financialAccountParent</componentName>
+                <identifier>financialAccountParent</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-1b16acd5-4f93-479f-afda-07d8826e3338</name>
@@ -39,6 +41,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>statementsViewer</componentName>
+                <identifier>statementsViewer</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</name>
@@ -60,6 +63,7 @@
                     <value>Account</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>customTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -73,6 +77,7 @@
                     <value>Statements</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
@@ -86,6 +91,7 @@
                     <value>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -96,6 +102,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
+                <identifier>forceKnowledge_articleSearchDesktop</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-23e8381a-68f6-46c9-88bc-49070fe34e1e</name>
@@ -105,6 +112,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
+                <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -127,6 +135,7 @@
                     <value>Standard.Tab.knowledge</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>knowledgeTab</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -144,6 +153,7 @@
                     <value>Standard.Tab.activity</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
+                <identifier>activityTab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
@@ -154,6 +164,7 @@
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -163,11 +174,13 @@
                     <value>sidebartabs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>recordAccessLogMonitor</componentName>
+                <identifier>recordAccessLogMonitor</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
