@@ -87,6 +87,13 @@ public with sharing class IDRCaseActions {
           SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
         );
       }
+      if (
+        GetHelpCaseActionsHelper.isUnauthenticatedEnquiry(record) &&
+        record.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+        !record.ANZx_Customer__c
+      ) {
+        record.Status = IDRConstants.ESCALATED_STATUS;
+      }
     }
     handleOfficeAssignment(changeOfficeCaseList);
     IDRCaseAssignmentRules.assignProductFamily(records, null);
