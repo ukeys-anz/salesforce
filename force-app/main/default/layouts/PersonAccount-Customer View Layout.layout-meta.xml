@@ -168,9 +168,9 @@
         <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
         <label>Custom Links</label>
-        <layoutColumns />
-        <layoutColumns />
-        <layoutColumns />
+        <layoutColumns/>
+        <layoutColumns/>
+        <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
     <platformActionList>
@@ -234,6 +234,11 @@
         <relatedList>RelatedCaseList</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>Name</fields>
+        <fields>Primary_Borrower__c</fields>
+        <relatedList>LoanApplicant.Account__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>NAME</fields>
         <fields>qualtrics__Date_Responded__c</fields>
         <fields>Customer_Feedback__c</fields>
@@ -286,7 +291,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000003FZ9d</masterLabel>
+        <masterLabel>00h2N0000051xlX</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
