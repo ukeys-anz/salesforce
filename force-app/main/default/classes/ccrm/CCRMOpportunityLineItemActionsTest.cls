@@ -9,10 +9,7 @@ public with sharing class CCRMOpportunityLineItemActionsTest {
   static void testOpportunityLineItemCreatedSuccessfully() {
     //GIVEN
     Integer count = 1;
-    List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
-      1,
-      null
-    );
+    CCRMTestDataFactory.createOpportunityRecords(1, null);
     OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
 
     //WHEN
@@ -33,11 +30,7 @@ public with sharing class CCRMOpportunityLineItemActionsTest {
   @isTest
   static void testCreatingAdditionalOpportunityLineItemWhenLegalEntityNotAddedSHouldFail() {
     //GIVEN
-    Integer count = 1;
-    List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
-      1,
-      null
-    );
+    CCRMTestDataFactory.createOpportunityRecords(1, null);
     OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
     insert oli;
 

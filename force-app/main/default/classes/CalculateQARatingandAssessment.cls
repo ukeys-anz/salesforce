@@ -7,7 +7,6 @@
 public with sharing class CalculateQARatingandAssessment {
   public static final String RISK_ASSESSMENT_YES = 'Yes - Requirements met';
   public static final String JOIN_COMPLIANCE_YES = 'Effective';
-  public static final String JOIN_COMPLIANCE_NO = 'Not Quite There';
   public static final String REQUIREMENTS_MET = 'Requirements Met';
   public static final String REQUIREMENTS_NOT_MET = 'Requirements not met';
   public static final String ALMOST_THERE = 'Almost there';

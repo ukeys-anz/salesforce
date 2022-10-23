@@ -5,6 +5,11 @@
  * @description AbnAcnUtil is the utilitary class to check ABN and ACN are correctly formatted
  */
 public with sharing class AbnAcnUtil {
+  private static final String ABN_11_DIGIT_VALIDATION_ERROR = 'ABN should be 11 digits, optionally with spaces as separators.';
+  private static final String ACN_9_DIGIT_VALIDATION_ERROR = 'ACN should be 9 digits, optionally with spaces as separators.';
+  private static final String ABN_NOT_VALID_ERROR = ' is not a valid ABN.';
+  private static final String ACN_NOT_VALID_ERROR = ' is not a valid ACN.';
+
   /**
    * @description Check if the lead's ABN is valid and if so, format it to the recommended pattern
    * @name validateABN
@@ -16,11 +21,9 @@ public with sharing class AbnAcnUtil {
       Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
       if (isABNValueEntered(record, oldRec)) {
         if (!Pattern.matches('^(\\d *){11}$', record.ABN__c)) {
-          record.addError(
-            'ABN should be 11 digits, optionally with spaces as separators.'
-          );
+          record.addError(ABN_11_DIGIT_VALIDATION_ERROR);
         } else if (!isABNValid(record.ABN__c)) {
-          record.addError(record.ABN__c + ' is not a valid ABN.');
+          record.addError(record.ABN__c + ABN_NOT_VALID_ERROR);
         } else {
           record.ABN__c = formatABN(record.ABN__c);
         }
@@ -39,11 +42,9 @@ public with sharing class AbnAcnUtil {
       Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
       if (isACNValueEntered(record, oldRec)) {
         if (!Pattern.matches('^(\\d *){9}$', record.ACN__c)) {
-          record.addError(
-            'ACN should be 9 digits, optionally with spaces as separators.'
-          );
+          record.addError(ACN_9_DIGIT_VALIDATION_ERROR);
         } else if (!isACNValid(record.ACN__c)) {
-          record.addError(record.ACN__c + ' is not a valid ACN.');
+          record.addError(record.ACN__c + ACN_NOT_VALID_ERROR);
         } else {
           record.ACN__c = formatACN(record.ACN__c);
         }

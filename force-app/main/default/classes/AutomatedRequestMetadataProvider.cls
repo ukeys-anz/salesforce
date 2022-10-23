@@ -51,6 +51,7 @@ public with sharing class AutomatedRequestMetadataProvider {
         List<Automated_Request_Purpose__mdt> automatedPurposes = [
           SELECT Id, MasterLabel, Duration__c
           FROM Automated_Request_Purpose__mdt
+          LIMIT 500
         ];
         for (Automated_Request_Purpose__mdt purpose : automatedPurposes) {
           metadataMap.put(purpose.MasterLabel, purpose);

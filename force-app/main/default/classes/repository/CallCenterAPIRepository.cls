@@ -21,7 +21,6 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String nextURL
   ) {
     // Construct the endpoint
-    ChatChannelModel result;
     String rowLimitParam = '?limit=' + OFFSET_LIMIT;
     String urlParams = String.isBlank(nextURL) ? rowLimitParam : nextURL;
 
@@ -46,8 +45,6 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String ocvId,
     String channelSID
   ) {
-    ChatChannelModel.Channel result;
-
     // Construct the endpoint
     String endPoint =
       'callout:SF_MS_Twilio' +

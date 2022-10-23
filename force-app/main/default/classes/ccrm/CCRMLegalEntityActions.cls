@@ -9,6 +9,7 @@ public with sharing class CCRMLegalEntityActions {
   public static final String INCORRECT_LEGAL_ENTITY = 'Please choose only the Legal Entity related to the CLG account in the Opportunity. Please also note that CLG cannot be used as a borrower.';
   @testVisible
   public static final String INCORRECT_ACCOUNT_ON_LEGAL_ENTITY = 'Please use the same Legal Entity name as Customer in the Opportunity for your first product.';
+  public static final String ACCOUNT_FIELD_NAME = 'Account__c';
   /**
    * @description This method will validate number of Entities added to opportunity product
    * should not be more than 20
@@ -73,7 +74,7 @@ public with sharing class CCRMLegalEntityActions {
           record.Account__c
         );
         if (oppParentAccount != legalParentAccount) {
-          record.addError('Account__c', INCORRECT_LEGAL_ENTITY);
+          record.addError(ACCOUNT_FIELD_NAME, INCORRECT_LEGAL_ENTITY);
         }
       }
     }
@@ -114,7 +115,10 @@ public with sharing class CCRMLegalEntityActions {
         );
         //If opportunity account not equals to Legal Entity account then throw error
         if (oppAccountId != record.Account__c) {
-          record.addError('Account__c', INCORRECT_ACCOUNT_ON_LEGAL_ENTITY);
+          record.addError(
+            ACCOUNT_FIELD_NAME,
+            INCORRECT_ACCOUNT_ON_LEGAL_ENTITY
+          );
         }
       }
     }

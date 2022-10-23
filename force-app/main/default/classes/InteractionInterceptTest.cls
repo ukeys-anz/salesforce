@@ -235,8 +235,6 @@ public with sharing class InteractionInterceptTest {
 
     DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
 
-    DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
-
     Interaction davidInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = faker.randomString(10),
@@ -320,8 +318,6 @@ public with sharing class InteractionInterceptTest {
     Account davidAccount = createTestAccount();
 
     DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
-
-    DateTime davidExpectedEndTime = DateTime.newInstance(year, 6, 16, 1, 15, 0);
 
     Interaction davidInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,

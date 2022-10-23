@@ -27,8 +27,6 @@ public with sharing class CCRMLeadActions {
     Map<Id, Lead> oldMap,
     List<Lead> records
   ) {
-    Map<Id, Lead> updateLeads = new Map<Id, Lead>();
-
     for (Lead record : records) {
       if (
         CCRMLeadUtil.isCCRMLeadType(record) &&
@@ -123,9 +121,6 @@ public with sharing class CCRMLeadActions {
    * @param records List of lead records.
    */
   public static void populateFields(List<Lead> records) {
-    List<Lead> selectedLeads = new List<Lead>();
-    Set<String> campaignCodes = new Set<String>();
-    Set<String> accountIds = new Set<String>();
     Map<String, Account> mapAccountRecord = new Map<String, Account>();
     Map<String, Campaign> mapCampaignCodeRecord = getCCRMLeadCampaigns(records);
 
@@ -191,8 +186,6 @@ public with sharing class CCRMLeadActions {
    * @param records List of lead records.
    */
   public static void createCampaignMember(List<Lead> records) {
-    List<Lead> selectedLeads = new List<Lead>();
-    Set<String> campaignCodes = new Set<String>();
     List<CampaignMember> newCampaignMembers = new List<CampaignMember>();
 
     Map<String, Campaign> mapCampaignCodeRecord = getCCRMLeadCampaigns(records);

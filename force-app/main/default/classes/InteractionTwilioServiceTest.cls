@@ -14,7 +14,11 @@ private class InteractionTwilioServiceTest {
       InteractionTwilioService.updateInteraction(JSON.serialize(payload));
       System.assertEquals(true, false, 'The code should throw an exception');
     } catch (Exception e) {
-      System.assertEquals('Invalid id: 0123456789', e.getMessage());
+      System.assertEquals(
+        'Invalid id: 0123456789',
+        e.getMessage(),
+        'Exception message should be as expected'
+      );
     }
     Test.stopTest();
   }
@@ -46,7 +50,15 @@ private class InteractionTwilioServiceTest {
       FROM Interaction
       WHERE Id = :interactionRecord.Id
     ];
-    System.assertEquals('TWILIO_ID', updatedRecord.Twilio_ID__c);
-    System.assertEquals('CHAT_OR_CALL_ID', updatedRecord.Chat_or_Call_SID__c);
+    System.assertEquals(
+      'TWILIO_ID',
+      updatedRecord.Twilio_ID__c,
+      'Updated Record Twilio Id does not match'
+    );
+    System.assertEquals(
+      'CHAT_OR_CALL_ID',
+      updatedRecord.Chat_or_Call_SID__c,
+      'Updated Record Chat or Call SID does not match'
+    );
   }
 }

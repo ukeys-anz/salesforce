@@ -27,7 +27,6 @@ public with sharing class InteractionEventHelper {
    * @return List<Event> List of event records related to the interaction which were rescheduled.
    */
   public static List<Event> getRelatedEvents(List<Interaction> interactions) {
-    List<Event> eventList = new List<Event>();
     Set<Id> interactionIds = new Set<Id>();
     for (Interaction interact : interactions) {
       interactionIds.add(interact.Id);

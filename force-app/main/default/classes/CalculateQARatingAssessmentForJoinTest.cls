@@ -93,11 +93,10 @@ public with sharing class CalculateQARatingAssessmentForJoinTest {
       FROM Quality_Assessment__c
       WHERE
         RecordTypeId = :joinRecordTypeId
-        AND Evaluation_Type__c != 'Interaction IQ'
+        AND Evaluation_Type__c != :EV_TYPE_INTERACTION
     ];
-    for (Quality_Assessment__c qa : qaList) {
-      CalculateQARatingandAssessment.calculateQA(qa.Id);
-    }
+    CalculateQARatingandAssessment.calculateQA(qaList[0].Id);
+    CalculateQARatingandAssessment.calculateQA(qaList[1].Id);
     Test.stopTest();
     List<Quality_Assessment__c> qaListAfterCalc = [
       SELECT
@@ -106,7 +105,9 @@ public with sharing class CalculateQARatingAssessmentForJoinTest {
         Compliance_Outcome__c,
         Calculated__c
       FROM Quality_Assessment__c
-      WHERE RecordTypeId = :joinRecordTypeId
+      WHERE
+        RecordTypeId = :joinRecordTypeId
+        AND Evaluation_Type__c != :EV_TYPE_INTERACTION
     ];
     for (Quality_Assessment__c qa : qaListAfterCalc) {
       if (qa.Join_Compliance_Disclaimers__c == EFFECTIVE) {

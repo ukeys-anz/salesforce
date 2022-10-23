@@ -18,7 +18,7 @@ public with sharing class CCRMLeadExpiryHandler {
 
     try {
       if (Schema.sObjectType.Lead.isUpdateable() && !updatedLeads.isEmpty()) {
-        List<Database.saveResult> results = Database.update(updatedLeads, true);
+        Database.update(updatedLeads, true);
       }
     } catch (Exception e) {
       lib_systemLog log = new lib_systemLog(

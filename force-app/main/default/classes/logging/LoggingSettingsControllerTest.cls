@@ -58,7 +58,6 @@ public with sharing class LoggingSettingsControllerTest {
       'ANZx Standard User'
     );
     User coachUser = (User) FakerFactory.make(new FakerUserFactory());
-    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
     coachUser.FirstName = 'Engineer';
     coachUser.ProfileId = anzxStandardProfile.Id;
     insert coachUser;
@@ -74,7 +73,6 @@ public with sharing class LoggingSettingsControllerTest {
     Boolean isSecureLogEnabled;
     String defaultLoggingLevel;
     String defaultSaveMethod;
-    Integer logsRetentionDuration;
     Test.startTest();
     System.runAs(coachUser) {
       isSecureLogEnabled = LoggingSettingsController.isSecureLogEnabled();
@@ -114,7 +112,6 @@ public with sharing class LoggingSettingsControllerTest {
     Boolean isSecureLogEnabled;
     String defaultLoggingLevel;
     String defaultSaveMethod;
-    Integer logsRetentionDuration;
     Test.startTest();
     isSecureLogEnabled = LoggingSettingsController.isSecureLogEnabled();
     defaultLoggingLevel = LoggingSettingsController.getDefaultLoggingLevel();

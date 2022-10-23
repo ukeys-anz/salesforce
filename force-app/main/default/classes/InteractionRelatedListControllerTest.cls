@@ -69,15 +69,31 @@ public with sharing class InteractionRelatedListControllerTest {
       testAcc.Id,
       3
     );
-    System.assertEquals(1, wrapperList.size());
-    System.assertEquals(testAppt.Id, wrapperList[0].interactId);
+    System.assertEquals(
+      1,
+      wrapperList.size(),
+      'Appointment interaction WrapperList size should be 1'
+    );
+    System.assertEquals(
+      testAppt.Id,
+      wrapperList[0].interactId,
+      'Appointment Id should match returned Appointment interaction record'
+    );
 
     List<InteractionRelatedListController.InteractionWrapper> intWrapperList = InteractionRelatedListController.getInteractions(
       newCase.Id,
       3
     );
-    System.assertEquals(1, intWrapperList.size());
-    System.assertEquals(testInteraction.Id, intWrapperList[0].interactId);
+    System.assertEquals(
+      1,
+      intWrapperList.size(),
+      'Interaction WrapperList size should be 1'
+    );
+    System.assertEquals(
+      testInteraction.Id,
+      intWrapperList[0].interactId,
+      'Interaction Id should match returned Interaction record'
+    );
   }
 
   /**
@@ -113,31 +129,51 @@ public with sharing class InteractionRelatedListControllerTest {
     String accType = InteractionRelatedListController.getSObjectType(
       testAcc.Id
     );
-    System.assertEquals('Account', accType);
+    System.assertEquals(
+      'Account',
+      accType,
+      'Account SObject should be returned'
+    );
     InteractionRelatedListController.NewRecordWrapper nrWrapper = InteractionRelatedListController.getNewRecordInfo(
       testAcc.Id,
       true
     );
-    System.assertEquals('AccountId', nrWrapper.fieldName);
+    System.assertEquals(
+      'AccountId',
+      nrWrapper.fieldName,
+      'AccountId field name should be returned'
+    );
 
     String caseType = InteractionRelatedListController.getSObjectType(
       newCase.Id
     );
-    System.assertEquals('Case', caseType);
+    System.assertEquals('Case', caseType, 'Case SObject should be returned');
     InteractionRelatedListController.NewRecordWrapper caseWrapper = InteractionRelatedListController.getNewRecordInfo(
       newCase.Id,
       false
     );
-    System.assertEquals('CaseId__c', caseWrapper.fieldName);
+    System.assertEquals(
+      'CaseId__c',
+      caseWrapper.fieldName,
+      'CaseId field name should be returned'
+    );
 
     String interactionType = InteractionRelatedListController.getSObjectType(
       testInteraction.Id
     );
-    System.assertEquals('Interaction', interactionType);
+    System.assertEquals(
+      'Interaction',
+      interactionType,
+      'Interaction SObject should be returned'
+    );
     InteractionRelatedListController.NewRecordWrapper interactionWrapper = InteractionRelatedListController.getNewRecordInfo(
       testInteraction.Id,
       true
     );
-    System.assertEquals('Appointment__c', interactionWrapper.fieldName);
+    System.assertEquals(
+      'Appointment__c',
+      interactionWrapper.fieldName,
+      'Appointment field name should be returned'
+    );
   }
 }

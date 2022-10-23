@@ -7,8 +7,8 @@
 private class CCRMLeadActionsTest {
   @testSetup
   static void setup() {
-    User adobeUser = CCRMTestDataFactory.createAdobeIntegrationUser();
-    User unicaUser = CCRMTestDataFactory.createUnicaIntegrationUser();
+    CCRMTestDataFactory.createAdobeIntegrationUser();
+    CCRMTestDataFactory.createUnicaIntegrationUser();
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
     User ccrmAdminUser = CCRMTestDataFactory.createAdminUser();
 
@@ -21,9 +21,7 @@ private class CCRMLeadActionsTest {
       List<Campaign> campaignRecord = CCRMTestDataFactory.createCCRMCampaignRecord(
         1
       );
-      List<Response_Type__C> responseTypeRecords = CCRMTestDataFactory.createResponseTypeRecords(
-        campaignRecord[0]
-      );
+      CCRMTestDataFactory.createResponseTypeRecords(campaignRecord[0]);
     }
 
     System.runAs(ccrmAdminUser) {
@@ -251,9 +249,7 @@ private class CCRMLeadActionsTest {
   }
 
   private static void createUsersWithEmployeeID() {
-    //Profiles, Roles and Permission Sets
-    Id anzStandardProfileId = CommonUtil.getProfileByName('ANZ Standard User')
-      .Id;
+    //Roles and Permission Sets
     UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
     UserRole bankerManagerRole = CommonUtil.getUserRoleByDevName(
       'Banker Line Manager'
