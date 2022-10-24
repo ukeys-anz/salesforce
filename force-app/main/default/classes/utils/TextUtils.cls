@@ -77,7 +77,7 @@ public with sharing class TextUtils {
   /**
    * @description This method determines whether we need to log the content
    * Criteria is if it contains digits of more than 12 digits
-   * Or contains keywords like TFN or Tax and has more than 9 digits
+   * Or contains keywords like TFN or Tax and has more than 8 digits
    * @param input Input string that we need to verify
    * @return `Boolean` whether we need to log this input
    */
@@ -110,6 +110,75 @@ public with sharing class TextUtils {
       }
     }
     return false;
+  }
+
+  /**
+   * @description This method mask and logs keywords specific data
+   * Criteria is if it contains digits of more than 15 digits
+   * Or contains keywords like TFN or Tax and has more than 8 digits
+   * @param input Input string that we need to verify
+   * @param fieldName field name
+   * @param record sObject record that contains data
+   */
+  public static void maskAndLog(
+    String input,
+    String fieldName,
+    SObject record
+  ) {
+    if (String.isNotBlank(input)) {
+      String inputUpper = input.toUpperCase();
+      List<String> keywords = Label.Reactive_logging_keywords.split(',');
+      Boolean hasKeyword = false;
+      for (String keyword : keywords) {
+        if (inputUpper.contains(keyword)) {
+          hasKeyword = true;
+          break;
+        }
+      }
+      Pattern patToCompile = taxPattern;
+      Integer digLength = 15;
+      if (hasKeyword) {
+        patToCompile = logKeywordPattern;
+        digLength = 8;
+      }
+      Matcher matchingPattern = patToCompile.matcher(input);
+      while (matchingPattern.find()) {
+        String stringToMask = matchingPattern.group(0).trim();
+        String digits = stringToMask.replaceAll('[^0-9]', '');
+        if (digits.length() >= digLength) {
+          String masked = '';
+          for (Integer i = 0; i < digits.length() - UNMASK_LENGTH; i++) {
+            masked = masked + '*';
+          }
+          masked = masked + digits.substring(digits.length() - UNMASK_LENGTH);
+          Integer index = input.indexOf(stringToMask);
+          if (index != -1) {
+            input =
+              input.subString(0, index) +
+              masked +
+              input.subString(index + stringToMask.length());
+          }
+          matchingPattern = patToCompile.matcher(input);
+          record.put(fieldName, input);
+          if (hasKeyword) {
+            Id sfId = (Id) record.get('Id');
+            String loggerInitialString = sfId != null
+              ? sfId.getSObjectType().getDescribe().getName() == 'Case'
+                  ? 'CaseNumber: ' + (String) record.get('CaseNumber') + '; '
+                  : 'Id: ' + (Id) record.get('Id') + '; '
+              : '';
+            Logger.info(
+              loggerInitialString +
+              fieldName +
+              ': ' +
+              (String) record.get(fieldName) +
+              '; Reason for logging: User entered long digits without needing to mask'
+            );
+            Logger.saveLog();
+          }
+        }
+      }
+    }
   }
 
   /**

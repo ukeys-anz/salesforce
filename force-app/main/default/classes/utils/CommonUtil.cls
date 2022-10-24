@@ -150,26 +150,7 @@ public with sharing class CommonUtil {
       fieldName == 'IDR_Other_Remedy_Provided_2__c' ||
       fieldName == 'IDR_Other_Remedy_Provided_3__c'
     ) {
-      record.put(
-        fieldName,
-        TextUtils.maskDataAnzx((String) record.get(fieldName))
-      );
-      if (TextUtils.reactiveLogging((String) record.get(fieldName))) {
-        Id sfId = (Id) record.get('Id');
-        String loggerInitialString = sfId != null
-          ? sfId.getSObjectType().getDescribe().getName() == 'Case'
-              ? 'CaseNumber: ' + (String) record.get('CaseNumber') + '; '
-              : 'Id: ' + (Id) record.get('Id') + '; '
-          : '';
-        Logger.info(
-          loggerInitialString +
-          fieldName +
-          ': ' +
-          (String) record.get(fieldName) +
-          '; Reason for logging: User entered long digits without needing to mask'
-        );
-        Logger.saveLog();
-      }
+      TextUtils.maskAndLog((String) record.get(fieldName), fieldName, record);
     } else {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }

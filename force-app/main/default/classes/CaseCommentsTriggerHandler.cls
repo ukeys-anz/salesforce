@@ -47,17 +47,11 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
         relatedCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
         relatedCase.RecordTypeId == IDRConstants.SI_RT_ID)
       ) {
-        record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
-        if (TextUtils.reactiveLogging(record.CommentBody)) {
-          Logger.info(
-            'CaseNumber: ' +
-            relatedCase.CaseNumber +
-            '; Comment Body: ' +
-            record.CommentBody +
-            '; Reason for logging: User entered long digits without needing to mask'
-          );
-          Logger.saveLog();
-        }
+        TextUtils.maskAndLog(
+          (String) record.get('CommentBody'),
+          'CommentBody',
+          record
+        );
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);
       }
