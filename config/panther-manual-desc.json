@@ -164,6 +164,7 @@
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "EmailMessage": "Represents an email in Salesforce.",
     "Event": "Represents a calendar entry in Salesforce",
+    "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -988,6 +989,27 @@
         "WhoId"
       ],
       "IA-2460507": ["Email", "Phone"]
+    },
+    "External_Case_Status__c": {
+      "IA-2468715": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name"
+      ],
+      "IA-2415999": [
+        "Case__c",
+        "Customer_Message__c",
+        "External_Status__c",
+        "Internal_Description__c",
+        "Is_Outcome_in_Customer_Favour__c",
+        "Result_Code__c",
+        "Result_Message__c",
+        "Status_Event_ID__c",
+        "Status_Timestamp__c"
+      ]
     },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [

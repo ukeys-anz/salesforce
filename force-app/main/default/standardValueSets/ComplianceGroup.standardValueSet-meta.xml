@@ -82,6 +82,11 @@
         <label>Source - OCV</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_Pega_SD</fullName>
+        <default>false</default>
+        <label>Source - Pega SD</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Salesforce</fullName>
         <default>false</default>
         <label>Source - Salesforce</label>

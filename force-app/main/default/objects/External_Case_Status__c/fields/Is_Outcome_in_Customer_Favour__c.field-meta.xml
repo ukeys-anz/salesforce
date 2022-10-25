@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Outcome_in_Customer_Favour__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Pega_SD</complianceGroup>
+    <description>If dispute outcome was made in favour of customer</description>
+    <externalId>false</externalId>
+    <formula>IF(
+OR(
+ISPICKVAL(External_Status__c, &quot;Resolved-AcquirerLiable&quot;),
+ISPICKVAL(External_Status__c, &quot;Resolved-WriteOff&quot;),
+ISPICKVAL(External_Status__c, &quot;Resolved-MerchantCredit&quot;) 
+),
+TRUE,
+FALSE
+)</formula>
+    <inlineHelpText>If dispute outcome was made in favour of customer</inlineHelpText>
+    <label>Is Outcome in Customer Favour?</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

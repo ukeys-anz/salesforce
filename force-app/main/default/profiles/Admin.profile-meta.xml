@@ -520,6 +520,26 @@
       <enabled>true</enabled>
    </classAccesses>
    <classAccesses>
+      <apexClass>ExternalCaseStatusActions</apexClass>
+      <enabled>true</enabled>
+   </classAccesses>
+   <classAccesses>
+      <apexClass>ExternalCaseStatusActionsHelper</apexClass>
+      <enabled>true</enabled>
+   </classAccesses>
+   <classAccesses>
+      <apexClass>ExternalCaseStatusActionsHelperTest</apexClass>
+      <enabled>true</enabled>
+   </classAccesses>
+   <classAccesses>
+      <apexClass>ExternalCaseStatusActionsTest</apexClass>
+      <enabled>true</enabled>
+   </classAccesses>
+   <classAccesses>
+      <apexClass>ExternalCaseStatusTriggerHandler</apexClass>
+      <enabled>true</enabled>
+   </classAccesses>
+   <classAccesses>
       <apexClass>FabricService</apexClass>
       <enabled>true</enabled>
    </classAccesses>
@@ -4200,6 +4220,41 @@
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
+      <editable>false</editable>
+      <field>External_Case_Status__c.Customer_Message__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.External_Status__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Internal_Description__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>false</editable>
+      <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Result_Code__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Result_Message__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Status_Timestamp__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
       <editable>true</editable>
       <field>FinServ__Card__c.Available_Balance__c</field>
       <readable>true</readable>
@@ -7856,6 +7911,15 @@
       <allowRead>true</allowRead>
       <modifyAllRecords>true</modifyAllRecords>
       <object>Disputes_PEGA_Integration_Event__e</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>true</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>true</modifyAllRecords>
+      <object>External_Case_Status__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>

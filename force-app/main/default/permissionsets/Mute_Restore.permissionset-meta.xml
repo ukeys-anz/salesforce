@@ -1821,6 +1821,41 @@
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.Customer_Message__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.External_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.Internal_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.Result_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.Result_Message__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.Status_Timestamp__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
       <editable>false</editable>
       <field>FinServ__FinancialAccountRole__c.External_Id__c</field>
       <readable>true</readable>
@@ -2609,6 +2644,15 @@
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>External_Case_Status__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
       <allowCreate>false</allowCreate>
       <allowDelete>false</allowDelete>
       <allowEdit>false</allowEdit>
