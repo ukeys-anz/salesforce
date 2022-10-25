@@ -31,7 +31,7 @@
         <shortDescription>Lead Default Priority Value</shortDescription>
         <value>99</value>
     </labels>
-     <labels>
+    <labels>
         <fullName>CCRM_DefaultCampaign</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -433,5 +433,21 @@
         <protected>false</protected>
         <shortDescription>Interaction_Store_Required</shortDescription>
         <value>Please select store location.</value>
+    </labels>
+    <labels>
+        <fullName>MS_Initiate_Chat</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Initiate_Chat</shortDescription>
+        <value>/contact-centre-staff/chats</value>
+    </labels>
+    <labels>
+        <fullName>MS_Reinitiate_Chat</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Reinitiate_Chat</shortDescription>
+        <value>/contact-centre-staff/reinit-chats</value>
     </labels>
 </CustomLabels>

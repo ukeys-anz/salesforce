@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provides access to the Initiate Interaction LWC dialling options</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx Outbound Dialling</label>
+</CustomPermission>

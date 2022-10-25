@@ -177,6 +177,11 @@
         <label>Dispute</label>
     </standardValue>
     <standardValue>
+        <fullName>Follow Up</fullName>
+        <default>false</default>
+        <label>Follow Up</label>
+    </standardValue>
+    <standardValue>
         <fullName>Join / KYC</fullName>
         <default>false</default>
         <label>Join / KYC</label>

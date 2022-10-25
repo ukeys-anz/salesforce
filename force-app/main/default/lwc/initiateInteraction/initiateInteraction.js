@@ -3,7 +3,11 @@ import { getRecord } from "lightning/uiRecordApi";
 import { publish, MessageContext } from "lightning/messageService";
 import createInteraction from "@salesforce/apex/InitiateInteractionController.createInteraction";
 import getPhoneNumber from "@salesforce/apex/InitiateInteractionController.getPhoneNumber";
+import initiateChat from "@salesforce/apex/InitiateInteractionController.initiateChat";
+import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
+import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
+import hasOutboundDialPermission from "@salesforce/customPermission/ANZx_Outbound_Dialling";
 
 import { handleErrorShowToast } from "c/utils";
 
@@ -20,11 +24,10 @@ const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
 
 export default class InitiateInteraction extends LightningElement {
   showContactTab;
-  showDialTab;
+  showDialTab = true;
   showChatWindow;
-  contactTab;
-  dialTab;
-  enableChat = false;
+  contactTab = NORMAL_TAB;
+  dialTab = ACTIVE_TAB;
   phoneNumber = "";
   messageToSend;
   numberToDial;
@@ -32,9 +35,17 @@ export default class InitiateInteraction extends LightningElement {
   newInteraction;
   invalidMessage = true;
   invalidNumber = true;
+  showMessageDialog = true;
+  showMessageToast = false;
+  showSuccessMessage = true;
+  showErrorMessage = false;
+  isLoadingCase = false;
+  remainingCharStyle = "slds-text-color_default slds-float_right";
+  errMsg = "Something went wrong. Please try again";
+  remainingCharMsg = "1000 characters remaining";
   outboundError =
     "Uh-oh, there was an error and we couldn't automatically create the interaction. Please manually create a call interaction";
-  contactCustomer;
+  contactCustomer = false;
   fields = {
     recordType: "General",
     direction: "Outbound"
@@ -42,6 +53,16 @@ export default class InitiateInteraction extends LightningElement {
   objectFields = [];
   @api recordId;
   @api objectApiName;
+  conversationSid; //Populated as part of the initiate chat response
+  executionSid; //Populated as part of the reinitiate chat response
+
+  get displayOutboundChat() {
+    return hasOutboundChatPermission;
+  }
+
+  get displayOutboundDial() {
+    return hasOutboundDialPermission;
+  }
 
   @wire(MessageContext)
   messageContext;
@@ -56,6 +77,9 @@ export default class InitiateInteraction extends LightningElement {
         case "Account":
           this.fields.accountId = this.recordId;
           this.fields.reason = "Customer";
+          //Show contact tab as default on account
+          this.contactCustomer = true;
+          this.handleShowContactTab();
           break;
         case "Case":
           this.fields.accountId = data.fields.AccountId.value;
@@ -80,12 +104,7 @@ export default class InitiateInteraction extends LightningElement {
         default:
       }
     } else {
-      this.contactCustomer = false;
-      this.showContactTab = false;
       this.showChatWindow = false;
-      this.showDialTab = true;
-      this.dialTab = ACTIVE_TAB;
-      this.contactTab = NORMAL_TAB;
     }
     this.loading = false;
   }
@@ -114,15 +133,9 @@ export default class InitiateInteraction extends LightningElement {
     }).then((result) => {
       if (result != null) {
         this.phoneNumber = result;
-        this.enableContactTab();
-        this.handleShowContactTab();
+        this.callPhoneNumber = "Call " + this.phoneNumber;
       }
     });
-  }
-
-  enableContactTab() {
-    this.callPhoneNumber = "Call " + this.phoneNumber;
-    this.contactCustomer = true;
   }
 
   handleShowContactTab() {
@@ -131,6 +144,7 @@ export default class InitiateInteraction extends LightningElement {
     this.showChatWindow = false;
     this.contactTab = ACTIVE_TAB;
     this.dialTab = NORMAL_TAB;
+    this.remainingCharMsg = "1000 characters remaining";
   }
 
   handleShowDialTab() {
@@ -144,6 +158,8 @@ export default class InitiateInteraction extends LightningElement {
   handleShowChatWindow() {
     this.showContactTab = false;
     this.showChatWindow = true;
+    this.showMessageDialog = true;
+    this.showMessageToast = false;
   }
 
   async handleCallCustomer() {
@@ -188,7 +204,64 @@ export default class InitiateInteraction extends LightningElement {
   }
 
   async handleMessageCustomer() {
-    // this is a placeholder for chat
+    this.isLoadingCase = true;
+    try {
+      let response = await initiateChat({
+        accountId: this.fields.accountId,
+        messageContent: this.messageToSend
+      });
+
+      if (response?.conversationSid) {
+        this.conversationSid = response.conversationSid;
+      }
+
+      this.showMessageDialog = false;
+      this.showMessageToast = true;
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Initiate Chat failed",
+        error,
+        "Failed to send outbound chat message. Please try sending it again. Raise a fault through TechAssist if the problem persists.",
+        "pester"
+      );
+    }
+    this.isLoadingCase = false;
+  }
+
+  async handleReinitiate() {
+    this.isLoadingCase = true;
+    let errorMessage =
+      "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
+    if (this.conversationSid) {
+      try {
+        let response = await reinitiateChat({
+          accountId: this.fields.accountId,
+          conversationSid: this.conversationSid
+        });
+        if (response?.executionSid) {
+          this.executionSid = response.executionSid;
+          this.handleShowContactTab();
+        }
+      } catch (error) {
+        handleErrorShowToast(
+          this,
+          "Reinitiate Chat failed",
+          error,
+          errorMessage,
+          "pester"
+        );
+      }
+    } else {
+      handleErrorShowToast(
+        this,
+        "Reinitiate Chat failed",
+        errorMessage,
+        errorMessage,
+        "pester"
+      );
+    }
+    this.isLoadingCase = false;
   }
 
   handlePhoneChange(event) {
@@ -206,14 +279,20 @@ export default class InitiateInteraction extends LightningElement {
   }
 
   handleMessageChange(event) {
-    if (
-      event.target.value.trim().length < 4 ||
-      event.target.value.length > 1000
-    ) {
+    let txtAreaMessage = event.detail.value;
+    if (txtAreaMessage.trim().length < 4 || txtAreaMessage.length > 1000) {
       this.invalidMessage = true;
     } else {
-      this.messageToSend = event.detail.value;
+      this.messageToSend = txtAreaMessage;
       this.invalidMessage = false;
+    }
+
+    this.remainingCharMsg =
+      1000 - txtAreaMessage.length + " characters remaining";
+    if (txtAreaMessage.length >= 1000) {
+      this.remainingCharStyle = "slds-text-color_error slds-float_right";
+    } else {
+      this.remainingCharStyle = "slds-text-color_default slds-float_right";
     }
   }
 

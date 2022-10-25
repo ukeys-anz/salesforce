@@ -5,6 +5,7 @@
  */
 public with sharing class InitiateInteractionController {
   public static final String PERMISSIONS_ERROR = 'Please check you have the permissions to create an Interaction';
+  public static final String SEND_MESSAGE_ERROR = 'Failed to send the outbound chat message. Please try sending it again. Raise a fault through TechAssist if the problem persists.';
 
   /**
    * @description Retrieves the phone number based on record context for the initiateInteraction LWC
@@ -51,8 +52,13 @@ public with sharing class InitiateInteractionController {
    */
   @AuraEnabled
   public static Interaction createInteraction(Map<String, String> fields) {
+    if (Interaction.sObjectType.getDescribe().isCreateable() == false) {
+      throw new AuraHandledException(PERMISSIONS_ERROR);
+    }
+    if (Interaction.sObjectType.getDescribe().isQueryable() == false) {
+      throw new AuraHandledException(PERMISSIONS_ERROR);
+    }
     try {
-      Interaction intToReturn = new Interaction();
       Interaction newInteraction = new Interaction(
         RecordTypeId = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
           .get(fields.get('recordType'))
@@ -66,21 +72,105 @@ public with sharing class InitiateInteractionController {
         Direction__c = fields.get('direction'),
         Interaction_Purpose__c = fields.get('reason')
       );
-      if (Interaction.sObjectType.getDescribe().isCreateable()) {
-        insert newInteraction;
-        if (Interaction.sObjectType.getDescribe().isQueryable()) {
-          intToReturn = [
-            SELECT Id, Interaction_External_Id__c
-            FROM Interaction
-            WHERE Id = :newInteraction.Id
-          ];
-        }
-        return intToReturn;
-      } else {
-        throw new System.AuraHandledException(PERMISSIONS_ERROR);
-      }
+      insert newInteraction;
+      Interaction intToReturn = [
+        SELECT Id, Interaction_External_Id__c
+        FROM Interaction
+        WHERE Id = :newInteraction.Id
+        LIMIT 1
+      ];
+      return intToReturn;
     } catch (Exception e) {
+      Logger.error('Failed creating Interaction', e);
+      Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
+  }
+
+  /**
+   * @description Initiates chat with customer
+   * @param accountId the id of the customers account
+   * @param messageContent contains the content of the message sent to initiate chat
+   * @return `InitiateChatModel` Returns the response from the callout
+   */
+  @AuraEnabled
+  public static InitiateChatModel initiateChat(
+    Id accountId,
+    String messageContent
+  ) {
+    CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
+    try {
+      if (PermissionUtils.canQuery('Account') == false) {
+        CommonUtil.logAndThrowIAE(
+          'InitiateInteractionController',
+          'initiateChat',
+          'Not enough permissions to query account.'
+        );
+      }
+
+      Account acc = getAccountDetails(accountId, 'initiateChat');
+      InitiateChatModel response = callCenterAPI.initiateChat(
+        acc.OCV_ID__c,
+        messageContent,
+        acc.FirstName
+      );
+
+      //Confirm we have a conversationSID
+      if (String.isBlank(response.conversationSid)) {
+        Logger.error(
+          'Failed initiating outbound chat. Missing conversationSID or chat ID'
+        );
+        Logger.saveLog();
+        throw new AuraHandledException(SEND_MESSAGE_ERROR);
+      }
+      return response;
+    } catch (Exception e) {
+      throw new AuraHandledException(SEND_MESSAGE_ERROR);
+    }
+  }
+
+  /**
+   * @description Reinitiates chat with customer
+   * @param accountId the id of the customers account
+   * @param conversationSid the id of the chat to reinitiate
+   * @return `ReinitiateChatModel` Returns the response from the callout
+   */
+  @AuraEnabled
+  public static ReinitiateChatModel reinitiateChat(
+    Id accountId,
+    String conversationSid
+  ) {
+    CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
+    try {
+      Account acc = getAccountDetails(accountId, 'reinitiateChat');
+      return callCenterAPI.reinitiateChat(acc.OCV_ID__c, conversationSid);
+    } catch (CallCenterAPIRepository.CustomException e) {
+      throw new AuraHandledException(e.getMessage());
+    } catch (Exception e) {
+      throw new AuraHandledException(SEND_MESSAGE_ERROR);
+    }
+  }
+
+  /**
+   * @description Fetches customer details
+   * @param accountId the id of the customers account
+   * @param methodName the name of the method calling this
+   * @return `Account` Returns the customer
+   */
+  private static Account getAccountDetails(Id accountId, String methodName) {
+    if (PermissionUtils.canQuery('Account') == false) {
+      CommonUtil.logAndThrowIAE(
+        'InitiateInteractionController',
+        methodName,
+        'Not enough permissions to query account.'
+      );
+    }
+    Account accountRecord = [
+      SELECT Id, OCV_ID__c, FirstName
+      FROM Account
+      WHERE Id = :accountId
+      LIMIT 1
+    ];
+    return accountRecord;
   }
 }
