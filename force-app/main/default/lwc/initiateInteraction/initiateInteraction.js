@@ -55,6 +55,7 @@ export default class InitiateInteraction extends LightningElement {
   @api objectApiName;
   conversationSid; //Populated as part of the initiate chat response
   executionSid; //Populated as part of the reinitiate chat response
+  showMessageCustomer = false;
 
   get displayOutboundChat() {
     return hasOutboundChatPermission;
@@ -79,12 +80,18 @@ export default class InitiateInteraction extends LightningElement {
           this.fields.reason = "Customer";
           //Show contact tab as default on account
           this.contactCustomer = true;
+          this.showMessageCustomer = true;
           this.handleShowContactTab();
           break;
         case "Case":
           this.fields.accountId = data.fields.AccountId.value;
           this.fields.caseId = this.recordId;
           this.fields.reason = "Customer";
+          //If we have a number, set to true and show contact tab
+          if (this.callPhoneNumber) {
+            this.contactCustomer = true;
+            this.handleShowContactTab();
+          }
           break;
         case "Coaching_Summary__c":
           this.fields.accountId = data.fields.Account__c.value;
@@ -134,6 +141,13 @@ export default class InitiateInteraction extends LightningElement {
       if (result != null) {
         this.phoneNumber = result;
         this.callPhoneNumber = "Call " + this.phoneNumber;
+      } else {
+        //If we dont need to show Message Customer
+        //and we dont have a number, hide the tab all together
+        if (!this.showMessageCustomer) {
+          this.contactCustomer = false;
+          this.handleShowDialTab();
+        }
       }
     });
   }

@@ -41,35 +41,37 @@
         <template if:true={showContactTab}>
           <div>
             <div class="slds-m-around_small">
-              <template if:true={displayOutboundChat}>
-                <div class="slds-align_absolute-center">
-                  <lightning-button
-                    data-id="message-customer"
-                    data-test-id="message-customer-button"
-                    variant="brand-outline"
-                    label="Message Customer"
-                    title="Message"
-                    onclick={handleShowChatWindow}
-                    icon-name="utility:chat"
-                    class="slds-p-around_x-small button-display"
-                  >
-                  </lightning-button>
-                </div>
-              </template>
-              <template if:false={displayOutboundChat}>
-                <div class="slds-align_absolute-center">
-                  <lightning-button
-                    data-id="message-customer"
-                    data-test-id="message-customer-button"
-                    variant="brand-outline"
-                    label="Message Customer"
-                    title="Message"
-                    icon-name="utility:chat"
-                    class="slds-p-around_x-small button-display"
-                    disabled
-                  >
-                  </lightning-button>
-                </div>
+              <template if:true={showMessageCustomer}>
+                <template if:true={displayOutboundChat}>
+                  <div class="slds-align_absolute-center">
+                    <lightning-button
+                      data-id="message-customer"
+                      data-test-id="message-customer-button"
+                      variant="brand-outline"
+                      label="Message Customer"
+                      title="Message"
+                      onclick={handleShowChatWindow}
+                      icon-name="utility:chat"
+                      class="slds-p-around_x-small button-display"
+                    >
+                    </lightning-button>
+                  </div>
+                </template>
+                <template if:false={displayOutboundChat}>
+                  <div class="slds-align_absolute-center">
+                    <lightning-button
+                      data-id="message-customer"
+                      data-test-id="message-customer-button"
+                      variant="brand-outline"
+                      label="Message Customer"
+                      title="Message"
+                      icon-name="utility:chat"
+                      class="slds-p-around_x-small button-display"
+                      disabled
+                    >
+                    </lightning-button>
+                  </div>
+                </template>
               </template>
               <div class="slds-align_absolute-center">
                 <template if:true={callPhoneNumber}>
@@ -99,18 +101,6 @@
                     >
                     </lightning-button>
                   </template>
-                </template>
-                <template if:false={callPhoneNumber}>
-                  <lightning-button
-                    data-id="call-customer"
-                    variant="brand-outline"
-                    label="Dial Number"
-                    title="Dial Number"
-                    onclick={handleShowDialTab}
-                    icon-name="utility:call"
-                    class="slds-p-around_x-small button-display"
-                  >
-                  </lightning-button>
                 </template>
               </div>
               <div
