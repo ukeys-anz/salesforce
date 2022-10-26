@@ -6,7 +6,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Reactive logging keywords</shortDescription>
-        <value>TAX,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CITIZENSHIP CERTIFICATE,IMMICARD,VISA,BIRTH CERTIFICATE,CENTRELINK CRN,DVA NUMBER,UIN,UNIQUE IDENTIFICATION NUMBER</value>
+        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER</value>
     </labels>
     <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
@@ -39,7 +39,7 @@
         <shortDescription>Lead Default Priority Value</shortDescription>
         <value>99</value>
     </labels>
-     <labels>
+    <labels>
         <fullName>CCRM_DefaultCampaign</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -93,7 +93,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Commercial CRM List of Lead Stages which should not allow to be edited.</shortDescription>
-        <value>'Completed','Converted','Expired','Referred'</value>
+        <value>&apos;Completed&apos;,&apos;Converted&apos;,&apos;Expired&apos;,&apos;Referred&apos;</value>
     </labels>
     <labels>
         <fullName>CCRM_ExtendLeadExpiryDateWhenResponseLogCreated</fullName>
