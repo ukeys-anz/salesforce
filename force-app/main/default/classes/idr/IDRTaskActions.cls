@@ -62,6 +62,8 @@ public without sharing class IDRTaskActions {
       AND Type = :IDRCaseActions.QUEUE_TYPE
   ];
 
+  public static Boolean siSystemDeletingAutoGenTask = false;
+
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
    * @param records The Task record list.
@@ -163,6 +165,14 @@ public without sharing class IDRTaskActions {
     }
     stampQueueName(records, oldMap);
     validateSIDueDate(records, oldMap);
+  }
+
+  /**
+   * @description beforeDeleteActions is called onBeforeDelete. any logic that needs to be executed on before Delete is executed from here
+   * @param records The Task record list.
+   */
+  public static void beforeDeleteActions(List<Task> records) {
+    restrictIDRTaskDelete(records);
   }
 
   /**
@@ -861,5 +871,61 @@ public without sharing class IDRTaskActions {
         }
       }
     }
+  }
+
+   /**
+   * @description restrictIDRTaskDelete check if user is able to delete IDR task records (in particular auto-generated IDR tasks), throws error if user is ineligible to delete IDR task
+   * @param records the task records being checked to see if its eligible for deletion
+   */
+  public static void restrictIDRTaskDelete(List<Task> records){
+    for(Task t:records){
+      if(isIDRTaskType(t)){
+        if(!validateIDRTaskForDelete(t)){
+          t.addError('Error: This task is automatically generated and cannot be deleted in CMOS');
+        }
+      }
+    }
+  }
+
+   /**
+   * @description validateIDRTaskForDelete logic to check if user is able to delete task record (in particular auto-generated IDR tasks)
+   * @param t the task record being checked to see if its eligible for deletion
+   * @return `Boolean` True if the the record type is eligible for deletion, false otherwise
+   */
+  public static boolean validateIDRTaskForDelete(Task t) {
+    if (t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID) {
+      return false;
+    } else if (t.RecordTypeId == IDRConstants.IDR_TASK_RT_ID) {
+      if (FeatureManagement.checkPermission('IDR_Level_1')) {
+        return true;
+      }
+    } else if (t.RecordTypeId == IDRConstants.SI_TASK_RT_ID) {
+      if (t.Subject.contains('Monitor Issue') && !siSystemDeletingAutoGenTask) {
+        return false;
+      } else {
+        if (FeatureManagement.checkPermission('IDR_SI')) {
+          return true;
+        }
+      }
+    }
+    return true;
+  }
+
+  /**
+   * @description isIDRTaskType check if record type is of IDR type.
+   * As this Trigger will be used across various teams we identify task record based on IDR record Type.
+   *
+   * @param record The record for which the recordType needs to be checked
+   * @return `Boolean` True if the the record type is of IDR type false otherwise.
+   */
+  public static Boolean isIDRTaskType(Task record) {
+    if (
+      record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID ||
+      record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID ||
+      record.RecordTypeId == IDRConstants.SI_TASK_RT_ID
+    ) {
+      return true;
+    }
+    return false;
   }
 }

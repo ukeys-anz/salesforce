@@ -44,6 +44,12 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     IDRTaskActions.afterUpdateActions(records);
   }
   /**
+   * @description onBeforeDelete to handle before delete trigger actions.
+   */
+  public override void onBeforeDelete() {
+    IDRTaskActions.beforeDeleteActions(records);
+  }
+  /**
    * @description Assesses whether or not to generate a banker notification
    * @param records task records in current trigger context
    */

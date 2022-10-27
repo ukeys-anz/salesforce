@@ -42,6 +42,25 @@ private with sharing class IDRTaskActionsTest {
         psaList.add(TestUtil.createPSAssignment(siUser.Id, ps.Id));
       }
       insert psaList;
+
+      role = CommonUtil.getUserRoleByDevName('Customer_Resolution');
+      User idrL1User = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'idrL1User',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => role.Id
+        }
+      );
+      insert idrL1User;
+
+      List<String> idrPsets = new List<String>{ 'IDR_Level_1' };
+      psList = [SELECT Id FROM PermissionSet WHERE Name IN :idrPsets];
+
+      psaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : psList) {
+        psaList.add(TestUtil.createPSAssignment(idrL1User.Id, ps.Id));
+      }
+      insert psaList;
     }
   }
 
@@ -275,6 +294,75 @@ private with sharing class IDRTaskActionsTest {
       oQueue.Name,
       c.Queue__c,
       'Task Queue name not preserved'
+    );
+  }
+
+  @IsTest
+  static void testRestrictIDRSystemTaskDelete() {
+    //GIVEN new IDR System Task
+    Task[] newTasks = new List<Task>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newTasks.add(
+        new Task(
+          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+          Priority = 'Normal',
+          Subject = 'Test Subject',
+          Description = 'Test description '
+        )
+      );
+    }
+    Boolean errorThrown = false;
+    User idrL1User = TestUtil.getUserByFirstName('idrL1User');
+    System.runAs(idrL1User) {
+      insert newTasks;
+
+      //WHEN user attempts to delete the task
+      try {
+        delete newTasks;
+      } catch (DmlException error) {
+        System.debug(error);
+        errorThrown = true;
+      }
+    }
+    //THEN ensure the IDR System task doesn't get deleted
+    system.assertEquals(
+      true,
+      errorThrown,
+      'IDR System Task should not have been deleted'
+    );
+  }
+
+  @IsTest
+  static void testRestrictIDRTaskDelete() {
+    //GIVEN new IDR Task
+    Task[] newTasks = new List<Task>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newTasks.add(
+        new Task(
+          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          Priority = 'Normal',
+          Subject = 'Test Subject',
+          Description = 'Test description '
+        )
+      );
+    }
+    Boolean errorThrown = false;
+    User idrL1User = TestUtil.getUserByFirstName('idrL1User');
+    System.runAs(idrL1User) {
+      insert newTasks;
+
+      //WHEN user attempts to delete the task
+      try {
+        delete newTasks;
+      } catch (DmlException error) {
+        errorThrown = true;
+      }
+    }
+    //THEN the task should be able to be deleted
+    system.assertEquals(
+      false,
+      errorThrown,
+      'IDR Task should have been deleted'
     );
   }
 }
