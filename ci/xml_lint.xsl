@@ -22,12 +22,10 @@ xmlns:saxon="http://saxon.sf.net/">
     </xsl:character-map>
     <xsl:output use-character-maps="doc-entities" />
     
-    <!-- Order Specific Meta's by putting the Full Name up the very top and the rest below -->
+    <!-- Order Specific Metas by putting the Full Name up the very top and the rest below -->
     <xsl:template match="
           sf:CustomField|sf:ValidationRule|
           sf:ListView|
-          sf:SharingRules//sf:sharingCriteriaRules|
-          sf:SharingRules//sf:sharingOwnerRules|
           sf:MatchingRules//sf:matchingRules|
           sf:CustomLabels//sf:labels|
           sf:Flow//sf:decisions|
@@ -35,9 +33,38 @@ xmlns:saxon="http://saxon.sf.net/">
           ">
         <xsl:copy>
             <xsl:apply-templates select="sf:fullName|sf:name"></xsl:apply-templates>
-            <xsl:apply-templates select="node()[not(self::sf:fullName||self::sf:name)]">            
+            <xsl:apply-templates select="node()[not(self::sf:fullName|self::sf:name)]">
                 <xsl:sort select="local-name()" data-type="text"/>
             </xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
+
+    <!-- Order Sharing Rules by putting the Full Name up the very top, the rest below and criteriaItems at the bottom -->
+    <xsl:template match="
+          sf:SharingRules//sf:sharingCriteriaRules
+          ">
+        <xsl:copy>
+            <xsl:apply-templates select="sf:fullName|sf:name"></xsl:apply-templates>
+            <xsl:apply-templates select="node()[not(self::sf:fullName|self::sf:name|self::sf:booleanFilter|self::sf:criteriaItems|self::sf:includeRecordsOwnedByAll)]">
+                <xsl:sort select="local-name()" data-type="text"/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="node()[self::sf:booleanFilter|self::sf:criteriaItems|self::sf:includeRecordsOwnedByAll]">
+                <xsl:sort select="local-name()" data-type="text"/>
+            </xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
+
+    <!-- Order Sharing Owner Rules by putting the Full Name up the very top, sharedTo before sharedFrom at the bottom and the rest sorted in the middle -->
+    <xsl:template match="
+          sf:SharingRules//sf:sharingOwnerRules
+          ">
+        <xsl:copy>
+            <xsl:apply-templates select="sf:fullName|sf:name"></xsl:apply-templates>
+            <xsl:apply-templates select="node()[not(self::sf:fullName|self::sf:name|self::sf:sharedTo|self::sf:sharedFrom)]">
+                <xsl:sort select="local-name()" data-type="text"/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="node()[self::sf:sharedTo]"></xsl:apply-templates>
+            <xsl:apply-templates select="node()[self::sf:sharedFrom]"></xsl:apply-templates>
         </xsl:copy>
     </xsl:template>
 

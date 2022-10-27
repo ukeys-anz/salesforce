@@ -79,10 +79,7 @@ function linter(file, check) {
 
       // setting indent-spaces in xml_lint.xsl to 4 seems to have no effect. Manually fixing that here.
       // Also file needs to end with \n to match sfdx format.
-      fs.writeFileSync(
-        file,
-        lintedFile.principalResult.replace(/   /g, "    ") + "\n"
-      );
+      fs.writeFileSync(file, lintedFile.principalResult + "\n");
 
       execSync(`git add "${file}"`);
       console.log(`Linted: ${file}`);
