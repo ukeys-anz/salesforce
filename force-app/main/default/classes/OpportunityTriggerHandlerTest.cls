@@ -15,7 +15,11 @@ private class OpportunityTriggerHandlerTest {
         Integer.valueOf(Label.Test_Bulk_Size),
         ccrmUser
       );
-      System.assertEquals(opps.size(), Integer.valueOf(Label.Test_Bulk_Size));
+      System.assertEquals(
+        opps.size(),
+        Integer.valueOf(Label.Test_Bulk_Size),
+        'Opportunity list size should be as expected.'
+      );
     }
   }
 }

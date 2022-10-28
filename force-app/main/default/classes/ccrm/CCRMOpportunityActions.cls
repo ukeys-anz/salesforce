@@ -6,6 +6,11 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CCRMOpportunityActions {
+  public static final String CLOSE_DATE_FIELD_NAME = 'CloseDate';
+  public static final String INVALID_CLOSE_DATE_ERROR = 'Please select a Closing Date (i.e. expected settlement date)';
+  public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
+  public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
+
   /**
    * @description This method will update Controlling Post field depending on the CPID provided in Account.
    * @name populateFields
@@ -18,7 +23,6 @@ public with sharing class CCRMOpportunityActions {
   ) {
     Set<Id> accountIds = new Set<Id>();
     for (Opportunity opp : records) {
-      Opportunity oldRec = oldMap != null ? oldMap.get(opp.id) : null;
       maskDescription(opp);
       accountIds.add(opp.AccountId);
     }
@@ -103,10 +107,7 @@ public with sharing class CCRMOpportunityActions {
         !opp.Has_Close_Date_Changed__c &&
         oldOppCloseDate == opp.CloseDate
       ) {
-        opp.addError(
-          'CloseDate',
-          'Please select a Closing Date (i.e. expected settlement date)'
-        );
+        opp.addError(CLOSE_DATE_FIELD_NAME, INVALID_CLOSE_DATE_ERROR);
       } else if (oldOppCloseDate != opp.CloseDate) {
         opp.Has_Close_Date_Changed__c = true;
       }
@@ -157,8 +158,8 @@ public with sharing class CCRMOpportunityActions {
         Account acc = accounts.get(record.AccountId);
         if (acc.FinServ__Status__c != 'Active' && !record.Lead_Converted__c) {
           record.addError(
-            'AccountId',
-            'Error Message - Lead process to be followed for prospect opportunity creation'
+            ACCOUNT_ID_FIELD_NAME,
+            LEAD_PROCESS_FOR_PROSPECT_ERROR
           );
         }
       }

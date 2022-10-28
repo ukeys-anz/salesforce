@@ -9,8 +9,8 @@ private class CCRMRegionSharingUtilTest {
   static final Integer TEST_BULK_SIZE = Integer.valueOf(Label.Test_Bulk_Size);
   @TestSetup
   static void makeData() {
-    User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
-    User adminUser = CCRMTestDataFactory.createAdminUser();
+    CCRMTestDataFactory.createCCRMBaseUser();
+    CCRMTestDataFactory.createAdminUser();
 
     createTestGroups();
     createTestUsers();

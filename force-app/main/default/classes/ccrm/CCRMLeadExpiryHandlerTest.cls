@@ -27,7 +27,7 @@ public class CCRMLeadExpiryHandlerTest {
   @IsTest
   static void leadUpdateTest() {
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
+      CCRMTestDataFactory.getCCRMBaseUser();
       //Update Expired lead
       List<Lead> updatedLeads = new List<Lead>();
       for (Lead leadRecord : [

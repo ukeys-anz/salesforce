@@ -37,3 +37,12 @@
 .message-area {
   --sds-c-textarea-sizing-min-height: 11rem;
 }
+
+.li {
+  cursor: pointer;
+}
+
+.button-display {
+  display: grid;
+  width: 85%;
+}

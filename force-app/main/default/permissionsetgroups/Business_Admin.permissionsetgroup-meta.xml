@@ -5,6 +5,7 @@
     <permissionSets>Account_Hardship_Collections_Manager</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>Author_Reports_and_Dashboards</permissionSets>
+    <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Bugs_Read_Write</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
@@ -32,6 +33,7 @@
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
     <permissionSets>Manage_Users</permissionSets>
+    <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Write</permissionSets>
     <permissionSets>Quality_Assessment_View_All</permissionSets>
@@ -48,5 +50,6 @@
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>force__Mortgage</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

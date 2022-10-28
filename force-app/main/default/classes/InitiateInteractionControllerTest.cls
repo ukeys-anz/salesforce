@@ -11,7 +11,8 @@ public with sharing class InitiateInteractionControllerTest {
   static void setup() {
     Faker faker = new Faker('AU');
     Account acc = new Account(
-      Name = faker.randomString(10),
+      FirstName = faker.randomString(10),
+      LastName = faker.randomString(10),
       OCV_ID__c = faker.randomString(10),
       ANZx_Customer__c = true
     );
@@ -70,6 +71,59 @@ public with sharing class InitiateInteractionControllerTest {
         e.getMessage(),
         'Script-thrown exception',
         'Error should be thrown.'
+      );
+    }
+  }
+
+  /**
+   * @description initiateChatTest tests successful response of initiate chat
+   */
+  @isTest
+  static void initiateChatTest() {
+    User thisUser = [
+      SELECT Id, Name
+      FROM User
+      WHERE Id = :UserInfo.getUserId()
+    ];
+    System.runAs(thisUser) {
+      Account testAcc = [SELECT Id FROM Account LIMIT 1];
+      String messageContent = 'Test message content to be sent';
+
+      Test.startTest();
+      InitiateChatModel response = InitiateInteractionController.initiateChat(
+        testAcc.Id,
+        messageContent
+      );
+      Test.stopTest();
+
+      System.assertEquals(
+        'CH000001',
+        response.conversationSid,
+        'Mock conversationSid should be returned'
+      );
+    }
+  }
+
+  /**
+   * @description reinitiateChatTest tests successful response of reinitiate chat
+   */
+  @isTest
+  static void reinitiateChatTest() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Account testAcc = [SELECT Id FROM Account LIMIT 1];
+      Faker faker = new Faker('AU');
+      Test.startTest();
+      ReinitiateChatModel response = InitiateInteractionController.reinitiateChat(
+        testAcc.Id,
+        faker.randomString(10)
+      );
+      Test.stopTest();
+
+      System.assertEquals(
+        'FW000001',
+        response.executionSid,
+        'Mock executionSid should be returned'
       );
     }
   }

@@ -7,7 +7,6 @@
 public with sharing class InteractionTriggerHandlerTest {
   private static Integer otherPurposeDuration = 30;
   private final static string TEST_MOBILE = '01189998819991197253';
-  private final static string TEST_MOBILE2 = '0118999881999119725';
 
   @isTest
   static void testSwitchingInteractionFromQueueToUser() {
@@ -137,8 +136,6 @@ public with sharing class InteractionTriggerHandlerTest {
     insert apptCommt;
 
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
-    Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
     insert testAccount;
     testAccount = [
@@ -253,8 +250,6 @@ public with sharing class InteractionTriggerHandlerTest {
   @isTest
   static void testInteractionNoShow() {
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
-    Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
     Id currentUserId = UserInfo.getUserId();
 
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
@@ -346,9 +341,6 @@ public with sharing class InteractionTriggerHandlerTest {
     apptCommt.Appointment_Channel__c = 'Store';
     insert apptCommt;
 
-    string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
-    Integer otherPurposeDuration = 30;
-    string contactRequestQueueName = 'Contact Request';
     Account testAccount = createTestAccount('Joe', 'Bloggs', 'afr123');
     insert testAccount;
     testAccount = [
@@ -356,8 +348,6 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM Account
       WHERE Id = :testAccount.Id
     ];
-
-    DateTime appointmentDate = DateTime.now();
 
     List<ContactRequest> crList = new List<ContactRequest>();
     for (Integer i = 0; i < 100; i++) {

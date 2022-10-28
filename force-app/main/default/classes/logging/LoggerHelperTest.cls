@@ -135,8 +135,8 @@ public with sharing class LoggerHelperTest {
   @isTest
   static void testGetBufferSize() {
     System.runAs(getEngineer()) {
-      LogEventBuilder builder1 = LoggerHelper.newEntry(LoggingLevel.DEBUG);
-      LogEventBuilder builder2 = LoggerHelper.newEntry(LoggingLevel.ERROR);
+      LoggerHelper.newEntry(LoggingLevel.DEBUG);
+      LoggerHelper.newEntry(LoggingLevel.ERROR);
       System.assertEquals(
         2,
         LoggerHelper.getBufferSize(),
@@ -148,8 +148,8 @@ public with sharing class LoggerHelperTest {
   @isTest
   static void testFlushBuffer() {
     System.runAs(getEngineer()) {
-      LogEventBuilder builder1 = LoggerHelper.newEntry(LoggingLevel.DEBUG);
-      LogEventBuilder builder2 = LoggerHelper.newEntry(LoggingLevel.ERROR);
+      LoggerHelper.newEntry(LoggingLevel.DEBUG);
+      LoggerHelper.newEntry(LoggingLevel.ERROR);
       System.assertEquals(
         2,
         LoggerHelper.getBufferSize(),
@@ -167,8 +167,8 @@ public with sharing class LoggerHelperTest {
   @isTest
   static void testSaveLogEventBus() {
     System.runAs(getEngineer()) {
-      LogEventBuilder builder1 = LoggerHelper.newEntry(LoggingLevel.DEBUG);
-      LogEventBuilder builder2 = LoggerHelper.newEntry(LoggingLevel.ERROR);
+      LoggerHelper.newEntry(LoggingLevel.DEBUG);
+      LoggerHelper.newEntry(LoggingLevel.ERROR);
       LoggerHelper.saveLog(Logger.SaveMethod.EVENT_BUS);
 
       System.assertEquals(
@@ -185,8 +185,8 @@ public with sharing class LoggerHelperTest {
   @isTest
   static void testSaveLogQueueable() {
     System.runAs(getEngineer()) {
-      LogEventBuilder builder1 = LoggerHelper.newEntry(LoggingLevel.DEBUG);
-      LogEventBuilder builder2 = LoggerHelper.newEntry(LoggingLevel.ERROR);
+      LoggerHelper.newEntry(LoggingLevel.DEBUG);
+      LoggerHelper.newEntry(LoggingLevel.ERROR);
       LoggerHelper.saveLog(Logger.SaveMethod.QUEUEABLE);
 
       System.assertEquals(

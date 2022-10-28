@@ -7,6 +7,8 @@
 public with sharing class CallCenterAPIRepository extends RepositoryBase {
   public static final String CHANNELS_ENDPOINT_SUFFIX = '/channels';
   public static final Integer OFFSET_LIMIT = 20;
+  private static final String DEFAULT_ISSUE_TYPE = 'Follow Up';
+  private static final String DEFAULT_ISSUE_SUB_TYPE = 'ANZ Plus Support';
 
   /**
    * @param ocvId customer id
@@ -21,7 +23,6 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String nextURL
   ) {
     // Construct the endpoint
-    ChatChannelModel result;
     String rowLimitParam = '?limit=' + OFFSET_LIMIT;
     String urlParams = String.isBlank(nextURL) ? rowLimitParam : nextURL;
 
@@ -46,8 +47,6 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String ocvId,
     String channelSID
   ) {
-    ChatChannelModel.Channel result;
-
     // Construct the endpoint
     String endPoint =
       'callout:SF_MS_Twilio' +
@@ -65,19 +64,14 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
    * @description fetches chat channels from Twilio, deserialized to a model
    */
   private ChatChannelModel getChatTopics(String ocvId, String endPoint) {
-    ChatChannelModel result;
     Service s = ServiceProvider.getService(TwilioService.class);
     HttpCalloutResponse response = s.fetchChatTopics(ocvId, endPoint);
-    if (response.successful) {
-      try {
-        result = ChatChannelModel.parseChannels(response.body);
-      } catch (Exception e) {
-        handleErrors(null, e, CallCenterAPIRepository.class);
-      }
-    } else {
-      handleErrors(response, null, CallCenterAPIRepository.class);
+    if (response.successful == false) {
+      Logger.error('Failed to retrieve chat topics', response.error);
+      Logger.saveLog();
+      throw response.error;
     }
-    return result;
+    return ChatChannelModel.parseChannels(response.body);
   }
 
   /**
@@ -90,18 +84,70 @@ public with sharing class CallCenterAPIRepository extends RepositoryBase {
     String ocvId,
     String endPoint
   ) {
-    ChatChannelModel.Channel result;
     Service s = ServiceProvider.getService(TwilioService.class);
     HttpCalloutResponse response = s.fetchChatTopics(ocvId, endPoint);
-    if (response.successful) {
-      try {
-        result = ChatChannelModel.parseSingleChannel(response.body);
-      } catch (Exception e) {
-        handleErrors(null, e, CallCenterAPIRepository.class);
-      }
-    } else {
-      handleErrors(response, null, CallCenterAPIRepository.class);
+    if (response.successful == false) {
+      Logger.error('Failed to retrieve single chat topic', response.error);
+      Logger.saveLog();
+      throw response.error;
     }
-    return result;
+    return ChatChannelModel.parseSingleChannel(response.body);
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param messageContent the message content to send
+   * @param customerName the first name of the customer
+   * @return `InitiateChatModel` model class constructed from api response
+   * @description sends the initial chat message
+   */
+  public InitiateChatModel initiateChat(
+    String ocvId,
+    String messageContent,
+    String customerName
+  ) {
+    Service s = ServiceProvider.getService(TwilioService.class);
+    HttpCalloutResponse response = s.initiateChat(
+      ocvId,
+      messageContent,
+      customerName,
+      DEFAULT_ISSUE_TYPE,
+      DEFAULT_ISSUE_SUB_TYPE
+    );
+    if (response.successful == false) {
+      Logger.error('Failed to initiate chat', response.error);
+      Logger.saveLog();
+      throw response.error;
+    }
+    return InitiateChatModel.parse(response.body);
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param conversationSid the id of the chat to reinitiate
+   * @return `ReinitiateChatModel` model class constructed from api response
+   * @description reinitiates the customer chat
+   */
+  public ReinitiateChatModel reinitiateChat(
+    String ocvId,
+    String conversationSid
+  ) {
+    Service s = ServiceProvider.getService(TwilioService.class);
+    HttpCalloutResponse response = s.reinitiateChat(ocvId, conversationSid);
+    if (response.successful == false && response.statusCode == 400) {
+      throw new CustomException(response.error.getMessage());
+    }
+    if (response.successful == false) {
+      Logger.error('Failed to reinitiate chat', response.error);
+      Logger.saveLog();
+      throw response.error;
+    }
+    return ReinitiateChatModel.parse(response.body);
+  }
+
+  /**
+   * @description Custom Exception class that is used to differentiate custom and generic exceptions
+   */
+  public class CustomException extends Exception {
   }
 }

@@ -2,6 +2,8 @@
  * @author Boobalakrishnan Duraisamy
  * @since 04/2021
  * @description  Controller for IDRRestrictedCases lwc component
+ * without sharing: is used to query the Restricted Cases and display only limited set of information to bankers using LWC.
+ * Restricted cases can only be accessed by L1 Customer Resolution Portfolio Users.
  * @group IDR(Internal Dispute Resolution)
  */
 public without sharing class IDRRestrictedCasesController {

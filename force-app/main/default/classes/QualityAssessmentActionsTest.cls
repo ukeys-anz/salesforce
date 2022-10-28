@@ -64,8 +64,6 @@ private class QualityAssessmentActionsTest {
   private static void testAssignRelatedCaseFieldsToQA() {
     Test.startTest();
 
-    List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
-
     Case caseRecord = new Case(
       Subject = 'Dispute Case',
       RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
@@ -98,8 +96,6 @@ private class QualityAssessmentActionsTest {
   @isTest
   private static void testAssignRelatedCaseFieldsToQAWhenOriginPreSelected() {
     Test.startTest();
-
-    List<Quality_Assessment__c> qaRecords = new List<Quality_Assessment__c>();
 
     Case caseRecord = new Case(
       Subject = 'Dispute Case',

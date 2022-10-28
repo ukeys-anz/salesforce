@@ -14,7 +14,7 @@ public with sharing class StravinskyController {
    * @description stravinsky package closure api
    */
   @AuraEnabled(cacheable=false)
-  public static PackageClosureModel getPackageClosureAura(String recordId) {
+  public static PackageClosureModel getPackageClosureAura(Id recordId) {
     if (
       !PermissionUtils.canQuery('Case') ||
       !PermissionUtils.canQuery('FinServ__FinancialAccount__c')

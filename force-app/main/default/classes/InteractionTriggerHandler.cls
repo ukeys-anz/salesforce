@@ -9,8 +9,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    * @description override of the onAfterInsert to create Events & Interaction Summaries
    */
   public override void onAfterInsert() {
-    InteractionActions intActions = new InteractionActions();
-    ContactRequestActions cRActions = new ContactRequestActions();
     List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
     );
@@ -44,14 +42,12 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
   )
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     List<Interaction> interactiontoDeleteEvents = new List<Interaction>();
-    ContactRequestActions actionsForContactRequests = new ContactRequestActions();
 
     List<Interaction> changedOwnerInteractions = InteractionActions.findInteractionsOwnershipChanged(
       oldMap,
       records
     );
     List<Interaction> userOwnedInteractions = new List<Interaction>();
-    List<Interaction> assignedBacktoQueueInteractions = new List<Interaction>();
     List<Interaction> createCoachingSummaryInteractions = new List<Interaction>();
     List<Interaction> assignCoachingSummaryOwnerInteractions = new List<Interaction>();
 
@@ -168,7 +164,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    *  @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
-    ContactRequestActions cRActions = new ContactRequestActions();
     List<Interaction> interactions = InteractionFilter.returnInteractionsWithAutomatedPurpose(
       records
     );
@@ -192,8 +187,6 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    InteractionActions actions = new InteractionActions();
-
     List<Interaction> acceptedInteractions = InteractionComparisonHelper.getAcceptedInteractions(
       oldMap,
       records

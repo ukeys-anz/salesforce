@@ -3,6 +3,7 @@
     <label>Support Coach</label>
     <permissionSets>Account_Closure_LWC</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
+    <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
     <permissionSets>Case_Read_Write_Account_Closure</permissionSets>
@@ -20,6 +21,7 @@
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
+    <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Only</permissionSets>
     <permissionSets>Raise_Dispute</permissionSets>
@@ -29,7 +31,8 @@
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>
-    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>force__Mortgage</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

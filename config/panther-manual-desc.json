@@ -164,6 +164,7 @@
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
     "EmailMessage": "Represents an email in Salesforce.",
     "Event": "Represents a calendar entry in Salesforce",
+    "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -173,6 +174,11 @@
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
     "Legal_Entity__c": "This object contains multiple entities for opportunity product",
+    "Loan_Applicant_Group__c": "High level generalised information relating to a group of applicants",
+    "LoanApplicant": "Individualised, personal information captured to identify applicant circumstances and needs",
+    "LoanApplicantLiability": "Applicants share of the current homeloan",
+    "LoanApplicationLiability": "Stores details of the existing liabilities to be refinanced to ANZ Plus",
+    "LoanApplicationProperty": "Property id links the application to the property domain and all its acquired information",
     "Location": "This standard object would contain all the store locations for ANZ",
     "Log_Record_Access__b": "This big object contains the access logs of records. It stores the user id, record id, date/time and browser/version",
     "Log__c": "The parent log object, which stores logging information on a transaction level.",
@@ -181,12 +187,14 @@
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
+    "Product_Preference__c": "High level generalised information relating to a group of applicants",
     "Product2": "ANZ or ANZx product",
     "Product Family": "Custom object that holds work basket details for cases",
     "Quality_Assessment__c": "An object that holds all the relative fields and it’s values for a quality analyst to conduct end to end quality assessment.",
     "qualtrics__Survey_Response__c": "Customers answers to a given Qualtrics Survey",
     "Release__c": "System documentation on a given Salesforce release of features",
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
+    "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
     "Task": "A task to remind a user to follow up on something",
@@ -982,6 +990,27 @@
       ],
       "IA-2460507": ["Email", "Phone"]
     },
+    "External_Case_Status__c": {
+      "IA-2468715": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name"
+      ],
+      "IA-2415999": [
+        "Case__c",
+        "Customer_Message__c",
+        "External_Status__c",
+        "Internal_Description__c",
+        "Is_Outcome_in_Customer_Favour__c",
+        "Result_Code__c",
+        "Result_Message__c",
+        "Status_Event_ID__c",
+        "Status_Timestamp__c"
+      ]
+    },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
         "Account_Key__c",
@@ -1292,6 +1321,83 @@
         "LastModifiedDate"
       ]
     },
+    "Loan_Applicant_Group__c": {
+      "IA-2415983": [
+        "Deposit_Amount__c",
+        "Guarantor__c",
+        "Married_or_Defacto__c",
+        "Number_of_Dependents__c"
+      ],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": [
+        "Loan_Applicant_Group_ID__c",
+        "Name",
+        "Residential_Loan_Application__c",
+        "SOP_ID__c",
+        "SOP_Version__c"
+      ]
+    },
+    "LoanApplicant": {
+      "IA-2415983": [
+        "Living_Arrangement__c",
+        "Primary_Borrower__c",
+        "Sole_Applicant_Selected__c",
+        "Sole_Income_Earner__c",
+        "Eligibility_Accepted__c"
+      ],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": [
+        "ApplicantExtIdentifier",
+        "Loan_Applicant_Group__c",
+        "Party_ID__c",
+        "Name"
+      ],
+      "IA-2415720": ["Customer_Number__c"],
+      "IA-2415984": ["Occupation_Code__c"]
+    },
+    "LoanApplicantLiability": {
+      "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": [
+        "LoanApplicantId",
+        "Loan_Applicant_Liability_ID__c",
+        "Name"
+      ]
+    },
+    "LoanApplicationLiability": {
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2415983": [
+        "Balance__c",
+        "Interest_Rate_Percent__c",
+        "Months_Remaining__c",
+        "Repayment_Amount__c",
+        "Repayment_Frequency__c"
+      ],
+      "IA-2594111": ["LiabilityExtIdentifier", "Name"]
+    },
+    "LoanApplicationProperty": {
+      "IA-2594113": [
+        "Bathrooms__c",
+        "Bedrooms__c",
+        "Carparks__c",
+        "Floor_Area__c",
+        "Image_Link__c",
+        "Land_Area__c",
+        "PropertyAddress",
+        "Property_ID__c",
+        "Property_Status__c",
+        "Property_Type__c",
+        "Year_Built__c"
+      ],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": ["LoanApplicationId", "PropertyExtIdentifier"],
+      "IA-2594114": [
+        "Primary_Valuation_Type__c",
+        "Risk_Description__c",
+        "Risk_Type__c",
+        "Supporting_Valuation_Type__c"
+      ]
+    },
     "Location": {
       "IA-2468715": [
         "CreatedById",
@@ -1464,6 +1570,35 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Product_Preference__c": {
+      "IA-2415983": [
+        "Final_Amount__c",
+        "Initial_Index_Rate_Basis_Points__c",
+        "Initial_Margin_Basis_Points__c",
+        "Initial_Period_Months__c",
+        "Initial_Rate_Type__c",
+        "Initial_Repayment_Frequency__c",
+        "Initial_Repayment_Type__c",
+        "Initial_Term_Months__c",
+        "Offset__c",
+        "Product_Sub_Code__c",
+        "Requested_Amount__c",
+        "Subsequent_Index_Rate_Basis_Points__c",
+        "Subsequent_Margin_Basis_Points__c",
+        "Subsequent_Period_Months__c",
+        "Subsequent_Repayment_Frequency__c",
+        "Subsequent_Repayment_Type__c",
+        "Subsequent_Rate_Type__c",
+        "Subsequent_Term_Months__c"
+      ],
+      "IA-2415987": ["Product_Code__c"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": [
+        "Name",
+        "Product_Preference_ID__c",
+        "Residential_Loan_Application__c"
       ]
     },
     "Product2": {
@@ -1687,6 +1822,29 @@
         "LastModifiedById",
         "LastModifiedDate"
       ]
+    },
+    "ResidentialLoanApplication": {
+      "IA-2415855": ["Assessment_Outcome__c", "Credit_Version__c"],
+      "IA-2415983": [
+        "First_Home__c",
+        "LoanPurpose",
+        "Loan_Type__c",
+        "Main_Goal__c",
+        "Owner_Occupied__c",
+        "Package_Code__c",
+        "Package_Version__c",
+        "Settlement_ID__c",
+        "Status"
+      ],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
+      "IA-2594111": ["ApplicationExtIdentifier", "Credit_ID__c", "Name"],
+      "IA-2594114": [
+        "Collateral_Assessment_Expiry_Date__c",
+        "Collateral_Assessment_ID__c",
+        "Collateral_Assessment_Outcome__c",
+        "Max_Allowable_LVR_Basis_Points__c"
+      ],
+      "IA-2594113": ["State__c"]
     },
     "Response_Type__c": {
       "IA-2415860": [

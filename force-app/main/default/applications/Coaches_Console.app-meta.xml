@@ -38,6 +38,24 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>External_Case_Status_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>External_Case_Status__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>External_Case_Status_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>External_Case_Status__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Knowledge_Page_Coach</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -149,10 +167,42 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Residential_Loan_Application_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Residential_Loan_Application_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Residential_Loan_Application_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Account_Closure_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
         <recordType>Case.Account_Closure</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Residential_Loan_Application_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>
@@ -193,6 +243,7 @@
     <tabs>Interaction_List_View</tabs>
     <tabs>Coaching_Summary__c</tabs>
     <tabs>standard-ContactRequest</tabs>
+    <tabs>standard-ResidentialLoanApplication</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Coaches_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -220,6 +271,9 @@
         </mappings>
         <mappings>
             <tab>standard-Lead</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-ResidentialLoanApplication</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>

@@ -31,7 +31,7 @@
    </sharingCriteriaRules>
    <sharingCriteriaRules>
       <fullName>ANZx_Non_Customer_Complaints</fullName>
-      <accessLevel>Edit</accessLevel>
+      <accessLevel>Read</accessLevel>
       <criteriaItems>
          <field>RecordTypeId</field>
          <operation>equals</operation>
@@ -70,6 +70,26 @@
       </sharedTo>
    </sharingCriteriaRules>
    <sharingCriteriaRules>
+    <fullName>Business_Admin_Non_Compliant_Customer_RW</fullName>
+    <accessLevel>Edit</accessLevel>
+    <description>Provides access to Non Customer Complaints for Business Admin</description>
+    <label>Business Admin Non Compliant Customer RW</label>
+    <sharedTo>
+        <role>Business_Admin</role>
+    </sharedTo>
+    <criteriaItems>
+        <field>RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Non-Customer Complaint</value>
+    </criteriaItems>
+    <criteriaItems>
+        <field>ANZx_Customer__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </criteriaItems>
+    <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+</sharingCriteriaRules>
+   <sharingCriteriaRules>
       <fullName>Case_RT_BusinessAdmin_RW</fullName>
       <accessLevel>Edit</accessLevel>
       <criteriaItems>
@@ -84,6 +104,26 @@
          <role>Business_Admin</role>
       </sharedTo>
    </sharingCriteriaRules>
+   <sharingCriteriaRules>
+    <fullName>Coach_Lead_Non_Customer_Compliant_RW</fullName>
+    <accessLevel>Edit</accessLevel>
+    <description>Provides access to Non Customer Complaints for Coach Lead</description>
+    <label>Coach Lead Non Customer Compliant RW</label>
+    <sharedTo>
+        <role>Coach_Lead</role>
+    </sharedTo>
+    <criteriaItems>
+        <field>RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Non-Customer Complaint</value>
+    </criteriaItems>
+    <criteriaItems>
+        <field>ANZx_Customer__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </criteriaItems>
+    <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+</sharingCriteriaRules>
    <sharingCriteriaRules>
       <fullName>Complaint_RTs_ANZRole_RO</fullName>
       <accessLevel>Read</accessLevel>
@@ -318,6 +358,25 @@
       </sharedTo>
    </sharingCriteriaRules>
    <sharingCriteriaRules>
+    <fullName>FinCrime_Agent_Non_Customer_Compliant_RW</fullName>
+    <accessLevel>Edit</accessLevel>
+    <label>FinCrime Agent Non Customer Compliant RW</label>
+    <sharedTo>
+        <role>FinCrime_Agent</role>
+    </sharedTo>
+    <criteriaItems>
+        <field>RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Non-Customer Complaint</value>
+    </criteriaItems>
+    <criteriaItems>
+        <field>ANZx_Customer__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </criteriaItems>
+    <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+</sharingCriteriaRules>
+   <sharingCriteriaRules>
       <fullName>RTs_CardDisputeAgents_RO</fullName>
       <accessLevel>Read</accessLevel>
       <criteriaItems>
@@ -507,6 +566,65 @@
          <role>Join_Lead</role>
       </sharedTo>
    </sharingCriteriaRules>
+   <sharingCriteriaRules>
+    <fullName>Support_Coach_Non_Customer_Compliant_RW</fullName>
+    <accessLevel>Edit</accessLevel>
+    <description>Provides access to Non Customer Complaints for Support Coach</description>
+    <label>Support Coach Non Customer Compliant RW</label>
+    <sharedTo>
+        <role>Support_Coach</role>
+    </sharedTo>
+    <criteriaItems>
+        <field>RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Non-Customer Complaint</value>
+    </criteriaItems>
+    <criteriaItems>
+        <field>ANZx_Customer__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </criteriaItems>
+    <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+</sharingCriteriaRules>
+<sharingCriteriaRules>
+    <fullName>Coach_Non_Customer_Compliant_RW</fullName>
+    <accessLevel>Edit</accessLevel>
+    <description>Provides access to Non Customer Complaints for Coach Role</description>
+    <label>Coach Non Customer Compliant RW</label>
+    <sharedTo>
+        <role>Coach</role>
+    </sharedTo>
+    <criteriaItems>
+        <field>RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Non-Customer Complaint</value>
+    </criteriaItems>
+    <criteriaItems>
+        <field>ANZx_Customer__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </criteriaItems>
+    <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+</sharingCriteriaRules>
+<sharingCriteriaRules>
+    <fullName>Join_Lead_Non_Customer_Compliant_RW</fullName>
+    <accessLevel>Edit</accessLevel>
+    <label>Join Lead Non Customer Compliant RW</label>
+    <sharedTo>
+        <roleAndSubordinates>Join_Lead</roleAndSubordinates>
+    </sharedTo>
+    <criteriaItems>
+        <field>RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Non-Customer Complaint</value>
+    </criteriaItems>
+    <criteriaItems>
+        <field>ANZx_Customer__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </criteriaItems>
+    <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+</sharingCriteriaRules>
    <sharingOwnerRules>
       <fullName>Fraud_FraudXAgent_RW</fullName>
       <accessLevel>Edit</accessLevel>

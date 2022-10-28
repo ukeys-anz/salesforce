@@ -259,7 +259,12 @@
       "name": "Odaseva  User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["Mute_Restore","Backup_and_Restore","API_Only","Password_Never_Expires"],
+      "permissionsets": [
+        "Mute_Restore",
+        "Backup_and_Restore",
+        "API_Only",
+        "Password_Never_Expires"
+      ],
       "type": "system"
     },
     {

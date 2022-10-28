@@ -76,10 +76,15 @@ public with sharing class StravinskyControllerTest {
       );
 
       Test.stopTest();
-      System.assertEquals(200, response.status.code);
+      System.assertEquals(
+        200,
+        response.status.code,
+        'Status code of 200 was expected'
+      );
       System.assertEquals(
         'Package closure successfully completed',
-        response.status.description
+        response.status.description,
+        'Package closure was not successful'
       );
     }
   }
@@ -103,14 +108,13 @@ public with sharing class StravinskyControllerTest {
     System.runAs(thisUser) {
       Test.startTest();
       try {
-        PackageClosureModel response = StravinskyController.getPackageClosureAura(
-          newCase.Id
-        );
+        StravinskyController.getPackageClosureAura(newCase.Id);
         System.assert(false, 'Should have thrown an exception');
       } catch (AuraHandledException e) {
         System.assertEquals(
           'Failed to retrieve financial account data. Please refresh and try again. Raise a fault through TechAssist if the problem persists.',
-          e.getMessage()
+          e.getMessage(),
+          'Exception message was not as expected'
         );
       }
       Test.stopTest();
@@ -125,7 +129,6 @@ public with sharing class StravinskyControllerTest {
       WHERE Display_Name__c = 'TestAccount'
     ];
 
-    Faker faker = new Faker('AU');
     Case newCase = new Case(
       AccountId = acc.Id,
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
@@ -135,14 +138,13 @@ public with sharing class StravinskyControllerTest {
     System.runAs(thisUser) {
       Test.startTest();
       try {
-        PackageClosureModel response = StravinskyController.getPackageClosureAura(
-          newCase.Id
-        );
+        StravinskyController.getPackageClosureAura(newCase.Id);
         System.assert(false, 'Should have thrown an exception');
       } catch (AuraHandledException e) {
         System.assertEquals(
           'No package id found. Please ensure a package id has been added to the case. Raise a fault through TechAssist if the problem persists.',
-          e.getMessage()
+          e.getMessage(),
+          'Exception message was not as expected'
         );
       }
 

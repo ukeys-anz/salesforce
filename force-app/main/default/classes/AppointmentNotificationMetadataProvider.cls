@@ -51,6 +51,7 @@ public with sharing class AppointmentNotificationMetadataProvider {
         List<Appointment_Notification_Template__mdt> metadataList = [
           SELECT Id, MasterLabel, Template_Id__c
           FROM Appointment_Notification_Template__mdt
+          LIMIT 500
         ];
         for (
           Appointment_Notification_Template__mdt currentMetadata : metadataList

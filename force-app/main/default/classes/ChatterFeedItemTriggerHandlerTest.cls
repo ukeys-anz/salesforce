@@ -121,8 +121,6 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       LIMIT 1
     ];
 
-    List<FeedItem> postList = new List<FeedItem>();
-
     FeedItem post = new FeedItem();
     post.ParentId = newCase.Id;
     post.Body = 'Test Post 🎉';
@@ -158,8 +156,6 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
       WHERE RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
       LIMIT 1
     ];
-
-    List<FeedItem> postList = new List<FeedItem>();
 
     FeedItem post = new FeedItem();
     post.ParentId = newCase.Id;

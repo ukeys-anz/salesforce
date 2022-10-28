@@ -14,7 +14,6 @@ public with sharing class CCRMLogAResponseController {
    */
   @AuraEnabled(cacheable=true)
   public static String responseStatusDependentValues(String leadRecordId) {
-    List<String> responseStatusValues = new List<String>();
     Map<String, List<Response_Type__C>> responseStatusOutcomeReasonMap = new Map<String, List<Response_Type__C>>();
     Id linkedCampaignRecord;
 

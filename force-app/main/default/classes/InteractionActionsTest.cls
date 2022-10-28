@@ -10,9 +10,6 @@ public with sharing class InteractionActionsTest {
   private static final String APPOINTMENT_RW_PS = 'Appointment_Booking_Read_Write';
   private static final String NOT_AUTOMATED_PURPOSE = 'NotAutomated';
 
-  //Number of minutes before an event to set the reminder
-  private static Integer reminderMinutes = 15;
-
   static void setup() {
     Automated_Request_Purpose__mdt otherPurpose = new Automated_Request_Purpose__mdt();
     otherPurpose.MasterLabel = InteractionConstants.OTHER_PURPOSE_NAME;
@@ -147,7 +144,6 @@ public with sharing class InteractionActionsTest {
       interactionWithPhoneNumber,
       interactionWithoutPhoneNumber
     };
-    InteractionActions actions = new InteractionActions();
 
     List<Interaction> interactionsWithtoutMobile = InteractionFilter.findInteractionsWithoutMobile(
       interactions
@@ -361,8 +357,6 @@ public with sharing class InteractionActionsTest {
     purposeMap.put(otherPurposeName, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
 
-    DateTime appointmentDate = DateTime.now();
-
     ContactRequest request = new ContactRequest();
     request.WhoId = testAccount.PersonContactId;
     request.Appointment_Commitment__c = apptCommt.Id;
@@ -507,6 +501,7 @@ public with sharing class InteractionActionsTest {
         Id = currentInteraction.Id,
         Status__c = currentInteraction.Status__c
       );
+      newInteractions.add(newInteraction);
     }
 
     List<Interaction> cancelledInteractions = InteractionActions.findCancelledInteractions(
@@ -831,7 +826,6 @@ public with sharing class InteractionActionsTest {
     Faker faker = new Faker('AU');
     string otherPurposeName = InteractionConstants.OTHER_PURPOSE_NAME;
     Integer otherPurposeDuration = 30;
-    List<Account> personAccountList = new List<Account>();
 
     Account testAccount1 = createTestAccount();
     insert testAccount1;
@@ -988,12 +982,12 @@ public with sharing class InteractionActionsTest {
       WHERE Id = :testAccount1.Id
     ];
 
-    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
+    String financialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
-    request.RequestReason = finacialWellbeingPurposeName;
+    request.RequestReason = financialWellbeingPurposeName;
     request.WhoId = testAccount.PersonContactId;
     request.PreferredChannel = InteractionConstants.CALL;
     insert request;
@@ -1024,7 +1018,7 @@ public with sharing class InteractionActionsTest {
 
     ContactRequest request2 = new ContactRequest();
     request2.Appointment_date_and_Time__c = newAppointmentDate;
-    request2.RequestReason = finacialWellbeingPurposeName;
+    request2.RequestReason = financialWellbeingPurposeName;
     request2.WhoId = testAccount.PersonContactId;
     request2.PreferredChannel = InteractionConstants.CALL;
 
@@ -1068,12 +1062,12 @@ public with sharing class InteractionActionsTest {
     testLead.MobilePhone = String.valueOf(faker.randomDecimal(10, 0));
     insert testLead;
 
-    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
+    String financialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 10, 30, 0);
 
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = appointmentDate;
-    request.RequestReason = finacialWellbeingPurposeName;
+    request.RequestReason = financialWellbeingPurposeName;
     request.WhoId = testLead.Id;
     request.PreferredChannel = InteractionConstants.CALL;
     insert request;
@@ -1098,7 +1092,7 @@ public with sharing class InteractionActionsTest {
 
     ContactRequest request2 = new ContactRequest();
     request2.Appointment_date_and_Time__c = newAppointmentDate;
-    request2.RequestReason = finacialWellbeingPurposeName;
+    request2.RequestReason = financialWellbeingPurposeName;
     request2.WhoId = testLead.Id;
     request2.PreferredChannel = InteractionConstants.CALL;
 
@@ -1135,13 +1129,6 @@ public with sharing class InteractionActionsTest {
     Account testAccount1 = createTestAccount();
     insert testAccount1;
 
-    Account testAccount = [
-      SELECT Id, PersonContactId
-      FROM Account
-      WHERE Id = :testAccount1.Id
-    ];
-
-    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
     DateTime endDate = appointmentDate.addMinutes(45);
 
@@ -1195,19 +1182,12 @@ public with sharing class InteractionActionsTest {
     Account testAccount2 = createTestAccount();
     insert testAccount2;
 
-    Account testAccount = [
-      SELECT Id, PersonContactId
-      FROM Account
-      WHERE Id = :testAccount1.Id
-    ];
-
     testAccount2 = [
       SELECT Id, PersonContactId
       FROM Account
       WHERE Id = :testAccount2.Id
     ];
 
-    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
     DateTime endDate = appointmentDate.addMinutes(45);
 
@@ -1304,22 +1284,12 @@ public with sharing class InteractionActionsTest {
    */
   @isTest
   static void testsetNameOfAppointments() {
-    InteractionActions actions = new InteractionActions();
-
     Account testAccount1 = createTestAccount();
     insert testAccount1;
     Account testAccount2 = createTestAccount();
     insert testAccount2;
 
-    Account testAccount = [
-      SELECT Id, PersonContactId
-      FROM Account
-      WHERE Id = :testAccount1.Id
-    ];
-
-    string finacialWellbeingPurposeName = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
     DateTime appointmentDate = DateTime.newInstance(2022, 10, 20, 5, 30, 0);
-    DateTime endDate = appointmentDate.addMinutes(45);
     Interaction newInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
@@ -1392,8 +1362,6 @@ public with sharing class InteractionActionsTest {
   @isTest
   static void returnInteractionsWithAutomatedPurpose() {
     setup();
-    InteractionActions actions = new InteractionActions();
-
     Interaction automatedInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME

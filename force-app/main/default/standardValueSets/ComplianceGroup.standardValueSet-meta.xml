@@ -82,6 +82,11 @@
         <label>Source - OCV</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_Pega_SD</fullName>
+        <default>false</default>
+        <label>Source - Pega SD</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Salesforce</fullName>
         <default>false</default>
         <label>Source - Salesforce</label>
@@ -110,5 +115,10 @@
         <fullName>Source_ANZPlusWebsite</fullName>
         <default>false</default>
         <label>Source - ANZ Plus Website</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_Loan_Domain</fullName>
+        <default>false</default>
+        <label>Source - Loan Domain</label>
     </standardValue>
 </StandardValueSet>

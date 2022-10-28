@@ -4,6 +4,7 @@
  * @description Test class for {@link IDRCaseActions}
  * @group IDR(Internal Dispute Resolution)
  */
+
 @isTest
 private with sharing class IDRCaseActionsTest {
   @isTest

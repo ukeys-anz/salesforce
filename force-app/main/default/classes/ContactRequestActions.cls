@@ -4,6 +4,7 @@
  * @description class for Automating object creation from accepting a Contact Request
  */
 public with sharing class ContactRequestActions {
+  private static final String MISSING_APPT_DATETIME_ERROR = 'You must select an Appointment Date and Time before accepting the request';
   /**
    * @description goes through a list of Contact Requests, if the purpose is
    * marked as automated, creates Interactions, Interaction Summaries, and events.
@@ -14,7 +15,6 @@ public with sharing class ContactRequestActions {
     List<ContactRequest> requests
   ) {
     List<ContactRequest> results = new List<ContactRequest>();
-    List<Interaction> interactions = new List<Interaction>();
 
     List<ContactRequest> requestsWithAutomatedPurpose = returnRequestsWithAutomatedPurpose(
       requests
@@ -74,9 +74,7 @@ public with sharing class ContactRequestActions {
     Map<Id, Account> contactAccountMap
   ) {
     if (request.Appointment_date_and_Time__c == null) {
-      request.addError(
-        'You must select an Appointment Date and Time before accepting the request'
-      );
+      request.addError(MISSING_APPT_DATETIME_ERROR);
       return null;
     }
     Integer duration = getDuration(request.RequestReason);

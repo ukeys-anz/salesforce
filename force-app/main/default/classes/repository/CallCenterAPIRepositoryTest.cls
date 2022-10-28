@@ -61,7 +61,7 @@ public with sharing class CallCenterAPIRepositoryTest {
    * @description fetch invalid chat topic
    */
   @isTest
-  static void tetInvalidResponse() {
+  static void testInvalidResponse() {
     ChatChannelModel model;
     HttpCalloutResponse res = getInvalidResponse();
     Service s = ServiceProvider.getService(TwilioService.class);
@@ -92,5 +92,46 @@ public with sharing class CallCenterAPIRepositoryTest {
     response.statusCode = 500;
     response.successful = false;
     return response;
+  }
+
+  /**
+   * @description test initate chat
+   */
+  @isTest
+  static void testInitiateChat() {
+    Faker faker = new Faker('AU');
+    Test.startTest();
+    CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
+    InitiateChatModel response = callCenterAPI.initiateChat(
+      faker.randomString(10),
+      'Test message content',
+      faker.person.firstName()
+    );
+    Test.stopTest();
+    System.assertEquals(
+      'CH000001',
+      response.conversationSid,
+      'ConversationSid should match.'
+    );
+  }
+
+  /**
+   * @description test reinitate chat
+   */
+  @isTest
+  static void testReinitiateChat() {
+    Faker faker = new Faker('AU');
+    Test.startTest();
+    CallCenterAPIRepository callCenterAPI = new CallCenterAPIRepository();
+    ReinitiateChatModel response = callCenterAPI.reinitiateChat(
+      faker.randomString(10),
+      faker.randomString(10)
+    );
+    Test.stopTest();
+    System.assertEquals(
+      'FW000001',
+      response.executionSid,
+      'ExecutionSid should match.'
+    );
   }
 }

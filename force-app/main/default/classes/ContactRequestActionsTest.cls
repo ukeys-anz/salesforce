@@ -6,9 +6,6 @@ public with sharing class ContactRequestActionsTest {
   private static Integer otherPurposeDuration = 30;
   private static Integer financialWellbeingPurposeDuration = 45;
 
-  //Number of minutes before an event to set the reminder
-  private static Integer reminderMinutes = 15;
-
   @testSetup
   static void loadAutomatedPurposes() {
     setup();
@@ -371,8 +368,6 @@ public with sharing class ContactRequestActionsTest {
 
     string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
-    Integer duration = financialWellbeingPurposeDuration;
-
     ContactRequest request = new ContactRequest();
     request.Appointment_date_and_Time__c = null;
     request.RequestReason = requestReason;
@@ -385,7 +380,7 @@ public with sharing class ContactRequestActionsTest {
     try {
       insert request;
     } catch (Exception exc) {
-      exceptionThrown = true;
+      exceptionThrown = String.isNotBlank(exc.getMessage()) ? true : false;
     }
 
     System.assertEquals(

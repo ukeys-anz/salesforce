@@ -37,16 +37,6 @@ public with sharing class QualityAssessmentActions {
     GetHelpConstants.COMPLAINT_RT_ID
   };
 
-  private static final List<String> ANZX_CASE_CLOSED_STATUS = new List<String>{
-    GetHelpConstants.CLOSED_STATUS,
-    GetHelpConstants.RESOLVED_STATUS,
-    GetHelpConstants.WITHDRAWN_STATUS,
-    GetHelpConstants.CLOSED_STATUS_EDUCATED,
-    GetHelpConstants.CLOSED_STATUS_FUTURE_RELEASE,
-    GetHelpConstants.CLOSED_STATUS_RESOLVED,
-    GetHelpConstants.CLOSED_STATUS_NO_FIX
-  };
-
   /**
    * @description method to determine if a Case is a Dispute case, not CMOS case, if Dispute case, add this case to qaQualifiedCases List
    * @param record case record to determine
@@ -453,7 +443,7 @@ public with sharing class QualityAssessmentActions {
         }
       }
       if (mentionGroups != null) {
-        ConnectApi.FeedElement fe = ConnectApiHelper.postFeedItemWithMentions(
+        ConnectApiHelper.postFeedItemWithMentions(
           null,
           qa.Id,
           CHATTER_FEED_STRING +
@@ -470,7 +460,11 @@ public with sharing class QualityAssessmentActions {
   public static Map<String, Id> getCollaborationGroup() {
     Map<String, Id> groupsByName = new Map<String, Id>();
     if (CollaborationGroup.SObjectType.getDescribe().isQueryable()) {
-      for (CollaborationGroup gp : [SELECT Id, Name FROM CollaborationGroup]) {
+      for (CollaborationGroup gp : [
+        SELECT Id, Name
+        FROM CollaborationGroup
+        LIMIT 30000
+      ]) {
         groupsByName.put(gp.Name, gp.Id);
       }
     }

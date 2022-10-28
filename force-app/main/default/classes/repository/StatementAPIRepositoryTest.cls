@@ -101,11 +101,7 @@ public with sharing class StatementAPIRepositoryTest {
       Exception resultException;
       Test.startTest();
       try {
-        StatementModel model = StatementAPIRepository.getStatementsAura(
-          '1111',
-          null,
-          '10'
-        );
+        StatementAPIRepository.getStatementsAura('1111', null, '10');
       } catch (Exception e) {
         resultException = e;
       }
@@ -140,7 +136,7 @@ public with sharing class StatementAPIRepositoryTest {
     Test.startTest();
 
     try {
-      StatementModel modelInstance = StatementModel.parse(manipulatedResponse);
+      StatementModel.parse(manipulatedResponse);
     } catch (Exception e) {
       resultException = e;
     }

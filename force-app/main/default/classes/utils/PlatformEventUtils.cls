@@ -36,9 +36,6 @@ public with sharing class PlatformEventUtils {
       // Call method to publish events
       List<Database.SaveResult> results = EventBus.publish(events);
 
-      // Get event name for logging purposes
-      String eventName = events[0].getSobjectType().getDescribe().getName();
-
       // Inspect publishing result for each event that failed
       for (Integer i = 0; i < results.size(); i++) {
         if (!results[i].isSuccess() || throwException == true) {
