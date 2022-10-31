@@ -214,6 +214,11 @@
          </value>
          <value>
             <default>false</default>
+            <fullName>Create or Manage PayID</fullName>
+            <label>Create or Manage PayID</label>
+         </value>
+         <value>
+            <default>false</default>
             <fullName>Updating details</fullName>
             <label>Updating details</label>
          </value>
@@ -439,6 +444,10 @@
       <valueSettings>
          <controllingFieldValue>Payments</controllingFieldValue>
          <valueName>Making payments</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Payments</controllingFieldValue>
+         <valueName>Create or Manage PayID</valueName>
       </valueSettings>
       <valueSettings>
          <controllingFieldValue>App Support</controllingFieldValue>

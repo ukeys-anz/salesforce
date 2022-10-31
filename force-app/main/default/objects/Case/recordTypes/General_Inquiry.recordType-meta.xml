@@ -10000,6 +10000,10 @@
       </values>
       <values>
          <default>false</default>
+         <fullName>Create or Manage PayID</fullName>
+      </values>
+      <values>
+         <default>false</default>
          <fullName>Credit Reporting</fullName>
       </values>
       <values>
@@ -10041,10 +10045,6 @@
       <values>
          <default>false</default>
          <fullName>Hardship</fullName>
-      </values>
-      <values>
-         <default>false</default>
-         <fullName>Large Value Transfer</fullName>
       </values>
       <values>
          <default>false</default>
