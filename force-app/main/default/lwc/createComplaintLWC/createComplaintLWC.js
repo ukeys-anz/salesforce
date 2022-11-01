@@ -1082,7 +1082,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   initialiseOptions(accounts) {
     let accountNumberOptions = [];
-    for (x in accounts) {
+    for (let x in accounts) {
       if (Object.prototype.hasOwnProperty.call(accounts, x)) {
         if (accounts[x] === null) {
           return accountNumberOptions;
