@@ -1391,10 +1391,10 @@
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-    <editable>true</editable>
-    <field>Case.Package_Id__c</field>
-    <readable>true</readable>
- </fieldPermissions>
+      <editable>true</editable>
+      <field>Case.Package_Id__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
    <fieldPermissions>
       <editable>true</editable>
       <field>Case.Payment_ID__c</field>
@@ -1936,39 +1936,39 @@
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-        <editable>false</editable>
-        <field>External_Case_Status__c.Customer_Message__c</field>
-        <readable>true</readable>
+      <editable>false</editable>
+      <field>External_Case_Status__c.Customer_Message__c</field>
+      <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-        <editable>true</editable>
-        <field>External_Case_Status__c.External_Status__c</field>
-        <readable>true</readable>
+      <editable>true</editable>
+      <field>External_Case_Status__c.External_Status__c</field>
+      <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-        <editable>true</editable>
-        <field>External_Case_Status__c.Internal_Description__c</field>
-        <readable>true</readable>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Internal_Description__c</field>
+      <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-        <editable>false</editable>
-        <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
-        <readable>true</readable>
+      <editable>false</editable>
+      <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
+      <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-        <editable>true</editable>
-        <field>External_Case_Status__c.Result_Code__c</field>
-        <readable>true</readable>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Result_Code__c</field>
+      <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-        <editable>true</editable>
-        <field>External_Case_Status__c.Result_Message__c</field>
-        <readable>true</readable>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Result_Message__c</field>
+      <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
-        <editable>true</editable>
-        <field>External_Case_Status__c.Status_Timestamp__c</field>
-        <readable>true</readable>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Status_Timestamp__c</field>
+      <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
       <editable>true</editable>
@@ -2999,18 +2999,153 @@
    <label>Backup and Restore</label>
    <license>Salesforce</license>
    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>External_Case_Status__c</object>
-        <viewAllRecords>true</viewAllRecords>
+      <allowCreate>false</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>false</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Access_Request__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>true</modifyAllRecords>
+      <object>Account</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Case</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Contact</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>true</modifyAllRecords>
+      <object>External_Case_Status__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>FinServ__FinancialAccountRole__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>FinServ__FinancialAccount__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>IDR_Letter_Approval_Details__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>IDR_Letter_Approval__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>IDR_Template_Detail__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Knowledge__kav</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Lead</object>
+      <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
       <allowCreate>false</allowCreate>
       <allowDelete>false</allowDelete>
       <allowEdit>false</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Log_Record_Access__b</object>
+      <viewAllRecords>false</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Opportunity</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Privileged_Access_Request__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>false</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Product2</object>
+      <viewAllRecords>false</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>Process_Effectiveness__c</object>
@@ -3026,126 +3161,108 @@
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__CallScriptLink__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__InstallationSettings__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Log_Message__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey_Async__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
-      <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
-      <object>qualtrics__Survey_Campaign__c</object>
-      <viewAllRecords>true</viewAllRecords>
-   </objectPermissions>
-   <objectPermissions>
-      <allowCreate>false</allowCreate>
-      <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey_Response__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey_Staging__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__SurveyResponse2__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>QuickText</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
-      <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
-      <object>Quote</object>
-      <viewAllRecords>true</viewAllRecords>
-   </objectPermissions>
-   <objectPermissions>
-      <allowCreate>false</allowCreate>
-      <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>QuoteLineItemGroupClass</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>ReceivedDocument</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>RecordAlert</object>
@@ -3158,12 +3275,12 @@
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>Record_Access_Log__b</object>
-      <viewAllRecords>false</viewAllRecords>
+      <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>RecurrenceSchedule</object>
@@ -3179,9 +3296,9 @@
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>ReportAnomalyEventStore</object>
@@ -3197,117 +3314,90 @@
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>ResidentialLoanApplication</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>Scorecard</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
-      <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
-      <object>ScorecardAssociation</object>
-      <viewAllRecords>true</viewAllRecords>
-   </objectPermissions>
-   <objectPermissions>
-      <allowCreate>false</allowCreate>
-      <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>ScorecardMetric</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
-      <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
-      <object>ScratchOrgInfo</object>
-      <viewAllRecords>true</viewAllRecords>
-   </objectPermissions>
-   <objectPermissions>
-      <allowCreate>false</allowCreate>
-      <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>SecuritiesHolding</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>Seller</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>ServiceAppointment</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>ServiceContract</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>ServiceResource</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
-      <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
-      <object>ServiceTerritory</object>
-      <viewAllRecords>true</viewAllRecords>
-   </objectPermissions>
-   <objectPermissions>
-      <allowCreate>false</allowCreate>
-      <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>SessionHijackingEventStore</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>Shift</object>
@@ -3323,45 +3413,45 @@
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>SocialPost</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>Solution</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>StreamingChannel</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>TagCategory</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>TagCategoryAssignment</object>
@@ -3377,192 +3467,228 @@
       <viewAllRecords>false</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>User_Provisioning_Request__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>WorkType</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>WorkTypeGroup</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>WorkerCompCoverageClass</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__CallScriptLink__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__InstallationSettings__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Log_Message__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__SurveyResponse2__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey_Async__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
-      <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
-      <object>qualtrics__Survey_Campaign__c</object>
-      <viewAllRecords>true</viewAllRecords>
-   </objectPermissions>
-   <objectPermissions>
-      <allowCreate>false</allowCreate>
-      <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey_Response__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey_Staging__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>qualtrics__Survey__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__Badge__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__Debug_Log__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__Trail__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__Trailhead_User_Data__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__Trailmix_Assignment__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__Trailmix__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__User_Badge__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <objectPermissions>
-      <allowCreate>false</allowCreate>
+      <allowCreate>true</allowCreate>
       <allowDelete>false</allowDelete>
-      <allowEdit>false</allowEdit>
+      <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>trailheadapp__User_Trailmix__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>Quote</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>ScorecardAssociation</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>qualtrics__Survey_Campaign__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>ScratchOrgInfo</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
+      <modifyAllRecords>false</modifyAllRecords>
+      <object>ServiceTerritory</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
    <recordTypeVisibilities>
@@ -3769,4 +3895,288 @@
       <tab>Quality_Assessment__c</tab>
       <visibility>Available</visibility>
    </tabSettings>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ApiEnabled</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>AssignPermissionSets</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>AuthorApex</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ContentWorkspaces</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageTranslation</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>CustomizeApplication</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>DelegatedTwoFactor</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditKnowledge</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageCustomPermissions</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageDataCategories</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageEncryptionKeys</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageInternalUsers</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageIpAddresses</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageKnowledge</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageKnowledgeImportExport</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageLoginAccessPolicies</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManagePasswordPolicies</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageProfilesPermissionsets</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageRoles</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageSharing</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageSynonyms</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageTranslation</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageUsers</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ModifyAllData</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ModifyMetadata</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ResetPasswords</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ShareInternalArticles</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewAllForecasts</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewAllUsers</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewArchivedArticles</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewDataCategories</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewDraftArticles</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewEncryptedData</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewRoles</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewSetup</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>AssignTopics</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ConnectOrgToEnvironmentHub</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ConvertLeads</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>CreateCustomizeDashboards</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>CreateCustomizeFilters</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>CreateCustomizeReports</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>CreateDashboardFolders</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>CreateReportFolders</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>CreateTopics</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>DeleteTopics</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditEvent</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditMyDashboards</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditMyReports</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditPublicDocuments</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditPublicFilters</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditPublicTemplates</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditTask</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>EditTopics</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ImportLeads</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageCategories</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageDashbdsInPubFolders</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageNetworks</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageQuotas</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ManageReportsInPubFolders</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>OverrideForecasts</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>RunReports</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>SolutionImport</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>TransferAnyEntity</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>TransferAnyLead</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewAllData</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewDataLeakageEvents</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewEventLogFiles</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewPlatformEvents</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewPublicDashboards</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>ViewPublicReports</name>
+   </userPermissions>
+   <userPermissions>
+      <enabled>true</enabled>
+      <name>UseTeamReassignWizards</name>
+   </userPermissions>
 </PermissionSet>
