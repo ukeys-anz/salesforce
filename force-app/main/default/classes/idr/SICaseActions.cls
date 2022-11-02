@@ -215,6 +215,7 @@ public with sharing class SICaseActions {
         Task.sObjectType.getDescribe().isDeletable() &&
         tasksToReplace.size() > 0
       ) {
+        IDRTaskActions.siSystemDeletingAutoGenTask = true;
         delete tasksToReplace;
       }
     }

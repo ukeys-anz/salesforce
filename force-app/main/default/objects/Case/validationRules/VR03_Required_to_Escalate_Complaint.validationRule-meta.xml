@@ -14,7 +14,9 @@
 
     AND (NOT((ISPICKVAL(Status, &apos;Escalated&apos;))),
     NOT(ISPICKVAL(PRIORVALUE(Status),&apos;Escalated&apos;)),
-    ISCHANGED(IDR_Escalation_Reason__c)))
+    ISCHANGED(IDR_Escalation_Reason__c))),
+    ANZx_Customer__c = false,
+    NOT(ISPICKVAL(Origin, &apos;ANZ Plus Web&apos;)) 
     )</errorConditionFormula>
     <errorMessage>Please make sure these fields are populated : Status, Escalation Reason</errorMessage>
 </ValidationRule>

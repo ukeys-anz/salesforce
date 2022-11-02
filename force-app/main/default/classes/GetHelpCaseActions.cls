@@ -4,9 +4,11 @@
  * @since 04/2020
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * NcssMethodCount Surpressed : To have all the code lines together in one place.
+ * StdCyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings(
-  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
+  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount, PMD.NcssMethodCount'
 )
 public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
@@ -15,11 +17,15 @@ public with sharing class GetHelpCaseActions {
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
 
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
+
+  private static List<Case> notificationCaseList = new List<Case>();
+
   @TestVisible
   public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
   @TestVisible
   public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
-
+  @TestVisible
+  public static final String OPEN_ESCALATION_TIME = 'Open_Escalation_Time';
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
 
   public static final String SLA_BREACH = 'Breached';
@@ -64,21 +70,29 @@ public with sharing class GetHelpCaseActions {
         }
 
         if (
-          oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
-          record.Status == GetHelpConstants.CLOSED_STATUS
+          (oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+          record.Status == GetHelpConstants.CLOSED_STATUS) ||
+          (record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+          record.ANZx_Customer__c &&
+          oldRecord.RecordTypeId ==
+          GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID)
         ) {
           milestoneCaseIds.add(record.Id);
         }
       } else if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
         if (
-          oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
+          (oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
           oldRecord.Status != GetHelpConstants.ESCALATED_STATUS &&
           oldRecord.Status != GetHelpConstants.WITHDRAWN_STATUS &&
           oldRecord.Status != GetHelpConstants.RESOLVED_STATUS &&
           (record.Status == GetHelpConstants.CLOSED_STATUS ||
           record.Status == GetHelpConstants.ESCALATED_STATUS ||
           record.Status == GetHelpConstants.WITHDRAWN_STATUS ||
-          record.Status == GetHelpConstants.RESOLVED_STATUS)
+          record.Status == GetHelpConstants.RESOLVED_STATUS)) ||
+          (record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+          record.ANZx_Customer__c &&
+          oldRecord.RecordTypeId ==
+          GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID)
         ) {
           milestoneCaseIds.add(record.Id);
         }
@@ -118,6 +132,17 @@ public with sharing class GetHelpCaseActions {
           );
         }
       } else if (
+        record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+      ) {
+        if (
+          record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+          record.ANZx_Customer__c &&
+          oldRecord.RecordTypeId ==
+          GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID
+        ) {
+          milestoneCaseIds.add(record.Id);
+        }
+      } else if (
         GetHelpCaseActionsHelper.isAccountClosure(record, null) &&
         record.Status == GetHelpConstants.ESCALATED_STATUS &&
         oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
@@ -128,6 +153,10 @@ public with sharing class GetHelpCaseActions {
     }
 
     handlePopulateCaseSubject((List<Case>) records, (Map<Id, Case>) oldMap);
+    CaseChangeRecordTypeController.recordTypeChangeValidation(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
     validateAdditionalTypes((List<Case>) records, (Map<Id, Case>) oldMap);
 
     if (!caseIds.isEmpty()) {
@@ -139,7 +168,8 @@ public with sharing class GetHelpCaseActions {
         milestoneCaseIds,
         new List<String>{
           RESOLUTION_TIME_MILESTONE,
-          INVESTIGATION_TIME_MILESTONE
+          INVESTIGATION_TIME_MILESTONE,
+          OPEN_ESCALATION_TIME
         },
         System.now()
       );
@@ -550,6 +580,7 @@ public with sharing class GetHelpCaseActions {
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
     GetHelpCaseActionsHelper.setANZxCustomerNonCustomerComplaints(records);
+    GetHelpCaseAssignmentRules.assignUnauthenticatedEnquriryCases(records);
   }
 
   /**
@@ -770,6 +801,44 @@ public with sharing class GetHelpCaseActions {
         c.OCV_Id__c = accountList.get(c.AccountId).OCV_ID__c;
       }
     }
+  }
+
+  /**
+   * @description afterUpdate(oldMap, records) method handles validating the case status and add them into notification list.
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in onAfterUpdate. Example to check if the Case Status value has changed we use the following to check record.Status != ((Case) oldMap.get(record.id)).Status
+   * @param records from the trigger
+   */
+
+  public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
+    for (Case record : records) {
+      Case oldRec = (Case) oldMap.get(record.Id);
+
+      Boolean isANZPlusComplaintCase = GetHelpCaseActionsHelper.isANZPlusComplaint(
+        record
+      );
+
+      Boolean isOldRecordUnauthenticatedEnquiryCase = GetHelpCaseActionsHelper.isUnauthenticatedEnquiry(
+        oldRec
+      );
+
+      if (
+        isOldRecordUnauthenticatedEnquiryCase &&
+        oldRec.ANZx_Customer__c &&
+        oldRec.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+        isANZPlusComplaintCase
+      ) {
+        notificationCaseList.add(record);
+      }
+    }
+  }
+
+  /**
+   * @description completeAfterActions() is called post onAfterUpdate
+   */
+  public static void completeAfterActions() {
+    CheckRecursive.run();
+    NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
+    notificationCaseList.clear();
   }
 
   /**

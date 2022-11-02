@@ -78,6 +78,21 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c == 'Yes') {
           updatePsiTicked.add(record);
         }
+      } else if (
+        record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      ) {
+        CommonUtil.handleMasking(
+          record,
+          null,
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
+        );
+      }
+      if (
+        GetHelpCaseActionsHelper.isUnauthenticatedEnquiry(record) &&
+        record.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+        !record.ANZx_Customer__c
+      ) {
+        record.Status = IDRConstants.ESCALATED_STATUS;
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
@@ -181,6 +196,14 @@ public with sharing class IDRCaseActions {
         if (record.IDR_Is_Common__c != oldRecord.IDR_Is_Common__c) {
           updatePsiTicked.add(record);
         }
+      } else if (
+        record.recordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
+      ) {
+        CommonUtil.handleMasking(
+          record,
+          (case) oldMap.get(record.id),
+          SObjectType.Case.FieldSets.IDR_Masked_Fields.getFields()
+        );
       }
     }
     preventCloseStatusOnCaseWithPendingTask(records, (Map<Id, Case>) oldMap);
@@ -633,16 +656,19 @@ public with sharing class IDRCaseActions {
   }
 
   /**
-     * @description isANZPlusComplaintCovertedToIDR check if record type of ANZ Plus Complaint being converted to IDR Type.
-     * Being used in assignProductFamily to ensure if ANZ Plus Complaint has Product Family assigned, so the case goes to the right WorkBasket and Owner
-     * @param oldCase old map of case record in current trigger context
-     * @param newCase Records in the current context
-     * @return `Boolean` True if the the record type is of ANZ Plus being converted to IDR, or false otherwise.
-     */
-  public static Boolean isANZPlusComplaintConvertedToIDR (Case oldCase, Case newCase){
-    return (oldCase.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) && isIDRComplaintType(newCase);
+   * @description isANZPlusComplaintCovertedToIDR check if record type of ANZ Plus Complaint being converted to IDR Type.
+   * Being used in assignProductFamily to ensure if ANZ Plus Complaint has Product Family assigned, so the case goes to the right WorkBasket and Owner
+   * @param oldCase old map of case record in current trigger context
+   * @param newCase Records in the current context
+   * @return `Boolean` True if the the record type is of ANZ Plus being converted to IDR, or false otherwise.
+   */
+  public static Boolean isANZPlusComplaintConvertedToIDR(
+    Case oldCase,
+    Case newCase
+  ) {
+    return (oldCase.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
+      isIDRComplaintType(newCase);
   }
-
 
   /**
    * @description Copy the Case Owners Users division into the IDR_Office__c field.

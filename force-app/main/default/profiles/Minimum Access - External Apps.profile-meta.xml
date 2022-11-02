@@ -4,7 +4,7 @@
         <application>standard__Insights</application>
         <default>false</default>
         <visible>false</visible>
-  </applicationVisibilities>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>ANZAzureADRegistrationHandler</apexClass>
         <enabled>false</enabled>
@@ -343,6 +343,341 @@
     </classAccesses>
     <custom>true</custom>
     <description>This profile will be used for External Applications like Splunk and Twilio who connect via Basic Auth and require an IP Range Restrictions. This profile will contain all IPs of external apps, as opposed to one profile per app</description>
+    <loginIpRanges>
+        <description>Application Cloud Proxy Non-Prod 1</description>
+        <endAddress>35.197.185.5</endAddress>
+        <startAddress>35.197.185.5</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Application Cloud Proxy Non-Prod 2</description>
+        <endAddress>35.244.94.174</endAddress>
+        <startAddress>35.244.94.174</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>3.24.14.191</endAddress>
+        <startAddress>3.24.14.191</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>3.104.176.148</endAddress>
+        <startAddress>3.104.176.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>13.236.106.152</endAddress>
+        <startAddress>13.236.106.152</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>13.55.93.82</endAddress>
+        <startAddress>13.55.93.82</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>13.237.141.149</endAddress>
+        <startAddress>13.237.141.149</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>54.253.163.36</endAddress>
+        <startAddress>54.253.163.36</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Salesforce Australia (Public Cloud) 1</description>
+        <endAddress>13.210.7.255</endAddress>
+        <startAddress>13.210.4.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>44.234.215.175</endAddress>
+        <startAddress>44.234.215.175</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Salesforce Australia (Public Cloud) 2</description>
+        <endAddress>13.210.11.255</endAddress>
+        <startAddress>13.210.8.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Splunk Prod</description>
+        <endAddress>203.110.235.24</endAddress>
+        <startAddress>203.110.235.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Splunk Non-Prod</description>
+        <endAddress>59.154.134.109</endAddress>
+        <startAddress>59.154.134.109</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Qualtrics</description>
+        <endAddress>139.60.152.22</endAddress>
+        <startAddress>139.60.152.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Qualtrics</description>
+        <endAddress>162.247.216.22</endAddress>
+        <startAddress>162.247.216.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.8.140.255</endAddress>
+        <startAddress>52.8.140.255</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.62.169.21</endAddress>
+        <startAddress>52.62.169.21</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>54.79.123.149</endAddress>
+        <startAddress>54.79.123.149</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>34.87.223.167</endAddress>
+        <startAddress>34.87.223.167</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>34.87.246.15</endAddress>
+        <startAddress>34.87.246.15</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.42.179.76</endAddress>
+        <startAddress>52.42.179.76</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>35.167.156.248</endAddress>
+        <startAddress>35.167.156.248</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>34.215.230.220</endAddress>
+        <startAddress>34.215.230.220</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>35.189.27.148</endAddress>
+        <startAddress>35.189.27.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.1</endAddress>
+        <startAddress>203.110.235.1</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - IDM</description>
+        <endAddress>35.189.57.116</endAddress>
+        <startAddress>35.189.57.116</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - SH loadbalancer</description>
+        <endAddress>35.241.4.34</endAddress>
+        <startAddress>35.241.4.34</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>35.244.124.52</endAddress>
+        <startAddress>35.244.124.52</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.34.250.140</endAddress>
+        <startAddress>52.34.250.140</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.5</endAddress>
+        <startAddress>203.110.235.3</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>54.70.91.35</endAddress>
+        <startAddress>54.70.91.35</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.129</endAddress>
+        <startAddress>203.110.235.129</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.24.211.31</endAddress>
+        <startAddress>52.24.211.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.8.201.70</endAddress>
+        <startAddress>52.8.201.70</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.52.251.72</endAddress>
+        <startAddress>52.52.251.72</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.9.194.74</endAddress>
+        <startAddress>52.9.194.74</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>35.169.47.31</endAddress>
+        <startAddress>35.169.47.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>54.164.132.26</endAddress>
+        <startAddress>54.164.132.26</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>34.215.17.195</endAddress>
+        <startAddress>34.215.17.195</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.133</endAddress>
+        <startAddress>203.110.235.131</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Internet Proxy DEV</description>
+        <endAddress>59.154.134.83</endAddress>
+        <startAddress>59.154.134.83</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Internet Proxy QA</description>
+        <endAddress>59.154.134.109</endAddress>
+        <startAddress>59.154.134.107</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint/Harness DC AU Prod</description>
+        <endAddress>203.110.235.255</endAddress>
+        <startAddress>203.110.235.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD for Harness</description>
+        <endAddress>35.189.53.62</endAddress>
+        <startAddress>35.189.53.62</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD2 for Harness</description>
+        <endAddress>34.87.219.182</endAddress>
+        <startAddress>34.87.219.182</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD3 for Harness</description>
+        <endAddress>34.87.216.1</endAddress>
+        <startAddress>34.87.216.1</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD4 for Harness</description>
+        <endAddress>34.87.220.213</endAddress>
+        <startAddress>34.87.220.213</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP3 for Harness</description>
+        <endAddress>35.238.133.229</endAddress>
+        <startAddress>35.238.133.229</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP2 for Harness</description>
+        <endAddress>34.87.204.119</endAddress>
+        <startAddress>34.87.204.119</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP for Harness</description>
+        <endAddress>35.244.65.24</endAddress>
+        <startAddress>35.244.65.24</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>IP range restriction for Odaseva</description>
+        <endAddress>13.211.189.52</endAddress>
+        <startAddress>13.211.48.246</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV1 Author</description>
+        <endAddress>13.239.160.187</endAddress>
+        <startAddress>13.239.160.187</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV1 Publish</description>
+        <endAddress>13.54.188.48</endAddress>
+        <startAddress>13.54.188.48</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV12 Author</description>
+        <endAddress>52.63.106.123</endAddress>
+        <startAddress>52.63.106.123</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV12 Publish</description>
+        <endAddress>13.211.114.146</endAddress>
+        <startAddress>13.211.114.146</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV8 Author</description>
+        <endAddress>13.54.19.154</endAddress>
+        <startAddress>13.54.19.154</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV8 Publish</description>
+        <endAddress>54.66.115.221</endAddress>
+        <startAddress>54.66.115.221</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage Author</description>
+        <endAddress>3.106.50.31</endAddress>
+        <startAddress>3.106.50.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage1 Publish</description>
+        <endAddress>13.54.136.222</endAddress>
+        <startAddress>13.54.136.222</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage2 Publish</description>
+        <endAddress>13.210.221.68</endAddress>
+        <startAddress>13.210.221.68</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage3 Publish</description>
+        <endAddress>13.239.108.222</endAddress>
+        <startAddress>13.239.108.222</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage4 Publish</description>
+        <endAddress>52.62.98.156</endAddress>
+        <startAddress>52.62.98.156</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod Author</description>
+        <endAddress>52.65.74.188</endAddress>
+        <startAddress>52.65.74.188</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod1 Publish</description>
+        <endAddress>3.24.15.30</endAddress>
+        <startAddress>3.24.15.30</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod2 Publish</description>
+        <endAddress>3.104.236.231</endAddress>
+        <startAddress>3.104.236.231</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod3 Publish</description>
+        <endAddress>3.106.82.7</endAddress>
+        <startAddress>3.106.82.7</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod4 Publish</description>
+        <endAddress>52.62.229.140</endAddress>
+        <startAddress>52.62.229.140</startAddress>
+    </loginIpRanges>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -1426,261 +1761,6 @@
         <enabled>false</enabled>
     </pageAccesses>
     <userLicense>Salesforce</userLicense>
-    <loginIpRanges>
-        <description>Application Cloud Proxy Non-Prod 1</description>
-        <endAddress>35.197.185.5</endAddress>
-        <startAddress>35.197.185.5</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Application Cloud Proxy Non-Prod 2</description>
-        <endAddress>35.244.94.174</endAddress>
-        <startAddress>35.244.94.174</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Test</description>
-        <endAddress>3.24.14.191</endAddress>
-        <startAddress>3.24.14.191</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Test</description>
-        <endAddress>3.104.176.148</endAddress>
-        <startAddress>3.104.176.148</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Test</description>
-        <endAddress>13.236.106.152</endAddress>
-        <startAddress>13.236.106.152</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Prod</description>
-        <endAddress>13.55.93.82</endAddress>
-        <startAddress>13.55.93.82</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Prod</description>
-        <endAddress>13.237.141.149</endAddress>
-        <startAddress>13.237.141.149</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Prod</description>
-        <endAddress>54.253.163.36</endAddress>
-        <startAddress>54.253.163.36</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Salesforce Australia (Public Cloud) 1</description>
-        <endAddress>13.210.7.255</endAddress>
-        <startAddress>13.210.4.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>44.234.215.175</endAddress>
-        <startAddress>44.234.215.175</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Salesforce Australia (Public Cloud) 2</description>
-        <endAddress>13.210.11.255</endAddress>
-        <startAddress>13.210.8.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Splunk Prod</description>
-        <endAddress>203.110.235.24</endAddress>
-        <startAddress>203.110.235.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Splunk Non-Prod</description>
-        <endAddress>59.154.134.109</endAddress>
-        <startAddress>59.154.134.109</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Qualtrics</description>
-        <endAddress>139.60.152.22</endAddress>
-        <startAddress>139.60.152.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Qualtrics</description>
-        <endAddress>162.247.216.22</endAddress>
-        <startAddress>162.247.216.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.8.140.255</endAddress>
-        <startAddress>52.8.140.255</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.62.169.21</endAddress>
-        <startAddress>52.62.169.21</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>54.79.123.149</endAddress>
-        <startAddress>54.79.123.149</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>34.87.223.167</endAddress>
-        <startAddress>34.87.223.167</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>34.87.246.15</endAddress>
-        <startAddress>34.87.246.15</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.42.179.76</endAddress>
-        <startAddress>52.42.179.76</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>35.167.156.248</endAddress>
-        <startAddress>35.167.156.248</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>34.215.230.220</endAddress>
-        <startAddress>34.215.230.220</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>35.189.27.148</endAddress>
-        <startAddress>35.189.27.148</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.1</endAddress>
-        <startAddress>203.110.235.1</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - IDM</description>
-        <endAddress>35.189.57.116</endAddress>
-        <startAddress>35.189.57.116</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - SH loadbalancer</description>
-        <endAddress>35.241.4.34</endAddress>
-        <startAddress>35.241.4.34</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>35.244.124.52</endAddress>
-        <startAddress>35.244.124.52</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.34.250.140</endAddress>
-        <startAddress>52.34.250.140</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.5</endAddress>
-        <startAddress>203.110.235.3</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>54.70.91.35</endAddress>
-        <startAddress>54.70.91.35</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.129</endAddress>
-        <startAddress>203.110.235.129</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.24.211.31</endAddress>
-        <startAddress>52.24.211.31</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.8.201.70</endAddress>
-        <startAddress>52.8.201.70</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.52.251.72</endAddress>
-        <startAddress>52.52.251.72</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.9.194.74</endAddress>
-        <startAddress>52.9.194.74</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>35.169.47.31</endAddress>
-        <startAddress>35.169.47.31</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>54.164.132.26</endAddress>
-        <startAddress>54.164.132.26</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>34.215.17.195</endAddress>
-        <startAddress>34.215.17.195</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.133</endAddress>
-        <startAddress>203.110.235.131</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Sailpoint Internet Proxy DEV</description>
-        <endAddress>59.154.134.83</endAddress>
-        <startAddress>59.154.134.83</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Sailpoint Internet Proxy QA</description>
-        <endAddress>59.154.134.109</endAddress>
-        <startAddress>59.154.134.107</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Sailpoint/Harness DC AU Prod</description>
-        <endAddress>203.110.235.255</endAddress>
-        <startAddress>203.110.235.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD for Harness</description>
-        <endAddress>35.189.53.62</endAddress>
-        <startAddress>35.189.53.62</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD2 for Harness</description>
-        <endAddress>34.87.219.182</endAddress>
-        <startAddress>34.87.219.182</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD3 for Harness</description>
-        <endAddress>34.87.216.1</endAddress>
-        <startAddress>34.87.216.1</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD4 for Harness</description>
-        <endAddress>34.87.220.213</endAddress>
-        <startAddress>34.87.220.213</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP NP3 for Harness</description>
-        <endAddress>35.238.133.229</endAddress>
-        <startAddress>35.238.133.229</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP NP2 for Harness</description>
-        <endAddress>34.87.204.119</endAddress>
-        <startAddress>34.87.204.119</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP NP for Harness</description>
-        <endAddress>35.244.65.24</endAddress>
-        <startAddress>35.244.65.24</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>IP range restriction for Odaseva</description>
-        <endAddress>13.211.189.52</endAddress>
-        <startAddress>13.211.48.246</startAddress>
-    </loginIpRanges>
     <userPermissions>
         <enabled>false</enabled>
         <name>AccessCMC</name>
