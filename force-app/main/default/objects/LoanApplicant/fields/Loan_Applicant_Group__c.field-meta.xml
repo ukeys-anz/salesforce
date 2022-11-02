@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Applicant_Group__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to loan applicant group</description>
+    <externalId>false</externalId>
+    <label>Loan Applicant Group</label>
+    <referenceTo>Loan_Applicant_Group__c</referenceTo>
+    <relationshipLabel>Loan Applicants</relationshipLabel>
+    <relationshipName>Loan_Applicants</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

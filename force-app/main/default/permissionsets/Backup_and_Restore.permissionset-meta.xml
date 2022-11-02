@@ -263,6 +263,11 @@
    </fieldPermissions>
    <fieldPermissions>
       <editable>true</editable>
+      <field>Case.Closure_Reason__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
       <field>Case.Company__c</field>
       <readable>true</readable>
    </fieldPermissions>
@@ -872,6 +877,11 @@
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
+      <editable>false</editable>
+      <field>Case.IDR_Correspondence_Reviewed_Date__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
       <editable>true</editable>
       <field>Case.IDR_Customer_Identifier__c</field>
       <readable>true</readable>
@@ -1378,6 +1388,11 @@
    <fieldPermissions>
       <editable>true</editable>
       <field>Case.Original_Case_Owner__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>Case.Package_Id__c</field>
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
@@ -1918,6 +1933,41 @@
    <fieldPermissions>
       <editable>true</editable>
       <field>Event.Voice_Call_SID__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>false</editable>
+      <field>External_Case_Status__c.Customer_Message__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.External_Status__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Internal_Description__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>false</editable>
+      <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Result_Code__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Result_Message__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>External_Case_Status__c.Status_Timestamp__c</field>
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
@@ -2472,27 +2522,22 @@
    </fieldPermissions>
    <fieldPermissions>
       <editable>true</editable>
-      <field>Quality_Assessment__c.Interaction__c</field>
-      <readable>true</readable>
-   </fieldPermissions>
-   <fieldPermissions>
-      <editable>true</editable>
-      <field>Quality_Assessment__c.Interaction_Category__c</field>
-      <readable>true</readable>
-   </fieldPermissions>
-   <fieldPermissions>
-      <editable>true</editable>
-      <field>Quality_Assessment__c.Lead__c</field>
-      <readable>true</readable>
-   </fieldPermissions>
-   <fieldPermissions>
-      <editable>true</editable>
       <field>Quality_Assessment__c.Insights_and_Focus_Comments__c</field>
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
       <editable>true</editable>
       <field>Quality_Assessment__c.Insights_and_Focus__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>Quality_Assessment__c.Interaction__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>Quality_Assessment__c.Interaction_Category__c</field>
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
@@ -2613,6 +2658,11 @@
    <fieldPermissions>
       <editable>true</editable>
       <field>Quality_Assessment__c.Key_scoping_and_disclaimers__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
+      <field>Quality_Assessment__c.Lead__c</field>
       <readable>true</readable>
    </fieldPermissions>
    <fieldPermissions>
@@ -2989,6 +3039,15 @@
       <allowDelete>false</allowDelete>
       <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
+      <modifyAllRecords>true</modifyAllRecords>
+      <object>External_Case_Status__c</object>
+      <viewAllRecords>true</viewAllRecords>
+   </objectPermissions>
+   <objectPermissions>
+      <allowCreate>true</allowCreate>
+      <allowDelete>false</allowDelete>
+      <allowEdit>true</allowEdit>
+      <allowRead>true</allowRead>
       <modifyAllRecords>false</modifyAllRecords>
       <object>FinServ__FinancialAccountRole__c</object>
       <viewAllRecords>true</viewAllRecords>
@@ -3097,7 +3156,7 @@
       <allowDelete>true</allowDelete>
       <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
+      <modifyAllRecords>true</modifyAllRecords>
       <object>Quality_Assessment__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
@@ -3232,7 +3291,7 @@
       <allowDelete>true</allowDelete>
       <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
+      <modifyAllRecords>true</modifyAllRecords>
       <object>Release__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
@@ -3250,7 +3309,7 @@
       <allowDelete>true</allowDelete>
       <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
+      <modifyAllRecords>true</modifyAllRecords>
       <object>Reported_Bug__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>
@@ -3349,7 +3408,7 @@
       <allowDelete>true</allowDelete>
       <allowEdit>true</allowEdit>
       <allowRead>true</allowRead>
-      <modifyAllRecords>false</modifyAllRecords>
+      <modifyAllRecords>true</modifyAllRecords>
       <object>SkyhighNetworks__SHNEvent__c</object>
       <viewAllRecords>true</viewAllRecords>
    </objectPermissions>

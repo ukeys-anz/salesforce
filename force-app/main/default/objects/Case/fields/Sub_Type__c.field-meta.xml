@@ -29,6 +29,11 @@
          </value>
          <value>
             <default>false</default>
+            <fullName>ANZ Plus Support</fullName>
+            <label>ANZ Plus Support</label>
+         </value>
+         <value>
+            <default>false</default>
             <fullName>App Guide</fullName>
             <label>App Guide</label>
          </value>
@@ -66,6 +71,11 @@
             <default>false</default>
             <fullName>Coaching/Needs based Discussion</fullName>
             <label>Coaching/Needs based Discussion</label>
+         </value>
+         <value>
+            <default>false</default>
+            <fullName>Create or Manage PayID</fullName>
+            <label>Create or Manage PayID</label>
          </value>
          <value>
             <default>false</default>
@@ -214,11 +224,6 @@
          </value>
          <value>
             <default>false</default>
-            <fullName>Create or Manage PayID</fullName>
-            <label>Create or Manage PayID</label>
-         </value>
-         <value>
-            <default>false</default>
             <fullName>Updating details</fullName>
             <label>Updating details</label>
          </value>
@@ -330,6 +335,70 @@
          <valueName>Transaction</valueName>
       </valueSettings>
       <valueSettings>
+         <controllingFieldValue>About Us</controllingFieldValue>
+         <valueName>ANZ branches</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Using account</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Savings and goals</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Using tiles</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Account closure</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Statements</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Transaction Disputes</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Withholding tax refund</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Money</controllingFieldValue>
+         <valueName>Large Value Transfer</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Payments</controllingFieldValue>
+         <valueName>Making payments</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Follow Up</controllingFieldValue>
+         <valueName>ANZ Plus Support</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Home Loans</controllingFieldValue>
+         <valueName>General Home Loan Enquiry</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Home Loans</controllingFieldValue>
+         <valueName>Managing Repayments</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Home Loans</controllingFieldValue>
+         <valueName>Close Home Loan</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Home Loans</controllingFieldValue>
+         <valueName>Loan Statements</valueName>
+      </valueSettings>
+      <valueSettings>
+         <controllingFieldValue>Payments</controllingFieldValue>
+         <valueName>Direct Debit or Recurring Payment</valueName>
+      </valueSettings>
+      <valueSettings>
          <controllingFieldValue>Profile</controllingFieldValue>
          <valueName>Credit Reporting</valueName>
       </valueSettings>
@@ -434,8 +503,8 @@
          <valueName>Withholding tax refund</valueName>
       </valueSettings>
       <valueSettings>
-         <controllingFieldValue>Money</controllingFieldValue>
-         <valueName>Large Value Transfer</valueName>
+         <controllingFieldValue>Payments</controllingFieldValue>
+         <valueName>Create or Manage PayID</valueName>
       </valueSettings>
       <valueSettings>
          <controllingFieldValue>Payments</controllingFieldValue>
@@ -444,10 +513,6 @@
       <valueSettings>
          <controllingFieldValue>Payments</controllingFieldValue>
          <valueName>Making payments</valueName>
-      </valueSettings>
-      <valueSettings>
-         <controllingFieldValue>Payments</controllingFieldValue>
-         <valueName>Create or Manage PayID</valueName>
       </valueSettings>
       <valueSettings>
          <controllingFieldValue>App Support</controllingFieldValue>

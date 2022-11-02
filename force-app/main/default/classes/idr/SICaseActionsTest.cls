@@ -125,9 +125,8 @@ private with sharing class SICaseActionsTest {
     }
 
     Test.startTest();
-    
-    update newCases;
 
+    update newCases;
 
     //THEN 2 monitoring tasks are created per case
     Task[] tasks = [SELECT id FROM Task WHERE WhatId IN :newCases];
@@ -183,9 +182,9 @@ private with sharing class SICaseActionsTest {
     }
 
     Test.startTest();
-    
+
     update newComplaints;
-    
+
     //THEN rollup count has updated
     newSIs = [
       SELECT SI_Complaint_Count__c
@@ -234,7 +233,7 @@ private with sharing class SICaseActionsTest {
     );
     Test.stopTest();
   }
-  
+
   @isTest
   static void testSystemicIssueFieldMasking() {
     //GIVEN SIs

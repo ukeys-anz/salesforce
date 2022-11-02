@@ -258,7 +258,7 @@ describe("c-create-complaint-l-w-c", () => {
     );
     //Populate user input - Account Number
     const accNumber = element.shadowRoot.querySelector(
-      "c-multi-select-combobox[data-id=accPolicyNum-id]"
+      "c-combobox[data-id=accPolicyNum-id]"
     );
     accNumber.dispatchEvent(
       new CustomEvent("change", {
@@ -572,7 +572,7 @@ describe("c-create-complaint-l-w-c", () => {
         return Promise.resolve().then(() => {
           //Verify if the Account number field is disabled
           const accNumber = element.shadowRoot.querySelector(
-            "c-multi-select-combobox[data-id=accPolicyNum-id]"
+            "c-combobox[data-id=accPolicyNum-id]"
           );
           expect(accNumber.disabled).toBe(true);
         });
@@ -600,7 +600,7 @@ describe("c-create-complaint-l-w-c", () => {
     return Promise.resolve().then(() => {
       //Verify if the Account number field is not disabled
       const accNumber = element.shadowRoot.querySelector(
-        "c-multi-select-combobox[data-id=accPolicyNum-id]"
+        "c-combobox[data-id=accPolicyNum-id]"
       );
       expect(accNumber.disabled).toBe(false);
     });
@@ -706,7 +706,7 @@ describe("c-create-complaint-l-w-c", () => {
     );
     //Populate user input - Account Number
     const accNumber = element.shadowRoot.querySelector(
-      "c-multi-select-combobox[data-id=accPolicyNum-id]"
+      "c-combobox[data-id=accPolicyNum-id]"
     );
     accNumber.dispatchEvent(
       new CustomEvent("change", {

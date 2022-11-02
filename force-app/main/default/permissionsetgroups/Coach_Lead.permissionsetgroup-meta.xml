@@ -4,6 +4,7 @@
     <label>Coach Lead</label>
     <permissionSets>Account_Closure_LWC</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
+    <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Bugs_Read_Write</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
@@ -20,6 +21,8 @@
     <permissionSets>Knowledge_Base_Author</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
+    <permissionSets>Outbound_Dialling</permissionSets>
+    <permissionSets>Outbound_Message</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Write</permissionSets>
     <permissionSets>Quality_Workbench</permissionSets>
@@ -32,5 +35,6 @@
     <permissionSets>View_Draft_Articles</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>force__Mortgage</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

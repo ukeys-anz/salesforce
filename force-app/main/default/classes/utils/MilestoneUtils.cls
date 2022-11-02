@@ -30,8 +30,21 @@ public with sharing class MilestoneUtils {
       cm.completionDate = complDate;
       cmsToUpdate.add(cm);
     }
-    if (CaseMilestone.SObjectType.getDescribe().isUpdateable()) {
-      update cmsToUpdate;
+    if (
+      PermissionUtils.canUpdate('CaseMilestone') &&
+      Schema.sObjectType.CaseMilestone.fields.CompletionDate.isUpdateable()
+    ) {
+      SystemModeActions actions = new SystemModeActions(
+        'MilestoneUtils',
+        'completeMilestones'
+      );
+      actions.updateRecords(cmsToUpdate, 'CaseMilestone');
+    } else {
+      CommonUtil.logAndThrowIAE(
+        'MilestoneUtils',
+        'completeMilestones',
+        'Not enough permissions to update CaseMilestone.'
+      );
     }
   }
 
@@ -59,10 +72,14 @@ public with sharing class MilestoneUtils {
       cmsToUpdate.add(cm);
     }
     if (
-      CaseMilestone.SObjectType.getDescribe().isUpdateable() &&
+      PermissionUtils.canUpdate('CaseMilestone') &&
       Schema.sObjectType.CaseMilestone.fields.CompletionDate.isUpdateable()
     ) {
-      update cmsToUpdate;
+      SystemModeActions actions = new SystemModeActions(
+        'MilestoneUtils',
+        'completeMilestones'
+      );
+      actions.updateRecords(cmsToUpdate, 'CaseMilestone');
     } else {
       CommonUtil.logAndThrowIAE(
         'MilestoneUtils',

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Proportion_Percent__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Source_Loan_Domain</complianceGroup>
+    <description>Captures applicant&apos;s percentage share of the current OFI (other financial institutions) home loan liability</description>
+    <externalId>false</externalId>
+    <label>Proportion Percent</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>4</scale>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Percent</type>
+</CustomField>

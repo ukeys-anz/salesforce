@@ -1,5 +1,5 @@
 <template>
-  <div class="slds-card">
+  <div class="slds-card" data-test-id="initiate-interact-card">
     <div class="slds-tabs_scoped slds-tabs_medium">
       <template if:false={loading}>
         <ul class="slds-tabs_scoped__nav" role="tablist">
@@ -41,33 +41,67 @@
         <template if:true={showContactTab}>
           <div>
             <div class="slds-m-around_small">
-              <template if:true={enableChat}>
-                <div class="slds-align_absolute-center">
-                  <lightning-button
-                    data-id="message-customer"
-                    variant="brand-outline"
-                    label="Message Customer"
-                    title="Message"
-                    onclick={handleShowChatWindow}
-                    icon-name="utility:chat"
-                    class="slds-p-around_x-small"
-                    style="display: grid; width: 85%"
-                  >
-                  </lightning-button>
-                </div>
+              <template if:true={showMessageCustomer}>
+                <template if:true={displayOutboundChat}>
+                  <div class="slds-align_absolute-center">
+                    <lightning-button
+                      data-id="message-customer"
+                      data-test-id="message-customer-button"
+                      variant="brand-outline"
+                      label="Message Customer"
+                      title="Message"
+                      onclick={handleShowChatWindow}
+                      icon-name="utility:chat"
+                      class="slds-p-around_x-small button-display"
+                    >
+                    </lightning-button>
+                  </div>
+                </template>
+                <template if:false={displayOutboundChat}>
+                  <div class="slds-align_absolute-center">
+                    <lightning-button
+                      data-id="message-customer"
+                      data-test-id="message-customer-button"
+                      variant="brand-outline"
+                      label="Message Customer"
+                      title="Message"
+                      icon-name="utility:chat"
+                      class="slds-p-around_x-small button-display"
+                      disabled
+                    >
+                    </lightning-button>
+                  </div>
+                </template>
               </template>
               <div class="slds-align_absolute-center">
-                <lightning-button
-                  data-id="call-customer"
-                  variant="brand-outline"
-                  label={callPhoneNumber}
-                  title="Call"
-                  onclick={handleCallCustomer}
-                  icon-name="utility:call"
-                  class="slds-p-around_x-small"
-                  style="display: grid; width: 85%"
-                >
-                </lightning-button>
+                <template if:true={callPhoneNumber}>
+                  <template if:true={displayOutboundDial}>
+                    <lightning-button
+                      data-id="call-customer"
+                      data-test-id="call-customer-button"
+                      variant="brand-outline"
+                      label={callPhoneNumber}
+                      title="Call"
+                      onclick={handleCallCustomer}
+                      icon-name="utility:call"
+                      class="slds-p-around_x-small button-display"
+                    >
+                    </lightning-button>
+                  </template>
+                  <template if:false={displayOutboundDial}>
+                    <lightning-button
+                      data-id="call-customer"
+                      data-test-id="call-customer-button"
+                      variant="brand-outline"
+                      label={callPhoneNumber}
+                      title="Call"
+                      icon-name="utility:call"
+                      class="slds-p-around_x-small button-display"
+                      disabled
+                    >
+                    </lightning-button>
+                  </template>
+                </template>
               </div>
               <div
                 class="slds-m-top_x-small slds-m-bottom_small slds-align_absolute-center"
@@ -105,18 +139,31 @@
                 * Let the customer know we record our calls
               </div>
               <div class="slds-m-bottom_x-small slds-align_absolute-center">
-                <lightning-button
-                  data-id="call-now"
-                  variant="brand"
-                  label="Call Now"
-                  title="Call"
-                  onclick={handleCallNow}
-                  icon-name="utility:call"
-                  class="slds-p-around_x-small"
-                  style="display: grid; width: 70%"
-                  disabled={invalidNumber}
-                >
-                </lightning-button>
+                <template if:true={displayOutboundDial}>
+                  <lightning-button
+                    data-id="call-now"
+                    variant="brand"
+                    label="Call Now"
+                    title="Call"
+                    onclick={handleCallNow}
+                    icon-name="utility:call"
+                    class="slds-p-around_x-small button-display"
+                    disabled={invalidNumber}
+                  >
+                  </lightning-button>
+                </template>
+                <template if:false={displayOutboundDial}>
+                  <lightning-button
+                    data-id="call-now"
+                    variant="brand"
+                    label="Call Now"
+                    title="Call"
+                    icon-name="utility:call"
+                    class="slds-p-around_x-small button-display"
+                    disabled
+                  >
+                  </lightning-button>
+                </template>
               </div>
             </div>
           </div>
@@ -141,43 +188,130 @@
                   </div>
                 </div>
               </div>
-              <lightning-textarea
-                data-id="message-body"
-                class="message-area"
-                placeholder="Start typing here..."
-                onchange={handleMessageChange}
-                min-length="2"
-                maxlength="1000"
-                message-when-too-long="A maximum of 1000 characters are allowed"
-                message-when-value-missing="Please enter a valid message"
-              ></lightning-textarea>
-              <div class="slds-m-top_small slds-m-bottom_small">
-                <div class="slds-grid slds-gutters">
-                  <div class="slds-col slds-size_1-of-2">
-                    <lightning-button
-                      data-id="cancel"
-                      variant="brand-outline"
-                      title="Cancel"
-                      label="Cancel"
-                      onclick={handleShowContactTab}
-                      class="slds-p-bottom_x-small cancel"
-                    >
-                    </lightning-button>
-                  </div>
-                  <div class="slds-col slds-size_1-of-2">
-                    <lightning-button
-                      data-id="send-now"
-                      variant="brand"
-                      label="Send Now"
-                      title="Send"
-                      onclick={handleMessageCustomer}
-                      disabled={invalidMessage}
-                      class="slds-p-bottom_x-small slds-float_right send-now"
-                    >
-                    </lightning-button>
+              <template if:true={showMessageDialog}>
+                <lightning-textarea
+                  data-id="message-body"
+                  data-test-id="message-body-textarea"
+                  class="message-area"
+                  placeholder="Start typing here..."
+                  onchange={handleMessageChange}
+                  min-length="4"
+                  maxlength="1000"
+                  message-when-too-long="A maximum of 1000 characters are allowed"
+                  message-when-value-missing="Please enter a valid message"
+                ></lightning-textarea>
+                <span class={remainingCharStyle}>{remainingCharMsg}</span>
+                <div if:true={isLoadingCase}>
+                  <lightning-spinner
+                    alternative-text="Loading..."
+                    variant="brand"
+                  >
+                  </lightning-spinner>
+                </div>
+                <div class="slds-m-top_large slds-m-bottom_small">
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-button
+                        data-id="cancel"
+                        variant="brand-outline"
+                        title="Cancel"
+                        label="Cancel"
+                        onclick={handleShowContactTab}
+                        class="slds-p-bottom_x-small cancel"
+                      >
+                      </lightning-button>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-button
+                        data-id="send-now"
+                        data-test-id="send-now-button"
+                        variant="brand"
+                        label="Send Now"
+                        title="Send"
+                        onclick={handleMessageCustomer}
+                        disabled={invalidMessage}
+                        class="slds-p-bottom_x-small slds-float_right send-now"
+                      >
+                      </lightning-button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </template>
+              <template if:true={showMessageToast}>
+                <template if:true={showSuccessMessage}>
+                  <div class="slds-is-relative slds-p-top_large">
+                    <div class="slds-theme_success" role="status">
+                      <span class="slds-assistive-text">Success</span>
+                      <div
+                        class="slds-notify__content slds-p-left_medium slds-p-bottom_large slds-p-top_large"
+                      >
+                        <h2 class="slds-text-heading_medium">
+                          Your message was sent.
+                        </h2>
+                        <div class="slds-p-top_large">Remember:</div>
+                        <div class="slds-p-left_small">
+                          - Case will be created with linked chat thread
+                        </div>
+                        <div class="slds-p-left_small">
+                          - Click <strong>Reinitiate Chat</strong> to continue
+                          conversation in Twilio Flex
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+                <template if:true={showErrorMessage}>
+                  <div class="slds-is-relative slds-p-top_large">
+                    <div class="slds-theme_error" role="status">
+                      <span class="slds-assistive-text">Error</span>
+                      <div
+                        class="slds-notify__content slds-p-left_medium slds-p-bottom_large slds-p-top_large"
+                      >
+                        <h2 class="slds-text-heading_medium">
+                          An Error Occurred
+                        </h2>
+                        <div class="slds-p-top_large">{errMsg}</div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+                <div class="slds-m-top_small slds-m-bottom_small">
+                  <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-2">
+                      <lightning-button
+                        data-id="cancel"
+                        variant="brand-outline"
+                        title="Cancel"
+                        label="Cancel"
+                        onclick={handleShowContactTab}
+                        class="slds-p-bottom_x-small cancel"
+                      >
+                      </lightning-button>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                      <template if:true={isLoadingCase}>
+                        <lightning-spinner
+                          alternative-text="Loading..."
+                          variant="brand"
+                        >
+                        </lightning-spinner>
+                      </template>
+                      <template if:false={isLoadingCase}>
+                        <lightning-button
+                          data-id="send-now"
+                          data-test-id="reinitiate-chat-button"
+                          variant="brand"
+                          label="Reinitiate Chat"
+                          title="Reinitiate"
+                          onclick={handleReinitiate}
+                          class="slds-p-bottom_x-small slds-float_right send-now"
+                        >
+                        </lightning-button>
+                      </template>
+                    </div>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
         </template>

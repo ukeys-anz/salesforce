@@ -199,7 +199,14 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     }
 
     for (Case c : [
-      SELECT Id, RecordTypeId, CaseNumber, OwnerId, Status
+      SELECT
+        Id,
+        RecordTypeId,
+        CaseNumber,
+        OwnerId,
+        Status,
+        IDR_NC_First_Name__c,
+        IDR_NC_Last_Name__c
       FROM Case
       WHERE Id IN :caseIds AND Owner.IsActive = TRUE
     ]) {
@@ -248,11 +255,22 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Case record,
     ContentDocument cdRecord
   ) {
+    String customerName = (record.IDR_NC_First_Name__c != null ||
+      record.IDR_NC_Last_Name__c != null)
+      ? ('Customer Name : ' +
+        (record.IDR_NC_First_Name__c != null
+          ? record.IDR_NC_First_Name__c + ' '
+          : '') +
+        (record.IDR_NC_Last_Name__c != null ? record.IDR_NC_Last_Name__c : '') +
+        '\n')
+      : '';
     IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
       cdRecord,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      'New File added by ' + UserInfo.getName(),
+      customerName +
+      'New File added by ' +
+      UserInfo.getName(),
       record
     );
     return wrapper;

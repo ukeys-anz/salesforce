@@ -3,7 +3,9 @@
  * @since Feb 2020
  * @description virtual service class for all API callouts
  * @group Services
+ * Suppressing ExcessivePublicCount rule to allow for added callouts
  */
+@SuppressWarnings('PMD.ExcessivePublicCount')
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
   protected Boolean preset = false;
@@ -331,6 +333,38 @@ public with sharing virtual class Service {
     String packageId,
     String checkingAccount,
     String savingsAccount
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param messageContent the content of the message to be sent
+   * @param customerName the first name of the customer
+   * @param issueType the issue type (default to Follow Up)
+   * @param issueSubType the issue sub type (default to ANZ Plus Support)
+   * @return `HttpCalloutResponse` the api response
+   * @description sends the initial chat message
+   */
+  public virtual HttpCalloutResponse initiateChat(
+    String ocvId,
+    String messageContent,
+    String customerName,
+    String issueType,
+    String issueSubType
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param conversationSid the chat id to reinitiate
+   * @return `HttpCalloutResponse` the api response
+   * @description sends the initial chat message
+   */
+  public virtual HttpCalloutResponse reinitiateChat(
+    String ocvId,
+    String conversationSid
   ) {
     return null;
   }
