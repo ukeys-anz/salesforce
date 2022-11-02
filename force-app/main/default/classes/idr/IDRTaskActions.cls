@@ -3,7 +3,8 @@
  * @since  02/2021
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
  * @group IDR(Internal Dispute Resolution)
- * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * @runTests IDRCaseActionsTest, IDRTaskActionsTest, TaskTriggerHandlerTest
+ * CyclomaticComplexity Suppressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
@@ -313,23 +314,28 @@ public without sharing class IDRTaskActions {
         caseMap.get(record.WhatId)
       );
 
-      if (record.ActivityDate > Date.valueOf(expectedDueDate)) {
-        record.ActivityDate = Date.valueOf(expectedDueDate);
-      }
+      if (expectedDueDate != null) {
+        if (record.ActivityDate > Date.valueOf(expectedDueDate)) {
+          record.ActivityDate = Date.valueOf(expectedDueDate);
+        }
 
-      if (record.Subject != caseTaskMap.get(record.WhatId)) {
-        record.Status = IDRConstants.TASK_STATUS_EXPIRED;
+        if (record.Subject != caseTaskMap.get(record.WhatId)) {
+          record.Status = IDRConstants.TASK_STATUS_EXPIRED;
+        }
       }
     }
   }
   /**
-   * @description calculateExpectedDue will calaulate the what the due date must be for IDR Tasks.
+   * @description calculateExpectedDue will calculate the what the due date must be for IDR Tasks.
    * @param record The Task record.
    * @param caseRec the case record that this task is related to.
    * @return datetime new datetime value that expected to be the due date based on the task and case parms.
    */
   public static Datetime calculateExpectedDue(Task record, Case caseRec) {
     Datetime expectedDueDate;
+    if (caseRec == null) {
+      return null;
+    }
     if (
       record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) &&
       caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY
@@ -371,7 +377,7 @@ public without sharing class IDRTaskActions {
   }
   /**
    * @description closeMilestonesOfClosedTask will mark Maximum IDR milestones as completed
-   *               when the corresponding Taks completed.
+   *               when the corresponding Tasks completed.
    *
    * @param taskRecs List of task records.
    */
@@ -873,26 +879,28 @@ public without sharing class IDRTaskActions {
     }
   }
 
-   /**
+  /**
    * @description restrictIDRTaskDelete check if user is able to delete IDR task records (in particular auto-generated IDR tasks), throws error if user is ineligible to delete IDR task
    * @param records the task records being checked to see if its eligible for deletion
    */
-  public static void restrictIDRTaskDelete(List<Task> records){
-    for(Task t:records){
-      if(isIDRTaskType(t)){
-        if(!validateIDRTaskForDelete(t)){
-          t.addError('Error: This task is automatically generated and cannot be deleted in CMOS');
+  public static void restrictIDRTaskDelete(List<Task> records) {
+    for (Task t : records) {
+      if (isIDRTaskType(t)) {
+        if (!validateIDRTaskForDelete(t)) {
+          t.addError(
+            'Error: This task is automatically generated and cannot be deleted in CMOS'
+          );
         }
       }
     }
   }
 
-   /**
+  /**
    * @description validateIDRTaskForDelete logic to check if user is able to delete task record (in particular auto-generated IDR tasks)
    * @param t the task record being checked to see if its eligible for deletion
    * @return `Boolean` True if the the record type is eligible for deletion, false otherwise
    */
-  public static boolean validateIDRTaskForDelete(Task t) {
+  public static Boolean validateIDRTaskForDelete(Task t) {
     if (t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID) {
       return false;
     } else if (t.RecordTypeId == IDRConstants.IDR_TASK_RT_ID) {
