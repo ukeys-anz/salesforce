@@ -16,7 +16,7 @@ public with sharing class GetHelpCaseAssignmentRules {
    */
   public static void assignDisputeCases(Case[] cases, Map<Id, Case> oldMap) {
     for (Case c : cases) {
-      if (GetHelpCaseActionsHelper.isDispute(c) && c.submitted__c == true) {
+      if (CheckCaseRecordType.isDispute(c) && c.submitted__c == true) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
         if (isSubmittedOrReasonChanged(c, oldCase)) {
           c.OwnerId = getOwnerId(c);
@@ -118,15 +118,11 @@ public with sharing class GetHelpCaseAssignmentRules {
    * Will assign those cases to Coach Queue
    * @param records List<Case> to be checked.
    */
-  public static void assignUnauthenticatedEnquriryCases(List<Case> records) {
+  public static void assignUnauthenticatedEnquiryCases(List<Case> records) {
     Id coachQueueId = [SELECT Id FROM Group WHERE Name = 'Coach Queue' LIMIT 1]
     .Id;
     for (Case record : records) {
-      if (
-        record.RecordTypeId == GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID &&
-        record.Origin == 'ANZ Plus Web' &&
-        record.ANZx_Customer__c == true
-      ) {
+      if (CheckCaseRecordType.isAEM(record)) {
         record.OwnerId = coachQueueId;
         record.Queue__c = 'Coach Queue';
       }

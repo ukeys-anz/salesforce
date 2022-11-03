@@ -173,7 +173,7 @@ public class NotificationHandlerTriggerTest {
       FROM Case
       WHERE RecordTypeId = :IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
     ];
-    test.startTest();
+    Test.startTest();
     List<Notification_Handler__c> nhListCustomerComplaint = [
       SELECT id
       FROM Notification_Handler__c
@@ -188,13 +188,13 @@ public class NotificationHandlerTriggerTest {
     System.assertEquals(
       customerComplaintCaseList.size(),
       nhListCustomerComplaint.size(),
-      'Notification handler list size should be as expected | Cusotmer Complaints'
+      'Notification handler list size should be as expected | Customer Complaints'
     );
 
     System.assertEquals(
       customerNonComplaintCaseList.size(),
       nhListNonCustomerComplaint.size(),
-      'Notification handler list size should be as expected | Non Cusotmer Complaints'
+      'Notification handler list size should be as expected | Non Customer Complaints'
     );
     Test.stopTest();
   }
@@ -204,12 +204,14 @@ public class NotificationHandlerTriggerTest {
    */
   @isTest
   static void testManualNotificationCustomerComplaint() {
+    Test.startTest();
     System.assert(
       testPublishedNotificationForDifferentCaseRecordType(
         IDRConstants.CUSTOMER_COMPLAINT_RT_ID
       ),
       'Notification handler status should be as expected | Customer Complaint'
     );
+    Test.stopTest();
   }
 
   /**
@@ -217,12 +219,14 @@ public class NotificationHandlerTriggerTest {
    */
   @isTest
   static void testManualNotificationNonCustomerComplaint() {
+    Test.startTest();
     System.assert(
       testPublishedNotificationForDifferentCaseRecordType(
         IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
       ),
       'Notification handler status should be as expected | Non Customer Complaint'
     );
+    Test.stopTest();
   }
 
   /**
@@ -230,6 +234,7 @@ public class NotificationHandlerTriggerTest {
    */
   @isTest
   static void testNotificationUnauthToNonCustomerComplaint() {
+    Test.startTest();
     System.assert(
       testNotificationChangeCaseRecordType(
         GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
@@ -237,6 +242,7 @@ public class NotificationHandlerTriggerTest {
       ),
       'Notification handler list size should be as expected.'
     );
+    Test.stopTest();
   }
 
   /**
@@ -245,6 +251,7 @@ public class NotificationHandlerTriggerTest {
 
   @isTest
   static void testManualNotificationUnauthToNonCustomerComplaint() {
+    Test.startTest();
     System.assert(
       testPublishedNotificationChangeCaseRecordType(
         GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
@@ -252,6 +259,7 @@ public class NotificationHandlerTriggerTest {
       ),
       'Notification handler status should be as expected.'
     );
+    Test.stopTest();
   }
 
   /**
@@ -259,6 +267,7 @@ public class NotificationHandlerTriggerTest {
    */
   @isTest
   static void testNotificationUnauthToANZPlusComplaint() {
+    Test.startTest();
     System.assert(
       testNotificationChangeCaseRecordType(
         GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
@@ -266,6 +275,7 @@ public class NotificationHandlerTriggerTest {
       ),
       'Notification handler list size should be as expected.'
     );
+    Test.stopTest();
   }
 
   /**
@@ -274,6 +284,7 @@ public class NotificationHandlerTriggerTest {
 
   @isTest
   static void testManualNotificationUnauthToANZPlusComplaint() {
+    Test.startTest();
     System.assert(
       testPublishedNotificationChangeCaseRecordType(
         GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
@@ -281,5 +292,6 @@ public class NotificationHandlerTriggerTest {
       ),
       'Notification handler status should be as expected.'
     );
+    Test.stopTest();
   }
 }

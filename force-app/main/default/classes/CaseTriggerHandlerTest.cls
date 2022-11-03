@@ -992,7 +992,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = new List<Id>(GetHelpCaseActionsHelper.FRAUD_RT_IDS)[
+          RecordTypeId = new List<Id>(CheckCaseRecordType.FRAUD_RT_IDS)[
             faker.randomIntegerBetween(1, 4)
           ],
           Type = faker.randomElement(caseTypes),
@@ -1214,7 +1214,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = new List<Id>(GetHelpCaseActionsHelper.FRAUD_RT_IDS)[4],
+          RecordTypeId = new List<Id>(CheckCaseRecordType.FRAUD_RT_IDS)[4],
           Type = 'KYC QA Sample',
           AccountId = acc.Id
         )
@@ -2003,20 +2003,66 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
   }
 
-  private static Boolean testEntitlementOnChangeRecordType(Id rtId) {
+  @isTest
+  static void testIsAEMConvertedSuccess() {
     Faker faker = new Faker('AU');
-    // GIVEN
-    // an ANZ Plus customer record is created with relevant entitlements
+    Case oldRecord = new Case();
+    oldRecord.Description = faker.randomString(10);
+    oldRecord.Status = IDRConstants.OPEN_STATUS;
+    oldRecord.ANZx_Customer__c = true;
+    oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
+    oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    oldRecord.Type = '11';
+    insert oldRecord;
+
+    Test.startTest();
+    Case newRecord = oldRecord.clone(true, true);
+    newRecord.RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID;
+    System.assert(
+      GetHelpCaseActionsHelper.isAEMConverted(oldRecord, newRecord),
+      'This should be an AEM converted Case'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testIsAEMConvertedFailure() {
+    Faker faker = new Faker('AU');
+    Case oldRecord = new Case();
+    oldRecord.Description = faker.randomString(10);
+    oldRecord.Status = IDRConstants.OPEN_STATUS;
+    oldRecord.ANZx_Customer__c = true;
+    oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
+    oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    oldRecord.Type = '11';
+    insert oldRecord;
+
+    Test.startTest();
+    Case newRecord = oldRecord.clone(true, true);
+    newRecord.RecordTypeId = GetHelpConstants.FRAUD_RT_ID;
+    System.assert(
+      !GetHelpCaseActionsHelper.isAEMConverted(oldRecord, newRecord),
+      'This should not be an AEM converted Case'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testEntitlementChangeUnauthToGeneralEnquiry() {
+    // a case record is created with relevant entitlements
     Account acc = [
       SELECT Id
       FROM Account
       WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
-
+    // GIVEN
     // We have one unauthenticated enquiry case
+    Faker faker = new Faker('AU');
     Case caseRecord = new Case();
-    caseRecord.Description = 'Test Unauthenticated Enquiry change to Non Customer Complaint';
+    caseRecord.Description = faker.randomString(10);
     caseRecord.Status = IDRConstants.OPEN_STATUS;
     caseRecord.ANZx_Customer__c = true;
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
@@ -2026,10 +2072,51 @@ private class CaseTriggerHandlerTest {
     caseRecord.Type = '11';
     insert caseRecord;
 
+    // THEN
+    // the same Entitlement record on Account should be linked on the Case
+    Entitlement accountEntitlement = [
+      SELECT Id
+      FROM Entitlement
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
+    Test.startTest();
     // WHEN
     // the recordType is changed to new recordType
-    caseRecord.RecordTypeId = rtId;
+    caseRecord.RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID;
     update caseRecord;
+
+    System.assert(
+      accountEntitlement.Id ==
+      [SELECT EntitlementId FROM Case WHERE Id = :caseRecord.Id LIMIT 1]
+      .EntitlementId,
+      'Link Entitlement from Account on converted unauthenticated enquiry to general enquiry.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testEntitlementChangeUnauthToANZXComplaint() {
+    // a case record is created with relevant entitlements
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+    // GIVEN
+    // We have one unauthenticated enquiry case
+    Faker faker = new Faker('AU');
+    Case caseRecord = new Case();
+    caseRecord.Description = faker.randomString(10);
+    caseRecord.Status = IDRConstants.OPEN_STATUS;
+    caseRecord.ANZx_Customer__c = true;
+    caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
+    caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.AccountId = acc.Id;
+    caseRecord.Type = '11';
+    insert caseRecord;
 
     // THEN
     // the same Entitlement record on Account should be linked on the Case
@@ -2040,42 +2127,61 @@ private class CaseTriggerHandlerTest {
       LIMIT 1
     ];
 
-    Id entitlementId;
-    if (rtId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID) {
-      entitlementId = IDRCaseActions.getEntitlement();
-    } else {
-      entitlementId = accountEntitlement.Id;
-    }
-
-    return entitlementId ==
+    Test.startTest();
+    // Case caseRecord = prepareCaseForTestingEntitlement(GetHelpConstants.COMPLAINT_RT_ID);
+    caseRecord.RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID;
+    update caseRecord;
+    System.assert(
+      accountEntitlement.Id ==
       [SELECT EntitlementId FROM Case WHERE Id = :caseRecord.Id LIMIT 1]
-      .EntitlementId;
-  }
-
-  @isTest
-  static void testEntitlementChangeUnauthToGeneralEnquiry() {
-    System.assert(
-      testEntitlementOnChangeRecordType(GetHelpConstants.GENERAL_INQUIRY_RT_ID),
-      'Link Entitlement from Account on converted unauthenticated enquiry to general enquiry.'
+      .EntitlementId,
+      'Link Entitlement from Account on converted unauthenticated enquiry to anz plus complaint.'
     );
-  }
-
-  @isTest
-  static void testEntitlementChangeUnauthToANZXComplaint() {
-    System.assert(
-      testEntitlementOnChangeRecordType(GetHelpConstants.COMPLAINT_RT_ID),
-      'Link Entitlement from Account on converted unauthenticated enquiry to ANZ plus complaint.'
-    );
+    Test.stopTest();
   }
 
   @isTest
   static void testEntitlementChangeUnauthToNonCusotmerComplaint() {
+    // a case record is created with relevant entitlements
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE ANZx_Customer__c = TRUE
+      LIMIT 1
+    ];
+    // GIVEN
+    // We have one unauthenticated enquiry case
+    Faker faker = new Faker('AU');
+    Case caseRecord = new Case();
+    caseRecord.Description = faker.randomString(10);
+    caseRecord.Status = IDRConstants.OPEN_STATUS;
+    caseRecord.ANZx_Customer__c = true;
+    caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
+    caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
+    caseRecord.AccountId = acc.Id;
+    caseRecord.Type = '11';
+    insert caseRecord;
+
+    // THEN
+    // the same Entitlement record on Account should be linked on the Case
+    Entitlement accountEntitlement = [
+      SELECT Id
+      FROM Entitlement
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
+
+    Test.startTest();
+    caseRecord.RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    update caseRecord;
     System.assert(
-      testEntitlementOnChangeRecordType(
-        GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
-      ),
+      IDRCaseActions.getEntitlement() ==
+      [SELECT EntitlementId FROM Case WHERE Id = :caseRecord.Id LIMIT 1]
+      .EntitlementId,
       'Link Entitlement from Account on converted unauthenticated enquiry to non-customer complaint.'
     );
+    Test.stopTest();
   }
   // Test creating a dispute with the same transaction Id in another open dispute
   // the new dispute should not be created
@@ -2297,7 +2403,7 @@ private class CaseTriggerHandlerTest {
         FROM CaseMilestone
         WHERE
           CaseId = :disputeCase.Id
-          AND MilestoneType.Name = :GetHelpCaseActions.RESOLUTION_TIME_MILESTONE
+          AND MilestoneType.Name = :MilestoneHandler.RESOLUTION_TIME_MILESTONE
           AND IsCompleted = TRUE
       ] > 0,
       'Failed to mark Dispute milestone as completed, when status is changed from Open'
@@ -2350,7 +2456,7 @@ private class CaseTriggerHandlerTest {
         FROM CaseMilestone
         WHERE
           CaseId = :disputeCase.Id
-          AND MilestoneType.Name = :GetHelpCaseActions.INVESTIGATION_TIME_MILESTONE
+          AND MilestoneType.Name = :MilestoneHandler.INVESTIGATION_TIME_MILESTONE
           AND IsCompleted = TRUE
       ] > 0,
       'Failed to mark Dispute milestone as completed, when status is changed from Under Investigation to Closed'

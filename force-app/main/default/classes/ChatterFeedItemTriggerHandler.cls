@@ -43,7 +43,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
 
       if (
         (relatedCase != null &&
-        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)) ||
+        CheckCaseRecordType.isANZPlusCaseType(relatedCase)) ||
         (relatedAcc != null &&
         relatedAcc.ANZx_Customer__c == true)
       ) {

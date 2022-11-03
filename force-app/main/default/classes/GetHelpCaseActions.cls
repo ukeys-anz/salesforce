@@ -4,11 +4,10 @@
  * @since 04/2020
  * @description GetHelpCaseActions class is to handle all the Get Help Case Actions
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
- * NcssMethodCount Surpressed : To have all the code lines together in one place.
  * StdCyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings(
-  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount, PMD.NcssMethodCount'
+  'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
 )
 public with sharing class GetHelpCaseActions {
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
@@ -20,12 +19,6 @@ public with sharing class GetHelpCaseActions {
 
   private static List<Case> notificationCaseList = new List<Case>();
 
-  @TestVisible
-  public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
-  @TestVisible
-  public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
-  @TestVisible
-  public static final String OPEN_ESCALATION_TIME = 'Open_Escalation_Time';
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
 
   public static final String SLA_BREACH = 'Breached';
@@ -68,48 +61,7 @@ public with sharing class GetHelpCaseActions {
           caseIds.add(record.id);
           validateCaseList.add(record);
         }
-
-        if (
-          (oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
-          record.Status == GetHelpConstants.CLOSED_STATUS) ||
-          (record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
-          record.ANZx_Customer__c &&
-          oldRecord.RecordTypeId ==
-          GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID)
-        ) {
-          milestoneCaseIds.add(record.Id);
-        }
-      } else if (record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
-        if (
-          (oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
-          oldRecord.Status != GetHelpConstants.ESCALATED_STATUS &&
-          oldRecord.Status != GetHelpConstants.WITHDRAWN_STATUS &&
-          oldRecord.Status != GetHelpConstants.RESOLVED_STATUS &&
-          (record.Status == GetHelpConstants.CLOSED_STATUS ||
-          record.Status == GetHelpConstants.ESCALATED_STATUS ||
-          record.Status == GetHelpConstants.WITHDRAWN_STATUS ||
-          record.Status == GetHelpConstants.RESOLVED_STATUS)) ||
-          (record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
-          record.ANZx_Customer__c &&
-          oldRecord.RecordTypeId ==
-          GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID)
-        ) {
-          milestoneCaseIds.add(record.Id);
-        }
-      } else if (GetHelpCaseActionsHelper.isDispute(record)) {
-        if (
-          oldRecord.Status == GetHelpConstants.OPEN_STATUS &&
-          record.Status != GetHelpConstants.OPEN_STATUS
-        ) {
-          milestoneCaseIds.add(record.Id);
-        }
-        if (
-          oldRecord.Status == GetHelpConstants.UNDER_INVESTIGATION_STATUS &&
-          record.Status == GetHelpConstants.CLOSED_STATUS
-        ) {
-          milestoneCaseIds.add(record.Id);
-        }
-
+      } else if (CheckCaseRecordType.isDispute(record)) {
         // Reset case SLA Status on Dispute cases to blank/none when switching case status.
         // This would aid notifications based on SLA_Status__c to work correctly;
         //    * when "Resolution Time" mielstone resulted in a SLA Status change before entering "Investigation Time" milestone
@@ -132,18 +84,7 @@ public with sharing class GetHelpCaseActions {
           );
         }
       } else if (
-        record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
-      ) {
-        if (
-          record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
-          record.ANZx_Customer__c &&
-          oldRecord.RecordTypeId ==
-          GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID
-        ) {
-          milestoneCaseIds.add(record.Id);
-        }
-      } else if (
-        GetHelpCaseActionsHelper.isAccountClosure(record, null) &&
+        CheckCaseRecordType.isAccountClosure(record, null) &&
         record.Status == GetHelpConstants.ESCALATED_STATUS &&
         oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
       ) {
@@ -163,17 +104,10 @@ public with sharing class GetHelpCaseActions {
       GetHelpCaseActionsHelper.validateParentCase(caseIds, validateCaseList);
     }
 
-    if (!milestoneCaseIds.isEmpty()) {
-      MilestoneUtils.completeMilestones(
-        milestoneCaseIds,
-        new List<String>{
-          RESOLUTION_TIME_MILESTONE,
-          INVESTIGATION_TIME_MILESTONE,
-          OPEN_ESCALATION_TIME
-        },
-        System.now()
-      );
-    }
+    MilestoneHandler.updateMilestone(
+      (Map<Id, Case>) oldMap,
+      (List<Case>) records
+    );
     GetHelpCaseAssignmentRules.assignDisputeCases(
       records,
       (Map<Id, Case>) oldMap
@@ -228,29 +162,27 @@ public with sharing class GetHelpCaseActions {
 
       // Check for Fraud Cases
       // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
-      if (GetHelpCaseActionsHelper.isFraud(record, oldRecord)) {
+      if (CheckCaseRecordType.isFraud(record, oldRecord)) {
         populateFraudCaseSubject(record);
       }
 
       // Check for Dispute Cases
-      if (GetHelpCaseActionsHelper.isDispute(record)) {
+      if (CheckCaseRecordType.isDispute(record)) {
         populateDisputeCaseSubject(record);
       }
 
       // Check for Complaint Cases
-      if (GetHelpCaseActionsHelper.isComplaint(record, oldRecord)) {
+      if (CheckCaseRecordType.isComplaint(record, oldRecord)) {
         populateComplaintCaseSubject(record);
       }
 
       // Check for ANZx Non Customer Complaint Cases
-      if (
-        GetHelpCaseActionsHelper.isANZxNonCustomerComplaint(record, oldCaseMap)
-      ) {
+      if (CheckCaseRecordType.isANZxNonCustomerComplaint(record, oldCaseMap)) {
         populateANZxNonCustomerComplaintCaseSubject(record);
       }
 
       // Check for Account Closure Cases
-      if (GetHelpCaseActionsHelper.isAccountClosure(record, oldRecord)) {
+      if (CheckCaseRecordType.isAccountClosure(record, oldRecord)) {
         accountClosureCases.add(record);
         accountIds.add(record.AccountId);
       }
@@ -436,6 +368,46 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
+   * @description This method updates the entitlement field on the case
+   * if the case is converted from AEM to General Inquiry/ANZX Complaint/Non-Cusotmer Complaint
+   * @param oldMap old trigger case map<id, case>
+   * @param caseList list of cases from the trigger
+   */
+  public static void updateEntitlementOnConvertedCase(
+    Map<Id, Case> oldMap,
+    List<Case> caseList
+  ) {
+    List<Case> filteredCases = GetHelpCaseActionsHelper.filterAEMConvertedCases(
+      oldMap,
+      caseList
+    );
+    if (filteredCases.size() == 0) {
+      return;
+    }
+
+    List<Id> accountIds = new List<Id>();
+    Map<Id, Id> entMap = new Map<Id, Id>();
+
+    accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
+      filteredCases
+    );
+
+    if (Entitlement.sObjectType.getDescribe().isQueryable()) {
+      List<Entitlement> entList;
+      entList = GetHelpCaseActionsHelper.getEntitlements(
+        accountIds,
+        'Basic Subscription'
+      );
+
+      for (Entitlement en : entList) {
+        entMap.put(en.AccountId, en.Id);
+      }
+    }
+
+    GetHelpCaseActionsHelper.updateEntitlementIdOnCase(caseList, entMap);
+  }
+
+  /**
    * @description recalculate related bug rollup whenever a case is inserted/updated/deleted
    * @param records new trigger case records to calculate rollups for
    * @param oldRecords old trigger case records to calculate rollups for
@@ -572,7 +544,7 @@ public with sharing class GetHelpCaseActions {
    */
   public static void applyDefaults(List<Case> records) {
     for (Case record : records) {
-      if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
+      if (CheckCaseRecordType.isANZPlusCaseType(record)) {
         setBusinessHours(record);
         maskTaxNumbers(record);
       }
@@ -580,7 +552,7 @@ public with sharing class GetHelpCaseActions {
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
     GetHelpCaseActionsHelper.setANZxCustomerNonCustomerComplaints(records);
-    GetHelpCaseAssignmentRules.assignUnauthenticatedEnquriryCases(records);
+    GetHelpCaseAssignmentRules.assignUnauthenticatedEnquiryCases(records);
   }
 
   /**
@@ -594,7 +566,7 @@ public with sharing class GetHelpCaseActions {
     for (Case c : records) {
       if (
         String.isNotBlank(c.Transaction_Id__c) &&
-        GetHelpCaseActionsHelper.isDispute(c)
+        CheckCaseRecordType.isDispute(c)
       ) {
         transactionIds.add(c.Transaction_Id__c);
         disputeCases.add(c);
@@ -812,20 +784,9 @@ public with sharing class GetHelpCaseActions {
   public static void afterUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     for (Case record : records) {
       Case oldRec = (Case) oldMap.get(record.Id);
-
-      Boolean isANZPlusComplaintCase = GetHelpCaseActionsHelper.isANZPlusComplaint(
-        record
-      );
-
-      Boolean isOldRecordUnauthenticatedEnquiryCase = GetHelpCaseActionsHelper.isUnauthenticatedEnquiry(
-        oldRec
-      );
-
       if (
-        isOldRecordUnauthenticatedEnquiryCase &&
-        oldRec.ANZx_Customer__c &&
-        oldRec.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
-        isANZPlusComplaintCase
+        CheckCaseRecordType.isAEM(oldRec) &&
+        CheckCaseRecordType.isANZPlusComplaint(record)
       ) {
         notificationCaseList.add(record);
       }

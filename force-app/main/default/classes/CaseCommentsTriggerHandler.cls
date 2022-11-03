@@ -42,7 +42,7 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
       Case relatedCase = relatedCaseMap.get(record.parentId);
       if (
         relatedCase != null &&
-        (GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase) ||
+        (CheckCaseRecordType.isANZPlusCaseType(relatedCase) ||
         IDRCaseActions.isIDRComplaintType(relatedCase) ||
         relatedCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
         relatedCase.RecordTypeId == IDRConstants.SI_RT_ID)

@@ -40,7 +40,7 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
       Account relatedAcc = relatedAccMap.get(record.parentId);
       if (
         (relatedCase != null &&
-        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)) ||
+        CheckCaseRecordType.isANZPlusCaseType(relatedCase)) ||
         (relatedAcc != null &&
         relatedAcc.ANZx_Customer__c == true)
       ) {

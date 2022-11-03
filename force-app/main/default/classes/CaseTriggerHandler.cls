@@ -64,12 +64,15 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
-    GetHelpCaseActions.updateEntitlement(records);
+    GetHelpCaseActions.updateEntitlementOnConvertedCase(
+      (Map<Id, Case>) oldMap,
+      (List<Case>) records
+    );
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     for (Case record : (List<Case>) records) {
-      if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
+      if (CheckCaseRecordType.isANZPlusCaseType(record)) {
         GetHelpCaseActions.maskTaxNumbers(record);
       }
       Case oldrecord = (Case) oldMap.get(record.Id);

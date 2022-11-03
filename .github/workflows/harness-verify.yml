@@ -26,7 +26,7 @@ jobs:
           GITHUB_REF: ${{ github.ref }}
           DRAFT_PR: ${{ github.event.pull_request.draft }}
           UPLOAD_ARTIFACT: ${{ !env.DRAFT_PR }}
-          RUN_ALL_TESTS_LABEL: ${{ contains( toJson(github.event.pull_request.labels), 'Run All Tests') }} 
+          RUN_ALL_TESTS_LABEL: ${{ contains( toJson(github.event.pull_request.labels), 'Run All Tests') }}
         run: |
           docker run --rm \
             anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:ede3323 \

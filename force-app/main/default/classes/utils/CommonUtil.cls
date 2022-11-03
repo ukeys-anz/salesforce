@@ -87,6 +87,27 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Get a picklist value from it's label.
+   * @param field The picklist field, for example Case.Type
+   * @param picklistLabel The picklist label, for example 'Advice'
+   * @return the picklist label, for example '2'
+   */
+  @TestVisible
+  public static String getSinglePicklistValue(
+    Schema.SobjectField field,
+    String picklistLabel
+  ) {
+    Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
+    Map<String, String> fieldMap = new Map<String, String>();
+    for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
+      if (f.getLabel() == picklistLabel) {
+        return f.getValue();
+      }
+    }
+    return '';
+  }
+
+  /**
    * @description handleMasking method is used to validate free text fields for masking as we dont want to store e.g. card numbers in SF.
    * So, we mask the number and store only last 4 digits unmasked.
    * @param record The actual record from Trigger.new

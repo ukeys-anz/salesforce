@@ -4,52 +4,29 @@
  * @description  GetHelpConstants consists of all the GetHelp constants
  */
 public with sharing class GetHelpConstants {
-  //Case - RTs
-  public static final String GENERAL_INQUIRY_RT = 'General_Inquiry';
-  public static final String ATM_DISPUTE_RT = 'ATM_Dispute';
-  public static final String CARD_DISPUTE_RT = 'Card_Dispute';
-  public static final String DIRECT_DEBIT_DISPUTE_RT = 'Direct_Debit_Dispute';
-  public static final String DIRECT_ENTRY_DISPUTE_RT = 'Direct_Entry_Dispute';
-  public static final String NPP_DISPUTE_RT = 'NPP_Dispute';
-  public static final String COMPLAINT_RT = 'ANZx_Complaint';
-  public static final String FRAUD_RT = 'Fraud';
-  public static final String IDENTITY_RT = 'Identity';
-  public static final String RECIPIENT_MULE_RT = 'Recipient_Mule';
-  public static final String SCAM_RT = 'Scam';
-  public static final String KYCQA_RT = 'KYC_QA';
-  public static final String BUG_RT = 'Bug_Enquiry';
-  public static final String CUSTOMER_FEEDBACK_RT = 'Customer_Feedback';
-  public static final String QUALITY_ASSESSMENT_GENERAL_RT = 'General';
-  public static final String TASK_COMPLIANCE_RT = 'Compliance_Task';
-  public static final String LEAD_ANZX_RT = 'ANZX_Leads';
-  public static final String ACCOUNT_PERSON_ACCOUNT_RT = 'PersonAccount';
-  public static final String NON_CUSTOMER_COMPLAINT_RT = 'Non_Customer_Complaint';
-  public static final String UNAUTHENTICATED_ENQUIRY_RT = 'General_Inquiry_CMOS';
-  public static final String CUSTOMER_COMPLAINT_RT = 'Customer_Complaint';
-
   //Case - ANZx Dispute Case RT Ids
   public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(GENERAL_INQUIRY_RT)
+    .get('General_Inquiry')
     .getRecordTypeId();
 
   public static final Id ATM_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(ATM_DISPUTE_RT)
+    .get('ATM_Dispute')
     .getRecordTypeId();
 
   public static final Id CARD_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(CARD_DISPUTE_RT)
+    .get('Card_Dispute')
     .getRecordTypeId();
 
   public static final Id DIRECT_DEBIT_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(DIRECT_DEBIT_DISPUTE_RT)
+    .get('Direct_Debit_Dispute')
     .getRecordTypeId();
 
   public static final Id DIRECT_ENTRY_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(DIRECT_ENTRY_DISPUTE_RT)
+    .get('Direct_Entry_Dispute')
     .getRecordTypeId();
 
   public static final Id NPP_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(NPP_DISPUTE_RT)
+    .get('NPP_Dispute')
     .getRecordTypeId();
 
   public static final Id BPAY_DISPUTE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
@@ -57,41 +34,41 @@ public with sharing class GetHelpConstants {
     .getRecordTypeId();
 
   public static final Id COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(COMPLAINT_RT)
+    .get('ANZx_Complaint')
     .getRecordTypeId();
 
   //Case - ANZx Fraud Case RT Ids
   public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(FRAUD_RT)
+    .get('Fraud')
     .getRecordTypeId();
 
   public static final Id IDENTITY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(IDENTITY_RT)
+    .get('Identity')
     .getRecordTypeId();
 
   public static final Id RECIPIENT_MULE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(RECIPIENT_MULE_RT)
+    .get('Recipient_Mule')
     .getRecordTypeId();
 
   public static final Id SCAM_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(SCAM_RT)
+    .get('Scam')
     .getRecordTypeId();
 
   public static final Id KYCQA_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(KYCQA_RT)
+    .get('KYC_QA')
     .getRecordTypeId();
 
   public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(BUG_RT)
+    .get('Bug_Enquiry')
     .getRecordTypeId();
 
   public static final Id CUSTOMER_FEEDBACK_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(CUSTOMER_FEEDBACK_RT)
+    .get('Customer_Feedback')
     .getRecordTypeId();
 
   //Quality Assessment - General RT Id
   public static final Id QUALITY_ASSESSMENT_GENERAL_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
-    .get(QUALITY_ASSESSMENT_GENERAL_RT)
+    .get('General')
     .getRecordTypeId();
 
   //Quality Assessment - Join RT Id
@@ -106,12 +83,12 @@ public with sharing class GetHelpConstants {
 
   //Task - Compliance Task RT Id
   public static final Id TASK_COMPLIANCE_RT_ID = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-    .get(TASK_COMPLIANCE_RT)
+    .get('Compliance_Task')
     .getRecordTypeId();
 
   //Lead - ANZx RT Id
   public static final Id LEAD_ANZX_RT_ID = Schema.SObjectType.Lead.getRecordTypeInfosByDeveloperName()
-    .get(LEAD_ANZX_RT)
+    .get('ANZX_Leads')
     .getRecordTypeId();
 
   //Lead - ANZx RT Id
@@ -121,17 +98,17 @@ public with sharing class GetHelpConstants {
 
   // Account - Person Account RT Id
   public static final Id ACCOUNT_PERSON_ACCOUNT_RT_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-    .get(ACCOUNT_PERSON_ACCOUNT_RT)
+    .get('PersonAccount')
     .getRecordTypeId();
 
   // Case - Non Customer Complaint
   public static final Id NON_CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(NON_CUSTOMER_COMPLAINT_RT)
+    .get('Non_Customer_Complaint')
     .getRecordTypeId();
 
   // Case - Unauthenticated Enquiry RT Id
   public static final Id UNAUTHENTICATED_ENQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get(UNAUTHENTICATED_ENQUIRY_RT)
+    .get('General_Inquiry_CMOS')
     .getRecordTypeId();
 
   // Interaction - Appointment Interaction RT Id

@@ -88,7 +88,7 @@ public with sharing class IDRCaseActions {
         );
       }
       if (
-        GetHelpCaseActionsHelper.isUnauthenticatedEnquiry(record) &&
+        CheckCaseRecordType.isUnauthenticatedEnquiry(record) &&
         record.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
         !record.ANZx_Customer__c
       ) {

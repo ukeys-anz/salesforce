@@ -179,9 +179,9 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
 
   /**
    * @description Prepare and returns the notification platform event.
-   *@param c Case record to get the notification details
-   *@param handler Notification_Handler__c record to get the nofication details
-   *@return notification platform event
+   * @param c Case record to get the notification details
+   * @param handler Notification_Handler__c record to get the nofication details
+   * @return notification platform event
    */
   public static IDR_Notification_Event__e getNotifcationEvent(
     Case c,
@@ -189,68 +189,141 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   ) {
     IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
     if (c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
-      if (c.Customer_Notification_Consent__c == 'Yes') {
-        notification.ComplainantMobile__c = c.Account.PersonMobilePhone;
-        notification.ComplainantFirstName__c = String.isNotEmpty(
-            c.Account.PersonContact.FirstName
-          )
-          ? c.Account.PersonContact.FirstName
-          : '';
-        notification.SMSFlag__c = true;
-      }
+      prepareANZPlusNotificationEvent(notification, c);
     } else if (
-      c.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+      CheckCaseRecordType.isNonCustomerComplaint(c) &&
       c.ANZx_Customer__c &&
       c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
     ) {
-      if (!c.IDR_SwitchOff_Customer_Notification__c) {
-        notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
-        notification.ComplainantFirstName__c = String.isNotEmpty(
-            c.IDR_NC_First_Name__c
-          )
-          ? c.IDR_NC_First_Name__c
-          : '';
-        notification.SMSFlag__c = true;
-      }
+      prepareAEMNonCustomerComplaintNotificationEvent(notification, c);
     } else {
-      if (c.IDR_SwicthOff_3rd_Party_Notification__c == false) {
-        if (
-          c.IDR_3rdParty_Relationship_To_Complainant__c == '20' &&
-          !String.isEmpty(c.IDR_NC_First_Name__c)
-        ) {
-          notification.AuthorisedFirstName__c = c.IDR_NC_First_Name__c;
-        } else {
-          notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
-        }
-        notification.AuthorisedEmail__c = c.IDR_3rdParty_Email__c;
-        notification.AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c;
-      }
-      if (c.IDR_SwitchOff_Customer_Notification__c == false) {
-        notification.CAP_CIS_ID__c = c.IDR_Customer_Number__c;
-        notification.Customer_Identifier__c = ((String.isNotBlank(
-            c.IDR_Customer_Identifier__c
-          ) && c.IDR_Customer_Identifier__c.contains('CAP ID'))
-          ? 'CAP ID'
-          : c.IDR_Customer_Identifier__c);
-        notification.ComplainantEmail__c = (c.RecordTypeId ==
-          cusComplaintRecordTypeId
-          ? ''
-          : c.IDR_NC_Email__c);
-        notification.ComplainantFirstName__c = (c.IDR_NC_Is_Consent_Obtained__c ==
-          false ||
-          c.RecordTypeId == cusComplaintRecordTypeId)
-          ? ''
-          : c.IDR_NC_First_Name__c;
-        notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
-      }
-      notification.EmailFlag__c = true;
-      notification.EmailTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
-      notification.SMSFlag__c = true;
+      prepareIDRNotificationEvent(notification, c);
     }
     notification.Case_ID__c = c.ID;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
     notification.MessageID__c = '' + c.ID + Datetime.now().millisecond();
     notification.SMSTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
+    return notification;
+  }
+
+  /**
+   * @description Prepare and returns the notification platform event for ANZ plus Complaints
+   * @param notification notification from getNotificationEvent method to be updated.
+   * @param c Case record to get the notification details
+   * @return notification platform event
+   */
+  public static IDR_Notification_Event__e prepareANZPlusNotificationEvent(
+    IDR_Notification_Event__e notification,
+    Case c
+  ) {
+    if (c.Customer_Notification_Consent__c == 'Yes') {
+      notification.ComplainantMobile__c = c.Account.PersonMobilePhone;
+      notification.ComplainantFirstName__c = String.isNotEmpty(
+          c.Account.PersonContact.FirstName
+        )
+        ? c.Account.PersonContact.FirstName
+        : '';
+      notification.SMSFlag__c = true;
+    }
+    return notification;
+  }
+
+  /**
+   * @description Prepare and returns the notification platform event for Converted AEM cases to Non-Customer Complaint
+   * @param notification notification from getNotificationEvent method to be updated.
+   * @param c Case record to get the notification details
+   * @return notification platform event
+   */
+  public static IDR_Notification_Event__e prepareAEMNonCustomerComplaintNotificationEvent(
+    IDR_Notification_Event__e notification,
+    Case c
+  ) {
+    if (!c.IDR_SwitchOff_Customer_Notification__c) {
+      notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
+      notification.ComplainantFirstName__c = String.isNotEmpty(
+          c.IDR_NC_First_Name__c
+        )
+        ? c.IDR_NC_First_Name__c
+        : '';
+      notification.SMSFlag__c = true;
+    }
+    return notification;
+  }
+
+  /**
+   * @description Prepare and returns the notification platform event for IDR cases
+   * If the cases are not ANZ plus complaints or AEM converted to Non-Customer compliant cases run this method
+   * @param notification notification from getNotificationEvent method to be updated.
+   * @param c Case record to get the notification details
+   * @return notification platform event
+   */
+  public static IDR_Notification_Event__e prepareIDRNotificationEvent(
+    IDR_Notification_Event__e notification,
+    Case c
+  ) {
+    assignIDR3rdPartyNotificationValues(notification, c);
+    assignIDRCustomerNotificationValues(notification, c);
+    notification.EmailFlag__c = true;
+    notification.EmailTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
+    notification.SMSFlag__c = true;
+    return notification;
+  }
+
+  /**
+   * @description Prepare and returns the notification platform event for IDR cases if it is from 3rdParty
+   * If the cases are not ANZ plus complaints or AEM converted to Non-Customer compliant cases run this method
+   * @param notification notification from getNotificationEvent method to be updated.
+   * @param c Case record to get the notification details
+   * @return notification platform event
+   */
+  public static IDR_Notification_Event__e assignIDR3rdPartyNotificationValues(
+    IDR_Notification_Event__e notification,
+    Case c
+  ) {
+    if (!c.IDR_SwicthOff_3rd_Party_Notification__c) {
+      if (
+        c.IDR_3rdParty_Relationship_To_Complainant__c == '20' &&
+        !String.isEmpty(c.IDR_NC_First_Name__c)
+      ) {
+        notification.AuthorisedFirstName__c = c.IDR_NC_First_Name__c;
+      } else {
+        notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
+      }
+      notification.AuthorisedEmail__c = c.IDR_3rdParty_Email__c;
+      notification.AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c;
+    }
+    return notification;
+  }
+
+  /**
+   * @description Prepare and returns the notification platform event for IDR cases if it is from a customer
+   * If the cases are not ANZ plus complaints or AEM converted to Non-Customer compliant cases run this method
+   * @param notification notification from getNotificationEvent method to be updated.
+   * @param c Case record to get the notification details
+   * @return notification platform event
+   */
+  public static IDR_Notification_Event__e assignIDRCustomerNotificationValues(
+    IDR_Notification_Event__e notification,
+    Case c
+  ) {
+    if (!c.IDR_SwitchOff_Customer_Notification__c) {
+      notification.CAP_CIS_ID__c = c.IDR_Customer_Number__c;
+      notification.Customer_Identifier__c = ((String.isNotBlank(
+          c.IDR_Customer_Identifier__c
+        ) && c.IDR_Customer_Identifier__c.contains('CAP ID'))
+        ? 'CAP ID'
+        : c.IDR_Customer_Identifier__c);
+      notification.ComplainantEmail__c = (c.RecordTypeId ==
+        cusComplaintRecordTypeId
+        ? ''
+        : c.IDR_NC_Email__c);
+      notification.ComplainantFirstName__c = (c.IDR_NC_Is_Consent_Obtained__c ==
+        false ||
+        c.RecordTypeId == cusComplaintRecordTypeId)
+        ? ''
+        : c.IDR_NC_First_Name__c;
+      notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
+    }
     return notification;
   }
 

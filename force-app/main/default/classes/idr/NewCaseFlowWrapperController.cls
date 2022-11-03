@@ -52,57 +52,55 @@ public with sharing class NewCaseFlowWrapperController {
         LIMIT 1
       ];
     }
-    String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
+
     Map<String, String> caseDetails = new Map<String, String>();
 
-    if (
-      caseRecord.RecordType.DeveloperName ==
-      GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT &&
-      caseRecord.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
-      caseRecord.ANZx_Customer__c == true
-    ) {
-      return getCaseDetailsByCaseRecordAEM(caseRecord, newRecordTypeName);
+    if (CheckCaseRecordType.isAEM(caseRecord)) {
+      return getCaseDetailsByCaseRecordAEM(caseRecord, newRecordTypeId);
     } else {
-      return getCaseDetailsByCaseRecord(caseRecord, newRecordTypeName);
+      return getCaseDetailsByCaseRecord(caseRecord, newRecordTypeId);
     }
   }
 
   /**
    * @description get/set default values when the record type needs to be changed | AEM
    * @param caseRecord the case record
-   * @param newRecordTypeName the new chosen record type
+   * @param newRecordTypeId the new chosen record type Id
    * @return a serialized String out of Map<String,String> of <fieldName, defaultValue>
    */
 
   public static String getCaseDetailsByCaseRecordAEM(
     Case caseRecord,
-    String newRecordTypeName
+    String newRecordTypeId
   ) {
     Map<String, String> caseDetails = new Map<String, String>();
-    String cDescription = caseRecord.Description.replaceAll(',', '%2C');
-    String cDesiredOutcome = caseRecord.IDR_Complainant_Desired_Outcome__c.replaceAll(
-      ',',
-      '%2C'
+    String cDescription = EncodingUtil.URLENCODE(
+      caseRecord.Description,
+      'UTF-8'
+    );
+    String cDesiredOutcome = EncodingUtil.URLENCODE(
+      caseRecord.IDR_Complainant_Desired_Outcome__c,
+      'UTF-8'
     );
 
-    if (newRecordTypeName == GetHelpConstants.GENERAL_INQUIRY_RT) {
+    if (newRecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
       caseDetails.put('Type', '');
       caseDetails.put('Priority', '');
       caseDetails.put(
         'Description',
         'Web Submitted Enquiry\n\nIssue:\n  ' +
-        PicklistUtil.getPicklistLabel('Case', 'Type', caseRecord.Type) +
+        CommonUtil.getSinglePicklistLabel(Case.Type, caseRecord.Type) +
         '\n\n' +
         cDescription +
         '\n\nCustomer Desired Outcome:\n  ' +
         cDesiredOutcome +
         '\n\nPriority:\n  ' +
-        PicklistUtil.getPicklistLabel('Case', 'Priority', caseRecord.Priority)
+        CommonUtil.getSinglePicklistLabel(Case.Priority, caseRecord.Priority)
       );
     } else if (
-      (newRecordTypeName == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT ||
-      newRecordTypeName == GetHelpConstants.COMPLAINT_RT) &&
-      caseRecord.Type == PicklistUtil.getPicklistValue('Case', 'Type', 'Other')
+      (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID ||
+      newRecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
+      caseRecord.Type == CommonUtil.getSinglePicklistValue(Case.Type, 'Other')
     ) {
       caseDetails.put('Type', '');
       caseDetails.put(
@@ -111,7 +109,7 @@ public with sharing class NewCaseFlowWrapperController {
       );
     }
 
-    if (newRecordTypeName == GetHelpConstants.COMPLAINT_RT) {
+    if (newRecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
       caseDetails.put('Customer_Notification_Consent__c', 'Yes');
     }
 
@@ -127,19 +125,19 @@ public with sharing class NewCaseFlowWrapperController {
   /**
    * @description get/set default values when the record type needs to be changed | CMOS
    * @param caseRecord the case record
-   * @param newRecordTypeName the new chosen record type
+   * @param newRecordTypeId the new chosen record type Id
    * @return a serialized String out of Map<String,String> of <fieldName, defaultValue>
    */
 
   public static String getCaseDetailsByCaseRecord(
     Case caseRecord,
-    String newRecordTypeName
+    String newRecordTypeId
   ) {
     Map<String, String> caseDetails = new Map<String, String>();
     caseDetails.put('IDR_AFCA_Status__c', '');
     if (
-      (newRecordTypeName == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT ||
-      newRecordTypeName == GetHelpConstants.CUSTOMER_COMPLAINT_RT)
+      (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID ||
+      newRecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID)
     ) {
       //As we're querying by recordId, only 1 record should be present if the query isn't empty
       if (caseRecord.Origin == '11') {
@@ -230,12 +228,7 @@ public with sharing class NewCaseFlowWrapperController {
       ];
     }
 
-    if (
-      caseRecord.RecordTypeId ==
-      GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID &&
-      caseRecord.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
-      caseRecord.ANZx_Customer__c == true
-    ) {
+    if (CheckCaseRecordType.isAEM(caseRecord)) {
       return getCaseRecordTypesForAEM();
     } else {
       return getCaseRecordTypes();
@@ -248,34 +241,18 @@ public with sharing class NewCaseFlowWrapperController {
    */
 
   public static String getCaseRecordTypesForAEM() {
-    List<String> acceptedRecordTypeForAEMCases = new List<String>{
-      GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT,
-      GetHelpConstants.GENERAL_INQUIRY_RT,
-      GetHelpConstants.COMPLAINT_RT
+    List<Id> acceptedRecordTypeForAEMCases = new List<Id>{
+      GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+      GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      GetHelpConstants.COMPLAINT_RT_ID
     };
 
     try {
-      List<Id> caseRecordTypeIds = CommonUtil.getAvailableRecordTypeIdsForSObject(
-        'Case'
-      );
-      if (
-        caseRecordTypeIds.size() > 0 && Schema.SObjectType.Case.isAccessible()
-      ) {
-        List<RecordType> rtToDisplay = new List<RecordType>();
-
-        rtToDisplay = [
+      if (Schema.SObjectType.Case.isAccessible()) {
+        List<RecordType> rtToDisplay = [
           SELECT Id, Name, Description, DeveloperName
           FROM RecordType
-          WHERE
-            SobjectType = 'Case'
-            AND DeveloperName IN :acceptedRecordTypeForAEMCases
-            AND Id IN :caseRecordTypeIds
-        ];
-
-        List<UserRole> roleList = [
-          SELECT Id, Name, DeveloperName
-          FROM UserRole
-          WHERE Id = :UserInfo.getUserRoleId()
+          WHERE SobjectType = 'Case' AND Id IN :acceptedRecordTypeForAEMCases
         ];
         return JSON.serialize(rtToDisplay);
       }
