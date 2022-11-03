@@ -148,7 +148,12 @@ public with sharing class CommonUtil {
       fieldName == 'IDR_Other_Remedy_Provided_2__c' ||
       fieldName == 'IDR_Other_Remedy_Provided_3__c'
     ) {
-      TextUtils.maskAndLog((String) record.get(fieldName), fieldName, record);
+      TextUtils.maskAndLog(
+        (String) record.get(fieldName),
+        fieldName,
+        record,
+        false
+      );
     } else {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }

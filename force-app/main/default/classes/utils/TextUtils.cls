@@ -119,11 +119,13 @@ public with sharing class TextUtils {
    * @param input Input string that we need to verify
    * @param fieldName field name
    * @param record sObject record that contains data
+   * @param isLoggingRequired boolean to allow logging
    */
   public static void maskAndLog(
     String input,
     String fieldName,
-    SObject record
+    SObject record,
+    Boolean isLoggingRequired
   ) {
     if (String.isNotBlank(input)) {
       String inputUpper = input.toUpperCase();
@@ -160,7 +162,7 @@ public with sharing class TextUtils {
           }
           matchingPattern = patToCompile.matcher(input);
           record.put(fieldName, input);
-          if (hasKeyword) {
+          if (hasKeyword && isLoggingRequired) {
             Id sfId = (Id) record.get('Id');
             String loggerInitialString = sfId != null
               ? sfId.getSObjectType().getDescribe().getName() == 'Case'
