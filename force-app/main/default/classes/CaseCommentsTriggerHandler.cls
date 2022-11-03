@@ -50,7 +50,8 @@ public with sharing class CaseCommentsTriggerHandler extends Lib_TriggerHandler 
         TextUtils.maskAndLog(
           (String) record.get('CommentBody'),
           'CommentBody',
-          record
+          record,
+          false
         );
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);
