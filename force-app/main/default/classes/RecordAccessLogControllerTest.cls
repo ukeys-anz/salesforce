@@ -15,8 +15,6 @@ public with sharing class RecordAccessLogControllerTest {
 
     insert accnt;
 
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-
     BigObjectHelper bigObjectHelper = (BigObjectHelper) Lib_MockService.createMock(
       BigObjectHelper.class,
       new Map<String, Object>{ 'insertBigObject' => true }

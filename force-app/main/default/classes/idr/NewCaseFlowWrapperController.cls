@@ -316,11 +316,6 @@ public with sharing class NewCaseFlowWrapperController {
             AND DeveloperName NOT IN :recordTypesToExcl
             AND Id IN :caseRecordTypeIds
         ];
-        List<UserRole> roleList = [
-          SELECT Id, Name, DeveloperName
-          FROM UserRole
-          WHERE Id = :UserInfo.getUserRoleId()
-        ];
         return JSON.serialize(rtToDisplay);
       }
       return null;

@@ -12,7 +12,11 @@ public with sharing class CCRMAPIRepositoryTest {
     CCRMValidateAbnAcnModel getAbnInfo = apiRepo.validateAbn('11005357522');
 
     // Verify response received contains fake values
-    System.assertEquals('Active', getAbnInfo.AbnStatus);
+    System.assertEquals(
+      'Active',
+      getAbnInfo.AbnStatus,
+      'Validate response should be Active'
+    );
   }
 
   @isTest
@@ -21,6 +25,10 @@ public with sharing class CCRMAPIRepositoryTest {
     CCRMValidateAbnAcnModel getAcnInfo = apiRepo.validateAcn('005357522');
 
     // Verify response received contains fake values
-    System.assertEquals('11005357522', getAcnInfo.Abn);
+    System.assertEquals(
+      '11005357522',
+      getAcnInfo.Abn,
+      'Validated ABN should be returned'
+    );
   }
 }

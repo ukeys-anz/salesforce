@@ -15,7 +15,11 @@ public with sharing class CCRMValidateAddressServiceTest {
     HttpCalloutResponse response = service.getAddresses('Melbourne');
     Test.stopTest();
 
-    System.assertEquals(200, response.statusCode);
+    System.assertEquals(
+      200,
+      response.statusCode,
+      'Status code of 200 should be returned'
+    );
   }
 
   @isTest
@@ -25,7 +29,10 @@ public with sharing class CCRMValidateAddressServiceTest {
       CCRMValidateAddressService.class
     );
     Test.stopTest();
-    System.assert(serviceResult instanceof CCRMValidateAddressServiceMock);
+    System.assert(
+      serviceResult instanceof CCRMValidateAddressServiceMock,
+      'Invalid service returned.'
+    );
   }
 
   class MockAddressService implements HttpCalloutMock {

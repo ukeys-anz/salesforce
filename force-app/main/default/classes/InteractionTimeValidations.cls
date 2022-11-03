@@ -14,7 +14,6 @@ public with sharing class InteractionTimeValidations {
     Map<Id, List<Interaction>> leadInteractionMap,
     List<Interaction> interactions
   ) {
-    Set<Id> customersWithExistingInteractions = new Set<Id>();
     for (Interaction interact : interactions) {
       List<Interaction> customersInteractions = new List<Interaction>();
 

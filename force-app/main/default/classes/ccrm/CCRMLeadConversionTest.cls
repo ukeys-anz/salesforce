@@ -10,7 +10,7 @@ public class CCRMLeadConversionTest {
   @TestSetup
   static void setup() {
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
-    User adminUser = CCRMTestDataFactory.createAdminUser();
+    CCRMTestDataFactory.createAdminUser();
     // CCRM Test Data Setup
     System.runAs(ccrmUser) {
       CCRMTestDataFactory.createLeadRecords(
@@ -21,20 +21,13 @@ public class CCRMLeadConversionTest {
       List<Campaign> campaignRecord = CCRMTestDataFactory.createCCRMCampaignRecord(
         1
       );
-      List<Response_Type__C> responseTypeRecords = CCRMTestDataFactory.createResponseTypeRecords(
-        campaignRecord[0]
-      );
+      CCRMTestDataFactory.createResponseTypeRecords(campaignRecord[0]);
     }
   }
 
   @IsTest
   static void leadConversionTest() {
     //GIVEN Campaign and Lead
-    List<Response_Type__C> types = [
-      SELECT Id, Name, Campaign__c, Response_Status__c
-      FROM Response_Type__c
-    ];
-
     Response_Type__c rtAccepted = [
       SELECT Id, Name, Campaign__c, Response_Status__c
       FROM Response_Type__c

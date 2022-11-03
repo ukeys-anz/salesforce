@@ -286,7 +286,6 @@ private class ContactRequestTriggerHandlerTest {
   @isTest
   static void testSuccessfulConfirmCountUpdateConfirmedNull() {
     Account testAccount = createTestAccounts(1)[0];
-    DateTime dateTimeVal = DateTime.newInstance(2022, 3, 11, 1, 45, 0);
 
     Appointment_Commitment__c apptCommtRec = new Appointment_Commitment__c();
     apptCommtRec.Available__c = 5;
@@ -343,12 +342,6 @@ private class ContactRequestTriggerHandlerTest {
   }
 
   static void testContactRequestCancellation() {
-    List<ContactRequest> contactRequestList = [
-      SELECT Id, Status
-      FROM ContactRequest
-      WHERE Status = :InteractionConstants.NEW_STATUS
-    ];
-
     List<ContactRequest> updatedRequests = new List<ContactRequest>();
     for (ContactRequest contactRequest : [
       SELECT Id, Status
@@ -366,7 +359,11 @@ private class ContactRequestTriggerHandlerTest {
       FROM Interaction
       WHERE Status__c = :InteractionConstants.NEW_STATUS
     ];
-    System.assertEquals(0, interactionList.size());
+    System.assertEquals(
+      0,
+      interactionList.size(),
+      'Interaction List should be empty'
+    );
   }
 
   @isTest
@@ -412,14 +409,14 @@ private class ContactRequestTriggerHandlerTest {
       'Interaction must be set on Contact Request'
     );
 
-    system.assertNotEquals(
+    System.assertNotEquals(
       null,
       interactions,
       'Interactions should not be null'
     );
 
     //failing as not setting the interaction id on the contact request
-    system.assertNotEquals(
+    System.assertNotEquals(
       0,
       interactions.size(),
       'At least 1 interaction must be created'
@@ -427,7 +424,7 @@ private class ContactRequestTriggerHandlerTest {
 
     List<Event> events = [SELECT Id FROM Event];
 
-    system.assertEquals(
+    System.assertEquals(
       true,
       events.isEmpty(),
       'Events should not be created at this point'
@@ -445,14 +442,6 @@ private class ContactRequestTriggerHandlerTest {
     Map<String, Automated_Request_Purpose__mdt> purposeMap = new Map<String, Automated_Request_Purpose__mdt>();
     purposeMap.put(InteractionConstants.OTHER_PURPOSE_NAME, otherPurpose);
     AutomatedRequestMetadataProvider.getInstance().setMap(purposeMap);
-
-    List<QueueSObject> contactRequestQueue = [
-      SELECT Queue.Id, Queue.Name, Queue.Type
-      FROM QueueSObject
-      WHERE
-        Queue.Type = 'Queue'
-        AND Queue.Name = :InteractionConstants.CONTACT_REQUEST_QUEUE
-    ];
 
     List<ContactRequest> requests = createContactRequests(
       accounts,

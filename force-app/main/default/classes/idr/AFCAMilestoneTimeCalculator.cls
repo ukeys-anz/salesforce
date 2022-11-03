@@ -28,10 +28,12 @@ global without sharing class AFCAMilestoneTimeCalculator implements Support.Mile
         oCase.IDR_AFCA_Due_Date__c != null &&
         oCase.IDR_AFCA_Due_Date__c > oCase.IDR_Date_Received__c
       ) {
-        return oCase.IDR_Date_Received__c.date()
+        Integer numberBetweenDateReceivedAndAFCADueDate =
+          oCase.IDR_Date_Received__c.date()
             .daysBetween(oCase.IDR_AFCA_Due_Date__c) *
           24 *
           60;
+        return numberBetweenDateReceivedAndAFCADueDate;
       }
     }
     return 0;

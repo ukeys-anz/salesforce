@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-   <fullName>IDR_Existing_ANZ_Customer__c</fullName>
-   <businessStatus>Active</businessStatus>
-   <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-   <description>anz.com complain web-form field</description>
-   <externalId>false</externalId>
-   <label>Existing ANZ Customer?</label>
-   <required>false</required>
-   <securityClassification>Public</securityClassification>
-   <trackFeedHistory>false</trackFeedHistory>
-   <trackHistory>false</trackHistory>
-   <trackTrending>false</trackTrending>
-   <type>Picklist</type>
-   <valueSet>
-      <restricted>true</restricted>
-      <valueSetDefinition>
-         <sorted>false</sorted>
-         <value>
-            <default>false</default>
-            <fullName>Yes</fullName>
-            <label>Yes</label>
-         </value>
-         <value>
-            <default>false</default>
-            <fullName>No</fullName>
-            <label>No</label>
-         </value>
-         <value>
-            <default>false</default>
-            <fullName>Other</fullName>
-            <label>Other</label>
-         </value>
-      </valueSetDefinition>
-   </valueSet>
+    <fullName>IDR_Existing_ANZ_Customer__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>anz.com complain web-form field</description>
+    <externalId>false</externalId>
+    <label>Existing ANZ Customer?</label>
+    <required>false</required>
+    <securityClassification>Public</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <default>false</default>
+                <fullName>Yes</fullName>
+                <label>Yes</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>No</fullName>
+                <label>No</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>Other</fullName>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>

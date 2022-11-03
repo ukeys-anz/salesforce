@@ -1,189 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
-   <sorted>false</sorted>
-   <standardValue>
-      <default>false</default>
-      <fullName>1</fullName>
-      <label>In Person</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Phone</fullName>
-      <label>Phone</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>3</fullName>
-      <label>Secure Mail</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>4</fullName>
-      <label>Social Media</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>5</fullName>
-      <label>Letter</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Email</fullName>
-      <label>Email</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>6</fullName>
-      <label>Internal Referred</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>8</fullName>
-      <label>anz.com</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>9</fullName>
-      <label>CEO Complaint</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>10</fullName>
-      <label>Board Complaint</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>12</fullName>
-      <label>Complaints IDR</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>14</fullName>
-      <label>Complaints EDR</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>15</fullName>
-      <label>Customer Advocate</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>11</fullName>
-      <label>Referred from AFCA</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Chat</fullName>
-      <label>Chat</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Voice Call</fullName>
-      <label>Voice Call</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Video Call</fullName>
-      <label>Video Call</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Appointment</fullName>
-      <label>Appointment</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Store</fullName>
-      <label>Store</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Customer</fullName>
-      <label>Customer</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Falcon</fullName>
-      <label>Falcon</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Fraud Staff</fullName>
-      <label>Fraud Staff</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Other ANZx Staff</fullName>
-      <label>Other ANZx Staff</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>OFI</fullName>
-      <label>OFI</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Law Enforcement</fullName>
-      <label>Law Enforcement</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>App</fullName>
-      <label>App</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Origination</fullName>
-      <label>Origination</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>ANZ Plus App</fullName>
-      <label>ANZ Plus App</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Other</fullName>
-      <label>Other</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>16</fullName>
-      <label>AFCA Query</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>17</fullName>
-      <label>AFCA PSI</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>18</fullName>
-      <label>SI identified from complaints</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>19</fullName>
-      <label>SI identified from events</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>20</fullName>
-      <label>BU identified from complaints</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>21</fullName>
-      <label>BU identified other</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>Survey</fullName>
-      <label>Survey</label>
-   </standardValue>
-   <standardValue>
-      <default>false</default>
-      <fullName>ANZ Plus Web</fullName>
-      <label>ANZ Plus Web</label>
-   </standardValue>
+    <sorted>false</sorted>
+    <standardValue>
+        <default>false</default>
+        <fullName>1</fullName>
+        <label>In Person</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Phone</fullName>
+        <label>Phone</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>3</fullName>
+        <label>Secure Mail</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>4</fullName>
+        <label>Social Media</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>5</fullName>
+        <label>Letter</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Email</fullName>
+        <label>Email</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>6</fullName>
+        <label>Internal Referred</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>8</fullName>
+        <label>anz.com</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>9</fullName>
+        <label>CEO Complaint</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>10</fullName>
+        <label>Board Complaint</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>12</fullName>
+        <label>Complaints IDR</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>14</fullName>
+        <label>Complaints EDR</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>15</fullName>
+        <label>Customer Advocate</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>11</fullName>
+        <label>Referred from AFCA</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Chat</fullName>
+        <label>Chat</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Voice Call</fullName>
+        <label>Voice Call</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Video Call</fullName>
+        <label>Video Call</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Appointment</fullName>
+        <label>Appointment</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Store</fullName>
+        <label>Store</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Customer</fullName>
+        <label>Customer</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Falcon</fullName>
+        <label>Falcon</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Fraud Staff</fullName>
+        <label>Fraud Staff</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Other ANZx Staff</fullName>
+        <label>Other ANZx Staff</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>OFI</fullName>
+        <label>OFI</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Law Enforcement</fullName>
+        <label>Law Enforcement</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>App</fullName>
+        <label>App</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Origination</fullName>
+        <label>Origination</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>ANZ Plus App</fullName>
+        <label>ANZ Plus App</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Other</fullName>
+        <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>16</fullName>
+        <label>AFCA Query</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>17</fullName>
+        <label>AFCA PSI</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>18</fullName>
+        <label>SI identified from complaints</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>19</fullName>
+        <label>SI identified from events</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>20</fullName>
+        <label>BU identified from complaints</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>21</fullName>
+        <label>BU identified other</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>Survey</fullName>
+        <label>Survey</label>
+    </standardValue>
+    <standardValue>
+        <default>false</default>
+        <fullName>ANZ Plus Web</fullName>
+        <label>ANZ Plus Web</label>
+    </standardValue>
 </StandardValueSet>

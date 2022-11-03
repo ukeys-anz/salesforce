@@ -2,6 +2,7 @@
  * @author Himabindu Nekkanti
  * @since  02/2021
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
+ * without sharing: used to perform system generated Tasks which is not accessible by the end user.
  * @group IDR(Internal Dispute Resolution)
  * @runTests IDRCaseActionsTest, IDRTaskActionsTest, TaskTriggerHandlerTest
  * CyclomaticComplexity Suppressed : The complexity of this test class is more than it is expected.

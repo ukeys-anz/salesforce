@@ -17,7 +17,6 @@ public with sharing class CommonUtil {
   ) {
     Map<String, String> labelsByValues = new Map<String, String>();
     Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
-    Map<String, String> fieldMap = new Map<String, String>();
     for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
       labelsByValues.put(f.getValue(), f.getLabel());
     }
@@ -79,7 +78,6 @@ public with sharing class CommonUtil {
     String picklistValue
   ) {
     Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
-    Map<String, String> fieldMap = new Map<String, String>();
     for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
       if (f.getValue() == picklistValue) {
         return f.getLabel();

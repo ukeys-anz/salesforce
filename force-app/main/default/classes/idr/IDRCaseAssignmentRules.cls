@@ -46,7 +46,8 @@ public with sharing class IDRCaseAssignmentRules {
         IDRCaseActions.isIDRComplaintType(c) &&
         c.Product__c != null &&
         (oldCase == null ||
-        oldCase.Product__c != c.Product__c)
+        oldCase.Product__c != c.Product__c ||
+        IDRCaseActions.isANZPlusComplaintConvertedToIDR(oldCase, c))
       ) {
         c.IDR_Product_Family__c = (productMap.get(c.Product__c))
           ?.IDR_Product_Family__c;
@@ -168,6 +169,7 @@ public with sharing class IDRCaseAssignmentRules {
       ) {
         return QUEUE_MAP.get(productWorkbasketName);
       }
+
       //Default workbasket
       if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
         return QUEUE_MAP.get('EDR_Early_Resolution');

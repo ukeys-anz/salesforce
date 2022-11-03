@@ -8,7 +8,7 @@ private class CCRMAccountActionsTest {
   @testSetup
   static void setup() {
     User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
-    User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
+    CCRMTestDataFactory.createCCRMBaseUser();
 
     System.runAs(ccrmAdmin) {
       Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };

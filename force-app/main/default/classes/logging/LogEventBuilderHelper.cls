@@ -87,6 +87,7 @@ public with sharing class LogEventBuilderHelper {
           OrganizationType,
           TrialExpirationDate
         FROM Organization
+        LIMIT 1
       ];
     }
     return null;

@@ -442,4 +442,103 @@
         <shortDescription>Interaction_Store_Required</shortDescription>
         <value>Please select store location.</value>
     </labels>
+    <labels>
+        <fullName>MS_Initiate_Chat</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Initiate_Chat</shortDescription>
+        <value>/contact-centre-staff/chats</value>
+    </labels>
+    <labels>
+        <fullName>MS_Reinitiate_Chat</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Reinitiate_Chat</shortDescription>
+        <value>/contact-centre-staff/reinit-chats</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_New</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status New</shortDescription>
+        <value>Nothing to do for now... we’ve got your dispute. If we need more information, we’ll get in touch with you.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Pending_CheckBlockedCard</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Pending-CheckBlockedCard</shortDescription>
+        <value>It looks like your card is still in use. Please lock, or cancel and replace, your card so we can continue our investigation.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Pending_CustomerResponse</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Pending-CustomerResponse</shortDescription>
+        <value>We’re waiting to hear from you. Please check your email and get in touch within 7 days or your dispute may be closed.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Pending_DisputeResponse</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Pending-DisputeResponse</shortDescription>
+        <value>While our investigation is underway, we’ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn’t in your favour.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Pending_PreArbitrationInbound</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Pending-PreArbitrationInbound</shortDescription>
+        <value>While our investigation is underway, we’ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn’t in your favour.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Pending_QualifyDispute</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Pending-QualifyDispute</shortDescription>
+        <value>Our investigation is still underway. We’re hoping to get to the bottom of this within 30 days, but it may take up to 60 days if things get complicated.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Resolved_AcquirerLiable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Resolved-AcquirerLiable</shortDescription>
+        <value>Great news, the dispute has been found in your favour. Please ensure the amount you received is correct. If your account hasn’t been credited yet, it may take up to 3 business days.
+
+Feel free to contact us if you have any questions. You can find our contact information in the last email we sent you.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Resolved_CardholderLiable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Resolved-CardholderLiable</shortDescription>
+        <value>Unfortunately, the dispute hasn’t been found in your favour. We’ve sent you an email with more information and ways to raise any issues or escalate any concerns.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Resolved_MerchantCredit</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Resolved-MerchantCredit</shortDescription>
+        <value>It looks like the merchant has already issued a refund. You can find the credit information and our contact details in the last email we sent you.
+
+Feel free to reach out to us if you have any questions.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Resolved_Withdrawn</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Resolved-Withdrawn</shortDescription>
+        <value>You’ve withdrawn your dispute, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+    </labels>
+    <labels>
+        <fullName>PEGA_Dispute_Status_Resolved_Writeoff</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PEGA Dispute Status Resolved-Writeoff</shortDescription>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3-5 business days.
+
+Feel free to contact us if you have any questions. You can find our contact information in the last email we sent you.</value>
+    </labels>
 </CustomLabels>

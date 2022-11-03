@@ -144,7 +144,7 @@ exec(execCmd, (error, stdout, stderr) => {
 
   for (var i = 0; i < lines.length; i++) {
     let line = lines[i];
-
+    line = decodeURIComponent(line);
     if (line) {
       let fileext = line.split(".").pop(); //Make sure the ext is XML only.
 

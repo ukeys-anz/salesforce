@@ -656,6 +656,21 @@ public with sharing class IDRCaseActions {
   }
 
   /**
+   * @description isANZPlusComplaintCovertedToIDR check if record type of ANZ Plus Complaint being converted to IDR Type.
+   * Being used in assignProductFamily to ensure if ANZ Plus Complaint has Product Family assigned, so the case goes to the right WorkBasket and Owner
+   * @param oldCase old map of case record in current trigger context
+   * @param newCase Records in the current context
+   * @return `Boolean` True if the the record type is of ANZ Plus being converted to IDR, or false otherwise.
+   */
+  public static Boolean isANZPlusComplaintConvertedToIDR(
+    Case oldCase,
+    Case newCase
+  ) {
+    return (oldCase.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
+      isIDRComplaintType(newCase);
+  }
+
+  /**
    * @description Copy the Case Owners Users division into the IDR_Office__c field.
    * Even if the division of case owner changes later this field shouldn't change.
    * Unless the case owner changes for the case do not update the field.

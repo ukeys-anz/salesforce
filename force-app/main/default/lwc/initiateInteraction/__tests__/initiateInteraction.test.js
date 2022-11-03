@@ -7,6 +7,8 @@ import { publish } from "lightning/messageService";
 import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
 import { setImmediate } from "timers";
+import { getRecord } from "lightning/uiRecordApi";
+import { registerLdsTestWireAdapter } from "@salesforce/sfdx-lwc-jest";
 
 jest.mock(
   "@salesforce/apex/InitiateInteractionController.getPhoneNumber",
@@ -27,24 +29,22 @@ jest.mock(
   },
   { virtual: true }
 );
+
 const MessageContext = createTestWireAdapter();
-const APEX_LOG_SUCCESS = {
-  Id: "0kz5P0000001AMHQA2",
-  Interaction_External_Id__c: "IR-00000225"
-};
+
+const APEX_LOG_SUCCESS = require("./data/apexSuccess.json");
 const APEX_LOG_ERROR =
   "Please check you have the permissions to create an Interaction";
-const LMS_MESSAGE = {
-  recordId: "0kz5P0000001AMHQA2",
-  externalId: "IR-00000225",
-  phone: "12345678"
-};
+const LMS_MESSAGE = require("./data/lmsMessage.json");
 const TOAST_ERROR_VARIANT = "error";
 const TOAST_CREATE_ERROR =
   "Uh-oh, there was an error and we couldn't automatically create the interaction. Please manually create a call interaction";
 const TOAST_LMS_ERROR =
   "Oops, we couldn't connect your call. Please try again.";
 
+const MOCK_ACCOUNT = require("./data/mockAccount.json");
+
+const getRecordAdapter = registerLdsTestWireAdapter(getRecord);
 describe("c-initiate-interaction", () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
@@ -63,6 +63,9 @@ describe("c-initiate-interaction", () => {
     const element = createElement("c-initiate-interaction", {
       is: InitiateInteraction
     });
+    element.objectApiName = "Account";
+    element.recordId = "08737HU6";
+    getRecordAdapter.emit(MOCK_ACCOUNT);
     document.body.appendChild(element);
     return flushPromises().then(() => {
       let callCustomer = element.shadowRoot.querySelector(
@@ -92,6 +95,9 @@ describe("c-initiate-interaction", () => {
     const element = createElement("c-initiate-interaction", {
       is: InitiateInteraction
     });
+    element.objectApiName = "Account";
+    element.recordId = "08737HU6";
+    getRecordAdapter.emit(MOCK_ACCOUNT);
     document.body.appendChild(element);
     const handler = jest.fn();
     element.addEventListener(handleErrorShowToast, handler);
@@ -117,6 +123,9 @@ describe("c-initiate-interaction", () => {
     const element = createElement("c-initiate-interaction", {
       is: InitiateInteraction
     });
+    element.objectApiName = "Account";
+    element.recordId = "08737HU6";
+    getRecordAdapter.emit(MOCK_ACCOUNT);
     document.body.appendChild(element);
     publish(MessageContext, voiceChannel, LMS_MESSAGE);
     return flushPromises()
@@ -141,6 +150,9 @@ describe("c-initiate-interaction", () => {
     const element = createElement("c-initiate-interaction", {
       is: InitiateInteraction
     });
+    element.objectApiName = "Account";
+    element.recordId = "08737HU6";
+    getRecordAdapter.emit(MOCK_ACCOUNT);
     document.body.appendChild(element);
     publish(MessageContext, voiceChannel, LMS_MESSAGE);
     const handler = jest.fn();
