@@ -54,7 +54,17 @@ private with sharing class IDRTaskActionsTest {
       insert idrL1User;
 
       List<String> idrPsets = new List<String>{ 'IDR_Level_1' };
-      psList = [SELECT Id FROM PermissionSet WHERE Name IN :idrPsets];
+      psList = [
+        SELECT Id, PermissionSetGroupId
+        FROM PermissionSet
+        WHERE Name IN :idrPsets AND Type = 'Group'
+      ];
+      List<String> lstPermissionSetGroupIds = new List<String>();
+      for (PermissionSet oPermissionSet : psList) {
+        lstPermissionSetGroupIds.add(oPermissionSet.PermissionSetGroupId);
+      }
+      // Need to force PermissionSetGroup calculation to finalise before adding a user to it.
+      Test.calculatePermissionSetGroup(lstPermissionSetGroupIds);
 
       psaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : psList) {
@@ -325,7 +335,7 @@ private with sharing class IDRTaskActionsTest {
       }
     }
     //THEN ensure the IDR System task doesn't get deleted
-    system.assertEquals(
+    System.assertEquals(
       true,
       errorThrown,
       'IDR System Task should not have been deleted'
@@ -359,7 +369,7 @@ private with sharing class IDRTaskActionsTest {
       }
     }
     //THEN the task should be able to be deleted
-    system.assertEquals(
+    System.assertEquals(
       false,
       errorThrown,
       'IDR Task should have been deleted'
