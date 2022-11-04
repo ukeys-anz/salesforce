@@ -97,7 +97,7 @@ export default class IDRFilesRelatedList extends LightningElement {
         data.apiName === "Case" &&
         IDR_LEVEL_1_CHECK &&
         (data.recordTypeInfo.name === "Customer Complaint" ||
-          data.recordTypeInfo.name === "General Inquiry CMOS" ||
+          data.recordTypeInfo.name === "Unauthenticated Enquiry" ||
           data.recordTypeInfo.name === "Non-Customer Complaint")
       ) {
         this.columns = columns;
