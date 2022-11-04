@@ -20,6 +20,7 @@ ALL_START_TIME=$(date +%s)
 # change forceignore to harness.forceignore as we will have all things in our snapshot
 echoMessageCreator "change the forceignore to the proper one" $stepNo true
 mv .forceignore ci.forceignore
+cp harness.forceignore h.forceignore
 mv harness.forceignore .forceignore
 echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
 echo -e "\nforce-app/main/default/sharingRules/Case.sharingRules-meta.xml" >> .forceignore
@@ -89,6 +90,7 @@ changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.
 changeMetadata force-app/main/default/permissionsets/Manage_Users.permissionset-meta.xml manageUsers
 changeMetadata force-app/main/default/permissionsets/Key_Manager.permissionset-meta.xml keyManager
 changeMetadata force-app/main/default/wave/NLP_Reporting.wapp-meta.xml NLPReporting
+changeMetadata force-app/main/default/permissionsets/myTrailhead_Content_Access.permissionset-meta.xml myTrailheadContentAccess
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -135,7 +137,7 @@ echoMessageCreator "" $stepNo false
 
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
-git checkout "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
+mv h.forceignore .forceignore
 sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
 git checkout .
 sfdx force:source:deploy -u $scratchorgalias -p force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
