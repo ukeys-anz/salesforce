@@ -7,7 +7,7 @@
   "targetVersion": "2",
   "name": "TOP-LEVEL",
   "relocatable": "false",
-  "buildDateTime": "2022-10-26T11:36:49.124+11:00",
+  "buildDateTime": "2022-10-28T14:12:21.424+11:00",
   "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
   "C": [
     {
@@ -188,11 +188,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "64",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -471,11 +467,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "49",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -584,11 +576,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "52",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -742,42 +730,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -801,11 +765,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "37",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -959,42 +919,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -1018,11 +954,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "37",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -1176,42 +1108,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -1235,11 +1143,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "37",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -1403,42 +1307,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -1462,11 +1342,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "37",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -1587,11 +1463,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "90",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -1737,11 +1609,7 @@
                                                   "N": "check",
                                                   "card": "?",
                                                   "diag": "0|0||local-name",
-                                                  "C": [
-                                                    {
-                                                      "N": "dot"
-                                                    }
-                                                  ]
+                                                  "C": [{ "N": "dot" }]
                                                 }
                                               ]
                                             }
@@ -1890,11 +1758,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "80",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -2045,11 +1909,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "80",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -2193,42 +2053,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -2252,11 +2088,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "37",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -2400,42 +2232,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -2459,11 +2267,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "37",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -2607,42 +2411,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -2666,11 +2446,7 @@
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
                                           "line": "37",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -2758,6 +2534,41 @@
                           "bSlot": "0",
                           "C": [
                             {
+                              "N": "docOrder",
+                              "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                              "role": "select",
+                              "line": "108",
+                              "C": [
+                                {
+                                  "N": "union",
+                                  "op": "|",
+                                  "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                                  "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                                  "C": [
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                    },
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "N": "applyT",
+                          "sType": "* ",
+                          "line": "109",
+                          "mode": "#unnamed",
+                          "bSlot": "0",
+                          "C": [
+                            {
                               "N": "sort",
                               "role": "select",
                               "sType": "*N u[NT,NP,NC,NE]",
@@ -2766,7 +2577,7 @@
                                   "N": "docOrder",
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "role": "select",
-                                  "line": "108",
+                                  "line": "109",
                                   "C": [
                                     {
                                       "N": "union",
@@ -2792,9 +2603,31 @@
                                               "name": "not",
                                               "C": [
                                                 {
-                                                  "N": "axis",
-                                                  "name": "self",
-                                                  "nodeTest": "*NC"
+                                                  "N": "union",
+                                                  "op": "|",
+                                                  "C": [
+                                                    {
+                                                      "N": "union",
+                                                      "op": "|",
+                                                      "C": [
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                                        },
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "N": "axis",
+                                                      "name": "self",
+                                                      "nodeTest": "*NC"
+                                                    }
+                                                  ]
                                                 }
                                               ]
                                             }
@@ -2819,12 +2652,8 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "109",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "line": "110",
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -2861,7 +2690,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "112",
+                          "line": "113",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2872,7 +2701,7 @@
                               "sType": "*NC",
                               "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                               "role": "select",
-                              "line": "112"
+                              "line": "113"
                             }
                           ]
                         }
@@ -2924,6 +2753,41 @@
                           "bSlot": "0",
                           "C": [
                             {
+                              "N": "docOrder",
+                              "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                              "role": "select",
+                              "line": "108",
+                              "C": [
+                                {
+                                  "N": "union",
+                                  "op": "|",
+                                  "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                                  "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                                  "C": [
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                    },
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "N": "applyT",
+                          "sType": "* ",
+                          "line": "109",
+                          "mode": "#unnamed",
+                          "bSlot": "0",
+                          "C": [
+                            {
                               "N": "sort",
                               "role": "select",
                               "sType": "*N u[NT,NP,NC,NE]",
@@ -2932,7 +2796,7 @@
                                   "N": "docOrder",
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "role": "select",
-                                  "line": "108",
+                                  "line": "109",
                                   "C": [
                                     {
                                       "N": "union",
@@ -2958,9 +2822,31 @@
                                               "name": "not",
                                               "C": [
                                                 {
-                                                  "N": "axis",
-                                                  "name": "self",
-                                                  "nodeTest": "*NC"
+                                                  "N": "union",
+                                                  "op": "|",
+                                                  "C": [
+                                                    {
+                                                      "N": "union",
+                                                      "op": "|",
+                                                      "C": [
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                                        },
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "N": "axis",
+                                                      "name": "self",
+                                                      "nodeTest": "*NC"
+                                                    }
+                                                  ]
                                                 }
                                               ]
                                             }
@@ -2985,12 +2871,8 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "109",
-                                          "C": [
-                                            {
-                                              "N": "dot"
-                                            }
-                                          ]
+                                          "line": "110",
+                                          "C": [{ "N": "dot" }]
                                         }
                                       ]
                                     },
@@ -3027,7 +2909,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "112",
+                          "line": "113",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -3038,7 +2920,7 @@
                               "sType": "*NC",
                               "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                               "role": "select",
-                              "line": "112"
+                              "line": "113"
                             }
                           ]
                         }
@@ -3052,9 +2934,7 @@
         }
       ]
     },
-    {
-      "N": "overridden"
-    },
+    { "N": "overridden" },
     {
       "N": "output",
       "C": [
@@ -3063,11 +2943,7 @@
           "name": "Q{http://saxon.sf.net/}stylesheet-version",
           "value": "10"
         },
-        {
-          "N": "property",
-          "name": "indent",
-          "value": "yes"
-        },
+        { "N": "property", "name": "indent", "value": "yes" },
         {
           "N": "property",
           "name": "Q{http://saxon.sf.net/}indent-spaces",
@@ -3084,41 +2960,14 @@
       "N": "charMap",
       "name": "Q{}doc-entities",
       "C": [
-        {
-          "N": "m",
-          "c": "34",
-          "s": "&quot;"
-        },
-        {
-          "N": "m",
-          "c": "39",
-          "s": "&apos;"
-        },
-        {
-          "N": "m",
-          "c": "60",
-          "s": "&lt;"
-        },
-        {
-          "N": "m",
-          "c": "62",
-          "s": "&gt;"
-        }
+        { "N": "m", "c": "34", "s": "&quot;" },
+        { "N": "m", "c": "39", "s": "&apos;" },
+        { "N": "m", "c": "60", "s": "&lt;" },
+        { "N": "m", "c": "62", "s": "&gt;" }
       ]
     },
-    {
-      "N": "decimalFormat"
-    },
-    {
-      "N": "strip",
-      "C": [
-        {
-          "N": "s",
-          "test": "NE",
-          "prec": "0"
-        }
-      ]
-    }
+    { "N": "decimalFormat" },
+    { "N": "strip", "C": [{ "N": "s", "test": "NE", "prec": "0" }] }
   ],
-  "Σ": "1fc026eb"
+  "Σ": "a8aa2fe2"
 }

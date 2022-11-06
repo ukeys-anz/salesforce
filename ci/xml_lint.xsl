@@ -105,7 +105,8 @@ xmlns:saxon="http://saxon.sf.net/">
     <!-- For Everything else, order by Node Alphabetically -->
      <xsl:template match="@*|node()">
         <xsl:copy>
-            <xsl:apply-templates select="@*|node()[not(self::comment())]">
+            <xsl:apply-templates select="sf:fullName|sf:name"></xsl:apply-templates>
+            <xsl:apply-templates select="@*|node()[not(self::sf:fullName|self::sf:name|self::comment())]">
                 <xsl:sort select="local-name()"/>
             </xsl:apply-templates>
 
