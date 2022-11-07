@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
-        <apexClass>ExternalCaseStatusActions</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ExternalCaseStatusActionsHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>ExternalCaseStatusTriggerHandler</apexClass>
         <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ExternalCaseStatusTriggerHandlerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+      <apexClass>TestDataFactory</apexClass>
+      <enabled>true</enabled>
     </classAccesses>
     <description>This permission set grants PEGA Status Integration User read access to ATM/Card fields and record types and write access to External Case Status object and fields.</description>
     <fieldPermissions>
