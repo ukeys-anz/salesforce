@@ -4,6 +4,7 @@
  * @description Holds common util functions
  * @group Utils
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CommonUtil {
   /**
    * @description Get a picklist labels by values (API names).
@@ -86,6 +87,27 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Get a picklist value from it's label.
+   * @param field The picklist field, for example Case.Type
+   * @param picklistLabel The picklist label, for example 'Advice'
+   * @return the picklist label, for example '2'
+   */
+  @TestVisible
+  public static String getSinglePicklistValue(
+    Schema.SobjectField field,
+    String picklistLabel
+  ) {
+    Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
+    Map<String, String> fieldMap = new Map<String, String>();
+    for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
+      if (f.getLabel() == picklistLabel) {
+        return f.getValue();
+      }
+    }
+    return '';
+  }
+
+  /**
    * @description handleMasking method is used to validate free text fields for masking as we dont want to store e.g. card numbers in SF.
    * So, we mask the number and store only last 4 digits unmasked.
    * @param record The actual record from Trigger.new
@@ -132,6 +154,27 @@ public with sharing class CommonUtil {
         maskedAccList.add(TextUtils.maskData(accNumber));
       }
       record.put(fieldName, String.join(maskedAccList, ';'));
+    } else if (
+      fieldName == 'Description' ||
+      fieldName == 'IDR_Complainant_Desired_Outcome__c' ||
+      fieldName == 'IDR_Description_of_Outcome__c' ||
+      fieldName == 'How_has_delay_criteria_been_met_not_met__c' ||
+      fieldName == 'SI_Subject_of_Breach_Report_Comments__c' ||
+      fieldName == 'SI_Definite_Action_Completed__c' ||
+      fieldName == 'Subject' ||
+      fieldName == 'RAG_Comments__c' ||
+      fieldName == 'SI_Rec_Rem_Actions__c' ||
+      fieldName == 'IDR_Systemic_Issue_Description__c' ||
+      fieldName == 'IDR_Other_Remedy_Provided__c' ||
+      fieldName == 'IDR_Other_Remedy_Provided_2__c' ||
+      fieldName == 'IDR_Other_Remedy_Provided_3__c'
+    ) {
+      TextUtils.maskAndLog(
+        (String) record.get(fieldName),
+        fieldName,
+        record,
+        false
+      );
     } else {
       record.put(fieldName, TextUtils.maskData((String) record.get(fieldName)));
     }

@@ -8038,6 +8038,10 @@
         <recordType>Case.Scam</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Unauthenticated Enquiry Layout</layout>
+        <recordType>Case.General_Inquiry_CMOS</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

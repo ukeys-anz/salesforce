@@ -598,6 +598,86 @@
         <endAddress>13.211.189.52</endAddress>
         <startAddress>13.211.48.246</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV1 Author</description>
+        <endAddress>13.239.160.187</endAddress>
+        <startAddress>13.239.160.187</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV1 Publish</description>
+        <endAddress>13.54.188.48</endAddress>
+        <startAddress>13.54.188.48</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV12 Author</description>
+        <endAddress>52.63.106.123</endAddress>
+        <startAddress>52.63.106.123</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV12 Publish</description>
+        <endAddress>13.211.114.146</endAddress>
+        <startAddress>13.211.114.146</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV8 Author</description>
+        <endAddress>13.54.19.154</endAddress>
+        <startAddress>13.54.19.154</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV8 Publish</description>
+        <endAddress>54.66.115.221</endAddress>
+        <startAddress>54.66.115.221</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage Author</description>
+        <endAddress>3.106.50.31</endAddress>
+        <startAddress>3.106.50.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage1 Publish</description>
+        <endAddress>13.54.136.222</endAddress>
+        <startAddress>13.54.136.222</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage2 Publish</description>
+        <endAddress>13.210.221.68</endAddress>
+        <startAddress>13.210.221.68</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage3 Publish</description>
+        <endAddress>13.239.108.222</endAddress>
+        <startAddress>13.239.108.222</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage4 Publish</description>
+        <endAddress>52.62.98.156</endAddress>
+        <startAddress>52.62.98.156</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod Author</description>
+        <endAddress>52.65.74.188</endAddress>
+        <startAddress>52.65.74.188</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod1 Publish</description>
+        <endAddress>3.24.15.30</endAddress>
+        <startAddress>3.24.15.30</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod2 Publish</description>
+        <endAddress>3.104.236.231</endAddress>
+        <startAddress>3.104.236.231</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod3 Publish</description>
+        <endAddress>3.106.82.7</endAddress>
+        <startAddress>3.106.82.7</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod4 Publish</description>
+        <endAddress>52.62.229.140</endAddress>
+        <startAddress>52.62.229.140</startAddress>
+    </loginIpRanges>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

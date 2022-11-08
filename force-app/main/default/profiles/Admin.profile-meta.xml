@@ -792,6 +792,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>IDRCreateComplaintController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IDRCustomerInformationModel</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -2353,6 +2357,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IsOwnerCoachOrCoachLead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Citizenship_Updated__c</field>
         <readable>true</readable>
@@ -2765,6 +2774,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Correspondence_Reviewed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Correspondence_Reviewed_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7479,7 +7493,7 @@
         <recordType>Case.Fraud</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-General Inquiry CMOS Layout</layout>
+        <layout>Case-Unauthenticated Enquiry Layout</layout>
         <recordType>Case.General_Inquiry_CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>

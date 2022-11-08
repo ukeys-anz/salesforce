@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>ANZPlus_Complaints_RT_Card_Dispute_Agent_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>All ANZ Plus Complaint cases are to be shared with Card Dispute Agents with Read access.</description>
-        <label>ANZPlus_Complaints_RT_Card_Dispute_Agent_RO</label>
-        <sharedTo>
-            <role>Card_Dispute_Agent</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZ Plus Complaint</value>
-        </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>ANZx_Account_Closure_QA</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Provide access to account closure for QA</description>
@@ -45,18 +31,19 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>true</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>AR_C_Non_Customer_Complaint</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Sharing rules for customer complaints that aren&apos;t marked ANZx</description>
+        <description>Sharing rules for customer complaints that aren&apos;t marked ANZx and AEM converted</description>
         <label>AR&amp;C Non Customer Complaint</label>
         <sharedTo>
             <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>(1 AND 2) OR (1 AND 3 AND 4)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -65,78 +52,76 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Business_Admin_Non_Compliant_Customer_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Provides access to Non Customer Complaints for Business Admin</description>
-        <label>Business Admin Non Compliant Customer RW</label>
-        <sharedTo>
-            <role>Business_Admin</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
+            <value>false</value>
         </criteriaItems>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Origin</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Web</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Case_RT_BusinessAdmin_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Read Write access to All ANZ plus record types for Business Admin.</description>
+        <description>Read Write access to All ANZ plus record types,Non Customer Complaints and AEM cases for Business Admin.</description>
         <label>Case_RT_BusinessAdmin_RW</label>
         <sharedTo>
             <role>Business_Admin</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure</value>
         </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Coach_Lead_Non_Customer_Compliant_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Provides access to Non Customer Complaints for Coach Lead</description>
-        <label>Coach Lead Non Customer Compliant RW</label>
-        <sharedTo>
-            <role>Coach_Lead</role>
-        </sharedTo>
+        <criteriaItems>
+            <field>Origin</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Web</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unauthenticated Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Non-Customer Complaint</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>ANZx_Customer__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_ANZRole_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Great Read only access to Complaint and General Inquiry CMOS record types for all ANZ Role users.</description>
+        <description>Great Read only access to Complaint and Unauthenticated Enquiry record types for all ANZ Role users.</description>
         <label>Complaint_RTs_ANZRole_RO</label>
         <sharedTo>
             <role>ANZ</role>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
+            <value>Unauthenticated Enquiry,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>false</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_BankerManager_RW</fullName>
@@ -155,8 +140,9 @@
         <criteriaItems>
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
-            <value>True</value>
+            <value>true</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RO</fullName>
@@ -171,20 +157,28 @@
             <operation>equals</operation>
             <value>ANZ Plus Complaint,CFMS Migrated Case</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Great Read write access to complaint records and General Inquiry CMOS records for Customer Resolution Users</description>
+        <description>Great Read write access to complaint records and Unauthenticated Enquiry records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,General Inquiry CMOS,Non-Customer Complaint</value>
+            <value>Customer Complaint,Unauthenticated Enquiry,Non-Customer Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>false</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_SIUsers_RO</fullName>
@@ -199,44 +193,48 @@
             <operation>equals</operation>
             <value>CFMS Migrated Case</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>RTs_Coach_Lead_RW</fullName>
+        <fullName>RTs_Coach_And_Coach_Lead_Group_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback are to be shared with Coach Lead with Read/Write access.</description>
-        <label>RTs-Coach-Lead-RW</label>
+        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback, and AEM cases are to be shared with Coach Public Group with Read/Write access.</description>
+        <label>RTs_Coach_And_Coach_Lead_Group_RW</label>
         <sharedTo>
-            <role>Coach_Lead</role>
+            <group>Coach_And_Coach_Lead_Group</group>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3 AND 4)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback,BPAY,Account Closure</value>
         </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>RTs_Coaches_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback are to be shared with Coaches with Read/Write access.</description>
-        <label>RTs-Coaches-RW</label>
-        <sharedTo>
-            <role>Coach</role>
-        </sharedTo>
+        <criteriaItems>
+            <field>Origin</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Web</value>
+        </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback,BPAY,Account Closure</value>
+            <value>Unauthenticated Enquiry</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Dispute_RTs_QA_RO</fullName>
+        <fullName>RTs_QA_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>All Cases having Dispute related record types are to be shared with Quality Analyst with Read access.</description>
-        <label>Dispute_RTs-QA-RO</label>
+        <label>RTs-QA-RO</label>
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR (9 AND 10 AND 11)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -277,20 +275,58 @@
             <operation>equals</operation>
             <value>BPAY</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Origin</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Web</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unauthenticated Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_Support_Coaches_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, KYC QA, Customer Feedback are to be shared with Support Coach with Read/Write access.</description>
+        <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, KYC QA, Customer Feedback,Non Customer Complaints and AEM Cases are to be shared with Support Coach with Read/Write access.</description>
         <label>RTs_Support_Coaches_RW</label>
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,Card,NPP,BPAY,Account Closure</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>Origin</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Web</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unauthenticated Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_Card_Dispute_Agent_RW</fullName>
@@ -304,6 +340,7 @@
             <operation>equals</operation>
             <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Escalated_Complaint_for_Coaches_Role_RO</fullName>
@@ -317,6 +354,7 @@
             <operation>notEqual</operation>
             <value/>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Escalated_Complaint_for_Coach_Lead_Role_RO</fullName>
@@ -330,6 +368,7 @@
             <operation>notEqual</operation>
             <value/>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Escalated_Complaint_for_FraudX_Agent_Role_RO</fullName>
@@ -343,6 +382,7 @@
             <operation>notEqual</operation>
             <value/>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Escalated_Complaint_for_Support_Coaches_Role_RO</fullName>
@@ -356,6 +396,7 @@
             <operation>notEqual</operation>
             <value/>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>FinCrime_Agent_Non_Customer_Compliant_RW</fullName>
@@ -372,18 +413,19 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>true</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_CardDisputeAgents_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All Cases having Fraud, record types are to be shared with Card Dispute Agents with Read access.</description>
+        <description>All Cases having Frauds and ANZ Plus Complaint record types are to be shared with Card Dispute Agents with Read access.</description>
         <label>RTs_CardDisputeAgents_RO</label>
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -409,6 +451,12 @@
             <operation>equals</operation>
             <value>Identity</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ANZ Plus Complaint</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_FraudXAgents_RW</fullName>
@@ -423,11 +471,12 @@
             <operation>equals</operation>
             <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_3rdPartyMobileSupport_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Read Write access to General Enquiry and Customer Feedback record types for 3rd Party Mobile Support Team.</description>
+        <description>Read Write access to General Enquiry and Customer Feedback record type for 3rd Party Mobile Support Team.</description>
         <label>RTs_3rdPartyMobileSupport_RW</label>
         <sharedTo>
             <role>X3rd_Party_Mobile_Support_Team</role>
@@ -437,19 +486,26 @@
             <operation>equals</operation>
             <value>General Enquiry, Customer Feedback</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Read/Write access to the General Inquiry CMOS RecordType for members of the NLP Public Group (Integration User)</description>
+        <description>Read/Write access to the Unauthenticated Enquiry RecordType for members of the NLP Public Group (Integration User)</description>
         <label>GeneralInquiryCMOS_RT_NLP_Public_Group_RW</label>
         <sharedTo>
             <group>NLP_Public_Group</group>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>General Inquiry CMOS</value>
+            <value>Unauthenticated Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>false</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -461,25 +517,44 @@
         <sharedTo>
             <role>Data_Analyst</role>
         </sharedTo>
+        <booleanFilter>1 AND 2</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Systemic Issue,General Inquiry CMOS,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
+            <value>Systemic Issue,Unauthenticated Enquiry,Non-Customer Complaint,Customer Complaint,CFMS Migrated Case</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>false</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>PSIComplaint_RTs_SITeam_RW</fullName>
+        <fullName>PSIComplaint_SI_RTs_SITeam_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Grant edit access to parent systemic issue complaint records</description>
-        <label>PSIComplaint_RTs_SITeam_RW</label>
+        <description>Grant edit access to parent systemic issue complaint records and systemic issue records for SI team members</description>
+        <label>PSIComplaint_SI_RTs_SITeam_RW</label>
         <sharedTo>
             <role>Systemic_Issue_Team</role>
         </sharedTo>
+        <booleanFilter>1 OR 2 OR 3</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Non-Customer Complaint</value>
+            <value>Customer Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Systemic Issue</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>SI_RT_CRP_LT_RO</fullName>
@@ -494,6 +569,7 @@
             <operation>equals</operation>
             <value>Systemic Issue</value>
         </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>SI_RT_SI_Business_Contacts_RO</fullName>
@@ -508,20 +584,7 @@
             <operation>equals</operation>
             <value>Systemic Issue,CFMS Migrated Case</value>
         </criteriaItems>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>SI_RTs_SITeam_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Grant read and write access on systemic issue records for SI team members</description>
-        <label>SI_RTs_SITeam_RW</label>
-        <sharedTo>
-            <role>Systemic_Issue_Team</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Systemic Issue</value>
-        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_Join_Lead_RW</fullName>
@@ -567,26 +630,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Support_Coach_Non_Customer_Compliant_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Provides access to Non Customer Complaints for Support Coach</description>
-        <label>Support Coach Non Customer Compliant RW</label>
-        <sharedTo>
-            <role>Support_Coach</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>ANZx_Customer__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Coach_Non_Customer_Compliant_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Provides access to Non Customer Complaints for Coach Role</description>
@@ -602,9 +645,8 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>true</value>
         </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Join_Lead_Non_Customer_Compliant_RW</fullName>
@@ -621,7 +663,7 @@
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>True</value>
+            <value>true</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

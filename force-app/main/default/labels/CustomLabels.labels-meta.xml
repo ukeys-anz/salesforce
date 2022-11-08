@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>Reactive_logging_keywords</fullName>
+        <categories>Contains keywords used for reactive logging for data masking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactive logging keywords</shortDescription>
+        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER</value>
+    </labels>
+    <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
         <categories>IDR</categories>
         <language>en_US</language>

@@ -504,6 +504,13 @@
         "CCRM_Marketing_Integration_User"
       ],
       "type": "system"
+    },
+    {
+      "name": "AEM Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": ["AEM_Integration"],
+      "permissionsets": ["API_Only"],
+      "type": "system"
     }
   ]
 }

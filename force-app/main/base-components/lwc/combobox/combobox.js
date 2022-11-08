@@ -91,8 +91,26 @@ export default class cCombobox extends LightningElement {
   }
 
   @api deselectAll() {
-    this._selectedItems = [];
-    this.selectedValue = "";
+    if (this._multiSelect) {
+      this._items.forEach((item) => {
+        item.iconName = undefined;
+        item.highlight = false;
+        item.checked = false;
+      });
+      this._selectedItems = [];
+      this.selectedValue = "";
+
+      this.dispatchEvent(
+        new CustomEvent("change", {
+          composed: true,
+          bubbles: true,
+          detail: {
+            value: this.selectedValue,
+            values: this._selectedItems
+          }
+        })
+      );
+    }
   }
   @api get ariaLabelledBy() {
     return this._ariaLabelledBy;

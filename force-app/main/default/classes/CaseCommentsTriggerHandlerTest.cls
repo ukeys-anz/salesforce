@@ -46,7 +46,10 @@ public with sharing class CaseCommentsTriggerHandlerTest {
   }
   @istest
   static void testCaseCommentsDelete() {
-    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
+    Case c = new Case(
+      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+      Origin = 'Phone'
+    );
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -85,13 +88,16 @@ public with sharing class CaseCommentsTriggerHandlerTest {
 
   @isTest
   static void testCaseCommentMasking() {
-    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
+    Case c = new Case(
+      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+      Origin = 'Phone'
+    );
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCaseComments.add(
         new CaseComment(
-          CommentBody = 'Test comment 1234-5678-9101 check mask',
+          CommentBody = 'Test comment 1234-5678-9101-7632-3321 check mask',
           ParentId = c.id
         )
       );
@@ -105,7 +111,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
     ];
 
     System.assertEquals(
-      'Test comment ********9101 check mask',
+      'Test comment ****************3321 check mask',
       maskedComments[0].CommentBody,
       'Comment should be masked.'
     );
@@ -118,7 +124,10 @@ public with sharing class CaseCommentsTriggerHandlerTest {
     setting.Object_API_Name__c = 'CaseComment';
     setting.Bypass_Delete__c = true;
     insert setting;
-    Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
+    Case c = new Case(
+      RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+      Origin = 'Phone'
+    );
     insert c;
     CaseComment[] newCaseComments = new List<CaseComment>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -157,7 +166,8 @@ public with sharing class CaseCommentsTriggerHandlerTest {
           Status = IDRConstants.OPEN_STATUS,
           Description = 'Test decription',
           OwnerId = idrUser1.Id,
-          IDR_Additional_Correspondence_reviewed__c = false
+          IDR_Additional_Correspondence_reviewed__c = false,
+          Origin = 'Phone'
         )
       );
     }

@@ -49,6 +49,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    * @description onBeforeDelete to handle before delete trigger actions.
    */
   public override void onBeforeDelete() {
+    IDRTaskActions.beforeDeleteActions(records);
     CCRMTaskActions.preventDelete(records);
   }
   /**

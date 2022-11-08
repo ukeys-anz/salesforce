@@ -90,6 +90,27 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
+                            <value>Case.Change_Record_Type</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>General_Inquiry_CMOS</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Origin}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>ANZ Plus Web</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Open</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>FeedItem.ContentNote</value>
                             <visibilityRule>
                                 <criteria>

@@ -1,4 +1,4 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, track } from "lwc";
 import { createRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
@@ -129,6 +129,9 @@ import ACCOUNT_POLICY_FIELD_3 from "@salesforce/schema/Case.IDR_Account_Card_Pol
 import KNOWN_ISSUES from "@salesforce/schema/Case.IDR_Known_Issues__c";
 import EXPRESS_CMOS from "@salesforce/schema/Case.IDR_Express_CMOS_Complaint__c";
 
+//To fetch products
+import fetchRequiredProducts from "@salesforce/apex/IDRCreateComplaintController.fetchRequiredProducts";
+
 const ERROR_REQUIRED_TITLE = "Please complete all required fields:\n";
 const ERROR_UNKNOWN_TITLE = "An error has occurred.";
 const SUCCESS = "success";
@@ -148,6 +151,12 @@ const OTHER = "Other";
 const CUS_IDENTIFIER_CAPCIS_ID = "Customer/Business CAP ID";
 const CUS_IDENTIFIER_CACHE_ID = "CACHE ID";
 const FIN_HARDSHIP_VALUE = "4";
+const COLLECTIONS_VALUE = "17";
+const CREDIT_ASSESSMENT_VALUE = "5";
+const CREDIT_REPORTING_VALUE = "19";
+
+const INAPP_LENDING_MALADMIN_VALUE = "38";
+const DEFAULT_LISTING_DISPUTE_VALUE = "42";
 
 //close complaint child
 const COMPLAINT_REMEDY_PRODUCT_MANU = "3";
@@ -305,7 +314,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
     { label: "Yes", value: "Yes" },
     { label: "No", value: "No" }
   ];
-  accountNumberOptions = [{ label: "N/A", value: "N/A" }];
+
+  @track accountNumberOptions;
+
+  @track accountNumberOptions2;
+
+  @track accountNumberOptions3;
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
@@ -327,6 +341,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
   disableAccNoTwoField = false;
   disableAccNoThreeField = false;
   expressCaseCreationData = {};
+  //Product Names
+  requiredProductNames;
+
   //initialize components
   connectedCallback() {
     this.recordType = this.recordTypeId;
@@ -338,7 +355,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isCustomerComplaint = this.recordTypeDevName === "Customer_Complaint";
     this.showComplianceFields = this.isCustomerComplaint || this.consentValue;
     this.showSections = this.isCustomerComplaint;
+    this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
+    this.accountNumberOptions2 = [{ label: "N/A", value: "N/A" }];
+    this.accountNumberOptions3 = [{ label: "N/A", value: "N/A" }];
     this.isAddressRequired = false;
+    fetchRequiredProducts()
+      .then((result) => {
+        this.requiredProductNames = result;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   cleanupAccount(event) {
@@ -509,6 +536,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
   handleSearch() {
     this.displayCustomerInfo = true;
     this.customerId = this.customerIdValue;
+    this.adjustNAOptionAccPolicyField(null, "");
+    if (this.hasSecondIssue) {
+      this.adjustNAOptionAccPolicyField(null, "2");
+    }
+    if (this.hasThirdIssue) {
+      this.adjustNAOptionAccPolicyField(null, "3");
+    }
   }
 
   handleCustomerNumberChange(event) {
@@ -562,7 +596,16 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleProductChange(event) {
-    this.productValue = event.detail.value[0];
+    if (event.detail) {
+      let elementNumber = event.target.dataset.id;
+      elementNumber = elementNumber.replace("product", "");
+      elementNumber = elementNumber.replace("Value", "");
+      elementNumber = elementNumber.replace("-id", "");
+      if (elementNumber === "") {
+        this.productValue = event.detail.value[0];
+      }
+      this.adjustNAOptionAccPolicyField(event, elementNumber);
+    }
   }
 
   handleDescriptionChange(event) {
@@ -1017,25 +1060,41 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.ccGender = event.detail.gender;
         this.ccPostcode = event.detail.postcode;
         this.isCustomerDetails = true;
-        this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
-        let x;
-        this.accountNumberOptions = [];
-        for (x in event.detail.accounts) {
-          if (event.detail.accounts[x] != null) {
-            this.accountNumberOptions.push({
-              label: event.detail.accounts[x],
-              value: event.detail.accounts[x]
-            });
-          }
-        }
-        this.accountNumberOptions.push({ label: "N/A", value: "N/A" });
+        let accounts = event.detail.accounts;
+        this.accountNumberOptions = this.initialiseOptions(accounts);
+        this.accountNumberOptions2 = this.initialiseOptions(accounts);
+        this.accountNumberOptions3 = this.initialiseOptions(accounts);
         /*
         this.template
           .querySelectorAll("c-multi-select-combobox")[0]
           .processMyData(this.accountNumberOptions);
 */
       }
+      this.adjustNAOptionAccPolicyField(null, "");
+      if (this.hasSecondIssue) {
+        this.adjustNAOptionAccPolicyField(null, "2");
+      }
+      if (this.hasThirdIssue) {
+        this.adjustNAOptionAccPolicyField(null, "3");
+      }
     }
+  }
+
+  initialiseOptions(accounts) {
+    let accountNumberOptions = [];
+    for (let x in accounts) {
+      if (Object.prototype.hasOwnProperty.call(accounts, x)) {
+        if (accounts[x] === null) {
+          return accountNumberOptions;
+        }
+        accountNumberOptions.push({
+          label: accounts[x],
+          value: accounts[x]
+        });
+      }
+    }
+    accountNumberOptions.push({ label: "N/A", value: "N/A" });
+    return accountNumberOptions;
   }
 
   handleCaseSuccess(event) {
@@ -1266,44 +1325,125 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.knownIssue = event === undefined ? "" : event.detail.Id;
   }
 
-  handleAccNoOneSelection(event) {
+  handleAccNoSelection(event) {
     if (event.detail) {
+      let elementNumber = event.target.dataset.id;
+      elementNumber = elementNumber.replace("issueType", "");
+      elementNumber = elementNumber.replace("-id", "");
+      let disableAccNoField = false;
       if (
         this.isCustNumValidated &&
         event.detail.value === FIN_HARDSHIP_VALUE
       ) {
-        this.disableAccNoOneField = true;
         const accountPolicyNoElement = this.template.querySelector(
-          '[data-id="accPolicyNum-id"]'
+          '[data-id="accPolicyNum' + elementNumber + '-id"]'
         );
+        disableAccNoField = true;
         accountPolicyNoElement.selectAll({ exclude: ["N/A"] });
-      } else {
-        this.disableAccNoOneField = false;
       }
+      if (elementNumber === "") {
+        this.disableAccNoOneField = disableAccNoField;
+      } else if (elementNumber === "2") {
+        this.disableAccNoTwoField = disableAccNoField;
+      } else if (elementNumber === "3") {
+        this.disableAccNoThreeField = disableAccNoField;
+      }
+      this.adjustNAOptionAccPolicyField(event, elementNumber);
     }
   }
 
-  handleAccNoTwoSelection(event) {
-    if (this.isCustNumValidated && event.detail.value === FIN_HARDSHIP_VALUE) {
-      this.disableAccNoTwoField = true;
-      const accountPolicyNoElement = this.template.querySelector(
-        '[data-id="accPolicyNum2-id"]'
-      );
-      accountPolicyNoElement.selectAll({ exclude: ["N/A"] });
-    } else {
-      this.disableAccNoTwoField = false;
+  // On change of Issue type
+  handleAccNoSubSelection(event) {
+    if (event.detail) {
+      let elementNumber = event.target.dataset.id;
+      elementNumber = elementNumber.replace("subsequentIssue", "");
+      elementNumber = elementNumber.replace("-id", "");
+      this.adjustNAOptionAccPolicyField(event, elementNumber);
     }
   }
 
-  handleAccNoThreeSelection(event) {
-    if (this.isCustNumValidated && event.detail.value === FIN_HARDSHIP_VALUE) {
-      this.disableAccNoThreeField = true;
-      const accountPolicyNoElement = this.template.querySelector(
-        '[data-id="accPolicyNum3-id"]'
+  // To avoid N/A option for some Issue Types and Subsequent Issues Types  and allow for only certain list of Products.
+  // element number refers to Issue Type
+  adjustNAOptionAccPolicyField(event, elementNumber) {
+    elementNumber = elementNumber ? elementNumber : "";
+
+    // If AccountPolicy Number is not disbaled(not financial difficulty)
+    if (
+      !(
+        (this.disableAccNoOneField && elementNumber === "") ||
+        (this.disableAccNoTwoField && elementNumber === "2") ||
+        (this.disableAccNoThreeField && elementNumber === "3")
+      )
+    ) {
+      let accountNumberOptions;
+
+      if (elementNumber === "2") {
+        accountNumberOptions = JSON.parse(
+          JSON.stringify(this.accountNumberOptions2)
+        );
+      } else if (elementNumber === "3") {
+        accountNumberOptions = JSON.parse(
+          JSON.stringify(this.accountNumberOptions3)
+        );
+      } else {
+        accountNumberOptions = JSON.parse(
+          JSON.stringify(this.accountNumberOptions)
+        );
+      }
+
+      let stringifiedOptions = JSON.stringify(accountNumberOptions);
+      // Removing mutliple N/A elements which will appear at the end of the List
+      while (stringifiedOptions && stringifiedOptions.includes("N/A")) {
+        accountNumberOptions.pop();
+        stringifiedOptions = JSON.stringify(accountNumberOptions);
+      }
+
+      const issueTypeElement = this.template.querySelector(
+        '[data-id="issueType' + elementNumber + '-id"]'
       );
-      accountPolicyNoElement.selectAll({ exclude: ["N/A"] });
-    } else {
-      this.disableAccNoThreeField = false;
+      let issueTypeValue = issueTypeElement.value;
+      const subIssueTypeElement = this.template.querySelector(
+        '[data-id="subsequentIssue' + elementNumber + '-id"]'
+      );
+      let subIssueTypeValue = subIssueTypeElement.value;
+      const productElement = this.template.querySelector(
+        '[data-id="product' +
+          (elementNumber ? "Value" + elementNumber : "") +
+          '-id"]'
+      );
+      let productValue = productElement.value;
+
+      let requiredIssueTypes = [
+        COLLECTIONS_VALUE,
+        CREDIT_ASSESSMENT_VALUE,
+        CREDIT_REPORTING_VALUE
+      ];
+      let requiredSubIssuesType = [
+        INAPP_LENDING_MALADMIN_VALUE,
+        DEFAULT_LISTING_DISPUTE_VALUE
+      ];
+
+      if (
+        !(
+          (issueTypeValue === COLLECTIONS_VALUE ||
+            (requiredIssueTypes.includes(issueTypeValue) &&
+              requiredSubIssuesType.includes(subIssueTypeValue))) &&
+          !this.requiredProductNames.includes(productValue)
+        )
+      ) {
+        accountNumberOptions.push({ label: "N/A", value: "N/A" });
+      }
+
+      if (elementNumber === "2") {
+        this.accountOrPolicyNumber2 = "";
+        this.accountNumberOptions2 = [...accountNumberOptions];
+      } else if (elementNumber === "3") {
+        this.accountOrPolicyNumber3 = "";
+        this.accountNumberOptions3 = [...accountNumberOptions];
+      } else if (!this.expressCMOS) {
+        this.accountOrPolicyNumber = "";
+        this.accountNumberOptions = [...accountNumberOptions];
+      }
     }
   }
 
