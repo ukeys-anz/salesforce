@@ -16,81 +16,6 @@
    <sections>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>ABN__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Id</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>true</checkedByDefault>
-         <field>Name</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>TextName</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>AccountNumber</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Owner</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>RecordType</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Site</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>AccountSource</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ACN__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Advertising_Indicator__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Anniversary_Date__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Anniversary_Duration__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>AnnualRevenue</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Employee_Indicator__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>ANZx_Customer__c</field>
          <table>Account</table>
       </columns>
@@ -101,67 +26,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>ARBN__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ARC_Email__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__AUM__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__BankNumber__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Bankrupt_Date__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>BillingAddress</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>BillingCity</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>BillingCountry</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>BillingGeocodeAccuracy</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>BillingLatitude</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>BillingLongitude</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>BillingState</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>BillingStreet</field>
          <table>Account</table>
       </columns>
       <columns>
@@ -171,342 +36,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__BorrowingHistory__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__BorrowingPriorities__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__BranchCode__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__BranchName__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__ClientCategory__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__ClaimsOnHouseholdPolicies__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>CLG__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Collections__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Controlling_Post__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>CPID__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__ConversionDateTime__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>CPID_Link__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>CreatedBy</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>CreatedDate</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__CreditRating__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__CreditScore__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__CustomerID__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__CustomerSegment__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__CustomerType__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Jigsaw</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Deceased_Date__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Deleted_in_OCV__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Description</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Disclosure_Indicator__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Display_Name__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>NumberOfEmployees</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Employer_Name__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Establishment_Date__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>External_Id__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__ReferredByContact__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Fax</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__FinancialInterests__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FirstName</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Hardship__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Has_Customer_Provided_TFN__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__HouseholdPolicies__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__Notes__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__IndividualId__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__IndividualType__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Industry</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__InsuranceCustomerSince__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__ReferredByUser__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__InvestmentExperience__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__InvestmentObjectives__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__KYCDate__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__KYCStatus__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>KYC_Verification_Level__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>LastActivityDate</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LastInteraction__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>LastModifiedBy</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>LastModifiedDate</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>LastName</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LastReview__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LastTransactionDate__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LastTransactionDateJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LastTransactionDatePrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LastUsedChannel__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LifetimeValue__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Mailing_Name__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__MarketingSegment__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>MiddleName</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>qualtrics__Net_Promoter_Score__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__NetWorth__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__NextInteraction__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__NextReview__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>qualtrics__NPS_Date__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalNumberOfFinAccountsJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalNumberOfFinAccountsPrimaryOwner__c</field>
          <table>Account</table>
       </columns>
       <columns>
@@ -516,127 +46,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>OCV_Event_Version__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>OCV_ID__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>OperatingHours</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Ownership</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Parent</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>PersonContact</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__PersonalInterests__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Phone</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>PPID__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__PrimaryContact__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Rating</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__LengthOfRelationship__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__RelationshipStartDate__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__ReviewFrequency__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__RiskTolerance__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Salutation</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Self_Certified_Tax_Date__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Self_Certified_Tax_Residency__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__ServiceModel__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ShippingAddress</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ShippingCity</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ShippingCountry</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ShippingGeocodeAccuracy</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ShippingLatitude</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>ShippingLongitude</field>
          <table>Account</table>
       </columns>
       <columns>
@@ -646,242 +56,12 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>ShippingStreet</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>ShippingPostalCode</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Sic</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>SicDesc</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__SourceSystemId__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Source_System_ID__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Source_System_Name__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__Status__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Suffix</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Survivor_Party_ID__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>TickerSymbol</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TimeHorizon__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalAUMJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalAUMPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalBankDeposits__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalBankDepositsJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalBankDepositsPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalClaimAmountPaid__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalFinancialAccounts__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalFinAcctsJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalFinAcctsPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalHeldFinAcctsJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalHeldFinAcctsPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalHouseholdPremiums__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalInsurance__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalInsuranceJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalInsurancePrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalInvestments__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalInvestmentsJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalInvestmentsPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalLiabilities__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalLiabilitiesJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalLiabilitiesPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalNonfinancialAssets__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalNonfinancialAssetsJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalNonfinancialAssetsPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalNumberOfFinAccounts__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalOutstandingCredit__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalOutstandingCreditJointOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalOutstandingCreditPrimaryOwner__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalPremium__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__TotalRevenue__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Type</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>FinServ__WalletShare__c</field>
-         <table>Account</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Website</field>
          <table>Account</table>
       </columns>
       <masterLabel>Accounts</masterLabel>
    </sections>
    <sections>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Crediting_Account_Name__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Crediting_Account_Number__c</field>
-         <table>Account.Cases</table>
-      </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
          <field>Amount_Of_Authorised_Transaction__c</field>
@@ -894,37 +74,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>AuxDomId__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Bank_ATM__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Biller_Code__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Biller_Name__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Crediting_Account_BSB__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Card_In_Possession_During_Transaction__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Card_Number__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
@@ -954,22 +104,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>EDW_Origin__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Twilio_Channel_SID__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Claimed_Amount__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Correct_Customer_Reference_Number__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
@@ -980,11 +115,6 @@
       <columns>
          <checkedByDefault>false</checkedByDefault>
          <field>Customer_Contacted_Merchant__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Customer_Reference_Number__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
@@ -1029,11 +159,6 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>Description</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Dispute_Reason__c</field>
          <table>Account.Cases</table>
       </columns>
@@ -1069,32 +194,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>Intended_Account_BSB__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Intended_Account_Name__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Intended_Account_Number__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Intended_Amount__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Intended_Pay_Id_Value__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Intended_Pay_Id_Type__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
@@ -1129,11 +229,6 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>Location__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>NPP_Dispute_Reason__c</field>
          <table>Account.Cases</table>
       </columns>
@@ -1154,16 +249,6 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>Parent</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Payment_ID__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Posted_Amount__c</field>
          <table>Account.Cases</table>
       </columns>
@@ -1174,17 +259,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>Priority</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Reason_Code__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Receipt__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
@@ -1199,17 +274,7 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>Registration_Number__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Regular_Payment_Cancellation_Date__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Settlement_Date__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
@@ -1234,37 +299,12 @@
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
-         <field>Crediting_Trace_Line__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
          <field>Transaction_Amount__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
          <checkedByDefault>false</checkedByDefault>
          <field>Transaction_Currency__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Transaction_Description__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Transaction_Id__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Transaction_Status__c</field>
-         <table>Account.Cases</table>
-      </columns>
-      <columns>
-         <checkedByDefault>false</checkedByDefault>
-         <field>Transaction_UUID__c</field>
          <table>Account.Cases</table>
       </columns>
       <columns>
