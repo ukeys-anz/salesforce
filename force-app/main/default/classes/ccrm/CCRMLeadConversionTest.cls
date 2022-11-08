@@ -57,7 +57,6 @@ public class CCRMLeadConversionTest {
     leadResponseData1.commentVal = 'Customer is happy with the offer.';
     leadResponseData1.leadId = updatedLeads[0].Id;
     leadResponseData1.responseTypeValue = rtAccepted.Id;
-    leadResponseData1.autoCreateActivities = false;
 
     String result = '';
     List<Opportunity> opps;
@@ -74,14 +73,11 @@ public class CCRMLeadConversionTest {
         JSON.serialize(leadResponseData1)
       );
       CCRMLeadConversion.getLeadRecordForConversion(updatedLeads[0].Id);
-      /*
       Id oppId = CCRMLeadConversion.convertLead(
         updatedLeads[0].Id,
         updatedLeads[0].FinServ__RelatedAccount__c
       );
-*/
 
-      /*
       opps = [
         SELECT
           Name,
@@ -96,13 +92,10 @@ public class CCRMLeadConversionTest {
         FROM Opportunity
         WHERE Id = :oppId
       ];
-*/
     }
-
     Test.stopTest();
 
     //THEN Owners are notified on Leads getting Expired.
-    /*
     System.assertEquals(!opps.isEmpty(), true, 'CCRM Opportunity Created');
     System.assertEquals(
       opps[0].Description,
@@ -136,7 +129,6 @@ public class CCRMLeadConversionTest {
       opps[0].Account.Name,
       'Opportunity Name is Opp Id and Customer Name'
     );
-*/
   }
 
   @IsTest
@@ -181,7 +173,6 @@ public class CCRMLeadConversionTest {
     leadResponseData1.commentVal = 'Customer is happy with the offer.';
     leadResponseData1.leadId = leads[0].Id;
     leadResponseData1.responseTypeValue = rtAccepted.Id;
-    leadResponseData1.autoCreateActivities = false;
 
     String result;
     Test.startTest();
