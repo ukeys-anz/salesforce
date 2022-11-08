@@ -1440,7 +1440,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       } else if (elementNumber === "3") {
         this.accountOrPolicyNumber3 = "";
         this.accountNumberOptions3 = [...accountNumberOptions];
-      } else {
+      } else if (!this.expressCMOS) {
         this.accountOrPolicyNumber = "";
         this.accountNumberOptions = [...accountNumberOptions];
       }
