@@ -252,7 +252,13 @@
       "name": "OCV Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Read_Write_Customer_Details"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "FinancialServicesCloudStandard",
+        "Moderate_Chatter",
+        "Read_Write_Customer_Details",
+        "CCRM_Marketing_Integration_User"
+      ],
       "type": "system"
     },
     {
@@ -492,6 +498,13 @@
         "Enforce_mTLS",
         "CCRM_Marketing_Integration_User"
       ],
+      "type": "system"
+    },
+    {
+      "name": "AEM Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": ["AEM_Integration"],
+      "permissionsets": ["API_Only"],
       "type": "system"
     }
   ]

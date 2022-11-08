@@ -4,7 +4,8 @@
  * @description IDRTaskActions is class to handle all the IDR (Internal Dispute Resolution) Actions
  * without sharing: used to perform system generated Tasks which is not accessible by the end user.
  * @group IDR(Internal Dispute Resolution)
- * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * @runTests IDRCaseActionsTest, IDRTaskActionsTest, TaskTriggerHandlerTest
+ * CyclomaticComplexity Suppressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class IDRTaskActions {
@@ -38,7 +39,7 @@ public without sharing class IDRTaskActions {
     '%' +
     IDRConstants.TASK_SUBJECT_DAY5 +
     '%';
-    
+
   public static Group siQueue = [
     SELECT Id
     FROM Group
@@ -62,6 +63,8 @@ public without sharing class IDRTaskActions {
       DeveloperName = :START_COLLECTIONS_QUEUE_NAME
       AND Type = :IDRCaseActions.QUEUE_TYPE
   ];
+
+  public static Boolean siSystemDeletingAutoGenTask = false;
 
   /**
    * @description beforeInsertActions is called onBeforeInsert. any logic that needs to be executed on before insert is executed from here
@@ -164,6 +167,14 @@ public without sharing class IDRTaskActions {
     }
     stampQueueName(records, oldMap);
     validateSIDueDate(records, oldMap);
+  }
+
+  /**
+   * @description beforeDeleteActions is called onBeforeDelete. any logic that needs to be executed on before Delete is executed from here
+   * @param records The Task record list.
+   */
+  public static void beforeDeleteActions(List<Task> records) {
+    restrictIDRTaskDelete(records);
   }
 
   /**
@@ -304,23 +315,28 @@ public without sharing class IDRTaskActions {
         caseMap.get(record.WhatId)
       );
 
-      if (record.ActivityDate > Date.valueOf(expectedDueDate)) {
-        record.ActivityDate = Date.valueOf(expectedDueDate);
-      }
+      if (expectedDueDate != null) {
+        if (record.ActivityDate > Date.valueOf(expectedDueDate)) {
+          record.ActivityDate = Date.valueOf(expectedDueDate);
+        }
 
-      if (record.Subject != caseTaskMap.get(record.WhatId)) {
-        record.Status = IDRConstants.TASK_STATUS_EXPIRED;
+        if (record.Subject != caseTaskMap.get(record.WhatId)) {
+          record.Status = IDRConstants.TASK_STATUS_EXPIRED;
+        }
       }
     }
   }
   /**
-   * @description calculateExpectedDue will calaulate the what the due date must be for IDR Tasks.
+   * @description calculateExpectedDue will calculate the what the due date must be for IDR Tasks.
    * @param record The Task record.
    * @param caseRec the case record that this task is related to.
    * @return datetime new datetime value that expected to be the due date based on the task and case parms.
    */
   public static Datetime calculateExpectedDue(Task record, Case caseRec) {
     Datetime expectedDueDate;
+    if (caseRec == null) {
+      return null;
+    }
     if (
       record.Subject.contains(IDRConstants.TASK_SUBJECT_DAY5) &&
       caseRec.Priority == IDRConstants.TASK_STANDARD_PRIORITY
@@ -362,7 +378,7 @@ public without sharing class IDRTaskActions {
   }
   /**
    * @description closeMilestonesOfClosedTask will mark Maximum IDR milestones as completed
-   *               when the corresponding Taks completed.
+   *               when the corresponding Tasks completed.
    *
    * @param taskRecs List of task records.
    */
@@ -862,5 +878,63 @@ public without sharing class IDRTaskActions {
         }
       }
     }
+  }
+
+  /**
+   * @description restrictIDRTaskDelete check if user is able to delete IDR task records (in particular auto-generated IDR tasks), throws error if user is ineligible to delete IDR task
+   * @param records the task records being checked to see if its eligible for deletion
+   */
+  public static void restrictIDRTaskDelete(List<Task> records) {
+    for (Task t : records) {
+      if (isIDRTaskType(t)) {
+        if (!validateIDRTaskForDelete(t)) {
+          t.addError(
+            'Error: This task is automatically generated and cannot be deleted in CMOS'
+          );
+        }
+      }
+    }
+  }
+
+  /**
+   * @description validateIDRTaskForDelete logic to check if user is able to delete task record (in particular auto-generated IDR tasks)
+   * @param t the task record being checked to see if its eligible for deletion
+   * @return `Boolean` True if the the record type is eligible for deletion, false otherwise
+   */
+  public static Boolean validateIDRTaskForDelete(Task t) {
+    if (t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID) {
+      return false;
+    } else if (t.RecordTypeId == IDRConstants.IDR_TASK_RT_ID) {
+      if (FeatureManagement.checkPermission('IDR_Level_1')) {
+        return true;
+      }
+    } else if (t.RecordTypeId == IDRConstants.SI_TASK_RT_ID) {
+      if (t.Subject.contains('Monitor Issue') && !siSystemDeletingAutoGenTask) {
+        return false;
+      } else {
+        if (FeatureManagement.checkPermission('IDR_SI')) {
+          return true;
+        }
+      }
+    }
+    return true;
+  }
+
+  /**
+   * @description isIDRTaskType check if record type is of IDR type.
+   * As this Trigger will be used across various teams we identify task record based on IDR record Type.
+   *
+   * @param record The record for which the recordType needs to be checked
+   * @return `Boolean` True if the the record type is of IDR type false otherwise.
+   */
+  public static Boolean isIDRTaskType(Task record) {
+    if (
+      record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID ||
+      record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID ||
+      record.RecordTypeId == IDRConstants.SI_TASK_RT_ID
+    ) {
+      return true;
+    }
+    return false;
   }
 }

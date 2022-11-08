@@ -10,7 +10,9 @@ RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 NOT(ISPICKVAL(Status, &apos;Escalated&apos;)),
- ISCHANGED(RecordTypeId) 
+ ISCHANGED(RecordTypeId),
+ ANZx_Customer__c = false,
+ NOT(ISPICKVAL(Origin, &apos;ANZ Plus Web&apos;)) 
 )</errorConditionFormula>
     <errorMessage>Case Status must be updated to &apos;Escalated&apos;</errorMessage>
 </ValidationRule>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__KYCStatus__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy_Personal_Information;Source - OCV</complianceGroup>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>KYC Status</label>
@@ -14,11 +14,6 @@
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value>
-                <fullName>Expired</fullName>
-                <default>false</default>
-                <label>Expired</label>
-            </value>
             <value>
                 <fullName>NO STATUS ISSUED</fullName>
                 <default>false</default>
@@ -50,6 +45,26 @@
                 <label>Unknown</label>
             </value>
             <value>
+                <fullName>Required</fullName>
+                <default>false</default>
+                <label>Required</label>
+            </value>
+            <value>
+                <fullName>NoMatch</fullName>
+                <default>false</default>
+                <label>NoMatch</label>
+            </value>
+            <value>
+                <fullName>Purged</fullName>
+                <default>false</default>
+                <label>Purged</label>
+            </value>
+            <value>
+                <fullName>Expired</fullName>
+                <default>false</default>
+                <label>Expired</label>
+            </value>
+            <value>
                 <fullName>Completed - Invalid</fullName>
                 <default>false</default>
                 <label>Completed - Invalid</label>
@@ -73,21 +88,6 @@
                 <fullName>Overdue</fullName>
                 <default>false</default>
                 <label>Overdue</label>
-            </value>
-            <value>
-                <fullName>Required</fullName>
-                <default>false</default>
-                <label>Required</label>
-            </value>
-            <value>
-                <fullName>NoMatch</fullName>
-                <default>false</default>
-                <label>NoMatch</label>
-            </value>
-            <value>
-                <fullName>Purged</fullName>
-                <default>false</default>
-                <label>Purged</label>
             </value>
         </valueSetDefinition>
     </valueSet>

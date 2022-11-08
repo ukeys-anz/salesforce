@@ -1,0 +1,37 @@
+{
+  "controllerValues": {},
+  "defaultValue": null,
+  "url": "/services/data/v55.0/ui-api/object-info/Task/picklist-values/012000000000000AAA/Lead_Quality__c",
+  "values": [
+    {
+      "attributes": null,
+      "label": "Very Good",
+      "validFor": [],
+      "value": "Very Good"
+    },
+    {
+      "attributes": null,
+      "label": "Good",
+      "validFor": [],
+      "value": "Good"
+    },
+    {
+      "attributes": null,
+      "label": "Average",
+      "validFor": [],
+      "value": "Average"
+    },
+    {
+      "attributes": null,
+      "label": "Poor",
+      "validFor": [],
+      "value": "Poor"
+    },
+    {
+      "attributes": null,
+      "label": "Very Poor",
+      "validFor": [],
+      "value": "Very Poor"
+    }
+  ]
+}

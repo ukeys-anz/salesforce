@@ -60,15 +60,14 @@ export function handleErrorShowToast(
 }
 
 export function handleErrors(error) {
-  this.hasError = true;
-  this.errorMessage = "";
+  var errorMessage = "";
   if (typeof error === "string") {
-    this.errorMessage = error;
+    errorMessage = error;
   } else if (error.body) {
     if (Array.isArray(error.body)) {
-      this.errorMessage = error.body.map((e) => e.message).join(", ");
+      errorMessage = error.body.map((e) => e.message).join(", ");
     } else if (typeof error.body.message === "string") {
-      this.errorMessage = "Error Message: " + error.body.message;
+      errorMessage = "Error Message: " + error.body.message;
     } else if (typeof error.body === "object") {
       let fieldErrors = error.body.fieldErrors;
       let pageErrors = error.body.pageErrors;
@@ -78,7 +77,7 @@ export function handleErrors(error) {
           if (fieldName) {
             let errorList = fieldErrors[fieldName];
             for (let i = 0; i < errorList.length; i++) {
-              this.errorMessage +=
+              errorMessage +=
                 errorList[i].statusCode +
                 " " +
                 fieldName +
@@ -91,7 +90,7 @@ export function handleErrors(error) {
       }
       if (pageErrors && pageErrors.length > 0) {
         for (let j = 0; j < pageErrors.length; j++) {
-          this.errorMessage += "\nError Message: " + pageErrors[j].message;
+          errorMessage += "\nError Message: " + pageErrors[j].message;
         }
       }
       if (
@@ -99,13 +98,14 @@ export function handleErrors(error) {
         typeof exceptionErrors === "string" &&
         exceptionErrors.length > 0
       ) {
-        this.errorMessage += exceptionErrors;
+        errorMessage += exceptionErrors;
       }
     } else {
-      this.errorMessage =
+      errorMessage =
         "Error Message: Something went wrong. Unable to complete the action.";
     }
   }
+  return errorMessage;
 }
 
 // General navigation function by warapping NavigationMixin.Navigate

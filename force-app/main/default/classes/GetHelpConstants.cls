@@ -106,6 +106,11 @@ public with sharing class GetHelpConstants {
     .get('Non_Customer_Complaint')
     .getRecordTypeId();
 
+  // Case - Unauthenticated Enquiry RT Id
+  public static final Id UNAUTHENTICATED_ENQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('General_Inquiry_CMOS')
+    .getRecordTypeId();
+
   // Interaction - Appointment Interaction RT Id
   public static final Id INTERACTION_APPT_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('Appointment')
@@ -166,4 +171,6 @@ public with sharing class GetHelpConstants {
 
   //ANZx Case Sub Status
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
+  // Case Origins
+  public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
 }

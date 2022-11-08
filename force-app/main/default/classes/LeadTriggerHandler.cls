@@ -33,10 +33,10 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     AbnAcnUtil.validateACN(records, null);
     CCRMLeadActions.populateFields(records);
     CCRMLeadActions.populateFromPreviousLead(records);
-    CCRMLeadActions.retrieveControllingPost(records, null);
+    CCRMControllingPostActions.retrieveControllingPost(records, null);
     CCRMLeadActions.prefillManualLeadsFromAccountOnInsert(records);
     CCRMLeadActions.prefillUnicaLeadsFromAccountOnInsert(records);
-    CCRMLeadActions.setDefaultCampaign(records);
+    CCRMCampaignActions.setDefaultCampaign(records);
     CCRMLeadActions.setValidationStatus(records, null);
     CCRMLeadActions.validateIngestedLeads(records);
   }
@@ -65,7 +65,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Lead>) oldMap,
       records
     );
-    CCRMLeadActions.retrieveControllingPost(records, oldMap);
+    CCRMControllingPostActions.retrieveControllingPost(records, oldMap);
   }
 
   /**

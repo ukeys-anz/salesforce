@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -28,10 +29,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>subheader</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -47,10 +48,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>subheader</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>detailTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -58,10 +59,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>detailTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-54ae2223-0c12-4697-85c4-1c85d8dfa29e</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -88,10 +89,10 @@
                 <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-54ae2223-0c12-4697-85c4-1c85d8dfa29e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>tabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -121,20 +122,20 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>tabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-c989bec0-3d6a-4900-9560-4e2e26b95df7</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
                 <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-c989bec0-3d6a-4900-9560-4e2e26b95df7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-ebba406a-189c-4f8a-b524-4d2d8aa930ee</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -149,10 +150,10 @@
                 <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-ebba406a-189c-4f8a-b524-4d2d8aa930ee</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -181,10 +182,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>initiateInteraction</componentName>
@@ -258,7 +259,6 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Lead Record Page</masterLabel>

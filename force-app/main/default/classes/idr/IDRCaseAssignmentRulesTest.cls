@@ -203,61 +203,61 @@ private with sharing class IDRCaseAssignmentRulesTest {
   }
 
   /**
-  * @description : This is to test if Product Family is assigned to escalated ANZ Plus Complaint to Customer Complaint.
-  */
- @isTest
- private static void anzPlusComplaintProductAssignment() {
-   // GIVEN
-   // ANZ Plus Complaint Case with a product (that has a product family) assigned.
-   Product_Family__c testProductFamily = new Product_Family__c(
-     IDR_ANZ_com_Product_Category__c = 'Home loans',
-     IDR_Workbasket__c = 'IDR_Home_Owners'
-   );
-   insert testProductFamily;
+   * @description : This is to test if Product Family is assigned to escalated ANZ Plus Complaint to Customer Complaint.
+   */
+  @isTest
+  private static void anzPlusComplaintProductAssignment() {
+    // GIVEN
+    // ANZ Plus Complaint Case with a product (that has a product family) assigned.
+    Product_Family__c testProductFamily = new Product_Family__c(
+      IDR_ANZ_com_Product_Category__c = 'Home loans',
+      IDR_Workbasket__c = 'IDR_Home_Owners'
+    );
+    insert testProductFamily;
 
-   Product2 testProduct = new Product2(
-     Name = 'ANZ Plus - Fixed Home Loan',
-     IDR_Product_Family__c = testProductFamily.Id
-   );
-   insert testProduct;
+    Product2 testProduct = new Product2(
+      Name = 'ANZ Plus - Fixed Home Loan',
+      IDR_Product_Family__c = testProductFamily.Id
+    );
+    insert testProduct;
 
-   Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()); //Prep Id for assignProductFamily' parameters
-   Case oldCase = new Case(
-     Id = mockId,
-     RecordTypeID = GetHelpConstants.COMPLAINT_RT_ID,
-     Product__c = testProduct.Id
-   );
-   Map<Id, Case> oldMap = new Map<Id, Case>{ oldCase.Id => oldCase };
+    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()); //Prep Id for assignProductFamily' parameters
+    Case oldCase = new Case(
+      Id = mockId,
+      RecordTypeID = GetHelpConstants.COMPLAINT_RT_ID,
+      Product__c = testProduct.Id
+    );
+    Map<Id, Case> oldMap = new Map<Id, Case>{ oldCase.Id => oldCase };
 
-   List<Case> newCases = new List<Case>();
-   newCases.add(
-     new Case(
-       Id = mockId,
-       RecordTypeID = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-       Product__c = testProduct.Id,
-       Status = 'Escalated',
-       IDR_Escalated_to__c = '1',
-       IDR_Escalation_Reason__c = 'MANUAL_ESCALATION_REASON'
-     )
-   );
+    List<Case> newCases = new List<Case>();
+    newCases.add(
+      new Case(
+        Id = mockId,
+        RecordTypeID = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+        Product__c = testProduct.Id,
+        Status = 'Escalated',
+        IDR_Escalated_to__c = '1',
+        IDR_Escalation_Reason__c = 'MANUAL_ESCALATION_REASON'
+      )
+    );
 
-   // WHEN
-   // assignProductFamily is invoked for a case that was escalated from ANZ Plus Complaint to Customer Complaint
-   Test.startTest();
-   IDRCaseAssignmentRules.assignProductFamily(newCases, oldMap);
-   Test.stopTest();
+    // WHEN
+    // assignProductFamily is invoked for a case that was escalated from ANZ Plus Complaint to Customer Complaint
+    Test.startTest();
+    IDRCaseAssignmentRules.assignProductFamily(newCases, oldMap);
+    Test.stopTest();
 
-   //THEN
-   //Check if newCase (ANZ Plus Complaint Case) has product family and product category assigned
-   System.assertEquals(
-     testProductFamily.Id,
-     newCases[0].IDR_Product_Family__c,
-     'Product Families should match'
-   );
-   System.assertEquals(
-     'Home loans',
-     newCases[0].IDR_Product_Category__c,
-     'Product Category should be Home loans'
-   );
- }
+    //THEN
+    //Check if newCase (ANZ Plus Complaint Case) has product family and product category assigned
+    System.assertEquals(
+      testProductFamily.Id,
+      newCases[0].IDR_Product_Family__c,
+      'Product Families should match'
+    );
+    System.assertEquals(
+      'Home loans',
+      newCases[0].IDR_Product_Category__c,
+      'Product Category should be Home loans'
+    );
+  }
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Billing</fullName>
+        <default>false</default>
+        <label>Billing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Shipping</fullName>
+        <default>false</default>
+        <label>Shipping</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Primary Mailing</fullName>
+        <default>false</default>
+        <label>Primary Mailing</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Principal Place of Business</fullName>
+        <default>false</default>
+        <label>Principal Place of Business</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Registered</fullName>
+        <default>false</default>
+        <label>Registered</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Primary Residential</fullName>
+        <default>false</default>
+        <label>Primary Residential</label>
+    </standardValue>
+</StandardValueSet>

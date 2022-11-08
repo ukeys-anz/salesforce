@@ -10,7 +10,6 @@
     <columns>Followup_Date__c</columns>
     <columns>Expiry_Date__c</columns>
     <columns>Expiry_Indicator__c</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>LEAD.RECORDTYPE</field>
         <operation>equals</operation>
@@ -21,8 +20,9 @@
         <operation>equals</operation>
         <value>New,In progress,Referred</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Commercial Leads</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>

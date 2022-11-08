@@ -9,7 +9,7 @@ private with sharing class ContentVersionTriggerHandlerTest {
           Title = 'Test',
           PathOnClient = '/test.pdf',
           VersionData = Blob.valueOf('Test'),
-          Description = 'Test description 1234-5678-9101 check mask',
+          Description = 'Test description 1234-5678-9101-7632-3321 check mask',
           RecordTypeId = IDRConstants.COMPLAINT_FILE_RT_ID
         )
       );
@@ -25,17 +25,17 @@ private with sharing class ContentVersionTriggerHandlerTest {
     Test.startTest();
     ContentVersion cv = [SELECT Description FROM ContentVersion LIMIT 1];
     System.assertEquals(
-      'Test description ********9101 check mask',
+      'Test description ****************3321 check mask',
       cv.Description,
       'Description should be masked.'
     );
     //AND WHEN updated
-    cv.Description = '987654321';
+    cv.Description = '1234-5678-9101-7632-3321';
     update cv;
     //THEN long numbers in free text fields are masked, showing only the last four digits
     cv = [SELECT Description FROM ContentVersion LIMIT 1];
     System.assertEquals(
-      '*****4321',
+      '****************3321',
       cv.Description,
       'Description should be masked.'
     );

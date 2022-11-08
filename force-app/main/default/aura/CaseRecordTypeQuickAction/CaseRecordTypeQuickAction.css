@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
 }
+.THIS .slds-modal__container {
+  height: auto;
+  max-height: min-content;
+}
 .THIS .slds-card__header {
   border-bottom-width: 2px;
   border-bottom-style: solid;
@@ -69,4 +73,6 @@
   background: rgb(243, 242, 242);
   justify-content: flex-end;
   display: flex;
+  position: sticky;
+  bottom: 0;
 }
