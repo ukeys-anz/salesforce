@@ -17,6 +17,9 @@
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>force__FSCInsurance</permissionSets>
+    <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
@@ -31,8 +34,5 @@
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>
-    <permissionSets>force__FSCInsurance</permissionSets>
-    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
-    <permissionSets>force__Mortgage</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

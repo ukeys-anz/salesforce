@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__MaritalStatus__c</fullName>
-    <businessStatus>Hidden</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source_OCV</complianceGroup>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Marital Status</label>
@@ -14,44 +14,87 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Single</fullName>
+                <fullName>S</fullName>
                 <default>false</default>
                 <label>Single</label>
             </value>
             <value>
-                <fullName>Married</fullName>
+                <fullName>M</fullName>
                 <default>false</default>
                 <label>Married</label>
             </value>
             <value>
-                <fullName>Separated</fullName>
+                <fullName>P</fullName>
                 <default>false</default>
                 <label>Separated</label>
             </value>
             <value>
-                <fullName>Divorced</fullName>
+                <fullName>D</fullName>
                 <default>false</default>
                 <label>Divorced</label>
             </value>
             <value>
-                <fullName>Widowed</fullName>
+                <fullName>W</fullName>
                 <default>false</default>
                 <label>Widowed</label>
             </value>
             <value>
+                <fullName>F</fullName>
+                <default>false</default>
+                <label>DeFacto</label>
+            </value>
+            <value>
+                <fullName>Z</fullName>
+                <default>false</default>
+                <label>Not disclosed</label>
+            </value>
+            <value>
+                <fullName>Single</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Single-old</label>
+            </value>
+            <value>
+                <fullName>Married</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Married-old</label>
+            </value>
+            <value>
+                <fullName>Separated</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Separated-old</label>
+            </value>
+            <value>
+                <fullName>Divorced</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Divorced-old</label>
+            </value>
+            <value>
+                <fullName>Widowed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Widowed-old</label>
+            </value>
+            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
-                <label>Other</label>
+                <isActive>false</isActive>
+                <label>Other-old</label>
             </value>
             <value>
                 <fullName>Married/Defacto</fullName>
                 <default>false</default>
-                <label>Married/Defacto</label>
+                <isActive>false</isActive>
+                <label>Married/Defacto-old</label>
             </value>
             <value>
                 <fullName>Unknown</fullName>
                 <default>false</default>
-                <label>Unknown</label>
+                <isActive>false</isActive>
+                <label>Unknown-old</label>
             </value>
         </valueSetDefinition>
     </valueSet>

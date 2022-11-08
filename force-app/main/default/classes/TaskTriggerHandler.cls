@@ -19,6 +19,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
     IDRTaskActions.beforeInsertActions(records);
     GetHelpTaskActions.beforeInsertActions(records);
     CCRMTaskActions.validateLeadAbnACN(records);
+    CCRMTaskActions.populateData(records, null);
   }
   /**
    * @description onAfterInsert to perform processing during the after insert phase
@@ -35,6 +36,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     IDRTaskActions.updateNotificationSubject(records);
     IDRTaskActions.beforeUpdateActions(records, (Map<Id, Task>) oldMap);
+    CCRMTaskActions.populateData(records, (Map<Id, Task>) oldMap);
   }
   /**
    * @description onAfterUpdate to handle after update trigger actions.
@@ -42,6 +44,12 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRTaskActions.afterUpdateActions(records);
+  }
+  /**
+   * @description onBeforeDelete to handle before delete trigger actions.
+   */
+  public override void onBeforeDelete() {
+    CCRMTaskActions.preventDelete(records);
   }
   /**
    * @description Assesses whether or not to generate a banker notification

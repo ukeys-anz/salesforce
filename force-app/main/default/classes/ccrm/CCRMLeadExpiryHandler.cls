@@ -18,22 +18,23 @@ public with sharing class CCRMLeadExpiryHandler {
 
     try {
       if (Schema.sObjectType.Lead.isUpdateable() && !updatedLeads.isEmpty()) {
-        Database.update(updatedLeads, true);
+        List<Database.SaveResult> results = Database.update(
+          updatedLeads,
+          false
+        );
+        Logger.error(
+          'Error occured while updating Lead Status to Expired.',
+          results
+        );
+        Logger.saveLog();
       }
     } catch (Exception e) {
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadExpiryHandler.class.getName(),
-        'updateExpiredLeads'
-      );
-      log.error(
-        '',
+      Logger.error(
         'Error occured while updating Lead Status to Expired. ' +
         'More details: ' +
         e.getMessage()
       );
-
-      // Cannot use async method here, as Future method cannot be called from a future or batch method.
-      log.insertLog();
+      Logger.saveLog();
     }
   }
 }

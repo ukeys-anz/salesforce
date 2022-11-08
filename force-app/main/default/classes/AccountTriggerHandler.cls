@@ -36,6 +36,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     CCRMAccountActions.setControllingPost(records, (Map<Id, Account>) oldMap);
     AccountCommonActions.revertAccountChanges(records, oldMap);
+    CCRMAccountActions.revertAccountChanges(records, oldMap);
   }
 
   /**

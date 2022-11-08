@@ -5,5 +5,5 @@
     <eventType>HighVolume</eventType>
     <label>Lead Event</label>
     <pluralLabel>Lead Events</pluralLabel>
-    <publishBehavior>PublishAfterCommit</publishBehavior>
+    <publishBehavior>PublishImmediately</publishBehavior>
 </CustomObject>

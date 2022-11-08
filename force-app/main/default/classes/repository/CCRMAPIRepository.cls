@@ -128,4 +128,46 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
     }
     return result;
   }
+
+  /**
+   * @param record Lead record
+   * @return CCRMSearchPartyModel result
+   * @description calls the service class methods for integration/callout
+   */
+  public CCRMSearchPartyModel searchPartyInfo(Lead record) {
+    CCRMSearchPartyModel result;
+    Service s = ServiceProvider.getService(CCRMSearchPartyService.class);
+    HttpCalloutResponse response = s.searchPartyInfo(record);
+    if (response.successful) {
+      try {
+        result = CCRMSearchPartyModel.parse(response.body);
+      } catch (Exception e) {
+        handleErrors(null, e, CCRMAPIRepository.class);
+      }
+    } else {
+      handleErrors(response, null, CCRMAPIRepository.class);
+    }
+    return result;
+  }
+
+  /**
+   * @param record Lead record
+   * @return CCRMCreatePartyModel result
+   * @description calls the service class methods for integration/callout
+   */
+  public CCRMCreatePartyModel createParty(Lead record) {
+    CCRMCreatePartyModel result;
+    Service s = ServiceProvider.getService(CCRMCreatePartyService.class);
+    HttpCalloutResponse response = s.createParty(record);
+    if (response.successful) {
+      try {
+        result = CCRMCreatePartyModel.parse(response.body);
+      } catch (Exception e) {
+        handleErrors(null, e, CCRMAPIRepository.class);
+      }
+    } else {
+      handleErrors(response, null, CCRMAPIRepository.class);
+    }
+    return result;
+  }
 }

@@ -38,7 +38,7 @@ public without sharing class IDRTaskActions {
     '%' +
     IDRConstants.TASK_SUBJECT_DAY5 +
     '%';
-    
+
   public static Group siQueue = [
     SELECT Id
     FROM Group

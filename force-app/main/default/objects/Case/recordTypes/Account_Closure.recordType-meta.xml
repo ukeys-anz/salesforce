@@ -5208,7 +5208,7 @@
     </picklistValues>
     <picklistValues>
         <picklist>IDR_NC_State__c</picklist>
-         <values>
+        <values>
             <fullName>1</fullName>
             <default>false</default>
         </values>

@@ -25,6 +25,7 @@ public with sharing class CCRMLeadMappingEngine {
     List<Lead> records,
     Set<String> relatedPartyIds
   ) {
+    Map<string, Map<string, string>> accountToLeadMappingWithAccount = new Map<string, Map<string, string>>();
     Map<string, string> accountToLeadMapping = new Map<string, string>();
     String query = '';
 
@@ -37,6 +38,7 @@ public with sharing class CCRMLeadMappingEngine {
 
     //Creates Mapping for different types of accounts using Account_Type__c field withing custom metadata
     for (Lead record : records) {
+      Map<string, string> accountToLeadMappingClone = new Map<string, string>();
       String accountType = getAccountType(
         mapAccountsRecordTypeId.get(record.FinServ__RelatedAccount__c)
           .RecordTypeId
@@ -48,21 +50,39 @@ public with sharing class CCRMLeadMappingEngine {
           if (
             mapping.Account_Field_API_Name__c != null &&
             mapping.Lead_Field_API_Name__c != null &&
-            mapping.Account_Type__c == accountType &&
-            !accountToLeadMapping.containsKey(mapping.Account_Field_API_Name__c)
+            mapping.Account_Type__c == accountType
           ) {
+            if (
+              !accountToLeadMapping.containsKey(
+                mapping.Account_Field_API_Name__c
+              )
+            ) {
+              query += mapping.Account_Field_API_Name__c + ',';
+            }
+            //Holds mapping of account and leads fields from custom metadata
             accountToLeadMapping.put(
               mapping.Account_Field_API_Name__c,
               mapping.Lead_Field_API_Name__c
             );
-            query += mapping.Account_Field_API_Name__c + ',';
+            //Create clone to create Map based on account types
+            accountToLeadMappingClone.put(
+              mapping.Account_Field_API_Name__c,
+              mapping.Lead_Field_API_Name__c
+            );
           }
         }
+        //Maping with Key: Account Type and Values: Lead and Acount fields
+        accountToLeadMappingWithAccount.put(
+          accountType,
+          accountToLeadMappingClone
+        );
       }
     }
 
     //Get accounts data for all the fields defined within custom metadata
-    if (!accountToLeadMapping.isEmpty() && String.isNotBlank(query)) {
+    if (
+      !accountToLeadMappingWithAccount.isEmpty() && String.isNotBlank(query)
+    ) {
       query = query.removeEnd(',');
       query =
         'SELECT ' +
@@ -74,7 +94,7 @@ public with sharing class CCRMLeadMappingEngine {
       if (accountMap.size() > 0) {
         leadList = records;
         accountList = accountMap;
-        mapAccountFieldsToLead(accountToLeadMapping, true);
+        mapAccountFieldsToLead(accountToLeadMappingWithAccount, true);
       }
     }
   }
@@ -89,6 +109,9 @@ public with sharing class CCRMLeadMappingEngine {
     List<Lead> records,
     Map<String, Account> accountMap
   ) {
+    Map<string, Map<string, string>> accountToLeadMappingWithAccount = new Map<string, Map<string, string>>();
+    Map<string, Map<string, string>> contactToLeadMappingWithContact = new Map<string, Map<string, string>>();
+
     Map<string, string> accountToLeadMapping = new Map<string, string>();
     Map<string, string> contactToLeadMapping = new Map<string, string>();
     String accountFields = '';
@@ -108,6 +131,8 @@ public with sharing class CCRMLeadMappingEngine {
 
     //Creates Mapping for different types of accounts using Account_Type__c field withing custom metadata
     for (Lead record : records) {
+      Map<string, string> accountToLeadMappingClone = new Map<string, string>();
+      Map<string, string> contactToLeadMappingClone = new Map<string, string>();
       String fieldName = accountMap.containsKey(record.Customer_ID__c)
         ? record.Customer_ID__c
         : accountMap.containsKey(record.Business_ID__c)
@@ -127,16 +152,26 @@ public with sharing class CCRMLeadMappingEngine {
             mapping.Object__c == 'Account' &&
             mapping.Account_or_Contact_Field_API_Name__c != null &&
             mapping.Lead_Field_API_Name__c != null &&
-            mapping.Account_Type__c == accountType &&
-            !accountToLeadMapping.containsKey(
-              mapping.Account_or_Contact_Field_API_Name__c
-            )
+            mapping.Account_Type__c == accountType
           ) {
+            if (
+              !accountToLeadMapping.containsKey(
+                mapping.Account_or_Contact_Field_API_Name__c
+              )
+            ) {
+              accountFields +=
+                mapping.Account_or_Contact_Field_API_Name__c + ',';
+            }
+            //Holds mapping of account and leads fields from custom metadata
             accountToLeadMapping.put(
               mapping.Account_or_Contact_Field_API_Name__c,
               mapping.Lead_Field_API_Name__c
             );
-            accountFields += mapping.Account_or_Contact_Field_API_Name__c + ',';
+            //Create clone to create Map - accountToLeadMappingWithAccount based on account types
+            accountToLeadMappingClone.put(
+              mapping.Account_or_Contact_Field_API_Name__c,
+              mapping.Lead_Field_API_Name__c
+            );
           }
 
           //Contact fields mapping
@@ -144,23 +179,44 @@ public with sharing class CCRMLeadMappingEngine {
             mapping.Object__c == 'Contact' &&
             mapping.Account_or_Contact_Field_API_Name__c != null &&
             mapping.Lead_Field_API_Name__c != null &&
-            mapping.Account_Type__c == accountType &&
-            !contactToLeadMapping.containsKey(
-              mapping.Account_or_Contact_Field_API_Name__c
-            )
+            mapping.Account_Type__c == accountType
           ) {
+            if (
+              !contactToLeadMapping.containsKey(
+                mapping.Account_or_Contact_Field_API_Name__c
+              )
+            ) {
+              contactFields +=
+                mapping.Account_or_Contact_Field_API_Name__c + ',';
+            }
+            //Holds mapping of contact and leads fields from custom metadata
             contactToLeadMapping.put(
               mapping.Account_or_Contact_Field_API_Name__c,
               mapping.Lead_Field_API_Name__c
             );
-            contactFields += mapping.Account_or_Contact_Field_API_Name__c + ',';
+            //Create clone to create Map - contactToLeadMappingWithContact based on account types
+            contactToLeadMappingClone.put(
+              mapping.Account_or_Contact_Field_API_Name__c,
+              mapping.Lead_Field_API_Name__c
+            );
           }
         }
+        //Maping with Key: Account Type and Values: Lead and Acount fields
+        accountToLeadMappingWithAccount.put(
+          accountType,
+          accountToLeadMappingClone
+        );
+        //Maping with Key: Account Type and Values: Lead and Contact fields
+        contactToLeadMappingWithContact.put(
+          accountType,
+          contactToLeadMappingClone
+        );
       }
     }
 
     if (
-      (!accountToLeadMapping.isEmpty() || !contactToLeadMapping.isEmpty()) &&
+      (!accountToLeadMappingWithAccount.isEmpty() ||
+      !contactToLeadMappingWithContact.isEmpty()) &&
       (String.isNotBlank(accountFields) || String.isNotBlank(contactFields))
     ) {
       //Get accounts and contact data for all the fields defined within custom metadata
@@ -179,8 +235,8 @@ public with sharing class CCRMLeadMappingEngine {
         leadList = records;
         accountList = accountFieldsMap;
         mappedField = accountToLeadMapping;
-        mapAccountFieldsToLead(accountToLeadMapping, false);
-        mapContactFieldsToLead(contactToLeadMapping);
+        mapAccountFieldsToLead(accountToLeadMappingWithAccount, false);
+        mapContactFieldsToLead(contactToLeadMappingWithContact);
         mapCorrespondingClgAccount(relatedPartyIds);
       }
     }
@@ -217,7 +273,7 @@ public with sharing class CCRMLeadMappingEngine {
           RecordTypeId
         FROM Account
         WHERE
-          Source_System_Name__c = 'CAP'
+          Source_System_Name__c = :System.Label.CCRM_Source_System_Name
           AND Source_System_ID__c IN :accountIds
       ]) {
         if (!String.isBlank(accountRecord.Source_System_ID__c)) {
@@ -236,9 +292,13 @@ public with sharing class CCRMLeadMappingEngine {
    * opportunity creation when lead is converted
    * @name mapLeadToOpportunityFields
    * @param leadIds The record ids of Leads.
+   * @param mapofAccountId map of lead id and account id from lead conversion result
    * @return Map<Id, Opportunity> Map of lead and opportunities
    */
-  public Map<Id, Opportunity> mapLeadToOpportunityFields(Set<Id> leadIds) {
+  public Map<Id, Opportunity> mapLeadToOpportunityFields(
+    Set<Id> leadIds,
+    Map<Id, Id> mapofAccountId
+  ) {
     List<Lead> records = [
       SELECT
         FinServ__RelatedAccount__r.Name,
@@ -267,8 +327,15 @@ public with sharing class CCRMLeadMappingEngine {
       opportunity.Name = 'placeholder';
       opportunity.Amount = lead.FinServ__PotentialValue__c;
       opportunity.Description = lead.Description;
-      opportunity.AccountId = lead.FinServ__RelatedAccount__c;
-      opportunity.CampaignId = lead.CampaignMembers[0].CampaignId;
+      opportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
+      opportunity.AccountId = String.isNotBlank(lead.FinServ__RelatedAccount__c)
+        ? lead.FinServ__RelatedAccount__c
+        : mapofAccountId.containsKey(lead.Id)
+            ? mapofAccountId.get(lead.Id)
+            : null;
+      opportunity.CampaignId = lead.CampaignMembers.isEmpty()
+        ? null
+        : lead.CampaignMembers[0].CampaignId;
       opportunity.OwnerID = lead.OwnerID;
       opportunity.Lead_Converted__c = true;
       String contactField = '';
@@ -304,11 +371,11 @@ public with sharing class CCRMLeadMappingEngine {
   /**
    * @description This method map account fields to lead fields using custom metadata
    * @name mapAccountFieldsToLead
-   * @param accountToLeadMapping Map of accounts fields to lead fields
+   * @param accountToLeadMappingWithAccount Map of accounts fields to lead fields with Key as account type
    * @param isManual For manual leads
    */
   private void mapAccountFieldsToLead(
-    Map<string, string> accountToLeadMapping,
+    Map<string, Map<string, string>> accountToLeadMappingWithAccount,
     Boolean isManual
   ) {
     if (isManual) {
@@ -323,6 +390,15 @@ public with sharing class CCRMLeadMappingEngine {
     }
 
     for (Lead lead : leadList) {
+      String accountType = getAccountType(
+        mapAccountsRecordTypeId.get(lead.FinServ__RelatedAccount__c)
+          .RecordTypeId
+      );
+
+      Map<String, String> accountToLeadMapping = accountToLeadMappingWithAccount.get(
+        accountType
+      );
+
       for (String fieldName : accountToLeadMapping.keySet()) {
         String leadField = accountToLeadMapping.get(fieldName);
         //Exempt Industry from dynamic mapping.
@@ -420,43 +496,52 @@ public with sharing class CCRMLeadMappingEngine {
   /**
    * @description This methods returns Preferred Contact. If no preferred contact exist return recent created contact otherwise return null
    * @name getContactForMapping
+   * @param lead Lead record
    * @return Contact Returns Contact object
    */
-  private Contact getContactForMapping() {
+  private Contact getContactForMapping(Lead lead) {
     Contact contactForMapping = new Contact();
-    for (Lead lead : leadList) {
-      List<Contact> contacts = accountList.get(lead.FinServ__RelatedAccount__c)
-        .contacts;
-      if (contacts.size() == 0) {
-        return null;
-      }
-      for (Contact contact : contacts) {
-        if (contact.Is_Preferred_Contact__c) {
-          contactForMapping = contact;
-          break;
-        } else {
-          contactForMapping = contacts[0];
-        }
+    List<Contact> contacts = accountList.get(lead.FinServ__RelatedAccount__c)
+      .contacts;
+    if (contacts.size() == 0) {
+      return null;
+    }
+    for (Contact contact : contacts) {
+      if (contact.Is_Preferred_Contact__c) {
+        contactForMapping = contact;
+        break;
+      } else {
+        contactForMapping = contacts[0];
       }
     }
+
     return contactForMapping;
   }
 
   /**
    * @description This method map contact fields to lead fields using custom metadata
    * @name mapContactFieldsToLead
-   * @param contactToLeadMapping Fields for mapping
+   * @param contactToLeadMappingWithContact Fields for mapping
    */
   private void mapContactFieldsToLead(
-    Map<string, string> contactToLeadMapping
+    Map<string, Map<string, string>> contactToLeadMappingWithContact
   ) {
     for (Lead lead : leadList) {
-      Contact contact = getContactForMapping();
+      Contact contact = getContactForMapping(lead);
       //If no contact exist then assign default first and last name
       if (contact == null) {
         lead.put('FirstName', CCRMConstants.NO_CONTACT_FOUND);
         lead.put('LastName', CCRMConstants.NO_CONTACT_FOUND);
       } else {
+        String accountType = getAccountType(
+          mapAccountsRecordTypeId.get(lead.FinServ__RelatedAccount__c)
+            .RecordTypeId
+        );
+
+        Map<String, String> contactToLeadMapping = contactToLeadMappingWithContact.get(
+          accountType
+        );
+
         for (String fieldName : contactToLeadMapping.keySet()) {
           String leadField = contactToLeadMapping.get(fieldName);
           if (

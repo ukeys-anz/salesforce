@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Subject__c</fullName>
-    <description>Subject on Task</description>
+    <fullName>Prospect_ID__c</fullName>
+    <description>Prospect Id of lead</description>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Subject</label>
-    <length>255</length>
+    <label>Prospect ID</label>
+    <length>15</length>
     <required>false</required>
     <type>Text</type>
     <unique>false</unique>

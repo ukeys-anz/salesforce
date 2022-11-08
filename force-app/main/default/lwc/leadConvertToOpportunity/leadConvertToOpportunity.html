@@ -1,9 +1,10 @@
 <template>
+  <lightning-spinner if:true={isLoading}></lightning-spinner>
   <template if:true={isModalOpen}>
     <section
       role="dialog"
       tabindex="-1"
-      class="slds-modal slds-fade-in-open slds-modal_small"
+      class="slds-modal slds-fade-in-open slds-modal_medium"
       aria-labelledby="modal-heading-01"
       aria-modal="true"
     >
@@ -20,39 +21,134 @@
               </ul>
               <br />
             </div>
+            <div class="slds-modal__footer">
+              <lightning-button
+                variant="neutral"
+                class="slds-var-p-around_x-small"
+                label="OK"
+                onclick={closeAction}
+                >OK
+              </lightning-button>
+            </div>
           </template>
           <template if:true={validLead}>
-            <div
-              class="slds-modal__content slds-p-around_medium"
-              id="modal-content-id-2"
-            >
-              {leadTitle} You will be automatically redirected to the new
-              Opportunity page.
-            </div>
-            <div style="margin-left: 2%">
-              <lightning-progress-bar
-                size="medium"
-                value={progress}
-                variant="circular"
+            <template if:true={leadDetails}>
+              <lightning-card title="Lead Details" icon-name="standard:lead">
+                <div class="slds-var-m-around_medium">
+                  <lightning-record-form
+                    object-api-name="Lead"
+                    record-id={recordId}
+                    fields={fields}
+                    mode="readonly"
+                    columns="2"
+                  ></lightning-record-form>
+                </div>
+                <footer class="slds-modal__footer">
+                  <lightning-button
+                    variant="neutral"
+                    label="Cancel"
+                    title="Cancel"
+                    onclick={closeAction}
+                  ></lightning-button>
+                  <lightning-button
+                    variant="neutral"
+                    label="Search Party"
+                    title="Search Party"
+                    onclick={searchForParty}
+                  ></lightning-button>
+                </footer>
+              </lightning-card>
+            </template>
+            <template if:true={searchParty}>
+              <lightning-card title="Certified Results">
+                <div style={setCertifiedTableHeight}>
+                  <lightning-datatable
+                    key-field="certifiedDataId"
+                    data={certifiedResults}
+                    columns={columns}
+                    max-row-selection="1"
+                    onrowselection={getCertifiedSelectedRow}
+                    selected-rows={setCertifiedSelectedRow}
+                  >
+                  </lightning-datatable>
+                </div>
+                <template if:true={noDataCertified}>
+                  <div style="height: 100px">
+                    <br />
+                    <h1 class="slds-align_absolute-center">
+                      <span>No Records Found!</span>
+                    </h1>
+                  </div>
+                </template>
+              </lightning-card>
+              <lightning-card title="Probable Results">
+                <div style={setProbableTableHeight}>
+                  <lightning-datatable
+                    key-field="probableDataId"
+                    data={probableResults}
+                    columns={columns}
+                    max-row-selection="1"
+                    onrowselection={getProbableSelectedRow}
+                    selected-rows={setProbableSelectedRow}
+                  >
+                  </lightning-datatable>
+                </div>
+                <template if:true={noDataProbable}>
+                  <div style="height: 100px">
+                    <br />
+                    <h1 class="slds-align_absolute-center">
+                      <span>No Records Found!</span>
+                    </h1>
+                  </div>
+                </template>
+              </lightning-card>
+              <footer class="slds-modal__footer">
+                <lightning-button
+                  variant="neutral"
+                  label="Cancel"
+                  title="Cancel"
+                  onclick={closeAction}
+                ></lightning-button>
+                <lightning-button
+                  variant="neutral"
+                  label="No Match"
+                  title="No Match"
+                  onclick={createParty}
+                ></lightning-button>
+                <template if:true={isConvertLeadButton}>
+                  <lightning-button
+                    variant="neutral"
+                    label="Convert Lead"
+                    title="Convert Lead"
+                    onclick={initiateLeadConversion}
+                  ></lightning-button>
+                </template>
+              </footer>
+            </template>
+            <template if:true={isConvertLead}>
+              <div
+                class="slds-modal__content slds-p-around_medium"
+                id="modal-content-id-2"
               >
-              </lightning-progress-bar>
-            </div>
-            <div
-              class="slds-text-align--center slds-text-title"
-              style="color: forestgreen"
-            >
-              {processStatus} ({progress}/100)
-            </div>
+                {leadTitle} You will be automatically redirected to the new
+                Opportunity page.
+              </div>
+              <div style="margin-left: 2%">
+                <lightning-progress-bar
+                  size="medium"
+                  value={progress}
+                  variant="circular"
+                >
+                </lightning-progress-bar>
+              </div>
+              <div
+                class="slds-text-align--center slds-text-title"
+                style="color: forestgreen"
+              >
+                {processStatus} ({progress}/100)
+              </div>
+            </template>
           </template>
-          <div class="slds-modal__footer">
-            <lightning-button
-              variant="brand"
-              class="slds-var-p-around_x-small"
-              label="OK"
-              onclick={closeAction}
-              >OK
-            </lightning-button>
-          </div>
         </lightning-card>
       </div>
     </section>

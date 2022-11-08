@@ -401,7 +401,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.BillingState = 'Victoria';
     accnt.BillingCountry = 'Australia';
     accnt.Source_System_ID__c = 'BUS1234';
-    accnt.Source_System_Name__c = 'CAP';
+    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     accnt.FinServ__Status__c = 'Active';
     insert accnt;
 
@@ -623,6 +623,7 @@ public with sharing class CCRMTestDataFactory {
     responseTypeRecord1.Response_Status__c = 'Accepted';
     responseTypeRecord1.Outcome_Reason__c = 'Happy with the Offer.';
     responseTypeRecord1.Create_Opportunity__c = true;
+    responseTypeRecord1.Create_To_Do_Activities__c = true;
     responseTypeRecord1.Follow_Up_State__c = 'R';
     responseTypeRecord1.Is_Active__c = true;
     responseTypeRecord1.UNICA_Lead_SubStatus__c = 'RPC';

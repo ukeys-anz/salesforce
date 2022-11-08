@@ -24,6 +24,46 @@ private class CCRMAccountActionsTest {
   }
 
   @isTest
+  static void testRevertAccountChanges() {
+    Faker faker = new Faker('AU');
+    Account testAccount;
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Test.startTest();
+
+      //GIVEN When a new account in created
+      testAccount = new Account(
+        FirstName = 'John',
+        LastName = 'Doe',
+        OCV_ID__c = faker.randomString(10),
+        AR_C_Customer__c = true
+      );
+      insert testAccount;
+
+      //WHEN the account is updated by a Banker user
+      testAccount.FirstName = 'Steve';
+      testAccount.LastName = 'Rogers';
+      update testAccount;
+      Test.stopTest();
+    }
+    //THEN the changes are reverted to its old value
+    testAccount = [
+      SELECT Id, FirstName, LastName
+      FROM Account
+      WHERE id = :testAccount.id
+    ];
+    System.assertEquals(
+      'John',
+      testAccount.FirstName,
+      'FirstName is not reverted to old value'
+    );
+    System.assertEquals(
+      'Doe',
+      testAccount.LastName,
+      'LastName is not reverted to old value'
+    );
+  }
+
+  @isTest
   static void testCreateAccount() {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       Test.startTest();
@@ -64,5 +104,53 @@ private class CCRMAccountActionsTest {
       System.assertEquals(acc1.CPID_Link__c, 'L7603', 'CPID is plain text');
       Test.stopTest();
     }
+  }
+
+  @isTest
+  private static void testConvertLeadDuringAccountInsert() {
+    Faker faker = new Faker('AU');
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      Lead l = new Lead();
+      l.Firstname = 'John';
+      l.Lastname = 'Something';
+      l.Company = 'Test Company';
+      l.Email = 'john.something@gmail.com';
+      l.RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID;
+      l.CAPCIS_ID__c = '123456789';
+      l.LeadSource = 'ANZ.com';
+      l.MobilePhone = '+61412345678';
+      l.Skip_Validations__c = 'ConvertLead';
+      insert l;
+    }
+    // GIVEN an account with matching capcis ID
+    Account testAccount = new Account(
+      Name = 'Test Company',
+      OCV_ID__c = faker.randomString(10),
+      AR_C_Customer__c = true,
+      RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID,
+      Source_System_Name__c = System.Label.CCRM_Source_System_Name,
+      Source_System_ID__c = '123456789',
+      FinServ__Status__c = 'Active'
+    );
+
+    Test.startTest();
+    // WHEN this account is inserted by OCV Integration User
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      insert testAccount;
+    }
+    Test.stopTest();
+
+    // THEN the existing lead is converted into this account
+    Lead le = [
+      SELECT Id, Status
+      FROM Lead
+      WHERE Firstname = 'John' AND Lastname = 'Something'
+      LIMIT 1
+    ];
+    System.assertEquals(
+      'Converted',
+      le.Status,
+      'Lead should have been converted.'
+    );
   }
 }

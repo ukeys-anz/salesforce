@@ -188,9 +188,14 @@ public with sharing class AccountCommonActions {
    * @param records The Account records passed from Trigger.new()
    */
   public static void findAndConvertLead(List<Account> records) {
-    // Find matching leads
-    Map<Id, List<Lead>> matchingLeadsByAccIdMap = AccountCommonActionsHelper.findMatchingLeads(
-      records
+    Map<Id, List<Lead>> matchingLeadsByAccIdMap = new Map<Id, List<Lead>>();
+    // Find matching ANZx leads
+    matchingLeadsByAccIdMap.putAll(
+      AccountCommonActionsHelper.findMatchingLeads(records)
+    );
+    // Find matching CCRM leads
+    matchingLeadsByAccIdMap.putAll(
+      CCRMAccountActions.findMatchingLeads(records)
     );
 
     // Convert matching leads into accounts
@@ -250,7 +255,7 @@ public with sharing class AccountCommonActions {
       List<Database.LeadConvertResult> lcResults = Database.convertLead(
         converts
       );
-
+      ccrmLeadConversionActions(matchingLeadsByAccIdMap, lcResults);
       for (Database.LeadConvertResult lcr : lcResults) {
         if (!lcr.isSuccess()) {
           lib_systemLog log = new lib_systemLog(
@@ -269,6 +274,100 @@ public with sharing class AccountCommonActions {
           log.publishEvent();
         }
       }
+    }
+
+    /**
+     * @description Post lead conversion actions for CCRM leads
+     * @param matchingLeadsByAccIdMap account and lead records map from lead conversion
+     * @param lcResults Lead conversion result
+     */
+    private void ccrmLeadConversionActions(
+      Map<Id, List<Lead>> matchingLeadsByAccIdMap,
+      List<Database.LeadConvertResult> lcResults
+    ) {
+      Set<Id> leadIds = new Set<Id>();
+      Map<Id, Id> mapOfAccountId = new Map<Id, Id>();
+      List<Contact> contactList = new List<Contact>();
+      for (Database.LeadConvertResult lcr : lcResults) {
+        if (lcr.isSuccess()) {
+          for (Lead l : matchingLeadsByAccIdMap.get(lcr.getAccountId())) {
+            if (CCRMLeadUtil.isCCRMLeadType(l)) {
+              leadIds.add(l.Id);
+              contactList.add(new Contact(Id = lcr.getContactId()));
+              mapOfAccountId.put(l.Id, lcr.getAccountId());
+            }
+          }
+        }
+      }
+      if (!leadIds.isEmpty()) {
+        createOpportunities(leadIds, mapOfAccountId);
+        deleteAutoCreatedContacts(contactList);
+      }
+    }
+
+    /**
+     * @description Post lead conversion actions for CCRM leads
+     * @param leadIds set of lead ids from lead conversion
+     * @param mapOfAccountId map of lead and account id
+     */
+    private void createOpportunities(
+      Set<Id> leadIds,
+      Map<Id, Id> mapOfAccountId
+    ) {
+      Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
+      Map<Id, Opportunity> mapOfLeadsWithOpportunities = new CCRMLeadMappingEngine()
+        .mapLeadToOpportunityFields(leadIds, mapOfAccountId);
+      if (mapOfLeadsWithOpportunities.size() > 0) {
+        insert mapOfLeadsWithOpportunities.values();
+      }
+      for (Id leadId : leadIds) {
+        mapOfOpportunityId.put(
+          leadId,
+          mapOfLeadsWithOpportunities.get(leadId).Id
+        );
+      }
+      CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
+        leadIds,
+        mapOfOpportunityId
+      );
+      transferTasksToOpportunity(mapOfOpportunityId);
+    }
+
+    /**
+     * @description transfer tasks from lead to opportunity by updating WhatId
+     * @param mapOfOpportunityId map of opportunity id with lead id
+     */
+    private void transferTasksToOpportunity(Map<Id, Id> mapOfOpportunityId) {
+      if (!CCRMLeadPlatformEventHelper.leadTask.isEmpty()) {
+        for (Task taskRecord : CCRMLeadPlatformEventHelper.leadTask) {
+          if (mapOfOpportunityId.containsKey(taskRecord.WhoId)) {
+            taskRecord.WhatId = mapOfOpportunityId.get(taskRecord.WhoId);
+            taskRecord.WhoId = null;
+          }
+        }
+        List<Database.SaveResult> results = Database.update(
+          CCRMLeadPlatformEventHelper.leadTask,
+          false
+        );
+        Logger.error(
+          'Error occured while updating tasks during lead conversion.',
+          results
+        );
+        Logger.saveLog();
+      }
+    }
+
+    /**
+     * @description delete auto created contacts post lead conversion
+     * @param contactList list of contacts from lead conversion
+     */
+    private void deleteAutoCreatedContacts(List<Contact> contactList) {
+      List<Database.DeleteResult> results = Database.delete(contactList, false);
+      Logger.error(
+        'Error occured while deleting contacts during lead conversion.',
+        results
+      );
+      Logger.saveLog();
     }
   }
 }

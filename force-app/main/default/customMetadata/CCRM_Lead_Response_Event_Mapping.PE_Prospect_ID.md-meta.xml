@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>PE Subject</label>
+    <label>PE Prospect Id</label>
     <protected>false</protected>
     <values>
         <field>Destination_System__c</field>
@@ -8,14 +8,14 @@
     </values>
     <values>
         <field>Object__c</field>
-        <value xsi:type="xsd:string">Task</value>
+        <value xsi:type="xsd:string">Lead</value>
     </values>
     <values>
         <field>Platform_Event_Field_API_Name__c</field>
-        <value xsi:type="xsd:string">Subject__c</value>
+        <value xsi:type="xsd:string">Prospect_ID__c</value>
     </values>
     <values>
         <field>Task_or_Lead_Field_API_Name__c</field>
-        <value xsi:type="xsd:string">Subject</value>
+        <value xsi:type="xsd:string">Prospect_Id__c</value>
     </values>
 </CustomMetadata>

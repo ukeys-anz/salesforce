@@ -714,15 +714,19 @@
     <picklistValues>
         <picklist>FinServ__KYCStatus__c</picklist>
         <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NO STATUS ISSUED</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CO</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>NE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NO STATUS ISSUED</fullName>
             <default>false</default>
         </values>
         <values>
@@ -735,6 +739,30 @@
         </values>
         <values>
             <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed - Invalid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed - Valid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Queue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overdue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Required</fullName>
             <default>false</default>
         </values>
         <values>
@@ -772,27 +800,31 @@
     <picklistValues>
         <picklist>FinServ__MaritalStatus__pc</picklist>
         <values>
-            <fullName>Divorced</fullName>
+            <fullName>D</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Married%2FDefacto</fullName>
+            <fullName>M</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Separated</fullName>
+            <fullName>P</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Single</fullName>
+            <fullName>S</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unknown</fullName>
+            <fullName>F</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Widowed</fullName>
+            <fullName>W</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Z</fullName>
             <default>false</default>
         </values>
     </picklistValues>

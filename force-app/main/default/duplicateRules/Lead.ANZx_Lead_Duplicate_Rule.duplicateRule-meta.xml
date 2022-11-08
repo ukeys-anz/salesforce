@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<DuplicateRule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
     <alertText>Potential duplicates exist, use one of these records?</alertText>
@@ -9,14 +9,14 @@
         <duplicateRuleFilterItems>
             <field>RecordType</field>
             <operation>equals</operation>
-            <value>ANZX Leads</value>
             <sortOrder>1</sortOrder>
             <table>Lead</table>
+            <value>ANZX Leads</value>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
-        <matchRuleSObjectType>Lead</matchRuleSObjectType>
         <matchingRule>Match_ANZx_Leads_by_Name_Email_and_MobilePhone</matchingRule>
+        <matchRuleSObjectType>Lead</matchRuleSObjectType>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
@@ -25,5 +25,5 @@
     <operationsOnUpdate>Alert</operationsOnUpdate>
     <operationsOnUpdate>Report</operationsOnUpdate>
     <securityOption>BypassSharingRules</securityOption>
-    <sortOrder>1</sortOrder>
+    <sortOrder>7</sortOrder>
 </DuplicateRule>

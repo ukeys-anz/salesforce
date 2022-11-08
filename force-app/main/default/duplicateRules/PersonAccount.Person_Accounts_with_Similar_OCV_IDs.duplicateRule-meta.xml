@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<DuplicateRule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
     <alertText>Looks like there was more than one record having the same OCV ID as this record. Please make sure you have selected the correct one.</alertText>
@@ -9,14 +9,14 @@
         <duplicateRuleFilterItems>
             <field>Username</field>
             <operation>notContain</operation>
-            <value>ocvintegration.user</value>
             <sortOrder>1</sortOrder>
             <table>User</table>
+            <value>ocvintegration.user</value>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
-        <matchRuleSObjectType>PersonAccount</matchRuleSObjectType>
         <matchingRule>Match_Person_Accounts_with_Similar_OCV_ID</matchingRule>
+        <matchRuleSObjectType>PersonAccount</matchRuleSObjectType>
         <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
