@@ -97,13 +97,12 @@ public with sharing class ChatterPostActions {
             ConnectApi.EntityLinkSegmentInput entityLinkSegmentInputLead = new ConnectApi.EntityLinkSegmentInput();
             entityLinkSegmentInputLead.entityId = parentLead.Id;
             messageBodyInput.messageSegments.add(entityLinkSegmentInputLead);
-          } else if (messageText.contains('{LeadListViewId}')) {
-            ConnectApi.FeedElementCapabilitiesInput feedElementCapabilitiesInput = new ConnectApi.FeedElementCapabilitiesInput();
-            feedElementCapabilitiesInput.link = lsitViewLink;
-            feedItemInput.capabilities = feedElementCapabilitiesInput;
           } else if (messageText.contains('{Lead.Lead_Originator__c}')) {
             textSegmentInput = new ConnectApi.TextSegmentInput();
-            textSegmentInput.text = parentLead.Lead_Originator__c;
+            textSegmentInput.text = messageText.replace(
+              '{Lead.Lead_Originator__c}',
+              parentLead.Lead_Originator__c
+            );
             messageBodyInput.messageSegments.add(textSegmentInput);
           } else {
             textSegmentInput = new ConnectApi.TextSegmentInput();

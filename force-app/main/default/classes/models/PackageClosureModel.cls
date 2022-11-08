@@ -14,7 +14,6 @@ public with sharing class PackageClosureModel extends CalloutModel {
   public Status status;
   @AuraEnabled
   public Meta meta;
-
   /**
    * @description indicates status
    */

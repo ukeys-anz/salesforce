@@ -16,19 +16,42 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Male</fullName>
+                <fullName>N</fullName>
+                <default>false</default>
+                <label>Non-Binary</label>
+            </value>
+            <value>
+                <fullName>M</fullName>
                 <default>false</default>
                 <label>Male</label>
             </value>
             <value>
-                <fullName>Female</fullName>
+                <fullName>F</fullName>
                 <default>false</default>
                 <label>Female</label>
             </value>
             <value>
+                <fullName>U</fullName>
+                <default>false</default>
+                <label>Prefer not to say</label>
+            </value>
+            <value>
+                <fullName>Male</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Male - Inactive</label>
+            </value>
+            <value>
+                <fullName>Female</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Female - Inactive</label>
+            </value>
+            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
-                <label>Other</label>
+                <isActive>false</isActive>
+                <label>Other - Inactive</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -6,7 +6,7 @@
     <description>Customer lending group number</description>
     <externalId>false</externalId>
     <label>CLG ID</label>
-    <length>12</length>
+    <length>30</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

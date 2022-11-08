@@ -14,4 +14,15 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Opportunity_Sharing_for_ANZ_User_Role</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Opportunity Sharing for ANZ User Role</label>
+        <sharedTo>
+            <role>ANZ</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

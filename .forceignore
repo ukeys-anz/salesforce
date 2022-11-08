@@ -143,3 +143,5 @@ force-app/main/default/settings/PlatformEncryption.settings-meta.xml
 force-app/main/default/objects/ResidentialLoanApplication/listViews/All_ResidentialLoanApplications.listView-meta.xml
 #to prevent the standard oob search layout view being re-deployed for 'All Interactions' and duplicating the custom list view name
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
+force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
+force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml

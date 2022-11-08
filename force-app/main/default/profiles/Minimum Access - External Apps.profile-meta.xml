@@ -1510,7 +1510,7 @@
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
-        <allowRead>false</allowRead>
+        <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Opportunity</object>
         <viewAllRecords>false</viewAllRecords>
@@ -1762,863 +1762,863 @@
     </pageAccesses>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AccessCMC</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ActivateContract</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ActivateOrder</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ActivitiesAccess</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AddDirectMessageMembers</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowEmailIC</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowLightningLogin</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowUniversalSearch</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowViewEditConvertedLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApexRestServices</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApiEnabled</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApiUserOnly</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApproveContract</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ArchiveArticles</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AssignPermissionSets</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AssignTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AuthorApex</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>BulkApiHardDelete</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>BulkMacrosAllowed</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanApproveFeedPost</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanEditPrompts</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanInsertFeedSystemFields</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanUseNewDashboardBuilder</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanVerifyComment</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChangeDashboardColors</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterComposeUiCodesnippet</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ChatterInternalUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterInviteExternalUsers</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterOwnGroups</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CloseConversations</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConfigCustomRecs</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConnectOrgToEnvironmentHub</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConsentApiUpdate</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ContentAdministrator</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ContentHubUser</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ContentWorkspaces</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConvertLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeFilters</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateDashboardFolders</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateLtngTempFolder</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateLtngTempInPub</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateReportFolders</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateReportInLightning</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateWorkspaces</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CustomizeApplication</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DataExport</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DelegatedTwoFactor</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DeleteActivatedContract</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DeleteTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditActivatedOrders</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditBrandTemplates</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditCaseComments</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditEvent</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditHtmlTemplates</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditKnowledge</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditMyDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditMyReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditOppLineItemUnitPrice</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditPublicDocuments</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditPublicFilters</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditPublicTemplates</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditReadonlyFields</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditTask</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditTranslation</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailMass</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailSingle</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EnableNotifications</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ExportReport</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>FeedPinning</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ForceTwoFactor</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>GiveRecognitionBadge</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>GovernNetworks</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>HideReadByList</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IPRestrictRequests</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IdentityEnabled</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportCustomObjects</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportPersonal</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>InboundMigrationToolsUser</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>InstallPackaging</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IsotopeAccess</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IsotopeLEX</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>LightningConsoleAllowedForUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>LightningExperienceUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ListEmailSend</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>LtngPromoReserved01UserPerm</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageAnalyticSnapshots</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageAuthProviders</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageBusinessHourHolidays</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCMS</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCallCenters</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCases</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCategories</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCertificates</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageChatterMessages</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageContentPermissions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageContentProperties</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageContentTypes</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCustomPermissions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCustomReportTypes</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDashbdsInPubFolders</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDataCategories</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDataIntegrations</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDynamicDashboards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageEmailClientConfig</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageEntitlements</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageExchangeConfig</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageExternalConnections</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageHealthCheck</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageHubConnections</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageInteraction</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageInternalUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageIpAddresses</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageKnowledge</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageKnowledgeImportExport</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageLeads</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageLoginAccessPolicies</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageMobile</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageNetworks</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePackageLicenses</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePasswordPolicies</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageProfilesPermissionsets</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePropositions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePvtRptsAndDashbds</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageRecommendationStrategies</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageReleaseUpdates</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageRemoteAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageReportsInPubFolders</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageRoles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSearchPromotionRules</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSessionPermissionSets</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSharing</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSolutions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSubscriptions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSynonyms</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageTwoFactor</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageUnlistedGroups</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>MassInlineEdit</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>MergeTopics</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModerateChatter</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModerateNetworkUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModifyAllData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModifyDataClassification</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModifyMetadata</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>NewReportBuilder</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>OutboundMigrationToolsUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>Packaging2</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PasswordNeverExpires</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PreventClassicExperience</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PrivacyDataAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PublishArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PublishTranslation</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>QueryAllFiles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>QuipMetricsAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RecordVisibilityAPI</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RemoveDirectMessageMembers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ResetPasswords</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RetainFieldHistory</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RunFlow</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RunReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SandboxTestingInCommunityApp</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ScheduleJob</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ScheduleReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SelectFilesFromSalesforce</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SendAnnouncementEmails</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SendSitRequests</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ShareInternalArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ShowCompanyNameAsUserBadge</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SkipIdentityConfirmation</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SolutionImport</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubmitForTranslation</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubmitMacrosAllowed</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeDashboardRolesGrps</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeDashboardToOtherUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeReportRolesGrps</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeReportToOtherUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeReportsRunAsUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeToLightningDashboards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeToLightningReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TraceXdsQueries</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransactionalEmailSend</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransferAnyCase</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransferAnyEntity</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransferAnyLead</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TwoFactorApi</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>UseTeamReassignWizards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>UseWebLink</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllCustomSettings</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllForeignKeyNames</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAnomalyEvents</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewArchivedArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewCaseInteraction</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDataAssessment</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDataCategories</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDataLeakageEvents</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDraftArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewEncryptedData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewEventLogFiles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewFlowUsageAndFlowEventData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewHealthCheck</name>
-    </userPermissions>
-    <userPermissions>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>LightningExperienceUser</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ListEmailSend</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>LtngPromoReserved01UserPerm</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageAnalyticSnapshots</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageAuthProviders</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageBusinessHourHolidays</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCMS</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCallCenters</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCases</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCategories</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCertificates</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageChatterMessages</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageContentPermissions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageContentProperties</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageContentTypes</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCustomPermissions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCustomReportTypes</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDashbdsInPubFolders</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDataCategories</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDataIntegrations</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDynamicDashboards</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageEmailClientConfig</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageEntitlements</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageExchangeConfig</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageExternalConnections</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageHealthCheck</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageHubConnections</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageInteraction</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageInternalUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageIpAddresses</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageKnowledge</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageKnowledgeImportExport</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageLeads</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageLoginAccessPolicies</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageMobile</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageNetworks</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePackageLicenses</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePasswordPolicies</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageProfilesPermissionsets</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePropositions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePvtRptsAndDashbds</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageRecommendationStrategies</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageReleaseUpdates</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageRemoteAccess</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageReportsInPubFolders</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageRoles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSearchPromotionRules</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSessionPermissionSets</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSharing</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSolutions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSubscriptions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSynonyms</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageTwoFactor</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageUnlistedGroups</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>MassInlineEdit</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>MergeTopics</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModerateChatter</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModerateNetworkUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModifyAllData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModifyDataClassification</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModifyMetadata</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>NewReportBuilder</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>OutboundMigrationToolsUser</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>Packaging2</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PasswordNeverExpires</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PreventClassicExperience</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PrivacyDataAccess</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PublishArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PublishTranslation</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>QueryAllFiles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>QuipMetricsAccess</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RecordVisibilityAPI</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RemoveDirectMessageMembers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ResetPasswords</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RetainFieldHistory</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RunFlow</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RunReports</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SandboxTestingInCommunityApp</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ScheduleJob</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ScheduleReports</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SelectFilesFromSalesforce</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SendAnnouncementEmails</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SendSitRequests</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ShareInternalArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ShowCompanyNameAsUserBadge</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SkipIdentityConfirmation</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SolutionImport</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubmitForTranslation</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubmitMacrosAllowed</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeDashboardRolesGrps</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeDashboardToOtherUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeReportRolesGrps</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeReportToOtherUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeReportsRunAsUser</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeToLightningDashboards</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeToLightningReports</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TraceXdsQueries</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransactionalEmailSend</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransferAnyCase</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransferAnyEntity</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransferAnyLead</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TwoFactorApi</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>UseTeamReassignWizards</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>UseWebLink</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllCustomSettings</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllForeignKeyNames</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAnomalyEvents</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewArchivedArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewCaseInteraction</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDataAssessment</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDataCategories</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDataLeakageEvents</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDraftArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewEncryptedData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewEventLogFiles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewFlowUsageAndFlowEventData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewHealthCheck</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ViewHelpLink</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewMyTeamsDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewPlatformEvents</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewPublicDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewPublicReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewRoles</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewSetup</name>
+        <enabled>false</enabled>
     </userPermissions>
 </Profile>

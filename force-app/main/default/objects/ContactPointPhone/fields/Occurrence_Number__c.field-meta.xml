@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Occurrence_Number__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source - OCV;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <description>Lead ID + Sequence to identify associated Lead Flex field record of Lead records.</description>
+    <externalId>false</externalId>
+    <label>Occurrence Number</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

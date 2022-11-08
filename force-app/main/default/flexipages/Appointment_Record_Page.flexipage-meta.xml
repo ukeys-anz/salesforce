@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -27,20 +28,20 @@
                 <identifier>force_highlightsPanel</identifier>
             </componentInstance>
         </itemInstances>
-        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>detailTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
-        <name>detailTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>relatedTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -59,10 +60,10 @@
                 <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>relatedTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>maintabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -95,10 +96,10 @@
                 <identifier>relatedListsTab</identifier>
             </componentInstance>
         </itemInstances>
-        <name>maintabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -109,10 +110,10 @@
                 <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
-        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>initiateInteraction</componentName>
@@ -182,7 +183,6 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Appointment Record Page</masterLabel>

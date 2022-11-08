@@ -368,4 +368,22 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+
+  /**
+   * @param record lead record
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches party information
+   */
+  public virtual HttpCalloutResponse searchPartyInfo(Lead record) {
+    return null;
+  }
+
+  /**
+   * @param record lead record
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches party information
+   */
+  public virtual HttpCalloutResponse createParty(Lead record) {
+    return null;
+  }
 }

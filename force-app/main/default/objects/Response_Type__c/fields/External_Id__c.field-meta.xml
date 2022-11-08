@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>External_Id__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <caseSensitive>false</caseSensitive>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <description>Field purpose is to uniquely identify the record to update when UNICA amends the response data of a campaign. Campaign Code + Response type + Business outcome reason identifies the record uniquely.</description>
+    <externalId>true</externalId>
+    <label>External ID</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

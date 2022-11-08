@@ -31,4 +31,24 @@ public with sharing class CCRMAPIRepositoryTest {
       'Validated ABN should be returned'
     );
   }
+
+  @isTest
+  static void testSearchPartyInfo() {
+    CCRMAPIRepository apiRepo = new CCRMAPIRepository();
+    Lead record = new Lead();
+    CCRMSearchPartyModel searchPartyInfo = apiRepo.searchPartyInfo(record);
+
+    // Verify response received contains fake values
+    System.assertEquals('123456789', searchPartyInfo.certifiedResults[0].ocvId);
+  }
+
+  @isTest
+  static void testCreatePartyInfo() {
+    CCRMAPIRepository apiRepo = new CCRMAPIRepository();
+    Lead record = new Lead();
+    CCRMCreatePartyModel createPartyInfo = apiRepo.createParty(record);
+
+    // Verify response received contains fake values
+    System.assertEquals('1234567891', createPartyInfo.capcisId);
+  }
 }

@@ -156,7 +156,7 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Lead Flex Field</label>
     <nameField>
-        <label>Lead Flex Field Name</label>
+        <label>Sequence</label>
         <type>Text</type>
     </nameField>
     <pluralLabel>Lead Flex Fields</pluralLabel>
