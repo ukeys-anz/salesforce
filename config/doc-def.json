@@ -20,6 +20,7 @@
     "ContentVersion",
     "Controlling_Post__c",
     "EmailMessage",
+    "External_Case_Status__c",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
     "Identifier__c",
