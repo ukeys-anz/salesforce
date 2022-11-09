@@ -203,7 +203,7 @@
         <sharedTo>
             <group>Coach_And_Coach_Lead_Group</group>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -223,6 +223,11 @@
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
             <value>true</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Non-Customer Complaint</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -628,25 +633,6 @@
             <value/>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Coach_Non_Customer_Compliant_RW</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Provides access to Non Customer Complaints for Coach Role</description>
-        <label>Coach Non Customer Compliant RW</label>
-        <sharedTo>
-            <role>Coach</role>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>ANZx_Customer__c</field>
-            <operation>equals</operation>
-            <value>true</value>
-        </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Join_Lead_Non_Customer_Compliant_RW</fullName>
