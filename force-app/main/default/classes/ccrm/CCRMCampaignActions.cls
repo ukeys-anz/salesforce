@@ -12,6 +12,9 @@ public with sharing class CCRMCampaignActions {
    */
   public static void setDefaultCampaign(List<Lead> records) {
     List<Lead> leadsToUpdate = new List<Lead>();
+    if (!Campaign.SObjectType.getDescribe().isAccessible()) {
+      return;
+    }
     Campaign defaultCampaign = getDefaultCampaign();
 
     for (Lead record : records) {
