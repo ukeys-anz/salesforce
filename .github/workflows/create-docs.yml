@@ -1,5 +1,5 @@
-# This workflow deployssysl files to salesforce-docs
-name: Create Sysl files
+# This workflow deploys docs files to salesforce-docs
+name: Create docs
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
       - develop
 
 jobs:
-  create_sysl:
+  create_docs:
     runs-on: [self-hosted, salesforce-prod]
     steps:
       - uses: actions/setup-node@v2.1.5
@@ -91,6 +91,18 @@ jobs:
         run: |
           ../plugin/bin/run doc:sysl -f config/doc-def.json -p config/panther-manual-desc.json -u staging
 
+      - name: Generate Schema docs
+        working-directory: salesforce
+        shell: bash
+        run: |
+          ../plugin/bin/run doc:schema -f config/doc-def.json -u staging
+
+      - name: Generate Access docs
+        working-directory: salesforce
+        shell: bash
+        run: |
+          ../plugin/bin/run doc:access -f config/doc-def.json -u staging
+
       - name: Check if there is any missed information
         working-directory: salesforce
         run: |
@@ -103,24 +115,32 @@ jobs:
         run: |
           rm -rf ./sysl/salesforce.business.sysl
           rm -rf ./sysl/salesforce.edg.sysl
+          rm -rf ./docs/governance/access
+          rm -rf ./docs/governance/schema
 
           cp -r salesforce/docs/sysl/salesforce.business.sysl ./sysl/
           cp -r salesforce/docs/sysl/salesforce.edg.sysl ./sysl/
+          cp -r salesforce/docs/access ./docs/governance/
+          cp -r salesforce/docs/schema ./docs/governance/
 
       - name: Create new branch on anzx/salesforce-docs
         shell: bash
         run: |
+          CURRENT_DATE="$(date +%F-%H-%M)"
+          BRANCH_NAME="${GITHUB_RUN_ID}-${CURRENT_DATE//-}"
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout -b ${GITHUB_RUN_ID}
-          git add sysl/salesforce.business.sysl sysl/salesforce.edg.sysl
-          git commit -m "Update Sysl files"
-          git push origin ${GITHUB_RUN_ID}
+          git checkout -b $BRANCH_NAME
+          git add sysl/salesforce.business.sysl sysl/salesforce.edg.sysl docs/governance/access docs/governance/schema
+          git commit -m "Update sysl | access | schema files"
+          git push origin $BRANCH_NAME
 
       - name: Create a PR on anzx/salesforce-docs
         shell: bash
         run: |
-          if git branch | grep -q -w ${GITHUB_RUN_ID}; then hub pull-request -b master -h ${GITHUB_RUN_ID} --no-edit -m "${GITHUB_REF#refs/heads/}-${GITHUB_RUN_ID} Sysl Update" -m "An automated PR to update sysl documentation from https://github.com/anzx/salesforce/pull/${{ github.event.number }}"; fi
+          CURRENT_DATE="$(date +%F-%H-%M)"
+          BRANCH_NAME="${GITHUB_RUN_ID}-${CURRENT_DATE//-}"
+          if git branch | grep -q -w $BRANCH_NAME; then hub pull-request -b master -h $BRANCH_NAME --no-edit -m "${GITHUB_REF#refs/heads/}-$BRANCH_NAME docs update" -m "An automated PR to update documentations from https://github.com/anzx/salesforce/pull/${{ github.event.number }}"; fi
           echo "✅ Pull Request raised"
         env:
           GITHUB_TOKEN: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
