@@ -167,11 +167,16 @@
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>1 AND 2</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Complaint,Unauthenticated Enquiry,Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unauthenticated Enquiry</value>
         </criteriaItems>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
