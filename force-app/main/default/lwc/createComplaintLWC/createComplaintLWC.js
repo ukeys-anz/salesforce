@@ -352,7 +352,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   @wire(getObjectInfo, { objectApiName: CASE_OBJECT })
   caseInfo({ data, error }) {
     if (data) {
-      this.postCodeLabel = data.fields.IDR_NC_Postcode__c.Label;
+      this.postCodeLabel = data.fields.IDR_NC_Postcode__c.label;
     }
     if (error) {
       console.log(error);
