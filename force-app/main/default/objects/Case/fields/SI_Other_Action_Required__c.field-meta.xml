@@ -5,7 +5,7 @@
     <complianceGroup>Source - Salesforce;Integrity - Trusted;Privacy - Non Personal Information</complianceGroup>
     <description>Capture the details if other is selected in Action Required</description>
     <externalId>false</externalId>
-    <label>Other Action Required</label>
+    <label>ASIC Reportability Status</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
