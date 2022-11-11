@@ -172,7 +172,7 @@ public with sharing class AccountCommonActionsHelper {
   /**
    * @description private without sharing class to bypass lead sharing setting in lead conversion process
    */
-  private without sharing class LeadRetriever {
+  public without sharing class LeadRetriever {
     /**
      * @description getPotentialMatchingLeads gets a list of potential matching leads from sets of account mobile numbers and emails
      * @param mobileSet A set of mobile numbers from accounts
@@ -184,13 +184,31 @@ public with sharing class AccountCommonActionsHelper {
       Set<String> emailSet
     ) {
       List<Lead> potentialMatchingLeads = [
-        SELECT Id, Firstname, Lastname, MobilePhone, Email
+        SELECT Id, Firstname, Lastname, MobilePhone, Email, RecordTypeId
         FROM Lead
         WHERE
           RecordTypeId = :GetHelpConstants.LEAD_ANZX_RT_ID
           AND (MobilePhone IN :mobileSet
           OR Email IN :emailSet)
           AND IsConverted = FALSE
+      ];
+      return potentialMatchingLeads;
+    }
+
+    /**
+     * @description getPotentialMatchingLeads gets a list of potential matching leads from sets of capcis Ids
+     * @param capcisIdSet A set of capcis Ids from account trigger
+     * @return A list of potenital matching leads
+     */
+    public List<Lead> getPotentialMatchingCCRMLeads(Set<String> capcisIdSet) {
+      List<Lead> potentialMatchingLeads = [
+        SELECT Id, CAPCIS_ID__c, RecordTypeId
+        FROM Lead
+        WHERE
+          RecordTypeId = :CCRMConstants.CCRM_LEAD_RT_ID
+          AND CAPCIS_ID__c IN :capcisIdSet
+          AND IsConverted = FALSE
+          AND FinServ__RelatedAccount__c = NULL
       ];
       return potentialMatchingLeads;
     }
@@ -203,7 +221,7 @@ public with sharing class AccountCommonActionsHelper {
    * @param account Account record matching the lead
    * @return Map<Id, List<Lead>> A map of leads to be converted and their corresponding account Ids
    */
-  private static Map<Id, List<Lead>> putLeadsInMapByAccId(
+  public static Map<Id, List<Lead>> putLeadsInMapByAccId(
     Lead l,
     Map<Id, List<Lead>> matchingLeadsByAccIdMap,
     Account account

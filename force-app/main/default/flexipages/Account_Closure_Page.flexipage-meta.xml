@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -42,10 +43,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>detailTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -53,10 +54,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>detailTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebartabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -76,10 +77,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebartabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>feedTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
@@ -87,10 +88,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>feedTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>relatedTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -110,10 +111,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>relatedTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>tabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -147,10 +148,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>tabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -172,30 +173,30 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-1095d5de-d818-4398-90c7-8b32fbba810b</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-1095d5de-d818-4398-90c7-8b32fbba810b</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-6b455515-4e00-4d6a-ba73-1727753ab2fb</name>
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-6b455515-4e00-4d6a-ba73-1727753ab2fb</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-0742c8fd-d1ff-4990-a2fb-9e4e058875eb</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -228,10 +229,10 @@
                 <identifier>flexipage_tab2</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-0742c8fd-d1ff-4990-a2fb-9e4e058875eb</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>accountClosure</componentName>
@@ -271,7 +272,6 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Account Closure Page</masterLabel>

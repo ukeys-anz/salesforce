@@ -10,7 +10,19 @@ public with sharing class CCRMLeadUtil {
   @TestVisible
   static final String ADOBE_LEAD_OWNER_MISSING_ERROR_MESSAGE = 'CCRM-VAL-13: BANKER DOES NOT EXIST IN CRM';
   @TestVisible
-  static final String UNICA_LEAD_OWNER_MISSING_ERROR_MESSAGE = 'BANKER DOES NOT EXIST IN CRM';
+  static final String UNICA_LEAD_OWNER_MISSING_ERROR_MESSAGE = 'LEAD OWNER / LOGIN DETAILS ARE MISSING';
+  static final String UNICA_LEAD_OWNER_INVALID_ERROR_MESSAGE = 'BANKER DOES NOT EXIST IN CRM';
+  public static final Map<String, String> MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE = new Map<String, String>{
+    'Customer' => 'Individual',
+    'Business' => 'Company',
+    'CLG' => 'CLG'
+  };
+  public static final Map<String, String> MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME = new Map<String, String>{
+    'Customer' => 'Customer_ID__c',
+    'Business' => 'Business_ID__c',
+    'CLG' => 'CLG_ID__c'
+  };
+  
   /**
    * @description Check if record type is of CCRM Lead type.
    * @name isCCRMLeadType
@@ -106,8 +118,8 @@ public with sharing class CCRMLeadUtil {
           leadOwnerIds.add(record.OwnerId);
         }
       }
-      validateUnicaLeadOwner(records, leadOwnerIds);
     }
+    validateUnicaLeadOwner(records, leadOwnerIds);
   }
 
   /**
@@ -149,10 +161,11 @@ public with sharing class CCRMLeadUtil {
             CCRMConstants.INTEGRATION_USER_UNICA
           )
         ) {
+          //Add error if lead owner is not passed to Salesforce from UNICA
           record.addError(UNICA_LEAD_OWNER_MISSING_ERROR_MESSAGE);
         } else if (!userMap.containsKey(record.OwnerId)) {
-          //Add error if lead owner don't exist in salesforce
-          record.addError(UNICA_LEAD_OWNER_MISSING_ERROR_MESSAGE);
+          //Add error if lead owner don't exist in Salesforce
+          record.addError(UNICA_LEAD_OWNER_INVALID_ERROR_MESSAGE);
         }
       }
     }
@@ -187,6 +200,99 @@ public with sharing class CCRMLeadUtil {
           //Add error if lead owner don't exist in salesforce
           record.addError(ADOBE_LEAD_OWNER_MISSING_ERROR_MESSAGE);
         }
+      }
+    }
+  }
+  
+  /**
+   * @description This method sets Customer_ID__c/Business_ID__cCLG_ID__c in platform event
+   * @name mapSourceSystemIds
+   * @param mapOfSourceSystemIds Map of Accounts
+   * @param record Lead record
+   * @param leadEvent Lead platform event
+   */
+  public static void mapSourceSystemIds(
+    Map<Id, Account> mapOfSourceSystemIds,
+    Lead record,
+    Lead_Event__e leadEvent
+  ) {
+    if (
+      String.isNotBlank(record.FinServ__RelatedAccount__c) &&
+      mapOfSourceSystemIds.containsKey(record.FinServ__RelatedAccount__c)
+    ) {
+      string accountType = CCRMLeadMappingEngine.getAccountType(
+        mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c).RecordTypeId
+      );
+      //Map Customer Type
+      if (MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE.containsKey(accountType)) {
+        leadEvent.put(
+          'Customer_Type__c',
+          MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE.get(accountType)
+        );
+      }
+      //Map Source System ID's
+      if (MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME.containsKey(accountType)) {
+        leadEvent.put(
+          CCRMLeadUtil.MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME.get(accountType),
+          mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c)
+            .Source_System_ID__c
+        );
+      }
+    } else {
+      //Map Customer Type to Prospect if no Related Party exist
+      leadEvent.put('Customer_Type__c', 'Prospect');
+      if (
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM &&
+        String.isBlank(record.FinServ__RelatedAccount__c)
+      ) {
+        leadEvent.put('Prospect_ID__c', 'New');
+      }
+    }
+  }
+
+  /**
+   * @description This method sets Customer_ID__c/Business_ID__c/CLG_ID__c in platform event - Lead Response Event
+   * @name mapSourceSystemIdsForLeadResponse
+   * @param mapOfSourceSystemIds Map of Accounts
+   * @param record Lead record
+   * @param leadResponseEvent Lead platform event
+   */
+  public static void mapSourceSystemIdsForLeadResponse(
+    Map<Id, Account> mapOfSourceSystemIds,
+    Lead record,
+    Lead_Response_Event__e leadResponseEvent
+  ) {
+    if (
+      String.isNotBlank(record.FinServ__RelatedAccount__c) &&
+      mapOfSourceSystemIds.containsKey(record.FinServ__RelatedAccount__c)
+    ) {
+      string accountType = CCRMLeadMappingEngine.getAccountType(
+        mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c).RecordTypeId
+      );
+
+      //Map Customer Type
+      if (MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE.containsKey(accountType)) {
+        leadResponseEvent.put(
+          'Customer_Type__c',
+          CCRMLeadUtil.MAP_ACCOUNTTYPE_TO_CUSTOMERTYPE.get(accountType)
+        );
+      }
+      //Map Source System ID's
+      if (MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME.containsKey(accountType)) {
+        leadResponseEvent.put(
+          MAP_ACCOUNTTYPE_TO_EVENTFIELDNAME.get(accountType),
+          mapOfSourceSystemIds.get(record.FinServ__RelatedAccount__c)
+            .Source_System_ID__c
+        );
+      }
+    } else {
+      //Map Customer Type to Prospect if no Related Party exist
+      leadResponseEvent.put('Customer_Type__c', 'Prospect');
+      if (
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_CCRM &&
+        String.isBlank(record.FinServ__RelatedAccount__c)
+      ) {
+        leadResponseEvent.put('Prospect_ID__c', 'New');
       }
     }
   }

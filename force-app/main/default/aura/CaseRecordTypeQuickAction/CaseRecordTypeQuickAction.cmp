@@ -96,6 +96,8 @@
         variant="brand"
         label="Next"
         onclick="{!c.handleNext}"
+        disabled="true"
+        aura:id="nextButton"
       />
     </footer>
   </article>

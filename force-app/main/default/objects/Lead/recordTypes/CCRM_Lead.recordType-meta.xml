@@ -9,63 +9,59 @@
     <picklistValues>
         <picklist>Entity_Type__c</picklist>
         <values>
+            <fullName>01</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>02</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>03</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>04</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>05</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>06</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>07</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>08</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>09</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Business Card Billing Group</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Corporation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Lending Group</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Federal Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Federal Public Enterprise</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Individual</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Local Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Local Public Enterprise</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Non Profit Organisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Partnership</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sole Trader</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>State Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>State Public Enterprise</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Superannuation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Trust</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -119,15 +115,19 @@
     <picklistValues>
         <picklist>Gender__c</picklist>
         <values>
-            <fullName>Female</fullName>
+            <fullName>F</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Male</fullName>
+            <fullName>M</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>U</fullName>
             <default>false</default>
         </values>
     </picklistValues>

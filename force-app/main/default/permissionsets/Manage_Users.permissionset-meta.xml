@@ -20,59 +20,59 @@
     <label>Manage Users</label>
     <license>Salesforce</license>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AssignPermissionSets</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>DelegatedTwoFactor</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageInternalUsers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageIpAddresses</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageLoginAccessPolicies</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManagePasswordPolicies</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageProfilesPermissionsets</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageRoles</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ManageSharing</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ManageUsers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ResetPasswords</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewAllUsers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewRoles</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewSetup</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

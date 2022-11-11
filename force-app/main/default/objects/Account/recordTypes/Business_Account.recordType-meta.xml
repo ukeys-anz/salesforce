@@ -48,6 +48,28 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Advertising_Indicator__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Disclosure_Indicator__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>FinServ__BorrowingHistory__c</picklist>
         <values>
             <fullName>Excellent</fullName>
@@ -169,6 +191,54 @@
     <picklistValues>
         <picklist>FinServ__CustomerType__c</picklist>
         <values>
+            <fullName>01 - Sole Trader</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>02 - Partnership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>03 - Corporation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>04 - Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>05 - Non Profit Organisation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>06 - Federal Public Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>07 - State Public Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>08 - Local Public Enterprise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>09 - Superannuation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11 - Federal Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12 - State Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13 - Local Government</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Borrower</fullName>
             <default>false</default>
         </values>
@@ -268,15 +338,39 @@
     <picklistValues>
         <picklist>FinServ__KYCStatus__c</picklist>
         <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NO STATUS ISSUED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Completed - Invalid</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Completed - Valid</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Expired</fullName>
             <default>false</default>
         </values>
         <values>
@@ -293,6 +387,14 @@
         </values>
         <values>
             <fullName>Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NoMatch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purged</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -429,7 +531,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Deliquent</fullName>
+            <fullName>Delinquent</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2858,27 +2960,470 @@
     <picklistValues>
         <picklist>KYC_Verification_Level__c</picklist>
         <values>
-            <fullName>Divorced</fullName>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Occupation__c</picklist>
+        <values>
+            <fullName>111111</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Married%2FDefacto</fullName>
+            <fullName>111200</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Separated</fullName>
+            <fullName>111212</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Single</fullName>
+            <fullName>111311</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>111312</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>111399</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>111900</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>121000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>131000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>132000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>133000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>134000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>139111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>139112</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>139113</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>139211</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>139800</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>139900</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>140000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>142112</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>142113</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>142115</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>142116</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>210000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>212400</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>221100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>221200</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>222000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>223000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>224000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>224913</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>225000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>231000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>232000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>233000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>234000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>241100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>241200</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>241400</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>242100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>242200</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>249200</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>251000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>251900</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>252000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>252312</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>253000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>254000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>261100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>261200</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>261300</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>271000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>271111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>271211</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>271212</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>271311</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>272000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>311000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>321200</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>323000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>323312</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>330000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>340000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>350000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>390000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>399411</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>410000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>420000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>431111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>431311</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>431511</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>431900</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>440000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>441111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>441312</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>451600</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>451800</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>451813</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>451816</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>452000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>521000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>530000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>540000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>551111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>551211</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>551311</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>552111</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>561100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>561200</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>561900</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>591100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>599100</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>611300</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>612112</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>612113</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>612114</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>621000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>631000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>700000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>731112</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>731211</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>810000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>820000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>830000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>841000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>850000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>890000</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99900</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99910</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99920</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99950</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99960</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99970</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99980</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Unknown</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Widowed</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2913,6 +3458,21 @@
         </values>
         <values>
             <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Self_Certified_Tax_Residency__c</picklist>
+        <values>
+            <fullName>A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>F</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>T</fullName>
             <default>false</default>
         </values>
     </picklistValues>

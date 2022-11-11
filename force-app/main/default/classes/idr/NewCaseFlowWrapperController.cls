@@ -18,22 +18,16 @@ public with sharing class NewCaseFlowWrapperController {
   }
 
   /**
-   * @description Get the IDR_AFCA_Status__c of a Case record based on its Id
+   * @description get/set default values when the record type needs to be changed
    * @param caseId the case record id
    * @param newRecordTypeId id of the new record type selected for the case
-   * @return returnIDRAFCAStatus The IDR_AFCA_Status__c of the input case record
+   * @return a serialized String out of Map<String,String> of <fieldName, defaultValue>
    */
   @AuraEnabled
   public static String getCaseDetailsById(Id caseId, String newRecordTypeId) {
-    String newRecordTypeName = getCaseRecordTypeDevNameById(newRecordTypeId);
-    Map<String, String> caseDetails = new Map<String, String>();
-    caseDetails.put('IDR_AFCA_Status__c', '');
-    if (
-      Case.sObjectType.getDescribe().isQueryable() &&
-      (newRecordTypeName == 'Non_Customer_Complaint' ||
-      newRecordTypeName == 'Customer_Complaint')
-    ) {
-      List<Case> caseLst = [
+    Case caseRecord = new Case();
+    if (Case.sObjectType.getDescribe().isQueryable()) {
+      caseRecord = [
         SELECT
           Id,
           IDR_AFCA_Status__c,
@@ -44,58 +38,149 @@ public with sharing class NewCaseFlowWrapperController {
           IDR_Is_Common__c,
           IDR_Escalation_Reason__c,
           IDR_Complainant_Type__c,
+          IDR_Product_Category__c,
           RecordType.DeveloperName,
           RecordTypeId,
-          IDR_Product_Category__c
-        FROM case
-        WHERE
-          Id = :caseid
-          AND RecordTypeId = :IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID
-        WITH SECURITY_ENFORCED
+          Type,
+          Priority,
+          CaseNumber,
+          IDR_Complainant_Desired_Outcome__c,
+          Description,
+          ANZx_Customer__c
+        FROM Case
+        WHERE Id = :caseId
+        LIMIT 1
       ];
+    }
 
+    Map<String, String> caseDetails = new Map<String, String>();
+
+    if (CheckCaseRecordType.isAEM(caseRecord)) {
+      return getCaseDetailsByCaseRecordAEM(caseRecord, newRecordTypeId);
+    } else {
+      return getCaseDetailsByCaseRecord(caseRecord, newRecordTypeId);
+    }
+  }
+
+  /**
+   * @description get/set default values when the record type needs to be changed | AEM
+   * @param caseRecord the case record
+   * @param newRecordTypeId the new chosen record type Id
+   * @return a serialized String out of Map<String,String> of <fieldName, defaultValue>
+   */
+
+  public static String getCaseDetailsByCaseRecordAEM(
+    Case caseRecord,
+    String newRecordTypeId
+  ) {
+    Map<String, String> caseDetails = new Map<String, String>();
+    String cDescription = EncodingUtil.URLENCODE(
+      caseRecord.Description,
+      'UTF-8'
+    );
+    String cDesiredOutcome = EncodingUtil.URLENCODE(
+      caseRecord.IDR_Complainant_Desired_Outcome__c,
+      'UTF-8'
+    );
+
+    if (newRecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
+      caseDetails.put('Type', '');
+      caseDetails.put('Priority', '');
+      caseDetails.put(
+        'Description',
+        'Web Submitted Enquiry\n\nIssue:\n  ' +
+        CommonUtil.getSinglePicklistLabel(Case.Type, caseRecord.Type) +
+        '\n\n' +
+        cDescription +
+        '\n\nCustomer Desired Outcome:\n  ' +
+        cDesiredOutcome +
+        '\n\nPriority:\n  ' +
+        CommonUtil.getSinglePicklistLabel(Case.Priority, caseRecord.Priority)
+      );
+    } else if (
+      (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID ||
+      newRecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) &&
+      caseRecord.Type == CommonUtil.getSinglePicklistValue(Case.Type, 'Other')
+    ) {
+      caseDetails.put('Type', '');
+      caseDetails.put(
+        'Description',
+        'Web Submitted Enquiry\n\nIssue:\n  Other\n\n' + cDescription
+      );
+    }
+
+    if (newRecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
+      caseDetails.put('Customer_Notification_Consent__c', 'Yes');
+    }
+
+    caseDetails.put(
+      'IDR_Product_Category__c',
+      (caseRecord.IDR_Product_Category__c != null)
+        ? caseRecord.IDR_Product_Category__c
+        : ''
+    );
+    return JSON.serialize(caseDetails);
+  }
+
+  /**
+   * @description get/set default values when the record type needs to be changed | CMOS
+   * @param caseRecord the case record
+   * @param newRecordTypeId the new chosen record type Id
+   * @return a serialized String out of Map<String,String> of <fieldName, defaultValue>
+   */
+
+  public static String getCaseDetailsByCaseRecord(
+    Case caseRecord,
+    String newRecordTypeId
+  ) {
+    Map<String, String> caseDetails = new Map<String, String>();
+    caseDetails.put('IDR_AFCA_Status__c', '');
+    if (
+      (newRecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID ||
+      newRecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID)
+    ) {
       //As we're querying by recordId, only 1 record should be present if the query isn't empty
-      if (caseLst[0].Origin == '11') {
+      if (caseRecord.Origin == '11') {
         caseDetails.put('IDR_AFCA_Status__c', '10');
       }
       caseDetails.put(
         'IDR_Product_Category__c',
-        (caseLst[0].IDR_Product_Category__c != null)
-          ? caseLst[0].IDR_Product_Category__c
+        (caseRecord.IDR_Product_Category__c != null)
+          ? caseRecord.IDR_Product_Category__c
           : ''
       );
       caseDetails.put(
         'IDR_Subsequent_Issue__c',
-        (caseLst[0].IDR_Subsequent_Issue__c != null)
-          ? caseLst[0].IDR_Subsequent_Issue__c
+        (caseRecord.IDR_Subsequent_Issue__c != null)
+          ? caseRecord.IDR_Subsequent_Issue__c
           : ''
       );
       caseDetails.put(
         'IDR_Is_Written_Resp_Requested__c',
-        (caseLst[0].IDR_Is_Written_Resp_Requested__c != null)
-          ? caseLst[0].IDR_Is_Written_Resp_Requested__c
+        (caseRecord.IDR_Is_Written_Resp_Requested__c != null)
+          ? caseRecord.IDR_Is_Written_Resp_Requested__c
           : ''
       );
       caseDetails.put(
         'IDR_Is_Written_Resp_Required__c',
-        (caseLst[0].IDR_Is_Written_Resp_Required__c != null)
-          ? caseLst[0].IDR_Is_Written_Resp_Required__c
+        (caseRecord.IDR_Is_Written_Resp_Required__c != null)
+          ? caseRecord.IDR_Is_Written_Resp_Required__c
           : ''
       );
       caseDetails.put(
         'IDR_Is_Common__c',
-        (caseLst[0].IDR_Is_Common__c != null) ? caseLst[0].IDR_Is_Common__c : ''
+        (caseRecord.IDR_Is_Common__c != null) ? caseRecord.IDR_Is_Common__c : ''
       );
       caseDetails.put(
         'IDR_Escalation_Reason__c',
-        (caseLst[0].IDR_Escalation_Reason__c != null)
-          ? caseLst[0].IDR_Escalation_Reason__c
+        (caseRecord.IDR_Escalation_Reason__c != null)
+          ? caseRecord.IDR_Escalation_Reason__c
           : ''
       );
       caseDetails.put(
         'IDR_Complainant_Type__c',
-        (caseLst[0].IDR_Complainant_Type__c != null)
-          ? caseLst[0].IDR_Complainant_Type__c
+        (caseRecord.IDR_Complainant_Type__c != null)
+          ? caseRecord.IDR_Complainant_Type__c
           : ''
       );
     }
@@ -122,12 +207,69 @@ public with sharing class NewCaseFlowWrapperController {
   }
 
   /**
-   * @description Get available record types for Case object
+   * @description Get available record types for Case object | For change Record Type Button
+   * @param caseId case Id
+   * @return Serialized string of a list of record types
+   */
+  @AuraEnabled
+  public static String getCaseRecordTypesChangeRTBtn(Id caseId) {
+    Case caseRecord = new Case();
+    if (Case.sObjectType.getDescribe().isQueryable()) {
+      caseRecord = [
+        SELECT
+          Id,
+          RecordType.DeveloperName,
+          RecordTypeId,
+          Origin,
+          ANZx_Customer__c
+        FROM Case
+        WHERE Id = :caseId
+        LIMIT 1
+      ];
+    }
+
+    if (CheckCaseRecordType.isAEM(caseRecord)) {
+      return getCaseRecordTypesForAEM();
+    } else {
+      return getCaseRecordTypes();
+    }
+  }
+
+  /**
+   * @description Get available record types for Case object | For AEM Unauthenticated Enquiry Change record type
+   * @return Serialized string of a list of record types
+   */
+
+  public static String getCaseRecordTypesForAEM() {
+    List<Id> acceptedRecordTypeForAEMCases = new List<Id>{
+      GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+      GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      GetHelpConstants.COMPLAINT_RT_ID
+    };
+
+    try {
+      if (Schema.SObjectType.Case.isAccessible()) {
+        List<RecordType> rtToDisplay = [
+          SELECT Id, Name, Description, DeveloperName
+          FROM RecordType
+          WHERE SobjectType = 'Case' AND Id IN :acceptedRecordTypeForAEMCases
+        ];
+        return JSON.serialize(rtToDisplay);
+      }
+      return null;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  /**
+   * @description Get available record types for Case object | For New Button
    * @return Serialized string of a list of record types
    */
   @AuraEnabled
   public static String getCaseRecordTypes() {
     List<String> recordTypesToExcl = new List<String>();
+
     for (Case_Record_Type_To_Exclude__mdt mdt : [
       SELECT DeveloperName
       FROM Case_Record_Type_To_Exclude__mdt
@@ -135,6 +277,7 @@ public with sharing class NewCaseFlowWrapperController {
     ]) {
       recordTypesToExcl.add(mdt.DeveloperName);
     }
+
     try {
       List<Id> caseRecordTypeIds = CommonUtil.getAvailableRecordTypeIdsForSObject(
         'Case'

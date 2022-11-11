@@ -10,7 +10,6 @@
     <columns>LEAD.STATUS</columns>
     <columns>Followup_Date__c</columns>
     <columns>CPID_Owner__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>LEAD.STATUS</field>
         <operation>equals</operation>
@@ -21,5 +20,9 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>My Region Leads</label>
+    <sharedTo>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+    </sharedTo>
 </ListView>

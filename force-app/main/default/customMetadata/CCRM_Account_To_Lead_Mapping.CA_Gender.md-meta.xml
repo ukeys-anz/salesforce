@@ -4,7 +4,7 @@
     <protected>false</protected>
     <values>
         <field>Account_Field_API_Name__c</field>
-        <value xsi:type="xsd:string">FinServ__Gender__pc</value>
+        <value xsi:type="xsd:string">Gender__pc</value>
     </values>
     <values>
         <field>Account_Type__c</field>

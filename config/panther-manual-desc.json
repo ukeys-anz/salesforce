@@ -421,6 +421,7 @@
         "External_System__c",
         "FinServ__FinancialAccount__c",
         "Fraud_COR_Event_ID__c",
+        "IsOwnerCoachOrCoachLead__c",
         "OwnerId",
         "ParentId",
         "Payment_ID__c",
@@ -572,6 +573,7 @@
         "IDR_Complaint_Sub_Remedy_2__c",
         "IDR_Complaint_Sub_Remedy_3__c",
         "IDR_Correspondence_Reviewed_Date__c",
+        "IDR_Correspondence_Reviewed_Formula__c",
         "IDR_Customer_Identifier__c",
         "IDR_Customer_Notification__c",
         "IDR_Date_Re_Opened__c",
@@ -747,6 +749,7 @@
         "SI_Date_Event_Created__c",
         "SI_Category_Other__c",
         "ContactMobile",
+        "ContactEmail",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
         "IDR_3rdParty_Mobile__c",
@@ -851,11 +854,17 @@
       "IA-2415984": [
         "Birthdate",
         "Email",
+        "FinServ__MaritalStatus__c",
         "Gender__c",
         "Is_Preferred_Contact__c",
         "MobilePhone",
-        "OtherAddress"
-      ]
+        "OtherAddress",
+        "Salutation",
+        "Suffix_c__c",
+        "Active_From__c",
+        "Active_To__c"
+      ],
+      "IA-2530753": ["Active_From__c", "Active_To__c", "Occurrence_Number__c"]
     },
     "ContactPointAddress": {
       "IA-2530753": [

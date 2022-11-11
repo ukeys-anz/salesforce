@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Settlement_ID__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;;Source_Loan_Domain</complianceGroup>
     <caseSensitive>false</caseSensitive>
+    <complianceGroup>Integrity_Trusted;;Source_Loan_Domain</complianceGroup>
     <description>Settlement ID from loan domain</description>
     <externalId>true</externalId>
     <label>Settlement ID</label>

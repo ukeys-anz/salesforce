@@ -7,7 +7,6 @@
     <fields>PersonMobilePhone</fields>
     <fields>PersonEmail</fields>
     <fields>BillingAddress</fields>
-    <fields>CLG__c</fields>
-    <fields>CPID__c</fields>
+    <fields>CPID_Link__c</fields>
     <label>Person Account Compact Layout</label>
 </CompactLayout>

@@ -1,0 +1,694 @@
+{
+  "Call back": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1wzQAC"
+      },
+      "Id": "a1e2O000000L1wzQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": false,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": true,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "M",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Lead is currently busy or cannot be contacted",
+      "Response_Status__c": "Call back",
+      "Name": "a1e2O000000L1wz",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ],
+  "Referral Made": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1wyQAC"
+      },
+      "Id": "a1e2O000000L1wyQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": false,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Referral Made",
+      "Response_Status__c": "Referral Made",
+      "Name": "a1e2O000000L1wy",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ],
+  "Customer Not Contacted": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1xBQAS"
+      },
+      "Id": "a1e2O000000L1xBQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Other",
+      "Response_Status__c": "Customer Not Contacted",
+      "Name": "a1e2O000000L1xB",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1xCQAS"
+      },
+      "Id": "a1e2O000000L1xCQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer not spoken to, unable to be contacted",
+      "Response_Status__c": "Customer Not Contacted",
+      "Name": "a1e2O000000L1xC",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1x6QAC"
+      },
+      "Id": "a1e2O000000L1x6QAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer details not correct",
+      "Response_Status__c": "Customer Not Contacted",
+      "Name": "a1e2O000000L1x6",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ],
+  "Product Sold": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1ytQAC"
+      },
+      "Id": "a1e2O000000L1ytQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Fee waiver applied to existing products",
+      "Response_Status__c": "Product Sold",
+      "Name": "a1e2O000000L1yt",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1yuQAC"
+      },
+      "Id": "a1e2O000000L1yuQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Fee waiver applied to existing products",
+      "Response_Status__c": "Product Sold",
+      "Name": "a1e2O000000L1yu",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1xHQAS"
+      },
+      "Id": "a1e2O000000L1xHQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer applied for a different product",
+      "Response_Status__c": "Product Sold",
+      "Name": "a1e2O000000L1xH",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1xKQAS"
+      },
+      "Id": "a1e2O000000L1xKQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer applied for a different product",
+      "Response_Status__c": "Product Sold",
+      "Name": "a1e2O000000L1xK",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ],
+  "Appointment Booked": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1wNQAS"
+      },
+      "Id": "a1e2O000000L1wNQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Appointment Booked for A-Z review",
+      "Response_Status__c": "Appointment Booked",
+      "Name": "a1e2O000000L1wN",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1xNQAS"
+      },
+      "Id": "a1e2O000000L1xNQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "M",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Follow-up Appointment Booked",
+      "Response_Status__c": "Appointment Booked",
+      "Name": "a1e2O000000L1xN",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L24nQAC"
+      },
+      "Id": "a1e2O000000L24nQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Appointment Booked for Financial Planning session",
+      "Response_Status__c": "Appointment Booked",
+      "Name": "a1e2O000000L24n",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L24oQAC"
+      },
+      "Id": "a1e2O000000L24oQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Appointment Booked for Financial Planning session",
+      "Response_Status__c": "Appointment Booked",
+      "Name": "a1e2O000000L24o",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L24SQAS"
+      },
+      "Id": "a1e2O000000L24SQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Appointment Booked for A-Z review",
+      "Response_Status__c": "Appointment Booked",
+      "Name": "a1e2O000000L24S",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ],
+  "Accepted": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1wPQAS"
+      },
+      "Id": "a1e2O000000L1wPQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": true,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Happy with the offer",
+      "Response_Status__c": "Accepted",
+      "Name": "a1e2O000000L1wP",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1yfQAC"
+      },
+      "Id": "a1e2O000000L1yfQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer understands offer - will look into it",
+      "Response_Status__c": "Accepted",
+      "Name": "a1e2O000000L1yf",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1ygQAC"
+      },
+      "Id": "a1e2O000000L1ygQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer referred to EH webpage (verbal referral)",
+      "Response_Status__c": "Accepted",
+      "Name": "a1e2O000000L1yg",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L23fQAC"
+      },
+      "Id": "a1e2O000000L23fQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Financial Education",
+      "Response_Status__c": "Accepted",
+      "Name": "a1e2O000000L23f",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L24JQAS"
+      },
+      "Id": "a1e2O000000L24JQAS",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": true,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Appointment booked",
+      "Response_Status__c": "Accepted",
+      "Name": "a1e2O000000L24J",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ],
+  "Contact Attempted": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1x3QAC"
+      },
+      "Id": "a1e2O000000L1x3QAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": false,
+      "Create_Activities_From_Template__c": true,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "O",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Unable to reach customer, will try again",
+      "Response_Status__c": "Contact Attempted",
+      "Name": "a1e2O000000L1x3",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ],
+  "Customer Declined": [
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1x1QAC"
+      },
+      "Id": "a1e2O000000L1x1QAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Existing conversation with ANZ - no action",
+      "Response_Status__c": "Customer Declined",
+      "Name": "a1e2O000000L1x1",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1x2QAC"
+      },
+      "Id": "a1e2O000000L1x2QAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Packages not suitable, no further action",
+      "Response_Status__c": "Customer Declined",
+      "Name": "a1e2O000000L1x2",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1yiQAC"
+      },
+      "Id": "a1e2O000000L1yiQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer will not commit at this time",
+      "Response_Status__c": "Customer Declined",
+      "Name": "a1e2O000000L1yi",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1yjQAC"
+      },
+      "Id": "a1e2O000000L1yjQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer not interested",
+      "Response_Status__c": "Customer Declined",
+      "Name": "a1e2O000000L1yj",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1ylQAC"
+      },
+      "Id": "a1e2O000000L1ylQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer is already using another HR solution",
+      "Response_Status__c": "Customer Declined",
+      "Name": "a1e2O000000L1yl",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    },
+    {
+      "attributes": {
+        "type": "Response_Type__c",
+        "url": "/services/data/v55.0/sobjects/Response_Type__c/a1e2O000000L1ykQAC"
+      },
+      "Id": "a1e2O000000L1ykQAC",
+      "Campaign__c": "7012O000000XAMLQA4",
+      "Close_To_Do_Activities__c": true,
+      "Create_Activities_From_Template__c": false,
+      "Create_Opportunity__c": false,
+      "Create_To_Do_Activities__c": false,
+      "Display_Order__c": 1,
+      "Follow_Up_State__c": "R",
+      "Is_Active__c": true,
+      "Outcome_Reason__c": "Customer does not have a need for an HR solution",
+      "Response_Status__c": "Customer Declined",
+      "Name": "a1e2O000000L1yk",
+      "UNICA_Lead_SubStatus__c": "ATMP",
+      "Campaign__r": {
+        "attributes": {
+          "type": "Campaign",
+          "url": "/services/data/v55.0/sobjects/Campaign/7012O000000XAMLQA4"
+        },
+        "Id": "7012O000000XAMLQA4"
+      }
+    }
+  ]
+}

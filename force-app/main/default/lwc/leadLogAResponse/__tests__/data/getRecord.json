@@ -1,0 +1,22 @@
+{
+  "apiName": "Lead",
+  "childRelationships": {},
+  "fields": {
+    "Lead_Quality__c": {
+      "displayValue": "Good",
+      "value": "Good"
+    }
+  },
+  "id": "00Q2O000001k2JpUAI",
+  "lastModifiedById": "0052O000003OE4mQAG",
+  "lastModifiedDate": "2022-08-03T23:28:52.000Z",
+  "recordTypeId": "0122O000001uOyyQAE",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": true,
+    "master": false,
+    "name": "Commercial CRM Lead",
+    "recordTypeId": "0122O000001uOyyQAE"
+  },
+  "systemModstamp": "2022-08-03T23:28:52.000Z"
+}

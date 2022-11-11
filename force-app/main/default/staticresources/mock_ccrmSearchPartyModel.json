@@ -1,0 +1,77 @@
+{
+    "totalCount": "2",
+    "certifiedResults": [
+        {
+            "ocvId": "123456789",
+            "kycDetails": {
+                "status": "CO",
+                "verificationLevel": "VE"
+            },
+            "cpId": "R5271",
+            "addresses": [
+                {
+                    "city": "Melbourne",
+                    "postalCode": "3168"
+                }
+            ],
+            "names": [
+                {
+                    "nameUsageType": "Legal Name",
+                    "name": "ABC Pvt Ltd",
+                    "prefix": "Dr",
+                    "title": "Mr",
+                    "firstName": "MARY",
+                    "middleName": "JOHN",
+                    "lastName": "NAPOLI",
+                    "suffix": "JR.",
+                    "source": "CAP-CIS",
+                    "startDate": "2001-01-01",
+                    "endDate": ""
+                }
+            ],
+            "sourceSystems": [
+                {
+                    "sourceSystemId": "12345467891",
+                    "sourceSystemName": "CAP-CIS"
+                }
+            ]
+        }
+    ],
+    "probableResults": [
+        {
+            "ocvId": "8019989897",
+            "kycDetails": {
+                "status": "CO",
+                "verificationLevel": "VE"
+            },
+            "cpId": "R5271",
+            "addresses": [
+                {
+                    "city": "Melbourne",
+                    "postalCode": "3168"
+                }
+            ],
+            "names": [
+                {
+                    "nameUsageType": "Legal Name",
+                    "name": "ABC Pvt Ltd",
+                    "prefix": "Dr",
+                    "title": "Mr",
+                    "firstName": "MARY",
+                    "middleName": "JOHN",
+                    "lastName": "NAPOLI",
+                    "suffix": "JR.",
+                    "source": "CAP-CIS",
+                    "startDate": "2001-01-01",
+                    "endDate": ""
+                }
+            ],
+            "sourceSystems": [
+                {
+                    "sourceSystemId": "12345467891",
+                    "sourceSystemName": "CAP-CIS"
+                }
+            ]
+        }
+    ]
+}

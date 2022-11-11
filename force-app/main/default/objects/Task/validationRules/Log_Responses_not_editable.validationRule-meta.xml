@@ -7,6 +7,7 @@
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 NOT($Profile.Name = &apos;System Administrator&apos;),
 NOT(ISNEW()),
+NOT($Permission.CCRM_Skip_Validation),
 NOT(ISCHANGED(Skip_Validations__c)),
 NOT(Skip_Validations__c = &apos;ConvertLead&apos;),
 IsClosed = true,
