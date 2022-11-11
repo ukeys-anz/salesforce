@@ -40,16 +40,16 @@ public with sharing class FinancialAccountCommonActions {
       FinServ__FinancialAccount__c oldRecord = oldMap.get(record.Id);
       if (
         // Primary owner is updated and the date isn't set
-        (oldRecord.FinServ__PrimaryOwner__c !=
-        record.FinServ__PrimaryOwner__c &&
-        record.Primary_Owner_Start_Date__c == null) ||
+        oldRecord.FinServ__PrimaryOwner__c != record.FinServ__PrimaryOwner__c &&
+        record.Primary_Owner_Start_Date__c ==
+        null /*||
         // Primary owner start date is updated without updating primary owner
         (oldRecord.Primary_Owner_Start_Date__c !=
         record.Primary_Owner_Start_Date__c &&
-        oldRecord.FinServ__PrimaryOwner__c == record.FinServ__PrimaryOwner__c)
+        oldRecord.FinServ__PrimaryOwner__c == record.FinServ__PrimaryOwner__c)*/
       ) {
         String errorMessage =
-          'Primary Owner and Primary Owner Start Date values should be updated simultaneously. Financial Account Id: ' +
+          'Primary owner start date cannot be empty. Financial Account Id: ' +
           record.Id;
         record.addError(errorMessage);
         Lib_SystemLog.createSingleLogAsync(
