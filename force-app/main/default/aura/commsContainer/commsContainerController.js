@@ -14,7 +14,13 @@
         }
       });
     } catch (err) {
-      console.log("error:" + err);
+      var toastEvent = $A.get("e.force:showToast");
+      toastEvent.setParams({
+        title: "Error!",
+        message: "Failed to create request",
+        type: "error"
+      });
+      toastEvent.fire();
     }
   }
 });

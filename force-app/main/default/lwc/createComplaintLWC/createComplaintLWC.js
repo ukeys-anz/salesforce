@@ -1052,7 +1052,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleError(error) {
-    console.log(error);
     let msg = ERROR_UNKNOWN_TITLE;
     if (typeof error === "string") {
       msg = error.replace(/\.\s?/gm, ".<br><br>");

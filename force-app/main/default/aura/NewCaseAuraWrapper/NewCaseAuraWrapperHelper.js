@@ -253,7 +253,7 @@
             component.set("v.caseRecordTypes", recordTypes);
             resolve({ r: component.get("v.caseRecordTypes") });
           } else {
-            console.log("Failed with state: " + state);
+            this.showToast("error", "Failed with state: " + state, "Error!");
           }
         });
         $A.enqueueAction(action);
