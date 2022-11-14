@@ -408,6 +408,13 @@ export default class cCombobox extends LightningElement {
       }
       if (this._multiSelect) {
         this._selectedItems = this._items.filter((item) => item.checked);
+        if (
+          !this._selectedItems ||
+          JSON.stringify(this._selectedItems) === "[]"
+        ) {
+          this._selectedItem = undefined;
+          this.selectedValue = undefined;
+        }
       }
 
       this._items = this._items.slice();
