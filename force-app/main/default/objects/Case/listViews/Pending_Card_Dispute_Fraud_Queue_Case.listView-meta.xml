@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-   <fullName>Customer_Advocate_Case</fullName>
+   <fullName>Pending_Card_Dispute_Fraud_Queue_Case</fullName>
    <columns>CASES.CASE_NUMBER</columns>
    <columns>NAME</columns>
    <columns>CASES.SUBJECT</columns>
@@ -8,13 +8,9 @@
    <columns>CASES.PRIORITY</columns>
    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
    <columns>CORE.USERS.ALIAS</columns>
-   <filters>
-      <field>Queue__c</field>
-      <operation>equals</operation>
-      <value>Customer Advocate</value>
-   </filters>
-   <filterScope>Everything</filterScope>
-   <label>Customer Advocate</label>
+   <filterScope>Queue</filterScope>
+   <label>Pending Card Dispute - Fraud Queue</label>
+   <queue>Pending_Card_Dispute_Fraud_Queue</queue>
    <sharedTo>
       <roleAndSubordinates>ANZx</roleAndSubordinates>
    </sharedTo>
