@@ -220,6 +220,24 @@
         <content>Account_Closure_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
+        <recordType>Case.Account_Closure</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Account_Closure_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
+        <recordType>Case.Account_Closure</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Account_Closure_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
         <profile>ANZx Standard User</profile>
         <recordType>Case.Account_Closure</recordType>
         <type>Flexipage</type>
