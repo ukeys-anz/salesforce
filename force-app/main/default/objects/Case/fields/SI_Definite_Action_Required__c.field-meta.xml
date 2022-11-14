@@ -58,6 +58,11 @@
          </value>
          <value>
             <default>false</default>
+            <fullName>10</fullName>
+            <label>Customer Communication</label>
+         </value>
+         <value>
+            <default>false</default>
             <fullName>9</fullName>
             <label>Other</label>
          </value>

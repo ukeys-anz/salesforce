@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import { createRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
@@ -128,6 +128,9 @@ import ACCOUNT_POLICY_FIELD_3 from "@salesforce/schema/Case.IDR_Account_Card_Pol
 //Express CMOS fields
 import KNOWN_ISSUES from "@salesforce/schema/Case.IDR_Known_Issues__c";
 import EXPRESS_CMOS from "@salesforce/schema/Case.IDR_Express_CMOS_Complaint__c";
+
+//To get Fields info
+import { getObjectInfo } from "lightning/uiObjectInfoApi";
 
 //To fetch products
 import fetchRequiredProducts from "@salesforce/apex/IDRCreateComplaintController.fetchRequiredProducts";
@@ -333,6 +336,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   //form validation fields.
   missingDataFields = "";
+  postCodeInputValue;
   isDataValid = false;
   caseStatus = OPEN_STATUS_API_NAME;
   isCustNumValidated = false;
@@ -343,6 +347,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
   expressCaseCreationData = {};
   //Product Names
   requiredProductNames;
+  postCodeLabel;
+
+  @wire(getObjectInfo, { objectApiName: CASE_OBJECT })
+  caseInfo({ data, error }) {
+    if (data) {
+      this.postCodeLabel = data.fields.IDR_NC_Postcode__c.label;
+    }
+    if (error) {
+      console.log(error);
+    }
+  }
 
   //initialize components
   connectedCallback() {
@@ -353,6 +368,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
         ? this.contextRecordId
         : "";
     this.isCustomerComplaint = this.recordTypeDevName === "Customer_Complaint";
+    this.isNonCustomerComplaint =
+      this.recordTypeDevName === "Non_Customer_Complaint";
     this.showComplianceFields = this.isCustomerComplaint || this.consentValue;
     this.showSections = this.isCustomerComplaint;
     this.accountNumberOptions = [{ label: "N/A", value: "N/A" }];
@@ -644,6 +661,17 @@ export default class CreateComplaintLWC extends NavigationMixin(
       return isValidSoFar;
     }, true);
 
+    let isInputRequired = [
+      ...this.template.querySelectorAll("lightning-input")
+    ].reduce((isValidSoFar, inputCmp) => {
+      if (inputCmp.getAttribute("data-id") === "postcode-id") {
+        if (!this.isCustomerComplaint) {
+          this.handlePostCodeChange(null);
+        }
+      }
+      return isValidSoFar;
+    }, true);
+
     let isDescValid = [
       ...this.template.querySelectorAll("lightning-textarea")
     ].reduce((isValidSoFar, inputCmp) => {
@@ -669,6 +697,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     }, true);
+    if (this.isNonCustomerComplaint && !this.postCodeInputValue) {
+      isFieldValid = false;
+      this.missingDataFields += "Postcode, ";
+    }
     if (this.isCustomerComplaint && this.accountOrPolicyNumber === "") {
       isFieldValid = false;
       this.missingDataFields += "Account/Policy Number, ";
@@ -806,8 +838,19 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "Express Case Creation: A known issue must be selected in the This Complaint Is About field (If the complaint is not a 'Known Issue' please deselect the 'Express Case' toggle)";
     }
 
+    if (
+      this.isNonCustomerComplaint &&
+      this.postCodeInputValue &&
+      !this.handlePostCodeChange(null)
+    ) {
+      isFieldValid = false;
+      this.missingDataFields +=
+        "Postcode must be a 4-digit Australian postcode, If the customer is overseas, enter 'Overseas', if the postcode is unknown, enter 'Not Applicable'.";
+    }
+
     return (
       isFieldValid &&
+      isInputRequired &&
       isEmailValid &&
       isFinCompValid &&
       isDescValid &&
@@ -856,6 +899,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       fields[CONSENT_OBTAINED.fieldApiName] = this.consentValue;
       fields[RECORDTYPE_FIELD.fieldApiName] = this.recordType;
       fields[STATUS_FIELD.fieldApiName] = this.caseStatus;
+      fields[POSTCODE_FIELD.fieldApiName] = this.postCodeInputValue;
       if (this.isComplaintResolved) {
         if (this.isFinancialComplaintRemedy) {
           fields[
@@ -934,6 +978,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         }
       }
+
       const recordInput = { apiName: CASE_OBJECT.objectApiName, fields };
       createRecord(recordInput)
         .then((response) => {
@@ -955,6 +1000,39 @@ export default class CreateComplaintLWC extends NavigationMixin(
           }
         });
     }
+  }
+
+  handlePostCodeChange() {
+    const postCodePattern = /^[0-9]{4}$/;
+    let postCodeField = this.template.querySelector('[data-id="postcode-id"]');
+    let postCodeValue = postCodeField.value;
+    if (!postCodeValue) {
+      postCodeField.setCustomValidity("Complete this field.");
+      this.isDataValid = false;
+      this.postCodeInputValue = null;
+    } else if (
+      this.isNonCustomerComplaint &&
+      !(
+        postCodeValue &&
+        (postCodeValue.toLowerCase() === "overseas" ||
+          postCodeValue.toLowerCase() === "not applicable" ||
+          postCodePattern.test(postCodeValue))
+      )
+    ) {
+      postCodeField.setCustomValidity(
+        "Postcode must be a 4-digit Australian postcode. " +
+          "If the customer is overseas, enter 'Overseas', " +
+          "if the postcode is unknown, enter 'Not Applicable'."
+      );
+      this.isDataValid = false;
+      this.postCodeInputValue = postCodeValue;
+    } else {
+      postCodeField.setCustomValidity("");
+      this.postCodeInputValue = postCodeValue;
+      this.isDataValid = true;
+    }
+    postCodeField.reportValidity();
+    return this.isDataValid;
   }
 
   // add all the required fields for this complaint.

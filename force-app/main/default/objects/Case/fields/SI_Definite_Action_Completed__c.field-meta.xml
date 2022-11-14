@@ -6,7 +6,7 @@
     <description>Action Completed on the definite systemic issue</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <label>Action Completed</label>
+    <label>Is there a fix in place?</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
