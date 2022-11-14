@@ -1700,16 +1700,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.missingDataFields += "Other Remedy Provided 1 ,";
     }
 
-    if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] === MORATORIUM ||
-        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
-          TIME_TO_SELL_REFINANCE_SURRENDER ||
-        this.closeFields[COMPLAINT_SUB_REMEDY.fieldApiName] ===
-          REPAYMENT_ARRAGMENT) &&
-      !this.closeFields[REMEDY_DURATION.fieldApiName]
-    ) {
+    let remedyDurationErrMsg = this.validateDurationOfRemedy(
+      COMPLAINT_SUB_REMEDY.fieldApiName,
+      REMEDY_DURATION.fieldApiName,
+      "Duration of Remedy(months)"
+    );
+    if (!remedyDurationErrMsg !== "") {
       validToSave = false;
-      this.missingDataFields += "Duration of Remedy(months) ,";
+      this.missingDataFields += remedyDurationErrMsg;
     }
 
     if (
@@ -1790,16 +1788,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
       validToSave = false;
       this.missingDataFields += "Other Remedy Provided 2 ,";
     }
-    if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] === MORATORIUM ||
-        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
-          TIME_TO_SELL_REFINANCE_SURRENDER ||
-        this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] ===
-          REPAYMENT_ARRAGMENT) &&
-      !this.closeFields[REMEDY_DURATION2.fieldApiName]
-    ) {
+
+    let remedyDurationErrMsg = this.validateDurationOfRemedy(
+      COMPLAINT_SUB_REMEDY2.fieldApiName,
+      REMEDY_DURATION2.fieldApiName,
+      "Duration of Remedy(months) 2"
+    );
+    if (!remedyDurationErrMsg !== "") {
       validToSave = false;
-      this.missingDataFields += "Duration of Remedy(months) 2 ,";
+      this.missingDataFields += remedyDurationErrMsg;
     }
 
     if (
@@ -1889,16 +1886,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.missingDataFields += "Other Remedy Provided 3 ,";
     }
 
-    if (
-      (this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] === MORATORIUM ||
-        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
-          TIME_TO_SELL_REFINANCE_SURRENDER ||
-        this.closeFields[COMPLAINT_SUB_REMEDY3.fieldApiName] ===
-          REPAYMENT_ARRAGMENT) &&
-      !this.closeFields[REMEDY_DURATION3.fieldApiName]
-    ) {
+    let remedyDurationErrMsg = this.validateDurationOfRemedy(
+      COMPLAINT_SUB_REMEDY3.fieldApiName,
+      REMEDY_DURATION3.fieldApiName,
+      "Duration of Remedy(months) 3"
+    );
+    if (!remedyDurationErrMsg !== "") {
       validToSave = false;
-      this.missingDataFields += "Duration of Remedy(months) 3 ,";
+      this.missingDataFields += remedyDurationErrMsg;
     }
 
     if (
@@ -1916,5 +1911,35 @@ export default class CreateComplaintLWC extends NavigationMixin(
         "The details of this complaint have been provided to the product manufacturer 3 ? ,";
     }
     return validToSave;
+  }
+
+  validateDurationOfRemedy(
+    complaintSubRemedyApiName,
+    remedyDurationApiName,
+    remedyDurationLabel
+  ) {
+    if (
+      this.closeFields[complaintSubRemedyApiName] === MORATORIUM ||
+      this.closeFields[complaintSubRemedyApiName] ===
+        TIME_TO_SELL_REFINANCE_SURRENDER ||
+      this.closeFields[complaintSubRemedyApiName] === REPAYMENT_ARRAGMENT
+    ) {
+      if (
+        !this.closeFields[remedyDurationApiName] ||
+        this.closeFields[remedyDurationApiName] === null
+      ) {
+        return remedyDurationLabel + " ,";
+      } else if (
+        this.closeFields[remedyDurationApiName] > 999 ||
+        this.closeFields[remedyDurationApiName].includes(".") ||
+        this.closeFields[remedyDurationApiName] < 0
+      ) {
+        return (
+          remedyDurationLabel +
+          " must be a positive value with up to 3 whole digits. "
+        );
+      }
+    }
+    return "";
   }
 }
