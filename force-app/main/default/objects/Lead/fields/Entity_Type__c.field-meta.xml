@@ -2,8 +2,8 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Entity_Type__c</fullName>
     <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Display Entity Type</description>
-    <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
     <externalId>false</externalId>
     <label>Entity Type</label>
     <required>false</required>
@@ -21,74 +21,75 @@
                 <label>Business Card Billing Group</label>
             </value>
             <value>
-                <fullName>Customer Lending Group</fullName>
-                <default>false</default>
-                <label>Customer Lending Group</label>
-            </value>
-            <value>
                 <fullName>Individual</fullName>
                 <default>false</default>
                 <label>Individual</label>
             </value>
             <value>
-                <fullName>Sole Trader</fullName>
+                <fullName>01</fullName>
                 <default>false</default>
                 <label>Sole Trader</label>
             </value>
             <value>
-                <fullName>Partnership</fullName>
+                <fullName>02</fullName>
                 <default>false</default>
                 <label>Partnership</label>
             </value>
             <value>
-                <fullName>Corporation</fullName>
+                <fullName>03</fullName>
                 <default>false</default>
                 <label>Corporation</label>
             </value>
             <value>
-                <fullName>Trust</fullName>
+                <fullName>04</fullName>
                 <default>false</default>
                 <label>Trust</label>
             </value>
             <value>
-                <fullName>Non Profit Organisation</fullName>
+                <fullName>05</fullName>
                 <default>false</default>
                 <label>Non Profit Organisation</label>
             </value>
             <value>
-                <fullName>Federal Public Enterprise</fullName>
+                <fullName>06</fullName>
                 <default>false</default>
                 <label>Federal Public Enterprise</label>
             </value>
             <value>
-                <fullName>State Public Enterprise</fullName>
+                <fullName>07</fullName>
                 <default>false</default>
                 <label>State Public Enterprise</label>
             </value>
             <value>
-                <fullName>Local Public Enterprise</fullName>
+                <fullName>08</fullName>
                 <default>false</default>
                 <label>Local Public Enterprise</label>
             </value>
             <value>
-                <fullName>Superannuation</fullName>
+                <fullName>09</fullName>
                 <default>false</default>
                 <label>Superannuation</label>
             </value>
             <value>
-                <fullName>Federal Government</fullName>
+                <fullName>11</fullName>
                 <default>false</default>
                 <label>Federal Government</label>
             </value>
             <value>
-                <fullName>State Government</fullName>
+                <fullName>12</fullName>
                 <default>false</default>
                 <label>State Government</label>
             </value>
             <value>
-                <fullName>Local Government</fullName>
+                <fullName>13</fullName>
                 <default>false</default>
                 <label>Local Government</label>
+            </value>
+            <value>
+                <fullName>Customer Lending Group</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Customer Lending Group</label>
             </value>
         </valueSetDefinition>
     </valueSet>

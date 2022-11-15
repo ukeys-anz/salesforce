@@ -69,6 +69,26 @@
           >
           </lightning-input>
         </lightning-layout-item>
+        <template if:true={displayDueDate}>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-input
+              if:false={resetValidationError}
+              name="dueDate"
+              class="dueDate"
+              label="Due Date"
+              type="date"
+              placeholder="Select Due Date"
+              value={selectedDueDateValue}
+              onchange={handleDueDateChange}
+              data-id="get-due-date"
+              required="true"
+              message-when-value-missing="Due date is required."
+              min={minFollowUpDate}
+              message-when-range-underflow="Due date should be in future."
+            >
+            </lightning-input>
+          </lightning-layout-item>
+        </template>
         <lightning-layout-item size="12" padding="around-small">
           <lightning-textarea
             class="comment"
@@ -88,6 +108,7 @@
           <lightning-button
             variant="brand"
             label="Log Response"
+            data-id="get-submit-button"
             onclick={submitResponse}
             disabled={isDisable}
           >

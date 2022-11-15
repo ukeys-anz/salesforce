@@ -5,6 +5,8 @@
     <description>Company field is Mandatory if &quot;Company Not Yet Registered&quot; is not checked.</description>
     <errorConditionFormula>AND(
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    NOT($Permission.CCRM_Skip_Validation),
+    TEXT(Lead_Originator__c) != &apos;Adobe&apos;,
     RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
     OR(AND(ISBLANK(Company) ,
     NOT(Not_Registered__c)), AND(NOT(ISBLANK(Company)) ,

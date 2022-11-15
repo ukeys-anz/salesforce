@@ -3,33 +3,39 @@
     <sorted>false</sorted>
     <standardValue>
         <fullName>Not Started</fullName>
+        <closed>false</closed>
         <default>true</default>
         <label>Not Started</label>
-        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Open</fullName>
+        <closed>false</closed>
         <default>false</default>
         <label>Open</label>
-        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Completed</fullName>
+        <closed>true</closed>
         <default>false</default>
         <label>Completed</label>
-        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Expired</fullName>
+        <closed>true</closed>
         <default>false</default>
         <label>Expired</label>
-        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Failed</fullName>
+        <closed>true</closed>
         <default>false</default>
         <label>Failed</label>
-        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>New</fullName>
+        <closed>false</closed>
+        <default>false</default>
+        <label>New</label>
     </standardValue>
     <standardValue>
         <fullName>Other</fullName>

@@ -20,6 +20,7 @@ export default class LeadLogAResponse extends LightningElement {
   @track outcomeReasonOptions;
   @track selectedResponseTypeId;
   @track selectedFollowUpDateValue;
+  @track selectedDueDateValue;
   @track followUpDateDisable = true;
   @track followUpDateState;
   @track commentValue;
@@ -30,6 +31,8 @@ export default class LeadLogAResponse extends LightningElement {
   resetValidationError = false;
   isLoading = false;
   minFollowUpDate = new Date().toISOString();
+  displayDueDate = false;
+  autoCreateActivities = false;
 
   @wire(getRecord, { recordId: "$recordId", fields: [LEAD_LEAD_QUALITY] })
   getLeadRecord({ data, error }) {
@@ -119,6 +122,7 @@ export default class LeadLogAResponse extends LightningElement {
       this.resetLeadQuality();
       this.selectedOutcomeResponseValue = undefined;
       this.selectedFollowUpDateValue = undefined;
+      this.selectedDueDateValue = undefined;
       this.followUpDateDisable = true;
       this.outcomeReasonOptions = undefined;
       this.selectedResponseStatusValue = event.detail.value;
@@ -140,7 +144,9 @@ export default class LeadLogAResponse extends LightningElement {
                     .Outcome_Reason__c,
                   FollowUpState: this.dependentPicklistWrapper[key][subkey]
                     .Follow_Up_State__c,
-                  ResponseTypeId: this.dependentPicklistWrapper[key][subkey].Id
+                  ResponseTypeId: this.dependentPicklistWrapper[key][subkey].Id,
+                  CreateActivities: this.dependentPicklistWrapper[key][subkey]
+                    .Create_To_Do_Activities__c
                 });
               }
             }
@@ -173,6 +179,17 @@ export default class LeadLogAResponse extends LightningElement {
               this.followUpDateDisable = false;
               this.selectedFollowUpDateValue = undefined;
             }
+            if (
+              this.outcomeReasonDetailMap[key].CreateActivities &&
+              this.selectedResponseStatusValue === "Accepted"
+            ) {
+              this.displayDueDate = true;
+              this.followUpDateDisable = true;
+              this.autoCreateActivities = true;
+            } else {
+              this.displayDueDate = false;
+              this.autoCreateActivities = false;
+            }
             this.followUpDateState = this.outcomeReasonDetailMap[
               key
             ].FollowUpState;
@@ -192,18 +209,24 @@ export default class LeadLogAResponse extends LightningElement {
     this.validateRecord();
   }
 
+  handleDueDateChange(event) {
+    this.selectedDueDateValue = event.detail.value;
+    this.validateRecord();
+  }
+
   handleCommentChange(event) {
     this.commentValue = event.detail.value;
   }
 
   validateRecord() {
-    return (
-      this.template.querySelector(".responseStatus").reportValidity() &&
+    return this.template.querySelector(".responseStatus").reportValidity() &&
       this.template.querySelector(".leadQuality").reportValidity() &&
       this.template.querySelector(".outcomeReason").reportValidity() &&
       this.template.querySelector(".comment").reportValidity() &&
-      this.template.querySelector(".followUpDate").reportValidity()
-    );
+      this.template.querySelector(".followUpDate").reportValidity() &&
+      this.autoCreateActivities
+      ? this.template.querySelector(".dueDate").reportValidity()
+      : true;
   }
 
   submitResponse() {
@@ -213,6 +236,8 @@ export default class LeadLogAResponse extends LightningElement {
         leadQuality: this.selectedLeadQualityValue,
         outcomeReason: this.selectedOutcomeResponseValue,
         followUpDate: this.selectedFollowUpDateValue,
+        dueDate: this.selectedDueDateValue,
+        autoCreateActivities: this.autoCreateActivities,
         commentVal: this.commentValue,
         leadId: this.recordId,
         responseTypeValue: this.selectedResponseTypeId
@@ -247,6 +272,9 @@ export default class LeadLogAResponse extends LightningElement {
     this.selectedFollowUpDateValue = undefined;
     this.commentValue = undefined;
     this.followUpDateDisable = true;
+    if (this.autoCreateActivities) {
+      this.selectedDueDateValue = undefined;
+    }
     this.resetLeadQuality();
   }
 
@@ -255,8 +283,8 @@ export default class LeadLogAResponse extends LightningElement {
   }
 
   handleError(error) {
-    handleErrors(error);
-    this.sendToastMessage("error", this.errorMessage);
+    var handledError = handleErrors(error);
+    this.sendToastMessage("error", handledError);
     this.resetFields();
   }
 

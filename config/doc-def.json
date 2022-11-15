@@ -20,6 +20,7 @@
     "ContentVersion",
     "Controlling_Post__c",
     "EmailMessage",
+    "External_Case_Status__c",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
     "Identifier__c",
@@ -252,19 +253,20 @@
       "name": "OCV Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Read_Write_Customer_Details"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "FinancialServicesCloudStandard",
+        "Moderate_Chatter",
+        "Read_Write_Customer_Details",
+        "CCRM_Marketing_Integration_User"
+      ],
       "type": "system"
     },
     {
       "name": "Odaseva  User",
       "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": [],
-      "permissionsets": [
-        "Mute_Restore",
-        "Backup_and_Restore",
-        "API_Only",
-        "Password_Never_Expires"
-      ],
+      "permissionsetgroups": ["Muted_Backup_and_Restore"],
+      "permissionsets": ["API_Only", "Password_Never_Expires"],
       "type": "system"
     },
     {

@@ -73,6 +73,11 @@
                 <label>Coaching/Needs based Discussion</label>
             </value>
             <value>
+                <fullName>Create or Manage PayID</fullName>
+                <default>false</default>
+                <label>Create or Manage PayID</label>
+            </value>
+            <value>
                 <fullName>Credit Reporting</fullName>
                 <default>false</default>
                 <label>Credit Reporting</label>
@@ -203,11 +208,6 @@
                 <label>Using tiles</label>
             </value>
             <value>
-                <fullName>Account closure</fullName>
-                <default>false</default>
-                <label>Account closure</label>
-            </value>
-            <value>
                 <fullName>Statements</fullName>
                 <default>false</default>
                 <label>Statements</label>
@@ -288,6 +288,11 @@
                 <label>Withholding tax refund</label>
             </value>
             <value>
+                <fullName>Large Value Transfer</fullName>
+                <default>false</default>
+                <label>Large Value Transfer</label>
+            </value>
+            <value>
                 <fullName>General Home Loan Enquiry</fullName>
                 <default>false</default>
                 <label>General Home Loan Enquiry</label>
@@ -323,66 +328,6 @@
         <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Transaction</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>About Us</controllingFieldValue>
-            <valueName>ANZ branches</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Using account</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Savings and goals</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Using tiles</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Account closure</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Statements</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Transaction Disputes</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Withholding tax refund</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Making payments</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Follow Up</controllingFieldValue>
-            <valueName>ANZ Plus Support</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>General Home Loan Enquiry</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>Managing Repayments</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>Close Home Loan</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>Loan Statements</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Payments</controllingFieldValue>
-            <valueName>Direct Debit or Recurring Payment</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
@@ -489,12 +434,40 @@
             <valueName>Withholding tax refund</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Large Value Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Create or Manage PayID</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Direct Debit or Recurring Payment</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Making payments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>General Home Loan Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Managing Repayments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Close Home Loan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Loan Statements</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Follow Up</controllingFieldValue>
+            <valueName>ANZ Plus Support</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>

@@ -13,8 +13,8 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
-        <enabled>true</enabled>
         <name>ANZx_Account_Closure</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>Provides access to the account closure LWC</description>
     <hasActivationRequired>false</hasActivationRequired>

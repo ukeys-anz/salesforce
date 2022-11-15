@@ -1,7 +1,7 @@
 /**
  * @author Mairaj Haider
  * @since 03/2022
- * @description CCRM Lead Action is the test class for CCRM Lead Actions Class.
+ * @description CCRM Lead Action is the test class for CCRM Lead Actions Class functionality.
  */
 @isTest
 private class CCRMLeadActionsTest {
@@ -202,7 +202,7 @@ private class CCRMLeadActionsTest {
     leadRecord3.OwnerId = ccrmUser3.Id;
 
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      CCRMLeadActions.retrieveControllingPost(
+      CCRMControllingPostActions.retrieveControllingPost(
         new List<Lead>{ leadRecord, leadRecord2, leadRecord3 },
         null
       );
@@ -327,7 +327,7 @@ private class CCRMLeadActionsTest {
     //WHEN
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
-    CCRMLeadActionsHelper.resendManualLeadPlatformEvent(leadIds);
+    CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
 
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
@@ -342,7 +342,10 @@ private class CCRMLeadActionsTest {
   static void testLeadPlatformEventsSuccessfullyByAdminUnica() {
     // GIVEN
     List<Lead> leads = [SELECT Id, LeadSource FROM Lead];
-    leads[0].Lead_Originator__c = 'CCRM';
+    for (Lead record : leads) {
+      record.Lead_Originator__c = 'CCRM';
+      record.New_to_Bank__c = 'No';
+    }
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       update leads;
       leads = CCRMTestDataFactory.createLeadRecordsWithCustomerRelatedParty(
@@ -353,7 +356,7 @@ private class CCRMLeadActionsTest {
     //WHEN
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leads[0].Id);
-    CCRMLeadActionsHelper.resendManualLeadPlatformEvent(leadIds);
+    CCRMLeadPlatformEventActions.resendManualLeadPlatformEvent(leadIds);
 
     // THEN
     // As platform event will be published to Mule, doing assert only for code coverage
@@ -493,7 +496,7 @@ private class CCRMLeadActionsTest {
     Lead_response_event__e pe = new Lead_response_event__e(
       Outcome_Reason__c = 'Happy with Offer',
       Response_Status__c = 'Accepted',
-      Subject__c = 'Test Log Response Event',
+      Comment__c = 'Test Log Response Event',
       UNICA_Treatment_Code__c = 'AMTP'
     );
     List<sObject> events = new List<sObject>();
@@ -524,7 +527,7 @@ private class CCRMLeadActionsTest {
     );
     System.assertEquals(
       'Test Log Response Event',
-      publishedEvents[0].get('Subject__c'),
+      publishedEvents[0].get('Comment__c'),
       'Company should match.'
     );
   }
@@ -576,7 +579,10 @@ private class CCRMLeadActionsTest {
   static void testLeadResponsePlatformEventsSuccessfullyByAdmin() {
     // GIVEN
     List<Lead> leads = [SELECT Id, LeadSource, Lead_id__c FROM Lead];
-    leads[0].Lead_Originator__c = 'Adobe';
+    for (Lead record : leads) {
+      record.Lead_Originator__c = 'Adobe';
+      record.New_to_Bank__c = 'No';
+    }
 
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       leads = CCRMTestDataFactory.createLeadRecordsWithCustomerRelatedParty(

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ANZx Standard User</fullName>
     <applicationVisibilities>
         <application>standard__Insights</application>
         <default>false</default>
@@ -1360,8 +1361,8 @@
     </classAccesses>
     <custom>true</custom>
     <customSettingAccesses>
-        <enabled>true</enabled>
         <name>Non_Prod_Settings__c</name>
+        <enabled>true</enabled>
     </customSettingAccesses>
     <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
     <fieldPermissions>
@@ -7968,7 +7969,6 @@
         <field>WorkerCompCoverageClass.WorkerLocationId</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fullName>ANZx Standard User</fullName>
     <layoutAssignments>
         <layout>Case-ATM Dispute Layout</layout>
         <recordType>Case.ATM_Dispute</recordType>
@@ -9672,191 +9672,191 @@
     </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ActivitiesAccess</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AddDirectMessageMembers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AllowUniversalSearch</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ApexRestServices</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApiEnabled</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AssignTopics</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ChatterInternalUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterInviteExternalUsers</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterOwnGroups</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ContentWorkspaces</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConvertLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>CreateCustomizeFilters</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>CreateTopics</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditEvent</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditOppLineItemUnitPrice</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditTask</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditTopics</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailMass</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailSingle</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EnableNotifications</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ExportReport</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportPersonal</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>LightningConsoleAllowedForUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>LightningExperienceUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ListEmailSend</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>MassInlineEdit</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>PreventClassicExperience</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>RemoveDirectMessageMembers</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>RunReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>SelectFilesFromSalesforce</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>SendSitRequests</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ShowCompanyNameAsUserBadge</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>SubmitMacrosAllowed</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>SubscribeToLightningReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>TransactionalEmailSend</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>UseWebLink</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewHelpLink</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewRoles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewPublicDashboards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewPublicReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewSetup</name>
-    </userPermissions>
-    <userPermissions>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewPublicDashboards</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewPublicReports</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewSetup</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ViewDeveloperName</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>OverrideForecasts</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewAllForecasts</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ModifyMetadata</name>
+        <enabled>false</enabled>
     </userPermissions>
 </Profile>

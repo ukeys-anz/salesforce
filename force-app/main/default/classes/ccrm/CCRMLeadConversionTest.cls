@@ -57,6 +57,7 @@ public class CCRMLeadConversionTest {
     leadResponseData1.commentVal = 'Customer is happy with the offer.';
     leadResponseData1.leadId = updatedLeads[0].Id;
     leadResponseData1.responseTypeValue = rtAccepted.Id;
+    leadResponseData1.autoCreateActivities = false;
 
     String result = '';
     List<Opportunity> opps;
@@ -180,6 +181,7 @@ public class CCRMLeadConversionTest {
     leadResponseData1.commentVal = 'Customer is happy with the offer.';
     leadResponseData1.leadId = leads[0].Id;
     leadResponseData1.responseTypeValue = rtAccepted.Id;
+    leadResponseData1.autoCreateActivities = false;
 
     String result;
     Test.startTest();

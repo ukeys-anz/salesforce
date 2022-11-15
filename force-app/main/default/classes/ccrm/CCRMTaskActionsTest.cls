@@ -54,6 +54,7 @@ public with sharing class CCRMTaskActionsTest {
     leadResponseData1.commentVal = 'Customer is happy with the offer.';
     leadResponseData1.leadId = updatedLeads[0].Id;
     leadResponseData1.responseTypeValue = rtAccepted.Id;
+    leadResponseData1.autoCreateActivities = false;
 
     CCRMLogAResponseController.LeadResponseWrapper leadResponseData2 = new CCRMLogAResponseController.LeadResponseWrapper();
     leadResponseData2.responseStatus = 'Customer Declined';
@@ -62,6 +63,7 @@ public with sharing class CCRMTaskActionsTest {
     leadResponseData2.followUpDate = null;
     leadResponseData2.leadId = updatedLeads[1].Id;
     leadResponseData2.responseTypeValue = rtDeclined.Id;
+    leadResponseData2.autoCreateActivities = false;
 
     String result = '';
     String result2 = '';
@@ -115,6 +117,7 @@ public with sharing class CCRMTaskActionsTest {
     leadResponseData1.commentVal = 'Customer asked me to call the next day';
     leadResponseData1.leadId = updatedLeads[0].Id;
     leadResponseData1.responseTypeValue = rtCallBack.Id;
+    leadResponseData1.autoCreateActivities = false;
 
     CCRMLogAResponseController.LeadResponseWrapper leadResponseData2 = new CCRMLogAResponseController.LeadResponseWrapper();
     leadResponseData2.responseStatus = 'Call Back';
@@ -123,6 +126,7 @@ public with sharing class CCRMTaskActionsTest {
     leadResponseData2.commentVal = 'Customer asked me to call the next day';
     leadResponseData2.leadId = updatedLeads[0].Id;
     leadResponseData2.responseTypeValue = rtCallBack.Id;
+    leadResponseData2.autoCreateActivities = false;
 
     String result = '';
     String result2 = '';

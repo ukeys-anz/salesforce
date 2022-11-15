@@ -74,8 +74,8 @@ public with sharing class FinancialAccountModel extends CalloutModel {
     public MarketingProduct marketing_product;
     public List<String> allowed_transact_options;
     public String status;
-    public Object opened_at;
-    public Object closed_at;
+    public String opened_at;
+    public String closed_at;
     public Double interest_rate;
     public List<TieredRates> tiered_rates;
   }

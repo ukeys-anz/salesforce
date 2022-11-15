@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -233,20 +234,20 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-c5555b3a-d749-466c-9dcb-dfc3867ce671</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-c5555b3a-d749-466c-9dcb-dfc3867ce671</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>relatedTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -266,10 +267,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>relatedTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>tabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -299,20 +300,20 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>tabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-a9cb1ca2-7bcf-4e7c-b4dd-c924439bf26f</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
                 <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-a9cb1ca2-7bcf-4e7c-b4dd-c924439bf26f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-39325b74-0e93-4edf-82a7-ebc3842ea74c</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -327,10 +328,10 @@
                 <identifier>flexipage_tab3</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-39325b74-0e93-4edf-82a7-ebc3842ea74c</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -424,30 +425,30 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-c52f1a27-962f-48ea-a936-6a56e17c8b11</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-c52f1a27-962f-48ea-a936-6a56e17c8b11</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-a79f9202-63a1-4570-a8c1-42656fc28b3b</name>
         <itemInstances>
             <componentInstance>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-a79f9202-63a1-4570-a8c1-42656fc28b3b</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-67841764-3f50-493f-a29a-65b606c2d12c</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -480,10 +481,10 @@
                 <identifier>flexipage_tab5</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-67841764-3f50-493f-a29a-65b606c2d12c</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>initiateInteraction</componentName>
@@ -573,7 +574,6 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Case Record Page</masterLabel>

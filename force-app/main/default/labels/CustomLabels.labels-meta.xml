@@ -32,6 +32,27 @@
         <value>New lead #{LeadId}# available to action.Please check your leads list view. #{LeadListViewId}#</value>
     </labels>
     <labels>
+        <fullName>CCRM_CreatePartyWorkStation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create party API header workstation id</shortDescription>
+        <value>WPN132</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CreatePartyBranch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create party API header operator branch</shortDescription>
+        <value>4111</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CreatePartyOriginatingApp</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create party API header originating app</shortDescription>
+        <value>CRM</value>
+    </labels>
+    <labels>
         <fullName>CCRM_LeadDefaultPriorityValue</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -127,6 +148,14 @@
         <value>0</value>
     </labels>
     <labels>
+        <fullName>CCRM_Source_System_Name</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Source System Name for Lead Ingestion	</shortDescription>
+        <value>CAP-CIS</value>
+     </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -166,6 +195,14 @@
         <shortDescription>MS_Account_Table</shortDescription>
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
+    <labels>
+        <fullName>MS_Create_Party</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Create_Party</shortDescription>
+        <value>/dcrm/customers/v1/customer/create</value>
+     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
         <categories>MS</categories>
@@ -276,7 +313,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Replace_Card</shortDescription>
-        <value>/anz-exp-sfdc-coach-banking-api/api/cards/</value>
+        <value>/coach-banking/v1beta1/cards/</value>
     </labels>
     <labels>
         <fullName>MS_Search_Party</fullName>
@@ -285,6 +322,14 @@
         <protected>false</protected>
         <shortDescription>MS_Search_Party</shortDescription>
         <value>/dcrm/customers/v1/party/search?</value>
+    </labels>
+    <labels>
+        <fullName>MS_Search_Party_Params</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Search_Party_Params</shortDescription>
+        <value>offset=1&amp;limit=1&amp;probable=true</value>
     </labels>
     <labels>
         <fullName>MS_Temp_Lock_Card</fullName>

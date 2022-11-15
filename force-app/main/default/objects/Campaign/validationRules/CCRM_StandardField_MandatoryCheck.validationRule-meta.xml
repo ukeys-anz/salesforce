@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_StandardField_MandatoryCheck</fullName>
+    <active>true</active>
+    <description>Custom validation to make standard fields (Name, Type, StartDate, EndDate) mandatory</description>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp; (ISBLANK(TEXT(Type)) || ISBLANK(StartDate) || ISBLANK(EndDate))</errorConditionFormula>
+    <errorMessage>Required fields are missing: [Type, StartDate, EndDate]</errorMessage>
+</ValidationRule>

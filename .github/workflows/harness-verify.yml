@@ -25,7 +25,7 @@ jobs:
           GITHUB_BASE_REF: ${{ github.base_ref }}
           GITHUB_REF: ${{ github.ref }}
           DRAFT_PR: ${{ github.event.pull_request.draft }}
-          UPLOAD_ARTIFACT: ${{ !env.DRAFT_PR }}
+          UPLOAD_ARTIFACT: ${{ !github.event.pull_request.draft }}
           RUN_ALL_TESTS_LABEL: ${{ contains( toJson(github.event.pull_request.labels), 'Run All Tests') }}
         run: |
           docker run --rm \

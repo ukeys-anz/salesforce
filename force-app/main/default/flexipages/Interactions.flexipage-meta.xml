@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -306,7 +307,6 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
-        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Interactions</masterLabel>
