@@ -146,3 +146,6 @@ force-app/main/default/objects/ResidentialLoanApplication/listViews/All_Resident
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
+
+#ANZX-72863 - to prevent layout being deployed becuase its custom metadata is already deleted
+force-app/main/default/layouts/PEGA_Smarts_Status_Mapping__mdt-PEGA Smarts Status Mapping Layout.layout-meta.xml
