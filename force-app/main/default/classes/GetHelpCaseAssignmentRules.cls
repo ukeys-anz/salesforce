@@ -80,6 +80,7 @@ public with sharing class GetHelpCaseAssignmentRules {
     ) {
       if (
         rec.Dispute_Reason__c == DID_NOT_AUTHORISE_TRANSACTION ||
+        rec.Dispute_Reason__c == DO_NOT_RECOGNISE_TRANSACTION ||
         rec.Dispute_Reason__c == UNAUTHORISED_TRANSACTION
       ) {
         return QUEUE_MAP.get(GetHelpConstants.CARD_DISPUTE_FRAUD_QUEUE);
