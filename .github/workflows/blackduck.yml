@@ -2,11 +2,12 @@ name: BlackDuck 🦆 Scan
 
 on:
   pull_request:
-    paths:
-      - .github/workflows/blackduck.yml # Run on change to scan, or packages, in master
-      - "package.json"
+    # paths:
+    #   - .github/workflows/blackduck.yml # Run on change to scan, or packages, in master
+    #   - "package.json"
     branches:
       - master
+      - epic/anzx-bau
   push:
     branches:
       - master
@@ -33,20 +34,27 @@ jobs:
 
       - name: "🦆 Black Duck Scan"
         run: |
-          set -x
-          if [[ "${GITHUB_REF}" == refs/pull/* ]]
-          then
-            PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN { FS = "/" } ; { print $3 }')
-          else
-            REF="${GITHUB_REF}"
-          fi
-          # NOTE: the following is not actually a secret, but an encrypted blob
-          docker run --rm \
-            anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest \
-            --harness-api-key=CiUALvObyCdx/LOa/QDKwMlYRpDEQJ2qHzw/3NU+5JIyDg48PqtSErYBADVs6ThOwBR9GqQTYYHPL9YK25KzNciYQ53CcRQrLeU4yqEPUOmFgrRWvHF3woJ9HKQ+gVtpxQ16dXt4Kql2dPkFcitZGHX5rXugw0AX29OhdaKt7xYT1FxvFyhK78g72ZXvkCvqnvI1gKMTEMPqKyv3Nz4uKVCRi1pLM10R1DckF8gPZo00dX4bhlBczeJU3ySdwohTe0OH3sKcUTTXACaLw08k4MR0MykgW70nR9lLrh6sqk4= \
-            --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
-            --application-name=secscan \
-            --target-name=BlackduckScanCI \
-            --target-type=PIPELINE \
-            --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER}" \
-            --wait
+          # set -x
+          # if [[ "${GITHUB_REF}" == refs/pull/* ]]
+          # then
+          #   PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN { FS = "/" } ; { print $3 }')
+          # else
+          #   REF="${GITHUB_REF}"
+          # fi
+          # # NOTE: the following is not actually a secret, but an encrypted blob
+          # docker run --rm \
+          #   anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest \
+          #   --harness-api-key=CiUALvObyCdx/LOa/QDKwMlYRpDEQJ2qHzw/3NU+5JIyDg48PqtSErYBADVs6ThOwBR9GqQTYYHPL9YK25KzNciYQ53CcRQrLeU4yqEPUOmFgrRWvHF3woJ9HKQ+gVtpxQ16dXt4Kql2dPkFcitZGHX5rXugw0AX29OhdaKt7xYT1FxvFyhK78g72ZXvkCvqnvI1gKMTEMPqKyv3Nz4uKVCRi1pLM10R1DckF8gPZo00dX4bhlBczeJU3ySdwohTe0OH3sKcUTTXACaLw08k4MR0MykgW70nR9lLrh6sqk4= \
+          #   --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
+          #   --application-name=secscan \
+          #   --target-name=BlackduckScanCI \
+          #   --target-type=PIPELINE \
+          #   --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER}" \
+          #   --wait
+          echo "Hey"
+
+      - if: success()
+        name: Slack message
+        run: |
+          IDENTITY_TOKEN=$(curl -H "Metadata-Flavor: Google" 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz&format=full&licenses=TRUE')
+          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-automation-test-notification-test","templateID":"ghasfautomationtest","args":{"startdatetime":"Nothing","passed":"Passed","failed":"failed","broken":"broken","skipped":"WHAT","resultsurl":"yes","resultsreporturl":"no"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack

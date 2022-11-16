@@ -1,56 +1,56 @@
-# This workflow deploys changes to a Salesforce project to a Salesforce org with the check only flag
-name: Verify
+# # This workflow deploys changes to a Salesforce project to a Salesforce org with the check only flag
+# name: Verify
 
-# This workflow will only run on Pull Reqeusts against master , develop and epic/*
-on:
-  pull_request:
-    branches:
-      - "master"
-      - "develop"
-      - "epic/*"
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
-      - edited
+# # This workflow will only run on Pull Reqeusts against master , develop and epic/*
+# on:
+#   pull_request:
+#     branches:
+#       - "master"
+#       - "develop"
+#       - "epic/*"
+#     types:
+#       - opened
+#       - reopened
+#       - ready_for_review
+#       - synchronize
+#       - edited
 
-jobs:
-  # This job only does the validation, even though it reads as build_and_deploy. This is due to a name mismatch in terraform.
-  build_and_deploy:
-    runs-on: [self-hosted, salesforce]
-    if: github.event.pull_request.draft == false
-    steps:
-      - name: Trigger Harness Job
-        env:
-          GITHUB_BASE_REF: ${{ github.base_ref }}
-          GITHUB_REF: ${{ github.ref }}
-        run: |
-          docker run --rm \
-            anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:ede3323 \
-            --harness-api-key=CiUALvObyFFSMIO9lC8YUwdvtU6X9/W2dq5AtNmcdgjPME4s6z48ErYBAPO28TLr1ZTTpb/DjiyYN2gj/Ta3b58qEbtlWRKPW69xbx4+2/Bwt84iol8Hbf688qjPZ3i5wa4t025jlfP6EG3um//xpOsssZ9TCYkkqMvtdupzMqxbiOO8uu35eQnesfZKVc05xWVcz5DKpMrLeKe7R7Tsw2yaLHrlhPzwmfp9Gary1D75zhHl59d32udkZyeROJ49naqS6LvOJwx/IV6pfj05zE11U0P2euCBFH18KWP5wRk= \
-            --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
-            --application-name=salesforce \
-            --target-name=salesforce-ci-np \
-            --target-type=WORKFLOW \
-            --variables='GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=true;DRAFT_PR=false' \
-            --wait
+# jobs:
+#   # This job only does the validation, even though it reads as build_and_deploy. This is due to a name mismatch in terraform.
+#   build_and_deploy:
+#     runs-on: [self-hosted, salesforce]
+#     if: github.event.pull_request.draft == false
+#     steps:
+#       - name: Trigger Harness Job
+#         env:
+#           GITHUB_BASE_REF: ${{ github.base_ref }}
+#           GITHUB_REF: ${{ github.ref }}
+#         run: |
+#           docker run --rm \
+#             anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:ede3323 \
+#             --harness-api-key=CiUALvObyFFSMIO9lC8YUwdvtU6X9/W2dq5AtNmcdgjPME4s6z48ErYBAPO28TLr1ZTTpb/DjiyYN2gj/Ta3b58qEbtlWRKPW69xbx4+2/Bwt84iol8Hbf688qjPZ3i5wa4t025jlfP6EG3um//xpOsssZ9TCYkkqMvtdupzMqxbiOO8uu35eQnesfZKVc05xWVcz5DKpMrLeKe7R7Tsw2yaLHrlhPzwmfp9Gary1D75zhHl59d32udkZyeROJ49naqS6LvOJwx/IV6pfj05zE11U0P2euCBFH18KWP5wRk= \
+#             --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
+#             --application-name=salesforce \
+#             --target-name=salesforce-ci-np \
+#             --target-type=WORKFLOW \
+#             --variables='GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=true;DRAFT_PR=false' \
+#             --wait
 
-  draft_build_and_deploy:
-    runs-on: [self-hosted, salesforce]
-    if: github.event.pull_request.draft == true
-    steps:
-      - name: Trigger Harness Job
-        env:
-          GITHUB_BASE_REF: ${{ github.base_ref }}
-          GITHUB_REF: ${{ github.ref }}
-        run: |
-          docker run --rm \
-            anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:ede3323 \
-            --harness-api-key=CiUALvObyFFSMIO9lC8YUwdvtU6X9/W2dq5AtNmcdgjPME4s6z48ErYBAPO28TLr1ZTTpb/DjiyYN2gj/Ta3b58qEbtlWRKPW69xbx4+2/Bwt84iol8Hbf688qjPZ3i5wa4t025jlfP6EG3um//xpOsssZ9TCYkkqMvtdupzMqxbiOO8uu35eQnesfZKVc05xWVcz5DKpMrLeKe7R7Tsw2yaLHrlhPzwmfp9Gary1D75zhHl59d32udkZyeROJ49naqS6LvOJwx/IV6pfj05zE11U0P2euCBFH18KWP5wRk= \
-            --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
-            --application-name=salesforce \
-            --target-name=salesforce-ci-np \
-            --target-type=WORKFLOW \
-            --variables='GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=false;DRAFT_PR=true' \
-            --wait
+#   draft_build_and_deploy:
+#     runs-on: [self-hosted, salesforce]
+#     if: github.event.pull_request.draft == true
+#     steps:
+#       - name: Trigger Harness Job
+#         env:
+#           GITHUB_BASE_REF: ${{ github.base_ref }}
+#           GITHUB_REF: ${{ github.ref }}
+#         run: |
+#           docker run --rm \
+#             anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:ede3323 \
+#             --harness-api-key=CiUALvObyFFSMIO9lC8YUwdvtU6X9/W2dq5AtNmcdgjPME4s6z48ErYBAPO28TLr1ZTTpb/DjiyYN2gj/Ta3b58qEbtlWRKPW69xbx4+2/Bwt84iol8Hbf688qjPZ3i5wa4t025jlfP6EG3um//xpOsssZ9TCYkkqMvtdupzMqxbiOO8uu35eQnesfZKVc05xWVcz5DKpMrLeKe7R7Tsw2yaLHrlhPzwmfp9Gary1D75zhHl59d32udkZyeROJ49naqS6LvOJwx/IV6pfj05zE11U0P2euCBFH18KWP5wRk= \
+#             --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
+#             --application-name=salesforce \
+#             --target-name=salesforce-ci-np \
+#             --target-type=WORKFLOW \
+#             --variables='GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=false;DRAFT_PR=true' \
+#             --wait

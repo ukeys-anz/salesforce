@@ -1,50 +1,50 @@
-# This workflow deploys changes to a Salesforce project to a Salesforce org
-name: Lint
+# # This workflow deploys changes to a Salesforce project to a Salesforce org
+# name: Lint
 
-# This workflow will only run on Pull Requests against master , develop and epic/*
-on:
-  pull_request:
-    branches: [develop, master, epic/*]
+# # This workflow will only run on Pull Requests against master , develop and epic/*
+# on:
+#   pull_request:
+#     branches: [develop, master, epic/*]
 
-jobs:
-  prettier:
-    runs-on: [self-hosted, salesforce]
+# jobs:
+#   prettier:
+#     runs-on: [self-hosted, salesforce]
 
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2
+#     steps:
+#       - name: "Checkout"
+#         uses: actions/checkout@v2
 
-      - name: "Install npm packages"
-        run: |
-          mv ci.npmrc .npmrc
-          npm ci
+#       - name: "Install npm packages"
+#         run: |
+#           mv ci.npmrc .npmrc
+#           npm ci
 
-      - name: "Enforce Style Guidelines"
-        shell: bash
-        run: |
-          npx prettier --write .prettierrc --plugin=prettier-plugin-apex
-          echo "Checking Trigger and Class files"
-          npx prettier -c force-app/main/default/**/*.{trigger,cls} --parser apex --with-node-modules
-          echo "Checking Lightning Web Components"
-          npx prettier -c force-app/main/default/lwc/**/*.{js,html,css}
-          echo "Checking Aura Components"
-          npx prettier -c force-app/main/default/aura/**/*.{js,css,cmp}
+#       - name: "Enforce Style Guidelines"
+#         shell: bash
+#         run: |
+#           npx prettier --write .prettierrc --plugin=prettier-plugin-apex
+#           echo "Checking Trigger and Class files"
+#           npx prettier -c force-app/main/default/**/*.{trigger,cls} --parser apex --with-node-modules
+#           echo "Checking Lightning Web Components"
+#           npx prettier -c force-app/main/default/lwc/**/*.{js,html,css}
+#           echo "Checking Aura Components"
+#           npx prettier -c force-app/main/default/aura/**/*.{js,css,cmp}
 
-  eslint:
-    runs-on: [self-hosted, salesforce]
+#   eslint:
+#     runs-on: [self-hosted, salesforce]
 
-    steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2
+#     steps:
+#       - name: "Checkout"
+#         uses: actions/checkout@v2
 
-      - name: "Set npm repository mirror"
-        run: npm config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
+#       - name: "Set npm repository mirror"
+#         run: npm config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
 
-      - name: "Install NPM Packages"
-        run: npm ci
+#       - name: "Install NPM Packages"
+#         run: npm ci
 
-      - name: "Lint LWC"
-        shell: bash
-        run: |
-          echo "Linting Lightning Web Components"
-          npx eslint force-app/main/default/lwc/**/*.js -c .lwc-eslintrc.json
+#       - name: "Lint LWC"
+#         shell: bash
+#         run: |
+#           echo "Linting Lightning Web Components"
+#           npx eslint force-app/main/default/lwc/**/*.js -c .lwc-eslintrc.json
