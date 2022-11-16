@@ -16,7 +16,7 @@ on:
 
 jobs:
   blackduck:
-    runs-on: [self-hosted, org]
+    runs-on: [self-hosted, salesforce]
     steps:
       - uses: actions/setup-node@v2.1.5
         with:
