@@ -7,7 +7,6 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Queue</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
@@ -18,6 +17,10 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Queue</filterScope>
     <label>Open BPAY Disputes - Digital Fraud Queue</label>
     <queue>Digital_Fraud_Queue</queue>
+    <sharedTo>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
+    </sharedTo>
 </ListView>
