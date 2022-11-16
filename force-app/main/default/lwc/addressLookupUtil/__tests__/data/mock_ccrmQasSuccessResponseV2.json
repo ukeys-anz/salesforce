@@ -1,0 +1,48 @@
+{
+  "result": {
+    "more_results_available": false,
+    "confidence": "Verified match",
+    "suggestions_key": "suggestions_key_1",
+    "suggestions_prompt": "Enter selection",
+    "suggestions": [
+      {
+        "global_address_key": "global_address_key_1",
+        "text": "Unit 1  8 Main Avenue, LIDCOMBE  NSW  2141",
+        "format": "https://api.experianaperture.io/address/format/v1/global_address_key_1",
+        "additional_attributes": [
+          {
+            "name": "picklist_display",
+            "value": "Unit 1  8 Main Avenue, LIDCOMBE  NSW"
+          },
+          {
+            "name": "score",
+            "value": "100"
+          },
+          {
+            "name": "postcode",
+            "value": "2141"
+          }
+        ]
+      },
+      {
+        "global_address_key": "global_address_key_2",
+        "text": "Unit 2  8 Main Avenue, LIDCOMBE  NSW  2141",
+        "format": "https://api.experianaperture.io/address/format/v1/global_address_key_2",
+        "additional_attributes": [
+          {
+            "name": "picklist_display",
+            "value": "Unit 2  8 Main Avenue, LIDCOMBE  NSW"
+          },
+          {
+            "name": "score",
+            "value": "100"
+          },
+          {
+            "name": "postcode",
+            "value": "2141"
+          }
+        ]
+      }
+    ]
+  }
+}

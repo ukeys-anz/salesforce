@@ -1,0 +1,44 @@
+<template>
+  <lightning-record-edit-form
+    density="comfy"
+    record-id={addressId}
+    record-type-id={recordTypeId}
+    object-api-name="ContactPointAddress"
+    onsuccess={handleSuccess}
+    onerror={handleError}
+    onsubmit={handleSubmit}
+  >
+    <!-- sldsValidatorIgnoreNextLine -->
+    <lightning-quick-action-panel header={title} class="slds-is-relative">
+      <lightning-spinner if:true={loading}></lightning-spinner>
+      <lightning-messages></lightning-messages>
+
+      <lightning-input-field
+        disabled={addressId}
+        field-name="AddressType"
+        required
+      ></lightning-input-field>
+      <lightning-input-field field-name="IsDefault"></lightning-input-field>
+      <c-address-lookup-util
+        value={currentAddress}
+        required
+      ></c-address-lookup-util>
+
+      <div slot="footer" class="slds-text-align_center">
+        <lightning-button
+          class="btnCancel"
+          label="Cancel"
+          onclick={closeQuickAction}
+        >
+        </lightning-button>
+        <lightning-button
+          class="btnSave slds-var-m-left_medium"
+          variant="brand"
+          label="Save"
+          type="submit"
+        >
+        </lightning-button>
+      </div>
+    </lightning-quick-action-panel>
+  </lightning-record-edit-form>
+</template>

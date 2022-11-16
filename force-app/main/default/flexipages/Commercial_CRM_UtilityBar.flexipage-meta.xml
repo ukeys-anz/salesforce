@@ -6,6 +6,12 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <name>backgroundComponents</name>
+        <itemInstances>
+            <componentInstance>
+                <componentName>prospectUpdateNotifications</componentName>
+                <identifier>prospectUpdateNotifications</identifier>
+            </componentInstance>
+        </itemInstances>
         <type>Background</type>
     </flexiPageRegions>
     <masterLabel>Commercial CRM UtilityBar</masterLabel>

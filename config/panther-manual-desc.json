@@ -162,6 +162,7 @@
     "ContactRequest": "Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
+    "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
     "EmailMessage": "Represents an email in Salesforce.",
     "Event": "Represents a calendar entry in Salesforce",
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
@@ -851,6 +852,7 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
+      "IA-2415860": ["Occurrence_Number__c"],
       "IA-2415984": [
         "Birthdate",
         "Email",
@@ -860,15 +862,16 @@
         "MobilePhone",
         "OtherAddress",
         "Salutation",
-        "Suffix_c__c",
+        "Suffix__c",
         "Active_From__c",
         "Active_To__c"
       ],
-      "IA-2530753": ["Active_From__c", "Active_To__c", "Occurrence_Number__c"]
+      "IA-2530753": ["Active_From__c", "Active_To__c"]
     },
     "ContactPointAddress": {
       "IA-2530753": [
         "Building_Name__c",
+        "Customer_Name__c",
         "CreatedById",
         "CreatedDate",
         "Id",
@@ -881,7 +884,16 @@
         "Street_Number__c",
         "Street_Type__c",
         "Unit__c"
-      ]
+      ],
+      "IA-2415831": ["Global_Address_Key__c"],
+      "IA-2415840": ["QAS_Valid_Address__c"]
+    },
+    "ContactPointEmail": {
+      "IA-2415860": ["Occurrence_Number__c"],
+      "IA-2530753": ["Customer_Name__c"]
+    },
+    "ContactPointPhone": {
+      "IA-2530753": ["Customer_Name__c"]
     },
     "ContactRequest": {
       "IA-2453595": [
@@ -956,6 +968,23 @@
         "Start_Date__c",
         "State_Code__c"
       ]
+    },
+    "Customer_Profile_Updates__c": {
+      "IA-2415828": [
+        "AsIsValue__c",
+        "NewValue__c",
+        "OldValue__c",
+        "ToBeValue__c"
+      ],
+      "IA-2415860": [
+        "Occurrence_Number__c",
+        "Source_System_ID__c",
+        "Source_System_Name_c"
+      ],
+      "IA-2423981": ["Status__c", "Action"],
+      "IA-2435462": ["Object_Name__c", "TriggeredFrom__c", "UserLanId__C"],
+      "IA-2530753": ["Customer_Name__c"],
+      "IA-2571531": ["Error_Description__c"]
     },
     "EmailMessage": {
       "IA-2468715": [

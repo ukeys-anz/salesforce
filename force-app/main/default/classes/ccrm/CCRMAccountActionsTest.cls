@@ -5,6 +5,8 @@
  */
 @isTest
 private class CCRMAccountActionsTest {
+  static Faker faker = new Faker('AU');
+
   @testSetup
   static void setup() {
     User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
@@ -151,6 +153,35 @@ private class CCRMAccountActionsTest {
       'Converted',
       le.Status,
       'Lead should have been converted.'
+    );
+  }
+
+  @IsTest
+  static void testTrackProspectAccountChanges() {
+    Account acc;
+    //GIVEN a prospect account
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      acc = CCRMTestDataFactory.createProspectBusinessAccount(
+        CCRMTestDataFactory.getCCRMBaseUser().Id
+      );
+    }
+    //WHEN the account is updated by banker
+    Test.startTest();
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      acc.Name = acc.Name + ' updated ';
+      update acc;
+    }
+    Test.stopTest();
+
+    //THEN a Customer_Profile_Updates__c record is created accordingly to track the changes
+    System.assertEquals(
+      1,
+      [
+        SELECT COUNT()
+        FROM Customer_Profile_Updates__c
+        WHERE Customer_Name__c = :acc.Id
+      ],
+      'Customer_Profile_Updates__c record should be created when prospect account is updated'
     );
   }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Email Address</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Email Addresses</value>
+    </caseValues>
+    <layouts>
+        <layout>Contact Point Email Layout</layout>
+        <sections>
+            <label/>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label/>
+            <section>System Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <name>CCRM_Email_Check</name>
+        <errorMessage/>
+    </validationRules>
+    <validationRules>
+        <name>CCRM_Restrict_Details_Update</name>
+        <errorMessage/>
+    </validationRules>
+</CustomObjectTranslation>

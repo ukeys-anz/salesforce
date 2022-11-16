@@ -32,6 +32,7 @@ force-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionse
 force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/Customer_Profile_Updates__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Lead.sharingRules-meta.xml

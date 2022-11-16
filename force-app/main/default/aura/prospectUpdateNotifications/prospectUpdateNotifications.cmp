@@ -1,0 +1,7 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,lightning:backgroundUtilityItem"
+  access="global"
+>
+  <lightning:empApi aura:id="empApi" />
+  <aura:handler name="init" value="{!this}" action="{!c.handleInit}" />
+</aura:component>

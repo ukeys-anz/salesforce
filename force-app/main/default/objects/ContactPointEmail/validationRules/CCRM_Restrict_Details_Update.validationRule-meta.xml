@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Restrict_Details_Update</fullName>
+    <active>true</active>
+    <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
+$Permission.CCRM_Skip_Validation = false &amp;&amp;
+$Profile.Name = $Label.CCRM_Profile_Name &amp;&amp;
+NOT(
+ Customer_Name__r.Is_Prospect__c 
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to update this Email record.</errorMessage>
+</ValidationRule>
