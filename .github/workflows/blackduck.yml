@@ -57,4 +57,4 @@ jobs:
         name: Slack message
         run: |
           IDENTITY_TOKEN=$(curl -H "Metadata-Flavor: Google" 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz&format=full&licenses=TRUE')
-          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-automation-test-notification-test","templateID":"ghasfautomationtest","args":{"startdatetime":"Nothing","passed":"Passed","failed":"failed","broken":"broken","skipped":"WHAT","resultsurl":"yes","resultsreporturl":"no"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack
+          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-blackduck","templateID":"ghasfblackduck","args":{"startdatetime":"Nothing","passed":"Passed","branch":"branch"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack
