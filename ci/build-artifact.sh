@@ -12,7 +12,7 @@ DEPLOY_DIR="./tmp/deploy"
 DESTRUCTIVE_DIR="./tmp/destructive"
 # ignore shellcheck requesting double quotes for expansion, need to use the literal string 'unfiled$public'
 # shellcheck disable=SC2016
-META_DIR=(classes components pages triggers 'email/unfiled$public' staticresources wave)
+META_DIR=(classes components objectTranslations pages triggers 'email/unfiled$public' staticresources wave)
 BUNDLE_DIR=(aura lwc waveTemplates)
 # ignore shellcheck on harness variable reference
 # shellcheck disable=SC2154
@@ -57,7 +57,7 @@ function unzipDeployPackageandCopyMetaFiles() {
     rm -f ./package.zip
 
     # Copy the additional -meta.xml files for all files that require them
-    # ignoring quotes warning, expansion here is desireable for the for loop
+    # ignoring quotes warning, expansion here is desirable for the for loop
     # shellcheck disable=SC2048
     for p in "${DEPLOY_DIR}"/force-app/main/*; do
         package=$(basename "$p")
@@ -71,8 +71,29 @@ function unzipDeployPackageandCopyMetaFiles() {
                         subDir=classes/$(basename "${subdirectory}")
                         for filename in "${DEPLOY_DIR}"/force-app/main/"$package"/"${subDir}"/*; do
                             filename=$(basename "$filename")
+                            if [[ $filename == *.cls-meta.xml ]]; then
+                                classextension=".cls"
+                                classfilename=${filename/.cls-meta.xml/$classextension}
+                                cp ${SOURCE_DIR}/main/"$package"/"${subDir}"/"$classfilename" ${DEPLOY_DIR}/force-app/main/"$package"/"${subDir}" || true
+                            fi
                             [[ $filename == *.xml ]] && continue
                             cp ${SOURCE_DIR}/main/"$package"/"${subDir}"/"$filename"-meta.xml ${DEPLOY_DIR}/force-app/main/"$package"/"${subDir}" || true
+                        done
+                    done
+                fi
+                if [[ $dir == "objectTranslations" ]]; then
+                    # ignoring for loop find warning, this iterates through our field translation subdirs which are lowercase alpha no spaces
+                    # shellcheck disable=SC2044
+                    for subdirectory in $(find "${DEPLOY_DIR}/force-app/main/""$package""/$dir" -type d -maxdepth 1 -mindepth 1); do
+                        subDir=objectTranslations/$(basename "${subdirectory}")
+                        subDirBase=$(basename "${subdirectory}")
+                        for filename in "${DEPLOY_DIR}"/force-app/main/"$package"/"${subDir}"/*; do
+                            filename=$(basename "$filename")
+                            if [[ $filename == *.fieldTranslation-meta.xml ]]; then
+                                objextension=".objectTranslation-meta.xml"
+                                objfilename=$subDirBase$objextension
+                                cp ${SOURCE_DIR}/main/"$package"/"${subDir}"/"$objfilename" ${DEPLOY_DIR}/force-app/main/"$package"/"${subDir}" || true
+                            fi
                         done
                     done
                 fi
@@ -80,6 +101,11 @@ function unzipDeployPackageandCopyMetaFiles() {
                     filename=$(basename "$filename")
                     if [[ $dir == "staticresources" ]]; then
                         filename="$(echo "$filename" | cut -f 1 -d '.').resource"
+                    fi
+                    if [[ $filename == *.cls-meta.xml ]]; then
+                        classextension=".cls"
+                        classfilename=${filename/.cls-meta.xml/$classextension}
+                        cp ${SOURCE_DIR}/main/"$package"/"$dir"/"$classfilename" ${DEPLOY_DIR}/force-app/main/"$package"/"$dir" || true
                     fi
                     [[ $filename == *.xml ]] && continue
                     echo "$filename"
@@ -92,7 +118,7 @@ function unzipDeployPackageandCopyMetaFiles() {
     done
 
     # Copy full Aura, LWC, waveTemplate directories where at least one change has been made
-    # ignoring quotes warning, expansion here is desireable for the for loop
+    # ignoring quotes warning, expansion here is desirable for the for loop
     # shellcheck disable=SC2048
     for p in "${DEPLOY_DIR}"/force-app/main/*; do
         package=$(basename "$p")
@@ -193,7 +219,9 @@ fi
 echo ""
 
 #copy project file and ignore file
+echo "copying project & forceignore to ${DEPLOY_DIR}"
 cp sfdx-project.json .forceignore ${DEPLOY_DIR}
+echo "copying project & forceignore to ${DESTRUCTIVE_DIR}"
 cp sfdx-project.json .forceignore ${DESTRUCTIVE_DIR}
 
 # Convert the DX project to a metadata api package and commit the changes to the artefact
@@ -202,6 +230,7 @@ CURRENT_DIR=$(pwd)
 # Only generate artefacts where files are found
 if [ "${CHANGED_FILES}" -gt "0" ] || [ -d ${DEPLOY_DIR}/force-app ]; then
     cd "${DEPLOY_DIR}" || exit
+    echo "converting into ${CURRENT_DIR}"
     convertSourceFormat "${CURRENT_DIR}/artefact" false
     # Return to working DIR
     cd "${CURRENT_DIR}" || exit
