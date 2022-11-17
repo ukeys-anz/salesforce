@@ -24,11 +24,6 @@ jobs:
         with:
           node-version: "12"
 
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: master
-
       - name: "Install npm packages"
         run: |
           mv ci.npmrc .npmrc
