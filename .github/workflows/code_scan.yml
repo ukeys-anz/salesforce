@@ -1,25 +1,25 @@
-# # This workflow scans a salesforce project against PMD rulesets
-# name: Scan
+# This workflow scans a salesforce project against PMD rulesets
+name: Scan
 
-# # This workflow will only run on Pull Requests against master , develop and epic/*
-# on:
-#   pull_request:
-#     branches: [develop, master, epic/*]
+# This workflow will only run on Pull Requests against master , develop and epic/*
+on:
+  pull_request:
+    branches: [develop, master, epic/*]
 
-# jobs:
-#   pmd:
-#     runs-on: [self-hosted, salesforce]
+jobs:
+  pmd:
+    runs-on: [self-hosted, salesforce]
 
-#     steps:
-#       - name: "Checkout"
-#         uses: actions/checkout@v2
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
 
-#       - name: "Install PMD"
-#         shell: bash
-#         run: |
-#           curl -o pmd.zip -OL https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F6.39.0/pmd-bin-6.39.0.zip
-#           unzip pmd.zip
-#           chmod +x $GITHUB_WORKSPACE/pmd-bin-6.39.0/bin
+      - name: "Install PMD"
+        shell: bash
+        run: |
+          curl -o pmd.zip -OL https://artifactory.gcp.anz/artifactory/github/pmd/pmd/releases/download/pmd_releases%2F6.39.0/pmd-bin-6.39.0.zip
+          unzip pmd.zip
+          chmod +x $GITHUB_WORKSPACE/pmd-bin-6.39.0/bin
 
-#       - name: "Run PMD"
-#         run: $GITHUB_WORKSPACE/pmd-bin-6.39.0/bin/run.sh pmd -d . -R ./rulesets/apex/quickstart.xml -l apex -f textcolor -cache ../pmd-cache
+      - name: "Run PMD"
+        run: $GITHUB_WORKSPACE/pmd-bin-6.39.0/bin/run.sh pmd -d . -R ./rulesets/apex/quickstart.xml -l apex -f textcolor -cache ../pmd-cache

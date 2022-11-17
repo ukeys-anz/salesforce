@@ -1,46 +1,46 @@
-# # This workflow scans a Salesforce project using Checkmarx
-# name: Checkmarx Scan
+# This workflow scans a Salesforce project using Checkmarx
+name: Checkmarx Scan
 
-# on:
-#   push:
-#     branches: [develop, master]
+on:
+  push:
+    branches: [develop, master]
 
-# jobs:
-#   checkmarx-scan:
-#     runs-on: [self-hosted, salesforce-prod]
-#     steps:
-#       - uses: actions/checkout@v2
-#       - env:
-#           # Do not send Google metadata server requests to the Squid proxy
-#           NO_PROXY: ".googleapis.com,.internal,169.254.169.254"
-#         id: secrets
-#         uses: google-github-actions/get-secretmanager-secrets@main
-#         with:
-#           secrets: |-
-#             CHECKMARX_URL:projects/36540621485/secrets/ghr-checkmarx-url/versions/2
-#             CHECKMARX_USERNAME:projects/36540621485/secrets/ghr-checkmarx-username/versions/2
-#             CHECKMARX_PASSWORD:projects/36540621485/secrets/ghr-checkmarx-password/versions/2
-#             CHECKMARX_CLIENT_SECRET:projects/36540621485/secrets/ghr-checkmarx-client-secret/versions/2
+jobs:
+  checkmarx-scan:
+    runs-on: [self-hosted, salesforce-prod]
+    steps:
+      - uses: actions/checkout@v2
+      - env:
+          # Do not send Google metadata server requests to the Squid proxy
+          NO_PROXY: ".googleapis.com,.internal,169.254.169.254"
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            CHECKMARX_URL:projects/36540621485/secrets/ghr-checkmarx-url/versions/2
+            CHECKMARX_USERNAME:projects/36540621485/secrets/ghr-checkmarx-username/versions/2
+            CHECKMARX_PASSWORD:projects/36540621485/secrets/ghr-checkmarx-password/versions/2
+            CHECKMARX_CLIENT_SECRET:projects/36540621485/secrets/ghr-checkmarx-client-secret/versions/2
 
-#       - name: Checkout actions
-#         uses: actions/checkout@v2
-#         with:
-#           path: .github/actions/platform-actions-checkmarx-cxflow
-#           repository: anzx/platform-actions-checkmarx-cxflow
-#           token: ${{ secrets.CXFLOW_ACTIONS_TOKEN }}
+      - name: Checkout actions
+        uses: actions/checkout@v2
+        with:
+          path: .github/actions/platform-actions-checkmarx-cxflow
+          repository: anzx/platform-actions-checkmarx-cxflow
+          token: ${{ secrets.CXFLOW_ACTIONS_TOKEN }}
 
-#       - name: Checkmarx CxFlow Action
-#         uses: ./.github/actions/platform-actions-checkmarx-cxflow
-#         with:
-#           project: github.com.anzx.salesforce
-#           team: /CxServer/Security/Salesforce
-#           checkmarx_url: ${{ steps.secrets.outputs.CHECKMARX_URL }}
-#           checkmarx_username: ${{ steps.secrets.outputs.CHECKMARX_USERNAME }}
-#           checkmarx_password: ${{ steps.secrets.outputs.CHECKMARX_PASSWORD }}
-#           checkmarx_client_secret: ${{ steps.secrets.outputs.CHECKMARX_CLIENT_SECRET }}
-#           github_token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
-#           incremental: false
-#           break_build: true
-#           bug_tracker: GitHub
-#           zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,rulesets\/.*,createCmosEntitlment.js
-#           params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.head_ref }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true
+      - name: Checkmarx CxFlow Action
+        uses: ./.github/actions/platform-actions-checkmarx-cxflow
+        with:
+          project: github.com.anzx.salesforce
+          team: /CxServer/Security/Salesforce
+          checkmarx_url: ${{ steps.secrets.outputs.CHECKMARX_URL }}
+          checkmarx_username: ${{ steps.secrets.outputs.CHECKMARX_USERNAME }}
+          checkmarx_password: ${{ steps.secrets.outputs.CHECKMARX_PASSWORD }}
+          checkmarx_client_secret: ${{ steps.secrets.outputs.CHECKMARX_CLIENT_SECRET }}
+          github_token: ${{ secrets.SALESFORCE_CXFLOW_GH_TOKEN }}
+          incremental: false
+          break_build: true
+          bug_tracker: GitHub
+          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,rulesets\/.*,createCmosEntitlment.js
+          params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.head_ref }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true

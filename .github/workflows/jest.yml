@@ -1,23 +1,23 @@
-# # This workflow runs JEST tests before deploying changes to a Salesforce project to a Salesforce org
-# name: Unit Tests
+# This workflow runs JEST tests before deploying changes to a Salesforce project to a Salesforce org
+name: Unit Tests
 
-# # This workflow will only run on Pull Requests against master , develop and epic/*
-# on:
-#   pull_request:
-#     branches: [develop, master, epic/*]
+# This workflow will only run on Pull Requests against master , develop and epic/*
+on:
+  pull_request:
+    branches: [develop, master, epic/*]
 
-# jobs:
-#   jest:
-#     runs-on: [self-hosted, salesforce]
+jobs:
+  jest:
+    runs-on: [self-hosted, salesforce]
 
-#     steps:
-#       - name: "Checkout"
-#         uses: actions/checkout@v2
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
 
-#       - name: "Install npm packages"
-#         run: |
-#           mv ci.npmrc .npmrc
-#           npm ci
+      - name: "Install npm packages"
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci
 
-#       - name: Running JEST tests for LWC
-#         run: npx jest --coverage
+      - name: Running JEST tests for LWC
+        run: npx jest --coverage
