@@ -61,6 +61,7 @@ jobs:
       - name: Slack message
         env:
           BLACKDUCK_STATUS: ${{ steps.blackduck.outcome }}
+          GITHUB_BASE_REF: ${{ github.base_ref }}
         run: |
           echo "BLACKDUCK_STATUS: $BLACKDUCK_STATUS"
           if [[ $BLACKDUCK_STATUS == success ]];then
@@ -70,4 +71,4 @@ jobs:
           fi
           TodayDate="$(TZ=Australia/Melbourne date +%F)"
           IDENTITY_TOKEN=$(curl -H "Metadata-Flavor: Google" 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz&format=full&licenses=TRUE')
-          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-blackduck","templateID":"ghasfblackduck","args":{"startdatetime":"'${TodayDate}'","passed":"'${status}'","branch":"branch"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack
+          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-blackduck","templateID":"ghasfblackduck","args":{"startdatetime":"'${TodayDate}'","passed":"'${status}'","branch":"'$GITHUB_BASE_REF'"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack
