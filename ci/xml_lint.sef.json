@@ -2,12 +2,12 @@
   "N": "package",
   "version": "10",
   "packageVersion": "1",
-  "saxonVersion": "SaxonJS 2.4",
+  "saxonVersion": "SaxonJS 2.5",
   "target": "JS",
   "targetVersion": "2",
   "name": "TOP-LEVEL",
   "relocatable": "false",
-  "buildDateTime": "2022-09-26T13:55:41.782+10:00",
+  "buildDateTime": "2022-10-28T14:12:21.424+11:00",
   "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
   "C": [
     {
@@ -26,28 +26,29 @@
               "N": "templateRule",
               "rank": "0",
               "prec": "0",
-              "seq": "0",
+              "seq": "2",
               "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "60",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:SharingRules//sf:sharingOwnerRules           ",
               "prio": "0.5",
-              "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules",
+              "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules",
               "C": [
                 {
                   "N": "p.withUpper",
                   "role": "match",
                   "axis": "ancestor",
-                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules",
+                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules",
+                  "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                   "C": [
                     {
                       "N": "p.nodeTest",
-                      "test": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules"
+                      "test": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules"
                     },
                     {
                       "N": "p.nodeTest",
@@ -57,10 +58,10 @@
                 },
                 {
                   "N": "copy",
-                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules ",
+                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "61",
                   "C": [
                     {
                       "N": "sequence",
@@ -69,7 +70,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "62",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -77,7 +78,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "62",
                               "C": [
                                 {
                                   "N": "union",
@@ -104,7 +105,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "63",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -118,7 +119,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "63",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -130,42 +131,40 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
+                                              "N": "union",
+                                              "op": "|",
                                               "C": [
                                                 {
-                                                  "N": "first",
+                                                  "N": "union",
+                                                  "op": "|",
                                                   "C": [
                                                     {
                                                       "N": "axis",
                                                       "name": "self",
                                                       "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
+                                                    },
                                                     {
                                                       "N": "axis",
                                                       "name": "self",
                                                       "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                                     }
                                                   ]
+                                                },
+                                                {
+                                                  "N": "axis",
+                                                  "name": "self",
+                                                  "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}sharedTo"
                                                 }
                                               ]
+                                            },
+                                            {
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}sharedFrom"
                                             }
                                           ]
                                         }
@@ -188,7 +187,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "64",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -228,6 +227,62 @@
                               ]
                             }
                           ]
+                        },
+                        {
+                          "N": "applyT",
+                          "sType": "* ",
+                          "line": "66",
+                          "mode": "#unnamed",
+                          "bSlot": "0",
+                          "C": [
+                            {
+                              "N": "filter",
+                              "sType": "*N u[NT,NP,NC,NE]",
+                              "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                              "role": "select",
+                              "line": "66",
+                              "C": [
+                                {
+                                  "N": "axis",
+                                  "name": "child",
+                                  "nodeTest": "*N u[NT,NP,NC,NE]"
+                                },
+                                {
+                                  "N": "axis",
+                                  "name": "self",
+                                  "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}sharedTo"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "N": "applyT",
+                          "sType": "* ",
+                          "line": "67",
+                          "mode": "#unnamed",
+                          "bSlot": "0",
+                          "C": [
+                            {
+                              "N": "filter",
+                              "sType": "*N u[NT,NP,NC,NE]",
+                              "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                              "role": "select",
+                              "line": "67",
+                              "C": [
+                                {
+                                  "N": "axis",
+                                  "name": "child",
+                                  "nodeTest": "*N u[NT,NP,NC,NE]"
+                                },
+                                {
+                                  "N": "axis",
+                                  "name": "self",
+                                  "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}sharedFrom"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }
@@ -239,28 +294,29 @@
               "N": "templateRule",
               "rank": "1",
               "prec": "0",
-              "seq": "0",
+              "seq": "1",
               "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "45",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:SharingRules//sf:sharingCriteriaRules           ",
               "prio": "0.5",
-              "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules",
+              "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules",
               "C": [
                 {
                   "N": "p.withUpper",
                   "role": "match",
                   "axis": "ancestor",
-                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules",
+                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules",
+                  "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                   "C": [
                     {
                       "N": "p.nodeTest",
-                      "test": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules"
+                      "test": "NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules"
                     },
                     {
                       "N": "p.nodeTest",
@@ -270,10 +326,10 @@
                 },
                 {
                   "N": "copy",
-                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingOwnerRules ",
+                  "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}sharingCriteriaRules ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "46",
                   "C": [
                     {
                       "N": "sequence",
@@ -282,7 +338,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "47",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -290,7 +346,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "47",
                               "C": [
                                 {
                                   "N": "union",
@@ -317,7 +373,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "48",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -331,7 +387,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "48",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -343,42 +399,51 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
+                                              "N": "union",
+                                              "op": "|",
                                               "C": [
                                                 {
-                                                  "N": "first",
+                                                  "N": "union",
+                                                  "op": "|",
                                                   "C": [
+                                                    {
+                                                      "N": "union",
+                                                      "op": "|",
+                                                      "C": [
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                                        },
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                                        }
+                                                      ]
+                                                    },
                                                     {
                                                       "N": "axis",
                                                       "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}booleanFilter"
                                                     }
                                                   ]
+                                                },
+                                                {
+                                                  "N": "axis",
+                                                  "name": "self",
+                                                  "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}criteriaItems"
                                                 }
                                               ]
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}includeRecordsOwnedByAll"
                                             }
                                           ]
                                         }
@@ -401,7 +466,116 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "49",
+                                          "C": [{ "N": "dot" }]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "N": "str",
+                                      "sType": "1AS ",
+                                      "val": "ascending",
+                                      "role": "order"
+                                    },
+                                    {
+                                      "N": "str",
+                                      "sType": "1AS ",
+                                      "val": "en",
+                                      "role": "lang"
+                                    },
+                                    {
+                                      "N": "str",
+                                      "sType": "1AS ",
+                                      "val": "#default",
+                                      "role": "caseOrder"
+                                    },
+                                    {
+                                      "N": "str",
+                                      "sType": "1AS ",
+                                      "val": "true",
+                                      "role": "stable"
+                                    },
+                                    {
+                                      "N": "str",
+                                      "sType": "1AS ",
+                                      "val": "text",
+                                      "role": "dataType"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "N": "applyT",
+                          "sType": "* ",
+                          "line": "51",
+                          "mode": "#unnamed",
+                          "bSlot": "0",
+                          "C": [
+                            {
+                              "N": "sort",
+                              "role": "select",
+                              "sType": "*N u[NT,NP,NC,NE]",
+                              "C": [
+                                {
+                                  "N": "filter",
+                                  "sType": "*N u[NT,NP,NC,NE]",
+                                  "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                                  "role": "select",
+                                  "line": "51",
+                                  "C": [
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*N u[NT,NP,NC,NE]"
+                                    },
+                                    {
+                                      "N": "union",
+                                      "op": "|",
+                                      "C": [
+                                        {
+                                          "N": "union",
+                                          "op": "|",
+                                          "C": [
+                                            {
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}booleanFilter"
+                                            },
+                                            {
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}criteriaItems"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "N": "axis",
+                                          "name": "self",
+                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}includeRecordsOwnedByAll"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "N": "sortKey",
+                                  "sType": "?AS ",
+                                  "C": [
+                                    {
+                                      "N": "first",
+                                      "role": "select",
+                                      "sType": "?AS ",
+                                      "C": [
+                                        {
+                                          "N": "fn",
+                                          "name": "local-name",
+                                          "sType": "1AS",
+                                          "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                                          "role": "select",
+                                          "line": "52",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -457,11 +631,11 @@
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "33",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
               "prio": "0.5",
               "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}matchingRules",
               "C": [
@@ -486,7 +660,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}matchingRules ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "34",
                   "C": [
                     {
                       "N": "sequence",
@@ -495,7 +669,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "35",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -503,7 +677,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "35",
                               "C": [
                                 {
                                   "N": "union",
@@ -530,7 +704,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "36",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -544,7 +718,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "36",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -556,42 +730,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -614,7 +764,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "37",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -670,11 +820,11 @@
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "33",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
               "prio": "0.5",
               "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}labels",
               "C": [
@@ -699,7 +849,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}labels ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "34",
                   "C": [
                     {
                       "N": "sequence",
@@ -708,7 +858,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "35",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -716,7 +866,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "35",
                               "C": [
                                 {
                                   "N": "union",
@@ -743,7 +893,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "36",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -757,7 +907,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "36",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -769,42 +919,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -827,7 +953,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "37",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -883,11 +1009,11 @@
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "33",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
               "prio": "0.5",
               "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}decisions",
               "C": [
@@ -912,7 +1038,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}decisions ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "34",
                   "C": [
                     {
                       "N": "sequence",
@@ -921,7 +1047,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "35",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -929,7 +1055,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "35",
                               "C": [
                                 {
                                   "N": "union",
@@ -956,7 +1082,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "36",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -970,7 +1096,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "36",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -982,42 +1108,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -1040,7 +1142,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "37",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -1096,11 +1198,11 @@
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "33",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
               "prio": "0.5",
               "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}processMetadataValues",
               "C": [
@@ -1135,7 +1237,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}processMetadataValues ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "34",
                   "C": [
                     {
                       "N": "sequence",
@@ -1144,7 +1246,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "35",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1152,7 +1254,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "35",
                               "C": [
                                 {
                                   "N": "union",
@@ -1179,7 +1281,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "36",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1193,7 +1295,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "36",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -1205,42 +1307,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -1263,7 +1341,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "37",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -1314,13 +1392,13 @@
               "N": "templateRule",
               "rank": "6",
               "prec": "0",
-              "seq": "2",
+              "seq": "4",
               "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "60",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "87",
               "module": "xml_lint.xsl",
               "expand-text": "false",
               "match": "sf:PermissionSetGroup",
@@ -1339,19 +1417,19 @@
                   "var": "Q{}permissionSetGroup",
                   "slot": "0",
                   "sType": "*NE ",
-                  "line": "61",
+                  "line": "88",
                   "role": "action",
                   "C": [
                     {
                       "N": "doc",
                       "sType": "1ND ",
-                      "base": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
+                      "base": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
                       "role": "select",
                       "C": [
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "62",
+                          "line": "89",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1367,7 +1445,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "62"
+                                  "line": "89"
                                 },
                                 {
                                   "N": "sortKey",
@@ -1384,7 +1462,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "63",
+                                          "line": "90",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -1434,7 +1512,7 @@
                                               "sType": "1N u[N u[N u[NT,NP],NC],NE]",
                                               "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                               "role": "select",
-                                              "line": "64"
+                                              "line": "91"
                                             }
                                           ]
                                         }
@@ -1482,12 +1560,12 @@
                       "N": "copy",
                       "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}PermissionSetGroup ",
                       "flags": "cin",
-                      "line": "67",
+                      "line": "94",
                       "C": [
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "68",
+                          "line": "95",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1503,7 +1581,7 @@
                                   "sType": "*",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "68"
+                                  "line": "95"
                                 },
                                 {
                                   "N": "sortKey",
@@ -1520,7 +1598,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "69",
+                                          "line": "96",
                                           "C": [
                                             {
                                               "N": "treat",
@@ -1579,13 +1657,13 @@
               "N": "templateRule",
               "rank": "7",
               "prec": "0",
-              "seq": "1",
+              "seq": "3",
               "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "48",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "75",
               "module": "xml_lint.xsl",
               "expand-text": "false",
               "match": "           sf:WaveDataflow|           sf:WaveDashboard           ",
@@ -1603,7 +1681,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}WaveDataflow ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "50",
+                  "line": "77",
                   "C": [
                     {
                       "N": "sequence",
@@ -1613,7 +1691,7 @@
                           "N": "copyOf",
                           "flags": "c",
                           "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ex=http://ns.saxonica.com/xslt/export",
-                          "line": "51",
+                          "line": "78",
                           "sType": "*NE nQ{http://soap.sforce.com/2006/04/metadata}content",
                           "C": [
                             {
@@ -1623,14 +1701,14 @@
                               "sType": "*NE nQ{http://soap.sforce.com/2006/04/metadata}content",
                               "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                               "role": "select",
-                              "line": "51"
+                              "line": "78"
                             }
                           ]
                         },
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "52",
+                          "line": "79",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1644,7 +1722,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "52",
+                                  "line": "79",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -1679,7 +1757,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "53",
+                                          "line": "80",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -1730,13 +1808,13 @@
               "N": "templateRule",
               "rank": "8",
               "prec": "0",
-              "seq": "1",
+              "seq": "3",
               "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "48",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "75",
               "module": "xml_lint.xsl",
               "expand-text": "false",
               "match": "           sf:WaveDataflow|           sf:WaveDashboard           ",
@@ -1754,7 +1832,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}WaveDashboard ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "50",
+                  "line": "77",
                   "C": [
                     {
                       "N": "sequence",
@@ -1764,7 +1842,7 @@
                           "N": "copyOf",
                           "flags": "c",
                           "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ex=http://ns.saxonica.com/xslt/export",
-                          "line": "51",
+                          "line": "78",
                           "sType": "*NE nQ{http://soap.sforce.com/2006/04/metadata}content",
                           "C": [
                             {
@@ -1774,14 +1852,14 @@
                               "sType": "*NE nQ{http://soap.sforce.com/2006/04/metadata}content",
                               "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                               "role": "select",
-                              "line": "51"
+                              "line": "78"
                             }
                           ]
                         },
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "52",
+                          "line": "79",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1795,7 +1873,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "52",
+                                  "line": "79",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -1830,7 +1908,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "53",
+                                          "line": "80",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -1886,11 +1964,11 @@
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "33",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
               "prio": "0",
               "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}CustomField",
               "C": [
@@ -1905,7 +1983,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}CustomField ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "34",
                   "C": [
                     {
                       "N": "sequence",
@@ -1914,7 +1992,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "35",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1922,7 +2000,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "35",
                               "C": [
                                 {
                                   "N": "union",
@@ -1949,7 +2027,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "36",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -1963,7 +2041,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "36",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -1975,42 +2053,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -2033,7 +2087,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "37",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -2089,11 +2143,11 @@
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "33",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
               "prio": "0",
               "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}ValidationRule",
               "C": [
@@ -2108,7 +2162,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}ValidationRule ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "34",
                   "C": [
                     {
                       "N": "sequence",
@@ -2117,7 +2171,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "35",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2125,7 +2179,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "35",
                               "C": [
                                 {
                                   "N": "union",
@@ -2152,7 +2206,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "36",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2166,7 +2220,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "36",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -2178,42 +2232,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -2236,7 +2266,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "37",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -2292,11 +2322,11 @@
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "35",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "33",
               "module": "xml_lint.xsl",
               "expand-text": "false",
-              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:SharingRules//sf:sharingCriteriaRules|           sf:SharingRules//sf:sharingOwnerRules|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
+              "match": "           sf:CustomField|sf:ValidationRule|           sf:ListView|           sf:MatchingRules//sf:matchingRules|           sf:CustomLabels//sf:labels|           sf:Flow//sf:decisions|           sf:Flow//sf:actionCalls//sf:processMetadataValues           ",
               "prio": "0",
               "matches": "NE nQ{http://soap.sforce.com/2006/04/metadata}ListView",
               "C": [
@@ -2311,7 +2341,7 @@
                   "sType": "1NE nQ{http://soap.sforce.com/2006/04/metadata}ListView ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "36",
+                  "line": "34",
                   "C": [
                     {
                       "N": "sequence",
@@ -2320,7 +2350,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "37",
+                          "line": "35",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2328,7 +2358,7 @@
                               "N": "docOrder",
                               "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
                               "role": "select",
-                              "line": "37",
+                              "line": "35",
                               "C": [
                                 {
                                   "N": "union",
@@ -2355,7 +2385,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "38",
+                          "line": "36",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2369,7 +2399,7 @@
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                   "role": "select",
-                                  "line": "38",
+                                  "line": "36",
                                   "C": [
                                     {
                                       "N": "axis",
@@ -2381,42 +2411,18 @@
                                       "name": "not",
                                       "C": [
                                         {
-                                          "N": "fn",
-                                          "name": "concat",
+                                          "N": "union",
+                                          "op": "|",
                                           "C": [
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|0||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
                                             },
                                             {
-                                              "N": "atomSing",
-                                              "diag": "undefined|1||concat",
-                                              "card": "?",
-                                              "C": [
-                                                {
-                                                  "N": "first",
-                                                  "C": [
-                                                    {
-                                                      "N": "axis",
-                                                      "name": "self",
-                                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
-                                                    }
-                                                  ]
-                                                }
-                                              ]
+                                              "N": "axis",
+                                              "name": "self",
+                                              "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
                                             }
                                           ]
                                         }
@@ -2439,7 +2445,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "39",
+                                          "line": "37",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -2490,13 +2496,13 @@
               "N": "templateRule",
               "rank": "12",
               "prec": "0",
-              "seq": "3",
+              "seq": "5",
               "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "79",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "106",
               "module": "xml_lint.xsl",
               "expand-text": "false",
               "match": "@*|node()",
@@ -2514,7 +2520,7 @@
                   "sType": "1NA ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "80",
+                  "line": "107",
                   "C": [
                     {
                       "N": "sequence",
@@ -2523,7 +2529,42 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "81",
+                          "line": "108",
+                          "mode": "#unnamed",
+                          "bSlot": "0",
+                          "C": [
+                            {
+                              "N": "docOrder",
+                              "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                              "role": "select",
+                              "line": "108",
+                              "C": [
+                                {
+                                  "N": "union",
+                                  "op": "|",
+                                  "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                                  "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                                  "C": [
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                    },
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "N": "applyT",
+                          "sType": "* ",
+                          "line": "109",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2536,7 +2577,7 @@
                                   "N": "docOrder",
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "role": "select",
-                                  "line": "81",
+                                  "line": "109",
                                   "C": [
                                     {
                                       "N": "union",
@@ -2562,9 +2603,31 @@
                                               "name": "not",
                                               "C": [
                                                 {
-                                                  "N": "axis",
-                                                  "name": "self",
-                                                  "nodeTest": "*NC"
+                                                  "N": "union",
+                                                  "op": "|",
+                                                  "C": [
+                                                    {
+                                                      "N": "union",
+                                                      "op": "|",
+                                                      "C": [
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                                        },
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "N": "axis",
+                                                      "name": "self",
+                                                      "nodeTest": "*NC"
+                                                    }
+                                                  ]
                                                 }
                                               ]
                                             }
@@ -2589,7 +2652,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "82",
+                                          "line": "110",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -2627,7 +2690,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "85",
+                          "line": "113",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2638,7 +2701,7 @@
                               "sType": "*NC",
                               "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                               "role": "select",
-                              "line": "85"
+                              "line": "113"
                             }
                           ]
                         }
@@ -2652,13 +2715,13 @@
               "N": "templateRule",
               "rank": "13",
               "prec": "0",
-              "seq": "3",
+              "seq": "5",
               "ns": "xml=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~",
               "minImp": "0",
               "flags": "s",
               "slots": "200",
-              "baseUri": "file:///Users/assafirm/Documents/dev/salesforce-new/ci/xml_lint.xsl",
-              "line": "79",
+              "baseUri": "file:///Users/shawg2/IdeaProjects/salesforce/ci/xml_lint.xsl",
+              "line": "106",
               "module": "xml_lint.xsl",
               "expand-text": "false",
               "match": "@*|node()",
@@ -2676,7 +2739,7 @@
                   "sType": "1N u[1NT ,1NP ,1NC ,1NE ] ",
                   "flags": "cin",
                   "role": "action",
-                  "line": "80",
+                  "line": "107",
                   "C": [
                     {
                       "N": "sequence",
@@ -2685,7 +2748,42 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "81",
+                          "line": "108",
+                          "mode": "#unnamed",
+                          "bSlot": "0",
+                          "C": [
+                            {
+                              "N": "docOrder",
+                              "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                              "role": "select",
+                              "line": "108",
+                              "C": [
+                                {
+                                  "N": "union",
+                                  "op": "|",
+                                  "sType": "*NE u[NE nQ{http://soap.sforce.com/2006/04/metadata}fullName,NE nQ{http://soap.sforce.com/2006/04/metadata}name]",
+                                  "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
+                                  "C": [
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                    },
+                                    {
+                                      "N": "axis",
+                                      "name": "child",
+                                      "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "N": "applyT",
+                          "sType": "* ",
+                          "line": "109",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2698,7 +2796,7 @@
                                   "N": "docOrder",
                                   "sType": "*N u[NT,NP,NC,NE]",
                                   "role": "select",
-                                  "line": "81",
+                                  "line": "109",
                                   "C": [
                                     {
                                       "N": "union",
@@ -2724,9 +2822,31 @@
                                               "name": "not",
                                               "C": [
                                                 {
-                                                  "N": "axis",
-                                                  "name": "self",
-                                                  "nodeTest": "*NC"
+                                                  "N": "union",
+                                                  "op": "|",
+                                                  "C": [
+                                                    {
+                                                      "N": "union",
+                                                      "op": "|",
+                                                      "C": [
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}fullName"
+                                                        },
+                                                        {
+                                                          "N": "axis",
+                                                          "name": "self",
+                                                          "nodeTest": "*NE nQ{http://soap.sforce.com/2006/04/metadata}name"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "N": "axis",
+                                                      "name": "self",
+                                                      "nodeTest": "*NC"
+                                                    }
+                                                  ]
                                                 }
                                               ]
                                             }
@@ -2751,7 +2871,7 @@
                                           "sType": "1AS",
                                           "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                                           "role": "select",
-                                          "line": "82",
+                                          "line": "110",
                                           "C": [{ "N": "dot" }]
                                         }
                                       ]
@@ -2789,7 +2909,7 @@
                         {
                           "N": "applyT",
                           "sType": "* ",
-                          "line": "85",
+                          "line": "113",
                           "mode": "#unnamed",
                           "bSlot": "0",
                           "C": [
@@ -2800,7 +2920,7 @@
                               "sType": "*NC",
                               "ns": "= xml=~ fn=~ xsl=~ sf=http://soap.sforce.com/2006/04/metadata saxon=~ ",
                               "role": "select",
-                              "line": "85"
+                              "line": "113"
                             }
                           ]
                         }
@@ -2827,7 +2947,7 @@
         {
           "N": "property",
           "name": "Q{http://saxon.sf.net/}indent-spaces",
-          "value": "3"
+          "value": "4"
         },
         {
           "N": "property",
@@ -2849,5 +2969,5 @@
     { "N": "decimalFormat" },
     { "N": "strip", "C": [{ "N": "s", "test": "NE", "prec": "0" }] }
   ],
-  "Σ": "314409b7"
+  "Σ": "a8aa2fe2"
 }

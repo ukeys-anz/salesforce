@@ -4,6 +4,7 @@
  * @group Faker
  * @description Class having Person related fake data population methods
  * ExcessivePublicCount Surpressed : FakerPersonProvider to have all the public methods and attributes together.
+ * @runTests FakerPersonProviderTest
  */
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public with sharing virtual class FakerPersonProvider extends FakerBase {
@@ -161,6 +162,21 @@ public with sharing virtual class FakerPersonProvider extends FakerBase {
       String.valueOf(Math.random()).substring(2, 5) +
       '-' +
       String.valueOf(Math.random()).substring(2, 6);
+  }
+
+  /**
+   * @description Returns a random phone number in AU format
+   * @param auFormat Boolean is generating AU phone format (+61xxxxxxxxx)
+   * @param isMobile Boolean is generating mobile format (+614xxxxxxxx)
+   * @return `String`
+   */
+  public String phone(Boolean auFormat, Boolean isMobile) {
+    if (!auFormat) {
+      return this.phone();
+    }
+    return isMobile
+      ? ('+614' + String.valueOf(Math.random()).substring(2, 10))
+      : ('+61' + String.valueOf(Math.random()).substring(2, 11));
   }
 
   /**

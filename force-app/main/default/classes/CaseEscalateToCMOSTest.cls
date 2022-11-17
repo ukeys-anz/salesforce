@@ -18,6 +18,7 @@ public class CaseEscalateToCMOSTest {
     Case newCase = new Case(
       Subject = 'Test',
       Status = 'Open',
+      Origin = 'Phone',
       RecordTypeId = rtList[0].Id
     );
     insert newCase;

@@ -4,7 +4,7 @@
         <application>standard__Insights</application>
         <default>false</default>
         <visible>false</visible>
-  </applicationVisibilities>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>ANZAzureADRegistrationHandler</apexClass>
         <enabled>false</enabled>
@@ -343,6 +343,341 @@
     </classAccesses>
     <custom>true</custom>
     <description>This profile will be used for External Applications like Splunk and Twilio who connect via Basic Auth and require an IP Range Restrictions. This profile will contain all IPs of external apps, as opposed to one profile per app</description>
+    <loginIpRanges>
+        <description>Application Cloud Proxy Non-Prod 1</description>
+        <endAddress>35.197.185.5</endAddress>
+        <startAddress>35.197.185.5</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Application Cloud Proxy Non-Prod 2</description>
+        <endAddress>35.244.94.174</endAddress>
+        <startAddress>35.244.94.174</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>3.24.14.191</endAddress>
+        <startAddress>3.24.14.191</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>3.104.176.148</endAddress>
+        <startAddress>3.104.176.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Test</description>
+        <endAddress>13.236.106.152</endAddress>
+        <startAddress>13.236.106.152</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>13.55.93.82</endAddress>
+        <startAddress>13.55.93.82</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>13.237.141.149</endAddress>
+        <startAddress>13.237.141.149</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>CyberArk AWS Proxy Prod</description>
+        <endAddress>54.253.163.36</endAddress>
+        <startAddress>54.253.163.36</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Salesforce Australia (Public Cloud) 1</description>
+        <endAddress>13.210.7.255</endAddress>
+        <startAddress>13.210.4.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>44.234.215.175</endAddress>
+        <startAddress>44.234.215.175</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Salesforce Australia (Public Cloud) 2</description>
+        <endAddress>13.210.11.255</endAddress>
+        <startAddress>13.210.8.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Splunk Prod</description>
+        <endAddress>203.110.235.24</endAddress>
+        <startAddress>203.110.235.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Splunk Non-Prod</description>
+        <endAddress>59.154.134.109</endAddress>
+        <startAddress>59.154.134.109</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Qualtrics</description>
+        <endAddress>139.60.152.22</endAddress>
+        <startAddress>139.60.152.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Qualtrics</description>
+        <endAddress>162.247.216.22</endAddress>
+        <startAddress>162.247.216.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.8.140.255</endAddress>
+        <startAddress>52.8.140.255</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.62.169.21</endAddress>
+        <startAddress>52.62.169.21</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>54.79.123.149</endAddress>
+        <startAddress>54.79.123.149</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>34.87.223.167</endAddress>
+        <startAddress>34.87.223.167</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>34.87.246.15</endAddress>
+        <startAddress>34.87.246.15</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.42.179.76</endAddress>
+        <startAddress>52.42.179.76</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>35.167.156.248</endAddress>
+        <startAddress>35.167.156.248</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>34.215.230.220</endAddress>
+        <startAddress>34.215.230.220</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>35.189.27.148</endAddress>
+        <startAddress>35.189.27.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.1</endAddress>
+        <startAddress>203.110.235.1</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - IDM</description>
+        <endAddress>35.189.57.116</endAddress>
+        <startAddress>35.189.57.116</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - SH loadbalancer</description>
+        <endAddress>35.241.4.34</endAddress>
+        <startAddress>35.241.4.34</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Saas Splunk - Search Heads</description>
+        <endAddress>35.244.124.52</endAddress>
+        <startAddress>35.244.124.52</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.34.250.140</endAddress>
+        <startAddress>52.34.250.140</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.5</endAddress>
+        <startAddress>203.110.235.3</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>54.70.91.35</endAddress>
+        <startAddress>54.70.91.35</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.129</endAddress>
+        <startAddress>203.110.235.129</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision</description>
+        <endAddress>52.24.211.31</endAddress>
+        <startAddress>52.24.211.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.8.201.70</endAddress>
+        <startAddress>52.8.201.70</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.52.251.72</endAddress>
+        <startAddress>52.52.251.72</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>52.9.194.74</endAddress>
+        <startAddress>52.9.194.74</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>35.169.47.31</endAddress>
+        <startAddress>35.169.47.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>54.164.132.26</endAddress>
+        <startAddress>54.164.132.26</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mvision Prod</description>
+        <endAddress>34.215.17.195</endAddress>
+        <startAddress>34.215.17.195</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>ANZ Proxy required for Mvision</description>
+        <endAddress>203.110.235.133</endAddress>
+        <startAddress>203.110.235.131</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Internet Proxy DEV</description>
+        <endAddress>59.154.134.83</endAddress>
+        <startAddress>59.154.134.83</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint Internet Proxy QA</description>
+        <endAddress>59.154.134.109</endAddress>
+        <startAddress>59.154.134.107</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Sailpoint/Harness DC AU Prod</description>
+        <endAddress>203.110.235.255</endAddress>
+        <startAddress>203.110.235.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD for Harness</description>
+        <endAddress>35.189.53.62</endAddress>
+        <startAddress>35.189.53.62</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD2 for Harness</description>
+        <endAddress>34.87.219.182</endAddress>
+        <startAddress>34.87.219.182</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD3 for Harness</description>
+        <endAddress>34.87.216.1</endAddress>
+        <startAddress>34.87.216.1</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP PROD4 for Harness</description>
+        <endAddress>34.87.220.213</endAddress>
+        <startAddress>34.87.220.213</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP3 for Harness</description>
+        <endAddress>35.238.133.229</endAddress>
+        <startAddress>35.238.133.229</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP2 for Harness</description>
+        <endAddress>34.87.204.119</endAddress>
+        <startAddress>34.87.204.119</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>GCP NP for Harness</description>
+        <endAddress>35.244.65.24</endAddress>
+        <startAddress>35.244.65.24</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>IP range restriction for Odaseva</description>
+        <endAddress>13.211.189.52</endAddress>
+        <startAddress>13.211.48.246</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV1 Author</description>
+        <endAddress>13.239.160.187</endAddress>
+        <startAddress>13.239.160.187</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV1 Publish</description>
+        <endAddress>13.54.188.48</endAddress>
+        <startAddress>13.54.188.48</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV12 Author</description>
+        <endAddress>52.63.106.123</endAddress>
+        <startAddress>52.63.106.123</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV12 Publish</description>
+        <endAddress>13.211.114.146</endAddress>
+        <startAddress>13.211.114.146</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV8 Author</description>
+        <endAddress>13.54.19.154</endAddress>
+        <startAddress>13.54.19.154</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV8 Publish</description>
+        <endAddress>54.66.115.221</endAddress>
+        <startAddress>54.66.115.221</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage Author</description>
+        <endAddress>3.106.50.31</endAddress>
+        <startAddress>3.106.50.31</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage1 Publish</description>
+        <endAddress>13.54.136.222</endAddress>
+        <startAddress>13.54.136.222</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage2 Publish</description>
+        <endAddress>13.210.221.68</endAddress>
+        <startAddress>13.210.221.68</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage3 Publish</description>
+        <endAddress>13.239.108.222</endAddress>
+        <startAddress>13.239.108.222</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Stage4 Publish</description>
+        <endAddress>52.62.98.156</endAddress>
+        <startAddress>52.62.98.156</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod Author</description>
+        <endAddress>52.65.74.188</endAddress>
+        <startAddress>52.65.74.188</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod1 Publish</description>
+        <endAddress>3.24.15.30</endAddress>
+        <startAddress>3.24.15.30</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod2 Publish</description>
+        <endAddress>3.104.236.231</endAddress>
+        <startAddress>3.104.236.231</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod3 Publish</description>
+        <endAddress>3.106.82.7</endAddress>
+        <startAddress>3.106.82.7</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - Prod4 Publish</description>
+        <endAddress>52.62.229.140</endAddress>
+        <startAddress>52.62.229.140</startAddress>
+    </loginIpRanges>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -1175,7 +1510,7 @@
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
-        <allowRead>false</allowRead>
+        <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Opportunity</object>
         <viewAllRecords>false</viewAllRecords>
@@ -1426,1119 +1761,864 @@
         <enabled>false</enabled>
     </pageAccesses>
     <userLicense>Salesforce</userLicense>
-    <loginIpRanges>
-        <description>Application Cloud Proxy Non-Prod 1</description>
-        <endAddress>35.197.185.5</endAddress>
-        <startAddress>35.197.185.5</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Application Cloud Proxy Non-Prod 2</description>
-        <endAddress>35.244.94.174</endAddress>
-        <startAddress>35.244.94.174</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Test</description>
-        <endAddress>3.24.14.191</endAddress>
-        <startAddress>3.24.14.191</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Test</description>
-        <endAddress>3.104.176.148</endAddress>
-        <startAddress>3.104.176.148</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Test</description>
-        <endAddress>13.236.106.152</endAddress>
-        <startAddress>13.236.106.152</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Prod</description>
-        <endAddress>13.55.93.82</endAddress>
-        <startAddress>13.55.93.82</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Prod</description>
-        <endAddress>13.237.141.149</endAddress>
-        <startAddress>13.237.141.149</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>CyberArk AWS Proxy Prod</description>
-        <endAddress>54.253.163.36</endAddress>
-        <startAddress>54.253.163.36</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Salesforce Australia (Public Cloud) 1</description>
-        <endAddress>13.210.7.255</endAddress>
-        <startAddress>13.210.4.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>44.234.215.175</endAddress>
-        <startAddress>44.234.215.175</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Salesforce Australia (Public Cloud) 2</description>
-        <endAddress>13.210.11.255</endAddress>
-        <startAddress>13.210.8.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Splunk Prod</description>
-        <endAddress>203.110.235.24</endAddress>
-        <startAddress>203.110.235.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Splunk Non-Prod</description>
-        <endAddress>59.154.134.109</endAddress>
-        <startAddress>59.154.134.109</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Qualtrics</description>
-        <endAddress>139.60.152.22</endAddress>
-        <startAddress>139.60.152.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Qualtrics</description>
-        <endAddress>162.247.216.22</endAddress>
-        <startAddress>162.247.216.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.8.140.255</endAddress>
-        <startAddress>52.8.140.255</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.62.169.21</endAddress>
-        <startAddress>52.62.169.21</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>54.79.123.149</endAddress>
-        <startAddress>54.79.123.149</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>34.87.223.167</endAddress>
-        <startAddress>34.87.223.167</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>34.87.246.15</endAddress>
-        <startAddress>34.87.246.15</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.42.179.76</endAddress>
-        <startAddress>52.42.179.76</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>35.167.156.248</endAddress>
-        <startAddress>35.167.156.248</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>34.215.230.220</endAddress>
-        <startAddress>34.215.230.220</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>35.189.27.148</endAddress>
-        <startAddress>35.189.27.148</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.1</endAddress>
-        <startAddress>203.110.235.1</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - IDM</description>
-        <endAddress>35.189.57.116</endAddress>
-        <startAddress>35.189.57.116</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - SH loadbalancer</description>
-        <endAddress>35.241.4.34</endAddress>
-        <startAddress>35.241.4.34</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Saas Splunk - Search Heads</description>
-        <endAddress>35.244.124.52</endAddress>
-        <startAddress>35.244.124.52</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.34.250.140</endAddress>
-        <startAddress>52.34.250.140</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.5</endAddress>
-        <startAddress>203.110.235.3</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>54.70.91.35</endAddress>
-        <startAddress>54.70.91.35</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.129</endAddress>
-        <startAddress>203.110.235.129</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.24.211.31</endAddress>
-        <startAddress>52.24.211.31</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.8.201.70</endAddress>
-        <startAddress>52.8.201.70</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.52.251.72</endAddress>
-        <startAddress>52.52.251.72</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.9.194.74</endAddress>
-        <startAddress>52.9.194.74</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>35.169.47.31</endAddress>
-        <startAddress>35.169.47.31</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>54.164.132.26</endAddress>
-        <startAddress>54.164.132.26</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>34.215.17.195</endAddress>
-        <startAddress>34.215.17.195</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.133</endAddress>
-        <startAddress>203.110.235.131</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Sailpoint Internet Proxy DEV</description>
-        <endAddress>59.154.134.83</endAddress>
-        <startAddress>59.154.134.83</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Sailpoint Internet Proxy QA</description>
-        <endAddress>59.154.134.109</endAddress>
-        <startAddress>59.154.134.107</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Sailpoint/Harness DC AU Prod</description>
-        <endAddress>203.110.235.255</endAddress>
-        <startAddress>203.110.235.0</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD for Harness</description>
-        <endAddress>35.189.53.62</endAddress>
-        <startAddress>35.189.53.62</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD2 for Harness</description>
-        <endAddress>34.87.219.182</endAddress>
-        <startAddress>34.87.219.182</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD3 for Harness</description>
-        <endAddress>34.87.216.1</endAddress>
-        <startAddress>34.87.216.1</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP PROD4 for Harness</description>
-        <endAddress>34.87.220.213</endAddress>
-        <startAddress>34.87.220.213</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP NP3 for Harness</description>
-        <endAddress>35.238.133.229</endAddress>
-        <startAddress>35.238.133.229</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP NP2 for Harness</description>
-        <endAddress>34.87.204.119</endAddress>
-        <startAddress>34.87.204.119</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>GCP NP for Harness</description>
-        <endAddress>35.244.65.24</endAddress>
-        <startAddress>35.244.65.24</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>IP range restriction for Odaseva</description>
-        <endAddress>13.211.189.52</endAddress>
-        <startAddress>13.211.48.246</startAddress>
-    </loginIpRanges>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AccessCMC</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ActivateContract</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ActivateOrder</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ActivitiesAccess</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AddDirectMessageMembers</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowEmailIC</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowLightningLogin</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowUniversalSearch</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AllowViewEditConvertedLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApexRestServices</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApiEnabled</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApiUserOnly</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApproveContract</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ArchiveArticles</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AssignPermissionSets</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AssignTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>AuthorApex</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>BulkApiHardDelete</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>BulkMacrosAllowed</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanApproveFeedPost</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanEditPrompts</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanInsertFeedSystemFields</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanUseNewDashboardBuilder</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CanVerifyComment</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChangeDashboardColors</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterComposeUiCodesnippet</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ChatterInternalUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterInviteExternalUsers</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterOwnGroups</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CloseConversations</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConfigCustomRecs</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConnectOrgToEnvironmentHub</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConsentApiUpdate</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ContentAdministrator</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ContentHubUser</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ContentWorkspaces</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ConvertLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeFilters</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateDashboardFolders</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateLtngTempFolder</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateLtngTempInPub</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateReportFolders</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateReportInLightning</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateWorkspaces</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CustomizeApplication</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DataExport</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DelegatedTwoFactor</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DeleteActivatedContract</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>DeleteTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditActivatedOrders</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditBrandTemplates</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditCaseComments</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditEvent</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditHtmlTemplates</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditKnowledge</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditMyDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditMyReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditOppLineItemUnitPrice</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditPublicDocuments</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditPublicFilters</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditPublicTemplates</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditReadonlyFields</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditTask</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditTopics</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditTranslation</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailMass</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailSingle</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EnableNotifications</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ExportReport</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>FeedPinning</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ForceTwoFactor</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>GiveRecognitionBadge</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>GovernNetworks</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>HideReadByList</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IPRestrictRequests</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IdentityEnabled</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportCustomObjects</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportPersonal</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>InboundMigrationToolsUser</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>InstallPackaging</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IsotopeAccess</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>IsotopeLEX</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>LightningConsoleAllowedForUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>LightningExperienceUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ListEmailSend</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>LtngPromoReserved01UserPerm</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageAnalyticSnapshots</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageAuthProviders</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageBusinessHourHolidays</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCMS</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCallCenters</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCases</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCategories</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCertificates</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageChatterMessages</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageContentPermissions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageContentProperties</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageContentTypes</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCustomPermissions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageCustomReportTypes</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDashbdsInPubFolders</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDataCategories</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDataIntegrations</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageDynamicDashboards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageEmailClientConfig</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageEntitlements</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageExchangeConfig</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageExternalConnections</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageHealthCheck</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageHubConnections</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageInteraction</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageInternalUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageIpAddresses</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageKnowledge</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageKnowledgeImportExport</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageLeads</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageLoginAccessPolicies</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageMobile</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageNetworks</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePackageLicenses</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePasswordPolicies</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageProfilesPermissionsets</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePropositions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManagePvtRptsAndDashbds</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageRecommendationStrategies</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageReleaseUpdates</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageRemoteAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageReportsInPubFolders</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageRoles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSearchPromotionRules</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSessionPermissionSets</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSharing</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSolutions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSubscriptions</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageSynonyms</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageTwoFactor</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageUnlistedGroups</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ManageUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>MassInlineEdit</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>MergeTopics</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModerateChatter</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModerateNetworkUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModifyAllData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModifyDataClassification</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ModifyMetadata</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>NewReportBuilder</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>OutboundMigrationToolsUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>Packaging2</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PasswordNeverExpires</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PreventClassicExperience</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PrivacyDataAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PublishArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>PublishTranslation</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>QueryAllFiles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>QuipMetricsAccess</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RecordVisibilityAPI</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RemoveDirectMessageMembers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ResetPasswords</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RetainFieldHistory</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RunFlow</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>RunReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SandboxTestingInCommunityApp</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ScheduleJob</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ScheduleReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SelectFilesFromSalesforce</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SendAnnouncementEmails</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SendSitRequests</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ShareInternalArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ShowCompanyNameAsUserBadge</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SkipIdentityConfirmation</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SolutionImport</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubmitForTranslation</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubmitMacrosAllowed</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeDashboardRolesGrps</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeDashboardToOtherUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeReportRolesGrps</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeReportToOtherUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeReportsRunAsUser</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeToLightningDashboards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>SubscribeToLightningReports</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TraceXdsQueries</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransactionalEmailSend</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransferAnyCase</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransferAnyEntity</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransferAnyLead</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TwoFactorApi</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>UseTeamReassignWizards</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>UseWebLink</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllCustomSettings</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllForeignKeyNames</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAllUsers</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewAnomalyEvents</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewArchivedArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewCaseInteraction</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDataAssessment</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDataCategories</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDataLeakageEvents</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewDraftArticles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewEncryptedData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewEventLogFiles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewFlowUsageAndFlowEventData</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ViewHealthCheck</name>
-    </userPermissions>
-    <userPermissions>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>LightningExperienceUser</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ListEmailSend</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>LtngPromoReserved01UserPerm</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageAnalyticSnapshots</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageAuthProviders</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageBusinessHourHolidays</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCMS</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCallCenters</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCases</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCategories</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCertificates</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageChatterMessages</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageContentPermissions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageContentProperties</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageContentTypes</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCustomPermissions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageCustomReportTypes</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDashbdsInPubFolders</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDataCategories</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDataIntegrations</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageDynamicDashboards</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageEmailClientConfig</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageEntitlements</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageExchangeConfig</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageExternalConnections</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageHealthCheck</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageHubConnections</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageInteraction</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageInternalUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageIpAddresses</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageKnowledge</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageKnowledgeImportExport</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageLeads</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageLoginAccessPolicies</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageMobile</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageNetworks</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePackageLicenses</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePasswordPolicies</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageProfilesPermissionsets</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePropositions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManagePvtRptsAndDashbds</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageRecommendationStrategies</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageReleaseUpdates</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageRemoteAccess</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageReportsInPubFolders</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageRoles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSearchPromotionRules</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSessionPermissionSets</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSharing</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSolutions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSubscriptions</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageSynonyms</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageTwoFactor</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageUnlistedGroups</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ManageUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>MassInlineEdit</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>MergeTopics</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModerateChatter</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModerateNetworkUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModifyAllData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModifyDataClassification</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ModifyMetadata</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>NewReportBuilder</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>OutboundMigrationToolsUser</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>Packaging2</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PasswordNeverExpires</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PreventClassicExperience</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PrivacyDataAccess</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PublishArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>PublishTranslation</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>QueryAllFiles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>QuipMetricsAccess</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RecordVisibilityAPI</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RemoveDirectMessageMembers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ResetPasswords</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RetainFieldHistory</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RunFlow</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>RunReports</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SandboxTestingInCommunityApp</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ScheduleJob</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ScheduleReports</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SelectFilesFromSalesforce</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SendAnnouncementEmails</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SendSitRequests</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ShareInternalArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ShowCompanyNameAsUserBadge</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SkipIdentityConfirmation</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SolutionImport</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubmitForTranslation</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubmitMacrosAllowed</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeDashboardRolesGrps</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeDashboardToOtherUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeReportRolesGrps</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeReportToOtherUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeReportsRunAsUser</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeToLightningDashboards</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>SubscribeToLightningReports</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TraceXdsQueries</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransactionalEmailSend</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransferAnyCase</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransferAnyEntity</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransferAnyLead</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TwoFactorApi</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>UseTeamReassignWizards</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>UseWebLink</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllCustomSettings</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllForeignKeyNames</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAllUsers</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewAnomalyEvents</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewArchivedArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewCaseInteraction</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDataAssessment</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDataCategories</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDataLeakageEvents</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewDraftArticles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewEncryptedData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewEventLogFiles</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewFlowUsageAndFlowEventData</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ViewHealthCheck</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ViewHelpLink</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewMyTeamsDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewPlatformEvents</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewPublicDashboards</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewPublicReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewRoles</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewSetup</name>
+        <enabled>false</enabled>
     </userPermissions>
 </Profile>

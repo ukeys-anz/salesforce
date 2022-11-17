@@ -17,6 +17,8 @@
 
   // Handle select record type
   handleSelectRecordType: function (component, event, helper) {
+    let button = component.find("nextButton");
+    button.set("v.disabled", false);
     helper.uncheckPreviouslySelectedRadio(component);
     // Set the selected record type Id
     component.set("v.selectedRecordTypeId", event.target.value);

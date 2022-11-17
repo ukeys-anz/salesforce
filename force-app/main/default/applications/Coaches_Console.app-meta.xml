@@ -5,71 +5,71 @@
         <comment>Action override updated by Lightning App Builder during activation.</comment>
         <content>ANZx_Account_Record_Page</content>
         <formFactor>Large</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>Account</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>ANZx_Account_Record_Page</content>
         <formFactor>Small</formFactor>
+        <pageOrSobjectType>Account</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>Account</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Case_Record_Page</content>
         <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>Case</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>Tab</actionName>
         <content>Coach_Home_Page</content>
         <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>standard-home</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>External_Case_Status_Record_Page</content>
         <formFactor>Large</formFactor>
+        <pageOrSobjectType>External_Case_Status__c</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>External_Case_Status__c</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>External_Case_Status_Record_Page</content>
         <formFactor>Small</formFactor>
+        <pageOrSobjectType>External_Case_Status__c</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>External_Case_Status__c</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Knowledge_Page_Coach</content>
         <formFactor>Large</formFactor>
+        <pageOrSobjectType>Knowledge__kav</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>Knowledge__kav</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Survey_Response_Record_Page</content>
         <formFactor>Large</formFactor>
+        <pageOrSobjectType>qualtrics__Survey_Response__c</pageOrSobjectType>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
-        <pageOrSobjectType>qualtrics__Survey_Response__c</pageOrSobjectType>
     </actionOverrides>
     <brand>
         <headerColor>#004165</headerColor>
@@ -89,149 +89,167 @@
         <content>Quality_Assessment_Get_Help_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
         <recordType>Quality_Assessment__c.Get_Help</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Quality_Assessment_Get_Help_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <profile>Admin</profile>
         <recordType>Quality_Assessment__c.Get_Help</recordType>
         <type>Flexipage</type>
-        <profile>Admin</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Complaint_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>Admin</profile>
         <recordType>Case.Non_Customer_Complaint</recordType>
         <type>Flexipage</type>
-        <profile>Admin</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Complaint_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
         <recordType>Case.Non_Customer_Complaint</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Quality_Assessment_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
         <recordType>Quality_Assessment__c.General</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Quality_Assessment_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
-        <recordType>Quality_Assessment__c.General</recordType>
-        <type>Flexipage</type>
         <profile>Admin</profile>
+        <recordType>Quality_Assessment__c.General</recordType>
+        <type>Flexipage</type>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Bug_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
         <recordType>Case.Bug_Enquiry</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Quality_Assessment_Join_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
         <recordType>Quality_Assessment__c.Join</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Quality_Assessment_Join_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <profile>Admin</profile>
         <recordType>Quality_Assessment__c.Join</recordType>
         <type>Flexipage</type>
-        <profile>Admin</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Residential_Loan_Application_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
-        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
+        <type>Flexipage</type>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Residential_Loan_Application_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
-        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
+        <type>Flexipage</type>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Residential_Loan_Application_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
-        <type>Flexipage</type>
         <profile>Admin</profile>
+        <type>Flexipage</type>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Account_Closure_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>Admin</profile>
         <recordType>Case.Account_Closure</recordType>
         <type>Flexipage</type>
-        <profile>Admin</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Residential_Loan_Application_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
-        <type>Flexipage</type>
         <profile>Admin</profile>
+        <type>Flexipage</type>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Account_Closure_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>Admin</profile>
         <recordType>Case.Account_Closure</recordType>
         <type>Flexipage</type>
-        <profile>Admin</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Account_Closure_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
         <recordType>Case.Account_Closure</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
         <content>Account_Closure_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
         <recordType>Case.Account_Closure</recordType>
         <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Account_Closure_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
         <profile>ANZx Standard User</profile>
+        <recordType>Case.Account_Closure</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Account_Closure_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
+        <recordType>Case.Account_Closure</recordType>
+        <type>Flexipage</type>
     </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>

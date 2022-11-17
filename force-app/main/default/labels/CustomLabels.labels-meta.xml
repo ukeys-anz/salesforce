@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>Reactive_logging_keywords</fullName>
+        <categories>Contains keywords used for reactive logging for data masking</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reactive logging keywords</shortDescription>
+        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER</value>
+    </labels>
+    <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -22,6 +30,27 @@
         <protected>false</protected>
         <shortDescription>Chatter Post Message Body</shortDescription>
         <value>New lead #{LeadId}# available to action.Please check your leads list view. #{LeadListViewId}#</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CreatePartyWorkStation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create party API header workstation id</shortDescription>
+        <value>WPN132</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CreatePartyBranch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create party API header operator branch</shortDescription>
+        <value>4111</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CreatePartyOriginatingApp</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create party API header originating app</shortDescription>
+        <value>CRM</value>
     </labels>
     <labels>
         <fullName>CCRM_LeadDefaultPriorityValue</fullName>
@@ -61,7 +90,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>New Lead from Source Message.</shortDescription>
-        <value>New Lead #{LeadId}# is now available from #{Lead.Lead_Originator__c}#. Please check your leads list view. #{LeadListViewId}#</value>
+        <value>New Lead #{LeadId}# is now available from #{Lead.Lead_Originator__c}.#Please check your leads list view. #{LeadListViewId}#</value>
     </labels>
     <labels>
         <fullName>CCRM_ExpiryReminderMessage</fullName>
@@ -85,7 +114,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Commercial CRM List of Lead Stages which should not allow to be edited.</shortDescription>
-        <value>'Completed','Converted','Expired','Referred'</value>
+        <value>&apos;Completed&apos;,&apos;Converted&apos;,&apos;Expired&apos;,&apos;Referred&apos;</value>
     </labels>
     <labels>
         <fullName>CCRM_ExtendLeadExpiryDateWhenResponseLogCreated</fullName>
@@ -111,12 +140,28 @@
         <value>10</value>
     </labels>
     <labels>
+        <fullName>CCRM_Profile_Name</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Profile Name for ANZ Standard User</shortDescription>
+        <value>ANZ Standard User</value>
+    </labels>
+    <labels>
         <fullName>CCRM_Today_Date</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Used in testing for adding and substracting days from todays date</shortDescription>
         <value>0</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Source_System_Name</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Source System Name for Lead Ingestion</shortDescription>
+        <value>CAP-CIS</value>
     </labels>
     <labels>
         <fullName>XpressionSenderAddress</fullName>
@@ -157,6 +202,14 @@
         <protected>false</protected>
         <shortDescription>MS_Account_Table</shortDescription>
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
+    </labels>
+    <labels>
+        <fullName>MS_Create_Party</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Create_Party</shortDescription>
+        <value>/dcrm/customers/v1/customer/create</value>
     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
@@ -255,11 +308,27 @@
         <value>/sfdc/addresses/v1/addresses?lookupString=</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Qas_Address_V2</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_Address_V2</shortDescription>
+        <value>/sfdc/addresses/v1/addresses?lookupString=</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Qas_AddressById</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_AddressById</shortDescription>
+        <value>/sfdc/addresses/v1/addresses/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Qas_AddressById_V2</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Qas_AddressById_V2</shortDescription>
         <value>/sfdc/addresses/v1/addresses/</value>
     </labels>
     <labels>
@@ -277,6 +346,14 @@
         <protected>false</protected>
         <shortDescription>MS_Search_Party</shortDescription>
         <value>/dcrm/customers/v1/party/search?</value>
+    </labels>
+    <labels>
+        <fullName>MS_Search_Party_Params</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Search_Party_Params</shortDescription>
+        <value>offset=1&amp;limit=1&amp;probable=true</value>
     </labels>
     <labels>
         <fullName>MS_Temp_Lock_Card</fullName>
@@ -450,7 +527,7 @@
         <shortDescription>MS_Reinitiate_Chat</shortDescription>
         <value>/contact-centre-staff/reinit-chats</value>
     </labels>
-        <labels>
+    <labels>
         <fullName>PEGA_Dispute_Status_New</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -532,5 +609,29 @@ Feel free to reach out to us if you have any questions.</value>
         <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3-5 business days.
 
 Feel free to contact us if you have any questions. You can find our contact information in the last email we sent you.</value>
+    </labels>
+    <labels>
+        <fullName>Regex_Email</fullName>
+        <categories>Regex</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Regex_Email</shortDescription>
+        <value>^[a-zA-Z0-9.&apos;+-]{2,}@[a-zA-Z0-9.-]{2,}.[a-zA-Z]{2,}$</value>
+    </labels>
+    <labels>
+        <fullName>Regex_Mobile</fullName>
+        <categories>Regex</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Regex Mobile</shortDescription>
+        <value>^\+?614[0-9]{8}+$</value>
+    </labels>
+    <labels>
+        <fullName>Regex_Phone</fullName>
+        <categories>Regex</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Regex_Phone</shortDescription>
+        <value>^\+?61[0-9]{9}+$</value>
     </labels>
 </CustomLabels>

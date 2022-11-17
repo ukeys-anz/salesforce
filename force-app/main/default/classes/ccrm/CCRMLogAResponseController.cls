@@ -5,6 +5,8 @@
  */
 public with sharing class CCRMLogAResponseController {
   private static final String LOG_RESPONSE_ERROR_MESSAGE = 'Error Message: No permission to create Lead Response record. Lead Response is not logged.';
+  private static final String TASK_STATUS_NEW = 'Open';
+  private static final String TASK_SUBJECT = 'Customer Meeting';
 
   /**
    * @description Fetch the list of Response Status and Outcome Reason dependent picklist..
@@ -82,14 +84,18 @@ public with sharing class CCRMLogAResponseController {
       leadRespString,
       LeadResponseWrapper.class
     );
+    Lead validateLeadState = new Lead();
     if (
       Schema.sObjectType.Lead.isQueryable() &&
       Schema.sObjectType.Lead_Stage_Automation__mdt.isQueryable()
     ) {
-      Lead validateLeadState = [
+      validateLeadState = [
         SELECT
           Id,
           Status,
+          FinServ__RelatedAccount__c,
+          FinServ__ExpressedInterest__c,
+          Name,
           ABN__c,
           ACN__c,
           ABN_Validation_Status__c,
@@ -134,15 +140,24 @@ public with sharing class CCRMLogAResponseController {
 
     if (Schema.sObjectType.Task.isCreateable()) {
       Task responseRecord = new Task();
+      if (
+        leadRespWrapper.autoCreateActivities &&
+        validateLeadState.FinServ__ExpressedInterest__c == null
+      ) {
+        validateLeadState.FinServ__ExpressedInterest__c = '';
+      }
       responseRecord.Response_Status__c = leadRespWrapper.responseStatus;
       responseRecord.Lead_Quality__c = leadRespWrapper.leadQuality;
-      responseRecord.Status = CCRMConstants.STATUS_COMPLETED;
+      responseRecord.Status = leadRespWrapper.autoCreateActivities
+        ? TASK_STATUS_NEW
+        : CCRMConstants.STATUS_COMPLETED;
       responseRecord.Outcome_Reason__c = leadRespWrapper.outcomeReason;
-      responseRecord.ActivityDate = leadRespWrapper.followUpDate;
-      responseRecord.Subject =
-        leadRespWrapper.responseStatus +
-        ': ' +
-        leadRespWrapper.outcomeReason;
+      responseRecord.ActivityDate = leadRespWrapper.autoCreateActivities
+        ? leadRespWrapper.dueDate
+        : leadRespWrapper.followUpDate;
+      responseRecord.Subject = leadRespWrapper.autoCreateActivities
+        ? TASK_SUBJECT + ' - ' + validateLeadState.FinServ__ExpressedInterest__c
+        : leadRespWrapper.responseStatus + ': ' + leadRespWrapper.outcomeReason;
       responseRecord.Description = leadRespWrapper.commentVal;
       responseRecord.recordTypeId = CCRMConstants.LEAD_RESPONSE_RT_ID;
       responseRecord.WhoId = Id.valueOf(leadRespWrapper.leadId);
@@ -197,5 +212,15 @@ public with sharing class CCRMLogAResponseController {
      */
     @AuraEnabled
     public String responseTypeValue { get; set; }
+    /**
+     * @description Auto Create Activities Value
+     */
+    @AuraEnabled
+    public Boolean autoCreateActivities { get; set; }
+    /**
+     * @description Due Date
+     */
+    @AuraEnabled
+    public Date dueDate { get; set; }
   }
 }

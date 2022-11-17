@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Group the permissions to be granted to AEM integration user for unauthenticated enquiries.</description>
+    <label>AEM Integration User</label>
+    <permissionSets>Case_Read_Write_AEM_Integration</permissionSets>
+    <permissionSets>Enforce_mTLS</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

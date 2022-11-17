@@ -110,6 +110,8 @@ class FakerPersonProviderTest {
     String jobTitle = faker.person.jobTitle();
     String ssn = faker.person.ssn();
     String phone = faker.person.phone();
+    String auPhone = faker.person.phone(true, false);
+    String auMobilePhone = faker.person.phone(true, true);
     Date birthday = faker.person.birthday();
     String phoneAreCode = faker.person.phone(702);
     String picture = faker.person.picture(200, 200);
@@ -154,6 +156,14 @@ class FakerPersonProviderTest {
     System.assertEquals(
       14,
       phone.length(),
+      'Faker should generate correct information'
+    );
+    System.assert(
+      auPhone.length() == 12 && auPhone.startsWith('+61'),
+      'Faker should generate correct information'
+    );
+    System.assert(
+      auMobilePhone.length() == 12 && auMobilePhone.startsWith('+614'),
       'Faker should generate correct information'
     );
     System.assertEquals(

@@ -38,7 +38,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
   }
 
   @isTest
-  private static void changingPrimaryOwnerWithoutUpdatingStartDate() {
+  private static void changingPrimaryOwnerWithoutStartDate() {
     FinServ__FinancialAccount__c finAccount = [
       SELECT Id, FinServ__PrimaryOwner__c, Primary_Owner_Start_Date__c
       FROM FinServ__FinancialAccount__c
@@ -65,7 +65,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
       );
     } catch (Exception e) {
       System.assertNotEquals(
-        'Primary Owner and Primary Owner Start Date values should be updated simultaneously. Financial Account Id: ' +
+        'Primary owner start date cannot be empty. Financial Account Id: ' +
         finAccount.Id,
         e.getMessage(),
         'Error message does not match.'
@@ -74,7 +74,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     Test.stopTest();
   }
 
-  @isTest
+  /*@isTest
   private static void changingStartDatesWithoutUpdatingPrimaryOwner() {
     FinServ__FinancialAccount__c finAccount = [
       SELECT Id, FinServ__PrimaryOwner__c, Primary_Owner_Start_Date__c
@@ -101,7 +101,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     }
 
     Test.stopTest();
-  }
+  }*/
 
   @isTest
   private static void changingPrimaryOwnerSuccessfully() {

@@ -3921,7 +3921,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>other</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5208,7 +5208,7 @@
     </picklistValues>
     <picklistValues>
         <picklist>IDR_NC_State__c</picklist>
-         <values>
+        <values>
             <fullName>1</fullName>
             <default>false</default>
         </values>
@@ -9003,10 +9003,6 @@
         </values>
         <values>
             <fullName>About ANZ Plus</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Account closure</fullName>
             <default>false</default>
         </values>
         <values>

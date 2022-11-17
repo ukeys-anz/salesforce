@@ -4,27 +4,11 @@
  * @since 02/2021
  * @description Helper class for @link GetHelpCaseActions
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
+ * ExcessivePublicCount Surpressed : GetHelpCaseActions to have all the public methods and attributes together.
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
-
-  public static final Set<Id> FRAUD_RT_IDS = new Set<Id>{
-    GetHelpConstants.FRAUD_RT_ID,
-    GetHelpConstants.IDENTITY_RT_ID,
-    GetHelpConstants.RECIPIENT_MULE_RT_ID,
-    GetHelpConstants.SCAM_RT_ID,
-    GetHelpConstants.KYCQA_RT_ID
-  };
-
-  public static final Set<Id> DISPUTE_RT_IDS = new Set<Id>{
-    GetHelpConstants.ATM_DISPUTE_RT_ID,
-    GetHelpConstants.CARD_DISPUTE_RT_ID,
-    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
-    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
-    GetHelpConstants.NPP_DISPUTE_RT_ID,
-    GetHelpConstants.BPAY_DISPUTE_RT_ID
-  };
 
   // Set of record type Ids that will be sent to PEGA
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
@@ -95,28 +79,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description isANZPlusCaseType checks if record type is of ANZ Plus type.
-   * As this Trigger will be used across various teams we identify case record based on ANZ Plus record Type.
-   *
-   * @param record The record for which the recordType needs to be checked
-   * @return `Boolean` True if the the record type is of ANZ Plus type false otherwise.
-   */
-  public static Boolean isANZPlusCaseType(Case record) {
-    if (
-      FRAUD_RT_IDS.contains(record.RecordTypeId) ||
-      record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.ACCOUNT_CLOSURE_RT_ID ||
-      DISPUTE_RT_IDS.contains(record.RecordTypeId)
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
    * @description auto-populate Contact lookup on ANZ Plus Cases.
    * Assumption: Case record types would not be manually changed from AR&C to ANZ Plus
    * @param records new trigger case records
@@ -125,7 +87,10 @@ public with sharing class GetHelpCaseActionsHelper {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
     for (Case record : records) {
-      if (isANZPlusCaseType(record) && record.AccountId != null) {
+      if (
+        CheckCaseRecordType.isANZPlusCaseType(record) &&
+        record.AccountId != null
+      ) {
         anzPlusCases.add(record);
         relatedAccountIDs.add(record.AccountId);
       }
@@ -193,7 +158,7 @@ public with sharing class GetHelpCaseActionsHelper {
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-        isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
       }
@@ -234,13 +199,19 @@ public with sharing class GetHelpCaseActionsHelper {
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-        isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError(NO_ENTITLEMENT_ERROR_MSG);
         } else {
           c.EntitlementId = entMap.get(c.AccountId);
         }
+      } else if (
+        (c.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+        c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN)
+      ) {
+        c.EntitlementId = IDRCaseActions.getEntitlement();
+        c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
       }
     }
   }
@@ -264,81 +235,6 @@ public with sharing class GetHelpCaseActionsHelper {
       record.Additional_Type__c !=
       oldCaseMap.get(record.Id).Additional_Type__c ||
       record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId))
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * @description Check if a case is Fraud case
-   * @param record The case record to check
-   * @param oldCase old case
-   * @return if the case is a Fraud case
-   */
-  public static Boolean isFraud(Case record, Case oldCase) {
-    if (
-      FRAUD_RT_IDS.contains(record.RecordTypeId) &&
-      String.isNotBlank(record.Type) &&
-      (oldCase == null ||
-      record.Type != oldCase.Type ||
-      record.RecordTypeId != oldCase.RecordTypeId)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * @description Check if a case is Dispute Case
-   * @param record The case record to check
-   * @return if the case is a Dispute Case
-   */
-  public static Boolean isDispute(Case record) {
-    if (DISPUTE_RT_IDS.contains(record.RecordTypeId)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * @description Check if a case is Complaint case
-   * @param record The case record to check
-   * @param oldCase old case
-   * @return if the case is a Complaint case
-   */
-  public static Boolean isComplaint(Case record, Case oldCase) {
-    if (
-      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
-      (oldCase == null ||
-      record.Type != oldCase.Type)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * @description Check if a case is an ANZx Non Customer Complaint case
-   * @param record The case record to check
-   * @param oldCaseMap old case map
-   * @return if the case is an ANZx Non Customer Complaint case
-   */
-  public static Boolean isANZxNonCustomerComplaint(
-    Case record,
-    Map<Id, Case> oldCaseMap
-  ) {
-    if (
-      record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
-      String.isNotBlank(record.Type) &&
-      record.ANZx_Customer__c &&
-      (oldCaseMap == null ||
-      record.Type != oldCaseMap.get(record.Id).Type ||
-      record.RecordTypeId != oldCaseMap.get(record.Id).RecordTypeId)
     ) {
       return true;
     } else {
@@ -519,20 +415,40 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Check if a case is Account Closure case
-   * @param record The case record to check
-   * @param oldCase old case
-   * @return if the case is a Complaint case
+   * @description This method will check if a case is converted from AEM to General Inquiry/ANZX Complaint/Non-Cusotmer Complaint
+   * @param oldRecord case: old values of a record to process
+   * @param newRecord case: new record instances to process
+   * @return Boolean find all the AEM converted cases.
    */
-  public static Boolean isAccountClosure(Case record, Case oldCase) {
-    if (
-      record.RecordTypeId == GetHelpConstants.ACCOUNT_CLOSURE_RT_ID &&
-      (oldCase == null ||
-      record.Type != oldCase.Type)
-    ) {
-      return true;
-    } else {
-      return false;
+  public static Boolean isAEMConverted(Case oldRecord, Case newRecord) {
+    List<String> convertedTypes = new List<String>{
+      GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      GetHelpConstants.COMPLAINT_RT_ID,
+      GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+    };
+    return CheckCaseRecordType.isUnauthenticatedEnquiry(oldRecord) &&
+      newRecord.ANZx_Customer__c &&
+      newRecord.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
+      convertedTypes.contains(newRecord.RecordTypeId);
+  }
+
+  /**
+   * @description This method will check if the case is converted from AEM to General Inquiry/ANZX Complaint/Non-Cusotmer Complaint
+   * @param oldMap Map<Id, Case> oldMap: Map of the old values of the records to process
+   * @param caseList List<Case> caseList: New record instances to process
+   * @return List<Case> find all the AEM converted cases.
+   */
+  public static List<Case> filterAEMConvertedCases(
+    Map<Id, Case> oldMap,
+    List<Case> caseList
+  ) {
+    List<Case> filteredCases = new List<Case>();
+    for (Case newRecord : caseList) {
+      Case oldRecord = (Case) oldMap.get(newRecord.Id);
+      if (isAEMConverted(oldRecord, newRecord)) {
+        filteredCases.add(newRecord);
+      }
     }
+    return filteredCases;
   }
 }

@@ -46,6 +46,11 @@ public with sharing class FinancialAccountController {
       }
 
       for (FinancialAccountModel.AccountList finAccount : result.account_list) {
+        //Format opened date from string to date
+        Date openedDate = finAccount.opened_at == null
+          ? null
+          : Date.valueOf(finAccount.opened_at);
+
         financialAccounts.add(
           new FinServ__FinancialAccount__c(
             Name = finAccount.name,
@@ -53,7 +58,7 @@ public with sharing class FinancialAccountController {
             FinServ__Balance__c = finAccount.balance.value,
             FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
             BSB__c = finAccount.bsb,
-            FinServ__OpenDate__c = (Date) finAccount.opened_at,
+            FinServ__OpenDate__c = openedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
             FinServ__FinancialAccountType__c = finAccount.marketing_product.code ==
               'TRANSACT01'

@@ -51,10 +51,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Account closure</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Add Life Event</fullName>
             <default>false</default>
         </values>
