@@ -38,24 +38,23 @@ jobs:
       - name: "🦆 Black Duck Scan"
         id: blackduck
         run: |
-          # set -x
-          # if [[ "${GITHUB_REF}" == refs/pull/* ]]
-          # then
-          #   PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN { FS = "/" } ; { print $3 }')
-          # else
-          #   REF="${GITHUB_REF}"
-          # fi
-          # # NOTE: the following is not actually a secret, but an encrypted blob
-          # docker run --rm \
-          #   anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest \
-          #   --harness-api-key=CiUALvObyCdx/LOa/QDKwMlYRpDEQJ2qHzw/3NU+5JIyDg48PqtSErYBADVs6ThOwBR9GqQTYYHPL9YK25KzNciYQ53CcRQrLeU4yqEPUOmFgrRWvHF3woJ9HKQ+gVtpxQ16dXt4Kql2dPkFcitZGHX5rXugw0AX29OhdaKt7xYT1FxvFyhK78g72ZXvkCvqnvI1gKMTEMPqKyv3Nz4uKVCRi1pLM10R1DckF8gPZo00dX4bhlBczeJU3ySdwohTe0OH3sKcUTTXACaLw08k4MR0MykgW70nR9lLrh6sqk4= \
-          #   --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
-          #   --application-name=secscan \
-          #   --target-name=BlackduckScanCI \
-          #   --target-type=PIPELINE \
-          #   --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER}" \
-          #   --wait
-          echo "HEY"
+          set -x
+          if [[ "${GITHUB_REF}" == refs/pull/* ]]
+          then
+            PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN { FS = "/" } ; { print $3 }')
+          else
+            REF="${GITHUB_REF}"
+          fi
+          # NOTE: the following is not actually a secret, but an encrypted blob
+          docker run --rm \
+            anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest \
+            --harness-api-key=CiUALvObyCdx/LOa/QDKwMlYRpDEQJ2qHzw/3NU+5JIyDg48PqtSErYBADVs6ThOwBR9GqQTYYHPL9YK25KzNciYQ53CcRQrLeU4yqEPUOmFgrRWvHF3woJ9HKQ+gVtpxQ16dXt4Kql2dPkFcitZGHX5rXugw0AX29OhdaKt7xYT1FxvFyhK78g72ZXvkCvqnvI1gKMTEMPqKyv3Nz4uKVCRi1pLM10R1DckF8gPZo00dX4bhlBczeJU3ySdwohTe0OH3sKcUTTXACaLw08k4MR0MykgW70nR9lLrh6sqk4= \
+            --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
+            --application-name=secscan \
+            --target-name=BlackduckScanCI \
+            --target-type=PIPELINE \
+            --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER}" \
+            --wait
         continue-on-error: true
 
       - name: Slack message
@@ -63,8 +62,6 @@ jobs:
           BLACKDUCK_STATUS: ${{ steps.blackduck.outcome }}
           GITHUB_BASE_REF: ${{ github.base_ref }}
         run: |
-          echo "BLACKDUCK_STATUS: $BLACKDUCK_STATUS"
-          BLACKDUCK_STATUS=none
           if [[ $BLACKDUCK_STATUS == success ]];then
             status=:white_check_mark:
           else
