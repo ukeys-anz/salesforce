@@ -258,8 +258,11 @@ public with sharing class CCRMTaskActions {
    */
   public static void populateData(Task[] records, Map<Id, Task> oldMap) {
     for (Task record : records) {
-      maskDescription(record);
-      maskSubject(record);
+      if (record.RecordTypeId == CCRMConstants.LEAD_RESPONSE_RT_ID) {
+        Task oldRec = oldMap != null ? oldMap.get(record.id) : new Task();
+        maskDescription(record, oldRec);
+        maskSubject(record, oldRec);
+      }
     }
   }
 
@@ -267,9 +270,14 @@ public with sharing class CCRMTaskActions {
    * @description Mask Description of Task
    * @name maskDescription
    * @param record Task to mask
+   * @param oldRec old task record from trigger
    */
-  public static void maskDescription(Task record) {
-    if (!String.isBlank(record.Description)) {
+  public static void maskDescription(Task record, Task oldRec) {
+    if (
+      String.isNotBlank(record.Description) &&
+      (oldRec == null ||
+      record.Description != oldRec.Description)
+    ) {
       record.Description = TextUtils.maskData(record.Description);
     }
   }
@@ -278,9 +286,14 @@ public with sharing class CCRMTaskActions {
    * @description Mask Subject of Task
    * @name maskSubject
    * @param record Task to mask
+   * @param oldRec old task record from trigger
    */
-  public static void maskSubject(Task record) {
-    if (!String.isBlank(record.Subject)) {
+  public static void maskSubject(Task record, Task oldRec) {
+    if (
+      String.isNotBlank(record.Subject) &&
+      (oldRec == null ||
+      record.Subject != oldRec.Subject)
+    ) {
       record.Subject = TextUtils.maskData(record.Subject);
     }
   }
