@@ -136,7 +136,6 @@ export default class InteractionRelatedList extends NavigationMixin(
   }
 
   handleViewAll() {
-    console.log(this.sObjectType);
     let relationshiptName = "Interactions__r";
     if (this.sObjectType === "Account") {
       relationshiptName = "Interactions";

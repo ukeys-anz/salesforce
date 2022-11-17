@@ -6,6 +6,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getRecord } from "lightning/uiRecordApi";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import IDR_LEVEL_1_CHECK from "@salesforce/customPermission/IDR_Level_1";
+import { handleErrorShowToast } from "c/utils";
 
 const FIELDS = [STATUS_FIELD];
 
@@ -91,8 +92,6 @@ export default class IDRFilesRelatedList extends LightningElement {
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
   wiredProject({ data }) {
     if (data) {
-      //replace console.log statement with logic to determine if delete button is appended to 'columns' array
-      console.log(data);
       if (
         data.apiName === "Case" &&
         IDR_LEVEL_1_CHECK &&
@@ -124,8 +123,6 @@ export default class IDRFilesRelatedList extends LightningElement {
         }
       })
       .catch((error) => {
-        console.log("error:" + error);
-        console.log("errorbody:" + JSON.stringify(error));
         let errorMessage = "Failed to retrive case files";
         if (error.body) {
           if (Array.isArray(error.body)) {
@@ -162,8 +159,6 @@ export default class IDRFilesRelatedList extends LightningElement {
         }
       })
       .catch((error) => {
-        console.log("error:" + error);
-        console.log("errorbody:" + JSON.stringify(error));
         let errorMessage = "Failed to remove file from Case";
         if (error.body) {
           if (Array.isArray(error.body)) {
@@ -209,8 +204,6 @@ export default class IDRFilesRelatedList extends LightningElement {
         }
       })
       .catch((error) => {
-        console.log("error:" + error);
-        console.log("errorbody:" + JSON.stringify(error));
         let errorMessage = "Failed to refresh case files list";
         if (error.body) {
           if (Array.isArray(error.body)) {
@@ -255,7 +248,12 @@ export default class IDRFilesRelatedList extends LightningElement {
     try {
       this.sortData(this.sortedBy, this.sortDirection);
     } catch (err) {
-      console.log("error:" + err);
+      handleErrorShowToast(
+        this,
+        "Sorting failed",
+        err,
+        "Failed to sort data. Please refresh and try again. Raise a fault through TechAssist if the problem persists."
+      );
     }
   }
   UpdateFileNameSearch(event) {
