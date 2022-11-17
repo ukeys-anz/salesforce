@@ -1705,7 +1705,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       REMEDY_DURATION.fieldApiName,
       "Duration of Remedy(months)"
     );
-    if (!remedyDurationErrMsg !== "") {
+    if (remedyDurationErrMsg !== "") {
       validToSave = false;
       this.missingDataFields += remedyDurationErrMsg;
     }
@@ -1794,7 +1794,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       REMEDY_DURATION2.fieldApiName,
       "Duration of Remedy(months) 2"
     );
-    if (!remedyDurationErrMsg !== "") {
+    if (remedyDurationErrMsg !== "") {
       validToSave = false;
       this.missingDataFields += remedyDurationErrMsg;
     }
@@ -1891,7 +1891,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       REMEDY_DURATION3.fieldApiName,
       "Duration of Remedy(months) 3"
     );
-    if (!remedyDurationErrMsg !== "") {
+    if (remedyDurationErrMsg !== "") {
       validToSave = false;
       this.missingDataFields += remedyDurationErrMsg;
     }
