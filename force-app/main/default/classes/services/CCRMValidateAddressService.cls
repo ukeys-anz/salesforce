@@ -51,4 +51,71 @@ public with sharing class CCRMValidateAddressService extends Service {
       null
     );
   }
+
+  /**
+   * @param lookupString search address value entered by the user
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getAddressesV2(String lookupString) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    String endPoint = 'callout:SF_MS_CCRM' + Label.MS_Get_Qas_Address_V2;
+    return calloutService.makeRestCallout(
+      endPoint,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(
+        new Map<String, Object>{
+          'country_iso' => 'AUS',
+          'datasets' => new List<String>{ 'au-address' },
+          'max_suggestions' => 10,
+          'components' => new Map<String, Object>{
+            'unspecified' => new List<String>{ lookupString }
+          },
+          'options' => new List<Object>{
+            new Map<String, String>{
+              'name' => 'search_type',
+              'value' => 'singleline'
+            },
+            new Map<String, String>{
+              'name' => 'intensity',
+              'value' => 'Extensive'
+            }
+          }
+        }
+      )
+    );
+  }
+
+  /**
+   * @param globalAddressKey
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getSelectedAddressV2(
+    String globalAddressKey
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    headers.put('client_id', '{!$Credential.Username}');
+    headers.put('client_secret', '{!$Credential.Password}');
+    String endPoint =
+      'callout:SF_MS_CCRM' +
+      Label.MS_Get_Qas_AddressById_V2 +
+      globalAddressKey;
+    return calloutService.makeRestCallout(
+      endPoint,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(
+        new Map<String, Object>{
+          'layouts' => new List<String>{ 'default' },
+          'layout_format' => 'address_lines'
+        }
+      )
+    );
+  }
 }

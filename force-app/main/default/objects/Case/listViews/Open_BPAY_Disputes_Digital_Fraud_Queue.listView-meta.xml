@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-   <fullName>Open_BPAY_Disputes_Digital_Fraud_Queue</fullName>
-   <columns>CASES.CASE_NUMBER</columns>
-   <columns>NAME</columns>
-   <columns>Dispute_Reason__c</columns>
-   <columns>CASES.STATUS</columns>
-   <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
-   <columns>OWNER_NAME</columns>
-   <filters>
-      <field>CASES.RECORDTYPE</field>
-      <operation>equals</operation>
-      <value>Case.BPAY_Dispute</value>
-   </filters>
-   <filters>
-      <field>CASES.CLOSED</field>
-      <operation>equals</operation>
-      <value>0</value>
-   </filters>
-   <filterScope>Queue</filterScope>
-   <label>Open BPAY Disputes - Digital Fraud Queue</label>
-   <queue>Digital_Fraud_Queue</queue>
-   <sharedTo>
-      <roleAndSubordinates>ANZx</roleAndSubordinates>
-   </sharedTo>
+    <fullName>Open_BPAY_Disputes_Digital_Fraud_Queue</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
+    <columns>Dispute_Reason__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>OWNER_NAME</columns>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.BPAY_Dispute</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filterScope>Queue</filterScope>
+    <label>Open BPAY Disputes - Digital Fraud Queue</label>
+    <queue>Digital_Fraud_Queue</queue>
+    <sharedTo>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
+    </sharedTo>
 </ListView>

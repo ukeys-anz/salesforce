@@ -62,12 +62,18 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
+    GetHelpCaseActions.updateEntitlementOnConvertedCase(
+      (Map<Id, Case>) oldMap,
+      (List<Case>) records
+    );
+    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     for (Case record : (List<Case>) records) {
-      if (GetHelpCaseActionsHelper.isANZPlusCaseType(record)) {
+      if (CheckCaseRecordType.isANZPlusCaseType(record)) {
         GetHelpCaseActions.maskTaxNumbers(record);
       }
       Case oldrecord = (Case) oldMap.get(record.Id);
@@ -82,7 +88,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
-    GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     //Check if the account on the case has updated, if so, update OCV ID
     if (
       GetHelpCaseActionsHelper.hasAccountUpdated(
@@ -100,6 +105,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onValidate(Map<Id, SObject> oldMap) {
     IDRCaseActions.afterUpdate(oldMap, records);
+    GetHelpCaseActions.afterUpdate(oldMap, records);
   }
 
   /**
@@ -108,6 +114,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.completeAfterActions();
+    GetHelpCaseActions.completeAfterActions();
     GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
     SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);

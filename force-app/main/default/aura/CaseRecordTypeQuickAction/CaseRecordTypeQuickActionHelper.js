@@ -3,7 +3,10 @@
   handleGetCaseRecordTypes: function (component, event, helper) {
     return new Promise(
       $A.getCallback(function (resolve, reject) {
-        var action = component.get("c.getCaseRecordTypes");
+        var action = component.get("c.getCaseRecordTypesChangeRTBtn");
+        action.setParams({
+          caseId: component.get("v.recordId")
+        });
         action.setCallback(this, function (response) {
           var state = response.getState();
           if (state === "SUCCESS") {

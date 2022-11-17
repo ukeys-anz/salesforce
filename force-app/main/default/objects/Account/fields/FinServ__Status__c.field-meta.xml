@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy_Personal_Information;Source - OCV</complianceGroup>
     <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>Status</label>
@@ -29,9 +29,9 @@
                 <label>Deceased</label>
             </value>
             <value>
-                <fullName>Deliquent</fullName>
+                <fullName>Delinquent</fullName>
                 <default>false</default>
-                <label>Deliquent</label>
+                <label>Delinquent</label>
             </value>
             <value>
                 <fullName>Dormant</fullName>

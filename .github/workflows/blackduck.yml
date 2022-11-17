@@ -9,8 +9,11 @@ on:
       - master
       - epic/anzx-bau
   push:
+    paths:
+      - .github/workflows/blackduck.yml # Run on change to scan, or packages, in develop
+      - "package.json"
     branches:
-      - master
+      - develop
   schedule:
     - cron: "57 2 * * SAT" # Run every Saturday between 2-3am
 

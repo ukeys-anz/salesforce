@@ -3,7 +3,9 @@
     <fullName>Expiry_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
-    <defaultValue>CASE( $RecordType.Name ,'Commercial CRM Lead', IF((WEEKDAY(DATEVALUE(NOW() + (VALUE($Label.CCRM_ExpiryDateDays) - 1))) = 0), NOW() + (VALUE($Label.CCRM_ExpiryDateDays) + 1),IF((WEEKDAY(DATEVALUE(NOW() + (VALUE($Label.CCRM_ExpiryDateDays) - 1))) = 1), NOW() + VALUE($Label.CCRM_ExpiryDateDays) , NOW() + (VALUE($Label.CCRM_ExpiryDateDays) - 1))),NULL)</defaultValue>
+    <defaultValue>IF(NOT(CONTAINS( $User.Username,&apos;unica.integration@anzx.com&apos;)),
+CASE( $RecordType.Name ,&apos;Commercial CRM Lead&apos;, IF((WEEKDAY(DATEVALUE(NOW() + (VALUE($Label.CCRM_ExpiryDateDays) - 1))) = 0), NOW() + (VALUE($Label.CCRM_ExpiryDateDays) + 1),IF((WEEKDAY(DATEVALUE(NOW() + (VALUE($Label.CCRM_ExpiryDateDays) - 1))) = 1), NOW() + VALUE($Label.CCRM_ExpiryDateDays) , NOW() + (VALUE($Label.CCRM_ExpiryDateDays) - 1))),NULL
+),NULL)</defaultValue>
     <description>Expiry date of the lead.</description>
     <externalId>false</externalId>
     <label>Expiry Date</label>

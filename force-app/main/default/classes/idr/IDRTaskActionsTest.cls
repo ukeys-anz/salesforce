@@ -8,8 +8,8 @@ private with sharing class IDRTaskActionsTest {
         new Task(
           RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
           Priority = 'Normal',
-          Subject = '000001234',
-          Description = 'Test description 1234-5678-9101 check mask'
+          Subject = '1234-5678-9101-7632-3321',
+          Description = 'Test description 1234-5678-9101-7632-3321 check mask'
         )
       );
     }
@@ -42,6 +42,35 @@ private with sharing class IDRTaskActionsTest {
         psaList.add(TestUtil.createPSAssignment(siUser.Id, ps.Id));
       }
       insert psaList;
+
+      role = CommonUtil.getUserRoleByDevName('Customer_Resolution');
+      User idrL1User = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'idrL1User',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => role.Id
+        }
+      );
+      insert idrL1User;
+
+      List<String> idrPsets = new List<String>{ 'IDR_Level_1' };
+      psList = [
+        SELECT Id, PermissionSetGroupId
+        FROM PermissionSet
+        WHERE Name IN :idrPsets AND Type = 'Group'
+      ];
+      List<String> lstPermissionSetGroupIds = new List<String>();
+      for (PermissionSet oPermissionSet : psList) {
+        lstPermissionSetGroupIds.add(oPermissionSet.PermissionSetGroupId);
+      }
+      // Need to force PermissionSetGroup calculation to finalise before adding a user to it.
+      Test.calculatePermissionSetGroup(lstPermissionSetGroupIds);
+
+      psaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : psList) {
+        psaList.add(TestUtil.createPSAssignment(idrL1User.Id, ps.Id));
+      }
+      insert psaList;
     }
   }
 
@@ -51,18 +80,26 @@ private with sharing class IDRTaskActionsTest {
     //WHEN they're inserted
     //THEN long numbers in free text fields are masked, showing only the last four digits
     Task t = [SELECT Subject, Description FROM Task LIMIT 1];
-    System.assertEquals('*****1234', t.Subject, 'Subject should be masked.');
     System.assertEquals(
-      'Test description ********9101 check mask',
+      '****************3321',
+      t.Subject,
+      'Subject should not be masked.'
+    );
+    System.assertEquals(
+      'Test description ****************3321 check mask',
       t.Description,
       'Description should be masked.'
     );
     //AND WHEN updated
-    t.Subject = '987654321';
+    t.Subject = '1234-5678-9101-7632-3321';
     update t;
     //THEN long numbers in free text fields are masked, showing only the last four digits
     t = [SELECT Subject FROM Task LIMIT 1];
-    System.assertEquals('*****4321', t.Subject, 'Subject should be masked.');
+    System.assertEquals(
+      '****************3321',
+      t.Subject,
+      'Subject should be masked.'
+    );
   }
 
   @IsTest
@@ -77,8 +114,8 @@ private with sharing class IDRTaskActionsTest {
         newSIs.add(
           new Case(
             RecordTypeId = IDRConstants.SI_RT_ID,
-            Status = 'Open',
-            SI_Workflow_Step__c = 'Assessing'
+            Status = 'Closed',
+            SI_Workflow_Step__c = 'Monitoring'
           )
         );
       }
@@ -267,6 +304,75 @@ private with sharing class IDRTaskActionsTest {
       oQueue.Name,
       c.Queue__c,
       'Task Queue name not preserved'
+    );
+  }
+
+  @IsTest
+  static void testRestrictIDRSystemTaskDelete() {
+    //GIVEN new IDR System Task
+    Task[] newTasks = new List<Task>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newTasks.add(
+        new Task(
+          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+          Priority = 'Normal',
+          Subject = 'Test Subject',
+          Description = 'Test description '
+        )
+      );
+    }
+    Boolean errorThrown = false;
+    User idrL1User = TestUtil.getUserByFirstName('idrL1User');
+    System.runAs(idrL1User) {
+      insert newTasks;
+
+      //WHEN user attempts to delete the task
+      try {
+        delete newTasks;
+      } catch (DmlException error) {
+        System.debug(error);
+        errorThrown = true;
+      }
+    }
+    //THEN ensure the IDR System task doesn't get deleted
+    System.assertEquals(
+      true,
+      errorThrown,
+      'IDR System Task should not have been deleted'
+    );
+  }
+
+  @IsTest
+  static void testRestrictIDRTaskDelete() {
+    //GIVEN new IDR Task
+    Task[] newTasks = new List<Task>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newTasks.add(
+        new Task(
+          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          Priority = 'Normal',
+          Subject = 'Test Subject',
+          Description = 'Test description '
+        )
+      );
+    }
+    Boolean errorThrown = false;
+    User idrL1User = TestUtil.getUserByFirstName('idrL1User');
+    System.runAs(idrL1User) {
+      insert newTasks;
+
+      //WHEN user attempts to delete the task
+      try {
+        delete newTasks;
+      } catch (DmlException error) {
+        errorThrown = true;
+      }
+    }
+    //THEN the task should be able to be deleted
+    System.assertEquals(
+      false,
+      errorThrown,
+      'IDR Task should have been deleted'
     );
   }
 }

@@ -1,0 +1,59 @@
+{
+  "result": {
+    "global_address_key": "global_address_key_1",
+    "confidence": "Verified match",
+    "address": {
+      "address_line_1": "L 6  549 St Kilda Rd",
+      "address_line_2": "",
+      "address_line_3": "",
+      "locality": "MELBOURNE",
+      "region": "VIC",
+      "postal_code": "3004",
+      "country": "AUSTRALIA"
+    },
+    "components": {
+      "country_name": "AUSTRALIA",
+      "country_iso_3": "AUS",
+      "country_iso_2": "AU",
+      "postal_code": {
+        "full_name": "3004",
+        "primary": "3004"
+      },
+      "sub_building": {
+        "floor": {
+          "full_name": "L 6",
+          "type": "L",
+          "value": "6"
+        }
+      },
+      "building": {
+        "building_number": "549"
+      },
+      "street": {
+        "full_name": "St Kilda Rd",
+        "name": "St Kilda",
+        "type": "Rd"
+      },
+      "locality": {
+        "town": {
+          "name": "MELBOURNE"
+        }
+      }
+    }
+  },
+  "metadata": {
+    "address_info": {
+      "identifier": {
+        "dpid": "62147712",
+        "hin": "203060068"
+      }
+    },
+    "barcode": {
+      "delivery_point_barcode": "1301012002011121210102312002130231113",
+      "sort_plan_number": "022"
+    },
+    "address_classification": {
+      "delivery_type": "Business"
+    }
+  }
+}

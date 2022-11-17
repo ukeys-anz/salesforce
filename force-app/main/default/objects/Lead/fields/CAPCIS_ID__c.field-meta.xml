@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAPCIS_ID__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Source_Caps;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <description>CAP-CIS ID of the Prospect created via Lead Conversion in Salesforce</description>
+    <externalId>false</externalId>
+    <label>CAPCIS ID</label>
+    <length>30</length>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

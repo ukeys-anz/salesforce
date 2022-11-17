@@ -3,11 +3,11 @@
     <layouts>
         <layout>Residential Loan Application Layout</layout>
         <sections>
-            <label></label>
+            <label/>
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label></label>
+            <label/>
             <section>Other Information</section>
         </sections>
     </layouts>

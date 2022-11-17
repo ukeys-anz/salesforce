@@ -6,10 +6,11 @@
  * Added without sharing to bypass sharing settings as Account OWD is Public Read Only and will remain as is for customer accounts.
  * Lead conversion requires an Edit permission on account object otherwise it will throw insufficient access to account records error.
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public without sharing class CCRMLeadConversion {
   /**
    * @description Checks if Related Party is having a valid Related Party for Lead Conversion.
+   * Added without sharing to bypass sharing settings as Account OWD is Public Read Only and will remain as is for customer accounts.
+   * Lead conversion requires an Edit permission on account object otherwise it will throw insufficient access to account records error.
    * @name getLeadRecordForConversion
    * @param recordId The record id of selected Lead.
    * @return LeadConversionWrapper This is Lead Data Wrapper for Conversion.
@@ -24,6 +25,14 @@ public without sharing class CCRMLeadConversion {
           Skip_Validations__c,
           Company,
           Name,
+          FirstName,
+          MiddleName,
+          LastName,
+          Title__c,
+          Email,
+          MobilePhone,
+          Home_Phone__c,
+          Work_Phone__c,
           FinServ__ExpressedInterest__c,
           New_to_Bank__c,
           FinServ__RelatedAccount__c,
@@ -35,12 +44,17 @@ public without sharing class CCRMLeadConversion {
           FinServ__RelatedAccount__r.RecordType.DeveloperName,
           RecordType.DeveloperName,
           Address,
+          Street,
+          City,
+          State,
+          Country,
+          PostalCode,
           Is_Valid_Address__c,
           CPID__c,
           Controlling_Post__c,
           Industry__c,
           Entity_Type__c,
-          Street
+          Lead.Industry__r.Code__c
         FROM LEAD
         WHERE ID = :recordId
         WITH SECURITY_ENFORCED
@@ -119,6 +133,15 @@ public without sharing class CCRMLeadConversion {
       contactIds.add(acr.ContactId);
     }
 
+    List<Task> task = [
+      SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId
+      FROM Task
+      WHERE WhoId = :recordId
+      WITH SECURITY_ENFORCED
+      ORDER BY createddate DESC
+      LIMIT 1
+    ];
+
     //Do not create opportunity
     //Opportunity creation required mapping of different type of fields
     //which is not possible using OOTB salesforce functionality
@@ -131,10 +154,10 @@ public without sharing class CCRMLeadConversion {
       Id oppId = createOpportunity(recordId);
 
       if (oppId != null) {
-        sendUpdateToUnicaOrAdobeOnLeadConversion(recordId, oppId);
+        sendUpdateToUnicaOrAdobeOnLeadConversion(recordId, oppId, task);
       }
       if (!contactIds.contains(conid)) {
-        deleteAutoCreatedContact(oppid, conid);
+        CCRMLeadConversionActions.deleteAutoCreatedContact(oppid, conid);
       }
       return oppId;
     } else {
@@ -158,7 +181,7 @@ public without sharing class CCRMLeadConversion {
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leadId);
     Map<Id, Opportunity> mapOfLeadsWithOpportunities = new CCRMLeadMappingEngine()
-      .mapLeadToOpportunityFields(leadIds);
+      .mapLeadToOpportunityFields(leadIds, new Map<Id, Id>());
     Id oppId = null;
     if (
       mapOfLeadsWithOpportunities.size() > 0 &&
@@ -177,17 +200,20 @@ public without sharing class CCRMLeadConversion {
    * @name sendUpdateToUnicaOrAdobeOnLeadConversion
    * @param leadId The record id of Lead.
    * @param oppId The record id of Opportunity.
+   * @param task List of Task attached to Lead.
    */
   private static void sendUpdateToUnicaOrAdobeOnLeadConversion(
     Id leadId,
-    Id oppId
+    Id oppId,
+    List<Task> task
   ) {
     Set<Id> leadIds = new Set<Id>();
     leadIds.add(leadId);
 
     Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
     mapOfOpportunityId.put(leadId, oppId);
-    CCRMLeadActionsHelper.sendUpdateToUnicaOrAdobeOnLeadConversion(
+    CCRMLeadPlatformEventHelper.leadTask = task;
+    CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
       leadIds,
       mapOfOpportunityId
     );
@@ -278,106 +304,6 @@ public without sharing class CCRMLeadConversion {
       log.insertLogAsync();
     }
     checkTaskSkipValidations(leadIds);
-  }
-
-  /**
-   * @description Clear Task, OpportunityContactRole, and Contact of the newly converted Opportunity.
-   * @name deleteContact
-   * @param oppid The record Id of Opportunity
-   * @param conid The record Id of Contact
-   */
-  private static void deleteAutoCreatedContact(Id oppid, Id conid) {
-    updateTasks(oppid, conid);
-
-    Contact leadContact = [
-      SELECT Id, RecordTypeId
-      FROM Contact
-      WHERE Id = :conid
-      WITH SECURITY_ENFORCED
-      LIMIT 1
-    ];
-
-    lib_systemLog log = new lib_systemLog(
-      CCRMLeadConversion.class.getName(),
-      'deleteAutoCreatedContact'
-    );
-
-    if (
-      !Schema.sObjectType.Contact.isDeletable() &&
-      !Schema.sObjectType.OpportunityContactRole.isDeletable()
-    ) {
-      return;
-    }
-
-    Database.DeleteResult result = Database.delete(leadContact, false);
-    if (!result.isSuccess()) {
-      logError('Contact', result, log);
-    }
-  }
-
-  /**
-   * @description Generic method to log delete failures in Lib_SystemLog.addObjectMessage
-   * @param objectAPIName object API Name
-   * @param deleteResult Database.DeleteResult
-   * @param log lib_systemLog
-   */
-  private static void logError(
-    String objectAPIName,
-    Database.DeleteResult deleteResult,
-    lib_systemLog log
-  ) {
-    for (Database.Error err : deleteResult.getErrors()) {
-      String errNo = String.valueof(err.getStatusCode());
-      log.addObjectMessage(
-        objectAPIName,
-        deleteResult.Id,
-        errNo,
-        'Id=' +
-        deleteResult.Id +
-        ',Message:' +
-        err.getMessage() +
-        'Fields:' +
-        err.getFields(),
-        lib_systemLog.Severity.ERROR
-      );
-    }
-  }
-
-  /**
-   * @description Remove Contact from Task
-   * @name updateTasks
-   * @param oppid The record Id of Opportunity
-   * @param conid The record Id of Contact
-   */
-  private static void updateTasks(Id oppid, Id conid) {
-    List<Task> newTasks = new List<Task>();
-    for (Task task : [
-      SELECT subject, whoid
-      FROM Task
-      WHERE WhoId = :conid
-      WITH SECURITY_ENFORCED
-    ]) {
-      if (task.WhoId == conid) {
-        task.WhoId = null;
-        task.WhatId = oppid;
-        newTasks.add(task);
-      }
-    }
-    if (
-      !newTasks.isEmpty() &&
-      Schema.sObjectType.Task.isUpdateable() &&
-      Schema.sObjectType.Task.fields.WhoId.isUpdateable() &&
-      Schema.sObjectType.Task.fields.WhatId.isUpdateable()
-    ) {
-      List<Database.SaveResult> results = Database.update(newTasks, false);
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'deleteAutoCreatedContact'
-      );
-      log.addDatabaseSaveResult('Lead', results, newTasks);
-      log.insertLogAsync();
-    }
   }
 
   /**

@@ -299,6 +299,26 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param lookupString from address search bar
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches addresses list
+   */
+  public virtual HttpCalloutResponse getAddressesV2(String lookupString) {
+    return null;
+  }
+
+  /**
+   * @param globalAddressKey from selected address
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches address details
+   */
+  public virtual HttpCalloutResponse getSelectedAddressV2(
+    String globalAddressKey
+  ) {
+    return null;
+  }
+
+  /**
    * @param ocvId customer id
    * @return `HttpCalloutResponse` api response
    * @description virtual card control list callout
@@ -366,6 +386,24 @@ public with sharing virtual class Service {
     String ocvId,
     String conversationSid
   ) {
+    return null;
+  }
+
+  /**
+   * @param record lead record
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches party information
+   */
+  public virtual HttpCalloutResponse searchPartyInfo(Lead record) {
+    return null;
+  }
+
+  /**
+   * @param record lead record
+   * @return `HttpCalloutResponse` api response
+   * @description virtual fetches party information
+   */
+  public virtual HttpCalloutResponse createParty(Lead record) {
     return null;
   }
 }

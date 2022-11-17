@@ -25,7 +25,11 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
       parentIdList.add(record.parentId);
     }
     Map<Id, Case> relatedCaseMap = new Map<Id, Case>(
-      [SELECT Id, CaseNumber, RecordTypeId FROM Case WHERE Id IN :parentIdList]
+      [
+        SELECT Id, CaseNumber, RecordTypeId, Origin
+        FROM Case
+        WHERE Id IN :parentIdList
+      ]
     );
     Map<Id, Account> relatedAccMap = new Map<Id, Account>(
       [SELECT Id, Name, ANZx_Customer__c FROM Account WHERE Id IN :parentIdList]
@@ -36,7 +40,7 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
       Account relatedAcc = relatedAccMap.get(record.parentId);
       if (
         (relatedCase != null &&
-        GetHelpCaseActionsHelper.isANZPlusCaseType(relatedCase)) ||
+        CheckCaseRecordType.isANZPlusCaseType(relatedCase)) ||
         (relatedAcc != null &&
         relatedAcc.ANZx_Customer__c == true)
       ) {

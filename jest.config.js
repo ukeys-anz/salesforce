@@ -7,6 +7,8 @@ module.exports = {
     "^lightning/platformShowToastEvent$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/platformShowToastEvent",
     "^lightning/navigation$":
-      "<rootDir>/force-app/tests/jest-mocks/lightning/navigation"
+      "<rootDir>/force-app/tests/jest-mocks/lightning/navigation",
+    "^lightning/actions$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/actions"
   }
 };

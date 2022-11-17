@@ -4213,7 +4213,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>other</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -9506,10 +9506,6 @@
         </values>
         <values>
             <fullName>About ANZ Plus</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Account closure</fullName>
             <default>false</default>
         </values>
         <values>
