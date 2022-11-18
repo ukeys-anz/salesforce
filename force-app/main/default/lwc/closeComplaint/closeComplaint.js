@@ -779,7 +779,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         return remedyDurationLabel + " ,";
       } else if (
         this.closeFields[remedyDurationApiName] > 999 ||
-        this.closeFields[remedyDurationApiName].includes(".") ||
+        this.closeFields[remedyDurationApiName].toString().includes(".") ||
         this.closeFields[remedyDurationApiName] < 0
       ) {
         return (

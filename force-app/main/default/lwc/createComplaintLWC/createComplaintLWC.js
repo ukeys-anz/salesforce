@@ -1931,7 +1931,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
         return remedyDurationLabel + " ,";
       } else if (
         this.closeFields[remedyDurationApiName] > 999 ||
-        this.closeFields[remedyDurationApiName].includes(".") ||
+        this.closeFields[remedyDurationApiName].toString().includes(".") ||
         this.closeFields[remedyDurationApiName] < 0
       ) {
         return (
