@@ -44,6 +44,9 @@ Enforce_SSO.permissionset
 # Add this report because this will cause unexpected error in scratch orgs
 force-app/main/default/reports/Knowledge_Reports/New_Knowledge_Article_with_Votes_I9l.report-meta.xml
 
+# Add this report to not disrupt manually included filters in the post deployment step
+force-app/main/default/reports/Knowledge_Reports/IDR_New_Correspondence_on_Closed_Complaints.report-meta.xml
+
 # Obscure setting that is introduced each time a Health Check (Baseline Hardening) is run and actioned
 SingleSignOn.settings
 
