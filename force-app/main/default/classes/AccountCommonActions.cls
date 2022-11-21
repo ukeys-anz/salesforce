@@ -258,11 +258,7 @@ public with sharing class AccountCommonActions {
       ccrmLeadConversionActions(matchingLeadsByAccIdMap, lcResults);
       for (Database.LeadConvertResult lcr : lcResults) {
         if (!lcr.isSuccess()) {
-          lib_systemLog log = new lib_systemLog(
-            'AccountCommonActionsHelper',
-            'covertLeads'
-          );
-          log.info(
+          Logger.error(
             'Account_Id: ' +
             lcr.getAccountId() +
             '; Lead_Id: ' +
@@ -271,9 +267,9 @@ public with sharing class AccountCommonActions {
             '; Error_Message: ' +
             lcr.getErrors()[0].getMessage()
           );
-          log.publishEvent();
         }
       }
+      Logger.saveLog();
     }
 
     /**

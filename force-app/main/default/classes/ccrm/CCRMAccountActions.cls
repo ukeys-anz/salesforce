@@ -40,16 +40,13 @@ public with sharing class CCRMAccountActions {
         }
       }
     } catch (System.QueryException qe) {
-      lib_systemLog log = new lib_systemLog(
-        CCRMAccountActions.class.getName(),
-        'setControllingPost'
+      Logger.error(
+        'InsufficientAccessException' +
+        qe.getMessage() +
+        qe.getTypeName(),
+        qe
       );
-      log.error(
-        'InsufficientAccessException',
-        qe.getMessage(),
-        qe.getTypeName()
-      );
-      log.publishEvent();
+      Logger.saveLog();
     }
   }
 

@@ -76,12 +76,13 @@ public with sharing class CCRMOpportunityActions {
       ];
       setNameForOpportunityFromLead(accountIds, opps);
     } catch (System.QueryException e) {
-      lib_systemLog log = new lib_systemLog(
-        CCRMOpportunityActions.class.getName(),
-        'populateFieldsAfterInsert'
+      Logger.error(
+        'InsufficientAccessException' +
+        e.getMessage() +
+        e.getTypeName(),
+        e
       );
-      log.error('InsufficientAccessException', e.getMessage(), e.getTypeName());
-      log.publishEvent();
+      Logger.savelog();
     }
   }
 
@@ -131,12 +132,13 @@ public with sharing class CCRMOpportunityActions {
         ]
       );
     } catch (System.QueryException e) {
-      lib_systemLog log = new lib_systemLog(
-        CCRMOpportunityActions.class.getName(),
-        'getMappedAccounts'
+      Logger.error(
+        'InsufficientAccessException' +
+        e.getMessage() +
+        e.getTypeName(),
+        e
       );
-      log.error('InsufficientAccessException', e.getMessage(), e.getTypeName());
-      log.publishEvent();
+      Logger.saveLog();
     }
     return new Map<Id, Account>();
   }
@@ -196,13 +198,8 @@ public with sharing class CCRMOpportunityActions {
         updatedRecords,
         false
       );
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMOpportunityActions.class.getName(),
-        'setNameForOpportunityFromLead'
-      );
-      log.addDatabaseSaveResult('Opportunity', results, updatedRecords);
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 

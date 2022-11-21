@@ -15,16 +15,8 @@ public with sharing class ForgeTokenHandler {
     try {
       idToken = AuthTokenCacheUtil.getSessionIdToken();
     } catch (Exception e) {
-      lib_systemLog log = new lib_systemLog(
-        'ForgeTokenHandler',
-        'getForgeJWTToken'
-      );
-      log.addMessage(
-        e.getTypeName(),
-        e.getMessage(),
-        Lib_SystemLog.Severity.ERROR
-      );
-      log.insertLogAsync();
+      Logger.error(e.getMessage());
+      Logger.saveLog();
 
       AuraHandledException ahe = new AuraHandledException(e.getMessage());
       ahe.setMessage(e.getMessage());

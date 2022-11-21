@@ -672,6 +672,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>FlowLogEntry</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FlowCollectionLogEntry</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ForgeTokenHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1051,6 +1059,10 @@
         <apexClass>Lib_TriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LWCLogger</apexClass>
+        <enabled>true</enabled>
+     </classAccesses>
     <classAccesses>
         <apexClass>MilestoneUtils</apexClass>
         <enabled>true</enabled>
@@ -6055,11 +6067,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>LogEntry__c.RecordsJson__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>LogEntry__c.SpanId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6926,6 +6933,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>SecureLogEntry__c.Payload__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>SecureLogEntry__c.RecordsJson__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

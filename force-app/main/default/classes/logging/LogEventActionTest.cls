@@ -114,7 +114,8 @@ public with sharing class LogEventActionTest {
       ApexClassName__c = 'LogEvenHandler',
       ApexMethodName__c = 'testPublishLogEvent',
       Payload__c = 'Test Payload with PII data',
-      SpanId__c = 'abc123def'
+      SpanId__c = 'abc123def',
+      RecordsJson__c = '"id":"0012N00000ABCDEQA5", "CaseNumber" : "12345"'
     );
     Test.startTest();
     SecureLogEntry__c secureLogEntry = LogEventActions.createSecureLogEntryRecord(
@@ -142,6 +143,11 @@ public with sharing class LogEventActionTest {
       logEvent.SpanId__c,
       'Span Id should match'
     );
+    System.assertEquals(
+      secureLogEntry.RecordsJson__c,
+      logEvent.RecordsJson__c,
+      'Records Json should match'
+    );
     System.assertEquals(secureLogEntry.Log__c, log.Id, 'Log Id should match');
   }
 
@@ -163,7 +169,6 @@ public with sharing class LogEventActionTest {
       Origin__c = 'Apex',
       RecordId__c = '0012N00000ABCDEQA',
       RecordObjectName__c = 'Case',
-      RecordsJson__c = '"id":"0012N00000ABCDEQA5", "CaseNumber" : "12345"',
       SpanId__c = 'abc123def',
       StackTrace__c = 'Test stack trace',
       UsedCallouts__c = 100,
@@ -239,11 +244,6 @@ public with sharing class LogEventActionTest {
       logEntry.RecordObjectName__c,
       logEvent.RecordObjectName__c,
       'Record object name should match'
-    );
-    System.assertEquals(
-      logEntry.RecordsJson__c,
-      logEvent.RecordsJson__c,
-      'Record JSON should match'
     );
     System.assertEquals(
       logEntry.SpanId__c,
@@ -398,5 +398,43 @@ public with sharing class LogEventActionTest {
     Test.stopTest();
     List<Log__c> logs = [SELECT Id FROM Log__c];
     System.assertEquals(1, logs.size(), 'Log record should have been created');
+  }
+
+  @isTest
+  static void testCreateLogsWithException() {
+    Set<String> traceIdsWithoutLog = new Set<String>{ 'abc123' };
+    LogEvent__e logEvent = new LogEvent__e(
+      APIVersion__c = '53.0000000',
+      EnvironmentType__c = 'Sandbox',
+      InstanceName__c = 'TestD',
+      TraceId__c = 'abcdef123',
+      Payload__c = 'Sensitive payload'
+    );
+    List<LogEvent__e> logEvents = new List<LogEvent__e>{ logEvent };
+    Map<String, List<LogEvent__e>> traceIdAndlogDetailsListMap = new Map<String, List<LogEvent__e>>{
+      'abc123' => logEvents
+    };
+    Test.startTest();
+    try {
+      LogEventActions.createLogs(
+        traceIdsWithoutLog,
+        traceIdAndlogDetailsListMap
+      );
+    } catch (LogEventActions.DatabaseException de) {
+      System.assertEquals(
+        true,
+        de.getMessage()
+          .contains('Failed to insert the following log records: '),
+        'Exception message should match'
+      );
+    }
+
+    Test.stopTest();
+    List<Log__c> logs = [SELECT Id FROM Log__c];
+    System.assertEquals(
+      0,
+      logs.size(),
+      'Log record should not have been created'
+    );
   }
 }

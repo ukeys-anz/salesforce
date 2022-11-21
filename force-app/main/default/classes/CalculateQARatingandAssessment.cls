@@ -254,20 +254,8 @@ public with sharing class CalculateQARatingandAssessment {
       List<Quality_Assessment__c> qaList = new List<Quality_Assessment__c>();
       qaList.add(qaRecord);
       List<Database.SaveResult> results = Database.Update(qaList, false);
-
-      lib_systemLog log = new lib_systemLog(
-        'CalculateQARatingandAssessment',
-        'updateQualityAssessment'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Quality_Assessment__c',
-        results,
-        new List<Quality_Assessment__c>()
-      );
-      if (hasError) {
-        //if there is an error add an entry to the application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       //If the user does not have permission to update the quality assessment object log an error.
       CommonUtil.logAndThrowIAE(

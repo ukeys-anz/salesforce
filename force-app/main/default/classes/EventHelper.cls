@@ -11,13 +11,8 @@ public with sharing class EventHelper {
   public static void insertEvents(List<Event> events) {
     if (events != null && Event.SObjectType.getDescribe().isCreateable()) {
       List<Database.SaveResult> results = Database.Insert(events);
-
-      lib_systemLog log = new lib_systemLog('EventHelper', 'insertEvents');
-      Boolean hasError = log.addDatabaseSaveResult('Events', results, events);
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'EventHelper',
@@ -34,12 +29,8 @@ public with sharing class EventHelper {
   public static void updateEvents(List<Event> events) {
     if (PermissionUtils.canUpdate('Event')) {
       List<Database.SaveResult> results = Database.Update(events);
-      lib_systemLog log = new lib_systemLog('EventHelper', 'updateEvents');
-      Boolean hasError = log.addDatabaseSaveResult('Event', results, events);
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'EventHelper',

@@ -52,13 +52,9 @@ public with sharing class FinancialAccountCommonActions {
           'Primary owner start date cannot be empty. Financial Account Id: ' +
           record.Id;
         record.addError(errorMessage);
-        Lib_SystemLog.createSingleLogAsync(
-          FinancialAccountCommonActions.class.getName(),
-          'checkPrimaryOwnerStartDate',
-          '',
-          errorMessage
-        );
+        Logger.error(errorMessage);
       }
     }
+    Logger.saveLog();
   }
 }

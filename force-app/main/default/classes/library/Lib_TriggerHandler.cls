@@ -238,26 +238,9 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Get LIMIT INFO and send log with contextId as traceId and loopCountMap
    */
   private void logTriggerRecursion() {
-    lib_systemLog log = new lib_systemLog(
-      Lib_TriggerHandler.class.getName(),
-      'logTriggerRecursion'
-    );
-
-    log.info(
-      'CPU Time: ' +
-      System.Limits.getCpuTime() +
-      '; Limit CPU Time: ' +
-      System.Limits.getLimitCpuTime() +
-      '; Heap Size: ' +
-      System.Limits.getHeapSize() +
-      '; Limit Heap Size: ' +
-      System.Limits.getLimitHeapSize() +
-      '; Loop Count Map: ' +
-      JSON.serialize(Lib_TriggerHandler.loopCountMap) +
-      '; Reason for logging: Trigger handler exceeds max loop count',
-      Lib_TriggerHandler.contextId
-    );
-    log.insertLogAsync();
+    Logger.info(JSON.serialize(Lib_TriggerHandler.loopCountMap) +
+    '; Reason for logging: Trigger handler exceeds max loop count');
+    Logger.saveLog();
   }
 
   /***************************************

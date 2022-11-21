@@ -222,16 +222,8 @@ public with sharing class IDRCaseNotificationManager {
       return;
     }
     List<Database.SaveResult> sr = EventBus.publish(notificationList);
-    Lib_SystemLog log = new Lib_SystemLog(
-      IDRCaseActions.class.getName(),
-      'notifyBankersForEscalation'
-    );
-    log.addDatabaseSaveResult(
-      'IDR_Notification_Event__e',
-      sr,
-      notificationList
-    );
-    log.insertLogAsync();
+    Logger.error('',sr);
+    Logger.saveLog();
   }
 
   /**

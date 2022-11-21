@@ -54,18 +54,9 @@ public with sharing class Lib_HttpCallout {
   private HttpCalloutResponse performCallout(HttpRequest request) {
     HttpCalloutResponse callResponse = new HttpCalloutResponse();
     HTTPResponse response = null;
-    lib_systemLog log = new lib_systemLog('Lib_HttpCallout', 'performCallout');
-    //Log start of transaction
-    log.addMessageWithRequestResponse(
-      null,
-      null,
-      Lib_SystemLog.Severity.INFO,
-      request.getEndpoint(),
-      request.getMethod(),
-      null,
-      null,
-      null
-    );
+    Logger.info(request.getEndpoint()+request.getMethod());
+    Logger.saveLog();
+
     try {
       Http http = new Http();
       response = http.send(request);
@@ -90,33 +81,15 @@ public with sharing class Lib_HttpCallout {
         callResponse.error = new CalloutException(response.getBody());
       }
 
-      //Log successful transaction
-      log.addMessageWithRequestResponse(
-        null,
-        null,
-        Lib_SystemLog.Severity.INFO,
-        request.getEndpoint(),
-        request.getMethod(),
-        response.getStatusCode(),
-        null,
-        null
-      );
+      Logger.info(request.getEndpoint()+request.getMethod());
+      Logger.saveLog();
     } catch (Exception e) {
-      //Log failure
-      log.addMessageWithRequestResponse(
-        '',
-        e.getMessage(),
-        lib_systemLog.Severity.ERROR,
-        request.getEndpoint(),
-        request.getMethod(),
-        response?.getStatusCode(),
-        '',
-        ''
-      );
+      Logger.error(request.getEndpoint()+request.getMethod());
+      Logger.saveLog();
       callResponse.successful = false;
       callResponse.error = e;
     }
-    log.publishEvent();
+
     return callResponse;
   }
 }

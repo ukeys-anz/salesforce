@@ -1336,6 +1336,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LWCLogger</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>MockHttpMulesoftCallouts</apexClass>
         <enabled>false</enabled>
     </classAccesses>

@@ -1486,7 +1486,6 @@
         "Origin__c",
         "RecordId__c",
         "RecordObjectName__c",
-        "RecordsJson__c",
         "SpanId__c",
         "StackTrace__c",
         "UsedCallouts__c",
@@ -1913,7 +1912,8 @@
         "ApexClassName__c",
         "ApexMethodName__c",
         "Log__c",
-        "SpanId__c"
+        "SpanId__c",
+        "RecordsJson__c"
       ]
     },
     "SkyhighNetworks__SHNEvent__c": {

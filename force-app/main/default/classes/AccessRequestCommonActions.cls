@@ -33,12 +33,8 @@ public without sharing class AccessRequestCommonActions {
         }
       }
     } catch (Exception e) {
-      Lib_SystemLog.createSingleLogAsync(
-        AccessRequestCommonActions.class.getName(),
-        'getApproverUserInfo',
-        'PAM001',
-        e.getMessage()
-      );
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
     }
 
     return userID;
@@ -53,17 +49,12 @@ public without sharing class AccessRequestCommonActions {
     for (Access_Request__c record : records) {
       if (record.Approver_ID__c == record.Requestor__c) {
         record.addError(USER_REQUEST_AND_APPROVE_ERROR_MSG);
-
-        Lib_SystemLog.createSingleLogAsync(
-          AccessRequestCommonActions.class.getName(),
-          'CheckApprovers',
-          'PAM005',
-          'User ' +
-          record.Requestor__c +
-          ' attempted to self-approve their PAM request'
+        Logger.error(
+          record.Requestor__c + ' attempted to self-approve their PAM request'
         );
       }
     }
+    Logger.saveLog();
   }
 
   /**
@@ -148,12 +139,8 @@ public without sharing class AccessRequestCommonActions {
         insert parRequests;
       }
     } catch (Exception e) {
-      Lib_SystemLog.createSingleLogAsync(
-        AccessRequestCommonActions.class.getName(),
-        'createPARequestRecords',
-        'PAM003',
-        e.getMessage()
-      );
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
     }
   }
 
@@ -264,15 +251,11 @@ public without sharing class AccessRequestCommonActions {
     Map<Id, SObject> oldRecordMap
   ) {
     String uniquePamTraceId = UniqueIdUtil.getTraceId();
-    lib_systemLog log = new lib_systemLog(
-      AccessRequestCommonActions.class.getName(),
-      'logSubmission'
-    );
     List<Access_Request__c> recordsToUpdate = new List<Access_Request__c>();
     // identify Submitted Access Requests
     for (Access_Request__c newRequest : newRecords) {
       if (isRequestSubmitted(newRequest, oldRecordMap)) {
-        log.info(
+        Logger.info(
           'PAM request ' +
           newRequest.Name +
           ' requesting ' +
@@ -281,13 +264,13 @@ public without sharing class AccessRequestCommonActions {
           newRequest.Requestor__c +
           ', and awaiting approval by ' +
           newRequest.Approver__c,
-          uniquePamTraceId
+          newRequest
         );
         newRequest.Trace_Id__c = uniquePamTraceId;
         recordsToUpdate.add(newRequest);
       }
     }
-    log.insertLogAsync();
+    Logger.saveLog();
   }
 
   /**
@@ -299,25 +282,21 @@ public without sharing class AccessRequestCommonActions {
     List<Access_Request__c> newRecords,
     Map<Id, SObject> oldRecordMap
   ) {
-    lib_systemLog log = new lib_systemLog(
-      AccessRequestCommonActions.class.getName(),
-      'logApprovalDecision'
-    );
     for (Access_Request__c newRequest : newRecords) {
       String approvalDecision = getApprovalDecision(newRequest, oldRecordMap);
       if (!String.isBlank(approvalDecision)) {
-        log.info(
+        Logger.info(
           'PAM request ' +
           newRequest.Name +
           ' requesting ' +
           newRequest.Access_Type__c +
           ' access has been ' +
           approvalDecision,
-          newRequest.Trace_Id__c
+          newRequest
         );
       }
     }
-    log.insertLogAsync();
+    Logger.saveLog();
   }
 
   /**
