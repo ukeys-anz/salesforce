@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_3rdParty_Relationship_To_Complainant__c</fullName>
-    <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <externalId>false</externalId>
     <label>Relationship to complainant</label>
     <required>false</required>
@@ -13,71 +13,81 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>1</fullName>
                 <default>false</default>
+                <fullName>1</fullName>
                 <label>Accountant/financial adviser</label>
             </value>
             <value>
-                <fullName>3</fullName>
                 <default>false</default>
-                <label>Power of Attorney</label>
+                <fullName>22</fullName>
+                <label>Authorised Signatory</label>
             </value>
             <value>
-                <fullName>5</fullName>
                 <default>false</default>
-                <label>Executor</label>
+                <fullName>21</fullName>
+                <label>Broker</label>
             </value>
             <value>
-                <fullName>6</fullName>
                 <default>false</default>
-                <label>Financial Counsellor</label>
-            </value>
-            <value>
-                <fullName>15</fullName>
-                <default>false</default>
-                <label>Family member or friend</label>
-            </value>
-            <value>
-                <fullName>9</fullName>
-                <default>false</default>
-                <label>Member of Parliament</label>
-            </value>
-            <value>
-                <fullName>13</fullName>
-                <default>false</default>
-                <label>Lawyer</label>
-            </value>
-            <value>
-                <fullName>14</fullName>
-                <default>false</default>
-                <label>Co-trustee</label>
-            </value>
-            <value>
-                <fullName>16</fullName>
-                <default>false</default>
-                <label>Legal guardian</label>
-            </value>
-            <value>
                 <fullName>17</fullName>
-                <default>false</default>
                 <label>Community legal service or equivalent</label>
             </value>
             <value>
-                <fullName>18</fullName>
                 <default>false</default>
+                <fullName>14</fullName>
+                <label>Co-trustee</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>20</fullName>
+                <label>Debt Management Firm</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>18</fullName>
                 <label>Director</label>
             </value>
             <value>
-                <fullName>19</fullName>
                 <default>false</default>
+                <fullName>5</fullName>
+                <label>Executor</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>15</fullName>
+                <label>Family member or friend</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>6</fullName>
+                <label>Financial Counsellor</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>13</fullName>
+                <label>Lawyer</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>16</fullName>
+                <label>Legal guardian</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>9</fullName>
+                <label>Member of Parliament</label>
+            </value>
+            <value>
+                <default>false</default>
+                <fullName>19</fullName>
                 <label>Office bearer – president/secretary</label>
             </value>
             <value>
-                <fullName>20</fullName>
                 <default>false</default>
-                <label>Debt Management Firm</label>
+                <fullName>3</fullName>
+                <label>Power of Attorney</label>
             </value>
         </valueSetDefinition>
     </valueSet>

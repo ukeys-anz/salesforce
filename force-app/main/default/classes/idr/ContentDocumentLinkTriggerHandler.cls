@@ -95,7 +95,9 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           ', Document category that was deleted : ' +
           strDocCategory +
           ', Associated Case : ' +
-          record.LinkedEntityId;
+          record.LinkedEntityId +
+          ', Associated Case No : ' +
+          caseMap.get(record.LinkedEntityId)?.CaseNumber;
 
         log.addObjectMessage(
           objectAPIName,

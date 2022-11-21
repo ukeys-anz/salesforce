@@ -119,7 +119,8 @@ public without sharing class IDRTaskActions {
     for (Task record : records) {
       if (
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
-        record.Status == IDRConstants.OPEN_STATUS
+        record.Status == IDRConstants.OPEN_STATUS &&
+        String.isNotBlank(record.Subject)
       ) {
         if (record.Subject.containsIgnoreCase(STOP_COLLECTIONS_SUBJECT)) {
           record.OwnerId = stopQueue.Id;

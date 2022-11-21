@@ -23,8 +23,8 @@
             </value>
             <value>
                 <default>false</default>
-                <fullName>Checking/Savings accounts</fullName>
-                <label>Checking/Savings accounts</label>
+                <fullName>Cheque/Savings accounts</fullName>
+                <label>Cheque/Savings accounts</label>
             </value>
             <value>
                 <default>false</default>
