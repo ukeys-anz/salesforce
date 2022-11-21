@@ -14,7 +14,6 @@
             component.set("v.caseRecordTypes", JSON.parse(rsp));
             resolve({ r: component.get("v.caseRecordTypes") });
           } else {
-            console.error("Failed with state: " + state);
             this.showToast(
               "error",
               "Failed to retrieve case record types, please contact system administrator for assistance.",

@@ -1,7 +1,6 @@
 @isTest
 public with sharing class DisputesValidationTest {
   public static final String DISPUTE_CARD_VR1_ERROR = 'These fields are required: Description of Issue, Is The card Lost/Stolen, Card In Possession During Transaction, Has The Card Been Stopped.';
-  public static final String DISPUTE_CARD_VR8_ERROR = 'These fields are required: Description of Issue, Goods Or Services Returned, Goods Returned or Service Cancelled Date, What Happened with Merchant?';
   public static final String DISPUTE_ATM_VR2_ERROR = 'Please provide Description of Issue.';
   public static final String DISPUTE_NPP_VR1_ERROR = 'These fields are required: Description of Issue, Intended Account BSB, Intended Account Name, Intended Account Number.';
 
@@ -62,15 +61,13 @@ public with sharing class DisputesValidationTest {
         Subject = 'Test Disputes',
         Type = 'Cards',
         OwnerId = coach.Id,
-        Dispute_Reason__c = 'Charged for a cancelled payment',
+        Dispute_Reason__c = 'Don\'t recognise the transaction',
         AccountId = acc.Id,
         Is_The_Card_Lost_Stolen__c = 'Lost',
+        Has_The_Card_Been_Stopped__c = 'Yes',
         Status = 'Open',
         Queue__c = null,
-        Description = 'Some description',
-        Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
-        Customer_Contacted_Merchant__c = 'Yes',
-        Merchant_Description__c = 'Coles'
+        Description = 'Some description'
       );
       insert new Salesforce_Library_Settings__c(
         SetupOwnerId = UserInfo.getOrganizationId(),
@@ -264,87 +261,6 @@ public with sharing class DisputesValidationTest {
         insert cardDispute;
       } catch (DmlException e) {
         // THEN NO error message should be thrown by DISPUTE_CARD_VR1 validation rule
-        System.assertEquals(null, e, 'Error message should be null.');
-      }
-    }
-    System.assertEquals(
-      1,
-      [SELECT Id FROM Case].size(),
-      'Card dispute should be created.'
-    );
-    Test.stopTest();
-  }
-
-  // Test DISPUTE_CARD_VR8 validation rule with error
-  @isTest
-  static void testDisputeCardV8RuleWithError() {
-    // Delete the case created in @TestSetup
-    Case existingDisputeCase = (Case) [SELECT Id FROM Case];
-    delete existingDisputeCase;
-    // GIVEN a card dispute with Dispute Reason = 'Product Defective or Unsatisfactory'
-    // And one of these fields Customer Description, Goods Or Services Returned, Merchant Description, Goods Returned or Service Cancelled Date (If Goods or Services Returned is equal to Yes) is missing
-    User usr = TestUtil.getUserByFirstName('CoachTest');
-    Account acc = (Account) [SELECT Id FROM Account LIMIT 1];
-    Case cardDispute = new Case(
-      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Product Defective or Unsatisfactory',
-      AccountId = acc.Id,
-      Description = 'Sample Customer Description',
-      Goods_Or_Services_Returned__c = 'Yes',
-      Merchant_Description__c = 'Sample Merchant Description',
-      Transaction_Id__c = 'CT5M00000024404234',
-      Transaction_UUID__c = '4313ds-51d2-4ve2-ba7e-0b339p157da1'
-    );
-    // WHEN the case is inserted
-    Test.startTest();
-    System.runAs(usr) {
-      try {
-        insert cardDispute;
-      } catch (DmlException e) {
-        // THEN an error message should be thrown by DISPUTE_CARD_VR8 validation rule
-        System.assertEquals(
-          true,
-          e.getMessage().contains(DISPUTE_CARD_VR8_ERROR),
-          'Error messages should match.'
-        );
-      }
-    }
-    System.assertEquals(
-      0,
-      [SELECT Id FROM Case].size(),
-      'Card dispute should not be created.'
-    );
-    Test.stopTest();
-  }
-
-  // Test DISPUTE_CARD_VR8 validation rule without error
-  @isTest
-  static void testDisputeCardV8RuleWithoutError() {
-    // Delete the case created in @TestSetup
-    Case existingDisputeCase = (Case) [SELECT Id FROM Case];
-    delete existingDisputeCase;
-    // GIVEN a card dispute with Dispute Reason = 'Product Defective or Unsatisfactory'
-    // And NONE of these fields Customer Description, Goods Or Services Returned, Merchant Description, Good Returned or Service Cancelled Date (If Goods or Services Returned is equal to Yes) is missing
-    User usr = TestUtil.getUserByFirstName('CoachTest');
-    Account acc = (Account) [SELECT Id FROM Account LIMIT 1];
-    Case cardDispute = new Case(
-      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Product Defective or Unsatisfactory',
-      AccountId = acc.Id,
-      Description = 'Sample Customer Description',
-      Goods_Or_Services_Returned__c = 'Yes',
-      Date_Goods_Were_Returned_Or_Services_can__c = Date.valueOf('2021-11-10'),
-      Merchant_Description__c = 'Sample Merchant Description',
-      Transaction_Id__c = 'CT5M00000024404234',
-      Transaction_UUID__c = '4313ds-51d2-4ve2-ba7e-0b339p157da1'
-    );
-    // WHEN the case is inserted
-    Test.startTest();
-    System.runAs(usr) {
-      try {
-        insert cardDispute;
-      } catch (DmlException e) {
-        // THEN NO error message should be thrown by DISPUTE_CARD_VR8 validation rule
         System.assertEquals(null, e, 'Error message should be null.');
       }
     }
