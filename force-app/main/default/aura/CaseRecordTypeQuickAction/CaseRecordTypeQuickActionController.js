@@ -65,7 +65,6 @@
           helper.handleNavig(component);
         }
       } else {
-        console.error("Failed with state: " + state);
         helper.showToast(
           "error",
           "Failed to retrieve case details, please contact system administrator for assistance.",

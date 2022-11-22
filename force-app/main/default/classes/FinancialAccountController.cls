@@ -29,10 +29,6 @@ public with sharing class FinancialAccountController {
     List<String> accountNumbers
   ) {
     List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
-    lib_systemLog log = new lib_systemLog(
-      FinancialAccountController.class.getName(),
-      'getFinancialAccount'
-    );
     try {
       CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
       FinancialAccountModel result = coachapi.getAccounts(
@@ -85,12 +81,8 @@ public with sharing class FinancialAccountController {
 
       return financialAccounts;
     } catch (Exception e) {
-      log.addMessage(
-        e.getTypeName(),
-        e.getMessage(),
-        Lib_SystemLog.Severity.ERROR
-      );
-      log.insertLogAsync();
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
 
       throw new AuraHandledException(
         'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator'

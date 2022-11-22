@@ -3,6 +3,7 @@
  * @since  05/2022
  * @group CCRM (Commercial CRM)
  * @description CCRMAccountActions is class to handle all the CCRM Account Actions
+ * @runTests CCRMAccountActionsTest
  */
 public with sharing class CCRMAccountActions {
   /**
@@ -39,16 +40,13 @@ public with sharing class CCRMAccountActions {
         }
       }
     } catch (System.QueryException qe) {
-      lib_systemLog log = new lib_systemLog(
-        CCRMAccountActions.class.getName(),
-        'setControllingPost'
+      Logger.error(
+        'InsufficientAccessException' +
+        qe.getMessage() +
+        qe.getTypeName(),
+        qe
       );
-      log.error(
-        'InsufficientAccessException',
-        qe.getMessage(),
-        qe.getTypeName()
-      );
-      log.publishEvent();
+      Logger.saveLog();
     }
   }
 
@@ -107,6 +105,7 @@ public with sharing class CCRMAccountActions {
   ) {
     for (Account rec : records) {
       if (
+        !rec.Is_Prospect__c &&
         UserInfo.getProfileId() ==
         CommonUtil.getProfileByName('ANZ Standard User').Id
       ) {
@@ -209,5 +208,70 @@ public with sharing class CCRMAccountActions {
       ]
     );
     return mapOfSourceSystemIds;
+  }
+
+  /**
+   * @description Validate and format ABN/ACN/ARBN of prospect customers
+   * @name validateAndFormatProspectAbnAcnArbn
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in afterUpdate.
+   */
+  public static void validateAndFormatProspectAbnAcnArbn(
+    List<Account> records,
+    Map<Id, Account> oldMap
+  ) {
+    for (Account record : records) {
+      Account oldRecord = oldMap?.get(record.Id);
+      if (
+        !String.isBlank(record.ABN__c) && record.ABN__c != oldRecord?.ABN__c
+      ) {
+        AbnAcnUtil.validateAndFormatRecordABN(record, 'ABN__c');
+      }
+      if (
+        !String.isBlank(record.ACN__c) && record.ACN__c != oldRecord?.ACN__c
+      ) {
+        AbnAcnUtil.validateAndFormatRecordACN(record, 'ACN__c');
+      }
+      if (
+        !String.isBlank(record.ARBN__c) && record.ARBN__c != oldRecord?.ARBN__c
+      ) {
+        AbnAcnUtil.validateAndFormatRecordARBN(record, 'ARBN__c');
+      }
+    }
+  }
+
+  /**
+   * @description Extract prospect customers from a list of accounts
+   * @name extractProspectAccounts
+   * @param records from the trigger
+   * @return List<Account> the list of prospect customers
+   */
+  public static List<Account> extractProspectAccounts(List<Account> records) {
+    List<Account> prospects = new List<Account>();
+    for (Account record : records) {
+      if (record.Is_Prospect__c) {
+        prospects.add(record);
+      }
+    }
+
+    return prospects;
+  }
+
+  /**
+   * @description Filter a list of account IDs to return those that are prospect customers
+   * @name extractProspectIds
+   * @param accountIds The ID of accounts to check
+   * @return Set<Id> - The ID of accounts that are prospect customer
+   */
+  public static Set<Id> extractProspectIds(Set<Id> accountIds) {
+    return new Map<Id, Account>(
+        [
+          SELECT Id
+          FROM Account
+          WHERE Id IN :accountIds AND Is_Prospect__c = TRUE
+          WITH SECURITY_ENFORCED
+        ]
+      )
+      .keySet();
   }
 }

@@ -134,16 +134,8 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
             'statementType',
             additionaldetails.get('statementType')
           );
-          Lib_SystemLog log = new Lib_SystemLog(
-            StatementAPIRepository.class.getName(),
-            'getStatementUrl'
-          );
-          log.addMessage(
-            'access-statement',
-            JSON.serialize(responseMap),
-            lib_systemlog.Severity.TRACE
-          );
-          log.publishEvent();
+          Logger.info('');
+          Logger.saveLog();
         } catch (Exception e) {
           handleErrors(null, e, StatementAPIRepository.class);
         }

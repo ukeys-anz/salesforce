@@ -11,6 +11,7 @@ import { getRecord } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import SUBJECT from "@salesforce/schema/Case.Subject";
 import AUTH_OPTIONS from "@salesforce/schema/Task.Authentication_Method__c";
+import { handleErrorShowToast } from "c/utils";
 
 export default class CaseLogACall extends NavigationMixin(LightningElement) {
   @api recordId;
@@ -120,8 +121,12 @@ export default class CaseLogACall extends NavigationMixin(LightningElement) {
       //Do instant Validation
       this.validateAndShowError(field);
     } catch (err) {
-      console.error("You have not set the data-field on this element!");
-      console.log(err);
+      handleErrorShowToast(
+        this,
+        "Field error",
+        err,
+        "You have not set the data-field on this element!"
+      );
     }
   }
 
@@ -187,7 +192,6 @@ export default class CaseLogACall extends NavigationMixin(LightningElement) {
           message = error.body.message;
         } else {
           message = error;
-          console.error(error);
         }
 
         const title = "Error";

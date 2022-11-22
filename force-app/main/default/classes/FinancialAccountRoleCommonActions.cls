@@ -63,15 +63,11 @@ public with sharing class FinancialAccountRoleCommonActions {
           SET_EXTERNAL_ID_ERROR +
           String.join(errors, '; ') +
           '.';
-        Lib_SystemLog.createSingleLogAsync(
-          FinancialAccountRoleCommonActions.class.getName(),
-          'setExternalId',
-          rec.Id,
-          errorMessage
-        );
+        Logger.error(errorMessage).setRecord(rec.Id);
         rec.addError(errorMessage);
       }
     }
+    Logger.saveLog();
   }
 
   private static String getFormattedDate(Date dt) {

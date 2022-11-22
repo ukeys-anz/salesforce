@@ -16,21 +16,8 @@ public with sharing class AppointmentCommitmentDMLHelper {
 
     if (Appointment_Commitment__c.sObjectType.getDescribe().isUpdateable()) {
       List<Database.SaveResult> results = Database.Update(apptCommtList, false);
-
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        'ContactRequestTriggerActions',
-        'updateConfirmedCountBug'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Appointment_Commitment__c',
-        results,
-        new List<Appointment_Commitment__c>()
-      );
-      if (hasError) {
-        //if there is an error add an entry to the application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       //If the user does not have permission to update the appointment commitment object log an error.
       CommonUtil.logAndThrowIAE(

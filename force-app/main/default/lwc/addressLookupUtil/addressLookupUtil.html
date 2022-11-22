@@ -1,0 +1,126 @@
+<template>
+  <div class="slds-combobox_container">
+    <div
+      class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+      aria-expanded="true"
+      aria-haspopup="listbox"
+      role="combobox"
+    >
+      <div
+        class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+        role="none"
+      >
+        <lightning-input
+          class="inputBox .slds-form-element_readonly"
+          onchange={handleSearchKeyChange}
+          label="Search for address"
+          value={searchString}
+          placeholder="type here..."
+        ></lightning-input>
+      </div>
+      <!-- Address List -->
+      <div
+        if:true={showAddresses}
+        class="pnlSearchResult slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
+      >
+        <ul
+          class="slds-listbox slds-listbox_vertical recordListBox"
+          role="presentation"
+        >
+          <li if:true={isSearching}>looking up address...</li>
+
+          <template if:true={displayAddresses}>
+            <li
+              for:each={addressList}
+              for:item="addr"
+              key={addr.global_address_key}
+              data-id={addr.global_address_key}
+              onmousedown={handleSelectAddress}
+              role="presentation"
+              class={addr.background}
+            >
+              <div
+                class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                role="option"
+              >
+                <span class="slds-media__figure slds-listbox__option-icon">
+                  <lightning-icon
+                    icon-name="standard:address"
+                    alternative-text="Address"
+                    title="Address"
+                  ></lightning-icon>
+                </span>
+                <span class="slds-media__body">
+                  <span
+                    class="slds-listbox__option-text slds-listbox__option-text_entity"
+                    >{addr.text}</span
+                  >
+                </span>
+              </div>
+            </li>
+            <li onmousedown={displayAddressFields}>
+              <div
+                class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                role="option"
+              >
+                <span class="slds-media__figure slds-listbox__option-icon">
+                  <lightning-icon
+                    icon-name="utility:add"
+                    alternative-text="Add Address"
+                    title="Add Address"
+                  ></lightning-icon>
+                </span>
+                <span class="slds-media__body">
+                  <span
+                    class="slds-listbox__option-text slds-listbox__option-text_entity"
+                    >{message}</span
+                  >
+                </span>
+              </div>
+            </li>
+          </template>
+          <template if:true={displayMessage}>
+            <li onmousedown={displayAddressFields}>
+              <div
+                class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
+                role="option"
+              >
+                <span class="slds-media__figure slds-listbox__option-icon">
+                  <lightning-icon
+                    icon-name="utility:add"
+                    alternative-text="Add Address"
+                    title="Add Address"
+                  ></lightning-icon>
+                </span>
+                <span class="slds-media__body">
+                  <span
+                    class="slds-listbox__option-text slds-listbox__option-text_entity"
+                    >{message}</span
+                  >
+                </span>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <lightning-input-address
+    if:false={resetValidationError}
+    disabled={disabled}
+    address-label={addressLabel}
+    street-label="Street"
+    city-label="City"
+    country-label="Country"
+    province-label="State/ Province"
+    postal-code-label="Zip/ Postal Code"
+    street={currentAddress.street}
+    city={currentAddress.city}
+    country={currentAddress.country}
+    province={currentAddress.state}
+    postal-code={currentAddress.postalCode}
+    onchange={addressInputChange}
+    required={required}
+  >
+  </lightning-input-address>
+</template>

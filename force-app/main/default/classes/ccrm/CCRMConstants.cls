@@ -70,4 +70,25 @@ public with sharing class CCRMConstants {
   public static final Id ACCOUNT_CLG_RT_ID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
     .get('CLG')
     .getRecordTypeId();
+
+  //Contact - Business Record Type Id
+  public static final Id CONTACT_BUSINESS_RT_ID = Schema.SObjectType.Contact.getRecordTypeInfosByDeveloperName()
+    .get('IndustriesBusiness')
+    .getRecordTypeId();
+
+  //Account Record Type IDs for prospect (to be extended later)
+  public static final Set<Id> PROSPECT_ACCOUNT_RECORDTYPES = new Set<Id>{
+    CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
+  };
+
+  /**
+   * To be used for apex validations that are meant to replace Custom Validation rules
+   * (eg. to run validation at specific points in code whereas Custom Validations are usually run after before triggers).
+   * Those apex validations should be treated the same as Custom Validations
+   * (can be disabled via "Disable_VRs__c" instead of having to disable all triggers, and can be skipped by user with "CCRM_Skip_Validation" custom permission)
+   */
+  public static final Boolean SKIP_CUSTOM_VALIDATION_RULES =
+    FeatureManagement.checkPermission('CCRM_Skip_Validation') ||
+    Salesforce_Library_Settings__c.getInstance(UserInfo.getUserId())
+      .Disable_VRs__c;
 }

@@ -38,7 +38,7 @@ public with sharing class LoggerTest {
       LoggingSettings__c userCustomSetting = new LoggingSettings__c(
         DefaultSaveMethod__c = 'QUEUEABLE',
         DefaultLoggingLevel__c = 'DEBUG',
-        SecureLogEnabled__c = false,
+        SecureLogEnabled__c = true,
         SetupOwnerId = engineerUser.Id
       );
       insert userCustomSetting;

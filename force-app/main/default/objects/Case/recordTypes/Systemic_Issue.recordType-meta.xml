@@ -243,6 +243,10 @@
             <fullName>9</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>SI_Definite__c</picklist>

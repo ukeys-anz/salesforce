@@ -208,13 +208,8 @@ public with sharing class CommonUtil {
     String functionName,
     String errorDescription
   ) {
-    lib_systemLog log = new lib_systemLog(processName, functionName);
-    log.error(
-      'InsufficientAccessException',
-      errorDescription,
-      UserInfo.getUserId()
-    );
-    log.publishEvent();
+    Logger.error(errorDescription);
+    Logger.saveLog();
     throw new InsufficientAccessException(errorDescription);
   }
 
@@ -362,15 +357,13 @@ public with sharing class CommonUtil {
     try {
       notification.send(wrapperRecord.recipientList);
     } catch (Exception e) {
-      lib_systemLog log = new lib_systemLog(
-        CommonUtil.class.getName(),
-        'sendInAppNotification'
+      Logger.error(
+        'Problem sending in app notification: ' +
+        wrapperRecord.recipientList +
+        e.getMessage(),
+        e
       );
-      log.error(
-        'Problem sending in app notification: ' + wrapperRecord.recipientList,
-        e.getMessage()
-      );
-      log.publishEvent();
+      Logger.saveLog();
     }
   }
 

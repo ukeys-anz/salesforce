@@ -3,13 +3,15 @@
  * @since 10/2021
  * @group CCRM (Commercial CRM)
  * @description AbnAcnUtil is the utilitary class to check ABN and ACN are correctly formatted
+ * @runTests AbnAcnUtilTest
  */
 public with sharing class AbnAcnUtil {
   private static final String ABN_11_DIGIT_VALIDATION_ERROR = 'ABN should be 11 digits, optionally with spaces as separators.';
   private static final String ACN_9_DIGIT_VALIDATION_ERROR = 'ACN should be 9 digits, optionally with spaces as separators.';
+  private static final String ARBN_9_DIGIT_VALIDATION_ERROR = 'ARBN should be 9 digits, optionally with spaces as separators.';
   private static final String ABN_NOT_VALID_ERROR = ' is not a valid ABN.';
   private static final String ACN_NOT_VALID_ERROR = ' is not a valid ACN.';
-
+  private static final String REGEX_ACN = '^(\\d *){9}$';
   /**
    * @description Check if the lead's ABN is valid and if so, format it to the recommended pattern
    * @name validateABN
@@ -18,15 +20,8 @@ public with sharing class AbnAcnUtil {
    */
   public static void validateABN(Lead[] records, Map<Id, Lead> oldMap) {
     for (Lead record : records) {
-      Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
-      if (isABNValueEntered(record, oldRec)) {
-        if (!Pattern.matches('^(\\d *){11}$', record.ABN__c)) {
-          record.addError(ABN_11_DIGIT_VALIDATION_ERROR);
-        } else if (!isABNValid(record.ABN__c)) {
-          record.addError(record.ABN__c + ABN_NOT_VALID_ERROR);
-        } else {
-          record.ABN__c = formatABN(record.ABN__c);
-        }
+      if (isABNValueEntered(record, oldMap?.get(record.Id))) {
+        validateAndFormatRecordABN(record, 'ABN__c');
       }
     }
   }
@@ -39,16 +34,60 @@ public with sharing class AbnAcnUtil {
    */
   public static void validateACN(Lead[] records, Map<Id, Lead> oldMap) {
     for (Lead record : records) {
-      Lead oldRec = oldMap != null ? oldMap.get(record.id) : new Lead();
-      if (isACNValueEntered(record, oldRec)) {
-        if (!Pattern.matches('^(\\d *){9}$', record.ACN__c)) {
-          record.addError(ACN_9_DIGIT_VALIDATION_ERROR);
-        } else if (!isACNValid(record.ACN__c)) {
-          record.addError(record.ACN__c + ACN_NOT_VALID_ERROR);
-        } else {
-          record.ACN__c = formatACN(record.ACN__c);
-        }
+      if (isACNValueEntered(record, oldMap?.get(record.Id))) {
+        validateAndFormatRecordACN(record, 'ACN__c');
       }
+    }
+  }
+
+  /**
+   * @description Validate ABN format of a single record, then format if it's valid, otherwise raise error
+   * @name validateAndFormatRecordABN
+   * @param record record to check
+   * @param fieldName the API name of the ABN field on record
+   */
+  public static void validateAndFormatRecordABN(
+    SObject record,
+    String fieldName
+  ) {
+    try {
+      record.put(fieldName, formatABN((String) record.get(fieldName)));
+    } catch (Exception e) {
+      record.addError(fieldName, e.getMessage());
+    }
+  }
+
+  /**
+   * @description Validate ACN format of a single record, then format if it's valid, otherwise raise error
+   * @name validateAndFormatRecordACN
+   * @param record record to check
+   * @param fieldName the API name of the ACN field on record
+   */
+  public static void validateAndFormatRecordACN(
+    SObject record,
+    String fieldName
+  ) {
+    try {
+      record.put(fieldName, formatACN((String) record.get(fieldName)));
+    } catch (Exception e) {
+      record.addError(fieldName, e.getMessage());
+    }
+  }
+
+  /**
+   * @description Validate ARBN format of a single record, then format if it's valid, otherwise raise error
+   * @name validateAndFormatRecordARBN
+   * @param record record to check
+   * @param fieldName the API name of the ARBN field on record
+   */
+  public static void validateAndFormatRecordARBN(
+    SObject record,
+    String fieldName
+  ) {
+    try {
+      record.put(fieldName, formatARBN((String) record.get(fieldName)));
+    } catch (Exception e) {
+      record.addError(fieldName, e.getMessage());
     }
   }
 
@@ -90,12 +129,14 @@ public with sharing class AbnAcnUtil {
 
   /**
    * @description Check if the ABN is valid as per https://abr.business.gov.au/Help/AbnFormat.
-   * The check on 11 digits with or without spaces should be made before calling this method.
-   * @name isABNValid
+   * @name validateAbnString
    * @param abn the ABN to check
-   * @return true is valid, false otherwise
+   * @return error message if ABN is invalid, null otherwise
    */
-  private static Boolean isABNValid(String abn) {
+  private static String validateAbnString(String abn) {
+    if (!Pattern.matches('^(\\d *){11}$', abn)) {
+      return ABN_11_DIGIT_VALIDATION_ERROR;
+    }
     Integer[] weight = new List<Integer>{
       10,
       1,
@@ -127,7 +168,7 @@ public with sharing class AbnAcnUtil {
       sum += d;
     }
     //Divide the sum total by 89, if the remainder is zero the number is a valid ABN
-    return math.mod(sum, 89) == 0;
+    return math.mod(sum, 89) == 0 ? null : (abn + ABN_NOT_VALID_ERROR);
   }
 
   /**
@@ -137,6 +178,10 @@ public with sharing class AbnAcnUtil {
    * @return the formatted ABN
    */
   private static String formatABN(String abn) {
+    String error = validateAbnString(abn);
+    if (error != null) {
+      throw new AbnAcnArbnValidationException(error);
+    }
     if (!Pattern.matches('^\\d{2} \\d{3} \\d{3} \\d{3}$', abn)) {
       abn = abn.replace(' ', '');
       abn =
@@ -153,12 +198,14 @@ public with sharing class AbnAcnUtil {
 
   /**
    * @description Check if the ACN is valid as per https://asic.gov.au/for-business/registering-a-company/steps-to-register-a-company/australian-company-numbers/australian-company-number-digit-check/
-   * The check on 9 digits with or without spaces should be made before calling this method.
-   * @name isACNValid
+   * @name validateAcnString
    * @param acn the ACN to check
-   * @return true is valid, false otherwise
+   * @return error message if ABN is invalid, null otherwise
    */
-  private static Boolean isACNValid(String acn) {
+  private static String validateAcnString(String acn) {
+    if (!Pattern.matches(REGEX_ACN, acn)) {
+      return ACN_9_DIGIT_VALIDATION_ERROR;
+    }
     Integer[] weight = new List<Integer>{ 8, 7, 6, 5, 4, 3, 2, 1 };
     // remove spaces and split into an array of digits
     Integer[] digits = new List<Integer>();
@@ -178,7 +225,7 @@ public with sharing class AbnAcnUtil {
     //Divide by 10 to obtain remainder, Complement the remainder to 10, If the complement equals 10, set it to 0.
     Integer check = 10 - Math.mod(sum, 10) == 10 ? 0 : 10 - Math.mod(sum, 10);
     //Based on these calculations, the calculated check digit equals the check (last) digit if valid
-    return check == digits[8];
+    return check == digits[8] ? null : (acn + ACN_NOT_VALID_ERROR);
   }
 
   /**
@@ -188,6 +235,10 @@ public with sharing class AbnAcnUtil {
    * @return the formatted ACN
    */
   private static String formatACN(String acn) {
+    String error = validateAcnString(acn);
+    if (error != null) {
+      throw new AbnAcnArbnValidationException(error);
+    }
     if (!Pattern.matches('^\\d{3} \\d{3} \\d{3}$', acn)) {
       acn = acn.replace(' ', '');
       acn =
@@ -198,5 +249,30 @@ public with sharing class AbnAcnUtil {
         acn.substring(6, 9);
     }
     return acn;
+  }
+
+  /**
+   * @description Properly format the ARBN by adding space separators
+   * @name formatARBN
+   * @param arbn the ARBN to format
+   * @return the formatted ARBN
+   */
+  private static String formatARBN(String arbn) {
+    if (!Pattern.matches(REGEX_ACN, arbn)) {
+      throw new AbnAcnArbnValidationException(ARBN_9_DIGIT_VALIDATION_ERROR);
+    }
+    if (!Pattern.matches('^\\d{3} \\d{3} \\d{3}$', arbn)) {
+      arbn = arbn.replace(' ', '');
+      arbn =
+        arbn.substring(0, 3) +
+        ' ' +
+        arbn.substring(3, 6) +
+        ' ' +
+        arbn.substring(6, 9);
+    }
+    return arbn;
+  }
+
+  private class AbnAcnArbnValidationException extends Exception {
   }
 }

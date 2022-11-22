@@ -418,6 +418,48 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create a Prospect Business Account with contact
+   * @name createProspectBusinessAccount
+   * @param ownerId Id of the owner user
+   * @return Prospect Business Account Business account
+   */
+  public static Account createProspectBusinessAccount(Id ownerId) {
+    Faker faker = new Faker('AU');
+
+    List<Industry__c> createIndustries = createIndustries(1);
+    Account accnt = new Account();
+    accnt.Name = faker.randomString(10);
+    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.Industry = createIndustries[0].Code__c;
+    accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    accnt.ABN__c = '50 110 219 460';
+    accnt.Phone = faker.person.phone(true, false);
+    accnt.BillingStreet = faker.address.street();
+    accnt.BillingCity = faker.address.city();
+    accnt.BillingPostalCode = faker.address.stateCode();
+    accnt.BillingState = faker.address.state();
+    accnt.BillingCountry = faker.address.country();
+    accnt.Source_System_ID__c = faker.randomString(10);
+    accnt.Source_System_Name__c = Label.CCRM_Source_System_Name;
+    accnt.FinServ__Status__c = 'Prospect';
+    if (ownerId != null) {
+      accnt.OwnerId = ownerId;
+    }
+    insert accnt;
+
+    Contact contact = new Contact();
+    contact.FirstName = faker.person.firstName();
+    contact.LastName = faker.randomString(10);
+    contact.Email = faker.internet.companyEmail();
+    contact.MobilePhone = faker.person.phone(true, true);
+    contact.Phone = faker.person.phone(true, false);
+    contact.AccountId = accnt.Id;
+    insert contact;
+
+    return accnt;
+  }
+
+  /**
    * @description Create Person Account
    * @name createPersonAccount
    * @return Account PersonAccount

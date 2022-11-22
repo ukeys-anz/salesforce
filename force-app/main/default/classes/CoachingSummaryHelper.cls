@@ -62,20 +62,8 @@ public with sharing class CoachingSummaryHelper {
       Coaching_Summary__c.SObjectType.getDescribe().isCreateable()
     ) {
       List<Database.SaveResult> results = Database.Insert(coachingSummaries);
-
-      lib_systemLog log = new lib_systemLog(
-        'CoachingSummaryHelper',
-        'insertCoachingSummary'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Coaching_Summary__c',
-        results,
-        coachingSummaries
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'CoachingSummaryHelper',
@@ -94,19 +82,8 @@ public with sharing class CoachingSummaryHelper {
   ) {
     if (Coaching_Summary__c.SObjectType.getDescribe().isUpdateable()) {
       List<Database.SaveResult> results = Database.Update(coachingSummaries);
-      lib_systemLog log = new lib_systemLog(
-        'CoachingSummaryHelper',
-        'updateCoachingSummary'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Coaching_Summary__c',
-        results,
-        coachingSummaries
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'CoachingSummaryHelper',

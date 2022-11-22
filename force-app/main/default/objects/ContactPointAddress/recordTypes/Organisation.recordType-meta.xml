@@ -13,10 +13,6 @@
             <fullName>Principal Place of Business</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Registered</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Street_Type__c</picklist>

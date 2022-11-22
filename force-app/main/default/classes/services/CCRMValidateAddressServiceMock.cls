@@ -50,4 +50,42 @@ public with sharing class CCRMValidateAddressServiceMock extends Service {
     }
     return response;
   }
+
+  /**
+   * @param lookupString from address search bar
+   * @return HttpCalloutResponse
+   * @description fetches valid addresses
+   */
+  public override HttpCalloutResponse getAddressesV2(String lookupString) {
+    if (!preset) {
+      StaticResource sr = [
+        SELECT Body
+        FROM StaticResource
+        WHERE Name = 'mock_ccrmQasSuccessResponseV2'
+        WITH SECURITY_ENFORCED
+      ];
+      response.body = sr.Body.toString();
+    }
+    return response;
+  }
+
+  /**
+   * @param globalAddressKey selected address id
+   * @return HttpCalloutResponse
+   * @description fetches address details
+   */
+  public override HttpCalloutResponse getSelectedAddressV2(
+    String globalAddressKey
+  ) {
+    if (!preset) {
+      StaticResource sr = [
+        SELECT Body
+        FROM StaticResource
+        WHERE Name = 'mock_ccrmQasSelectedAddressResponseV2'
+        WITH SECURITY_ENFORCED
+      ];
+      response.body = sr.Body.toString();
+    }
+    return response;
+  }
 }

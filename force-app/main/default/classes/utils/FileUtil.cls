@@ -107,16 +107,8 @@ public with sharing class FileUtil {
           contentDocLinkList,
           false
         );
-        lib_systemLog log = new lib_systemLog(
-          'FileUtil',
-          'linkContentWithRecord'
-        );
-        log.addDatabaseSaveResult(
-          'ContentDocumentLink',
-          results,
-          contentDocLinkList
-        );
-        log.insertLogAsync();
+        Logger.error('',results);
+        Logger.saveLog();
       }
     }
   }

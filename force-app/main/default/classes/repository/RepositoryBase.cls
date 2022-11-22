@@ -19,34 +19,13 @@ public virtual with sharing class RepositoryBase {
   ) {
     Exception err = error != null ? error : response.error;
     if (err instanceof JSONException) {
-      Lib_SystemLog.createSingleLog(
-        apexType.getName(),
-        'RepositoryBase-handleErrors',
-        '',
-        err.getMessage(),
-        Lib_SystemLog.Severity.ERROR
-      );
+      Logger.error(err.getMessage(),err);
     } else if (err instanceof CalloutException) {
-      lib_systemLog.logAPIError(
-        apexType.getName(),
-        'RepositoryBase-handleErrors',
-        err.getMessage(),
-        err.getTypeName(),
-        null,
-        null,
-        null,
-        null,
-        response.statusCode
-      );
+      Logger.error( err.getMessage(), err);
     } else {
-      Lib_SystemLog.createSingleLog(
-        apexType.getName(),
-        'RepositoryBase-handleErrors',
-        '',
-        err.getMessage(),
-        Lib_SystemLog.Severity.ERROR
-      );
+      Logger.error( err.getMessage(), err);
     }
+    Logger.saveLog();
     throw err;
   }
 }

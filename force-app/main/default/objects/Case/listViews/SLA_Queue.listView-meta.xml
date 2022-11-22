@@ -6,11 +6,14 @@
     <columns>ACCOUNT.NAME</columns>
     <columns>CASES.STATUS</columns>
     <columns>SLA_Status__c</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>SLA_Status__c</field>
         <operation>equals</operation>
-        <value>Breach Warning,Breached</value>
+        <value>Breached</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>SLA Queue</label>
+    <sharedTo>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
+    </sharedTo>
 </ListView>

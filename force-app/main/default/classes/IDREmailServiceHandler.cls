@@ -21,12 +21,7 @@ public with sharing class IDREmailServiceHandler {
   ) {
     Boolean isSpam = false;
     if (senderEmail != null && technicalEmailAddress.contains(senderEmail)) {
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDREmailServiceHandler.class.getName(),
-        'checkSpamming'
-      );
-      log.error(
-        'Spam detected from IDR apex email service',
+      Logger.error(
         'Recieved email from : ' +
         fromEmail +
         ' Subject of email : ' +
@@ -34,7 +29,7 @@ public with sharing class IDREmailServiceHandler {
         ' Email sent to : ' +
         senderEmail
       );
-      log.publishEvent();
+      Logger.saveLog();
       isSpam = true;
     }
     return isSpam;

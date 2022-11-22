@@ -24,7 +24,6 @@ public class CaseEscalateToCMOSTest {
     insert newCase;
 
     //Add Chatter Posts to test Chatter -> Case Comments duplication
-
     List<FeedItem> posts = new List<FeedItem>{
       new FeedItem(ParentID = newCase.id, Body = 'Test Post'),
       new FeedItem(ParentID = newCase.id, Body = 'Test Post 2')
@@ -112,6 +111,44 @@ public class CaseEscalateToCMOSTest {
       newCase.IDR_Escalation_Reason__c ==
       CaseEscalateToCMOS.MANUAL_ESCALATION_REASON,
       'Did not set Escalation Reason Correctly'
+    );
+  }
+  /**
+   * @description testAutoEscalatetoANZxToCMOS to see if ANZx to CMOS Escalates correctly when 5 days milestone breaches.
+   */
+  @isTest
+  public static void testAutoEscalatetoANZxToCMOS() {
+    //GIVEN
+    //An ANZx Complaint Case
+    Case newCase = [
+      SELECT Id, Customer_Notification_Consent__c, Account.Source_System_ID__c
+      FROM Case
+      LIMIT 1
+    ];
+
+    //WHEN
+    //SLA Status breaches
+    Test.startTest();
+    newCase.SLA_Status__C = 'Breached';
+    update newCase;
+    Test.stopTest();
+
+    //THEN
+    //Check if the case is (1)automatically escalated and (2)assigned to the right case owner & queue
+    newCase = [
+      SELECT Id, OwnerId, IDR_Escalation_Reason__c, Status, RecordTypeId
+      FROM Case
+      LIMIT 1
+    ];
+
+    System.assert(
+      newCase.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      'Case type did not change to CMOS Complaint correctly'
+    );
+    System.assert(
+      newCase.IDR_Escalation_Reason__c ==
+      CaseEscalateToCMOS.DAY_5_ESCALATION_REASON,
+      'Escalation Reason was not set correctly'
     );
   }
 }

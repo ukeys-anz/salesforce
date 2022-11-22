@@ -119,7 +119,8 @@ public without sharing class IDRTaskActions {
     for (Task record : records) {
       if (
         record.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
-        record.Status == IDRConstants.OPEN_STATUS
+        record.Status == IDRConstants.OPEN_STATUS &&
+        String.isNotBlank(record.Subject)
       ) {
         if (record.Subject.containsIgnoreCase(STOP_COLLECTIONS_SUBJECT)) {
           record.OwnerId = stopQueue.Id;
@@ -779,12 +780,8 @@ public without sharing class IDRTaskActions {
       collectionTaskList,
       false
     );
-    Lib_SystemLog log = new Lib_SystemLog(
-      'IDRCollectionActions',
-      'insertSystemTasks'
-    );
-    log.addDatabaseSaveResult('Task', results, collectionTaskList);
-    log.insertLogAsync();
+    Logger.error('',results);
+    Logger.saveLog();
   }
 
   /**
