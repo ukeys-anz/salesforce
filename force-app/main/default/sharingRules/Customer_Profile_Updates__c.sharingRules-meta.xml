@@ -9,7 +9,7 @@
             <role>ANZx</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

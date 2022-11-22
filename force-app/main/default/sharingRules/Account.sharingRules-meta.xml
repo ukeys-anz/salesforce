@@ -71,7 +71,7 @@
         <description>ANZ Organisation record type to be shared with Read/Write access.</description>
         <label>CCRM Account RW</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
