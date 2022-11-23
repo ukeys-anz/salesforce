@@ -7,6 +7,7 @@ on:
       - "package.json"
     branches:
       - master
+      - epic/anzx-bau
   push:
     paths:
       - .github/workflows/blackduck.yml # Run on change to scan, or packages, in develop
