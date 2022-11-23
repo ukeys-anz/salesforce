@@ -18,37 +18,28 @@ on:
 
 jobs:
   blackduck:
-    runs-on: [self-hosted, salesforce]
+    runs-on: [self-hosted, salesforce-prod]
     steps:
-      - uses: actions/setup-node@v2.1.5
+      - id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
         with:
-          node-version: "12"
-
-      - name: "Install npm packages"
-        run: |
-          mv ci.npmrc .npmrc
-          npm ci
+          secrets: |-
+            harness-api-key:projects/anz-x-gha-prod-0f0d8b/secrets/ghrcommon-secscan-harness-api-key/versions/1
 
       - name: "🦆 Black Duck Scan"
         id: blackduck
-        run: |
-          set -x
-          if [[ "${GITHUB_REF}" == refs/pull/* ]]
-          then
-            PR_NUMBER=$(echo "${GITHUB_REF}" | awk 'BEGIN { FS = "/" } ; { print $3 }')
-          else
-            REF="${GITHUB_REF}"
-          fi
-          # NOTE: the following is not actually a secret, but an encrypted blob
-          docker run --rm \
-            anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest \
-            --harness-api-key=CiUALvObyCdx/LOa/QDKwMlYRpDEQJ2qHzw/3NU+5JIyDg48PqtSErYBADVs6ThOwBR9GqQTYYHPL9YK25KzNciYQ53CcRQrLeU4yqEPUOmFgrRWvHF3woJ9HKQ+gVtpxQ16dXt4Kql2dPkFcitZGHX5rXugw0AX29OhdaKt7xYT1FxvFyhK78g72ZXvkCvqnvI1gKMTEMPqKyv3Nz4uKVCRi1pLM10R1DckF8gPZo00dX4bhlBczeJU3ySdwohTe0OH3sKcUTTXACaLw08k4MR0MykgW70nR9lLrh6sqk4= \
-            --kms-key=projects/anz-x-services-platdev-fcf8c0/locations/global/keyRings/developer-experience/cryptoKeys/anz-x-services-platdev-fcf8c0_github-runner-common-secrets \
-            --application-name=secscan \
-            --target-name=BlackduckScanCI \
-            --target-type=PIPELINE \
-            --variables="GIT_COMMIT_SHA=${GITHUB_SHA};GIT_REF=${REF};REPO=github.com/${GITHUB_REPOSITORY};PULL_REQUEST=${PR_NUMBER}" \
-            --wait
+        uses: docker://anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest
+        with:
+          application-name: secscan
+          harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key }}
+          target-name: BlackduckScanCI
+          target-type: PIPELINE
+          variables: |
+            GIT_COMMIT_SHA=${{ github.event.pull_request.head.sha || github.sha }}
+            GIT_REF=${{ github.ref }}
+            PULL_REQUEST=${{ github.event.pull_request.number }}
+            REPO=github.com/${{ github.repository }}
+          wait: True
         continue-on-error: true
 
       - name: Slack message
