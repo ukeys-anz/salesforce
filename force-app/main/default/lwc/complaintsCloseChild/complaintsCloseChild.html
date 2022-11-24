@@ -14,6 +14,7 @@
             field-name={complaintOutcome}
             onchange={handleComplaintOutcomeChange}
             data-id="compOutCome-id"
+            role="textbox"
           ></lightning-input-field>
         </div>
         <div class="slds-col slds-size_2-of-4 slds-m-right_large">
@@ -34,6 +35,7 @@
             field-name={complaintRemedy}
             onchange={handleComplaintRemedy}
             data-id="compRemedy-id"
+            role="textbox"
           ></lightning-input-field>
         </div>
         <div class="slds-col slds-size_2-of-4 slds-m-right_large">
@@ -45,6 +47,7 @@
             field-name={complaintSubRemedy}
             onchange={handleComplaintSubRemedy}
             data-id="compSubRemedy-id"
+            role="textbox"
           ></lightning-input-field>
         </div>
         <div class="slds-col slds-size_2-of-4 slds-m-right_large">
@@ -93,6 +96,7 @@
                 value={remedyPointsValue}
                 onchange={handleFinRemedyPoints}
                 data-id="finRemedyPoints1-id"
+                role="textbox"
               >
               </lightning-input-field>
             </div>
@@ -127,6 +131,7 @@
               value={remedyDurationValue}
               onchange={handleremedyDuration}
               data-id="finRemedyDuration1-id"
+              role="textbox"
             >
             </lightning-input-field>
           </div>
@@ -158,6 +163,7 @@
               onchange={handleComplaintRemedy2}
               value={caseRemedy2Value}
               data-id="compRemedy2-id"
+              role="textbox"
             ></lightning-input-field>
           </div>
           <div
@@ -171,6 +177,7 @@
               onchange={handleComplaintSubRemedy2}
               value={subRemedy2Value}
               data-id="compSubRemedy2-id"
+              role="textbox"
             ></lightning-input-field>
           </div>
           <template if:true={isOtherSubFinRemedy2}>
@@ -223,6 +230,7 @@
                   onchange={handleFinRemedyPoints2}
                   value={remedyPoints2Value}
                   data-id="finRemedyPoints2-id"
+                  role="textbox"
                 >
                 </lightning-input-field>
               </div>
@@ -257,6 +265,7 @@
                 onchange={handleremedyDuration2}
                 value={remedyDurationValue2}
                 data-id="finRemedyDuration2-id"
+                role="textbox"
               >
               </lightning-input-field>
             </div>
@@ -289,6 +298,7 @@
               onchange={handleComplaintRemedy3}
               value={caseRemedy3Value}
               data-id="compRemedy3-id"
+              role="textbox"
             ></lightning-input-field>
           </div>
           <div
@@ -302,6 +312,7 @@
               onchange={handleComplaintSubRemedy3}
               value={subRemedy3Value}
               data-id="compSubRemedy-id"
+              role="textbox"
             ></lightning-input-field>
           </div>
           <template if:true={isOtherSubFinRemedy3}>
@@ -354,6 +365,7 @@
                   onchange={handleFinRemedyPoints3}
                   value={remedyPoints3Value}
                   data-id="finRemedyPoints1-id"
+                  role="textbox"
                 >
                 </lightning-input-field>
               </div>
@@ -388,6 +400,7 @@
                 value={remedyDurationValue3}
                 onchange={handleremedyDuration3}
                 data-id="finRemedyDuration2-id"
+                role="textbox"
               >
               </lightning-input-field>
             </div>
