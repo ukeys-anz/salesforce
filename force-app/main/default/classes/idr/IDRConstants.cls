@@ -214,7 +214,7 @@ public with sharing class IDRConstants {
           'Product features, offers, sales' => '15',
           'Closure process' => '16',
           'Credit assessment' => '5',
-          'Credit reporting' => '16',
+          'Credit reporting' => '19',
           'Transactions & payments' => '10',
           'Fraud & Scams' => '14',
           'Transaction Disputes' => '20',
