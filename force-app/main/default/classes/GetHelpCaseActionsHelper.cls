@@ -156,6 +156,7 @@ public with sharing class GetHelpCaseActionsHelper {
     for (Case c : caseList) {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
@@ -196,6 +197,7 @@ public with sharing class GetHelpCaseActionsHelper {
     for (Case c : caseList) {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
@@ -210,8 +212,6 @@ public with sharing class GetHelpCaseActionsHelper {
       ) {
         c.EntitlementId = IDRCaseActions.getEntitlement();
         c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-      } else if (c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
-        c.EntitlementId = IDRCaseActions.getEntitlement();
       }
     }
   }
