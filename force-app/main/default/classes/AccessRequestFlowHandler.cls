@@ -127,12 +127,7 @@ public without sharing class AccessRequestFlowHandler {
       new Set<String>{ flowInstance.privilegedAccReqId }
     )[0];
 
-    lib_systemLog log = new lib_systemLog(
-      AccessRequestFlowHandler.class.getName(),
-      'modifyPrivilegedAccess'
-    );
-    log.error(
-      '',
+    Logger.error(
       'Error occured in PAM ' +
       flowInstance.processType +
       ' flow. Related to' +
@@ -142,10 +137,9 @@ public without sharing class AccessRequestFlowHandler {
       par.Access_Request__r.Access_Type__c +
       ' access.' +
       ' More details: ' +
-      errorMessage,
-      par.Access_Request__r.Trace_Id__c
+      errorMessage
     );
-    log.insertLogAsync();
+    Logger.saveLog();
 
     return par.Access_Request__r.Trace_Id__c;
   }
@@ -183,23 +177,16 @@ public without sharing class AccessRequestFlowHandler {
       // Update PAR record with Time Stamp
       update parList[0];
     } catch (Exception e) {
-      lib_systemLog log = new lib_systemLog(
-        AccessRequestFlowHandler.class.getName(),
-        'updateSuccessTimeStamp'
-      );
-      log.error(
-        '',
+      Logger.error(
         'Error occured while updating actual ' +
         processType +
         ' timestamp on PAR record ' +
         parId +
         '. More details: ' +
-        e.getMessage(),
-        parList.isEmpty() ? '' : parList[0].Access_Request__r.Trace_Id__c
+        e.getMessage()
       );
 
-      // Cannot use async method here, as Future method cannot be called from a future or batch method.
-      log.insertLog();
+      Logger.saveLog();
     }
   }
 
@@ -215,23 +202,17 @@ public without sharing class AccessRequestFlowHandler {
     Privileged_Access_Request__c par,
     String actionName
   ) {
-    lib_systemLog log = new lib_systemLog(
-      AccessRequestFlowHandler.class.getName(),
-      'logSuccess'
-    );
-    log.info(
+    Logger.info(
       'PAM request ' +
       par.Access_Request__r.Name +
       ' requesting ' +
       par.Access_Request__r.Access_Type__c +
       ' access has been ' +
       actionName,
-      par.Access_Request__r.Trace_Id__c
+      par
     );
 
-    // Cannot use async method here, as Future method cannot be called from a future or batch method.
-    // (one of the parent calling methods "updateSuccessTimeStamp()" is a future method)
-    log.insertLog();
+    Logger.saveLog();
 
     return par.Access_Request__r.Trace_Id__c;
   }

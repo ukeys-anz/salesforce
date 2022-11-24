@@ -32,9 +32,8 @@ public without sharing class SystemModeActions {
   public List<SObject> query(String soql) {
     List<SObject> results = Database.query(soql);
 
-    lib_systemLog log = new lib_systemLog(className, methodName);
-    log.info('Query logged without sharing');
-    log.insertLogAsync();
+    Logger.info('Query logged without sharing');
+    Logger.saveLog();
 
     return results;
   }
@@ -50,13 +49,8 @@ public without sharing class SystemModeActions {
     }
 
     List<Database.SaveResult> results = Database.Update(records, false);
-
-    //log errors to application log
-    lib_systemLog log = new lib_systemLog(className, methodName);
-
-    log.addDatabaseSaveResult(objectName, results, records);
-
-    log.insertLogAsync();
+    Logger.error('', results);
+    Logger.saveLog();
   }
 
   /**

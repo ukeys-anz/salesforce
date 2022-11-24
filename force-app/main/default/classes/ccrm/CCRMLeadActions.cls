@@ -101,13 +101,8 @@ public with sharing class CCRMLeadActions {
       !updateLeads.isEmpty()
     ) {
       List<Database.saveResult> results = Database.update(updateLeads, false);
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'copyLeadId'
-      );
-      log.addDatabaseSaveResult('Lead', results, updateLeads);
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 
@@ -213,13 +208,8 @@ public with sharing class CCRMLeadActions {
         newCampaignMembers,
         false
       );
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'createCampaignMember'
-      );
-      log.addDatabaseSaveResult('CampaignMember', results, newCampaignMembers);
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 
@@ -723,13 +713,8 @@ public with sharing class CCRMLeadActions {
       Schema.sObjectType.Lead.fields.ABN_Validation_Status__c.isUpdateable()
     ) {
       List<Database.saveResult> results = Database.update(updateLeads, false);
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'makeAbnCallout'
-      );
-      log.addDatabaseSaveResult('Lead', results, updateLeads);
-      log.insertLog();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 
@@ -755,13 +740,8 @@ public with sharing class CCRMLeadActions {
       Schema.sObjectType.Lead.fields.ACN_Validation_Status__c.isUpdateable()
     ) {
       List<Database.saveResult> results = Database.update(updateLeads, false);
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'makeAcnCallout'
-      );
-      log.addDatabaseSaveResult('Lead', results, updateLeads);
-      log.insertLog();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 

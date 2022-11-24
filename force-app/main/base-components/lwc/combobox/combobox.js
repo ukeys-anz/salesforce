@@ -57,6 +57,7 @@ export default class cCombobox extends LightningElement {
   @track _selectedItems = [];
   @track _variant;
   @track _helpMessage;
+  removePillInitiatedFlow = false;
 
   _labelForId;
 
@@ -174,11 +175,13 @@ export default class cCombobox extends LightningElement {
   }
 
   set value(newValue) {
-    if (newValue !== this.selectedValue) {
+    if (newValue !== this.selectedValue && !this.removePillInitiatedFlow) {
       this.selectedValue = newValue;
       if (this.connected && this.options) {
         this.updateSelectedOptions();
       }
+    } else {
+      this.removePillInitiatedFlow = false;
     }
   }
 
@@ -400,6 +403,7 @@ export default class cCombobox extends LightningElement {
           selectedItem.checked = false;
           selectedItem.iconName = undefined;
           selectedItem.highlight = false;
+          this.removePillInitiatedFlow = true;
         } else {
           selectedItem.iconName = "utility:check";
           this._selectedItem.highlight = true;
@@ -408,6 +412,13 @@ export default class cCombobox extends LightningElement {
       }
       if (this._multiSelect) {
         this._selectedItems = this._items.filter((item) => item.checked);
+        if (
+          !this._selectedItems ||
+          JSON.stringify(this._selectedItems) === "[]"
+        ) {
+          this._selectedItem = undefined;
+          this.selectedValue = undefined;
+        }
       }
 
       this._items = this._items.slice();
@@ -417,6 +428,7 @@ export default class cCombobox extends LightningElement {
   removePill(event) {
     if (!this.disabled) {
       event.detail.value = event.detail.name;
+      this.removePillInitiatedFlow = true;
       this.handleSelect(event);
     }
   }

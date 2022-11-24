@@ -1106,26 +1106,25 @@ private class CaseTriggerHandlerTest {
   @isTest
   static void testPopulateDisputeCaseSubject() {
     Case[] newCases = new List<Case>();
+    String disputeReason = 'Don\'t recognise the transaction';
     Account acc = [SELECT Id FROM Account LIMIT 1];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
           RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
           Type = '',
-          Dispute_Reason__c = 'Charged for a cancelled payment',
+          Dispute_Reason__c = disputeReason,
           AccountId = acc.Id,
           Is_The_Card_Lost_Stolen__c = 'Lost',
-          Description = 'Some description',
-          Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
-          Customer_Contacted_Merchant__c = 'Yes',
-          Merchant_Description__c = 'Coles'
+          Has_The_Card_Been_Stopped__c = 'Yes',
+          Description = 'Some description'
         )
       );
     }
     insert newCases;
     newCases = [SELECT Subject FROM Case WHERE id = :newCases[0].id];
     System.assertEquals(
-      'Card - Charged for a cancelled payment',
+      'Card - ' + disputeReason,
       newCases[0].Subject,
       'New case subject should be as expected.'
     );
@@ -2919,13 +2918,11 @@ private class CaseTriggerHandlerTest {
         new Case(
           RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
           Type = '',
-          Dispute_Reason__c = 'Charged for a cancelled payment',
+          Dispute_Reason__c = 'Don\'t recognise the transaction',
           AccountId = acc.Id,
           Is_The_Card_Lost_Stolen__c = 'Lost',
+          Has_The_Card_Been_Stopped__c = 'Yes',
           Description = 'Some description',
-          Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
-          Customer_Contacted_Merchant__c = 'Yes',
-          Merchant_Description__c = 'Coles',
           Card_Token_Number__c = '4444444444444444'
         )
       );

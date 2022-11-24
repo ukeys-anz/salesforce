@@ -92,7 +92,8 @@ public with sharing class LogEventActions {
       ApexMethodName__c = eventRecord.ApexMethodName__c,
       Payload__c = eventRecord.Payload__c,
       SpanId__c = eventRecord.SpanId__c,
-      Log__c = logId
+      Log__c = logId,
+      RecordsJson__c = eventRecord.RecordsJson__c
     );
     return secureLogEntry;
   }
@@ -121,7 +122,6 @@ public with sharing class LogEventActions {
       Origin__c = eventRecord.Origin__c,
       RecordId__c = eventRecord.RecordId__c,
       RecordObjectName__c = eventRecord.RecordObjectName__c,
-      RecordsJson__c = eventRecord.RecordsJson__c,
       SpanId__c = eventRecord.SpanId__c,
       StackTrace__c = eventRecord.StackTrace__c,
       UsedCallouts__c = eventRecord.UsedCallouts__c,
@@ -252,11 +252,26 @@ public with sharing class LogEventActions {
      * Using Database class instead of DML statement in order to capture the record Ids and allow partial success of a bulk DML operation
      */
     List<Database.SaveResult> saveResults = Database.insert(logs, false);
+    List<Log__c> failedLogs = new List<Log__c>();
     for (Integer i = 0; i < saveResults.size(); i++) {
       if (saveResults[i].isSuccess()) {
         traceIdAndLogIdMap.put(logs[i].TraceId__c, saveResults[i].getId());
+      } else {
+        failedLogs.add(logs[i]);
       }
     }
+    if (failedLogs.size() > 0) {
+      throw new DatabaseException(
+        'Failed to insert the following log records: ' +
+        JSON.serialize(failedLogs)
+      );
+    }
     return traceIdAndLogIdMap;
+  }
+
+  /**
+   * @description Custom exception for Database insert action
+   */
+  public class DatabaseException extends Exception {
   }
 }

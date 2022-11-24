@@ -37,4 +37,10 @@
         <default>false</default>
         <label>New</label>
     </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>

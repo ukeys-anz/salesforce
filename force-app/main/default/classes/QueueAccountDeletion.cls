@@ -6,12 +6,6 @@
 public with sharing class QueueAccountDeletion implements Queueable {
   Account accountToDelete;
 
-  //call application log function to log results incase of failure
-  lib_systemLog log = new lib_systemLog(
-    QueueAccountDeletion.class.getName(),
-    'execute'
-  );
-
   /**
    * @description Constructor
    * @param accountFromTrigger account record passed from trigger
@@ -32,13 +26,7 @@ public with sharing class QueueAccountDeletion implements Queueable {
       !Entitlement.sObjectType.getDescribe().isDeletable() ||
       !Account.sObjectType.getDescribe().isDeletable()
     ) {
-      Lib_SystemLog.createSingleLog(
-        QueueAccountDeletion.class.getName(),
-        'execute',
-        '',
-        'Must be deletable: Case, Entitlement, Account.',
-        Lib_SystemLog.Severity.ERROR
-      );
+      Logger.error('Must be deletable: Case, Entitlement, Account.');
       new QueueAccountDeletionException(
         'Must be deletable: Case, Entitlement, Account.'
       );
@@ -83,14 +71,14 @@ public with sharing class QueueAccountDeletion implements Queueable {
     }
 
     //finally delete the account record only if all the related records are deleted successfully.
-    if (log.logList.isEmpty()) {
+    if (LoggerHelper.getBufferSize() == 0) {
       Database.DeleteResult result = Database.delete(accountToDelete, false);
       if (!result.isSuccess()) {
         logError('Account', result);
       }
     }
 
-    log.insertLogAsync();
+    Logger.saveLog();
   }
 
   /**
@@ -119,7 +107,7 @@ public with sharing class QueueAccountDeletion implements Queueable {
   }
 
   /**
-   * @description Generic method to log delete failures in Lib_SystemLog.addObjectMessage
+   * @description Generic method to log delete failures in Logger
    * @param objectAPIName object API Name
    * @param deleteResult Database.DeleteResult
    */
@@ -128,19 +116,7 @@ public with sharing class QueueAccountDeletion implements Queueable {
     Database.DeleteResult deleteResult
   ) {
     for (Database.Error err : deleteResult.getErrors()) {
-      String errNo = String.valueof(err.getStatusCode());
-      log.addObjectMessage(
-        objectAPIName,
-        deleteResult.Id,
-        errNo,
-        'Id=' +
-        deleteResult.Id +
-        ',Message:' +
-        err.getMessage() +
-        'Fields:' +
-        err.getFields(),
-        lib_systemLog.Severity.ERROR
-      );
+      Logger.error(err.getMessage());
     }
   }
 

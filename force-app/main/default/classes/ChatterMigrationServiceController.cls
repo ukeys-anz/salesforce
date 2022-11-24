@@ -14,14 +14,9 @@ global with sharing class ChatterMigrationServiceController {
   private static void init() {
     UniqueIdUtil.captureTraceAndSpanIdFromRestRequest(RestContext.Request);
 
-    lib_systemLog log = new lib_systemLog(
-      ChatterMigrationServiceController.class.getName(),
-      'ChatterMigrationServiceController Recieved'
-    );
+    Logger.info('ChatterMigrationServiceController - Request Recieved');
 
-    log.info('ChatterMigrationServiceController - Request Recieved');
-
-    log.insertLogAsync();
+    Logger.saveLog();
   }
 
   /**
@@ -31,14 +26,10 @@ global with sharing class ChatterMigrationServiceController {
    */
   @AuraEnabled
   public static Boolean migrateViaButton(Id recordId) {
-    lib_systemLog log = new lib_systemLog(
-      ChatterMigrationServiceController.class.getName(),
-      'ChatterMigrationServiceController Recieved'
-    );
-    log.info(
+    Logger.info(
       'Manual OCV Merge Via button Triggered by: ' + UserInfo.getUserId()
     );
-    log.publishEvent();
+    Logger.saveLog();
 
     Account record = [
       SELECT Id, Survivor_Party_ID__c, External_Id__c
@@ -59,8 +50,8 @@ global with sharing class ChatterMigrationServiceController {
       );
       return true;
     } catch (Exception error) {
-      log.info('Manual OCV Merge Exception: ' + error.getMessage());
-      log.publishEvent();
+      Logger.error('Manual OCV Merge Exception: ' + error.getMessage(), error);
+      Logger.saveLog();
 
       throw new AuraHandledException(
         'Could not migrate to Surviving Party. You may not have the right permissions. Error Code: CHATTEROCV-001'
@@ -127,17 +118,12 @@ global with sharing class ChatterMigrationServiceController {
     RestContext.response.responseBody = Blob.valueOf(JSON.serialize(response));
     RestContext.response.addHeader('Content-Type', 'application/json');
 
-    lib_systemLog log = new lib_systemLog(
-      ChatterMigrationServiceController.class.getName(),
-      'ChatterMigrationServiceController Response'
-    );
-
-    log.info('HTTP Code: ' + String.valueOf(statusCode));
+    Logger.info('HTTP Code: ' + String.valueOf(statusCode));
 
     if (response.containsKey('error')) {
-      log.error(response.get('error'));
+      Logger.error(response.get('error'));
     }
 
-    log.insertLogAsync();
+    Logger.saveLog();
   }
 }

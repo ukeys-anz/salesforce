@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Prospect__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <description>Flag to indicate Account is prospect or not.</description>
+    <externalId>false</externalId>
+    <formula>RecordType.DeveloperName = &apos;Business_Account&apos; &amp;&amp;
+ISPICKVAL(FinServ__Status__c, &apos;Prospect&apos;) &amp;&amp;
+Source_System_Name__c = $Label.CCRM_Source_System_Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Prospect</label>
+    <type>Checkbox</type>
+</CustomField>

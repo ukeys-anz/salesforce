@@ -387,16 +387,8 @@ public with sharing class IDRCollectionActions {
         isCollectionEventFailed = true;
       }
     }
-    Lib_SystemLog log = new Lib_SystemLog(
-      IDRCollectionActions.class.getName(),
-      'publishCollectionEvent'
-    );
-    log.addDatabaseSaveResult(
-      'IDR_Collections_Event__e',
-      publishResults,
-      collectionsEventList
-    );
-    log.insertLogAsync();
+    Logger.error('',publishResults);
+    Logger.saveLog();
   }
 
   /**
@@ -408,12 +400,8 @@ public with sharing class IDRCollectionActions {
       collectionTaskList,
       false
     );
-    Lib_SystemLog log = new Lib_SystemLog(
-      'IDRCollectionActions',
-      'insertSystemTasks'
-    );
-    log.addDatabaseSaveResult('Task', results, collectionTaskList);
-    log.insertLogAsync();
+    Logger.error('',results);
+    Logger.saveLog();
   }
 
   /**

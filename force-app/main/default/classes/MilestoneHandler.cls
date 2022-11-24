@@ -24,14 +24,15 @@ public with sharing class MilestoneHandler {
     Set<Id> milestoneCaseIds = new Set<Id>();
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      milestoneCaseIds.add(updateGeneralEnquiryMilestone(oldRecord, record));
-      milestoneCaseIds.add(updateANZPlusComplaintMilestone(oldRecord, record));
-      milestoneCaseIds.add(updateDisputeMilestone(oldRecord, record));
-      milestoneCaseIds.add(
-        updateNonCustomerComplaintMilestone(oldRecord, record)
-      );
+      if (
+        isGeneralEnquiryValidCase(oldRecord, record) ||
+        isANZPlusComplaintValidCase(oldRecord, record) ||
+        isDisputeValidCase(oldRecord, record) ||
+        isNonCustomerComplaintValidCase(oldRecord, record)
+      ) {
+        milestoneCaseIds.add(record.Id);
+      }
     }
-    milestoneCaseIds.remove(null);
 
     if (!milestoneCaseIds.isEmpty()) {
       MilestoneUtils.completeMilestones(
@@ -47,14 +48,14 @@ public with sharing class MilestoneHandler {
   }
 
   /**
-   * @description This method will find general enquiry case which needs milestone update
+   * @description This method will check if a general enquiry case is valid for updating milestone.
    * @param oldRecord the old values of a record to process
    * @param record new record instance to process
-   * @return Id of the record
+   * @return Boolean true/false check if it is valid for updating milestone.
    */
-  public static Id updateGeneralEnquiryMilestone(Case oldRecord, Case record) {
+  public static Boolean isGeneralEnquiryValidCase(Case oldRecord, Case record) {
     if (!CheckCaseRecordType.isGeneralEnquiry(record)) {
-      return null;
+      return false;
     }
 
     Boolean checkStatus =
@@ -64,24 +65,21 @@ public with sharing class MilestoneHandler {
       oldRecord,
       record
     );
-    if (checkStatus || isAEMConvertedCase) {
-      return record.Id;
-    }
-    return null;
+    return checkStatus || isAEMConvertedCase;
   }
 
   /**
-   * @description This method will find ANZ plus complaint case which needs milestone update
+   * @description This method will check if a ANZ plus complaint case is valid for updating milestone.
    * @param oldRecord the old values of a record to process
    * @param record new record instance to process
-   * @return Id of the record
+   * @return Boolean true/false check if it is valid for updating milestone.
    */
-  public static Id updateANZPlusComplaintMilestone(
+  public static Boolean isANZPlusComplaintValidCase(
     Case oldRecord,
     Case record
   ) {
     if (!CheckCaseRecordType.isANZPlusComplaint(record)) {
-      return null;
+      return false;
     }
     Boolean checkStatus =
       oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
@@ -96,48 +94,37 @@ public with sharing class MilestoneHandler {
       oldRecord,
       record
     );
-    if (checkStatus || isAEMConvertedCase) {
-      return record.Id;
-    }
-    return null;
+    return checkStatus || isAEMConvertedCase;
   }
   /**
-   * @description This method will find dispute case which needs milestone update
+   * @description This method will check if a dispute case is valid for updating milestone.
    * @param oldRecord the old values of a record to process
    * @param record new record instance to process
-   * @return Id of the record
+   * @return Boolean true/false check if it is valid for updating milestone.
    */
-  public static Id updateDisputeMilestone(Case oldRecord, Case record) {
+  public static Boolean isDisputeValidCase(Case oldRecord, Case record) {
     if (!CheckCaseRecordType.isDispute(record)) {
-      return null;
+      return false;
     }
     Boolean checkStatus =
       (oldRecord.Status == GetHelpConstants.OPEN_STATUS &&
       record.Status != GetHelpConstants.OPEN_STATUS) ||
       (oldRecord.Status == GetHelpConstants.UNDER_INVESTIGATION_STATUS &&
       record.Status == GetHelpConstants.CLOSED_STATUS);
-    if (checkStatus) {
-      return record.Id;
-    }
-    return null;
+    return checkStatus;
   }
   /**
-   * @description This method will find non-customer complaint case which needs milestone update
+   * @description This method will check if a Non-Customer complaint case is valid for updating milestone.
    * This cases are made from AEM convertion.
    * @param oldRecord the old values of a record to process
    * @param record new record instance to process
-   * @return Id of the record
+   * @return Boolean true/false check if it is valid for updating milestone.
    */
-  public static Id updateNonCustomerComplaintMilestone(
+  public static Boolean isNonCustomerComplaintValidCase(
     Case oldRecord,
     Case record
   ) {
-    if (
-      GetHelpCaseActionsHelper.isAEMConverted(oldRecord, record) &&
-      CheckCaseRecordType.isNonCustomerComplaint(record)
-    ) {
-      return record.Id;
-    }
-    return null;
+    return GetHelpCaseActionsHelper.isAEMConverted(oldRecord, record) &&
+      CheckCaseRecordType.isNonCustomerComplaint(record);
   }
 }

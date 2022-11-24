@@ -44,12 +44,8 @@ public with sharing class LeadChatterMigrationHelper {
         }
       }
     } catch (Exception e) {
-      Lib_SystemLog.createSingleLogAsync(
-        LeadChatterMigrationHelper.class.getName(),
-        'migrateChatterPostsOnConversion',
-        'LEA001',
-        e.getMessage()
-      );
+      Logger.error('LEA001 ' + e.getMessage(), e);
+      Logger.saveLog();
     }
   }
 
@@ -120,12 +116,7 @@ public with sharing class LeadChatterMigrationHelper {
       FeedItemRetriever feedItemRetriever = new FeedItemRetriever();
       chatterToMigrate = feedItemRetriever.queryFeedItems(convertedLeadsList);
     } catch (Exception e) {
-      Lib_SystemLog.createSingleLogAsync(
-        LeadChatterMigrationHelper.class.getName(),
-        'findChatterItemsToMigrate',
-        'LEA002',
-        e.getMessage()
-      );
+      Logger.error('LEA002 ' + e.getMessage(), e);
     }
 
     return chatterToMigrate;

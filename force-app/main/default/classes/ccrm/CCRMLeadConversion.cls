@@ -161,12 +161,7 @@ public without sharing class CCRMLeadConversion {
       }
       return oppId;
     } else {
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadConversion.class.getName(),
-        'convertLead'
-      );
-      CCRMLeadConversion.addLeadConvertResult(log, 'CCRMLeadConversion', lcr);
+      CCRMLeadConversion.addLeadConvertResult('CCRMLeadConversion', lcr);
       return null;
     }
   }
@@ -223,13 +218,11 @@ public without sharing class CCRMLeadConversion {
    * @description  The method addLeadConvertResult is used for for creating logs with existing Trace Id when performing lead conversion
    * The save results are checked to see if its successful and if there are any failures we add to the log list. At the end the caller should call {@link insertLog()} method
    * to create record/records in Traced_Application_Log__b object. If an error is found, a boolean is returned so users can easily identify and throw errors
-   * @param log Log object
    * @param objectName The name of the object used to create the log record.
    * @param leadConvertResult Lead Convert Result to log
    * @return Boolean
    */
   public static Boolean addLeadConvertResult(
-    lib_systemLog log,
     String objectName,
     Database.LeadConvertResult leadConvertResult
   ) {
@@ -242,21 +235,16 @@ public without sharing class CCRMLeadConversion {
         if (errNo.length() > 50) {
           errNo = errNo.substring(0, 50);
         }
-        log.addObjectMessage(
-          objectName,
-          leadConvertResult.getLeadId(),
-          errNo,
-          'Id=' +
-          leadConvertResult.getLeadId() +
-          ',Message:' +
-          err.getMessage() +
-          'Fields:' +
-          err.getFields(),
-          lib_systemLog.Severity.ERROR
-        );
+        Logger.error('Id=' +
+        leadConvertResult.getLeadId() +
+        ',Message:' +
+        err.getMessage() +
+        'Fields:' +
+        err.getFields());
+      
       }
     }
-    log.insertLog();
+    Logger.saveLog();
     return hasError;
   }
 
@@ -295,13 +283,8 @@ public without sharing class CCRMLeadConversion {
       Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable()
     ) {
       List<Database.saveResult> results = Database.update(leads, false);
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'checkSkipValidation'
-      );
-      log.addDatabaseSaveResult('Lead', results, leads);
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
     checkTaskSkipValidations(leadIds);
   }
@@ -328,13 +311,8 @@ public without sharing class CCRMLeadConversion {
       Schema.sObjectType.Task.fields.Skip_Validations__c.isUpdateable()
     ) {
       List<Database.SaveResult> results = Database.update(newTasks, false);
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        CCRMLeadActions.class.getName(),
-        'checkTaskSkipValidations'
-      );
-      log.addDatabaseSaveResult('Task', results, newTasks);
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 }

@@ -34,9 +34,22 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    List<Account> prospects = CCRMAccountActions.extractProspectAccounts(
+      records
+    );
     CCRMAccountActions.setControllingPost(records, (Map<Id, Account>) oldMap);
     AccountCommonActions.revertAccountChanges(records, oldMap);
     CCRMAccountActions.revertAccountChanges(records, oldMap);
+    CCRMAccountActions.validateAndFormatProspectAbnAcnArbn(
+      prospects,
+      (Map<Id, Account>) oldMap
+    );
+    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+      prospects,
+      (Map<Id, Account>) oldMap,
+      'Id',
+      null
+    );
   }
 
   /**

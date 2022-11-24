@@ -140,13 +140,11 @@ public with sharing class ChatterPostActions {
           Database.Insert(newChatterPostList);
         }
       } catch (Exception err) {
-        lib_systemLog.createSingleLog(
-          'CCRMLeadActions',
-          'createLeadChatterPost',
-          'CHATTER_POST_NOT_GETTING_CREATED',
-          err.getMessage(),
-          lib_systemLog.Severity.ERROR
+        Logger.error(
+          'CHATTER_POST_NOT_GETTING_CREATED' + err.getMessage(),
+          err
         );
+        Logger.saveLog();
       }
     }
   }

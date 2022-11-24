@@ -7,9 +7,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class UserProvisioningAfterActions {
-  private static lib_systemLog log = new lib_systemLog(
-    UserProvisioningAfterActions.class.getName()
-  );
   private static Set<Id> failedRecordIds = new Set<Id>();
 
   /**
@@ -245,6 +242,7 @@ public with sharing class UserProvisioningAfterActions {
               logError(rec.AssigneeId, err);
             }
           }
+          Logger.saveLog();
         }
       }
     } else {
@@ -286,6 +284,7 @@ public with sharing class UserProvisioningAfterActions {
               logError(rec.AssigneeId, err);
             }
           }
+          Logger.saveLog();
         }
       }
     } else {
@@ -321,6 +320,7 @@ public with sharing class UserProvisioningAfterActions {
             failedRecordIds.add(rec.UserOrGroupId);
             logError(rec.UserOrGroupId, err);
           }
+          Logger.saveLog();
         }
       }
     } else {
@@ -484,16 +484,12 @@ public with sharing class UserProvisioningAfterActions {
             failedRecordIds.add(rec.AssigneeId);
             logError(rec.AssigneeId, err);
           }
+          Logger.saveLog();
         }
       }
     } else {
-      Lib_SystemLog.createSingleLog(
-        'UserProvisioningAfterActions',
-        'deletePsetAssignment',
-        '',
-        'PermissionSetAssignment is not deletable',
-        Lib_SystemLog.Severity.ERROR
-      );
+      Logger.error('PermissionSetAssignment is not deletable');
+      Logger.saveLog();
     }
   }
 
@@ -517,36 +513,21 @@ public with sharing class UserProvisioningAfterActions {
             failedRecordIds.add(rec.UserOrGroupId);
             logError(rec.UserOrGroupId, err);
           }
+          Logger.saveLog();
         }
       }
     } else {
-      Lib_SystemLog.createSingleLog(
-        'UserProvisioningAfterActions',
-        'deleteGroupAssignment',
-        '',
-        'GroupMember is not deletable',
-        Lib_SystemLog.Severity.ERROR
-      );
+      Logger.error('GroupMember is not deletable');
+      Logger.saveLog();
     }
   }
 
   /**
-   * @description Generic method to log failures in Lib_SystemLog.addObjectMessage
+   * @description Generic method to log failures
    * @param recordId record Id of the failed record
    * @param error Database.Error
    */
   private static void logError(String recordId, Database.Error error) {
-    log.addObjectMessage(
-      'User',
-      recordId,
-      String.valueOf(error.getStatusCode()),
-      'Id=' +
-      recordId +
-      ',Message:' +
-      error.getMessage() +
-      'Fields:' +
-      error.getFields(),
-      Lib_SystemLog.Severity.ERROR
-    );
+    Logger.error(error.getMessage(), recordId);
   }
 }

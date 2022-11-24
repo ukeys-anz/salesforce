@@ -13,6 +13,8 @@
     <queue>Account_Closure_Queue</queue>
     <sharedTo>
         <role>Coach_Lead</role>
+        <role>FinCrime_Agent</role>
+        <role>FraudX_Agent</role>
         <role>Support_Coach</role>
     </sharedTo>
 </ListView>

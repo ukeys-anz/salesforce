@@ -312,13 +312,16 @@
                   ></lightning-input-field>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                  <lightning-input-field
+                  <lightning-input
                     required
                     aria-required="true"
                     variant="label-stacked"
-                    field-name={postcode}
+                    label={postCodeLabel}
+                    field-level-help="Enter the Customer's 4-digit Australian postcode. If the customer is overseas, enter 'Overseas'. if the postcode is unknown, enter 'Not Applicable'."
                     data-id="postcode-id"
-                  ></lightning-input-field>
+                    value={postCodeInputValue}
+                    onblur={handlePostCodeChange}
+                  ></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field

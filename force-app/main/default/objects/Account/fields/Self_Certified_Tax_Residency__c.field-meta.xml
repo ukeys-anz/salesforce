@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - OCV</complianceGroup>
     <description>Flag to capture self-certified Tax Residency</description>
     <externalId>false</externalId>
-    <label>Self Certified Tax Residency</label>
+    <label>Tax Residency</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

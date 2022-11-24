@@ -259,16 +259,8 @@ public without sharing class CCRMRegionSharingUtil {
     if (!shareRecords.isEmpty()) {
       Database.SaveResult[] results = Database.insert(shareRecords);
 
-      lib_systemLog log = new lib_systemLog(
-        'CCRMRegionSharingUtil',
-        'addRecordsToOwnerRegion'
-      );
-      log.addDatabaseSaveResult(
-        shareObjectInfo.objectType.getDescribe().Name,
-        results,
-        shareRecords
-      );
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
 
     if (!newAreaCodes.isEmpty()) {
@@ -319,16 +311,8 @@ public without sharing class CCRMRegionSharingUtil {
     if (!shareRecords.isEmpty()) {
       Database.DeleteResult[] results = Database.delete(shareRecords);
 
-      lib_systemLog log = new lib_systemLog(
-        'CCRMRegionSharingUtil',
-        'removeRecordsFromOwnerRegion'
-      );
-      log.addDatabaseDeleteResult(
-        shareObjectInfo.objectType.getDescribe().Name,
-        results,
-        shareRecords
-      );
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 
@@ -356,12 +340,8 @@ public without sharing class CCRMRegionSharingUtil {
     if (!groupMembers.isEmpty()) {
       Database.SaveResult[] results = Database.insert(groupMembers);
 
-      lib_systemLog log = new lib_systemLog(
-        'CCRMRegionSharingUtil',
-        'addUsersToRegion'
-      );
-      log.addDatabaseSaveResult('GroupMember', results, groupMembers);
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
 
     if (!newAreaCodes.isEmpty()) {
@@ -404,13 +384,8 @@ public without sharing class CCRMRegionSharingUtil {
 
     if (!groupMembers.isEmpty()) {
       Database.DeleteResult[] results = Database.delete(groupMembers);
-
-      lib_systemLog log = new lib_systemLog(
-        'CCRMRegionSharingUtil',
-        'removeUsersFromRegion'
-      );
-      log.addDatabaseDeleteResult('GroupMember', results, groupMembers);
-      log.insertLogAsync();
+      Logger.error('',results);
+      Logger.saveLog();
     }
   }
 
@@ -452,12 +427,8 @@ public without sharing class CCRMRegionSharingUtil {
 
     //insert and log results
     Database.SaveResult[] regionSaveResults = Database.insert(regions);
-    lib_systemLog log = new lib_systemLog(
-      'CCRMRegionSharingUtil',
-      'createRegions'
-    );
-    log.addDatabaseSaveResult('Group', regionSaveResults, regions);
-    log.insertLogAsync();
+    Logger.error('',regionSaveResults);
+    Logger.saveLog();
 
     //append newly created public groups to the mapRegions for processing
     for (Group region : regions) {

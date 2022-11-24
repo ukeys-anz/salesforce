@@ -39,11 +39,7 @@ public with sharing class IDREmailServiceHelper {
       new List<Case>{ newCase }
     );
     if (acw.inAccessibleFields != null) {
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDREmailServiceHandler.class.getName(),
-        'createNewCase'
-      );
-      log.error(
+      Logger.error(
         'EmailServiceException',
         'User does not have create access to fields --' +
         acw.inAccessibleFields +
@@ -54,16 +50,12 @@ public with sharing class IDREmailServiceHelper {
         ' Email sent to : ' +
         senderEmail
       );
-      log.publishEvent();
+      Logger.saveLog();
     } else {
       try {
         insert newCase;
       } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHandler.class.getName(),
-          'createNewCase'
-        );
-        log.error(
+        Logger.error(
           'EmailServiceException',
           'Error in creating new case from email service class : ' +
           'Recieved email from : ' +
@@ -74,7 +66,7 @@ public with sharing class IDREmailServiceHelper {
           senderEmail +
           err.getMessage()
         );
-        log.publishEvent();
+        Logger.saveLog();
       }
     }
     return newCase;
@@ -114,17 +106,13 @@ public with sharing class IDREmailServiceHelper {
         insert emailMessage;
       }
     } catch (Exception err) {
-      Lib_SystemLog log = new Lib_SystemLog(
-        IDREmailServiceHelper.class.getName(),
-        'createEmailMessage'
-      );
-      log.error(
+      Logger.error(
         'EmailServiceException',
         'Error in creating email message from service class, which needs to be attached to existing case :' +
         caseId +
         err.getMessage()
       );
-      log.publishEvent();
+      Logger.saveLog();
     }
   }
 
@@ -164,16 +152,8 @@ public with sharing class IDREmailServiceHelper {
           contentVersionList,
           false
         );
-        lib_systemLog log = new lib_systemLog(
-          'IDREmailServiceHelper',
-          'createAttachmentFiles'
-        );
-        log.addDatabaseSaveResult(
-          'ContentVersion',
-          results,
-          contentVersionList
-        );
-        log.insertLogAsync();
+        Logger.error('', results);
+        Logger.saveLog();
       }
     }
 
@@ -195,10 +175,6 @@ public with sharing class IDREmailServiceHelper {
     Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
-    Lib_SystemLog log = new Lib_SystemLog(
-      IDREmailServiceHelper.class.getName(),
-      'getTextFileAttachments'
-    );
     if (tAttachments != null && tAttachments.size() > 0) {
       for (Messaging.Inboundemail.TextAttachment tAttachment : tAttachments) {
         if (
@@ -215,8 +191,7 @@ public with sharing class IDREmailServiceHelper {
           );
           returnConVerList.add(cv);
         } else {
-          log.error(
-            'EmailServiceException',
+          Logger.error(
             'Discarded an attachment as the type was unsupported => filename : ' +
             tAttachment.fileName +
             ' , mimesubtype : ' +
@@ -227,7 +202,7 @@ public with sharing class IDREmailServiceHelper {
         }
       }
     }
-    log.publishEvent();
+    Logger.saveLog();
     return returnConVerList;
   }
 
@@ -242,10 +217,6 @@ public with sharing class IDREmailServiceHelper {
     Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
-    Lib_SystemLog log = new Lib_SystemLog(
-      IDREmailServiceHelper.class.getName(),
-      'getTextBinaryAttachments'
-    );
     if (bAttachments != null && bAttachments.size() > 0) {
       for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
         if (
@@ -262,8 +233,7 @@ public with sharing class IDREmailServiceHelper {
           );
           returnConVerList.add(cv);
         } else {
-          log.error(
-            'EmailServiceException',
+          Logger.error(
             'Discarded a binary attachment as the type was unsupported => filename : ' +
             bAttachment.fileName +
             ' , mimesubtype : ' +
@@ -274,7 +244,7 @@ public with sharing class IDREmailServiceHelper {
         }
       }
     }
-    log.publishEvent();
+    Logger.saveLog();
     return returnConVerList;
   }
 
@@ -307,17 +277,12 @@ public with sharing class IDREmailServiceHelper {
       try {
         update newCase;
       } catch (Exception err) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          IDREmailServiceHelper.class.getName(),
-          'updateCaseWithQueue'
-        );
-        log.error(
-          'CaseUtilException',
+        Logger.error(
           'Error in updating case with queue for caseId :' +
           newCase.Id +
           err.getMessage()
         );
-        log.publishEvent();
+        Logger.saveLog();
       }
     }
   }

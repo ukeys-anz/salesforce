@@ -59,8 +59,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
 
       Boolean condition = TSPCondition.condition(profileName, event);
       if (condition) {
-        lib_systemLog log = new lib_systemLog(TSPHandler.class.getName());
-        log.error(
+        Logger.error(
           eventName +
           ' has been done by ' +
           username +
@@ -70,7 +69,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
           profileName +
           ' profile.'
         );
-        log.publishEvent();
+        Logger.saveLog();
         return true;
       }
     }

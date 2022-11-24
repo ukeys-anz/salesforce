@@ -69,7 +69,7 @@ public with sharing class LoggerHelper {
    * @return                  The matching instance of LoggingLevel (or a default value if a match is not found)
    */
   @TestVisible
-  private static LoggingLevel getLoggingLevel(String loggingLevelName) {
+  public static LoggingLevel getLoggingLevel(String loggingLevelName) {
     if (loggingLevelName != null) {
       loggingLevelName = loggingLevelName.trim().toUpperCase();
     }

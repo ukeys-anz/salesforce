@@ -57,11 +57,7 @@ public with sharing class SurveyResponseActions {
         sr.qualtrics__Account__c = ocvIdToAccountIdMap.get(ocvId);
       } else {
         sr.addError(INVALID_OCV_ID_ERROR);
-        lib_systemLog log = new lib_systemLog(
-          'SurveyResponseActions',
-          'beforeInsertActions'
-        );
-        log.info(
+        Logger.info(
           'OCV ID: ' +
           ocvId +
           '; Q_SurveyID: ' +
@@ -69,9 +65,9 @@ public with sharing class SurveyResponseActions {
           '; Q_Recipient ID: ' +
           sr.RecipientId__c
         );
-        log.publishEvent();
       }
     }
+    Logger.saveLog();
   }
 
   /**
@@ -102,12 +98,8 @@ public with sharing class SurveyResponseActions {
       );
 
       List<Database.SaveResult> results = Database.Insert(casesToCreate, false);
-      lib_systemLog log = new lib_systemLog(
-        'SurveyResponseActions',
-        'createCaseForSurveyResponse'
-      );
-      log.addDatabaseSaveResult('Case', results, new List<Case>());
-      log.insertLog();
+      Logger.error('', results);
+      Logger.saveLog();
     }
   }
 

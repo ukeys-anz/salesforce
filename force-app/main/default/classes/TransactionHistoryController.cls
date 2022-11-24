@@ -47,10 +47,6 @@ public with sharing class TransactionHistoryController {
     String financialAccountId
   ) {
     Map<String, Object> returnMap = new Map<String, Object>();
-    Lib_SystemLog log = new Lib_SystemLog(
-      'TransactionHistoryController',
-      'getPersonAccount'
-    );
 
     if (
       Account.SObjectType.getDescribe().isAccessible() &&
@@ -95,15 +91,15 @@ public with sharing class TransactionHistoryController {
         'OCV_ID__c',
         financialAccount.FinServ__PrimaryOwner__r.OCV_ID__c
       );
-      log.trace(
+      Logger.debug(
         'Person Account retrieved with Id: ' +
         financialAccount.FinServ__PrimaryOwner__c
       );
-      log.publishEvent();
+      Logger.saveLog();
       return returnMap;
     }
-    log.trace('Unable to retrieve person account');
-    log.insertLogAsync();
+    Logger.debug('Unable to retrieve person account');
+    Logger.saveLog();
     return null;
   }
 
@@ -117,10 +113,7 @@ public with sharing class TransactionHistoryController {
     String recordTypeName = Schema.SObjectType.Case.getRecordTypeInfosById()
       .get(logDetails.get('selectedRecordType'))
       .getName();
-    Lib_SystemLog.createSingleLog(
-      TransactionHistoryController.class.getName(),
-      'logMissedTransaction',
-      '',
+    Logger.error(
       'Failed to automatically infer dispute type for transaction ' +
       logDetails.get('transactionId') +
       ' of type ' +
@@ -130,8 +123,8 @@ public with sharing class TransactionHistoryController {
       ' as a result. Financial account: ' +
       logDetails.get('financialAccountId') +
       ' | User Id: ' +
-      UserInfo.getUserId(),
-      Lib_SystemLog.Severity.ERROR
+      UserInfo.getUserId()
     );
+    Logger.saveLog();
   }
 }
