@@ -21,15 +21,13 @@ public with sharing class SubmitDisputeControllerTest {
       RecordTypeID = GetHelpConstants.CARD_DISPUTE_RT_ID,
       Subject = 'Test Disputes',
       Type = 'Cards',
-      Dispute_Reason__c = 'Charged for a cancelled payment',
+      Dispute_Reason__c = 'Don\'t recognise the transaction',
       AccountId = acc.Id,
       Is_The_Card_Lost_Stolen__c = 'Lost',
+      Has_The_Card_Been_Stopped__c = 'Yes',
       Status = 'Open',
       Queue__c = null,
-      Description = 'Some description',
-      Regular_Payment_Cancellation_Date__c = Date.valueOf('2021-10-15'),
-      Customer_Contacted_Merchant__c = 'Yes',
-      Merchant_Description__c = 'Coles'
+      Description = 'Some description'
     );
     insert new Salesforce_Library_Settings__c(
       SetupOwnerId = UserInfo.getOrganizationId(),

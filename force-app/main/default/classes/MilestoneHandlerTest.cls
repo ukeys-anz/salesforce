@@ -16,10 +16,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID;
-    System.assertEquals(
-      MilestoneHandler.updateGeneralEnquiryMilestone(oldRecord, newRecord),
-      newRecord.Id,
-      'This should be an AEM converted Case'
+    System.assert(
+      MilestoneHandler.isGeneralEnquiryValidCase(oldRecord, newRecord),
+      'This should be a valid case.'
     );
     Test.stopTest();
   }
@@ -40,10 +39,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.RecordTypeId = GetHelpConstants.FRAUD_RT_ID;
-    System.assertNotEquals(
-      MilestoneHandler.updateGeneralEnquiryMilestone(oldRecord, newRecord),
-      newRecord.Id,
-      'This should be an AEM converted Case'
+    System.assert(
+      !MilestoneHandler.isGeneralEnquiryValidCase(oldRecord, newRecord),
+      'This should not be a valid case.'
     );
     Test.stopTest();
   }
@@ -62,10 +60,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.status = GetHelpConstants.CLOSED_STATUS;
-    System.assertEquals(
-      MilestoneHandler.updateGeneralEnquiryMilestone(oldRecord, newRecord),
-      newRecord.Id,
-      'This entitlement should be updated'
+    System.assert(
+      MilestoneHandler.isGeneralEnquiryValidCase(oldRecord, newRecord),
+      'This should be a valid case.'
     );
     Test.stopTest();
   }
@@ -84,10 +81,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS;
-    System.assertEquals(
-      MilestoneHandler.updateGeneralEnquiryMilestone(oldRecord, newRecord),
-      null,
-      'This entitlement should not be updated'
+    System.assert(
+      !MilestoneHandler.isGeneralEnquiryValidCase(oldRecord, newRecord),
+      'This should not be a valid case.'
     );
     Test.stopTest();
   }
@@ -108,10 +104,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID;
-    System.assertEquals(
-      MilestoneHandler.updateANZPlusComplaintMilestone(oldRecord, newRecord),
-      newRecord.Id,
-      'This should be an AEM converted Case'
+    System.assert(
+      MilestoneHandler.isANZPlusComplaintValidCase(oldRecord, newRecord),
+      'This should be a valid case.'
     );
     Test.stopTest();
   }
@@ -132,10 +127,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.RecordTypeId = GetHelpConstants.FRAUD_RT_ID;
-    System.assertNotEquals(
-      MilestoneHandler.updateANZPlusComplaintMilestone(oldRecord, newRecord),
-      newRecord.Id,
-      'This should be an AEM converted Case'
+    System.assert(
+      !MilestoneHandler.isANZPlusComplaintValidCase(oldRecord, newRecord),
+      'This should not be a valid case.'
     );
     Test.stopTest();
   }
@@ -155,10 +149,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.status = GetHelpConstants.CLOSED_STATUS;
-    System.assertEquals(
-      MilestoneHandler.updateANZPlusComplaintMilestone(oldRecord, newRecord),
-      newRecord.Id,
-      'This entitlement should be updated'
+    System.assert(
+      MilestoneHandler.isANZPlusComplaintValidCase(oldRecord, newRecord),
+      'This should not be a valid case.'
     );
     Test.stopTest();
   }
@@ -178,10 +171,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS;
-    System.assertEquals(
-      MilestoneHandler.updateANZPlusComplaintMilestone(oldRecord, newRecord),
-      null,
-      'This entitlement should not be updated'
+    System.assert(
+      !MilestoneHandler.isANZPlusComplaintValidCase(oldRecord, newRecord),
+      'This should not be a valid case.'
     );
     Test.stopTest();
   }
@@ -201,10 +193,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.status = GetHelpConstants.CLOSED_STATUS;
-    System.assertEquals(
-      MilestoneHandler.updateDisputeMilestone(oldRecord, newRecord),
-      newRecord.Id,
-      'This entitlement should be updated'
+    System.assert(
+      MilestoneHandler.isDisputeValidCase(oldRecord, newRecord),
+      'This should be a valid case.'
     );
     Test.stopTest();
   }
@@ -224,10 +215,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.Origin = 'Phone';
-    System.assertEquals(
-      MilestoneHandler.updateDisputeMilestone(oldRecord, newRecord),
-      null,
-      'This entitlement should not be updated'
+    System.assert(
+      !MilestoneHandler.isDisputeValidCase(oldRecord, newRecord),
+      'This should not be a valid case.'
     );
     Test.stopTest();
   }
@@ -248,13 +238,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
-    System.assertEquals(
-      MilestoneHandler.updateNonCustomerComplaintMilestone(
-        oldRecord,
-        newRecord
-      ),
-      newRecord.Id,
-      'This should be an AEM converted Case'
+    System.assert(
+      MilestoneHandler.isNonCustomerComplaintValidCase(oldRecord, newRecord),
+      'This should be a valid case.'
     );
     Test.stopTest();
   }
@@ -275,13 +261,9 @@ public with sharing class MilestoneHandlerTest {
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
     newRecord.RecordTypeId = GetHelpConstants.FRAUD_RT_ID;
-    System.assertNotEquals(
-      MilestoneHandler.updateNonCustomerComplaintMilestone(
-        oldRecord,
-        newRecord
-      ),
-      newRecord.Id,
-      'This should be an AEM converted Case'
+    System.assert(
+      !MilestoneHandler.isNonCustomerComplaintValidCase(oldRecord, newRecord),
+      'This should not be a valid case.'
     );
     Test.stopTest();
   }
