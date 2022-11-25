@@ -12,6 +12,7 @@ public with sharing class QualityAssessmentActions {
   public static final String SUB_STATUS_OTHER = 'Other';
   public static final String SUB_STATUS_COMPLIANCE_REVIEW = 'Compliance Review';
   public static final String SUB_STATUS_EVALUATION_COMPLETED = 'Evaluation Completed';
+  public static final String EV_TYPE_INTERACTION = 'Interaction QI';
   public static final String EVALUATION_TYPE_MAPPING_ERROR = 'Please note that the selected evaluation type does not align to the select case or record type. Please review your selection.';
   public static final Map<String, String> CASE_RECORDTYPE_TO_QA_EVALUATION_TYPE = new Map<String, String>{
     'Scam' => 'Fraud & Dispute',
@@ -280,7 +281,8 @@ public with sharing class QualityAssessmentActions {
     for (Quality_Assessment__c qa : records) {
       if (
         qa.Related_Case__c != null &&
-        qa.RecordTypeId == GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID
+        qa.RecordTypeId == GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID &&
+        qa.Evaluation_Type__c != EV_TYPE_INTERACTION
       ) {
         caseIds.add(qa.Related_Case__c);
         qaHasRelatedCase.add(qa);
@@ -349,15 +351,10 @@ public with sharing class QualityAssessmentActions {
           insert qaShareRecords;
         }
       } catch (Exception e) {
-        lib_systemLog log = new lib_systemLog(
-          CommonUtil.class.getName(),
-          'createQAShareRecord'
+        Logger.error(
+          'Error creating Quality Assessment Sharing Record: ' + e.getMessage()
         );
-        log.error(
-          'Error creating Quality Assessment Sharing Record: ',
-          e.getMessage()
-        );
-        log.publishEvent();
+        Logger.saveLog();
       }
     }
   }

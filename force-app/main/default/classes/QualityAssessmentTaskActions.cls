@@ -99,12 +99,8 @@ public with sharing class QualityAssessmentTaskActions {
         }
       }
     } catch (System.QueryException e) {
-      lib_systemLog log = new lib_systemLog(
-        'QualityAssessmentActions',
-        'initComplianceTasks'
-      );
-      log.error('', e.getMessage(), e.getTypeName());
-      log.publishEvent();
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
 
       return null;
     }
@@ -123,13 +119,7 @@ public with sharing class QualityAssessmentTaskActions {
 
     List<Database.SaveResult> results = Database.insert(records, false);
 
-    //log errors to application log
-    lib_systemLog log = new lib_systemLog(
-      'QualityAssessmentActions',
-      'insertComplianceTasks'
-    );
-
-    log.addDatabaseSaveResult('Task', results, records);
-    log.insertLogAsync();
+    Logger.error('', results);
+    Logger.saveLog();
   }
 }

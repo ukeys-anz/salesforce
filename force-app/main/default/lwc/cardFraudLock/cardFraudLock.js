@@ -121,8 +121,7 @@ export default class cardFraudLock extends LightningElement {
           this.closeAction();
         }
       })
-      .catch((error) => {
-        console.log("error: " + error);
+      .catch(() => {
         let errorMessage = `Oh no! There was an issue ${
           this.buttonClicked === "Cancel Card" ? "cancelling" : "locking"
         } this card. Please refresh and try again. Raise a fault through TechAssist if the problem persists.`;

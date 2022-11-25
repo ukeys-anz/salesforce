@@ -1762,11 +1762,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IDR_EntitlementStartDate__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>IDR_Owner_Type__c</field>
             <table>Case</table>
         </columns>
@@ -1908,11 +1903,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Closure_Reason__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Comments_Actioned__c</field>
             <table>Case</table>
         </columns>
         <columns>

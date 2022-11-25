@@ -1,0 +1,29 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-quick-action-panel
+    header="Delete Contact"
+    class="slds-is-relative"
+  >
+    <p class="slds-text-align_center">
+      Are you sure you want to delete this Contact?
+    </p>
+    <div slot="footer">
+      <lightning-button
+        variant="neutral"
+        label="Cancel"
+        class="btnCancel"
+        onclick={handleCancel}
+      ></lightning-button>
+      <lightning-button
+        variant="brand"
+        label="Delete"
+        class="btnDelete slds-m-left_x-small"
+        onclick={handleConfirmDelete}
+      ></lightning-button>
+    </div>
+    <lightning-spinner
+      alternative-text="..."
+      if:true={isLoading}
+    ></lightning-spinner>
+  </lightning-quick-action-panel>
+</template>

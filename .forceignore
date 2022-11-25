@@ -32,6 +32,7 @@ force-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionse
 force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/Customer_Profile_Updates__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
@@ -149,3 +150,9 @@ force-app/main/default/objects/ResidentialLoanApplication/listViews/All_Resident
 force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-meta.xml
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
+
+#ANZX-72863 - to prevent layout being deployed becuase its custom metadata is already deleted
+force-app/main/default/layouts/PEGA_Smarts_Status_Mapping__mdt-PEGA Smarts Status Mapping Layout.layout-meta.xml
+
+#AR-16528 - ignoring destructive field that is being referenced in apex classes
+force-app/main/default/objects/LogEntry__c/fields/RecordsJson__c.field-meta.xml

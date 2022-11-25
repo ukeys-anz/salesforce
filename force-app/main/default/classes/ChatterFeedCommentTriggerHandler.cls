@@ -46,12 +46,8 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
       ) {
         record.CommentBody = TextUtils.maskDataAnzx(record.CommentBody);
         if (TextUtils.reactiveLogging(record.CommentBody)) {
-          lib_systemLog log = new lib_systemLog(
-            'ChatterFeedCommentTriggerHandler',
-            'onApplyDefaults'
-          );
           if (relatedCase != null) {
-            log.info(
+            Logger.info(
               'CaseNumber: ' +
               relatedCase.CaseNumber +
               '; Comment Body: ' +
@@ -59,7 +55,7 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
               '; Reason for logging: User entered long digits without needing to mask'
             );
           } else {
-            log.info(
+            Logger.info(
               'CaseNumber: ' +
               relatedAcc.Name +
               '; Comment Body: ' +
@@ -67,8 +63,6 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
               '; Reason for logging: User entered long digits without needing to mask'
             );
           }
-
-          log.publishEvent();
         }
       } else {
         record.CommentBody = TextUtils.maskData(record.CommentBody);
@@ -80,6 +74,7 @@ public with sharing class ChatterFeedCommentTriggerHandler extends Lib_TriggerHa
         record.addError(FILE_ERROR);
       }
     }
+    Logger.saveLog();
   }
   /**
    * @description  Mask the comments where applicable and prevents editing.

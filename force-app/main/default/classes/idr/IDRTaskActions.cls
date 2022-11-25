@@ -780,12 +780,8 @@ public without sharing class IDRTaskActions {
       collectionTaskList,
       false
     );
-    Lib_SystemLog log = new Lib_SystemLog(
-      'IDRCollectionActions',
-      'insertSystemTasks'
-    );
-    log.addDatabaseSaveResult('Task', results, collectionTaskList);
-    log.insertLogAsync();
+    Logger.error('',results);
+    Logger.saveLog();
   }
 
   /**

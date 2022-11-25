@@ -49,12 +49,8 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
       ) {
         record.Body = TextUtils.maskDataAnzx(record.Body);
         if (TextUtils.reactiveLogging(record.Body)) {
-          lib_systemLog log = new lib_systemLog(
-            'ChatterFeedItemTriggerHandler',
-            'onApplyDefaults'
-          );
           if (relatedCase != null) {
-            log.info(
+            Logger.info(
               'CaseNumber: ' +
               relatedCase.CaseNumber +
               '; Body: ' +
@@ -62,7 +58,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
               '; Reason for logging: User entered long digits without needing to mask'
             );
           } else {
-            log.info(
+            Logger.info(
               'Account Name: ' +
               relatedAcc.Name +
               '; Body: ' +
@@ -70,7 +66,6 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
               '; Reason for logging: User entered long digits without needing to mask'
             );
           }
-          log.publishEvent();
         }
       } else {
         record.Body = TextUtils.maskData(record.Body);
@@ -93,6 +88,7 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
         }
       }
     }
+    Logger.saveLog();
   }
 
   /**

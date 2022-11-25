@@ -145,13 +145,8 @@ global with sharing class ChatContextService {
           }
         } else {
           //If no sub type received, log warning and populate case type with "Other Enquiries"
-          Lib_SystemLog.createSingleLog(
-            ChatContextService.class.getName(),
-            'doPost',
-            '',
-            'No sub type was received in request.',
-            Lib_SystemLog.Severity.WARNING
-          );
+          Logger.debug('No sub type was received in request.');
+          Logger.saveLog();
           newCase.Type = 'Other Enquiries';
         }
 
@@ -168,16 +163,8 @@ global with sharing class ChatContextService {
         false
       );
 
-      lib_systemLog log = new lib_systemLog('ChatContextService', 'doPost');
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Account',
-        results,
-        accountsToUpdate
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     }
 
     // Insert new Case records to represent the Chat Topic, if there weren't any related Cases
@@ -328,13 +315,8 @@ global with sharing class ChatContextService {
   private static Boolean isValidRequest(ChatContextRequest chatContext) {
     //Check if PPID is present but don't cancel flow if not present
     if (String.isBlank(chatContext.PPID)) {
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        'ChatContextService',
-        'isValidRequest'
-      );
-      log.error('Missing PPID from request');
-      log.insertLog();
+      Logger.error('Missing PPID from request');
+      Logger.saveLog();
     }
     //Check to make sure OCV ID and Channel ID are present
     return String.isNotBlank(chatContext.ocvId) &&

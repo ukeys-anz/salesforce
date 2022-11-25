@@ -11,19 +11,8 @@ public with sharing class InteractionDMLHelper {
   public static void updateInteractions(List<Interaction> interactions) {
     if (PermissionUtils.canUpdate('Interaction')) {
       List<Database.SaveResult> results = Database.Update(interactions);
-      lib_systemLog log = new lib_systemLog(
-        'InteractionsDMLHelper',
-        'updateInteractions'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Interaction',
-        results,
-        interactions
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'InteractionsDMLHelper',
@@ -124,19 +113,8 @@ public with sharing class InteractionDMLHelper {
   public static void insertInteractions(List<Interaction> interactions) {
     if (PermissionUtils.canCreate('Interaction')) {
       List<Database.SaveResult> results = Database.Insert(interactions);
-      lib_systemLog log = new lib_systemLog(
-        'InteractionDMLHelper',
-        'insertInteractions'
-      );
-      Boolean hasError = log.addDatabaseSaveResult(
-        'Interaction',
-        results,
-        interactions
-      );
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'InteractionDMLHelper',

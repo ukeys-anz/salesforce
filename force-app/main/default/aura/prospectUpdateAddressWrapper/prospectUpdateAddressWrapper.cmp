@@ -1,0 +1,12 @@
+<aura:component
+  implements="lightning:actionOverride,force:hasRecordId"
+  access="global"
+>
+  <lightning:workspaceAPI aura:id="workspace"></lightning:workspaceAPI>
+
+  <c:prospectUpdateAddress
+    recordId="{!v.recordId}"
+    onclose="{!c.handleClose}"
+    class="slds-container_large slds-align_absolute-center slds-show"
+  ></c:prospectUpdateAddress>
+</aura:component>

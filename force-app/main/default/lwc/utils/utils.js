@@ -59,6 +59,10 @@ export function handleErrorShowToast(
   showToast(cmp, title, errorMessage, "", "error", mode);
 }
 
+export function handleWireError(cmp, title, error) {
+  handleErrorShowToast(cmp, title, error, error.body.message, "pester");
+}
+
 export function handleErrors(error) {
   var errorMessage = "";
   if (typeof error === "string") {

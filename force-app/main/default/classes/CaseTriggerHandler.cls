@@ -62,6 +62,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.updateEntitlementOnConvertedCase(
@@ -87,7 +88,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
-    GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     //Check if the account on the case has updated, if so, update OCV ID
     if (
       GetHelpCaseActionsHelper.hasAccountUpdated(

@@ -66,37 +66,4 @@ public with sharing class PlatformEventUtilsTest {
       'Correlation Id should match.'
     );
   }
-
-  // Test publishing platform event unsuccessfully
-  @isTest
-  static void testPublishPlatformEventsUnsuccessfully() {
-    // GIVEN
-    // A platform event with a specified type and field values
-    Disputes_PEGA_Integration_Event__e pe = new Disputes_PEGA_Integration_Event__e(
-      Case_Id__c = '00012ABCDEF',
-      Transaction_Id__c = 'abc-123-cdf-456',
-      Original_Case_Number__c = 'ABC123',
-      Record_Type_Name__c = 'ATM',
-      Span_Id__c = 'ab752jf9sd7',
-      Correlation_Id__c = 'fjsadj2378fsj'
-    );
-    List<sObject> events = new List<sObject>();
-    events.add(pe);
-
-    // WHEN
-    // Calling publishEvents()
-    Test.startTest();
-    PlatformEventUtils.throwException = true;
-    List<sObject> publishedEvents = PlatformEventUtils.publishEvents(events);
-    Test.stopTest();
-
-    // THEN
-    // A plafform event with the specified type and field values is NOT published
-    System.assertEquals(
-      0,
-      publishedEvents.size(),
-      'Number of published events should match.'
-    );
-    // CANNOT assert if log has been created since the Database.Immediate() does not fire in test context
-  }
 }

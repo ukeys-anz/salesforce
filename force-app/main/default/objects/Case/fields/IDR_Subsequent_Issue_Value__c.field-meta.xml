@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Subsequent_Issue_Value__c</fullName>
+    <description>Used for Analytics CRM processing</description>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT(IDR_Subsequent_Issue__c), 
+&apos;20&apos;,&apos;Request for financial assistance&apos;,
+&apos;21&apos;, &apos;Failure to respond or process request for assistance&apos;,
+&apos;22&apos;, &apos;Declines financial assistance&apos;,
+&apos;23&apos;, &apos;Arrangement considered unsuitable&apos;,
+&apos;24&apos;, &apos;Inappropriate or excessive contact&apos;,
+&apos;25&apos;, &apos;Pledged or blocked account&apos;,
+&apos;26&apos;, &apos;Disputed debt&apos;,
+&apos;27&apos;, &apos;Collector/agent conduct&apos;,
+&apos;28&apos;, &apos;Information/correspondence incorrect/not provided&apos;,
+&apos;42&apos;, &apos;Default listing dispute&apos;,
+&apos;38&apos;, &apos;Inappropriate lending/maladministration&apos;,
+null)</formula>
+    <label>Subsequent Issue Value</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -49,14 +49,14 @@
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>IDREmailService System User</value>
+            <value>IDREmailService SystemUser</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case.EmailMessages$CreatedBy</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>IDREmailService System User</value>
+            <value>IDREmailService SystemUser</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

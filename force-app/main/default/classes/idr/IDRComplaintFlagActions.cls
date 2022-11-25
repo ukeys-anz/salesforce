@@ -202,15 +202,7 @@ public with sharing class IDRComplaintFlagActions {
         isComplaintEventFailed = true;
       }
     }
-    Lib_SystemLog log = new Lib_SystemLog(
-      IDRComplaintFlagActions.class.getName(),
-      'publishComplaintEvent'
-    );
-    log.addDatabaseSaveResult(
-      'IDR_Complaints_Event__e',
-      publishResults,
-      complaintEventList
-    );
-    log.insertLogAsync();
+    Logger.error('',publishResults);
+    Logger.saveLog();
   }
 }

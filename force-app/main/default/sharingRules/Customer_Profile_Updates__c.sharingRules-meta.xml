@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>CCRM_Integration_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Integration User have read/write access to this object records</description>
+        <label>CCRM Integration RW</label>
+        <sharedTo>
+            <role>ANZx</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

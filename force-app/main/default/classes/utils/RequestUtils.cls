@@ -76,17 +76,8 @@ public with sharing class RequestUtils {
         throw new CalloutException(response.getBody());
       }
     } catch (Exception e) {
-      lib_systemLog.logAPIError(
-        processName,
-        functionName,
-        e.getMessage(),
-        e.getTypeName(),
-        null,
-        response != null ? response.getBody() : null,
-        request.getEndpoint(),
-        request.getMethod(),
-        response.getStatusCode()
-      );
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
 
       if (usedInLWC) {
         AuraHandledException ahe = new AuraHandledException(e.getMessage());

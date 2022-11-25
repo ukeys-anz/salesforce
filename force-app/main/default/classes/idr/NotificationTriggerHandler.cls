@@ -64,16 +64,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         notificationList,
         false
       );
-      Lib_SystemLog log = new Lib_SystemLog(
-        NotificationTriggerHandler.class.getName(),
-        'updateNotification'
-      );
-      log.addDatabaseSaveResult(
-        'Notification_Handler__c',
-        result,
-        notificationList
-      );
-      log.insertLogAsync();
+      Logger.error('',result);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'NotificationTriggerHandler',
@@ -159,16 +151,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       peSaveResults = EventBus.publish(idrNotifications);
       //If it is not exeuted from batch then log the errors here
       if (!isExecutedFromBatch) {
-        Lib_SystemLog log = new Lib_SystemLog(
-          NotificationTriggerHandler.class.getName(),
-          'sendNotifications'
-        );
-        log.addDatabaseSaveResult(
-          'IDR_Notification_Event__e',
-          peSaveResults,
-          idrNotifications
-        );
-        log.insertLogAsync();
+        Logger.error('',peSaveResults);
+        Logger.saveLog();
       }
       /**** Else log the errors in batch itself
        To avoid future method being called from batch exception ****/

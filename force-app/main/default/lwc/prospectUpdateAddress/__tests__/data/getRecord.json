@@ -1,0 +1,16 @@
+{
+  "fields": {
+    "City": { "displayValue": null, "value": "MELBOURNE" },
+    "Country": { "displayValue": null, "value": "AUSTRALIA" },
+    "Customer_Name__c": { "displayValue": null, "value": "0012N00000QXcJxAAA" },
+    "Global_Address_Key__c": {
+      "displayValue": null,
+      "value": "global_address_key_1"
+    },
+    "PostalCode": { "displayValue": null, "value": "3004" },
+    "QAS_Valid_Address__c": { "displayValue": null, "value": true },
+    "State": { "displayValue": null, "value": "VIC" },
+    "Street": { "displayValue": null, "value": "L 6  549 St Kilda Rd" }
+  },
+  "id": "8lW2N00000008VyAAA"
+}

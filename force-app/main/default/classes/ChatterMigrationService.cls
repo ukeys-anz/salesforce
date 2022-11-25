@@ -39,19 +39,12 @@ public with sharing class ChatterMigrationService {
         throw error;
       }
 
-      lib_systemLog log = new lib_systemLog(
-        ChatterMigrationService.class.getName(),
-        'ChatterMigrationService Found Accounts'
-      );
-
-      log.info(
+      Logger.info(
         String.format(
           'Migrating chatter from account: {0} to: {1}',
           new List<String>{ victimAccountId, survivorAccountId }
         )
       );
-
-      log.publishEvent();
 
       SystemModeActions systemAction = new SystemModeActions(
         'ChatterMigrationService',
@@ -65,12 +58,13 @@ public with sharing class ChatterMigrationService {
       );
 
       if (items.size() == 0) {
-        log.info(
+        Logger.info(
           String.format(
             'No chatter items to migrate from {0} to {1}',
             new List<String>{ victimAccountId, survivorAccountId }
           )
         );
+        Logger.saveLog();
         return true;
       }
 
@@ -82,17 +76,16 @@ public with sharing class ChatterMigrationService {
       );
       cloneCommentsFromOldToNew(items, clonedItems);
 
-      log.publishEvent();
-
       delete items;
-      log.info(
+
+      Logger.info(
         String.format(
           'Deleted {0} chatter items from: {1}',
           new List<String>{ String.valueOf(items.size()), victimAccountId }
         )
       );
 
-      log.publishEvent();
+      Logger.saveLog();
 
       return true;
     }
@@ -125,13 +118,8 @@ public with sharing class ChatterMigrationService {
       insert clonedItems;
     }
 
-    lib_systemLog log = new lib_systemLog(
-      ChatterMigrationService.class.getName(),
-      'cloneChatterFromOldToNew'
-    );
-
-    log.publishEvent();
-
+    Logger.info('');
+    Logger.saveLog();
     return clonedItems;
   }
 
@@ -144,11 +132,6 @@ public with sharing class ChatterMigrationService {
     List<FeedItem> originalItems,
     List<FeedItem> clonedItems
   ) {
-    lib_systemLog log = new lib_systemLog(
-      ChatterMigrationService.class.getName(),
-      'cloneCommentsFromOldToNew'
-    );
-
     SystemModeActions systemAction = new SystemModeActions(
       'ChatterMigrationService',
       'cloneComments'
@@ -185,14 +168,14 @@ public with sharing class ChatterMigrationService {
 
     insert clonedComments;
 
-    log.info(
+    Logger.info(
       String.format(
         'Migrated {0} chatter comments',
         new List<String>{ String.valueOf(clonedComments.size()) }
       )
     );
 
-    log.publishEvent();
+    Logger.saveLog();
   }
 
   /**
