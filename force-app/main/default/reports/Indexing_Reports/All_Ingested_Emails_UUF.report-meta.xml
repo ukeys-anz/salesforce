@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>All Ingested Emails</name>
     <columns>
         <field>Case$Owner</field>
     </columns>
@@ -26,6 +27,9 @@
     </columns>
     <columns>
         <field>Case$IDR_Inbox_Email_Address__c</field>
+    </columns>
+    <columns>
+        <field>Case.EmailMessages$Subject</field>
     </columns>
     <columns>
         <field>Case$Origin</field>
@@ -57,7 +61,6 @@
         <language>en_US</language>
     </filter>
     <format>Tabular</format>
-    <name>All Ingested Emails</name>
     <params>
         <name>co</name>
         <value>1</value>
