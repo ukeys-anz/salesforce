@@ -2103,6 +2103,21 @@ private class CaseTriggerHandlerTest {
       WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
+
+    Slaprocess sla = [
+      SELECT Id, NAME
+      FROM Slaprocess
+      WHERE Name = 'complaints' AND IsActive = TRUE AND IsVersionDefault = TRUE
+      LIMIT 1
+    ];
+    //insert sla;
+    Entitlement et = new Entitlement(
+      Name = 'Complaints Entitlement',
+      AccountId = acc.Id,
+      StartDate = Date.valueof(System.now().addDays(-2)),
+      SlaProcessId = sla.Id
+    );
+    insert et;
     // GIVEN
     // We have one unauthenticated enquiry case
     Faker faker = new Faker('AU');
@@ -2118,12 +2133,14 @@ private class CaseTriggerHandlerTest {
     insert caseRecord;
 
     // THEN
-    // the same Entitlement record on Account should be linked on the Case
+    // For GetHelpConstants.COMPLAINT_RT_ID record type the case should pick up Complaint entitlement
     Entitlement accountEntitlement = [
       SELECT Id
       FROM Entitlement
-      WHERE AccountId = :acc.Id
-      LIMIT 1
+      WHERE
+        name = :IDRConstants.COMPLAINTS_ENTITLEMENT_NAME
+        AND SlaProcess.Name = :IDRConstants.COMPLAINTS_ENTITLMENT_PROCESS
+        AND STATUS = 'Active'
     ];
 
     Test.startTest();
