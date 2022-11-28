@@ -25,6 +25,7 @@ mv harness.forceignore .forceignore
 echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
 echo -e "\nforce-app/main/default/sharingRules/Case.sharingRules-meta.xml" >> .forceignore
 echo -e "\nforce-app/main/default/permissionsetgroups/Shared_Admin.permissionsetgroup-meta.xml" >> .forceignore
+echo -e "\nforce-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionsetgroup-meta.xml" >> .forceignore
 echoMessageCreator "" $stepNo false
 ########################
 
@@ -91,6 +92,7 @@ changeMetadata force-app/main/default/permissionsets/Manage_Users.permissionset-
 changeMetadata force-app/main/default/permissionsets/Key_Manager.permissionset-meta.xml keyManager
 changeMetadata force-app/main/default/wave/NLP_Reporting.wapp-meta.xml NLPReporting
 changeMetadata force-app/main/default/permissionsets/myTrailhead_Content_Access.permissionset-meta.xml myTrailheadContentAccess
+changeMetadata "force-app/main/default/objects/Case/businessProcesses/Bug Enquiry.businessProcess-meta.xml" bugEnquiry
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -139,9 +141,21 @@ echoMessageCreator "" $stepNo false
 echoMessageCreator "Post Deploy" $stepNo true
 mv h.forceignore .forceignore
 sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
+
+touch empty.forceignore
+echo "# .forceignore v2" >> empty.forceignore
+mv empty.forceignore .forceignore
+sfdx force:source:deploy -p force-app/main/default/sharingRules/Account.sharingRules-meta.xml,force-app/main/default/sharingRules/Customer_Profile_Updates__c.sharingRules-meta.xml
+
 git checkout .
 sfdx force:source:deploy -u $scratchorgalias -p force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
 
+echo "${red}-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo "Please open the scratchOrg"
+echo "Navigate to setup -> Public Groups -> Click on edit next to Coach and Coach Lead Group"
+echo "On search bar, change it to Roles, and add coach and coach lead to it"
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-${reset}"
+echo ""
 waitForManualSteps $scratchorgalias "post-deploy"
 echoMessageCreator "" $stepNo false
 ###########################
