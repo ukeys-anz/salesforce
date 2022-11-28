@@ -29,6 +29,9 @@
         <field>Case$IDR_Inbox_Email_Address__c</field>
     </columns>
     <columns>
+        <field>Case.EmailMessages$Subject</field>
+    </columns>
+    <columns>
         <field>Case$Origin</field>
     </columns>
     <description>This report shows Unauthenticated Enquiry and Complaint Records which are either ingested or updated via email</description>
