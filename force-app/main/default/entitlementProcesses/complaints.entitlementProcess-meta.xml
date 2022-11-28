@@ -49,8 +49,7 @@ ISPICKVAL(Status, &apos;Under Investigation&apos;)
 ),
 OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
-RecordType.DeveloperName = &apos;ANZx_Complaint&apos;
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Team_Leaders&apos;),
@@ -299,5 +298,5 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <name>complaints</name>
     <versionMaster>5522O000000CGgO</versionMaster>
-    <versionNumber>4</versionNumber>
+    <versionNumber>3</versionNumber>
 </EntitlementProcess>
