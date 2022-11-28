@@ -12,19 +12,9 @@ public with sharing class BigObjectHelper {
    */
   public Boolean insertBigObject(List<SObject> records, String bigObjectName) {
     List<Database.SaveResult> results = Database.insertImmediate(records);
-
-    //log errors to application log
-    lib_systemLog log = new lib_systemLog('BigObjectHelper', 'insertBigObject');
-    Boolean hasError = log.addDatabaseSaveResult(
-      bigObjectName,
-      results,
-      new List<SObject>()
-    );
-    if (bigObjectName != 'Traced_Application_Log__b') {
-      //To avoid infinite loop
-      log.insertLog();
-    }
-
+    Logger.error('', results);
+    Boolean hasError = LoggerHelper.getBufferSize() > 0;
+    Logger.saveLog();
     return !hasError;
   }
 }

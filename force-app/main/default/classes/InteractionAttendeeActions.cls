@@ -111,14 +111,10 @@ public with sharing class InteractionAttendeeActions {
         if (attendant.User.UserRole != null) {
           roleName = attendant.User.UserRole.Name;
         } else {
-          Lib_SystemLog.createSingleLog(
-            InteractionAttendeeActions.class.getName(),
-            'updateAttendees',
-            null,
+          Logger.error(
             'User ' +
             attendant.UserId +
-            ' has no role in Salesforce.',
-            Lib_systemLog.Severity.WARNING
+            ' has no role in Salesforce.'
           );
         }
         if (Trigger.isAfter && Trigger.isInsert) {
@@ -154,6 +150,7 @@ public with sharing class InteractionAttendeeActions {
         userNameMap
       );
     }
+    Logger.saveLog();
     // update the interaction map
     update interactionMap.values();
   }

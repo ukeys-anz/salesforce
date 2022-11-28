@@ -27,10 +27,6 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Map<Id, Case> caseMap = getCaseRecords(records);
 
     if (!caseMap.isEmpty()) {
-      Lib_SystemLog log = new Lib_SystemLog(
-        ContentDocumentLinkTriggerHandler.class.getName(),
-        'logFileDelete'
-      );
       Case oCase;
       for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
         if (
@@ -95,19 +91,13 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           ', Document category that was deleted : ' +
           strDocCategory +
           ', Associated Case : ' +
-          record.LinkedEntityId;
+          record.LinkedEntityId +
+          ', Associated Case No : ' +
+          caseMap.get(record.LinkedEntityId)?.CaseNumber;
 
-        log.addObjectMessage(
-          objectAPIName,
-          record.Id,
-          errorNo,
-          errorDescription,
-          Lib_SystemLog.Severity.INFO,
-          strUserName
-        );
+        Logger.error(errorDescription, record.Id);
       }
-      System.debug(log);
-      log.publishEvent();
+      Logger.saveLog();
     }
   }
 
@@ -164,17 +154,13 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         insert caseCommentList;
       }
     } catch (Exception err) {
-      Lib_SystemLog log = new Lib_SystemLog(
-        ContentDocumentLinkTriggerHandler.class.getName(),
-        'manageNotification'
-      );
-      log.error(
-        'DMLException',
+      Logger.error(
         'Error in creating Case Comment when attachment is added for the existing Case :' +
         oCase.Id +
-        err.getMessage()
+        err.getMessage(),
+        err
       );
-      log.publishEvent();
+      Logger.saveLog();
     }
   }
 

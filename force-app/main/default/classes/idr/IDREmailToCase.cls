@@ -35,13 +35,8 @@ public with sharing class IDREmailToCase {
 
     List<String> fieldList = emailBody.split('\\|-\\|');
     if (fieldList.isEmpty()) {
-      Lib_SystemLog.createSingleLog(
-        IDREmailToCase.class.getName(),
-        'parseWebFormEmail',
-        '',
-        'Anz.com email parsing error',
-        Lib_SystemLog.Severity.Fatal
-      );
+      Logger.error('Anz.com email parsing error');
+      Logger.saveLog();
     } else {
       for (String field : fieldList) {
         List<String> fieldValueList = field.split(':-:', 2);

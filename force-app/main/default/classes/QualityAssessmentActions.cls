@@ -351,15 +351,10 @@ public with sharing class QualityAssessmentActions {
           insert qaShareRecords;
         }
       } catch (Exception e) {
-        lib_systemLog log = new lib_systemLog(
-          CommonUtil.class.getName(),
-          'createQAShareRecord'
+        Logger.error(
+          'Error creating Quality Assessment Sharing Record: ' + e.getMessage()
         );
-        log.error(
-          'Error creating Quality Assessment Sharing Record: ',
-          e.getMessage()
-        );
-        log.publishEvent();
+        Logger.saveLog();
       }
     }
   }

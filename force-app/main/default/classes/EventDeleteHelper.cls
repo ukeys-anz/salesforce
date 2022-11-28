@@ -15,12 +15,8 @@ public without sharing class EventDeleteHelper {
   public static void deleteEvents(List<Event> events) {
     if (PermissionUtils.canDelete('Event')) {
       List<Database.DeleteResult> results = Database.Delete(events);
-      lib_systemLog log = new lib_systemLog('EventHelper', 'deleteEvents');
-      Boolean hasError = log.addDatabaseDeleteResult('Events', results, events);
-      if (hasError) {
-        //log errors to application log
-        log.insertLog();
-      }
+      Logger.error('', results);
+      Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(
         'EventHelper',

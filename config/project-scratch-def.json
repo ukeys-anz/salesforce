@@ -20,7 +20,8 @@
     "EinsteinAnalyticsPlus",
     "IndustriesActionPlan",
     "DocumentChecklist",
-    "WorkThanksPref"
+    "WorkThanksPref",
+    "CaseClassification"
   ],
   "settings": {
     "chatterSettings": {

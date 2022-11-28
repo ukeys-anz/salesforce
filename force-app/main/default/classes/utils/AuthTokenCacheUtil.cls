@@ -30,13 +30,8 @@ public with sharing class AuthTokenCacheUtil {
         currentUser.Profile.Name
       );
     } else {
-      Lib_SystemLog.createSingleLog(
-        AuthTokenCacheUtil.class.getName(),
-        'moveAuthTokens',
-        '',
-        'Unable to query user to check if ANZx user to perform token caching',
-        Lib_SystemLog.Severity.ERROR
-      );
+      Logger.error('Unable to query user to check if ANZx user to perform token caching');
+      Logger.saveLog();
     }
   }
 
@@ -116,13 +111,9 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'refreshToken' + userId);
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
       } else {
-        Lib_SystemLog.createSingleLogAsync(
-          AuthTokenCacheUtil.class.getName(),
-          'storeAzureSessionTokens',
-          '',
-          'Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
-          userId
-        );
+        Logger.error('Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
+        userId);
+        Logger.saveLog();
       }
     }
   }
@@ -141,14 +132,8 @@ public with sharing class AuthTokenCacheUtil {
     if (refreshToken != null) {
       return refreshToken;
     } else {
-      //notify user to log in again
-      Lib_SystemLog.createSingleLog(
-        AuthTokenCacheUtil.class.getName(),
-        'getSessionRefreshToken',
-        '',
-        'Session Refresh Token not found for user ' + userId,
-        Lib_SystemLog.Severity.WARNING
-      );
+      Logger.error('Session Refresh Token not found for user ' + userId);
+      Logger.saveLog();
       throw new TokenCacheException('Connection issue, please sign in again');
     }
   }
@@ -179,14 +164,8 @@ public with sharing class AuthTokenCacheUtil {
       // Id token was not there, if refresh token exists try and refresh the Id token and return it
       return AuthTokenCacheUtil.refreshIdToken(refreshToken);
     } else {
-      //notify user to log in again
-      Lib_SystemLog.createSingleLog(
-        AuthTokenCacheUtil.class.getName(),
-        'getSessionIdToken',
-        '',
-        'Session Id Token not found for user ' + userId,
-        Lib_SystemLog.Severity.WARNING
-      );
+      Logger.error('Session Id Token not found for user ' + userId);
+      Logger.saveLog();
       throw new TokenCacheException(
         'Oh dear! Looks like we\'ve messed up and lost a connection downstream.\nThe quick fix is to sign in again and all should be right.'
       );
@@ -232,17 +211,8 @@ public with sharing class AuthTokenCacheUtil {
         true
       );
     } catch (Exception e) {
-      lib_systemLog.logAPIError(
-        AuthTokenCacheUtil.class.getName(),
-        'refreshIdToken',
-        e.getMessage(),
-        e.getTypeName(),
-        null,
-        res != null ? res.getBody() : null,
-        null,
-        null,
-        res?.getStatusCode()
-      );
+      Logger.error( e.getMessage(),e);
+      Logger.saveLog();
     }
 
     return (String) idToken;
@@ -272,13 +242,8 @@ public with sharing class AuthTokenCacheUtil {
       staffToken = responseModel.accessToken;
       expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
-      Lib_SystemLog.createSingleLog(
-        AuthTokenCacheUtil.class.getName(),
-        'getStaffToken',
-        '1',
-        'Unable to retrieve staff token',
-        Lib_SystemLog.Severity.WARNING
-      );
+      Logger.error('Unable to retrieve staff token'+e.getMessage(),e);
+      Logger.saveLog();
       throw new TokenCacheException(e.getMessage());
     }
 

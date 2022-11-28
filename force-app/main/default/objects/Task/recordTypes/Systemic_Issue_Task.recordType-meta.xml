@@ -237,11 +237,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Not Started</fullName>
-            <default>true</default>
+            <default>false</default>
         </values>
         <values>
             <fullName>Open</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
     </picklistValues>

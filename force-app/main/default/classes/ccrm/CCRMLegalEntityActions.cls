@@ -246,13 +246,8 @@ public with sharing class CCRMLegalEntityActions {
 
       if (Schema.sObjectType.Opportunity.isUpdateable() && !oppList.isEmpty()) {
         List<Database.saveResult> results = Database.update(oppList, false);
-        //log errors to application log
-        lib_systemLog log = new lib_systemLog(
-          CCRMOpportunityActions.class.getName(),
-          'updateAccountOnOpportunity'
-        );
-        log.addDatabaseSaveResult('Opportunity', results, oppList);
-        log.insertLogAsync();
+        Logger.error('',results);
+        Logger.saveLog();
       }
     }
   }

@@ -9,13 +9,13 @@
 ) // PMD.AvoidHardcodingId - The hardcoded Id is used for deserialisation so will not caused issue when deployed to another environment. Cannot use random string as Apex requires a correctly formatted Id.
 @isTest
 public with sharing class LogEventBuilderTest {
-  private static final String MOCK_STD_DATABASE_RESULT_WITH_ERROR = '{"id":"0012N00000ABCDEQA5","success":false,"errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}]}';
+  private static final String MOCK_STD_DATABASE_RESULT_WITH_ERROR = '{"success":false,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}]}';
   private static final String MOCK_STD_DATABASE_RESULT_WITHOUT_ERROR = '{"id":"5002N00000E5ndCQAR","success":true,"errors":[]}';
 
-  private static final String MOCK_MERGE_DATABASE_RESULT_WITH_ERROR = '{"errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}],"id":"0012N00000ABCDEQA5","mergedRecordIds":null,"success":false,"updatedRelatedIds":null}';
+  private static final String MOCK_MERGE_DATABASE_RESULT_WITH_ERROR = '{"updatedRelatedIds":null,"success":false,"mergedRecordIds":null,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}]}';
   private static final String MOCK_MERGE_DATABASE_RESULT_WITHOUT_ERROR = '{"errors":null,"id":"5002N00000E5ndCQAR","mergedRecordIds":["5002N00000E5ndCQAR"],"success":true,"updatedRelatedIds":[]}';
 
-  private static final String MOCK_UPSERT_DATABASE_RESULT_WITH_ERROR = '{"id":"0012N00000ABCDEQA5","success":false,"errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}],"created":false}';
+  private static final String MOCK_UPSERT_DATABASE_RESULT_WITH_ERROR = '{"success":false,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}],"created":false}';
   private static final String MOCK_UPSERT_DATABASE_RESULT_WITHOUT_ERROR = '{"id":"5002N00000E5ndCQAR","success":true,"errors":[],"created":true}';
 
   private static final String MOCK_UNDELETE_DATABASE_RESULT_WITHOUT_ERROR = '{"id":"5002N00000E5ndCQAR","success":true}';
@@ -488,11 +488,6 @@ public with sharing class LogEventBuilderTest {
       'Record Id should match'
     );
     System.assertEquals(
-      JSON.serializePretty(testCase),
-      builder.getLogEvent().RecordsJson__c,
-      'Record Json should match'
-    );
-    System.assertEquals(
       'Case',
       builder.getLogEvent().RecordObjectName__c,
       'Record object name should match'
@@ -508,11 +503,6 @@ public with sharing class LogEventBuilderTest {
     LogEventBuilder builder = new LogEventBuilder(LoggingLevel.DEBUG, true);
     builder.setRecord(leadList);
 
-    System.assertEquals(
-      JSON.serializePretty(leadList),
-      builder.getLogEvent().RecordsJson__c,
-      'Record Json should match'
-    );
     System.assertEquals(
       'Lead',
       builder.getLogEvent().RecordObjectName__c,
@@ -544,11 +534,6 @@ public with sharing class LogEventBuilderTest {
     LogEventBuilder builder = new LogEventBuilder(LoggingLevel.DEBUG, true);
     builder.setRecord(leadList);
 
-    System.assertEquals(
-      JSON.serializePretty(leadList),
-      builder.getLogEvent().RecordsJson__c,
-      'Record Json should match'
-    );
     System.assertEquals(
       'Lead',
       builder.getLogEvent().RecordObjectName__c,

@@ -62,14 +62,8 @@ public without sharing class CaseEscalateToCMOS {
     for (Database.Error err : updatingRecord.getErrors()) {
       errorMessage += err;
     }
-
-    Lib_SystemLog.createSingleLogAsync(
-      CaseEscalateToCMOS.class.getName(),
-      'manualEscalateCaseToCMOS',
-      'CMOSESC-001',
-      errorMessage
-    );
-
+    Logger.error('CMOSESC-001 ' + errorMessage);
+    Logger.saveLog();
     return false;
   }
 
@@ -179,12 +173,8 @@ public without sharing class CaseEscalateToCMOS {
           );
         }
       } catch (Exception e) {
-        Lib_SystemLog.createSingleLogAsync(
-          CaseEscalateToCMOS.class.getName(),
-          'prepareChatterToCaseComments',
-          'CMOSESC-005',
-          e.getMessage()
-        );
+        Logger.error('CMOSESC-005 ' + e.getMessage(), e);
+        Logger.saveLog();
       }
     }
     return newComments;
@@ -206,12 +196,8 @@ public without sharing class CaseEscalateToCMOS {
         try {
           insert comments;
         } catch (Exception e) {
-          Lib_SystemLog.createSingleLogAsync(
-            CaseEscalateToCMOS.class.getName(),
-            'publishChatterToCaseComments',
-            'CMOSESC-002',
-            e.getMessage()
-          );
+          Logger.error('CMOSESC-002' + e.getMessage(), e);
+          Logger.saveLog();
 
           return false;
         }

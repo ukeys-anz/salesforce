@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <action>
+        <block>true</block>
+        <endSession>false</endSession>
+        <freezeUser>false</freezeUser>
+        <notifications>
+            <inApp>false</inApp>
+            <sendEmail>true</sendEmail>
+            <user>GetHelpSalesforceSupport@anz.com</user>
+        </notifications>
+        <twoFactorAuthentication>false</twoFactorAuthentication>
+    </action>
+    <active>true</active>
+    <description>Report access on secure log entries are blocked. If you need to view secure log entries, please raise a PAM and access these records via the Logs Monitor app.</description>
+    <developerName>BlockSecureLogEntryReport</developerName>
+    <eventName>ReportEvent</eventName>
+    <flow>PolicyCondition_iVxNmxfBVvyItgcFkCnw</flow>
+    <masterLabel>Block SecureLogEntry Report Event</masterLabel>
+    <type>CustomConditionBuilderPolicy</type>
+</TransactionSecurityPolicy>

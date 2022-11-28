@@ -432,13 +432,8 @@ public with sharing class GetHelpCaseActions {
       return;
     }
     List<Database.SaveResult> results = Database.Update(bugs, false);
-    //log errors to application log
-    lib_systemLog log = new lib_systemLog(
-      'GetHelpCaseActions',
-      'rollupRelatedBug'
-    );
-    log.addDatabaseSaveResult('Case', results, new List<Case>());
-    log.insertLogAsync();
+    Logger.error('', results);
+    Logger.saveLog();
   }
 
   /**
@@ -461,13 +456,8 @@ public with sharing class GetHelpCaseActions {
     if (!bugs.isEmpty()) {
       List<Database.SaveResult> results = Database.Update(bugs, false);
 
-      //log errors to application log
-      lib_systemLog log = new lib_systemLog(
-        'GetHelpCaseActions',
-        'futureRollupRelatedBug'
-      );
-      log.addDatabaseSaveResult('Case', results, new List<Case>());
-      log.insertLog();
+      Logger.error('', results);
+      Logger.saveLog();
     }
   }
 
@@ -510,11 +500,7 @@ public with sharing class GetHelpCaseActions {
       TextUtils.reactiveLogging(record.Description) ||
       TextUtils.reactiveLogging(record.Comments)
     ) {
-      lib_systemLog log = new lib_systemLog(
-        'GetHelpCaseActions',
-        'maskTaxNumbers'
-      );
-      log.info(
+      Logger.info(
         'CaseNumber: ' +
         record.CaseNumber +
         '; Description: ' +
@@ -523,7 +509,7 @@ public with sharing class GetHelpCaseActions {
         record.Comments +
         '; Reason for logging: User entered long digits without needing to mask'
       );
-      log.insertLogAsync();
+      Logger.saveLog();
     }
   }
 
