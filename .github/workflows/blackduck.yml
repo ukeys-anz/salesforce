@@ -25,7 +25,9 @@ jobs:
         with:
           secrets: |-
             harness-api-key:projects/anz-x-gha-prod-0f0d8b/secrets/ghrcommon-secscan-harness-api-key/versions/1
+
       - name: "🦆 Black Duck Scan"
+        id: blackduck
         uses: docker://anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest
         with:
           application-name: secscan
@@ -38,3 +40,19 @@ jobs:
             PULL_REQUEST=${{ github.event.pull_request.number }}
             REPO=github.com/${{ github.repository }}
           wait: True
+        continue-on-error: true
+
+      - name: Slack message
+        env:
+          BLACKDUCK_STATUS: ${{ steps.blackduck.outcome }}
+          GITHUB_BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [[ $BLACKDUCK_STATUS == success ]];then
+            status=:white_check_mark:
+          else
+            status=:X:
+          fi
+
+          TodayDate="$(TZ=Australia/Melbourne date +%F\|%H:%M)"
+          IDENTITY_TOKEN=$(curl -H "Metadata-Flavor: Google" 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz&format=full&licenses=TRUE')
+          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-blackduck","templateID":"ghasfblackduck","args":{"startdatetime":"'${TodayDate}'","passed":"'${status}'","branch":"'$GITHUB_BASE_REF'"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack
