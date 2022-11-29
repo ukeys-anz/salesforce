@@ -54,8 +54,7 @@ public with sharing class Lib_HttpCallout {
   private HttpCalloutResponse performCallout(HttpRequest request) {
     HttpCalloutResponse callResponse = new HttpCalloutResponse();
     HTTPResponse response = null;
-    Logger.info(request.getEndpoint()+request.getMethod());
-    Logger.saveLog();
+    Logger.info(request.getEndpoint() + request.getMethod());
 
     try {
       Http http = new Http();
@@ -81,10 +80,10 @@ public with sharing class Lib_HttpCallout {
         callResponse.error = new CalloutException(response.getBody());
       }
 
-      Logger.info(request.getEndpoint()+request.getMethod());
+      Logger.info(request.getEndpoint() + request.getMethod());
       Logger.saveLog();
     } catch (Exception e) {
-      Logger.error(request.getEndpoint()+request.getMethod());
+      Logger.error(request.getEndpoint() + request.getMethod());
       Logger.saveLog();
       callResponse.successful = false;
       callResponse.error = e;
