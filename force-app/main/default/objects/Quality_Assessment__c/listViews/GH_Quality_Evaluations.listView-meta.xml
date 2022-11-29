@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>GH_Quality_Evaluations</fullName>
-    <columns>NAME</columns>
-    <columns>Evaluation_Type__c</columns>
-    <columns>Interaction_Owner__c</columns>
-    <columns>Interaction_Date_Time__c</columns>
-    <columns>Interaction_Type__c</columns>
-    <columns>Customer__c</columns>
-    <columns>Status__c</columns>
-    <columns>Sub_Status__c</columns>
-    <columns>CREATEDBY_USER</columns>
-    <columns>Assigned_to__c</columns>
-    <columns>Score__c</columns>
-    <columns>Rating__c</columns>
-    <columns>Advice_Outcome__c</columns>
-    <columns>Compliance_Outcome__c</columns>
-    <columns>Context_and_General_Comments__c</columns>
-    <filterScope>Everything</filterScope>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Quality_Assessment__c.Get_Help</value>
-    </filters>
-    <label>GH Quality Evaluations</label>
-    <sharedTo>
-        <role>Quality_Analyst</role>
-    </sharedTo>
+   <fullName>GH_Quality_Evaluations</fullName>
+   <columns>NAME</columns>
+   <columns>Evaluation_Type__c</columns>
+   <columns>Interaction_Owner__c</columns>
+   <columns>Interaction_Date_Time__c</columns>
+   <columns>Interaction_Type__c</columns>
+   <columns>Customer__c</columns>
+   <columns>Status__c</columns>
+   <columns>Sub_Status__c</columns>
+   <columns>CREATEDBY_USER</columns>
+   <columns>Assigned_to__c</columns>
+   <columns>Score__c</columns>
+   <columns>Rating__c</columns>
+   <columns>Advice_Outcome__c</columns>
+   <columns>Compliance_Outcome__c</columns>
+   <columns>Context_and_General_Comments__c</columns>
+   <filters>
+      <field>RECORDTYPE</field>
+      <operation>equals</operation>
+      <value>Quality_Assessment__c.Get_Help</value>
+   </filters>
+   <filterScope>Everything</filterScope>
+   <label>GH Quality Evaluations</label>
+   <sharedTo>
+      <role>Quality_Analyst</role>
+      <role>Quality_Capability_Lead</role>
+   </sharedTo>
 </ListView>
