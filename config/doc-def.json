@@ -414,6 +414,13 @@
       "type": "user"
     },
     {
+      "name": "Quality Capability Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Quality_Capability_Lead"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Sailpoint User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],

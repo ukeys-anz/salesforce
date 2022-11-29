@@ -3,7 +3,7 @@
    <caseAccessLevel>Read</caseAccessLevel>
    <contactAccessLevel>Edit</contactAccessLevel>
    <mayForecastManagerShare>false</mayForecastManagerShare>
-   <name>Quality Analyst</name>
+   <name>Quality &amp; Capability Lead</name>
    <opportunityAccessLevel>Read</opportunityAccessLevel>
-   <parentRole>Quality_Capability_Lead</parentRole>
+   <parentRole>ANZx</parentRole>
 </Role>
