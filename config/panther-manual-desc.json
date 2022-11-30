@@ -866,17 +866,23 @@
         "Active_From__c",
         "Active_To__c"
       ],
-      "IA-2530753": ["Active_From__c", "Active_To__c"]
+      "IA-2530753": ["Active_From__c", "Active_To__c", "Occurrence_Number__c"]
     },
     "ContactPointAddress": {
       "IA-2530753": [
         "Building_Name__c",
         "Customer_Name__c",
+        "Created_By__c",
+        "Created_Date__c",
         "CreatedById",
         "CreatedDate",
+        "External_Id__c",
         "Id",
+        "Last_Modified_By__c",
+        "Last_Modified_Date__c",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "RecordTypeId"
       ],
       "IA-2415984": [
         "P_O_Box__c",
@@ -890,10 +896,18 @@
     },
     "ContactPointEmail": {
       "IA-2415860": ["Occurrence_Number__c"],
-      "IA-2530753": ["Customer_Name__c"]
+      "IA-2530753": [
+        "Created_By__c",
+        "Created_Date__c",
+        "Customer_Name__c",
+        "Last_Modified_By__c",
+        "Last_Modified_Date__c"
+      ],
+      "IA-2415984": ["Preferred_Indicator__c"]
     },
     "ContactPointPhone": {
-      "IA-2530753": ["Customer_Name__c"]
+      "IA-2530753": ["Customer_Name__c"],
+      "IA-2415984": ["Preferred_Indicator__c"]
     },
     "ContactRequest": {
       "IA-2453595": [
@@ -1080,7 +1094,8 @@
         "lastUpdatedDateTime__c",
         "Name"
       ],
-      "IA-2415987": ["Interest_Rate_URL__c"]
+      "IA-2415987": ["Interest_Rate_URL__c"],
+      "IA-2530753": ["IsPrimaryOwner__c", "Product_SubCode__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -1100,7 +1115,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
     },
     "IDR_Letter_Approval_Details__c": {
       "IA-2453595": [
