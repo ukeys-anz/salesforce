@@ -78,7 +78,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure</value>
+            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
