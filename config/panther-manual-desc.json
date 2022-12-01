@@ -226,6 +226,7 @@
         "Has_Customer_Provided_TFN__c",
         "KYC_Verification_Level__c"
       ],
+      "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [
         "AccountNumber",
         "External_Id__c",
