@@ -130,8 +130,21 @@ public with sharing class TextUtils {
     if (String.isNotBlank(input)) {
       String inputUpper = input.toUpperCase();
       List<String> keywords = Label.Reactive_logging_keywords.split(',');
+      List<String> includeExtras = new List<String>{
+        ', ',
+        ' ,',
+        ':,',
+        '-,',
+        '=,'
+      };
+      List<String> newKeywords = new List<String>();
+      for (String extra : includeExtras) {
+        //Joining the extra words with keywords and adding it to list by splitting it with comma
+        //For eg TFN will become TFN:, TFN -, ' TFN', 'TFN ', TFN=
+        newKeywords.addAll((String.join(keywords, extra)).split(','));
+      }
       Boolean hasKeyword = false;
-      for (String keyword : keywords) {
+      for (String keyword : newKeywords) {
         if (inputUpper.contains(keyword)) {
           hasKeyword = true;
           break;
