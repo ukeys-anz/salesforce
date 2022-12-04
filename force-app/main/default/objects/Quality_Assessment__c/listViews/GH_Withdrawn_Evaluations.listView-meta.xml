@@ -16,7 +16,6 @@
     <columns>Advice_Outcome__c</columns>
     <columns>Compliance_Outcome__c</columns>
     <columns>Context_and_General_Comments__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
@@ -32,8 +31,10 @@
         <operation>equals</operation>
         <value>Withdrawn/Not Required</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>GH Withdrawn Evaluations</label>
     <sharedTo>
         <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
     </sharedTo>
 </ListView>
