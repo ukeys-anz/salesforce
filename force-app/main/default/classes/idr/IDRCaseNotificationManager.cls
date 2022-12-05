@@ -3,55 +3,10 @@
  * @author Afreen
  * @since 11/2020
  * @description Responsible to trigger the Notification for banker.
+ * @runTests IDRCaseNotificationManagerTest, CaseTriggerHandlerTest
  *
  */
 public with sharing class IDRCaseNotificationManager {
-  /**
-   * @description Assesses whether or not to generate a banker notification for AfterUpdate scenario
-   * @param records Case records in current trigger context
-   * @param oldMap Old values of the cases in current context
-   */
-  public static void manageNotificationAfterUpdate(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
-    Map<Id, Id> caseWithParentId = new Map<Id, Id>();
-    Map<Id, Case> newMapWithCase = new Map<Id, Case>();
-    for (Case c : records) {
-      newMapWithCase.put(c.id, c);
-      if (
-        oldMap.get(c.Id).ParentId != c.ParentId &&
-        c.Status != 'Closed' &&
-        c.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID
-      ) {
-        caseWithParentId.put(c.id, c.ParentId);
-      }
-    }
-
-    if (
-      !caseWithParentId.isEmpty() &&
-      Case.sObjectType.getDescribe().isQueryable()
-    ) {
-      Map<Id, Case> parentIdWithCaseMap = new Map<Id, Case>();
-      for (Case c : [
-        SELECT id, Origin, CaseNumber, IDR_NC_First_Name__c, IDR_NC_Last_Name__c
-        FROM Case
-        WHERE id IN :caseWithParentId.values()
-      ]) {
-        parentIdWithCaseMap.put(c.id, c);
-      }
-
-      for (Case c : records) {
-        Case parentCase = parentIdWithCaseMap.get(c.ParentId);
-        wrapperList.add(createNotification('Parent Updated', c, parentCase));
-      }
-
-      //Send Notification
-      IDRBankerNotificationBuilder.sendNotification(wrapperList);
-    }
-  }
-
   /**
    * @description Assesses whether or not to generate a banker notification
    * @param records Case records in current trigger context
@@ -65,7 +20,7 @@ public with sharing class IDRCaseNotificationManager {
     List<Schema.FieldSetMember> fieldsList = getFields();
 
     for (Integer i = 0; i < records.size(); i++) {
-      Case oldRecord = (case) oldMap.get(records[i].Id);
+      Case oldRecord = (Case) oldMap.get(records[i].Id);
       if (
         oldRecord.RecordTypeId != GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID
       ) {
@@ -75,7 +30,7 @@ public with sharing class IDRCaseNotificationManager {
           if (
             oldMap.containsKey(records[i].Id) &&
             records[i].get(fieldName) != oldRecord.get(fieldName) &&
-            Userinfo.getUserId() != records[i].ownerId &&
+            UserInfo.getUserId() != records[i].OwnerId &&
             IDRCaseActions.isIDRComplaintType(records[i])
           ) {
             wrapperList.add(createNotification(fieldLabel, records[i], null));
@@ -169,7 +124,7 @@ public with sharing class IDRCaseNotificationManager {
    * @return List<Schema.FieldSetMember> All fields in a field set
    */
   public static List<Schema.FieldSetMember> getFields() {
-    return SObjectType.Case.FieldSets.IDR_Notification_Fields.getFields();
+    return SObjectType.Case.fieldSets.IDR_Notification_Fields.getFields();
   }
 
   /**
@@ -179,7 +134,7 @@ public with sharing class IDRCaseNotificationManager {
    */
   public static void notifyBankersForEscalation(
     List<Case> records,
-    Map<Id, Sobject> oldMap
+    Map<Id, SObject> oldMap
   ) {
     List<Case> toBeEsclationCases = new List<Case>();
     Set<Id> caseOwnerIds = new Set<Id>();
@@ -240,9 +195,9 @@ public with sharing class IDRCaseNotificationManager {
     nEvent.Case_ID__c = c.Id;
     nEvent.Case_Number__c = c.CaseNumber;
     nEvent.Is_Banker_Notification__c = true;
-    nEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId).Email;
-    nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId).FirstName;
-    if (ownerMap.get(c.OwnerId).ManagerId != null) {
+    nEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId)?.Email;
+    nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId)?.FirstName;
+    if (ownerMap.get(c.OwnerId)?.ManagerId != null) {
       nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
       nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
         .Manager.FirstName;
@@ -250,7 +205,7 @@ public with sharing class IDRCaseNotificationManager {
       nEvent.Line_Manager_Email__c = null;
       nEvent.Line_Manager_First_Name__c = null;
     }
-    nEvent.MessageID__c = '' + c.ID + Datetime.now().millisecond();
+    nEvent.MessageID__c = '' + c.Id + Datetime.now().millisecond();
     nEvent.EmailFlag__c = true;
     nEvent.EmailTemplate__c = IDRConstants.BANKER_EMAIL_NOTIFICATION_TEMPLATE;
 

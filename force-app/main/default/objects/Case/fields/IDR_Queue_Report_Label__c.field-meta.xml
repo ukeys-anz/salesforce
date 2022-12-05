@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Queue_Report_Label__c</fullName>
+    <description>Formula field to merge old and new names of existing queues for reports/dashboards</description>
+    <externalId>false</externalId>
+    <formula>CASE( Queue__c ,
+&apos;CCR Complaints&apos;, &apos;IDR CCR&apos;, 
+&apos;IDR Letter Approvers&apos;, &apos;IDR Written Responses&apos;,
+&apos;IDR Spare&apos;, &apos;IDR Disputes &amp; Scams&apos;,
+&apos;EDR Hardship&apos;, &apos;EDR CM Hardship&apos;,
+&apos;EDR Responsible Lending&apos;, &apos;EDR CM Responsible Lending&apos;,
+&apos;Specialised Early Resolution Hardship&apos;, &apos;EDR Early Resolution Hardship&apos;,
+&apos;Specialised EarlyRes Responsible Lending&apos;, &apos;EDR Early Resolution Responsible Lending&apos;,
+&apos;Specialised Spare&apos;, &apos;EDR Spare 2&apos;,
+Queue__c)</formula>
+    <label>Queue</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

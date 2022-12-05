@@ -65,4 +65,32 @@ public with sharing class TextUtilsTest {
       );
     }
   }
+
+  @isTest
+  static void testMaskAndLog() {
+    String inputData = 'A sample text with TFN: 1234567890';
+    String fieldName = 'Description';
+    Case c = new Case(Description = inputData);
+    Boolean isLoggingRequired = true;
+    TextUtils.maskAndLog(inputData, fieldName, c, isLoggingRequired);
+    System.assertEquals(
+      'A sample text with TFN: ******7890',
+      c.Description,
+      'Description should be masked'
+    );
+
+    //Negative Test
+    Case c2 = new Case(Description = 'Test happy 1234567980');
+    TextUtils.maskAndLog(
+      'Test happy 1234567980',
+      fieldName,
+      c2,
+      isLoggingRequired
+    );
+    System.assertEquals(
+      'Test happy 1234567980',
+      c2.Description,
+      'Description should not be masked'
+    );
+  }
 }
