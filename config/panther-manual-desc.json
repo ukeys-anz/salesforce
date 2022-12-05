@@ -25,6 +25,17 @@
       "Title": "The title of a document",
       "Document_Category__c": "Document Categorisation for complaints"
     },
+    "External_Case_Status__c": {
+      "Customer_Message__c": "Message sent to the customer via a notification in the app",
+      "External_Status__c": "Status of Case in external system",
+      "Internal_Description__c": "External Status description",
+      "Is_Outcome_in_Customer_Favour__c": "If dispute outcome was made in favour of customer",
+      "Result_Code__c": "Outcome code when as dispute is closed",
+      "Result_Message__c": "Description of the outcome",
+      "Status_Event_ID__c": "Unique Event ID for a status",
+      "Status_Timestamp__c": "Timestamp the status was updated in external system",
+      "Status_Timestamp_With_Millisec_Gmt__c": "Text field to capture timestamp from Pega. It is always GMT time"
+    },
     "FinServ__FinancialAccount__c": {
       "FinServ__Balance__c": "Balance amount in customer's financial account excluding pending transactions",
       "FinServ__CurrentPostedBalance__c": "Balance amount in customer's financial account including pending transactions",
@@ -1046,7 +1057,8 @@
         "Result_Code__c",
         "Result_Message__c",
         "Status_Event_ID__c",
-        "Status_Timestamp__c"
+        "Status_Timestamp__c",
+        "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
     "FinServ__FinancialAccount__c": {
