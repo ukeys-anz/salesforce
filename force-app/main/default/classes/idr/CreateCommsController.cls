@@ -272,10 +272,6 @@ public with sharing class CreateCommsController {
    * @param caseComms the record that needs to be submitted for approval
    */
   public static void submitCommsForApproval(IDR_Letter_Approval__c caseComms) {
-    // Create an approval request
-    Approval.ProcessSubmitRequest req = new Approval.ProcessSubmitRequest();
-    req.setObjectId(caseComms.Id);
-    // Submit the approval request
-    Approval.process(req);
+    
   }
 }
