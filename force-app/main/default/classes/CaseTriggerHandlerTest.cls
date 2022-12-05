@@ -2103,21 +2103,6 @@ private class CaseTriggerHandlerTest {
       WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
-
-    Slaprocess sla = [
-      SELECT Id, NAME
-      FROM Slaprocess
-      WHERE Name = 'complaints' AND IsActive = TRUE AND IsVersionDefault = TRUE
-      LIMIT 1
-    ];
-    //insert sla;
-    Entitlement et = new Entitlement(
-      Name = 'Complaints Entitlement',
-      AccountId = acc.Id,
-      StartDate = Date.valueof(System.now().addDays(-2)),
-      SlaProcessId = sla.Id
-    );
-    insert et;
     // GIVEN
     // We have one unauthenticated enquiry case
     Faker faker = new Faker('AU');
@@ -2132,23 +2117,15 @@ private class CaseTriggerHandlerTest {
     caseRecord.Type = '11';
     insert caseRecord;
 
-    // THEN
-    // For GetHelpConstants.COMPLAINT_RT_ID record type the case should pick up Complaint entitlement
-    Entitlement accountEntitlement = [
-      SELECT Id
-      FROM Entitlement
-      WHERE
-        name = :IDRConstants.COMPLAINTS_ENTITLEMENT_NAME
-        AND SlaProcess.Name = :IDRConstants.COMPLAINTS_ENTITLMENT_PROCESS
-        AND STATUS = 'Active'
-    ];
-
     Test.startTest();
     // Case caseRecord = prepareCaseForTestingEntitlement(GetHelpConstants.COMPLAINT_RT_ID);
     caseRecord.RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID;
     update caseRecord;
+
+    //THEN
+    //the entitlement on case should match complaint entitlement
     System.assert(
-      accountEntitlement.Id ==
+      IDRCaseActions.getEntitlement() ==
       [SELECT EntitlementId FROM Case WHERE Id = :caseRecord.Id LIMIT 1]
       .EntitlementId,
       'Link Entitlement from Account on converted unauthenticated enquiry to anz plus complaint.'

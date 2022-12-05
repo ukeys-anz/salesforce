@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-   <fullName>My_Upcoming_Appointments</fullName>
-   <columns>Interaction_Number_Link__c</columns>
-   <columns>Account</columns>
-   <columns>Lead__c</columns>
-   <columns>Interaction_Purpose__c</columns>
-   <columns>StartTime</columns>
-   <columns>InteractionType</columns>
-   <columns>Location</columns>
-   <columns>Status__c</columns>
-   <columns>Escalated__c</columns>
-   <columns>Owner</columns>
-   <filters>
-      <field>Status__c</field>
-      <operation>equals</operation>
-      <value>Scheduled,Rescheduled,Walk In</value>
-   </filters>
-   <filters>
-      <field>RecordType</field>
-      <operation>equals</operation>
-      <value>Interaction.Appointment</value>
-   </filters>
-   <filterScope>Mine</filterScope>
-   <label>My Upcoming Appointments</label>
-   <sharedTo>
-      <role>Coach</role>
-      <role>Coach_Lead</role>
-      <role>Quality_Analyst</role>
-      <role>Quality_Capability_Lead</role>
-   </sharedTo>
+    <fullName>My_Upcoming_Appointments</fullName>
+    <columns>Interaction_Number_Link__c</columns>
+    <columns>Account</columns>
+    <columns>Lead__c</columns>
+    <columns>Interaction_Purpose__c</columns>
+    <columns>StartTime</columns>
+    <columns>InteractionType</columns>
+    <columns>Location</columns>
+    <columns>Status__c</columns>
+    <columns>Escalated__c</columns>
+    <columns>Owner</columns>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Scheduled,Rescheduled,Walk In</value>
+    </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>Interaction.Appointment</value>
+    </filters>
+    <filterScope>Mine</filterScope>
+    <label>My Upcoming Appointments</label>
+    <sharedTo>
+        <role>Coach</role>
+        <role>Coach_Lead</role>
+        <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
+    </sharedTo>
 </ListView>
