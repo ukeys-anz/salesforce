@@ -646,11 +646,6 @@
             <actionType>QuickAction</actionType>
             <sortOrder>6</sortOrder>
         </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Case.Send_Letter_Email</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>7</sortOrder>
-        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
@@ -706,20 +701,6 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEmailMessageList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>New</excludeButtons>
-        <fields>NAME</fields>
-        <fields>IDR_Template_Name__c</fields>
-        <fields>IDR_Status__c</fields>
-        <fields>CREATEDBY_USER</fields>
-        <fields>LAST_UPDATE</fields>
-        <fields>IDR_Send_As_Email__c</fields>
-        <fields>IDR_Send_As_Letter__c</fields>
-        <relatedList>IDR_Letter_Approval__c.IDR_Case__c</relatedList>
-        <sortField>LAST_UPDATE</sortField>
-        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedCommentsList</relatedList>
