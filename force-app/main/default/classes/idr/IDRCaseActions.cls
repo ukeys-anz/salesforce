@@ -554,7 +554,7 @@ public with sharing class IDRCaseActions {
    * @param businessHoursId business hours of the case record.
    * @return string value of the flag calculated based on the time elapsed from dateReceuved
    */
-  private static string getMilestoneSla(
+  public static string getMilestoneSla(
     string caseStatus,
     dateTime dateReceived,
     ID businessHoursId

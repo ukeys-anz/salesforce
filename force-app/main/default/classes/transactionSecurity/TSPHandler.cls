@@ -10,7 +10,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
    * @param event SObject which is the name of the event.
    * @return `Boolean` according to different conditions on different events
    */
-  public static boolean evaluate(SObject event) {
+  public static Boolean evaluate(SObject event) {
     String eventName;
     String uId;
     switch on event {
@@ -35,7 +35,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
     }
     return evaluation(event, eventName, uId);
   }
-  private static boolean evaluation(
+  private static Boolean evaluation(
     SObject event,
     String eventName,
     String userIdentity
@@ -69,7 +69,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
           profileName +
           ' profile.'
         );
-        Logger.saveLog();
+        Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
         return true;
       }
     }

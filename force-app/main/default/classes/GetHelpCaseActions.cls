@@ -90,6 +90,8 @@ public with sharing class GetHelpCaseActions {
       ) {
         //Set owner of case to account closure queue if its set to escalated
         record.OwnerId = accountClosureQueue.Id;
+      } else if (CheckCaseRecordType.isANZPlusComplaint(record)) {
+        GetHelpCaseActionsHelper.handleEntitlementForUpdate(record, oldRecord);
       }
     }
 
