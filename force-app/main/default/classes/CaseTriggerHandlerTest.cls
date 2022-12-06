@@ -2117,21 +2117,15 @@ private class CaseTriggerHandlerTest {
     caseRecord.Type = '11';
     insert caseRecord;
 
-    // THEN
-    // the same Entitlement record on Account should be linked on the Case
-    Entitlement accountEntitlement = [
-      SELECT Id
-      FROM Entitlement
-      WHERE AccountId = :acc.Id
-      LIMIT 1
-    ];
-
     Test.startTest();
     // Case caseRecord = prepareCaseForTestingEntitlement(GetHelpConstants.COMPLAINT_RT_ID);
     caseRecord.RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID;
     update caseRecord;
+
+    //THEN
+    //the entitlement on case should match complaint entitlement
     System.assert(
-      accountEntitlement.Id ==
+      IDRCaseActions.getEntitlement() ==
       [SELECT EntitlementId FROM Case WHERE Id = :caseRecord.Id LIMIT 1]
       .EntitlementId,
       'Link Entitlement from Account on converted unauthenticated enquiry to anz plus complaint.'

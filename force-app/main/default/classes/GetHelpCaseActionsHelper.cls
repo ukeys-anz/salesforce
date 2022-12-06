@@ -156,7 +156,6 @@ public with sharing class GetHelpCaseActionsHelper {
     for (Case c : caseList) {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
@@ -197,7 +196,6 @@ public with sharing class GetHelpCaseActionsHelper {
     for (Case c : caseList) {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
@@ -212,6 +210,13 @@ public with sharing class GetHelpCaseActionsHelper {
       ) {
         c.EntitlementId = IDRCaseActions.getEntitlement();
         c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+      } else if (c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
+        c.EntitlementId = IDRCaseActions.getEntitlement();
+        c.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
+          c.Status,
+          c.IDR_Date_Received__c,
+          c.BusinessHoursId
+        );
       }
     }
   }
@@ -450,5 +455,34 @@ public with sharing class GetHelpCaseActionsHelper {
       }
     }
     return filteredCases;
+  }
+
+  /**
+   * @description  handleEntitlementForUpdate method is used to update the entitlment and time to escalation flag for ANZ Plus Complaints.
+   * 1. when a case is updated by the indexing team. entitlment ID and Flag both need to be calculated.
+   * 2. when a case has a status change. Flag status is needs to be recalculated.
+   * Note : IDR_Milestone_Sla__c is updated by entitlment process. this code is to handle the edge case scenarios.
+   * where the date received is back dated and milestones warning actions will not execute.
+   * @param record The actual case record from the trigger
+   * @param oldRec The old record values for the case
+   */
+  public static void handleEntitlementForUpdate(Case record, Case oldRec) {
+    //If status changes, recalculate the flag status.
+    if (
+      record.Status != oldRec.Status &&
+      (record.Status == GetHelpConstants.UNDER_INVESTIGATION_STATUS ||
+      record.Status == GetHelpConstants.OPEN_STATUS)
+    ) {
+      record.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
+        record.Status,
+        record.IDR_Date_Received__c,
+        record.BusinessHoursId
+      );
+    }
+
+    // if the date received has been updated , this information needs to flow on to SlaStartDate field. for the entitlments to work as expected.
+    if (record.IDR_Date_Received__c != oldRec.IDR_Date_Received__c) {
+      record.SlaStartDate = record.IDR_Date_Received__c;
+    }
   }
 }
