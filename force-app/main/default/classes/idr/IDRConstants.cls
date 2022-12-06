@@ -272,24 +272,6 @@ public with sharing class IDRConstants {
     set;
   }
 
-  //Anz.com constants
-  /**
-   * @description Static variable to map xpression Template name
-   * @return xpressiontemplateName map of xpression template name
-   */
-  public static final Map<String, String> xpressiontemplateName {
-    get {
-      if (xpressiontemplateName == null) {
-        xpressiontemplateName = new Map<String, String>{
-          'Declined Application Letter' => 'Declined_Application_Letter',
-          '21 Day Letter' => '21_DAY_LETTER'
-        };
-      }
-      return xpressiontemplateName;
-    }
-    set;
-  }
-
   //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
   public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
 }

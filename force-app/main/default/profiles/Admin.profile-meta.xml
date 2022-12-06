@@ -496,14 +496,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CreateCommsController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CreateCommsData</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>DateTimeUtils</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -872,10 +864,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>IDRLetterApprovalActions</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRMilestonesTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1005,14 +993,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>LeadValidationTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>LetterApprovalTriggerHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>LetterApprovalTriggerHandlerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1317,10 +1297,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>TestContentDocumentTriggerHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>TestCreateCommsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -5203,41 +5179,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>IDR_Letter_Approval_Details__c.IDR_Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Letter_Approval__c.Customer_Data_updated__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Letter_Approval__c.IDR_Auto_Approve__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Letter_Approval__c.IDR_Send_As_Email__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Letter_Approval__c.IDR_Send_As_Letter__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Letter_Approval__c.IDR_Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IDR_Letter_Approval__c.IDR_Template_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>IDR_Notification_Event__e.AuthorisedEmail__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5364,26 +5305,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>IDR_Notification_Event__e.SMSTemplate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Template_Detail__c.IDR_Case_Field_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Template_Detail__c.IDR_Field_Description__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Template_Detail__c.IDR_Is_Free_Text__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>IDR_Template_Detail__c.IDR_sort_order__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7732,15 +7653,6 @@
         <layout>IDR_Email_Service_Setting__mdt-IDR Email Service Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>IDR_Letter_Approval_Details__c-Letter Approval Details Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>IDR_Letter_Approval__c-Letter Approval Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>IDR_Template_Detail__c-Template Detail Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -8156,34 +8068,7 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>IDR_Letter_Approval_Details__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>IDR_Letter_Approval__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
         <object>IDR_Notification_Event__e</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>IDR_Template_Detail__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -8498,34 +8383,7 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>IDR_Letter_Approval_Details__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>IDR_Letter_Approval__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
         <object>IDR_Notification_Event__e</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>IDR_Template_Detail__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -9153,10 +9011,6 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>FinServ__Securities__c</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>IDR_Template_Detail__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
