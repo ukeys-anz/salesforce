@@ -43,6 +43,11 @@
    </fieldPermissions>
    <fieldPermissions>
       <editable>false</editable>
+      <field>Case.Date_Closed__c</field>
+      <readable>true</readable>
+   </fieldPermissions>
+   <fieldPermissions>
+      <editable>false</editable>
       <field>Case.EDW_Origin__c</field>
       <readable>true</readable>
    </fieldPermissions>
