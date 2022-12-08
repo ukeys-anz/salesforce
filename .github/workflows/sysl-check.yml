@@ -18,7 +18,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: sysl build deploy
+      - name: Sysl Build Deploy
         run: |
           BRANCH_NAME=${{ github.base_ref }}
           if [[ -f ci/sysl-build-deploy.sh ]];then
@@ -26,14 +26,14 @@ jobs:
             source ci/sysl-build-deploy.sh
           fi
 
-      - name: sysl check
+      - name: Sysl Check
         run: |
           if [[ -f ci/sysl-check.sh ]];then
             chmod +x ci/sysl-check.sh
             source ci/sysl-check.sh >> sysl-report.txt
           fi
 
-      - name: sysl report
+      - name: Sysl Report
         run: |
           if [[ -f sysl-report.txt ]];then
             syslError=$( cat ./sysl-report.txt )
@@ -42,3 +42,7 @@ jobs:
               exit 1
             fi
           fi
+
+      - name: Cleaning
+        run: |
+          rm -rf ./sysl-report.txt
