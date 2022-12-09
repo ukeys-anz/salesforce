@@ -18,6 +18,9 @@
       "Correct_Customer_Reference_Number__c": "Reference Number which correctly identifies the customer or invoice against which the payment is expected to be made.",
       "Customer_Reference_Number__c": "Reference Number which identifies the customer or invoice against which the payment is made."
     },
+    "Contact": {
+      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs."
+    },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
       "FileExtension": "File extension of the document",
@@ -257,6 +260,7 @@
         "Name",
         "Industry__c",
         "Occupation__c",
+        "Other_Email__c",
         "PersonBirthdate",
         "PersonEmail",
         "PersonMobilePhone",
@@ -865,9 +869,7 @@
         "MobilePhone",
         "OtherAddress",
         "Salutation",
-        "Suffix__c",
-        "Active_From__c",
-        "Active_To__c"
+        "Suffix__c"
       ],
       "IA-2530753": ["Active_From__c", "Active_To__c", "Occurrence_Number__c"]
     },
@@ -1922,6 +1924,7 @@
         "Create_Opportunity__c",
         "Create_To_Do_Activities__c",
         "Display_Order__c",
+        "External_Id_c",
         "Follow_Up_State__c",
         "Is_Active__c",
         "Outcome_Reason__c",
