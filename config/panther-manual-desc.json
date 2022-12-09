@@ -255,6 +255,7 @@
         "Establishment_Date__c",
         "Mailing_Name__c",
         "Name",
+        "Industry__c",
         "Occupation__c",
         "PersonBirthdate",
         "PersonEmail",
