@@ -361,6 +361,7 @@
       "IA-2415860": [
         "Campaign__c",
         "Comments__c",
+        "External_Id_c",
         "Is_Private__c",
         "URL__c",
         "UUID__c",
@@ -1319,6 +1320,8 @@
         "CCRM_DuplicateLeadCheck__c",
         "CLG_ID__c",
         "CLG_Name__c",
+        "CAPCIS_ID__c",
+        "CCRM_Duplicate_Block_Check__c",
         "Controlling_Post__c",
         "Controlling_Post_ID__c",
         "CPID_Owner__c",
@@ -1471,7 +1474,14 @@
         "Opportunity_Product__c",
         "Opportunity_Id__c"
       ],
-      "IA-2468715": ["CreatedById", "OwnerId", "Name", "LastModifiedById"]
+      "IA-2468715": [
+        "Id",
+        "CreatedById",
+        "OwnerId",
+        "Name",
+        "LastModifiedById"
+      ],
+      "IA-2415860": ["CreatedDate", "LastModifiedDate"]
     },
     "Log__c": {
       "IA-2468710": [
@@ -1540,12 +1550,15 @@
         "AccountId",
         "CampaignId",
         "CloseDate",
+        "CLG_Name__c",
         "Description",
         "Loss_Reason__c",
+        "Lost_Reason__c",
         "Name",
         "OwnerId",
         "Pricebook2Id",
         "Probability",
+        "Progress_Indicator__c",
         "RecordTypeId",
         "StageName",
         "TotalOpportunityQuantity",
