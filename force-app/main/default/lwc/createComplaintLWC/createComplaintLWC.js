@@ -457,6 +457,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handle2ndIssueToggleChange(event) {
     this.hasSecondIssue = event.target.checked;
+    if (!this.hasSecondIssue) {
+      this.hasThirdIssue = false;
+    }
   }
 
   handle3rdIssueToggleChange(event) {
