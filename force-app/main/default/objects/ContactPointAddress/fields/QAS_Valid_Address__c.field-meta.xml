@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>QAS_Valid_Address__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source - Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>Flag to depict if address is validated from QAS.</description>
     <externalId>false</externalId>
