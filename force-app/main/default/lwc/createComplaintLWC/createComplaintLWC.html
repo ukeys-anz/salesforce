@@ -785,22 +785,28 @@
                 <div class="slds-col slds-size_2-of-4"></div>
               </template>
               <!-- Real Form Changes-->
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-helptext
-                  content="A REAL form must be completed in the event of: a failure of internal process, people (e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers.
+              <div
+                class="slds-col slds-grid slds-size_1-of-4 slds-m-right_large"
+              >
+                <div>
+                  <lightning-radio-group
+                    required
+                    aria-required="true"
+                    name="realFormRequiredGroup"
+                    label="Is a REAL form required?"
+                    onchange={handleRealFormNeeded}
+                    options={realFormReqOptions}
+                    type="button"
+                    data-id="realFormRequiredGroup-id"
+                  ></lightning-radio-group>
+                </div>
+                <div>
+                  <lightning-helptext
+                    content="A REAL form must be completed in the event of: a failure of internal process, people (e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers.
                    Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search ‘REAL Form’, or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REAL'."
-                >
-                </lightning-helptext>
-                <lightning-radio-group
-                  required
-                  aria-required="true"
-                  name="realFormRequiredGroup"
-                  label="Is a REAL form required?"
-                  onchange={handleRealFormNeeded}
-                  options={realFormReqOptions}
-                  type="button"
-                  data-id="realFormRequiredGroup-id"
-                ></lightning-radio-group>
+                  >
+                  </lightning-helptext>
+                </div>
               </div>
               <template if:true={isRealFormNeeded}>
                 <div
@@ -822,10 +828,6 @@
                 <div
                   class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
                 >
-                  <lightning-helptext
-                    content="Once a REAL form has been submitted via MAX, an auto-generated REAL form 'MAX ID/ServiceNow ID' will be displayed. Record this 'MAX ID/ServiceNow ID' into this field."
-                  >
-                  </lightning-helptext>
                   <lightning-input
                     type="text"
                     label="REAL Form MAX ID/ServiceNow ID"
@@ -833,6 +835,7 @@
                     max-length="50"
                     onchange={handleRealFormRefNoChange}
                     data-id="realFormRefNoGroup-id"
+                    field-level-help="Once a REAL form has been submitted via MAX, an auto-generated REAL form 'MAX ID/ServiceNow ID' will be displayed. Record this 'MAX ID/ServiceNow ID' into this field."
                   ></lightning-input>
                 </div>
               </template>
@@ -889,23 +892,29 @@
             </div>
             <!--Systemic issues-->
             <div class="slds-grid slds-wrap">
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-helptext
-                  content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
-                >
-                </lightning-helptext>
-                <lightning-radio-group
-                  required
-                  aria-required="true"
-                  name="commoncomplaintGroup"
-                  label="Is this a possible systemic issue?"
-                  onchange={handleCommonComplaint}
-                  options={commoncomplaintoptions}
-                  value={isCommonComplaintYesNo}
-                  type="button"
-                  data-id="commoncomplaintGroup-id"
-                >
-                </lightning-radio-group>
+              <div
+                class="slds-col slds-grid slds-size_1-of-4 slds-m-right_large"
+              >
+                <div>
+                  <lightning-radio-group
+                    required
+                    aria-required="true"
+                    name="commoncomplaintGroup"
+                    label="Is this a possible systemic issue?"
+                    onchange={handleCommonComplaint}
+                    options={commoncomplaintoptions}
+                    value={isCommonComplaintYesNo}
+                    type="button"
+                    data-id="commoncomplaintGroup-id"
+                  >
+                  </lightning-radio-group>
+                </div>
+                <div>
+                  <lightning-helptext
+                    content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
+                  >
+                  </lightning-helptext>
+                </div>
               </div>
               <template if:true={isCommonComplaint}>
                 <div
