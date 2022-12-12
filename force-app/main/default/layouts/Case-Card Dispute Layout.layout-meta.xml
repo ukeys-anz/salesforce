@@ -341,10 +341,9 @@
         <fields>External_Status__c</fields>
         <fields>Internal_Description__c</fields>
         <fields>Status_Timestamp__c</fields>
-        <fields>Status_Timestamp_With_Millisec_Gmt__c</fields>
         <fields>Customer_Message__c</fields>
         <relatedList>External_Case_Status__c.Case__c</relatedList>
-        <sortField>Status_Timestamp_With_Millisec_Gmt__c</sortField>
+        <sortField>Status_Timestamp__c</sortField>
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
