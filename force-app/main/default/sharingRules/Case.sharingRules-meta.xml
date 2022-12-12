@@ -162,12 +162,12 @@
     <sharingCriteriaRules>
         <fullName>Complaint_RTs_CRPUsers_RW</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Great Read write access to complaint records and Unauthenticated Enquiry records for Customer Resolution Users</description>
+        <description>Grants Read write access to complaint records, CFMS Migrated and Unauthenticated Enquiry records for Customer Resolution Users</description>
         <label>Complaint_RTs_CRPUsers_RW</label>
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+        <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -179,9 +179,14 @@
             <value>Unauthenticated Enquiry</value>
         </criteriaItems>
         <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>CFMS Migrated Case</value>
+        </criteriaItems>
+        <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
-            <value>false</value>
+            <value>False</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
