@@ -2172,6 +2172,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.IDR_Allow_Account_Policy_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.IDR_Product_or_Service_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -6243,6 +6243,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.IDR_Allow_Account_Policy_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Product2.ANZ_Product_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>

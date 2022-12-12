@@ -554,6 +554,7 @@
         "IDR_Account_Card_Policy_Number__c",
         "IDR_Account_Card_Policy_Number_2__c",
         "IDR_Account_Card_Policy_Number_3__c",
+        "IDR_Allow_Account_Policy_Number__c",
         "IDR_AuthRep_Is_Related_to_Representative__c",
         "IDR_AuthRep_Licence_Number__c",
         "IDR_AuthRep_Licence_or_registration_type__c",
