@@ -3,7 +3,8 @@
     "Account": {
       "BillingAddress": "Customer mailing address",
       "FinServ__KYCStatus__c": "Status to indicate customer's KYC progress",
-      "FinServ__Status__c": "Financial account status of the customer"
+      "FinServ__Status__c": "Financial account status of the customer",
+      "FinServ__CustomerType__c": "The type of organisation in OCV source system."
     },
     "Case": {
       "FinServ__FinancialAccount__c": "Look up field for financial account, relates a case to a customer's financial account",
@@ -269,7 +270,13 @@
         "Self_Certified_Tax_Residency__c"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
-      "IA-2530753": ["CLG__c", "Controlling_Post__c", "CPID_Link__c", "CPID__c"]
+      "IA-2530753": [
+        "CLG__c",
+        "Controlling_Post__c",
+        "CPID_Link__c",
+        "CPID__c"
+      ],
+      "IA-2415860": ["FinServ__CustomerType__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -365,7 +372,7 @@
       "IA-2415860": [
         "Campaign__c",
         "Comments__c",
-        "External_Id_c",
+        "External_Id__c",
         "Is_Private__c",
         "URL__c",
         "UUID__c",
@@ -897,7 +904,8 @@
         "Unit__c"
       ],
       "IA-2415831": ["Global_Address_Key__c"],
-      "IA-2415840": ["QAS_Valid_Address__c"]
+      "IA-2415840": ["QAS_Valid_Address__c"],
+      "IA-2415720": ["AddressType"]
     },
     "ContactPointEmail": {
       "IA-2415860": ["Occurrence_Number__c"],
@@ -1368,6 +1376,7 @@
       "IA-2415860": [
         "Campaign_Flex_Field__c",
         "Campaign__c",
+        "FlexFieldName__c",
         "FlexFieldValue__c",
         "Lead__c",
         "LeadIdSequence__c",
@@ -1587,6 +1596,12 @@
         "Name",
         "OwnerId",
         "StageName"
+      ],
+      "IA-2415987": [
+        "Multiple_Products__c",
+        "My_Region_Flag__c",
+        "Product_Count__c",
+        "Account_Number__c"
       ]
     },
     "OpportunityLineItem": {
@@ -1924,7 +1939,7 @@
         "Create_Opportunity__c",
         "Create_To_Do_Activities__c",
         "Display_Order__c",
-        "External_Id_c",
+        "External_Id__c",
         "Follow_Up_State__c",
         "Is_Active__c",
         "Outcome_Reason__c",
@@ -2220,7 +2235,8 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"]
+      "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
+      "IA-2415855": ["FinServ__ReferrerScore__c"]
     }
   }
 }

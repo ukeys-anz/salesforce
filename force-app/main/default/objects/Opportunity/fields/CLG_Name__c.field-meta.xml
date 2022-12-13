@@ -3,11 +3,12 @@
     <fullName>CLG_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
-    <securityClassification>Internal</securityClassification>
+    <description>Formula field for CLG Name of associated CLG Account Record</description>
     <externalId>false</externalId>
     <formula>Account.CLG__c</formula>
     <label>CLG Name</label>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
