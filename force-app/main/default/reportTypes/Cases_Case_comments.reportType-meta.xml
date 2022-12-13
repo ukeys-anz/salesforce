@@ -104,6 +104,12 @@
             <field>CreatedDate</field>
             <table>Case</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Workbasket</displayNameOverride>
+            <field>Queue__c</field>
+            <table>Case</table>
+        </columns>
         <masterLabel>cases</masterLabel>
     </sections>
 </ReportType>
