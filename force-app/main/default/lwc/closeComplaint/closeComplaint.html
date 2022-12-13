@@ -1,93 +1,128 @@
 <template>
-  <div
-    class="slds-modal__content slds-p-around_medium maxwidth"
-    id="modal-content-id-0"
-  >
-    <template if:false={isValidToClose}
-      ><div style="text-align: center" class="validationMessage">
-        {validityMessage}
-      </div></template
-    >
-
-    <template if:true={isValidToClose}>
-      <div class="title">Close Complaint</div>
-      <lightning-combobox
-        name="ComplaintStatus"
-        class="statusSelect"
-        label="Complaint Status"
-        aria-label="Dropdown Complaint Status"
-        value={caseStatus}
-        options={statusOptions}
-        onchange={handleStatusChange}
-        required="true"
-        data-id="caseStatus-id"
-      ></lightning-combobox>
-      <template if:true={loadChild}>
-        <c-complaints-Close-Child
-          record-id={recordId}
-          record-type-id={recordTypeId}
-          onfieldvalueupdate={handleFieldUpdate}
-        >
-        </c-complaints-Close-Child>
-      </template>
-
-      <div class="slds-float slds-align_absolute-center">
-        <lightning-button
-          variant="brand"
-          type="submit"
-          onclick={validateFields}
-          class="saveButton"
-          name="save"
-          label="Save Complaint"
-          data-id="submit-id"
-          aria-label="Press to save the form and create the case"
-        ></lightning-button>
-      </div>
-    </template>
-  </div>
-  <template if:true={showModal}>
-    <section
-      role="dialog"
-      tabindex="-1"
-      class="slds-modal slds-fade-in-open slds-modal_small"
-      aria-labelledby="modal-heading-01"
-      aria-modal="true"
-      aria-describedby="modal-content-id-1"
-    >
-      <div class="slds-modal__container">
-        <header class="slds-modal__header">
-          <lightning-button-icon
-            icon-name="utility:close"
-            class="slds-float_right"
-            onclick={closeModal}
-            alternative-text="close"
-            aria-label="Press to close the dialog and return to the form"
-          ></lightning-button-icon>
-          <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
-            {modalHeader}
-          </h2>
-        </header>
+  <template if:true={loading}>
+    <div style="height: 3rem">
+      <div class="slds-spinner_container">
         <div
-          class="slds-modal__content slds-p-around_medium"
-          id="modal-content-id-1"
+          role="status"
+          class="slds-spinner slds-spinner_medium slds-spinner_brand"
         >
-          <lightning-formatted-rich-text
-            class="modalMessage"
-            value={modalMessage}
-          ></lightning-formatted-rich-text>
+          <span class="slds-assistive-text">Loading</span>
+          <div class="slds-spinner__dot-a"></div>
+          <div class="slds-spinner__dot-b"></div>
         </div>
-        <footer class="slds-modal__footer">
+      </div>
+    </div>
+  </template>
+  <template if:false={loading}>
+    <div
+      class="slds-modal__content slds-p-around_medium maxwidth"
+      id="modal-content-id-0"
+    >
+      <template if:false={isValidToClose}
+        ><div
+          style="text-align: center; min-height: 3rem"
+          class="validationMessage"
+        >
+          {validityMessage}
+        </div></template
+      >
+
+      <template if:true={isValidToClose}>
+        <div class="title">Close Complaint</div>
+        <lightning-combobox
+          name="ComplaintStatus"
+          class="statusSelect"
+          label="Complaint Status"
+          aria-label="Dropdown Complaint Status"
+          value={caseStatus}
+          options={statusOptions}
+          onchange={handleStatusChange}
+          required="true"
+          data-id="caseStatus-id"
+        ></lightning-combobox>
+        <template if:true={loadChild}>
+          <c-complaints-Close-Child
+            record-id={recordId}
+            record-type-id={recordType}
+            is-real-form-needed-public={isRealFormNeeded}
+            real-form-ref-no-public={realFormRefNo}
+            real-form-req-options={realFormReqOptions}
+            is-common-complaint-yes-no-public={isCommonComplaintYesNo}
+            is-common-complaint-public={isCommonComplaint}
+            express-case-creation-data-obj={expressCaseCreationData}
+            systemic-issue-description-public={systemicIssueDescription}
+            systemic-issue-category-public={systemicIssueCategory}
+            possible-systemic-issues-public={possibleSystemicIssues}
+            commoncomplaintoptions={commoncomplaintoptions}
+            onfieldvalueupdate={handleFieldUpdate}
+            onhandlerealformneeded={handleRealFormNeeded}
+            onhandlecommoncomplaint={handleCommonComplaint}
+            onhandlerealformrefnochange={handleRealFormRefNoChange}
+            onsystemicissuedescriptionchange={handleSystemicIssueDescriptionChange}
+            onsystemicissuecategorychange={handleSystemicIssueCategoryChange}
+            onpossiblesystemicissueschange={handlePossibleSystemicIssuesChange}
+          >
+          </c-complaints-Close-Child>
+        </template>
+
+        <div class="slds-float slds-align_absolute-center">
           <lightning-button
             variant="brand"
-            label="Close"
-            aria-label="Press to close the dialog and return to the form"
-            title="Close"
-            onclick={closeModal}
-            class="slds-m-left_x-small"
+            type="submit"
+            onclick={validateFields}
+            class="saveButton"
+            name="save"
+            label="Save Complaint"
+            data-id="submit-id"
+            aria-label="Press to save the form and create the case"
           ></lightning-button>
-        </footer>
-      </div>
-    </section>
-    <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+      </template>
+    </div>
+    <template if:true={showModal}>
+      <section
+        role="dialog"
+        tabindex="-1"
+        class="slds-modal slds-fade-in-open slds-modal_small"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+      >
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <lightning-button-icon
+              icon-name="utility:close"
+              class="slds-float_right"
+              onclick={closeModal}
+              alternative-text="close"
+              aria-label="Press to close the dialog and return to the form"
+            ></lightning-button-icon>
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+              {modalHeader}
+            </h2>
+          </header>
+          <div
+            class="slds-modal__content slds-p-around_medium"
+            id="modal-content-id-1"
+          >
+            <lightning-formatted-rich-text
+              class="modalMessage"
+              value={modalMessage}
+            ></lightning-formatted-rich-text>
+          </div>
+          <footer class="slds-modal__footer">
+            <lightning-button
+              variant="brand"
+              label="Close"
+              aria-label="Press to close the dialog and return to the form"
+              title="Close"
+              onclick={closeModal}
+              class="slds-m-left_x-small"
+            ></lightning-button>
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
   </template>
 </template>

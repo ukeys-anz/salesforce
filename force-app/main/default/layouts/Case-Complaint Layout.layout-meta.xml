@@ -460,10 +460,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IDR_Real_Form_Submitted__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>IDR_Real_Form_Ref_No__c</field>
             </layoutItems>
         </layoutColumns>
