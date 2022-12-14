@@ -9,21 +9,13 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
-
 AND(
- NOT( ISNEW() ),
- OR(
-  AND(
-   IDR_Real_Form_Req__c, 
-   ISBLANK( IDR_Real_Form_Ref_No__c )
-  ) , 
-  AND(
-   NOT(IDR_Real_Form_Req__c),
-   NOT(ISBLANK( IDR_Real_Form_Ref_No__c )
-  )
- )
+NOT( ISNEW() ),
+AND(
+IDR_Real_Form_Req__c,
+ISBLANK( IDR_Real_Form_Ref_No__c )
 )
 )
 )</errorConditionFormula>
-    <errorMessage>&quot;REAL Form MAX ID/ServiceNow ID&quot; is always and only required when &quot;Is Real Form is required?&quot; is checked.</errorMessage>
+    <errorMessage>REAL Form MAX ID/Service ID&apos; must be completed when &apos;Is a REAL form required?&apos; is ticked Yes.</errorMessage>
 </ValidationRule>
