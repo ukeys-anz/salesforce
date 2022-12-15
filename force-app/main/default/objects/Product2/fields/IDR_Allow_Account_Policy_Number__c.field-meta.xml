@@ -6,7 +6,7 @@
     <description>this checkbox is created for admin to select products that allows Account/Policy number to be N/A</description>
     <externalId>false</externalId>
     <inlineHelpText>Select this for products that allows Account/Policy number to be N/A</inlineHelpText>
-    <label>Allow Account/Policy Number</label>
+    <label>Allow NA as Account/Policy Number</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
 </CustomField>
