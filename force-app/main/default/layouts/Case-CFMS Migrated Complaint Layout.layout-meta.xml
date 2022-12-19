@@ -84,7 +84,7 @@
             <field>IDR_NC_Street__c</field>
          </layoutItems>
          <layoutItems>
-            <behavior>Edit</behavior>
+            <behavior>Required</behavior>
             <field>IDR_NC_Postcode__c</field>
          </layoutItems>
          <layoutItems>
