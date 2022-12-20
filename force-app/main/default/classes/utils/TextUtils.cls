@@ -198,7 +198,7 @@ public with sharing class TextUtils {
     String regexWords = Label.Reactive_logging_keywords.replace(',', '|');
     //Regex to match only keyword and ignore whitespace and digits before/after word
     String regex =
-      '(?i)(?:(?<!\\S)|(?<!\\D))(?:' +
+      '(?i)(?:(?<!\\S)|(?<!\\D)(?>\\W))(?:' +
       regexWords +
       ')(?:(?!\\S)|(?!\\D)|(?<!\\W))';
     Pattern compiledPattern = Pattern.compile(regex);
