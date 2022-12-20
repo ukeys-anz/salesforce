@@ -4,12 +4,12 @@
  * @description Test class for {@link NewCaseFlowWrapperController}
  * @group IDR(Internal Dispute Resolution)
  */
-@isTest
+@IsTest
 private with sharing class NewCaseFlowWrapperControllerTest {
   /**
    * @description setup is to prepare test data
    */
-  @testSetup
+  @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
     //create test account
@@ -52,10 +52,11 @@ private with sharing class NewCaseFlowWrapperControllerTest {
       ANZx_Customer__c = false
     );
     testCaseFailure.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+    testCaseFailure.IDR_Customer_Number__c = '0123456789';
     insert testCaseFailure;
   }
 
-  @isTest
+  @IsTest
   static void testRecordTypeDevNameFromId() {
     RecordType rt = [
       SELECT DeveloperName
@@ -70,7 +71,7 @@ private with sharing class NewCaseFlowWrapperControllerTest {
   }
 
   // Test getting available record type Ids for Case
-  @isTest
+  @IsTest
   private static void testGetAvailableRecordTypeIdsForSObject() {
     Case c = [SELECT Id, Origin FROM Case WHERE Origin = 'Phone' LIMIT 1];
     Test.startTest();
@@ -90,7 +91,7 @@ private with sharing class NewCaseFlowWrapperControllerTest {
   }
 
   // Test getting available record type Ids for Unauthenticated Enquiry Case from AEM
-  @isTest
+  @IsTest
   private static void testGetAvailableRecordTypeIdsForAEMUnauthCases() {
     Case c = [
       SELECT Id, Origin
@@ -117,7 +118,7 @@ private with sharing class NewCaseFlowWrapperControllerTest {
 
   // Test getting available record type Ids for Not Unauthenticated Enquiry Case
   // This should run the getCaseRecordTypes method.
-  @isTest
+  @IsTest
   private static void testGetAvailableRecordTypeIdsForNotUnauthCase() {
     Case c = [SELECT Id, Origin FROM Case WHERE Origin = 'Letter' LIMIT 1];
 
