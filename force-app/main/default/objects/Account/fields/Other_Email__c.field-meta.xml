@@ -3,6 +3,7 @@
     <fullName>Other_Email__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source - OCV;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <description>Email of the customer owning the account</description>
     <externalId>false</externalId>
     <label>Email Address</label>
     <required>false</required>

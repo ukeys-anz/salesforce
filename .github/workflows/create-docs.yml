@@ -74,7 +74,7 @@ jobs:
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           secrets: |-
-            sfdxurl:projects/36540621485/secrets/ghr-salesforce-prod-salesforce-sysl-np/versions/1
+            sfdxurl:projects/36540621485/secrets/ghr-salesforce-prod-salesforce-sysl-np/versions/latest
 
       - name: "Create auth files with SFDX_URL secret"
         working-directory: salesforce

@@ -3,7 +3,8 @@
     "Account": {
       "BillingAddress": "Customer mailing address",
       "FinServ__KYCStatus__c": "Status to indicate customer's KYC progress",
-      "FinServ__Status__c": "Financial account status of the customer"
+      "FinServ__Status__c": "Financial account status of the customer",
+      "FinServ__CustomerType__c": "The type of organisation in OCV source system."
     },
     "Case": {
       "FinServ__FinancialAccount__c": "Look up field for financial account, relates a case to a customer's financial account",
@@ -17,6 +18,9 @@
       "Biller_Name__c": "Name of the Merchant or Organisation to which the BPAY Payment is made.",
       "Correct_Customer_Reference_Number__c": "Reference Number which correctly identifies the customer or invoice against which the payment is expected to be made.",
       "Customer_Reference_Number__c": "Reference Number which identifies the customer or invoice against which the payment is made."
+    },
+    "Contact": {
+      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs."
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -224,6 +228,7 @@
         "Has_Customer_Provided_TFN__c",
         "KYC_Verification_Level__c"
       ],
+      "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [
         "AccountNumber",
         "External_Id__c",
@@ -252,7 +257,9 @@
         "Establishment_Date__c",
         "Mailing_Name__c",
         "Name",
+        "Industry__c",
         "Occupation__c",
+        "Other_Email__c",
         "PersonBirthdate",
         "PersonEmail",
         "PersonMobilePhone",
@@ -261,7 +268,13 @@
         "Self_Certified_Tax_Residency__c"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
-      "IA-2530753": ["CLG__c", "Controlling_Post__c", "CPID_Link__c", "CPID__c"]
+      "IA-2530753": [
+        "CLG__c",
+        "Controlling_Post__c",
+        "CPID_Link__c",
+        "CPID__c"
+      ],
+      "IA-2415860": ["FinServ__CustomerType__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -357,6 +370,7 @@
       "IA-2415860": [
         "Campaign__c",
         "Comments__c",
+        "External_Id__c",
         "Is_Private__c",
         "URL__c",
         "UUID__c",
@@ -861,21 +875,25 @@
         "MobilePhone",
         "OtherAddress",
         "Salutation",
-        "Suffix__c",
-        "Active_From__c",
-        "Active_To__c"
+        "Suffix__c"
       ],
-      "IA-2530753": ["Active_From__c", "Active_To__c"]
+      "IA-2530753": ["Active_From__c", "Active_To__c", "Occurrence_Number__c"]
     },
     "ContactPointAddress": {
       "IA-2530753": [
         "Building_Name__c",
         "Customer_Name__c",
+        "Created_By__c",
+        "Created_Date__c",
         "CreatedById",
         "CreatedDate",
+        "External_Id__c",
         "Id",
+        "Last_Modified_By__c",
+        "Last_Modified_Date__c",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "RecordTypeId"
       ],
       "IA-2415984": [
         "P_O_Box__c",
@@ -885,14 +903,23 @@
         "Unit__c"
       ],
       "IA-2415831": ["Global_Address_Key__c"],
-      "IA-2415840": ["QAS_Valid_Address__c"]
+      "IA-2415840": ["QAS_Valid_Address__c"],
+      "IA-2415720": ["AddressType"]
     },
     "ContactPointEmail": {
       "IA-2415860": ["Occurrence_Number__c"],
-      "IA-2530753": ["Customer_Name__c"]
+      "IA-2530753": [
+        "Created_By__c",
+        "Created_Date__c",
+        "Customer_Name__c",
+        "Last_Modified_By__c",
+        "Last_Modified_Date__c"
+      ],
+      "IA-2415984": ["Preferred_Indicator__c"]
     },
     "ContactPointPhone": {
-      "IA-2530753": ["Customer_Name__c"]
+      "IA-2530753": ["Customer_Name__c"],
+      "IA-2415984": ["Preferred_Indicator__c"]
     },
     "ContactRequest": {
       "IA-2453595": [
@@ -1079,7 +1106,8 @@
         "lastUpdatedDateTime__c",
         "Name"
       ],
-      "IA-2415987": ["Interest_Rate_URL__c"]
+      "IA-2415987": ["Interest_Rate_URL__c"],
+      "IA-2530753": ["IsPrimaryOwner__c", "Product_SubCode__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -1099,7 +1127,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
     },
     "Industry__c": {
       "IA-2530401": [
@@ -1269,6 +1298,8 @@
         "CCRM_DuplicateLeadCheck__c",
         "CLG_ID__c",
         "CLG_Name__c",
+        "CAPCIS_ID__c",
+        "CCRM_Duplicate_Block_Check__c",
         "Controlling_Post__c",
         "Controlling_Post_ID__c",
         "CPID_Owner__c",
@@ -1313,6 +1344,7 @@
       "IA-2415860": [
         "Campaign_Flex_Field__c",
         "Campaign__c",
+        "FlexFieldName__c",
         "FlexFieldValue__c",
         "Lead__c",
         "LeadIdSequence__c",
@@ -1421,7 +1453,14 @@
         "Opportunity_Product__c",
         "Opportunity_Id__c"
       ],
-      "IA-2468715": ["CreatedById", "OwnerId", "Name", "LastModifiedById"]
+      "IA-2468715": [
+        "Id",
+        "CreatedById",
+        "OwnerId",
+        "Name",
+        "LastModifiedById"
+      ],
+      "IA-2415860": ["CreatedDate", "LastModifiedDate"]
     },
     "Log__c": {
       "IA-2468710": [
@@ -1490,12 +1529,15 @@
         "AccountId",
         "CampaignId",
         "CloseDate",
+        "CLG_Name__c",
         "Description",
         "Loss_Reason__c",
+        "Lost_Reason__c",
         "Name",
         "OwnerId",
         "Pricebook2Id",
         "Probability",
+        "Progress_Indicator__c",
         "RecordTypeId",
         "StageName",
         "TotalOpportunityQuantity",
@@ -1522,6 +1564,12 @@
         "Name",
         "OwnerId",
         "StageName"
+      ],
+      "IA-2415987": [
+        "Multiple_Products__c",
+        "My_Region_Flag__c",
+        "Product_Count__c",
+        "Account_Number__c"
       ]
     },
     "OpportunityLineItem": {
@@ -1859,6 +1907,7 @@
         "Create_Opportunity__c",
         "Create_To_Do_Activities__c",
         "Display_Order__c",
+        "External_Id__c",
         "Follow_Up_State__c",
         "Is_Active__c",
         "Outcome_Reason__c",
@@ -2154,7 +2203,8 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"]
+      "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
+      "IA-2415855": ["FinServ__ReferrerScore__c"]
     }
   }
 }
