@@ -3,6 +3,7 @@
  * @since 05/2021
  * @description  This class is contains helper methods for IDREmailService class
  * @group IDR(Internal Dispute Resolution)
+ * @runTests IDREmailServiceTest
  */
 public with sharing class IDREmailServiceHelper {
   /**
@@ -25,7 +26,7 @@ public with sharing class IDREmailServiceHelper {
       Subject = email.subject,
       SuppliedEmail = fromEmail,
       IDR_Inbox_Email_Address__c = senderEmail,
-      recordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
+      RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
       IDR_Real_Form_Req__c = false,
       Origin = caseOrigin
     );
@@ -40,14 +41,13 @@ public with sharing class IDREmailServiceHelper {
     );
     if (acw.inAccessibleFields != null) {
       Logger.error(
-        'EmailServiceException',
-        'User does not have create access to fields --' +
+        'No create access to fields --' +
         acw.inAccessibleFields +
-        ' Recieved email from : ' +
+        ' From: ' +
         fromEmail +
-        ' Subject of email : ' +
+        ' Subject: ' +
         email.subject +
-        ' Email sent to : ' +
+        ' To: ' +
         senderEmail
       );
       Logger.saveLog();
@@ -56,15 +56,13 @@ public with sharing class IDREmailServiceHelper {
         insert newCase;
       } catch (Exception err) {
         Logger.error(
-          'EmailServiceException',
-          'Error in creating new case from email service class : ' +
-          'Recieved email from : ' +
+          'From: ' +
           fromEmail +
-          ' Subject of email : ' +
+          ' Subject: ' +
           email.subject +
-          ' Email sent to : ' +
-          senderEmail +
-          err.getMessage()
+          ' To: ' +
+          senderEmail,
+          err
         );
         Logger.saveLog();
       }
@@ -107,10 +105,10 @@ public with sharing class IDREmailServiceHelper {
       }
     } catch (Exception err) {
       Logger.error(
-        'EmailServiceException',
-        'Error in creating email message from service class, which needs to be attached to existing case :' +
-        caseId +
-        err.getMessage()
+        'EmailServiceException: ' +
+        'Error in creating email message from service class, which needs to be attached to existing case :',
+        caseId,
+        err
       );
       Logger.saveLog();
     }
@@ -125,8 +123,8 @@ public with sharing class IDREmailServiceHelper {
     Messaging.InboundEmail email,
     Id caseId
   ) {
-    List<Messaging.Inboundemail.TextAttachment> tAttachments = email.textAttachments;
-    List<Messaging.Inboundemail.BinaryAttachment> bAttachments = email.binaryAttachments;
+    List<Messaging.InboundEmail.TextAttachment> tAttachments = email.textAttachments;
+    List<Messaging.InboundEmail.BinaryAttachment> bAttachments = email.binaryAttachments;
     List<ContentVersion> contentVersionList = new List<ContentVersion>();
 
     //Get all text attachments
@@ -157,7 +155,7 @@ public with sharing class IDREmailServiceHelper {
       }
     }
 
-    List<Id> contentVerIds = new List<ID>();
+    List<Id> contentVerIds = new List<Id>();
     for (ContentVersion cv : contentVersionList) {
       contentVerIds.add(cv.Id);
     }
@@ -171,12 +169,12 @@ public with sharing class IDREmailServiceHelper {
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextFileAttachments(
-    List<Messaging.Inboundemail.TextAttachment> tAttachments,
+    List<Messaging.InboundEmail.TextAttachment> tAttachments,
     Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (tAttachments != null && tAttachments.size() > 0) {
-      for (Messaging.Inboundemail.TextAttachment tAttachment : tAttachments) {
+      for (Messaging.InboundEmail.TextAttachment tAttachment : tAttachments) {
         if (
           FileUtil.checkExtension(
             tAttachment.mimeTypeSubType,
@@ -195,8 +193,7 @@ public with sharing class IDREmailServiceHelper {
             'Discarded an attachment as the type was unsupported => filename : ' +
             tAttachment.fileName +
             ' , mimesubtype : ' +
-            tAttachment.mimeTypeSubType +
-            ', For the case : ' +
+            tAttachment.mimeTypeSubType,
             caseId
           );
         }
@@ -213,12 +210,12 @@ public with sharing class IDREmailServiceHelper {
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextBinaryAttachments(
-    List<Messaging.Inboundemail.BinaryAttachment> bAttachments,
+    List<Messaging.InboundEmail.BinaryAttachment> bAttachments,
     Id caseId
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (bAttachments != null && bAttachments.size() > 0) {
-      for (Messaging.Inboundemail.BinaryAttachment bAttachment : bAttachments) {
+      for (Messaging.InboundEmail.BinaryAttachment bAttachment : bAttachments) {
         if (
           FileUtil.checkExtension(
             bAttachment.mimeTypeSubType,
@@ -237,8 +234,7 @@ public with sharing class IDREmailServiceHelper {
             'Discarded a binary attachment as the type was unsupported => filename : ' +
             bAttachment.fileName +
             ' , mimesubtype : ' +
-            bAttachment.mimeTypeSubType +
-            ', For the case : ' +
+            bAttachment.mimeTypeSubType,
             caseId
           );
         }
@@ -278,9 +274,9 @@ public with sharing class IDREmailServiceHelper {
         update newCase;
       } catch (Exception err) {
         Logger.error(
-          'Error in updating case with queue for caseId :' +
-          newCase.Id +
-          err.getMessage()
+          'Error in updating case with queue for caseId :',
+          newCase.Id,
+          err
         );
         Logger.saveLog();
       }

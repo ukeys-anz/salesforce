@@ -1,5 +1,7 @@
 <template>
   <template if:true={showOptions}>
+    <br />
+
     <lightning-record-edit-form
       object-api-name={caseObject}
       record-type-id={recordTypeId}
@@ -426,6 +428,133 @@
           </div>
         </template>
       </div>
+      <div class="slds-grid slds-wrap">
+        <div class={radioStyle}>
+          <template if:false={recordId}>
+            <lightning-radio-group
+              required
+              aria-required="true"
+              name="realFormRequiredGroup"
+              label="Is a REAL form required?"
+              onchange={handleRealFormNeeded}
+              options={realFormReqOptions}
+              value={realFormRequiredValue}
+              type="button"
+              data-id="realFormRequiredGroup-id"
+            ></lightning-radio-group>
+            <lightning-helptext
+              content="A REAL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search 'REAL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REAL'."
+            >
+            </lightning-helptext>
+          </template>
+          <template if:true={recordId}>
+            <lightning-combobox
+              required
+              aria-required="true"
+              name="realFormRequiredGroup"
+              label="Is a REAL form required?"
+              onchange={handleRealFormNeeded}
+              options={realFormReqOptions}
+              value={realFormRequiredValue}
+              data-id="realFormRequiredGroup-id"
+              field-level-help="A REAL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search 'REAL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REAL'."
+            ></lightning-combobox>
+          </template>
+        </div>
+        <template if:true={recordId}>
+          <div class="slds-col slds-size_2-of-4"></div>
+        </template>
+        <template if:true={isRealFormNeeded}>
+          <div class={elementStyle}>
+            <lightning-input
+              type="text"
+              label="REAL Form MAX ID/ServiceNow ID"
+              value={realFormRefNo}
+              required={isRealFormNeeded}
+              max-length="50"
+              onchange={handleRealFormRefNoChange}
+              data-id="realFormRefNoGroup-id"
+              field-level-help="Once a REAL form has been submitted via MAX, an auto-generated REAL form 'MAX ID/ServiceNow ID' will be displayed. Record this 'MAX ID/ServiceNow ID' into this field."
+            ></lightning-input>
+          </div>
+        </template>
+      </div>
+      <!--Systemic issues-->
+      <div class="slds-grid slds-wrap">
+        <div class={radioStyle}>
+          <template if:false={recordId}>
+            <lightning-radio-group
+              required
+              aria-required="true"
+              name="commoncomplaintGroup"
+              label="Is this a possible systemic issue?"
+              onchange={handleCommonComplaint}
+              options={commoncomplaintoptions}
+              value={isCommonComplaintYesNo}
+              type="button"
+              data-id="commoncomplaintGroup-id"
+            >
+            </lightning-radio-group>
+
+            <lightning-helptext
+              content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
+            >
+            </lightning-helptext>
+          </template>
+          <template if:true={recordId}>
+            <lightning-combobox
+              required
+              aria-required="true"
+              name="commoncomplaintGroup"
+              label="Is this a possible systemic issue?"
+              onchange={handleCommonComplaint}
+              options={commoncomplaintoptions}
+              value={isCommonComplaintYesNo}
+              data-id="commoncomplaintGroup-id"
+              field-level-help="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
+            >
+            </lightning-combobox>
+          </template>
+        </div>
+        <template if:true={isCommonComplaint}>
+          <div class={elementStyle}>
+            <lightning-input-field
+              variant="label-stacked"
+              required={isCommonComplaint}
+              aria-required={isCommonComplaint}
+              field-name={systemicIssueDescriptionField}
+              data-id="siDescription-id"
+              onchange={handleSystemicIssueDescriptionChange}
+            ></lightning-input-field>
+          </div>
+          <div class={elementStyle}>
+            <lightning-input-field
+              variant="label-stacked"
+              required={isCommonComplaint}
+              aria-required={isCommonComplaint}
+              field-name={systemicIssueCategoryField}
+              onchange={handleSystemicIssueCategoryChange}
+              data-id="siCategory-id"
+            ></lightning-input-field>
+          </div>
+          <template if:true={showAdditionalIssues}>
+            <template if:false={recordId}>
+              <div class="slds-col slds-size_2-of-4"></div>
+            </template>
+            <div
+              class="slds-col slds-grid slds-size_2-of-4 slds-p-right_large slds-p-top_medium"
+            >
+              <lightning-input-field
+                variant="label-stacked"
+                field-name={possibleSystemicIssuesField}
+                data-id="possibleSystemicIssues-id"
+                onchange={handlePossibleSystemicIssuesChange}
+              ></lightning-input-field>
+            </div>
+          </template>
+        </template>
+      </div>
+      <br /><br />
     </lightning-record-edit-form>
   </template>
 </template>

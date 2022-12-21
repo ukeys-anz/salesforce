@@ -7,6 +7,10 @@ import ID_FIELD from "@salesforce/schema/Case.Id";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
+import REAL_FORM_SUBMITTED from "@salesforce/schema/Case.IDR_Real_Form_Submitted__c";
+import REAL_FORM_REQUIRED from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
+import REAL_FORM_REF_NO from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
+import COMMON_COMPLAINT from "@salesforce/schema/Case.IDR_Is_Common__c";
 
 import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
 import FINANCIAL_COMPENSATION from "@salesforce/schema/Case.IDR_Financial_Compensation__c";
@@ -49,6 +53,11 @@ import HAS_THIRD_ISSUE from "@salesforce/schema/Case.IDR_Third_Issue__c";
 import PRODUCT_OR_SERVICE_NAME_2 from "@salesforce/schema/Case.IDR_Product_2__c";
 import PRODUCT_OR_SERVICE_NAME_3 from "@salesforce/schema/Case.IDR_Product_3__c";
 
+//Systemic Issue Fields
+import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
+import SYSTEMIC_ISSUE_CATEGORY from "@salesforce/schema/Case.IDR_Systemic_Issue_Category__c";
+import POSSIBLE_SYSTEM_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemic_Issues__c";
+
 const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
@@ -61,11 +70,18 @@ const REWARD_POINTS = "Reward Points";
 const MORATORIUM = "16";
 const REPAYMENT_ARRAGMENT = "Repayment arrangement";
 const TIME_TO_SELL_REFINANCE_SURRENDER = "20";
+const YES_VALUE = "Yes";
 
 const FIELDS = [
   Case_RecordTypeId,
   STATUS_FIELD,
+  REAL_FORM_REQUIRED,
+  REAL_FORM_REF_NO,
+  COMMON_COMPLAINT,
   COMPLAINT_OUTCOME,
+  SYSTEMIC_ISSUE_DESCRIPTION,
+  SYSTEMIC_ISSUE_CATEGORY,
+  POSSIBLE_SYSTEM_ISSUES,
   OUTCOME_DESCRIPTION,
   COMPLAINT_REMEDY,
   FINANCIAL_COMPENSATION,
@@ -101,6 +117,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   @api recordId;
   recordTypeId;
   loadChild = false;
+  loading = false;
   closeFields = {};
   errMsg = "Complete Required Fields:";
 
@@ -116,11 +133,47 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validityMessage = "";
   validityMessageFields = new Array();
 
+  isRealFormNeeded;
+  isRealFormSubmitted;
+  realFormRefNo = "";
+  expressCaseCreationData = {};
+  isCommonComplaintYesNo;
+  isCommonComplaint;
+  systemicIssueDescription;
+  systemicIssueCategory;
+  possibleSystemicIssues;
+
+  commoncomplaintoptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
+
+  realFormReqOptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
+
   //Get the recordType to send to the API
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
   wiredProject({ data }) {
     if (data) {
       this.recordTypeId = data.fields.RecordTypeId.value;
+      this.isRealFormNeeded =
+        data.fields[REAL_FORM_REQUIRED.fieldApiName].value;
+      this.realFormRefNo = data.fields[REAL_FORM_REF_NO.fieldApiName].value;
+      this.systemicIssueDescription =
+        data.fields[SYSTEMIC_ISSUE_DESCRIPTION.fieldApiName].value;
+      this.systemicIssueCategory =
+        data.fields[SYSTEMIC_ISSUE_CATEGORY.fieldApiName].value;
+      this.possibleSystemicIssues =
+        data.fields[POSSIBLE_SYSTEM_ISSUES.fieldApiName].value;
+      this.isCommonComplaintYesNo =
+        data.fields[COMMON_COMPLAINT.fieldApiName].value;
+      this.isCommonComplaint = this.isCommonComplaintYesNo === YES_VALUE;
+
+      if (this.recordId) {
+        this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
+      }
       //check validity before closing
       if (!data.fields[PRODUCT_OR_SERVICE_NAME.fieldApiName].value) {
         this.isValidToClose = false;
@@ -185,6 +238,12 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       data.fields[
         THIRD_PARTY_IS_DETAILS_PROVIDED_TO_PRODUCT_MANUFACTURER2.fieldApiName
       ].value;
+    this.closeFields[COMMON_COMPLAINT.fieldApiName] =
+      data.fields[COMMON_COMPLAINT.fieldApiName].value;
+    this.closeFields[REAL_FORM_REF_NO.fieldApiName] =
+      data.fields[REAL_FORM_REF_NO.fieldApiName].value;
+    this.closeFields[REAL_FORM_REQUIRED.fieldApiName] =
+      data.fields[REAL_FORM_REQUIRED.fieldApiName].value;
     this.closeFields[FINANCIAL_COMPENSATION2.fieldApiName] =
       data.fields[FINANCIAL_COMPENSATION2.fieldApiName].value;
     this.closeFields[COMPLAINT_SUB_REMEDY2.fieldApiName] =
@@ -245,6 +304,38 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   handleStatusChange(event) {
     this.caseStatus = event.target.value;
     this.closeFields[STATUS_FIELD.fieldApiName] = event.target.value;
+
+    this.caseStatus = event.target.value;
+  }
+
+  handleRealFormNeeded(event) {
+    if (event.detail !== YES_VALUE) {
+      this.isRealFormNeeded = this.isRealFormSubmitted = false;
+    } else {
+      this.isRealFormNeeded = true;
+    }
+  }
+
+  handleCommonComplaint(event) {
+    this.isCommonComplaintYesNo = event.detail;
+    this.isCommonComplaint =
+      this.isCommonComplaintYesNo === "Yes" ? true : false;
+  }
+
+  handleRealFormRefNoChange(event) {
+    this.realFormRefNo = event.detail;
+  }
+
+  handleSystemicIssueDescriptionChange(event) {
+    this.systemicIssueDescription = event.detail;
+  }
+
+  handleSystemicIssueCategoryChange(event) {
+    this.systemicIssueCategory = event.detail;
+  }
+
+  handlePossibleSystemicIssuesChange(event) {
+    this.possibleSystemicIssues = event.detail;
   }
 
   handleFieldUpdate(event) {
@@ -345,12 +436,74 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   }
 
   validateFields() {
+    this.closeFields[
+      REAL_FORM_SUBMITTED.fieldApiName
+    ] = this.isRealFormSubmitted;
+    this.closeFields[REAL_FORM_REQUIRED.fieldApiName] = this.isRealFormNeeded;
+    this.closeFields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
+    this.closeFields[
+      COMMON_COMPLAINT.fieldApiName
+    ] = this.isCommonComplaintYesNo;
+    if (this.isCommonComplaint) {
+      this.closeFields[
+        SYSTEMIC_ISSUE_DESCRIPTION.fieldApiName
+      ] = this.systemicIssueDescription;
+      this.closeFields[
+        SYSTEMIC_ISSUE_CATEGORY.fieldApiName
+      ] = this.systemicIssueCategory;
+      this.closeFields[
+        POSSIBLE_SYSTEM_ISSUES.fieldApiName
+      ] = this.possibleSystemicIssues;
+    }
     this.errMsg = "Complete Required Fields:";
     let validToSave = true;
     let validToSave1 = true;
     let validToSave2 = true;
     let validToSave3 = true;
     let validToSave4 = true;
+    if (
+      typeof this.isRealFormNeeded === "undefined" ||
+      this.isRealFormNeeded === null
+    ) {
+      validToSave = false;
+      this.errMsg += " Is Real form required, ";
+    }
+
+    if (this.isRealFormNeeded && !this.realFormRefNo) {
+      validToSave = false;
+      this.errMsg += " REAL Form MAX ID/ServiceNow ID, ";
+    }
+
+    if (
+      typeof this.isCommonComplaint === "undefined" ||
+      this.isCommonComplaint === null
+    ) {
+      validToSave = false;
+      this.errMsg += "Is this a possible systemic issue?, ";
+    } else {
+      if (this.isCommonComplaint && !this.systemicIssueDescription) {
+        validToSave = false;
+        this.errMsg += "Why is this a possible systemic issue?, ";
+      }
+
+      if (this.isCommonComplaint && !this.systemicIssueCategory) {
+        validToSave = false;
+        this.errMsg += "Possible Systemic Issue Category, ";
+      }
+
+      if (this.isCommonComplaint && !this.possibleSystemicIssues) {
+        validToSave = false;
+        this.errMsg += "Which additional issues are systemic?, ";
+      }
+    }
+
+    let closeStatusInput = this.template.querySelector(
+      "c-complaints-close-child"
+    );
+
+    if (closeStatusInput) {
+      closeStatusInput.validateFields();
+    }
 
     if (
       this.closeFields[STATUS_FIELD.fieldApiName] !==
@@ -386,9 +539,11 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
       const fields = this.closeFields;
       const recordInput = { fields };
+      this.loading = true;
 
       updateRecord(recordInput)
         .then(() => {
+          this.loading = false;
           // Display fresh data
           window.location.reload();
         })
@@ -425,9 +580,11 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
           } else if (typeof error === "string") {
             message = error;
           }
+          this.loading = false;
           this.openModal("Update Failed: " + message);
         });
     } else {
+      this.loading = false;
       this.openModal(this.errMsg);
     }
   }

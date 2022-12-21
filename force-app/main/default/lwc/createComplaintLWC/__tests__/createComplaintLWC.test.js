@@ -154,25 +154,7 @@ describe("c-create-complaint-l-w-c", () => {
     });
     element.recordTypeDevName = "Customer_Complaint";
     document.body.appendChild(element);
-
-    const possibleSystemicIssue = element.shadowRoot.querySelector(
-      "lightning-radio-group[data-id=commoncomplaintGroup-id]"
-    );
-    possibleSystemicIssue.value = "Yes";
-    possibleSystemicIssue.dispatchEvent(new CustomEvent("change"));
-
     return flushPromises().then(() => {
-      const psiDescription = element.shadowRoot.querySelector(
-        "lightning-input-field[data-id=siDescription-id]"
-      );
-      expect(psiDescription).toBeTruthy();
-
-      const psiCategory = element.shadowRoot.querySelector(
-        "lightning-input-field[data-id=siCategory-id]"
-      );
-      expect(psiCategory).toBeTruthy();
-
-      //click Create Case button to improve code coverage
       const saveButton = element.shadowRoot.querySelector(".saveButton");
       saveButton.click();
     });
@@ -303,47 +285,6 @@ describe("c-create-complaint-l-w-c", () => {
     writtenRequired.dispatchEvent(
       new CustomEvent("change", { detail: { value: "No" } })
     );
-    //Populate user input - is real form required
-    const realFormRequired = element.shadowRoot.querySelector(
-      "lightning-radio-group[data-id=realFormRequiredGroup-id]"
-    );
-    //Populate user input - is real form submitted
-    const realFormSubmitted = element.shadowRoot.querySelector(
-      "lightning-radio-group[data-id=realFormSubmittedGroup-id]"
-    );
-    //Populate user input - real form reference number
-    const realFormRefNo = element.shadowRoot.querySelector(
-      "lightning-input[data-id=realFormRefNoGroup]"
-    );
-    realFormRequired.dispatchEvent(
-      new CustomEvent("change", { detail: { value: "Yes" } }),
-      () => {
-        //Asserting for required scenario (positive)
-        expect(realFormSubmitted.required).toBe(true);
-        realFormSubmitted.dispatchEvent(
-          new CustomEvent("change", { detail: { value: "Yes" } }),
-          () => {
-            realFormRefNo.dispatchEvent(
-              new CustomEvent("change", { detail: { value: "123456789" } })
-            );
-          }
-        );
-      }
-    );
-    realFormRequired.dispatchEvent(
-      new CustomEvent("change", { detail: { value: "No" } }),
-      () => {
-        //Asserting for not required scenario (negative)
-        expect(realFormSubmitted.required).toBe(false);
-      }
-    );
-    //Populate user input - possible systemic issue
-    const possibleSystemicIssue = element.shadowRoot.querySelector(
-      "lightning-radio-group[data-id=commoncomplaintGroup-id]"
-    );
-    possibleSystemicIssue.value = "No";
-    possibleSystemicIssue.dispatchEvent(new CustomEvent("change"));
-
     return flushPromises().then(() => {
       //click Create Case button to validate fields entered
       const saveButton = element.shadowRoot.querySelector(".saveButton");
@@ -751,46 +692,6 @@ describe("c-create-complaint-l-w-c", () => {
     writtenRequired.dispatchEvent(
       new CustomEvent("change", { detail: { value: "No" } })
     );
-    //Populate user input - is real form required
-    const realFormRequired = element.shadowRoot.querySelector(
-      "lightning-radio-group[data-id=realFormRequiredGroup-id]"
-    );
-    //Populate user input - is real form submitted
-    const realFormSubmitted = element.shadowRoot.querySelector(
-      "lightning-radio-group[data-id=realFormSubmittedGroup-id]"
-    );
-    //Populate user input - real form reference number
-    const realFormRefNo = element.shadowRoot.querySelector(
-      "lightning-input[data-id=realFormRefNoGroup]"
-    );
-    realFormRequired.dispatchEvent(
-      new CustomEvent("change", { detail: { value: "Yes" } }),
-      () => {
-        //Asserting for required scenario (positive)
-        expect(realFormSubmitted.required).toBe(true);
-        realFormSubmitted.dispatchEvent(
-          new CustomEvent("change", { detail: { value: "Yes" } }),
-          () => {
-            realFormRefNo.dispatchEvent(
-              new CustomEvent("change", { detail: { value: "123456789" } })
-            );
-          }
-        );
-      }
-    );
-    realFormRequired.dispatchEvent(
-      new CustomEvent("change", { detail: { value: "No" } }),
-      () => {
-        //Asserting for not required scenario (negative)
-        expect(realFormSubmitted.required).toBe(false);
-      }
-    );
-    //Populate user input - possible systemic issue
-    const possibleSystemicIssue = element.shadowRoot.querySelector(
-      "lightning-radio-group[data-id=commoncomplaintGroup-id]"
-    );
-    possibleSystemicIssue.value = "No";
-    possibleSystemicIssue.dispatchEvent(new CustomEvent("change"));
 
     const complaintStatus = element.shadowRoot.querySelector(
       "lightning-combobox[data-id=caseStatus-id]"
