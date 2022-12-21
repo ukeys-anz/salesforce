@@ -11,7 +11,8 @@
     NOT(ISBLANK(IDR_Customer_Number__c)),
     ISCHANGED(IDR_Customer_Number__c)
   ),
-  NOT(REGEX(IDR_Customer_Number__c, &quot;^[0-9]{10,15}$&quot;))
+  NOT(REGEX(IDR_Customer_Number__c, &quot;^[0-9]{10,15}$&quot;)),
+  ISPICKVAL(IDR_Customer_Identifier__c,&apos;Customer/Business CAP ID&apos;)
 )</errorConditionFormula>
     <errorDisplayField>IDR_Customer_Number__c</errorDisplayField>
     <errorMessage>Customer number must be numbers and between 10 and 15 digits long.</errorMessage>
