@@ -711,15 +711,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.missingDataFields += "Possible Systemic Issue Category, ";
     }
 
-    if (
-      this.isCommonComplaint &&
-      this.hasSecondIssue &&
-      !this.possibleSystemicIssues
-    ) {
-      isFieldValid = false;
-      this.missingDataFields += "Which additional issues are systemic?, ";
-    }
-
     if (this.isNonCustomerComplaint && !this.postCodeInputValue) {
       isFieldValid = false;
       this.missingDataFields += "Postcode, ";

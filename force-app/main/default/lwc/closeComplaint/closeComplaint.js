@@ -490,11 +490,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         validToSave = false;
         this.errMsg += "Possible Systemic Issue Category, ";
       }
-
-      if (this.isCommonComplaint && !this.possibleSystemicIssues) {
-        validToSave = false;
-        this.errMsg += "Which additional issues are systemic?, ";
-      }
     }
 
     let closeStatusInput = this.template.querySelector(
