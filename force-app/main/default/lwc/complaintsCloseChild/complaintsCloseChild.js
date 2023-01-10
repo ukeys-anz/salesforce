@@ -245,10 +245,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.isRealFormNeeded != null &&
       this.isRealFormNeeded
       ? "Yes"
-      : typeof this.isRealFormNeeded != "undefined" &&
-        this.isRealFormNeeded != null &&
-        !this.isRealFormNeeded
-      ? "No"
       : null;
   }
 
