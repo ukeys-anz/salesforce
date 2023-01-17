@@ -379,6 +379,7 @@ private with sharing class IDRCaseActionsTest {
       c.Status = 'Closed';
       c.IDR_Complaint_Outcome__c = '3';
       c.IDR_Description_of_Outcome__c = 'Test';
+      c.IDR_Is_Common__c = 'No';
     }
 
     try {
