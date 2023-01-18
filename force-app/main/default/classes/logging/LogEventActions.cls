@@ -150,7 +150,7 @@ public with sharing class LogEventActions {
       List<Log__c> logs = [
         SELECT Id, TraceId__c
         FROM Log__c
-        WHERE TraceId__c IN :traceIds
+        WHERE TraceId__c IN :traceIds AND TraceId__c != NULL
       ];
       for (Log__c log : logs) {
         traceIdAndLogMap.put(log.TraceId__c, log);
@@ -193,10 +193,10 @@ public with sharing class LogEventActions {
           );
         }
       }
-      if (Schema.sObjectType.SecureLogEntry__c.isCreateable()) {
+      if (Schema.SObjectType.SecureLogEntry__c.isCreateable()) {
         insert secureLogEntries;
       }
-      if (Schema.sObjectType.LogEntry__c.isCreateable()) {
+      if (Schema.SObjectType.LogEntry__c.isCreateable()) {
         insert logEntries;
       }
     } catch (Exception e) {
@@ -235,7 +235,7 @@ public with sharing class LogEventActions {
     Set<String> traceIdsWithoutLog,
     Map<String, List<LogEvent__e>> traceIdAndlogDetailsListMap
   ) {
-    if (!Schema.sObjectType.Log__c.isCreateable()) {
+    if (!Schema.SObjectType.Log__c.isCreateable()) {
       return new Map<String, Id>();
     }
 

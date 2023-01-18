@@ -22,7 +22,7 @@ public with sharing class IDREmailServiceHandler {
     Boolean isSpam = false;
     if (senderEmail != null && technicalEmailAddress.contains(senderEmail)) {
       Logger.error(
-        'Recieved email from : ' +
+        'Received email from : ' +
         fromEmail +
         ' Subject of email : ' +
         subject +
@@ -51,7 +51,7 @@ public with sharing class IDREmailServiceHandler {
   ) {
     Case caseToUpd;
     List<Case> caseToUpdList;
-    if (Case.sObjectType.getDescribe().isQueryable()) {
+    if (Case.SObjectType.getDescribe().isQueryable()) {
       String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' ';
       if (
         fromEmail != System.Label.XpressionSenderAddress &&
