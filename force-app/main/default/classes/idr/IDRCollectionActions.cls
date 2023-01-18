@@ -571,7 +571,7 @@ public with sharing class IDRCollectionActions {
       String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
     ) {
       String accNumberTrim = (accNumber.replaceFirst('^0+', ''));
-      Set<ID> stCaseIds;
+      Set<Id> stCaseIds;
       if (
         ((stCaseIds = startCollecMap.get(accNumber)) != null &&
         stCaseIds.contains(rec.Id)) ||
@@ -610,7 +610,7 @@ public with sharing class IDRCollectionActions {
         .split(';')
     ) {
       String accNumberTrim = (accNumber2.replaceFirst('^0+', ''));
-      Set<ID> stCaseIds;
+      Set<Id> stCaseIds;
       if (
         ((stCaseIds = startCollecMap.get(accNumber2)) != null &&
         stCaseIds.contains(rec.Id)) ||
@@ -650,7 +650,7 @@ public with sharing class IDRCollectionActions {
         .split(';')
     ) {
       String accNumberTrim = (accNumber3.replaceFirst('^0+', ''));
-      Set<ID> stCaseIds;
+      Set<Id> stCaseIds;
       if (
         ((stCaseIds = startCollecMap.get(accNumber3)) != null &&
         stCaseIds.contains(rec.Id)) ||

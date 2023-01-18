@@ -2,6 +2,7 @@
  * @author Jasmine Nguyen
  * @since July 2022
  * @description LogEventActions handles actions related to `Log__c`, `LogEntry__c` and `SecureLogEntry__c` records
+ * @runTests LogEventActionTest
  */
 public with sharing class LogEventActions {
   /**
