@@ -183,6 +183,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
   avoidableEscalationReasonValue = "";
   showAvoidableEscalationReason = false;
 
+  realFormRequiredValue = null;
+
   @api
   isRealFormNeededPublic;
   isRealFormNeeded;
@@ -240,14 +242,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
       : "slds-col slds-size_2-of-4 slds-p-right_large slds-p-top_medium";
   }
 
-  get realFormRequiredValue() {
-    return typeof this.isRealFormNeeded != "undefined" &&
-      this.isRealFormNeeded != null &&
-      this.isRealFormNeeded
-      ? "Yes"
-      : null;
-  }
-
   get expressCaseCreationDataObj() {
     return this.expressCaseCreationData;
   }
@@ -264,6 +258,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.systemicIssueCategory = this.systemicIssueCategoryPublic;
     this.systemicIssueDescription = this.systemicIssueDescriptionPublic;
     this.possibleSystemicIssues = this.possibleSystemicIssuesPublic;
+    this.realFormRequiredValue =
+      this.isRealFormNeeded !== "undefined" &&
+      this.isRealFormNeeded !== null &&
+      this.isRealFormNeeded
+        ? "Yes"
+        : null;
   }
 
   @wire(getRecord, {
