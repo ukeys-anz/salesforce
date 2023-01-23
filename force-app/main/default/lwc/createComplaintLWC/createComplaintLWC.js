@@ -499,9 +499,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.isComplaintResolved = true;
         break;
       case "Under Investigation":
+        this.isComplaintResolved = false;
         break;
       default:
         this.caseStatus = OPEN_STATUS_API_NAME;
+        this.isComplaintResolved = false;
     }
   }
   handleComplaintRemedy(event) {
@@ -1459,7 +1461,6 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.isCommonComplaintYesNo === ""
         ? null
         : this.isCommonComplaintYesNo === "Yes";
-    this.isComplaintResolved = false;
   }
 
   handleAccNoSelection(event) {
