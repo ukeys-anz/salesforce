@@ -183,8 +183,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
   avoidableEscalationReasonValue = "";
   showAvoidableEscalationReason = false;
 
-  realFormRequiredValue = null;
-
   @api
   isRealFormNeededPublic;
   isRealFormNeeded;
@@ -199,10 +197,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
   @api
   isCommonComplaintYesNoPublic;
   isCommonComplaintYesNo;
-
-  @api
-  isCommonComplaintPublic;
-  isCommonComplaint;
 
   @api
   commoncomplaintoptions;
@@ -230,6 +224,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
     }
   }
 
+  get isCommonComplaint() {
+    return this.isCommonComplaintYesNo === YES_VALUE;
+  }
+
   get radioStyle() {
     return this.recordId
       ? "slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
@@ -246,6 +244,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
     return this.expressCaseCreationData;
   }
 
+  get realFormRequiredValue() {
+    return this.isRealFormNeeded === "undefined" ||
+      this.isRealFormNeeded === null
+      ? null
+      : this.isRealFormNeeded
+      ? "Yes"
+      : "No";
+  }
+
   get showAdditionalIssues() {
     return this.hasSecondIssue || this.recordId;
   }
@@ -254,16 +261,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.realFormRefNo = this.realFormRefNoPublic;
     this.isRealFormNeeded = this.isRealFormNeededPublic;
     this.isCommonComplaintYesNo = this.isCommonComplaintYesNoPublic;
-    this.isCommonComplaint = this.isCommonComplaintPublic;
     this.systemicIssueCategory = this.systemicIssueCategoryPublic;
     this.systemicIssueDescription = this.systemicIssueDescriptionPublic;
     this.possibleSystemicIssues = this.possibleSystemicIssuesPublic;
-    this.realFormRequiredValue =
-      this.isRealFormNeeded !== "undefined" &&
-      this.isRealFormNeeded !== null &&
-      this.isRealFormNeeded
-        ? "Yes"
-        : null;
   }
 
   @wire(getRecord, {
@@ -306,7 +306,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
       }
       this.realFormRefNo = data.fields.IDR_Real_Form_Ref_No__c.value;
       this.isCommonComplaintYesNo = data.fields.IDR_Is_Common__c.value;
-      this.isCommonComplaint = this.isCommonComplaintYesNo === YES_VALUE;
       this.caseRemedyValue = data.fields.IDR_Complaint_Remedy__c.value;
       this.caseRemedy2Value = data.fields.IDR_Complaint_Remedy_2__c.value;
       this.caseRemedy3Value = data.fields.IDR_Complaint_Remedy_3__c.value;
@@ -760,14 +759,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.target.value;
-    this.isCommonComplaint =
-      this.isCommonComplaintYesNo === "Yes" ? true : false;
     let possibleSysIssueInput = this.template.querySelector(
       "[data-id='commoncomplaintGroup-id']"
     );
     if (
-      typeof this.isCommonComplaint === "undefined" ||
-      this.isCommonComplaint === null
+      typeof this.isCommonComplaintYesNo === "undefined" ||
+      this.isCommonComplaintYesNo === null
     ) {
       possibleSysIssueInput.setCustomValidity("Complete this field.");
     } else {
@@ -1373,8 +1370,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
       "[data-id='commoncomplaintGroup-id']"
     );
     if (
-      typeof this.isCommonComplaint === "undefined" ||
-      this.isCommonComplaint === null
+      typeof this.isCommonComplaintYesNo === "undefined" ||
+      this.isCommonComplaintYesNo === null
     ) {
       possibleSysIssueInput.setCustomValidity("Complete this field.");
     } else {

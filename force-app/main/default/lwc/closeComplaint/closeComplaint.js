@@ -7,7 +7,6 @@ import ID_FIELD from "@salesforce/schema/Case.Id";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
-import REAL_FORM_SUBMITTED from "@salesforce/schema/Case.IDR_Real_Form_Submitted__c";
 import REAL_FORM_REQUIRED from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 import REAL_FORM_REF_NO from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
 import COMMON_COMPLAINT from "@salesforce/schema/Case.IDR_Is_Common__c";
@@ -138,7 +137,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   realFormRefNo = "";
   expressCaseCreationData = {};
   isCommonComplaintYesNo;
-  isCommonComplaint;
   systemicIssueDescription;
   systemicIssueCategory;
   possibleSystemicIssues;
@@ -169,11 +167,12 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         data.fields[POSSIBLE_SYSTEM_ISSUES.fieldApiName].value;
       this.isCommonComplaintYesNo =
         data.fields[COMMON_COMPLAINT.fieldApiName].value;
-      this.isCommonComplaint = this.isCommonComplaintYesNo === YES_VALUE;
 
+      /*
       if (this.recordId) {
         this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
       }
+*/
       //check validity before closing
       if (!data.fields[PRODUCT_OR_SERVICE_NAME.fieldApiName].value) {
         this.isValidToClose = false;
@@ -286,6 +285,10 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     this.loadChild = true;
   }
 
+  get isCommonComplaint() {
+    return this.isCommonComplaintYesNo === YES_VALUE;
+  }
+
   get statusOptions() {
     //future use:  { label: ONHOLD_STATUS_API_NAME, value: ONHOLD_STATUS_API_NAME },]
     if (!this.closeFields[STATUS_FIELD.fieldApiName]) {
@@ -318,8 +321,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
   handleCommonComplaint(event) {
     this.isCommonComplaintYesNo = event.detail;
-    this.isCommonComplaint =
-      this.isCommonComplaintYesNo === "Yes" ? true : false;
   }
 
   handleRealFormRefNoChange(event) {
@@ -436,9 +437,11 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   }
 
   validateFields() {
+    /*
     this.closeFields[
       REAL_FORM_SUBMITTED.fieldApiName
     ] = this.isRealFormSubmitted;
+*/
     this.closeFields[REAL_FORM_REQUIRED.fieldApiName] = this.isRealFormNeeded;
     this.closeFields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
     this.closeFields[
@@ -461,13 +464,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     let validToSave2 = true;
     let validToSave3 = true;
     let validToSave4 = true;
-    if (
-      typeof this.isRealFormNeeded === "undefined" ||
-      this.isRealFormNeeded === null
-    ) {
-      validToSave = false;
-      this.errMsg += " Is Real form required, ";
-    }
 
     if (this.isRealFormNeeded && !this.realFormRefNo) {
       validToSave = false;
@@ -475,8 +471,8 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     }
 
     if (
-      typeof this.isCommonComplaint === "undefined" ||
-      this.isCommonComplaint === null
+      typeof this.isCommonComplaintYesNo === "undefined" ||
+      this.isCommonComplaintYesNo === null
     ) {
       validToSave = false;
       this.errMsg += "Is this a possible systemic issue?, ";
