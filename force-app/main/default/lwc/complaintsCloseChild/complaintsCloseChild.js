@@ -245,7 +245,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
   }
 
   get realFormRequiredValue() {
-    return this.isRealFormNeeded === "undefined" ||
+    return typeof this.isRealFormNeeded === "undefined" ||
       this.isRealFormNeeded === null
       ? null
       : this.isRealFormNeeded
@@ -300,9 +300,14 @@ export default class complaintsResolveLWC extends NavigationMixin(
   })
   wiredProject({ data }) {
     if (data) {
-      this.isRealFormNeeded = data.fields.IDR_Real_Form_Req__c.value;
-      if (this.recordId) {
-        this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
+      if (
+        data.fields.Status.value &&
+        data.fields.Status.value.indexOf("Closed") !== -1
+      ) {
+        this.isRealFormNeeded = data.fields.IDR_Real_Form_Req__c.value;
+        if (this.recordId) {
+          this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
+        }
       }
       this.realFormRefNo = data.fields.IDR_Real_Form_Ref_No__c.value;
       this.isCommonComplaintYesNo = data.fields.IDR_Is_Common__c.value;

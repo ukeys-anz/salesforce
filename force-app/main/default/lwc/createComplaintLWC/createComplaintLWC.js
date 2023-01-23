@@ -701,12 +701,22 @@ export default class CreateComplaintLWC extends NavigationMixin(
       return isValidSoFar;
     }, true);
 
-    if (this.isCommonComplaint && !this.systemicIssueDescription) {
+    if (
+      this.caseStatus &&
+      this.caseStatus.indexOf("Closed") !== -1 &&
+      this.isCommonComplaint &&
+      !this.systemicIssueDescription
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Why is this a possible systemic issue?, ";
     }
 
-    if (this.isCommonComplaint && !this.systemicIssueCategory) {
+    if (
+      this.caseStatus &&
+      this.caseStatus.indexOf("Closed") !== -1 &&
+      this.isCommonComplaint &&
+      !this.systemicIssueCategory
+    ) {
       isFieldValid = false;
       this.missingDataFields += "Possible Systemic Issue Category, ";
     }
@@ -1430,7 +1440,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
     }
 
     this.isRealFormNeeded =
-      event === undefined ? null : event.detail.IDR_REAL_Form_Required__c;
+      event === undefined
+        ? null
+        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c));
     this.possibleSystemicIssues =
       event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
     const statusElement = this.template.querySelector(
@@ -1441,6 +1453,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
     statusElement.dispatchEvent(new CustomEvent("change"));
 
     this.knownIssue = event === undefined ? "" : event.detail.Id;
+    this.isCommonComplaintYesNo =
+      event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
+    this.isCommonComplaint =
+      this.isCommonComplaintYesNo === ""
+        ? null
+        : this.isCommonComplaintYesNo === "Yes";
+    this.isComplaintResolved = false;
   }
 
   handleAccNoSelection(event) {

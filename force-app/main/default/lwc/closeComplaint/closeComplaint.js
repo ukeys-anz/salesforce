@@ -168,11 +168,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.isCommonComplaintYesNo =
         data.fields[COMMON_COMPLAINT.fieldApiName].value;
 
-      /*
-      if (this.recordId) {
-        this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
-      }
-*/
       //check validity before closing
       if (!data.fields[PRODUCT_OR_SERVICE_NAME.fieldApiName].value) {
         this.isValidToClose = false;
@@ -437,11 +432,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   }
 
   validateFields() {
-    /*
-    this.closeFields[
-      REAL_FORM_SUBMITTED.fieldApiName
-    ] = this.isRealFormSubmitted;
-*/
     this.closeFields[REAL_FORM_REQUIRED.fieldApiName] = this.isRealFormNeeded;
     this.closeFields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
     this.closeFields[
@@ -464,6 +454,14 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
     let validToSave2 = true;
     let validToSave3 = true;
     let validToSave4 = true;
+
+    if (
+      typeof this.isRealFormNeeded === "undefined" ||
+      this.isRealFormNeeded === null
+    ) {
+      validToSave = false;
+      this.errMsg += " Is Real form required, ";
+    }
 
     if (this.isRealFormNeeded && !this.realFormRefNo) {
       validToSave = false;
