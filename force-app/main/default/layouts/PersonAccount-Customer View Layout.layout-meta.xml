@@ -32,6 +32,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Source_System_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Employee_Indicator__c</field>
             </layoutItems>
             <layoutItems>
@@ -67,6 +71,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>AR_C_Customer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Source_System_ID__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

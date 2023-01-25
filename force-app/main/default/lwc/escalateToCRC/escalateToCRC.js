@@ -46,8 +46,8 @@ export default class EscalateToCRC extends NavigationMixin(LightningElement) {
   }
 
   handleError = (error) => {
-    handleErrors.call(this, error);
-    handleErrorShowToast(this, "Error", "", this.errorMessage, "pester");
+    const errorMsg = handleErrors.call(this, error);
+    handleErrorShowToast(this, "Error", "", errorMsg, "pester");
     this.closeAction();
   };
 }

@@ -8,16 +8,32 @@ on:
 
 jobs:
   prettier:
-    runs-on: [self-hosted, salesforce]
-
+    runs-on: [self-hosted, salesforce-prod]
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - run: |
+          download_url="https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
+          wget -O $RUNNER_TEMP/java_package.tar.gz $download_url
 
-      - name: "Install npm packages"
-        run: |
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "jdkfile"
+          jdkFile: ${{ runner.temp }}/java_package.tar.gz
+          java-version: "11.0.12"
+          architecture: x64
+      - run: |
+          echo $PATH
+          echo $JAVA_HOME
+          java -version
+          export JAVA_HOME="/opt/jdk/jdk-11.0.12"
+          export PATH="${JAVA_HOME}/bin:$PATH"
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - run: |
           mv ci.npmrc .npmrc
-          npm ci
+          npm ci -f
 
       - name: "Enforce Style Guidelines"
         shell: bash
@@ -35,13 +51,13 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: "Set npm repository mirror"
         run: npm config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
 
       - name: "Install NPM Packages"
-        run: npm ci
+        run: npm ci -f
 
       - name: "Lint LWC"
         shell: bash
