@@ -2030,6 +2030,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Email Subject</displayNameOverride>
             <field>Subject</field>
             <table>Case.EmailMessages</table>
         </columns>

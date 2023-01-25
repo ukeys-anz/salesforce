@@ -39,7 +39,7 @@
             <value>Standard</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case.Queue__c</column>
+            <column>Case.IDR_Queue_Report_Label__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
@@ -52,11 +52,12 @@
             <operator>equals</operator>
             <value>0</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.Queue__c</field>
+        <field>Case.IDR_Queue_Report_Label__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>IDR_UrgentComplaintsByWorkBasket</name>

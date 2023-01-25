@@ -173,8 +173,6 @@
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
-    "IDR_Letter_Approval_Details__c": "Letter Approval Detail",
-    "IDR_Template_Detail__c": "Template Detail",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -570,6 +568,7 @@
         "IDR_Account_Card_Policy_Number__c",
         "IDR_Account_Card_Policy_Number_2__c",
         "IDR_Account_Card_Policy_Number_3__c",
+        "IDR_Allow_Account_Policy_Number__c",
         "IDR_AuthRep_Is_Related_to_Representative__c",
         "IDR_AuthRep_Licence_Number__c",
         "IDR_AuthRep_Licence_or_registration_type__c",
@@ -1130,37 +1129,6 @@
         "RecordTypeId"
       ],
       "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
-    },
-    "IDR_Letter_Approval_Details__c": {
-      "IA-2453595": [
-        "IDR_Field_Name__c",
-        "IDR_Letter_Approval__c",
-        "IDR_Value__c"
-      ],
-      "IA-2468715": [
-        "Id",
-        "CreatedById",
-        "CreatedDate",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "IDR_Template_Detail__c": {
-      "IA-2453595": [
-        "IDR_Case_Field_Name__c",
-        "IDR_Field_Description__c",
-        "IDR_Is_Free_Text__c",
-        "IDR_sort_order__c",
-        "IDR_Template__c",
-        "IDR_Template_Field_Name__c"
-      ],
-      "IA-2468715": [
-        "Id",
-        "CreatedById",
-        "CreatedDate",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
     },
     "Industry__c": {
       "IA-2530401": [

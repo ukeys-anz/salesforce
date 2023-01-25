@@ -8,7 +8,6 @@ package.xml
 **/.eslintrc.json
 
 # LWC Jest
-**/__tests__/**
 
 # Avoid weird conflicts and deployment errors
 **/appMenu
@@ -123,9 +122,6 @@ force-app/main/default/customindex/Account.Source_System_Name__c.indx-meta.xml
 #to prevent issues when deploying looking for deleted objects tab
 force-app/main/default/tabs/Customer_Feedback__c.tab-meta.xml
 
-force-app/main/default/duplicateRules/
-force-app/main/default/matchingRules/
-
 #AR-11570 to avoid errors regarding managed package fields cannot be deleted
 force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_Recipient_ID__c.field-meta.xml
 force-app/main/default/objects/qualtrics__Survey_Response__c/fields/qualtrics__Q_SurveyID__c.field-meta.xml
@@ -151,3 +147,10 @@ force-app/main/default/layouts/PEGA_Smarts_Status_Mapping__mdt-PEGA Smarts Statu
 
 #AR-16528 - ignoring destructive field that is being referenced in apex classes
 force-app/main/default/objects/LogEntry__c/fields/RecordsJson__c.field-meta.xml
+
+#CC-418 Decommission Letter Approval process.
+force-app/main/default/workflows/IDR_Letter_Approval__c.workflow-meta.xml
+force-app/main/default/approvalProcesses/IDR_Letter_Approval__c.Letter_Approval_Process.approvalProcess-meta.xml
+
+#temporary measure to get 01Feb deploy out
+force-app/main/default/permissionsets/IDR_User.permissionset-meta.xml

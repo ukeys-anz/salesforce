@@ -5,7 +5,8 @@
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
     <description>The Real form reference number - Optional recorded if the IDR Real form is submitted</description>
     <externalId>false</externalId>
-    <label>Risk Event ID</label>
+    <inlineHelpText>Once a REAL form has been submitted via MAX, an auto-generated REAL form &apos;MAX ID/ServiceNow ID&apos; will be displayed. Record this &apos;MAX ID/ServiceNow ID&apos; into this field.</inlineHelpText>
+    <label>REAL Form MAX ID/ServiceNow ID</label>
     <length>50</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

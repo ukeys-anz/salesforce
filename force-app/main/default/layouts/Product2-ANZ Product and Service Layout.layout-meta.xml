@@ -37,6 +37,10 @@
                 <behavior>Required</behavior>
                 <field>IDR_Product_or_Service_Type__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Allow_Account_Policy_Number__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

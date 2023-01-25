@@ -15,7 +15,8 @@
             ISPICKVAL(Status, &apos;Closed&apos;),
             OR(
                 ISBLANK(TEXT(IDR_Complaint_Outcome__c)),
-                ISBLANK(IDR_Description_of_Outcome__c)
+                ISBLANK(IDR_Description_of_Outcome__c),
+                ISBLANK(TEXT(IDR_Is_Common__c))
             )
         ),
         AND(
@@ -28,6 +29,6 @@
         )
     )
 )</errorConditionFormula>
-    <errorMessage>To close the case, complaint outcome and  description of outcome must be populated.
+    <errorMessage>To close the case, complaint outcome, Is this a possible systemic issue and  description of outcome must be populated.
 To resolve the case, complaint outcome, description of outcome and complaint remedy must be populated.</errorMessage>
 </ValidationRule>
