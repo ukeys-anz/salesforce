@@ -5,6 +5,12 @@ import CASE_OBJECT from "@salesforce/schema/Case";
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
+import REAL_FORM_REQUIRED_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
+import REAL_FORM_REF_NUMBER_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
+import IS_COMMON_FIELD from "@salesforce/schema/Case.IDR_Is_Common__c";
+import SYSTEMIC_ISSUE_DESCRIPTION from "@salesforce/schema/Case.IDR_Systemic_Issue_Description__c";
+import SYSTEMIC_ISSUE_CATEGORY from "@salesforce/schema/Case.IDR_Systemic_Issue_Category__c";
+import POSSIBLE_SYSTEMIC_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemic_Issues__c";
 
 //Remedy1 fields
 import COMPLAINT_REMEDY from "@salesforce/schema/Case.IDR_Complaint_Remedy__c";
@@ -47,9 +53,15 @@ const SETTEL_FOR_LESS = "18";
 const MORATORIUM = "16";
 const REPAYMENT_ARRAGMENT = "Repayment arrangement";
 const TIME_TO_SELL_REFINANCE_SURRENDER = "20";
+const YES_VALUE = "Yes";
+
 export default class complaintsResolveLWC extends NavigationMixin(
   LightningElement
 ) {
+  systemicIssueDescriptionField = SYSTEMIC_ISSUE_DESCRIPTION;
+  systemicIssueCategoryField = SYSTEMIC_ISSUE_CATEGORY;
+  possibleSystemicIssuesField = POSSIBLE_SYSTEMIC_ISSUES;
+
   complaintOutcome = COMPLAINT_OUTCOME;
   complaintRemedy = COMPLAINT_REMEDY;
   complaintSubRemedy = COMPLAINT_SUB_REMEDY;
@@ -84,6 +96,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   @api recordId;
   @api recordTypeId;
+  @api systemicIssueDescriptionPublic;
+  systemicIssueDescription;
+  @api systemicIssueCategoryPublic;
+  systemicIssueCategory;
+  @api possibleSystemicIssuesPublic;
+  possibleSystemicIssues;
 
   expressCaseCreationData;
 
@@ -165,6 +183,30 @@ export default class complaintsResolveLWC extends NavigationMixin(
   avoidableEscalationReasonValue = "";
   showAvoidableEscalationReason = false;
 
+  @api
+  isRealFormNeededPublic;
+  isRealFormNeeded;
+
+  @api
+  realFormReqOptions;
+
+  @api
+  realFormRefNoPublic;
+  realFormRefNo;
+
+  @api
+  isCommonComplaintYesNoPublic;
+  isCommonComplaintYesNo;
+
+  @api
+  commoncomplaintoptions;
+
+  @api
+  isRealFormSubmitted;
+
+  @api
+  hasSecondIssue;
+
   @api set expressCaseCreationDataObj(value) {
     this.dataChange = true;
     if (value !== undefined) {
@@ -181,14 +223,56 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.intializeExpressCaseCreationData();
     }
   }
+
+  get isCommonComplaint() {
+    return this.isCommonComplaintYesNo === YES_VALUE;
+  }
+
+  get radioStyle() {
+    return this.recordId
+      ? "slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+      : "slds-col slds-grid slds-size_2-of-4 slds-p-right_large slds-p-top_medium";
+  }
+
+  get elementStyle() {
+    return this.recordId
+      ? "slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
+      : "slds-col slds-size_2-of-4 slds-p-right_large slds-p-top_medium";
+  }
+
   get expressCaseCreationDataObj() {
     return this.expressCaseCreationData;
+  }
+
+  get realFormRequiredValue() {
+    return typeof this.isRealFormNeeded === "undefined" ||
+      this.isRealFormNeeded === null
+      ? null
+      : this.isRealFormNeeded
+      ? "Yes"
+      : "No";
+  }
+
+  get showAdditionalIssues() {
+    return this.hasSecondIssue || this.recordId;
+  }
+
+  connectedCallback() {
+    this.realFormRefNo = this.realFormRefNoPublic;
+    this.isRealFormNeeded = this.isRealFormNeededPublic;
+    this.isCommonComplaintYesNo = this.isCommonComplaintYesNoPublic;
+    this.systemicIssueCategory = this.systemicIssueCategoryPublic;
+    this.systemicIssueDescription = this.systemicIssueDescriptionPublic;
+    this.possibleSystemicIssues = this.possibleSystemicIssuesPublic;
   }
 
   @wire(getRecord, {
     recordId: "$recordId",
     fields: [
       STATUS_FIELD,
+      REAL_FORM_REQUIRED_FIELD,
+      REAL_FORM_REF_NUMBER_FIELD,
+      IS_COMMON_FIELD,
       COMPLAINT_REMEDY,
       COMPLAINT_REMEDY2,
       COMPLAINT_REMEDY3,
@@ -216,6 +300,17 @@ export default class complaintsResolveLWC extends NavigationMixin(
   })
   wiredProject({ data }) {
     if (data) {
+      if (
+        data.fields.Status.value &&
+        data.fields.Status.value.indexOf("Closed") !== -1
+      ) {
+        this.isRealFormNeeded = data.fields.IDR_Real_Form_Req__c.value;
+        if (this.recordId) {
+          this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
+        }
+      }
+      this.realFormRefNo = data.fields.IDR_Real_Form_Ref_No__c.value;
+      this.isCommonComplaintYesNo = data.fields.IDR_Is_Common__c.value;
       this.caseRemedyValue = data.fields.IDR_Complaint_Remedy__c.value;
       this.caseRemedy2Value = data.fields.IDR_Complaint_Remedy_2__c.value;
       this.caseRemedy3Value = data.fields.IDR_Complaint_Remedy_3__c.value;
@@ -624,6 +719,66 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.showFinancialCompensation = true;
     this.finRem1 = event.target.value;
     this.sendFieldValue(sendVal);
+  }
+
+  handleRealFormNeeded(event) {
+    if (event.detail.value !== YES_VALUE) {
+      this.isRealFormNeeded = false;
+    } else {
+      this.isRealFormNeeded = true;
+    }
+    let realFormNeededInput = this.template.querySelector(
+      "[data-id='realFormRequiredGroup-id']"
+    );
+    if (
+      typeof this.isRealFormNeeded === "undefined" ||
+      this.isRealFormNeeded === null
+    ) {
+      realFormNeededInput.setCustomValidity("Complete this field.");
+    } else {
+      realFormNeededInput.setCustomValidity("");
+    }
+    realFormNeededInput.reportValidity();
+    this.dispatchEvent(
+      new CustomEvent("handlerealformneeded", { detail: event.detail.value })
+    );
+  }
+
+  handleRealFormRefNoChange(event) {
+    this.realFormRefNo = event.detail.value;
+    let realFormRefInput = this.template.querySelector(
+      "[data-id='realFormRefNoGroup-id']"
+    );
+    if (!this.realFormRefNo) {
+      realFormRefInput.setCustomValidity("Complete this field.");
+    } else {
+      realFormRefInput.setCustomValidity("");
+    }
+    realFormRefInput.reportValidity();
+    this.dispatchEvent(
+      new CustomEvent("handlerealformrefnochange", {
+        detail: event.detail.value
+      })
+    );
+  }
+
+  handleCommonComplaint(event) {
+    this.isCommonComplaintYesNo = event.target.value;
+    let possibleSysIssueInput = this.template.querySelector(
+      "[data-id='commoncomplaintGroup-id']"
+    );
+    if (
+      typeof this.isCommonComplaintYesNo === "undefined" ||
+      this.isCommonComplaintYesNo === null
+    ) {
+      possibleSysIssueInput.setCustomValidity("Complete this field.");
+    } else {
+      possibleSysIssueInput.setCustomValidity("");
+    }
+    possibleSysIssueInput.reportValidity();
+    this.dispatchEvent(
+      new CustomEvent("handlecommoncomplaint", { detail: event.detail.value })
+    );
   }
 
   handleFinRemedyPoints(event) {
@@ -1158,9 +1313,80 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.sendFieldValue(sendVal);
   }
 
+  handleSystemicIssueDescriptionChange(event) {
+    this.systemicIssueDescription = event.detail.value;
+    this.dispatchEvent(
+      new CustomEvent("systemicissuedescriptionchange", {
+        detail: event.detail.value
+      })
+    );
+  }
+
+  handleSystemicIssueCategoryChange(event) {
+    this.systemicIssueCategory = event.detail.value;
+    this.dispatchEvent(
+      new CustomEvent("systemicissuecategorychange", {
+        detail: event.detail.value
+      })
+    );
+  }
+
+  handlePossibleSystemicIssuesChange(event) {
+    this.possibleSystemicIssues = event.detail.value;
+    this.dispatchEvent(
+      new CustomEvent("possiblesystemicissueschange", {
+        detail: event.detail.value
+      })
+    );
+  }
+
   sendFieldValue(sendVal) {
     this.dispatchEvent(
       new CustomEvent("fieldvalueupdate", { detail: sendVal })
     );
+  }
+
+  @api
+  validateFields() {
+    let realFormNeededInput = this.template.querySelector(
+      "[data-id='realFormRequiredGroup-id']"
+    );
+    if (
+      typeof this.isRealFormNeeded === "undefined" ||
+      this.isRealFormNeeded === null
+    ) {
+      realFormNeededInput.setCustomValidity("Complete this field.");
+    } else {
+      realFormNeededInput.setCustomValidity("");
+    }
+    realFormNeededInput.reportValidity();
+    if (this.isRealFormNeeded) {
+      let realFormRefInput = this.template.querySelector(
+        "[data-id='realFormRefNoGroup-id']"
+      );
+      if (!this.realFormRefNo) {
+        realFormRefInput.setCustomValidity("Complete this field.");
+      } else {
+        realFormRefInput.setCustomValidity("");
+      }
+      realFormRefInput.reportValidity();
+    }
+    let possibleSysIssueInput = this.template.querySelector(
+      "[data-id='commoncomplaintGroup-id']"
+    );
+    if (
+      typeof this.isCommonComplaintYesNo === "undefined" ||
+      this.isCommonComplaintYesNo === null
+    ) {
+      possibleSysIssueInput.setCustomValidity("Complete this field.");
+    } else {
+      possibleSysIssueInput.setCustomValidity("");
+    }
+    possibleSysIssueInput.reportValidity();
+    this.template
+      .querySelectorAll("lightning-input-field")
+      .forEach((element) => {
+        element.reportValidity();
+      });
   }
 }

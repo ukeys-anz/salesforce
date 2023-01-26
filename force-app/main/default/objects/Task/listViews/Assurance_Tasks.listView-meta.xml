@@ -11,5 +11,6 @@
     <queue>Compliance_Tasks</queue>
     <sharedTo>
         <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
     </sharedTo>
 </ListView>

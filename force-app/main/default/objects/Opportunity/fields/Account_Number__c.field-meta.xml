@@ -3,11 +3,12 @@
     <fullName>Account_Number__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
-    <securityClassification>Internal</securityClassification>
+    <description>Customer&apos;s Business Account Number</description>
     <externalId>false</externalId>
     <label>Account Number</label>
     <length>80</length>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

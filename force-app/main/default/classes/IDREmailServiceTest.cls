@@ -4,7 +4,7 @@
  * @description  Test class for IDREmailService class
  * @group IDR(Internal Dispute Resolution)
  */
-@isTest
+@IsTest
 public with sharing class IDREmailServiceTest {
   @TestSetup
   static void setup() {
@@ -26,7 +26,7 @@ public with sharing class IDREmailServiceTest {
     List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
     for (PermissionSet ps : psList) {
       PermissionSetAssignment psa = new PermissionSetAssignment(
-        AssigneeId = contextUser.id,
+        AssigneeId = contextUser.Id,
         PermissionSetId = ps.Id
       );
       psaList.add(psa);
@@ -50,7 +50,7 @@ public with sharing class IDREmailServiceTest {
       LIMIT 1
     ];
     Test.startTest();
-    System.runAs(contextuser) {
+    System.runAs(contextUser) {
       // Create a new email and envelope object.
       Messaging.InboundEmail email = new Messaging.InboundEmail();
       Messaging.InboundEnvelope env = new Messaging.InboundEnvelope();
@@ -113,7 +113,7 @@ public with sharing class IDREmailServiceTest {
       WHERE FirstName = 'ESContextUser'
       LIMIT 1
     ];
-    System.runAs(contextuser) {
+    System.runAs(contextUser) {
       Test.startTest();
       //System.runAs(contextuser){
       // Create a new email and envelope object.
@@ -167,7 +167,7 @@ public with sharing class IDREmailServiceTest {
       WHERE FirstName = 'ESContextUser'
       LIMIT 1
     ];
-    System.runAs(contextuser) {
+    System.runAs(contextUser) {
       Test.startTest();
       //System.runAs(contextuser){
       // Create a new email and envelope object.
@@ -206,7 +206,7 @@ public with sharing class IDREmailServiceTest {
     }
   }
 
-  @isTest
+  @IsTest
   static void existingCaseTest() {
     User contextUser = [
       SELECT Id
@@ -214,7 +214,7 @@ public with sharing class IDREmailServiceTest {
       WHERE FirstName = 'ESContextUser'
       LIMIT 1
     ];
-    System.runAs(contextuser) {
+    System.runAs(contextUser) {
       Case c = new Case(
         RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
         SuppliedEmail = 'testFrom@abc.com'
@@ -269,15 +269,15 @@ public with sharing class IDREmailServiceTest {
       //Asserts
       System.assertEquals(
         createdCases[0].Id,
-        [SELECT parentId FROM EmailMessage LIMIT 1]
-        .parentId,
+        [SELECT ParentId FROM EmailMessage LIMIT 1]
+        .ParentId,
         'Case not updated with email'
       );
     }
 
   }
 
-  @isTest
+  @IsTest
   static void exceptionLoggingTestForAttachments() {
     User contextUser = [
       SELECT Id
@@ -285,7 +285,7 @@ public with sharing class IDREmailServiceTest {
       WHERE FirstName = 'ESContextUser'
       LIMIT 1
     ];
-    System.runAs(contextuser) {
+    System.runAs(contextUser) {
       Case c = new Case(
         RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
         SuppliedEmail = 'testFrom@abc.com'
@@ -345,7 +345,7 @@ public with sharing class IDREmailServiceTest {
     }
   }
 
-  @isTest
+  @IsTest
   static void exceptionLoggingTestForAttachments2() {
     User contextUser = [
       SELECT Id
@@ -353,7 +353,7 @@ public with sharing class IDREmailServiceTest {
       WHERE FirstName = 'ESContextUser'
       LIMIT 1
     ];
-    System.runAs(contextuser) {
+    System.runAs(contextUser) {
       Case c = new Case(
         RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
         SuppliedEmail = 'testFrom@abc.com'
@@ -408,6 +408,80 @@ public with sharing class IDREmailServiceTest {
       //Asserts
       List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
       System.assertEquals(0, conVerList.size(), 'There is no ContentVersion');
+    }
+  }
+
+  @IsTest
+  static void exceptionLoggingTestForUndisclosedRecipients() {
+    IDR_Email_Settings__c idrEmailSetting = new IDR_Email_Settings__c(
+      Name = 'Test_Email',
+      Inbox_Email__c = 'YourFeedback@anz.com',
+      Origin__c = 'Email',
+      Technical_Email_Address__c = 'testtechnicaladdress@testabc.com'
+    );
+    insert idrEmailSetting;
+    User contextUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'ESContextUser'
+      LIMIT 1
+    ];
+    Test.startTest();
+    System.runAs(contextUser) {
+      // Create a new email and envelope object.
+      Messaging.InboundEmail email = new Messaging.InboundEmail();
+      Messaging.InboundEnvelope env = new Messaging.InboundEnvelope();
+      email.subject = 'New case creation subject test';
+      email.plainTextBody = 'Test email body.';
+      email.htmlBody = 'Test html email body.';
+      env.fromAddress = 'user@acme.com';
+
+      //Create email header
+      List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
+      Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
+      sendTo.name = 'To';
+      sendTo.value = 'undislosedrecipients:;';
+      emailHeaders.add(sendTo);
+
+      Messaging.InboundEmail.Header sendBcc = new Messaging.InboundEmail.Header();
+      sendBcc.name = 'Bcc';
+      sendBcc.value = 'YourFeedback@anz.com';
+      emailHeaders.add(sendBcc);
+
+      Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
+      fromEmail.name = 'From';
+      fromEmail.value = 'testFrom@abc.com';
+      emailHeaders.add(fromEmail);
+
+      email.headers = emailHeaders;
+
+      IDREmailService idremserObj = new IDREmailService();
+      idremserObj.handleInboundEmail(email, env);
+
+      Test.stopTest();
+
+      // When undisclosedRecipient bug is fixed uncomment this assert and remove the LogEntry code
+      /*
+      List<Case> lstCases = [
+        SELECT Id, Subject
+        FROM Case
+        WHERE Subject = :email.subject
+      ];
+*/
+
+      //      System.assertEquals(1, lstCases.size(), 'Complaint not created.');
+
+      List<LogEntry__c> lstLogEntries = [
+        SELECT Id, ApexClassName__c, ExceptionMessage__c, LogMessage__c
+        FROM LogEntry__c
+        WHERE LoggingLevel__c = 'ERROR'
+      ];
+
+      System.assert(lstLogEntries.size() > 0, 'No Log Entries created');
+      System.assert(
+        lstLogEntries[0].ExceptionMessage__c.contains('undislosedrecipients'),
+        'Exception not thrown'
+      );
     }
   }
 

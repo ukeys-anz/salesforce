@@ -3,6 +3,7 @@
     <fullName>CloseDate</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <description>Opportunity close date</description>
     <inlineHelpText>Expected settlement date</inlineHelpText>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>true</trackFeedHistory>

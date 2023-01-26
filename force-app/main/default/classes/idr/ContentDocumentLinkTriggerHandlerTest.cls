@@ -101,6 +101,7 @@ public class ContentDocumentLinkTriggerHandlerTest {
     testCase.Status = 'Closed';
     testCase.IDR_Description_of_Outcome__c = 'Test';
     testCase.IDR_Complaint_Outcome__c = '1';
+    testCase.IDR_Is_Common__c = 'No';
     update testCase;
     ContentVersion cv = new ContentVersion();
     cv.Title = 'Test File Delete';

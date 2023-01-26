@@ -7,17 +7,18 @@
     <columns>Marketing_Consent__c</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>LEAD.RECORDTYPE</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>LEAD.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Lead.ANZX_Leads</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Leads</label>
     <sharedTo>
         <role>Coach</role>
         <role>Coach_Lead</role>
         <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
         <role>Support_Coach</role>
         <role>Business_Admin</role>
     </sharedTo>

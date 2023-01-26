@@ -1251,6 +1251,7 @@ private class CaseTriggerHandlerTest {
     newCase.Status = 'Closed';
     newCase.IDR_Complaint_Outcome__c = '1';
     newCase.IDR_Description_of_Outcome__c = 'test';
+    newCase.IDR_Is_Common__c = 'No';
 
     update newCase;
 

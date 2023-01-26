@@ -2,11 +2,11 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Has_Legal_Entity__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>This field is to identify whether Legal Entity is added to Opportunity Product</description>
     <externalId>false</externalId>
-    <securityClassification>Internal</securityClassification>
     <label>Has Legal Entity</label>
+    <securityClassification>Internal</securityClassification>
     <type>Checkbox</type>
 </CustomField>

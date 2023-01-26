@@ -85,15 +85,8 @@ public with sharing class TextUtils {
     if (String.isBlank(input)) {
       return false;
     }
-    String inputUpper = input.toUpperCase();
-    List<String> keywords = Label.Reactive_logging_keywords.split(',');
-    Boolean hasKeyword = false;
-    for (String keyword : keywords) {
-      if (inputUpper.contains(keyword)) {
-        hasKeyword = true;
-        break;
-      }
-    }
+    Boolean hasKeyword = regexMatchesKeyword(input);
+
     Pattern patToCompile = logPattern;
     Integer digLength = 12;
     if (hasKeyword) {
@@ -128,21 +121,15 @@ public with sharing class TextUtils {
     Boolean isLoggingRequired
   ) {
     if (String.isNotBlank(input)) {
-      String inputUpper = input.toUpperCase();
-      List<String> keywords = Label.Reactive_logging_keywords.split(',');
-      Boolean hasKeyword = false;
-      for (String keyword : keywords) {
-        if (inputUpper.contains(keyword)) {
-          hasKeyword = true;
-          break;
-        }
-      }
+      Boolean hasKeyword = regexMatchesKeyword(input);
+
       Pattern patToCompile = taxPattern;
       Integer digLength = 15;
       if (hasKeyword) {
         patToCompile = logKeywordPattern;
         digLength = 8;
       }
+
       Matcher matchingPattern = patToCompile.matcher(input);
       while (matchingPattern.find()) {
         String stringToMask = matchingPattern.group(0).trim();
@@ -199,5 +186,20 @@ public with sharing class TextUtils {
         obj.put(fieldApiName, maskData(value.toString()));
       }
     }
+  }
+
+  /**
+   * @description checks if keywords for reactive logging label are in an input
+   * @param input input to match against
+   * @return `Boolean` returns if there was a match
+   */
+  private static Boolean regexMatchesKeyword(String input) {
+    //Replace keywords with pipe to prepare for regex
+    String regexWords = Label.Reactive_logging_keywords.replace(',', '|');
+    //Regex to match only keyword and ignore whitespace and digits before/after word
+    String regex = '(?i)(?<![^\\W\\d])(?:' + regexWords + ')(?![^\\W\\d])';
+    Pattern compiledPattern = Pattern.compile(regex);
+    Matcher regexMatcher = compiledPattern.matcher(input);
+    return regexMatcher.find();
   }
 }

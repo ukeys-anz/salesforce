@@ -193,7 +193,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(
       response.body
     );
-    return (String) responseMap.get('newTokenizedCardNumber');
+    return (String) responseMap.get('new_tokenized_card_number');
   }
 
   /**
