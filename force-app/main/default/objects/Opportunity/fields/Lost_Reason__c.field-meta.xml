@@ -3,6 +3,7 @@
     <fullName>Lost_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Accurate</complianceGroup>
+    <description>List of reasons.</description>
     <externalId>false</externalId>
     <label>Lost Reason</label>
     <required>false</required>

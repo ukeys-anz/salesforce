@@ -3,6 +3,7 @@
  * @since 05/2021
  * @description  IDRCollectionActions class is used to handle all collection related activities in case trigger
  * @group IDR(Internal Dispute Resolution)
+ * @runTests IDRCollectionActionsTest
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
@@ -120,6 +121,7 @@ public with sharing class IDRCollectionActions {
     for (Case rec : records) {
       Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
       if (rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
+        stopCollectionAccList.clear();
         validateRecordForStopCollection(rec, oldRec);
         if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
           collectionsCasesEventList.add(
@@ -387,7 +389,7 @@ public with sharing class IDRCollectionActions {
         isCollectionEventFailed = true;
       }
     }
-    Logger.error('',publishResults);
+    Logger.error('', publishResults);
     Logger.saveLog();
   }
 
@@ -400,7 +402,7 @@ public with sharing class IDRCollectionActions {
       collectionTaskList,
       false
     );
-    Logger.error('',results);
+    Logger.error('', results);
     Logger.saveLog();
   }
 
@@ -569,7 +571,7 @@ public with sharing class IDRCollectionActions {
       String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
     ) {
       String accNumberTrim = (accNumber.replaceFirst('^0+', ''));
-      Set<ID> stCaseIds;
+      Set<Id> stCaseIds;
       if (
         ((stCaseIds = startCollecMap.get(accNumber)) != null &&
         stCaseIds.contains(rec.Id)) ||
@@ -608,7 +610,7 @@ public with sharing class IDRCollectionActions {
         .split(';')
     ) {
       String accNumberTrim = (accNumber2.replaceFirst('^0+', ''));
-      Set<ID> stCaseIds;
+      Set<Id> stCaseIds;
       if (
         ((stCaseIds = startCollecMap.get(accNumber2)) != null &&
         stCaseIds.contains(rec.Id)) ||
@@ -648,7 +650,7 @@ public with sharing class IDRCollectionActions {
         .split(';')
     ) {
       String accNumberTrim = (accNumber3.replaceFirst('^0+', ''));
-      Set<ID> stCaseIds;
+      Set<Id> stCaseIds;
       if (
         ((stCaseIds = startCollecMap.get(accNumber3)) != null &&
         stCaseIds.contains(rec.Id)) ||

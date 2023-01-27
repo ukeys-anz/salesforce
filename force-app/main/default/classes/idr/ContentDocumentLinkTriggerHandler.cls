@@ -66,7 +66,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
 
       for (ContentDocumentLink record : docList) {
         String objectAPIName = 'ContentDocumentLink';
-        String errorNo = String.valueOf(Datetime.now());
+        String strDate = String.valueOf(Date.today());
         String strUserName = UserInfo.getName();
         String strDocTitle = (record.ContentDocument.Title == null)
           ? ''
@@ -77,23 +77,18 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           : record.ContentDocument.LatestPublishedVersion.Document_Category__c;
 
         String errorDescription =
-          'Following file will be deleted from CMOS system. ' +
-          'Content Document ID : ' +
-          record.ContentDocumentId +
-          ', User who deleted the document : ' +
+          'Doc Deleted: ' +
+          caseMap.get(record.LinkedEntityId)?.CaseNumber +
+          ', ' +
           strUserName +
-          ', Date/timestamp when document was deleted : ' +
-          errorNo +
-          ', Document name that was deleted : ' +
-          strDocTitle +
-          ', Document type that was deleted : ' +
-          record.ContentDocument.LatestPublishedVersion.FileType +
-          ', Document category that was deleted : ' +
-          strDocCategory +
-          ', Associated Case : ' +
-          record.LinkedEntityId +
-          ', Associated Case No : ' +
-          caseMap.get(record.LinkedEntityId)?.CaseNumber;
+          ', ' +
+          strDocTitle.abbreviate(50) +
+          ', ' +
+          record.ContentDocumentId +
+          ', ' +
+          strDate +
+          ', ' +
+          record.ContentDocument.LatestPublishedVersion.FileType;
 
         Logger.error(errorDescription, record.Id);
       }

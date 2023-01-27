@@ -1,0 +1,48 @@
+# This workflow will check if a new/updated field has all the metadata information.
+name: Sysl scan
+
+on:
+  pull_request:
+    branches: [develop, master, epic/*]
+
+jobs:
+  sysl-check:
+    runs-on: [self-hosted, salesforce-prod]
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: "16"
+
+      - name: Checkout salesforce repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Sysl Build Deploy
+        run: |
+          BRANCH_NAME=${{ github.base_ref }}
+          if [[ -f ci/sysl-build-deploy.sh ]];then
+            chmod +x ci/sysl-build-deploy.sh
+            source ci/sysl-build-deploy.sh
+          fi
+
+      - name: Sysl Check
+        run: |
+          if [[ -f ci/sysl-check.sh ]];then
+            chmod +x ci/sysl-check.sh
+            source ci/sysl-check.sh >> sysl-report.txt
+          fi
+
+      - name: Sysl Report
+        run: |
+          if [[ -f sysl-report.txt ]];then
+            syslError=$( cat ./sysl-report.txt )
+            if [[ $syslError == *'Missed'* ]];then
+              cat ./sysl-report.txt
+              exit 1
+            fi
+          fi
+
+      - name: Cleaning
+        run: |
+          rm -rf ./sysl-report.txt

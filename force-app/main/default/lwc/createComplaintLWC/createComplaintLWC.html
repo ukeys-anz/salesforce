@@ -581,7 +581,7 @@
             <!-- Issue2 starts here -->
             <lightning-input
               type="toggle"
-              label="Is there an another Issue?"
+              label="Is there another Issue?"
               onchange={handle2ndIssueToggleChange}
               message-toggle-active="Yes"
               message-toggle-inactive="No"
@@ -654,7 +654,7 @@
             <template if:true={hasSecondIssue}>
               <lightning-input
                 type="toggle"
-                label="Is there an another Issue?"
+                label="Is there another Issue?"
                 onchange={handle3rdIssueToggleChange}
                 message-toggle-active="Yes"
                 message-toggle-inactive="No"
@@ -784,54 +784,6 @@
                 </div>
                 <div class="slds-col slds-size_2-of-4"></div>
               </template>
-              <!-- Real Form Changes-->
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-helptext
-                  content="A REAL form is required if there has been an Operational Risk Event: a failure of internal process, people and/or systems, or from an external event.
-                  Note: Ticking this box does not automatically generate a REAL form. If a REAL form is required, it will need to be submitted by following your Businesses BAU process. For assistance, search: ‘REAL form’ on MAX or speak with your Line Manager."
-                >
-                </lightning-helptext>
-                <lightning-radio-group
-                  required
-                  aria-required="true"
-                  name="realFormRequiredGroup"
-                  label="Is a REAL form required?"
-                  onchange={handleRealFormNeeded}
-                  options={realFormReqOptions}
-                  type="button"
-                  data-id="realFormRequiredGroup-id"
-                ></lightning-radio-group>
-              </div>
-              <template if:true={isRealFormNeeded}>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <lightning-radio-group
-                    required={isRealFormNeeded}
-                    aria-required={isRealFormNeeded}
-                    name="realFormSubmittedGroup"
-                    label="Has a REAL form been submitted?"
-                    onchange={handleRealFormSubmitted}
-                    options={realFormReqOptions}
-                    type="button"
-                    data-id="realFormSubmittedGroup-id"
-                  ></lightning-radio-group>
-                </div>
-              </template>
-              <template if:true={isRealFormSubmitted}>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <lightning-input
-                    type="text"
-                    label="Risk Event ID"
-                    value={realFormRefNo}
-                    max-length="50"
-                    onchange={handleRealFormRefNoChange}
-                    data-id="realFormRefNoGroup-id"
-                  ></lightning-input>
-                </div>
-              </template>
               <!--Complaint Status-->
               <div
                 class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
@@ -874,69 +826,29 @@
                 </div>
               </template>
               <template if:true={isComplaintResolved}>
+                <div class="slds-col slds-size_1-of-4 slds-m-right_large"></div>
                 <c-complaints-Close-Child
                   record-id={recordId}
                   record-type-id={recordType}
+                  is-real-form-needed-public={isRealFormNeeded}
+                  real-form-ref-no-public={realFormRefNo}
+                  has-second-issue={hasSecondIssue}
+                  real-form-req-options={realFormReqOptions}
+                  is-common-complaint-yes-no-public={isCommonComplaintYesNo}
+                  systemic-issue-description-public={systemicIssueDescription}
+                  systemic-issue-category-public={systemicIssueCategory}
+                  possible-systemic-issues-public={possibleSystemicIssues}
                   express-case-creation-data-obj={expressCaseCreationData}
+                  commoncomplaintoptions={commoncomplaintoptions}
                   onfieldvalueupdate={handleFieldUpdate}
+                  onhandlerealformneeded={handleRealFormNeeded}
+                  onhandlecommoncomplaint={handleCommonComplaint}
+                  onhandlerealformrefnochange={handleRealFormRefNoChange}
+                  onsystemicissuedescriptionchange={handleSystemicIssueDescriptionChange}
+                  onsystemicissuecategorychange={handleSystemicIssueCategoryChange}
+                  onpossiblesystemicissueschange={handlePossibleSystemicIssuesChange}
                 >
                 </c-complaints-Close-Child>
-              </template>
-            </div>
-            <!--Systemic issues-->
-            <div class="slds-grid slds-wrap">
-              <div class="slds-col slds-size_1-of-4 slds-m-right_large">
-                <lightning-helptext
-                  content="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
-                >
-                </lightning-helptext>
-                <lightning-radio-group
-                  required
-                  aria-required="true"
-                  name="commoncomplaintGroup"
-                  label="Is this a possible systemic issue?"
-                  onchange={handleCommonComplaint}
-                  options={commoncomplaintoptions}
-                  value={isCommonComplaintYesNo}
-                  type="button"
-                  data-id="commoncomplaintGroup-id"
-                >
-                </lightning-radio-group>
-              </div>
-              <template if:true={isCommonComplaint}>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <lightning-input-field
-                    variant="label-stacked"
-                    required={isCommonComplaint}
-                    aria-required={isCommonComplaint}
-                    field-name={systemicIssueDescription}
-                    data-id="siDescription-id"
-                  ></lightning-input-field>
-                </div>
-                <div
-                  class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                >
-                  <lightning-input-field
-                    variant="label-stacked"
-                    required={isCommonComplaint}
-                    aria-required={isCommonComplaint}
-                    field-name={systemicIssueCategory}
-                    data-id="siCategory-id"
-                  ></lightning-input-field>
-                </div>
-                <template if:true={hasSecondIssue}>
-                  <div
-                    class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
-                  >
-                    <lightning-input-field
-                      variant="label-stacked"
-                      field-name={possibleSystemicIssues}
-                      data-id="possibleSystemicIssues-id"
-                    ></lightning-input-field>
-                  </div>
-                </template>
               </template>
             </div>
           </lightning-accordion-section>

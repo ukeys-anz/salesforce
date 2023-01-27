@@ -11,7 +11,6 @@
     <columns>Status__c</columns>
     <columns>Escalated__c</columns>
     <columns>Owner</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>Status__c</field>
         <operation>equals</operation>
@@ -22,10 +21,12 @@
         <operation>equals</operation>
         <value>Interaction.Appointment</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Upcoming Appointments</label>
     <sharedTo>
         <role>Coach</role>
         <role>Coach_Lead</role>
         <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
     </sharedTo>
 </ListView>

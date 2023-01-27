@@ -312,6 +312,11 @@
                 <default>false</default>
                 <label>Loan Statements</label>
             </value>
+            <value>
+                <fullName>Interest</fullName>
+                <default>false</default>
+                <label>Interest</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
@@ -388,6 +393,10 @@
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
             <valueName>ANZ branches</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>About Us</controllingFieldValue>
+            <valueName>Interest</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Cards</controllingFieldValue>

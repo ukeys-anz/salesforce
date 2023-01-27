@@ -2,6 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Prospect__c</fullName>
     <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Flag to indicate Account is prospect or not.</description>
     <externalId>false</externalId>
     <formula>RecordType.DeveloperName = &apos;Business_Account&apos; &amp;&amp;
@@ -9,5 +10,6 @@ ISPICKVAL(FinServ__Status__c, &apos;Prospect&apos;) &amp;&amp;
 Source_System_Name__c = $Label.CCRM_Source_System_Name</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Prospect</label>
+    <securityClassification>Internal</securityClassification>
     <type>Checkbox</type>
 </CustomField>

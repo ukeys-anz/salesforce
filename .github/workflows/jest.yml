@@ -8,16 +8,20 @@ on:
 
 jobs:
   jest:
-    runs-on: [self-hosted, salesforce]
+    runs-on: [self-hosted, salesforce-prod]
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
 
       - name: "Install npm packages"
         run: |
           mv ci.npmrc .npmrc
-          npm ci
+          npm ci -f
 
       - name: Running JEST tests for LWC
         run: npx jest --coverage

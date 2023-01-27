@@ -109,6 +109,7 @@ public class IDRMilestonesTest {
     newCases[1].Status = 'Closed';
     newCases[1].IDR_Complaint_Outcome__c = '1';
     newCases[1].IDR_Description_of_Outcome__c = 'test';
+    newCases[1].IDR_Is_Common__c = 'No';
     CheckRecursive.firstCall = false;
     update newCases[1];
 

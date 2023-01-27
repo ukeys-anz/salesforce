@@ -24,8 +24,6 @@
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
     "Identifier__c",
-    "IDR_Letter_Approval_Details__c",
-    "IDR_Template_Detail__c",
     "Interaction",
     "InteractionSummary",
     "Industry__c",
@@ -410,6 +408,13 @@
       "name": "Quality Analyst",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Quality_Analyst"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
+      "name": "Quality Capability Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["Quality_Capability_Lead"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
     },

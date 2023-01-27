@@ -4,10 +4,15 @@
     <active>true</active>
     <description>Customer number must be numbers and between 10 and 15 digits long.</description>
     <errorConditionFormula>AND(
-	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-	RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-	ISNEW(),
-	NOT(REGEX(IDR_Customer_Number__c, &quot;^[0-9]{10,15}$&quot;)),  ISPICKVAL(IDR_Customer_Identifier__c,&apos;CAP ID&apos;)
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  AND(
+    OR(RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+      RecordType.DeveloperName = &apos;General_Inquiry_CMOS&apos;),
+    NOT(ISBLANK(IDR_Customer_Number__c)),
+    ISCHANGED(IDR_Customer_Number__c)
+  ),
+  NOT(REGEX(IDR_Customer_Number__c, &quot;^[0-9]{10,15}$&quot;)),
+  ISPICKVAL(IDR_Customer_Identifier__c,&apos;Customer/Business CAP ID&apos;)
 )</errorConditionFormula>
     <errorDisplayField>IDR_Customer_Number__c</errorDisplayField>
     <errorMessage>Customer number must be numbers and between 10 and 15 digits long.</errorMessage>

@@ -9,7 +9,7 @@ public with sharing class IDRExpressComplaintController {
    * @description retrieves all active known issue records
    * @return List<Known_Issues__c> list of known issue records from query
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled(Cacheable=true)
   public static List<Known_Issues__c> getAllKnownIssues() {
     try {
       List<Known_Issues__c> knownIssuesList = [
@@ -44,10 +44,12 @@ public with sharing class IDRExpressComplaintController {
         knownIssuesList
       );
       if (acw.inAccessibleFields != null || acw.records.isEmpty()) {
-        Logger.error('CMOS Express Case Creation Exception'+
-        'User does not have read access to fields -- ' +
-        acw.inAccessibleFields);
-        Logger.saveLog();
+        Logger.error(
+          'CMOS Express Case Creation Exception: ' +
+          'User does not have read access to fields -- ' +
+          acw.inAccessibleFields
+        );
+        Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
         String m = 'You dont have enough permission to read CMOS Known Outages, Please contact system administrator.';
         AuraHandledException e = new AuraHandledException(m);
         e.setMessage(m);
