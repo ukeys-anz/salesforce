@@ -1072,7 +1072,8 @@
         "Result_Code__c",
         "Result_Message__c",
         "Status_Event_ID__c",
-        "Status_Timestamp__c"
+        "Status_Timestamp__c",
+        "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
     "FinServ__FinancialAccount__c": {

@@ -5,10 +5,6 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>CreateCommsController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRAPIRepository</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -29,8 +25,8 @@
         <enabled>true</enabled>
     </classAccesses>
     <customSettingAccesses>
-        <enabled>true</enabled>
         <name>IDR_Notification_Hours__c</name>
+        <enabled>true</enabled>
     </customSettingAccesses>
     <description>The IDR user permission which is the base for all the IDR Users across all the Levels</description>
     <fieldPermissions>
@@ -269,7 +265,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.IDR_Correspondence_Reviewed_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1050,22 +1046,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product_Family__c.IDR_ANZ_com_Product_Category__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Product_Family__c.IDR_ANZ_com_Unique_Product_Indicator__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Product2.IDR_Product_Family__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Product2.IDR_Workbasket__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product_Family__c.IDR_ANZ_com_Product_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product_Family__c.IDR_ANZ_com_Unique_Product_Indicator__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1266,27 +1262,27 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditCaseComments</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditTask</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>RunFlow</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>RunReports</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>TransferAnyCase</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewAllForeignKeyNames</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

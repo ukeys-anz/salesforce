@@ -16,14 +16,15 @@
     <columns>Advice_Outcome__c</columns>
     <columns>Compliance_Outcome__c</columns>
     <columns>Context_and_General_Comments__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
         <value>Quality_Assessment__c.Get_Help</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>GH Quality Evaluations</label>
     <sharedTo>
         <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
     </sharedTo>
 </ListView>

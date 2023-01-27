@@ -201,7 +201,6 @@ public with sharing class DisputesValidationTest {
     Case cardDispute = new Case(
       RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Don\'t recognise the transaction',
-      AccountId = acc.Id,
       Description = 'Sample Customer Description',
       Is_The_Card_Lost_Stolen__c = 'No',
       Transaction_Id__c = 'CT5M00000024404234',
@@ -246,7 +245,6 @@ public with sharing class DisputesValidationTest {
     Case cardDispute = new Case(
       RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Don\'t recognise the transaction',
-      AccountId = acc.Id,
       Description = 'Sample Customer Description',
       Is_The_Card_Lost_Stolen__c = 'No',
       Card_In_Possession_During_Transaction__c = 'Yes',
@@ -285,7 +283,6 @@ public with sharing class DisputesValidationTest {
     Case atmDispute = new Case(
       RecordTypeId = GetHelpConstants.ATM_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Duplicate Transaction',
-      AccountId = acc.Id,
       Transaction_Id__c = 'CT5M00000024404234',
       Transaction_UUID__c = '4313ds-51d2-4ve2-ba7e-0b339p157da1'
     );
@@ -328,7 +325,6 @@ public with sharing class DisputesValidationTest {
     Case atmDispute = new Case(
       RecordTypeId = GetHelpConstants.ATM_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Duplicate Transaction',
-      AccountId = acc.Id,
       Description = 'Sample Customer Description',
       Transaction_Id__c = 'CT5M00000024404234',
       Transaction_UUID__c = '4313ds-51d2-4ve2-ba7e-0b339p157da1'
@@ -364,7 +360,6 @@ public with sharing class DisputesValidationTest {
     Case nppDispute = new Case(
       RecordTypeId = GetHelpConstants.NPP_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Incorrect Account Details',
-      AccountId = acc.Id,
       Description = 'Sample customer description',
       Transaction_Id__c = 'CT5M00000024404234',
       Intended_Account_Name__c = 'AccountName',
@@ -406,7 +401,6 @@ public with sharing class DisputesValidationTest {
     Case nppDispute = new Case(
       RecordTypeId = GetHelpConstants.NPP_DISPUTE_RT_ID,
       Dispute_Reason__c = 'Incorrect Account Details',
-      AccountId = acc.Id,
       Description = 'Sample customer description',
       Transaction_Id__c = 'CT5M00000024404234',
       Intended_Account_Name__c = 'AccountName',

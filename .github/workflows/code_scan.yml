@@ -8,9 +8,27 @@ on:
 
 jobs:
   pmd:
-    runs-on: [self-hosted, salesforce]
+    runs-on: [self-hosted, salesforce-prod]
 
     steps:
+      - uses: actions/checkout@v3
+      - run: |
+          download_url="https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
+          wget -O $RUNNER_TEMP/java_package.tar.gz $download_url
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: "jdkfile"
+          jdkFile: ${{ runner.temp }}/java_package.tar.gz
+          java-version: "11.0.12"
+          architecture: x64
+      - run: |
+          echo $PATH
+          echo $JAVA_HOME
+          java -version
+          export JAVA_HOME="/opt/jdk/jdk-11.0.12"
+          export PATH="${JAVA_HOME}/bin:$PATH"
+
       - name: "Checkout"
         uses: actions/checkout@v2
 
