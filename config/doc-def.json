@@ -512,6 +512,13 @@
       "permissionsetgroups": ["AEM_Integration"],
       "permissionsets": ["API_Only"],
       "type": "system"
+    },
+    {
+      "name": "Microsoft Defender Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["Microsoft_Defender"],
+      "type": "system"
     }
   ]
 }
