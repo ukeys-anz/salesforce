@@ -179,9 +179,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
   remedyDurationValue2 = "";
   remedyDurationValue3 = "";
 
-  avoidableEscalationToggle = false;
+  avoidableEscalationValue = "";
   avoidableEscalationReasonValue = "";
-  showAvoidableEscalationReason = false;
 
   @api
   isRealFormNeededPublic;
@@ -224,6 +223,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
     }
   }
 
+  yesNoOptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
+
   get isCommonComplaint() {
     return this.isCommonComplaintYesNo === YES_VALUE;
   }
@@ -255,6 +259,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   get showAdditionalIssues() {
     return this.hasSecondIssue || this.recordId;
+  }
+
+  get showAvoidableEscalationReason() {
+    return this.avoidableEscalationValue === YES_VALUE;
   }
 
   connectedCallback() {
@@ -344,7 +352,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.remedyDurationValue2 = data.fields.IDR_Duration_of_Remedy_2__c.value;
       this.remedyDurationValue3 = data.fields.IDR_Duration_of_Remedy_3__c.value;
 
-      this.avoidableEscalationToggle =
+      this.avoidableEscalationValue =
         data.fields.IDR_Avoidable_Escalation__c.value;
       this.avoidableEscalationReasonValue =
         data.fields.IDR_Avoidable_Escalation_Reason__c.value;
@@ -473,9 +481,6 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
       if (data.fields.Status.value === "Escalated") {
         this.showAvoidableEscalation = true;
-        if (this.avoidableEscalationToggle === true) {
-          this.showAvoidableEscalationReason = true;
-        }
       }
     }
   }
@@ -1271,9 +1276,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
 
     sendVal.field = "IDR_Avoidable_Escalation__c";
-    sendVal.value = event.detail.checked;
-    this.avoidableEscalationToggle = event.detail.checked;
-    this.showAvoidableEscalationReason = event.detail.checked;
+    sendVal.value = this.avoidableEscalationValue = event.detail.value;
 
     this.updateAvoidableEscalationReason();
 
@@ -1307,8 +1310,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
 
     sendVal.field = "IDR_Avoidable_Escalation_Reason__c";
-    sendVal.value = event.detail.value;
-    this.avoidableEscalationReasonValue = event.detail.value;
+    sendVal.value = this.avoidableEscalationReasonValue = event.detail.value;
 
     this.sendFieldValue(sendVal);
   }
@@ -1384,7 +1386,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     }
     possibleSysIssueInput.reportValidity();
     this.template
-      .querySelectorAll("lightning-input-field")
+      .querySelectorAll("lightning-input-field, lightning-combobox")
       .forEach((element) => {
         element.reportValidity();
       });

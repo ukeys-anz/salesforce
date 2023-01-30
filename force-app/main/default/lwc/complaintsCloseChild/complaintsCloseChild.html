@@ -412,32 +412,27 @@
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
-            <lightning-input
-              type="toggle"
+            <lightning-combobox
+              required
               label="Avoidable Escalation?"
-              name="avoidableEscalation"
-              data-id="avoidableEscalation-id"
               onchange={handleAvoidableEscalation}
-              checked={avoidableEscalationToggle}
-              message-toggle-active="Yes"
-              message-toggle-inactive="No"
-            ></lightning-input>
+              options={yesNoOptions}
+              value={avoidableEscalationValue}
+              field-level-help="Applicable for complaints that have been manually recorded and escalated either by the Case Owner or by automatic escalation. For complaints received by email or online form, select NO as escalation of these records are not avoidable."
+            >
+            </lightning-combobox>
           </div>
         </template>
         <template if:true={showAvoidableEscalationReason}>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
-            <lightning-input
-              type="text"
+            <lightning-input-field
               variant="label-stacked"
-              label="Avoidable Escalation Reason"
               required="true"
               field-name={avoidableEscalationReason}
               onchange={handleAvoidableEscalationReason}
-              value={avoidableEscalationReasonValue}
-              data-id="avoidableEscalationReason-id"
-            ></lightning-input>
+            ></lightning-input-field>
           </div>
         </template>
       </div>

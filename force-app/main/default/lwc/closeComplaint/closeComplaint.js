@@ -59,6 +59,7 @@ import POSSIBLE_SYSTEM_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemi
 
 const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
+const ESCALATED_STATUS_API_NAME = "Escalated";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_PRODUCT_MANU = "3";
 const SUB_REMEDY_OTHER = "99";
@@ -125,7 +126,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   modalHeader = "Error";
   remedy2 = false;
   remedy3 = false;
-  avoidableEscalation = false;
   caseStatus = CLOSED_STATUS_API_NAME;
 
   isValidToClose = true;
@@ -140,6 +140,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   systemicIssueDescription;
   systemicIssueCategory;
   possibleSystemicIssues;
+  isEscalated;
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
@@ -167,6 +168,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         data.fields[POSSIBLE_SYSTEM_ISSUES.fieldApiName].value;
       this.isCommonComplaintYesNo =
         data.fields[COMMON_COMPLAINT.fieldApiName].value;
+      this.isEscalated =
+        data.fields[STATUS_FIELD.fieldApiName].value ===
+        ESCALATED_STATUS_API_NAME;
 
       //check validity before closing
       if (!data.fields[PRODUCT_OR_SERVICE_NAME.fieldApiName].value) {
@@ -269,14 +273,10 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       data.fields[OTHER_REMDY3.fieldApiName].value;
     this.closeFields[REMEDY_DURATION3.fieldApiName] =
       data.fields[REMEDY_DURATION3.fieldApiName].value;
-
     this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] =
       data.fields[AVOIDABLE_ESCALATION.fieldApiName].value;
     this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName] =
       data.fields[AVOIDABLE_ESCALATION_REASON.fieldApiName].value;
-    if (data.fields[AVOIDABLE_ESCALATION_REASON.fieldApiName].value !== null) {
-      this.avoidableEscalation = true;
-    }
     this.loadChild = true;
   }
 
@@ -421,7 +421,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
         break;
       case "IDR_Avoidable_Escalation__c":
-        this.avoidableEscalation = value;
         this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] = value;
         break;
       case "IDR_Avoidable_Escalation_Reason__c":
@@ -513,7 +512,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       validToSave3 = this.validateRemedy3Fields();
     }
 
-    if (this.avoidableEscalation) {
+    if (this.isEscalated) {
       validToSave4 = this.validateAvoidableEscalationFields();
     }
 
@@ -886,8 +885,12 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
   validateAvoidableEscalationFields() {
     let validToSave = true;
-    if (
-      this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] === true &&
+
+    if (!this.closeFields[AVOIDABLE_ESCALATION.fieldApiName]) {
+      validToSave = false;
+      this.errMsg += "Avoidable Escalation ,";
+    } else if (
+      this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] === YES_VALUE &&
       (!(AVOIDABLE_ESCALATION_REASON.fieldApiName in this.closeFields) ||
         !this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName])
     ) {
