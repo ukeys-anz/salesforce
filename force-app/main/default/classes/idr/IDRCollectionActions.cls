@@ -450,7 +450,7 @@ public with sharing class IDRCollectionActions {
       }
     }
 
-    //Build collection map
+    //Build collection map (will ony contain trimmed account numbers)
     startCollecMap = getStartCollectionMap(collectionAcctsList, caseIds);
 
     //validate all closed records whether the stop collection is already triggered or not
@@ -485,6 +485,9 @@ public with sharing class IDRCollectionActions {
   ) {
     Map<String, Set<Id>> startCollectionMap = new Map<String, Set<Id>>();
     for (String accNumber : collectionAcctsList) {
+      if (accNumber.length() < 23) {
+        collectionAcctsList.add(accNumber.leftPad(23, '0'));
+      }
       accNumber = (accNumber.replaceFirst('^0+', ''));
       collectionAcctsList.add(accNumber);
     }
@@ -503,16 +506,18 @@ public with sharing class IDRCollectionActions {
               WHERE IsClosed = FALSE OR Id IN :caseIds
             )
         ]) {
-          if (
-            !startCollectionMap.containsKey(taskRec.IDR_Collection_Number__c)
-          ) {
+          // Only build startCollectionMap on trimmed Account Numbers.
+          String strAccountNumber = taskRec.IDR_Collection_Number__c.replaceFirst(
+            '^0+',
+            ''
+          );
+          if (!startCollectionMap.containsKey(strAccountNumber)) {
             startCollectionMap.put(
-              taskRec.IDR_Collection_Number__c,
+              strAccountNumber,
               new Set<Id>{ taskRec.WhatId }
             );
           } else {
-            startCollectionMap.get(taskRec.IDR_Collection_Number__c)
-              .add(taskRec.WhatId);
+            startCollectionMap.get(strAccountNumber).add(taskRec.WhatId);
           }
         }
       }
@@ -573,10 +578,8 @@ public with sharing class IDRCollectionActions {
       String accNumberTrim = (accNumber.replaceFirst('^0+', ''));
       Set<Id> stCaseIds;
       if (
-        ((stCaseIds = startCollecMap.get(accNumber)) != null &&
-        stCaseIds.contains(rec.Id)) ||
-        ((stCaseIds = startCollecMap.get(accNumberTrim)) != null &&
-        stCaseIds.contains(rec.Id))
+        (stCaseIds = startCollecMap.get(accNumberTrim)) != null &&
+        stCaseIds.contains(rec.Id)
       ) {
         if (
           (stCaseIds.size() == 1) && productNameMap.containsKey(rec.Product__c)
