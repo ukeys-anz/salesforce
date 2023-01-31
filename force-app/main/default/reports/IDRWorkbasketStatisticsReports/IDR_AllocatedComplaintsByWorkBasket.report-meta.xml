@@ -12,7 +12,7 @@
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>Case.Queue__c</groupingColumn>
+        <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>true</showAxisLabels>
         <showPercentage>false</showPercentage>
@@ -67,7 +67,7 @@
             <value>0</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case.Queue__c</column>
+            <column>Case.IDR_Queue_Report_Label__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>startsWith</operator>
@@ -81,7 +81,7 @@
             <value>Withdrawn,Resolved,Closed</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case.Queue__c</column>
+            <column>Case.IDR_Queue_Report_Label__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
@@ -94,11 +94,12 @@
             <operator>notEqual</operator>
             <value>Withdrawn,Resolved</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.Queue__c</field>
+        <field>Case.IDR_Queue_Report_Label__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>IDR_AllocatedComplaintsByWorkBasket</name>

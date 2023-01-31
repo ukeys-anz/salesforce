@@ -24,8 +24,6 @@
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
     "Identifier__c",
-    "IDR_Letter_Approval_Details__c",
-    "IDR_Template_Detail__c",
     "Interaction",
     "InteractionSummary",
     "Industry__c",

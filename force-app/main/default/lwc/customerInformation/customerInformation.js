@@ -252,7 +252,8 @@ export default class CustomerInformation extends LightningElement {
     }
     // if the customer Id couldnt be validated against CAP at the moment throw this event so that case can be created.
     if (!this.error.includes("No data found for the given customerId")) {
-      this.dispatchEvent(new CustomEvent("custinfochecked"));
+      // Sending this event incorrectly flags the Customer Number as successful.
+      //      this.dispatchEvent(new CustomEvent("custinfochecked"));
     }
 
     this.record = undefined;

@@ -50,8 +50,7 @@ ISPICKVAL(Status, &apos;Under Investigation&apos;)
 ),
 OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
-RecordType.DeveloperName = &apos;ANZx_Complaint&apos;
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Leadership&apos;),
 NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_Team_Leaders&apos;),
@@ -87,7 +86,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -127,6 +126,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.IDR_AFCA_Status__c</field>
             <operation>notEqual</operation>
             <value>11</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>ANZ Plus Complaint</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>30-day IDR Response Due</milestoneName>
         <minutesToComplete>43200</minutesToComplete>
@@ -150,7 +154,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16)) AND 17</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND ((5 AND 6) OR (7 AND 8) OR (9 AND 10) OR (11 AND 12) OR (13 AND 14) OR (15 AND 16)) AND 17 AND 18</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>
@@ -235,6 +239,11 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <field>Case.IDR_AFCA_Status__c</field>
             <operation>notEqual</operation>
             <value>11</value>
+        </milestoneCriteriaFilterItems>
+        <milestoneCriteriaFilterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>notEqual</operation>
+            <value>ANZ Plus Complaint</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>21-day IDR Response Due</milestoneName>
         <minutesToComplete>30240</minutesToComplete>
@@ -299,7 +308,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
     <milestones>
-        <businessHours>ANZx Case Business Hours</businessHours>
+        <businessHours>Case Business Hours</businessHours>
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
@@ -310,13 +319,8 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
             <operation>notEqual</operation>
             <value>Closed</value>
         </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Origin</field>
-            <operation>notEqual</operation>
-            <value>Chat</value>
-        </milestoneCriteriaFilterItems>
         <milestoneName>Resolution Time</milestoneName>
-        <minutesToComplete>2400</minutesToComplete>
+        <minutesToComplete>7680</minutesToComplete>
         <timeTriggers>
             <actions>
                 <name>SLA_Status_Warning_Update</name>
@@ -335,44 +339,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution&apos;)
         </timeTriggers>
         <useCriteriaStartTime>false</useCriteriaStartTime>
     </milestones>
-    <milestones>
-        <businessHours>ANZx Case Business Hours</businessHours>
-        <milestoneCriteriaFilterItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>ANZ Plus Complaint</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>notEqual</operation>
-            <value>Closed</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Origin</field>
-            <operation>equals</operation>
-            <value>Chat</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneName>Resolution Time</milestoneName>
-        <minutesToComplete>1920</minutesToComplete>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Warning_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-960</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Violation_Update</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <useCriteriaStartTime>false</useCriteriaStartTime>
-    </milestones>
-
 
 <milestones>
         <businessHours>Default</businessHours>

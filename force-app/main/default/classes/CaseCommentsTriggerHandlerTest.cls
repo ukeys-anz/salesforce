@@ -205,6 +205,7 @@ public with sharing class CaseCommentsTriggerHandlerTest {
       newCases[0].Status = 'Closed';
       newCases[0].IDR_Description_of_Outcome__c = 'Test';
       newCases[0].IDR_Complaint_Outcome__c = '1';
+      newCases[0].IDR_Is_Common__c = 'No';
       update newCases[0];
       //when user adds a new comment
       CaseComment testComments = new CaseComment(
