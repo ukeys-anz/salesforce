@@ -12,13 +12,9 @@ public with sharing class IDRCreateComplaintController {
   public static List<Id> fetchRequiredProducts() {
     Map<Id, Product2> productMap = new Map<Id, Product2>(
       [
-        SELECT Id
+        SELECT Id, IDR_Allow_Account_Policy_Number__c
         FROM Product2
-        WHERE
-          Name LIKE '%Lease%'
-          OR Name LIKE '%Asset Finance%'
-          OR Name = 'Chattel Mortgage'
-          OR Name = 'Offer To hire'
+        WHERE IDR_Allow_Account_Policy_Number__c = TRUE
       ]
     );
     return new List<Id>(productMap.keySet());

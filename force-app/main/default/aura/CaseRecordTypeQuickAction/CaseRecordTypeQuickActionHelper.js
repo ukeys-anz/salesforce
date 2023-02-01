@@ -56,10 +56,8 @@
         actionName: "edit"
       },
       state: {
-        defaultFieldValues:
-          "RecordTypeId=" +
-          component.get("v.selectedRecordTypeId") +
-          component.get("v.autoFillFieldsString")
+        recordTypeId: component.get("v.selectedRecordTypeId"),
+        defaultFieldValues: component.get("v.autoFillFieldsString")
       }
     };
     navService.navigate(pageReference);

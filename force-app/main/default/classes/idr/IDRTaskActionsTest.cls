@@ -216,6 +216,7 @@ private with sharing class IDRTaskActionsTest {
       c.Status = IDRConstants.CLOSED_STATUS;
       c.IDR_Complaint_Outcome__c = '1';
       c.IDR_Description_of_Outcome__c = 'test';
+      c.IDR_Is_Common__c = 'No';
     }
     update newCases;
 

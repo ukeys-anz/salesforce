@@ -237,10 +237,10 @@ export default class CreateComplaintLWC extends NavigationMixin(
   remedy3 = false;
 
   //systemic issue & compliance fields
-  commonComplaint = IS_COMMON_COMPLAINT_FIELD;
-  systemicIssueDescription = SYSTEMIC_ISSUE_DESCRIPTION;
-  systemicIssueCategory = SYSTEMIC_ISSUE_CATEGORY;
-  possibleSystemicIssues = POSSIBLE_SYSTEMIC_ISSUES;
+  commonComplaint;
+  systemicIssueDescription;
+  systemicIssueCategory;
+  possibleSystemicIssues;
 
   // escalation fields
   escalatedTo = ESCALATED_TO;
@@ -457,6 +457,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handle2ndIssueToggleChange(event) {
     this.hasSecondIssue = event.target.checked;
+    if (!this.hasSecondIssue) {
+      this.hasThirdIssue = false;
+    }
   }
 
   handle3rdIssueToggleChange(event) {
@@ -473,7 +476,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.accountOrPolicyNumber3 = this.cleanupAccount(event);
   }
   handleCommonComplaint(event) {
-    this.isCommonComplaintYesNo = event.target.value;
+    this.isCommonComplaintYesNo = event.detail;
     this.isCommonComplaint =
       this.isCommonComplaintYesNo === "Yes" ? true : false;
   }
@@ -496,9 +499,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.isComplaintResolved = true;
         break;
       case "Under Investigation":
+        this.isComplaintResolved = false;
         break;
       default:
         this.caseStatus = OPEN_STATUS_API_NAME;
+        this.isComplaintResolved = false;
     }
   }
   handleComplaintRemedy(event) {
@@ -601,7 +606,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleRealFormNeeded(event) {
-    if (event.detail.value !== YES_VALUE) {
+    if (event.detail !== YES_VALUE) {
       this.isRealFormNeeded = this.isRealFormSubmitted = false;
     } else {
       this.isRealFormNeeded = true;
@@ -630,7 +635,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
   }
 
   handleRealFormRefNoChange(event) {
-    this.realFormRefNo = event.detail.value;
+    this.realFormRefNo = event.detail;
   }
 
   //form validation.
@@ -697,6 +702,27 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
       return isValidSoFar;
     }, true);
+
+    if (
+      this.caseStatus &&
+      this.caseStatus.indexOf("Closed") !== -1 &&
+      this.isCommonComplaint &&
+      !this.systemicIssueDescription
+    ) {
+      isFieldValid = false;
+      this.missingDataFields += "Why is this a possible systemic issue?, ";
+    }
+
+    if (
+      this.caseStatus &&
+      this.caseStatus.indexOf("Closed") !== -1 &&
+      this.isCommonComplaint &&
+      !this.systemicIssueCategory
+    ) {
+      isFieldValid = false;
+      this.missingDataFields += "Possible Systemic Issue Category, ";
+    }
+
     if (this.isNonCustomerComplaint && !this.postCodeInputValue) {
       isFieldValid = false;
       this.missingDataFields += "Postcode, ";
@@ -737,13 +763,30 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
     }
     if (
-      typeof this.isCommonComplaint === "undefined" ||
-      this.isCommonComplaint === null
+      (this.caseStatus === PROVISIONALLYCLOSED_STATUS_API_NAME ||
+        this.caseStatus === CLOSED_STATUS_API_NAME) &&
+      (typeof this.isCommonComplaint === "undefined" ||
+        this.isCommonComplaint === null)
     ) {
       isFieldValid = false;
       this.missingDataFields += "Is this a possible systemic issue?, ";
     }
     //Check for Real Form Validations
+    if (
+      (this.caseStatus === PROVISIONALLYCLOSED_STATUS_API_NAME ||
+        this.caseStatus === CLOSED_STATUS_API_NAME) &&
+      (typeof this.isRealFormNeeded === "undefined" ||
+        this.isRealFormNeeded === null)
+    ) {
+      isFieldValid = false;
+      this.missingDataFields +=
+        /*inputCmp.label + ", "*/ " Is Real form required, ";
+    }
+    if (this.isRealFormNeeded && !this.realFormRefNo) {
+      isFieldValid = false;
+      this.missingDataFields +=
+        /*inputCmp.label + ", "*/ " REAL Form MAX ID/ServiceNow ID, ";
+    }
     let isRadioGroupValid = [
       ...this.template.querySelectorAll("lightning-radio-group")
     ].reduce((isValidSoFar, inputCmp) => {
@@ -752,7 +795,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (getId[0].includes("realFormRequiredGroup")) {
         if (typeof inputCmp.value === "undefined") {
           isValidSoFar = false;
-          this.missingDataFields += inputCmp.label + ", ";
+          this.missingDataFields +=
+            /*inputCmp.label + ", "*/ " Is Real form required, ";
         }
       }
       return isValidSoFar;
@@ -847,6 +891,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.missingDataFields +=
         "Postcode must be a 4-digit Australian postcode, If the customer is overseas, enter 'Overseas', if the postcode is unknown, enter 'Not Applicable'.";
     }
+    let closeStatusInput = this.template.querySelector(
+      "c-complaints-close-child"
+    );
+
+    if (closeStatusInput) {
+      closeStatusInput.validateFields();
+    }
 
     return (
       isFieldValid &&
@@ -922,9 +973,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (this.isRealFormNeeded) {
         fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
         fields[IS_REAL_FORM_SUBMITTED.fieldApiName] = this.isRealFormSubmitted;
-        if (this.isRealFormSubmitted) {
+        if (this.isRealFormNeeded) {
           fields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
         }
+      } else {
+        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = false;
+        fields[REAL_FORM_REF_NO.fieldApiName] = null;
       }
       if (this.hasSecondIssue) {
         fields[HAS_SECOND_ISSUE.fieldApiName] = true;
@@ -969,6 +1023,20 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
       if (this.expressCMOS) {
         fields[EXPRESS_CMOS.fieldApiName] = this.expressCMOS;
+      }
+
+      if (this.isCommonComplaint) {
+        fields[
+          SYSTEMIC_ISSUE_DESCRIPTION.fieldApiName
+        ] = this.systemicIssueDescription;
+        fields[
+          SYSTEMIC_ISSUE_CATEGORY.fieldApiName
+        ] = this.systemicIssueCategory;
+        if (this.hasSecondIssue) {
+          fields[
+            POSSIBLE_SYSTEMIC_ISSUES.fieldApiName
+          ] = this.possibleSystemicIssues;
+        }
       }
 
       if (this.isComplaintResolved) {
@@ -1249,6 +1317,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.knownIssue = null;
       this.knownIssueChangeHandler(undefined);
     }
+    if (!this.isCommonComplaint && this.expressCMOS) {
+      this.isCommonComplaintYesNo = false;
+      this.isCommonComplaint = "No";
+      this.isRealFormNeeded = "No";
+    }
   }
 
   knownIssueChangeHandler(event) {
@@ -1368,30 +1441,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
       );
     }
 
-    const realFormElement = this.template.querySelector(
-      '[data-id="realFormRequiredGroup-id"]'
-    );
-    if (event === undefined) {
-      realFormElement.value = "";
-    } else if (event.detail.IDR_REAL_Form_Required__c) {
-      realFormElement.value = "Yes";
-    } else {
-      realFormElement.value = "No";
-    }
-    realFormElement.dispatchEvent(
-      new CustomEvent("change", {
-        detail: {
-          value: realFormElement.value
-        }
-      })
-    );
-
-    const possibleSysIssueElement = this.template.querySelector(
-      '[data-id="commoncomplaintGroup-id"]'
-    );
-    possibleSysIssueElement.value =
+    this.isRealFormNeeded =
+      event === undefined
+        ? null
+        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c));
+    this.possibleSystemicIssues =
       event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
-    possibleSysIssueElement.dispatchEvent(new CustomEvent("change"));
     const statusElement = this.template.querySelector(
       '[data-id="caseStatus-id"]'
     );
@@ -1400,6 +1455,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
     statusElement.dispatchEvent(new CustomEvent("change"));
 
     this.knownIssue = event === undefined ? "" : event.detail.Id;
+    this.isCommonComplaintYesNo =
+      event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
+    this.isCommonComplaint =
+      this.isCommonComplaintYesNo === ""
+        ? null
+        : this.isCommonComplaintYesNo === "Yes";
   }
 
   handleAccNoSelection(event) {
@@ -1912,6 +1973,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
     return validToSave;
   }
 
+  handleSystemicIssueDescriptionChange(event) {
+    this.systemicIssueDescription = event.detail;
+  }
   validateDurationOfRemedy(
     complaintSubRemedyApiName,
     remedyDurationApiName,
@@ -1940,5 +2004,13 @@ export default class CreateComplaintLWC extends NavigationMixin(
       }
     }
     return "";
+  }
+
+  handleSystemicIssueCategoryChange(event) {
+    this.systemicIssueCategory = event.detail;
+  }
+
+  handlePossibleSystemicIssuesChange(event) {
+    this.possibleSystemicIssues = event.detail;
   }
 }

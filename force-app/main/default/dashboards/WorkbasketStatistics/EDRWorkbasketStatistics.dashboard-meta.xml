@@ -19,13 +19,13 @@
                     <column>RowCount</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
-                <decimalPrecision>0</decimalPrecision>
+                <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Integer</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -56,13 +56,13 @@
                     <column>RowCount</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
-                <decimalPrecision>0</decimalPrecision>
+                <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Integer</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -99,7 +99,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -136,7 +136,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -164,7 +164,7 @@
                 <chartAxisRange>Auto</chartAxisRange>
                 <chartSummary>
                     <axisBinding>y</axisBinding>
-                    <column>FORMULA1</column>
+                    <column>RowCount</column>
                 </chartSummary>
                 <componentType>Bar</componentType>
                 <decimalPrecision>0</decimalPrecision>
@@ -173,7 +173,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -187,7 +187,7 @@
                 <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
-                <title>By Wrokbasket</title>
+                <title>By Workbasket</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>8</rowIndex>
@@ -210,7 +210,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
@@ -247,7 +247,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingColumn>SUBJECT</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
@@ -324,7 +324,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>Case.Queue__c</groupingColumn>
+                <groupingColumn>Case.IDR_Queue_Report_Label__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>

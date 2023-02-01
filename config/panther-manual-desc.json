@@ -29,6 +29,17 @@
       "Title": "The title of a document",
       "Document_Category__c": "Document Categorisation for complaints"
     },
+    "External_Case_Status__c": {
+      "Customer_Message__c": "Message sent to the customer via a notification in the app",
+      "External_Status__c": "Status of Case in external system",
+      "Internal_Description__c": "External Status description",
+      "Is_Outcome_in_Customer_Favour__c": "If dispute outcome was made in favour of customer",
+      "Result_Code__c": "Outcome code when as dispute is closed",
+      "Result_Message__c": "Description of the outcome",
+      "Status_Event_ID__c": "Unique Event ID for a status",
+      "Status_Timestamp__c": "Timestamp the status was updated in external system",
+      "Status_Timestamp_With_Millisec_Gmt__c": "Text field to capture timestamp from Pega. It is always GMT time"
+    },
     "FinServ__FinancialAccount__c": {
       "FinServ__Balance__c": "Balance amount in customer's financial account excluding pending transactions",
       "FinServ__CurrentPostedBalance__c": "Balance amount in customer's financial account including pending transactions",
@@ -173,8 +184,6 @@
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
-    "IDR_Letter_Approval_Details__c": "Letter Approval Detail",
-    "IDR_Template_Detail__c": "Template Detail",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -570,6 +579,7 @@
         "IDR_Account_Card_Policy_Number__c",
         "IDR_Account_Card_Policy_Number_2__c",
         "IDR_Account_Card_Policy_Number_3__c",
+        "IDR_Allow_Account_Policy_Number__c",
         "IDR_AuthRep_Is_Related_to_Representative__c",
         "IDR_AuthRep_Licence_Number__c",
         "IDR_AuthRep_Licence_or_registration_type__c",
@@ -1073,7 +1083,8 @@
         "Result_Code__c",
         "Result_Message__c",
         "Status_Event_ID__c",
-        "Status_Timestamp__c"
+        "Status_Timestamp__c",
+        "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
     "FinServ__FinancialAccount__c": {
@@ -1130,37 +1141,6 @@
         "RecordTypeId"
       ],
       "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
-    },
-    "IDR_Letter_Approval_Details__c": {
-      "IA-2453595": [
-        "IDR_Field_Name__c",
-        "IDR_Letter_Approval__c",
-        "IDR_Value__c"
-      ],
-      "IA-2468715": [
-        "Id",
-        "CreatedById",
-        "CreatedDate",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "IDR_Template_Detail__c": {
-      "IA-2453595": [
-        "IDR_Case_Field_Name__c",
-        "IDR_Field_Description__c",
-        "IDR_Is_Free_Text__c",
-        "IDR_sort_order__c",
-        "IDR_Template__c",
-        "IDR_Template_Field_Name__c"
-      ],
-      "IA-2468715": [
-        "Id",
-        "CreatedById",
-        "CreatedDate",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
     },
     "Industry__c": {
       "IA-2530401": [

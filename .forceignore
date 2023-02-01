@@ -57,8 +57,6 @@ force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
 
-#Ignoring Jest tests as per https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.unit_testing_using_jest_create_tests
-**/__tests__/**
 
 #Ignoring these objects/fields as they aren't used. Ignored as per https://jira.service.anz/browse/ABT-27699
 force-app/main/default/objects/ServiceAppointment/

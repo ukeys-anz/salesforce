@@ -13,6 +13,23 @@
     "Provided_details_to_Product_Manufacturer__c": false,
     "IDR_Financial_Compensation__c": "",
     "IDR_Complaint_Sub_Remedy__c": "1",
+    "IDR_Real_Form_Req__c": {
+      "value": true
+    },
+    "IDR_Real_Form_Ref_No__c": {
+      "value": "12345"
+    },
+    "IDR_Is_Common__c": {
+      "displayValue": "Yes",
+      "value": "Yes"
+    },
+    "IDR_Systemic_Issue_Description__c": {
+      "value": "test description"
+    },
+    "IDR_Systemic_Issue_Category__c": {
+      "value": "2"
+    },
+    "IDR_Possible_Systemic_Issues__c": "Issue 2",
     "IDR_Financial_Remedy_Points__c": "",
     "IDR_Other_Remedy_Provided__c": "",
     "IDR_Duration_of_Remedy__c": "",

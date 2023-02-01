@@ -47,6 +47,7 @@
                 <img
                   src={defaultImage}
                   class="slds-carousel__image slds-carousel__image"
+                  alt={defaultImage}
                 />
               </div>
             </div>
@@ -106,7 +107,11 @@
                     <article class="card-container">
                       <div class="cardDetail">
                         <div class="slds-col slds-size_1-of-3">
-                          <img src={card.image} class="slds-carousel__image" />
+                          <img
+                            src={card.image}
+                            class="slds-carousel__image"
+                            alt={card.image}
+                          />
                         </div>
 
                         <div class="slds-col slds-size_1-of-3">
