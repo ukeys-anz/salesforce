@@ -3,6 +3,7 @@
  * @since 10/2020
  * @description  IDRConstants consists of all the IDR constants
  * @group IDR(Internal Dispute Resolution)
+ * @runTests ContentDocumentLinkTriggerHandlerTest
  */
 public with sharing class IDRConstants {
   //Complaint Status
@@ -147,6 +148,7 @@ public with sharing class IDRConstants {
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{4,8}';
   public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
+  public static final String EMAIL_USER_FNAME = 'IDREmailService';
 
   //IDR Account number pattern
   public static final String MULTIPLE_ACCOUNT_NO_REGEX = '^[0-9]{6,42}(;[0-9]{6,42})*$';

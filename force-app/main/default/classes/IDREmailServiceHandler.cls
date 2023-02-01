@@ -69,15 +69,17 @@ public with sharing class IDREmailServiceHandler {
       //Create email message
       IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
       //Notify Case Owner
-      IDRBankerNotificationBuilder.sendNotification(
-        new List<IDRBankerNotificationWrapper>{
-          IDRCaseNotificationManager.createNotification(
-            'Email Response Attached',
-            caseToUpd,
-            null
-          )
-        }
-      );
+      if (fromEmail != System.Label.XpressionSenderAddress) {
+        IDRBankerNotificationBuilder.sendNotification(
+          new List<IDRBankerNotificationWrapper>{
+            IDRCaseNotificationManager.createNotification(
+              'Email Response Attached',
+              caseToUpd,
+              null
+            )
+          }
+        );
+      }
       //Create files from attachments
       IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
 
