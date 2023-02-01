@@ -61,6 +61,10 @@
             autoFillFieldsString =
               autoFillFieldsString + "," + i + "=" + result[i];
           }
+          if (autoFillFieldsString.startsWith(",")) {
+            // drop the leading ','
+            autoFillFieldsString = autoFillFieldsString.substring(1);
+          }
           component.set("v.autoFillFieldsString", autoFillFieldsString);
           helper.handleNavig(component);
         }
