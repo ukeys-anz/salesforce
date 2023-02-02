@@ -770,6 +770,7 @@
         "IDR_3rdParty_Name__c",
         "IDR_3rdParty_Phone__c",
         "IDR_3rdParty_Postcode__c",
+        "IDR_3rdParty_Relationship_To_Complainant__c",
         "IDR_3rdParty_State__c",
         "IDR_3rdParty_Street__c",
         "IDR_3rdParty_Suburb__c",
