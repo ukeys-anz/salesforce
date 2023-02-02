@@ -57,6 +57,7 @@ public with sharing class TSPHandlerTest {
     System.runAs(thisUser) {
       //WHEN the user want to query ReportEvent
       ReportEvent testEvent = new ReportEvent();
+      testevent.Operation = 'ReportExported';
 
       //THEN the condition should be true
       Boolean result = TSPHandler.evaluate(testEvent);
@@ -89,6 +90,7 @@ public with sharing class TSPHandlerTest {
     System.runAs(thisUser) {
       //WHEN the user want to query ReportEvent
       ReportEvent testEvent = new ReportEvent();
+      testevent.Operation = 'ReportExported';
 
       //THEN the condition should be true
       Boolean result = TSPHandler.evaluate(testEvent);
