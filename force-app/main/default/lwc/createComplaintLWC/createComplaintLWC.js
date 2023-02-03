@@ -1317,7 +1317,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.knownIssue = null;
       this.knownIssueChangeHandler(undefined);
     }
-    if (!this.isCommonComplaint && this.expressCMOS) {
+    if (!this.isCommonComplaint && this.expressCMOS && this.knownIssue) {
       this.isCommonComplaintYesNo = false;
       this.isCommonComplaint = "No";
       this.isRealFormNeeded = "No";
