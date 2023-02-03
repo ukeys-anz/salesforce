@@ -308,9 +308,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
   handleRealFormNeeded(event) {
     if (event.detail !== YES_VALUE) {
-      this.isRealFormNeeded = this.isRealFormSubmitted = false;
+      this.isRealFormNeeded = "No";
     } else {
-      this.isRealFormNeeded = true;
+      this.isRealFormNeeded = "Yes";
     }
   }
 
@@ -462,7 +462,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.errMsg += " Is Real form required, ";
     }
 
-    if (this.isRealFormNeeded && !this.realFormRefNo) {
+    if (this.isRealFormNeeded === "Yes" && !this.realFormRefNo) {
       validToSave = false;
       this.errMsg += " REAL Form MAX ID/ServiceNow ID, ";
     }

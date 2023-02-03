@@ -314,7 +314,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
       ) {
         this.isRealFormNeeded = data.fields.IDR_Real_Form_Req__c.value;
         if (this.recordId) {
-          this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
+          this.isRealFormNeeded =
+            this.isRealFormNeeded === "Yes"
+              ? "Yes"
+              : this.isRealFormNeeded === "No"
+              ? "No"
+              : null;
         }
       }
       this.realFormRefNo = data.fields.IDR_Real_Form_Ref_No__c.value;
@@ -728,9 +733,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   handleRealFormNeeded(event) {
     if (event.detail.value !== YES_VALUE) {
-      this.isRealFormNeeded = false;
+      this.isRealFormNeeded = "No";
     } else {
-      this.isRealFormNeeded = true;
+      this.isRealFormNeeded = "Yes";
     }
     let realFormNeededInput = this.template.querySelector(
       "[data-id='realFormRequiredGroup-id']"
@@ -1362,7 +1367,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       realFormNeededInput.setCustomValidity("");
     }
     realFormNeededInput.reportValidity();
-    if (this.isRealFormNeeded) {
+    if (this.isRealFormNeeded === "Yes") {
       let realFormRefInput = this.template.querySelector(
         "[data-id='realFormRefNoGroup-id']"
       );
