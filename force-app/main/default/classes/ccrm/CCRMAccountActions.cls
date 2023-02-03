@@ -23,29 +23,26 @@ public with sharing class CCRMAccountActions {
 
     Set<String> cpids = mappedAccounts.keySet();
 
+    if (cpids.isEmpty()) {
+      return;
+    }
+
     try {
       List<Controlling_Post__c> cps = [
         SELECT Id, CPID__c
         FROM Controlling_Post__c
-        WHERE CPID__c IN :cpids
+        WHERE CPID__c != NULL AND CPID__c IN :cpids
         WITH SECURITY_ENFORCED
       ];
 
       for (Controlling_Post__c cp : cps) {
-        if (cp.CPID__c != null) {
-          List<Account> accounts = mappedAccounts.get(cp.CPID__c);
-          for (Account account : accounts) {
-            account.Controlling_Post__c = cp.id;
-          }
+        List<Account> accounts = mappedAccounts.get(cp.CPID__c);
+        for (Account account : accounts) {
+          account.Controlling_Post__c = cp.id;
         }
       }
     } catch (System.QueryException qe) {
-      Logger.error(
-        'InsufficientAccessException' +
-        qe.getMessage() +
-        qe.getTypeName(),
-        qe
-      );
+      Logger.error('InsufficientAccessException', qe);
       Logger.saveLog();
     }
   }
