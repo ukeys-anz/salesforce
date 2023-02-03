@@ -179,7 +179,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
   remedyDurationValue2 = "";
   remedyDurationValue3 = "";
 
-  avoidableEscalationValue = "";
+  avoidableEscalationValue = false;
   avoidableEscalationReasonValue = "";
 
   @api
@@ -262,7 +262,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
   }
 
   get showAvoidableEscalationReason() {
-    return this.avoidableEscalationValue === YES_VALUE;
+    return this.avoidableEscalationValue;
   }
 
   connectedCallback() {
@@ -1281,7 +1281,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
 
     sendVal.field = "IDR_Avoidable_Escalation__c";
-    sendVal.value = this.avoidableEscalationValue = event.detail.value;
+    sendVal.value = this.avoidableEscalationValue = event.detail.checked;
 
     this.updateAvoidableEscalationReason();
 

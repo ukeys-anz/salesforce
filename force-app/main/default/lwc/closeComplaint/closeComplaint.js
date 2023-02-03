@@ -59,7 +59,6 @@ import POSSIBLE_SYSTEM_ISSUES from "@salesforce/schema/Case.IDR_Possible_Systemi
 
 const PROVISIONALLYCLOSED_STATUS_API_NAME = "Provisionally Closed";
 const CLOSED_STATUS_API_NAME = "Closed";
-const ESCALATED_STATUS_API_NAME = "Escalated";
 const COMPLAINT_REMEDY_FIN_VALUE = "1";
 const COMPLAINT_REMEDY_PRODUCT_MANU = "3";
 const SUB_REMEDY_OTHER = "99";
@@ -140,7 +139,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   systemicIssueDescription;
   systemicIssueCategory;
   possibleSystemicIssues;
-  isEscalated;
 
   commoncomplaintoptions = [
     { label: "Yes", value: "Yes" },
@@ -168,9 +166,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         data.fields[POSSIBLE_SYSTEM_ISSUES.fieldApiName].value;
       this.isCommonComplaintYesNo =
         data.fields[COMMON_COMPLAINT.fieldApiName].value;
-      this.isEscalated =
-        data.fields[STATUS_FIELD.fieldApiName].value ===
-        ESCALATED_STATUS_API_NAME;
 
       //check validity before closing
       if (!data.fields[PRODUCT_OR_SERVICE_NAME.fieldApiName].value) {
@@ -512,7 +507,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       validToSave3 = this.validateRemedy3Fields();
     }
 
-    if (this.isEscalated) {
+    if (this.closeFields[AVOIDABLE_ESCALATION.fieldApiName]) {
       validToSave4 = this.validateAvoidableEscalationFields();
     }
 
@@ -884,20 +879,11 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   }
 
   validateAvoidableEscalationFields() {
-    let validToSave = true;
-
-    if (!this.closeFields[AVOIDABLE_ESCALATION.fieldApiName]) {
-      validToSave = false;
-      this.errMsg += "Avoidable Escalation ,";
-    } else if (
-      this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] === YES_VALUE &&
-      (!(AVOIDABLE_ESCALATION_REASON.fieldApiName in this.closeFields) ||
-        !this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName])
-    ) {
-      validToSave = false;
+    if (!this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName]) {
       this.errMsg += "Avoidable Escalation Reason";
+      return false;
     }
-    return validToSave;
+    return true;
   }
 
   openModal(msg) {

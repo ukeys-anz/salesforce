@@ -8,7 +8,7 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;),
-ISPICKVAL(IDR_Avoidable_Escalation__c, &apos;Yes&apos;),
+IDR_Avoidable_Escalation__c = true,
 ISBLANK(TEXT(IDR_Avoidable_Escalation_Reason__c))
 )</errorConditionFormula>
     <errorDisplayField>IDR_Avoidable_Escalation_Reason__c</errorDisplayField>
