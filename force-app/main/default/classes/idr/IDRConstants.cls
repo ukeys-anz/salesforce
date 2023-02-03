@@ -147,6 +147,7 @@ public with sharing class IDRConstants {
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{4,8}';
   public static final String CASE_EMAIL_REGEX = '(?<=\\<)(.*?)(?=\\>)';
+  public static final String EMAIL_USER_FNAME = 'IDREmailService';
 
   //IDR Account number pattern
   public static final String MULTIPLE_ACCOUNT_NO_REGEX = '^[0-9]{6,42}(;[0-9]{6,42})*$';
@@ -166,7 +167,6 @@ public with sharing class IDRConstants {
   //Anz.com constants
   /**
    * @description Static variable to map anz.com field with case fields
-   * @return anzComFieldMapping map of anz.com field with case fields
    */
   public static final Map<String, String> anzComFieldMapping {
     get {
@@ -195,8 +195,6 @@ public with sharing class IDRConstants {
   /**
 
 * @description Static variable to map anz.com Issue type field with case type field
-
-* @return anzComIssueTypeMapping map of anz.com Issue type field with case type field
 
 */
 
@@ -245,7 +243,6 @@ public with sharing class IDRConstants {
 
   /**
    * @description Static variable to list CMOS workbaskets' API names
-   * @return List CMOS workbaskets' API names
    */
   @TestVisible
   public static final List<String> workBasketNames {
@@ -274,4 +271,16 @@ public with sharing class IDRConstants {
 
   //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
   public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
+
+  /**
+   * @description Static values for 3rd party relationship to complainant
+   */
+
+  public static final String DEBT_MANAGEMENT_FIRM = '20';
+  public static final String WEALTH_REPRESENTATIVE = '23';
+
+  public static final List<String> COMPLAINANT_USE_FIRST_NAME = new List<String>{
+    DEBT_MANAGEMENT_FIRM,
+    WEALTH_REPRESENTATIVE
+  };
 }

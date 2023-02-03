@@ -3,6 +3,7 @@
  * @since 12/2020
  * @description  ContentDocumentLinkTriggerHandler is the handler class for Content Document Link Trigger which extends Lib_TriggerHandler the trigger framework used.
  * without sharing: used to query the cases related to the Content Document as the banker may not have to all case records
+ * @runTests ContentDocumentLinkTriggerHandlerTest
  */
 public without sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerHandler {
   /**
@@ -117,6 +118,8 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         if (
           oCase.OwnerId !=
           contentDocMap.get(record.ContentDocumentId).OwnerId &&
+          UserInfo.getFirstName() !=
+          IDRConstants.EMAIl_USER_FNAME &&
           IDRCaseActions.isIDRComplaintType(oCase)
         ) {
           wrapperList.add(
