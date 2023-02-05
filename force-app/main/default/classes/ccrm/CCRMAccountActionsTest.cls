@@ -11,6 +11,7 @@ private class CCRMAccountActionsTest {
   static void setup() {
     User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
     CCRMTestDataFactory.createCCRMBaseUser();
+    CCRMTestDataFactory.createTwilioIntegrationUser();
 
     System.runAs(ccrmAdmin) {
       Set<String> setOfEmployeeId = new Set<String>{ '30456789', '10456790' };
@@ -104,6 +105,45 @@ private class CCRMAccountActionsTest {
       acc1 = [SELECT Id, CPID_Link__c FROM Account WHERE id = :acc1.id];
 
       System.assertEquals(acc1.CPID_Link__c, 'L7603', 'CPID is plain text');
+      Test.stopTest();
+    }
+  }
+
+  @isTest
+  static void testSetControllingPostForANZPlusAccount() {
+    Faker faker = new Faker('AU');
+    User twilioUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'IntegrationUserTwilio'
+      ORDER BY LastModifiedDate DESC
+      LIMIT 1
+    ];
+
+    Account testAccount = new Account(
+      Name = 'Test ANZx Account',
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true
+    );
+    insert testAccount;
+
+    System.runAs(twilioUser) {
+      Test.startTest();
+      //Given when Twilio Integration user updates the ANZx Account
+      //When CPID is not populated
+      testAccount.Name = 'Test ANZx Account Update';
+      update testAccount;
+      //Then Controlling post will not be set and CPID Link will be null
+      testAccount = [
+        SELECT Id, CPID_Link__c
+        FROM Account
+        WHERE id = :testAccount.id
+      ];
+      System.assertEquals(
+        testAccount.CPID_Link__c,
+        null,
+        'CPID should be null'
+      );
       Test.stopTest();
     }
   }
