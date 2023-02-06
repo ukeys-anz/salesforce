@@ -976,8 +976,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
         if (this.isRealFormNeeded === "Yes") {
           fields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
         }
+      } else if (this.isRealFormNeeded === "No") {
+        fields[this.isRealFormNeeded.fieldApiName] = "No";
       } else {
-        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = false;
         fields[REAL_FORM_REF_NO.fieldApiName] = null;
       }
       if (this.hasSecondIssue) {
@@ -1444,7 +1445,14 @@ export default class CreateComplaintLWC extends NavigationMixin(
     this.isRealFormNeeded =
       event === undefined
         ? null
-        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c));
+        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c)) ===
+          true
+        ? "Yes"
+        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c)) ===
+          false
+        ? "No"
+        : null;
+
     this.possibleSystemicIssues =
       event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
     const statusElement = this.template.querySelector(

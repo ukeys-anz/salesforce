@@ -206,6 +206,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
   @api
   hasSecondIssue;
 
+  get isRealFormNeededBooleanValue() {
+    return this.isRealFormNeeded === "Yes";
+  }
+
   @api set expressCaseCreationDataObj(value) {
     this.dataChange = true;
     if (value !== undefined) {
@@ -252,9 +256,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     return typeof this.isRealFormNeeded === "undefined" ||
       this.isRealFormNeeded === null
       ? null
-      : this.isRealFormNeeded
-      ? "Yes"
-      : "No";
+      : this.isRealFormNeeded;
   }
 
   get showAdditionalIssues() {

@@ -475,13 +475,13 @@
         <template if:true={recordId}>
           <div class="slds-col slds-size_2-of-4"></div>
         </template>
-        <template if:true={isRealFormNeeded}>
+        <template if:true={isRealFormNeededBooleanValue}>
           <div class={elementStyle}>
             <lightning-input
               type="text"
               label="REAL Form MAX ID/ServiceNow ID"
               value={realFormRefNo}
-              required={isRealFormNeeded}
+              required={isRealFormNeededBooleanValue}
               max-length="50"
               onchange={handleRealFormRefNoChange}
               data-id="realFormRefNoGroup-id"
