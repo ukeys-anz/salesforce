@@ -633,6 +633,7 @@
         "IDR_Product_3__c",
         "IDR_Product_Category__c",
         "IDR_Product_Manufacturer__c",
+        "IDR_Queue_Report_Label__c",
         "IDR_Real_Form_Ref_No__c",
         "IDR_Real_Form_Req__c",
         "IDR_Real_Form_Submitted__c",
