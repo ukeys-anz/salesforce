@@ -977,7 +977,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
           fields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
         }
       } else if (this.isRealFormNeeded === "No") {
-        fields[this.isRealFormNeeded.fieldApiName] = "No";
+        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = "No";
       } else {
         fields[REAL_FORM_REF_NO.fieldApiName] = null;
       }
@@ -1442,16 +1442,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       );
     }
 
-    this.isRealFormNeeded =
-      event === undefined
-        ? null
-        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c)) ===
-          true
-        ? "Yes"
-        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c)) ===
-          false
-        ? "No"
-        : null;
+    this.isRealFormNeeded = event === undefined ? null : "No";
 
     this.possibleSystemicIssues =
       event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
