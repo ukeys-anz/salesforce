@@ -20,7 +20,9 @@ public with sharing class TSPCondition {
           !profileName.contains('Minimum Access - External Apps');
       }
       when ReportEvent reportEvent {
-        result = !profileName.contains('ANZ Standard User');
+        result =
+          reportEvent.Operation == 'ReportExported' &&
+          !profileName.contains('ANZ Standard User');
       }
       when ReportAnomalyEvent reportAnomalyEvent {
         result = reportAnomalyEvent.Score >= 50;
