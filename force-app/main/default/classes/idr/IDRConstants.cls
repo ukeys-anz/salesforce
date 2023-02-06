@@ -263,7 +263,8 @@ public with sharing class IDRConstants {
           'IDR_Wealth',
           'IDR_Early_Resolution',
           'CCR_Complaints',
-          'Hardship_IDR_Letter'
+          'Hardship_IDR_Letter',
+          'IDR_Spare'      //IDR Disputes & Scams
         };
       }
       return workBasketNames;
