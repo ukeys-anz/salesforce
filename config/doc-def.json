@@ -519,6 +519,16 @@
       "permissionsetgroups": [],
       "permissionsets": ["Microsoft_Defender"],
       "type": "system"
+    },
+    {
+      "name": "SFDataSync User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "SF_Data_Sync_Integration"
+      ],
+      "type": "system"
     }
   ]
 }
