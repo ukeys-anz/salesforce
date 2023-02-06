@@ -30,7 +30,9 @@ public with sharing class AuthTokenCacheUtil {
         currentUser.Profile.Name
       );
     } else {
-      Logger.error('Unable to query user to check if ANZx user to perform token caching');
+      Logger.error(
+        'Unable to query user to check if ANZx user to perform token caching'
+      );
       Logger.saveLog();
     }
   }
@@ -111,8 +113,10 @@ public with sharing class AuthTokenCacheUtil {
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'refreshToken' + userId);
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
       } else {
-        Logger.error('Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
-        userId);
+        Logger.error(
+          'Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
+          userId
+        );
         Logger.saveLog();
       }
     }
@@ -211,7 +215,7 @@ public with sharing class AuthTokenCacheUtil {
         true
       );
     } catch (Exception e) {
-      Logger.error( e.getMessage(),e);
+      Logger.error(e.getMessage(), e);
       Logger.saveLog();
     }
 
@@ -242,7 +246,7 @@ public with sharing class AuthTokenCacheUtil {
       staffToken = responseModel.accessToken;
       expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
-      Logger.error('Unable to retrieve staff token'+e.getMessage(),e);
+      Logger.error('Unable to retrieve staff token' + e.getMessage(), e);
       Logger.saveLog();
       throw new TokenCacheException(e.getMessage());
     }

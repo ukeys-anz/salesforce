@@ -407,13 +407,14 @@ private class TaskTriggerHandlerTest {
       LIMIT 1
     ];
     caseRec.Type = null;
+    Test.startTest();
+
     update caseRec;
     // link Outbound Task to a Case
     Task outboundTask = outboundCallLogTemplate;
     outboundTask.WhatId = caseRec.Id;
 
     // WHEN a Coach initiates an Outbound call from Case detail page and completes it
-    Test.startTest();
 
     GetHelpTaskActions.enrichOutboundCallLogs(new List<Task>{ outboundTask });
 

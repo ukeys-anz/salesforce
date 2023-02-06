@@ -17,6 +17,7 @@ public with sharing class ExternalCaseStatusTriggerHandler extends Lib_TriggerHa
    */
   public override void onAfterInsert() {
     updateRelatedCase(records);
+    ExternalCaseStatusCEController.publishCloudEvents(records);
   }
 
   /**

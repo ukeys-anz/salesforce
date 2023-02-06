@@ -139,6 +139,7 @@ private class CaseTriggerHandlerTest {
       }
       insert idrPsaList;
     }
+    insertTestAccountsForDisputeCases();
   }
 
   @isTest
@@ -547,6 +548,7 @@ private class CaseTriggerHandlerTest {
     }
     insert parentCaseList;
 
+    Test.startTest();
     // create a child case
     Case childCase = new Case(
       ParentId = parentCaseList[0].Id,
@@ -554,6 +556,7 @@ private class CaseTriggerHandlerTest {
       AccountId = accList[1].Id
     );
     insert childCase;
+    Test.stopTest();
 
     // Update parent case to throw error
     try {
@@ -1502,8 +1505,8 @@ private class CaseTriggerHandlerTest {
         )
       );
     }
-    insert newCases;
     Test.startTest();
+    insert newCases;
     List<Case> caseList = [
       SELECT Id, Origin, CaseNumber, ParentId
       FROM Case
@@ -1574,433 +1577,6 @@ private class CaseTriggerHandlerTest {
       'Incorrect caseId/whatId mapping in starCollectionMap for :' +
       custCompCase.IDR_Collection_Number__c
     );
-  }
-
-  // Test when a dispute is created with an active financial account that is not associated with its customer account,
-  // the dispute should not be created
-  @isTest
-  static void testValidateFinancialAccByAccIdWithError() {
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-
-    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
-    Account customerAccount1 = accounts[0];
-
-    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
-    finAccountCustomer1.Name = 'Everyday Account';
-    finAccountCustomer1.FinServ__Balance__c = 400;
-    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
-    finAccountCustomer1.FinServ__Status__c = 'Active';
-    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
-    finAccountCustomer1.Account_Key__c = '8420742691';
-    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-01-21'
-    );
-
-    insert finAccountCustomer1;
-
-    Account customerAccount2 = accounts[1];
-
-    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
-    finAccountCustomer2.Name = 'Everyday Account';
-    finAccountCustomer2.FinServ__Balance__c = 200;
-    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
-    finAccountCustomer2.FinServ__Status__c = 'Active';
-    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
-    finAccountCustomer2.Account_Key__c = '342490981';
-    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-02-11'
-    );
-
-    insert finAccountCustomer2;
-
-    // WHEN a dispute is created with customer 1's account and customer 2's financial account
-    Case atmDispute = new Case();
-    atmDispute.AccountId = customerAccount1.Id;
-    atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-    atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
-      'ATM_Dispute'
-    );
-    atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
-    atmDispute.Origin = 'Chat';
-    atmDispute.Status = 'Open';
-
-    Test.startTest();
-    try {
-      insert atmDispute;
-      System.assert(
-        false,
-        'Failed to detect misalignment between customer\'s OCV ID and Financial Account'
-      );
-    } catch (DmlException e) {
-      // THEN the dispute should not be created and an error is thrown indicating that there is a misalignment
-      // between the customer account and the financial account
-      System.assertEquals(
-        true,
-        e.getMessage()
-          .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
-        'Error messages match.'
-      );
-    }
-    Test.stopTest();
-
-    List<Case> createdDisputes = [
-      SELECT Id
-      FROM Case
-      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
-    ];
-    System.assertEquals(0, createdDisputes.size(), 'Disputes were created.'); // Check that no disputes have created
-  }
-
-  // Test when several disputes are created with an active financial account that is not associated with its customer account,
-  // the disputes should not be created
-  @isTest
-  static void testValidateFinancialAccByAccIdWithErrorBothWrong() {
-    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount1 = accounts[0];
-
-    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
-    finAccountCustomer1.Name = 'Everyday Account';
-    finAccountCustomer1.FinServ__Balance__c = 400;
-    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
-    finAccountCustomer1.FinServ__Status__c = 'Active';
-    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
-    finAccountCustomer1.Account_Key__c = '8420742691';
-    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-01-21'
-    );
-
-    insert finAccountCustomer1;
-
-    Account customerAccount2 = accounts[1];
-
-    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
-    finAccountCustomer2.Name = 'Everyday Account';
-    finAccountCustomer2.FinServ__Balance__c = 200;
-    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
-    finAccountCustomer2.FinServ__Status__c = 'Active';
-    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
-    finAccountCustomer2.Account_Key__c = '342490981';
-    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-02-11'
-    );
-
-    insert finAccountCustomer2;
-
-    // WHEN several disputes are created with customer 1's account and customer 2's financial account
-    List<Case> disputes = new List<Case>();
-    for (Integer i = 0; i <= 2; i++) {
-      Case atmDispute = new Case();
-      atmDispute.AccountId = customerAccount1.Id;
-      atmDispute.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-      atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
-        'ATM_Dispute'
-      );
-      atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
-      atmDispute.Origin = 'Chat';
-      atmDispute.Status = 'Open';
-
-      disputes.add(atmDispute);
-    }
-
-    Test.startTest();
-    try {
-      insert disputes;
-      System.assert(
-        false,
-        'Failed to detect misalignment between customer\'s OCV ID and Financial Account'
-      );
-    } catch (DmlException e) {
-      // THEN the disputes should not be created and an error is thrown indicating that there is a misalignment
-      // between the customer account and the financial account
-      System.assertEquals(
-        true,
-        e.getMessage()
-          .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
-        'Error messages match.'
-      );
-    }
-
-    List<Case> createdDisputes = [
-      SELECT Id
-      FROM Case
-      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
-    ];
-    System.assertEquals(0, createdDisputes.size(), 'Disputes were created.'); // Check that no disputes have created
-    Test.stopTest();
-  }
-
-  // Test when several disputes are created, 1 with and 1 without  an active financial role between its customer and financial account
-  // the dispute with the active financial account role should be created
-  @isTest
-  static void testValidateFinancialAccByAccIdWithErrorSingleCorrect() {
-    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount1 = accounts[0];
-
-    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
-    finAccountCustomer1.Name = 'Everyday Account';
-    finAccountCustomer1.FinServ__Balance__c = 400;
-    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
-    finAccountCustomer1.FinServ__Status__c = 'Active';
-    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
-    finAccountCustomer1.Account_Key__c = '8420742691';
-    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-01-21'
-    );
-
-    insert finAccountCustomer1;
-
-    Account customerAccount2 = accounts[1];
-
-    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
-    finAccountCustomer2.Name = 'Everyday Account';
-    finAccountCustomer2.FinServ__Balance__c = 200;
-    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
-    finAccountCustomer2.FinServ__Status__c = 'Active';
-    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
-    finAccountCustomer2.Account_Key__c = '342490981';
-    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-02-11'
-    );
-
-    insert finAccountCustomer2;
-    // WHEN several disputes are created with customer 1's account and customer 2's financial account
-    List<Case> disputes = new List<Case>();
-    Case atmDispute1 = new Case();
-    atmDispute1.AccountId = customerAccount1.Id;
-    atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
-    atmDispute1.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
-      'ATM_Dispute'
-    );
-    atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
-    atmDispute1.Origin = 'Chat';
-    atmDispute1.Status = 'Open';
-    atmDispute1.Card_In_Possession_During_Transaction__c = 'Yes';
-    atmDispute1.Has_The_Card_Been_Stopped__c = 'No';
-    atmDispute1.Description = 'Test';
-
-    disputes.add(atmDispute1);
-
-    Case atmDispute2 = new Case();
-    atmDispute2.AccountId = customerAccount1.Id;
-    atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-    atmDispute2.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
-      'ATM_Dispute'
-    );
-    atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
-    atmDispute2.Origin = 'Chat';
-    atmDispute2.Status = 'Open';
-    atmDispute2.Card_In_Possession_During_Transaction__c = 'Yes';
-    atmDispute2.Has_The_Card_Been_Stopped__c = 'No';
-    atmDispute2.Description = 'Test';
-
-    disputes.add(atmDispute2);
-
-    Test.startTest();
-    Database.SaveResult[] srList = Database.insert(disputes, false);
-
-    for (Database.SaveResult record : srList) {
-      if (!record.isSuccess()) {
-        System.assertEquals(
-          true,
-          record.getErrors()[0]
-            .getMessage()
-            .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
-          'Error messages match.'
-        );
-      }
-    }
-
-    List<Case> createdDisputes = [
-      SELECT Id
-      FROM Case
-      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
-    ];
-    System.assertEquals(1, createdDisputes.size(), '1 dispute was created.'); // Check that 1 dispute was created
-    Test.stopTest();
-  }
-
-  // Test when a dispute is created with an active financial account that is associated with its customer account,
-  // the dispute should be created
-  @isTest
-  static void testValidateFinancialAccByAccIdWithoutError() {
-    // GIVEN there are 2 customer accounts, and an active financial account that is linked to customer 2
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount2 = accounts[1];
-
-    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c();
-    finAccount.Name = 'Everyday Account';
-    finAccount.FinServ__Balance__c = 200;
-    finAccount.FinServ__CurrentPostedBalance__c = 200;
-    finAccount.FinServ__Status__c = 'Active';
-    finAccount.FinServ__FinancialAccountType__c = 'Checking';
-    finAccount.FinServ__PrimaryOwner__c = customerAccount2.Id;
-    finAccount.Account_Key__c = '342490981';
-    finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
-
-    insert finAccount;
-
-    // WHEN a dispute is created with customer 2's account and financial account
-    Case atmDispute = new Case();
-    atmDispute.AccountId = customerAccount2.Id;
-    atmDispute.FinServ__FinancialAccount__c = finAccount.Id;
-    atmDispute.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
-      'ATM_Dispute'
-    );
-    atmDispute.Dispute_Reason__c = 'Unauthorised Transaction';
-    atmDispute.Origin = 'Chat';
-    atmDispute.Status = 'Open';
-    atmDispute.Card_In_Possession_During_Transaction__c = 'Yes';
-    atmDispute.Has_The_Card_Been_Stopped__c = 'No';
-    atmDispute.Description = 'Test';
-
-    Test.startTest();
-    try {
-      insert atmDispute;
-    } catch (DmlException e) {
-      System.debug(
-        LoggingLevel.ERROR,
-        'An error has occurred. | ' + e.getMessage()
-      );
-      System.assert(false, 'Failed to create dispute case');
-    }
-    Test.stopTest();
-
-    List<Case> createdDispute = [
-      SELECT Id
-      FROM Case
-      WHERE
-        Dispute_Reason__c = 'Unauthorised Transaction'
-        AND AccountId = :customerAccount2.Id
-    ];
-    System.assertEquals(
-      1,
-      createdDispute.size(),
-      'Dispute case was created successfully.' // THEN the dispute should be created
-    );
-  }
-
-  // Test when several disputes are created with an active financial account that is associated with its customer account,
-  // the disputes should be created
-  @isTest
-  static void testValidateFinancialAccByAccIdWithoutErrorMultipleCases() {
-    // GIVEN there are 2 customer accounts, and each has an active financial account
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount1 = accounts[0];
-
-    FinServ__FinancialAccount__c finAccountCustomer1 = new FinServ__FinancialAccount__c();
-    finAccountCustomer1.Name = 'Everyday Account';
-    finAccountCustomer1.FinServ__Balance__c = 400;
-    finAccountCustomer1.FinServ__CurrentPostedBalance__c = 400;
-    finAccountCustomer1.FinServ__Status__c = 'Active';
-    finAccountCustomer1.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer1.FinServ__PrimaryOwner__c = customerAccount1.Id;
-    finAccountCustomer1.Account_Key__c = '8420742691';
-    finAccountCustomer1.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-01-21'
-    );
-
-    insert finAccountCustomer1;
-
-    Account customerAccount2 = accounts[1];
-
-    FinServ__FinancialAccount__c finAccountCustomer2 = new FinServ__FinancialAccount__c();
-    finAccountCustomer2.Name = 'Everyday Account';
-    finAccountCustomer2.FinServ__Balance__c = 200;
-    finAccountCustomer2.FinServ__CurrentPostedBalance__c = 200;
-    finAccountCustomer2.FinServ__Status__c = 'Active';
-    finAccountCustomer2.FinServ__FinancialAccountType__c = 'Checking';
-    finAccountCustomer2.FinServ__PrimaryOwner__c = customerAccount2.Id;
-    finAccountCustomer2.Account_Key__c = '342490981';
-    finAccountCustomer2.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-02-11'
-    );
-
-    insert finAccountCustomer2;
-
-    // WHEN 2 disputes are created, 1 with customer 1's account and financial account
-    // 1 with customer 2's account and financial account
-    List<Case> disputes = new List<Case>();
-    Case atmDispute1 = new Case();
-    atmDispute1.AccountId = customerAccount1.Id;
-    atmDispute1.FinServ__FinancialAccount__c = finAccountCustomer1.Id;
-    atmDispute1.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
-      'ATM_Dispute'
-    );
-    atmDispute1.Dispute_Reason__c = 'Unauthorised Transaction';
-    atmDispute1.Origin = 'Chat';
-    atmDispute1.Status = 'Open';
-    atmDispute1.Card_In_Possession_During_Transaction__c = 'Yes';
-    atmDispute1.Has_The_Card_Been_Stopped__c = 'No';
-    atmDispute1.Description = 'Test';
-    disputes.add(atmDispute1);
-
-    Case atmDispute2 = new Case();
-    atmDispute2.AccountId = customerAccount2.Id;
-    atmDispute2.FinServ__FinancialAccount__c = finAccountCustomer2.Id;
-    atmDispute2.RecordTypeId = CaseUtils.getCaseRecordTypeIdByDeveloperName(
-      'ATM_Dispute'
-    );
-    atmDispute2.Dispute_Reason__c = 'Unauthorised Transaction';
-    atmDispute2.Origin = 'Chat';
-    atmDispute2.Status = 'Open';
-    atmDispute2.Card_In_Possession_During_Transaction__c = 'Yes';
-    atmDispute2.Has_The_Card_Been_Stopped__c = 'No';
-    atmDispute2.Description = 'Test';
-    disputes.add(atmDispute2);
-
-    Test.startTest();
-    try {
-      insert disputes;
-    } catch (DmlException e) {
-      // THEN the disputes should not be created and an error is thrown indicating that there is a misalignment
-      // between the customer account and the financial account
-      System.assertEquals(
-        true,
-        e.getMessage()
-          .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
-        'Error messages match.'
-      );
-    }
-
-    List<Case> createdDisputes = [
-      SELECT Id
-      FROM Case
-      WHERE Dispute_Reason__c = 'Unauthorised Transaction'
-    ];
-    System.assertEquals(
-      2,
-      createdDisputes.size(),
-      'Both disputes were created.'
-    ); // Check that both disputes have been created
-    Test.stopTest();
   }
 
   @isTest
@@ -2176,137 +1752,6 @@ private class CaseTriggerHandlerTest {
       'Link Entitlement from Account on converted unauthenticated enquiry to non-customer complaint.'
     );
     Test.stopTest();
-  }
-  // Test creating a dispute with the same transaction Id in another open dispute
-  // the new dispute should not be created
-  @isTest
-  static void testCheckOpenDisputeOnTransactionWithError() {
-    // GIVEN there is an open dispute on a customer account with a specific transaction Id
-    Faker faker = new Faker('AU');
-    String transactionId = faker.randomString(10);
-
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount1 = accounts[0];
-
-    Case openDispute1 = new Case(
-      AccountId = customerAccount1.Id,
-      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Charged Incorrect Amount',
-      Origin = 'Chat',
-      Transaction_Id__c = transactionId,
-      Description = 'Sample description',
-      Amount_Of_Credit_Due__c = 50
-    );
-
-    insert openDispute1;
-
-    // WHEN a new dispute is being created with the same transaction Id
-    Case openDispute2 = new Case(
-      AccountId = customerAccount1.Id,
-      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Charged Incorrect Amount',
-      Origin = 'Chat',
-      Transaction_Id__c = transactionId,
-      Description = 'Sample description',
-      Amount_Of_Credit_Due__c = 50
-    );
-    Test.startTest();
-    try {
-      insert openDispute2;
-      System.assert(false, 'Failed to detect existing dispute case');
-    } catch (DmlException e) {
-      System.assertEquals(
-        true,
-        e.getMessage().contains(GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR),
-        'Error messages match.'
-      );
-    }
-    Test.stopTest();
-
-    // THEN the 2nd dispute should not be inserted
-    List<Case> disputeCases = [
-      SELECT Id
-      FROM Case
-      WHERE
-        AccountId = :customerAccount1.Id
-        AND RecordTypeId = :GetHelpConstants.CARD_DISPUTE_RT_ID
-    ];
-    System.assertEquals(
-      1,
-      disputeCases.size(),
-      'New dispute was created when there is an open dispute exists with the same transaction Id.'
-    );
-  }
-
-  // Test creating a dispute with the same transaction Id in another closed dispute
-  // the new dispute should be created
-  @isTest
-  static void testCheckOpenDisputeOnTransactionWithoutError() {
-    // GIVEN there is a closed dispute on a customer account with a specific transaction Id
-    Faker faker = new Faker('AU');
-    String transactionId = faker.randomString(10);
-
-    List<Account> accounts = [
-      SELECT Id, Name
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-    ];
-    Account customerAccount1 = accounts[0];
-
-    Case openDispute1 = new Case(
-      AccountId = customerAccount1.Id,
-      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Charged Incorrect Amount',
-      Origin = 'Chat',
-      Transaction_Id__c = transactionId,
-      Status = 'Closed',
-      Description = 'Sample description',
-      Amount_Of_Credit_Due__c = 50,
-      External_System__c = 'CARBe',
-      External_Case_Id__c = 'ABC123'
-    );
-
-    insert openDispute1;
-
-    // WHEN a new dispute is being created with the same transaction Id
-    Case openDispute2 = new Case(
-      AccountId = customerAccount1.Id,
-      RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
-      Dispute_Reason__c = 'Charged Incorrect Amount',
-      Origin = 'Chat',
-      Transaction_Id__c = transactionId,
-      Description = 'Sample description',
-      Amount_Of_Credit_Due__c = 50
-    );
-    Test.startTest();
-    try {
-      insert openDispute2;
-    } catch (DmlException e) {
-      System.assertEquals(
-        null,
-        e,
-        'New dispute case was not successfully inserted.'
-      );
-    }
-    Test.stopTest();
-
-    // THEN the 2nd dispute should be inserted
-    List<Case> disputeCases = [
-      SELECT Id
-      FROM Case
-      WHERE
-        AccountId = :customerAccount1.Id
-        AND RecordTypeId = :GetHelpConstants.CARD_DISPUTE_RT_ID
-    ];
-    System.assertEquals(
-      2,
-      disputeCases.size(),
-      'New dispute was not created when there is a closed dispute case with the same transaction Id'
-    );
   }
 
   @isTest
@@ -2656,166 +2101,6 @@ private class CaseTriggerHandlerTest {
   private static string pegaCaseDescription = ' ATM Dispute';
   private static string pegaCaseStatus = 'Open';
 
-  // Test checking if a case is a valid PEGA dispute
-  @isTest
-  static void testIsValidPegaDispute() {
-    Case disputeCase = new Case(
-      Dispute_Reason__c = pegaDisputeReason,
-      Submitted__c = true,
-      Transaction_Id__c = pegaTransactionId,
-      CaseNumber__c = pegaCaseNumber,
-      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-        .get('ATM_Dispute')
-        .getRecordTypeId(),
-      Description = pegaCaseDescription,
-      Status = pegaCaseStatus
-    );
-    Test.startTest();
-    System.assertEquals(
-      true,
-      GetHelpCaseActionsHelper.isValidPegaDispute(disputeCase),
-      'Test result should match.'
-    );
-    Test.stopTest();
-  }
-
-  // Test when an ATM dispute is submitted on insert, a platform event is published
-  @isTest
-  static void testDisputesPEGAIntegrationOnInsertWithoutCaseNumber() {
-    // GIVEN
-    // an valid ATM dispute is submitted
-    List<Case> records = new List<Case>();
-    Case disputeCase = new Case(
-      Dispute_Reason__c = pegaDisputeReason,
-      Submitted__c = true,
-      Transaction_Id__c = pegaTransactionId,
-      // Deliberately not providing a value for CaseNumber__c, CaseNumber should be used
-      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-        .get('ATM_Dispute')
-        .getRecordTypeId(),
-      Description = 'ATM Dispute'
-    );
-    records.add(disputeCase);
-
-    // WHEN
-    // the ATM dispute is inserted
-    Test.startTest();
-    insert records;
-    List<sObject> platFormEventList = GetHelpCaseActions.pegaPEList;
-    Test.stopTest();
-
-    // THEN
-    // a platform event is published with details populated from the case
-    System.assertNotEquals(
-      null,
-      platFormEventList[0].get('Original_Case_Number__c'),
-      'Case Number should not be null.'
-    );
-    System.assertEquals(
-      pegaTransactionId,
-      platFormEventList[0].get('Transaction_Id__c'),
-      'Transaction Id should match.'
-    );
-    System.assertEquals(
-      pegaCaseRecordTypeName,
-      platFormEventList[0].get('Record_Type_Name__c'),
-      'Record Type Name should match.'
-    );
-  }
-
-  // Test when an ATM dispute is submitted on insert with CaseNumber__c value provided, a platform event is published
-  // with the provided CaseNumber__c value
-  @isTest
-  static void testDisputesPEGAIntegrationOnInsertWithCaseNumber() {
-    // GIVEN
-    // an valid ATM dispute is submitted
-    List<Case> records = new List<Case>();
-    Case disputeCase = new Case(
-      Dispute_Reason__c = pegaDisputeReason,
-      Submitted__c = true,
-      Transaction_Id__c = pegaTransactionId,
-      CaseNumber__c = pegaCaseNumber,
-      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-        .get('ATM_Dispute')
-        .getRecordTypeId(),
-      Description = pegaCaseDescription
-    );
-    records.add(disputeCase);
-
-    // WHEN
-    // the ATM dispute is inserted
-    Test.startTest();
-    insert records;
-    List<sObject> platFormEventList = GetHelpCaseActions.pegaPEList;
-    Test.stopTest();
-
-    // THEN
-    // a platform event is published with details populated from the case
-    System.assertEquals(
-      pegaCaseNumber,
-      platFormEventList[0].get('Original_Case_Number__c'),
-      'Case Number should not be null.'
-    );
-    System.assertEquals(
-      pegaTransactionId,
-      platFormEventList[0].get('Transaction_Id__c'),
-      'Transaction Id should match.'
-    );
-    System.assertEquals(
-      pegaCaseRecordTypeName,
-      platFormEventList[0].get('Record_Type_Name__c'),
-      'Record Type Name should match.'
-    );
-  }
-
-  // Test when an ATM dispute is submitted on Update, a platform event is published
-  @isTest
-  static void testDisputesPEGAIntegrationOnUpdate() {
-    // GIVEN
-    // an valid ATM dispute is submitted
-    Case disputeCase = new Case(
-      Dispute_Reason__c = pegaDisputeReason,
-      Submitted__c = false,
-      Transaction_Id__c = pegaTransactionId,
-      RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-        .get('ATM_Dispute')
-        .getRecordTypeId(),
-      Description = pegaCaseDescription
-    );
-    insert disputeCase;
-
-    // WHEN
-    // the ATM dispute is updated
-    Test.startTest();
-    Case caseToUpdate = [
-      SELECT Id, Submitted__c, CaseNumber__c
-      FROM Case
-      WHERE Transaction_Id__c = :pegaTransactionId
-    ];
-    caseToUpdate.Submitted__c = true;
-    update caseToUpdate;
-    List<sObject> platFormEventList = GetHelpCaseActions.pegaPEList;
-    Test.stopTest();
-
-    // THEN
-    // a platform event is published with details populated from the case
-    System.assertEquals(
-      caseToUpdate.CaseNumber__c,
-      platFormEventList[0].get('Original_Case_Number__c'),
-      'Case Number should match.'
-    );
-    System.assertEquals(
-      pegaTransactionId,
-      platFormEventList[0].get('Transaction_Id__c'),
-      'Transaction Id should match.'
-    );
-    System.assertEquals(
-      pegaCaseRecordTypeName,
-      platFormEventList[0].get('Record_Type_Name__c'),
-      'Record Type Name should match.'
-    );
-  }
-
   //test the Quality Assessment record creation when ANZx case was not closed but moved to closed status
   @isTest
   static void testCreateNonCustomerComplaintANZx() {
@@ -3154,5 +2439,436 @@ private class CaseTriggerHandlerTest {
       );
     }
     Test.stopTest();
+  }
+
+  @IsTest
+  static void testATMDisputeCase() {
+    String recordTypeDeveloperName = 'ATM_Dispute';
+    List<Account> accountsList = [
+      SELECT Id, OCV_ID__c
+      FROM Account
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
+    for (Account account : accountsList) {
+      ocvIDAndAccountMap.put(account.OCV_ID__c, account);
+    }
+    List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [
+      SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
+      FROM FinServ__FinancialAccount__c
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (
+      FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList
+    ) {
+      ocvIDAndFinSerAccountMap.put(
+        finServFinancialAccount.OCV_ID__c,
+        finServFinancialAccount
+      );
+    }
+
+    Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
+    verifyAccountAndFinAccount(
+      theCase,
+      ocvIDAndAccountMap.get('OCV000000001'),
+      ocvIDAndFinSerAccountMap.get('OCV000000002')
+    );
+
+    theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
+    theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
+        'OCV000000001'
+      )
+      .Id;
+    Test.startTest();
+    try {
+      insert theCase;
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case: ' + e);
+    }
+    Test.stopTest();
+    String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
+    theCase = Database.query(
+      'Select Id, ' +
+      String.escapeSingleQuotes(fieldsToBeQueried) +
+      ' From Case Where Id = \'' +
+      theCase.Id +
+      '\''
+    );
+    verifyCloudEventForATMDisputeCase(theCase);
+
+    theCase.External_System__c = 'CARBe';
+    theCase.External_Case_Id__c = 'EXTERNALCASEID000';
+    theCase.Submitted__c = true;
+    System.assertEquals(
+      true,
+      GetHelpCaseActionsHelper.isValidPegaDispute(theCase),
+      'Test result should match.'
+    );
+    try {
+      update theCase;
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case: ' + e);
+    }
+    verifyPegaIntegration(theCase);
+
+    theCase.Status = 'Closed';
+    try {
+      update theCase;
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case: ' + e);
+    }
+  }
+
+  @IsTest
+  static void testCardDisputeCase() {
+    String recordTypeDeveloperName = 'Card_Dispute';
+    List<Account> accountsList = [
+      SELECT Id, OCV_ID__c
+      FROM Account
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
+    for (Account account : accountsList) {
+      ocvIDAndAccountMap.put(account.OCV_ID__c, account);
+    }
+    List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [
+      SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
+      FROM FinServ__FinancialAccount__c
+      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
+    ];
+    Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (
+      FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList
+    ) {
+      ocvIDAndFinSerAccountMap.put(
+        finServFinancialAccount.OCV_ID__c,
+        finServFinancialAccount
+      );
+    }
+
+    Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
+    theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
+    theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
+        'OCV000000001'
+      )
+      .Id;
+    Test.startTest();
+    try {
+      insert theCase;
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case');
+    }
+    Test.stopTest();
+    String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
+    theCase = Database.query(
+      'Select Id, ' +
+      String.escapeSingleQuotes(fieldsToBeQueried) +
+      ' From Case Where Id = \'' +
+      theCase.Id +
+      '\''
+    );
+    verifyCloudEventForCardDisputeCase(theCase);
+    verifyCaseSubject(theCase);
+    verifyCardTokenNumber(theCase);
+    verifyDuplicateDispute(theCase, recordTypeDeveloperName);
+    theCase.Status = 'Closed';
+    theCase.External_System__c = 'CARBe';
+    theCase.External_Case_Id__c = 'EXTERNALCASEID000';
+    try {
+      update theCase;
+    } catch (DmlException e) {
+      System.assert(false, 'Failed to create dispute case');
+    }
+    verifyDuplicateDispute(theCase, recordTypeDeveloperName);
+  }
+
+  private static void insertTestAccountsForDisputeCases() {
+    List<Account> accountList = new List<Account>();
+    Account newAccount1 = TestDataFactory.createTestAccountForDisputeCases('1');
+    accountList.add(newAccount1);
+    Account newAccount2 = TestDataFactory.createTestAccountForDisputeCases('2');
+    accountList.add(newAccount2);
+    insert accountList;
+    List<FinServ__FinancialAccount__c> finServFinancialAccountList = new List<FinServ__FinancialAccount__c>();
+    FinServ__FinancialAccount__c newFinServFinancialAccount1 = TestDataFactory.createTestFinAccountForDisputeCases(
+      '1'
+    );
+    newFinServFinancialAccount1.FinServ__PrimaryOwner__c = accountList[0].Id;
+    finServFinancialAccountList.add(newFinServFinancialAccount1);
+    FinServ__FinancialAccount__c newFinServFinancialAccount2 = TestDataFactory.createTestFinAccountForDisputeCases(
+      '2'
+    );
+    newFinServFinancialAccount2.FinServ__PrimaryOwner__c = accountList[1].Id;
+    finServFinancialAccountList.add(newFinServFinancialAccount2);
+    insert finServFinancialAccountList;
+  }
+
+  private static void verifyCloudEventForATMDisputeCase(Case theCase) {
+    System.assertEquals(
+      1,
+      CloudEventController.cloudEvents.size(),
+      'Cloud Event should be generated'
+    );
+    System.assert(
+      String.isNotBlank(CloudEventController.cloudEvents[0].Data_1__c),
+      'Cloud Event should be generated'
+    );
+    String payload = CloudEventController.cloudEvents[0].Data_1__c;
+    ATMDisputeCaseCloudEventModel atmDisputeCaseCloudEventModel = (ATMDisputeCaseCloudEventModel) JSON.deserialize(
+      payload,
+      ATMDisputeCaseCloudEventModel.class
+    );
+
+    Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(
+      payload
+    );
+    Map<String, Object> mappedResponse2 = (Map<String, Object>) mappedResponse.get(
+      'ce_data'
+    );
+    ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel atmDisputeCaseCloudEventDataModel = (ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel) JSON.deserialize(
+      JSON.serialize(mappedResponse2),
+      ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel.class
+    );
+
+    System.assertEquals(
+      theCase.Id,
+      atmDisputeCaseCloudEventDataModel.recordId,
+      'External Case Status Id should match'
+    );
+    System.assertEquals(
+      theCase.CaseNumber,
+      atmDisputeCaseCloudEventDataModel.caseNumber,
+      'Case Number should match'
+    );
+    System.assertEquals(
+      'CaseNumber/' + theCase.CaseNumber,
+      atmDisputeCaseCloudEventModel.ce_subject,
+      'ce_subject should match'
+    );
+    DisputeCaseCloudEventModel.AccountModel customer = atmDisputeCaseCloudEventDataModel.customer;
+    System.assertEquals(
+      theCase.Account.OCV_ID__c,
+      customer.ocvId,
+      'customer should not be null'
+    );
+    DisputeCaseCloudEventModel.FinancialAccountModel financialAccount = atmDisputeCaseCloudEventDataModel.financialAccount;
+    System.assert(
+      financialAccount != null,
+      'financialAccount should not be null'
+    );
+    DisputeCaseCloudEventModel.TransactionModel transactionInformation = atmDisputeCaseCloudEventDataModel.transactionInformation;
+    System.assert(
+      transactionInformation != null,
+      'transaction should not be null'
+    );
+  }
+
+  private static void verifyCloudEventForCardDisputeCase(Case theCase) {
+    System.assertEquals(
+      1,
+      CloudEventController.cloudEvents.size(),
+      'Cloud Event should be generated'
+    );
+    System.assert(
+      String.isNotBlank(CloudEventController.cloudEvents[0].Data_1__c),
+      'Cloud Event should be generated'
+    );
+    String payload = CloudEventController.cloudEvents[0].Data_1__c;
+    CardDisputeCaseCloudEventModel cardDisputeCaseCloudEventModel = (CardDisputeCaseCloudEventModel) JSON.deserialize(
+      payload,
+      CardDisputeCaseCloudEventModel.class
+    );
+
+    Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(
+      payload
+    );
+    Map<String, Object> mappedResponse2 = (Map<String, Object>) mappedResponse.get(
+      'ce_data'
+    );
+    CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel cardDisputeCaseCloudEventDataModel = (CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel) JSON.deserialize(
+      JSON.serialize(mappedResponse2),
+      CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel.class
+    );
+    System.assertEquals(
+      theCase.Id,
+      cardDisputeCaseCloudEventDataModel.recordId,
+      'External Case Status Id should match'
+    );
+    System.assertEquals(
+      theCase.CaseNumber,
+      cardDisputeCaseCloudEventDataModel.caseNumber,
+      'Case Number should match'
+    );
+    System.assertEquals(
+      'CaseNumber/' + theCase.CaseNumber,
+      cardDisputeCaseCloudEventModel.ce_subject,
+      'ce_subject should match'
+    );
+    DisputeCaseCloudEventModel.AccountModel customer = cardDisputeCaseCloudEventDataModel.customer;
+    System.assertEquals(
+      theCase.Account.OCV_ID__c,
+      customer.ocvId,
+      'customer should not be null'
+    );
+    DisputeCaseCloudEventModel.FinancialAccountModel financialAccount = cardDisputeCaseCloudEventDataModel.financialAccount;
+    System.assert(
+      financialAccount != null,
+      'financialAccount should not be null'
+    );
+    DisputeCaseCloudEventModel.TransactionModel transactionInformation = cardDisputeCaseCloudEventDataModel.transactionInformation;
+    System.assert(
+      transactionInformation != null,
+      'transaction should not be null'
+    );
+  }
+
+  private static void verifyAccountAndFinAccount(
+    Case theCase,
+    Account account,
+    FinServ__FinancialAccount__c finServFinanceAccount
+  ) {
+    Case caseWithError = theCase.clone(false, false, false, false);
+    caseWithError.AccountId = account.Id;
+    caseWithError.FinServ__FinancialAccount__c = finServFinanceAccount.Id;
+    if (finServFinanceAccount.FinServ__PrimaryOwner__c == account.Id) {
+    } else {
+      try {
+        insert caseWithError;
+        System.assert(
+          false,
+          'Failed to detect misalignment between customer\'s OCV ID and Financial Account'
+        );
+      } catch (DmlException e) {
+        System.assertEquals(
+          true,
+          e.getMessage()
+            .contains(GetHelpCaseActions.MISALIGNED_FINANCIAL_ACCOUNT_ERROR),
+          'Error messages match.'
+        );
+      }
+    }
+  }
+
+  private static void verifyPegaIntegration(Case theCase) {
+    List<sObject> platFormEventList = GetHelpCaseActions.pegaPEList;
+    System.assertEquals(
+      theCase.CaseNumber,
+      platFormEventList[0].get('Original_Case_Number__c'),
+      'Case Number should not be null.'
+    );
+    System.assertEquals(
+      theCase.Transaction_Id__c,
+      platFormEventList[0].get('Transaction_Id__c'),
+      'Transaction Id should match.'
+    );
+  }
+
+  private static void verifyCaseSubject(Case theCase) {
+    List<String> fraudCasesRecordTypeNames = new List<String>{
+      'Fraud',
+      'Identity',
+      'Recipient_Mule',
+      'Scam',
+      'KYC_QA'
+    };
+    List<String> disputeCasesRecordTypeNames = new List<String>{
+      'ATM_Dispute',
+      'BPAY_Dispute',
+      'Card_Dispute',
+      'Direct_Debit_Dispute',
+      'Direct_Entry_Dispute',
+      'NPP_Dispute'
+    };
+    if (
+      disputeCasesRecordTypeNames.contains(theCase.RecordType.DeveloperName)
+    ) {
+      System.assertEquals(
+        theCase.RecordType.Name +
+        ' - ' +
+        theCase.Dispute_Reason__c,
+        theCase.Subject,
+        'New case subject should be as expected.'
+      );
+    } else if (fraudCasesRecordTypeNames.contains(theCase.RecordType.Name)) {
+      System.assertEquals(
+        theCase.RecordType.Name +
+        ' - ' +
+        theCase.Type,
+        theCase.Subject,
+        'New case subject should be as expected.'
+      );
+    } else if (theCase.RecordType.Name == 'General_Inquiry') {
+      if (String.isBlank(theCase.Sub_Type__c)) {
+        System.assertEquals(
+          theCase.Type,
+          theCase.Subject,
+          'New case subject should be as expected.'
+        );
+      } else {
+        String subTypes = theCase.Sub_Type__c.replace(';', ' - ');
+        System.assertEquals(
+          theCase.Type +
+          ' - ' +
+          subTypes,
+          theCase.Subject,
+          'New case subject should be as expected.'
+        );
+      }
+    }
+  }
+
+  private static void verifyCardTokenNumber(Case theCase) {
+    theCase.Status = 'Escalated';
+    theCase.External_System__c = 'CARBe';
+    theCase.External_Case_Id__c = 'EXTERNALCASEID000';
+    try {
+      update theCase;
+      Case theCaseUpdated = [
+        SELECT Id, Card_Token_Number__c
+        FROM Case
+        WHERE Id = :theCase.Id
+      ];
+      System.assertEquals(
+        null,
+        theCaseUpdated.Card_Token_Number__c,
+        'Card token number should be null'
+      );
+    } catch (DmlException e) {
+    }
+  }
+
+  private static void verifyDuplicateDispute(
+    Case theCase,
+    String recordTypeDeveloperName
+  ) {
+    Case duplicateCase = TestDataFactory.createCase(recordTypeDeveloperName);
+    duplicateCase.AccountId = theCase.AccountId;
+    duplicateCase.Transaction_Id__c = theCase.Transaction_Id__c;
+    if (theCase.Status != 'Closed') {
+      try {
+        insert duplicateCase;
+        System.assert(false, 'Failed to detect existing dispute case');
+      } catch (DmlException e) {
+        System.assertEquals(
+          true,
+          e.getMessage().contains(GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR),
+          'Error messages match. Expected: ' +
+          GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR +
+          ' Actual: ' +
+          e.getMessage()
+        );
+      }
+    } else {
+      try {
+        insert duplicateCase;
+      } catch (DmlException e) {
+        System.assertEquals(
+          null,
+          e,
+          'New dispute case was not successfully inserted.'
+        );
+      }
+    }
   }
 }

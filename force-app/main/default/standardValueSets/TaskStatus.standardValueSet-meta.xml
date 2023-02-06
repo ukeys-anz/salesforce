@@ -39,8 +39,8 @@
     </standardValue>
     <standardValue>
         <fullName>Other</fullName>
+        <closed>false</closed>
         <default>false</default>
         <label>Other</label>
-        <closed>false</closed>
     </standardValue>
 </StandardValueSet>
