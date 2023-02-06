@@ -99,7 +99,7 @@ public class ContentDocumentLinkTriggerHandlerTest {
 
     System.runAs(usrlist[0]) {
       //Given a complaint case record
-      Case testCase = [SELECT Id, SuppliedEmail, Origin, Description FROM Case LIMIT 1];
+      Case testCase = [SELECT Id, SuppliedEmail, Origin, Description, IDR_NC_Country__c, IDR_Product_Category__c FROM Case LIMIT 1];
 
       Test.startTest();
       testCase.SuppliedEmail = System.Label.ANZ_com_Sender_Address;

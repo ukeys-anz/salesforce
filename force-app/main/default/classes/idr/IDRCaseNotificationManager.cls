@@ -171,7 +171,7 @@ public with sharing class IDRCaseNotificationManager {
       ]
     );
     for (Case record : toBeEsclationCases) {
-      notificationList.add(buildEscalationNotificationEvent(record, ownerMap));
+      notificationList.addAll(buildEscalationNotificationEvent(record, ownerMap));
     }
     if (notificationList.isEmpty()) {
       return;
@@ -185,30 +185,49 @@ public with sharing class IDRCaseNotificationManager {
    * @description Build Platform Event record with details related to banker and line manager
    * @param c Case record
    * @param ownerMap Map containing details of owner and line manager
-   * @return IDR_Notification_Event__e notification event
+   * @return IDR_Notification_Event__e one notification event for owner and one for his/her manager.
    */
-  private static IDR_Notification_Event__e buildEscalationNotificationEvent(
+  private static List<IDR_Notification_Event__e> buildEscalationNotificationEvent(
     Case c,
     Map<Id, User> ownerMap
   ) {
+    List<IDR_Notification_Event__e> nEventList = new List<IDR_Notification_Event__e>();
+    Integer timeVal = Datetime.now().millisecond(); 
     IDR_Notification_Event__e nEvent = new IDR_Notification_Event__e();
     nEvent.Case_ID__c = c.Id;
     nEvent.Case_Number__c = c.CaseNumber;
     nEvent.Is_Banker_Notification__c = true;
     nEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId)?.Email;
     nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId)?.FirstName;
-    if (ownerMap.get(c.OwnerId)?.ManagerId != null) {
-      nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
-      nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
-        .Manager.FirstName;
-    } else {
-      nEvent.Line_Manager_Email__c = null;
-      nEvent.Line_Manager_First_Name__c = null;
-    }
-    nEvent.MessageID__c = '' + c.Id + Datetime.now().millisecond();
+    nEvent.Line_Manager_Email__c = null;
+    nEvent.Line_Manager_First_Name__c = null;
+    nEvent.MessageID__c = '' + c.Id + timeVal;
     nEvent.EmailFlag__c = true;
     nEvent.EmailTemplate__c = IDRConstants.BANKER_EMAIL_NOTIFICATION_TEMPLATE;
 
-    return nEvent;
+    nEventList.add(nEvent);
+
+    IDR_Notification_Event__e managerEvent = new IDR_Notification_Event__e();
+    managerEvent.Case_ID__c = c.Id;
+    managerEvent.Case_Number__c = c.CaseNumber;
+    managerEvent.Is_Banker_Notification__c = true;
+    managerEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId)?.Email;
+    managerEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId)?.FirstName;
+    if (ownerMap.get(c.OwnerId)?.ManagerId != null) {
+      managerEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
+      managerEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
+        .Manager.FirstName;
+    } else {
+      managerEvent.Line_Manager_Email__c = null;
+      managerEvent.Line_Manager_First_Name__c = null;
+    }
+    timeVal++;
+    managerEvent.MessageID__c = '' + c.Id + timeVal;
+    managerEvent.EmailFlag__c = true;
+    managerEvent.EmailTemplate__c = IDRConstants.MANAGER_EMAIL_NOTIFICATION_TEMPLATE;
+
+    nEventList.add(managerEvent);
+
+    return nEventList;
   }
 }

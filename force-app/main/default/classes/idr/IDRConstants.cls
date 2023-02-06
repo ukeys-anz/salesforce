@@ -3,6 +3,7 @@
  * @since 10/2020
  * @description  IDRConstants consists of all the IDR constants
  * @group IDR(Internal Dispute Resolution)
+ * @runTests ContentDocumentLinkTriggerHandlerTest
  */
 public with sharing class IDRConstants {
   //Complaint Status
@@ -20,8 +21,9 @@ public with sharing class IDRConstants {
   //Customer Notification Template
   public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseRegister';
 
-  //Banker Notification Template
+  //Banker and Manager Notification Template
   public static final String BANKER_EMAIL_NOTIFICATION_TEMPLATE = 'AgCaseAutoEsclate';
+  public static final String MANAGER_EMAIL_NOTIFICATION_TEMPLATE = 'AgCaseManagerAutoEsclate';
 
   public static final String QUEUE_TYPE = 'Queue';
 
