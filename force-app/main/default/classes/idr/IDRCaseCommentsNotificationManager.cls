@@ -18,16 +18,16 @@ public with sharing class IDRCaseCommentsNotificationManager {
 
     for (CaseComment record : (List<CaseComment>) records) {
       Case caseRec = caseMap.get(record.ParentId);
-      String customerName = (caseRec.IDR_NC_First_Name__c != null ||
-        caseRec.IDR_NC_Last_Name__c != null)
-        ? ('Customer Name : ' +
-          (caseRec.IDR_NC_First_Name__c != null
-            ? caseRec.IDR_NC_First_Name__c + ' '
-            : '') +
-          (caseRec.IDR_NC_Last_Name__c != null ? caseRec.IDR_NC_Last_Name__c : '') +
-          '\n')
-        : '';
       if (caseRec != null) {
+        String customerName = (caseRec.IDR_NC_First_Name__c != null ||
+          caseRec.IDR_NC_Last_Name__c != null)
+          ? ('Customer Name : ' +
+            (caseRec.IDR_NC_First_Name__c != null
+              ? caseRec.IDR_NC_First_Name__c + ' '
+              : '') +
+            (caseRec.IDR_NC_Last_Name__c != null ? caseRec.IDR_NC_Last_Name__c : '') +
+            '\n')
+          : '';
         if (
           caseRec.OwnerId != record.CreatedById &&
           IDRCaseActions.isIDRComplaintType(caseRec)
