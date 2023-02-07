@@ -152,17 +152,15 @@ public with sharing class CCRMTestDataFactory {
   public static User createTwilioIntegrationUser() {
     twilioIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
     twilioIntegrationUser.FirstName = 'IntegrationUserTwilio';
-    twilioIntegrationUser.UserRoleId = CommonUtil.getUserRoleByDevName('ANZ').Id;
+    twilioIntegrationUser.UserRoleId = CommonUtil.getUserRoleByDevName('ANZ')
+      .Id;
     twilioIntegrationUser.ProfileId = CommonUtil.getProfileByName(
         'Integration User'
       )
       .Id;
     insert twilioIntegrationUser;
     TestUtil.assignPermissionSets(
-      new List<String>{
-        'Chat_Read_Write',
-        'Interaction_Integration'
-      },
+      new List<String>{ 'Chat_Read_Write', 'Interaction_Integration' },
       new List<User>{ twilioIntegrationUser }
     );
     return twilioIntegrationUser;

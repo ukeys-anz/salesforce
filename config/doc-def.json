@@ -118,7 +118,7 @@
       "name": "COSMOS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "COSMOS_Integration"],
+      "permissionsets": ["Enforce_mTLS", "COSMOS_Integration", "Disable_MFA"],
       "type": "system"
     },
     {
@@ -130,7 +130,8 @@
         "Key_Manager",
         "SFDX_GCB",
         "force__EinsteinAnalyticsPlusAdmin",
-        "SFDX_Deploy"
+        "SFDX_Deploy",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -145,7 +146,8 @@
         "Complaint_Read_Only",
         "Product_Read_Only",
         "Systemic_Issue_Read_Only",
-        "View_All_Files"
+        "View_All_Files",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -237,14 +239,18 @@
       "name": "MVISION Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Mvision_Permissions"],
+      "permissionsets": ["API_Only", "Mvision_Permissions", "Disable_MFA"],
       "type": "system"
     },
     {
       "name": "Notification Broker Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "IDR_Notification_Broker_Integration"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "IDR_Notification_Broker_Integration",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
@@ -256,7 +262,8 @@
         "FinancialServicesCloudStandard",
         "Moderate_Chatter",
         "Read_Write_Customer_Details",
-        "CCRM_Marketing_Integration_User"
+        "CCRM_Marketing_Integration_User",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -264,7 +271,7 @@
       "name": "Odaseva  User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["Muted_Backup_and_Restore"],
-      "permissionsets": ["API_Only", "Password_Never_Expires"],
+      "permissionsets": ["API_Only", "Password_Never_Expires", "Disable_MFA"],
       "type": "system"
     },
     {
@@ -278,7 +285,12 @@
       "name": "PEGA Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Enforce_mTLS", "PEGA_Integration"],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "PEGA_Integration",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
@@ -288,7 +300,8 @@
       "permissionsets": [
         "Case_Read_Write_Qualtrics_Integration",
         "Customer_Feedback_Read_Write",
-        "Lead_Read_Write_Qualtrics_Integration"
+        "Lead_Read_Write_Qualtrics_Integration",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -306,7 +319,8 @@
       "permissionsets": [
         "API_Only",
         "Splunk_Integration_Sec_Ops",
-        "Splunk_Integration_Tech_Ops"
+        "Splunk_Integration_Tech_Ops",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -314,21 +328,21 @@
       "name": "SAF Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Access_SAF", "API_Only"],
+      "permissionsets": ["API_Access_SAF", "API_Only", "Disable_MFA"],
       "type": "system"
     },
     {
       "name": "Shared Administrator",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["Shared_Admin"],
-      "permissionsets": [],
+      "permissionsets": ["Disable_MFA"],
       "type": "system"
     },
     {
       "name": "Splunk Sec Ops Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Splunk_Integration_Sec_Ops"],
+      "permissionsets": ["Splunk_Integration_Sec_Ops", "Disable_MFA"],
       "type": "system"
     },
     {
@@ -344,7 +358,8 @@
       "permissionsetgroups": [],
       "permissionsets": [
         "Password_Never_Expires",
-        "Splunk_Integration_Tech_Ops"
+        "Splunk_Integration_Tech_Ops",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -359,21 +374,21 @@
       "name": "TrailTracker Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Th_Badge_Admin"],
+      "permissionsets": ["API_Only", "Th_Badge_Admin", "Disable_MFA"],
       "type": "system"
     },
     {
       "name": "User Provisioning",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["User_Provisioning"],
+      "permissionsets": ["User_Provisioning", "Disable_MFA"],
       "type": "system"
     },
     {
       "name": "WebdriverIO Integration User",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access"],
+      "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access", "Disable_MFA"],
       "type": "system"
     },
     {
@@ -400,7 +415,8 @@
         "Chat_Read_Write",
         "Enforce_mTLS",
         "Interaction_Integration",
-        "Password_Never_Expires"
+        "Password_Never_Expires",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -422,7 +438,7 @@
       "name": "Sailpoint User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "User_Provisioning"],
+      "permissionsets": ["API_Only", "User_Provisioning", "Disable_MFA"],
       "type": "system"
     },
     {
@@ -436,7 +452,12 @@
       "name": "Collections Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Enforce_mTLS", "IDR_Collections_Access"],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "IDR_Collections_Access",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
@@ -446,7 +467,8 @@
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
-        "IDR_Complaints_Event_Access"
+        "IDR_Complaints_Event_Access",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -458,7 +480,8 @@
         "API_Only",
         "Enforce_mTLS",
         "Complaint_Read_Only",
-        "IDR_System_Task_Access"
+        "IDR_System_Task_Access",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -469,7 +492,8 @@
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
-        "IDR_Xpression_Integration"
+        "IDR_Xpression_Integration",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -480,7 +504,8 @@
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
-        "CCRM_Marketing_Integration_User"
+        "CCRM_Marketing_Integration_User",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -491,7 +516,8 @@
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
-        "CCRM_Marketing_Integration_User"
+        "CCRM_Marketing_Integration_User",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -502,7 +528,8 @@
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
-        "CCRM_Marketing_Integration_User"
+        "CCRM_Marketing_Integration_User",
+        "Disable_MFA"
       ],
       "type": "system"
     },
@@ -510,7 +537,7 @@
       "name": "AEM Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["AEM_Integration"],
-      "permissionsets": ["API_Only"],
+      "permissionsets": ["API_Only", "Disable_MFA"],
       "type": "system"
     }
   ]
