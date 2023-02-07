@@ -259,7 +259,7 @@ public without sharing class CCRMRegionSharingUtil {
     if (!shareRecords.isEmpty()) {
       Database.SaveResult[] results = Database.insert(shareRecords);
 
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
 
@@ -311,7 +311,7 @@ public without sharing class CCRMRegionSharingUtil {
     if (!shareRecords.isEmpty()) {
       Database.DeleteResult[] results = Database.delete(shareRecords);
 
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }
@@ -340,7 +340,7 @@ public without sharing class CCRMRegionSharingUtil {
     if (!groupMembers.isEmpty()) {
       Database.SaveResult[] results = Database.insert(groupMembers);
 
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
 
@@ -384,7 +384,7 @@ public without sharing class CCRMRegionSharingUtil {
 
     if (!groupMembers.isEmpty()) {
       Database.DeleteResult[] results = Database.delete(groupMembers);
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }
@@ -427,7 +427,7 @@ public without sharing class CCRMRegionSharingUtil {
 
     //insert and log results
     Database.SaveResult[] regionSaveResults = Database.insert(regions);
-    Logger.error('',regionSaveResults);
+    Logger.error('', regionSaveResults);
     Logger.saveLog();
 
     //append newly created public groups to the mapRegions for processing

@@ -198,7 +198,7 @@ public with sharing class CCRMOpportunityActions {
         updatedRecords,
         false
       );
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }

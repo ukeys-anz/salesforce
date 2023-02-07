@@ -4,57 +4,171 @@
  */
 public without sharing class TestDataFactory {
   /**
+   * @description map to store the schema map of Case Fields
+   */
+  public static Map<String, Schema.SObjectField> caseFieldSchemaMap {
+    get {
+      if (caseFieldSchemaMap != null) {
+        return caseFieldSchemaMap;
+      }
+      caseFieldSchemaMap = Schema.Case.SObjectType.getDescribe()
+        .fields.getMap();
+      return caseFieldSchemaMap;
+    }
+    set;
+  }
+
+  /**
    * @description Create Case record
-   * @param caseRecordTypeName the Case record type
+   * @param recordTypeDeveloperName the Case record type
    * @return Case
    */
-  public static Case createCase(String caseRecordTypeName) {
-    Case newCase = new Case();
-    newCase.Amount_Of_Authorised_Transaction__c = 1000.00;
-    newCase.Amount_Of_Credit_Due__c = 1000.00;
-    newCase.Card_In_Possession_During_Transaction__c = 'Yes';
-    newCase.Card_Token_Number__c = '0123456789';
-    newCase.Correct_Customer_Reference_Number__c = 'CCRN_Test_20';
-    newCase.Customer_Contacted_Merchant__c = 'Yes';
-    newCase.Customer_Reference_Number__c = 'CRN_Text_20';
-    newCase.Date_Of_Expected_Delivery_Service__c = Date.today();
-    newCase.Effective_Date__c = Date.today();
-    newCase.Description = 'Description 0123456789 Text Test';
-    newCase.Has_The_Card_Been_Stopped__c = 'Yes';
-    newCase.IDR_Account_Card_Policy_Number__c = '0123456789';
-    newCase.IDR_Complainant_Desired_Outcome__c = 'IDR_Complainant_Desired_Outcome__c 0123 4567 8901 Text Test';
-    newCase.IDR_Description_of_Outcome__c = 'IDR_Description_of_Outcome__c 0123456789 Text Test';
-    newCase.IDR_Systemic_Issue_Description__c = 'IDR_Systemic_Issue_Description__c 0123456789 Text Test';
-    newCase.IDR_Customer_Number__c = '0123456789';
-    newCase.Intended_Account_BSB__c = '012345';
-    newCase.Intended_Account_Name__c = 'Intended_Account_Name_Text_255';
-    newCase.Intended_Account_Number__c = '0123456789';
-    newCase.Intended_Amount__c = 1000.00;
-    newCase.Intended_Pay_Id_Type__c = 'ABN';
-    newCase.Intended_Pay_Id_Value__c = 'Intended_Pay_Id_Value_Text_255';
-    newCase.Is_The_Card_Lost_Stolen__c = 'Lost';
-    newCase.Is_this_a_Business_Customer__c = 'Yes';
-    newCase.Merchant_Description__c = 'Merchant_Description_Text_255';
-    newCase.Received_Amount__c = 1200.00;
-    newCase.Refund_Request_Date__c = Date.today();
-    newCase.Regular_Payment_Cancellation_Date__c = Date.today();
-    newCase.Transaction_Id__c = 'Transaction_Id_Text_255';
-    newCase.Transaction_UUID__c = 'Transaction_UUID_Text_255';
-    newCase.Submitted__c = false;
-    newCase.Status = 'Open';
-
+  public static Case createCase(String recordTypeDeveloperName) {
+    Case newCase;
+    switch on recordTypeDeveloperName {
+      when 'ATM_Dispute' {
+        newCase = createATMDisputeCase();
+      }
+      when 'BPAY_Dispute' {
+        newCase = createBPAYDisputeCase();
+      }
+      when 'Card_Dispute' {
+        newCase = createCardDisputeCase();
+      }
+      when 'Direct_Debit_Dispute' {
+        newCase = createDirectDebitDisputeCase();
+      }
+      when 'Direct_Entry_Dispute' {
+        newCase = createDirectEntryDisputeCase();
+      }
+      when 'NPP_Dispute' {
+        newCase = createNPPDisputeCase();
+      }
+    }
     newCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-      .get(caseRecordTypeName)
+      .get(recordTypeDeveloperName)
       .getRecordTypeId();
+    newCase.Dispute_Reason__c = getDisputeReason(recordTypeDeveloperName)[0];
     return newCase;
   }
 
   /**
+   * @description Create Case record with fields relevant to ATM_Dispute
+   * @return Case
+   */
+  public static Case createATMDisputeCase() {
+    Case theCase = new Case();
+    theCase.Card_In_Possession_During_Transaction__c = 'NA';
+    theCase.Description = 'ATM Dispute Case Description Test_Text_32k';
+    theCase.Has_The_Card_Been_Stopped__c = 'NA';
+    theCase.Received_Amount__c = 1000.00;
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_ATM_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_ATM_Text_255';
+    return theCase;
+  }
+
+  /**
+   * @description Create Case record with fields relevant to BPAY_Dispute
+   * @return Case
+   */
+  public static Case createBPAYDisputeCase() {
+    Case theCase = new Case();
+    theCase.Correct_Customer_Reference_Number__c = 'CCRN_Text_20';
+    theCase.Customer_Reference_Number__c = 'CRN_Text_20';
+    theCase.Description = 'BPAY Dispute Case Description Test_Text_32k';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction BPAY Id Test_BPAY_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction BPAY UUID Test_BPAY_Text_255';
+    return theCase;
+  }
+
+  /**
+   * @description Create Case record with fields relevant to Card_Dispute
+   * @return Case
+   */
+  public static Case createCardDisputeCase() {
+    Case theCase = new Case();
+    theCase.Amount_Of_Credit_Due__c = 1000.00;
+    theCase.Card_In_Possession_During_Transaction__c = 'Yes';
+    theCase.Customer_Contacted_Merchant__c = 'Yes';
+    theCase.Date_Goods_Were_Returned_Or_Services_can__c = Date.today();
+    theCase.Date_Of_Expected_Delivery_Service__c = Date.today();
+    theCase.Description = 'Card Dispute Case Description Test_Text_32k';
+    theCase.Goods_Or_Services_Returned__c = 'Yes';
+    theCase.Has_The_Card_Been_Stopped__c = 'Yes';
+    theCase.Is_The_Card_Lost_Stolen__c = 'No';
+    theCase.Merchant_Description__c = 'Merchant Description Test_Card_Text_255';
+    theCase.Refund_Request_Date__c = Date.today();
+    theCase.Regular_Payment_Cancellation_Date__c = Date.today();
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_Card_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_Card_Text_255';
+    return theCase;
+  }
+
+  /**
+   * @description Create Case record with fields relevant to Direct_Debit_Dispute
+   * @return Case
+   */
+  public static Case createDirectDebitDisputeCase() {
+    Case theCase = new Case();
+    theCase.Description = 'Direct Debit Dispute Case Description Test_Text_32k';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_DD_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_DD_Text_255';
+    return theCase;
+  }
+
+  /**
+   * @description Create Case record with fields relevant to Direct_Entry_Dispute
+   * @return Case
+   */
+  public static Case createDirectEntryDisputeCase() {
+    Case theCase = new Case();
+    theCase.Amount_Of_Authorised_Transaction__c = 1000.00;
+    theCase.Description = 'Direct Entry Dispute Case Description Test_Text_32k';
+    theCase.Intended_Account_BSB__c = '012345';
+    theCase.Intended_Account_Name__c = 'Intended Account Name Test_Text_255';
+    theCase.Intended_Account_Number__c = '0123456789';
+    theCase.Is_this_a_Business_Customer__c = 'Yes';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_DE_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_DE_Text_255';
+    return theCase;
+  }
+
+  /**
+   * @description Create Case record with fields relevant to NPP_Dispute
+   * @return Case
+   */
+  public static Case createNPPDisputeCase() {
+    Case theCase = new Case();
+    theCase.Description = 'NPP Dispute Case Description Test_Text_32k';
+    theCase.Intended_Account_BSB__c = '012345';
+    theCase.Intended_Account_Name__c = 'Intended Account Name Test_Text_255';
+    theCase.Intended_Account_Number__c = '0123456789';
+    theCase.Intended_Amount__c = 1000.00;
+    theCase.Intended_Pay_Id_Type__c = 'ABN';
+    theCase.Intended_Pay_Id_Value__c = 'Intended Pay Id Value Test_Text_255';
+    theCase.Status = 'Open';
+    theCase.Submitted__c = false;
+    theCase.Transaction_Id__c = 'Transaction Id Test_NPP_Text_255';
+    theCase.Transaction_UUID__c = 'Transaction UUID Test_NPP_Text_255';
+    return theCase;
+  }
+
+  /**
    * @description get Dispute reason respective to the type of Dispute Cae
-   * @param caseRecordTypeName the Case record type
+   * @param recordTypeDeveloperName the Case record type
    * @return List<String>
    */
-  public static List<String> getDisputeReason(String caseRecordTypeName) {
+  public static List<String> getDisputeReason(String recordTypeDeveloperName) {
     Map<String, List<String>> reasonsByRecordtype = new Map<String, List<String>>{
       'ATM_Dispute' => new List<String>{
         'Duplicate Transaction',
@@ -103,7 +217,7 @@ public without sharing class TestDataFactory {
         'Return money received from an unknown person'
       }
     };
-    return reasonsByRecordtype.get(caseRecordTypeName);
+    return reasonsByRecordtype.get(recordTypeDeveloperName);
   }
 
   /**
@@ -113,11 +227,28 @@ public without sharing class TestDataFactory {
    * @return Case
    */
   public static Case modifyCase(Case theCase, Map<String, Object> caseMap) {
-    Map<String, Schema.SObjectField> fieldSchemaMap = Schema.Case.SObjectType.getDescribe()
-      .fields.getMap();
     for (String fieldName : caseMap.keySet()) {
-      Schema.SObjectField fieldAPI = fieldSchemaMap.get(fieldName);
+      Schema.SObjectField fieldAPI = caseFieldSchemaMap.get(fieldName);
       theCase.put(fieldAPI, caseMap.get(fieldName));
+    }
+    return theCase;
+  }
+
+  /**
+   * @description modify the values of Case's fields
+   * @param theCase the Case record
+   * @param fieldName field to be changed
+   * @param value value the field needs to be updated with
+   * @return Case
+   */
+  public static Case modifyCase(Case theCase, String fieldName, Object value) {
+    try {
+      Schema.SObjectField fieldAPI = caseFieldSchemaMap.get(fieldName.trim());
+      theCase.put(fieldAPI, value);
+    } catch (Exception e) {
+      System.debug('fieldName: ' + fieldName);
+      System.debug('value: ' + value);
+      throw e;
     }
     return theCase;
   }
@@ -150,32 +281,54 @@ public without sharing class TestDataFactory {
   }
 
   /**
-   * @description insert the Dispute Case
-   * @param caseRecordTypeName the Case record type
-   * @param relatedAccountOCVId the OCV ID to identify the Account and Financial Account
-   * @return Case
+   * @description create the Account Record for Dispute Cases
+   * @param suffix String
+   * @return Account
    */
-  public static Case insertDisputeCase(
-    String caseRecordTypeName,
-    String relatedAccountOCVId
+  public static Account createTestAccountForDisputeCases(String suffix) {
+    Account newAccount = new Account();
+    newAccount.Name = 'Test Account ' + suffix;
+    newAccount.Display_Name__c = 'Test Account ' + suffix;
+    newAccount.OCV_ID__c = 'OCV00000000' + suffix;
+    newAccount.ANZx_Customer__c = true;
+    newAccount.External_Id__c = 'EXTERNALID_00' + suffix;
+    return newAccount;
+  }
+
+  /**
+   * @description create the Account Record for Dispute Cases
+   * @return Account
+   */
+  public static Account createTestAccountForDisputeCases() {
+    return createTestAccountForDisputeCases('0');
+  }
+
+  /**
+   * @description create the FinServ__FinancialAccount__c Record for Dispute Cases
+   * @param suffix String
+   * @return FinServ__FinancialAccount__c
+   */
+  public static FinServ__FinancialAccount__c createTestFinAccountForDisputeCases(
+    String suffix
   ) {
-    Account account = [
-      SELECT Id
-      FROM Account
-      WHERE OCV_ID__c = :relatedAccountOCVId
-      LIMIT 1
-    ];
-    FinServ__FinancialAccount__c financialAccount = [
-      SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
-      FROM FinServ__FinancialAccount__c
-      WHERE OCV_ID__c = :relatedAccountOCVId
-      LIMIT 1
-    ];
-    Case newCase = createCase(caseRecordTypeName);
-    newCase.AccountId = account.Id;
-    newCase.FinServ__FinancialAccount__c = financialAccount.Id;
-    newCase.Dispute_Reason__c = getDisputeReason(caseRecordTypeName)[0];
-    insert newCase;
-    return newCase;
+    FinServ__FinancialAccount__c newFinServFinancialAccount = new FinServ__FinancialAccount__c();
+    newFinServFinancialAccount.Name = 'Test Account ' + suffix;
+    newFinServFinancialAccount.FinServ__Balance__c = 400;
+    newFinServFinancialAccount.FinServ__CurrentPostedBalance__c = 400;
+    newFinServFinancialAccount.FinServ__Status__c = 'Active';
+    newFinServFinancialAccount.FinServ__FinancialAccountType__c = 'Checking';
+    newFinServFinancialAccount.Account_Key__c = 'OCV00000000' + suffix;
+    newFinServFinancialAccount.Primary_Owner_Start_Date__c = Date.valueOf(
+      '2021-01-21'
+    );
+    return newFinServFinancialAccount;
+  }
+
+  /**
+   * @description create the FinServ__FinancialAccount__c Record for Dispute Cases
+   * @return FinServ__FinancialAccount__c
+   */
+  public static FinServ__FinancialAccount__c createTestFinAccountForDisputeCases() {
+    return createTestFinAccountForDisputeCases('0');
   }
 }

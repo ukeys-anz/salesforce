@@ -107,7 +107,7 @@ public with sharing class FileUtil {
           contentDocLinkList,
           false
         );
-        Logger.error('',results);
+        Logger.error('', results);
         Logger.saveLog();
       }
     }
