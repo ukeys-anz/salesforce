@@ -317,11 +317,6 @@
                 <default>false</default>
                 <label>Interest</label>
             </value>
-            <value>
-                <fullName>90% Centrelink Payment Request</fullName>
-                <default>false</default>
-                <label>90% Centrelink Payment Request</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
@@ -378,10 +373,6 @@
         <valueSettings>
             <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
             <valueName>Extra Care</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
-            <valueName>90% Centrelink Payment Request</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>

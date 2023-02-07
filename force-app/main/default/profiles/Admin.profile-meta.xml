@@ -4384,11 +4384,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>External_Case_Status__c.Status_Timestamp_With_Millisec_Gmt__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>FinServ__Card__c.Available_Balance__c</field>
         <readable>true</readable>
     </fieldPermissions>

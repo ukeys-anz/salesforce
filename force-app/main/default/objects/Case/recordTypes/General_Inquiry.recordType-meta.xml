@@ -4702,10 +4702,6 @@
     <picklistValues>
         <picklist>Sub_Type__c</picklist>
         <values>
-            <fullName>90% Centrelink Payment Request</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>ANZ branches</fullName>
             <default>false</default>
         </values>
