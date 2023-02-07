@@ -107,6 +107,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Map<Id, Case> caseMap = getCaseRecords(records);
     Map<Id, ContentDocument> contentDocMap = getContentDocRecords(records);
     Case oCase;
+    Task[] assiTasks = new List<Task>();
 
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
       if (
@@ -122,13 +123,32 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           IDRConstants.EMAIl_USER_FNAME &&
           IDRCaseActions.isIDRComplaintType(oCase)
         ) {
+          String customerName = (oCase.IDR_NC_First_Name__c != null ||
+            oCase.IDR_NC_Last_Name__c != null)
+            ? ('Customer Name : ' +
+            (oCase.IDR_NC_First_Name__c != null
+            ? oCase.IDR_NC_First_Name__c + ' '
+            : '') +
+            (oCase.IDR_NC_Last_Name__c != null ? oCase.IDR_NC_Last_Name__c : '') +
+            '\n')
+            : '';
           wrapperList.add(
             createNotification(
               oCase,
-              contentDocMap.get(record.ContentDocumentId)
+              contentDocMap.get(record.ContentDocumentId),
+              customerName
             )
           );
+          String subjectStr =
+          'New File added by ' +
+          UserInfo.getName() +
+          ' on case ' +
+          oCase.CaseNumber +
+          ' ' +
+          customerName;
+          assiTasks.add(IDRTaskActions.createAssignmentTask(oCase, subjectStr));
         }
+
         if (
           oCase.Status == 'Closed' ||
           oCase.Status == 'Withdrawn' ||
@@ -146,6 +166,10 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
+    }
+    if (!assiTasks.isEmpty()) {
+      //insert Assignment Tasks on New File Attached
+      IDRTaskActions.insertAssignmentTask(assiTasks);
     }
     try {
       if (!caseCommentList.isEmpty()) {
@@ -233,21 +257,14 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param record case record from the trigger
    * @param cdRecord contentDocument record from the trigger
+   * @param customerName customer name from case record 
    * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
   private static IDRBankerNotificationWrapper createNotification(
     Case record,
-    ContentDocument cdRecord
+    ContentDocument cdRecord,
+    String customerName
   ) {
-    String customerName = (record.IDR_NC_First_Name__c != null ||
-      record.IDR_NC_Last_Name__c != null)
-      ? ('Customer Name : ' +
-        (record.IDR_NC_First_Name__c != null
-          ? record.IDR_NC_First_Name__c + ' '
-          : '') +
-        (record.IDR_NC_Last_Name__c != null ? record.IDR_NC_Last_Name__c : '') +
-        '\n')
-      : '';
     IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
       cdRecord,
       new List<Id>{ record.OwnerId },

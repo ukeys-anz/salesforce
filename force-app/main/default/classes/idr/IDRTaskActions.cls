@@ -110,6 +110,58 @@ public without sharing class IDRTaskActions {
     ) {
       record.Subject = IDRConstants.SUBJECT_PEND_CASE_TASK;
     }
+    if (
+      record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
+      record.ActivityDate == null
+    ) {
+      record.ActivityDate = Date.today().addDays(1);
+    }
+  }
+  /**
+   * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
+   * @param records task record for insert 
+   */
+  public static Void insertAssignmentTask(List<Task> records) {
+    if (!records.isEmpty()) {
+      //insert Assignment Tasks on New Correspondence received on Closed Complaint
+      if (
+        Task.SObjectType.getDescribe().isCreateable() &&
+        Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
+        Schema.SObjectType.Task.fields.IsReminderSet.isCreateable() &&
+        Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
+        Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
+        Schema.SObjectType.Task.fields.Subject.isCreateable() &&
+        Schema.SObjectType.Task.fields.WhatId.isCreateable()
+      ) {
+        insert records;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'createAssignmentTask',
+          'Not enough permissions to create Task.'
+        );
+      }
+    }
+  }
+  /**
+   * @description populate task fields for creating task after complaint assignment / New file attached / New Email Attached / New comment on closed case.
+   * @param c case record from the trigger
+   * @param subject of the task record
+   * @return An instance of a Task
+   */
+  public static Task createAssignmentTask(
+    Case c,
+    String subject
+  ) {
+    return new Task(
+      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+      OwnerId = c.OwnerId,
+      WhatId = c.Id,
+      Subject = subject,
+      Status = 'Open',
+      Priority = 'Normal',
+      Type = 'Notification'
+    );
   }
   /**
    * @description assignToCollectionQueue method is used to validate the collection task created by mulesoft and assign to respective collections queue

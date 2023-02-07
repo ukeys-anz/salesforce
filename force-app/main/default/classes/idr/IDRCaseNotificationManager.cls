@@ -3,7 +3,7 @@
  * @author Afreen
  * @since 11/2020
  * @description Responsible to trigger the Notification for banker.
- * @runTests IDRCaseNotificationManagerTest, CaseTriggerHandlerTest
+ * @runTests IDRCaseNotificationManagerTest, CaseTriggerHandlerTest, IDREmailServiceTest
  *
  */
 public with sharing class IDRCaseNotificationManager {
@@ -58,6 +58,9 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     IDRBankerNotificationWrapper wrapper;
     String msgBody;
+    String subjectStr = null;
+    Task[] assiTasks = new List<Task>();
+
     String customerName = (c.IDR_NC_First_Name__c != null ||
       c.IDR_NC_Last_Name__c != null)
       ? ('Customer Name : ' +
@@ -91,6 +94,11 @@ public with sharing class IDRCaseNotificationManager {
         msgBody,
         null
       );
+      subjectStr =
+        'A new email response has been received on case : ' +
+        c.CaseNumber +
+        ' ' +
+        customerName;
     } else {
       msgBody = fieldLabel + 'field has been changed';
       if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
@@ -99,6 +107,12 @@ public with sharing class IDRCaseNotificationManager {
           'Case ' +
           c.CaseNumber +
           ' has been assigned to you';
+
+        subjectStr =
+          'A Case has been assigned to you ' +
+          c.CaseNumber +
+          ' ' +
+          customerName;
       }
       if (
         fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
@@ -114,6 +128,11 @@ public with sharing class IDRCaseNotificationManager {
         msgBody,
         c
       );
+    }
+    if (subjectStr != null) {
+      assiTasks.add(IDRTaskActions.createAssignmentTask(c, subjectStr));
+      //insert Assignment Tasks on New Email received or Complaint assignment 
+      IDRTaskActions.insertAssignmentTask(assiTasks);
     }
 
     return wrapper;

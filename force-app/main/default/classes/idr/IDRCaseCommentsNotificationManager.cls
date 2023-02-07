@@ -14,16 +14,45 @@ public with sharing class IDRCaseCommentsNotificationManager {
 
     Map<Id, Case> caseMap = getCaseRecords(records);
     List<Case> caseUpdatedList = new List<Case>();
+    Task[] assiTasks = new List<Task>();
 
     for (CaseComment record : (List<CaseComment>) records) {
       Case caseRec = caseMap.get(record.ParentId);
+      String customerName = (caseRec.IDR_NC_First_Name__c != null ||
+        caseRec.IDR_NC_Last_Name__c != null)
+        ? ('Customer Name : ' +
+          (caseRec.IDR_NC_First_Name__c != null
+            ? caseRec.IDR_NC_First_Name__c + ' '
+            : '') +
+          (caseRec.IDR_NC_Last_Name__c != null ? caseRec.IDR_NC_Last_Name__c : '') +
+          '\n')
+        : '';
       if (caseRec != null) {
         if (
           caseRec.OwnerId != record.CreatedById &&
           IDRCaseActions.isIDRComplaintType(caseRec)
         ) {
-          wrapperList.add(createNotification(caseRec));
-        }
+          wrapperList.add(
+            createNotification(
+              caseRec,
+              customerName
+            )
+          );
+          if (
+            caseRec.Status == 'Closed' ||
+            caseRec.Status == 'Withdrawn' ||
+            caseRec.Status == 'Resolved'
+          ) {
+            String subjectStr = 
+              'New Correspondence received on a Closed Complaint added by ' +
+              UserInfo.getName() +
+              ' on case ' +
+              caseRec.CaseNumber +
+              ' ' +
+              customerName;
+            assiTasks.add(IDRTaskActions.createAssignmentTask(caseRec, subjectStr));
+          }
+        } 
         if (
           (caseRec.Status == 'Closed' ||
           caseRec.Status == 'Withdrawn' ||
@@ -42,6 +71,11 @@ public with sharing class IDRCaseCommentsNotificationManager {
 
     if (!caseUpdatedlist.isEmpty()) {
       update caseUpdatedList;
+    }
+
+    if (!assiTasks.isEmpty()) {
+      //insert Assignment Tasks on New Correspondence received on Closed Complaint
+      IDRTaskActions.insertAssignmentTask(assiTasks);
     }
   }
 
@@ -79,18 +113,13 @@ public with sharing class IDRCaseCommentsNotificationManager {
   /**
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param record case record from the trigger
+   * @param customerName case record from the trigger
    * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
-  private static IDRBankerNotificationWrapper createNotification(Case record) {
-    String customerName = (record.IDR_NC_First_Name__c != null ||
-      record.IDR_NC_Last_Name__c != null)
-      ? ('Customer Name : ' +
-        (record.IDR_NC_First_Name__c != null
-          ? record.IDR_NC_First_Name__c + ' '
-          : '') +
-        (record.IDR_NC_Last_Name__c != null ? record.IDR_NC_Last_Name__c : '') +
-        '\n')
-      : '';
+  private static IDRBankerNotificationWrapper createNotification(
+    Case record,
+    String customerName
+  ) {
     IDRBankerNotificationWrapper wrapper = new IDRBankerNotificationWrapper(
       record,
       new List<Id>{ record.OwnerId },
