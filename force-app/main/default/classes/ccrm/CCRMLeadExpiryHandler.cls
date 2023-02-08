@@ -32,7 +32,8 @@ public with sharing class CCRMLeadExpiryHandler {
       Logger.error(
         'Error occured while updating Lead Status to Expired. ' +
         'More details: ' +
-        e.getMessage(),e
+        e.getMessage(),
+        e
       );
       Logger.saveLog();
     }

@@ -32,7 +32,6 @@ private with sharing class NewCaseFlowWrapperControllerTest {
       ANZx_Customer__c = false
     );
     testCase.RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID;
-    insert testCase;
 
     Case testCaseForAEM = new Case(
       Origin = 'ANZ Plus Web',
@@ -42,7 +41,6 @@ private with sharing class NewCaseFlowWrapperControllerTest {
       ANZx_Customer__c = true
     );
     testCaseForAEM.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
-    insert testCaseForAEM;
 
     Case testCaseFailure = new Case(
       Origin = 'Letter',
@@ -53,7 +51,13 @@ private with sharing class NewCaseFlowWrapperControllerTest {
     );
     testCaseFailure.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
     testCaseFailure.IDR_Customer_Number__c = '0123456789';
-    insert testCaseFailure;
+
+    List<Case> casesToInsert = new List<Case>{
+      testCase,
+      testCaseForAEM,
+      testCaseFailure
+    };
+    insert casesToInsert;
   }
 
   @IsTest

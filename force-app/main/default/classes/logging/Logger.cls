@@ -17,6 +17,9 @@ public with sharing class Logger {
     String message,
     Database.DeleteResult deleteResult
   ) {
+    if (deleteResult.isSuccess()) {
+      return null;
+    }
     return error().setDatabaseResult(deleteResult).setMessage(message);
   }
 
@@ -30,6 +33,9 @@ public with sharing class Logger {
     String message,
     Database.MergeResult mergeResult
   ) {
+    if (mergeResult.isSuccess()) {
+      return null;
+    }
     return error().setDatabaseResult(mergeResult).setMessage(message);
   }
 
@@ -43,6 +49,9 @@ public with sharing class Logger {
     String message,
     Database.SaveResult saveResult
   ) {
+    if (saveResult.isSuccess()) {
+      return null;
+    }
     return error().setDatabaseResult(saveResult).setMessage(message);
   }
 
@@ -56,6 +65,9 @@ public with sharing class Logger {
     String message,
     Database.UndeleteResult undeleteResult
   ) {
+    if (undeleteResult.isSuccess()) {
+      return null;
+    }
     return error().setDatabaseResult(undeleteResult).setMessage(message);
   }
 
@@ -69,6 +81,9 @@ public with sharing class Logger {
     String message,
     Database.UpsertResult upsertResult
   ) {
+    if (upsertResult.isSuccess()) {
+      return null;
+    }
     return error().setDatabaseResult(upsertResult).setMessage(message);
   }
 
@@ -95,6 +110,11 @@ public with sharing class Logger {
     String message,
     List<Database.DeleteResult> deleteResults
   ) {
+    if (
+      String.isBlank(DatabaseResultHelper.getDeleteResultError(deleteResults))
+    ) {
+      return null;
+    }
     return error().setDatabaseResult(deleteResults).setMessage(message);
   }
 
@@ -108,6 +128,11 @@ public with sharing class Logger {
     String message,
     List<Database.MergeResult> mergeResults
   ) {
+    if (
+      String.isBlank(DatabaseResultHelper.getMergeResultError(mergeResults))
+    ) {
+      return null;
+    }
     return error().setDatabaseResult(mergeResults).setMessage(message);
   }
 
@@ -121,6 +146,9 @@ public with sharing class Logger {
     String message,
     List<Database.SaveResult> saveResults
   ) {
+    if (String.isBlank(DatabaseResultHelper.getSaveResultError(saveResults))) {
+      return null;
+    }
     return error().setDatabaseResult(saveResults).setMessage(message);
   }
 
@@ -134,6 +162,13 @@ public with sharing class Logger {
     String message,
     List<Database.UndeleteResult> undeleteResults
   ) {
+    if (
+      String.isBlank(
+        DatabaseResultHelper.getUndeleteResultError(undeleteResults)
+      )
+    ) {
+      return null;
+    }
     return error().setDatabaseResult(undeleteResults).setMessage(message);
   }
 
@@ -147,6 +182,11 @@ public with sharing class Logger {
     String message,
     List<Database.UpsertResult> upsertResults
   ) {
+    if (
+      String.isBlank(DatabaseResultHelper.getUpsertResultError(upsertResults))
+    ) {
+      return null;
+    }
     return error().setDatabaseResult(upsertResults).setMessage(message);
   }
 
@@ -806,9 +846,9 @@ public with sharing class Logger {
    * @description Saves any entries in Logger's buffer. By default, entries are saved via Apex's EventBus.
    */
   @InvocableMethod(
-    category='Logging'
-    label='Save Log'
-    description='Saves any log entries that have been generated'
+    Category='Logging'
+    Label='Save Log'
+    Description='Saves any log entries that have been generated'
   )
   public static void saveLog() {
     LoggerHelper.saveLog(LoggerHelper.transactionSaveMethod);

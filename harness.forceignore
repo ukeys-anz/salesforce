@@ -151,3 +151,6 @@ force-app/main/default/objects/LogEntry__c/fields/RecordsJson__c.field-meta.xml
 #CC-418 Decommission Letter Approval process.
 force-app/main/default/workflows/IDR_Letter_Approval__c.workflow-meta.xml
 force-app/main/default/approvalProcesses/IDR_Letter_Approval__c.Letter_Approval_Process.approvalProcess-meta.xml
+
+#ignoring CreateCommsData metadata to be created in destructive file, as it is already deleted
+force-app/main/default/classes/idr/CreateCommsData.cls-meta.xml

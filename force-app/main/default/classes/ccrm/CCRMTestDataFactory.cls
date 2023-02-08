@@ -24,6 +24,7 @@ public with sharing class CCRMTestDataFactory {
   private static User adminUser;
   private static User ccrmBaseUser;
   private static User ccrmIntegrationUser;
+  private static User twilioIntegrationUser;
 
   /**
    * @description Create a CCRM System Admin User
@@ -141,6 +142,28 @@ public with sharing class CCRMTestDataFactory {
       }
     }
     return ccrmIntegrationUser;
+  }
+
+  /**
+   * @description Create OCV Integration User
+   * @name createOCVIntegrationUser
+   * @return ANZ Standard User with CCRM Integration User Permission Set.
+   */
+  public static User createTwilioIntegrationUser() {
+    twilioIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
+    twilioIntegrationUser.FirstName = 'IntegrationUserTwilio';
+    twilioIntegrationUser.UserRoleId = CommonUtil.getUserRoleByDevName('ANZ')
+      .Id;
+    twilioIntegrationUser.ProfileId = CommonUtil.getProfileByName(
+        'Integration User'
+      )
+      .Id;
+    insert twilioIntegrationUser;
+    TestUtil.assignPermissionSets(
+      new List<String>{ 'Chat_Read_Write', 'Interaction_Integration' },
+      new List<User>{ twilioIntegrationUser }
+    );
+    return twilioIntegrationUser;
   }
 
   /**

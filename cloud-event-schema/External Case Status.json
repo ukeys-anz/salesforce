@@ -1,0 +1,123 @@
+{
+  "type": "record",
+  "namespace": "anzx.com",
+  "fields": [
+    {
+      "name": "ce-specversion",
+      "type": "string"
+    },
+    {
+      "name": "ce-type",
+      "type": "string"
+    },
+    {
+      "name": "ce-source",
+      "type": "string"
+    },
+    {
+      "name": "ce-subject",
+      "type": "string"
+    },
+    {
+      "name": "ce-id",
+      "type": "string"
+    },
+    {
+      "name": "ce-time",
+      "type": "string"
+    },
+    {
+      "name": "ce-datacontenttype",
+      "type": "string"
+    },
+    {
+      "name": "ce-dataschema",
+      "type": "string"
+    },
+    {
+      "name": "ce-partitionkey",
+      "type": "string"
+    },
+    {
+      "name": "ce-xpartitionedkeysequence",
+      "type": "string"
+    },
+    {
+      "name": "ce-xtargets",
+      "type": "array",
+      "items": "string"
+    },
+    {
+      "name": "ce-traceparent",
+      "type": "string"
+    },
+    {
+      "name": "ce-system-data",
+      "type": "record",
+      "fields": [
+        {
+          "name": "lastModifiedByUsername",
+          "type": "string"
+        },
+        {
+          "name": "lastModifiedTime",
+          "type": "string"
+        },
+        {
+          "name": "lastModifiedByEmail",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "ce-data",
+      "type": "record",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "caseNumber",
+          "type": "string"
+        },
+        {
+          "name": "customerMessage",
+          "type": "string"
+        },
+        {
+          "name": "externalStatus",
+          "type": ["string", "null"]
+        },
+        {
+          "name": "internalDescription",
+          "type": ["string", "null"]
+        },
+        {
+          "name": "isOutcomeInCustomerFavour",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "resultCode",
+          "type": ["string", "null"]
+        },
+        {
+          "name": "resultMessage",
+          "type": ["string", "null"]
+        },
+        {
+          "name": "statusEventId",
+          "type": "string"
+        },
+        {
+          "name": "statusTimestamp",
+          "type": ["string", "null"]
+        }
+      ]
+    }
+  ]
+}

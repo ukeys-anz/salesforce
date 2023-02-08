@@ -4,7 +4,7 @@
  * @description Holds common util functions
  * @group Utils
  */
-@SuppressWarnings('PMD.CyclomaticComplexity')
+@SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class CommonUtil {
   /**
    * @description Get a picklist labels by values (API names).
@@ -418,5 +418,231 @@ public with sharing class CommonUtil {
       return contactRequestGroup[0].Id;
     }
     return null;
+  }
+
+  /**
+   * @description return the fields relevant to Case Record Type
+   * @param recordTypeDeveloperName the Case record type
+   * @return Set<String> return the list of Case fields
+   */
+  public static Set<String> getDisputeCaseFields(
+    String recordTypeDeveloperName
+  ) {
+    Set<String> caseFields = new Set<String>();
+    switch on recordTypeDeveloperName {
+      when 'ATM_Dispute' {
+        caseFields = getATMDisputeCaseFields();
+      }
+      when 'BPAY_Dispute' {
+        caseFields = getBPAYDisputeCaseFields();
+      }
+      when 'Card_Dispute' {
+        caseFields = getCardDisputeCaseFields();
+      }
+      when 'Direct_Debit_Dispute' {
+        caseFields = getDirectDebitDisputeCaseFields();
+      }
+      when 'Direct_Entry_Dispute' {
+        caseFields = getDirectEntryDisputeCaseFields();
+      }
+      when 'NPP_Dispute' {
+        caseFields = getNPPDisputeCaseFields();
+      }
+    }
+    caseFields.addAll(getDisputeCaseCommonFields());
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields of Dispute Case records
+   * @return Set<String> return the list of Case fields
+   */
+  private static Set<String> getDisputeCaseCommonFields() {
+    Set<String> caseFields = new Set<String>();
+    caseFields.add('Card_Token_Number__c');
+    caseFields.add('CaseNumber');
+    caseFields.add('Date_Posted__c');
+    caseFields.add('Description');
+    caseFields.add('Dispute_Reason__c');
+    caseFields.add('Effective_Date__c');
+    caseFields.add('External_System__c');
+    caseFields.add('External_Case_Id__c');
+    caseFields.add('IsStopped');
+    caseFields.add('OCV_Id__c');
+    caseFields.add('Origin');
+    caseFields.add('ParentId');
+    caseFields.add('Posted_Amount__c');
+    caseFields.add('Posted_Currency__c');
+    caseFields.add('Priority');
+    caseFields.add('RecordTypeId');
+    caseFields.add('Status');
+    caseFields.add('StopStartDate');
+    caseFields.add('Subject');
+    caseFields.add('Submitted__c');
+    caseFields.add('Submitted_Time__c');
+    caseFields.add('SuppliedEmail');
+    caseFields.add('Transaction_Authorised_Date__c');
+    caseFields.add('Twilio_Channel_SID__c');
+    caseFields.add('Transaction_Amount__c');
+    caseFields.add('Transaction_Currency__c');
+    caseFields.add('Transaction_Description__c');
+    caseFields.add('Transaction_Id__c');
+    caseFields.add('Transaction_UUID__c');
+    caseFields.add('AccountId');
+    caseFields.add('Account.OCV_ID__c');
+    caseFields.add('Account.Source_System_Name__c');
+    caseFields.add('Account.Source_System_ID__c');
+    caseFields.add('FinServ__FinancialAccount__c');
+    caseFields.add('Customer_Account_BSB__c');
+    caseFields.add('Customer_Account_Number__c');
+    caseFields.add('RecordType.DeveloperName');
+    caseFields.add('RecordType.Name');
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields of Case record of record type, ATM_Dispute
+   * @return Set<String> return the list of Case fields
+   */
+  private static Set<String> getATMDisputeCaseFields() {
+    Set<String> caseFields = new Set<String>();
+    caseFields.add('Bank_ATM__c');
+    caseFields.add('Card_In_Possession_During_Transaction__c');
+    caseFields.add('Card_Number__c');
+    caseFields.add('Card_Scheme__c');
+    caseFields.add('Claimed_Amount__c');
+    caseFields.add('Customer_Contacted_Merchant__c');
+    caseFields.add('Has_The_Card_Been_Stopped__c');
+    caseFields.add('Is_The_Card_Lost_Stolen__c');
+    caseFields.add('Merchant_Description__c');
+    caseFields.add('Location__c');
+    caseFields.add('Received_Amount__c');
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields of Case record of record type, BPAY_Dispute
+   * @return Set<String> return the list of Case fields
+   */
+  private static Set<String> getBPAYDisputeCaseFields() {
+    Set<String> caseFields = new Set<String>();
+    caseFields.add('Correct_Customer_Reference_Number__c');
+    caseFields.add('Customer_Reference_Number__c');
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields of Case record of record type, Card_Dispute
+   * @return Set<String> return the list of Case fields
+   */
+  private static Set<String> getCardDisputeCaseFields() {
+    Set<String> caseFields = new Set<String>();
+    caseFields.add('Amount_Of_Authorised_Transaction__c');
+    caseFields.add('Amount_Of_Credit_Due__c');
+    caseFields.add('Card_In_Possession_During_Transaction__c');
+    caseFields.add('Card_Number__c');
+    caseFields.add('Card_Scheme__c');
+    caseFields.add('Customer_Contacted_Merchant__c');
+    caseFields.add('Date_Goods_Were_Returned_Or_Services_can__c');
+    caseFields.add('Date_Of_Expected_Delivery_Service__c');
+    caseFields.add('Goods_Or_Services_Returned__c');
+    caseFields.add('Has_The_Card_Been_Stopped__c');
+    caseFields.add('Is_The_Card_Lost_Stolen__c');
+    caseFields.add('Merchant_Description__c');
+    caseFields.add('Refund_Request_Date__c');
+    caseFields.add('Regular_Payment_Cancellation_Date__c');
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields of Case record of record type, Direct_Debit_Dispute
+   * @return Set<String> return the list of Case fields
+   */
+  private static Set<String> getDirectDebitDisputeCaseFields() {
+    Set<String> caseFields = new Set<String>();
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields of Case record of record type, Direct_Entry_Dispute
+   * @return Set<String> return the list of Case fields
+   */
+  private static Set<String> getDirectEntryDisputeCaseFields() {
+    Set<String> caseFields = new Set<String>();
+    caseFields.add('Amount_Of_Authorised_Transaction__c');
+    caseFields.add('Intended_Account_BSB__c');
+    caseFields.add('Intended_Account_Name__c');
+    caseFields.add('Intended_Account_Number__c');
+    caseFields.add('Is_this_a_Business_Customer__c');
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields of Case record of record type, NPP_Dispute
+   * @return Set<String> return the list of Case fields
+   */
+  private static Set<String> getNPPDisputeCaseFields() {
+    Set<String> caseFields = new Set<String>();
+    caseFields.add('Intended_Account_BSB__c');
+    caseFields.add('Intended_Account_Name__c');
+    caseFields.add('Intended_Account_Number__c');
+    caseFields.add('Intended_Amount__c');
+    caseFields.add('Intended_Pay_Id_Type__c');
+    caseFields.add('Intended_Pay_Id_Value__c');
+    return caseFields;
+  }
+
+  /**
+   * @description return the fields' String to be used in SOQL query
+   * @return String fields' String to be used in SOQL query
+   */
+  public static String getCaseFieldsString() {
+    Set<String> caseFields = new Set<String>();
+    caseFields.addAll(getDisputeCaseCommonFields());
+    caseFields.addAll(getATMDisputeCaseFields());
+    caseFields.addAll(getBPAYDisputeCaseFields());
+    caseFields.addAll(getCardDisputeCaseFields());
+    caseFields.addAll(getDirectDebitDisputeCaseFields());
+    caseFields.addAll(getDirectEntryDisputeCaseFields());
+    caseFields.addAll(getNPPDisputeCaseFields());
+    String fields = String.join((Iterable<String>) caseFields, ', ');
+    return fields;
+  }
+
+  /**
+   * @description return the fields' String to be used in SOQL query
+   * @param recordTypeDeveloperName the Case record type
+   * @return String fields' String to be used in SOQL query
+   */
+  public static String getDisputeCaseFieldsString(
+    String recordTypeDeveloperName
+  ) {
+    Set<String> caseFields = getDisputeCaseFields(recordTypeDeveloperName);
+    String fields = String.join((Iterable<String>) caseFields, ', ');
+    return fields;
+  }
+
+  /**
+   * @description get the Case record with creating SOQL query relevant to the Case record type
+   * @param recordTypeDeveloperName the Case record type
+   * @param predicate the condition to be used in filtering
+   * @return Case the case record
+   */
+  public static Case getCaseRecordWithAllFields(
+    String recordTypeDeveloperName,
+    String predicate
+  ) {
+    String fields = getDisputeCaseFieldsString(recordTypeDeveloperName);
+    List<SObject> sObjectList = Database.query(
+      'Select Id, ' +
+      String.escapeSingleQuotes(fields) +
+      ' From Case Where ' +
+      predicate
+    );
+    Case theCase;
+    if (sObjectList.size() > 0) {
+      theCase = (Case) sObjectList[0];
+    }
+    return theCase;
   }
 }

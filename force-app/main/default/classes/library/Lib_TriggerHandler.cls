@@ -238,8 +238,10 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Get LIMIT INFO and send log with contextId as traceId and loopCountMap
    */
   private void logTriggerRecursion() {
-    Logger.info(JSON.serialize(Lib_TriggerHandler.loopCountMap) +
-    '; Reason for logging: Trigger handler exceeds max loop count');
+    Logger.info(
+      JSON.serialize(Lib_TriggerHandler.loopCountMap) +
+      '; Reason for logging: Trigger handler exceeds max loop count'
+    );
     Logger.saveLog();
   }
 

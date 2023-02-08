@@ -17,63 +17,63 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <default>false</default>
                 <fullName>Credit card</fullName>
+                <default>false</default>
                 <label>Credit card</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Cheque/Savings accounts</fullName>
+                <default>false</default>
                 <label>Cheque/Savings accounts</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Home loans</fullName>
+                <default>false</default>
                 <label>Home loans</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Business accounts</fullName>
+                <default>false</default>
                 <label>Business accounts</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Personal loan</fullName>
+                <default>false</default>
                 <label>Personal loan</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Business loans</fullName>
+                <default>false</default>
                 <label>Business loans</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Insurance/wealth products</fullName>
+                <default>false</default>
                 <label>Insurance/wealth products</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Commercial cards</fullName>
+                <default>false</default>
                 <label>Commercial cards</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Asset finance</fullName>
+                <default>false</default>
                 <label>Asset finance</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Foreign exchange</fullName>
+                <default>false</default>
                 <label>Foreign exchange</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Merchants</fullName>
+                <default>false</default>
                 <label>Merchants</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Not product related</fullName>
+                <default>false</default>
                 <label>Not product related</label>
             </value>
         </valueSetDefinition>

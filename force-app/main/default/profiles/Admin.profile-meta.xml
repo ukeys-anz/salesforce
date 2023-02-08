@@ -3759,6 +3759,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Cloud_Event__e.Data_1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Coaching_Summary__c.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4375,11 +4380,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>External_Case_Status__c.Status_Timestamp__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>External_Case_Status__c.Status_Timestamp_With_Millisec_Gmt__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7926,6 +7926,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Case_Product__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Cloud_Event__e</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
