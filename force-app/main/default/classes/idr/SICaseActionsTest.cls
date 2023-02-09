@@ -47,6 +47,7 @@ private with sharing class SICaseActionsTest {
 
   @isTest
   static void testWorkflowStepWhenClosing() {
+    Test.startTest();
     //GIVEN open/assessing SIs
     Case[] newCases = [
       SELECT Status
@@ -69,6 +70,7 @@ private with sharing class SICaseActionsTest {
       FROM Case
       WHERE Status = 'Closed' AND SI_Workflow_step__c = 'Assessing'
     ];
+    Test.stopTest();
     System.assertEquals(
       newCases.size(),
       c.size(),
@@ -92,6 +94,7 @@ private with sharing class SICaseActionsTest {
     for (Case c : newCases) {
       c.SI_Workflow_step__c = 'Investigating';
     }
+    Test.startTest();
     update newCases;
 
     //THEN Status is Open
@@ -105,6 +108,7 @@ private with sharing class SICaseActionsTest {
       c.size(),
       'SI not in Monitoring should not be closed'
     );
+    Test.stopTest();
   }
 
   @isTest
@@ -289,6 +293,7 @@ private with sharing class SICaseActionsTest {
     );
     //AND WHEN updated
     c.Subject = '1234-5678-9101-7632-3321';
+    Test.startTest();
     update c;
     //THEN long numbers in free text fields are masked, showing only the last four digits
     c = [SELECT Subject FROM Case LIMIT 1];
@@ -297,5 +302,6 @@ private with sharing class SICaseActionsTest {
       c.Subject,
       'Subject should be masked.'
     );
+    Test.stopTest();
   }
 }

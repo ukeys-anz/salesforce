@@ -202,7 +202,7 @@ public with sharing class IDRComplaintFlagActions {
         isComplaintEventFailed = true;
       }
     }
-    Logger.error('',publishResults);
+    Logger.error('', publishResults);
     Logger.saveLog();
   }
 }

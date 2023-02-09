@@ -335,7 +335,7 @@ public without sharing class LogEventBuilder {
       return this;
     }
     this.logEvent.RecordId__c = record.Id;
-    if(LoggingSettingsController.isSecureLogEnabled() == true){
+    if (LoggingSettingsController.isSecureLogEnabled() == true) {
       this.logEvent.RecordsJson__c = JSON.serializePretty(record);
     }
     this.logEvent.RecordObjectName__c = record.getSObjectType() == null
@@ -364,7 +364,7 @@ public without sharing class LogEventBuilder {
       ? sobjectType.getDescribe().getName()
       : 'Unknown';
 
-    if(LoggingSettingsController.isSecureLogEnabled() == true){
+    if (LoggingSettingsController.isSecureLogEnabled() == true) {
       this.logEvent.RecordsJson__c = JSON.serializePretty(records);
     }
     String recordIds = '';

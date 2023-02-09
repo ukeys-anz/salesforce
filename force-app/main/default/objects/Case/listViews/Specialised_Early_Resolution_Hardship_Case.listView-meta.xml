@@ -8,7 +8,6 @@
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>Queue__c</field>
         <operation>equals</operation>
@@ -19,6 +18,7 @@
         <operation>equals</operation>
         <value>EDR Early Resolution Hardship</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>EDR Early Resolution Hardship</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>

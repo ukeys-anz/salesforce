@@ -29,6 +29,7 @@ jobs:
       - name: Sysl Check
         run: |
           if [[ -f ci/sysl-check.sh ]];then
+            rm -rf ./sysl-report.txt
             chmod +x ci/sysl-check.sh
             source ci/sysl-check.sh >> sysl-report.txt
           fi

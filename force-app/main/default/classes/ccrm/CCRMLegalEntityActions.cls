@@ -246,7 +246,7 @@ public with sharing class CCRMLegalEntityActions {
 
       if (Schema.sObjectType.Opportunity.isUpdateable() && !oppList.isEmpty()) {
         List<Database.saveResult> results = Database.update(oppList, false);
-        Logger.error('',results);
+        Logger.error('', results);
         Logger.saveLog();
       }
     }

@@ -235,13 +235,14 @@ public without sharing class CCRMLeadConversion {
         if (errNo.length() > 50) {
           errNo = errNo.substring(0, 50);
         }
-        Logger.error('Id=' +
-        leadConvertResult.getLeadId() +
-        ',Message:' +
-        err.getMessage() +
-        'Fields:' +
-        err.getFields());
-      
+        Logger.error(
+          'Id=' +
+          leadConvertResult.getLeadId() +
+          ',Message:' +
+          err.getMessage() +
+          'Fields:' +
+          err.getFields()
+        );
       }
     }
     Logger.saveLog();
@@ -283,7 +284,7 @@ public without sharing class CCRMLeadConversion {
       Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable()
     ) {
       List<Database.saveResult> results = Database.update(leads, false);
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
     checkTaskSkipValidations(leadIds);
@@ -311,7 +312,7 @@ public without sharing class CCRMLeadConversion {
       Schema.sObjectType.Task.fields.Skip_Validations__c.isUpdateable()
     ) {
       List<Database.SaveResult> results = Database.update(newTasks, false);
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }
