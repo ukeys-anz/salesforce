@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 import { getRecord } from "lightning/uiRecordApi";
+import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
@@ -276,6 +277,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.possibleSystemicIssues = this.possibleSystemicIssuesPublic;
   }
 
+  @wire(getObjectInfo, { objectApiName: CASE_OBJECT })
+  caseObjectInfo;
+
   @wire(getRecord, {
     recordId: "$recordId",
     fields: [
@@ -486,7 +490,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
         default:
       }
 
-      if (data.fields.Status.value === "Escalated") {
+      if (
+        data.fields.Status.value === "Escalated" ||
+        this.avoidableEscalationValue
+      ) {
         this.showAvoidableEscalation = true;
       }
     }

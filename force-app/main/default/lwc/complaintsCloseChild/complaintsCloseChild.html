@@ -412,17 +412,29 @@
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
-            <lightning-input
-              type="toggle"
-              label="Avoidable Escalation?"
-              name="avoidableEscalation"
-              data-id="avoidableEscalation-id"
-              onchange={handleAvoidableEscalation}
-              checked={avoidableEscalationValue}
-              message-toggle-active="Yes"
-              message-toggle-inactive="No"
-              field-level-help="Applicable for complaints that have been manually recorded and escalated either by the Case Owner or by automatic escalation. For complaints received by email or online form, leave as NO as escalation of these records are not avoidable. "
-            ></lightning-input>
+            <div class="slds-form-element slds-grid">
+              <!-- <label class="slds-form-element__label" for="input-avoidableescalation">
+                Avoidable Escalation?
+              </label>
+              <lightning-helptext if:true={caseObjectInfo.data}
+                content={caseObjectInfo.data.fields.IDR_Avoidable_Escalation__c.inlineHelpText}
+              ></lightning-helptext> -->
+              <lightning-input
+                label="Avoidable Escalation?"
+                type="toggle"
+                name="avoidableEscalation"
+                data-id="avoidableEscalation-id"
+                onchange={handleAvoidableEscalation}
+                checked={avoidableEscalationValue}
+                message-toggle-active="Yes"
+                message-toggle-inactive="No"
+              ></lightning-input>
+              <lightning-helptext
+                if:true={caseObjectInfo.data}
+                class="slds-var-p-left_small"
+                content={caseObjectInfo.data.fields.IDR_Avoidable_Escalation__c.inlineHelpText}
+              ></lightning-helptext>
+            </div>
           </div>
         </template>
         <template if:true={showAvoidableEscalationReason}>

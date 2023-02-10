@@ -5,6 +5,7 @@
     <defaultValue>false</defaultValue>
     <description>For Escalated case only, stores if Escalation could be avoided.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Applicable for complaints that have been manually recorded and escalated either by the Case Owner or by automatic escalation. For complaints received by email or online form, leave as NO as escalation of these records are not avoidable.</inlineHelpText>
     <label>Avoidable Escalation?</label>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
