@@ -3,12 +3,12 @@ import { getRecord } from "lightning/uiRecordApi";
 import getChatTopicsOnAccount from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicsOnAccount";
 import getChatTopicInfoOnCase from "@salesforce/apex/ChatTopicRelatedListController.getChatTopicInfoOnCase";
 import { publish, MessageContext } from "lightning/messageService";
+import chatReChannel from "@salesforce/messageChannel/ReinitiateChatTopic__c";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import UserId from "@salesforce/user/Id";
 import USERROLE_FIELD from "@salesforce/schema/User.UserRole.DeveloperName";
 import ACCOUNT_PPID_FIELD from "@salesforce/schema/Account.PPID__c";
 import CASE_CHANNEL_SID_FIELD from "@salesforce/schema/Case.Twilio_Channel_SID__c";
-import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -194,24 +194,14 @@ export default class ChatTopicRelatedList extends LightningElement {
     let selectedChannelSID = event.target.dataset.id;
     let selectedAction = event.detail.value;
 
-    //Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
+    // Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
     if (selectedAction === "re_initiate") {
-      let errorMessage =
-        "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
-      try {
-        reinitiateChat({
-          accountId: this.recordId,
-          conversationSid: this.selectedChannelSID
-        });
-      } catch (error) {
-        handleErrorShowToast(
-          this,
-          "Failed to re-initiate Chat Topic",
-          errorMessage,
-          errorMessage,
-          "pester"
-        );
-      }
+      const message = { channelSID: selectedChannelSID };
+      this.publishLightningMessage(
+        chatReChannel,
+        message,
+        "Failed to re-initiate Chat Topic"
+      );
     }
 
     // Show Chat History related to the selected Chat Topic
