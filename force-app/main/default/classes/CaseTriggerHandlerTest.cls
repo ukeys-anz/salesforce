@@ -27,7 +27,8 @@ private class CaseTriggerHandlerTest {
       // Assign related PSs
       List<String> fraudXPSs = new List<String>{
         'Case_Read_Write_Fraud_Agent',
-        'Customer_Read_Only'
+        'Customer_Read_Only',
+        'Case_Read_Write_Customer_Onboarding'
       };
       List<PermissionSet> psList = [
         SELECT Id
@@ -2870,5 +2871,80 @@ private class CaseTriggerHandlerTest {
         );
       }
     }
+  }
+
+  // Test create Fraud Check Case when ID Ops Case changes to 'Potential Fraud' status
+  @isTest
+  public static void testCreateFraudCheckCase() {
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
+
+    //create an onboarding application
+    List<CustomerOnboardingApplication__c> cobs = new List<CustomerOnboardingApplication__c>();
+
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      cobs.add(
+        new CustomerOnboardingApplication__c(
+          PersonaId__c = 'dsfsadfasdf' + i,
+          OCVId__c = '4324234234' + i
+        )
+      );
+    }
+
+    insert cobs;
+
+    //create an id ops case with application
+    List<Case> idOpsAssistsCases = new List<Case>();
+
+    for (CustomerOnboardingApplication__c a : cobs) {
+      idOpsAssistsCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+          Status = GetHelpConstants.OPEN_STATUS,
+          CustomerOnboardingApplication__c = a.Id
+        )
+      );
+    }
+
+    insert idOpsAssistsCases;
+
+    //move id ops case to potential fraud
+    idOpsAssistsCases = [
+      SELECT Id, Status, OwnerId
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+    ];
+
+    for (Case c : idOpsAssistsCases) {
+      c.OwnerId = usr.Id;
+    }
+
+    update idOpsAssistsCases;
+
+    for (Case c : idOpsAssistsCases) {
+      c.Status = GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS;
+    }
+
+    Test.startTest();
+
+    System.runAs(usr) {
+      update idOpsAssistsCases;
+    }
+
+    //verify fraud check case gets created
+    List<Case> fraudCheckCases = [
+      SELECT Id
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.FRAUD_CHECK_RT_ID
+    ];
+
+    System.assertEquals(
+      Integer.valueOf(Label.Test_Bulk_Size),
+      fraudCheckCases.size(),
+      'Should have ' +
+      Label.Test_Bulk_Size +
+      ' new Fraud Check cases.'
+    );
+
+    Test.stopTest();
   }
 }

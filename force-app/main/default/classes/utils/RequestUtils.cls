@@ -29,7 +29,10 @@ public with sharing class RequestUtils {
     String requestMethod
   ) {
     setCommonRequestParams(request, requestMethod);
-    String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
+    String serializedToken = AuthTokenCacheUtil.getStaffToken(
+      Service.IdType.OCVID,
+      ocvID
+    );
     request.setHeader('Authorization', 'Bearer ' + serializedToken);
   }
 

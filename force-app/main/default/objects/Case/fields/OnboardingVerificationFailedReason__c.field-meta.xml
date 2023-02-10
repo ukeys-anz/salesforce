@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OnboardingVerificationFailedReason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>The reason why customer verification failed during the onboarding process</description>
+    <externalId>false</externalId>
+    <label>Onboarding Verification Failed Reason</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
+                <default>false</default>
+                <label>Selfie fail - selfie image is not clear enough to match</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - document image is not clear enough to match</fullName>
+                <default>false</default>
+                <label>Selfie fail - document image is not clear enough to match</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - selfie image is clear, but not the same person</fullName>
+                <default>false</default>
+                <label>Selfie fail - selfie image is clear, but not the same person</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - selfie image is clear, but a picture of a picture</fullName>
+                <default>false</default>
+                <label>Selfie fail - selfie image is clear, but a picture of a picture</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - suspected fraud, based on selfie</fullName>
+                <default>false</default>
+                <label>Selfie fail - suspected fraud, based on selfie</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is a picture of a picture</fullName>
+                <default>false</default>
+                <label>Doc fail - document is a picture of a picture</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is expired</fullName>
+                <default>false</default>
+                <label>Doc fail - document is expired</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is ineligible type</fullName>
+                <default>false</default>
+                <label>Doc fail - document is ineligible type</label>
+            </value>
+            <value>
+                <fullName>Doc fail - suspected fraud, based on document</fullName>
+                <default>false</default>
+                <label>Doc fail - suspected fraud, based on document</label>
+            </value>
+            <value>
+                <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
+                <default>false</default>
+                <label>Doc fail - doc details are outside of fixable threshold</label>
+            </value>
+            <value>
+                <fullName>EV fail - retries exhausted on customer name variations</fullName>
+                <default>false</default>
+                <label>EV fail - retries exhausted on customer name variations</label>
+            </value>
+            <value>
+                <fullName>EV Fail - DVS has given fail response</fullName>
+                <default>false</default>
+                <label>EV Fail - DVS has given fail response</label>
+            </value>
+            <value>
+                <fullName>EV Fail - DVS system error response</fullName>
+                <default>false</default>
+                <label>EV Fail - DVS system error response</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Selfie fail - selfie image is not clear enough to match</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Selfie fail - document image is not clear enough to match</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Selfie fail - selfie image is clear, but not the same person</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Selfie fail - selfie image is clear, but a picture of a picture</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Selfie fail - suspected fraud, based on selfie</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Doc fail - document is a picture of a picture</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Doc fail - document is expired</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Doc fail - document is ineligible type</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Doc fail - suspected fraud, based on document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>Doc fail - doc details are outside of fixable threshold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>EV fail - retries exhausted on customer name variations</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>EV Fail - DVS has given fail response</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <valueName>EV Fail - DVS system error response</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

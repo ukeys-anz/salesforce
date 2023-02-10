@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>COB ID Ops Assistance Queue</name>
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <queueMembers>
+        <roles>
+            <role>FraudX_Agent</role>
+        </roles>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Case</sobjectType>
+    </queueSobject>
+</Queue>

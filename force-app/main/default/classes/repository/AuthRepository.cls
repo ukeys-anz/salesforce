@@ -6,14 +6,14 @@
  */
 public with sharing class AuthRepository extends RepositoryBase {
   public Service azureSvc;
-  public Service fabricSvc;
+  public Service authSvc;
   /**
    * @description initiate the service provider class;
    */
   public AuthRepository() {
     super();
     azureSvc = ServiceProvider.getService(AzureService.class);
-    fabricSvc = ServiceProvider.getService(FabricService.class);
+    authSvc = ServiceProvider.getService(AuthService.class);
   }
 
   /**
@@ -43,19 +43,41 @@ public with sharing class AuthRepository extends RepositoryBase {
   }
 
   /**
-   * @param ocvId ocv id
-   * @param idToken id token as the bearer token
-   * @param forgeAuth custom metadata which contains the client id and secret
+   * @param idType Enum for specifying which type of id is used: OCV ID or PERSONA ID
+   * @param idValue ocv id or persona Id
    * @return `IdentityModel` model class constructed from api response
    * @description fetches identity from fabric and deserialized to a model
    */
   public IdentityModel getForgeStaffToken(
-    String ocvId,
-    String idToken,
-    Forgerock_Auth__mdt forgeAuth
+    Service.IdType idType,
+    String idValue
   ) {
-    HttpCalloutResponse response = fabricSvc.getForgeJWTToken(
-      ocvId,
+    String idToken = '';
+    try {
+      idToken = AuthTokenCacheUtil.getSessionIdToken();
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+
+      throw new AuraHandledException(e.getMessage());
+    }
+
+    if (!Forgerock_Auth__mdt.sObjectType.getDescribe().isQueryable()) {
+      throw new AuraHandledException(
+        'Unable to query Foregerock - permission denied'
+      );
+    }
+
+    Forgerock_Auth__mdt forgeAuth = [
+      SELECT Id, Encrypted_Forge_Client_Id__c, Encrypted_Forge_Client_Secret__c
+      FROM Forgerock_Auth__mdt
+      WHERE DeveloperName = 'Forgerock'
+      LIMIT 1
+    ];
+
+    HttpCalloutResponse response = authSvc.getForgeJWTToken(
+      idType,
+      idValue,
       idToken,
       forgeAuth
     );

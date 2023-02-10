@@ -21,7 +21,7 @@ public with sharing class TestHelper {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
@@ -37,7 +37,7 @@ public with sharing class TestHelper {
       AuthTokenCacheUtil.STAFFPART +
       'forgeJWTToken' +
       ocvId,
-      ForgeTokenHandlerTest.IDTESTVALUE
+      AuthServiceTest.IDTESTVALUE
     );
   }
 }

@@ -17,7 +17,7 @@ public with sharing class TwilioService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       endPoint,
       HTTP_METHOD.HTTP_GET,
@@ -45,7 +45,7 @@ public with sharing class TwilioService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     InitiateChatPayload payload = new InitiateChatPayload();
     payload.messageBody = messageContent;
@@ -74,7 +74,7 @@ public with sharing class TwilioService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     ReinitiateChatPayload payload = new ReinitiateChatPayload();
     payload.conversationSid = conversationSid;
