@@ -177,7 +177,7 @@ public with sharing class IDRCaseNotificationManager {
       return;
     }
     List<Database.SaveResult> sr = EventBus.publish(notificationList);
-    Logger.error('',sr);
+    Logger.error('', sr);
     Logger.saveLog();
   }
 

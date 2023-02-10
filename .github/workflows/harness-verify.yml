@@ -33,11 +33,11 @@ jobs:
           GITHUB_REF: ${{ github.ref }}
           DRAFT_PR: ${{ github.event.pull_request.draft }}
           UPLOAD_ARTIFACT: ${{ !github.event.pull_request.draft }}
-          RUN_ALL_TESTS_LABEL: ${{ contains( toJson(github.event.pull_request.labels), 'Run All Tests') }}
+          RUN_SPECIFIED_TESTS_LABEL: ${{ contains( toJson(github.event.pull_request.labels), 'Run Specified Tests') }}
         with:
           application-name: salesforce
           harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key}}
           target-name: salesforce-ci-np
           target-type: WORKFLOW
-          variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }};DRAFT_PR=${{ env.DRAFT_PR }};RUN_ALL_TESTS=${{ env.RUN_ALL_TESTS_LABEL }}"
+          variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }};DRAFT_PR=${{ env.DRAFT_PR }};RUN_SPECIFIED_TESTS=${{ env.RUN_SPECIFIED_TESTS_LABEL }}"
           wait: True

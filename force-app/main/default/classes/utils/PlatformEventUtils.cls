@@ -16,20 +16,20 @@ public with sharing class PlatformEventUtils {
    * @return List<sObject> a list of published events
    */
   public static List<sObject> publishEvents(List<sObject> events) {
-    if (events != null) {
-      List<sObject> publishedEvents = new List<sObject>();
-
-      // Call method to publish events
-      List<Database.SaveResult> results = EventBus.publish(events);
-
-      // Inspect publishing result for each event that failed
-      for (Integer i = 0; i < results.size(); i++) {
-        if (results[i].isSuccess()) {
-          publishedEvents.add(events[i]); // Add the successfully published platform event to published events list
-        }
-      }
-      return publishedEvents; // Return the platform events that were successfully published
+    if (events == null || events.size() == 0) {
+      return new List<SObject>();
     }
-    return null;
+    List<sObject> publishedEvents = new List<sObject>();
+
+    // Call method to publish events
+    List<Database.SaveResult> results = EventBus.publish(events);
+
+    // Inspect publishing result for each event that failed
+    for (Integer i = 0; i < results.size(); i++) {
+      if (results[i].isSuccess()) {
+        publishedEvents.add(events[i]); // Add the successfully published platform event to published events list
+      }
+    }
+    return publishedEvents; // Return the platform events that were successfully published
   }
 }

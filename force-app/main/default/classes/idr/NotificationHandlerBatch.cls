@@ -44,7 +44,7 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
       handlerRecords,
       true
     );
-    Logger.error('',peResults);
+    Logger.error('', peResults);
     Logger.saveLog();
 
     //process the PE enqueued results and update the handler records accordingly
@@ -64,7 +64,7 @@ public with sharing class NotificationHandlerBatch implements Database.Batchable
     ) {
       List<Database.saveResult> result = Database.update(handlerRecords, false);
 
-      Logger.error('',result);
+      Logger.error('', result);
       Logger.saveLog();
     } else {
       CommonUtil.logAndThrowIAE(

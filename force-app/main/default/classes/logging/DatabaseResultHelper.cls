@@ -136,8 +136,7 @@ public with sharing class DatabaseResultHelper {
    * Wrapper created because when the isSuccess = false in database results then record Id is not available on the the result
    */
 
-  private class DatabaseResult{
-
+  private class DatabaseResult {
     private List<Database.Error> errors;
     private Id id;
     private Boolean success;
@@ -147,7 +146,7 @@ public with sharing class DatabaseResultHelper {
      * @param sr Record which failed during insert process
      */
 
-    private DatabaseResult(Database.SaveResult sr){
+    private DatabaseResult(Database.SaveResult sr) {
       this.id = sr.getId();
       this.success = sr.isSuccess();
       this.errors = sr.getErrors();
@@ -158,7 +157,7 @@ public with sharing class DatabaseResultHelper {
      * @param dr Record which failed during Delete process
      */
 
-    private DatabaseResult(Database.DeleteResult dr){
+    private DatabaseResult(Database.DeleteResult dr) {
       this.id = dr.getId();
       this.success = dr.isSuccess();
       this.errors = dr.getErrors();
@@ -169,7 +168,7 @@ public with sharing class DatabaseResultHelper {
      * @param udr Record which failed during Undelete process
      */
 
-    private DatabaseResult(Database.UndeleteResult udr){
+    private DatabaseResult(Database.UndeleteResult udr) {
       this.id = udr.getId();
       this.success = udr.isSuccess();
       this.errors = udr.getErrors();
@@ -180,7 +179,7 @@ public with sharing class DatabaseResultHelper {
      * @param er Record which failed during EmptyRecycleBin process
      */
 
-    private DatabaseResult(Database.EmptyRecycleBinResult er){
+    private DatabaseResult(Database.EmptyRecycleBinResult er) {
       this.id = er.getId();
       this.success = er.isSuccess();
       this.errors = er.getErrors();
@@ -192,8 +191,7 @@ public with sharing class DatabaseResultHelper {
    * Wrapper created because when the isSuccess = false in database results then record Id is not available on the the result
    */
 
-  private class DatabaseMergeResult{
-    
+  private class DatabaseMergeResult {
     private List<Database.Error> errors;
     private Id id;
     private Boolean success;
@@ -205,7 +203,7 @@ public with sharing class DatabaseResultHelper {
      * @param mr Record which failed during Merge process
      */
 
-    private DatabaseMergeResult(Database.MergeResult mr){
+    private DatabaseMergeResult(Database.MergeResult mr) {
       this.id = mr.getId();
       this.success = mr.isSuccess();
       this.errors = mr.getErrors();
@@ -219,8 +217,7 @@ public with sharing class DatabaseResultHelper {
    * Wrapper created because when the isSuccess = false in database results then record Id is not available on the the result
    */
 
-  private class DatabaseUpsertResult{
-    
+  private class DatabaseUpsertResult {
     private List<Database.Error> errors;
     private Id id;
     private Boolean success;
@@ -231,7 +228,7 @@ public with sharing class DatabaseResultHelper {
      * @param ur Record which failed during Upsert process
      */
 
-    private DatabaseUpsertResult(Database.UpsertResult ur){
+    private DatabaseUpsertResult(Database.UpsertResult ur) {
       this.id = ur.getId();
       this.success = ur.isSuccess();
       this.errors = ur.getErrors();
