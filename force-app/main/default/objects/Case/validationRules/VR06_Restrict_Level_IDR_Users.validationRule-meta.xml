@@ -7,10 +7,14 @@
 !ISNEW() &amp;&amp; 
 ($Permission.IDR_Level_2 || $Permission.IDR_Level_3)&amp;&amp;
 (RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; ||
-RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp;
-((!isChanged(OwnerId)&amp;&amp;!($User.Id = OwnerId || Is_Owner_s_Line_Manager_Me__c))||
-(isChanged(OwnerId) &amp;&amp; !(PRIORVALUE(OwnerId)=$User.Id || PRIORVALUE(Is_Owner_s_Line_Manager_Me__c))) ||
-(isChanged(Status) &amp;&amp;  ISPICKVAL(Status, &apos;Re-opened&apos;))
+  RecordType.DeveloperName = &apos;Customer_Complaint&apos;) &amp;&amp;
+(!isChanged(IDR_Additional_Correspondence_reviewed__c)) &amp;&amp;
+(
+  (!isChanged(OwnerId) &amp;&amp; !($User.Id = OwnerId || 
+    Is_Owner_s_Line_Manager_Me__c))||
+  (isChanged(OwnerId) &amp;&amp; !(PRIORVALUE(OwnerId)=$User.Id || 
+    PRIORVALUE(Is_Owner_s_Line_Manager_Me__c))) ||
+  (isChanged(Status) &amp;&amp; ISPICKVAL(Status, &apos;Re-opened&apos;))
 )</errorConditionFormula>
     <errorMessage>You are not authorized to make updates to this field.</errorMessage>
 </ValidationRule>

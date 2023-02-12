@@ -60,7 +60,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       Schema.sObjectType.Notification_Handler__c.isUpdateable() &&
       Schema.sObjectType.Notification_Handler__c.fields.Status__c.isUpdateable()
     ) {
-      List<Database.saveResult> result = Database.update(
+      List<Database.SaveResult> result = Database.update(
         notificationList,
         false
       );
@@ -137,7 +137,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
           ANZx_Customer__c,
           IDR_3rdParty_Relationship_To_Complainant__c
         FROM Case
-        WHERE id IN :caseIds
+        WHERE Id IN :caseIds
       ]
     );
 
@@ -183,9 +183,9 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     } else {
       prepareIDRNotificationEvent(notification, c);
     }
-    notification.Case_ID__c = c.ID;
+    notification.Case_ID__c = c.Id;
     notification.Case_Number__c = getFormattedCaseNumberToNotify(c);
-    notification.MessageID__c = '' + c.ID + Datetime.now().millisecond();
+    notification.MessageID__c = '' + c.Id + Datetime.now().millisecond();
     notification.SMSTemplate__c = IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
     return notification;
   }
@@ -266,8 +266,9 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   ) {
     if (!c.IDR_SwicthOff_3rd_Party_Notification__c) {
       if (
-        c.IDR_3rdParty_Relationship_To_Complainant__c == '20' &&
-        !String.isEmpty(c.IDR_NC_First_Name__c)
+        IDRConstants.COMPLAINANT_USE_FIRST_NAME.contains(
+          c.IDR_3rdParty_Relationship_To_Complainant__c
+        ) && !String.isEmpty(c.IDR_NC_First_Name__c)
       ) {
         notification.AuthorisedFirstName__c = c.IDR_NC_First_Name__c;
       } else {

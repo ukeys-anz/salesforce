@@ -125,7 +125,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   modalHeader = "Error";
   remedy2 = false;
   remedy3 = false;
-  avoidableEscalation = false;
   caseStatus = CLOSED_STATUS_API_NAME;
 
   isValidToClose = true;
@@ -269,14 +268,10 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       data.fields[OTHER_REMDY3.fieldApiName].value;
     this.closeFields[REMEDY_DURATION3.fieldApiName] =
       data.fields[REMEDY_DURATION3.fieldApiName].value;
-
     this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] =
       data.fields[AVOIDABLE_ESCALATION.fieldApiName].value;
     this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName] =
       data.fields[AVOIDABLE_ESCALATION_REASON.fieldApiName].value;
-    if (data.fields[AVOIDABLE_ESCALATION_REASON.fieldApiName].value !== null) {
-      this.avoidableEscalation = true;
-    }
     this.loadChild = true;
   }
 
@@ -308,9 +303,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
 
   handleRealFormNeeded(event) {
     if (event.detail !== YES_VALUE) {
-      this.isRealFormNeeded = this.isRealFormSubmitted = false;
+      this.isRealFormNeeded = "No";
     } else {
-      this.isRealFormNeeded = true;
+      this.isRealFormNeeded = "Yes";
     }
   }
 
@@ -421,7 +416,6 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         this.closeFields[REMEDY_DURATION3.fieldApiName] = value;
         break;
       case "IDR_Avoidable_Escalation__c":
-        this.avoidableEscalation = value;
         this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] = value;
         break;
       case "IDR_Avoidable_Escalation_Reason__c":
@@ -463,7 +457,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.errMsg += " Is Real form required, ";
     }
 
-    if (this.isRealFormNeeded && !this.realFormRefNo) {
+    if (this.isRealFormNeeded === "Yes" && !this.realFormRefNo) {
       validToSave = false;
       this.errMsg += " REAL Form MAX ID/ServiceNow ID, ";
     }
@@ -513,7 +507,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       validToSave3 = this.validateRemedy3Fields();
     }
 
-    if (this.avoidableEscalation) {
+    if (this.closeFields[AVOIDABLE_ESCALATION.fieldApiName]) {
       validToSave4 = this.validateAvoidableEscalationFields();
     }
 
@@ -885,16 +879,11 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   }
 
   validateAvoidableEscalationFields() {
-    let validToSave = true;
-    if (
-      this.closeFields[AVOIDABLE_ESCALATION.fieldApiName] === true &&
-      (!(AVOIDABLE_ESCALATION_REASON.fieldApiName in this.closeFields) ||
-        !this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName])
-    ) {
-      validToSave = false;
+    if (!this.closeFields[AVOIDABLE_ESCALATION_REASON.fieldApiName]) {
       this.errMsg += "Avoidable Escalation Reason";
+      return false;
     }
-    return validToSave;
+    return true;
   }
 
   openModal(msg) {

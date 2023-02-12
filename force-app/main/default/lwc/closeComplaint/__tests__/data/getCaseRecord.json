@@ -14,7 +14,7 @@
     "IDR_Financial_Compensation__c": "",
     "IDR_Complaint_Sub_Remedy__c": "1",
     "IDR_Real_Form_Req__c": {
-      "value": true
+      "value": "Yes"
     },
     "IDR_Real_Form_Ref_No__c": {
       "value": "12345"

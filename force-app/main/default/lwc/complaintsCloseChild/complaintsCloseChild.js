@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 import { getRecord } from "lightning/uiRecordApi";
+import { getObjectInfo } from "lightning/uiObjectInfoApi";
 import CASE_OBJECT from "@salesforce/schema/Case";
 import COMPLAINT_OUTCOME from "@salesforce/schema/Case.IDR_Complaint_Outcome__c";
 import OUTCOME_DESCRIPTION from "@salesforce/schema/Case.IDR_Description_of_Outcome__c";
@@ -179,9 +180,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
   remedyDurationValue2 = "";
   remedyDurationValue3 = "";
 
-  avoidableEscalationToggle = false;
+  avoidableEscalationValue = false;
   avoidableEscalationReasonValue = "";
-  showAvoidableEscalationReason = false;
 
   @api
   isRealFormNeededPublic;
@@ -207,6 +207,10 @@ export default class complaintsResolveLWC extends NavigationMixin(
   @api
   hasSecondIssue;
 
+  get isRealFormNeededBooleanValue() {
+    return this.isRealFormNeeded === "Yes";
+  }
+
   @api set expressCaseCreationDataObj(value) {
     this.dataChange = true;
     if (value !== undefined) {
@@ -223,6 +227,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.intializeExpressCaseCreationData();
     }
   }
+
+  yesNoOptions = [
+    { label: "Yes", value: "Yes" },
+    { label: "No", value: "No" }
+  ];
 
   get isCommonComplaint() {
     return this.isCommonComplaintYesNo === YES_VALUE;
@@ -248,13 +257,15 @@ export default class complaintsResolveLWC extends NavigationMixin(
     return typeof this.isRealFormNeeded === "undefined" ||
       this.isRealFormNeeded === null
       ? null
-      : this.isRealFormNeeded
-      ? "Yes"
-      : "No";
+      : this.isRealFormNeeded;
   }
 
   get showAdditionalIssues() {
     return this.hasSecondIssue || this.recordId;
+  }
+
+  get showAvoidableEscalationReason() {
+    return this.avoidableEscalationValue;
   }
 
   connectedCallback() {
@@ -265,6 +276,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
     this.systemicIssueDescription = this.systemicIssueDescriptionPublic;
     this.possibleSystemicIssues = this.possibleSystemicIssuesPublic;
   }
+
+  @wire(getObjectInfo, { objectApiName: CASE_OBJECT })
+  caseObjectInfo;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -306,7 +320,12 @@ export default class complaintsResolveLWC extends NavigationMixin(
       ) {
         this.isRealFormNeeded = data.fields.IDR_Real_Form_Req__c.value;
         if (this.recordId) {
-          this.isRealFormNeeded = this.isRealFormNeeded ? true : false;
+          this.isRealFormNeeded =
+            this.isRealFormNeeded === "Yes"
+              ? "Yes"
+              : this.isRealFormNeeded === "No"
+              ? "No"
+              : null;
         }
       }
       this.realFormRefNo = data.fields.IDR_Real_Form_Ref_No__c.value;
@@ -344,7 +363,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       this.remedyDurationValue2 = data.fields.IDR_Duration_of_Remedy_2__c.value;
       this.remedyDurationValue3 = data.fields.IDR_Duration_of_Remedy_3__c.value;
 
-      this.avoidableEscalationToggle =
+      this.avoidableEscalationValue =
         data.fields.IDR_Avoidable_Escalation__c.value;
       this.avoidableEscalationReasonValue =
         data.fields.IDR_Avoidable_Escalation_Reason__c.value;
@@ -471,11 +490,11 @@ export default class complaintsResolveLWC extends NavigationMixin(
         default:
       }
 
-      if (data.fields.Status.value === "Escalated") {
+      if (
+        data.fields.Status.value === "Escalated" ||
+        this.avoidableEscalationValue
+      ) {
         this.showAvoidableEscalation = true;
-        if (this.avoidableEscalationToggle === true) {
-          this.showAvoidableEscalationReason = true;
-        }
       }
     }
   }
@@ -723,9 +742,9 @@ export default class complaintsResolveLWC extends NavigationMixin(
 
   handleRealFormNeeded(event) {
     if (event.detail.value !== YES_VALUE) {
-      this.isRealFormNeeded = false;
+      this.isRealFormNeeded = "No";
     } else {
-      this.isRealFormNeeded = true;
+      this.isRealFormNeeded = "Yes";
     }
     let realFormNeededInput = this.template.querySelector(
       "[data-id='realFormRequiredGroup-id']"
@@ -1271,9 +1290,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
 
     sendVal.field = "IDR_Avoidable_Escalation__c";
-    sendVal.value = event.detail.checked;
-    this.avoidableEscalationToggle = event.detail.checked;
-    this.showAvoidableEscalationReason = event.detail.checked;
+    sendVal.value = this.avoidableEscalationValue = event.detail.checked;
 
     this.updateAvoidableEscalationReason();
 
@@ -1307,8 +1324,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     };
 
     sendVal.field = "IDR_Avoidable_Escalation_Reason__c";
-    sendVal.value = event.detail.value;
-    this.avoidableEscalationReasonValue = event.detail.value;
+    sendVal.value = this.avoidableEscalationReasonValue = event.detail.value;
 
     this.sendFieldValue(sendVal);
   }
@@ -1360,7 +1376,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
       realFormNeededInput.setCustomValidity("");
     }
     realFormNeededInput.reportValidity();
-    if (this.isRealFormNeeded) {
+    if (this.isRealFormNeeded === "Yes") {
       let realFormRefInput = this.template.querySelector(
         "[data-id='realFormRefNoGroup-id']"
       );
@@ -1384,7 +1400,7 @@ export default class complaintsResolveLWC extends NavigationMixin(
     }
     possibleSysIssueInput.reportValidity();
     this.template
-      .querySelectorAll("lightning-input-field")
+      .querySelectorAll("lightning-input-field, lightning-combobox")
       .forEach((element) => {
         element.reportValidity();
       });

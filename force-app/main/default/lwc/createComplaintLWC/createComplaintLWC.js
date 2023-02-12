@@ -607,9 +607,9 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   handleRealFormNeeded(event) {
     if (event.detail !== YES_VALUE) {
-      this.isRealFormNeeded = this.isRealFormSubmitted = false;
+      this.isRealFormNeeded = "No";
     } else {
-      this.isRealFormNeeded = true;
+      this.isRealFormNeeded = "Yes";
     }
   }
 
@@ -782,7 +782,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.missingDataFields +=
         /*inputCmp.label + ", "*/ " Is Real form required, ";
     }
-    if (this.isRealFormNeeded && !this.realFormRefNo) {
+    if (this.isRealFormNeeded === "Yes" && !this.realFormRefNo) {
       isFieldValid = false;
       this.missingDataFields +=
         /*inputCmp.label + ", "*/ " REAL Form MAX ID/ServiceNow ID, ";
@@ -970,14 +970,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
         fields.IsEscalated = true;
         fields[ESCALATED_TO.fieldApiName] = "1";
       }
-      if (this.isRealFormNeeded) {
-        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = true;
+      if (this.isRealFormNeeded === "Yes") {
+        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = "Yes";
         fields[IS_REAL_FORM_SUBMITTED.fieldApiName] = this.isRealFormSubmitted;
-        if (this.isRealFormNeeded) {
+        if (this.isRealFormNeeded === "Yes") {
           fields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
         }
+      } else if (this.isRealFormNeeded === "No") {
+        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = "No";
       } else {
-        fields[IS_REAL_FORM_NEED_FIELD.fieldApiName] = false;
         fields[REAL_FORM_REF_NO.fieldApiName] = null;
       }
       if (this.hasSecondIssue) {
@@ -1317,7 +1318,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       this.knownIssue = null;
       this.knownIssueChangeHandler(undefined);
     }
-    if (!this.isCommonComplaint && this.expressCMOS) {
+    if (!this.isCommonComplaint && this.expressCMOS && this.knownIssue) {
       this.isCommonComplaintYesNo = false;
       this.isCommonComplaint = "No";
       this.isRealFormNeeded = "No";
@@ -1441,10 +1442,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
       );
     }
 
-    this.isRealFormNeeded =
-      event === undefined
-        ? null
-        : JSON.parse(JSON.stringify(event.detail.IDR_REAL_Form_Required__c));
+    this.isRealFormNeeded = event === undefined ? null : "No";
+
     this.possibleSystemicIssues =
       event === undefined ? "" : event.detail.IDR_Possible_Systemic_Issue__c;
     const statusElement = this.template.querySelector(
