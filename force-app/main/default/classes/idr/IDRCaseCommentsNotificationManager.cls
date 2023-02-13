@@ -50,7 +50,9 @@ public with sharing class IDRCaseCommentsNotificationManager {
               caseRec.CaseNumber +
               ' ' +
               customerName;
-            assiTasks.add(IDRTaskActions.createAssignmentTask(caseRec, subjectStr));
+            Task newCorrsTask = IDRTaskActions.createAssignmentTask(caseRec, subjectStr);
+            newCorrsTask.Description = 'Tick the \'Additional Correspondence reviewed\' checkbox in CMOS once task has been actioned and closed';
+            assiTasks.add(newCorrsTask);
           }
         } 
         if (
