@@ -11,7 +11,7 @@
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Task.IDR_Task</value>
+        <value>Task.IDR_Task,Task.IDR_System_Task</value>
     </filters>
     <filters>
         <field>IS_CLOSED</field>
