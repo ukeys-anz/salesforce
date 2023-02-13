@@ -3711,19 +3711,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Overturn the IDR resolution</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reinstate the IDR resolution</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Incomplete IDR Resolution</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overturn the IDR resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reinstate the IDR resolution</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4260,7 +4260,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer/Business CAP ID</fullName>
+            <fullName>Customer%2FBusiness CAP ID</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4333,11 +4333,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4566,15 +4566,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Normal</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Violated</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Completed</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -6237,7 +6237,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Not working on device</fullName>
+            <fullName>No direct phone line</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6245,11 +6245,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>No direct phone line</fullName>
+            <fullName>Not working on device</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Request won&apos;t be actioned</fullName>
+            <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -7063,7 +7063,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Not working on device</fullName>
+            <fullName>No direct phone line</fullName>
             <default>false</default>
         </values>
         <values>
@@ -7071,11 +7071,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>No direct phone line</fullName>
+            <fullName>Not working on device</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Request won&apos;t be actioned</fullName>
+            <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -7190,20 +7190,20 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Email</fullName>
+            <fullName>ANZ Plus App</fullName>
             <default>false</default>
-        </values>
-        <values>
-            <fullName>Phone</fullName>
-            <default>true</default>
         </values>
         <values>
             <fullName>Chat</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>ANZ Plus App</fullName>
+            <fullName>Email</fullName>
             <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
