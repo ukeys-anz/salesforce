@@ -1,0 +1,18 @@
+<aura:component
+  controller="AegisController"
+  implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader,lightning:actionOverride"
+  access="global"
+>
+  <aura:attribute name="url" type="String" />
+  <aura:attribute name="errorStr" type="String" />
+  <aura:attribute name="showError" type="Boolean" default="false" />
+  <lightning:workspaceAPI aura:id="workspace" />
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+  <button
+    class="slds-button slds-button_neutral slds-button_stretch"
+    style="height: 25px"
+    onclick="{! c.openTabWithSubtab }"
+  >
+    Aegis portal
+  </button>
+</aura:component>

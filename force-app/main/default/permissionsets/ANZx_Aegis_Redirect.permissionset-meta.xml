@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>AegisController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AegisControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ANZx_Aegis_Portal</name>
+    </customPermissions>
+    <customSettingAccesses>
+        <enabled>true</enabled>
+        <name>Aegis_Env_Setting__c</name>
+    </customSettingAccesses>
+    <description>Permission set to grant Aegis redirect functionality access to Fraudx agents and IDops agents.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ANZx Aegis Redirect</label>
+</PermissionSet>
