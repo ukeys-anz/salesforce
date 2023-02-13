@@ -17,11 +17,7 @@ public with sharing class COBPIDViewAndEditController {
   @TestVisible
   private static final List<String> LICENCE_TOKENIZED_FIELDS = new List<String>{
     'LicenceNumber__c',
-    'LicenceNumberOCRClient__c',
-    'LicenceNumberOCRServer__c',
-    'LicenceCardNumber__c',
-    'LicenceCardNumberOCRClient__c',
-    'LicenceCardNumberOCRServer__c'
+    'LicenceCardNumber__c'
   };
 
   @TestVisible
