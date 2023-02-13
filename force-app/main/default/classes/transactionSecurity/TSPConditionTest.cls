@@ -45,6 +45,7 @@ public with sharing class TSPConditionTest {
 
     //WHEN the user want to query ReportEvent
     ReportEvent testEvent = new ReportEvent();
+    testevent.Operation = 'ReportExported';
 
     //THEN the condition should be true
     Boolean condtionResult = TSPCondition.condition(profileName, testEvent);
@@ -70,6 +71,7 @@ public with sharing class TSPConditionTest {
 
     //WHEN the user want to query ReportEvent
     ReportEvent testEvent = new ReportEvent();
+    testevent.Operation = 'ReportExported';
 
     //THEN the condition should be true
     Boolean condtionResult = TSPCondition.condition(profileName, testEvent);

@@ -832,7 +832,7 @@ public without sharing class IDRTaskActions {
       collectionTaskList,
       false
     );
-    Logger.error('',results);
+    Logger.error('', results);
     Logger.saveLog();
   }
 

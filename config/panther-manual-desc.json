@@ -19,6 +19,98 @@
       "Correct_Customer_Reference_Number__c": "Reference Number which correctly identifies the customer or invoice against which the payment is expected to be made.",
       "Customer_Reference_Number__c": "Reference Number which identifies the customer or invoice against which the payment is made."
     },
+    "COBAddress__c": {
+      "AddressBuildingName__c": "Building name (e.g. 'Polaris')",
+      "AddressCity__c": "City or suburb (e.g. 'Melbourne')",
+      "AddressDeliveryId__c": "The delivery identifier (DID) representing the immediate locale of the address",
+      "AddressLatitude__c": "The latitude part of the address's GPS coordinates",
+      "AddressLevelNumber__c": "Level number (e.g. 'Level 3')",
+      "AddressLongitude__c": "The longitude part of the address's GPS coordinates",
+      "AddressPostcode__c": "Post code (e.g. '3001')",
+      "AddressQASId__c": "The globally unique identifier used to represent the address in the QAS service",
+      "AddressResidenceNumber__c": "Residence/unit number (e.g. 'Unit 6')",
+      "AddressResidenceType__c": "Residence type (e.g. 'Apartment')",
+      "AddressState__c": "A state, usually abbreviated (e.g. 'VIC')",
+      "AddressStreetName__c": "Street name (e.g. 'Banksia')",
+      "AddressStreetNumber__c": "Street number (e.g. '82A')",
+      "AddressStreetSuffix__c": "A street suffix, also known as 'post directional' (e.g. 'North', as in 'Banksia Road North')",
+      "AddressStreetType__c": "Street type (e.g. 'Avenue')",
+      "AddressType__c": "The type of the address, (e.g. `CURRENT`, `PREVIOUS`, `MAILING`)",
+      "CustomerOnboardingApplication__c": "Master-Detail relationship field that looks up to the Customer Onboarding Application object",
+      "PersonaAddressType__c": "An address submitted by the user was either entered manually, or found through a Quick Address System (QAS) search",
+      "PersonaId__c": "The ForgeRock-minted UUID identifying the persona attempting to onboard",
+      "SubmittedAt__c": "UTC time when this address was collected"
+    },
+    "COBCitizenship__c": {
+      "PersonaId__c": "The ForgeRock-minted UUID identifying the persona attempting to onboard",
+      "PersonaCitizenship__c": "Composite key based on persona ID and citizenship, for uniquely identifying a citizenship record",
+      "SubmittedAt__c": "UTC time when this citizenship was collected",
+      "RegionCode__c": "The code identifying a citizenship-issuing country/region (defined by ANZ data governance)",
+      "RegionName__c": "The name of the country/region (defined by ANZ data governance)",
+      "Removed__c": "Flag indicating that this citizenship was removed in a subsequent submission",
+      "CustomerOnboardingApplication__c": "Master-Detail relationship field that looks up to the Customer Onboarding Application object"
+    },
+    "COBPrimaryIDDocument__c": {
+      "CountryOfIssue__c": "The country where the passport was issued, as submitted by the user",
+      "CountryOfIssueOCRClient__c": "OCR values for Country of Issue",
+      "CountryOfIssueOCRServer__c": "OCR values for Country of Issue",
+      "CustomerOnboardingApplication__c": "Master-Detail relationship field that looks up to the Customer Onboarding Application object",
+      "DaonDocumentId__c": "The unique ID assigned the uploaded document in Daon IdentityX",
+      "DaonLocationUri__c": "The persistent location in Daon IdenityX of the licence image and associated data",
+      "DateOfBirth__c": "Date of birth as submitted by the user",
+      "DateOfBirthOCRClient__c": "OCR values for Date of Birth",
+      "DateOfBirthOCRServer__c": "OCR values for Date of Birth",
+      "ExpiryDate__c": "The expiry date as submitted by the user",
+      "ExpiryDateOCRClient__c": "OCR values for Expiry Date",
+      "ExpiryDateOCRServer__c": "OCR values for Expiry Date",
+      "FirstName__c": "First name as submitted by the user",
+      "FirstNameOCRClient__c": "OCR values for First Name",
+      "FirstNameOCRServer__c": "OCR values for First Name",
+      "IdDocumentType__c": "The primary form of ID chosen (licence, passport etc)",
+      "LastName__c": "Last name as submitted by the user",
+      "LastNameOCRClient__c": "OCR values for Last Name",
+      "LastNameOCRServer__c": "OCR values for Last Name",
+      "LicenceCardNumber__c": "The unique card number as submitted by the user (TOKENISED)",
+      "LicenceCardNumberOCRClient__c": "OCR values for Licence Card Number",
+      "LicenceCardNumberOCRClientTransform__c": "Tokenisation transform type",
+      "LicenceCardNumberOCRServer__c": "OCR values for Licence Card Number",
+      "LicenceCardNumberOCRServerTransform__c": "Tokenisation transform type",
+      "LicenceCardNumberTransform__c": "Tokenisation transform type",
+      "LicenceNumber__c": "Licence number as submitted by the user (TOKENISED)",
+      "LicenceNumberOCRClient__c": "OCR values for Licence Number",
+      "LicenceNumberOCRClientTransform__c": "Tokenisation transform type",
+      "LicenceNumberOCRServer__c": "OCR values for Licence Number",
+      "LicenceNumberOCRServerTransform__c": "Tokenisation transform type",
+      "LicenceNumberTransform__c": "Tokenisation transform type",
+      "MiddleNames__c": "Middle name(s) or initial as submitted by the user",
+      "MiddleNamesOCRClient__c": "OCR values for Middle Names",
+      "MiddleNamesOCRServer__c": "OCR values for Middle Names",
+      "PassportNumber__c": "Passport number as submitted by the user (TOKENISED)",
+      "PassportNumberOCRClient__c": "OCR values for Passport Number",
+      "PassportNumberOCRClientTransform__c": "Tokenisation transform type",
+      "PassportNumberOCRServer__c": "OCR values for Passport Number",
+      "PassportNumberOCRServerTransform__c": "Tokenisation transform type",
+      "PassportNumberTransform__c": "Tokenisation transform type",
+      "PersonaDocumentId__c": "Composite key based on persona ID and document type, for uniquely identifying a document record",
+      "PersonaId__c": "The ForgeRock-minted UUID identifying the persona attempting to onboard",
+      "StateOfIssue__c": "The state where the licence was issued, as submitted by the user",
+      "StateOfIssueOCRClient__c": "OCR values for State of Issue",
+      "StateOfIssueOCRServer_c": "OCR values for State of Issue",
+      "SubmittedAt__c": "UTC time when the details of an ID document were collected"
+    },
+    "COBTaxResidency__c": {
+      "CustomerOnboardingApplication__c": "Master-Detail relationship field that looks up to the Customer Onboarding Application object",
+      "OmissionReasonCode__c": "The code identifying a valid omission reason (defined by ANZ data governance)",
+      "OmissionReasonDescription__c": "The descriptive text accompanying the reason code (defined by ANZ data governance)",
+      "PersonaId__c": "The ForgeRock-minted UUID identifying the persona attempting to onboard",
+      "PersonaTaxResidency__c": "Composite key based on persona ID and tax region, for uniquely identifying a tax residency record",
+      "RegionCode__c": "The code identifying a citizenship-issuing country/region (defined by ANZ data governance)",
+      "RegionName__c": "The name of the country/region (defined by ANZ data governance)",
+      "Removed__c": "Flag indicating that this tax residency was removed by the user, most likely to allow them to complete onboarding",
+      "SubmittedAt__c": "UTC time when this tax residency information was collected or subsequently removed",
+      "TaxIdentificationNumber__c": "Tax identification number (TIN), i.e. an Australian TFN or international equivalent (TOKENISED)",
+      "TaxIdentificationNumberTransform__c": "Tokenisation transform type"
+    },
     "Contact": {
       "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs."
     },
@@ -28,6 +120,51 @@
       "Party_who_sent_created_file__c": "Details of the party who sent or created the file",
       "Title": "The title of a document",
       "Document_Category__c": "Document Categorisation for complaints"
+    },
+    "CustomerOnboardingApplication__c": {
+      "AustralianTaxResident__c": "True if the prospect has declared they are an Australian resident for tax purposes",
+      "CXOnboardingAction__c": "The action taken by the user that led to this event (e.g. primary_id_document_submitted)",
+      "CXOnboardingStage__c": "The stage during onboarding that was the context of this event (e.g. primary_id_collection)",
+      "DaonEnrolmentId__c": "The ID of the selfie enrolment",
+      "DaonEnrolmentTime__c": "UTC time when the selfie was enrolled with Daon IdentityX",
+      "DaonEnrolmentType__c": "The type of enrolment",
+      "DaonEvaluationResultURI__c": "Link to the detailed ID evaluation results in Daon IdentityX, accessible by ID/Fraud agents",
+      "DaonFalseMatchRate__c": "The False Match Rate is the probability of a false match in Daon",
+      "DaonIdCheckPerformAt__c": "UTC time at which the results of this ID evaluation were known",
+      "DaonIdCheckResult__c": "The result of the ID evaluation returned by Daon IdentityX after comparing primary ID and selfie, e.g.: FAILED_DOC (the document did not match an accepted template), MATCH (the selfie matched the document photo), NO_MATCH (the document was valid but the selfie didn&apos;t match), FAILED",
+      "DaonIdEvaluationSuccessful__c": "Whether or not the ID check was successful overall",
+      "DaonScore__c": "The confidence assigned to the image comparison by Daon",
+      "DaonThreshold__c": "The threshold required for Daon to establish a successful match",
+      "ElectronicVerificationAcknowledged__c": "The user&apos;s response to the fact that EV has been completed",
+      "ElectronicVerificationAcknowledgedAt__c": "UTC time when the acknowledgement was registered",
+      "EmploymentStatus__c": "One of several valid employment statuses (defined by ANZ data governance)",
+      "EquifaxAECResult__c": "The Equifax result code generated by querying the AEC electoral roll",
+      "EquifaxAttemptCount__c": "Counter for Equifax check attempts. Used to prevent user from retrying Equifax once the limit is hit.",
+      "EquifaxCheckPerformAt__c": "UTC time at which the results of this Equifax EV check were known",
+      "EquifaxEnquiryId__c": "The unique identifier that can be used by an agent to search for the results of a single Equifax check in the API portal",
+      "EquifaxCRAResult__c": "The Equifax result code generated by querying the Credit Risk Assessment database",
+      "EquifaxDVSResult__c": "The Equifax result code generated by querying government Document Verification Services",
+      "EquifaxMatrixURI__c": "Link to the individual&apos;s result matrix in the Equifax API portal, accessible by ID/Fraud agents",
+      "EquifaxOverallResult__c": "The overall pass/fail result for the most recent EV call for this persona",
+      "ForeignTaxResident__c": "True if the prospect has declared that they have tax obligations outside of Australia",
+      "OccupationCode__c": "The code identifying a valid occupation (defined by ANZ data governance)",
+      "OccupationDescription__c": "The descriptive text accompanying the occupation code (defined by ANZ data governance)",
+      "OccupationSubmittedAt__c": "UTC time when these occupation details were collected",
+      "OccurredAt__c": "UTC time of the relevant occurrence (user action or system action)",
+      "OCVId__c": "The OCVID supplied by OCV, which initially refers to the shadow profile and eventually the full customer profile",
+      "OnboardingEvent__c": "The most recent onboarding event for this prospect, that was triggered by either a user action or a downstream system response",
+      "PersonId__c": "The ForgeRock-minted UUID identifying the person attempting to onboard",
+      "PersonaId__c": "The ForgeRock-minted UUID identifying the persona attempting to onboard",
+      "PreferredName__c": "The user&apos;s preferred name",
+      "SecurityDetailsSubmittedAt__c": "UTC time when user security details were collected",
+      "SecurityEmail__c": "The email entered during prospect registration",
+      "SecurityMobile__c": "The mobile number of the person&apos;s registered device",
+      "SelfieRegisteredAt__c": "UTC time when this selfie was enrolled",
+      "SelfieRegistrationChallengeId__c": "The unique ID for the selfie challenge created by Daon IdentityX",
+      "TaxResidencyStatusDeclaredAt__c": "UTC time when this tax residency declaration was made",
+      "TncAcceptedAt__c": "UTC time when the terms and conditions were accepted",
+      "TncName__c": "The specific T&amp;C list that was accepted (i.e., the code for the package or product)",
+      "TncVersion__c": "The version of the T&amp;Cs that were accepted"
     },
     "FinServ__FinancialAccount__c": {
       "FinServ__Balance__c": "Balance amount in customer's financial account excluding pending transactions",
@@ -162,10 +299,15 @@
     "Case": "Record of a customer interaction",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
     "Coaching_Summary__c": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
+    "COBAddress__c": "A structured address compatible with both QAS lookup results and manual entry by the prospect",
+    "COBCitizenship__c": "The details of a single citizenship in a country/region",
+    "COBPrimaryIDDocument__c": "The details submitted for a primary document (licence or passport), including the original OCR extractions which may have been edited",
+    "COBTaxResidency__c": "The details of a single tax residency in a country/region",
     "Contact": "Contact details of an individual person. Forms part of a person account",
     "ContactRequest": "Represents a request made by the customer to connect with the coach",
     "ContentDocumentLink": "Represents the link between a Salesforce CRM Content document, Salesforce file, or ContentNote and where it's shared",
     "ContentVersion": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
+    "CustomerOnboardingApplication__c": "The main record maintaining Salesforce's copy of the state of a prospect's onboarding journey",
     "Customer_Profile_Updates__c": "This custom object is a staging object which will store the changes made by the bankers on Account and all Contact Point objects.",
     "EmailMessage": "Represents an email in Salesforce.",
     "Event": "Represents a calendar entry in Salesforce",
@@ -808,7 +950,10 @@
         "IDR_Customer_Number__c",
         "Settlement_Date__c"
       ],
-      "IA-2530753": ["IDR_Product_Family__c"],
+      "IA-2530753": [
+        "IDR_Product_Family__c",
+        "OnboardingVerificationFailedReason__c"
+      ],
       "IA-2415840": [
         "Advocacy_Score__c",
         "Alerting_Reason__c",
@@ -820,7 +965,8 @@
         "IDR_Avoidable_Escalation_Reason__c",
         "Closure_Reason__c"
       ],
-      "IA-2415860": ["Package_Id__c"]
+      "IA-2415860": ["Package_Id__c", "Status_Update_Error__c"],
+      "IA-2594111": ["CustomerOnboardingApplication__c", "PersonaId__c"]
     },
     "CFMS_Migrated_Document__c": {
       "IA-2453595": [
@@ -854,6 +1000,148 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+
+    "COBAddress__c": {
+      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2415984": [
+        "AddressBuildingName__c",
+        "AddressCity__c",
+        "AddressLatitude__c",
+        "AddressLevelNumber__c",
+        "AddressLongitude__c",
+        "AddressPostcode__c",
+        "AddressResidenceNumber__c",
+        "AddressResidenceType__c",
+        "AddressState__c",
+        "AddressStreetName__c",
+        "AddressStreetNumber__c"
+      ],
+      "IA-2530753": [
+        "AddressStreetSuffix__c",
+        "AddressStreetType__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name"
+      ],
+      "IA-2594111": [
+        "AddressDeliveryId__c",
+        "AddressType__c",
+        "AddressQASId__c",
+        "PersonaAddressType__c",
+        "PersonaId__c",
+        "CustomerOnboardingApplication__c"
+      ]
+    },
+    "COBCitizenship__c": {
+      "IA-2594111": [
+        "PersonaId__c",
+        "PersonaCitizenship__c",
+        "CustomerOnboardingApplication__c"
+      ],
+      "IA-2415860": ["SubmittedAt__c", "Removed__c"],
+      "IA-2415984": ["RegionCode__c", "RegionName__c"],
+      "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name"
+      ]
+    },
+    "COBPrimaryIDDocument__c": {
+      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2594111": [
+        "PersonaId__c",
+        "PersonaDocumentId__c",
+        "DaonDocumentId__c",
+        "DaonLocationUri__c",
+        "CustomerOnboardingApplication__c"
+      ],
+      "IA-2594116": [
+        "IdDocumentType__c",
+        "StateOfIssue__c",
+        "StateOfIssueOCRServer__c",
+        "StateOfIssueOCRClient__c",
+        "ExpiryDate__c",
+        "ExpiryDateOCRServer__c",
+        "ExpiryDateOCRClient__c",
+        "CountryOfIssue__c",
+        "CountryOfIssueOCRServer__c",
+        "CountryOfIssueOCRClient__c"
+      ],
+      "IA-2415984": [
+        "FirstName__c",
+        "FirstNameOCRServer__c",
+        "FirstNameOCRClient__c",
+        "MiddleNames__c",
+        "MiddleNamesOCRServer__c",
+        "MiddleNamesOCRClient__c",
+        "LastName__c",
+        "LastNameOCRServer__c",
+        "LastNameOCRClient__c",
+        "DateOfBirth__c",
+        "DateOfBirthOCRServer__c",
+        "DateOfBirthOCRClient__c"
+      ],
+      "IA-2415992": [
+        "LicenceNumber__c",
+        "LicenceNumberOCRServer__c",
+        "LicenceNumberOCRClient__c",
+        "LicenceCardNumber__c",
+        "LicenceCardNumberOCRServer__c",
+        "LicenceCardNumberOCRClient__c",
+        "PassportNumber__c",
+        "PassportNumberOCRServer__c",
+        "PassportNumberOCRClient__c"
+      ],
+      "IA-2530753": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name",
+        "LicenceCardNumberOCRClientTransform__c",
+        "LicenceCardNumberOCRServerTransform__c",
+        "LicenceCardNumberTransform__c",
+        "LicenceNumberOCRClientTransform__c",
+        "LicenceNumberOCRServerTransform__c",
+        "LicenceNumberTransform__c",
+        "PassportNumberOCRClientTransform__c",
+        "PassportNumberOCRServerTransform__c",
+        "PassportNumberTransform__c"
+      ]
+    },
+    "COBTaxResidency__c": {
+      "IA-2415860": ["Removed__c", "SubmittedAt__c"],
+      "IA-2415984": [
+        "OmissionReasonCode__c",
+        "OmissionReasonDescription__c",
+        "RegionCode__c",
+        "RegionName__c"
+      ],
+      "IA-2415992": [
+        "TaxIdentificationNumber__c",
+        "TaxIdentificationNumberTransform__c"
+      ],
+      "IA-2530753": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "Name"
+      ],
+      "IA-2594111": [
+        "PersonaId__c",
+        "PersonaTaxResidency__c",
+        "CustomerOnboardingApplication__c"
       ]
     },
     "Contact": {
@@ -996,6 +1284,60 @@
         "State_Code__c"
       ]
     },
+    "CustomerOnboardingApplication__c": {
+      "IA-2594111": [
+        "EquifaxEnquiryId__c",
+        "PersonId__c",
+        "PersonaId__c",
+        "OCVId__c",
+        "SelfieRegistrationChallengeId__c",
+        "DaonEnrolmentId__c"
+      ],
+      "IA-2415860": [
+        "OccurredAt__c",
+        "CXOnboardingStage__c",
+        "CXOnboardingAction__c",
+        "OnboardingEvent__c",
+        "SecurityDetailsSubmittedAt__c",
+        "TncAcceptedAt__c",
+        "SelfieRegisteredAt__c",
+        "DaonEvaluationResultURI__c",
+        "DaonIdCheckPerformAt__c",
+        "EquifaxCheckPerformAt__c",
+        "EquifaxMatrixURI__c",
+        "OccupationSubmittedAt__c",
+        "TaxResidencyStatusDeclaredAt__c",
+        "ElectronicVerificationAcknowledgedAt__c",
+        "ElectronicVerificationAcknowledged__c",
+        "EquifaxAttemptCount__c"
+      ],
+      "IA-2415984": [
+        "SecurityMobile__c",
+        "SecurityEmail__c",
+        "PreferredName__c",
+        "EmploymentStatus__c",
+        "OccupationCode__c",
+        "OccupationDescription__c",
+        "AustralianTaxResident__c",
+        "ForeignTaxResident__c"
+      ],
+      "IA-2415995": ["TncName__c", "TncVersion__c"],
+      "IA-2415997": [
+        "DaonEnrolmentType__c",
+        "DaonEnrolmentTime__c",
+        "DaonFalseMatchRate__c",
+        "DaonIdCheckResult__c",
+        "DaonIdEvaluationSuccessful__c",
+        "DaonScore__c",
+        "DaonThreshold__c",
+        "EquifaxDVSResult__c",
+        "EquifaxAECResult__c",
+        "EquifaxCRAResult__c",
+        "EquifaxOverallResult__c"
+      ],
+      "IA-2530753": ["OwnerId", "CreatedById", "LastModifiedById", "Name"]
+    },
+
     "Customer_Profile_Updates__c": {
       "IA-2415828": [
         "AsIsValue__c",

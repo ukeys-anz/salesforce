@@ -9,7 +9,6 @@
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>Queue__c</field>
         <operation>equals</operation>
@@ -20,8 +19,9 @@
         <operation>equals</operation>
         <value>IDR CCR</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>IDR CCR</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>

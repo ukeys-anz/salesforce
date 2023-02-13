@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Business_Admin_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with Business Admin with Read Only access.</description>
+        <label>Business Admin RO All</label>
+        <sharedTo>
+            <role>Business_Admin</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>FinCrime_Agent_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with FinCrime Agent with Read Only access.</description>
+        <label>FinCrime Agent RO All</label>
+        <sharedTo>
+            <role>FinCrime_Agent</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>FraudX_Agent_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with FraudX Agent with Read Only access.</description>
+        <label>FraudX Agent RO All</label>
+        <sharedTo>
+            <role>FraudX_Agent</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Join_Lead_RO_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with Join Lead with Read Only access.</description>
+        <label>Join Lead RO All</label>
+        <sharedTo>
+            <role>Join_Lead</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

@@ -101,7 +101,7 @@ public with sharing class CCRMLeadActions {
       !updateLeads.isEmpty()
     ) {
       List<Database.saveResult> results = Database.update(updateLeads, false);
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }
@@ -208,7 +208,7 @@ public with sharing class CCRMLeadActions {
         newCampaignMembers,
         false
       );
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }
@@ -713,7 +713,7 @@ public with sharing class CCRMLeadActions {
       Schema.sObjectType.Lead.fields.ABN_Validation_Status__c.isUpdateable()
     ) {
       List<Database.saveResult> results = Database.update(updateLeads, false);
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }
@@ -740,7 +740,7 @@ public with sharing class CCRMLeadActions {
       Schema.sObjectType.Lead.fields.ACN_Validation_Status__c.isUpdateable()
     ) {
       List<Database.saveResult> results = Database.update(updateLeads, false);
-      Logger.error('',results);
+      Logger.error('', results);
       Logger.saveLog();
     }
   }

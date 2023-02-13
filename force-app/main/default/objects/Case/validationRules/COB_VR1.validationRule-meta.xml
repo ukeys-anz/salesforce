@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COB_VR1</fullName>
+    <active>true</active>
+    <description>Prevents users, that don&apos;t have permission, changing status from &apos;Daon Failed&apos; to either &apos;Equifax Failed/Passed&apos; or &apos;Confirm Fraud&apos; and from &apos;ID Ops: Daon Approved&apos; to  either &apos;Equifax Failed/Passed&apos; or &apos;Failed (OK)&apos;, &apos;Potential Fraud&apos; or &apos;Confirm Fraud&apos;</description>
+    <errorConditionFormula>AND(
+    NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),  
+    NOT( $Permission.ANZx_Edit_COB_Case_Status ),   
+    RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;,
+    OR(
+       AND(
+           ISPICKVAL( PRIORVALUE( Status ), &quot;Daon Failed&quot;),
+           OR( 
+              ISPICKVAL( Status, &quot;Equifax Failed&quot; ),
+              ISPICKVAL( Status, &quot;Equifax Passed&quot; ),
+              ISPICKVAL( Status, &quot;Confirmed Fraud&quot; )
+           )
+       ),
+       AND(
+           ISPICKVAL( PRIORVALUE( Status ), &quot;ID Ops: Daon Approved&quot;),
+           OR( 
+              ISPICKVAL( Status, &quot;Equifax Failed&quot; ),
+              ISPICKVAL( Status, &quot;Equifax Passed&quot; ),
+              ISPICKVAL( Status, &quot;Failed (OK)&quot; ),
+              ISPICKVAL( Status, &quot;Potential Fraud&quot; ),
+              ISPICKVAL( Status, &quot;Confirmed Fraud&quot; )
+           ) 
+       )
+    )    
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to change the status from &apos;Daon Failed&apos; to &apos;Equifax Failed&apos;, &apos;Equifax Passed&apos; or &apos;Confirmed Fraud&apos; and from &apos;ID Ops: Daon Approved&apos; to &apos;Equifax Failed&apos;, &apos;Equifax Passed&apos;, &apos;Failed (OK)&apos;, &apos;Potential Fraud&apos; or &apos;Confirmed Fraud&apos;.</errorMessage>
+</ValidationRule>

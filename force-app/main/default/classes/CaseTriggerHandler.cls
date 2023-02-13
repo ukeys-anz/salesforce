@@ -55,6 +55,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
     SICaseActions.afterInsert(records);
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
+    CaseCEController.publishCloudEvents(records);
   }
 
   /**
@@ -120,6 +121,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleDisputesPEGAIntegration(
       records,
+      (Map<Id, Case>) oldMap
+    );
+    CaseCEController.publishCloudEvents(records, (Map<Id, Case>) oldMap);
+    GetHelpCaseActions.createFraudCheckCase(
+      (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
   }

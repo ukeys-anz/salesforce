@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COB_VR2</fullName>
+    <active>true</active>
+    <description>Prevents users from changing status for &apos;ID Ops Assistance&apos; Case from any of the Closed statuses: &apos;Equifax Passed&apos;, &apos;Failed (OK)&apos; or &apos;Confirmed Fraud&apos;</description>
+    <errorConditionFormula>AND(
+    NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),  
+    RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;,
+    OR( 
+        ISPICKVAL( PRIORVALUE( Status ), &quot;Equifax Passed&quot;),
+        ISPICKVAL( PRIORVALUE( Status ), &quot;Failed (OK)&quot;),
+        ISPICKVAL( PRIORVALUE( Status ), &quot;Confirmed Fraud&quot;)
+    ), 
+    ISCHANGED( Status )    
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to change status from either &apos;Equifax Passed&apos;, &apos;Failed (OK)&apos; or &apos;Confirmed Fraud&apos; statuses</errorMessage>
+</ValidationRule>

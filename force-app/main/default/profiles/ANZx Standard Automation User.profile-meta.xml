@@ -75,6 +75,14 @@
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Fraud Check Layout</layout>
+        <recordType>Case.Fraud_Check</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-ID Ops Assistance Layout</layout>
+        <recordType>Case.ID_Ops_Assistance</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Lead-ANZX Lead Layout</layout>
         <recordType>Lead.ANZX_Leads</recordType>
     </layoutAssignments>
