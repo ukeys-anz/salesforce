@@ -14,7 +14,8 @@ public with sharing class FileUtil {
   public static Boolean checkExtension(String mimeType, String fileName) {
     List<String> extensions = getExtensions(mimeType);
     if (
-      extensions != null && extensions.contains(fileName.substringAfter('.'))
+      extensions != null &&
+      extensions.contains(fileName.substringAfterLast('.'))
     ) {
       return true;
     } else {
