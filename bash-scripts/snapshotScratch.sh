@@ -23,7 +23,8 @@ mv .forceignore ci.forceignore
 cp harness.forceignore h.forceignore
 mv harness.forceignore .forceignore
 echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
-echo -e "\nforce-app/main/default/sharingRules/Case.sharingRules-meta.xml" >> .forceignore
+echo -e "\nforce-app/main/default/sharingRules" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Lead/fields/Id.field-meta.xml" >> .forceignore
 echo -e "\nforce-app/main/default/permissionsetgroups/Shared_Admin.permissionsetgroup-meta.xml" >> .forceignore
 echo -e "\nforce-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionsetgroup-meta.xml" >> .forceignore
 echoMessageCreator "" $stepNo false
@@ -73,6 +74,10 @@ echoMessageCreator "" $stepNo false
 # pre deploy : change on some files
 echoMessageCreator "Pre Deploy Checking Step" $stepNo true
 changeMetadata force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml IDRRestriction 
+changeMetadata force-app/main/default/objects/Case/fields/IDR_3rdParty_Country__c.field-meta.xml IDRRestriction 
+changeMetadata force-app/main/default/objects/Case/fields/IDR_NC_State__c.field-meta.xml IDRNCState
+changeMetadata force-app/main/default/objects/Case/fields/OnboardingVerificationFailedReason__c.field-meta.xml OnboardingVerificationFailedReason
+changeMetadata force-app/main/default/settings/Address.settings-meta.xml AddressSettings
 changeMetadata force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml SIWorkflow 
 changeMetadata force-app/main/default/permissionsets/Mvision_Permissions.permissionset-meta.xml Mvision
 changeMetadata force-app/main/default/permissionsets/Read_Only_Admin.permissionset-meta.xml readOnly
@@ -140,12 +145,7 @@ echoMessageCreator "" $stepNo false
 # post deploy: to make all the files back to what it was and deploy them
 echoMessageCreator "Post Deploy" $stepNo true
 mv h.forceignore .forceignore
-sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules/Case.sharingRules-meta.xml"
-
-touch empty.forceignore
-echo "# .forceignore v2" >> empty.forceignore
-mv empty.forceignore .forceignore
-sfdx force:source:deploy -p force-app/main/default/sharingRules/Account.sharingRules-meta.xml,force-app/main/default/sharingRules/Customer_Profile_Updates__c.sharingRules-meta.xml
+sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules"
 
 git checkout .
 sfdx force:source:deploy -u $scratchorgalias -p force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml

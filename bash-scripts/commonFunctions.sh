@@ -55,18 +55,26 @@ function changeMetadata(){
     echo $1
     context=$(<"$1")
 
-    if [[ $2 == 'IDRRestriction' ]];then
+    if [[ $2 == 'IDRRestriction' || $2 == 'IDR3rdParty' || $2 == 'SIWorkflow' || $2 == 'IDRNCState' || $2 == 'OnboardingVerificationFailedReason' ]];then
         replace=$( sed 's+<trackFeedHistory>false</trackFeedHistory>+<!--<trackFeedHistory>false</trackFeedHistory>-->+g' "$1" )
         echo $replace > "$1"
         replace=$( sed "s+<trackHistory>true</trackHistory>+<!--<trackHistory>true</trackHistory>-->+g" "$1" )
         echo $replace > "$1"
         replace=$( sed "s+<trackTrending>false</trackTrending>+<!--<trackTrending>false</trackTrending>-->+g" "$1" )
         echo $replace > "$1"
-    elif [[ $2 == 'SIWorkflow' ]];then
         replace=$( sed "s+<controllingFieldValue>Open</controllingFieldValue>+<!--<controllingFieldValue>Open</controllingFieldValue>-->+g" "$1")
         echo $replace > "$1"
     elif [[ $2 == 'IsotopeSubscription' ]];then
         replace=$( sed "s+<excludedStandardButtons>IsotopeSubscription</excludedStandardButtons>+<!-- <excludedStandardButtons>IsotopeSubscription</excludedStandardButtons> -->+g" "$1" )
+        echo $replace > "$1"
+    elif [[ $2 == 'AddressSettings' ]]; then
+        replace=$( sed "s+<label>Czech Republic</label>+<label>Czechia</label>+g" "$1" )
+        echo $replace > "$1"
+        replace=$( sed "s+<label>Macedonia, the former Yugoslav Republic of</label>+<label>North Macedonia</label>+g" "$1" )
+        echo $replace > "$1"
+        replace=$( sed "s+<label>Swaziland</label>+<label>Eswatini</label>+g" "$1" )
+        echo $replace > "$1"
+        replace=$( sed "s+<label>Turkey</label>+<label>Türkiye</label>+g" "$1" )
         echo $replace > "$1"
     else
         f=$(echo $context | sed 's/\n//g')
