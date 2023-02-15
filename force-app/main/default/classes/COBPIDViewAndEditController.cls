@@ -141,13 +141,13 @@ public with sharing class COBPIDViewAndEditController {
       Id = recordId,
       FirstName__c = idDocumentType == PASSPORT_TYPE
         ? response.passport.firstName
-        : response.licence.firstName,
+        : response.australianDriverLicence.firstName,
       MiddleNames__c = idDocumentType == PASSPORT_TYPE
         ? response.passport.middleNames
-        : response.licence.middleNames,
+        : response.australianDriverLicence.middleNames,
       LastName__c = idDocumentType == PASSPORT_TYPE
         ? response.passport.lastName
-        : response.licence.lastName,
+        : response.australianDriverLicence.lastName,
       DateOfBirth__c = idDocumentType == PASSPORT_TYPE
         ? Date.newInstance(
             response.passport.dateOfBirth.year,
@@ -155,9 +155,9 @@ public with sharing class COBPIDViewAndEditController {
             response.passport.dateOfBirth.day
           )
         : Date.newInstance(
-            response.licence.dateOfBirth.year,
-            response.licence.dateOfBirth.month,
-            response.licence.dateOfBirth.day
+            response.australianDriverLicence.dateOfBirth.year,
+            response.australianDriverLicence.dateOfBirth.month,
+            response.australianDriverLicence.dateOfBirth.day
           )
     );
 
@@ -166,11 +166,19 @@ public with sharing class COBPIDViewAndEditController {
         tokenizedData.PassportNumber__c = response.passport.passportNumberToken.value;
       }
     } else if (idDocumentType == LICENCE_TYPE) {
-      if (String.isNotBlank(response.licence.licenceNumberToken?.value)) {
-        tokenizedData.LicenceNumber__c = response.licence.licenceNumberToken.value;
+      if (
+        String.isNotBlank(
+          response.australianDriverLicence.licenceNumberToken?.value
+        )
+      ) {
+        tokenizedData.LicenceNumber__c = response.australianDriverLicence.licenceNumberToken.value;
       }
-      if (String.isNotBlank(response.licence.licenceCardNumberToken?.value)) {
-        tokenizedData.LicenceCardNumber__c = response.licence.licenceCardNumberToken.value;
+      if (
+        String.isNotBlank(
+          response.australianDriverLicence.licenceCardNumberToken?.value
+        )
+      ) {
+        tokenizedData.LicenceCardNumber__c = response.australianDriverLicence.licenceCardNumberToken.value;
       }
     }
 

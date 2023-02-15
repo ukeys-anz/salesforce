@@ -41,7 +41,7 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
 
   // part of the tokenization response
   public DocumentDetail passport;
-  public DocumentDetail licence;
+  public DocumentDetail australianDriverLicence;
 
   /**
    * @description constructor to build COBPrimaryIDDocumentModel
@@ -229,7 +229,7 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
       requestBody.primaryIdDocument.australianDriverLicence = detail;
       requestBody.primaryIdDocument.australianDriverLicence.dateOfBirth = dob;
       requestBody.primaryIdDocument.australianDriverLicence.licenceNumber = record.LicenceNumber__c;
-      requestBody.primaryIdDocument.australianDriverLicence.licenceNumber = record.LicenceCardNumber__c;
+      requestBody.primaryIdDocument.australianDriverLicence.licenceCardNumber = record.LicenceCardNumber__c;
     }
 
     return requestBody;
