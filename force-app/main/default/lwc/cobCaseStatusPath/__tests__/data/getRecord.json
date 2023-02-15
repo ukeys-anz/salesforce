@@ -1,0 +1,30 @@
+{
+  "apiName": "Case",
+  "childRelationships": {},
+  "fields": {
+    "OnboardingVerificationFailedReason__c": {
+      "displayValue": null,
+      "value": null
+    },
+    "RecordTypeId": {
+      "displayValue": null,
+      "value": "0122O000002Ue7hQAC"
+    },
+    "Status": {
+      "displayValue": "Equifax Passed",
+      "value": "Equifax Passed"
+    }
+  },
+  "id": "5002O00000DQc7oQAD",
+  "lastModifiedById": "0052O0000043PTjQAM",
+  "lastModifiedDate": "2023-01-09T03:27:45.000Z",
+  "recordTypeId": "0122O000002Ue7hQAC",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "ID Ops Assistance",
+    "recordTypeId": "0122O000002Ue7hQAC"
+  },
+  "systemModstamp": "2023-01-09T03:27:45.000Z"
+}

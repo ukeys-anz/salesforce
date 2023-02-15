@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomerOnboardingApplication__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Temporal</complianceGroup>
+    <description>Master-Detail relationship field that looks up to the Customer Onboarding Application object</description>
+    <externalId>false</externalId>
+    <label>Customer Onboarding Application</label>
+    <referenceTo>CustomerOnboardingApplication__c</referenceTo>
+    <relationshipLabel>COB Citizenships</relationshipLabel>
+    <relationshipName>COBCitizenships</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

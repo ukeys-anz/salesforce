@@ -61,7 +61,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
     );
     Test.startTest();
     insert externalCaseStatus;
-    Test.stopTest();
+
     theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
     System.assertEquals(
       caseStatusBefore,
@@ -70,6 +70,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
     );
     verifyCloudEventForExternalCase(externalCaseStatus, theCase);
     verifyRelatedCaseUpdate(theCase);
+    Test.stopTest();
     //}
   }
 

@@ -641,4 +641,52 @@ Feel free to contact us if you have any questions. You can find our contact info
         <shortDescription>Regex_Phone</shortDescription>
         <value>^\+?61[0-9]{9}+$</value>
     </labels>
+    <labels>
+        <fullName>ST_Retry_Stage</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Onboarding Retry API</shortDescription>
+        <value>/customer-onboarding/v1/retryStage</value>
+    </labels>
+    <labels>
+        <fullName>ST_ApproveSelfieIDCheck</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Onboarding Approve Selfie ID Check API</shortDescription>
+        <value>/customer-onboarding/v1/approveSelfieIdCheck</value>
+    </labels>
+    <labels>
+        <fullName>ST_Confirm_Fraud</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Onboarding Confirm Fraud API</shortDescription>
+        <value>/customer-onboarding/v1/confirmFraud</value>
+    </labels>
+    <labels>
+        <fullName>ST_Detokenize</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Onboarding Detokenize COBPID API</shortDescription>
+        <value>/customer-info/v1/detokenize</value>
+    </labels>
+    <labels>
+        <fullName>ST_Approve_ID_Verification</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Onboarding Approve ID Verification API</shortDescription>
+        <value>/customer-onboarding/v1/approveIdVerification</value>
+    </labels>
+    <labels>
+        <fullName>ST_UpdatePrimaryIdDocument</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Onboarding UpdatePrimaryIdDocument API</shortDescription>
+        <value>/customer-onboarding/v1/updatePrimaryIdDocument</value>
+    </labels>
 </CustomLabels>

@@ -28,6 +28,9 @@ public with sharing class GetHelpCaseActions {
   public static Group accountClosureQueue = CommonUtil.getQueueByName(
     'Account_Closure_Queue'
   );
+  public static Group cobFraudCheckQueue = CommonUtil.getQueueByName(
+    'COB_Fraud_Check_Queue'
+  );
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -619,8 +622,9 @@ public with sharing class GetHelpCaseActions {
       if (
         !roleByCombinedKeyMap.containsKey(
           combinedKeyByCaseIndexMap.get(caseIndex)
-        ) // If an active financial role does not exist for a case's combined key, aka this case does not have an ACTIVE financial role between its customer account and financial account
+        )
       ) {
+        // If an active financial role does not exist for a case's combined key, aka this case does not have an ACTIVE financial role between its customer account and financial account
         caseByIndexMap.get(caseIndex)
           .addError(MISALIGNED_FINANCIAL_ACCOUNT_ERROR); // The case will not be created
       }
@@ -848,6 +852,54 @@ public with sharing class GetHelpCaseActions {
   ) {
     for (Case c : caseList) {
       c.Subject = 'Account Closure - ' + accountList.get(c.AccountId).Name;
+    }
+  }
+
+  /**
+   * @description Creates a Fraud Check case everytime a ID Ops Assists case gets changed to 'Potential Fraud' status
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void createFraudCheckCase(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> fraudCheckCases = new List<Case>();
+
+    for (Case c : records) {
+      Case oldC = oldMap.get(c.Id);
+
+      if (
+        c.RecordTypeId == GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID &&
+        c.Status == GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS &&
+        oldC?.Status != GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS
+      ) {
+        Case fraudCheckCase = new Case(
+          RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
+          ParentId = c.Id,
+          OwnerId = cobFraudCheckQueue.Id,
+          Subject = 'Fraud Check Case',
+          CustomerOnboardingApplication__c = c.CustomerOnboardingApplication__c
+        );
+
+        if (oldC?.Status == GetHelpConstants.COB_DAON_FAILED_STATUS) {
+          fraudCheckCase.Status = GetHelpConstants.COB_DAON_FAILED_STATUS;
+        } else if (oldC?.Status == GetHelpConstants.COB_EQUIFAX_FAILED_STATUS) {
+          fraudCheckCase.Status = GetHelpConstants.COB_EQUIFAX_FAILED_STATUS;
+        }
+
+        fraudCheckCases.add(fraudCheckCase);
+      }
+    }
+
+    if (!fraudCheckCases.isEmpty()) {
+      List<Database.SaveResult> results = Database.insert(
+        fraudCheckCases,
+        false
+      );
+
+      Logger.debug('Results of inserting Fraud Check cases', results);
+      Logger.saveLog();
     }
   }
 }

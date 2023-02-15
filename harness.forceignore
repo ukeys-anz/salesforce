@@ -24,17 +24,7 @@ Trial Customer Portal User.profile
 # SFDX based permissions that are only available in Production
 force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
 force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
-
-# Ignoring sharing rules for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
-# The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
-force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
-force-app/main/default/sharingRules/Account.sharingRules-meta.xml
-force-app/main/default/sharingRules/Customer_Profile_Updates__c.sharingRules-meta.xml
-force-app/main/default/sharingRules/User.sharingRules-meta.xml
-force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
-force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
-force-app/main/default/sharingRules/Opportunity.sharingRules-meta.xml
-force-app/main/default/sharingRules/Product_Family__c.sharingRules-meta.xml
+force-app/main/default/permissionsets/Prod_Only_Backup_Restore.permissionset-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
 Enforce_SSO.permissionset

@@ -36,7 +36,7 @@ public with sharing class CardManagementService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
 
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('x-span-id', UniqueIdUtil.generateSpanId());
     headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     headers.put('Content-Type', 'application/json');

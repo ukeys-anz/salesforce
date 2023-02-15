@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function checkFieldBusinessStatus() {
+    fieldMetadata=$( cat $1 )
+    f=$(basename "$1") && f=${f/.field-meta.xml}
+    if [[ $fieldMetadata != *"<businessStatus>"* ]];then
+        echo "$2.$f : Missed businessStatus"
+    elif [[ $fieldMetadata == *"<businessStatus>Hidden</businessStatus>"* ]];then
+        echo "$2.$f : Hidden field"
+    fi        
+}
+
 function checkFieldMetadataInformation() {
     fieldMetadata=$( cat $1 )
     f=$(basename "$1") && f=${f/.field-meta.xml}
@@ -37,11 +47,14 @@ if [[ -d ./tmp/deploy/force-app/main/default/objects ]];then
         if [[ -d $o/fields ]];then
             objectName=$(basename "$o")
             pantherIdsField=$(node ./ci/sysl-check.js "$objectName" )
-            echo ""
 
             for f in $o/fields/*;do
-                checkFieldMetadataInformation $f $objectName
-                checkPantherIdInformation $f $objectName $pantherIdsField
+                checkBusinessStatus=$( checkFieldBusinessStatus $f $objectName )
+                echo $checkBusinessStatus
+                if [[ $checkBusinessStatus != *"Hidden"* ]];then
+                    checkFieldMetadataInformation $f $objectName
+                    checkPantherIdInformation $f $objectName $pantherIdsField
+                fi
             done
         fi
     done

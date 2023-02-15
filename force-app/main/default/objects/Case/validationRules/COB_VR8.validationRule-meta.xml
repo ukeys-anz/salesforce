@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COB_VR8</fullName>
+    <active>true</active>
+    <description>Prevents users from picking up a case that was already assigned to another agent.</description>
+    <errorConditionFormula>AND(
+    NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
+    $UserRole.DeveloperName &lt;&gt; &quot;Join_Lead&quot;,
+    $UserRole.DeveloperName &lt;&gt; &quot;Business_Admin&quot;,
+    OR(
+       RecordType.DeveloperName = &quot;Fraud_Check&quot;,
+       RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;
+    ),
+    ISCHANGED(OwnerId), 
+    NOT(LEFT(OwnerId, 3) = &quot;00G&quot;),
+    LEFT(PRIORVALUE(OwnerId), 3) = &quot;005&quot;, 
+    PRIORVALUE(OwnerId) &lt;&gt; $User.Id       
+)</errorConditionFormula>
+    <errorMessage>The case has already been assigned to another agent, please pickup another case.</errorMessage>
+</ValidationRule>

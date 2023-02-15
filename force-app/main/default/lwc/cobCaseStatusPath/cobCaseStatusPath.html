@@ -1,0 +1,136 @@
+<template>
+  <article class="slds-card">
+    <div class="slds-card__body slds-var-m-horizontal_medium slds-is-relative">
+      <div if:false={isLoaded}>
+        <lightning-spinner
+          alternative-text="Loading..."
+          variant="brand"
+          size="small"
+        >
+        </lightning-spinner>
+      </div>
+
+      <lightning-layout>
+        <lightning-layout-item flexibility="auto">
+          <lightning-progress-indicator
+            current-step={currentStep}
+            type="path"
+            variant="base"
+          >
+            <template for:each={pathSteps} for:item="step">
+              <lightning-progress-step
+                label={step.label}
+                value={step.value}
+                key={step.label}
+              >
+              </lightning-progress-step>
+            </template>
+          </lightning-progress-indicator>
+        </lightning-layout-item>
+
+        <lightning-layout-item
+          flexibility="auto, no-grow"
+          class="slds-var-m-left_medium"
+        >
+          <lightning-button
+            variant="brand"
+            label="Update Status"
+            title="Update Status"
+            class="slds-var-m-left_x-small"
+            onclick={handleClickUpdate}
+          >
+          </lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </article>
+
+  <!-- modal start -->
+  <template if:true={showModal}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <!-- modal header start -->
+        <header class="slds-modal__header">
+          <h2
+            id="modal-heading-01"
+            class="slds-text-heading_medium slds-hyphenate"
+          >
+            Update Status
+          </h2>
+        </header>
+
+        <!-- modal body start -->
+        <div
+          class="slds-modal__content slds-var-p-around_medium slds-is-relative"
+          id="modal-content-id-1"
+        >
+          <div if:false={isModalLoaded}>
+            <lightning-spinner
+              alternative-text="Loading..."
+              variant="brand"
+              size="medium"
+            >
+            </lightning-spinner>
+          </div>
+
+          <lightning-combobox
+            class="status slds-var-m-bottom_small"
+            name="Status"
+            label="Status"
+            placeholder="Select Status"
+            options={statusOptions}
+            value={currentStatus}
+            onchange={handleStatusChange}
+            required
+          >
+          </lightning-combobox>
+
+          <template if:true={isFailedOKSelected}>
+            <lightning-combobox
+              class="failedReason"
+              name="Onboarding Verification Failed Reason"
+              label="Onboarding Verification Failed Reason"
+              placeholder="--None--"
+              options={failedReasonOptions}
+              value={currentFailedReason}
+              disabled={isFailedReasonDisabled}
+              onchange={handleFailedReasonChange}
+              required
+            >
+            </lightning-combobox>
+          </template>
+        </div>
+
+        <!-- modal footer start-->
+        <footer class="slds-modal__footer">
+          <lightning-button
+            variant="neutral"
+            label="Cancel"
+            title="Cancel"
+            onclick={handleHideModal}
+            disabled={isModalButtonDisable}
+          >
+          </lightning-button>
+          <lightning-button
+            variant="brand"
+            label="Done"
+            title="Done"
+            class="slds-var-m-left_x-small"
+            onclick={handleUpdateStatus}
+            disabled={isModalButtonDisable}
+          >
+          </lightning-button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  <!-- modal end -->
+</template>
