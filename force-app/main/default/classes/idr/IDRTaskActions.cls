@@ -20,6 +20,7 @@ public without sharing class IDRTaskActions {
 
   @TestVisible
   private static final String START_COLLECTIONS_SUBJECT = 'START Collection';
+  public static final String NEW_FILE_SUBJECT = 'New File added by';
 
   public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
 
@@ -78,11 +79,16 @@ public without sharing class IDRTaskActions {
         record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
         record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
       ) {
-        CommonUtil.handleMasking(
-          record,
-          null,
-          SObjectType.Task.fieldSets.IDR_Masked_Fields.getFields()
-        );
+        if (
+          record.Subject == null ||
+          !record.Subject.containsIgnoreCase(NEW_FILE_SUBJECT)
+        ) {
+          CommonUtil.handleMasking(
+            record,
+            null,
+            SObjectType.Task.fieldSets.IDR_Masked_Fields.getFields()
+          );
+        }
         populateFieldsOnTask(record, null);
       }
     }
@@ -119,28 +125,11 @@ public without sharing class IDRTaskActions {
   }
   /**
    * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
-   * @param records task record for insert 
+   * @param records task record for insert
    */
   public static Void insertAssignmentTask(List<Task> records) {
     if (!records.isEmpty()) {
-      //insert Assignment Tasks on New Correspondence received on Closed Complaint
-      if (
-        Task.SObjectType.getDescribe().isCreateable() &&
-        Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
-        Schema.SObjectType.Task.fields.IsReminderSet.isCreateable() &&
-        Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
-        Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
-        Schema.SObjectType.Task.fields.Subject.isCreateable() &&
-        Schema.SObjectType.Task.fields.WhatId.isCreateable()
-      ) {
-        insert records;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActions',
-          'createAssignmentTask',
-          'Not enough permissions to create Task.'
-        );
-      }
+      IDRTaskActionHelper.insertAssignmentTask(records);
     }
   }
   /**
@@ -149,10 +138,7 @@ public without sharing class IDRTaskActions {
    * @param subject of the task record
    * @return An instance of a Task
    */
-  public static Task createAssignmentTask(
-    Case c,
-    String subject
-  ) {
+  public static Task createAssignmentTask(Case c, String subject) {
     return new Task(
       RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
       OwnerId = c.OwnerId,
@@ -713,7 +699,8 @@ public without sharing class IDRTaskActions {
       record.IDR_Is_Common__c == 'Yes' && //is case PSI
       FeatureManagement.checkPermission(IDR_LEVEL_1) && //is user level 1 or higher?
       record.IsClosed &&
-      (oldRec == null || //if case is created closed
+      (oldRec ==
+      null || //if case is created closed
       (oldRec.Status != record.Status &&
       (!(siCaseTasks.containsKey(record.Id)))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
       //This could be a Reopen to closure scenario therefore make sure another task is not created.

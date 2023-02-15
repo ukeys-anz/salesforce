@@ -25,9 +25,22 @@ public with sharing class IDRCaseCommentsNotificationManager {
             (caseRec.IDR_NC_First_Name__c != null
               ? caseRec.IDR_NC_First_Name__c + ' '
               : '') +
-            (caseRec.IDR_NC_Last_Name__c != null ? caseRec.IDR_NC_Last_Name__c : '') +
-            '\n')
+            (caseRec.IDR_NC_Last_Name__c != null
+              ? caseRec.IDR_NC_Last_Name__c
+              : ''))
           : '';
+        String subjectStr = (customerName != '')
+          ? ('New Correspondence received on a Closed Complaint added by ' +
+            UserInfo.getName() +
+            ' on case ' +
+            caseRec.CaseNumber +
+            ' ' +
+            customerName)
+          : ('New Correspondence received on a Closed Complaint added by ' +
+            UserInfo.getName() +
+            ' on case ' +
+            caseRec.CaseNumber);
+        customerName = (customerName != '') ? customerName + '\n' : '';
         if (
           caseRec.OwnerId != record.CreatedById &&
           IDRCaseActions.isIDRComplaintType(caseRec)
@@ -43,18 +56,14 @@ public with sharing class IDRCaseCommentsNotificationManager {
             caseRec.Status == 'Withdrawn' ||
             caseRec.Status == 'Resolved'
           ) {
-            String subjectStr = 
-              'New Correspondence received on a Closed Complaint added by ' +
-              UserInfo.getName() +
-              ' on case ' +
-              caseRec.CaseNumber +
-              ' ' +
-              customerName;
-            Task newCorrsTask = IDRTaskActions.createAssignmentTask(caseRec, subjectStr);
+            Task newCorrsTask = IDRTaskActions.createAssignmentTask(
+              caseRec,
+              subjectStr
+            );
             newCorrsTask.Description = 'Tick the \'Additional Correspondence reviewed\' checkbox in CMOS once task has been actioned and closed';
             assiTasks.add(newCorrsTask);
           }
-        } 
+        }
         if (
           (caseRec.Status == 'Closed' ||
           caseRec.Status == 'Withdrawn' ||

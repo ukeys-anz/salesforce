@@ -119,19 +119,31 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         if (
           oCase.OwnerId !=
           contentDocMap.get(record.ContentDocumentId).OwnerId &&
-          UserInfo.getFirstName() !=
-          IDRConstants.EMAIl_USER_FNAME &&
+          UserInfo.getFirstName() != IDRConstants.EMAIl_USER_FNAME &&
           IDRCaseActions.isIDRComplaintType(oCase)
         ) {
           String customerName = (oCase.IDR_NC_First_Name__c != null ||
             oCase.IDR_NC_Last_Name__c != null)
             ? ('Customer Name : ' +
-            (oCase.IDR_NC_First_Name__c != null
-            ? oCase.IDR_NC_First_Name__c + ' '
-            : '') +
-            (oCase.IDR_NC_Last_Name__c != null ? oCase.IDR_NC_Last_Name__c : '') +
-            '\n')
+              (oCase.IDR_NC_First_Name__c != null
+                ? oCase.IDR_NC_First_Name__c + ' '
+                : '') +
+              (oCase.IDR_NC_Last_Name__c != null
+                ? oCase.IDR_NC_Last_Name__c
+                : ''))
             : '';
+          String subjectStr = (customerName != '')
+            ? ('New File added by ' +
+              UserInfo.getName() +
+              ' on case ' +
+              oCase.CaseNumber +
+              ' ' +
+              customerName)
+            : ('New File added by ' +
+              UserInfo.getName() +
+              ' on case ' +
+              oCase.CaseNumber);
+          customerName = (customerName != '') ? customerName + '\n' : '';
           wrapperList.add(
             createNotification(
               oCase,
@@ -139,13 +151,6 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
               customerName
             )
           );
-          String subjectStr =
-          'New File added by ' +
-          UserInfo.getName() +
-          ' on case ' +
-          oCase.CaseNumber +
-          ' ' +
-          customerName;
           assiTasks.add(IDRTaskActions.createAssignmentTask(oCase, subjectStr));
         }
 
@@ -178,8 +183,8 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     } catch (Exception err) {
       Logger.error(
         'Error in creating Case Comment when attachment is added for the existing Case :' +
-        oCase.Id +
-        err.getMessage(),
+          oCase.Id +
+          err.getMessage(),
         err
       );
       Logger.saveLog();
@@ -257,7 +262,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
    * @description Builds a notification using IDRBankerNotificationWrapper class
    * @param record case record from the trigger
    * @param cdRecord contentDocument record from the trigger
-   * @param customerName customer name from case record 
+   * @param customerName customer name from case record
    * @return IDRBankerNotificationWrapper new instance of wrapper class
    */
   private static IDRBankerNotificationWrapper createNotification(
@@ -269,9 +274,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       cdRecord,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      customerName +
-      'New File added by ' +
-      UserInfo.getName(),
+      customerName + 'New File added by ' + UserInfo.getName(),
       record
     );
     return wrapper;
