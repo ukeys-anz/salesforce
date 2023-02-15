@@ -3,6 +3,7 @@
     <description>Permission Set Group consolidating all Permissions related to FraudX Agent functions.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>FraudX Agent</label>
+    <permissionSets>ANZx_Aegis_Redirect</permissionSets>
     <permissionSets>Account_Closure_LWC</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>BoH_Read_Only</permissionSets>

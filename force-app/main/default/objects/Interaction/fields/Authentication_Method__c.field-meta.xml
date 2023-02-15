@@ -69,25 +69,30 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Call Transfer - Authenticated</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Could not authenticate</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Manually Authenticated</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
-            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Not Required</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
             <valueName>SMS - OTP</valueName>
         </valueSettings>
         <valueSettings>

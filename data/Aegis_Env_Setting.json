@@ -1,0 +1,13 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Aegis_Env_Setting__c",
+        "referenceId": "AegisRefProdId"
+      },
+      "Env_Name__c": "Prod",
+      "Aegis_URL__c": "https://aegis-early-access.identity-services-prod-int-gw.apps-int.x.gcp.anz",
+      "Name": "Prod"
+    }
+  ]
+}
