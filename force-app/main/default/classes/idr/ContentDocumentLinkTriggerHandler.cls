@@ -120,7 +120,10 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           oCase.OwnerId !=
           contentDocMap.get(record.ContentDocumentId).OwnerId &&
           UserInfo.getFirstName() != IDRConstants.EMAIl_USER_FNAME &&
-          IDRCaseActions.isIDRComplaintType(oCase)
+          IDRCaseActions.isIDRComplaintType(oCase) &&
+          !(oCase.Status == 'Closed' ||
+          oCase.Status == 'Withdrawn' ||
+          oCase.Status == 'Resolved')
         ) {
           String customerName = (oCase.IDR_NC_First_Name__c != null ||
             oCase.IDR_NC_Last_Name__c != null)
@@ -144,6 +147,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
               ' on case ' +
               oCase.CaseNumber);
           customerName = (customerName != '') ? customerName + '\n' : '';
+
           wrapperList.add(
             createNotification(
               oCase,
