@@ -1,4 +1,4 @@
-const reportJson = require('../coverage.json');
+const reportJson = require('./coverage.json');
 
 const findCodeCoverageReport = () => reportJson["result"]["details"]["runTestResult"]["codeCoverage"]
 
