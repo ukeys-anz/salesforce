@@ -304,6 +304,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   handleRealFormNeeded(event) {
     if (event.detail !== YES_VALUE) {
       this.isRealFormNeeded = "No";
+      this.realFormRefNo = "";
     } else {
       this.isRealFormNeeded = "Yes";
     }
