@@ -8,7 +8,10 @@
       var state = response.getState();
       if (state === "SUCCESS") {
         var result = JSON.stringify(response.getReturnValue());
-        if (result.startsWith("http")) {
+        var getElementIndex = result.indexOf("http");
+
+        // if getElementIndex is not equal to -1 it's means list contains this element.
+        if (getElementIndex != -1 || result.startsWith("http")) {
           component.set("v.url", response.getReturnValue());
         } else {
           component.set(
@@ -58,21 +61,7 @@
             });
             workspaceAPI.focusTab({ tabId: response });
             workspaceAPI.focusTab({ tabId: subtabId });
-          })
-          .catch(function (error) {
-            helper.showToast(
-              "error",
-              "Could not set Aegis Tab Icon. Please reload screen or Contact your Salesforce administrator for help.",
-              "Error!"
-            );
           });
-      })
-      .catch(function (error) {
-        helper.showToast(
-          "error",
-          "Could not set Aegis Tab label. Please reload screen or Contact your Salesforce administrator for help.",
-          "Error!"
-        );
       });
     if ($A.util.isUndefined(aegisURL)) {
       helper.showToast("error", component.get("v.errorStr"), "Error!");
