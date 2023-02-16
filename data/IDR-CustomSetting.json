@@ -10,5 +10,11 @@
     "saveRefs": false,
     "resolveRefs": true,
     "files": ["IDR-EmailService-Setting-NonProd.json"]
+  },
+  {
+    "sobject": "Aegis_Env_Setting__c",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": ["Aegis_Env_Setting.json"]
   }
 ]
