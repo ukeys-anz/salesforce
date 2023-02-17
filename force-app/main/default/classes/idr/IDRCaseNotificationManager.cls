@@ -34,7 +34,9 @@ public with sharing class IDRCaseNotificationManager {
             UserInfo.getUserId() != records[i].OwnerId &&
             IDRCaseActions.isIDRComplaintType(records[i])
           ) {
-            wrapperList.add(createNotification(fieldLabel, records[i], null));
+            if (!(fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID))){
+              wrapperList.add(createNotification(fieldLabel, records[i], null));
+            }
             assiTasks.addAll(
               createNotificationTask(fieldLabel, records[i], null)
             );
@@ -102,13 +104,6 @@ public with sharing class IDRCaseNotificationManager {
       );
     } else {
       msgBody = fieldLabel + 'field has been changed';
-      if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
-        msgBody =
-          customerName +
-          'Case ' +
-          c.CaseNumber +
-          ' has been assigned to you';
-      }
       if (
         fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
         c.Status != IDRConstants.ESCALATED_STATUS
@@ -168,10 +163,7 @@ public with sharing class IDRCaseNotificationManager {
       }
     }
     if (subjectStr != null) {
-      Task assiTaskRec = IDRTaskActions.createAssignmentTask(
-        c,
-        subjectStr
-      );
+      Task assiTaskRec = IDRTaskActions.createAssignmentTask(c, subjectStr);
       if (fieldLabel == 'Email Response Attached') {
         assiTaskRec.Description = 'Any attachments included with this email will be available to view in the \'Files\' tab in CMOS';
       }

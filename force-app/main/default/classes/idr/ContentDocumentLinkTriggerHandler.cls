@@ -146,15 +146,6 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
               UserInfo.getName() +
               ' on case ' +
               oCase.CaseNumber);
-          customerName = (customerName != '') ? customerName + '\n' : '';
-
-          wrapperList.add(
-            createNotification(
-              oCase,
-              contentDocMap.get(record.ContentDocumentId),
-              customerName
-            )
-          );
           assiTasks.add(IDRTaskActions.createAssignmentTask(oCase, subjectStr));
         }
 
@@ -173,9 +164,6 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       }
     }
 
-    if (!wrapperList.isEmpty()) {
-      IDRBankerNotificationBuilder.sendNotification(wrapperList);
-    }
     if (!assiTasks.isEmpty()) {
       //insert Assignment Tasks on New File Attached
       IDRTaskActions.insertAssignmentTask(assiTasks);
