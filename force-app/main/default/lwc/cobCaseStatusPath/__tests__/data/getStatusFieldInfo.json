@@ -1,0 +1,78 @@
+{
+  "controllerValues": {},
+  "defaultValue": {
+    "attributes": {
+      "picklistAtrributesValueType": "CaseStatus",
+      "closed": false
+    },
+    "label": "Daon Failed",
+    "validFor": [],
+    "value": "Daon Failed"
+  },
+  "url": "/services/data/v57.0/ui-api/object-info/Case/picklist-values/0122O000002Ue7hQAC/Status",
+  "values": [
+    {
+      "attributes": {
+        "picklistAtrributesValueType": "CaseStatus",
+        "closed": false
+      },
+      "label": "Daon Failed",
+      "validFor": [],
+      "value": "Daon Failed"
+    },
+    {
+      "attributes": {
+        "picklistAtrributesValueType": "CaseStatus",
+        "closed": false
+      },
+      "label": "ID Ops: Daon Approved",
+      "validFor": [],
+      "value": "ID Ops: Daon Approved"
+    },
+    {
+      "attributes": {
+        "picklistAtrributesValueType": "CaseStatus",
+        "closed": false
+      },
+      "label": "Equifax Failed",
+      "validFor": [],
+      "value": "Equifax Failed"
+    },
+    {
+      "attributes": {
+        "picklistAtrributesValueType": "CaseStatus",
+        "closed": true
+      },
+      "label": "Equifax Passed",
+      "validFor": [],
+      "value": "Equifax Passed"
+    },
+    {
+      "attributes": {
+        "picklistAtrributesValueType": "CaseStatus",
+        "closed": true
+      },
+      "label": "Failed (OK)",
+      "validFor": [],
+      "value": "Failed (OK)"
+    },
+    {
+      "attributes": {
+        "picklistAtrributesValueType": "CaseStatus",
+        "closed": false
+      },
+      "label": "Potential Fraud",
+      "validFor": [],
+      "value": "Potential Fraud"
+    },
+    {
+      "attributes": {
+        "picklistAtrributesValueType": "CaseStatus",
+        "closed": true
+      },
+      "label": "Confirmed Fraud",
+      "validFor": [],
+      "value": "Confirmed Fraud"
+    }
+  ]
+}

@@ -14,9 +14,6 @@ public with sharing class FabricServiceMock extends Service {
   }
 
   @TestVisible
-  private static final String FORGE_TOKEN_RESPONSE = '{"access_token":"xxxxx","expires_in":900}';
-
-  @TestVisible
   private static final String LOCK_CARD_RESPONSE = getStaticResource(
     'mock_cardControl'
   );
@@ -132,23 +129,6 @@ public with sharing class FabricServiceMock extends Service {
   ) {
     if (!preset) {
       response.body = FabricServiceMock.GET_STATEMENTURL;
-    }
-    return response;
-  }
-  /**
-   * @param ocvId ocv id
-   * @param idToken id token as the bearer token
-   * @param forgeAuth custom metadata which contains the client id and secret
-   * @return `HttpCalloutResponse` api response
-   * @description fetches fake response
-   */
-  public override HttpCalloutResponse getForgeJWTToken(
-    String ocvId,
-    String idToken,
-    Forgerock_Auth__mdt forgeAuth
-  ) {
-    if (!preset) {
-      response.body = FabricServiceMock.FORGE_TOKEN_RESPONSE;
     }
     return response;
   }

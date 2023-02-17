@@ -1,0 +1,555 @@
+<template>
+  <div class="slds-is-relative">
+    <!-- sldsValidatorIgnoreNextLine -->
+    <lightning-quick-action-panel header={panelHeader}>
+      <div if:false={isLoaded}>
+        <lightning-spinner alternative-text="Loading..." variant="brand">
+        </lightning-spinner>
+      </div>
+
+      <div class="slds-var-p-around_xx-small">
+        <template if:true={reachedEditLimit}>
+          <div
+            class="slds-box slds-box_x-small slds-notify slds-notify_alert slds-var-m-bottom_medium"
+            role="alert"
+          >
+            You can no longer edit this record as it has reached the limit of
+            editing.
+          </div>
+        </template>
+
+        <div class="slds-form-element">
+          <!-- ------------------------------------------ Names ------------------------------------------ -->
+          <div class="slds-box slds-box_xx-small box-background">
+            <lightning-layout multiple-rows>
+              <!-- ------------------------------------------ First Name ------------------------------------------ -->
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="First Name"
+                    value={data.FirstName__c}
+                    data-id="FirstName__c"
+                    onchange={handleFieldChange}
+                    read-only={readOnly}
+                  >
+                  </lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="First Name OCR Client"
+                    value={data.FirstNameOCRClient__c}
+                    data-id="FirstNameOCRClient__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  >
+                  </lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="First Name OCR Server"
+                    value={data.FirstNameOCRServer__c}
+                    data-id="FirstNameOCRServer__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  >
+                  </lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <!-- ------------------------------------------ Middle Name ------------------------------------------ -->
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="Middle Names"
+                    value={data.MiddleNames__c}
+                    data-id="MiddleNames__c"
+                    onchange={handleFieldChange}
+                    read-only={readOnly}
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="Middle Names OCR Client"
+                    value={data.MiddleNamesOCRClient__c}
+                    data-id="MiddleNamesOCRClient__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="Middle Names OCR Server"
+                    value={data.MiddleNamesOCRServer__c}
+                    data-id="MiddleNamesOCRServer__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <!-- ------------------------------------------ Last Name ------------------------------------------ -->
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="Last Name"
+                    value={data.LastName__c}
+                    data-id="LastName__c"
+                    onchange={handleFieldChange}
+                    read-only={readOnly}
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="Last Name OCR Client"
+                    value={data.LastNameOCRClient__c}
+                    data-id="LastNameOCRClient__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="text"
+                    label="Last Name OCR Server"
+                    value={data.LastNameOCRServer__c}
+                    data-id="LastNameOCRServer__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <!-- ------------------------------------------ Date of Birth ------------------------------------------ -->
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="date"
+                    label="Date of Birth"
+                    value={data.DateOfBirth__c}
+                    data-id="DateOfBirth__c"
+                    onchange={handleFieldChange}
+                    read-only={readOnly}
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="date"
+                    label="Date of Birth OCR Client"
+                    value={data.DateOfBirthOCRClient__c}
+                    data-id="DateOfBirthOCRClient__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+
+              <lightning-layout-item size="4" padding="horizontal-small">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    type="date"
+                    label="Date of Birth OCR Server"
+                    value={data.DateOfBirthOCRServer__c}
+                    data-id="DateOfBirthOCRServer__c"
+                    onchange={handleFieldChange}
+                    read-only
+                  ></lightning-input>
+                </div>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+
+          <template if:true={showNumberFields}>
+            <div class="slds-var-m-vertical_large">
+              <lightning-layout multiple-rows>
+                <!-- ------------------------------------------ Licence Type ------------------------------------------ -->
+                <template if:true={isLicenceType}>
+                  <!-- ------------------------------------------ Licence Number ------------------------------------------ -->
+                  <lightning-layout-item size="4">
+                    <lightning-layout
+                      multiple-rows
+                      class="slds-box slds-box_xx-small box-background slds-var-m-right_medium"
+                    >
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Licence Number"
+                            value={data.LicenceNumber__c}
+                            data-id="LicenceNumber__c"
+                            onchange={handleFieldChange}
+                            read-only={readOnly}
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Licence Number OCR Client"
+                            value={data.LicenceNumberOCRClient__c}
+                            data-id="LicenceNumberOCRClient__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Licence Number OCR Server"
+                            value={data.LicenceNumberOCRServer__c}
+                            data-id="LicenceNumberOCRServer__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                    </lightning-layout>
+                  </lightning-layout-item>
+
+                  <!-- ------------------------------------------ Licence Card Number ------------------------------------------ -->
+                  <lightning-layout-item size="4">
+                    <lightning-layout
+                      multiple-rows
+                      class="slds-box slds-box_xx-small box-background slds-var-m-horizontal_medium"
+                    >
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Licence Card Number"
+                            value={data.LicenceCardNumber__c}
+                            data-id="LicenceCardNumber__c"
+                            onchange={handleFieldChange}
+                            read-only={readOnly}
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Licence Card Number OCR Client"
+                            value={data.LicenceCardNumberOCRClient__c}
+                            data-id="LicenceCardNumberOCRClient__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Licence Card Number OCR Server"
+                            value={data.LicenceCardNumberOCRServer__c}
+                            data-id="LicenceCardNumberOCRServer__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                    </lightning-layout>
+                  </lightning-layout-item>
+
+                  <!-- ------------------------------------------ State of Issue ------------------------------------------ -->
+                  <lightning-layout-item size="4">
+                    <lightning-layout
+                      multiple-rows
+                      class="slds-box slds-box_xx-small box-background slds-var-m-left_medium"
+                    >
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="State of Issue"
+                            value={data.StateOfIssue__c}
+                            data-id="StateOfIssue__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="State of Issue OCR Client"
+                            value={data.StateOfIssueOCRClient__c}
+                            data-id="StateOfIssueOCRClient__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="State of Issue OCR Server"
+                            value={data.StateOfIssueOCRServer__c}
+                            data-id="StateOfIssueOCRServer__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                    </lightning-layout>
+                  </lightning-layout-item>
+                </template>
+
+                <!-- ------------------------------------------ Passport Type ------------------------------------------ -->
+                <template if:true={isPassportType}>
+                  <!-- ------------------------------------------ Passport Number ------------------------------------------ -->
+                  <lightning-layout-item size="6">
+                    <lightning-layout
+                      multiple-rows
+                      class="slds-box slds-box_xx-small box-background slds-var-m-right_medium"
+                    >
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Passport Number"
+                            value={data.PassportNumber__c}
+                            data-id="PassportNumber__c"
+                            onchange={handleFieldChange}
+                            read-only={readOnly}
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Passport Number OCR Client"
+                            value={data.PassportNumberOCRClient__c}
+                            data-id="PassportNumberOCRClient__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Passport Number OCR Server"
+                            value={data.PassportNumberOCRServer__c}
+                            data-id="PassportNumberOCRServer__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                    </lightning-layout>
+                  </lightning-layout-item>
+
+                  <!-- ------------------------------------------ Country of Issue ------------------------------------------ -->
+                  <lightning-layout-item size="6">
+                    <lightning-layout
+                      multiple-rows
+                      class="slds-box slds-box_xx-small box-background slds-var-m-left_medium"
+                    >
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Country of Issue"
+                            value={data.CountryOfIssue__c}
+                            data-id="LicenceCardNumber__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Country of Issue OCR Client"
+                            value={data.CountryOfIssueOCRClient__c}
+                            data-id="CountryOfIssueOCRClient__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        flexibility="auto"
+                        padding="horizontal-small"
+                      >
+                        <div class="slds-form-element__control">
+                          <lightning-input
+                            type="text"
+                            label="Country of Issue OCR Server"
+                            value={data.CountryOfIssueOCRServer__c}
+                            data-id="CountryOfIssueOCRServer__c"
+                            onchange={handleFieldChange}
+                            read-only
+                          >
+                          </lightning-input>
+                        </div>
+                      </lightning-layout-item>
+                    </lightning-layout>
+                  </lightning-layout-item>
+                </template>
+              </lightning-layout>
+            </div>
+
+            <!-- ------------------------------------------ Expiry Date ------------------------------------------ -->
+            <div class="slds-box slds-box_xx-small box-background">
+              <lightning-layout multiple-rows>
+                <lightning-layout-item size="4" padding="horizontal-small">
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="date"
+                      label="Expiry Date"
+                      value={data.ExpiryDate__c}
+                      data-id="ExpiryDate__c"
+                      onchange={handleFieldChange}
+                      read-only
+                    >
+                    </lightning-input>
+                  </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="4" padding="horizontal-small">
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="date"
+                      label="Expiry Date OCR Client"
+                      value={data.ExpiryDateOCRClient__c}
+                      data-id="ExpiryDateOCRClient__c"
+                      onchange={handleFieldChange}
+                      read-only
+                    >
+                    </lightning-input>
+                  </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="4" padding="horizontal-small">
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      type="date"
+                      label="Expiry Date OCR Server"
+                      value={data.ExpiryDateOCRServer__c}
+                      data-id="ExpiryDateOCRServer__c"
+                      onchange={handleFieldChange}
+                      read-only
+                    >
+                    </lightning-input>
+                  </div>
+                </lightning-layout-item>
+              </lightning-layout>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <div slot="footer">
+        <lightning-button
+          variant="neutral"
+          label="Close"
+          onclick={handleClose}
+        ></lightning-button>
+        <template if:true={allowEdit}>
+          <lightning-button
+            class="slds-var-m-left_x-small"
+            variant="brand"
+            label="Save"
+            onclick={handleSave}
+            disabled={disableSave}
+          >
+          </lightning-button>
+        </template>
+      </div>
+    </lightning-quick-action-panel>
+  </div>
+</template>

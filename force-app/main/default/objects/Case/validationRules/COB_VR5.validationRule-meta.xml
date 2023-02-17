@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COB_VR5</fullName>
+    <active>true</active>
+    <description>Prevents FraudX Agent, Join Lead or Business Admin from changing status from &apos;Potential Fraud&apos; to either &apos;Daon Failed&apos; or &apos;Equifax Failed&apos;</description>
+    <errorConditionFormula>AND(
+    NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),  
+    NOT( $Permission.ANZx_Edit_COB_Case_Status ),   
+    RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;,
+    ISPICKVAL( PRIORVALUE( Status ), &quot;Potential Fraud&quot;), 
+    OR(
+       ISPICKVAL( Status, &quot;Daon Failed&quot; ),
+       ISPICKVAL( Status, &quot;Equifax Failed&quot; )
+    )     
+)</errorConditionFormula>
+    <errorMessage>You are not allowed to change the status from &apos;Potential Fraud&apos; to either &apos;Daon Failed&apos; or &apos;Equifax Failed&apos;.</errorMessage>
+</ValidationRule>

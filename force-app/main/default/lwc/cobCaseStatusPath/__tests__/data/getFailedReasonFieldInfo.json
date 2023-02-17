@@ -1,0 +1,93 @@
+{
+  "controllerValues": {
+    "Daon Failed": 0,
+    "ID Ops: Daon Approved": 1,
+    "Equifax Failed": 2,
+    "Equifax Passed": 3,
+    "Failed (OK)": 4,
+    "Potential Fraud": 5,
+    "Confirmed Fraud": 6
+  },
+  "defaultValue": null,
+  "url": "/services/data/v57.0/ui-api/object-info/Case/picklist-values/0122O000002Ue7hQAC/OnboardingVerificationFailedReason__c",
+  "values": [
+    {
+      "attributes": null,
+      "label": "Selfie fail - selfie image is not clear enough to match",
+      "validFor": [4],
+      "value": "Selfie fail - selfie image is not clear enough to match"
+    },
+    {
+      "attributes": null,
+      "label": "Selfie fail - document image is not clear enough to match",
+      "validFor": [4],
+      "value": "Selfie fail - document image is not clear enough to match"
+    },
+    {
+      "attributes": null,
+      "label": "Selfie fail - selfie image is clear, but not the same person",
+      "validFor": [4],
+      "value": "Selfie fail - selfie image is clear, but not the same person"
+    },
+    {
+      "attributes": null,
+      "label": "Selfie fail - selfie image is clear, but a picture of a picture",
+      "validFor": [4],
+      "value": "Selfie fail - selfie image is clear, but a picture of a picture"
+    },
+    {
+      "attributes": null,
+      "label": "Selfie fail - suspected fraud, based on selfie",
+      "validFor": [4],
+      "value": "Selfie fail - suspected fraud, based on selfie"
+    },
+    {
+      "attributes": null,
+      "label": "Doc fail - document is a picture of a picture",
+      "validFor": [4],
+      "value": "Doc fail - document is a picture of a picture"
+    },
+    {
+      "attributes": null,
+      "label": "Doc fail - document is expired",
+      "validFor": [4],
+      "value": "Doc fail - document is expired"
+    },
+    {
+      "attributes": null,
+      "label": "Doc fail - document is ineligible type",
+      "validFor": [4],
+      "value": "Doc fail - document is ineligible type"
+    },
+    {
+      "attributes": null,
+      "label": "Doc fail - suspected fraud, based on document",
+      "validFor": [4],
+      "value": "Doc fail - suspected fraud, based on document"
+    },
+    {
+      "attributes": null,
+      "label": "Doc fail - doc details are outside of fixable threshold",
+      "validFor": [4],
+      "value": "Doc fail - doc details are outside of fixable threshold"
+    },
+    {
+      "attributes": null,
+      "label": "EV fail - retries exhausted on customer name variations",
+      "validFor": [4],
+      "value": "EV fail - retries exhausted on customer name variations"
+    },
+    {
+      "attributes": null,
+      "label": "EV Fail - DVS has given fail response",
+      "validFor": [4],
+      "value": "EV Fail - DVS has given fail response"
+    },
+    {
+      "attributes": null,
+      "label": "EV Fail - DVS system error response",
+      "validFor": [4],
+      "value": "EV Fail - DVS system error response"
+    }
+  ]
+}

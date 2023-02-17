@@ -189,6 +189,17 @@ public with sharing class TextUtils {
   }
 
   /**
+   * @description Remove any non-alphanumeric characters from a string
+   * @param nonAlphanumericString A string with non-alphanumeric characters
+   * @return String A string without non-alphanumeric characters
+   */
+  public static String removeNonAlphanumericChar(String nonAlphanumericString) {
+    Pattern nonAlphanumeric = Pattern.compile('[^a-zA-Z0-9]');
+    Matcher matcher = nonAlphanumeric.matcher(nonAlphanumericString);
+    return matcher.replaceAll('');
+  }
+
+  /**
    * @description checks if keywords for reactive logging label are in an input
    * @param input input to match against
    * @return `Boolean` returns if there was a match

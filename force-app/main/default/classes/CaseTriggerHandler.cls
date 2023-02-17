@@ -124,6 +124,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
     CaseCEController.publishCloudEvents(records, (Map<Id, Case>) oldMap);
+    GetHelpCaseActions.createFraudCheckCase(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**

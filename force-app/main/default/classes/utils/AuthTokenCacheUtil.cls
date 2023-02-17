@@ -31,7 +31,9 @@ public with sharing class AuthTokenCacheUtil {
       );
     } else {
       Logger.error(
-        'Unable to query user to check if ANZx user to perform token caching'
+        'Unable to query user ' +
+        userId +
+        ' to check if ANZx user can perform token caching'
       );
       Logger.saveLog();
     }
@@ -224,16 +226,17 @@ public with sharing class AuthTokenCacheUtil {
 
   /**
    * @description retrieves staff token from forgerock via mulesoft
-   * @param ocvId ocvID
+   * @param idType Enum for specifying which type of id is used: OCV ID or PERSONA ID
+   * @param idValue ocv id or persona Id
    * @return String staff token
    * @exception TokenCacheException throws when no token is found
    */
   @AuraEnabled
-  public static String getStaffToken(String ocvId) {
+  public static String getStaffToken(Service.IdType idType, String idValue) {
     String staffToken = (String) Cache.Session.get(
       STAFFPART +
       'forgeJWTToken' +
-      ocvId
+      TextUtils.removeNonAlphanumericChar(idValue)
     );
 
     if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
@@ -242,11 +245,15 @@ public with sharing class AuthTokenCacheUtil {
 
     Integer expiresIn = 300; // default minimum value
     try {
-      IdentityModel responseModel = ForgeTokenHandler.getForgeJWTToken(ocvId);
+      AuthRepository authRepo = new AuthRepository();
+      IdentityModel responseModel = authRepo.getForgeStaffToken(
+        idType,
+        idValue
+      );
       staffToken = responseModel.accessToken;
       expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
-      Logger.error('Unable to retrieve staff token' + e.getMessage(), e);
+      Logger.error('Unable to retrieve staff token. ' + e.getMessage(), e);
       Logger.saveLog();
       throw new TokenCacheException(e.getMessage());
     }
@@ -254,7 +261,7 @@ public with sharing class AuthTokenCacheUtil {
     Cache.Session.put(
       STAFFPART +
       'forgeJWTToken' +
-      ocvId,
+      TextUtils.removeNonAlphanumericChar(idValue),
       staffToken,
       expiresIn
     );

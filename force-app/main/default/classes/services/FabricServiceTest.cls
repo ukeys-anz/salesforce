@@ -12,7 +12,7 @@ public inherited sharing class FabricServiceTest {
     //load forge staff token
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
-      ForgeTokenHandlerTest.IDTESTVALUE
+      AuthServiceTest.IDTESTVALUE
     );
 
     Test.startTest();
@@ -62,41 +62,11 @@ public inherited sharing class FabricServiceTest {
   }
 
   @isTest
-  public static void testGetForgeJWTToken() {
-    FabricService serviceClass = new FabricService();
-
-    Forgerock_Auth__mdt forgeAuth;
-    if (Forgerock_Auth__mdt.sObjectType.getDescribe().isQueryable()) {
-      forgeAuth = [
-        SELECT
-          Id,
-          Encrypted_Forge_Client_Id__c,
-          Encrypted_Forge_Client_Secret__c
-        FROM Forgerock_Auth__mdt
-        WHERE DeveloperName = 'Forgerock'
-        LIMIT 1
-      ];
-    }
-
-    Test.setMock(HttpCalloutMock.class, new MockForgeCallout());
-    HttpCalloutResponse resp = serviceClass.getForgeJWTToken(
-      '1111',
-      ForgeTokenHandlerTest.IDTESTVALUE,
-      forgeAuth
-    );
-    System.assertNotEquals(
-      null,
-      resp.body,
-      'Response body should not be null.'
-    );
-  }
-
-  @isTest
   public static void testGetCardList() {
     FabricService serviceClass = new FabricService();
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
-      ForgeTokenHandlerTest.IDTESTVALUE
+      AuthServiceTest.IDTESTVALUE
     );
 
     Test.setMock(HttpCalloutMock.class, new MockCardListCallout());
@@ -126,46 +96,6 @@ public inherited sharing class FabricServiceTest {
         res.setBody('{"access_token":"xxxxx","expires_in":900}');
       }
 
-      return res;
-    }
-  }
-
-  /**
-   * @author Lance Shi
-   * @since 11/2020
-   * @description Mock forge auth api callout result
-   */
-  public class MockForgeCallout implements HttpCalloutMock {
-    /**
-     * @description mock response for callout
-     * @param req incoming request
-     * @return HTTPResponse valid response
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(200);
-      res.setHeader('Content-Type', 'application/json');
-      res.setBody('{"access_token":"xxxxx","expires_in":900}');
-      return res;
-    }
-  }
-
-  /**
-   * @author Lance Shi
-   * @since 11/2020
-   * @description Mock forge auth api callout result
-   */
-  public class MockForgeCalloutFailed implements HttpCalloutMock {
-    /**
-     * @description mock response for callout
-     * @param req incoming request
-     * @return HTTPResponse valid response
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      HTTPResponse res = new HTTPResponse();
-      res.setStatusCode(500);
-      res.setHeader('Content-Type', 'application/Plaintext');
-      res.setBody('Get access token failed');
       return res;
     }
   }

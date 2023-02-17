@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SecurityDetailsSubmittedAt__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Temporal</complianceGroup>
+    <description>UTC time when user security details were collected</description>
+    <externalId>false</externalId>
+    <label>Security Details Submitted At</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

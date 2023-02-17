@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Allow Customer Onboarding Integration User to update ID Ops Assistance and Fraud Check Cases Statuses</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx Edit COB Case Status</label>
+</CustomPermission>
