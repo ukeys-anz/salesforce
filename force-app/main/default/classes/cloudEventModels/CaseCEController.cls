@@ -204,7 +204,7 @@ public without sharing class CaseCEController {
         CloudEventModel ceModel = getCloudEventModel(
           theCaseNew,
           relatedAccount,
-          'status.' + theCaseNew.Status.toLowerCase(),
+          'status.' + theCaseNew.Status.toLowerCase().replace(' ', '_'),
           relatedUser,
           relatedOwner
         );

@@ -29,7 +29,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       'externalstatus.' +
       action;
     ce_source = 'case.salesforce.anzx';
-    ce_subject = 'ExternalStatusID/' + externalCaseStatus.Id;
+    ce_subject = 'ExternalCaseStatusNumber/' + externalCaseStatus.Name;
     ce_partitionkey = 'CaseNumber/' + theCase.CaseNumber;
     ce_dataschema = System.Label.ANZX_Proto_Data_Schema + '#ExternalCaseStatus';
     String sourceSystemName = '';
@@ -43,12 +43,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
         '/' +
         theCase.Account?.Source_System_ID__c;
     }
-    ce_xtargets =
-      'ocv/' +
-      theCase.Account?.OCV_ID__c +
-      sourceSystemName +
-      ',casenumber/' +
-      theCase.CaseNumber;
+    ce_xtargets = 'ocv/' + theCase.Account?.OCV_ID__c + sourceSystemName;
     ce_traceparent = '';
     this.ce_data = new ExternalCaseStatusCloudEventDataModel(
       externalCaseStatus,
