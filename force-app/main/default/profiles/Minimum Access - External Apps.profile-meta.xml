@@ -678,6 +678,201 @@
         <endAddress>52.62.229.140</endAddress>
         <startAddress>52.62.229.140</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-1</description>
+        <endAddress>13.68.76.47</endAddress>
+        <startAddress>13.68.76.47</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-2</description>
+        <endAddress>20.7.96.98</endAddress>
+        <startAddress>20.7.96.98</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-3</description>
+        <endAddress>20.7.101.234</endAddress>
+        <startAddress>20.7.101.234</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-4</description>
+        <endAddress>20.7.102.40</endAddress>
+        <startAddress>20.7.102.40</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-5</description>
+        <endAddress>20.7.102.52</endAddress>
+        <startAddress>20.7.102.51</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-6</description>
+        <endAddress>20.7.102.54</endAddress>
+        <startAddress>20.7.102.54</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-7</description>
+        <endAddress>20.7.102.59</endAddress>
+        <startAddress>20.7.102.59</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-8</description>
+        <endAddress>20.12.128.152</endAddress>
+        <startAddress>20.12.128.152</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-9</description>
+        <endAddress>20.12.128.213</endAddress>
+        <startAddress>20.12.128.213</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-10</description>
+        <endAddress>20.12.128.239</endAddress>
+        <startAddress>20.12.128.239</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-11</description>
+        <endAddress>20.12.130.20</endAddress>
+        <startAddress>20.12.130.20</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-12</description>
+        <endAddress>20.12.130.50</endAddress>
+        <startAddress>20.12.130.50</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-13</description>
+        <endAddress>20.12.130.57</endAddress>
+        <startAddress>20.12.130.57</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-14</description>
+        <endAddress>20.22.87.7</endAddress>
+        <startAddress>20.22.87.7</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-15</description>
+        <endAddress>20.36.222.60</endAddress>
+        <startAddress>20.36.222.59</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-16</description>
+        <endAddress>20.57.54.192</endAddress>
+        <startAddress>20.57.54.192</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-17</description>
+        <endAddress>20.57.54.207</endAddress>
+        <startAddress>20.57.54.193</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-18</description>
+        <endAddress>20.85.63.186</endAddress>
+        <startAddress>20.85.63.177</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-19</description>
+        <endAddress>20.96.83.110</endAddress>
+        <startAddress>20.96.83.110</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-20</description>
+        <endAddress>20.96.87.32</endAddress>
+        <startAddress>20.96.87.32</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-21</description>
+        <endAddress>20.221.93.52</endAddress>
+        <startAddress>20.221.93.52</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-22</description>
+        <endAddress>20.221.93.63</endAddress>
+        <startAddress>20.221.93.63</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-23</description>
+        <endAddress>20.96.151.153</endAddress>
+        <startAddress>20.96.151.144</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-24</description>
+        <endAddress>40.67.152.91</endAddress>
+        <startAddress>40.67.152.91</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-25</description>
+        <endAddress>40.67.154.160</endAddress>
+        <startAddress>40.67.154.160</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-26</description>
+        <endAddress>40.67.155.146</endAddress>
+        <startAddress>40.67.155.146</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-27</description>
+        <endAddress>40.67.159.55</endAddress>
+        <startAddress>40.67.159.55</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-28</description>
+        <endAddress>40.84.2.83</endAddress>
+        <startAddress>40.84.2.83</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-29</description>
+        <endAddress>40.84.4.93</endAddress>
+        <startAddress>40.84.4.93</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-30</description>
+        <endAddress>40.84.4.119</endAddress>
+        <startAddress>40.84.4.119</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-31</description>
+        <endAddress>52.154.234.32</endAddress>
+        <startAddress>52.154.234.32</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-32</description>
+        <endAddress>52.154.237.66</endAddress>
+        <startAddress>52.154.237.66</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-33</description>
+        <endAddress>52.184.165.82</endAddress>
+        <startAddress>52.184.165.82</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-34</description>
+        <endAddress>52.232.224.227</endAddress>
+        <startAddress>52.232.224.227</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-35</description>
+        <endAddress>52.232.225.84</endAddress>
+        <startAddress>52.232.225.84</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-36</description>
+        <endAddress>104.42.54.148</endAddress>
+        <startAddress>104.42.54.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-37</description>
+        <endAddress>104.46.116.211</endAddress>
+        <startAddress>104.46.116.211</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-38</description>
+        <endAddress>104.46.121.72</endAddress>
+        <startAddress>104.46.121.72</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender-39</description>
+        <endAddress>104.46.122.189</endAddress>
+        <startAddress>104.46.122.189</startAddress>
+    </loginIpRanges>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

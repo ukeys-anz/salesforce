@@ -564,6 +564,20 @@
       "permissionsetgroups": [],
       "permissionsets": ["API_Only", "SF_Data_Sync_Integration"],
       "type": "system"
+    },
+    {
+      "name": "SFDataSync User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": ["API_Only", "SF_Data_Sync_Integration"],
+      "type": "system"
+    },
+    {
+      "name": "Microsoft Defender Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["Microsoft_Defender", "Disable_MFA"],
+      "type": "system"
     }
   ]
 }
