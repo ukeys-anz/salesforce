@@ -186,6 +186,19 @@
         <name>rightsidebar</name>
         <itemInstances>
             <componentInstance>
+                <componentName>AegisPortal</componentName>
+                <identifier>AegisPortal</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Aegis_Portal}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Account.Id</value>

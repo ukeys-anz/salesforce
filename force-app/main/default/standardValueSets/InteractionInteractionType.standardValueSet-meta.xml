@@ -16,4 +16,9 @@
         <default>false</default>
         <label>Store</label>
     </standardValue>
+    <standardValue>
+        <fullName>Video</fullName>
+        <default>false</default>
+        <label>Video</label>
+    </standardValue>
 </StandardValueSet>

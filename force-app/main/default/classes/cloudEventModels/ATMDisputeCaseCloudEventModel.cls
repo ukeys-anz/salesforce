@@ -15,7 +15,7 @@ public without sharing class ATMDisputeCaseCloudEventModel extends DisputeCaseCl
     UserModel theOwner
   ) {
     super(theCase, theAccount);
-    ce_type = 'anzx.salesforce.case.v1.atm.dispute.' + action;
+    ce_type = 'anzx.salesforce.case.v1.dispute.atm.' + action;
     ce_dataschema = System.Label.ANZX_Proto_Data_Schema + '#ATMDispute';
     this.ce_data = new ATMDisputeCaseCloudEventDataModel(
       theCase,

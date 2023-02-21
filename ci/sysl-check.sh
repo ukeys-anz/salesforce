@@ -47,7 +47,6 @@ if [[ -d ./tmp/deploy/force-app/main/default/objects ]];then
         if [[ -d $o/fields ]];then
             objectName=$(basename "$o")
             pantherIdsField=$(node ./ci/sysl-check.js "$objectName" )
-            echo ""
 
             for f in $o/fields/*;do
                 checkBusinessStatus=$( checkFieldBusinessStatus $f $objectName )

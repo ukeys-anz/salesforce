@@ -61,17 +61,62 @@ public class ExternalCaseStatusTriggerHandlerTest {
     );
     Test.startTest();
     insert externalCaseStatus;
-
     theCase = [SELECT Id, Status, CaseNumber FROM Case WHERE Id = :theCase.Id];
     System.assertEquals(
       caseStatusBefore,
       theCase.Status,
       'Case status should not change'
     );
-    verifyCloudEventForExternalCase(externalCaseStatus, theCase);
+
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testCaseStatusUpdate() {
+    String recordTypeDeveloperName = 'Card_Dispute';
+    String predicate =
+      'RecordType.DeveloperName = \'' +
+      recordTypeDeveloperName +
+      '\'';
+    Case theCase = CommonUtil.getCaseRecordWithAllFields(
+      recordTypeDeveloperName,
+      predicate
+    );
+
+    Map<String, Object> dataMap = new Map<String, Object>{
+      'External_System__c' => 'Pega_Smarts ',
+      'External_Case_Id__c' => 'ABC1234',
+      'Status' => 'Under Investigation'
+    };
+    theCase = TestDataFactory.updateCase(theCase, dataMap);
+
+    theCase = [SELECT Id, Status FROM Case WHERE Id = :theCase.Id];
+
+    Test.startTest();
     verifyRelatedCaseUpdate(theCase);
     Test.stopTest();
-    //}
+  }
+
+  @isTest
+  static void testExternalCaseStatusCloudEvent() {
+    Case theCase = [SELECT Id, CaseNumber, Status FROM Case LIMIT 1];
+    External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
+      Case__c = theCase.Id,
+      External_Status__c = 'Pending-xxxxx',
+      Status_Event_ID__c = 'Status_Event_ID__c_0'
+    );
+
+    Test.startTest();
+    insert externalCaseStatus;
+    externalCaseStatus = [
+      SELECT Id, Name, Case__c, External_Status__c, Status_Event_ID__c
+      FROM External_Case_Status__c
+      WHERE Id = :externalCaseStatus.Id
+    ];
+
+    Test.stopTest();
+
+    verifyCloudEventForExternalCase(externalCaseStatus, theCase);
   }
 
   private static void verifyCloudEventForExternalCase(
@@ -114,7 +159,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
       'Case Number should match'
     );
     System.assertEquals(
-      'ExternalStatusID/' + externalCaseStatus.Id,
+      'ExternalCaseStatusNumber/' + externalCaseStatus.Name,
       externalCaseStatusCEModel.ce_subject,
       'ce_subject should match'
     );
