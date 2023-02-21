@@ -144,6 +144,3 @@ force-app/main/default/approvalProcesses/IDR_Letter_Approval__c.Letter_Approval_
 
 #ignoring CreateCommsData metadata to be created in destructive file, as it is already deleted
 force-app/main/default/classes/idr/CreateCommsData.cls-meta.xml
-
-#AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
-force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
