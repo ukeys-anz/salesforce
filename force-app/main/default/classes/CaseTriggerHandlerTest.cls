@@ -1,12 +1,12 @@
 // CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
 @SuppressWarnings('PMD.CyclomaticComplexity')
-@isTest
+@IsTest
 private class CaseTriggerHandlerTest {
   public static Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
     Case.Type
   );
 
-  @testSetup
+  @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
     // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
@@ -38,7 +38,7 @@ private class CaseTriggerHandlerTest {
 
       List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : psList) {
-        psaList.add(TestUtil.createPSAssignment(fraudXAgent.id, ps.Id));
+        psaList.add(TestUtil.createPSAssignment(fraudXAgent.Id, ps.Id));
       }
       insert psaList;
 
@@ -67,7 +67,7 @@ private class CaseTriggerHandlerTest {
 
       List<PermissionSetAssignment> coachPsaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : coachPsList) {
-        coachPsaList.add(TestUtil.createPSAssignment(coach.id, ps.Id));
+        coachPsaList.add(TestUtil.createPSAssignment(coach.Id, ps.Id));
       }
       insert coachPsaList;
 
@@ -91,8 +91,8 @@ private class CaseTriggerHandlerTest {
         RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
           .get('PersonAccount')
           .getRecordTypeId(),
-        FirstName = Faker.randomString(5),
-        LastName = Faker.randomString(5),
+        FirstName = faker.randomString(5),
+        LastName = faker.randomString(5),
         OCV_ID__c = 'PERSONOCV879879',
         ANZx_Customer__c = true
       );
@@ -133,7 +133,7 @@ private class CaseTriggerHandlerTest {
       List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
       for (PermissionSet ps : idrPsetList) {
         PermissionSetAssignment psa = new PermissionSetAssignment(
-          AssigneeId = idrUser.id,
+          AssigneeId = idrUser.Id,
           PermissionSetId = ps.Id
         );
         idrPsaList.add(psa);
@@ -143,7 +143,7 @@ private class CaseTriggerHandlerTest {
     insertTestAccountsForDisputeCases();
   }
 
-  @isTest
+  @IsTest
   static void testCaseNumberCopy() {
     // GIVEN cases are created
     Case[] newCases = new List<Case>();
@@ -158,7 +158,7 @@ private class CaseTriggerHandlerTest {
     Case c = [
       SELECT CaseNumber, CaseNumber__c
       FROM Case
-      WHERE id = :newCases[0].id
+      WHERE Id = :newCases[0].Id
     ];
     System.assertEquals(
       c.CaseNumber,
@@ -173,7 +173,7 @@ private class CaseTriggerHandlerTest {
       'CaseNumber__c should be equal to CaseNumber.'
     );
   }
-  @isTest
+  @IsTest
   static void testCaseNumberNoCopy() {
     // GIVEN cases which already have their case number copied
     Case[] casesWithCopiedCaseNumber = new List<Case>();
@@ -191,7 +191,7 @@ private class CaseTriggerHandlerTest {
     Case c = [
       SELECT CaseNumber, CaseNumber__c
       FROM Case
-      WHERE id = :casesWithCopiedCaseNumber[0].id
+      WHERE Id = :casesWithCopiedCaseNumber[0].Id
     ];
     System.assertNotEquals(
       c.CaseNumber,
@@ -204,7 +204,7 @@ private class CaseTriggerHandlerTest {
       'CaseNumber__c should not have changed.'
     );
   }
-  @isTest
+  @IsTest
   static void testComplaintCardNumberMasking() {
     // GIVEN cases relate to a account/card/policy, description etc with numbers greater than 8 digits
     Case[] casesWithNumberText = new List<Case>();
@@ -234,7 +234,7 @@ private class CaseTriggerHandlerTest {
         IDR_Reason_for_re_opening__c,
         IDR_Systemic_Issue_Description__c
       FROM Case
-      WHERE id = :casesWithNumberText[0].id
+      WHERE Id = :casesWithNumberText[0].Id
     ];
     System.assertEquals(
       '*****1234',
@@ -263,7 +263,7 @@ private class CaseTriggerHandlerTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testIsComplaintEscalatedInsert() {
     // GIVEN cases are created as escalated
     Case[] newCasesWithStatus = new List<Case>();
@@ -283,12 +283,12 @@ private class CaseTriggerHandlerTest {
     Case c = [
       SELECT CaseNumber, IsEscalated
       FROM Case
-      WHERE id = :newCasesWithStatus[0].id
+      WHERE Id = :newCasesWithStatus[0].Id
     ];
     System.assert(c.IsEscalated, 'IsEscalated is true');
   }
 
-  @isTest
+  @IsTest
   static void testIsComplaintEscalatedUpdate() {
     // GIVEN cases are created as not escalated
     Case[] newCases = new List<Case>();
@@ -303,7 +303,7 @@ private class CaseTriggerHandlerTest {
     Case c = [
       SELECT CaseNumber, IsEscalated
       FROM Case
-      WHERE id = :newCases[0].id
+      WHERE Id = :newCases[0].Id
     ];
     System.assert(!c.IsEscalated, 'IsEscalated is false');
 
@@ -316,11 +316,11 @@ private class CaseTriggerHandlerTest {
     // WHEN they are updated
     update newCases;
     // THEN check if IsEscalated is true
-    c = [SELECT CaseNumber, IsEscalated FROM Case WHERE id = :newCases[0].id];
+    c = [SELECT CaseNumber, IsEscalated FROM Case WHERE Id = :newCases[0].Id];
     System.assert(c.IsEscalated, 'IsEscalated is true');
   }
 
-  @isTest
+  @IsTest
   static void testComplaintEscalationStatus() {
     // GIVEN cases are created as not escalated
     Case[] newCases = new List<Case>();
@@ -346,7 +346,7 @@ private class CaseTriggerHandlerTest {
     Case c = [
       SELECT Status, IDR_Escalated_to__c, IDR_Escalation_Reason__c
       FROM Case
-      WHERE id = :newCases[0].id
+      WHERE Id = :newCases[0].Id
     ];
     System.assertEquals(
       'Escalated',
@@ -1377,11 +1377,9 @@ private class CaseTriggerHandlerTest {
   static void testEDRWorkbasketAssignmentOnInsert() {
     Case[] newCases = new List<Case>();
     List<Group> queueList = [
-      SELECT id, developername
-      FROM group
-      WHERE
-        developername = 'Specialised_Early_Resolution_Hardship'
-        AND Type = 'Queue'
+      SELECT Id, DeveloperName
+      FROM Group
+      WHERE DeveloperName = 'EDR_Early_Resolution' AND Type = 'Queue'
     ];
 
     Test.startTest();
@@ -1403,7 +1401,7 @@ private class CaseTriggerHandlerTest {
     for (Case c : [SELECT Id, OwnerId FROM Case WHERE id IN :newCases]) {
       System.assertEquals(
         c.OwnerId.getSobjectType(),
-        Group.SobjectType,
+        Group.SObjectType,
         'Case OwnerId type should be as expected.'
       );
       System.assertEquals(

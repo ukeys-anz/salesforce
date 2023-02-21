@@ -4,13 +4,13 @@
  * @description Test class for {@link IDRCaseAssignmentRules} assignment rule test
  * @group IDR(Internal Dispute Resolution)
  */
-@isTest
+@IsTest
 private with sharing class IDRCaseAssignmentRulesTest {
   @TestSetup
   static void makeData() {
     Schema.DescribeFieldResult productWorkbasketList = Product_Family__c.IDR_Workbasket__c.getDescribe();
     List<Schema.PicklistEntry> workbasketPicklistValues = productWorkbasketList.getPicklistValues();
-    list<Product_Family__c> pfList = new List<Product_Family__c>();
+    List<Product_Family__c> pfList = new List<Product_Family__c>();
     Integer productNumber = 1;
     for (Schema.PicklistEntry workbasket : workbasketPicklistValues) {
       pfList.add(
@@ -31,7 +31,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         new Product2(
           Name = 'Test Product ' + productNumber,
           RecordTypeId = IDRConstants.ANZ_PRODUCT_RT_ID,
-          isActive = true,
+          IsActive = true,
           IDR_Product_Family__c = pf.Id
         )
       );
@@ -45,7 +45,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
    * @description : This is to test if cases are being assigned to the Products queue defined on the product record
    */
 
-  @isTest
+  @IsTest
   static void testProductAssignmentRulesOnInsert() {
     //WHEN complaints are created as escalated
     Case[] cases = new List<Case>();
@@ -59,7 +59,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
           IDR_Escalation_Reason__c = '8',
           Origin = 'Phone',
           Priority = 'Standard',
-          Type = '13',
+          Type = '15',
           IDR_Subsequent_Issue__c = '9'
         )
       );
@@ -69,12 +69,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     insert cases;
     Test.stopTest();
 
-    Map<ID, Group> queueNameById = new Map<ID, Group>(
+    Map<Id, Group> queueNameById = new Map<Id, Group>(
       [
-        SELECT id, developername
+        SELECT Id, DeveloperName
         FROM Group
         WHERE
-          developername IN :IDRConstants.workBasketNames
+          DeveloperName IN :IDRConstants.workBasketNames
           AND Type = :IDRCaseActions.QUEUE_TYPE
       ]
     );
@@ -87,7 +87,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Owner.Name
       FROM Case
     ];
-    for (case c : cases) {
+    for (Case c : cases) {
       System.assertEquals(
         c.Product__r.IDR_Product_Family__c,
         c.IDR_Product_Family__c,
@@ -104,7 +104,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
   /**
    * @description : This is to test if cases are being assigned to the queues based on Priority, Subsequent Issue Type and Channel Recieved.
    */
-  @isTest
+  @IsTest
   static void testNonProductAssignmentRulesOnUpdate() {
     //GIVEN open complaints
     Case[] cases = new List<Case>();
@@ -112,6 +112,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
       new Case(
         RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
         Priority = 'Customer in Collections',
+        Type = '4',
         Description = 'IDR_Hardship'
       )
     );
@@ -119,6 +120,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
       new Case(
         RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
         Priority = 'Financial Hardship',
+        Type = '17',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
         Description = 'Specialised_Early_Resolution_Hardship'
       )
@@ -184,12 +186,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Test.stopTest();
     //THEN they're auto-assigned to workbaskets
     cases = [SELECT OwnerId, Description FROM Case];
-    Map<ID, Group> queueNameById = new Map<ID, Group>(
+    Map<Id, Group> queueNameById = new Map<Id, Group>(
       [
-        SELECT id, developername
+        SELECT Id, DeveloperName
         FROM Group
         WHERE
-          developername IN :IDRConstants.workBasketNames
+          DeveloperName IN :IDRConstants.workBasketNames
           AND Type = :IDRCaseActions.QUEUE_TYPE
       ]
     );
@@ -205,7 +207,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
   /**
    * @description : This is to test if Product Family is assigned to escalated ANZ Plus Complaint to Customer Complaint.
    */
-  @isTest
+  @IsTest
   private static void anzPlusComplaintProductAssignment() {
     // GIVEN
     // ANZ Plus Complaint Case with a product (that has a product family) assigned.
@@ -224,7 +226,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()); //Prep Id for assignProductFamily' parameters
     Case oldCase = new Case(
       Id = mockId,
-      RecordTypeID = GetHelpConstants.COMPLAINT_RT_ID,
+      RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
       Product__c = testProduct.Id
     );
     Map<Id, Case> oldMap = new Map<Id, Case>{ oldCase.Id => oldCase };
@@ -233,7 +235,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
     newCases.add(
       new Case(
         Id = mockId,
-        RecordTypeID = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+        RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
         Product__c = testProduct.Id,
         Status = 'Escalated',
         IDR_Escalated_to__c = '1',

@@ -52,6 +52,7 @@ public with sharing class IDREmailServiceHandler {
   ) {
     Case caseToUpd;
     List<Case> caseToUpdList;
+    Task[] assiTasks = new List<Task>();
     if (Case.SObjectType.getDescribe().isQueryable()) {
       String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' ';
       if (
@@ -69,15 +70,28 @@ public with sharing class IDREmailServiceHandler {
       //Create email message
       IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
       //Notify Case Owner
-      IDRBankerNotificationBuilder.sendNotification(
-        new List<IDRBankerNotificationWrapper>{
-          IDRCaseNotificationManager.createNotification(
+      if (fromEmail != System.Label.XpressionSenderAddress) {
+        IDRBankerNotificationBuilder.sendNotification(
+          new List<IDRBankerNotificationWrapper>{
+            IDRCaseNotificationManager.createNotification(
+              'Email Response Attached',
+              caseToUpd,
+              null
+            )
+          }
+        );
+        assiTasks.addAll(
+          IDRCaseNotificationManager.createNotificationTask(
             'Email Response Attached',
             caseToUpd,
             null
           )
-        }
-      );
+        );
+      }
+      if (!assiTasks.isEmpty()) {
+        //insert Assignment Tasks on New Email received or Complaint assignment
+        IDRTaskActions.insertAssignmentTask(assiTasks);
+      }
       //Create files from attachments
       IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
 

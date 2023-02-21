@@ -710,7 +710,6 @@
         "IDR_Account_Card_Policy_Number__c",
         "IDR_Account_Card_Policy_Number_2__c",
         "IDR_Account_Card_Policy_Number_3__c",
-        "IDR_Allow_Account_Policy_Number__c",
         "IDR_AuthRep_Is_Related_to_Representative__c",
         "IDR_AuthRep_Licence_Number__c",
         "IDR_AuthRep_Licence_or_registration_type__c",
@@ -775,6 +774,7 @@
         "IDR_Product_3__c",
         "IDR_Product_Category__c",
         "IDR_Product_Manufacturer__c",
+        "IDR_Queue_Report_Label__c",
         "IDR_Real_Form_Ref_No__c",
         "IDR_Real_Form_Req__c",
         "IDR_Real_Form_Submitted__c",
@@ -912,6 +912,7 @@
         "IDR_3rdParty_Name__c",
         "IDR_3rdParty_Phone__c",
         "IDR_3rdParty_Postcode__c",
+        "IDR_3rdParty_Relationship_To_Complainant__c",
         "IDR_3rdParty_State__c",
         "IDR_3rdParty_Street__c",
         "IDR_3rdParty_Suburb__c",
@@ -2021,7 +2022,10 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2530753": ["IDR_Product_Family__c"]
+      "IA-2530753": [
+        "IDR_Product_Family__c",
+        "IDR_Allow_Account_Policy_Number__c"
+      ]
     },
     "Product_Family__c": {
       "IA-2530753": [
