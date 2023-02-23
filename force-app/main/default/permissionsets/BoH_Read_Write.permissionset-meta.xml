@@ -373,7 +373,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>ResidentialLoanApplication.LoanPurpose</field>
+        <field>ResidentialLoanApplication.Loan_Purpose__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

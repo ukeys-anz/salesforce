@@ -6,12 +6,10 @@
     <description>Code of the occupation</description>
     <externalId>false</externalId>
     <label>Occupation Code</label>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
-    <type>Picklist</type>
-    <valueSet>
-        <restricted>true</restricted>
-        <valueSetName>Occupation</valueSetName>
-    </valueSet>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>

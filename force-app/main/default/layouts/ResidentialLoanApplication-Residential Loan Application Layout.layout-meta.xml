@@ -24,7 +24,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>LoanPurpose</field>
+                <field>Loan_Purpose__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -162,7 +162,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2N000005v9an</masterLabel>
+        <masterLabel>00h2O000003UVHY</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

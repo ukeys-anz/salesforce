@@ -6,10 +6,12 @@
     <description>Readable description of occupation, e.g. &quot;Carpenter&quot;</description>
     <externalId>false</externalId>
     <label>Occupation Description</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Occupation_CAP</valueSetName>
+    </valueSet>
 </CustomField>
