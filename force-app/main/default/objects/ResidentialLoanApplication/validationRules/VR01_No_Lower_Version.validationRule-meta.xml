@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_No_Lower_Version</fullName>
+    <active>true</active>
+    <description>Ensure incoming version of the loan is not lower than version currently in Salesforce</description>
+    <errorConditionFormula>AND(NOT(ISNEW()),PRIORVALUE(Version__c) &gt;= Version__c)</errorConditionFormula>
+    <errorMessage>The current version of the loan application in Salesforce is greater than the incoming version.</errorMessage>
+</ValidationRule>

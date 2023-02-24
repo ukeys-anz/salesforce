@@ -1735,7 +1735,7 @@
         "Name"
       ],
       "IA-2415720": ["Customer_Number__c"],
-      "IA-2415984": ["Occupation_Code__c"]
+      "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"]
     },
     "LoanApplicantLiability": {
       "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
@@ -1755,7 +1755,8 @@
         "Repayment_Amount__c",
         "Repayment_Frequency__c"
       ],
-      "IA-2594111": ["LiabilityExtIdentifier", "Name"]
+      "IA-2594111": ["LiabilityExtIdentifier", "Name", "Lender__c"],
+      "IA-2415999": ["Liability_Id__c"]
     },
     "LoanApplicationProperty": {
       "IA-2594113": [
@@ -2228,6 +2229,7 @@
       "IA-2415983": [
         "First_Home__c",
         "LoanPurpose",
+        "Loan_Purpose__c",
         "Loan_Type__c",
         "Main_Goal__c",
         "Owner_Occupied__c",
@@ -2236,8 +2238,13 @@
         "Settlement_ID__c",
         "Status"
       ],
-      "IA-2530753": ["CreatedDate", "LastModifiedDate"],
-      "IA-2594111": ["ApplicationExtIdentifier", "Credit_ID__c", "Name"],
+      "IA-2530753": ["CreatedDate", "LastModifiedDate", "Version__c"],
+      "IA-2594111": [
+        "ApplicationExtIdentifier",
+        "Credit_ID__c",
+        "Name",
+        "External_Id__c"
+      ],
       "IA-2594114": [
         "Collateral_Assessment_Expiry_Date__c",
         "Collateral_Assessment_ID__c",
