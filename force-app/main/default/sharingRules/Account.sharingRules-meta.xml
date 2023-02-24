@@ -95,29 +95,4 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>Share_Complaint_Entitlement_with_ANZx</fullName>
-        <accessLevel>Read</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>None</contactAccessLevel>
-            <opportunityAccessLevel>None</opportunityAccessLevel>
-        </accountSettings>
-        <description>This rule provides access to the account for complaints entitlement for ANZx users</description>
-        <label>Share Complaint Entitlement with ANZx</label>
-        <sharedTo>
-            <roleAndSubordinates>ANZx</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Organisation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>AR_C_Customer__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
 </SharingRules>

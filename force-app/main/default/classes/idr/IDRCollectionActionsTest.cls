@@ -4,7 +4,7 @@
  * @description Test class for {@link IDRCollectionActions}
  * @group IDR(Internal Dispute Resolution)
  */
-@isTest
+@IsTest
 private with sharing class IDRCollectionActionsTest {
   @TestSetup
   static void setup() {
@@ -19,7 +19,7 @@ private with sharing class IDRCollectionActionsTest {
     );
     insert p;
   }
-  @isTest
+  @IsTest
   static void testStopCollectionOnInsert() {
     Product2 p = [SELECT Id FROM Product2 LIMIT 1];
     // GIVEN customer complaint cases with collection issue type and multiple account numbers
@@ -57,7 +57,7 @@ private with sharing class IDRCollectionActionsTest {
     List<Task> collectionTasks = [
       SELECT Id
       FROM Task
-      WHERE WhatId = :collectionCases[0].id AND Subject LIKE 'STOP Collection%'
+      WHERE WhatId = :collectionCases[0].Id AND Subject LIKE 'STOP Collection%'
     ];
     System.assertEquals(
       30,
@@ -66,7 +66,7 @@ private with sharing class IDRCollectionActionsTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testStopCollectionOnUpdate() {
     Product2 p = [SELECT Id FROM Product2 LIMIT 1];
     // GIVEN customer complaint cases with collection issue type and multiple account numbers
@@ -107,7 +107,7 @@ private with sharing class IDRCollectionActionsTest {
     List<Task> collectionTasks = [
       SELECT Id
       FROM Task
-      WHERE WhatId = :collectionCases[0].id AND Subject LIKE 'STOP Collection%'
+      WHERE WhatId = :collectionCases[0].Id AND Subject LIKE 'STOP Collection%'
     ];
     System.assertEquals(
       9,
@@ -116,7 +116,7 @@ private with sharing class IDRCollectionActionsTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testStartCollectionScenarioOne() {
     Product2 p = [SELECT Id FROM Product2 LIMIT 1];
     // GIVEN customer complaint cases with collection issue type and multiple account numbers
@@ -139,6 +139,13 @@ private with sharing class IDRCollectionActionsTest {
         )
       );
     }
+    if (Integer.valueOf(Label.Test_Bulk_Size) > 1) {
+      //Force 2nd case to have same account numbers but leading 0's.
+      collectionCases[1]
+        .IDR_Account_Card_Policy_Number__c = '00000000000000111111111;00000000000002222222222;00000000000000333333333';
+      collectionCases[1]
+        .IDR_Account_Card_Policy_Number_2__c = '00000000000000444444444;00000000000005555555555;00000000000006666666666';
+    }
     insert collectionCases;
 
     Test.startTest();
@@ -152,7 +159,7 @@ private with sharing class IDRCollectionActionsTest {
     List<Task> collectionTasks = [
       SELECT Id
       FROM Task
-      WHERE WhatId = :collectionCases[0].id AND Subject LIKE 'START Collection%'
+      WHERE WhatId = :collectionCases[0].Id AND Subject LIKE 'START Collection%'
     ];
     System.assertEquals(
       0,
@@ -161,7 +168,7 @@ private with sharing class IDRCollectionActionsTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testStartCollectionScenarioTwo() {
     Product2 p = [SELECT Id FROM Product2 LIMIT 1];
     // GIVEN customer complaint cases with collection issue type and multiple account numbers
@@ -208,7 +215,7 @@ private with sharing class IDRCollectionActionsTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testClosedOnCreate() {
     Product2 p = [SELECT Id FROM Product2 LIMIT 1];
     // GIVEN customer complaint cases with collection issue type and multiple account numbers closed on create
@@ -266,7 +273,7 @@ private with sharing class IDRCollectionActionsTest {
     );
   }
 
-  @isTest
+  @IsTest
   static void testAccountNumberNA() {
     Product2 p = [SELECT Id FROM Product2 LIMIT 1];
     // GIVEN customer complaint cases with collection issue type and account number selected as N/A

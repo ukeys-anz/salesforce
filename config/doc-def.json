@@ -13,12 +13,17 @@
     "Case",
     "CFMS_Migrated_Document__c",
     "Coaching_Summary__c",
+    "COBAddress__c",
+    "COBCitizenship__c",
+    "COBPrimaryIDDocument__c",
+    "COBTaxResidency__c",
     "Contact",
     "ContactRequest",
     "ContactPointAddress",
     "ContentDocumentLink",
     "ContentVersion",
     "Controlling_Post__c",
+    "CustomerOnboardingApplication__c",
     "EmailMessage",
     "External_Case_Status__c",
     "FinServ__FinancialAccount__c",
@@ -119,6 +124,19 @@
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": ["Enforce_mTLS", "COSMOS_Integration", "Disable_MFA"],
+      "type": "system"
+    },
+    {
+      "name": "Customer Onboarding Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "API_Only",
+        "Customer_Onboarding_Integration",
+        "Case_Read_Write_Customer_Onboarding_Integration",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
@@ -544,7 +562,7 @@
       "name": "SFDataSync User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "SF_Data_Sync_Integration"],
+      "permissionsets": ["API_Only", "SF_Data_Sync_Integration", "Disable_MFA"],
       "type": "system"
     }
   ]

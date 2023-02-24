@@ -3,6 +3,7 @@
  * @since 03/2021
  * @description Contains Complaints Assignment rules conditions
  * @group IDR(Internal Dispute Resolution)
+ * @runTests IDRCaseAssignmentRulesTest
  * CyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
@@ -38,7 +39,7 @@ public with sharing class IDRCaseAssignmentRules {
    */
   public static void assignProductFamily(Case[] cases, Map<Id, Case> oldMap) {
     Map<Id, Product2> productMap = getProductNames(cases);
-    Map<string, Product_Family__c> categoryMap = getProductCategory(Cases);
+    Map<String, Product_Family__c> categoryMap = getProductCategory(cases);
 
     for (Case c : cases) {
       Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
@@ -110,7 +111,7 @@ public with sharing class IDRCaseAssignmentRules {
    * @param oldCase old record of case
    * @return Queue Id
    */
-  private static ID getOwnerId(
+  private static Id getOwnerId(
     Case rec,
     String productWorkbasketName,
     Case oldCase
@@ -121,17 +122,17 @@ public with sharing class IDRCaseAssignmentRules {
       (oldCase == null ||
       oldCase.Status != IDRConstants.ESCALATED_STATUS ||
       (oldCase.Status == rec.Status &&
-      oldCase.recordTypeId != rec.recordTypeId))
+      oldCase.RecordTypeId != rec.RecordTypeId))
     ) {
       //CEO or Board
       if (rec.Origin == '9' || rec.Origin == '10') {
         return QUEUE_MAP.get('IDR_CEO');
       }
 
-      //Priority
+      // Hardship
       if (
-        rec.Priority == 'Customer in Collections' ||
-        rec.Priority == 'Financial Hardship'
+        rec.Type == '4' ||
+        rec.Type == '17'
       ) {
         if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
           return QUEUE_MAP.get('Specialised_Early_Resolution_Hardship');
@@ -152,30 +153,42 @@ public with sharing class IDRCaseAssignmentRules {
         }
       }
 
+      if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        return QUEUE_MAP.get('EDR_Early_Resolution');
+      }
+
       //Credit Reporting
       if (
-        rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED &&
-        (rec.Type == '19' ||
+        rec.Type == '19' ||
         rec.IDR_Issue_Type_2__c == '19' ||
-        rec.IDR_Issue_Type_3__c == '19')
+        rec.IDR_Issue_Type_3__c == '19'
       ) {
         return QUEUE_MAP.get('CCR_Complaints');
       }
 
+      // Fraud & Scams
+      if (rec.Type == '14') {
+        return QUEUE_MAP.get('IDR_Spare');    // IDR Disputes & Scams
+      }
+
+      // Early Resolution
+      if (
+        rec.Type == '13' ||
+        rec.Type == '12' ||
+        rec.Type == '9'
+      ) {
+        return QUEUE_MAP.get('IDR_Early_Resolution');
+      }
+
       //Product-based rules
       if (
-        rec.Origin != IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED &&
         productWorkbasketName != null
       ) {
         return QUEUE_MAP.get(productWorkbasketName);
       }
 
       //Default workbasket
-      if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
-        return QUEUE_MAP.get('EDR_Early_Resolution');
-      } else {
-        return QUEUE_MAP.get('IDR_Early_Resolution');
-      }
+      return QUEUE_MAP.get('IDR_Early_Resolution');
     }
 
     //Not escalated, don't change owner
@@ -189,7 +202,7 @@ public with sharing class IDRCaseAssignmentRules {
    *
    * @return Calculated Owner Id
    */
-  private static ID getOwnerId(Case rec, Case oldCase) {
+  private static Id getOwnerId(Case rec, Case oldCase) {
     if (
       (rec.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS ||
       rec.Status == IDRConstants.CLOSED_STATUS) &&
@@ -239,18 +252,18 @@ public with sharing class IDRCaseAssignmentRules {
   public static Map<String, Id> getWorkbaskets(List<String> workBasketNames) {
     Map<String, Id> queueMap = new Map<String, Id>();
     Group[] queueList = new List<Group>();
-    if (Group.sObjectType.getDescribe().isQueryable()) {
+    if (Group.SObjectType.getDescribe().isQueryable()) {
       queueList = [
-        SELECT id, developername
+        SELECT Id, DeveloperName
         FROM Group
         WHERE
-          developername IN :workBasketNames
+          DeveloperName IN :workBasketNames
           AND Type = :IDRCaseActions.QUEUE_TYPE
       ];
     }
     if (!queueList.isEmpty()) {
       for (Group queueRec : queueList) {
-        queueMap.put(queueRec.developername, queueRec.Id);
+        queueMap.put(queueRec.DeveloperName, queueRec.Id);
       }
     }
     return queueMap;
@@ -269,7 +282,7 @@ public with sharing class IDRCaseAssignmentRules {
       }
     }
     Map<Id, Product2> productMap = new Map<Id, Product2>();
-    if (Product2.sObjectType.getDescribe().isQueryable()) {
+    if (Product2.SObjectType.getDescribe().isQueryable()) {
       for (Product2 p : [
         SELECT
           Name,
@@ -289,19 +302,19 @@ public with sharing class IDRCaseAssignmentRules {
    * @return A map of product family by Ids
    */
   private static Map<Id, Product_Family__c> getProductFamilies(Case[] cases) {
-    list<Id> familyIds = new List<Id>();
+    List<Id> familyIds = new List<Id>();
     for (Case c : cases) {
       if (c.IDR_Product_Family__c != null) {
         familyIds.add(c.IDR_Product_Family__c);
       }
     }
-    Map<Id, Product_Family__C> productFamilies = new Map<Id, Product_Family__c>();
+    Map<Id, Product_Family__c> productFamilies = new Map<Id, Product_Family__c>();
     if (
-      Product_Family__c.sObjectType.getDescribe().isQueryable() &&
+      Product_Family__c.SObjectType.getDescribe().isQueryable() &&
       familyIds.size() > 0
     ) {
       for (Product_Family__c p : [
-        SELECT Name, IDR_ANZ_com_Product_Category__c, IDR_WorkBasket__c
+        SELECT Name, IDR_ANZ_com_Product_Category__c, IDR_Workbasket__c
         FROM Product_Family__c
         WHERE Id IN :familyIds
       ]) {
@@ -315,10 +328,10 @@ public with sharing class IDRCaseAssignmentRules {
    * @param cases List of cases in context
    * @return A map of product family by product categories
    */
-  private static Map<string, Product_Family__c> getProductCategory(
+  private static Map<String, Product_Family__c> getProductCategory(
     Case[] cases
   ) {
-    string[] categories = new List<string>();
+    String[] categories = new List<String>();
     for (Case c : cases) {
       if (
         c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
@@ -327,10 +340,10 @@ public with sharing class IDRCaseAssignmentRules {
         categories.add(c.IDR_Product_Category__c);
       }
     }
-    Map<string, Product_Family__c> productFamilyMap = new Map<string, Product_family__c>();
-    if (Product_Family__c.sObjectType.getDescribe().isQueryable()) {
+    Map<String, Product_Family__c> productFamilyMap = new Map<String, Product_Family__c>();
+    if (Product_Family__c.SObjectType.getDescribe().isQueryable()) {
       for (Product_Family__c p : [
-        SELECT ID, IDR_ANZ_com_Product_Category__c
+        SELECT Id, IDR_ANZ_com_Product_Category__c
         FROM Product_Family__c
         WHERE IDR_ANZ_com_Product_Category__c IN :categories
       ]) {

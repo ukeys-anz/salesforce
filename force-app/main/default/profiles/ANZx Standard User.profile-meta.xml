@@ -8014,12 +8014,20 @@
         <recordType>Case.Fraud</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Fraud Check Layout</layout>
+        <recordType>Case.Fraud_Check</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-General Inquiry Layout</layout>
         <recordType>Case.General_Inquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Identity Layout</layout>
         <recordType>Case.Identity</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-ID Ops Assistance Layout</layout>
+        <recordType>Case.ID_Ops_Assistance</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-KYC QA Layout</layout>
@@ -8044,6 +8052,9 @@
     <layoutAssignments>
         <layout>Case-Unauthenticated Enquiry Layout</layout>
         <recordType>Case.General_Inquiry_CMOS</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>COBPrimaryIDDocument__c-COB Primary ID Document Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>

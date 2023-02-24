@@ -76,6 +76,10 @@
             <fullName>Store</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Video</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Interaction_Purpose__c</picklist>
@@ -130,6 +134,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>No Action</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Referred</fullName>
             <default>false</default>
         </values>
@@ -139,10 +147,6 @@
         </values>
         <values>
             <fullName>Voice Mail</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>No Action</fullName>
             <default>false</default>
         </values>
     </picklistValues>

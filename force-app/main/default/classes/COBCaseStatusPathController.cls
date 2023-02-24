@@ -1,0 +1,104 @@
+/**
+ * @description controller class for cobCaseStatusPath lwc
+ * @author Victor Wang
+ * @since 12/2022
+ */
+public with sharing class COBCaseStatusPathController {
+  // Statuses with Callout API
+  private static List<String> cobCaseStatusesWithEndpoint = new List<String>{
+    GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
+    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
+    GetHelpConstants.COB_FAILED_OK_STATUS,
+    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+  };
+
+  /**
+   * @description Trigger Temporal workflow based on case status
+   * @param currentStatus Current status to revert to if update fails
+   * @param cobCase Case with new fields data to be updated
+   * @return Boolean True - If case is successfully updated, False - if successfuly updated with a callout or DML error
+   */
+  @AuraEnabled
+  public static Boolean updateStatus(String currentStatus, Case cobCase) {
+    Boolean isCalloutSucccesful = makeTemporalCallout(currentStatus, cobCase);
+    Boolean isCaseUpdated = handleCaseUpdate(cobCase);
+    return isCalloutSucccesful && isCaseUpdated;
+  }
+
+  /**
+   * @description Trigger Temporal workflow based on case status
+   * @param currentStatus Current status to revert to if update fails
+   * @param cobCase Case with new fields data to be updated
+   * @return Boolean Indicates whether the callout was successful or not
+   */
+  @TestVisible
+  private static Boolean makeTemporalCallout(
+    String currentStatus,
+    Case cobCase
+  ) {
+    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
+
+    cobCase.Status_Update_Error__c = ''; // Clear previous error to avoid confusion if this update is successful
+    if (cobCaseStatusesWithEndpoint.contains(cobCase.Status) == false) {
+      return true;
+    }
+
+    try {
+      temporalCaseWorkflowAPI.triggerTemporalCaseWorkflow(cobCase);
+    } catch (Exception e) {
+      cobCase.Status = currentStatus;
+      cobCase.OnboardingVerificationFailedReason__c = '';
+      cobCase.Status_Update_Error__c = e.getMessage();
+    }
+
+    return String.isBlank(cobCase.Status_Update_Error__c);
+  }
+
+  /**
+   * @description Updates the case in scenarios where there is either: callout error or DML error or without error
+   * @param cobCase Case with new fields data to be updated
+   * @return Boolean True - If case is successfully updated and Temporal workflow was successfully triggered, False - if Temporal workflow callout failed or there was a DML error
+   */
+  @TestVisible
+  private static Boolean handleCaseUpdate(Case cobCase) {
+    Database.SaveResult updateResult = Database.update(cobCase, false); //cobCase may have call out error in Status_Update_Error__c field if the callout has failed
+
+    if (
+      updateResult.isSuccess() && String.isBlank(cobCase.Status_Update_Error__c)
+    ) {
+      return true;
+    }
+
+    Logger.error('Fail to update COB case', updateResult);
+    Logger.saveLog();
+
+    Case cobCaseWithError = new Case(
+      Id = cobCase.Id,
+      Status_Update_Error__c = setStatusUpdateError(updateResult, cobCase)
+    );
+    upsert cobCaseWithError;
+
+    return false;
+  }
+
+  /**
+   * @description This function sets the relevant error: either callout error or DML error
+   * @param saveResult Result of the Database.update
+   * @param cobCase Case with new fields data to be updated
+   * @return String the callout error or DML error
+   */
+  @TestVisible
+  private static String setStatusUpdateError(
+    Database.SaveResult saveResult,
+    Case cobCase
+  ) {
+    String statusUpdateError = '';
+
+    if (saveResult.isSuccess() == false) {
+      statusUpdateError = saveResult.getErrors()[0].getMessage(); // DML error
+    } else if (String.isNotBlank(cobCase.Status_Update_Error__c)) {
+      statusUpdateError = cobCase.Status_Update_Error__c; // API callout error
+    }
+    return statusUpdateError;
+  }
+}

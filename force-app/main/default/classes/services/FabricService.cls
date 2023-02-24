@@ -23,7 +23,7 @@ public with sharing class FabricService extends Service {
     }
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
       Label.MS_Get_Financial_Accounts +
@@ -32,49 +32,6 @@ public with sharing class FabricService extends Service {
       HTTP_METHOD.HTTP_GET,
       headers,
       null
-    );
-    return response;
-  }
-
-  /**
-   * @param ocvId ocv id
-   * @param idToken id token as the bearer token
-   * @param forgeAuth custom metadata which contains the client id and secret
-   * @return `HttpCalloutResponse` api response
-   * @description fetches response from forge api
-   */
-  public override HttpCalloutResponse getForgeJWTToken(
-    String ocvId,
-    String idToken,
-    Forgerock_Auth__mdt forgeAuth
-  ) {
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-
-    Map<String, String> headers = new Map<String, String>();
-    headers.put('client_id', '{!$Credential.Username}');
-    headers.put('client_secret', '{!$Credential.Password}');
-    headers.put('Authorization', 'Bearer ' + idToken);
-    headers.put('Content-Type', 'application/x-www-form-urlencoded');
-
-    String payload =
-      'identity_system_client_id=' +
-      EncodingUtil.urlEncode(forgeAuth.Encrypted_forge_client_id__c, 'UTF-8') +
-      '&identity_system_client_secret=' +
-      EncodingUtil.urlEncode(
-        forgeAuth.Encrypted_forge_client_secret__c,
-        'UTF-8'
-      ) +
-      '&ocvId=' +
-      EncodingUtil.urlEncode(ocvId, 'UTF-8') +
-      '&scope=aegis-introspect' +
-      '&requested_token_type=StaffJWT' +
-      '&personaType=retail';
-
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      'callout:SF_MS_Fabric' + Label.MS_Forge_Token,
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      payload
     );
     return response;
   }
@@ -91,7 +48,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
       Label.MS_Get_Transactions +
@@ -111,7 +68,7 @@ public with sharing class FabricService extends Service {
   public override HttpCalloutResponse getCardList(String ocvId) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.MS_Get_Cards,
@@ -134,7 +91,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
@@ -163,7 +120,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('Content-Type', 'application/json');
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
@@ -193,7 +150,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('Content-Type', 'application/json');
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.MS_Get_StatementList,
@@ -220,7 +177,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     headers.put('cache-control', 'no-store');
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
@@ -245,7 +202,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvID, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +
       Label.MS_Get_Account_Buckets +
@@ -265,7 +222,7 @@ public with sharing class FabricService extends Service {
   public override HttpCalloutResponse getCardControlsList(String ocvId) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvId, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' + Label.MS_Get_Card_Control_List,
@@ -288,7 +245,7 @@ public with sharing class FabricService extends Service {
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(ocvId, headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
 
     HttpCalloutResponse response = calloutService.makeRestCallout(
       'callout:SF_MS_Fabric' +

@@ -16,6 +16,7 @@
         <refreshTokenPolicy>zero</refreshTokenPolicy>
     </oauthPolicy>
     <profileName>Integration User</profileName>
+    <profileName>Minimum Access - External Apps</profileName>
     <sessionPolicy>
         <sessionTimeout>30</sessionTimeout>
     </sessionPolicy>

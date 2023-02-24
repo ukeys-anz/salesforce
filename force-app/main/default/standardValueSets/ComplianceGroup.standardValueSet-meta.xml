@@ -97,6 +97,11 @@
         <label>Source - Tableau</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_Temporal</fullName>
+        <default>false</default>
+        <label>Source - Temporal</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Twilio</fullName>
         <default>false</default>
         <label>Source - Twilio</label>
