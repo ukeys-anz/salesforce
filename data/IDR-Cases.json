@@ -27,7 +27,7 @@
       "IDR_Is_Written_Resp_Required__c": "No",
       "IDR_NC_Country__c": "Australia",
       "IDR_NC_Is_Consent_Obtained__c": false,
-      "IDR_Real_Form_Req__c": false,
+      "IDR_Real_Form_Req__c": "No",
       "IDR_Systemic_Issue_Category__c": "2",
       "IDR_Systemic_Issue_Description__c": "In January 2018 any new applicants would not be charged a $6 monthly fee for the service. No work was done to apply fee waivers to existing customer accounts causing frustration with loyal customers.",
       "Product__c": "@Product2Ref39"
@@ -60,7 +60,7 @@
       "IDR_Is_Written_Resp_Required__c": "Yes",
       "IDR_NC_Country__c": "Australia",
       "IDR_NC_Is_Consent_Obtained__c": false,
-      "IDR_Real_Form_Req__c": false,
+      "IDR_Real_Form_Req__c": "No",
       "IDR_Reason_for_re_opening__c": "2",
       "IDR_Systemic_Issue_Category__c": "1",
       "IDR_Systemic_Issue_Description__c": "In January 2018 any new applicants would not be charged a $6 monthly fee for the service. No work was done to apply fee waivers to existing customer accounts causing frustration with loyal customers.",
@@ -90,7 +90,7 @@
       "IDR_Is_Written_Resp_Required__c": "No",
       "IDR_NC_Country__c": "Australia",
       "IDR_NC_Is_Consent_Obtained__c": false,
-      "IDR_Real_Form_Req__c": false,
+      "IDR_Real_Form_Req__c": "No",
       "Product__c": "@Product2Ref121"
     },
     {
@@ -125,7 +125,7 @@
       "IDR_Is_Written_Resp_Required__c": "No",
       "IDR_NC_Country__c": "Australia",
       "IDR_NC_Is_Consent_Obtained__c": false,
-      "IDR_Real_Form_Req__c": false,
+      "IDR_Real_Form_Req__c": "No",
       "IDR_Reason_for_re_opening__c": "1",
       "Product__c": "@Product2Ref153"
     },
@@ -169,7 +169,7 @@
       "IDR_NC_State__c": "1",
       "IDR_NC_Street__c": "1 West street",
       "IDR_NC_Suburb__c": "Sydney",
-      "IDR_Real_Form_Req__c": false,
+      "IDR_Real_Form_Req__c": "No",
       "Product__c": "@Product2Ref172"
     }
   ]

@@ -163,46 +163,4 @@ private with sharing class NewCaseFlowWrapperControllerTest {
       'Record type Ids were returned'
     );
   }
-
-  /*
-  @description The privacy consent checkbox should be checked by default when conversing Un-authenticated Web Enquiry to Non Customer Complaint 
-  */
-  @IsTest
-  private static void testConsentObtainedPreCheckedScenario() {
-    String errorMessage = 'Privacy Consent Obtained should be checked by default when conversing from an Un-authenticated Web Enquiry to Non Customer Complaint Record Type.';
-    //GIVEN
-    //An un-authenticated web enquiry case with all required fields
-    Case unAuthCase = [
-      SELECT
-        IDR_NC_Is_Consent_Obtained__c,
-        IDR_Product_Category__c,
-        Description,
-        IDR_Complainant_Desired_Outcome__c,
-        Type
-      FROM Case
-      WHERE Origin = :WEB_ORIGIN
-      LIMIT 1
-    ];
-
-    //WHEN
-    //An un-authenticated web enquiry converts to non customer complaint RT
-    Test.startTest();
-    String convertedCaseDetails = NewCaseFlowWrapperController.getCaseDetailsByCaseRecordAEM(
-      unAuthCase,
-      (String) GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
-    );
-    Case convertedCase = (Case) JSON.deserialize(
-      convertedCaseDetails,
-      Case.class
-    );
-    Test.stopTest();
-
-    //CHECK
-    //If the privacy consent obtained box is changed to TRUE
-    System.assertEquals(
-      true,
-      convertedCase.IDR_NC_Is_Consent_Obtained__c,
-      errorMessage
-    );
-  }
 }

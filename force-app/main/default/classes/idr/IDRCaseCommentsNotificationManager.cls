@@ -2,7 +2,7 @@
  *
  * @author Boobalakrishnan Duraisamy
  * @since 12/2020
- * @description Responsible to trigger the Notification when another user adds a case comment
+ * @description Responsible to create Task and trigger the Notification when another user adds a case comment
  */
 public with sharing class IDRCaseCommentsNotificationManager {
   /**
@@ -22,7 +22,14 @@ public with sharing class IDRCaseCommentsNotificationManager {
           caseRec.OwnerId != record.CreatedById &&
           IDRCaseActions.isIDRComplaintType(caseRec)
         ) {
-          wrapperList.add(createNotification(caseRec));
+          if (
+            (!(caseRec.Status == 'Closed' ||
+            caseRec.Status == 'Withdrawn' ||
+            caseRec.Status == 'Resolved')) ||
+            (!((record.CommentBody).startsWith('New attachment added; ')))
+          ) {
+            wrapperList.add(createNotification(caseRec));
+          }
         }
         if (
           (caseRec.Status == 'Closed' ||
@@ -42,6 +49,61 @@ public with sharing class IDRCaseCommentsNotificationManager {
 
     if (!caseUpdatedlist.isEmpty()) {
       update caseUpdatedList;
+    }
+    manageNotificationTask(records);
+  }
+  /**
+   * @description Assesses whether or not to Task should be created. 
+   * @param records CaseComment records in current trigger context
+   */
+  public static void manageNotificationTask(List<CaseComment> records) {
+    Map<Id, Case> caseMap = getCaseRecords(records);
+    List<Case> caseUpdatedList = new List<Case>();
+    Task[] assiTasks = new List<Task>();
+
+    for (CaseComment record : (List<CaseComment>) records) {
+      Case caseRec = caseMap.get(record.ParentId);
+      if (caseRec != null) {
+        String customerName = (caseRec.IDR_NC_First_Name__c != null ||
+          caseRec.IDR_NC_Last_Name__c != null)
+          ? ('Customer Name : ' +
+            (caseRec.IDR_NC_First_Name__c != null
+              ? caseRec.IDR_NC_First_Name__c + ' '
+              : '') +
+            (caseRec.IDR_NC_Last_Name__c != null
+              ? caseRec.IDR_NC_Last_Name__c
+              : ''))
+          : '';
+        String subjectStr = (customerName != '')
+          ? ('New Correspondence received on a Closed Complaint added by ' +
+            UserInfo.getName() +
+            ' on case ' +
+            caseRec.CaseNumber +
+            ' ' +
+            customerName)
+          : ('New Correspondence received on a Closed Complaint added by ' +
+            UserInfo.getName() +
+            ' on case ' +
+            caseRec.CaseNumber);
+        if (
+          caseRec.OwnerId != record.CreatedById &&
+          IDRCaseActions.isIDRComplaintType(caseRec) &&
+          (caseRec.Status == 'Closed' ||
+          caseRec.Status == 'Withdrawn' ||
+          caseRec.Status == 'Resolved')
+        ) {
+          Task newCorrsTask = IDRTaskActions.createAssignmentTask(
+            caseRec,
+            subjectStr
+          );
+          newCorrsTask.Description = 'Tick the \'Additional Correspondence reviewed\' checkbox in CMOS once task has been actioned and closed';
+          assiTasks.add(newCorrsTask);
+        }
+      }
+    }
+    if (!assiTasks.isEmpty()) {
+      //insert Assignment Tasks on New Correspondence received on Closed Complaint
+      IDRTaskActions.insertAssignmentTask(assiTasks);
     }
   }
 
@@ -95,9 +157,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
       record,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      customerName +
-      'New Case Comment added by ' +
-      UserInfo.getName(),
+      customerName + 'New Case Comment added by ' + UserInfo.getName(),
       record
     );
 

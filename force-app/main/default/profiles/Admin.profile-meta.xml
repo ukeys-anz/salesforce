@@ -3791,6 +3791,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Cloud_Event__e.Data_1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Coaching_Summary__c.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -3,7 +3,7 @@
  * @author Afreen
  * @since 11/2020
  * @description Responsible to trigger the Notification for banker.
- * @runTests IDRCaseNotificationManagerTest, CaseTriggerHandlerTest
+ * @runTests IDRCaseNotificationManagerTest, CaseTriggerHandlerTest, IDREmailServiceTest
  *
  */
 public with sharing class IDRCaseNotificationManager {
@@ -18,6 +18,7 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
     List<Schema.FieldSetMember> fieldsList = getFields();
+    Task[] assiTasks = new List<Task>();
 
     for (Integer i = 0; i < records.size(); i++) {
       Case oldRecord = (Case) oldMap.get(records[i].Id);
@@ -33,7 +34,12 @@ public with sharing class IDRCaseNotificationManager {
             UserInfo.getUserId() != records[i].OwnerId &&
             IDRCaseActions.isIDRComplaintType(records[i])
           ) {
-            wrapperList.add(createNotification(fieldLabel, records[i], null));
+            if (!(fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID))){
+              wrapperList.add(createNotification(fieldLabel, records[i], null));
+            }
+            assiTasks.addAll(
+              createNotificationTask(fieldLabel, records[i], null)
+            );
           }
         }
       }
@@ -41,6 +47,10 @@ public with sharing class IDRCaseNotificationManager {
 
     if (!wrapperList.isEmpty()) {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
+    }
+    if (!assiTasks.isEmpty()) {
+      //insert Assignment Tasks on New Email received or Complaint assignment
+      IDRTaskActions.insertAssignmentTask(assiTasks);
     }
   }
 
@@ -58,6 +68,7 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     IDRBankerNotificationWrapper wrapper;
     String msgBody;
+
     String customerName = (c.IDR_NC_First_Name__c != null ||
       c.IDR_NC_Last_Name__c != null)
       ? ('Customer Name : ' +
@@ -93,13 +104,6 @@ public with sharing class IDRCaseNotificationManager {
       );
     } else {
       msgBody = fieldLabel + 'field has been changed';
-      if (fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID)) {
-        msgBody =
-          customerName +
-          'Case ' +
-          c.CaseNumber +
-          ' has been assigned to you';
-      }
       if (
         fieldLabel.equalsIgnoreCase(IDRConstants.MILESTONE_SLA_FIELD_LABEL) &&
         c.Status != IDRConstants.ESCALATED_STATUS
@@ -117,6 +121,56 @@ public with sharing class IDRCaseNotificationManager {
     }
 
     return wrapper;
+  }
+  /**
+   * @description Builds Task A new email response has been received and when A Case has been re-assigned.
+   * @param fieldLabel Field label where the change has been detected
+   * @param c case record where the  change has detected
+   * @param parentCase parent case record which is attached to parentId of the above case
+   * @return Task records associated with new email or new case assigned.
+   */
+  public static List<Task> createNotificationTask(
+    String fieldLabel,
+    Case c,
+    Case parentCase
+  ) {
+    String subjectStr = null;
+    Task[] assiTasks = new List<Task>();
+
+    String customerName = (c.IDR_NC_First_Name__c != null ||
+      c.IDR_NC_Last_Name__c != null)
+      ? ('Customer Name : ' +
+        (c.IDR_NC_First_Name__c != null ? c.IDR_NC_First_Name__c + ' ' : '') +
+        (c.IDR_NC_Last_Name__c != null ? c.IDR_NC_Last_Name__c : ''))
+      : '';
+    if (fieldLabel == 'Email Response Attached') {
+      subjectStr = (customerName != '')
+        ? ('A new email response has been received on case : ' +
+          c.CaseNumber +
+          ' ' +
+          customerName)
+        : ('A new email response has been received on case : ' + c.CaseNumber);
+    } else if (fieldLabel != 'Parent Updated') {
+      if (
+        fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
+        (!(String.valueOf(c.OwnerId).startsWith('00G')))
+      ) {
+        subjectStr =
+          'A Case has been assigned to you ' +
+          c.CaseNumber +
+          ' ' +
+          customerName;
+      }
+    }
+    if (subjectStr != null) {
+      Task assiTaskRec = IDRTaskActions.createAssignmentTask(c, subjectStr);
+      if (fieldLabel == 'Email Response Attached') {
+        assiTaskRec.Description = 'Any attachments included with this email will be available to view in the \'Files\' tab in CMOS';
+      }
+      assiTasks.add(assiTaskRec);
+    }
+
+    return assiTasks;
   }
 
   /**
@@ -171,7 +225,9 @@ public with sharing class IDRCaseNotificationManager {
       ]
     );
     for (Case record : toBeEsclationCases) {
-      notificationList.add(buildEscalationNotificationEvent(record, ownerMap));
+      notificationList.addAll(
+        buildEscalationNotificationEvent(record, ownerMap)
+      );
     }
     if (notificationList.isEmpty()) {
       return;
@@ -185,30 +241,59 @@ public with sharing class IDRCaseNotificationManager {
    * @description Build Platform Event record with details related to banker and line manager
    * @param c Case record
    * @param ownerMap Map containing details of owner and line manager
-   * @return IDR_Notification_Event__e notification event
+   * @return IDR_Notification_Event__e one notification event for owner and one for his/her manager.
    */
-  private static IDR_Notification_Event__e buildEscalationNotificationEvent(
+  private static List<IDR_Notification_Event__e> buildEscalationNotificationEvent(
     Case c,
     Map<Id, User> ownerMap
   ) {
+    List<IDR_Notification_Event__e> nEventList = new List<IDR_Notification_Event__e>();
+    Integer timeVal = Datetime.now().millisecond();
     IDR_Notification_Event__e nEvent = new IDR_Notification_Event__e();
     nEvent.Case_ID__c = c.Id;
     nEvent.Case_Number__c = c.CaseNumber;
     nEvent.Is_Banker_Notification__c = true;
     nEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId)?.Email;
     nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId)?.FirstName;
+    //nEvent.Line_Manager_Email__c = null;
+    //nEvent.Line_Manager_First_Name__c = null;
     if (ownerMap.get(c.OwnerId)?.ManagerId != null) {
-      nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId).Manager.Email;
+      nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId)
+        .Manager.Email;
       nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
         .Manager.FirstName;
     } else {
       nEvent.Line_Manager_Email__c = null;
       nEvent.Line_Manager_First_Name__c = null;
     }
-    nEvent.MessageID__c = '' + c.Id + Datetime.now().millisecond();
+    nEvent.MessageID__c = '' + c.Id + timeVal;
     nEvent.EmailFlag__c = true;
     nEvent.EmailTemplate__c = IDRConstants.BANKER_EMAIL_NOTIFICATION_TEMPLATE;
 
-    return nEvent;
+    nEventList.add(nEvent);
+    /* CC-228 on hold until NB prod go-live).
+    IDR_Notification_Event__e managerEvent = new IDR_Notification_Event__e();
+    managerEvent.Case_ID__c = c.Id;
+    managerEvent.Case_Number__c = c.CaseNumber;
+    managerEvent.Is_Banker_Notification__c = true;
+    managerEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId)?.Email;
+    managerEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId)?.FirstName;
+    if (ownerMap.get(c.OwnerId)?.ManagerId != null) {
+      managerEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId)
+        .Manager.Email;
+      managerEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
+        .Manager.FirstName;
+    } else {
+      managerEvent.Line_Manager_Email__c = null;
+      managerEvent.Line_Manager_First_Name__c = null;
+    }
+    timeVal++;
+    managerEvent.MessageID__c = '' + c.Id + timeVal;
+    managerEvent.EmailFlag__c = true;
+    managerEvent.EmailTemplate__c = IDRConstants.MANAGER_EMAIL_NOTIFICATION_TEMPLATE;
+
+    nEventList.add(managerEvent);
+    */
+    return nEventList;
   }
 }

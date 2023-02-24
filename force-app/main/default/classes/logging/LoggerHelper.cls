@@ -163,7 +163,7 @@ public with sharing class LoggerHelper {
       return;
     }
 
-    List<SObject> logEvents = new List<SObject>();
+    List<LogEvent__e> logEvents = new List<LogEvent__e>();
     for (LogEventBuilder logEventBuilder : LOG_ENTRIES_BUFFER) {
       if (logEventBuilder.shouldSave()) {
         LogEvent__e logEvent = LogEventBuilder.getLogEvent();

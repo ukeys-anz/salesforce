@@ -90,7 +90,7 @@ private class IDRCaseNotificationManagerTest {
     Test.startTest();
 
     for (Case c : complaintCaselist) {
-      c.IDR_Date_Received__c = DateTime.now().addDays(-2);
+      c.IDR_Date_Received__c = DateTime.now().addDays(-4);
       c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_RED;
     }
     CheckRecursive.firstCall = false;
