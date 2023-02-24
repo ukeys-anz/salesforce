@@ -47,17 +47,20 @@ jobs:
           npx prettier -c force-app/main/default/aura/**/*.{js,css,cmp}
 
   eslint:
-    runs-on: [self-hosted, salesforce]
+    runs-on: [self-hosted, salesforce-prod]
 
     steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: "14"
+
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      - name: "Set npm repository mirror"
-        run: npm config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
-
       - name: "Install NPM Packages"
-        run: npm ci -f
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci -f
 
       - name: "Lint LWC"
         shell: bash
