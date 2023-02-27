@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Customer SOP Id</description>
     <externalId>true</externalId>
     <label>SOP ID</label>
     <length>255</length>
@@ -11,5 +12,5 @@
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
-    <unique>true</unique>
+    <unique>false</unique>
 </CustomField>
