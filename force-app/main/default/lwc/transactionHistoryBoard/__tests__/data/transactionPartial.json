@@ -9,6 +9,8 @@
           "number": "210433904"
         },
         "transaction_time": "2021-08-20T20:57:58Z",
+        "transactionDateLocal": "2021-08-20 20:57:58.145 Z",
+        "transaction_posted_date": "2021-08-20 20:57:58.145 Z",
         "status": "TRANSACTION_STATUS_POSTED",
         "long_desc": "Payment with card at some place",
         "amount": {
