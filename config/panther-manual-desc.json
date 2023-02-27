@@ -17,7 +17,13 @@
       "Biller_Code__c": "Biller Code which identifies the biller to which the payment is made.",
       "Biller_Name__c": "Name of the Merchant or Organisation to which the BPAY Payment is made.",
       "Correct_Customer_Reference_Number__c": "Reference Number which correctly identifies the customer or invoice against which the payment is expected to be made.",
-      "Customer_Reference_Number__c": "Reference Number which identifies the customer or invoice against which the payment is made."
+      "Customer_Reference_Number__c": "Reference Number which identifies the customer or invoice against which the payment is made.",
+      "Fraud_Analytics_Assignee__c": "LookUp field for FraudX_Agent or Join_Lead role for Fraud Analytics Investigation",
+      "Fraud_Analytics_Comments__c": "Comment on analytical description for Fraud Analytics Investigation",
+      "Fraud_Analytics_Outcome__c": "Outcome of detection uplifted review for Fraud Analytics Investigation",
+      "Fraud_Analytics_Change_Type__c": "List of Detection Uplift Implemented values in Fraud Analytics Investigation",
+      "Fraud_Analytics_Rule_Name__c": "Rule or List name for Fraud Analytics Investigation",
+      "Fraud_Analytics_Date_Complete__c": "Completed review date for Fraud Analytics Investigation"
     },
     "COBAddress__c": {
       "AddressBuildingName__c": "Building name (e.g. 'Polaris')",
@@ -700,6 +706,12 @@
         "Fraud_Total_Recovered__c",
         "Fraud_Total_Reimbursed__c",
         "Fraud_Total_Scam_Value__c",
+        "Fraud_Analytics_Assignee__c",
+        "Fraud_Analytics_Comments__c",
+        "Fraud_Analytics_Outcome__c",
+        "Fraud_Analytics_Change_Type__c",
+        "Fraud_Analytics_Rule_Name__c",
+        "Fraud_Analytics_Date_Complete__c",
         "Has_The_Card_Been_Stopped__c",
         "IDR_AFCA_Date__c",
         "IDR_AFCA_Due_Date__c",
