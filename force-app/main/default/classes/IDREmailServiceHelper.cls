@@ -27,7 +27,6 @@ public with sharing class IDREmailServiceHelper {
       SuppliedEmail = fromEmail,
       IDR_Inbox_Email_Address__c = senderEmail,
       RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
-      IDR_Real_Form_Req__c = 'No',
       Origin = caseOrigin
     );
     if (fromEmail == System.Label.ANZ_com_Sender_Address) {
