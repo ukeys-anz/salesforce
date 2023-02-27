@@ -209,14 +209,17 @@ public class AuthTokenCacheUtilTest {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
     );
 
     Test.startTest();
-    String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
+    String accessToken = AuthTokenCacheUtil.getStaffToken(
+      Service.IdType.OCVID,
+      '1111'
+    );
     System.assertEquals(
       accessToken,
       'xxxxx',
@@ -233,7 +236,7 @@ public class AuthTokenCacheUtilTest {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
@@ -241,14 +244,17 @@ public class AuthTokenCacheUtilTest {
 
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
-      ForgeTokenHandlerTest.IDTESTVALUE
+      AuthServiceTest.IDTESTVALUE
     );
 
     Test.startTest();
-    String accessToken = AuthTokenCacheUtil.getStaffToken('1111');
+    String accessToken = AuthTokenCacheUtil.getStaffToken(
+      Service.IdType.OCVID,
+      '1111'
+    );
     System.assertEquals(
       accessToken,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       'The accessToken should be as expected.'
     );
     Test.stopTest();
@@ -276,19 +282,19 @@ public class AuthTokenCacheUtilTest {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
     );
     HttpCalloutResponse res = getForgeTokenInvalidResponse();
-    Service s = ServiceProvider.getService(FabricService.class);
+    Service s = ServiceProvider.getService(AuthService.class);
     s.setCalloutResponse(res);
 
     Test.startTest();
     String exceptionMsg = '';
     try {
-      AuthTokenCacheUtil.getStaffToken('1111');
+      AuthTokenCacheUtil.getStaffToken(Service.IdType.OCVID, '1111');
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }

@@ -11,7 +11,7 @@ public inherited sharing class TwilioServiceTest {
     Test.setMock(HttpCalloutMock.class, new MockTwilioCallout());
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken4017640246',
-      ForgeTokenHandlerTest.IDTESTVALUE
+      AuthServiceTest.IDTESTVALUE
     );
     String endPoint =
       'callout:SF_MS_Twilio' +

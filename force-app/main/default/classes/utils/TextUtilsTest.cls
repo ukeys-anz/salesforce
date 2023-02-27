@@ -67,6 +67,16 @@ public with sharing class TextUtilsTest {
   }
 
   @isTest
+  static void testRemoveNonAlphanumericChar() {
+    String nonAlphanumericString = '0c3bde38-353f-4f86-99c6-873f86320c1b';
+    System.assertEquals(
+      '0c3bde38353f4f8699c6873f86320c1b',
+      TextUtils.removeNonAlphanumericChar(nonAlphanumericString),
+      'String should not contain non-alphanumeric characters.'
+    );
+  }
+
+  @isTest
   static void testMaskAndLog() {
     String inputData = 'A sample text with TFN: 1234567890';
     String fieldName = 'Description';

@@ -20,6 +20,7 @@ public without sharing class IDRTaskActions {
 
   @TestVisible
   private static final String START_COLLECTIONS_SUBJECT = 'START Collection';
+  public static final String NEW_FILE_SUBJECT = 'New File added by';
 
   public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
 
@@ -78,11 +79,16 @@ public without sharing class IDRTaskActions {
         record.RecordTypeId == IDRConstants.SI_TASK_RT_ID ||
         record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID
       ) {
-        CommonUtil.handleMasking(
-          record,
-          null,
-          SObjectType.Task.fieldSets.IDR_Masked_Fields.getFields()
-        );
+        if (
+          record.Subject == null ||
+          !record.Subject.containsIgnoreCase(NEW_FILE_SUBJECT)
+        ) {
+          CommonUtil.handleMasking(
+            record,
+            null,
+            SObjectType.Task.fieldSets.IDR_Masked_Fields.getFields()
+          );
+        }
         populateFieldsOnTask(record, null);
       }
     }
@@ -110,6 +116,38 @@ public without sharing class IDRTaskActions {
     ) {
       record.Subject = IDRConstants.SUBJECT_PEND_CASE_TASK;
     }
+    if (
+      record.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
+      record.ActivityDate == null
+    ) {
+      record.ActivityDate = Date.today().addDays(1);
+    }
+  }
+  /**
+   * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
+   * @param records task record for insert
+   */
+  public static Void insertAssignmentTask(List<Task> records) {
+    if (!records.isEmpty()) {
+      IDRTaskActionHelper.insertAssignmentTask(records);
+    }
+  }
+  /**
+   * @description populate task fields for creating task after complaint assignment / New file attached / New Email Attached / New comment on closed case.
+   * @param c case record from the trigger
+   * @param subject of the task record
+   * @return An instance of a Task
+   */
+  public static Task createAssignmentTask(Case c, String subject) {
+    return new Task(
+      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+      OwnerId = c.OwnerId,
+      WhatId = c.Id,
+      Subject = subject,
+      Status = 'Open',
+      Priority = 'Normal',
+      Type = 'Notification'
+    );
   }
   /**
    * @description assignToCollectionQueue method is used to validate the collection task created by mulesoft and assign to respective collections queue
@@ -661,7 +699,8 @@ public without sharing class IDRTaskActions {
       record.IDR_Is_Common__c == 'Yes' && //is case PSI
       FeatureManagement.checkPermission(IDR_LEVEL_1) && //is user level 1 or higher?
       record.IsClosed &&
-      (oldRec == null || //if case is created closed
+      (oldRec ==
+      null || //if case is created closed
       (oldRec.Status != record.Status &&
       (!(siCaseTasks.containsKey(record.Id)))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
       //This could be a Reopen to closure scenario therefore make sure another task is not created.

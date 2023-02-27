@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COB_VR4</fullName>
+    <active>true</active>
+    <description>Prevents users from leaving the &apos;Onboarding Verification Failed Reason&apos; empty when Case status is  &apos;Failed (OK)&apos;</description>
+    <errorConditionFormula>AND(
+    NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),  
+    OR( 
+       RecordType.DeveloperName = &quot;Fraud_Check&quot;,
+       RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;
+    ),
+    ISPICKVAL( Status, &quot;Failed (OK)&quot; ),
+    ISPICKVAL(OnboardingVerificationFailedReason__c, &apos;&apos;) 
+)</errorConditionFormula>
+    <errorMessage>&apos;Onboarding Verification Failed Reason&apos; field cannot be empty for status &apos;Failed (OK)&apos;</errorMessage>
+</ValidationRule>

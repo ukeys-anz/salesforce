@@ -41,7 +41,7 @@ public inherited sharing class CardManagementServiceTest {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
@@ -79,7 +79,7 @@ public inherited sharing class CardManagementServiceTest {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
@@ -110,7 +110,7 @@ public inherited sharing class CardManagementServiceTest {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
-      ForgeTokenHandlerTest.IDTESTVALUE,
+      AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false

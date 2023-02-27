@@ -90,7 +90,60 @@ public class ContentDocumentLinkTriggerHandlerTest {
       );
     }
   }
+  /**
+   * @description Test the link deletion.
+   */
+  @isTest
+  static void testContentDocumentDelete() {
+    List<User> usrlist = [SELECT id FROM User];
 
+    System.runAs(usrlist[0]) {
+      //Given a complaint case record
+      Case testCase = [SELECT Id, SuppliedEmail, Origin, Description, IDR_NC_Country__c, IDR_Product_Category__c FROM Case LIMIT 1];
+
+      Test.startTest();
+      testCase.SuppliedEmail = System.Label.ANZ_com_Sender_Address;
+      testCase.Origin = '8'; // anz.com
+      testCase.Description = '[Issue Type :-: Service quality \\|-\\|  Subsequent Issue Type :-: Tone or manner of response \\|-\\| ';
+      update testCase;
+      
+      List<Case> caseList = new List<Case>();
+      caseList.add(testCase);
+      IDREmailToCase.processEmail(caseList);
+      
+      //When another user adds a file attachment
+      //Create a file
+      ContentVersion cv = new ContentVersion();
+      cv.Title = 'Test File Delete';
+      cv.PathOnClient = 'Test File Delete' + '.txt';
+      cv.VersionData = Blob.valueOf('Test File Delete functionality');
+
+      insert cv;
+
+      // retrieve file to create an association with case
+      ContentDocument cd = [SELECT id FROM ContentDocument LIMIT 1];
+
+      // insert Content document link
+      ContentDocumentLink cdl = new ContentDocumentLink();
+      cdl.ContentDocumentId = cd.Id;
+      cdl.LinkedEntityId = testCase.Id;
+      cdl.ShareType = 'V';
+      cdl.Visibility = 'AllUsers';
+      insert cdl;
+      delete cdl;
+
+      Test.stopTest();
+
+      //assert to validate document link with case
+      List<ContentDocumentLink> cdList = [
+        SELECT Id, LinkedEntityId
+        FROM ContentDocumentLink
+        WHERE LinkedEntityId = :testCase.Id
+      ];
+      System.assertEquals(0, cdList.size());
+    }
+  }
+  
   @isTest
   static void testCreateCaseCloseNotification() {
     Case testCase = [

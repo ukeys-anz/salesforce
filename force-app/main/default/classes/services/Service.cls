@@ -9,6 +9,10 @@
 public with sharing virtual class Service {
   protected HttpCalloutResponse response = new HttpCalloutResponse();
   protected Boolean preset = false;
+  public enum IdType {
+    OCVID,
+    PERSONAID
+  }
 
   /**
    * @param ocvId customer id
@@ -61,14 +65,16 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param ocvId ocv id
+   * @param idType Enum for specifying which type of id is used: OCV ID or PERSONA ID
+   * @param idValue ocv id or persona Id
    * @param idToken id token as the bearer token
    * @param forgeAuth custom metadata which contains the client id and secret
    * @return `HttpCalloutResponse` api response
    * @description virtual fetches forge api callout
    */
   public virtual HttpCalloutResponse getForgeJWTToken(
-    String ocvId,
+    Service.IdType idType,
+    String idValue,
     String idToken,
     Forgerock_Auth__mdt forgeAuth
   ) {
@@ -148,16 +154,18 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param ocvID customer id
+   * @param idType Enum for specifying which type of id is used: OCV ID or PERSONA ID
+   * @param idValue ocv id or persona Id
    * @param headers key value pairs of headers to set
    * @return `Map<String, String>` header map
    * @description sets Authorization required for a callout
    */
   public Map<String, String> setAuthorizationCommonHeaders(
-    String ocvID,
+    IdType idType,
+    String idValue,
     Map<String, String> headers
   ) {
-    String serializedToken = AuthTokenCacheUtil.getStaffToken(ocvID);
+    String serializedToken = AuthTokenCacheUtil.getStaffToken(idType, idValue);
     headers.put('Authorization', 'Bearer ' + serializedToken);
     return headers;
   }
@@ -185,16 +193,18 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param ocvID customer id
+   * @param idType Enum for specifying which type of id is used: OCV ID or PERSONA ID
+   * @param idValue ocv id or persona Id
    * @param headers key value pairs of headers to set
    * @return `Map<String, String>` header map
    * @description sets all headers required for a callout
    */
   public Map<String, String> setCalloutCommonHeaders(
-    String ocvID,
+    IdType idType,
+    String idValue,
     Map<String, String> headers
   ) {
-    headers = setAuthorizationCommonHeaders(ocvID, headers);
+    headers = setAuthorizationCommonHeaders(idType, idValue, headers);
     headers = setMuleCommonHeaders(headers);
     return headers;
   }
@@ -404,6 +414,41 @@ public with sharing virtual class Service {
    * @description virtual fetches party information
    */
   public virtual HttpCalloutResponse createParty(Lead record) {
+    return null;
+  }
+
+  /**
+   * @param cobCase COB Case holding Id, personaId and status to be used for callout
+   * @return `HttpCalloutResponse` api response
+   * @description virtual triggers Temporal Case Workflow
+   */
+  public virtual HttpCalloutResponse triggerTemporalCaseWorkflow(Case cobCase) {
+    return null;
+  }
+
+  /**
+   * @param personaId COB Primary ID record Persona Id
+   * @param tokenizedFields the account number for the checking account
+   * @return `HttpCalloutResponse` api response
+   * @description virtual stravinsky cobPid detokenize api
+   */
+  public virtual HttpCalloutResponse detokenizeCOBPID(
+    String personaId,
+    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedFields
+  ) {
+    return null;
+  }
+
+  /**
+   * @param personaId COB Primary ID record Persona Id
+   * @param detokenizedValue detokenized COBPID ready for tokenization
+   * @return `HttpCalloutResponse` api response
+   * @description virtual stravinsky cobPid detokenize api
+   */
+  public virtual HttpCalloutResponse tokenizeCOBPID(
+    String personaId,
+    COBPrimaryIDDocumentModel detokenizedValue
+  ) {
     return null;
   }
 }

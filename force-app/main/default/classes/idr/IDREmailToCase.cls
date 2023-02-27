@@ -71,6 +71,14 @@ public with sharing class IDREmailToCase {
           }
         }
       }
+        String countryValue = String.valueof(c.get('IDR_NC_Country__c'));
+                                    if(countryValue == 'Please select'){
+                                        c.put('IDR_NC_Country__c', 'Australia');
+                                    }
+        String productCategoryValue = String.valueof(c.get('IDR_Product_Category__c'));
+                                    if(countryValue == 'Please select'){
+                                        c.put('IDR_Product_Category__c', 'Not product related');
+                                    }
     }
   }
 }
