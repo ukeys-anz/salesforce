@@ -16,6 +16,7 @@ public with sharing class CCRMAccountActions {
     List<Account> records,
     Map<Id, Account> oldMap
   ) {
+    System.debug('Fake change');
     Map<String, List<Account>> mappedAccounts = mapAccountsToCPID(
       records,
       oldMap
