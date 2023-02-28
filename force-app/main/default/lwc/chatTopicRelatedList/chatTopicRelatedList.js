@@ -201,7 +201,7 @@ export default class ChatTopicRelatedList extends LightningElement {
       try {
         reinitiateChat({
           accountId: this.recordId,
-          conversationSid: this.selectedChannelSID
+          conversationSid: selectedChannelSID
         });
       } catch (error) {
         handleErrorShowToast(
