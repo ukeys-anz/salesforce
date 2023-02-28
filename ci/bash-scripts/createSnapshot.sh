@@ -14,7 +14,7 @@ read -rp "${green}Please enter your devhub alias (production): " prodname
 echoMessageCreator "" $stepNo false
 ########################
 
-cd ..
+cd ../..
 
 # creating the scratchOrg
 echoMessageCreator "creating the scratchOrg" $stepNo true
@@ -76,7 +76,7 @@ echoMessageCreator "" $stepNo false
 
 # checkout to develop and push all the metadata into the scratchOrg
 echoMessageCreator "push all the metadata into the scratchOrg" $stepNo true
-source ./bash-scripts/snapshotScratch.sh
+source ./ci/bash-scripts/snapshotScratch.sh
 echoMessageCreator "" $stepNo false
 ########################
 
