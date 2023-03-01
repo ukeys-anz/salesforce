@@ -564,6 +564,19 @@
       "permissionsetgroups": [],
       "permissionsets": ["API_Only", "SF_Data_Sync_Integration", "Disable_MFA"],
       "type": "system"
+    },
+    {
+      "name": "BOH Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "BoH_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
     }
   ]
 }
