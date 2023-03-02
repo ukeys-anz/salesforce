@@ -37,6 +37,7 @@ SingleSignOn.settings
 
 #auth provider to make the build pass and we do the manual deployment later
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
+force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml

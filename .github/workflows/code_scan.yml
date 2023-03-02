@@ -40,4 +40,4 @@ jobs:
           chmod +x $GITHUB_WORKSPACE/pmd-bin-6.39.0/bin
 
       - name: "Run PMD"
-        run: $GITHUB_WORKSPACE/pmd-bin-6.39.0/bin/run.sh pmd -d . -R ./rulesets/apex/quickstart.xml -l apex -f textcolor -cache ../pmd-cache
+        run: $GITHUB_WORKSPACE/pmd-bin-6.39.0/bin/run.sh pmd -d . -R ./ci/rulesets/apex/quickstart.xml -l apex -f textcolor -cache ../pmd-cache
