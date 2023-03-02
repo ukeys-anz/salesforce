@@ -11,12 +11,12 @@
         <active>true</active>
         <booleanFilter>1 OR 2</booleanFilter>
         <filterItems>
-            <field>$UserRole.DeveloperName</field>
+            <field>User.UserRole.DeveloperName</field>
             <operation>equals</operation>
             <value>FraudX_Agent</value>
         </filterItems>
         <filterItems>
-            <field>$UserRole.DeveloperName</field>
+            <field>User.UserRole.DeveloperName</field>
             <operation>equals</operation>
             <value>Join_Lead</value>
         </filterItems>
