@@ -873,6 +873,166 @@
         <endAddress>104.46.122.189</endAddress>
         <startAddress>104.46.122.189</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-1</description>
+        <endAddress>20.64.193.51</endAddress>
+        <startAddress>20.64.193.51</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-2</description>
+        <endAddress>20.64.198.153</endAddress>
+        <startAddress>20.64.198.144</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-3</description>
+        <endAddress>20.69.33.38</endAddress>
+        <startAddress>20.69.33.38</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-4</description>
+        <endAddress>20.69.33.177</endAddress>
+        <startAddress>20.69.33.177</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-5</description>
+        <endAddress>20.99.132.218</endAddress>
+        <startAddress>20.99.132.218</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-6</description>
+        <endAddress>20.99.133.17</endAddress>
+        <startAddress>20.99.133.17</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-7</description>
+        <endAddress>20.99.133.32</endAddress>
+        <startAddress>20.99.133.32</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-8</description>
+        <endAddress>20.99.133.43</endAddress>
+        <startAddress>20.99.133.43</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-9</description>
+        <endAddress>20.99.133.64</endAddress>
+        <startAddress>20.99.133.63</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-10</description>
+        <endAddress>20.99.133.71</endAddress>
+        <startAddress>20.99.133.71</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-11</description>
+        <endAddress>20.99.133.83</endAddress>
+        <startAddress>20.99.133.83</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-12</description>
+        <endAddress>20.112.52.89</endAddress>
+        <startAddress>20.112.52.80</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-13</description>
+        <endAddress>20.115.170.121</endAddress>
+        <startAddress>20.115.170.112</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-14</description>
+        <endAddress>20.115.170.137</endAddress>
+        <startAddress>20.115.170.128</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-15</description>
+        <endAddress>20.115.249.161</endAddress>
+        <startAddress>20.115.249.160</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-16</description>
+        <endAddress>20.115.249.170</endAddress>
+        <startAddress>20.115.249.163</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-17</description>
+        <endAddress>20.165.240.156</endAddress>
+        <startAddress>20.165.240.156</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-18</description>
+        <endAddress>20.165.240.158</endAddress>
+        <startAddress>20.165.240.158</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-19</description>
+        <endAddress>20.165.241.40</endAddress>
+        <startAddress>20.165.241.40</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-20</description>
+        <endAddress>20.165.241.61</endAddress>
+        <startAddress>20.165.241.61</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-21</description>
+        <endAddress>20.165.243.11</endAddress>
+        <startAddress>20.165.243.11</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-22</description>
+        <endAddress>20.165.243.57</endAddress>
+        <startAddress>20.165.243.57</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-23</description>
+        <endAddress>20.165.143.148</endAddress>
+        <startAddress>20.165.143.148</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-24</description>
+        <endAddress>20.165.143.180</endAddress>
+        <startAddress>20.165.143.180</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-25</description>
+        <endAddress>20.190.20.133</endAddress>
+        <startAddress>20.190.20.133</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-26</description>
+        <endAddress>40.90.218.198</endAddress>
+        <startAddress>40.90.218.196</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-27</description>
+        <endAddress>40.90.218.203</endAddress>
+        <startAddress>40.90.218.203</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-28</description>
+        <endAddress>40.90.220.190</endAddress>
+        <startAddress>40.90.220.190</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-29</description>
+        <endAddress>40.90.220.196</endAddress>
+        <startAddress>40.90.220.196</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-30</description>
+        <endAddress>51.143.120.236</endAddress>
+        <startAddress>51.143.120.236</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-31</description>
+        <endAddress>51.143.120.242</endAddress>
+        <startAddress>51.143.120.242</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Microsoft Defender Prod-32</description>
+        <endAddress>52.156.123.143</endAddress>
+        <startAddress>52.156.123.128</startAddress>
+    </loginIpRanges>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
