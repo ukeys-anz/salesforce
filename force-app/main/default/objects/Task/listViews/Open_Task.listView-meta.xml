@@ -7,18 +7,15 @@
     <columns>STATUS</columns>
     <columns>PRIORITY</columns>
     <columns>CREATED_DATE</columns>
+    <columns>LAST_UPDATE</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
     <filterScope>Mine</filterScope>
-    <filters>
-        <field>RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Task.IDR_Task,Task.IDR_System_Task</value>
-    </filters>
     <filters>
         <field>IS_CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>My Tasks</label>
+    <label>My Open Tasks</label>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>
