@@ -56,10 +56,9 @@ public with sharing class FinancialAccountController {
             BSB__c = finAccount.bsb,
             FinServ__OpenDate__c = openedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
-            FinServ__FinancialAccountType__c = finAccount.marketing_product.code ==
-              'TRANSACT01'
-              ? 'Checking'
-              : 'Savings'
+            FinServ__FinancialAccountType__c = getAccountType(
+              finAccount.marketing_product.code
+            )
           )
         );
       }
@@ -131,5 +130,25 @@ public with sharing class FinancialAccountController {
     }
 
     return financialAccount;
+  }
+
+  /**
+   * @description The Financial Account component uses this method to differentiate between the type of account.
+   * This method takes in marketing code as input and returns the type of account.
+   * @param code the marketing code input
+   * @return Account type
+   */
+  public static String getAccountType(String code) {
+    switch on code {
+      when 'TRANSACT01' {
+        return 'Checking';
+      }
+      when 'SAVING01' {
+        return 'Savings';
+      }
+      when else {
+        return 'Home Loan';
+      }
+    }
   }
 }

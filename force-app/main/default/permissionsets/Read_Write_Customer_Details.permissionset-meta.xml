@@ -682,6 +682,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>FinServ__FinancialAccount__c.FinServ__BankingAccount</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

@@ -403,6 +403,14 @@
         <value>/document-management/v1beta2/statements/signed_url/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_HomeLoanAccountUrl</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_HomeLoanAccountUrl</shortDescription>
+        <value>/coach-banking/v1/accounts</value>
+    </labels>
+    <labels>
         <fullName>ST_Close_Package</fullName>
         <categories>ST</categories>
         <language>en_US</language>

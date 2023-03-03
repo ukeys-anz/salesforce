@@ -177,7 +177,8 @@
       "FinServ__RecordTypeName__c": "Record type of the financial account",
       "FinServ__Status__c": "Financial account status of the customer",
       "Name": "The name of the financial account provided to us by Fabric.",
-      "Total_Number_of_Cards__c": "Total number of cards"
+      "Total_Number_of_Cards__c": "Total number of cards",
+      "Product_Name__c": "Temporary field to show product name"
     },
     "FinServ__FinancialAccountRole__c": {
       "FinServ__SourceSystemId__c": "Identifier from the original data source application."
@@ -1448,7 +1449,8 @@
         "Interest_Accrued__c",
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",
-        "Name"
+        "Name",
+        "Product_Name__c"
       ],
       "IA-2415987": ["Interest_Rate_URL__c"],
       "IA-2530753": ["IsPrimaryOwner__c", "Product_SubCode__c"]

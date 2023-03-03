@@ -9,15 +9,19 @@ import getTotalBalance from "@salesforce/apex/TotalBalanceController.getTotalBal
 import getTotalSaved from "@salesforce/apex/TotalBalanceController.getTotalSaved";
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
+//import getLoans from "@salesforce/resourceUrl/mock_homeloanaccounts";
+import getHomeLoanAccount from "@salesforce/apex/HomeLoanController.getHomeLoanAccount";
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 
 /* IMPORT PERMISSIONS */
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
+  @api objectApiName;
   goalDetails = [];
   ocvId;
   loading;
@@ -28,6 +32,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     savings: []
   };
   savingsJar = [];
+  loanData;
   //Pass this to the goals lwc so we can navigate to the
   //savings financial account
   savingsId;
@@ -38,16 +43,26 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   })
   async wiredRecord({ data }) {
     this.loading = true;
-    if (data && hasAccountsGoalsPermission) {
+    if (data) {
       this.ocvId = data.fields.OCV_ID__c.value;
-      if (this.ocvId) {
-        await this.getFinancialAccount();
-        await this.getGoals();
-      }
+    }
+    if (this.ocvId && hasAccountsGoalsPermission) {
+      await this.getFinancialAccount();
+      await this.getGoals();
+    }
+    if (this.ocvId && hasHomeLoanPermission) {
+      await this.getHomeLoanResponse();
     }
     this.loading = false;
   }
-
+  async getHomeLoanResponse() {
+    try {
+      let response = await getHomeLoanAccount({ ocvId: this.ocvId });
+      this.loanData = response.accounts[0];
+    } catch (e) {
+      console.log("error", e.message);
+    }
+  }
   get displayContent() {
     return hasAccountsGoalsPermission;
   }

@@ -26,6 +26,7 @@ describe("c-transactionHistoryRecord", () => {
       is: TransactionHistoryRecord
     });
     element.transactionRecord = transRecord;
+    element.showRaiseDispute = true;
     document.body.appendChild(element);
 
     const payload = {
@@ -71,6 +72,7 @@ describe("c-transactionHistoryRecord", () => {
       is: TransactionHistoryRecord
     });
     element.transactionRecord = transRecordWithoutWebsite;
+    element.showRaiseDispute = true;
     document.body.appendChild(element);
 
     const payload = {
@@ -107,6 +109,7 @@ describe("c-transactionHistoryRecord", () => {
       is: TransactionHistoryRecord
     });
     element.transactionRecord = transRecordPartial;
+    element.showRaiseDispute = true;
     document.body.appendChild(element);
 
     const payload = {
@@ -143,6 +146,7 @@ describe("c-transactionHistoryRecord", () => {
       is: TransactionHistoryRecord
     });
     element.transactionRecord = transRecord;
+    element.showRaiseDispute = true;
     element.expandAll = true;
     document.body.appendChild(element);
 
@@ -177,6 +181,7 @@ describe("c-transactionHistoryRecord", () => {
       is: TransactionHistoryRecord
     });
     element.transactionRecord = transRecord;
+    element.showRaiseDispute = true;
     element.expandAll = true;
     document.body.appendChild(element);
 
@@ -199,6 +204,7 @@ describe("c-transactionHistoryRecord", () => {
     // Set the dispute record type to be empty to trigger the modal to display
     transRecord.disputeRecordTypeId = "";
     element.transactionRecord = transRecord;
+    element.showRaiseDispute = true;
     element.expandAll = true;
     document.body.appendChild(element);
 
