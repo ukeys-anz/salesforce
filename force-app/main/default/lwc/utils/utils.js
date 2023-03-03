@@ -7,6 +7,7 @@
 
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { NavigationMixin } from "lightning/navigation";
+import getSingleSignOnUrl from "@salesforce/apex/SingleSignOnCacheUtil.getSingleSignOnUrl";
 export { classSet } from "./classSet";
 
 // Handle show toast message
@@ -40,13 +41,14 @@ export function handleStringifiedError(error) {
 }
 
 // Handle error and showToast
-export function handleErrorShowToast(
+export async function handleErrorShowToast(
   cmp,
   title,
   error,
   defaultErrorMessage,
   mode
 ) {
+  var messageData;
   let errorMessage = defaultErrorMessage;
   if (error && error.body && error.body.message) {
     let message = handleStringifiedError(error.body.message);
@@ -54,9 +56,20 @@ export function handleErrorShowToast(
     if (message && message.split(" ").length > 1) {
       errorMessage = message;
     }
+    if (error.body.exceptionType === "AuthTokenCacheUtil.TokenCacheException") {
+      let ssoUrl = await getSingleSignOnUrl();
+      errorMessage =
+        "Oh dear! Looks like we've messed up and lost a connection downstream.\nThe quick fix is to {0} and all should be right.";
+      messageData = [
+        {
+          url: ssoUrl,
+          label: "sign in again"
+        }
+      ];
+    }
   }
   cmp.hasError = true;
-  showToast(cmp, title, errorMessage, "", "error", mode);
+  showToast(cmp, title, errorMessage, messageData, "error", mode);
 }
 
 export function handleWireError(cmp, title, error) {

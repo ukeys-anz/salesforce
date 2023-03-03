@@ -5,7 +5,7 @@
  * @description Without any arguments, the linter will do a git diff --staged compare, take all the staged XML files and Lint them automatically.
  * The process will also git add them to your staged files so you don't have to do anything else but commit.
  *
- * @usage  node ./misc/xml_linter.js [--check] [--fix] [--gitbase=HEAD] [--compare=HEAD^1]
+ * @usage  node ./ci/xml_linter.js [--check] [--fix] [--gitbase=HEAD] [--compare=HEAD^1]
  *
  * @param --check: Runs a cofmpare based on the previous commit on the banch (HEAD^) to see if the XML Linting has been run correctly
  * @param --fix: Finds any files which are not linted when compairing the gitbase and will lint them automatically

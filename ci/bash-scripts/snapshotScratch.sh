@@ -4,7 +4,7 @@
 set -e
 
 stepNum=$(($stepNo+1))
-source ./bash-scripts/commonFunctions.sh
+source ./ci/bash-scripts/commonFunctions.sh
 stepNo=$(($stepNum))
 
 JOB_START_TIME=""
@@ -170,7 +170,7 @@ if [[ $importPlan == Y || $importPlan == y ]];then
         flag=false
         sfdx force:data:tree:import -p data/Post-Plan.json 2>&1 | tee stderr
         sfdx force:data:tree:import -p data/IDR-CustomSetting.json 2>&1 | tee stderr
-        node createCmosEntitlment.js 2>&1 | tee stderr
+        node ci/createCmosEntitlment.js 2>&1 | tee stderr
         sfdx force:data:tree:import -f data/Non_Prod_Settings__c.json 2>&1 | tee stderr
 
         if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
