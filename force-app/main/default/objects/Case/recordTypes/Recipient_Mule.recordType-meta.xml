@@ -1029,6 +1029,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Falcon Alerted Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Fraud Agent Delay</fullName>
             <default>false</default>
         </values>
@@ -1042,6 +1046,10 @@
         </values>
         <values>
             <fullName>Funds never left</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchant Liable</fullName>
             <default>false</default>
         </values>
         <values>
