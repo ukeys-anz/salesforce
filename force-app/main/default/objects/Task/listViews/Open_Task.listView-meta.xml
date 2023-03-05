@@ -7,7 +7,8 @@
     <columns>STATUS</columns>
     <columns>PRIORITY</columns>
     <columns>CREATED_DATE</columns>
-    <filterScope>Mine</filterScope>
+    <columns>Case_Created__c</columns>
+    <columns>Case_Age_in_Days__c</columns>
     <filters>
         <field>RECORDTYPE</field>
         <operation>equals</operation>
@@ -18,8 +19,9 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Tasks</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>

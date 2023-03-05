@@ -2482,6 +2482,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Event.Case__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Event.Completed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3453,6 +3458,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.Authentication_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
