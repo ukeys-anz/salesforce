@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Interaction_Purpose__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Privacy - Non Personal Information;Integrity - Accurate;Source - Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Why interaction happened</description>
     <externalId>false</externalId>
     <inlineHelpText>The reason for the appointment with the customer</inlineHelpText>
@@ -12,6 +12,7 @@
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>InteractionType</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -50,6 +51,63 @@
                 <default>false</default>
                 <label>Wrong Number</label>
             </value>
+            <value>
+                <fullName>Existing ANZ Customer</fullName>
+                <default>false</default>
+                <label>Existing ANZ Customer</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Digital Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Financial Wellbeing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Non-Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Testing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Wrong Number</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Existing ANZ Customer</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

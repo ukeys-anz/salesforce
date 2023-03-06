@@ -29,6 +29,7 @@ public with sharing class InteractionTriggerHandlerTest {
     Interaction testInteraction = new Interaction(
       Status__c = InteractionConstants.UNASSIGNED_STATUS,
       Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME,
+      InteractionType = InteractionConstants.CALL,
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       StartTime = startTime,
       AccountId = testAccount.Id,
@@ -455,6 +456,7 @@ public with sharing class InteractionTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.CALL,
       StartTime = System.now()
     );
 
@@ -477,6 +479,7 @@ public with sharing class InteractionTriggerHandlerTest {
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       Name = 'New Interaction',
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.CALL,
       StartTime = System.now()
     );
 

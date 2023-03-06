@@ -39,7 +39,7 @@ public with sharing class AppointmentNotificationTest {
     Interaction interactionSubject = new Interaction();
     interactionSubject.RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID;
     interactionSubject.StartTime = startDate;
-    interactionSubject.InteractionType = 'Email';
+    interactionSubject.InteractionType = InteractionConstants.CALL;
     interactionSubject.LocationId = testLocation.Id;
     interactionSubject.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
     interactionSubject.Status__c = STATUS_CANCELLED;
