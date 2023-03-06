@@ -117,7 +117,7 @@
                             <value>CASES.STATUS</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>CASES.CREATED_DATE</value>
+                            <value>UPDATEDBY_USER.ALIAS</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -175,6 +175,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>AddressType__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>QASAddress__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>SubmittedAt__c</value>

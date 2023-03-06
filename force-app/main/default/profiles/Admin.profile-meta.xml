@@ -3693,6 +3693,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.PersonID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Status__c</field>
         <readable>true</readable>
@@ -9872,6 +9877,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>User_Provisioning_Request__c</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>COBPrimaryIDDocument__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <userLicense>Salesforce</userLicense>

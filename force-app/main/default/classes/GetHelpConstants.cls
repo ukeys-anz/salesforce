@@ -176,11 +176,12 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
-  public static final String COB_DAON_FAILED_STATUS = 'Daon Failed';
-  public static final String COB_ID_OPS_DAON_APPROVED_STATUS = 'ID Ops: Daon Approved';
-  public static final String COB_EQUIFAX_FAILED_STATUS = 'Equifax Failed';
-  public static final String COB_EQUIFAX_PASSED_STATUS = 'Equifax Passed';
-  public static final String COB_FAILED_OK_STATUS = 'Failed (OK)';
+  public static final String COB_DAON_FAILED_STATUS = 'Daon Fallout';
+  public static final String COB_ID_OPS_DAON_APPROVED_STATUS = 'ID Ops: Daon OK';
+  public static final String COB_FRAUD_CHECK_DAON_APPROVED_STATUS = 'Fraud Check: Daon OK';
+  public static final String COB_EQUIFAX_FAILED_STATUS = 'Equifax Fallout';
+  public static final String COB_EQUIFAX_PASSED_STATUS = 'ID Check OK';
+  public static final String COB_FAILED_OK_STATUS = 'Failed';
   public static final String COB_POTENTIAL_FRAUD_STATUS = 'Potential Fraud';
   public static final String COB_CONFIRMED_FRAUD_STATUS = 'Confirmed Fraud';
 

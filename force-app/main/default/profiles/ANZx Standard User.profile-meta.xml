@@ -9685,6 +9685,10 @@
         <tab>trailheadapp__TrailheadSetup</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
+    <tabVisibilities>
+        <tab>COBPrimaryIDDocument__c</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <name>ActivitiesAccess</name>

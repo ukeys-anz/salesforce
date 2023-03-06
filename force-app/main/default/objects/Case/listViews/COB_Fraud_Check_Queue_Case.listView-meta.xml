@@ -7,6 +7,11 @@
     <columns>CustomerOnboardingApplication__c</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notContain</operation>
+        <value>Fraud Check: Daon OK,ID Check OK,Failed,Confirmed Fraud</value>
+    </filters>
     <filterScope>Queue</filterScope>
     <label>COB Fraud Check Queue</label>
     <queue>COB_Fraud_Check_Queue</queue>
