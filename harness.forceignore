@@ -152,3 +152,6 @@ force-app/main/default/classes/idr/CreateCommsData.cls-meta.xml
 
 #Temporarily adding FinServ__FinancialAccount__c sharing rule to avoid deployment issues.
 force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
+
+#AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
+force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
