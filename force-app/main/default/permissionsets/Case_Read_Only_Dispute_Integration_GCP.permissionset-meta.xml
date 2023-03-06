@@ -76,7 +76,6 @@
         <field>Case.Dispute_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Effective_Date__c</field>
@@ -151,7 +150,6 @@
         <editable>false</editable>
         <field>Case.Refund_Request_Date__c</field>
         <readable>true</readable>
-    </fieldPermissions>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -241,11 +239,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>External_Case_Status__c.Result_Message__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>External_Case_Status__c.Status_Event_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
