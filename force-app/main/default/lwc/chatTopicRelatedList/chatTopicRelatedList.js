@@ -197,7 +197,7 @@ export default class ChatTopicRelatedList extends LightningElement {
     let selectedChannelSID = event.target.dataset.id;
     let selectedAction = event.detail.value;
 
-    //Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
+    // Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
     if (selectedAction === "re_initiate") {
       let errorMessage =
         "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";

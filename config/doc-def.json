@@ -578,6 +578,19 @@
       "type": "system"
     },
     {
+      "name": "BOH Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "BoH_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Microsoft Defender Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],

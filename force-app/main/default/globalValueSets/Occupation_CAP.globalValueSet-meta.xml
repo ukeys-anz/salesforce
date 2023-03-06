@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>0001</fullName>
+        <default>false</default>
+        <label>Accountant (Chartered)</label>
+    </customValue>
+    <customValue>
+        <fullName>0002</fullName>
+        <default>false</default>
+        <label>Accountant (Other, Except Book-Keeper)</label>
+    </customValue>
+    <customValue>
+        <fullName>0003</fullName>
+        <default>false</default>
+        <label>Architect</label>
+    </customValue>
+    <customValue>
+        <fullName>0004</fullName>
+        <default>false</default>
+        <label>Dentist</label>
+    </customValue>
+    <customValue>
+        <fullName>0005</fullName>
+        <default>false</default>
+        <label>Doctor/Specialist/Surgeon</label>
+    </customValue>
+    <customValue>
+        <fullName>0006</fullName>
+        <default>false</default>
+        <label>Engineer</label>
+    </customValue>
+    <customValue>
+        <fullName>0007</fullName>
+        <default>false</default>
+        <label>Financial Controller/Investment Advisor</label>
+    </customValue>
+    <customValue>
+        <fullName>0008</fullName>
+        <default>false</default>
+        <label>Lawyer</label>
+    </customValue>
+    <customValue>
+        <fullName>0009</fullName>
+        <default>false</default>
+        <label>Journalist</label>
+    </customValue>
+    <customValue>
+        <fullName>0010</fullName>
+        <default>false</default>
+        <label>Nurse</label>
+    </customValue>
+    <customValue>
+        <fullName>0011</fullName>
+        <default>false</default>
+        <label>Pharmacist</label>
+    </customValue>
+    <customValue>
+        <fullName>0012</fullName>
+        <default>false</default>
+        <label>Solicitor</label>
+    </customValue>
+    <customValue>
+        <fullName>0013</fullName>
+        <default>false</default>
+        <label>Stockbroker</label>
+    </customValue>
+    <customValue>
+        <fullName>0014</fullName>
+        <default>false</default>
+        <label>Specialist Executive Consultant</label>
+    </customValue>
+    <customValue>
+        <fullName>0015</fullName>
+        <default>false</default>
+        <label>Other Professional</label>
+    </customValue>
+    <customValue>
+        <fullName>0016</fullName>
+        <default>false</default>
+        <label>Pre-School Teacher</label>
+    </customValue>
+    <customValue>
+        <fullName>0017</fullName>
+        <default>false</default>
+        <label>Primary School Teacher</label>
+    </customValue>
+    <customValue>
+        <fullName>0018</fullName>
+        <default>false</default>
+        <label>Secondary School Teacher</label>
+    </customValue>
+    <customValue>
+        <fullName>0019</fullName>
+        <default>false</default>
+        <label>Tafe Teacher</label>
+    </customValue>
+    <customValue>
+        <fullName>0020</fullName>
+        <default>false</default>
+        <label>Tertiary Teacher</label>
+    </customValue>
+    <customValue>
+        <fullName>0021</fullName>
+        <default>false</default>
+        <label>Remedial/Other Specialist Teacher</label>
+    </customValue>
+    <customValue>
+        <fullName>0022</fullName>
+        <default>false</default>
+        <label>Other Teacher</label>
+    </customValue>
+    <customValue>
+        <fullName>0023</fullName>
+        <default>false</default>
+        <label>Senior Level Manager/Administrator</label>
+    </customValue>
+    <customValue>
+        <fullName>0024</fullName>
+        <default>false</default>
+        <label>Middle Level Manager/Administrator</label>
+    </customValue>
+    <customValue>
+        <fullName>0025</fullName>
+        <default>false</default>
+        <label>Lower Level Manager/Administrator</label>
+    </customValue>
+    <customValue>
+        <fullName>0026</fullName>
+        <default>false</default>
+        <label>Computer Programmer/Technician</label>
+    </customValue>
+    <customValue>
+        <fullName>0027</fullName>
+        <default>false</default>
+        <label>Data Analyst/Research Assistant</label>
+    </customValue>
+    <customValue>
+        <fullName>0028</fullName>
+        <default>false</default>
+        <label>Other Technical</label>
+    </customValue>
+    <customValue>
+        <fullName>0029</fullName>
+        <default>false</default>
+        <label>Secretary</label>
+    </customValue>
+    <customValue>
+        <fullName>0030</fullName>
+        <default>false</default>
+        <label>Account/Payroll Clerk</label>
+    </customValue>
+    <customValue>
+        <fullName>0031</fullName>
+        <default>false</default>
+        <label>Bank Teller</label>
+    </customValue>
+    <customValue>
+        <fullName>0032</fullName>
+        <default>false</default>
+        <label>Book-Keeper</label>
+    </customValue>
+    <customValue>
+        <fullName>0033</fullName>
+        <default>false</default>
+        <label>Cashier</label>
+    </customValue>
+    <customValue>
+        <fullName>0034</fullName>
+        <default>false</default>
+        <label>Key Punch Operator</label>
+    </customValue>
+    <customValue>
+        <fullName>0035</fullName>
+        <default>false</default>
+        <label>Office Clerk</label>
+    </customValue>
+    <customValue>
+        <fullName>0036</fullName>
+        <default>false</default>
+        <label>Receptionist/Telephone Operator</label>
+    </customValue>
+    <customValue>
+        <fullName>0037</fullName>
+        <default>false</default>
+        <label>Postal Service Worker</label>
+    </customValue>
+    <customValue>
+        <fullName>0038</fullName>
+        <default>false</default>
+        <label>Other Clerical</label>
+    </customValue>
+    <customValue>
+        <fullName>0039</fullName>
+        <default>false</default>
+        <label>Insurance Broker/Agent</label>
+    </customValue>
+    <customValue>
+        <fullName>0040</fullName>
+        <default>false</default>
+        <label>Real Estate Agent/Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>0041</fullName>
+        <default>false</default>
+        <label>Sales Representative</label>
+    </customValue>
+    <customValue>
+        <fullName>0042</fullName>
+        <default>false</default>
+        <label>Sales Assistant</label>
+    </customValue>
+    <customValue>
+        <fullName>0043</fullName>
+        <default>false</default>
+        <label>Check Out Operator</label>
+    </customValue>
+    <customValue>
+        <fullName>0044</fullName>
+        <default>false</default>
+        <label>Other Sales</label>
+    </customValue>
+    <customValue>
+        <fullName>0045</fullName>
+        <default>false</default>
+        <label>Foreman</label>
+    </customValue>
+    <customValue>
+        <fullName>0046</fullName>
+        <default>false</default>
+        <label>Bricklayer</label>
+    </customValue>
+    <customValue>
+        <fullName>0047</fullName>
+        <default>false</default>
+        <label>Carpenter</label>
+    </customValue>
+    <customValue>
+        <fullName>0048</fullName>
+        <default>false</default>
+        <label>Electrician</label>
+    </customValue>
+    <customValue>
+        <fullName>0049</fullName>
+        <default>false</default>
+        <label>Jeweller</label>
+    </customValue>
+    <customValue>
+        <fullName>0050</fullName>
+        <default>false</default>
+        <label>Mechanic</label>
+    </customValue>
+    <customValue>
+        <fullName>0051</fullName>
+        <default>false</default>
+        <label>Painter</label>
+    </customValue>
+    <customValue>
+        <fullName>0052</fullName>
+        <default>false</default>
+        <label>Plasterer</label>
+    </customValue>
+    <customValue>
+        <fullName>0053</fullName>
+        <default>false</default>
+        <label>Plumber</label>
+    </customValue>
+    <customValue>
+        <fullName>0054</fullName>
+        <default>false</default>
+        <label>Tailor</label>
+    </customValue>
+    <customValue>
+        <fullName>0055</fullName>
+        <default>false</default>
+        <label>Baker</label>
+    </customValue>
+    <customValue>
+        <fullName>0056</fullName>
+        <default>false</default>
+        <label>Butcher</label>
+    </customValue>
+    <customValue>
+        <fullName>0057</fullName>
+        <default>false</default>
+        <label>Other Tradesperson</label>
+    </customValue>
+    <customValue>
+        <fullName>0058</fullName>
+        <default>false</default>
+        <label>Tradesperson&apos;S Assistant</label>
+    </customValue>
+    <customValue>
+        <fullName>0059</fullName>
+        <default>false</default>
+        <label>Factory Worker</label>
+    </customValue>
+    <customValue>
+        <fullName>0060</fullName>
+        <default>false</default>
+        <label>Warehouseman</label>
+    </customValue>
+    <customValue>
+        <fullName>0061</fullName>
+        <default>false</default>
+        <label>Builder&apos;S Labourer</label>
+    </customValue>
+    <customValue>
+        <fullName>0062</fullName>
+        <default>false</default>
+        <label>Truck Driver</label>
+    </customValue>
+    <customValue>
+        <fullName>0063</fullName>
+        <default>false</default>
+        <label>Other Worker/Labourer</label>
+    </customValue>
+    <customValue>
+        <fullName>0064</fullName>
+        <default>false</default>
+        <label>Beautician</label>
+    </customValue>
+    <customValue>
+        <fullName>0065</fullName>
+        <default>false</default>
+        <label>Hairdresser</label>
+    </customValue>
+    <customValue>
+        <fullName>0066</fullName>
+        <default>false</default>
+        <label>Nursing Aide</label>
+    </customValue>
+    <customValue>
+        <fullName>0067</fullName>
+        <default>false</default>
+        <label>Dental Assistant</label>
+    </customValue>
+    <customValue>
+        <fullName>0068</fullName>
+        <default>false</default>
+        <label>Bar Attendant</label>
+    </customValue>
+    <customValue>
+        <fullName>0069</fullName>
+        <default>false</default>
+        <label>Waiter</label>
+    </customValue>
+    <customValue>
+        <fullName>0070</fullName>
+        <default>false</default>
+        <label>Usher</label>
+    </customValue>
+    <customValue>
+        <fullName>0071</fullName>
+        <default>false</default>
+        <label>Porter</label>
+    </customValue>
+    <customValue>
+        <fullName>0072</fullName>
+        <default>false</default>
+        <label>Taxi Driver</label>
+    </customValue>
+    <customValue>
+        <fullName>0073</fullName>
+        <default>false</default>
+        <label>Bus Driver</label>
+    </customValue>
+    <customValue>
+        <fullName>0074</fullName>
+        <default>false</default>
+        <label>Delivery/Courier Driver</label>
+    </customValue>
+    <customValue>
+        <fullName>0075</fullName>
+        <default>false</default>
+        <label>Other Service Worker</label>
+    </customValue>
+    <customValue>
+        <fullName>0076</fullName>
+        <default>false</default>
+        <label>Farm Owner</label>
+    </customValue>
+    <customValue>
+        <fullName>0077</fullName>
+        <default>false</default>
+        <label>Farm Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>0078</fullName>
+        <default>false</default>
+        <label>Farm Labourer</label>
+    </customValue>
+    <customValue>
+        <fullName>0079</fullName>
+        <default>false</default>
+        <label>Police Officer</label>
+    </customValue>
+    <customValue>
+        <fullName>0080</fullName>
+        <default>false</default>
+        <label>Military/Armed Forces Personnel</label>
+    </customValue>
+    <customValue>
+        <fullName>0081</fullName>
+        <default>false</default>
+        <label>Homemaker/Domestic Duties</label>
+    </customValue>
+    <customValue>
+        <fullName>0082</fullName>
+        <default>false</default>
+        <label>Student</label>
+    </customValue>
+    <customValue>
+        <fullName>0083</fullName>
+        <default>false</default>
+        <label>Retired</label>
+    </customValue>
+    <customValue>
+        <fullName>0084</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>0085</fullName>
+        <default>false</default>
+        <label>Unemployed</label>
+    </customValue>
+    <customValue>
+        <fullName>0086</fullName>
+        <default>false</default>
+        <label>Small Business Proprietor</label>
+    </customValue>
+    <description>List of occupation codes from CAP</description>
+    <masterLabel>Occupation (CAP)</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

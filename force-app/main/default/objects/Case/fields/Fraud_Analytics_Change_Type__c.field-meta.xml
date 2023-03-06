@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fraud_Analytics_Change_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>List of Detection Uplift Implemented values in Fraud Analytics Investigation</description>
+    <externalId>false</externalId>
+    <label>Detection Uplift Implemented</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Fraud_Analytics_Outcome__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New Falcon Rule</fullName>
+                <default>false</default>
+                <label>New Falcon Rule</label>
+            </value>
+            <value>
+                <fullName>Existing Falcon Rule Change</fullName>
+                <default>false</default>
+                <label>Existing Falcon Rule Change</label>
+            </value>
+            <value>
+                <fullName>New VRM Rule</fullName>
+                <default>false</default>
+                <label>New VRM Rule</label>
+            </value>
+            <value>
+                <fullName>Existing VRM Rule Change</fullName>
+                <default>false</default>
+                <label>Existing VRM Rule Change</label>
+            </value>
+            <value>
+                <fullName>New VCAS 3DS Rule</fullName>
+                <default>false</default>
+                <label>New VCAS 3DS Rule</label>
+            </value>
+            <value>
+                <fullName>Existing VCAS 3DS Rule Change</fullName>
+                <default>false</default>
+                <label>Existing VCAS 3DS Rule Change</label>
+            </value>
+            <value>
+                <fullName>New Lookup List</fullName>
+                <default>false</default>
+                <label>New Lookup List</label>
+            </value>
+            <value>
+                <fullName>Existing Lookup List Change</fullName>
+                <default>false</default>
+                <label>Existing Lookup List Change</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>New Falcon Rule</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Existing Falcon Rule Change</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>New VRM Rule</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Existing VRM Rule Change</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>New VCAS 3DS Rule</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Existing VCAS 3DS Rule Change</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>New Lookup List</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Yes</controllingFieldValue>
+            <valueName>Existing Lookup List Change</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
