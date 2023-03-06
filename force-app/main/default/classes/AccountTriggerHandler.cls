@@ -2,6 +2,7 @@
  * @author David Dawson
  * @since 08/2020
  * @description  AccountTriggerHandler is the handler class for Account Trigger which extends Lib_TriggerHandler the trigger framework used.
+ * @runTests AccountTriggerHandlerTest
  */
 
 public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
@@ -46,9 +47,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     );
     CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
       prospects,
-      (Map<Id, Account>) oldMap,
-      'Id',
-      null
+      (Map<Id, Account>) oldMap
     );
   }
 

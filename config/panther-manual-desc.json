@@ -289,7 +289,6 @@
       "trailheadapp__User__c": "User enrolled to the Trailmix."
     }
   },
-
   "objectManualDesc": {
     "Account": "The contact details, and other personal information pertaining to a customer",
     "Access_Request__c": "Holds information related to Privileged Access Management request submissions by users",
@@ -355,7 +354,6 @@
     "trailheadapp__User_Trailmix__c": "Maintains user assignments and follows for trailmixes.",
     "User": "A Salesforce user (ANZ employee)"
   },
-
   "pantherId": {
     "Account": {
       "IA-2415720": [
@@ -415,7 +413,9 @@
         "CLG__c",
         "Controlling_Post__c",
         "CPID_Link__c",
-        "CPID__c"
+        "CPID__c",
+        "IsSnapshotError__c",
+        "IsSnapshotInProgress__c"
       ],
       "IA-2415860": ["FinServ__CustomerType__c"]
     },
@@ -1192,7 +1192,7 @@
         "Street_Type__c",
         "Unit__c"
       ],
-      "IA-2415831": ["Global_Address_Key__c"],
+      "IA-2415831": ["Global_Address_Key__c", "Delivery_Identifier__c"],
       "IA-2415840": ["QAS_Valid_Address__c"],
       "IA-2415720": ["AddressType"]
     },
@@ -1447,13 +1447,21 @@
         "FinServ__OpenDate__c",
         "FinServ__Status__c",
         "Interest_Accrued__c",
+        "Role_Type__c",
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",
         "Name",
         "Product_Name__c"
       ],
       "IA-2415987": ["Interest_Rate_URL__c"],
-      "IA-2530753": ["IsPrimaryOwner__c", "Product_SubCode__c"]
+      "IA-2530753": [
+        "IsPrimaryOwner__c",
+        "OCV_Event_Version__c",
+        "Product_SubCode__c",
+        "Source_System_Status_Display__c",
+        "Source_System_Status__c",
+        "System_Record_Status__c"
+      ]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [

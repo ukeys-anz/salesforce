@@ -55,7 +55,11 @@ private class CCRMContactActionsTest {
     List<Contact> contacts = new List<Contact>();
     for (Integer i = 0; i < 9; i++) {
       contacts.add(
-        new Contact(LastName = faker.person.lastName(), AccountId = prospect.Id)
+        new Contact(
+          LastName = faker.person.lastName(),
+          AccountId = prospect.Id,
+          Phone = faker.person.phone(true, false)
+        )
       );
     }
     insert contacts;

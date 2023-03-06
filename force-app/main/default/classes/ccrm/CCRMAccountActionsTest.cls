@@ -209,19 +209,33 @@ private class CCRMAccountActionsTest {
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       acc.Name = acc.Name + ' updated ';
+      acc.ABN__c = '51 824 753 556';
+      acc.ACN__c = '007 499 989';
+      acc.ARBN__c = '123 456 789';
       update acc;
     }
     Test.stopTest();
 
     //THEN a Customer_Profile_Updates__c record is created accordingly to track the changes
     System.assertEquals(
-      1,
+      2,
       [
         SELECT COUNT()
         FROM Customer_Profile_Updates__c
         WHERE Customer_Name__c = :acc.Id
       ],
-      'Customer_Profile_Updates__c record should be created when prospect account is updated'
+      '2 Customer_Profile_Updates__c record should be created when prospect account name and tax details are updated'
+    );
+    System.assertEquals(
+      1,
+      [
+        SELECT COUNT()
+        FROM Customer_Profile_Updates__c
+        WHERE
+          Customer_Name__c = :acc.Id
+          AND TriggeredFrom__c = 'Account.TaxDetails'
+      ],
+      'Customer_Profile_Updates__c with TriggeredFrom__c = "Account.TaxDetails" should be created when prospect ABN/ACN/ARBN are updated'
     );
   }
 }

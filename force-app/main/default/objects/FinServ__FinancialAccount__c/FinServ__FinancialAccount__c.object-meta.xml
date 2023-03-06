@@ -181,6 +181,6 @@
         <searchResultsAdditionalFields>FinServ__OpenDate__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FinServ__PrimaryOwner__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>Read</sharingModel>
+    <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
