@@ -160,12 +160,19 @@ export default class TransactionHistoryBoard extends LightningElement {
           let currentDate = this.getDateObject(
             currentTransaction.transactionDateLocal
           );
-          currentTransaction.transaction_date = new Date(
-            currentTransaction.transactionDateLocal
-          ).toLocaleDateString("en-CA");
-          currentTransaction.transaction_posted_date = new Date(
-            currentTransaction.transaction_posted_date
-          ).toLocaleDateString("en-CA");
+
+          currentTransaction.transaction_date = currentTransaction.transactionDateLocal
+            ? new Date(currentTransaction.transactionDateLocal)
+                .toISOString()
+                .split("T")[0]
+            : null;
+
+          currentTransaction.transaction_posted_date = currentTransaction.transaction_posted_date
+            ? new Date(currentTransaction.transaction_posted_date)
+                .toISOString()
+                .split("T")[0]
+            : null;
+
           // Date only value to be passed to default field values, use locale "en-CA" to get YYYY-MM-DD format
           this.setTransactionDisplayDateTime(currentTransaction);
           /* 
