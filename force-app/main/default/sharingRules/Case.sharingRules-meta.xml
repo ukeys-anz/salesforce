@@ -663,6 +663,27 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Disputes_Readonly</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All ATM and Card Dispute cases shared to GCP Integration User</description>
+        <label>Disputes_Readonly</label>
+        <sharedTo>
+            <group>Dispute_Readonly</group>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ATM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Card</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>Fraud_FraudXAgent_RW</fullName>
         <accessLevel>Edit</accessLevel>

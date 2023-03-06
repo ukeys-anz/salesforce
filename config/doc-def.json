@@ -154,6 +154,18 @@
       "type": "system"
     },
     {
+      "name": "Dispute GCP API Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Only_Dispute_Integration_GCP",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
       "name": "EDW Integration User",
       "profile": "Integration User",
       "permissionsetgroups": ["IDR_EDW_User"],
