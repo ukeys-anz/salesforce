@@ -1,0 +1,40 @@
+
+*****************************************************
+
+----------------- Sysl error report -----------------
+Account.IsSnapshotError__c : Missed pantherId
+Account.IsSnapshotInProgress__c : Missed pantherId
+ContactPointAddress.Delivery_Identifier__c : Missed pantherId
+ContactPointEmail.Preferred_Indicator__c : Missed complianceGroup | Privacy
+ContactPointPhone.Preferred_Indicator__c : Missed complianceGroup | Privacy
+FinServ__FinancialAccountRole__c.IsPrimaryOwner__c : Missed description
+FinServ__FinancialAccount__c.IsPrimaryOwner__c : Missed description
+FinServ__FinancialAccount__c.OCV_Event_Version__c : Missed pantherId
+FinServ__FinancialAccount__c.Product_SubCode__c : Missed description
+FinServ__FinancialAccount__c.Role_Type__c : Missed pantherId
+FinServ__FinancialAccount__c.Source_System_Status_Display__c : Missed pantherId
+FinServ__FinancialAccount__c.Source_System_Status__c : Missed pantherId
+FinServ__FinancialAccount__c.System_Record_Status__c : Missed pantherId
+
+*****************************************************
+
+
+*****************************************************
+
+----------------- Sysl error report -----------------
+Account.IsSnapshotError__c : Missed pantherId
+Account.IsSnapshotInProgress__c : Missed pantherId
+ContactPointAddress.Delivery_Identifier__c : Missed pantherId
+ContactPointEmail.Preferred_Indicator__c : Missed complianceGroup | Privacy
+ContactPointPhone.Preferred_Indicator__c : Missed complianceGroup | Privacy
+FinServ__FinancialAccountRole__c.IsPrimaryOwner__c : Missed description
+FinServ__FinancialAccount__c.IsPrimaryOwner__c : Missed description
+FinServ__FinancialAccount__c.OCV_Event_Version__c : Missed pantherId
+FinServ__FinancialAccount__c.Product_SubCode__c : Missed description
+FinServ__FinancialAccount__c.Role_Type__c : Missed pantherId
+FinServ__FinancialAccount__c.Source_System_Status_Display__c : Missed pantherId
+FinServ__FinancialAccount__c.Source_System_Status__c : Missed pantherId
+FinServ__FinancialAccount__c.System_Record_Status__c : Missed pantherId
+
+*****************************************************
+
