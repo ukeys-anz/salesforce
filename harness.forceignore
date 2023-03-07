@@ -155,3 +155,9 @@ force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-me
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
+
+#ANZX-84013 - ignore for manual deploy due to LWC errors
+force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls
+force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls
+force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls-meta.xml
+force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml
