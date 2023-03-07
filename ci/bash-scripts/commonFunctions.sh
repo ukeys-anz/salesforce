@@ -152,3 +152,23 @@ function continueTheJob(){
         echo ""
     fi
 }
+
+function trackingFalseOnArtefact(){
+    if [ -d artefact/objects ];then
+        for filename in artefact/objects/*; do
+            echo $filename
+            changeMetadataArtefact $filename "<trackHistory>true</trackHistory>" "<trackHistory>false</trackHistory>"
+            changeMetadataArtefact $filename "<trackFeedHistory>true</trackFeedHistory>" "<trackFeedHistory>false</trackFeedHistory>"
+            changeMetadataArtefact $filename "<trackTrending>true</trackTrending>" "<trackTrending>false</trackTrending>"
+        done
+    else
+        echo "No change on objects"
+    fi
+}
+
+function changeMetadataArtefact(){
+    context=$(cat $1)
+    if [[ $context == *"$2"* ]];then
+        sed -i '' "s+$2+$3+g" $1
+    fi
+}

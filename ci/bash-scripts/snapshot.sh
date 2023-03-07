@@ -1,28 +1,20 @@
-#!/bin/bash
+#!/bin/sh
 
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 set -e
 
 # to use all the functions that we need and do not repeat the code
-source ./ci/bash-scripts/commonFunctions.sh
+source ./commonFunctions.sh
 
+scratchorgalias='ANZxScratchOrg'
 
-trap ctrl_c INT
+# input your email, to make sure that the defualt devhub is the production
+echoMessageCreator "enter your dev hub alias" $stepNo true
+read -rp "${green}Please enter your devhub alias (production): " prodname
+echoMessageCreator "" $stepNo false
+########################
 
-function ctrl_c() {
-    # git checkout .
-    echo "${red}"
-    echo "Making scracthOrg has been stopped."
-    echo ""
-    read -rp "${green}If the scratchOrg has not been created, or you want to delete it, please type y/Y : ${reset}" deleteScratchOrgFlag
-    if [[ $deleteScratchOrgFlag == 'y' || $deleteScratchOrgFlag == 'Y' ]];then
-        echo ""
-        sfdx force:org:delete -u $scratchorgalias | tee stderr
-        echo ""
-    fi
-    exit 1
-    echo "${red}-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-${reset}"
-}
+cd ../..
 
 # to clean the artefact and tmp folders
 rm -rf ./artefact
@@ -31,15 +23,6 @@ rm -rf ./tmp
 # Bypass the Lightning Experience custom domain check entirely, wich takes very long when connected to ANZ network
 # TODO Consider a switch to bypass it when connected elsewhere (e.g. from GCB)
 export SFDX_DOMAIN_RETRY=0
-
-# user input
-echoMessageCreator "Input: Scratch org alias and Data" $stepNo true
-read -rp "${green}Enter scratch org alias (optional): " scratchorgalias
-read -rp "Is this Scratch Org for Commercial CRM Project? (y/n) " ccrmpartycheck
-read -rp "Preload ANZ Plus test data (y/n)? " preloadANZPlusData
-read -rp "Preload CMOS test data (y/n)? " preloadCMOSData
-echoMessageCreator "" $stepNo false
-###########################
 
 # make a new scratchOrg step
 echoMessageCreator "Making scratchOrg out of the snapshot" $stepNo true
@@ -59,8 +42,6 @@ fi
 echoMessageCreator "" $stepNo false
 ###########################
 
-ALL_START_TIME=$(date +%s)
-
 # check if the scratchOrg has been created out of th snapshot
 echoMessageCreator "check if the scratchOrg has been created out of the snapshot" $stepNo true
 sfdx force:org:list
@@ -76,10 +57,48 @@ fi
 echoMessageCreator "" $stepNo false
 ###########################
 
+# deploy bigObjects
+echoMessageCreator "Deploy bigObjects" $stepNo true
+sfdx force:source:deploy -p force-app/main/default/objects/Accessed_Record_Log__b
+echo ""
+sfdx force:source:deploy -p force-app/main/default/objects/Log_Record_Access__b
+echo ""
+sfdx force:source:deploy -p force-app/main/default/objects/Record_Access_Log__b
+echo ""
+sfdx force:source:deploy -p force-app/main/default/objects/Application_Trace_Log__b
+echo ""
+sfdx force:source:deploy -p force-app/main/default/objects/Traced_Application_Log__b
+echoMessageCreator "" $stepNo false
+###########################
+
+# change forceignore to harness.forceignore as we will have all things in our snapshot
+echoMessageCreator "change the forceignore to the proper one" $stepNo true
+mv .forceignore ci.forceignore
+cp harness.forceignore h.forceignore
+mv harness.forceignore .forceignore
+echo -e "\nforce-app/main/default/transactionSecurityPolicies" >> .forceignore
+echo -e "\nforce-app/main/default/sharingRules" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Lead/fields/Id.field-meta.xml" >> .forceignore
+echo -e "\nforce-app/main/default/permissionsetgroups/Shared_Admin.permissionsetgroup-meta.xml" >> .forceignore
+echo -e "\nforce-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionsetgroup-meta.xml" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Accessed_Record_Log__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Log_Record_Access__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Record_Access_Log__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Application_Trace_Log__b" >> .forceignore
+echo -e "\nforce-app/main/default/objects/Traced_Application_Log__b" >> .forceignore
+echoMessageCreator "" $stepNo false
+########################
+
 # build the artifact 
 echoMessageCreator "making artifact folder" $stepNo true
 # to make the artifact from the diff
 source ./ci/build-artifact.sh
+echoMessageCreator "" $stepNo false
+###########################
+
+# pre deploy : change on some files on artefact folder ( tracking history )
+echoMessageCreator "Pre Deploy Checking Step" $stepNo true
+trackingFalseOnArtefact
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -147,7 +166,14 @@ if [ -d "./artefact/" ]; then
     done
     echoMessageCreator "" $stepNo false
     #########################
-fi 
+fi
+
+# post deploy: to make all the files back to what it was and deploy them
+echoMessageCreator "Post Deploy" $stepNo true
+mv h.forceignore .forceignore
+sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules"
+echoMessageCreator "" $stepNo false
+###########################
 
 # assign a role to default user of scratchOrg
 echoMessageCreator "assign a role to default user of scratchOrg" $stepNo true
@@ -157,62 +183,38 @@ echoMessageCreator "" $stepNo false
 
 # apply perm sets
 echoMessageCreator "apply customer details perm set" $stepNo true
-sfdx force:user:permset:assign -n Read_Write_Customer_Details | tee stderr
-if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
-    cat stderr
-fi
+sfdx force:user:permset:assign -n Read_Write_Customer_Details 
 echoMessageCreator "" $stepNo false
 ###########################
 
-# load data, create test user
-case ${preloadANZPlusData:0:1} in
-y | Y)
-    echoMessageCreator "Pre-loading sample anzx data" $stepNo true
-    sfdx force:apex:execute -f ./ci/apex-scripts/createTestData.apex
-    echoMessageCreator "" $stepNo false
+# manual steps
+echoMessageCreator "manual steps" $stepNo true
+read -rp "${green}Do you want to open the scratch org (y/n)? " openOrg
+echo "${reset}"
+if [[ $openOrg == y || $openOrg == Y ]]; then
+    sfdx force:org:open -u $scratchorgalias 
+fi
 
-    echoMessageCreator "Creating test users (inactive by default) with different roles" $stepNo true
-    sfdx force:apex:execute -f ./ci/apex-scripts/createTestUsers.apex
-    echoMessageCreator "" $stepNo false
-    ;;
-*) echo "${green}Skipping ANZ plus test data preload${reset}" ;;
-esac
+echo ""
+echo "${green}************************"
+echo ""
+echo "Waiting while the job in scratchOrg is finished."
+echo ""
+echo "************************"
+echo ""
+
+echo "You can run your manual commands in another terminal window and then continue the other steps"
+echo ""
+read -rp "Do you want to continue (y/n)? " continueFlag
+if [[ $continueFlag == n || $continueFlag == N ]]; then
+    echo ""
+    echo "The diff metadata has not been deployed."
+    echo "You can run: sfdx force:source:deploy -u $scratchorgalias -p ./artefact/ | tee stderr"
+    echo ""
+    exit 1
+fi
+echoMessageCreator "" $stepNo false
 ###########################
-
-# import cmos test data
-case ${preloadCMOSData:0:1} in
-y | Y)
-    echoMessageCreator "Pre-loading sample cmos data" $stepNo true
-    # Uncomment the next line (and comment the next) to import products without their related cases
-    #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
-    sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
-    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-        exit 1
-    fi
-
-    echoMessageCreator "" $stepNo false
-    ;;
-*) echo "${green}Skipping CMOS test data preload${reset}" ;;
-esac
-###########################
-
-case ${ccrmpartycheck:0:1} in
-y | Y)
-    echoMessageCreator "Pre-loading CCRM Industry data" $stepNo true
-    sfdx force:data:bulk:upsert --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
-    if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
-        exit 1
-    fi
-
-    echoMessageCreator "" $stepNo false
-    ;;
-*) echo "${green}Skipping CCRM Industry data preload${reset}" ;;
-esac
-###########################
-
-ALL_END_TIME=$(date +%s)
-echo "${green}"
-echo "$(date): All done in $((ALL_END_TIME - ALL_START_TIME)) s."
 
 # reset source tracking
 echoMessageCreator "Resetting source tracking" $stepNo true
@@ -220,8 +222,53 @@ sfdx force:source:tracking:reset -p
 echoMessageCreator "" $stepNo false
 ###########################
 
-# open scratch org
-echoMessageCreator "Open scratch org" $stepNo true
-sfdx force:org:open
+echoMessageCreator "check if you want to delete an existed snapshot" $stepNo true
+sfdx force:org:snapshot:list
+echo "${green}"
+read -rp "Do you want to delete ReleaseSnapshot snapshot (y/n)? " deleteSnapshot
+case ${deleteSnapshot:0:1} in
+    y | Y)        
+        snapshotName=ReleaseSnapshot
+        sfdx force:org:snapshot:delete -s $snapshotName
+        echo "************************"
+        ;;
+    *)
+        echo "${red}Job has been skipped."
+        exit 1
+        ;;
+esac
 echoMessageCreator "" $stepNo false
-###########################
+########################
+
+# create a new snapshot
+echoMessageCreator "creating a new snapshot" $stepNo true
+name=ReleaseSnapshot
+developCommitSHA=$(git log develop --oneline --pretty=format:'%h' -1)
+sfdx force:org:snapshot:create -n $name -d "Snapshot from $developCommitSHA" -o $scratchorgalias -v $prodname
+waitTillSnapshotIsActive=false
+while [[ $waitTillSnapshotIsActive == *'false'* ]]; do
+    sfdx force:org:snapshot:list
+    snapshotList=$( sfdx force:org:snapshot:list --json )
+    if [[ $snapshotList == *"InProgress"* ]];then
+        echo "${green}"
+        echo "wait for another 1 mins"
+        sleep 60
+        echo "${reset}"
+    else
+        waitTillSnapshotIsActive=true
+    fi
+done
+echoMessageCreator "" $stepNo false
+#######################
+
+# cleaning the job
+echoMessageCreator "removing all changes made during creating snapshot" $stepNo true
+rm -rf ci.forceignore
+git checkout .
+
+echo ""
+echo "${green}new snapshot has been created${reset}"
+echo "${green}create a new tag (snapshot-latest-<DDMMYYYY>)${reset}"
+echo ""
+echoMessageCreator "" $stepNo false
+#######################
