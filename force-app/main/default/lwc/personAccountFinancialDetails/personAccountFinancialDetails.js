@@ -166,7 +166,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
           account.FinServ__FinancialAccountType__c.toLowerCase() === "checking"
         ) {
           this.accountData.checking.push(account);
-        } else {
+        } else if (
+          account.FinServ__FinancialAccountType__c.toLowerCase() === "savings"
+        ) {
           this.accountData.savings.push(account);
           this.savingsId = account.Id;
         }
