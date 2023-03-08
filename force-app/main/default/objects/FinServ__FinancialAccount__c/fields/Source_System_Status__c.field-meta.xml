@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source_System_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - OCV</complianceGroup>
+    <description>Financial account status as available in source system</description>
+    <externalId>false</externalId>
+    <label>Source System Status</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>CAPCIS01</fullName>
+                <default>false</default>
+                <label>CAPCIS01 - New</label>
+            </value>
+            <value>
+                <fullName>CAPCIS03</fullName>
+                <default>false</default>
+                <label>CAPCIS03 - Inactive</label>
+            </value>
+            <value>
+                <fullName>CAPCIS05</fullName>
+                <default>false</default>
+                <label>CAPCIS05 - Dormant</label>
+            </value>
+            <value>
+                <fullName>CAPCIS06</fullName>
+                <default>false</default>
+                <label>CAPCIS06 - Unclaimed</label>
+            </value>
+            <value>
+                <fullName>CAPCIS07</fullName>
+                <default>false</default>
+                <label>CAPCIS07 - Closed</label>
+            </value>
+            <value>
+                <fullName>CAPCIS08</fullName>
+                <default>false</default>
+                <label>CAPCIS08 - Purgeable</label>
+            </value>
+            <value>
+                <fullName>CAPCIS11</fullName>
+                <default>false</default>
+                <label>CAPCIS11 - Matured not renewable</label>
+            </value>
+            <value>
+                <fullName>CAPCIS12</fullName>
+                <default>false</default>
+                <label>CAPCIS12 - In Process of Close</label>
+            </value>
+            <value>
+                <fullName>CAPCIS80</fullName>
+                <default>false</default>
+                <label>CAPCIS80 - SSA Active</label>
+            </value>
+            <value>
+                <fullName>CAPCIS82</fullName>
+                <default>false</default>
+                <label>CAPCIS82 - SSA Inactive</label>
+            </value>
+            <value>
+                <fullName>CAPCIS99</fullName>
+                <default>false</default>
+                <label>CAPCIS99 - Active</label>
+            </value>
+            <value>
+                <fullName>CAPCISBYP</fullName>
+                <default>false</default>
+                <label>CAPCISBYP - Bypass the Account for Loans Batch Processing</label>
+            </value>
+            <value>
+                <fullName>CAPCISCO</fullName>
+                <default>false</default>
+                <label>CAPCISCO - Charged Off (written off)</label>
+            </value>
+            <value>
+                <fullName>CAPCISCAN</fullName>
+                <default>false</default>
+                <label>CAPCISCAN - Cancelled</label>
+            </value>
+            <value>
+                <fullName>CAPCISNON</fullName>
+                <default>false</default>
+                <label>CAPCISNON - Downgraded to Non-accrual</label>
+            </value>
+            <value>
+                <fullName>CAPCISPO</fullName>
+                <default>false</default>
+                <label>CAPCISPO - Paid Off</label>
+            </value>
+            <value>
+                <fullName>CAPCISRI</fullName>
+                <default>false</default>
+                <label>CAPCISRI - Downgraded  to Reserved Interest</label>
+            </value>
+            <value>
+                <fullName>CAPCISOP</fullName>
+                <default>false</default>
+                <label>CAPCISOP - Open</label>
+            </value>
+            <value>
+                <fullName>CAPCISCL</fullName>
+                <default>false</default>
+                <label>CAPCISCL - Closed</label>
+            </value>
+            <value>
+                <fullName>CAPCISCP</fullName>
+                <default>false</default>
+                <label>CAPCISCP - Close Pending</label>
+            </value>
+            <value>
+                <fullName>CAPCISACL</fullName>
+                <default>false</default>
+                <label>CAPCISACL - Policy In Force, In Claim</label>
+            </value>
+            <value>
+                <fullName>CAPCISACT</fullName>
+                <default>false</default>
+                <label>CAPCISACT - Policy In Force</label>
+            </value>
+            <value>
+                <fullName>CAPCISIPR</fullName>
+                <default>false</default>
+                <label>CAPCISIPR - Policy In Proposal</label>
+            </value>
+            <value>
+                <fullName>CACHE01</fullName>
+                <default>false</default>
+                <label>CACHE01 - New</label>
+            </value>
+            <value>
+                <fullName>CACHE03</fullName>
+                <default>false</default>
+                <label>CACHE03 - Stagnant</label>
+            </value>
+            <value>
+                <fullName>CACHE05</fullName>
+                <default>false</default>
+                <label>CACHE05 - Dormant</label>
+            </value>
+            <value>
+                <fullName>CACHE06</fullName>
+                <default>false</default>
+                <label>CACHE06 - Escheatable</label>
+            </value>
+            <value>
+                <fullName>CACHE07</fullName>
+                <default>false</default>
+                <label>CACHE07 - Closed</label>
+            </value>
+            <value>
+                <fullName>CACHE08</fullName>
+                <default>false</default>
+                <label>CACHE08 - Purgeable</label>
+            </value>
+            <value>
+                <fullName>CACHE09</fullName>
+                <default>false</default>
+                <label>CACHE09 - Active</label>
+            </value>
+            <value>
+                <fullName>CACHE11</fullName>
+                <default>false</default>
+                <label>CACHE11 - Matured CD</label>
+            </value>
+            <value>
+                <fullName>CACHE12</fullName>
+                <default>false</default>
+                <label>CACHE12 - Ready to close</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

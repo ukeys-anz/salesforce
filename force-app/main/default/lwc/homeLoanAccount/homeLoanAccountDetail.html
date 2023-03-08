@@ -1,0 +1,404 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <template if:true={hasPermissionIssue}>
+    <c-error permission-issue={hasPermissionIssue}></c-error>
+  </template>
+  <template if:true={hasError}>
+    <c-error message={errorMsg}></c-error>
+  </template>
+  <template if:false={hasPermissionIssue}>
+    <article class="homeLoanAccount slds-card" if:true={financialAccountId}>
+      <div class="slds-section slds-is-open">
+        <h1 class="slds-section__title slds-theme_shade">
+          <lightning-icon
+            icon-name="custom:custom107"
+            size="medium"
+            class="slds-m-right_small cicon"
+          ></lightning-icon>
+          Loan - {accountDetails.product_details.name} Account
+        </h1>
+        <div
+          aria-hidden="false"
+          class="slds-section__content"
+          data-id="fin-details"
+        >
+          <div class="slds-grid">
+            <header class="slds-has-flexi-truncate slds-var-p-around_small">
+              <h2 class="slds-card__header-title">
+                <a
+                  onclick={navigateToRecordViewPage}
+                  data-id="account-number"
+                  class="slds-truncate"
+                  title={accountDetails.account_name}
+                >
+                  <span>{accountDetails.account_name}</span>
+                </a>
+                <span
+                  if:true={accountActive}
+                  class="slds-badge slds-theme_success"
+                  >Open</span
+                >
+                <span
+                  if:false={accountActive}
+                  class="slds-badge slds-theme_error"
+                  >Closed</span
+                >
+              </h2>
+            </header>
+          </div>
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-1">
+              <div class="slds-grid slds-wrap slds-size_1-of-1">
+                <div
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                >
+                  <div class="slds-m-top_small">
+                    <img class="loan-image" src={loanImageUrl} />
+                  </div>
+                </div>
+                <div
+                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                >
+                  <div class="header-column">
+                    <p class="slds-text-color_weak">Account Number</p>
+                    <p class="slds-text-heading_medium">
+                      {accountDetails.account_number}
+                    </p>
+                  </div>
+                  <div
+                    class="slds-col_bump-left slds-grid slds-grid_vertical slds-float_right slds-m-top_xx-large"
+                  >
+                    <p class="slds-text-color_weak slds-align_absolute-right">
+                      Redraw Available
+                      <lightning-icon
+                        icon-name="utility:info"
+                        size="xx-small"
+                        class="tooltip"
+                        onclick={handleRedrawAvailableModal}
+                      ></lightning-icon>
+                    </p>
+                    <p
+                      class="slds-col slds-text-heading_medium slds-align_absolute-right"
+                      data-test-id="amount"
+                    >
+                      <lightning-formatted-number
+                        value={accountDetails.loan_details.redrawAvailable}
+                        format-style="currency"
+                        data-id="redraw_amount"
+                      ></lightning-formatted-number>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="slds-col slds-grid slds-grid_vertical slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                >
+                  <div
+                    class="slds-col_bump-left slds-grid slds-grid_vertical slds-float_right"
+                  >
+                    <p
+                      class="slds-col_bump-left slds-text-color_weak slds-float_right"
+                    >
+                      Loan Balance
+                      <lightning-icon
+                        icon-name="utility:info"
+                        size="xx-small"
+                        class="tooltip"
+                        onclick={handleBalanceModal}
+                      ></lightning-icon>
+                    </p>
+                    <p
+                      class="slds-col slds-text-heading_medium"
+                      data-test-id="balance"
+                    >
+                      <lightning-formatted-number
+                        value={accountDetails.balances.current_balance.value}
+                        format-style="currency"
+                        data-id="current-balance"
+                      ></lightning-formatted-number>
+                    </p>
+                  </div>
+                  <div
+                    class="slds-col_bump-left slds-grid slds-grid_vertical slds-float_right slds-m-top_xx-large"
+                  >
+                    <p class="slds-col slds-text-color_weak slds-float_right">
+                      Payments Made
+                      <lightning-helptext
+                        class="tooltip"
+                        content="Calculated by subtracting Loan Balance from Loan Amount. Amount may also include fees and charges you have paid that have been applied to the Loan Balance."
+                      ></lightning-helptext>
+                    </p>
+                    <p
+                      class="slds-col slds-text-heading_medium"
+                      data-test-id="payment"
+                    >
+                      <lightning-formatted-number
+                        value={accountDetails.paidOff}
+                        format-style="currency"
+                        data-id="paidoff"
+                      ></lightning-formatted-number>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <lightning-accordion
+        allow-multiple-sections-open
+        active-section-name={activeSections}
+        class="accordionSection"
+      >
+        <lightning-accordion-section name="loandetails" label="Loan Details">
+          <div class="slds-grid slds-wrap slds-var-p-around_small">
+            <div class="slds-col slds-grid slds-size_1-of-3">
+              <div class="header-column">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Interest Rate
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="interestrate"
+                >
+                  {accountDetails.loan_details.interests.rate}% p.a.
+                </p>
+              </div>
+            </div>
+            <div class="slds-col slds-grid slds-size_1-of-3">
+              <div class="header-column">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Rate Type
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="ratetype"
+                >
+                  {rateType}
+                </p>
+              </div>
+            </div>
+            <div class="slds-col slds-grid slds-size_1-of-3">
+              <div class="header-column r">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Loan Amount
+                  <lightning-helptext
+                    class="tooltip"
+                    content="As of the loan commencement or the date certain changes were made to the loan."
+                  ></lightning-helptext>
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="loanamount"
+                >
+                  <lightning-formatted-number
+                    value={accountDetails.loan_details.loan_amount.value}
+                    format-style="currency"
+                    data-id="loan-amount"
+                  ></lightning-formatted-number>
+                </p>
+              </div>
+            </div>
+            <div class="slds-col slds-grid slds-size_1-of-3 rowgap">
+              <div class="header-column">
+                <p class="slds-text-color_weak">
+                  Term
+                  <lightning-helptext
+                    class="tooltip"
+                    content="As of the loan commencement or the date certain changes were made to the loan."
+                  ></lightning-helptext>
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="minirepayment"
+                >
+                  {loanTerm}
+                </p>
+              </div>
+            </div>
+            <div class="slds-col slds-grid slds-size_2-of-3 rowgap">
+              <div class="header-column">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Settlement Date
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="settlementdate"
+                >
+                  {settlementDate}
+                </p>
+              </div>
+            </div>
+          </div>
+        </lightning-accordion-section>
+        <lightning-accordion-section
+          name="repaymentdetails"
+          label="Repayment Details"
+        >
+          <div class="slds-grid slds-wrap slds-var-p-around_small">
+            <div class="slds-col slds-grid slds-size_1-of-4">
+              <div class="header-column">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Next Repayment
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="nextrepayment"
+                >
+                  {nextRepayment}
+                </p>
+              </div>
+            </div>
+            <div class="slds-col slds-grid slds-size_1-of-4">
+              <div class="header-column">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Minimum Repayment
+                  <lightning-helptext
+                    class="tooltip"
+                    content="This is your Repayment Amount under your credit contract. Does not include any arrears (if applicable)."
+                  ></lightning-helptext>
+                </p>
+                <p class="slds-text-heading_small" data-test-id="minirepayment">
+                  <lightning-formatted-number
+                    class="slds-align_absolute-center"
+                    value={accountDetails.loan_details.repayment_amount.value}
+                    format-style="currency"
+                    data-id="repayment-amount"
+                  ></lightning-formatted-number>
+                </p>
+              </div>
+            </div>
+            <div class="slds-col slds-grid slds-size_1-of-4">
+              <div class="header-column">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Repayment Frequency
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="nextrepayment"
+                >
+                  {repaymentFrequency}
+                </p>
+              </div>
+            </div>
+            <div class="slds-col slds-grid slds-size_1-of-4">
+              <div class="header-column">
+                <p class="slds-text-color_weak slds-align_absolute-center">
+                  Repayment Type
+                </p>
+                <p
+                  class="slds-text-heading_small slds-align_absolute-center"
+                  data-test-id="nextrepayment"
+                >
+                  {repaymentType}
+                </p>
+              </div>
+            </div>
+          </div>
+        </lightning-accordion-section>
+      </lightning-accordion>
+      <div class="slds-card__body slds-card__body_inner">
+        <article class="slds-card">
+          <footer class="slds-card__footer account-footer">
+            <span class="lastUpdated" data-test-id="last-updated-time"
+              >Last Updated {timestamp}</span
+            >
+          </footer>
+        </article>
+      </div>
+    </article>
+  </template>
+
+  <template if:true={showBalanceModal}>
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header modal-header">
+          <lightning-icon
+            icon-name="utility:close"
+            onclick={handleBalanceModal}
+            class="slds-button slds-button_icon slds-modal__close close-modal"
+          ></lightning-icon>
+          <h2 class="slds-modal__title slds-hyphenate">
+            What does Loan Balance mean?
+          </h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+          <span>
+            <p class="slds-text-title_bold">
+              Loan Balance is indicative of the amount you owe.
+            </p>
+            <br />
+            It generally reflects money in or out but:
+            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
+              <li>
+                some transactions that have occurred may not have updated the
+                amount shown; and
+              </li>
+              <li>
+                some transactions that have occurred may have updated the amount
+                shown but are not yet processed (e.g. cheques deposited, funds
+                transfers in) or are awaiting for bank decision (e.g.
+                transactions which may be blocked or refused, accounts with
+                blocks).
+              </li>
+            </ul>
+          </span>
+        </div>
+        <footer class="slds-modal__footer">
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={handleBalanceModal}
+          >
+            Close
+          </button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  <!--Added changes here-->
+  <template if:true={showRedrawAvailableModal}>
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header modal-header">
+          <lightning-icon
+            icon-name="utility:close"
+            onclick={handleRedrawAvailableModal}
+            class="slds-button slds-button_icon slds-modal__close close-modal"
+          ></lightning-icon>
+          <h2 class="slds-modal__title slds-hyphenate">
+            What does Redraw Available mean?
+          </h2>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium">
+          <span>
+            <p class="slds-text-title_bold">
+              The redraw available amount is indicative of cleared funds only,
+              and does not include uncleared repayments made within the previous
+              24hrs.
+            </p>
+            <br />
+            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
+              <li>
+                These funds are the early or extra repayments you've made to
+                your Home Loan over and above the minimum repayments required.
+              </li>
+              <li>
+                To be eligible to access these funds via redraw transfer, your
+                Home Loan rate type must be Variable.
+              </li>
+            </ul>
+          </span>
+        </div>
+        <footer class="slds-modal__footer">
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={handleRedrawAvailableModal}
+          >
+            Close
+          </button>
+        </footer>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

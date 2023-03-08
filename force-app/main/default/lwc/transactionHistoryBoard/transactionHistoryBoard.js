@@ -74,6 +74,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   disableSearch = true;
   links;
   @api loading;
+  @api showRaiseDispute;
   @api disputeRecordTypesFromParent;
   @api transactionTypeDisputeIdMapFromParent;
   personAccount;

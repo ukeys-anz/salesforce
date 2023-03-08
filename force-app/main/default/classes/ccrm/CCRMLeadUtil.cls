@@ -22,7 +22,7 @@ public with sharing class CCRMLeadUtil {
     'Business' => 'Business_ID__c',
     'CLG' => 'CLG_ID__c'
   };
-  
+
   /**
    * @description Check if record type is of CCRM Lead type.
    * @name isCCRMLeadType
@@ -203,7 +203,7 @@ public with sharing class CCRMLeadUtil {
       }
     }
   }
-  
+
   /**
    * @description This method sets Customer_ID__c/Business_ID__cCLG_ID__c in platform event
    * @name mapSourceSystemIds

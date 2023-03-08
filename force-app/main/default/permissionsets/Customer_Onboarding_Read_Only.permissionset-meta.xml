@@ -97,6 +97,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>COBAddress__c.QASAddress__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>COBAddress__c.SubmittedAt__c</field>
         <readable>true</readable>
     </fieldPermissions>

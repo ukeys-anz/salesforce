@@ -6,13 +6,20 @@ import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountControll
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 import getTransactionHistoryAura from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
-import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
+import FIN_ACCOUNT_RECORD_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__RecordTypeName__c";
+import FIN_ACCOUNT_PRIMARY_OWNER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
+
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
 import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
+
+import getHomeLoanAccount from "@salesforce/apex/HomeLoanController.getHomeLoanAccount";
+/* IMPORT PERMISSIONS */
+import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
+import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
 import {
   getEmojiMap,
@@ -27,10 +34,12 @@ import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryControll
 import { DISPUTE_RECORD_TYPES_RETRIEVE_ERROR } from "c/transactionHistoryService";
 export default class FinancialAccountParent extends LightningElement {
   @api recordId;
+  @api objectApiName;
   accountData = [];
   accountError;
   accountNumber;
   accountType;
+  accRecordType;
   componentTitle;
   fullGoalData;
   goalData = { goalList: [], nextToken: null };
@@ -41,12 +50,15 @@ export default class FinancialAccountParent extends LightningElement {
   emojiMap;
   imageMap;
   isSavings;
+  isHomeLoan;
+  loanData;
   loading;
   ocvId;
   transactionData;
   transactionError;
   savingsJar;
   preselectedGoal;
+  primaryOwner;
   transactionStartDate;
   transactionEndDate;
   transactionBucketIds = [];
@@ -61,6 +73,7 @@ export default class FinancialAccountParent extends LightningElement {
   //Triggers the bottom of goals to load for
   //appending new goals
   goalsLoading = false;
+  showRaiseDispute;
   transactionTypeDisputeIdMap = {};
   disputeRecordTypes = [];
   filterGoal = false;
@@ -74,6 +87,8 @@ export default class FinancialAccountParent extends LightningElement {
       FIN_ACCOUNT_NUMBER,
       FIN_ACCOUNT_OCV_ID,
       FIN_ACCOUNT_TYPE,
+      FIN_ACCOUNT_RECORD_TYPE,
+      FIN_ACCOUNT_PRIMARY_OWNER,
       FIN_ACCOUNT_INTEREST
     ]
   })
@@ -82,20 +97,34 @@ export default class FinancialAccountParent extends LightningElement {
     if (data) {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
+      this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
+      this.accRecordType = data.fields.FinServ__RecordTypeName__c.value;
       const accType = data.fields.FinServ__FinancialAccountType__c.value;
-      if (accType === "Savings") {
-        this.isSavings = true;
-        this.accountType = "savings";
-      } else if (accType === "Checking") {
-        this.isSavings = false;
-        this.accountType = "checking";
+      if (
+        this.ocvId &&
+        this.accRecordType === "Bank Account" &&
+        hasHomeLoanPermission
+      ) {
+        this.isHomeLoan = true;
+        this.showRaiseDispute = false;
+        await this.getHomeLoanResponse();
+        await this.getTransactionData();
+      } else {
+        this.showRaiseDispute = true;
+        if (accType === "Savings") {
+          this.isSavings = true;
+          this.accountType = "savings";
+        } else if (accType === "Checking") {
+          this.isSavings = false;
+          this.accountType = "checking";
+        }
+        if (this.disputeRecordTypes.length === 0) {
+          await this.handleGetDisputeRecordTypeDetails();
+        }
+        await this.getFinancialData();
+        await this.getGoalData();
+        await this.getTransactionData();
       }
-      if (this.disputeRecordTypes.length === 0) {
-        await this.handleGetDisputeRecordTypeDetails();
-      }
-      await this.getFinancialData();
-      await this.getGoalData();
-      await this.getTransactionData();
     }
     this.loading = false;
   }
@@ -108,8 +137,16 @@ export default class FinancialAccountParent extends LightningElement {
     }
   }
 
-  get displayContent() {
-    return hasAccountsGoalsPermission;
+  get displayNotLoan() {
+    return hasAccountsGoalsPermission && this.accRecordType !== "Bank Account";
+  }
+
+  get displayLoan() {
+    console.log(
+      "hasHomeLoanPermission: " + JSON.stringify(hasHomeLoanPermission)
+    );
+
+    return hasHomeLoanPermission && this.accRecordType === "Bank Account";
   }
 
   async getFinancialData() {
@@ -201,9 +238,13 @@ export default class FinancialAccountParent extends LightningElement {
     }
     //Set default component title here to ensure theres always a title
     //even if the try catch fails
-    this.componentTitle = this.isSavings
-      ? "All Savings Transaction History"
-      : "All Everyday Transaction History";
+    if (this.isHomeLoan) {
+      this.componentTitle = "Transaction History";
+    } else {
+      this.componentTitle = this.isSavings
+        ? "All Savings Transaction History"
+        : "All Everyday Transaction History";
+    }
     try {
       this.transactionData = await getTransactionHistoryAura({
         ocvId: this.ocvId,
@@ -252,6 +293,21 @@ export default class FinancialAccountParent extends LightningElement {
       this.filterGoal = false;
       this.transactionLoading = false;
       this.transactionLoadMore = false;
+    }
+  }
+
+  async getHomeLoanResponse() {
+    try {
+      let response = await getHomeLoanAccount({ ocvId: this.ocvId });
+      this.loanData = response.accounts[0];
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve Home Loan Details.",
+        error,
+        "Failed To Retrieve Home Loan Details. Please refresh and try again. If issue persists please contact your System Administrator",
+        "pester"
+      );
     }
   }
 

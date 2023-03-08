@@ -10,7 +10,8 @@ OR(
 OCV_Event_Version__c &lt; PRIORVALUE(OCV_Event_Version__c),
 OCV_Event_Version__c &gt; PRIORVALUE(OCV_Event_Version__c) + 1,
 ISNULL(OCV_Event_Version__c)
-)
+),
+NOT(IsSnapshotInProgress__c)
 )</errorConditionFormula>
     <errorDisplayField>OCV_Event_Version__c</errorDisplayField>
     <errorMessage>Invalid version update. Version number should be sequential.</errorMessage>

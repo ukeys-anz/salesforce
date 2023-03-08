@@ -3,6 +3,76 @@
  * @group Utils
  */
 public without sharing class TestDataFactory {
+  public static User thisUser = [
+    SELECT Id
+    FROM User
+    WHERE Id = :UserInfo.getUserId()
+  ];
+
+  /**
+   * @description Create Account record
+   * @param doInsert the Account record type
+   * @return Account
+   */
+  public static Account createAccount(Boolean doInsert) {
+    return createAccount('TestAccount', doInsert);
+  }
+
+  /**
+   * @description Create Account record
+   * @param name Name of the Account
+   * @param doInsert Insert record or just initialise
+   * @return Account
+   */
+  public static Account createAccount(String name, Boolean doInsert) {
+    Faker faker = new Faker('AU');
+    Account accnt = new Account(
+      Name = name,
+      Display_Name__c = faker.randomString(5),
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      External_Id__c = faker.randomString(15)
+    );
+    if (doInsert) {
+      insert accnt;
+    }
+    return accnt;
+  }
+
+  /**
+   * @description Create Financial Account record
+   * @param count Number of records to create
+   * @param doInsert Insert record or just initialise
+   * @return Account
+   */
+  public static List<FinServ__FinancialAccount__c> createFinancialAccount(
+    Integer count,
+    Boolean doInsert
+  ) {
+    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
+    Account acc = createAccount(true);
+    for (Integer i = 0; i < count; i++) {
+      FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c(
+        Name = 'Everyday Account' + i,
+        FinServ__Balance__c = 200,
+        FinServ__CurrentPostedBalance__c = 200,
+        FinServ__Status__c = 'Active',
+        FinServ__FinancialAccountType__c = 'Checking',
+        FinServ__PrimaryOwner__c = acc.Id,
+        Account_Key__c = '342490981' + i,
+        Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11'),
+        FinServ__FinancialAccountNumber__c = '000000000',
+        Role_Type__c = 'SOL'
+      );
+
+      financialAccounts.add(finAccount);
+    }
+    if (doInsert) {
+      insert financialAccounts;
+    }
+    return financialAccounts;
+  }
+
   /**
    * @description map to store the schema map of Case Fields
    */

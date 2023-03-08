@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRMProspectTrackedFields</fullName>
+    <description>Used in apex class &quot;CCRMCustomerProfileUpdateConfig&quot;</description>
+    <displayedFields>
+        <field>Customer_Name__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>EmailAddress</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>CCRM Prospect Tracked Fields</label>
+</FieldSet>
