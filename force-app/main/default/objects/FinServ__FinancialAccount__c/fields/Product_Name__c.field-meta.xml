@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Name__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Fabric</complianceGroup>
     <description>Temporary field to show product name</description>
     <externalId>false</externalId>
-    <formula>IF( FinServ__RecordTypeName__c = &quot;Checking Account&quot;, &quot;ANZ Plus&quot;, &quot;ANZ Save&quot;)</formula>
+    <formula>CASE(FinServ__RecordTypeName__c, &quot;Checking Account&quot;, &quot;ANZ Plus&quot;, &quot;Savings Account&quot;, &quot;ANZ Save&quot;,&quot;ANZ Plus Standard Variable Rate Home Loan&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Product Name</label>
     <required>false</required>
+    <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>

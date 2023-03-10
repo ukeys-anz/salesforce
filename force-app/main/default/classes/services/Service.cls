@@ -41,6 +41,15 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param ocvId contains customer id
+   * @return `HttpCalloutResponse` api response
+   * @description virtual home loan accounts callout
+   */
+  public virtual HttpCalloutResponse getHomeLoanAccounts(String ocvId) {
+    return null;
+  }
+
+  /**
    * @param redirectURL redirect url in the http request
    * @param code code in the http request
    * @return `HttpCalloutResponse` api response

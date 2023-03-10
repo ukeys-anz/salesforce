@@ -1,10 +1,10 @@
 {
   "controllerValues": {
-    "Daon Failed": 0,
-    "ID Ops: Daon Approved": 1,
-    "Equifax Failed": 2,
-    "Equifax Passed": 3,
-    "Failed (OK)": 4,
+    "Daon Fallout": 0,
+    "ID Ops: Daon OK": 1,
+    "Equifax Fallout": 2,
+    "ID Check OK": 3,
+    "Failed": 4,
     "Potential Fraud": 5,
     "Confirmed Fraud": 6
   },

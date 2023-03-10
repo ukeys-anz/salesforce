@@ -154,6 +154,18 @@
       "type": "system"
     },
     {
+      "name": "Dispute GCP API Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Case_Read_Only_Dispute_Integration_GCP",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
       "name": "EDW Integration User",
       "profile": "Integration User",
       "permissionsetgroups": ["IDR_EDW_User"],
@@ -563,6 +575,26 @@
       "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": ["API_Only", "SF_Data_Sync_Integration", "Disable_MFA"],
+      "type": "system"
+    },
+    {
+      "name": "BOH Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "BoH_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Microsoft Defender Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["Microsoft_Defender", "Disable_MFA"],
       "type": "system"
     }
   ]

@@ -376,4 +376,9 @@
         <default>false</default>
         <label>KYC Reverification</label>
     </standardValue>
+    <standardValue>
+        <fullName>Statutory Compliance</fullName>
+        <default>false</default>
+        <label>Statutory Compliance</label>
+    </standardValue>
 </StandardValueSet>

@@ -2,6 +2,7 @@
  * @author Tan Phan
  * @since 09/2022
  * @description ContactTriggerHandler is the handler class for Contact Trigger which extends Lib_TriggerHandler from the trigger framework used.
+ * @runTests CCRMContactActionsTest
  */
 public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
   /**
@@ -27,9 +28,7 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
     );
     CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
       prospectContacts,
-      null,
-      'AccountId',
-      'Occurrence_Number__c'
+      null
     );
   }
   /**
@@ -45,9 +44,7 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
     CCRMContactActions.validateProspectContacts(prospectContacts);
     CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
       prospectContacts,
-      (Map<Id, Contact>) oldMap,
-      'AccountId',
-      'Occurrence_Number__c'
+      (Map<Id, Contact>) oldMap
     );
   }
 }

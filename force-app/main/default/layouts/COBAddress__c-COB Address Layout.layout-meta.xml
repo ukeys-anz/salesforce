@@ -71,6 +71,10 @@
                 <field>PersonaAddressType__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>QASAddress__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>AddressQASId__c</field>
             </layoutItems>

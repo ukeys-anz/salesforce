@@ -268,6 +268,36 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_Analytics_Assignee__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Analytics_Change_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Analytics_Comments__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Analytics_Date_Complete__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Analytics_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Analytics_Rule_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Assisted_ID_Event_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -946,7 +976,7 @@
         <field>Notification_Handler__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Reported_Bug__c.Number_of_Related_Cases__c</field>
         <readable>false</readable>
@@ -1046,7 +1076,7 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <enabled>true</enabled>
         <name>TransferAnyCase</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

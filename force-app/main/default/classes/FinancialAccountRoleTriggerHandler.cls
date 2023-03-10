@@ -17,6 +17,6 @@ public with sharing class FinancialAccountRoleTriggerHandler extends Lib_Trigger
    * @description onBeforeInsert to update the list of records which were identified in onValidate() method
    */
   public override void onBeforeInsert() {
-    FinancialAccountRoleCommonActions.setExternalId(records);
+    FinancialAccountRoleCommonActions.populateData(records);
   }
 }

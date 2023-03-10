@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Salesforce development project",
   "scripts": {
-    "ea:prettier": "node ./misc/ea-custom-prettier.js",
-    "xml:lint": "node ./misc/xml_linter.js",
+    "ea:prettier": "node ./ci/ea-custom-prettier.js",
+    "xml:lint": "node ./ci/xml_linter.js",
     "test": "node webdriverURLsetup.js && node createUserJsonList.js && npx tsc && npx wdio webdriverIO-build/wdio.conf.js",
     "generate-report": "npx allure generate allure-results --clean",
     "open-report": "npx allure open",

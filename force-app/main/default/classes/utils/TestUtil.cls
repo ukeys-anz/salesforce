@@ -259,4 +259,22 @@ public with sharing class TestUtil {
       Database.UndeleteResult.class
     );
   }
+
+  /**
+   * @description  return the api names of all permission sets that a user is assigned
+   * @param userId the user id you want to check permission assignment
+   * @return a Set of permission set api names that the user is assigned
+   */
+
+  public static Set<String> getUserPermissionSets(Id userId) {
+    Set<String> permssionSetApiNames = new Set<String>();
+    for (PermissionSetAssignment psa : [
+      SELECT Id, PermissionSet.Name, AssigneeId
+      FROM PermissionSetAssignment
+      WHERE AssigneeId = :userId
+    ]) {
+      permssionSetApiNames.add(psa.PermissionSet.Name);
+    }
+    return permssionSetApiNames;
+  }
 }

@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>HomeLoanAPIRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HomeLoanController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HomeLoanModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HomeLoanService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>HttpCalloutResponse</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Lib_HttpCallout</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Service</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ServiceProvider</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customPermissions>
+        <name>ANZx_Home_Loan</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>This Permission set provides Read Only Permission to buying a home objects</description>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.BSB__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__CloseDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__OpenDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__RecordTypeName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Product_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Total_Number_of_Cards__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicant.Account__c</field>
@@ -38,6 +114,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicant.Occupation_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicant.Party_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -58,21 +139,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LoanApplicantLiability.Loan_Applicant_Liability_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicantLiability.Name_Link__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicantLiability.Proportion_Percent__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LoanApplicationLiability.Balance__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -83,7 +149,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicationLiability.Lender__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicationLiability.LiabilityExtIdentifier</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicationLiability.Liability_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -138,6 +214,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicationProperty.PropertyAddress</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicationProperty.PropertyExtIdentifier</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicationProperty.Property_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -159,16 +245,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicationProperty.Property_Version__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.PropertyAddress</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LoanApplicationProperty.PropertyExtIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -358,12 +434,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.First_Home__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ResidentialLoanApplication.LoanPurpose</field>
+        <field>ResidentialLoanApplication.Loan_Purpose__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -373,12 +454,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ResidentialLoanApplication.Max_Allowable_LVR_Basis_Points__c</field>
+        <field>ResidentialLoanApplication.Main_Goal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ResidentialLoanApplication.Main_Goal__c</field>
+        <field>ResidentialLoanApplication.Max_Allowable_LVR_Basis_Points__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -411,6 +492,11 @@
         <field>ResidentialLoanApplication.Status</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>BoH Read Only</label>
     <license>Salesforce</license>
@@ -420,8 +506,8 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>LoanApplicant</object>
-        <viewAllRecords>false</viewAllRecords>
+        <object>FinServ__FinancialAccount__c</object>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>false</allowCreate>
@@ -429,7 +515,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>LoanApplicantLiability</object>
+        <object>LoanApplicant</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

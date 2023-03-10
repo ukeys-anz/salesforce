@@ -162,9 +162,8 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Customer Updates to Pending Details</label>
     <nameField>
-        <displayFormat>CU-{00000}</displayFormat>
         <label>Customer Profile Updates Name</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Customer Updates to Pending Details</pluralLabel>
     <searchLayouts/>

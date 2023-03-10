@@ -961,6 +961,56 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_Analytics_Change_Type__c</picklist>
+        <values>
+            <fullName>Existing Falcon Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Lookup List Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VCAS 3DS Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VRM Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Falcon Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Lookup List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VCAS 3DS Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VRM Rule</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Analytics_Outcome__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Funds_to_Channel__c</picklist>
         <values>
             <fullName>ATM</fullName>
@@ -1880,6 +1930,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Falcon Alerted Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Fraud Agent Delay</fullName>
             <default>false</default>
         </values>
@@ -1893,6 +1947,10 @@
         </values>
         <values>
             <fullName>Funds never left</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchant Liable</fullName>
             <default>false</default>
         </values>
         <values>

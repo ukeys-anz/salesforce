@@ -7,6 +7,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.IsSnapshotError__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IsSnapshotInProgress__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.OCV_Event_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>

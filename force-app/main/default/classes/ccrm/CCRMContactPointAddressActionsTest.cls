@@ -57,7 +57,7 @@ private class CCRMContactPointAddressActionsTest {
   static void testTrackChangedFields() {
     //GIVEN ContactPointAddress record linked to a prospect customer
     ContactPointAddress cpa = [
-      SELECT Id, ParentId, ActiveToDate
+      SELECT Id, ParentId, ActiveToDate, Street
       FROM ContactPointAddress
       WHERE Customer_Name__r.Is_Prospect__c = TRUE
       LIMIT 1
@@ -66,8 +66,7 @@ private class CCRMContactPointAddressActionsTest {
     //WHEN That record is updated
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      cpa.Global_Address_Key__c = faker.randomString(40);
-      cpa.Street = faker.address.street();
+      cpa.Street = cpa.Street + 1;
       update cpa;
     }
     Test.stopTest();

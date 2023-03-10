@@ -1,7 +1,12 @@
 <template>
   <div class="slds-card slds-grid slds-grid_vertical-align-center">
     <div class="slds-col">
-      <span class="emoji">&#128531;</span>
+      <template if:false={errorImageUrl}>
+        <span class="emoji">&#128531;</span>
+      </template>
+      <template if:true={errorImageUrl}>
+        <img class="error-image" src={errorImageUrl} />
+      </template>
     </div>
     <div class="slds-col">
       <template if:true={errorMessage}>

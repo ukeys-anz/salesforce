@@ -540,10 +540,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ExternalCaseStatusTriggerHandlerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FabricService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -805,10 +801,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>IDRConstants</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>IDRCreateComplaintController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1276,10 +1268,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TestDataFactory</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>TSPCondition</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1598,6 +1586,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Industry</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IsSnapshotError__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.IsSnapshotInProgress__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2371,11 +2369,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.IsOwnerCoachOrCoachLead__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Citizenship_Updated__c</field>
         <readable>true</readable>
@@ -2788,11 +2781,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Correspondence_Reviewed_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.IDR_Correspondence_Reviewed_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3705,6 +3693,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.PersonID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Transaction_Status__c</field>
         <readable>true</readable>
@@ -4351,6 +4344,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContactPointAddress.Delivery_Identifier__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContactPointAddress.Global_Address_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4407,6 +4405,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ContactPointEmail.UsageType</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointEmail.Preferred_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointPhone.Preferred_Indicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointPhone.Customer_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5700,6 +5713,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.OCV_Event_Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.OCV_ID__c</field>
         <readable>true</readable>
@@ -5717,6 +5735,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccount__c.Product_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Source_System_Status_Display__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Source_System_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8231,7 +8259,7 @@
         <recordType>Case.Fraud</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-Unauthenticated Enquiry Layout</layout>
+        <layout>Case-General Inquiry CMOS Layout</layout>
         <recordType>Case.General_Inquiry_CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -9849,6 +9877,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>User_Provisioning_Request__c</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>COBPrimaryIDDocument__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
     <userLicense>Salesforce</userLicense>

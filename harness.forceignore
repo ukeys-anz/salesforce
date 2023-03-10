@@ -37,6 +37,7 @@ SingleSignOn.settings
 
 #auth provider to make the build pass and we do the manual deployment later
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
+force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
@@ -131,6 +132,10 @@ force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-m
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
 
+#ignore to allow linting
+force-app/main/default/triggers/ContactTrigger.trigger-meta.xml
+force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
+force-app/main/default/triggers/ContactPointAddressTrigger.trigger-meta.xml
 #ANZX-72863 - to prevent layout being deployed becuase its custom metadata is already deleted
 force-app/main/default/layouts/PEGA_Smarts_Status_Mapping__mdt-PEGA Smarts Status Mapping Layout.layout-meta.xml
 
@@ -144,3 +149,15 @@ force-app/main/default/approvalProcesses/IDR_Letter_Approval__c.Letter_Approval_
 
 #ignoring CreateCommsData metadata to be created in destructive file, as it is already deleted
 force-app/main/default/classes/idr/CreateCommsData.cls-meta.xml
+
+#Temporarily adding FinServ__FinancialAccount__c sharing rule to avoid deployment issues.
+force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
+
+#AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
+force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
+
+#ANZX-84013 - ignore for manual deploy due to LWC errors
+force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls
+force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls
+force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls-meta.xml
+force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml

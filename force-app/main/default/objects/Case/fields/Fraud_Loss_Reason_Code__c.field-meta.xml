@@ -66,6 +66,16 @@
                 <default>false</default>
                 <label>Undetected</label>
             </value>
+            <value>
+                <fullName>Merchant Liable</fullName>
+                <default>false</default>
+                <label>Merchant Liable</label>
+            </value>
+            <value>
+                <fullName>Falcon Alerted Only</fullName>
+                <default>false</default>
+                <label>Falcon Alerted Only</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

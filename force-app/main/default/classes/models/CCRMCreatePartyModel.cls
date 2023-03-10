@@ -4,10 +4,10 @@
  * @description model for CAP Create Party API
  * @group Models
  */
-public with sharing class CCRMCreatePartyModel extends CalloutModel{
-	public String customerId;
-	public String capcisId;
-	public String customerName;
+public with sharing class CCRMCreatePartyModel extends CalloutModel {
+  public String customerId;
+  public String capcisId;
+  public String customerName;
 
   /**
    * @param json input string to deserialize

@@ -5,7 +5,7 @@
  */
 public with sharing class COBCaseStatusPathController {
   // Statuses with Callout API
-  private static List<String> cobCaseStatusesWithEndpoint = new List<String>{
+  private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
     GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
     GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
     GetHelpConstants.COB_FAILED_OK_STATUS,
@@ -20,6 +20,14 @@ public with sharing class COBCaseStatusPathController {
    */
   @AuraEnabled
   public static Boolean updateStatus(String currentStatus, Case cobCase) {
+    String validationError = COBCaseStatusValidator.validateCaseStatusChange(
+      currentStatus,
+      cobCase
+    );
+    if (String.isEmpty(validationError) == false) {
+      throwException(validationError);
+    }
+
     Boolean isCalloutSucccesful = makeTemporalCallout(currentStatus, cobCase);
     Boolean isCaseUpdated = handleCaseUpdate(cobCase);
     return isCalloutSucccesful && isCaseUpdated;
@@ -39,7 +47,10 @@ public with sharing class COBCaseStatusPathController {
     StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
 
     cobCase.Status_Update_Error__c = ''; // Clear previous error to avoid confusion if this update is successful
-    if (cobCaseStatusesWithEndpoint.contains(cobCase.Status) == false) {
+    if (
+      COB_CASE_STATUSES_WITH_ENDPOINT.contains(cobCase.Status) == false ||
+      CheckCaseRecordType.isFraudCheck(cobCase)
+    ) {
       return true;
     }
 
@@ -63,42 +74,24 @@ public with sharing class COBCaseStatusPathController {
   private static Boolean handleCaseUpdate(Case cobCase) {
     Database.SaveResult updateResult = Database.update(cobCase, false); //cobCase may have call out error in Status_Update_Error__c field if the callout has failed
 
-    if (
-      updateResult.isSuccess() && String.isBlank(cobCase.Status_Update_Error__c)
-    ) {
-      return true;
+    if (updateResult.isSuccess() == false) {
+      throwException(updateResult.getErrors()[0].getMessage());
     }
 
-    Logger.error('Fail to update COB case', updateResult);
-    Logger.saveLog();
-
-    Case cobCaseWithError = new Case(
-      Id = cobCase.Id,
-      Status_Update_Error__c = setStatusUpdateError(updateResult, cobCase)
-    );
-    upsert cobCaseWithError;
-
-    return false;
+    return true;
   }
 
   /**
-   * @description This function sets the relevant error: either callout error or DML error
-   * @param saveResult Result of the Database.update
-   * @param cobCase Case with new fields data to be updated
-   * @return String the callout error or DML error
+   * @description throws AuraHandledException with error message
+   * @param errorMsg error message to use in the exception
    */
-  @TestVisible
-  private static String setStatusUpdateError(
-    Database.SaveResult saveResult,
-    Case cobCase
-  ) {
-    String statusUpdateError = '';
+  private static void throwException(String errorMsg) {
+    // AuraHandleException is quirky, setMessage() and constructor must be invoked otherwise "Script-thrown exception" is thrown instead of actual exception message
+    AuraHandledException e = new AuraHandledException(errorMsg);
+    e.setMessage(errorMsg);
 
-    if (saveResult.isSuccess() == false) {
-      statusUpdateError = saveResult.getErrors()[0].getMessage(); // DML error
-    } else if (String.isNotBlank(cobCase.Status_Update_Error__c)) {
-      statusUpdateError = cobCase.Status_Update_Error__c; // API callout error
-    }
-    return statusUpdateError;
+    Logger.error('Failed to update COB case', e);
+    Logger.saveLog();
+    throw e;
   }
 }

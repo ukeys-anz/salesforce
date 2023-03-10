@@ -41,6 +41,10 @@
                 <behavior>Edit</behavior>
                 <field>PersonaId__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PersonID__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

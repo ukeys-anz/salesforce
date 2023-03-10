@@ -20,11 +20,10 @@ public with sharing class InteractionInterceptTest {
 
     string purpose = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
-    Interaction testInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-      AccountId = testAccount.Id,
-      StartTime = startDate,
-      Interaction_Purpose__c = purpose
+    Interaction testInteraction = createTestInteraction(
+      startDate,
+      purpose,
+      testAccount
     );
     insert testInteraction;
 
@@ -41,12 +40,12 @@ public with sharing class InteractionInterceptTest {
     );
 
     test.startTest();
-    Interaction testInteraction2 = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-      AccountId = testAccount.Id,
-      StartTime = startDate,
-      Interaction_Purpose__c = purpose
+    Interaction testInteraction2 = createTestInteraction(
+      startDate,
+      purpose,
+      testAccount
     );
+
     Exception thrownException;
     try {
       insert testInteraction2;
@@ -192,13 +191,13 @@ public with sharing class InteractionInterceptTest {
     DateTime peteStartTime = DateTime.newInstance(year, 6, 16, 1, 0, 0);
 
     //Rescheduled Appointment.
-    Interaction peteInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-      Name = faker.randomString(10),
-      AccountId = peteAccount.Id,
-      StartTime = peteStartTime,
-      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
+    Interaction peteInteraction = createTestInteraction(
+      peteStartTime,
+      InteractionConstants.OTHER_PURPOSE_NAME,
+      peteAccount
     );
+    peteInteraction.Name = faker.randomString(10);
+    peteInteraction.AccountId = peteAccount.Id;
     insert peteInteraction;
 
     peteInteraction.OwnerId = UserInfo.getUserId();
@@ -232,16 +231,15 @@ public with sharing class InteractionInterceptTest {
 
     //David Interaction
     Account davidAccount = createTestAccount();
-
     DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
 
-    Interaction davidInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-      Name = faker.randomString(10),
-      AccountId = davidAccount.Id,
-      StartTime = davidStartTime,
-      Interaction_Purpose__c = purpose
+    Interaction davidInteraction = createTestInteraction(
+      davidStartTime,
+      purpose,
+      davidAccount
     );
+    davidInteraction.Name = faker.randomString(10);
+    davidInteraction.AccountId = davidAccount.Id;
     insert davidInteraction;
 
     test.startTest();
@@ -274,13 +272,13 @@ public with sharing class InteractionInterceptTest {
     DateTime peteStartTime = DateTime.newInstance(year, 6, 15, 1, 0, 0);
 
     //Rescheduled Appointment.
-    Interaction peteInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-      Name = faker.randomString(10),
-      AccountId = peteAccount.Id,
-      StartTime = peteStartTime,
-      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME
+    Interaction peteInteraction = createTestInteraction(
+      peteStartTime,
+      InteractionConstants.OTHER_PURPOSE_NAME,
+      peteAccount
     );
+    peteInteraction.Name = faker.randomString(10);
+    peteInteraction.AccountId = peteAccount.Id;
     insert peteInteraction;
 
     peteInteraction.OwnerId = UserInfo.getUserId();
@@ -319,13 +317,13 @@ public with sharing class InteractionInterceptTest {
 
     DateTime davidStartTime = DateTime.newInstance(year, 6, 16, 0, 30, 0);
 
-    Interaction davidInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
-      Name = faker.randomString(10),
-      AccountId = davidAccount.Id,
-      StartTime = davidStartTime,
-      Interaction_Purpose__c = purpose
+    Interaction davidInteraction = createTestInteraction(
+      davidStartTime,
+      purpose,
+      davidAccount
     );
+    davidInteraction.Name = faker.randomString(10);
+    davidInteraction.AccountId = davidAccount.Id;
     insert davidInteraction;
 
     test.startTest();
@@ -381,5 +379,27 @@ public with sharing class InteractionInterceptTest {
     ];
 
     return testAccount;
+  }
+
+  /**
+   * @description creates an test appointment interaction with all required fields
+   * @param startTime Appointment start time
+   * @param purpose Interaction Purpose
+   * @param account account Id
+   * @return an appointment interaction type
+   */
+  private static Interaction createTestInteraction(
+    DateTime startTime,
+    String purpose,
+    Account account
+  ) {
+    Interaction testAppointment = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      AccountId = account.Id,
+      StartTime = startTime,
+      Interaction_Purpose__c = purpose,
+      InteractionType = InteractionConstants.CALL
+    );
+    return testAppointment;
   }
 }

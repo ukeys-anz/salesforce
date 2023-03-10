@@ -46,6 +46,7 @@ export default class TransactionHistoryRecord extends NavigationMixin(
   @api transactionRecord;
   @api expandAll;
   @track showTransactionDetails;
+  @api showRaiseDispute;
   zoomLevel = 15;
 
   @wire(MessageContext)

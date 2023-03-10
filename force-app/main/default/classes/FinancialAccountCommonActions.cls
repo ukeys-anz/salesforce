@@ -24,7 +24,40 @@ public with sharing class FinancialAccountCommonActions {
       financialAccountOldMap.put(oldRecord.Id, oldRecord);
     }
 
+    resetPrimaryOwner(records, (Map<Id, FinServ__FinancialAccount__c>) oldMap);
     checkPrimaryOwnerStartDate(financialAccountOldMap, records);
+  }
+
+  /**
+   * @description This method reset the Primary Owner to previous owner if there is new primary owner with IsPrimaryOwner__c = False
+   * @param financialAccounts The Financial Account records passed from beforeUpdate()
+   * @param oldFinancialAccounts Map of old Financial Account records
+   */
+  private static void resetPrimaryOwner(
+    List<FinServ__FinancialAccount__c> financialAccounts,
+    Map<Id, FinServ__FinancialAccount__c> oldFinancialAccounts
+  ) {
+    Set<Id> financialAccountIds = new Set<Id>();
+    for (FinServ__FinancialAccount__c financialAccount : financialAccounts) {
+      if (
+        !financialAccount.IsPrimaryOwner__c &&
+        oldFinancialAccounts.containsKey(financialAccount.id)
+      ) {
+        //Get Ids to delete FAR inactive records associated to Financial Account
+        financialAccountIds.add(financialAccount.Id);
+        FinServ__FinancialAccount__c financialAccountOldRecord = (FinServ__FinancialAccount__c) oldFinancialAccounts.get(
+          financialAccount.id
+        );
+        financialAccount.FinServ__PrimaryOwner__c = financialAccountOldRecord.FinServ__PrimaryOwner__c;
+      }
+    }
+    //FSC package create new FAR record and old FAR record get inactive.
+    //Delete inactive FAR record
+    if (!financialAccountIds.isEmpty()) {
+      ManageInactiveFinancialAccountRole.deleteInActiveFinancialAccountRole(
+        financialAccountIds
+      );
+    }
   }
 
   /**

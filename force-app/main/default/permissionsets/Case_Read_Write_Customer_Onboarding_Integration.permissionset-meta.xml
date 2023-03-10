@@ -4,10 +4,6 @@
         <apexClass>COBCaseStatusPathController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customPermissions>
-        <name>ANZx_Edit_COB_Case_Status</name>
-        <enabled>true</enabled>
-    </customPermissions>
     <description>Grants Read/Write access to Customer Onboarding case record types, including ID Ops Assistance and Fraud Check, and all relevant fields. This is used by Customer Onboarding Integration User.</description>
     <fieldPermissions>
         <editable>true</editable>

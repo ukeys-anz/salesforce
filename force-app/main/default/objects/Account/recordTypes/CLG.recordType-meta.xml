@@ -126,67 +126,7 @@
     <picklistValues>
         <picklist>FinServ__CustomerType__c</picklist>
         <values>
-            <fullName>01 - Sole Trader</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>02 - Partnership</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>03 - Corporation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>04 - Trust</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>05 - Non Profit Organisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>06 - Federal Public Enterprise</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>07 - State Public Enterprise</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>08 - Local Public Enterprise</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>09 - Superannuation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>11 - Federal Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>12 - State Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>13 - Local Government</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Borrower</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investor</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Relational</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction</fullName>
+            <fullName>CG</fullName>
             <default>false</default>
         </values>
     </picklistValues>

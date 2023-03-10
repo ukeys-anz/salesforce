@@ -71,16 +71,84 @@
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
+        <layout>Case-ATM Dispute Layout</layout>
+        <recordType>Case.ATM_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Account Closure Layout</layout>
         <recordType>Case.Account_Closure</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-ANZx Complaint Layout</layout>
+        <recordType>Case.ANZx_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-BPAY Dispute Layout</layout>
+        <recordType>Case.BPAY_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Card Dispute Layout</layout>
+        <recordType>Case.Card_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Complaint Layout</layout>
+        <recordType>Case.Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Customer Feedback Layout</layout>
+        <recordType>Case.Customer_Feedback</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Direct Debit Dispute Layout</layout>
+        <recordType>Case.Direct_Debit_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Direct Entry Dispute Layout</layout>
+        <recordType>Case.Direct_Entry_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Fraud Layout</layout>
+        <recordType>Case.Fraud</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Fraud Check Layout</layout>
         <recordType>Case.Fraud_Check</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-General Inquiry Layout</layout>
+        <recordType>Case.General_Inquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Identity Layout</layout>
+        <recordType>Case.Identity</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-ID Ops Assistance Layout</layout>
         <recordType>Case.ID_Ops_Assistance</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-KYC QA Layout</layout>
+        <recordType>Case.KYC_QA</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Non-Customer Complaint Layout</layout>
+        <recordType>Case.Non_Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-NPP Dispute Layout</layout>
+        <recordType>Case.NPP_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Recipient%2FMule Layout</layout>
+        <recordType>Case.Recipient_Mule</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Scam Layout</layout>
+        <recordType>Case.Scam</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Unauthenticated Enquiry Layout</layout>
+        <recordType>Case.General_Inquiry_CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Lead-ANZX Lead Layout</layout>

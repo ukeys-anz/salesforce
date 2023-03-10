@@ -2,188 +2,188 @@
 <StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <sorted>false</sorted>
     <standardValue>
-        <default>false</default>
         <fullName>1</fullName>
+        <default>false</default>
         <label>In Person</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Phone</fullName>
+        <default>false</default>
         <label>Phone</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>3</fullName>
+        <default>false</default>
         <label>Secure Mail</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>4</fullName>
+        <default>false</default>
         <label>Social Media</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>5</fullName>
+        <default>false</default>
         <label>Letter</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Email</fullName>
+        <default>false</default>
         <label>Email</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>6</fullName>
+        <default>false</default>
         <label>Internal Referred</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>8</fullName>
+        <default>false</default>
         <label>anz.com</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>9</fullName>
+        <default>false</default>
         <label>CEO Complaint</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>10</fullName>
+        <default>false</default>
         <label>Board Complaint</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>12</fullName>
+        <default>false</default>
         <label>Complaints IDR</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>14</fullName>
+        <default>false</default>
         <label>Complaints EDR</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>15</fullName>
+        <default>false</default>
         <label>Customer Advocate</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>11</fullName>
+        <default>false</default>
         <label>Referred from AFCA</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Chat</fullName>
+        <default>false</default>
         <label>Chat</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Voice Call</fullName>
+        <default>false</default>
         <label>Voice Call</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Video Call</fullName>
+        <default>false</default>
         <label>Video Call</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Appointment</fullName>
+        <default>false</default>
         <label>Appointment</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Store</fullName>
+        <default>false</default>
         <label>Store</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Customer</fullName>
+        <default>false</default>
         <label>Customer</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Falcon</fullName>
+        <default>false</default>
         <label>Falcon</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Fraud Staff</fullName>
+        <default>false</default>
         <label>Fraud Staff</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Other ANZx Staff</fullName>
+        <default>false</default>
         <label>Other ANZx Staff</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>OFI</fullName>
+        <default>false</default>
         <label>OFI</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Law Enforcement</fullName>
+        <default>false</default>
         <label>Law Enforcement</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>App</fullName>
+        <default>false</default>
         <label>App</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Origination</fullName>
+        <default>false</default>
         <label>Origination</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>ANZ Plus App</fullName>
+        <default>false</default>
         <label>ANZ Plus App</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Other</fullName>
+        <default>false</default>
         <label>Other</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>16</fullName>
+        <default>false</default>
         <label>AFCA Query</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>17</fullName>
+        <default>false</default>
         <label>AFCA PSI</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>18</fullName>
+        <default>false</default>
         <label>SI identified from complaints</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>19</fullName>
+        <default>false</default>
         <label>SI identified from events</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>20</fullName>
+        <default>false</default>
         <label>BU identified from complaints</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>21</fullName>
+        <default>false</default>
         <label>BU identified other</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>Survey</fullName>
+        <default>false</default>
         <label>Survey</label>
     </standardValue>
     <standardValue>
-        <default>false</default>
         <fullName>ANZ Plus Web</fullName>
+        <default>false</default>
         <label>ANZ Plus Web</label>
     </standardValue>
 </StandardValueSet>

@@ -248,7 +248,9 @@ public with sharing class AccountCommonActions {
           convert.setLeadId(l.Id);
           convert.setAccountId(accountId);
           convert.setConvertedStatus(convertedStatus.MasterLabel);
-          convert.setDoNotCreateOpportunity(true);
+          convert.setDoNotCreateOpportunity(
+            CCRMLeadUtil.isCCRMLeadType(l) ? false : true
+          );
           converts.add(convert);
         }
       }

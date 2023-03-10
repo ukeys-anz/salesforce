@@ -41,3 +41,17 @@ jobs:
           target-type: WORKFLOW
           variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }};DRAFT_PR=${{ env.DRAFT_PR }};RUN_SPECIFIED_TESTS=${{ env.RUN_SPECIFIED_TESTS_LABEL }}"
           wait: True
+      
+      - if: success()
+        name: Code Coverage
+        uses: docker://anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest
+        env:
+          GITHUB_BASE_REF: ${{ github.base_ref }}
+          GITHUB_REF: ${{ github.ref }}
+        with:
+          application-name: salesforce
+          harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key}}
+          target-name: salesforce-code-coverage-np
+          target-type: WORKFLOW
+          variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }}"
+          wait: True

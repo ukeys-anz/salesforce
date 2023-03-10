@@ -767,15 +767,6 @@ Note that only a stub is deployed from the codebase, because the dependent permi
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>LoanApplicantLiability</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
         <object>LoanApplicationAsset</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -1059,35 +1050,35 @@ Note that only a stub is deployed from the codebase, because the dependent permi
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewAllForecasts</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewDataLeakageEvents</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewEventLogFiles</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewPlatformEvents</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewPublicDashboards</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewPublicReports</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewRoles</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ViewSetup</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

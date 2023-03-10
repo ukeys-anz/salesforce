@@ -9,7 +9,12 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>System Information</label>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Liability_Id__c</field>
+            </layoutItems>
+        </layoutColumns>
         <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -49,11 +54,15 @@
                 <behavior>Edit</behavior>
                 <field>Repayment_Amount__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Lender__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
-        <customLabel>true</customLabel>
+        <customLabel>false</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Other Information</label>
@@ -72,7 +81,7 @@
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
-        <customLabel>true</customLabel>
+        <customLabel>false</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>false</editHeading>
         <label>Custom Links</label>
@@ -85,7 +94,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000002m23U</masterLabel>
+        <masterLabel>00h2N000005v9aZ</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

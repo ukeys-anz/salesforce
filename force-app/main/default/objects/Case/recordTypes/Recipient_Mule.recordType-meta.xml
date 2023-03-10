@@ -57,6 +57,56 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_Analytics_Change_Type__c</picklist>
+        <values>
+            <fullName>Existing Falcon Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Lookup List Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VCAS 3DS Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VRM Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Falcon Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Lookup List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VCAS 3DS Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VRM Rule</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Analytics_Outcome__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Complicit_in_Fraud__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -957,6 +1007,57 @@
         </values>
         <values>
             <fullName>Westpac</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Loss_Reason_Code__c</picklist>
+        <values>
+            <fullName>Awaiting Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Denial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delayed Detection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falcon Alerted Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Agent Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Agent Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Full Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Funds never left</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchant Liable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OFI Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undetected</fullName>
             <default>false</default>
         </values>
     </picklistValues>

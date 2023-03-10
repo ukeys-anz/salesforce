@@ -2,31 +2,19 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>COB_VR1</fullName>
     <active>true</active>
-    <description>Prevents users, that don&apos;t have permission, changing status from &apos;Daon Failed&apos; to either &apos;Equifax Failed/Passed&apos; or &apos;Confirm Fraud&apos; and from &apos;ID Ops: Daon Approved&apos; to  either &apos;Equifax Failed/Passed&apos; or &apos;Failed (OK)&apos;, &apos;Potential Fraud&apos; or &apos;Confirm Fraud&apos;</description>
+    <description>Prevents users from picking up a case that was already assigned to another agent.</description>
     <errorConditionFormula>AND(
-    NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),  
-    NOT( $Permission.ANZx_Edit_COB_Case_Status ),   
-    RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;,
+    NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
+    $UserRole.DeveloperName &lt;&gt; &quot;Join_Lead&quot;,
+    $UserRole.DeveloperName &lt;&gt; &quot;Business_Admin&quot;,
     OR(
-       AND(
-           ISPICKVAL( PRIORVALUE( Status ), &quot;Daon Failed&quot;),
-           OR( 
-              ISPICKVAL( Status, &quot;Equifax Failed&quot; ),
-              ISPICKVAL( Status, &quot;Equifax Passed&quot; ),
-              ISPICKVAL( Status, &quot;Confirmed Fraud&quot; )
-           )
-       ),
-       AND(
-           ISPICKVAL( PRIORVALUE( Status ), &quot;ID Ops: Daon Approved&quot;),
-           OR( 
-              ISPICKVAL( Status, &quot;Equifax Failed&quot; ),
-              ISPICKVAL( Status, &quot;Equifax Passed&quot; ),
-              ISPICKVAL( Status, &quot;Failed (OK)&quot; ),
-              ISPICKVAL( Status, &quot;Potential Fraud&quot; ),
-              ISPICKVAL( Status, &quot;Confirmed Fraud&quot; )
-           ) 
-       )
-    )    
+       RecordType.DeveloperName = &quot;Fraud_Check&quot;,
+       RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;
+    ),
+    ISCHANGED(OwnerId), 
+    NOT(LEFT(OwnerId, 3) = &quot;00G&quot;),
+    LEFT(PRIORVALUE(OwnerId), 3) = &quot;005&quot;, 
+    PRIORVALUE(OwnerId) &lt;&gt; $User.Id       
 )</errorConditionFormula>
-    <errorMessage>You are not allowed to change the status from &apos;Daon Failed&apos; to &apos;Equifax Failed&apos;, &apos;Equifax Passed&apos; or &apos;Confirmed Fraud&apos; and from &apos;ID Ops: Daon Approved&apos; to &apos;Equifax Failed&apos;, &apos;Equifax Passed&apos;, &apos;Failed (OK)&apos;, &apos;Potential Fraud&apos; or &apos;Confirmed Fraud&apos;.</errorMessage>
+    <errorMessage>The case has already been assigned to another agent, please pickup another case.</errorMessage>
 </ValidationRule>
