@@ -77,9 +77,9 @@
                 <label>ANZ Plus</label>
             </value>
             <value>
-                <fullName>Internet Banking</fullName>
+                <fullName>ANZ Internet Banking</fullName>
                 <default>false</default>
-                <label>Internet Banking</label>
+                <label>ANZ Internet Banking</label>
             </value>
             <value>
                 <fullName>Not product related</fullName>
