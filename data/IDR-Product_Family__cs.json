@@ -1,0 +1,144 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef1"
+            },
+            "Name": "ANZ Internet Banking",
+            "IDR_ANZ_com_Product_Category__c": "ANZ Internet Banking",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "ANZ Internet Banking",
+            "IDR_Workbasket__c": "IDR_Early_Resolution"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef2"
+            },
+            "Name": "ANZ Plus",
+            "IDR_ANZ_com_Product_Category__c": "ANZ Plus",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "ANZ Plus",
+            "IDR_Workbasket__c": "IDR_ANZ_Plus"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef3"
+            },
+            "Name": "Asset finance",
+            "IDR_ANZ_com_Product_Category__c": "Asset finance",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Asset finance",
+            "IDR_Workbasket__c": "IDR_Business_Owners"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef4"
+            },
+            "Name": "Business accounts",
+            "IDR_ANZ_com_Product_Category__c": "Business accounts",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Business accounts",
+            "IDR_Workbasket__c": "IDR_Business_Owners"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef5"
+            },
+            "Name": "Business loans",
+            "IDR_ANZ_com_Product_Category__c": "Business loans",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Business loans",
+            "IDR_Workbasket__c": "IDR_Business_Owners"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef6"
+            },
+            "Name": "Cheque/Savings accounts",
+            "IDR_ANZ_com_Product_Category__c": "Cheque/Savings accounts",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Cheque/Savings accounts",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef7"
+            },
+            "Name": "Commercial cards",
+            "IDR_ANZ_com_Product_Category__c": "Commercial cards",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Commercial cards",
+            "IDR_Workbasket__c": "IDR_Business_Owners"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef8"
+            },
+            "Name": "Credit Card",
+            "IDR_ANZ_com_Product_Category__c": "Credit card",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Credit card",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef9"
+            },
+            "Name": "Foreign exchange",
+            "IDR_ANZ_com_Product_Category__c": "Foreign exchange",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Foreign exchange",
+            "IDR_Workbasket__c": "IDR_Business_Owners"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef10"
+            },
+            "Name": "Home loans",
+            "IDR_ANZ_com_Product_Category__c": "Home loans",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Home loans",
+            "IDR_Workbasket__c": "IDR_Home_Owners"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef11"
+            },
+            "Name": "Insurance/wealth products",
+            "IDR_ANZ_com_Product_Category__c": "Insurance/wealth products",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Insurance/wealth products",
+            "IDR_Workbasket__c": "IDR_Wealth"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef12"
+            },
+            "Name": "Merchants",
+            "IDR_ANZ_com_Product_Category__c": "Merchants",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Merchants",
+            "IDR_Workbasket__c": "IDR_Business_Owners"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef13"
+            },
+            "Name": "Not product related",
+            "IDR_ANZ_com_Product_Category__c": "Not product related",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Not product related",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        },
+        {
+            "attributes": {
+                "type": "Product_Family__c",
+                "referenceId": "Product_Family__cRef14"
+            },
+            "Name": "Personal loan",
+            "IDR_ANZ_com_Product_Category__c": "Personal loan",
+            "IDR_ANZ_com_Unique_Product_Indicator__c": "Personal loan",
+            "IDR_Workbasket__c": "IDR_Everyday_Banking"
+        }
+    ]
+}

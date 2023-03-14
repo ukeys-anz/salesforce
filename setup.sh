@@ -157,7 +157,10 @@ echoMessageCreator "" $stepNo false
 
 # apply perm sets
 echoMessageCreator "apply customer details perm set" $stepNo true
-sfdx force:user:permset:assign -n Read_Write_Customer_Details 
+sfdx force:user:permset:assign -n Read_Write_Customer_Details | tee stderr
+if [[ ($(cat stderr) == *'ERROR'*) || ($(cat stderr) == *'Error'*) || ($(cat stderr) == *'statusCode=502'*) ]]; then
+    cat stderr
+fi
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -182,7 +185,7 @@ y | Y)
     echoMessageCreator "Pre-loading sample cmos data" $stepNo true
     # Uncomment the next line (and comment the next) to import products without their related cases
     #sfdx force:data:bulk:upsert --sobjecttype Product2 --csvfile data/IDR-ANZ-Products.csv --externalid ANZ_Product_Code__c --wait 2 2>&1 | tee stderr
-    sfdx force:data:tree:import -p data/IDR-Product2-Case-plan.json 2>&1 | tee stderr
+    sfdx force:data:tree:import -p data/IDR-ProductFamily-Product2-Case-plan.json 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         exit 1
     fi
