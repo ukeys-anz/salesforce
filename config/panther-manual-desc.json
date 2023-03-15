@@ -166,6 +166,7 @@
     "CampaignMember": "Associates a prospective or active customer with a campaign.",
     "CaseComment": "Plain text comment attached to a case",
     "Case": "Record of a customer interaction",
+    "CFaaS_File__c": "Custom object that will hold metadata of the files retrieved from CFaaS",
     "CFMS_Migrated_Document__c": "Custom object to store migrated CFMS documents, not the documents themselves but links to them in EDRM.",
     "Coaching_Summary__c": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
     "COBAddress__c": "A structured address compatible with both QAS lookup results and manual entry by the prospect",
@@ -846,6 +847,22 @@
         "CustomerOnboardingApplication__c",
         "PersonaId__c",
         "PersonID__c"
+      ]
+    },
+    "CFaaS_File__c": {
+      "IA-2415997": [
+        "Customer__c ",
+        "Date_Created__c",
+        "Document_Id__c",
+        "File_Description__c",
+        "File_Extension__c",
+        "File_Name__c",
+        "File_Source_System__c",
+        "Financial_Account__c",
+        "Integrity_Classification__c",
+        "Privacy_Classification__c",
+        "Residential_Loan_Id__c",
+        "Security_Classification__c"
       ]
     },
     "CFMS_Migrated_Document__c": {

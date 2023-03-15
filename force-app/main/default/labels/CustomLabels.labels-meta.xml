@@ -283,6 +283,14 @@
         <value>/contact-centre/v1/chat/channels/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_CFaaS_Download_Url</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_CFaaS_Download_Url</shortDescription>
+        <value>/cfaas/read/getdownloadurl</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Customer</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
