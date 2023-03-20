@@ -75,6 +75,9 @@ public with sharing class Lib_HttpCallout {
         callResponse.body = response.getBody() != null
           ? response.getBody()
           : '';
+        callResponse.bodyAsBlob = response.getBodyAsBlob() != null
+          ? response.getBodyAsBlob()
+          : Blob.valueOf('');
       } else {
         callResponse.successful = false;
         callResponse.error = new CalloutException(response.getBody());

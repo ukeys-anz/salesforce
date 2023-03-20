@@ -100,6 +100,12 @@
                 <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>cfaasFilesRelatedList</componentName>
+                <identifier>c_cfaasFilesRelatedList</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <type>Region</type>
     </flexiPageRegions>
