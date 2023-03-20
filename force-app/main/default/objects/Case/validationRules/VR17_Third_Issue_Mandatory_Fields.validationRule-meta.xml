@@ -27,11 +27,10 @@ AND(
 AND(
 NOT(IDR_Third_Issue__c),
 OR(
-NOT(ISBLANK(TEXT(IDR_Issue_Type_3__c))),
-NOT(ISBLANK(TEXT(IDR_Subsequent_Issue_3__c))),
-NOT(ISBLANK(IDR_Product_3__c)),
-NOT(OR(ISBLANK(IDR_Account_Card_Policy_Number_3__c),
-        IDR_Account_Card_Policy_Number_3__c = 'N/A'))
+ISCHANGED(IDR_Issue_Type_3__c),
+ISCHANGED(IDR_Subsequent_Issue_3__c),
+ISCHANGED(IDR_Product_3__c),
+ISCHANGED(IDR_Account_Card_Policy_Number_3__c)
 )
 )
 )
