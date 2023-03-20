@@ -8,7 +8,7 @@
 public without sharing class IDRTaskActionHelper {
   /**
    * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
-   * @param records task record for insert 
+   * @param records task record for insert
    */
   public static Void insertAssignmentTask(List<Task> records) {
     if (!records.isEmpty()) {
@@ -23,7 +23,27 @@ public without sharing class IDRTaskActionHelper {
         Schema.SObjectType.Task.fields.WhatId.isCreateable()
       ) {
         List<Task> taskToInsert = verifyAssignmentTask(records);
-        insert taskToInsert;
+        List<Database.SaveResult> results = Database.insert(
+          taskToInsert,
+          false
+        );
+        for (Integer i = 0; i < taskToInsert.size(); i++) {
+          Database.SaveResult sr = results[i];
+          if (!sr.isSuccess()) {
+            String errorMessage =
+              'Unable to create assignment tasks ' +
+              +' associated case: ' +
+              taskToInsert[i].WhatId +
+              ' associated case owner/queue: ' +
+              taskToInsert[i].OwnerId +
+              ' ';
+            for (Database.Error err : sr.getErrors()) {
+              errorMessage += err;
+              Logger.error(errorMessage);
+              Logger.saveLog();
+            }
+          }
+        }
       } else {
         CommonUtil.logAndThrowIAE(
           'IDRTaskActionHelper',
@@ -35,16 +55,16 @@ public without sharing class IDRTaskActionHelper {
   }
   /**
    * @description verify task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
-   * @param records task record for insert 
+   * @param records task record for insert
    * @return  Tasks that can be insterted
    */
   public static List<Task> verifyAssignmentTask(List<Task> records) {
-    Map<String,Task> recordsToInsert = new Map<String,Task>();
-    Map<String,Task> existingTasksMap = new Map<String,Task>();
+    Map<String, Task> recordsToInsert = new Map<String, Task>();
+    Map<String, Task> existingTasksMap = new Map<String, Task>();
     Task[] existingTasks = new List<Task>();
     Set<Id> caseIds = new Set<Id>();
-        
-    for(Task recTask: records){
+
+    for (Task recTask : records) {
       caseIds.add(recTask.WhatId);
     }
     if (!caseIds.isEmpty() && Task.SObjectType.getDescribe().isQueryable()) {
@@ -54,13 +74,16 @@ public without sharing class IDRTaskActionHelper {
         WHERE
           WhatId IN :caseIds
           AND RecordTypeId = :IDRConstants.IDR_TASK_RT_ID
-          AND Status != :IDRConstants.TASK_STATUS_COMPLETED 
-        ];
-      for(Task taskRec: existingTasks){
+          AND Status != :IDRConstants.TASK_STATUS_COMPLETED
+      ];
+      for (Task taskRec : existingTasks) {
         existingTasksMap.put(taskRec.Subject, taskRec);
-      }        
-      for(Task recTask: records){
-        if (!recordsToInsert.containsKey(recTask.Subject) && !existingTasksMap.containsKey(recTask.Subject)) {
+      }
+      for (Task recTask : records) {
+        if (
+          !recordsToInsert.containsKey(recTask.Subject) &&
+          !existingTasksMap.containsKey(recTask.Subject)
+        ) {
           recordsToInsert.put(recTask.Subject, recTask);
         }
       }

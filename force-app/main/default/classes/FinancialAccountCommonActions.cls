@@ -24,7 +24,6 @@ public with sharing class FinancialAccountCommonActions {
       financialAccountOldMap.put(oldRecord.Id, oldRecord);
     }
 
-    resetPrimaryOwner(records, (Map<Id, FinServ__FinancialAccount__c>) oldMap);
     checkPrimaryOwnerStartDate(financialAccountOldMap, records);
   }
 
