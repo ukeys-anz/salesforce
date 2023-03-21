@@ -23,7 +23,27 @@ public without sharing class IDRTaskActionHelper {
         Schema.SObjectType.Task.fields.WhatId.isCreateable()
       ) {
         List<Task> taskToInsert = verifyAssignmentTask(taskRecordList);
-        insert taskToInsert;
+        List<Database.SaveResult> results = Database.insert(
+          taskToInsert,
+          false
+        );
+        for (Integer i = 0; i < taskToInsert.size(); i++) {
+          Database.SaveResult sr = results[i];
+          if (!sr.isSuccess()) {
+            String errorMessage =
+              'Unable to create assignment tasks ' +
+              +' associated case: ' +
+              taskToInsert[i].WhatId +
+              ' associated case owner/queue: ' +
+              taskToInsert[i].OwnerId +
+              ' ';
+            for (Database.Error err : sr.getErrors()) {
+              errorMessage += err;
+              Logger.error(errorMessage);
+              Logger.saveLog();
+            }
+          }
+        }
       } else {
         CommonUtil.logAndThrowIAE(
           'IDRTaskActionHelper',

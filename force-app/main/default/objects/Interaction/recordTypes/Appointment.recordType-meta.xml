@@ -67,6 +67,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Existing ANZ Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Financial Wellbeing</fullName>
             <default>false</default>
         </values>
@@ -101,11 +105,19 @@
     <picklistValues>
         <picklist>Resolution__c</picklist>
         <values>
+            <fullName>Assisted App download</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Did not Answer</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Follow-up Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Action</fullName>
             <default>false</default>
         </values>
         <values>

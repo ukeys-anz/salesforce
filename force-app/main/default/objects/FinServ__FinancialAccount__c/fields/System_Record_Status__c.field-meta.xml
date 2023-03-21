@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>System_Record_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <description>Financial accounts which are deleted in OCV will be marked as OCV Deleted using this field.</description>
+    <externalId>false</externalId>
+    <label>System Record Status</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>OCV Deleted</fullName>
+                <default>false</default>
+                <label>OCV Deleted</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

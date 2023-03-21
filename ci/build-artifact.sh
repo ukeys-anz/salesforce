@@ -19,12 +19,13 @@ BUNDLE_DIR=(aura lwc waveTemplates)
 BRANCH_NAME='snapshot-latest'
 
 function convertSourceFormat() {
-    CONVERSION_DIR=$1
-    ISDESTRUCTIVE=$2
+    DIR_PATH=$1
+    CONVERSION_DIR=$2
+    ISDESTRUCTIVE=$3
 
     # This error message means the artifact is empty, either ci changes only, or everything is forceignored
     ERROR_MSG="ERROR running force:source:convert:  No matching source was found within the package root directory:"
-    if result=$(sfdx force:source:convert -r ./force-app -d "$1" --loglevel debug 2>&1); then
+    if result=$(sfdx force:source:convert -r "${DIR_PATH}/force-app" -d "$2" --loglevel debug 2>&1); then
         echo "Conversion successful into $CONVERSION_DIR"
     else
         echo "$result"
@@ -62,8 +63,8 @@ function unzipDeployPackageandCopyMetaFiles() {
     for p in "${DEPLOY_DIR}"/force-app/main/*; do
         package=$(basename "$p")
         for dir in ${META_DIR[*]}; do
-            if [[ -d ${DEPLOY_DIR}/force-app/main/"$package"/$dir ]]; then
-                echo ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"
+            if [[ -d "${DEPLOY_DIR}"/force-app/main/"$package"/$dir ]]; then
+                echo "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"
                 if [[ $dir == "classes" ]]; then
                     # ignoring for loop find warning, this iterates through our class subdirs which are lowercase alpha no spaces
                     # shellcheck disable=SC2044
@@ -74,10 +75,10 @@ function unzipDeployPackageandCopyMetaFiles() {
                             if [[ $filename == *.cls-meta.xml ]]; then
                                 classextension=".cls"
                                 classfilename=${filename/.cls-meta.xml/$classextension}
-                                cp ${SOURCE_DIR}/main/"$package"/"${subDir}"/"$classfilename" ${DEPLOY_DIR}/force-app/main/"$package"/"${subDir}" || true
+                                cp "${SOURCE_DIR}"/main/"$package"/"${subDir}"/"$classfilename" "${DEPLOY_DIR}"/force-app/main/"$package"/"${subDir}" || true
                             fi
                             [[ $filename == *.xml ]] && continue
-                            cp ${SOURCE_DIR}/main/"$package"/"${subDir}"/"$filename"-meta.xml ${DEPLOY_DIR}/force-app/main/"$package"/"${subDir}" || true
+                            cp "${SOURCE_DIR}"/main/"$package"/"${subDir}"/"$filename"-meta.xml "${DEPLOY_DIR}"/force-app/main/"$package"/"${subDir}" || true
                         done
                     done
                 fi
@@ -92,25 +93,51 @@ function unzipDeployPackageandCopyMetaFiles() {
                             if [[ $filename == *.fieldTranslation-meta.xml ]]; then
                                 objextension=".objectTranslation-meta.xml"
                                 objfilename=$subDirBase$objextension
-                                cp ${SOURCE_DIR}/main/"$package"/"${subDir}"/"$objfilename" ${DEPLOY_DIR}/force-app/main/"$package"/"${subDir}" || true
+                                cp "${SOURCE_DIR}"/main/"$package"/"${subDir}"/"$objfilename" "${DEPLOY_DIR}"/force-app/main/"$package"/"${subDir}" || true
                             fi
                         done
                     done
                 fi
                 for filename in "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/*; do
                     filename=$(basename "$filename")
+                    # find and remove standalone static resource-meta.xml files, or pass the filename to copy at the end of loop
                     if [[ $dir == "staticresources" ]]; then
-                        filename="$(echo "$filename" | cut -f 1 -d '.').resource"
+                        resourcename="$(echo "$filename" | cut -f 1 -d '.')"
+                        resourcelist="$(find "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir" -name "$resourcename*" | wc -l)"
+                        if [ "$resourcelist" -eq 1 ] && [[ $filename == *.resource-meta.xml ]];
+                        then
+                            echo "Removing orphan meta-xml static resource $filename"
+                            rm -rf "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/"$filename"
+                        else
+                            filename="$(echo "$filename" | cut -f 1 -d '.').resource"
+                        fi
+                    fi
+                    if [[ $filename == *.trigger-meta.xml ]]; then
+                        triggerextension=".trigger"
+                        triggerfilename=${filename/.trigger-meta.xml/$triggerextension}
+                        cp "${SOURCE_DIR}"/main/"$package"/"$dir"/"$triggerfilename" "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir" || true
+                    fi
+                    if [[ $filename == *.wdash-meta.xml ]]; then
+                        wdashextension=".wdash"
+                        wdashfilename=${filename/.wdash-meta.xml/$wdashextension}
+                        cp "${SOURCE_DIR}"/main/"$package"/"$dir"/"$wdashfilename" "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir" || true
+                    fi
+                    if [[ $filename == *.wdf-meta.xml ]]; then
+                        wdfextension=".wdf"
+                        wdffilename=${filename/.wdf-meta.xml/$wdfextension}
+                        cp "${SOURCE_DIR}"/main/"$package"/"$dir"/"$wdffilename" "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir" || true
                     fi
                     if [[ $filename == *.cls-meta.xml ]]; then
                         classextension=".cls"
                         classfilename=${filename/.cls-meta.xml/$classextension}
-                        cp ${SOURCE_DIR}/main/"$package"/"$dir"/"$classfilename" ${DEPLOY_DIR}/force-app/main/"$package"/"$dir" || true
+                        cp "${SOURCE_DIR}"/main/"$package"/"$dir"/"$classfilename" "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir" || true
                     fi
-                    [[ $filename == *.xml ]] && continue
-                    echo "$filename"
+                    if [[ "$filename" == *".xml" ]]; then
+                        continue
+                    fi
                     if [[ "$filename" == *"."* ]]; then
-                        cp ${SOURCE_DIR}/main/"$package"/"$dir"/"$filename"-meta.xml ${DEPLOY_DIR}/force-app/main/"$package"/"$dir" || true
+                        echo "Copying meta file $filename-meta.xml into the package due to orphaned metadata"
+                        cp "${SOURCE_DIR}"/main/"$package"/"$dir"/"$filename"-meta.xml "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir" || true
                     fi
                 done
             fi
@@ -127,7 +154,7 @@ function unzipDeployPackageandCopyMetaFiles() {
                 for d in "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/*; do
                     if [ -d "$d" ]; then
                         directory=$(basename "$d")
-                        cp -R ${SOURCE_DIR}/main/"$package"/"$dir"/"$directory"/* ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory"/
+                        cp -R "${SOURCE_DIR}"/main/"$package"/"$dir"/"$directory"/* "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/"$directory"/
                     fi
                 done
             fi
@@ -147,18 +174,18 @@ function unzipDestructivePackage() {
     for p in "${DESTRUCTIVE_DIR}"/force-app/main/*; do
         package=$(basename "$p")
         for dir in ${BUNDLE_DIR[*]}; do
-            if [[ -d ${DESTRUCTIVE_DIR}/force-app/main/"$package"/"$dir" ]]; then
+            if [[ -d "${DESTRUCTIVE_DIR}"/force-app/main/"$package"/"$dir" ]]; then
                 for d in "${DESTRUCTIVE_DIR}"/force-app/main/"$package"/"$dir"/*; do
                     if [ -d "$d" ]; then
                         directory=$(basename "$d")
-                        if [[ -d ${SOURCE_DIR}/main/"$package"/"$dir"/"$directory" ]]; then
+                        if [[ -d "${SOURCE_DIR}"/main/"$package"/"$dir"/"$directory" ]]; then
                             echo "$directory" "has a file deleted, needs to be redeployed"
-                            if [ ! -d ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory" ]; then
+                            if [ ! -d "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/"$directory" ]; then
                                 echo "$directory" "has a deleted file and does not exist in deploy directory, copying it to deploy full component"
-                                mkdir -p ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory"
-                                cp -R ${SOURCE_DIR}/main/"$package"/"$dir"/"$directory"/* ${DEPLOY_DIR}/force-app/main/"$package"/"$dir"/"$directory"/
+                                mkdir -p "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/"$directory"
+                                cp -R "${SOURCE_DIR}"/main/"$package"/"$dir"/"$directory"/* "${DEPLOY_DIR}"/force-app/main/"$package"/"$dir"/"$directory"/
                             fi
-                            rm -rf ${DESTRUCTIVE_DIR}/force-app/main/"$package"/"$dir"/"$directory"
+                            rm -rf "${DESTRUCTIVE_DIR}"/force-app/main/"$package"/"$dir"/"$directory"
                         fi
                     fi
                 done
@@ -229,27 +256,23 @@ CURRENT_DIR=$(pwd)
 
 # Only generate artefacts where files are found
 if [ "${CHANGED_FILES}" -gt "0" ] || [ -d ${DEPLOY_DIR}/force-app ]; then
-    cd "${DEPLOY_DIR}" || exit
     echo "converting into ${CURRENT_DIR}"
-    convertSourceFormat "${CURRENT_DIR}/artefact" false
-    # Return to working DIR
-    cd "${CURRENT_DIR}" || exit
+    convertSourceFormat "${DEPLOY_DIR}" "${CURRENT_DIR}/artefact" false
 fi
 
 echo ""
 
 if [ "${DELETED_FILES}" -gt "0" ] && [ -d ${DESTRUCTIVE_DIR}/force-app ]; then
-    cd "${DESTRUCTIVE_DIR}" || exit
-    convertSourceFormat "tmp/" true
+    convertSourceFormat "$DESTRUCTIVE_DIR" "${DESTRUCTIVE_DIR}/tmp" true
     echo "Creating destroy manifest"
-    cd ./tmp/ || exit
+    cd "${DESTRUCTIVE_DIR}/tmp" || exit
     if [ ! -d "${CURRENT_DIR}"/artefact ]; then
         mkdir "${CURRENT_DIR}"/artefact
         echo '<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://soap.sforce.com/2006/04/metadata"><version>50.0</version></Package>' > "${CURRENT_DIR}"/artefact/package.xml
     fi
     mv package.xml "${CURRENT_DIR}"/artefact/destructiveChanges.xml
-    # Return to working DIR
-    cd "${CURRENT_DIR}" || exit
 fi
 
+# Return to working DIR
+cd "${CURRENT_DIR}" || exit
 

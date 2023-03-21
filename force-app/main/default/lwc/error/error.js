@@ -4,6 +4,7 @@ export default class Error extends LightningElement {
   @api message;
   @api code;
   @api permissionIssue;
+  @api errorImageUrl;
   errorMessage;
 
   connectedCallback() {

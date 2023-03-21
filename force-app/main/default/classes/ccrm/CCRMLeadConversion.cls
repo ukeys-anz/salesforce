@@ -316,4 +316,189 @@ public without sharing class CCRMLeadConversion {
       Logger.saveLog();
     }
   }
+
+  /**
+   * @description Wrapper class to store only the required search party information
+   */
+  public class CCRMSearchPartyInfo {
+    @AuraEnabled
+    public string id;
+    @AuraEnabled
+    public string ocvId;
+    @AuraEnabled
+    public string name;
+    @AuraEnabled
+    public string clg;
+    @AuraEnabled
+    public string suburb;
+    @AuraEnabled
+    public string postCode;
+    @AuraEnabled
+    public string cpid;
+    @AuraEnabled
+    public string kycStatus;
+  }
+
+  /**
+   * @description Wrapper class to send required and certified results seperately.
+   */
+  public class CCRMSearchPartyInfoWrapper {
+    @AuraEnabled
+    public List<CCRMSearchPartyInfo> certifiedResults;
+    @AuraEnabled
+    public List<CCRMSearchPartyInfo> probableResults;
+  }
+
+  /**
+   * @param record Lead record from lwc component.
+   * @return CCRMSearchPartyInfo for lwc
+   * @description called from lead conversion lwc component
+   */
+  @AuraEnabled(cacheable=false)
+  public static CCRMSearchPartyInfoWrapper searchPartyInfoLWC(Lead record) {
+    CCRMSearchPartyModel result;
+    CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
+    CCRMSearchPartyInfoWrapper searchPartyWrapper;
+    Set<String> externalIds = new Set<String>();
+    try {
+      result = ccrmapi.searchPartyInfo(record);
+      for (
+        CCRMSearchPartyModel.CustomerDetails certResult : result.certifiedResults
+      ) {
+        externalIds.add(
+          certResult.sourceSystems[0].sourceSystemName +
+          '_' +
+          certResult.sourceSystems[0].sourceSystemId
+        );
+      }
+      for (
+        CCRMSearchPartyModel.CustomerDetails probResult : result.probableResults
+      ) {
+        externalIds.add(
+          probResult.sourceSystems[0].sourceSystemName +
+          '_' +
+          probResult.sourceSystems[0].sourceSystemId
+        );
+      }
+
+      searchPartyWrapper = populatePartyDetails(externalIds, result);
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+    return searchPartyWrapper;
+  }
+
+  /**
+   * @param externalIds set of unique ids to query from salesforce database
+   * @param result response data from callout
+   * @return CCRMSearchPartyInfoWrapper for lwc
+   * @description populate party details and return to lwc component
+   */
+  public static CCRMSearchPartyInfoWrapper populatePartyDetails(
+    Set<String> externalIds,
+    CCRMSearchPartyModel result
+  ) {
+    CCRMSearchPartyInfoWrapper searchPartyWrapper = new CCRMSearchPartyInfoWrapper();
+    searchPartyWrapper.certifiedResults = new List<CCRMSearchPartyInfo>();
+    searchPartyWrapper.probableResults = new List<CCRMSearchPartyInfo>();
+    Map<String, String> accountIdMap = new Map<String, String>();
+    for (Account acc : [
+      SELECT Id, External_Id__c
+      FROM Account
+      WHERE External_Id__c IN :externalIds
+      WITH SECURITY_ENFORCED
+    ]) {
+      accountIdMap.put(acc.External_Id__c, acc.Id);
+    }
+    for (
+      CCRMSearchPartyModel.CustomerDetails certResult : result.certifiedResults
+    ) {
+      String externalId =
+        certResult.sourceSystems[0].sourceSystemName +
+        '_' +
+        certResult.sourceSystems[0].sourceSystemId;
+      if (accountIdMap.containsKey(externalId)) {
+        CCRMSearchPartyInfo rec = new CCRMSearchPartyInfo();
+        rec.id = accountIdMap.get(externalId);
+        rec.ocvId = certResult.ocvId;
+        String firstName = String.isNotBlank(certResult.names[0].firstName)
+          ? certResult.names[0].firstName
+          : '';
+        rec.name = firstName + ' ' + certResult.names[0]?.lastName;
+        rec.suburb = certResult.addresses[0]?.city;
+        rec.postCode = certResult.addresses[0]?.postalCode;
+        rec.cpid = certResult.cpId;
+        rec.kycStatus = certResult.kycDetails.status;
+        searchPartyWrapper.certifiedResults.add(rec);
+      }
+    }
+    for (
+      CCRMSearchPartyModel.CustomerDetails probResult : result.probableResults
+    ) {
+      String externalId =
+        probResult.sourceSystems[0].sourceSystemName +
+        '_' +
+        probResult.sourceSystems[0].sourceSystemId;
+      if (accountIdMap.containsKey(externalId)) {
+        CCRMSearchPartyInfo rec = new CCRMSearchPartyInfo();
+        rec.id = accountIdMap.get(externalId);
+        rec.ocvId = probResult.ocvId;
+        String firstName = String.isNotBlank(probResult.names[0].firstName)
+          ? probResult.names[0].firstName
+          : '';
+        rec.name = firstName + ' ' + probResult.names[0]?.lastName;
+        rec.suburb = probResult.addresses[0]?.city;
+        rec.postCode = probResult.addresses[0]?.postalCode;
+        rec.cpid = probResult.cpId;
+        rec.kycStatus = probResult.kycDetails.status;
+        searchPartyWrapper.probableResults.add(rec);
+      }
+    }
+    return searchPartyWrapper;
+  }
+
+  /**
+   * @description called from lead conversion lwc component
+   * @name createPartyLWC
+   * @param record Lead record from lwc component.
+   */
+  @AuraEnabled(cacheable=false)
+  public static void createPartyLWC(Lead record) {
+    CCRMCreatePartyModel result;
+    CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
+    try {
+      result = ccrmapi.createParty(record);
+      updateLeadWithCapcisId(record, result.capcisId);
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  /**
+   * @description Updates lead with capcis id which will be used in Account trigger handler
+   * @name updateLeadWithCapcisId
+   * @param record Lead record from lwc component.
+   * @param capcisId capcis id from cap api response
+   */
+  private static void updateLeadWithCapcisId(Lead record, String capcisId) {
+    if (
+      Schema.sObjectType.Lead.isUpdateable() &&
+      Schema.sObjectType.Lead.fields.Skip_Validations__c.isUpdateable() &&
+      Schema.sObjectType.Lead.fields.CAPCIS_ID__c.isUpdateable()
+    ) {
+      record.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
+      record.CAPCIS_ID__c = capcisId;
+      try {
+        update record;
+      } catch (Exception e) {
+        //log errors to application log
+        Lib_SystemLog.createSingleLogAsync(
+          CCRMLeadConversion.class.getName(),
+          'updateLeadWithCapcisId',
+          record.Id,
+          e.getMessage()
+        );
+      }
+    }
+  }
 }

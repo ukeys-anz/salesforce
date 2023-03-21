@@ -8,13 +8,8 @@
 public with sharing class CCRMValidateAddressModelTest {
   @isTest
   static void testParseGetAddresses() {
-    StaticResource sr = [
-      SELECT Body
-      FROM StaticResource
-      WHERE Name = 'mock_ccrmQasSuccessResponse'
-    ];
     CCRMValidateAddressModel obj = CCRMValidateAddressModel.parse(
-      sr.Body.toString()
+      Service.getStaticResource('mock_ccrmQasSuccessResponse')
     );
     System.assertNotEquals(
       null,
@@ -24,19 +19,38 @@ public with sharing class CCRMValidateAddressModelTest {
   }
 
   @isTest
+  static void testParseGetAddressesV2() {
+    CCRMValidateAddressModelV2 obj = CCRMValidateAddressModelV2.parse(
+      Service.getStaticResource('mock_ccrmQasSuccessResponseV2')
+    );
+    System.assertNotEquals(
+      null,
+      obj,
+      'JSON string must be parsed to CCRMValidateAddressModelV2'
+    );
+  }
+
+  @isTest
   static void testParseGetSelectedAddress() {
-    StaticResource sr = [
-      SELECT Body
-      FROM StaticResource
-      WHERE Name = 'mock_ccrmQaSelectedAddressResponse'
-    ];
     CCRMGetSelectedAddressModel obj = CCRMGetSelectedAddressModel.parse(
-      sr.Body.toString()
+      Service.getStaticResource('mock_ccrmQaSelectedAddressResponse')
     );
     System.assertNotEquals(
       null,
       obj,
       'JSON string must be parsed to CCRMGetSelectedAddressModel'
+    );
+  }
+
+  @isTest
+  static void testParseGetSelectedAddressV2() {
+    CCRMGetSelectedAddressModelV2 obj = CCRMGetSelectedAddressModelV2.parse(
+      Service.getStaticResource('mock_ccrmQasSelectedAddressResponseV2')
+    );
+    System.assertNotEquals(
+      null,
+      obj,
+      'JSON string must be parsed to CCRMGetSelectedAddressModelV2'
     );
   }
 }

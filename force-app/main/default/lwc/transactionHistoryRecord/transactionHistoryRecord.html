@@ -100,22 +100,24 @@
             >
             </lightning-menu-item>
           </template>
-          <lightning-menu-item
-            value="Raise Dispute"
-            label="Raise Dispute"
-            onclick={handleRaiseDispute}
-            disabled={disableRaiseDisputeBtn}
-          >
-          </lightning-menu-item>
-          <template if:true={disableRaiseDisputeBtn}>
-            <div
-              class="slds-popover slds-popover_tooltip slds-nubbin_left-top"
-              role="tooltip"
-              id="help"
-              style="position: absolute; top: 20px; left: 120px; width: 150px"
+          <template if:true={showRaiseDispute}>
+            <lightning-menu-item
+              value="Raise Dispute"
+              label="Raise Dispute"
+              onclick={handleRaiseDispute}
+              disabled={disableRaiseDisputeBtn}
             >
-              <div class="slds-popover__body">{disputeButtonTooltip}</div>
-            </div>
+            </lightning-menu-item>
+            <template if:true={disableRaiseDisputeBtn}>
+              <div
+                class="slds-popover slds-popover_tooltip slds-nubbin_left-top"
+                role="tooltip"
+                id="help"
+                style="position: absolute; top: 20px; left: 120px; width: 150px"
+              >
+                <div class="slds-popover__body">{disputeButtonTooltip}</div>
+              </div>
+            </template>
           </template>
         </lightning-button-menu>
       </div>

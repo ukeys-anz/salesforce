@@ -2,6 +2,7 @@
  * @author Sreekanth Dadipineni
  * @since 09/2022
  * @description ContactPointAddressTriggerHandler is the handler class for ContactPointAddress Trigger which extends Lib_TriggerHandler from the trigger framework used.
+ * @runTests CCRMContactPointAddressActionsTest
  */
 public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerHandler {
   /**
@@ -22,8 +23,6 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
 
     CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
       prospectAddresses,
-      null,
-      'Customer_Name__c',
       null
     );
   }
@@ -43,9 +42,7 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
     );
     CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
       prospectAddresses,
-      (Map<Id, ContactPointAddress>) oldMap,
-      'Customer_Name__c',
-      null
+      (Map<Id, ContactPointAddress>) oldMap
     );
   }
 }

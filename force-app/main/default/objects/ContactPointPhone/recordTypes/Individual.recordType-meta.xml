@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Individual</fullName>
+    <active>true</active>
+    <label>Individual</label>
+    <picklistValues>
+        <picklist>UsageType</picklist>
+        <values>
+            <fullName>Fax Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fax Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Primary Business Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Primary Home Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secondary Business Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Secondary Home Telephone</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

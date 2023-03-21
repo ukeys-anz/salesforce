@@ -5,6 +5,16 @@
     <masterLabel>ANZx Customer Analytics</masterLabel>
     <shares>
         <accessLevel>View</accessLevel>
+        <sharedTo>BOH_Coach</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>Business_Admin</sharedTo>
+        <sharedToType>Role</sharedToType>
+    </shares>
+    <shares>
+        <accessLevel>View</accessLevel>
         <sharedTo>Card_Dispute_Agent</sharedTo>
         <sharedToType>Role</sharedToType>
     </shares>

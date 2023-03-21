@@ -4,7 +4,7 @@
 set -e
 
 # to use all the functions that we need and do not repeat the code
-source ./bash-scripts/commonFunctions.sh
+source ./ci/bash-scripts/commonFunctions.sh
 
 
 trap ctrl_c INT
@@ -151,7 +151,7 @@ fi
 
 # assign a role to default user of scratchOrg
 echoMessageCreator "assign a role to default user of scratchOrg" $stepNo true
-sfdx force:apex:execute -f ./apex-scripts/assignUserRole.apex
+sfdx force:apex:execute -f ./ci/apex-scripts/assignUserRole.apex
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -168,11 +168,11 @@ echoMessageCreator "" $stepNo false
 case ${preloadANZPlusData:0:1} in
 y | Y)
     echoMessageCreator "Pre-loading sample anzx data" $stepNo true
-    sfdx force:apex:execute -f ./apex-scripts/createTestData.apex
+    sfdx force:apex:execute -f ./ci/apex-scripts/createTestData.apex
     echoMessageCreator "" $stepNo false
 
     echoMessageCreator "Creating test users (inactive by default) with different roles" $stepNo true
-    sfdx force:apex:execute -f ./apex-scripts/createTestUsers.apex
+    sfdx force:apex:execute -f ./ci/apex-scripts/createTestUsers.apex
     echoMessageCreator "" $stepNo false
     ;;
 *) echo "${green}Skipping ANZ plus test data preload${reset}" ;;

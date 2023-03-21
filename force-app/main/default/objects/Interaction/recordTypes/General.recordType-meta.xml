@@ -88,6 +88,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Existing ANZ Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Non-Customer</fullName>
             <default>false</default>
         </values>
@@ -125,6 +129,10 @@
     </picklistValues>
     <picklistValues>
         <picklist>Resolution__c</picklist>
+        <values>
+            <fullName>Assisted App download</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>Did not Answer</fullName>
             <default>false</default>

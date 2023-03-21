@@ -51,6 +51,13 @@
       error={goalError}
     >
     </c-financial-goals-person-account>
+
+    <div class="slds-m-top_small"></div>
+    <c-home-loan-account
+      record-id={recordId}
+      object-api-name={objectApiName}
+      account-details={loanData}
+    ></c-home-loan-account>
   </template>
   <template if:true={loading}>
     <div

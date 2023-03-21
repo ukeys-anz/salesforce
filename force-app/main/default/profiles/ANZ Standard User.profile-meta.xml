@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ANZ Standard User</fullName>
     <applicationVisibilities>
@@ -2803,101 +2803,105 @@
         <tab>trailheadapp__TrailheadSetup</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
+    <tabVisibilities>
+        <tab>COBPrimaryIDDocument__c</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ActivitiesAccess</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApexRestServices</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ApiEnabled</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ChatterInternalUser</name>
-    </userPermissions>
-    <userPermissions>
         <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>ChatterInternalUser</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ConvertLeads</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ImportPersonal</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>CreateCustomizeReports</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ChatterInternalUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterInviteExternalUsers</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterOwnGroups</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterInviteExternalUsers</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ChatterOwnGroups</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailMass</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EmailSingle</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>LightningConsoleAllowedForUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>LightningExperienceUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ListEmailSend</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>PreventClassicExperience</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>TransactionalEmailSend</name>
-    </userPermissions>
-    <userPermissions>
         <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
+        <name>TransactionalEmailSend</name>
+        <enabled>false</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>ViewHelpLink</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewRoles</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>ViewSetup</name>
+        <enabled>false</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
         <name>EditEvent</name>
+        <enabled>false</enabled>
     </userPermissions>
 </Profile>

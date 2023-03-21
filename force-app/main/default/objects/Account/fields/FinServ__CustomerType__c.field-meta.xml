@@ -14,6 +14,71 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>01</fullName>
+                <default>false</default>
+                <label>Sole Trader</label>
+            </value>
+            <value>
+                <fullName>02</fullName>
+                <default>false</default>
+                <label>Partnership</label>
+            </value>
+            <value>
+                <fullName>03</fullName>
+                <default>false</default>
+                <label>Corporation</label>
+            </value>
+            <value>
+                <fullName>04</fullName>
+                <default>false</default>
+                <label>Trust</label>
+            </value>
+            <value>
+                <fullName>05</fullName>
+                <default>false</default>
+                <label>Non Profit Organisation</label>
+            </value>
+            <value>
+                <fullName>06</fullName>
+                <default>false</default>
+                <label>Federal Public Enterprise</label>
+            </value>
+            <value>
+                <fullName>07</fullName>
+                <default>false</default>
+                <label>State Public Enterprise</label>
+            </value>
+            <value>
+                <fullName>08</fullName>
+                <default>false</default>
+                <label>Local Public Enterprise</label>
+            </value>
+            <value>
+                <fullName>09</fullName>
+                <default>false</default>
+                <label>Superannuation</label>
+            </value>
+            <value>
+                <fullName>11</fullName>
+                <default>false</default>
+                <label>Federal Government</label>
+            </value>
+            <value>
+                <fullName>12</fullName>
+                <default>false</default>
+                <label>State Government</label>
+            </value>
+            <value>
+                <fullName>13</fullName>
+                <default>false</default>
+                <label>Local Government</label>
+            </value>
+            <value>
+                <fullName>CG</fullName>
+                <default>false</default>
+                <label>CG</label>
+            </value>
+            <value>
                 <fullName>Transaction</fullName>
                 <default>false</default>
                 <label>Transaction</label>
@@ -32,66 +97,6 @@
                 <fullName>Investor</fullName>
                 <default>false</default>
                 <label>Investor</label>
-            </value>
-            <value>
-                <fullName>01 - Sole Trader</fullName>
-                <default>false</default>
-                <label>01 - Sole Trader</label>
-            </value>
-            <value>
-                <fullName>02 - Partnership</fullName>
-                <default>false</default>
-                <label>02 - Partnership</label>
-            </value>
-            <value>
-                <fullName>03 - Corporation</fullName>
-                <default>false</default>
-                <label>03 - Corporation</label>
-            </value>
-            <value>
-                <fullName>04 - Trust</fullName>
-                <default>false</default>
-                <label>04 - Trust</label>
-            </value>
-            <value>
-                <fullName>05 - Non Profit Organisation</fullName>
-                <default>false</default>
-                <label>05 - Non Profit Organisation</label>
-            </value>
-            <value>
-                <fullName>06 - Federal Public Enterprise</fullName>
-                <default>false</default>
-                <label>06 - Federal Public Enterprise</label>
-            </value>
-            <value>
-                <fullName>07 - State Public Enterprise</fullName>
-                <default>false</default>
-                <label>07 - State Public Enterprise</label>
-            </value>
-            <value>
-                <fullName>08 - Local Public Enterprise</fullName>
-                <default>false</default>
-                <label>08 - Local Public Enterprise</label>
-            </value>
-            <value>
-                <fullName>09 - Superannuation</fullName>
-                <default>false</default>
-                <label>09 - Superannuation</label>
-            </value>
-            <value>
-                <fullName>11 - Federal Government</fullName>
-                <default>false</default>
-                <label>11 - Federal Government</label>
-            </value>
-            <value>
-                <fullName>12 - State Government</fullName>
-                <default>false</default>
-                <label>12 - State Government</label>
-            </value>
-            <value>
-                <fullName>13 - Local Government</fullName>
-                <default>false</default>
-                <label>13 - Local Government</label>
             </value>
         </valueSetDefinition>
     </valueSet>

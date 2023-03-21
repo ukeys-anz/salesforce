@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>AUV</fullName>
+        <default>false</default>
+        <label>AUV - Customer has full transaction access via Internet Banking and Phone Banking transaction</label>
+    </customValue>
+    <customValue>
+        <fullName>AUN</fullName>
+        <default>false</default>
+        <label>AUN - Customer has only enquiry access via Internet Banking and Phone Banking</label>
+    </customValue>
+    <customValue>
+        <fullName>AGE</fullName>
+        <default>false</default>
+        <label>AGE - Customer is an Agent or an Agency acting on behalf of the actual customer</label>
+    </customValue>
+    <customValue>
+        <fullName>ANZ</fullName>
+        <default>false</default>
+        <label>ANZ - Relationship used between customer Lending Group and account</label>
+    </customValue>
+    <customValue>
+        <fullName>ASP</fullName>
+        <default>false</default>
+        <label>ASP - Customer is an Associate and has primary responsibility of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>ASO</fullName>
+        <default>false</default>
+        <label>ASO - Customer is an associate of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>TPS</fullName>
+        <default>false</default>
+        <label>TPS - Customer is an authorised signatory of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>DBN</fullName>
+        <default>false</default>
+        <label>DBN - Customer is a beneficiary of the account and has the primary responsibility of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>BEN</fullName>
+        <default>false</default>
+        <label>BEN - Customer is a beneficiary of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>CCH</fullName>
+        <default>false</default>
+        <label>CCH - Customer is a credit Card holder. Depending on type of customer it could be either a personal Cardholder or a business cardholder</label>
+    </customValue>
+    <customValue>
+        <fullName>CON</fullName>
+        <default>false</default>
+        <label>CON - Customer is the primary contact for this account</label>
+    </customValue>
+    <customValue>
+        <fullName>DLB</fullName>
+        <default>false</default>
+        <label>DLB - Customer is the primary borrower and owner of the account.</label>
+    </customValue>
+    <customValue>
+        <fullName>CUS</fullName>
+        <default>false</default>
+        <label>CUS - Customer is a responsible person, who has a fiduciary obligation to the beneficiary</label>
+    </customValue>
+    <customValue>
+        <fullName>EST</fullName>
+        <default>false</default>
+        <label>EST - Customer is the person named in a will to carry out the wishes of a primary account after they are deceased</label>
+    </customValue>
+    <customValue>
+        <fullName>FID</fullName>
+        <default>false</default>
+        <label>FID - Customer is a responsible person, who has a fiduciary obligation to the beneficiary</label>
+    </customValue>
+    <customValue>
+        <fullName>GTR</fullName>
+        <default>false</default>
+        <label>GTR - Customer is a guarantor of the account and carries liability on the loan</label>
+    </customValue>
+    <customValue>
+        <fullName>COF</fullName>
+        <default>false</default>
+        <label>COF - Customer is the joint owner of the account and has the responsibility of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>COO</fullName>
+        <default>false</default>
+        <label>COO - Customer is the joint owner of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>LOA</fullName>
+        <default>false</default>
+        <label>LOA - Customer is authorised to act on behalf and under instructions from the the person issuing the letter</label>
+    </customValue>
+    <customValue>
+        <fullName>LIQ</fullName>
+        <default>false</default>
+        <label>LIQ - customer is the officer appointed for winding-up or liquidation and has responsibility for collecting in all of the assets of the company and settling all claims against the company before putting the company into dissolution</label>
+    </customValue>
+    <customValue>
+        <fullName>PTC</fullName>
+        <default>false</default>
+        <label>PTC - Customer is a participant in the account. The participation may take the form of an assignee/ assignor etc</label>
+    </customValue>
+    <customValue>
+        <fullName>PTF</fullName>
+        <default>false</default>
+        <label>PTF - Customer is the a partner in the partnership and has the responsibility of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>PTO</fullName>
+        <default>false</default>
+        <label>PTO - Customer is a partner in the partnership owning the account</label>
+    </customValue>
+    <customValue>
+        <fullName>POA</fullName>
+        <default>false</default>
+        <label>POA - A Customer appointed by Account Owner to conduct business on their behalf</label>
+    </customValue>
+    <customValue>
+        <fullName>RCV</fullName>
+        <default>false</default>
+        <label>RCV - Customer appointed by a bankruptcy court or secured creditor to run a company for a short period of time in a manner that will ensure as much debt is paid back to creditors as possible</label>
+    </customValue>
+    <customValue>
+        <fullName>ROS</fullName>
+        <default>false</default>
+        <label>ROS - Customer who will automatically absorb a dying owner's share of the property</label>
+    </customValue>
+    <customValue>
+        <fullName>IND</fullName>
+        <default>false</default>
+        <label>IND - Customer is the Sole Owner of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>TSF</fullName>
+        <default>false</default>
+        <label>TSF - Customer is a trustee of the account and also the owner of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>TSM</fullName>
+        <default>false</default>
+        <label>TSM - Customer is a trustee but is a minor</label>
+    </customValue>
+    <customValue>
+        <fullName>TSO</fullName>
+        <default>false</default>
+        <label>TSO - Customer is a trustee of the account</label>
+    </customValue>
+    <customValue>
+        <fullName>SOL</fullName>
+        <default>false</default>
+        <label>SOL - Customer is sole owner of the account (All products)</label>
+    </customValue>
+    <customValue>
+        <fullName>BCH</fullName>
+        <default>false</default>
+        <label>BCH - The related Customer is the Card Holder on a Business card account</label>
+    </customValue>
+    <customValue>
+        <fullName>UNO</fullName>
+        <default>false</default>
+        <label>UNO - Customer is an unnamed owner of the account. Only used for accounts that participate in a portfolio arrangement.</label>
+    </customValue>
+    <customValue>
+        <fullName>BCG</fullName>
+        <default>false</default>
+        <label>BCG - The related Customer is the Billing Group Customer of the Business card account</label>
+    </customValue>
+    <customValue>
+        <fullName>BCC</fullName>
+        <default>false</default>
+        <label>BCC - The related Customer is the Direct Owner of the Business card account</label>
+    </customValue>
+    <customValue>
+        <fullName>AD1</fullName>
+        <default>false</default>
+        <label>AD1 - Customer will be secondary Cardholder on approval of the related Card application</label>
+    </customValue>
+    <customValue>
+        <fullName>AD2</fullName>
+        <default>false</default>
+        <label>AD2 - Customer will be secondary Cardholder on approval of the related Card application</label>
+    </customValue>
+    <customValue>
+        <fullName>AD3</fullName>
+        <default>false</default>
+        <label>AD3 - Customer will be secondary Cardholder on approval of the related Card application</label>
+    </customValue>
+    <customValue>
+        <fullName>ITF</fullName>
+        <default>false</default>
+        <label>ITF - Customer is primary trustee of the account and is not an owning investor of the account. A DBN relationship must also be related to the account. (All products except credit cards)</label>
+    </customValue>
+    <customValue>
+        <fullName>CLG</fullName>
+        <default>false</default>
+        <label>CLG - The relationship used between a customer lending group customer and existing accounts in CLG</label>
+    </customValue>
+    <customValue>
+        <fullName>PRI</fullName>
+        <default>false</default>
+        <label>PRI - Customer has primary responsibility for the account and is owner of the business name.</label>
+    </customValue>
+    <customValue>
+        <fullName>ITO</fullName>
+        <default>false</default>
+        <label>ITO - Customer is a trustee of the account and is not an owning investor of the account. An ITF and DBN relationship must also be related to the account. (All products except credit cards)</label>
+    </customValue>
+    <customValue>
+        <fullName>PAE</fullName>
+        <default>false</default>
+        <label>PAE - The related Customer is an Embosser Applicant of the Personal Card Application</label>
+    </customValue>
+    <customValue>
+        <fullName>PCC</fullName>
+        <default>false</default>
+        <label>PCC - The related Customer is a Direct Owner of the Personal Card Account</label>
+    </customValue>
+    <customValue>
+        <fullName>PCH</fullName>
+        <default>false</default>
+        <label>PCH - The related Customer is a Card Holder on a Personal Card Account</label>
+    </customValue>
+    <customValue>
+        <fullName>COM</fullName>
+        <default>false</default>
+        <label>COM - AN INDIVIDUAL WHO CARRIES LIABILITY ON A LOAN.</label>
+    </customValue>
+    <customValue>
+        <fullName>DEP</fullName>
+        <default>false</default>
+        <label>DEP - AN INDIVIDUAL WHO MAY OPEN A SAFE DEPOSIT BOX HE DOES NOT OWN.</label>
+    </customValue>
+    <customValue>
+        <fullName>EXC</fullName>
+        <default>false</default>
+        <label>EXC - THE SIGNER(S) ARE THE EXECUTOR(S) OR EXECUTRIX(S) FOR AN ESTATE.</label>
+    </customValue>
+    <customValue>
+        <fullName>IGE</fullName>
+        <default>false</default>
+        <label>IGE - A RELATIONSHIP OF INDEMNITY GUARANTEE EXISTS</label>
+    </customValue>
+    <customValue>
+        <fullName>IJF</fullName>
+        <default>false</default>
+        <label>IJF - JOINT INDIVIDUALS FIRST OWNER</label>
+    </customValue>
+    <customValue>
+        <fullName>IJO</fullName>
+        <default>false</default>
+        <label>IJO - JOINT INDIVIDUALS OTHER OWNER</label>
+    </customValue>
+    <customValue>
+        <fullName>JNT</fullName>
+        <default>false</default>
+        <label>JNT - JOINT ACCOUNT USED ONLY FOR SSA ACCOUNTS</label>
+    </customValue>
+    <customValue>
+        <fullName>JTF</fullName>
+        <default>false</default>
+        <label>JTF - JOINT INDIVIDUAL/PARTNERSHIP ACCOUNT FIRST OWNER</label>
+    </customValue>
+    <customValue>
+        <fullName>JTO</fullName>
+        <default>false</default>
+        <label>JTO - JOINT INDIVIDUAL/PARTNERSHIP ACCOUNT OTHER OWNERS.</label>
+    </customValue>
+    <customValue>
+        <fullName>MAK</fullName>
+        <default>false</default>
+        <label>MAK - INDIVIDUAL THAT IS PRIMARY PERSON ON A LOAN.</label>
+    </customValue>
+    <customValue>
+        <fullName>MGR</fullName>
+        <default>false</default>
+        <label>MGR - MANAGER ACCOUNT</label>
+    </customValue>
+    <customValue>
+        <fullName>NIN</fullName>
+        <default>false</default>
+        <label>NIN - COMPANY/ORGANIZATION ACCOUNT NOT JOINT</label>
+    </customValue>
+    <customValue>
+        <fullName>ONR</fullName>
+        <default>false</default>
+        <label>ONR - OWNER OF SAFE DEPOSIT BOX.</label>
+    </customValue>
+    <customValue>
+        <fullName>PAA</fullName>
+        <default>false</default>
+        <label>PAA - POWER OF ATTORNEY AGENT; A PERSON APPOINTED BY THE OWNER OF AN ACCOUNT OWNED BY OTHER THAN AN INDIVIDUAL.</label>
+    </customValue>
+    <customValue>
+        <fullName>PUF</fullName>
+        <default>false</default>
+        <label>PUF - UNREGISTERED PARTNERSHIP FIRST OWNER</label>
+    </customValue>
+    <customValue>
+        <fullName>PUO</fullName>
+        <default>false</default>
+        <label>PUO - UNREGISTERED PARTNERSHIP OTHER OWNER</label>
+    </customValue>
+    <customValue>
+        <fullName>SOC</fullName>
+        <default>false</default>
+        <label>SOC - ACCOUNT TO CUSTOMER LINK FOR SETOFF DDA99 ACCOUNTS ONLY</label>
+    </customValue>
+    <customValue>
+        <fullName>SUP</fullName>
+        <default>false</default>
+        <label>SUP - REGISTERED SUPERANNUATION FUND. THIS CODE IS REQUIRED BY THE AUSTRALIAN TAXATION OFFICE TO IDENTIFY SUPERANNUATION ACCOUNTS.</label>
+    </customValue>
+    <customValue>
+        <fullName>TRA</fullName>
+        <default>false</default>
+        <label>TRA - TRADING NAME OF CUSTOMER</label>
+    </customValue>
+    <customValue>
+        <fullName>TST</fullName>
+        <default>false</default>
+        <label>TST - TRUST ACCOUNT CONTROLLER NOT JOINT.</label>
+    </customValue>
+    <customValue>
+        <fullName>OTF</fullName>
+        <default>false</default>
+        <label>OTF - WHEN NO OTHER CODE APPLICABLE.</label>
+    </customValue>
+    <customValue>
+        <fullName>OTH</fullName>
+        <default>false</default>
+        <label>OTH - WHEN NO OTHER CODE APPLICABLE.</label>
+    </customValue>
+    <customValue>
+        <fullName>OTS</fullName>
+        <default>false</default>
+        <label>OTS - WHEN NO OTHER CODE APPLICABLE.</label>
+    </customValue>
+    <customValue>
+        <fullName>SPE</fullName>
+        <default>false</default>
+        <label>SPE - THIS IS TO BE USED NO OTHER RELATIONSHIPS APPLY. SEE THE ACCOUNT COMMENTS INDICATING THE REASON.</label>
+    </customValue>
+    <customValue>
+        <fullName>GRR</fullName>
+        <default>false</default>
+        <label>GRR - AN INDIVIDUAL/COMPANY/BANK THAT GUARANTEES THE PAYMENT OF A DEBT. GENERALLY USED WITH LOANS.</label>
+    </customValue>
+    <customValue>
+        <fullName>SIG</fullName>
+        <default>false</default>
+        <label>SIG - AN INDIVIDUAL THAT IS A SIGNOR ONLY ON AN ACCOUNT. GENERALLY USED ON BUSINESS AND ORGANIZATIONS ACCOUNTS.</label>
+    </customValue>
+    <customValue>
+        <fullName>PTR</fullName>
+        <default>false</default>
+        <label>PTR - ACCOUNT OWNED BY A PARTNERSHIP.</label>
+    </customValue>
+    <customValue>
+        <fullName>Unknown</fullName>
+        <default>true</default>
+        <label>Unknown - When source value cannot be mapped to any other value in this table</label>
+    </customValue>
+    <masterLabel>FinancialAccountRoleType</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

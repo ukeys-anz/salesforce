@@ -9,7 +9,9 @@ import STATUS_UPDATE_ERROR from "@salesforce/schema/Case.Status_Update_Error__c"
 import RECORD_TYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 import updateStatus from "@salesforce/apex/COBCaseStatusPathController.updateStatus";
 
-const FAILED_OK = "Failed (OK)";
+const FAILED_OK = "Failed";
+const CONFIRMED_FRAUD = "Confirmed Fraud";
+
 const CASE_STATUS_UPDATE_ERROR =
   "Case update failed. Please check Status Update Error field for details";
 const SAME_CASE_STATUS_WARNING =
@@ -33,6 +35,9 @@ export default class CobCaseStatusPath extends LightningElement {
   isModalButtonDisable = false;
   error;
   statusUpdateError;
+
+  confirmedFraudMessage =
+    "By confirming, you are marking this onboarding case as Fraud. Done to continue, Cancel to go back.";
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -96,6 +101,10 @@ export default class CobCaseStatusPath extends LightningElement {
     return this._newStatus === FAILED_OK;
   }
 
+  get isConfirmedFraudSelected() {
+    return this._newStatus === CONFIRMED_FRAUD;
+  }
+
   get isFailedReasonDisabled() {
     return !this.failedReasonOptions || this.failedReasonOptions.length === 0;
   }
@@ -143,6 +152,7 @@ export default class CobCaseStatusPath extends LightningElement {
       } else {
         try {
           const cobCase = {
+            RecordTypeId: this.recordTypeInfo.recordTypeId,
             Id: this.recordId,
             PersonaId__c: this.personaId,
             Status: this._newStatus,

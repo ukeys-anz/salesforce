@@ -8,12 +8,19 @@ public with sharing class COBCaseStatusPathControllerTest {
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
-    Case cobCase = new Case();
-    cobCase.RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID;
-    cobCase.Status = GetHelpConstants.COB_DAON_FAILED_STATUS;
-    cobCase.PersonaId__c = faker.randomString(15);
-    cobCase.Status_Update_Error__c = 'Previous case status update error';
-    insert cobCase;
+    Case cobIdOpsCase = new Case();
+    cobIdOpsCase.RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID;
+    cobIdOpsCase.Status = GetHelpConstants.COB_DAON_FAILED_STATUS;
+    cobIdOpsCase.PersonaId__c = faker.randomString(15);
+    cobIdOpsCase.Status_Update_Error__c = 'Previous case status update error';
+    insert cobIdOpsCase;
+
+    Case cobFraudCheckCase = new Case();
+    cobFraudCheckCase.RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID;
+    cobFraudCheckCase.Status = GetHelpConstants.COB_DAON_FAILED_STATUS;
+    cobFraudCheckCase.PersonaId__c = faker.randomString(15);
+    cobFraudCheckCase.Status_Update_Error__c = 'Previous case status update error';
+    insert cobFraudCheckCase;
   }
 
   private static Case getCOBCase(String recordtype) {
@@ -22,7 +29,8 @@ public with sharing class COBCaseStatusPathControllerTest {
         Id,
         Status,
         OnboardingVerificationFailedReason__c,
-        Status_Update_Error__c
+        Status_Update_Error__c,
+        RecordTypeId
       FROM Case
       WHERE RecordTypeId = :recordtype
     ];
@@ -58,6 +66,35 @@ public with sharing class COBCaseStatusPathControllerTest {
       'Case status update error should have been cleared.'
     );
   }
+
+  @isTest
+  private static void testFraudCheckUpdateStatusSuccessful() {
+    Case cobFraudCheck = getCOBCase(GetHelpConstants.FRAUD_CHECK_RT_ID);
+    cobFraudCheck.Status = GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS;
+
+    Test.startTest();
+    Boolean isCaseUpdated = COBCaseStatusPathController.updateStatus(
+      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      cobFraudCheck
+    );
+    Test.stopTest();
+
+    Case updatedCobFraudCheckCase = getCOBCase(
+      GetHelpConstants.FRAUD_CHECK_RT_ID
+    );
+
+    Assert.areEqual(
+      true,
+      isCaseUpdated,
+      'Case status should have been updated.'
+    );
+    Assert.areEqual(
+      GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS,
+      updatedCobFraudCheckCase.Status,
+      'Case status should have been updated.'
+    );
+  }
+
   @isTest
   private static void testUpdateStatusSuccessful() {
     Case cobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
@@ -120,27 +157,21 @@ public with sharing class COBCaseStatusPathControllerTest {
   }
 
   @isTest
-  private static void testUpdateStatusDMLException() {
+  private static void testUpdateStatusValidationError() {
     Case cobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
-    cobCase.Status = GetHelpConstants.COB_FAILED_OK_STATUS;
+    cobCase.Status = GetHelpConstants.COB_EQUIFAX_FAILED_STATUS;
 
-    Boolean isCaseUpdated = false;
     Test.startTest();
     try {
-      isCaseUpdated = COBCaseStatusPathController.updateStatus(
+      COBCaseStatusPathController.updateStatus(
         GetHelpConstants.COB_DAON_FAILED_STATUS,
         cobCase
       );
     } catch (Exception e) {
       Assert.areEqual(
-        false,
-        isCaseUpdated,
-        'Case status should not have been updated.'
-      );
-      Assert.areEqual(
-        '\'Onboarding Verification Failed Reason\' field cannot be empty for status \'Failed (OK)\'',
+        'You are not allowed to change the status from \'Daon Fallout\' to \'Equifax Fallout\'.',
         e.getMessage(),
-        'DML exception should have been thrown.'
+        'Error message should be: You are not allowed to change the status from \'Daon Fallout\' to \'Equifax Fallout\'.'
       );
     }
     Test.stopTest();
@@ -263,30 +294,23 @@ public with sharing class COBCaseStatusPathControllerTest {
   }
 
   @isTest
-  private static void testHandleCaseUpdatedDMLError() {
+  private static void testHandleCaseUpdateFailedUpdate() {
     Case cobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
-    cobCase.Status = GetHelpConstants.COB_FAILED_OK_STATUS;
-
-    //Simulate succesfull callout
-    cobCase.Status_Update_Error__c = '';
+    Faker faker = new Faker('AU');
+    cobCase.Status = faker.randomString(256);
 
     Test.startTest();
-    Boolean isCaseUpdatedWithDMLError = COBCaseStatusPathController.handleCaseUpdate(
-      cobCase
-    );
+    try {
+      COBCaseStatusPathController.updateStatus(
+        GetHelpConstants.COB_DAON_FAILED_STATUS,
+        cobCase
+      );
+    } catch (Exception e) {
+      Assert.isTrue(
+        e.getMessage().contains('Status: data value too large: '),
+        'Error message should include \'Status: data value too large: \' .'
+      );
+    }
     Test.stopTest();
-
-    Case updatedCobCase = getCOBCase(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
-
-    Assert.areEqual(
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
-      updatedCobCase.Status,
-      'Case status should have been remained.'
-    );
-    Assert.areEqual(
-      '\'Onboarding Verification Failed Reason\' field cannot be empty for status \'Failed (OK)\'',
-      updatedCobCase.Status_Update_Error__c,
-      'Status Update Error field should updated with current DML status error.'
-    );
   }
 }

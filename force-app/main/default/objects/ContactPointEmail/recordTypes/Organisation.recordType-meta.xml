@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Organisation</fullName>
+    <active>true</active>
+    <label>Organisation</label>
+    <picklistValues>
+        <picklist>UsageType</picklist>
+        <values>
+            <fullName>Accreditation Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commission Report Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marketing Email</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -15,40 +15,44 @@ private class CCRMCustomerProfileUpdateHelperTest {
   static void testCreateCustomerProfileUpdates() {
     //GIVEN a prospect customer
     Account prospect = [
-      SELECT Id, Name
+      SELECT Id, Name, ABN__c
       FROM Account
       WHERE Is_Prospect__c = TRUE
       LIMIT 1
     ];
     Map<Id, Account> oldMap = new Map<Id, Account>{
-      prospect.Id => new Account(Id = prospect.Id, Name = prospect.Name)
+      prospect.Id => new Account(
+        Id = prospect.Id,
+        Name = prospect.Name,
+        ABN__c = prospect.ABN__c
+      )
     };
 
     //WHEN the customer is updated twice
-    Account update1 = new Account(Id = prospect.Id, Name = prospect.Name + 1);
+    Account update1 = new Account(
+      Id = prospect.Id,
+      Name = prospect.Name + 1,
+      ABN__c = null
+    );
     Account update2 = new Account(Id = prospect.Id, Name = prospect.Name + 2);
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         new List<Account>{ update1 },
-        oldMap,
-        'Id',
-        null
+        oldMap
       );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         new List<Account>{ update2 },
-        oldMap,
-        'Id',
-        null
+        oldMap
       );
     }
     Test.stopTest();
 
     //THEN a customer profile update record is created for the 1st update
     System.assertEquals(
-      1,
+      2,
       [SELECT COUNT() FROM Customer_Profile_Updates__c],
-      'Customer_Profile_Updates__c record should be created when customer is updated'
+      '2 Customer_Profile_Updates__c records should be created when both customer name and tax details are updated'
     );
     //AND the second update failed
     System.assert(
@@ -95,6 +99,7 @@ private class CCRMCustomerProfileUpdateHelperTest {
     ];
     Contact con2 = new Contact(
       LastName = faker.person.lastName(),
+      Phone = faker.person.phone(true, false),
       AccountId = con1.AccountId
     );
     insert con2;
@@ -139,8 +144,6 @@ private class CCRMCustomerProfileUpdateHelperTest {
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         new List<Contact>{ new Contact(Id = con.Id) },
-        null,
-        'AccountId',
         null
       );
     }
@@ -151,6 +154,30 @@ private class CCRMCustomerProfileUpdateHelperTest {
       0,
       [SELECT COUNT() FROM Contact WHERE Id = :con.Id],
       'Contact added by banker should be deleted after Customer Update event is raised'
+    );
+  }
+
+  @IsTest
+  static void testTrackingRequest() {
+    List<Customer_Profile_Updates__c> updates;
+    ContactPointAddress newRecord = new ContactPointAddress(
+      Street = faker.address.street()
+    );
+    ContactPointAddress oldRecord = new ContactPointAddress();
+
+    Test.startTest();
+    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
+      updates = new CCRMCustomerProfileUpdateConfig.TrackingRequest(
+          newRecord,
+          oldRecord
+        )
+        .getUpdates();
+    }
+    Test.stopTest();
+
+    System.assert(
+      !updates.isEmpty() && updates[0].ToBeValue__c.contains('addressLine1'),
+      '1 update record should be created and contains transformed key'
     );
   }
 }

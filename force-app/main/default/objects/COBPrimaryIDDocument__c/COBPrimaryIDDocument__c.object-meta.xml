@@ -160,7 +160,12 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>COB Primary ID Documents</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <searchResultsAdditionalFields>LastName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>FirstName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>MiddleNames__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>DateOfBirth__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

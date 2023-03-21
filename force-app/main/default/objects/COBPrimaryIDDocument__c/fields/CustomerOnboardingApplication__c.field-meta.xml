@@ -3,7 +3,7 @@
     <fullName>CustomerOnboardingApplication__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Temporal</complianceGroup>
-    <description>Master-Detail relationship field that looks up to the Customer Onboarding Application object</description>
+    <description>Master-Detail relationship field that looks up to the Customer Onboarding Application object.</description>
     <externalId>false</externalId>
     <label>Customer Onboarding Application</label>
     <referenceTo>CustomerOnboardingApplication__c</referenceTo>
