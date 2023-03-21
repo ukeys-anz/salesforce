@@ -189,4 +189,18 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
+
+  //Customer Onboarding 'ID Ops'->'Fraud Check' corresponding Case statuses
+  public static final Map<String, String> COB_ID_OPS_TO_FRAUD_CHECK_STATUS_MAP = new Map<String, String>{
+    GetHelpConstants.COB_DAON_FAILED_STATUS => GetHelpConstants.COB_DAON_FAILED_STATUS,
+    GetHelpConstants.COB_EQUIFAX_FAILED_STATUS => GetHelpConstants.COB_EQUIFAX_FAILED_STATUS
+  };
+
+  //Customer Onboarding 'Fraud Check'->'ID Ops' corresponding Case statuses
+  public static final Map<String, String> COB_FRAUD_CHECK_TO_ID_OPS_STATUS_MAP = new Map<String, String>{
+    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
+    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS => GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
+    GetHelpConstants.COB_FAILED_OK_STATUS => GetHelpConstants.COB_FAILED_OK_STATUS,
+    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+  };
 }

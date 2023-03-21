@@ -896,7 +896,9 @@
         "AddressResidenceType__c",
         "AddressState__c",
         "AddressStreetName__c",
-        "AddressStreetNumber__c"
+        "AddressStreetNumber__c",
+        "PostalNumber__c",
+        "PostalType__c"
       ],
       "IA-2530753": [
         "AddressStreetSuffix__c",
