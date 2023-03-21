@@ -13,6 +13,8 @@ module.exports = {
     "^lightning/navigation$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/navigation",
     "^lightning/actions$":
-      "<rootDir>/force-app/tests/jest-mocks/lightning/actions"
+      "<rootDir>/force-app/tests/jest-mocks/lightning/actions",
+    "^lightning/uiRelatedListApi$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/uiRelatedListApi"
   }
 };

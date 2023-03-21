@@ -232,6 +232,19 @@ public with sharing virtual class Service {
   }
 
   /**
+   * @param resourceName the name of the static resource to fetch
+   * @return `Blob` blob body of static resource
+   * @description returns the body of the static resource as a blob used for mock data
+   */
+  public static Blob getStaticResourceAsBlob(String resourceName) {
+    StaticResource sr;
+    if (StaticResource.sObjectType.getDescribe().isQueryable()) {
+      sr = [SELECT Body FROM StaticResource WHERE Name = :resourceName];
+    }
+    return sr.body;
+  }
+
+  /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
    * @return `HttpCalloutResponse` api response
@@ -457,6 +470,34 @@ public with sharing virtual class Service {
   public virtual HttpCalloutResponse tokenizeCOBPID(
     String personaId,
     COBPrimaryIDDocumentModel detokenizedValue
+  ) {
+    return null;
+  }
+
+  /**
+   * @param ocvId customer id
+   * @param docId document id reference in external system
+   * @return HttpCalloutResponse api response
+   * @description virtual gets CFaaS download url
+   */
+  public virtual HttpCalloutResponse getDownloadUrl(
+    String ocvId,
+    String docId
+  ) {
+    return null;
+  }
+
+  /**
+   * @param url google bucket url pointing to document store
+   * @param otp one time pin to be set in header in order to access above url
+   * @param contentType represents document content type which is set in header
+   * @return HttpCalloutResponse api response
+   * @description virtual fetches CFaaS document content
+   */
+  public virtual HttpCalloutResponse fetchDocumentContent(
+    String url,
+    String otp,
+    String contentType
   ) {
     return null;
   }
