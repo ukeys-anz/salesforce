@@ -493,37 +493,38 @@ public with sharing class IDRCollectionActions {
     }
 
     //query all stop collections task and put it in map with key as account number
-    if (Task.SObjectType.getDescribe().isQueryable()) {
-      if (!collectionAcctsList.isEmpty()) {
-        for (Task taskRec : [
-          SELECT WhatId, IDR_Collection_Number__c
-          FROM Task
-          WHERE
-            IDR_Collection_Number__c IN :collectionAcctsList
-            AND WhatId IN (
-              SELECT Id
-              FROM Case
-              WHERE IsClosed = FALSE OR Id IN :caseIds
-            )
-        ]) {
-          // Only build startCollectionMap on trimmed Account Numbers.
-          String strAccountNumber = taskRec.IDR_Collection_Number__c.replaceFirst(
-            '^0+',
-            ''
+    if (Task.SObjectType.getDescribe().isQueryable() && (!collectionAcctsList.isEmpty())) {
+      for (Task taskRec : [
+        SELECT WhatId, IDR_Collection_Number__c
+        FROM Task
+        WHERE
+          IDR_Collection_Number__c IN :collectionAcctsList
+          AND WhatId IN (
+            SELECT Id
+            FROM Case
+            WHERE IsClosed = FALSE OR Id IN :caseIds
+          )
+      ]) {
+        // Only build startCollectionMap on trimmed Account Numbers.
+        if(taskRec.IDR_Collection_Number__c !=null){
+        String strAccountNumber = taskRec.IDR_Collection_Number__c.replaceFirst(
+          '^0+',
+          ''
+        );
+        if (!startCollectionMap.containsKey(strAccountNumber)) {
+          startCollectionMap.put(
+            strAccountNumber,
+            new Set<Id>{ taskRec.WhatId }
           );
-          if (!startCollectionMap.containsKey(strAccountNumber)) {
-            startCollectionMap.put(
-              strAccountNumber,
-              new Set<Id>{ taskRec.WhatId }
-            );
-          } else {
-            startCollectionMap.get(strAccountNumber).add(taskRec.WhatId);
-          }
+        } else {
+          startCollectionMap.get(strAccountNumber).add(taskRec.WhatId);
         }
       }
     }
-    return startCollectionMap;
   }
+  return startCollectionMap;
+}
+
 
   /**
    * @description method to validate whether the complaint issues are eligible for start collections

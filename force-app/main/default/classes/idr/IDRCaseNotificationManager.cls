@@ -249,29 +249,21 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     List<IDR_Notification_Event__e> nEventList = new List<IDR_Notification_Event__e>();
     Integer timeVal = Datetime.now().millisecond();
+    
     IDR_Notification_Event__e nEvent = new IDR_Notification_Event__e();
     nEvent.Case_ID__c = c.Id;
     nEvent.Case_Number__c = c.CaseNumber;
     nEvent.Is_Banker_Notification__c = true;
     nEvent.Case_Owner_Email__c = ownerMap.get(c.OwnerId)?.Email;
     nEvent.Case_Owner_First_Name__c = ownerMap.get(c.OwnerId)?.FirstName;
-    //nEvent.Line_Manager_Email__c = null;
-    //nEvent.Line_Manager_First_Name__c = null;
-    if (ownerMap.get(c.OwnerId)?.ManagerId != null) {
-      nEvent.Line_Manager_Email__c = ownerMap.get(c.OwnerId)
-        .Manager.Email;
-      nEvent.Line_Manager_First_Name__c = ownerMap.get(c.OwnerId)
-        .Manager.FirstName;
-    } else {
-      nEvent.Line_Manager_Email__c = null;
-      nEvent.Line_Manager_First_Name__c = null;
-    }
+    nEvent.Line_Manager_Email__c = null;
+    nEvent.Line_Manager_First_Name__c = null;
     nEvent.MessageID__c = '' + c.Id + timeVal;
     nEvent.EmailFlag__c = true;
     nEvent.EmailTemplate__c = IDRConstants.BANKER_EMAIL_NOTIFICATION_TEMPLATE;
 
     nEventList.add(nEvent);
-    /* CC-228 on hold until NB prod go-live).
+
     IDR_Notification_Event__e managerEvent = new IDR_Notification_Event__e();
     managerEvent.Case_ID__c = c.Id;
     managerEvent.Case_Number__c = c.CaseNumber;
@@ -293,7 +285,7 @@ public with sharing class IDRCaseNotificationManager {
     managerEvent.EmailTemplate__c = IDRConstants.MANAGER_EMAIL_NOTIFICATION_TEMPLATE;
 
     nEventList.add(managerEvent);
-    */
+    
     return nEventList;
   }
 }

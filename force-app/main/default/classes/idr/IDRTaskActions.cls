@@ -699,8 +699,7 @@ public without sharing class IDRTaskActions {
       record.IDR_Is_Common__c == 'Yes' && //is case PSI
       FeatureManagement.checkPermission(IDR_LEVEL_1) && //is user level 1 or higher?
       record.IsClosed &&
-      (oldRec ==
-      null || //if case is created closed
+      (oldRec == null || //if case is created closed
       (oldRec.Status != record.Status &&
       (!(siCaseTasks.containsKey(record.Id)))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
       //This could be a Reopen to closure scenario therefore make sure another task is not created.
@@ -890,6 +889,10 @@ public without sharing class IDRTaskActions {
     }
     for (Task record : records) {
       Case caseObj = caseMapGlobal.get(record.WhatId);
+      if (caseObj != null) {
+        //Update case lookup
+        record.Case__c = caseObj.Id;
+      }
       if (
         String.isNotEmpty(record.Subject) &&
         (record.Subject == IDRConstants.TASK_SUBJECT_DAY5 ||
