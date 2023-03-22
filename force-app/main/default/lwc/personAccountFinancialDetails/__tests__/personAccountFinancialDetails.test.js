@@ -14,6 +14,7 @@ describe("c-person-account-financial-details", () => {
     const element = createElement("c-person-account-financial-details", {
       is: PersonAccountFinancialDetails
     });
+    element.objectApiName = "FinServ__FinancialAccount__c";
     document.body.appendChild(element);
     let totalBalance = element.shadowRoot.querySelector(
       "c-total-balance[data-id='total-balance']"
@@ -34,6 +35,7 @@ describe("c-person-account-financial-details", () => {
     const element = createElement("c-person-account-financial-details", {
       is: PersonAccountFinancialDetails
     });
+    element.objectApiName = "FinServ__FinancialAccount__c";
     document.body.appendChild(element);
     const totalBalance = element.shadowRoot.querySelector(
       "c-total-balance[data-id='total-balance']"

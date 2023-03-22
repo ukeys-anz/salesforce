@@ -21,7 +21,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Data schema url for proto files for cloud event</shortDescription>
-        <value>proto://buf.anz/anz/salesforceapis/salesforce.event.disputes.v1</value>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.event.disputes.v1alpha1</value>
     </labels>
     <labels>
         <fullName>Anonymous_Complainant</fullName>
@@ -283,6 +283,14 @@
         <value>/contact-centre/v1/chat/channels/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_CFaaS_Download_Url</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_CFaaS_Download_Url</shortDescription>
+        <value>/cfaas/read/getdownloadurl</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Customer</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -401,6 +409,14 @@
         <protected>false</protected>
         <shortDescription>MS_Get_StatementUrl</shortDescription>
         <value>/document-management/v1beta2/statements/signed_url/</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_HomeLoanAccountUrl</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_HomeLoanAccountUrl</shortDescription>
+        <value>/coach-banking/v1/accounts</value>
     </labels>
     <labels>
         <fullName>ST_Close_Package</fullName>

@@ -9,6 +9,7 @@ public with sharing class CCRMContactActions {
   private static final String INVALID_MOBILE_ERROR = 'Please enter Mobile Number in +61412345678 format.';
   private static final String INVALID_PHONE_ERROR = 'Please enter Work Phone Number in +61212345678 format.';
   private static final String INVALID_EMAIL_ERROR = 'Please enter Email in correct format.';
+  private static final String CONTACT_METHOD_ERROR = 'At least one type of contact method must be provided.';
 
   /**
    * @description extract from a list of contact and return the records that are linked to prospect accounts
@@ -64,6 +65,13 @@ public with sharing class CCRMContactActions {
         !Pattern.matches(Label.Regex_Email, record.Email)
       ) {
         record.addError('Email', INVALID_EMAIL_ERROR);
+      }
+      if (
+        String.isBlank(record.Phone) &&
+        String.isBlank(record.MobilePhone) &&
+        String.isBlank(record.Fax)
+      ) {
+        record.addError(CONTACT_METHOD_ERROR);
       }
     }
   }

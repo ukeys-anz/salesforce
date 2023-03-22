@@ -27,10 +27,6 @@
                 <behavior>Required</behavior>
                 <field>Status</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Status_Update_Error__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -44,6 +40,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>PersonaId__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>PersonID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

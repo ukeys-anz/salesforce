@@ -62,7 +62,7 @@ describe("c-cob-case-status-path", () => {
     const statusElement = element.shadowRoot.querySelector(
       "lightning-combobox.status"
     );
-    statusElement.value = "Failed (OK)";
+    statusElement.value = "Failed";
     statusElement.dispatchEvent(
       new CustomEvent("change", {
         detail: { value: statusElement.value }

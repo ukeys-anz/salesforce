@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Temporal</complianceGroup>
     <description>The ForgeRock-minted UUID identifying the person attempting to onboard</description>
     <externalId>false</externalId>
-    <label>Person Id</label>
+    <label>Person ID (UUID)</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

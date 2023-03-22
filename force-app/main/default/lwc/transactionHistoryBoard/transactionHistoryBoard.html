@@ -1,3 +1,4 @@
+<!-- sldsValidatorIgnore -->
 <template>
   <article class="transactionHistoryBoard slds-card">
     <div class="card-title" data-id="component-title">
@@ -104,6 +105,7 @@
                   key={transRecord.transaction_id}
                   transaction-record={transRecord}
                   expand-all={expandAll}
+                  show-raise-dispute={showRaiseDispute}
                   dispute-record-types-from-parent={disputeRecordTypesFromParent}
                   person-account={personAccount}
                   financial-account-id={recordId}

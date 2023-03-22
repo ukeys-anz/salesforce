@@ -1,0 +1,249 @@
+{
+  "accounts": [
+    {
+      "name": "accounts/390899612",
+      "account_number": "390899612",
+      "bsb": "014111",
+      "account_name": "Cathryn J Larkin",
+      "state": "ACCOUNT_STATE_ACTIVE",
+      "product_details": {
+        "marketing_code": "TRANSACT01",
+        "name": "ANZ Plus",
+        "transact_options": [
+          "PAY_ANYONE",
+          "DIRECT_DEBIT",
+          "TRANSFER_FROM",
+          "TRANSFER_TO",
+          "BPAY",
+          "ROUNDUP_FROM",
+          "PAY_ID"
+        ],
+        "product_code": "CAP-CIS:DDA",
+        "sub_product_code": "CAP-CIS:DDAXD"
+      },
+      "balances": {
+        "balance": {
+          "currency_code": "AUD",
+          "units": "1950"
+        },
+        "current_balance": {
+          "currency_code": "AUD",
+          "units": "1950"
+        },
+        "ledger_balance": {
+          "currency_code": "AUD",
+          "units": "1950"
+        },
+        "balance_update_time": "2023-02-16T03:07:49.930351Z",
+        "balance_up_to_date": true,
+        "available_limit": {
+          "currency_code": "AUD",
+          "units": "1950"
+        }
+      },
+      "open_date": {
+        "year": 2016,
+        "month": 12,
+        "day": 14
+      },
+      "deposit_details": {
+        "deposit_rate": 0,
+        "tiered_rates": [
+          {
+            "unit": "PERCENTAGE",
+            "from_operator": ">=",
+            "to_operator": "<",
+            "tiers": [
+              {
+                "min": {
+                  "currency_code": "AUD",
+                  "units": "-999999999999"
+                },
+                "max": {
+                  "currency_code": "AUD"
+                }
+              },
+              {
+                "min": {
+                  "currency_code": "AUD"
+                },
+                "max": {
+                  "currency_code": "AUD",
+                  "units": "999999999999"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "accounts/390899639",
+      "account_number": "390899639",
+      "bsb": "014111",
+      "account_name": "Cathryn J Larkin",
+      "state": "ACCOUNT_STATE_ACTIVE",
+      "product_details": {
+        "marketing_code": "SAVING01",
+        "name": "ANZ Save",
+        "transact_options": [
+          "TRANSFER_FROM",
+          "TRANSFER_TO",
+          "DIRECT_DEBIT",
+          "ROUNDUP_TO"
+        ],
+        "product_code": "CAP-CIS:DDA",
+        "sub_product_code": "CAP-CIS:DDAXD"
+      },
+      "balances": {
+        "balance": {
+          "currency_code": "AUD"
+        },
+        "current_balance": {
+          "currency_code": "AUD"
+        },
+        "ledger_balance": {
+          "currency_code": "AUD"
+        },
+        "balance_update_time": "2023-02-16T03:07:49.930351Z",
+        "balance_up_to_date": true,
+        "available_limit": {
+          "currency_code": "AUD"
+        }
+      },
+      "open_date": {
+        "year": 2016,
+        "month": 12,
+        "day": 14
+      },
+      "deposit_details": {
+        "deposit_rate": 3,
+        "tiered_rates": [
+          {
+            "unit": "PERCENTAGE",
+            "from_operator": ">=",
+            "to_operator": "<",
+            "tiers": [
+              {
+                "min": {
+                  "currency_code": "AUD",
+                  "units": "-999999999",
+                  "nanos": -990000000
+                },
+                "max": {
+                  "currency_code": "AUD"
+                }
+              },
+              {
+                "min": {
+                  "currency_code": "AUD"
+                },
+                "max": {
+                  "currency_code": "AUD",
+                  "units": "250000"
+                },
+                "rate": 3
+              },
+              {
+                "min": {
+                  "currency_code": "AUD",
+                  "units": "250000"
+                },
+                "max": {
+                  "currency_code": "AUD",
+                  "units": "999999999",
+                  "nanos": 990000000
+                },
+                "rate": 0.05
+              }
+            ]
+          }
+        ],
+        "bucket_count": 1
+      }
+    },
+    {
+      "name": "accounts/390899946",
+      "account_number": "390899946",
+      "bsb": "014111",
+      "account_name": "Cathryn Julius Larkin",
+      "state": "ACCOUNT_STATE_ACTIVE",
+      "product_details": {
+        "marketing_code": "HLVAR01",
+        "name": "ANZ Plus Home Loan Variable",
+        "transact_options": ["DIRECT_CREDIT", "TRANSFER_TO", "TRANSFER_FROM"],
+        "product_code": "CAP-CIS:ILS",
+        "sub_product_code": "CAP-CIS:ILSXL1"
+      },
+      "balances": {
+        "balance": {
+          "currency_code": "AUD",
+          "units": "2821",
+          "nanos": 200000000
+        },
+        "current_balance": {
+          "currency_code": "AUD",
+          "units": "-295950"
+        },
+        "ledger_balance": {
+          "currency_code": "AUD",
+          "units": "-295950"
+        },
+        "balance_update_time": "2023-02-16T03:07:49.930351Z",
+        "balance_up_to_date": true,
+        "available_limit": {
+          "currency_code": "AUD",
+          "units": "2821",
+          "nanos": 200000000
+        }
+      },
+      "open_date": {
+        "year": 2016,
+        "month": 12,
+        "day": 15
+      },
+      "loan_details": {
+        "loan_amount": {
+          "currency_code": "AUD",
+          "units": "299000"
+        },
+        "loan_start_date": {
+          "year": 2016,
+          "month": 12,
+          "day": 15
+        },
+        "loan_end_date": {
+          "year": 2027,
+          "month": 10,
+          "day": 15
+        },
+        "loan_term": 130,
+        "interests": {
+          "rate": 6.68,
+          "interest_only_term": 0,
+          "remaining_principle_interest_term": 56
+        },
+        "repayment_type": "REPAYMENT_TYPE_PRINCIPAL_INTEREST",
+        "repayment_amount": {
+          "currency_code": "AUD",
+          "units": "3277",
+          "nanos": 390000000
+        },
+        "repayment_frequency": "REPAYMENT_FREQUENCY_MONTHLY",
+        "next_payment_date": {
+          "year": 2017,
+          "month": 1,
+          "day": 15
+        },
+        "redraw_amount": {
+          "currency_code": "AUD",
+          "units": "2821",
+          "nanos": 200000000
+        },
+        "valid_at": "2023-02-16T02:36:40.478767Z",
+        "details_up_to_date": true,
+        "rate_type": "RATE_TYPE_VARIABLE"
+      }
+    }
+  ]
+}

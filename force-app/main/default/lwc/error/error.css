@@ -6,3 +6,10 @@
   font-size: 50px;
   padding: 10px;
 }
+
+.error-image {
+  font-size: 20px;
+  padding: 10px;
+  width: 350px;
+  height: 200px;
+}

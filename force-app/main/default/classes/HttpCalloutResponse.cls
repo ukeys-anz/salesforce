@@ -25,4 +25,8 @@ public with sharing class HttpCalloutResponse {
    * @description
    */
   public Exception error { get; set; }
+  /**
+   * @description
+   */
+  public Blob bodyAsBlob { get; set; }
 }

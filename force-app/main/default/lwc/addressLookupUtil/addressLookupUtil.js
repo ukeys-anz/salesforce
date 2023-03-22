@@ -11,6 +11,8 @@ const SEARCH_ADDRESS_ERROR =
 export default class AddressLookupUtil extends LightningElement {
   @api required = false;
   @api addressLabel = "Address";
+  @api useCountryFullName = false;
+  @api allowManualInput = false;
   @track currentAddress = {};
   showAddresses = false;
   addressList = [];
@@ -60,6 +62,7 @@ export default class AddressLookupUtil extends LightningElement {
       this.currentAddress.postalCode === this.selectedAddress.postal_code;
     if (!this.currentAddress.isValidAddress) {
       this.currentAddress.globalAddressKey = null;
+      this.currentAddress.dpid = null;
     }
     this.eventDispatchers.addressChange();
   }
@@ -138,6 +141,7 @@ export default class AddressLookupUtil extends LightningElement {
         });
         this.selectedAddress = {
           ...response.result.address,
+          dpid: response.metadata.address_info.identifier.dpid,
           street: [
             response.result.address.address_line_1,
             response.result.address.address_line_2,
@@ -146,12 +150,17 @@ export default class AddressLookupUtil extends LightningElement {
             .filter((x) => x)
             .join(", ")
         };
+        if (!this.useCountryFullName) {
+          this.selectedAddress.country =
+            response.result.components.country_iso_2;
+        }
         this.currentAddress.street = this.selectedAddress.street;
         this.currentAddress.city = this.selectedAddress.locality;
         this.currentAddress.state = this.selectedAddress.region;
         this.currentAddress.country = this.selectedAddress.country;
         this.currentAddress.postalCode = this.selectedAddress.postal_code;
         this.currentAddress.globalAddressKey = globalAddressKey;
+        this.currentAddress.dpid = this.selectedAddress.dpid;
         this.currentAddress.isValidAddress = true;
         this.eventDispatchers.addressChange();
       } catch (error) {
@@ -165,8 +174,10 @@ export default class AddressLookupUtil extends LightningElement {
         );
       } finally {
         this.showAddresses = false;
-        this.disabled = false;
-        this.eventDispatchers.inputEnable();
+        if (this.allowManualInput) {
+          this.disabled = false;
+          this.eventDispatchers.inputEnable();
+        }
       }
     }
   };

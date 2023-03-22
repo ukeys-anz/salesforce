@@ -2,6 +2,7 @@
  * @author Sreekanth Dadipineni
  * @since 09/2022
  * @description ContactPointEmailTriggerHandler is the handler class for ContactPointEmail Trigger which extends Lib_TriggerHandler from the trigger framework used.
+ * @runTests CCRMContactPointEmailActionsTest
  */
 public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHandler {
   /**
@@ -27,9 +28,7 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
 
     CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
       prospectEmails,
-      null,
-      'Customer_Name__c',
-      'Occurrence_Number__c'
+      null
     );
   }
 
@@ -49,9 +48,7 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
     );
     CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
       prospectEmails,
-      (Map<Id, ContactPointEmail>) oldMap,
-      'Customer_Name__c',
-      'Occurrence_Number__c'
+      (Map<Id, ContactPointEmail>) oldMap
     );
   }
 }

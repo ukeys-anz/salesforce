@@ -41,44 +41,66 @@
                 <label>Voice Mail</label>
             </value>
             <value>
+                <fullName>Assisted App download</fullName>
+                <default>false</default>
+                <label>Assisted App download</label>
+            </value>
+            <value>
                 <fullName>No Action</fullName>
                 <default>false</default>
                 <label>No Action</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
-            <controllingFieldValue>Other</controllingFieldValue>
-            <controllingFieldValue>Digital Support</controllingFieldValue>
             <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
-            <controllingFieldValue>Testing</controllingFieldValue>
-            <controllingFieldValue>Wrong Number</controllingFieldValue>
-            <valueName>No Action</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Did not Answer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Follow-up Required</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Referred</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Resolved</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Voice Mail</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <valueName>Assisted App download</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <valueName>No Action</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

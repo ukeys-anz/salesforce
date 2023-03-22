@@ -19,22 +19,22 @@
     <picklistValues>
         <picklist>Advertising_Indicator__c</picklist>
         <values>
-            <fullName>No</fullName>
+            <fullName>N</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>Y</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>Disclosure_Indicator__c</picklist>
         <values>
-            <fullName>No</fullName>
+            <fullName>N</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>Y</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -160,51 +160,51 @@
     <picklistValues>
         <picklist>FinServ__CustomerType__c</picklist>
         <values>
-            <fullName>01 - Sole Trader</fullName>
+            <fullName>01</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>02 - Partnership</fullName>
+            <fullName>02</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>03 - Corporation</fullName>
+            <fullName>03</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>04 - Trust</fullName>
+            <fullName>04</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>05 - Non Profit Organisation</fullName>
+            <fullName>05</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>06 - Federal Public Enterprise</fullName>
+            <fullName>06</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>07 - State Public Enterprise</fullName>
+            <fullName>07</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>08 - Local Public Enterprise</fullName>
+            <fullName>08</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>09 - Superannuation</fullName>
+            <fullName>09</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>11 - Federal Government</fullName>
+            <fullName>11</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>12 - State Government</fullName>
+            <fullName>12</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>13 - Local Government</fullName>
+            <fullName>13</fullName>
             <default>false</default>
         </values>
         <values>

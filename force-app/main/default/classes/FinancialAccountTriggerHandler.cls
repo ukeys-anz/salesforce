@@ -14,10 +14,18 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
   }
 
   /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
+  public override void onBeforeInsert() {
+    CCRMFinancialAccountActions.validateSourceStatus(records, null);
+  }
+
+  /**
    * @description onBeforeUpdate to handle before update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     FinancialAccountCommonActions.beforeUpdate(oldMap, records);
+    CCRMFinancialAccountActions.validateSourceStatus(records, oldMap);
   }
 }

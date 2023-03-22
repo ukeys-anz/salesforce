@@ -1,0 +1,20 @@
+{
+  "url": "https://storage.googleapis.com/CFaaS-noscan-np/oct_telephone_bill?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=CFaaS-download-sa%40anz-x-CFaaS-np-0c56f9.iam.gserviceaccount.com%2F20220405%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20220405T045907Z&X-Goog-Expires=299&X-Goog-Signature=6cabab7df3f35ea6d8a4e46f7137a7094f178993f8ebfce19dc17ecde6816d4561d4b1a17ebf305e1ab0309052b00170793cd0dfbde9c26b5f861e6f01b170ffa9cc6fe55da175c90733933e192789e8bd8c7332ce62660673cc6c99fc3479bace20f73ee1479cc65f8e1ca72afa9faa07c3ab667294fdd9bad70433e5e0737ba28276289a7ae7e45d27168e9bf8aa0a37e502db7fc4081a493d731a125b744a789263455b5f281671ca477d7035a9d79d4b197a92ca3691903cf78b8e8a897275d2d74c9158cff7a5df56b98b7df2a08b3552768e308976f1e1707eafbb291be88ba83914894991a04ba8ca9ac4b1cc1867cda174b626a909d6ba021177003f&X-Goog-SignedHeaders=host%3Bx-goog-meta-otp",
+  "otp": "53-8Nu0D-8RY34ow-skjLpjM7LpG-dUcI0j-2EaLOic=",
+  "name": "oct_telephone_bill",
+  "extension": "jpeg",
+  "fileID": "1729a420-6620-4bef-b479-e997f70cc6b4",
+  "fileVersionNo": "v1",
+  "createdDateTime": "2022-03-30 23:20:07.773085 +0000 UTC",
+  "createdBy": "statement_svc",
+  "checkSum": "2a99d3d1a1411bd52ced74939bd7f516092cfdbcc4eefba25163aed4f478ba56",
+  "title": "Statement for Jan/Feb 2021",
+  "description": "Statement 1",
+  "securityClassification": 0,
+  "integrityClassification": 0,
+  "privacyClassification": 0,
+  "jurisdiction": "EU",
+  "countryOfOrigin": "Australia",
+  "subjectArea": "Account Statement",
+  "orgStructure": "ANZx"
+}

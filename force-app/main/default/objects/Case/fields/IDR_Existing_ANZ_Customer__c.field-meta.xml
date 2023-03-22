@@ -17,18 +17,18 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <default>false</default>
                 <fullName>Yes</fullName>
+                <default>false</default>
                 <label>Yes</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>No</fullName>
+                <default>false</default>
                 <label>No</label>
             </value>
             <value>
-                <default>false</default>
                 <fullName>Other</fullName>
+                <default>false</default>
                 <label>Other</label>
             </value>
         </valueSetDefinition>

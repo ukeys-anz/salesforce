@@ -84,55 +84,55 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Selfie fail - selfie image is not clear enough to match</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Selfie fail - document image is not clear enough to match</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Selfie fail - selfie image is clear, but not the same person</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Selfie fail - selfie image is clear, but a picture of a picture</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Selfie fail - suspected fraud, based on selfie</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Doc fail - document is a picture of a picture</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Doc fail - document is expired</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Doc fail - document is ineligible type</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Doc fail - suspected fraud, based on document</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Doc fail - doc details are outside of fixable threshold</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>EV fail - retries exhausted on customer name variations</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>EV Fail - DVS has given fail response</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Failed (OK)</controllingFieldValue>
+            <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>EV Fail - DVS system error response</valueName>
         </valueSettings>
     </valueSet>

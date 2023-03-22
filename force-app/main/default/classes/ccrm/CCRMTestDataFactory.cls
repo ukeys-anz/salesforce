@@ -421,7 +421,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.BillingStreet = '833 Collins Street';
     accnt.BillingCity = 'Docklands';
     accnt.BillingPostalCode = '3008';
-    accnt.BillingState = 'Victoria';
+    accnt.BillingState = 'VIC';
     accnt.BillingCountry = 'Australia';
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;

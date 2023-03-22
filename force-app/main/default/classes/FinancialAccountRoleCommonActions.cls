@@ -13,10 +13,11 @@ public with sharing class FinancialAccountRoleCommonActions {
     'startDate' => 'Primary Owner Start Date/Start Date'
   };
   /**
-   * @description setExternalId is called to set the external Id field on the newly created financial account role record
+   * @description populateData is called to set the following data on the newly created financial account role record
+   * External Id, Role Type
    * @param records The Financial Account Role records passed from Trigger.new()
    */
-  public static void setExternalId(
+  public static void populateData(
     List<FinServ__FinancialAccountRole__c> records
   ) {
     Map<Id, Account> accountIdMap = getRelatedAccounts(records);
@@ -25,47 +26,83 @@ public with sharing class FinancialAccountRoleCommonActions {
     );
 
     for (FinServ__FinancialAccountRole__c rec : records) {
-      String accountExternalId = accountIdMap.get(
-          rec.FinServ__RelatedAccount__c
-        )
-        .External_Id__c;
-      String financialAccountKey = financialAccountIdMap.get(
-          rec.FinServ__FinancialAccount__c
-        )
-        .Account_Key__c;
-      String financialAccountRole = rec.FinServ__Role__c.remove(' ');
-      // If the role is 'Primary Owner' use Primary_Owner_Start_Date__c on the financial account,
-      // otherwise use FinServ__StartDate__c on the financial account role record
-      Date startDate = rec.FinServ__Role__c == 'Primary Owner'
-        ? financialAccountIdMap.get(rec.FinServ__FinancialAccount__c)
-            .Primary_Owner_Start_Date__c
-        : rec.FinServ__StartDate__c;
-      String startDateString = getFormattedDate(startDate);
+      setExternalId(rec, accountIdMap, financialAccountIdMap);
+      setRoleType(rec, financialAccountIdMap);
+    }
+  }
 
-      // Check if any field is missing
-      List<String> errors = checkMissingFields(
-        accountExternalId,
-        financialAccountKey,
-        startDateString
-      );
+  /**
+   * @description setRoleType is called to set the Role Type on the newly created financial account role record
+   * @param farRecord The Financial Account Role records passed from Trigger.new()
+   * @param financialAccountIdMap The Financial Account Map <Id, FinServ__FinancialAccount__c>
+   */
+  private static void setRoleType(
+    FinServ__FinancialAccountRole__c farRecord,
+    Map<Id, FinServ__FinancialAccount__c> financialAccountIdMap
+  ) {
+    if (
+      financialAccountIdMap.containsKey(farRecord.FinServ__FinancialAccount__c)
+    ) {
+      farRecord.Role_Type__c = financialAccountIdMap.get(
+          farRecord.FinServ__FinancialAccount__c
+        )
+        .Role_Type__c;
+    }
+  }
 
-      if (errors.size() == 0) {
-        rec.External_Id__c =
-          accountExternalId +
-          '_' +
-          financialAccountKey +
-          '_' +
-          financialAccountRole +
-          '_' +
-          startDateString;
-      } else {
-        String errorMessage =
-          SET_EXTERNAL_ID_ERROR +
-          String.join(errors, '; ') +
-          '.';
-        Logger.error(errorMessage).setRecord(rec.Id);
-        rec.addError(errorMessage);
-      }
+  /**
+   * @description setExternalId is called to set the External Id on the newly created financial account role record
+   * @param financialAccountRole The Financial Account Role records passed from Trigger.new()
+   * @param accountIdMap The Account Map <Id, Account>
+   * @param financialAccountIdMap The Financial Account Map <Id, FinServ__FinancialAccount__c>
+   */
+  private static void setExternalId(
+    FinServ__FinancialAccountRole__c financialAccountRole,
+    Map<Id, Account> accountIdMap,
+    Map<Id, FinServ__FinancialAccount__c> financialAccountIdMap
+  ) {
+    String accountExternalId = accountIdMap.get(
+        financialAccountRole.FinServ__RelatedAccount__c
+      )
+      .External_Id__c;
+    String financialAccountKey = financialAccountIdMap.get(
+        financialAccountRole.FinServ__FinancialAccount__c
+      )
+      .Account_Key__c;
+    String financialRole = financialAccountRole.FinServ__Role__c.remove(' ');
+    // If the role is 'Primary Owner' use Primary_Owner_Start_Date__c on the financial account,
+    // otherwise use FinServ__StartDate__c on the financial account role record
+    Date startDate = financialAccountRole.FinServ__Role__c == 'Primary Owner'
+      ? financialAccountIdMap.get(
+            financialAccountRole.FinServ__FinancialAccount__c
+          )
+          .Primary_Owner_Start_Date__c
+      : financialAccountRole.FinServ__StartDate__c;
+    String startDateString = getFormattedDate(startDate);
+
+    // Check if any field is missing
+    List<String> errors = checkMissingFields(
+      accountExternalId,
+      financialAccountKey,
+      startDateString
+    );
+
+    if (errors.size() == 0) {
+      financialAccountRole.External_Id__c =
+        accountExternalId +
+        '_' +
+        financialAccountKey +
+        '_' +
+        financialRole +
+        '_' +
+        startDateString;
+    } else {
+      String errorMessage =
+        SET_EXTERNAL_ID_ERROR +
+        String.join(errors, '; ') +
+        '.';
+      Logger.error(errorMessage).setRecord(financialAccountRole.Id);
+      financialAccountRole.addError(errorMessage);
     }
     Logger.saveLog();
   }
@@ -108,7 +145,12 @@ public with sharing class FinancialAccountRoleCommonActions {
     // Construct a map of financial accounts and their Ids
     Map<Id, FinServ__FinancialAccount__c> financialAccountIdMap = new Map<Id, FinServ__FinancialAccount__c>(
       [
-        SELECT Id, Primary_Owner_Start_Date__c, Account_Key__c
+        SELECT
+          Id,
+          Primary_Owner_Start_Date__c,
+          Account_Key__c,
+          Role_Type__c,
+          IsPrimaryOwner__c
         FROM FinServ__FinancialAccount__c
         WHERE Id IN :financialAccountIds
       ]

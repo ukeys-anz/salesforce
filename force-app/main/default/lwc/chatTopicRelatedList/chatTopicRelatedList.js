@@ -9,6 +9,7 @@ import USERROLE_FIELD from "@salesforce/schema/User.UserRole.DeveloperName";
 import ACCOUNT_PPID_FIELD from "@salesforce/schema/Account.PPID__c";
 import CASE_CHANNEL_SID_FIELD from "@salesforce/schema/Case.Twilio_Channel_SID__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
+import ACCOUNT_ID from "@salesforce/schema/Case.AccountId";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -44,6 +45,7 @@ export default class ChatTopicRelatedList extends LightningElement {
   @track isPrivilegedRole = true; // show button by default
   links;
   objectFields = [];
+  accountId;
 
   @wire(MessageContext)
   messageContext;
@@ -78,6 +80,7 @@ export default class ChatTopicRelatedList extends LightningElement {
   wiredProject({ data }) {
     if (data) {
       if (this.objectName === "Account") {
+        this.accountId = this.recordId;
         //Check if there is PPID otherwise no chat topics
         if (data.fields && data.fields.PPID__c.value) {
           this.fetchChatTopicsOnAccount();
@@ -85,6 +88,7 @@ export default class ChatTopicRelatedList extends LightningElement {
       } else if (this.objectName === "Case") {
         //Check if there is channelSID otherwise no chat topics
         if (data.fields && data.fields.Twilio_Channel_SID__c.value) {
+          this.accountId = data.fields.AccountId.value;
           this.fetchChatTopicInfoOnCase();
         }
       } else {
@@ -99,9 +103,8 @@ export default class ChatTopicRelatedList extends LightningElement {
     this.objectFields =
       this.objectName === "Account"
         ? [ACCOUNT_PPID_FIELD]
-        : [CASE_CHANNEL_SID_FIELD];
+        : [CASE_CHANNEL_SID_FIELD, ACCOUNT_ID];
   }
-
   fetchChatTopicsOnAccount(nextUrl = "") {
     getChatTopicsOnAccount({
       accountId: this.recordId,
@@ -194,14 +197,14 @@ export default class ChatTopicRelatedList extends LightningElement {
     let selectedChannelSID = event.target.dataset.id;
     let selectedAction = event.detail.value;
 
-    //Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
+    // Publish a message on 'ReinitiateChatTopic' channel which triggers Twilio to re-initiate this Chat Topic
     if (selectedAction === "re_initiate") {
       let errorMessage =
         "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
       try {
         reinitiateChat({
-          accountId: this.recordId,
-          conversationSid: this.selectedChannelSID
+          accountId: this.accountId,
+          conversationSid: selectedChannelSID
         });
       } catch (error) {
         handleErrorShowToast(

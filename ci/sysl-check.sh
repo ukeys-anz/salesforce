@@ -23,7 +23,7 @@ function checkFieldMetadataInformation() {
     if [[ $fieldMetadata != *Privacy* ]];then
         echo "$2.$f : Missed complianceGroup | Privacy"
     fi
-    if [[ $fieldMetadata != *"<description>"* ]];then
+    if [[ $fieldMetadata != *"<description>"* && $3 != *"$2.$f,"* && $3 != *",$2.$f" ]];then
         echo "$2.$f : Missed description"
     fi
     if [[ $fieldMetadata != *"<securityClassification>"* ]];then
@@ -46,13 +46,12 @@ if [[ -d ./tmp/deploy/force-app/main/default/objects ]];then
     for o in ./tmp/deploy/force-app/main/default/objects/*; do
         if [[ -d $o/fields ]];then
             objectName=$(basename "$o")
-            pantherIdsField=$(node ./ci/sysl-check.js "$objectName" )
-
+            pantherIdsField=$(node ./ci/sysl-check.js "$objectName" "pantherId")
+            manualDescField=$(node ./ci/sysl-check.js "$objectName" "manualFieldDesc")
             for f in $o/fields/*;do
                 checkBusinessStatus=$( checkFieldBusinessStatus $f $objectName )
-                echo $checkBusinessStatus
                 if [[ $checkBusinessStatus != *"Hidden"* ]];then
-                    checkFieldMetadataInformation $f $objectName
+                    checkFieldMetadataInformation $f $objectName $manualDescField
                     checkPantherIdInformation $f $objectName $pantherIdsField
                 fi
             done

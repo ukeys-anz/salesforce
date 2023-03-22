@@ -131,4 +131,9 @@
         <default>false</default>
         <label>Source - Loan Domain</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_CFaaS</fullName>
+        <default>false</default>
+        <label>Source - CFaaS</label>
+    </standardValue>
 </StandardValueSet>
