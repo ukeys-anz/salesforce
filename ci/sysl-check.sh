@@ -32,7 +32,7 @@ function checkFieldMetadataInformation() {
 }
 
 function checkPantherIdInformation() {
-    if [[ $3 != *"$2.$1,"* && $3 != *",$2.$1" ]];then
+    if [[ $3 != *"$2.$1,"* && $3 != *",$2.$1"* ]];then
         echo "$2.$1 : Missed pantherId"
     fi
 }
@@ -50,6 +50,7 @@ if [[ -d ./tmp/deploy/force-app/main/default/objects ]];then
             manualDescField=$(node ./ci/sysl-check.js "$objectName" "manualFieldDesc")
             for f in $o/fields/*;do
                 checkBusinessStatus=$( checkFieldBusinessStatus $f $objectName )
+                echo $checkBusinessStatus
                 if [[ $checkBusinessStatus != *"Hidden"* ]];then
                     checkFieldMetadataInformation $f $objectName $manualDescField
                     checkPantherIdInformation $f $objectName $pantherIdsField

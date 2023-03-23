@@ -852,7 +852,7 @@
     },
     "CFaaS_File__c": {
       "IA-2415997": [
-        "Customer__c ",
+        "Customer__c",
         "Date_Created__c",
         "Document_Id__c",
         "File_Description__c",
