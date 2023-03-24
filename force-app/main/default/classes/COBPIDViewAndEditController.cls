@@ -117,8 +117,7 @@ public with sharing class COBPIDViewAndEditController {
     COBPrimaryIDDocumentModel response = triggerTemporalPIDWorklow(record);
 
     COBPrimaryIDDocument__c tokenizedData = buildTokenizedData(
-      record.Id,
-      record.IdDocumentType__c,
+      record,
       response
     );
 
@@ -127,28 +126,26 @@ public with sharing class COBPIDViewAndEditController {
 
   /**
    * @description method to build tokenized data wrapped in COBPrimaryIDDocument__c structure
-   * @param recordId COBPrimaryIDDocument__c record id for update
-   * @param idDocumentType COBPrimaryIDDocument__c document type
+   * @param record COBPrimaryIDDocument__c record contains the origin copy of detokenized data
    * @param response response from temporal workflow callout
    * @return `COBPrimaryIDDocumentModel`
    */
   private static COBPrimaryIDDocument__c buildTokenizedData(
-    String recordId,
-    String idDocumentType,
+    COBPrimaryIDDocument__c record,
     COBPrimaryIDDocumentModel response
   ) {
-    COBPrimaryIDDocument__c tokenizedData = new COBPrimaryIDDocument__c(
-      Id = recordId,
-      FirstName__c = idDocumentType == PASSPORT_TYPE
+    COBPrimaryIDDocument__c cobpid = new COBPrimaryIDDocument__c(
+      Id = record.Id,
+      FirstName__c = isPassport(record)
         ? response.passport.firstName
         : response.australianDriverLicence.firstName,
-      MiddleNames__c = idDocumentType == PASSPORT_TYPE
+      MiddleNames__c = isPassport(record)
         ? response.passport.middleNames
         : response.australianDriverLicence.middleNames,
-      LastName__c = idDocumentType == PASSPORT_TYPE
+      LastName__c = isPassport(record)
         ? response.passport.lastName
         : response.australianDriverLicence.lastName,
-      DateOfBirth__c = idDocumentType == PASSPORT_TYPE
+      DateOfBirth__c = isPassport(record)
         ? Date.newInstance(
             response.passport.dateOfBirth.year,
             response.passport.dateOfBirth.month,
@@ -158,31 +155,46 @@ public with sharing class COBPIDViewAndEditController {
             response.australianDriverLicence.dateOfBirth.year,
             response.australianDriverLicence.dateOfBirth.month,
             response.australianDriverLicence.dateOfBirth.day
+          ),
+      ExpiryDate__c = isPassport(record)
+        ? Date.newInstance(
+            response.passport.expiryDate.year,
+            response.passport.expiryDate.month,
+            response.passport.expiryDate.day
+          )
+        : Date.newInstance(
+            response.australianDriverLicence.expiryDate.year,
+            response.australianDriverLicence.expiryDate.month,
+            response.australianDriverLicence.expiryDate.day
           )
     );
 
-    if (idDocumentType == PASSPORT_TYPE) {
+    if (isPassport(record)) {
       if (String.isNotBlank(response.passport.passportNumberToken?.value)) {
-        tokenizedData.PassportNumber__c = response.passport.passportNumberToken.value;
+        cobpid.PassportNumber__c = response.passport.passportNumberToken.value;
       }
-    } else if (idDocumentType == LICENCE_TYPE) {
+
+      cobpid.CountryOfIssue__c = response.passport.countryOfIssue;
+    } else if (record.IdDocumentType__c == LICENCE_TYPE) {
       if (
         String.isNotBlank(
           response.australianDriverLicence.licenceNumberToken?.value
         )
       ) {
-        tokenizedData.LicenceNumber__c = response.australianDriverLicence.licenceNumberToken.value;
+        cobpid.LicenceNumber__c = response.australianDriverLicence.licenceNumberToken.value;
       }
       if (
         String.isNotBlank(
           response.australianDriverLicence.licenceCardNumberToken?.value
         )
       ) {
-        tokenizedData.LicenceCardNumber__c = response.australianDriverLicence.licenceCardNumberToken.value;
+        cobpid.LicenceCardNumber__c = response.australianDriverLicence.licenceCardNumberToken.value;
       }
+
+      cobpid.StateOfIssue__c = response.australianDriverLicence.stateOfIssue;
     }
 
-    return tokenizedData;
+    return cobpid;
   }
 
   /**
@@ -297,5 +309,14 @@ public with sharing class COBPIDViewAndEditController {
       WHERE ID = :recordId
       LIMIT 1
     ];
+  }
+
+  /**
+   * @description checks if a Primary ID Document is a passport
+   * @param record COBPrimaryIDDocument__c record contains the origin copy of detokenized data
+   * @return Boolean - if a Primary ID Document is a passport
+   */
+  private static Boolean isPassport(COBPrimaryIDDocument__c record) {
+    return record.IdDocumentType__c == PASSPORT_TYPE;
   }
 }

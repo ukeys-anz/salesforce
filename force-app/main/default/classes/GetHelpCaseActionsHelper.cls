@@ -485,4 +485,57 @@ public with sharing class GetHelpCaseActionsHelper {
       record.SlaStartDate = record.IDR_Date_Received__c;
     }
   }
+
+  /**
+   * @description Check if the case status was changed
+   * @param newRecord The actual case record from the trigger
+   * @param oldRecord The old record values for the case
+   * @return Boolean True if current status is different from previous status
+   */
+  public static Boolean isStatusChanged(Case newRecord, Case oldRecord) {
+    return newRecord.Status != oldRecord?.Status;
+  }
+
+  /**
+   * @description Get cases by ids
+   * @param caseIds Case ids
+   * @return List<Case> List of cases
+   */
+  public static List<Case> getCasesByIds(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Case>();
+    }
+
+    List<Case> cases = new List<Case>();
+    if (PermissionUtils.canQuery('Case')) {
+      cases = [SELECT Id, Status FROM Case WHERE Id IN :caseIds];
+    }
+
+    return cases;
+  }
+
+  /**
+   * @description Get ID Ops Cases with set status to be updated
+   * @param parentIdAndChildCasedMap Id Ops ids and case details
+   * @return List<Case> List of cases with set status
+   */
+  public static List<Case> setIDOpsCaseStatus(
+    Map<Id, Case> parentIdAndChildCasedMap
+  ) {
+    List<Case> idOpsCases = getCasesByIds(parentIdAndChildCasedMap.keySet());
+
+    for (Case idOpsCase : idOpsCases) {
+      Case fraudCheckCase = parentIdAndChildCasedMap.get(idOpsCase.Id);
+
+      idOpsCase.Status = GetHelpConstants.COB_FRAUD_CHECK_TO_ID_OPS_STATUS_MAP.get(
+        fraudCheckCase.Status
+      );
+
+      if (idOpsCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS) {
+        idOpsCase.OnboardingVerificationFailedReason__c = fraudCheckCase.OnboardingVerificationFailedReason__c;
+      }
+    }
+
+    return idOpsCases;
+  }
 }

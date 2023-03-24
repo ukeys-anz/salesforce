@@ -97,6 +97,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>COBAddress__c.PostalNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>COBAddress__c.PostalType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>COBAddress__c.QASAddress__c</field>
         <readable>true</readable>
     </fieldPermissions>

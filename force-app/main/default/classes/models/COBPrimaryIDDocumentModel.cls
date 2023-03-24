@@ -15,9 +15,13 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
     'primaryIdDocument.passport.firstName,' +
     'primaryIdDocument.passport.middleNames,' +
     'primaryIdDocument.passport.lastName,' +
+    'primaryIdDocument.passport.countryOfIssue,' +
     'primaryIdDocument.passport.dateOfBirth.day,' +
     'primaryIdDocument.passport.dateOfBirth.month,' +
     'primaryIdDocument.passport.dateOfBirth.year,' +
+    'primaryIdDocument.passport.expiryDate.day,' +
+    'primaryIdDocument.passport.expiryDate.month,' +
+    'primaryIdDocument.passport.expiryDate.year,' +
     'primaryIdDocument.passport.passportNumber';
   public static final String LICENCE_TYPE = 'Licence';
   public static final String AUSTRALIAN_DRIVER_LICENCE = 'Australian Driver\'s Licence';
@@ -25,9 +29,13 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
     'primaryIdDocument.australianDriverLicence.firstName,' +
     'primaryIdDocument.australianDriverLicence.middleNames,' +
     'primaryIdDocument.australianDriverLicence.lastName,' +
+    'primaryIdDocument.australianDriverLicence.stateOfIssue,' +
     'primaryIdDocument.australianDriverLicence.dateOfBirth.day,' +
     'primaryIdDocument.australianDriverLicence.dateOfBirth.month,' +
     'primaryIdDocument.australianDriverLicence.dateOfBirth.year,' +
+    'primaryIdDocument.australianDriverLicence.expiryDate.day,' +
+    'primaryIdDocument.australianDriverLicence.expiryDate.month,' +
+    'primaryIdDocument.australianDriverLicence.expiryDate.year,' +
     'primaryIdDocument.australianDriverLicence.licenceNumber,' +
     'primaryIdDocument.australianDriverLicence.licenceCardNumber';
 
@@ -81,7 +89,10 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
     public TokenizedValue licenceCardNumberToken;
     public String passportNumber;
     public TokenizedValue passportNumberToken;
-    public DateOfBirth dateOfBirth;
+    public DateWrapper dateOfBirth;
+    public DateWrapper expiryDate;
+    public String stateOfIssue;
+    public String countryOfIssue;
 
     /**
      * @description Constructor for inner DocumentDetail class
@@ -101,21 +112,21 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
   }
 
   /**
-   * @description COB Primary Document ID Update API dateOfBirth Data wrapper
+   * @description COB Primary Document ID Update API DateWrapper Data wrapper
    */
-  public class DateOfBirth {
+  public class DateWrapper {
     public Integer year;
     public Integer month;
     public Integer day;
 
     /**
-     * @description Constructor for inner dateOfBirth class
-     * @param dob COBPID date
+     * @description Constructor for inner DateWrapper class
+     * @param d COBPID date, either dateOfBirth or expiryDate
      */
-    public DateOfBirth(Date dob) {
-      this.year = dob.year();
-      this.month = dob.month();
-      this.day = dob.day();
+    public DateWrapper(Date d) {
+      this.year = d.year();
+      this.month = d.month();
+      this.day = d.day();
     }
   }
 
@@ -215,19 +226,27 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
       record.LastName__c
     );
 
-    COBPrimaryIDDocumentModel.DateOfBirth dob = new COBPrimaryIDDocumentModel.DateOfBirth(
+    COBPrimaryIDDocumentModel.DateWrapper dateOfBirth = new COBPrimaryIDDocumentModel.DateWrapper(
       record.DateOfBirth__c
+    );
+
+    COBPrimaryIDDocumentModel.DateWrapper expiryDate = new COBPrimaryIDDocumentModel.DateWrapper(
+      record.ExpiryDate__c
     );
 
     if (record.IdDocumentType__c == PASSPORT_TYPE) {
       requestBody.primaryIdDocument.name = PASSPORT_TYPE;
       requestBody.primaryIdDocument.passport = detail;
-      requestBody.primaryIdDocument.passport.dateOfBirth = dob;
+      requestBody.primaryIdDocument.passport.countryOfIssue = record.CountryOfIssue__c;
+      requestBody.primaryIdDocument.passport.dateOfBirth = dateOfBirth;
+      requestBody.primaryIdDocument.passport.expiryDate = expiryDate;
       requestBody.primaryIdDocument.passport.passportNumber = record.PassportNumber__c;
     } else if (record.IdDocumentType__c == LICENCE_TYPE) {
       requestBody.primaryIdDocument.name = AUSTRALIAN_DRIVER_LICENCE;
       requestBody.primaryIdDocument.australianDriverLicence = detail;
-      requestBody.primaryIdDocument.australianDriverLicence.dateOfBirth = dob;
+      requestBody.primaryIdDocument.australianDriverLicence.stateOfIssue = record.StateOfIssue__c;
+      requestBody.primaryIdDocument.australianDriverLicence.dateOfBirth = dateOfBirth;
+      requestBody.primaryIdDocument.australianDriverLicence.expiryDate = expiryDate;
       requestBody.primaryIdDocument.australianDriverLicence.licenceNumber = record.LicenceNumber__c;
       requestBody.primaryIdDocument.australianDriverLicence.licenceCardNumber = record.LicenceCardNumber__c;
     }

@@ -6,12 +6,14 @@
  */
 public with sharing class StravinskyService extends Service {
   private Map<String, String> temporalCaseWorkflowEndpoints = new Map<String, String>{
-    GetHelpConstants.COB_FAILED_OK_STATUS => Label.ST_Retry_Stage,
     GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS => Label.ST_ApproveSelfieIDCheck,
+    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => Label.ST_ApproveSelfieIDCheck,
     GetHelpConstants.COB_EQUIFAX_PASSED_STATUS => Label.ST_Approve_ID_Verification,
+    GetHelpConstants.COB_FAILED_OK_STATUS => Label.ST_Retry_Stage,
     GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS => Label.ST_Confirm_Fraud
   };
 
+  @TestVisible
   private static final String EMPTY_BODY = '{}'; // An empty body is required at the moment, due to how Temporal's codegen works
 
   /**
@@ -146,9 +148,14 @@ public with sharing class StravinskyService extends Service {
    */
   @TestVisible
   private String getPayload(Case cobCase) {
-    if (cobCase.Status == GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS) {
+    Map<String, String> statusCaseIdMap = new Map<String, String>{
+      GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS => cobCase.Id,
+      GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => cobCase.ParentId
+    };
+
+    if (statusCaseIdMap.containsKey(cobCase.Status)) {
       ApproveSelfieIDCheckPayload selfieIdPayload = new ApproveSelfieIDCheckPayload();
-      selfieIdPayload.caseId = cobCase.Id;
+      selfieIdPayload.caseId = statusCaseIdMap.get(cobCase.Status);
       return JSON.serialize(selfieIdPayload);
     }
 
