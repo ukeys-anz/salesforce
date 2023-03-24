@@ -48,17 +48,48 @@ public with sharing class Lib_HttpCallout {
 
   /**
    * @param request http request with all properties set
+   * @return `Map<String, String>` to return the authorization header for HttpRequest.
+   * @description with a prebuilt request, actions the callout
+   */
+  private Map<String, String> getHeaders(HttpRequest request) {
+    Map<String, String> autheader = new Map<String, String>();
+    autheader.put('Authorization', request.getHeader('Authorization'));
+    return autheader;
+  }
+
+  /**
+   * @param response http response with all properties set
+   * @return `Map<String, String>` to return the authorization headers for HttpResponse.
+   * @description with a prebuilt request, actions the callout
+   */
+  private Map<String, String> getHeaders(HTTPResponse response) {
+    Map<String, String> responseheader = new Map<String, String>();
+    for (String headerKey : response.getHeaderKeys()) {
+      responseheader.put(headerKey, response.getHeader(headerKey));
+    }
+    return responseheader;
+  }
+
+  /**
+   * @param request http request with all properties set
    * @return `HttpCalloutResponse` response type which handles all callout responses.
    * @description with a prebuilt request, actions the callout
    */
   private HttpCalloutResponse performCallout(HttpRequest request) {
+    Logger.debug('HttpRequest Header')
+      .setPayload(JSON.serializePretty(getHeaders(request)));
+    Logger.debug('HttpRequest Body').setPayload(request.getBody());
     HttpCalloutResponse callResponse = new HttpCalloutResponse();
     HTTPResponse response = null;
     Logger.info(request.getEndpoint() + request.getMethod());
 
     try {
       Http http = new Http();
+
       response = http.send(request);
+      Logger.debug('HttpResponse Header')
+        .setPayload(JSON.serializePretty(getHeaders(response)));
+      Logger.debug('HttpResponse Body').setPayload(response.getBody());
       if (response == null) {
         callResponse.successful = false;
         callResponse.error = new CalloutException('Response is null');
