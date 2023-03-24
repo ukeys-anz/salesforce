@@ -42,7 +42,7 @@ private class IDRCaseNotificationManagerTest {
 
   @isTest
   static void testManualNotification() {
-    List<User> usrlist = [SELECT id FROM User];
+    List<User> usrlist = [SELECT id FROM User WHERE isActive = TRUE];
 
     System.runAs(usrlist[0]) {
       List<Case> caseToUpdate = [SELECT Id FROM Case];

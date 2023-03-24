@@ -9,7 +9,7 @@
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Instance Name</label>
-    <length>5</length>
+    <length>10</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <type>Text</type>
