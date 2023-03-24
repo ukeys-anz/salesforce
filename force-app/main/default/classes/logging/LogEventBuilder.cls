@@ -419,7 +419,10 @@ public without sharing class LogEventBuilder {
       this.shouldSave == true &&
       LoggingSettingsController.isSecureLogEnabled() == true
     ) {
-      this.logEvent.Payload__c = payload;
+      this.logEvent.Payload__c = LogEventBuilderHelper.truncateFieldValue(
+        Schema.LogEvent__e.Payload__c,
+        payload
+      );
     }
     return this;
   }

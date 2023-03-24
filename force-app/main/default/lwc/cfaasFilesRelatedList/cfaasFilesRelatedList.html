@@ -1,0 +1,65 @@
+<template>
+  <h1 class="card-title" data-id="component-title">
+    <lightning-icon
+      icon-name="standard:file"
+      size="small"
+      class="slds-m-right_small"
+    ></lightning-icon>
+    {title}
+  </h1>
+  <article class="card-article slds-card">
+    <div if:true={isLoading}>
+      <lightning-spinner alternative-text="Loading..." variant="brand">
+      </lightning-spinner>
+    </div>
+    <div if:false={isLoading}>
+      <template if:true={error}>
+        <c-error message={error} data-id="error"></c-error>
+      </template>
+      <template if:false={error}>
+        <template if:true={displayRecords}>
+          <div class="div-data-table">
+            <template if:true={showSpinner}>
+              <lightning-spinner
+                alternative-text="Launching Preview"
+              ></lightning-spinner>
+            </template>
+            <c-custom-datatable
+              class="slds-table"
+              key-field="Id"
+              data={displayRecords}
+              columns={columns}
+              hide-checkbox-column
+              default-sort-direction={defaultSortDirection}
+              sorted-direction={sortDirection}
+              sorted-by={sortedBy}
+              enable-infinite-loading
+              onloadmore={loadMoreData}
+              wrap-text-max-lines="1"
+              onclickurl={handleFilePreview}
+            >
+            </c-custom-datatable>
+          </div>
+
+          <template if:true={objectApiName}>
+            <footer class="slds-card__footer">
+              <a
+                class="slds-card__footer-action"
+                href="#"
+                onclick={navigateToRelatedListSubTab}
+                >View All
+                <span class="slds-assistive-text">View All {title}</span>
+              </a>
+            </footer>
+          </template>
+        </template>
+
+        <template if:false={displayRecords}>
+          <div class="div-no-files slds-align_absolute-center">
+            There are currently no files
+          </div>
+        </template>
+      </template>
+    </div>
+  </article>
+</template>

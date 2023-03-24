@@ -401,7 +401,7 @@ public with sharing class IDRCaseActions {
     Set<Id> queueIds = new Set<Id>();
 
     for (Case c : caseList) {
-      if (c.OwnerId.getSobjectType() == Group.SobjectType) {
+      if (c.OwnerId != null && c.OwnerId.getSobjectType() == Group.SobjectType) {
         if (
           oldCaseMap != null &&
           oldCaseMap.containsKey(c.id) &&
