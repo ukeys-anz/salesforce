@@ -158,6 +158,19 @@
                 <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>cfaasFilesRelatedList</componentName>
+                <identifier>c_cfaasFilesRelatedList</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IsPersonAccount}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>

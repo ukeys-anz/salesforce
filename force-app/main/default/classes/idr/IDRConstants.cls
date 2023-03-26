@@ -68,6 +68,10 @@ public with sharing class IDRConstants {
     .get('Systemic_Issue_Task')
     .getRecordTypeId();
 
+  public static final Id CFAAS_FILE_RT_ID = Schema.SObjectType.ContentVersion.getRecordTypeInfosByDeveloperName()
+    .get('CFaaS_File')
+    .getRecordTypeId();
+
   //Complaint Status' for STOP collection
   public static final Set<String> STATUS_STOP_COLLECTIONS = new Set<String>{
     OPEN_STATUS,
@@ -264,6 +268,7 @@ public with sharing class IDRConstants {
           'IDR_Early_Resolution',
           'CCR_Complaints',
           'Hardship_IDR_Letter',
+          'IDR_ANZ_Plus',
           'IDR_Spare'      //IDR Disputes & Scams
         };
       }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Lookup to Case for CMOS application. This field is created to bring related case data on task and utilize them to create formula fields</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Related case or complaint</inlineHelpText>
+    <label>Case</label>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>Activities</relationshipLabel>
+    <relationshipName>Activities</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Lookup</type>
+</CustomField>

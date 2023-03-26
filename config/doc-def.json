@@ -11,6 +11,7 @@
     "Campaign_Flex_Field__c",
     "CaseComment",
     "Case",
+    "CFaaS_File__c",
     "CFMS_Migrated_Document__c",
     "Coaching_Summary__c",
     "COBAddress__c",
@@ -66,64 +67,99 @@
     {
       "name": "Business Admin",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Business_Admin"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Business_Admin"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "3rd Party Mobile Support Team",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Third_Party_Mobile_Support_Team"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Third_Party_Mobile_Support_Team"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "CFMS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Migration"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "IDR_CFMS_Migration"
+      ],
       "type": "system"
     },
     {
       "name": "Coach",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Coach"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Coach"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Coach Lead",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Coach_Lead"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Coach_Lead"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Card Dispute Agent",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Card_Dispute_Agent"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Card_Dispute_Agent"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Content Author",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Content_Author_PSG"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Content_Author_PSG"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Content Viewer",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Content_Viewer"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Content_Viewer"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "COSMOS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "COSMOS_Integration", "Disable_MFA"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "COSMOS_Integration",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
@@ -168,7 +204,9 @@
     {
       "name": "EDW Integration User",
       "profile": "Integration User",
-      "permissionsetgroups": ["IDR_EDW_User"],
+      "permissionsetgroups": [
+        "IDR_EDW_User"
+      ],
       "permissionsets": [
         "Enforce_mTLS",
         "IDR_EDW_Integration",
@@ -184,92 +222,145 @@
     {
       "name": "Engineer",
       "profile": "Minimum Access - Salesforce",
-      "permissionsetgroups": ["Engineer"],
-      "permissionsets": ["Enforce_SSO", "SFDX_Full_Dev_Hub_Access"],
+      "permissionsetgroups": [
+        "Engineer"
+      ],
+      "permissionsets": [
+        "Enforce_SSO",
+        "SFDX_Full_Dev_Hub_Access"
+      ],
       "type": "user"
     },
     {
       "name": "IDR Reporting Analyst",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_Data_Analyst"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_Data_Analyst"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "IDR Level 1",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_Level_1"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_Level_1"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "IDR Level 2",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_Level_2"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_Level_2"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "IDR Level 3",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_Level_3"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_Level_3"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "IDR Tech Support",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_Tech_Support"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_Tech_Support"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "IDR Content Writer",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_Level_1"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_Level_1"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Customer Resolution Leadership",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_CRP_LT"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_CRP_LT"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Customer Resolution Team Leaders",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_CRP_Team_Leaders"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_CRP_Team_Leaders"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Join Lead",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["FraudX_Agent"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "FraudX_Agent"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Systemic Issue Team",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_SI_User"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_SI_User"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Systemic Issue BU Contacts",
       "profile": "ANZ Standard User",
-      "permissionsetgroups": ["IDR_SI_Business_Contact"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "IDR_SI_Business_Contact"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "MVISION Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Mvision_Permissions", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "Mvision_Permissions",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
@@ -300,14 +391,22 @@
     {
       "name": "Odaseva  User",
       "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": ["Muted_Backup_and_Restore"],
-      "permissionsets": ["API_Only", "Password_Never_Expires", "Disable_MFA"],
+      "permissionsetgroups": [
+        "Muted_Backup_and_Restore"
+      ],
+      "permissionsets": [
+        "API_Only",
+        "Password_Never_Expires",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "Ops Support",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Ops_Support"],
+      "permissionsetgroups": [
+        "Ops_Support"
+      ],
       "permissionsets": [],
       "type": "user"
     },
@@ -339,7 +438,9 @@
       "name": "Read Only Administrator",
       "profile": "No Access",
       "permissionsetgroups": [],
-      "permissionsets": ["Read_Only_Admin"],
+      "permissionsets": [
+        "Read_Only_Admin"
+      ],
       "type": "user"
     },
     {
@@ -358,28 +459,41 @@
       "name": "SAF Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Access_SAF", "API_Only", "Disable_MFA"],
+      "permissionsets": [
+        "API_Access_SAF",
+        "API_Only",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "Shared Administrator",
       "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": ["Shared_Admin"],
-      "permissionsets": ["Disable_MFA"],
+      "permissionsetgroups": [
+        "Shared_Admin"
+      ],
+      "permissionsets": [
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "Splunk Sec Ops Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Splunk_Integration_Sec_Ops", "Disable_MFA"],
+      "permissionsets": [
+        "Splunk_Integration_Sec_Ops",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "System Administrator",
       "profile": "Admin",
       "permissionsetgroups": [],
-      "permissionsets": ["Appointment_Booking_System_Admin"],
+      "permissionsets": [
+        "Appointment_Booking_System_Admin"
+      ],
       "type": "user"
     },
     {
@@ -396,7 +510,9 @@
     {
       "name": "Trailblazer",
       "profile": "ANZx Trailblazer User",
-      "permissionsetgroups": ["MyTrailhead_Learner"],
+      "permissionsetgroups": [
+        "MyTrailhead_Learner"
+      ],
       "permissionsets": [],
       "type": "user"
     },
@@ -404,34 +520,49 @@
       "name": "TrailTracker Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Th_Badge_Admin", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "Th_Badge_Admin",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "User Provisioning",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["User_Provisioning", "Disable_MFA"],
+      "permissionsets": [
+        "User_Provisioning",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "WebdriverIO Integration User",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "SFDX_Full_Dev_Hub_Access", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "SFDX_Full_Dev_Hub_Access",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "FinCrime Agent",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["FinCrime_Agent"],
+      "permissionsetgroups": [
+        "FinCrime_Agent"
+      ],
       "permissionsets": [],
       "type": "user"
     },
     {
       "name": "FraudX Agent",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["FraudX_Agent"],
+      "permissionsetgroups": [
+        "FraudX_Agent"
+      ],
       "permissionsets": [],
       "type": "user"
     },
@@ -453,29 +584,45 @@
     {
       "name": "Quality Analyst",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Quality_Analyst"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Quality_Analyst"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Quality Capability Lead",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Quality_Capability_Lead"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Quality_Capability_Lead"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
       "name": "Sailpoint User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "User_Provisioning", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "User_Provisioning",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "Support Coach",
       "profile": "ANZx Standard User",
-      "permissionsetgroups": ["Support_Coach"],
-      "permissionsets": ["Enforce_SSO"],
+      "permissionsetgroups": [
+        "Support_Coach"
+      ],
+      "permissionsets": [
+        "Enforce_SSO"
+      ],
       "type": "user"
     },
     {
@@ -566,15 +713,24 @@
     {
       "name": "AEM Integration User",
       "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": ["AEM_Integration"],
-      "permissionsets": ["API_Only", "Disable_MFA"],
+      "permissionsetgroups": [
+        "AEM_Integration"
+      ],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
       "name": "SFDataSync User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "SF_Data_Sync_Integration", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "SF_Data_Sync_Integration",
+        "Disable_MFA"
+      ],
       "type": "system"
     },
     {
@@ -594,7 +750,23 @@
       "name": "Microsoft Defender Integration User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
-      "permissionsets": ["Microsoft_Defender", "Disable_MFA"],
+      "permissionsets": [
+        "Microsoft_Defender",
+        "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "CFaaS GCP Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "CFaaS_Integration",
+        "API_Only",
+        "Enforce_mTLS",
+        "Mortgage",
+        "Disable_MFA"
+      ],
       "type": "system"
     }
   ]

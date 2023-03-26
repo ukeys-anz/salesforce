@@ -8,10 +8,10 @@
 public without sharing class IDRTaskActionHelper {
   /**
    * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
-   * @param records task record for insert
+   * @param taskRecordList task record for insert
    */
-  public static Void insertAssignmentTask(List<Task> records) {
-    if (!records.isEmpty()) {
+  public static Void insertAssignmentTask(List<Task> taskRecordList) {
+    if (!taskRecordList.isEmpty()) {
       //insert Assignment Tasks on New Correspondence received on Closed Complaint
       if (
         Task.SObjectType.getDescribe().isCreateable() &&
@@ -22,7 +22,7 @@ public without sharing class IDRTaskActionHelper {
         Schema.SObjectType.Task.fields.Subject.isCreateable() &&
         Schema.SObjectType.Task.fields.WhatId.isCreateable()
       ) {
-        List<Task> taskToInsert = verifyAssignmentTask(records);
+        List<Task> taskToInsert = verifyAssignmentTask(taskRecordList);
         List<Database.SaveResult> results = Database.insert(
           taskToInsert,
           false
@@ -55,18 +55,19 @@ public without sharing class IDRTaskActionHelper {
   }
   /**
    * @description verify task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
-   * @param records task record for insert
+   * @param taskRecordList task record for insert
    * @return  Tasks that can be insterted
    */
-  public static List<Task> verifyAssignmentTask(List<Task> records) {
+  public static List<Task> verifyAssignmentTask(List<Task> taskRecordList) {
     Map<String, Task> recordsToInsert = new Map<String, Task>();
     Map<String, Task> existingTasksMap = new Map<String, Task>();
     Task[] existingTasks = new List<Task>();
     Set<Id> caseIds = new Set<Id>();
 
-    for (Task recTask : records) {
+    for (Task recTask : taskRecordList) {
       caseIds.add(recTask.WhatId);
     }
+    //This logic works for only CMOS rec type (IDR Task) and wont impact other streams
     if (!caseIds.isEmpty() && Task.SObjectType.getDescribe().isQueryable()) {
       existingTasks = [
         SELECT Id, Status, Subject, WhatId
@@ -79,10 +80,10 @@ public without sharing class IDRTaskActionHelper {
       for (Task taskRec : existingTasks) {
         existingTasksMap.put(taskRec.Subject, taskRec);
       }
-      for (Task recTask : records) {
+      for (Task recTask : taskRecordList) {
         if (
-          !recordsToInsert.containsKey(recTask.Subject) &&
-          !existingTasksMap.containsKey(recTask.Subject)
+          !recordsToInsert.containsKey(recTask.Subject.trim()) &&
+          !existingTasksMap.containsKey(recTask.Subject.trim())
         ) {
           recordsToInsert.put(recTask.Subject, recTask);
         }

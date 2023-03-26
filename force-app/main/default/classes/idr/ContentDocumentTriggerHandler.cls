@@ -16,10 +16,25 @@ public class ContentDocumentTriggerHandler extends Lib_TriggerHandler {
    * @param cdList list of  ContentDocument in the current trigger context
    */
   public static void restrictFileDeleteAction(List<ContentDocument> cdList) {
-    for (ContentDocument cv : cdList) {
-      //AR-13518 : Allow level 1 or higher user to be able to delete document.
-      if (!FeatureManagement.checkPermission('IDR_Level_1')) {
-        cv.addError(IDRConstants.RESTRICTED_ACTION_MESSAGE);
+    List<ContentVersion> cVersionList = [
+      SELECT ContentDocumentId
+      FROM ContentVersion
+      WHERE
+        RecordTypeID = :IDRConstants.CFAAS_FILE_RT_ID
+        AND ContentDocumentId IN :cdList
+    ];
+
+    List<Id> idList = new List<Id>();
+    for (ContentVersion cv : cVersionList) {
+      idList.add(cv.ContentDocumentId);
+    }
+
+    for (ContentDocument cd : cdList) {
+      if (
+        !FeatureManagement.checkPermission('IDR_Level_1') &&
+        !idList.contains(cd.Id)
+      ) {
+        cd.addError(IDRConstants.RESTRICTED_ACTION_MESSAGE);
       }
     }
   }
