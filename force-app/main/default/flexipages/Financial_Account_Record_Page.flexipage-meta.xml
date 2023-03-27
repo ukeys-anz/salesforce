@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -25,30 +24,30 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-1b16acd5-4f93-479f-afda-07d8826e3338</name>
         <itemInstances>
             <componentInstance>
                 <componentName>financialAccountParent</componentName>
                 <identifier>financialAccountParent</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-1b16acd5-4f93-479f-afda-07d8826e3338</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</name>
         <itemInstances>
             <componentInstance>
                 <componentName>statementsViewer</componentName>
                 <identifier>statementsViewer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -81,42 +80,10 @@
                 <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-89d2090c-5cd0-4a32-b91d-b76ce71062c7</name>
-        <itemInstances>
-            <componentInstance>
-                <componentName>financialAccountParent</componentName>
-                <identifier>c_financialAccountParent</identifier>
-            </componentInstance>
-        </itemInstances>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>Facet-621a73ad-bc80-4e52-b74b-41a99837b3b1</name>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>active</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-89d2090c-5cd0-4a32-b91d-b76ce71062c7</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Account</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab</identifier>
-            </componentInstance>
-        </itemInstances>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -125,58 +92,38 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__RecordTypeName__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Bank Account</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-621a73ad-bc80-4e52-b74b-41a99837b3b1</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset3</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__RecordTypeName__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Bank Account</rightValue>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-23e8381a-68f6-46c9-88bc-49070fe34e1e</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-23e8381a-68f6-46c9-88bc-49070fe34e1e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>activityTabContent</name>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>showLegacyActivityComposer</name>
+                    <value>false</value>
+                </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>activityTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebartabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -214,10 +161,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebartabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -247,6 +194,7 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Financial Account Record Page</masterLabel>
