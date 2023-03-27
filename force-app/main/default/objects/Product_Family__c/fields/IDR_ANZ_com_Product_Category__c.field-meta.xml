@@ -71,6 +71,16 @@
                 <label>Merchants</label>
             </value>
             <value>
+                <fullName>ANZ Plus</fullName>
+                <default>false</default>
+                <label>ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>ANZ Internet Banking</fullName>
+                <default>false</default>
+                <label>ANZ Internet Banking</label>
+            </value>
+            <value>
                 <fullName>Not product related</fullName>
                 <default>false</default>
                 <label>Not product related</label>

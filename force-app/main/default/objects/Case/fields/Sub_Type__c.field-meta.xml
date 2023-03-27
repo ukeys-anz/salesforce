@@ -283,9 +283,14 @@
                 <label>Raising a concern</label>
             </value>
             <value>
-                <fullName>Withholding tax refund</fullName>
+                <fullName>Withholding Tax Reversal Action</fullName>
                 <default>false</default>
-                <label>Withholding tax refund</label>
+                <label>Withholding Tax Reversal Action</label>
+            </value>
+            <value>
+                <fullName>Withholding Tax and TFN enquiry</fullName>
+                <default>false</default>
+                <label>Withholding Tax and TFN enquiry</label>
             </value>
             <value>
                 <fullName>Large Value Transfer</fullName>
@@ -544,7 +549,11 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Withholding tax refund</valueName>
+            <valueName>Withholding Tax Reversal Action</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Withholding Tax and TFN enquiry</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>

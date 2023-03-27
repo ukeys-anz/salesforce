@@ -17,8 +17,8 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
-        <enabled>true</enabled>
         <name>IDR_SI</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>Baseline pset for Systemic Issues team members</description>
     <fieldPermissions>
@@ -313,6 +313,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Event.Case_Age_in_Days__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Event.Case_Created__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.Completed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -349,6 +359,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.ActivityDate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Case_Age_in_Days__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Case_Created__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -456,15 +476,15 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditTask</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>RunReports</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>TransferAnyCase</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>

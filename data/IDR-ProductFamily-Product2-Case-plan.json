@@ -1,0 +1,32 @@
+[
+  {
+    "sobject": "Product_Family__c",
+    "saveRefs": true,
+    "resolveRefs": false,
+    "files": ["IDR-Product_Family__cs.json"]
+  },
+  {
+    "sobject": "Product2",
+    "saveRefs": true,
+    "resolveRefs": true,
+    "files": ["IDR-Product2s.json"]
+  },
+  {
+    "sobject": "Product2",
+    "saveRefs": true,
+    "resolveRefs": true,
+    "files": ["IDR-Product2s-2.json"]
+  },
+  {
+    "sobject": "Product2",
+    "saveRefs": true,
+    "resolveRefs": true,
+    "files": ["IDR-Product2s-3.json"]
+  },
+  {
+    "sobject": "Case",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": ["IDR-Cases.json"]
+  }
+]

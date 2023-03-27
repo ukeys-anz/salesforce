@@ -268,6 +268,7 @@ public with sharing class IDRConstants {
           'IDR_Early_Resolution',
           'CCR_Complaints',
           'Hardship_IDR_Letter',
+          'IDR_ANZ_Plus',
           'IDR_Spare'      //IDR Disputes & Scams
         };
       }
