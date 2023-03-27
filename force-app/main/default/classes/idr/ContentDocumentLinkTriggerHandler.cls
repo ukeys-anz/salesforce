@@ -26,6 +26,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Set<Id> linkIdList = new Set<Id>();
 
     Map<Id, Case> caseMap = getCaseRecords(records);
+    Map<Id, Case> mpUpdateCases = new Map<Id, Case>();
 
     if (!caseMap.isEmpty()) {
       Case oCase;
@@ -79,7 +80,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
 
         String errorDescription =
           'Doc Deleted: ' +
-          caseMap.get(record.LinkedEntityId)?.CaseNumber +
+          (oCase = caseMap.get(record.LinkedEntityId))?.CaseNumber +
           ', ' +
           strUserName +
           ', ' +
@@ -92,8 +93,16 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           record.ContentDocument.LatestPublishedVersion.FileType;
 
         Logger.error(errorDescription, record.Id);
+        if ( oCase != null ) {
+          // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
+          mpUpdateCases.put(oCase.Id, oCase);
+        }
       }
       Logger.saveLog();
+      if ( mpUpdateCases.size() > 0 &&
+          Case.SObjectType.getDescribe().isUpdateable()) {
+        update mpUpdateCases.values();
+      }
     }
   }
 
@@ -108,6 +117,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Map<Id, ContentDocument> contentDocMap = getContentDocRecords(records);
     Case oCase;
     Task[] assiTasks = new List<Task>();
+    Map<Id, Case> mpUpdateCases = new Map<Id, Case>();
 
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
       if (
@@ -161,6 +171,8 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
             )
           );
         }
+        // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
+        mpUpdateCases.put(oCase.Id, oCase);
       }
     }
 
@@ -180,6 +192,10 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         err
       );
       Logger.saveLog();
+    }
+    if ( mpUpdateCases.size() > 0 &&
+        Case.SObjectType.getDescribe().isUpdateable()) {
+      update mpUpdateCases.values();
     }
   }
 

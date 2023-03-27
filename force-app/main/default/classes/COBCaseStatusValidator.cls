@@ -9,16 +9,6 @@ public with sharing class COBCaseStatusValidator {
   @TestVisible
   private static final String BLOCKED_STATUS_UPDATE_ERROR = 'Can\'t update ID Ops case status when there is an open Fraud Check Case. ';
 
-  //Customer Onboaarding 'ID OPS'<->'Fraud Check' coresponding Case statuses
-  public static final Map<String, String> COB_CASE_STATUS_MAP = new Map<String, String>{
-    GetHelpConstants.COB_DAON_FAILED_STATUS => GetHelpConstants.COB_DAON_FAILED_STATUS,
-    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
-    GetHelpConstants.COB_EQUIFAX_FAILED_STATUS => GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS => GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS => GetHelpConstants.COB_FAILED_OK_STATUS,
-    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
-  };
-
   //Invalid COB Case statuses transions for ID Ops Assistance record type
   public static final Map<String, List<String>> ID_OPS_STATUSES_INVALID_TRANSITION_MAP = new Map<String, List<String>>{
     GetHelpConstants.COB_DAON_FAILED_STATUS => new List<String>{

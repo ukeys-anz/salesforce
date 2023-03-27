@@ -109,8 +109,10 @@ public with sharing class IDRCaseAssignmentRules {
    * @param rec case record
    * @param productWorkbasketName name of the product the case relates to
    * @param oldCase old record of case
+   * NcssMethodCount Suppressed : To have all the code lines together in one place. Code is a series of rules applied in order.
    * @return Queue Id
    */
+  @SuppressWarnings('PMD.NcssMethodCount')
   private static Id getOwnerId(
     Case rec,
     String productWorkbasketName,
@@ -166,9 +168,15 @@ public with sharing class IDRCaseAssignmentRules {
         return QUEUE_MAP.get('CCR_Complaints');
       }
 
+      // IDR ANZ Plus Rule #5 needs to be applied before Early Resolution Rule #7
+      if ( productWorkbasketName != null &&
+          productWorkbasketName == 'IDR_ANZ_Plus') {
+        return QUEUE_MAP.get(productWorkbasketName);
+      }
+
       // Fraud & Scams
       if (rec.Type == '14') {
-        return QUEUE_MAP.get('IDR_Spare');    // IDR Disputes & Scams
+        return QUEUE_MAP.get('IDR_Spare'); // IDR Disputes & Scams
       }
 
       // Early Resolution

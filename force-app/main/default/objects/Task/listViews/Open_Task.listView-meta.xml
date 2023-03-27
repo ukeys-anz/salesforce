@@ -7,16 +7,18 @@
     <columns>STATUS</columns>
     <columns>PRIORITY</columns>
     <columns>CREATED_DATE</columns>
+    <columns>Case_Created__c</columns>
+    <columns>Case_Age_in_Days__c</columns>
     <columns>LAST_UPDATE</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>IS_CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Open Tasks</label>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>

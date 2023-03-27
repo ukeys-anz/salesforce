@@ -17,7 +17,10 @@ IDR_Third_Issue__c,
 OR(
 ISBLANK(TEXT(IDR_Issue_Type_3__c)),
 ISBLANK(TEXT(IDR_Subsequent_Issue_3__c)),
-AND(ISBLANK(IDR_Product_3__c), ISCHANGED(Status), ISPICKVAL(PRIORVALUE(Status), &apos;Escalated&apos;)),
+AND(
+  ISBLANK(IDR_Product_3__c),
+  ISCHANGED(Status),
+  ISPICKVAL(PRIORVALUE(Status), &apos;Escalated&apos;)),
 (ISBLANK(IDR_Account_Card_Policy_Number_3__c) &amp;&amp; RecordType.DeveloperName = &apos;Customer_Complaint&apos;)
 )
 ),

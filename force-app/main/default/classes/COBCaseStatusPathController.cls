@@ -4,9 +4,12 @@
  * @since 12/2022
  */
 public with sharing class COBCaseStatusPathController {
+  private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
+
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
     GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
+    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS,
     GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
     GetHelpConstants.COB_FAILED_OK_STATUS,
     GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
@@ -47,19 +50,24 @@ public with sharing class COBCaseStatusPathController {
     StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
 
     cobCase.Status_Update_Error__c = ''; // Clear previous error to avoid confusion if this update is successful
-    if (
-      COB_CASE_STATUSES_WITH_ENDPOINT.contains(cobCase.Status) == false ||
-      CheckCaseRecordType.isFraudCheck(cobCase)
-    ) {
+    if (COB_CASE_STATUSES_WITH_ENDPOINT.contains(cobCase.Status) == false) {
       return true;
     }
 
     try {
       temporalCaseWorkflowAPI.triggerTemporalCaseWorkflow(cobCase);
     } catch (Exception e) {
+      Logger.error(
+        'Failed Temporal Callout to update status: ' + cobCase.Status,
+        e
+      );
+      Logger.saveLog();
+
       cobCase.Status = currentStatus;
       cobCase.OnboardingVerificationFailedReason__c = '';
-      cobCase.Status_Update_Error__c = e.getMessage();
+      cobCase.Status_Update_Error__c = String.isBlank(e.getMessage())
+        ? CALLOUT_ERROR
+        : e.getMessage();
     }
 
     return String.isBlank(cobCase.Status_Update_Error__c);

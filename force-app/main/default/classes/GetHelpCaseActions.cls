@@ -25,6 +25,7 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+
   public static Group accountClosureQueue = CommonUtil.getQueueByName(
     'Account_Closure_Queue'
   );
@@ -870,7 +871,7 @@ public with sharing class GetHelpCaseActions {
       Case oldC = oldMap.get(c.Id);
 
       if (
-        c.RecordTypeId == GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID &&
+        CheckCaseRecordType.isIDOpsAssistance(c) &&
         c.Status == GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS &&
         oldC?.Status != GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS
       ) {
@@ -879,14 +880,13 @@ public with sharing class GetHelpCaseActions {
           ParentId = c.Id,
           OwnerId = cobFraudCheckQueue.Id,
           Subject = 'Fraud Check Case',
-          CustomerOnboardingApplication__c = c.CustomerOnboardingApplication__c
+          CustomerOnboardingApplication__c = c.CustomerOnboardingApplication__c,
+          PersonaId__c = c.PersonaId__c
         );
 
-        if (oldC?.Status == GetHelpConstants.COB_DAON_FAILED_STATUS) {
-          fraudCheckCase.Status = GetHelpConstants.COB_DAON_FAILED_STATUS;
-        } else if (oldC?.Status == GetHelpConstants.COB_EQUIFAX_FAILED_STATUS) {
-          fraudCheckCase.Status = GetHelpConstants.COB_EQUIFAX_FAILED_STATUS;
-        }
+        fraudCheckCase.Status = GetHelpConstants.COB_ID_OPS_TO_FRAUD_CHECK_STATUS_MAP.get(
+          oldC?.Status
+        );
 
         fraudCheckCases.add(fraudCheckCase);
       }
@@ -901,5 +901,42 @@ public with sharing class GetHelpCaseActions {
       Logger.debug('Results of inserting Fraud Check cases', results);
       Logger.saveLog();
     }
+  }
+
+  /**
+   * @description Update an ID Ops Assistance case with a corresponding Fraud Check Case Status everytime a Fraud Check case status is updated
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void updateIdOpsCaseStatus(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    //Create a Map of ID Ops case ids (parentId) with the Fraud Check Case status
+    Map<Id, Case> parentIdAndChildCasedMap = new Map<Id, Case>();
+
+    for (Case newFraudCheckCase : records) {
+      Case oldFraudCheckCase = oldMap.get(newFraudCheckCase.Id);
+
+      //Check if it's a correct record type and the status of the case is changed
+      if (
+        CheckCaseRecordType.isFraudCheck(newFraudCheckCase) &&
+        GetHelpCaseActionsHelper.isStatusChanged(
+          newFraudCheckCase,
+          oldFraudCheckCase
+        )
+      ) {
+        parentIdAndChildCasedMap.put(
+          newFraudCheckCase.ParentId,
+          newFraudCheckCase
+        );
+      }
+    }
+
+    List<Case> idOpsCases = GetHelpCaseActionsHelper.setIDOpsCaseStatus(
+      parentIdAndChildCasedMap
+    );
+
+    DMLUtil.updateRecords(idOpsCases, false, true);
   }
 }

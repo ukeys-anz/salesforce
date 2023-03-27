@@ -171,6 +171,90 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   @isTest
+  static void testGetPayloadIdOpsDaonApproved() {
+    Faker faker = new Faker('AU');
+    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
+    Case newCase = new Case(
+      Id = mockId,
+      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
+    );
+
+    StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
+    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+
+    Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
+    Assert.areEqual(
+      '{\"caseId\":\"' +
+      mockId +
+      '\"}',
+      payload,
+      'Payload is not correct.'
+    );
+  }
+
+  @isTest
+  static void testGetPayloadIdOpsEmpty() {
+    Faker faker = new Faker('AU');
+    Case newCase = new Case(
+      ParentId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
+      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
+    );
+
+    StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
+    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+
+    Assert.areEqual(
+      StravinskyService.EMPTY_BODY,
+      payload,
+      'Payload should be empty body {}.'
+    );
+  }
+
+  @isTest
+  static void testGetPayloadFraudCheckDaonApproved() {
+    Faker faker = new Faker('AU');
+    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
+    Case newCase = new Case(
+      ParentId = mockId,
+      RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
+      Status = GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS
+    );
+
+    StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
+    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+
+    Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
+    Assert.areEqual(
+      '{\"caseId\":\"' +
+      mockId +
+      '\"}',
+      payload,
+      'Payload is not correct.'
+    );
+  }
+
+  @isTest
+  static void testGetPayloadFraudCheckEmpty() {
+    Faker faker = new Faker('AU');
+    Case newCase = new Case(
+      ParentId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
+      RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
+      Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
+    );
+
+    StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
+    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+
+    Assert.areEqual(
+      StravinskyService.EMPTY_BODY,
+      payload,
+      'Payload should be empty body {}.'
+    );
+  }
+
+  @isTest
   static void testRetrieveDetokenizedCOBPIDSuccess() {
     Faker faker = new Faker('AU');
     String personaId = faker.randomString(10);
@@ -281,7 +365,9 @@ public inherited sharing class StravinskyServiceTest {
       LicenceNumberOCRServer__c = '123123',
       LicenceCardNumber__c = '456456',
       LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
+      LicenceCardNumberOCRServer__c = '456456',
+      ExpiryDate__c = Date.today(),
+      StateOfIssue__c = 'AU'
     );
 
     COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
@@ -330,7 +416,9 @@ public inherited sharing class StravinskyServiceTest {
       LicenceNumberOCRServer__c = '123123',
       LicenceCardNumber__c = '456456',
       LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
+      LicenceCardNumberOCRServer__c = '456456',
+      ExpiryDate__c = Date.today(),
+      StateOfIssue__c = 'AU'
     );
 
     COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
