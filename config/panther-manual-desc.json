@@ -852,7 +852,7 @@
     },
     "CFaaS_File__c": {
       "IA-2415997": [
-        "Customer__c ",
+        "Customer__c",
         "Date_Created__c",
         "Document_Id__c",
         "File_Description__c",
@@ -914,7 +914,9 @@
         "AddressResidenceType__c",
         "AddressState__c",
         "AddressStreetName__c",
-        "AddressStreetNumber__c"
+        "AddressStreetNumber__c",
+        "PostalNumber__c",
+        "PostalType__c"
       ],
       "IA-2530753": [
         "AddressStreetSuffix__c",

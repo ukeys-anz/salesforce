@@ -69,7 +69,11 @@ public with sharing class COBPrimaryIDDocumentModelTest {
       'lastName'
     );
 
-    model.primaryIdDocument.passport.dateOfBirth = new COBPrimaryIDDocumentModel.DateOfBirth(
+    model.primaryIdDocument.passport.dateOfBirth = new COBPrimaryIDDocumentModel.DateWrapper(
+      Date.today()
+    );
+
+    model.primaryIdDocument.passport.expiryDate = new COBPrimaryIDDocumentModel.DateWrapper(
       Date.today()
     );
 
