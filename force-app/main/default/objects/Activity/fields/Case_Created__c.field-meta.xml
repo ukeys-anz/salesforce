@@ -2,13 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Case_Created__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Date formula to capture case created date</description>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Date formula to capture date received</description>
     <externalId>false</externalId>
-    <formula>Case__r.CreatedDate</formula>
+    <formula>Case__r.IDR_Date_Received__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <inlineHelpText>Date that orignal CMOS case was created</inlineHelpText>
-    <label>Case Created</label>
+    <label>Date Received</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Date</type>
