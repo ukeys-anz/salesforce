@@ -4,7 +4,7 @@
  * @description  To test NotificationTriggerHandler
  */
 
-@isTest
+@IsTest
 public class NotificationHandlerTriggerTest {
   /**
    * @description createTestCase to create cases with different record types
@@ -26,10 +26,10 @@ public class NotificationHandlerTriggerTest {
       testCase.IDR_SwitchOff_Customer_Notification__c = false;
       testCase.IDR_3rdParty_Email__c = 'testEmail@email.com';
       testCase.IDR_3rdParty_Name__c = 'testName';
-      testCase.IDR_3rdParty_Mobile__c = '035464838276';
+      testCase.IDR_3rdParty_Mobile__c = '044838276';
       testCase.ANZx_Customer__c = false;
       testCase.Origin = 'Phone';
-      testCase.IDR_NC_Mobile__c = '+61499999999';
+      testCase.IDR_NC_Mobile__c = '+6149999999';
     } else if (recordTypeId == GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID) {
       testCase.Description = 'Test Unauthenticated Enquiry change to Non Customer Complaint';
       testCase.Status = IDRConstants.OPEN_STATUS;
@@ -60,7 +60,7 @@ public class NotificationHandlerTriggerTest {
     Notification_Handler__c handlerPostExecution = [
       SELECT Id, Status__c
       FROM Notification_Handler__c
-      WHERE case__c IN :caseRecord
+      WHERE Case__c IN :caseRecord
       LIMIT 1
     ];
 
@@ -89,9 +89,9 @@ public class NotificationHandlerTriggerTest {
     update caseList[0];
 
     List<Notification_Handler__c> nhList = [
-      SELECT id
+      SELECT Id
       FROM Notification_Handler__c
-      WHERE case__c IN :caseList
+      WHERE Case__c IN :caseList
     ];
 
     return nhList.size() == 1;
@@ -120,7 +120,7 @@ public class NotificationHandlerTriggerTest {
     Notification_Handler__c handlerPostExecution = [
       SELECT Id, Status__c
       FROM Notification_Handler__c
-      WHERE case__c IN :caseList
+      WHERE Case__c IN :caseList
     ];
 
     return IDRConstants.NOTIFICATION_PUBLISH_STATUS ==
@@ -130,7 +130,7 @@ public class NotificationHandlerTriggerTest {
   /**
    * @description Test data setup required for this test class
    */
-  @testSetup
+  @TestSetup
   static void setup() {
     IDR_Notification_Hours__c nHours = new IDR_Notification_Hours__c();
     nHours.Start_Time__c = System.now().hour() - 1;
@@ -161,7 +161,7 @@ public class NotificationHandlerTriggerTest {
   /**
    * @description Test Customer/ Non Customer Notification based on the flag
    */
-  @isTest
+  @IsTest
   static void testCustomerNotificationComplaint() {
     List<Case> customerComplaintCaseList = [
       SELECT Id, RecordTypeId
@@ -175,14 +175,14 @@ public class NotificationHandlerTriggerTest {
     ];
     Test.startTest();
     List<Notification_Handler__c> nhListCustomerComplaint = [
-      SELECT id
+      SELECT Id
       FROM Notification_Handler__c
-      WHERE case__c IN :customerComplaintCaseList
+      WHERE Case__c IN :customerComplaintCaseList
     ];
     List<Notification_Handler__c> nhListNonCustomerComplaint = [
-      SELECT id
+      SELECT Id
       FROM Notification_Handler__c
-      WHERE case__c IN :customerNonComplaintCaseList
+      WHERE Case__c IN :customerNonComplaintCaseList
     ];
 
     System.assertEquals(
@@ -202,7 +202,7 @@ public class NotificationHandlerTriggerTest {
   /**
    * @description Test the notification for customer complaint
    */
-  @isTest
+  @IsTest
   static void testManualNotificationCustomerComplaint() {
     Test.startTest();
     System.assert(
@@ -217,7 +217,7 @@ public class NotificationHandlerTriggerTest {
   /**
    * @description Test the notification for non customer complaint
    */
-  @isTest
+  @IsTest
   static void testManualNotificationNonCustomerComplaint() {
     Test.startTest();
     System.assert(
@@ -232,7 +232,7 @@ public class NotificationHandlerTriggerTest {
   /**
    * @description Test Notification when unauthenticated enquiry Case changed to non customer complaint.
    */
-  @isTest
+  @IsTest
   static void testNotificationUnauthToNonCustomerComplaint() {
     Test.startTest();
     System.assert(
@@ -249,7 +249,7 @@ public class NotificationHandlerTriggerTest {
    * @description Test if notification published successfully when an unauthenticated enquiry case changed to non customer complaint.
    */
 
-  @isTest
+  @IsTest
   static void testManualNotificationUnauthToNonCustomerComplaint() {
     Test.startTest();
     System.assert(
@@ -265,7 +265,7 @@ public class NotificationHandlerTriggerTest {
   /**
    * @description Test Notification when unauthenticated enquiry Case changed to anz plus complaint.
    */
-  @isTest
+  @IsTest
   static void testNotificationUnauthToANZPlusComplaint() {
     Test.startTest();
     System.assert(
@@ -282,7 +282,7 @@ public class NotificationHandlerTriggerTest {
    * @description Test if notification published successfully when an unauthenticated enquiry case changed to non customer complaint.
    */
 
-  @isTest
+  @IsTest
   static void testManualNotificationUnauthToANZPlusComplaint() {
     Test.startTest();
     System.assert(
@@ -293,5 +293,68 @@ public class NotificationHandlerTriggerTest {
       'Notification handler status should be as expected.'
     );
     Test.stopTest();
+  }
+
+  @IsTest
+  static void testMobileNumberFormatting() {
+    //Retrieve the case inserted
+    Case oCase = [
+      SELECT
+        Id,
+        Origin,
+        IDR_3rdParty_Email__c,
+        IDR_3rdParty_Name__c,
+        IDR_3rdParty_Mobile__c,
+        IDR_Customer_Number__c,
+        IDR_NC_Email__c,
+        IDR_NC_Is_Consent_Obtained__c,
+        CaseNumber__c,
+        Customer_Notification_Consent__c,
+        Account.Source_System_ID__c,
+        Account.PersonMobilePhone,
+        Account.PersonContact.FirstName,
+        IDR_Customer_Identifier__c,
+        CaseNumber,
+        IDR_NC_First_Name__c,
+        IDR_NC_Mobile__c,
+        RecordTypeId,
+        IDR_SwicthOff_3rd_Party_Notification__c,
+        IDR_SwitchOff_Customer_Notification__c,
+        IDR_3rdParty_Relationship_To_Complainant__c,
+        ANZx_Customer__c
+      FROM Case
+      LIMIT 1
+    ];
+
+    Test.startTest();
+    //create the notification handler record Manually
+    Notification_Handler__c handlerRecord = new Notification_Handler__c();
+    handlerRecord.Case__c = oCase.Id;
+    handlerRecord.Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
+    insert handlerRecord;
+
+    IDR_Notification_Event__e evt = NotificationTriggerHandler.getNotifcationEvent(
+      oCase,
+      handlerRecord
+    );
+
+    Test.stopTest();
+
+    System.assert(String.isNotBlank(evt.AuthorisedMobile__c));
+    System.assert(evt.AuthorisedMobile__c.startsWith('614'));
+    System.assert(evt.AuthorisedMobile__c.isNumeric());
+    System.assertEquals(
+      evt.AuthorisedMobile__c,
+      PhoneUtils.cleanupMobile(oCase.IDR_3rdParty_Mobile__c),
+      '3rd party mobile isn\'t cleaned'
+    );
+    System.assert(String.isNotBlank(evt.ComplainantMobile__c));
+    System.assert(evt.ComplainantMobile__c.startsWith('614'));
+    System.assert(evt.ComplainantMobile__c.isNumeric());
+    System.assertEquals(
+      evt.ComplainantMobile__c,
+      PhoneUtils.cleanupMobile(oCase.IDR_NC_Mobile__c),
+      'NC Mobile isn\'t cleaned'
+    );
   }
 }
