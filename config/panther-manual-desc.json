@@ -502,6 +502,7 @@
         "SI_Assigned_to_Portfolios__c",
         "SI_Business_Contacts__c",
         "IDR_Date_Received__c",
+        "IDR_Document_Count__c",
         "IDR_Parent_Systemic_Issue__c",
         "IDR_Datetime_PSI_Ticked__c",
         "IDR_Express_CMOS_Complaint__c",
