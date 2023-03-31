@@ -54,14 +54,7 @@ public with sharing class IDREmailServiceHandler {
     List<Case> caseToUpdList;
     Task[] assiTasks = new List<Task>();
     if (Case.SObjectType.getDescribe().isQueryable()) {
-      String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' ';
-      if (
-        fromEmail != System.Label.XpressionSenderAddress &&
-        senderEmail != System.Label.XpressionRecepientInboxAddress
-      ) {
-        queryString = queryString + 'AND SuppliedEmail = :fromEmail ';
-      }
-      queryString = queryString + 'LIMIT 1';
+      String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' LIMIT 1';
       caseToUpdList = Database.query(queryString);
     }
     if (caseToUpdList.size() > 0) {
