@@ -199,9 +199,8 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       );
       Logger.saveLog();
     }
-    if (
-      mpUpdateCases.size() > 0 && Case.SObjectType.getDescribe().isUpdateable()
-    ) {
+    if ( mpUpdateCases.size() > 0 &&
+        Case.SObjectType.getDescribe().isUpdateable()) {
       update mpUpdateCases.values();
     }
   }
