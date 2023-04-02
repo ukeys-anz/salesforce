@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Editing_SI_Expired_Task</fullName>
+    <active>true</active>
+    <description>Restrict ability to edit SI expired tasks outside of SI team</description>
+    <errorConditionFormula>AND
+(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c=false,
+    NOT(ISNEW()),
+    RecordType.DeveloperName = &apos;Systemic_Issue_Task&apos;,
+    NOT($UserRole.DeveloperName = &apos;Systemic_Issue_Team&apos;),
+    AND(
+        ISPICKVAL(Status,&apos;Expired&apos;),
+        ActivityDate &lt;   TODAY()
+    ),
+    OR(
+        ISCHANGED( Action__c ),
+        ISCHANGED( Description ),
+        ISCHANGED( IDR_COR_ID__c ),
+        ISCHANGED( PSI_or_DSI__c )
+    )
+)</errorConditionFormula>
+    <errorMessage>You cannot select past due date</errorMessage>
+</ValidationRule>
