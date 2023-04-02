@@ -9,7 +9,7 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   private static IDR_Notification_Hours__c nHours;
   private static List<Notification_Handler__c> notificationList;
   private static List<Database.SaveResult> peSaveResults;
-  private static String cusComplaintRecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+  private static final String CUSCOMPLAINTRECORDTYPEID = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
 
   /**
    * @description Constructor to call the trigger framework
@@ -57,8 +57,8 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       }
     }
     if (
-      Schema.sObjectType.Notification_Handler__c.isUpdateable() &&
-      Schema.sObjectType.Notification_Handler__c.fields.Status__c.isUpdateable()
+      Schema.SObjectType.Notification_Handler__c.isUpdateable() &&
+      Schema.SObjectType.Notification_Handler__c.fields.Status__c.isUpdateable()
     ) {
       List<Database.SaveResult> result = Database.update(
         notificationList,
@@ -275,7 +275,9 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         notification.AuthorisedFirstName__c = c.IDR_3rdParty_Name__c;
       }
       notification.AuthorisedEmail__c = c.IDR_3rdParty_Email__c;
-      notification.AuthorisedMobile__c = c.IDR_3rdParty_Mobile__c;
+      notification.AuthorisedMobile__c = PhoneUtils.cleanupMobile(
+        c.IDR_3rdParty_Mobile__c
+      );
     }
     return notification;
   }
@@ -299,15 +301,17 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         ? 'CAP ID'
         : c.IDR_Customer_Identifier__c);
       notification.ComplainantEmail__c = (c.RecordTypeId ==
-        cusComplaintRecordTypeId
+        CUSCOMPLAINTRECORDTYPEID
         ? ''
         : c.IDR_NC_Email__c);
       notification.ComplainantFirstName__c = (c.IDR_NC_Is_Consent_Obtained__c ==
         false ||
-        c.RecordTypeId == cusComplaintRecordTypeId)
+        c.RecordTypeId == CUSCOMPLAINTRECORDTYPEID)
         ? ''
         : c.IDR_NC_First_Name__c;
-      notification.ComplainantMobile__c = c.IDR_NC_Mobile__c;
+      notification.ComplainantMobile__c = PhoneUtils.cleanupMobile(
+        c.IDR_NC_Mobile__c
+      );
     }
     return notification;
   }
@@ -348,9 +352,9 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
     }
     if (!notificationHandlerList.isEmpty()) {
       if (
-        Schema.sObjectType.Notification_Handler__c.isCreateable() &&
-        Schema.sObjectType.Notification_Handler__c.fields.Case__c.isCreateable() &&
-        Schema.sObjectType.Notification_Handler__c.fields.Status__c.isCreateable()
+        Schema.SObjectType.Notification_Handler__c.isCreateable() &&
+        Schema.SObjectType.Notification_Handler__c.fields.Case__c.isCreateable() &&
+        Schema.SObjectType.Notification_Handler__c.fields.Status__c.isCreateable()
       ) {
         insert notificationHandlerList;
       } else {
