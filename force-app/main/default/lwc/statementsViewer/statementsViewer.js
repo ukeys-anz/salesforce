@@ -10,7 +10,7 @@ import FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__F
 import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Id";
 import PRODUCT_NAME_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Product_Name__c";
 import OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
-
+import TYPE_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 const DEFAULT_PAGE_SIZE = 10;
 
 const FIELDS = [
@@ -18,7 +18,8 @@ const FIELDS = [
   FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD,
   FINANCIAL_ACCOUNT_ID_FIELD,
   PRODUCT_NAME_FIELD,
-  OCV_ID_FIELD
+  OCV_ID_FIELD,
+  TYPE_FIELD
 ];
 
 const columns = [
@@ -82,8 +83,12 @@ export default class StatementsViewer extends LightningElement {
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.accountId = data.fields.FinServ__PrimaryOwner__c.value;
       this.financialAccountId = data.fields.Id.value;
-      this.productName = data.fields.Product_Name__c.value;
       this.ocvId = data.fields.OCV_ID__c.value;
+      if (data.fields.FinServ__FinancialAccountType__c.value === "Home Loan") {
+        this.productName = "ANZ Plus Home Loan";
+      } else {
+        this.productName = data.fields.Product_Name__c.value;
+      }
       this.getStatementsData(
         this.ocvId,
         this.accountNumber,

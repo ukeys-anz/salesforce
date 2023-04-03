@@ -5,8 +5,12 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
+        <name>ANZx_Home_Loan</name>
         <enabled>true</enabled>
+    </customPermissions>
+    <customPermissions>
         <name>ANZx_View_Statements</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>This grants access to view and download financial account statements.</description>
     <hasActivationRequired>false</hasActivationRequired>
