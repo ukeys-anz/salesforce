@@ -9,6 +9,7 @@ import STATUS_UPDATE_ERROR from "@salesforce/schema/Case.Status_Update_Error__c"
 import RECORD_TYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 import PARENT_ID_FIELD from "@salesforce/schema/Case.ParentId";
 import updateStatus from "@salesforce/apex/COBCaseStatusPathController.updateStatus";
+import hasStatusEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Case_Status";
 
 const FAILED_OK = "Failed";
 const CONFIRMED_FRAUD = "Confirmed Fraud";
@@ -40,6 +41,10 @@ export default class CobCaseStatusPath extends LightningElement {
 
   confirmedFraudMessage =
     "By confirming, you are marking this onboarding case as Fraud. Done to continue, Cancel to go back.";
+
+  get allowEdit() {
+    return hasStatusEditPermission;
+  }
 
   @wire(getRecord, {
     recordId: "$recordId",
