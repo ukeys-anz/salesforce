@@ -11698,11 +11698,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Withholding Tax Reversal Action</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Withholding Tax and TFN enquiry</fullName>
+            <fullName>Withholding tax refund</fullName>
             <default>false</default>
         </values>
     </picklistValues>
