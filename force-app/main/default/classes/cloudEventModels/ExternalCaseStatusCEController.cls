@@ -42,12 +42,18 @@ public without sharing class ExternalCaseStatusCEController {
           Account.OCV_ID__c,
           Transaction_UUID__c,
           OCV_ID__c,
+          AccountId,
           Account.Source_System_Name__c,
-          Account.Source_System_ID__c
+          Account.Source_System_ID__c,
+          Account.PersonEmail,
+          Account.PersonMobilePhone,
+          Account.firstName,
+          Account.lastName
         FROM Case
         WHERE Id IN :relatedCaseIds
       ]
     );
+
     Map<Id, User> relatedUsers = new Map<Id, User>(
       [SELECT Id, Email, UserName FROM User WHERE Id IN :relatedUserIds]
     );
