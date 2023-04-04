@@ -107,34 +107,36 @@ export default class StatementsViewer extends LightningElement {
         pageSize
       });
 
-      if (!statements || (statements && !Array.isArray(statements))) {
-        throw new Error("Error: Unknown data.");
-      }
-
-      if (statements.length === 0) {
+      if (!statements || statements.length === 0) {
         this.statements = [];
         this.showLoadMoreButton = false;
-      } else if (statements.length > 0) {
-        // if returned data size no greater than default size, hide load more button
-        if (statements.length < DEFAULT_PAGE_SIZE) {
-          this.showLoadMoreButton = false;
+      }
+      if (statements) {
+        if (!Array.isArray(statements)) {
+          throw new Error("Error: Unknown data.");
         }
-        // if no more statements, hide load more button and no need to process data
-        else if (
-          this.statements &&
-          this.statements.length === statements.length
-        ) {
-          this.showLoadMoreButton = false;
-          this.isLoading = false;
-          return;
+        if (statements.length > 0) {
+          // if returned data size no greater than default size, hide load more button
+          if (statements.length < DEFAULT_PAGE_SIZE) {
+            this.showLoadMoreButton = false;
+          }
+          // if no more statements, hide load more button and no need to process data
+          else if (
+            this.statements &&
+            this.statements.length === statements.length
+          ) {
+            this.showLoadMoreButton = false;
+            this.isLoading = false;
+            return;
+          }
+
+          const formattedData = this.formatStatements(
+            statements,
+            this.productName
+          );
+
+          this.sortStatements(formattedData, "startDate", "desc");
         }
-
-        const formattedData = this.formatStatements(
-          statements,
-          this.productName
-        );
-
-        this.sortStatements(formattedData, "startDate", "desc");
       }
     } catch (error) {
       this.handleError(error);
