@@ -5,10 +5,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
+        <name>ANZx_Edit_COB_Case_Status</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <customPermissions>
         <name>ANZx_Edit_COB_Primary_ID_Document</name>
         <enabled>true</enabled>
     </customPermissions>
-    <description>Provides Read/Write + Modify All access on COB Primary ID Document object</description>
+    <description>Provides Read/Write access on COB Primary ID Document object and COB Case Status</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>COBPrimaryIDDocument__c.CountryOfIssue__c</field>
@@ -60,13 +64,13 @@
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>COB Primary ID Document Read/Write</label>
+    <label>COB Primary ID Document And Case Status Read/Write</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
-        <allowDelete>true</allowDelete>
+        <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>COBPrimaryIDDocument__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
