@@ -121,7 +121,8 @@ public with sharing class COBPIDViewAndEditController {
       response
     );
 
-    updateTokenizedData(tokenizedData);
+    PIDDMLOperator dmlOperator = new PIDDMLOperator();
+    dmlOperator.updateTokenizedData(tokenizedData);
   }
 
   /**
@@ -221,33 +222,6 @@ public with sharing class COBPIDViewAndEditController {
   }
 
   /**
-   * @description method to save updated data
-   * @param tokenizedData data returned from tokenize api
-   */
-  private static void updateTokenizedData(
-    COBPrimaryIDDocument__c tokenizedData
-  ) {
-    if (PermissionUtils.canUpdate('COBPrimaryIDDocument__c')) {
-      Database.SaveResult result = Database.Update(tokenizedData, false);
-
-      if (!result.isSuccess()) {
-        Logger.error('Failed to update COBPrimaryIDDocument__c', result);
-        Logger.saveLog();
-
-        AuraHandledException ex = new AuraHandledException(FAILED_UPDATE);
-        ex.setMessage(FAILED_UPDATE);
-        throw ex;
-      }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'COBPIDViewAndEditController',
-        'updateCOBPIDData',
-        'Not enough permissions to update COBPrimaryIDDocument__c.'
-      );
-    }
-  }
-
-  /**
    * @description method to build a map between tokenized string and detokenized value
    * @param detokenizedValues api returned data for detokenized field
    * @return `Map<String, String>` a map between tokenized string and detokenized value
@@ -318,5 +292,35 @@ public with sharing class COBPIDViewAndEditController {
    */
   private static Boolean isPassport(COBPrimaryIDDocument__c record) {
     return record.IdDocumentType__c == PASSPORT_TYPE;
+  }
+
+  /**
+   * @description private without sharing class to bypass COBPrimaryIDDocument__c sharing settings
+   */
+  private without sharing class PIDDMLOperator {
+    /**
+     * @description Update COBPrimaryIDDocument__c record
+     * @param tokenizedData Tokenised COBPrimaryIDDocument__c record
+     */
+    private void updateTokenizedData(COBPrimaryIDDocument__c tokenizedData) {
+      if (PermissionUtils.canUpdate('COBPrimaryIDDocument__c')) {
+        Database.SaveResult result = Database.Update(tokenizedData, false);
+
+        if (!result.isSuccess()) {
+          Logger.error('Failed to update COBPrimaryIDDocument__c', result);
+          Logger.saveLog();
+
+          AuraHandledException ex = new AuraHandledException(FAILED_UPDATE);
+          ex.setMessage(FAILED_UPDATE);
+          throw ex;
+        }
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'COBPIDViewAndEditController',
+          'updateCOBPIDData',
+          'Not enough permissions to update COBPrimaryIDDocument__c.'
+        );
+      }
+    }
   }
 }
