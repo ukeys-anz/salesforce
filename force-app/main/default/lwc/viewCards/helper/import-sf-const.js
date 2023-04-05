@@ -3,6 +3,7 @@ import hasLockCardsPermission from "@salesforce/customPermission/ANZx_Temp_Lock_
 import hasFraudLockCardsPermission from "@salesforce/customPermission/ANZx_Fraud_Lock_Card";
 import hasReplaceCardsPermission from "@salesforce/customPermission/ANZx_Replace_Card";
 import hasViewCardsPermission from "@salesforce/customPermission/ANZx_View_Cards";
+import hasCancelCardPermission from "@salesforce/customPermission/ANZx_Cancel_Card";
 
 export const CARD_IMAGES = {
   default: `${card_images}/card_active.png`,
@@ -15,5 +16,6 @@ export const USER_PERMISSION = {
   hasLockPermission: hasLockCardsPermission,
   hasFraudPermission: hasFraudLockCardsPermission,
   hasReplacePermission: hasReplaceCardsPermission,
-  hasViewPermission: hasViewCardsPermission
+  hasViewPermission: hasViewCardsPermission,
+  hasCancelCardPermission: hasCancelCardPermission
 };
