@@ -19,7 +19,7 @@ public virtual with sharing class CloudEventModel {
   public DateTime ce_xpartitionedkeysequence { get; set; }
   public String ce_xtargets { get; set; }
   public String ce_traceparent { get; set; }
-  public CloudEventSystemModel system_data { get; set; }
+  public CloudEventSystemModel systemData { get; set; }
   public CloudEventDataModel ce_data { get; set; }
 
   public CloudEventModel() {
@@ -33,10 +33,6 @@ public virtual with sharing class CloudEventModel {
    * @description the model for cloud event data part
    */
   public virtual class CloudEventDataModel {
-    public String recordId { get; set; }
-    public CloudEventDataModel(SObject theRecord) {
-      this.recordId = theRecord.Id;
-    }
   }
 
   /**
@@ -56,18 +52,15 @@ public virtual with sharing class CloudEventModel {
    * @description Wrapper Class for a user or a group
    */
   public virtual class UserModel {
-    public String recordId { get; set; }
     public String name { get; set; }
     public String email { get; set; }
 
     public UserModel(User theUser) {
-      this.recordId = theUser?.Id;
       this.name = theUser?.UserName;
       this.email = theUser?.Email;
     }
 
     public UserModel(Group theQueue) {
-      this.recordId = theQueue?.Id;
       this.name = theQueue?.Name;
       this.email = theQueue?.Email;
     }

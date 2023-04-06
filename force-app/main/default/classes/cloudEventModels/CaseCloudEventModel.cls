@@ -25,7 +25,6 @@ public virtual without sharing class CaseCloudEventModel extends CloudEventModel
     public String subject { get; set; }
 
     public CaseCloudEventDataModel(Case theCase) {
-      super(theCase);
       this.caseNumber = theCase.CaseNumber;
       this.origin = theCase.Origin;
       this.priority = theCase.Priority;

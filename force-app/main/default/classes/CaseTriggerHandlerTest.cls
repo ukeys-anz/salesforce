@@ -2642,11 +2642,6 @@ private class CaseTriggerHandlerTest {
     );
 
     System.assertEquals(
-      theCase.Id,
-      atmDisputeCaseCloudEventDataModel.recordId,
-      'External Case Status Id should match'
-    );
-    System.assertEquals(
       theCase.CaseNumber,
       atmDisputeCaseCloudEventDataModel.caseNumber,
       'Case Number should match'
@@ -2700,11 +2695,7 @@ private class CaseTriggerHandlerTest {
       JSON.serialize(mappedResponse2),
       CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel.class
     );
-    System.assertEquals(
-      theCase.Id,
-      cardDisputeCaseCloudEventDataModel.recordId,
-      'External Case Status Id should match'
-    );
+
     System.assertEquals(
       theCase.CaseNumber,
       cardDisputeCaseCloudEventDataModel.caseNumber,
