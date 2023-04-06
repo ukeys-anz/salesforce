@@ -333,6 +333,8 @@
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c"],
       "IA-2415860": [
+        "Case_Owner__c",
+        "Cases_Related_To_Team__c",
         "Lead_Quality__c",
         "Lead__c",
         "Outcome_Reason__c",
