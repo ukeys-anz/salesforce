@@ -6,7 +6,7 @@
     <description>The name of the instance</description>
     <externalId>false</externalId>
     <label>Instance Name</label>
-    <length>5</length>
+    <length>10</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
