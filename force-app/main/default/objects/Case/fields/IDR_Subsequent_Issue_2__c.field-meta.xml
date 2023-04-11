@@ -9,7 +9,7 @@
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -541,7 +541,7 @@
                 <default>false</default>
                 <label>Investment Performance</label>
             </value>
-             <value>
+            <value>
                 <fullName>101</fullName>
                 <default>false</default>
                 <label>Fees and Charges</label>
@@ -696,6 +696,11 @@
         <valueSettings>
             <controllingFieldValue>9</controllingFieldValue>
             <valueName>62</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Request won&apos;t be actioned</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
