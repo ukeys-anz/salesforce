@@ -9,7 +9,7 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Systemic_Issue&apos;,
-RecordType.DeveloperName = &apos;General_Inquiry_CMOS&apos;
+RecordType.DeveloperName = &apos;CFMS_Migrated_Case&apos;
 ),
 (DATETIMEVALUE(( IDR_Date_Received__c)) &gt; CreatedDate)
 )</errorConditionFormula>
