@@ -241,7 +241,7 @@ public with sharing class CCRMTaskActionsTest {
         false,
         true
       );
-      Lead[] updatedlead = [SELECT Id, Expiry_Date__c FROM Lead];
+      Lead[] updatedlead = [SELECT Id, Expiry_Date__c FROM Lead where Id=:leads];
       System.assertEquals(
         updatedlead[0].Expiry_Date__c,
         newExpiryDate,

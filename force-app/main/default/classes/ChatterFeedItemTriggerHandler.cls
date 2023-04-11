@@ -126,16 +126,32 @@ public with sharing class ChatterFeedItemTriggerHandler extends Lib_TriggerHandl
   }
 
   public override void onBeforeInsert() {
+    String urlPattern = '(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w\\.-]*)';
+    String excludePattern = '@';
+
     for (FeedItem fi : (List<FeedItem>) records) {
-      String urlPattern = '(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w\\.-]*)';
-      String returnString = CommonUtil.filterStringUsingRegEx(
-        urlPattern,
-        String.valueOf(fi.Body)
-      );
+      String bodyTextToCheck = String.valueOf(fi.Body);
+      Boolean checkFlag = true;
+      String returnString;
+
       if (fi.LinkUrl != null) {
         fi.addError(REMOVE_URL + ': ' + fi.LinkUrl);
       }
-      if (returnString != String.valueOf(fi.Body) && returnString != null) {
+
+      while (checkFlag) {
+        returnString = CommonUtil.filterStringUsingRegEx(
+          urlPattern,
+          bodyTextToCheck
+        );
+
+        checkFlag =
+          String.valueOf(fi.Body).contains(excludePattern + returnString) ||
+          String.valueOf(fi.Body).contains(returnString + excludePattern);
+        if (checkFlag) {
+          bodyTextToCheck = bodyTextToCheck.replace(returnString, '');
+        }
+      }
+      if (returnString != bodyTextToCheck && returnString != null) {
         fi.addError(REMOVE_URL + ': ' + returnString);
       }
     }

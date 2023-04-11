@@ -48,7 +48,7 @@ public class ContentDocumentLinkTriggerHandlerTest {
    */
   @isTest
   static void testContentDocumentNotification() {
-    List<User> usrlist = [SELECT id FROM User];
+    List<User> usrlist = [SELECT id FROM User WHERE isActive = TRUE];
 
     System.runAs(usrlist[0]) {
       //Given a complaint case record
@@ -95,22 +95,36 @@ public class ContentDocumentLinkTriggerHandlerTest {
    */
   @isTest
   static void testContentDocumentDelete() {
-    List<User> usrlist = [SELECT id FROM User];
+    List<User> usrlist = [
+      SELECT id
+      FROM User
+      WHERE UserName = 'idruser@anztest.com'
+    ];
 
     System.runAs(usrlist[0]) {
       //Given a complaint case record
-      Case testCase = [SELECT Id, SuppliedEmail, Origin, Description, IDR_NC_Country__c, IDR_Product_Category__c FROM Case LIMIT 1];
+      Case testCase = [
+        SELECT
+          Id,
+          SuppliedEmail,
+          Origin,
+          Description,
+          IDR_NC_Country__c,
+          IDR_Product_Category__c
+        FROM Case
+        LIMIT 1
+      ];
 
       Test.startTest();
       testCase.SuppliedEmail = System.Label.ANZ_com_Sender_Address;
       testCase.Origin = '8'; // anz.com
       testCase.Description = '[Issue Type :-: Service quality \\|-\\|  Subsequent Issue Type :-: Tone or manner of response \\|-\\| ';
       update testCase;
-      
+
       List<Case> caseList = new List<Case>();
       caseList.add(testCase);
       IDREmailToCase.processEmail(caseList);
-      
+
       //When another user adds a file attachment
       //Create a file
       ContentVersion cv = new ContentVersion();
@@ -143,7 +157,7 @@ public class ContentDocumentLinkTriggerHandlerTest {
       System.assertEquals(0, cdList.size());
     }
   }
-  
+
   @isTest
   static void testCreateCaseCloseNotification() {
     Case testCase = [
