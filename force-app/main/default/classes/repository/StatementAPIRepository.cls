@@ -173,7 +173,6 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
     st.toDate = additionaldetails.get('toDate');
     st.statementType = 'Home Loan';
     st.timeStamp = System.now();
-    
     st.sUID = userinfo.getUserId();
     return st;
   }
