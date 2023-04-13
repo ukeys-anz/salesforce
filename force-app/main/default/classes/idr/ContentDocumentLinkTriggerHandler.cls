@@ -93,14 +93,16 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           record.ContentDocument.LatestPublishedVersion.FileType;
 
         Logger.error(errorDescription, record.Id);
-        if ( oCase != null ) {
+        if (oCase != null) {
           // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
           mpUpdateCases.put(oCase.Id, oCase);
         }
       }
       Logger.saveLog();
-      if ( mpUpdateCases.size() > 0 &&
-          Case.SObjectType.getDescribe().isUpdateable()) {
+      if (
+        mpUpdateCases.size() > 0 &&
+        Case.SObjectType.getDescribe().isUpdateable()
+      ) {
         update mpUpdateCases.values();
       }
     }
@@ -172,6 +174,10 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           );
         }
         // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
+        oCase.IDR_Document_Count__c =
+          (oCase.IDR_Document_Count__c == null
+            ? 0
+            : oCase.IDR_Document_Count__c) + 1;
         mpUpdateCases.put(oCase.Id, oCase);
       }
     }
@@ -193,8 +199,9 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       );
       Logger.saveLog();
     }
-    if ( mpUpdateCases.size() > 0 &&
-        Case.SObjectType.getDescribe().isUpdateable()) {
+    if (
+      mpUpdateCases.size() > 0 && Case.SObjectType.getDescribe().isUpdateable()
+    ) {
       update mpUpdateCases.values();
     }
   }
@@ -227,7 +234,8 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         OwnerId,
         Status,
         IDR_NC_First_Name__c,
-        IDR_NC_Last_Name__c
+        IDR_NC_Last_Name__c,
+        IDR_Document_Count__c
       FROM Case
       WHERE Id IN :caseIds AND Owner.IsActive = TRUE
     ]) {

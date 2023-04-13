@@ -26,6 +26,9 @@ import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import { getRecord } from "lightning/uiRecordApi";
 import OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
 
+import Id from "@salesforce/user/Id";
+import UserNameField from "@salesforce/schema/User.Name";
+
 export default class cardFraudLock extends LightningElement {
   @api recordId;
   @api showModal;
@@ -42,6 +45,7 @@ export default class cardFraudLock extends LightningElement {
   chatterMessage = "";
   reason = "";
   confirmButtonTriggered = false;
+  currentUserName;
 
   connectedCallback() {
     this.displayFraudOptions = showFraudLockOptions(this.buttonClicked);
@@ -53,7 +57,8 @@ export default class cardFraudLock extends LightningElement {
     } else {
       this.chatterMessage = primaryButtonChatterMessage(
         this.buttonClicked,
-        this.last4Digits
+        this.last4Digits,
+        this.currentUserName
       );
       this.newCardStatus = primaryButtonToCardStatus(this.buttonClicked);
     }
@@ -70,6 +75,15 @@ export default class cardFraudLock extends LightningElement {
     }
   }
 
+  //Get the current logged-in user details
+  @wire(getRecord, { recordId: Id, fields: [UserNameField] })
+  currentUserInfo({ data, error }) {
+    if (data) {
+      this.currentUserName = data.fields.Name.value;
+    } else if (error) {
+      this.error = error;
+    }
+  }
   closeAction() {
     publish(this.messageContext, CloseModal, {
       name: "showFraudLock",
@@ -102,6 +116,7 @@ export default class cardFraudLock extends LightningElement {
     let fraudLockObject = {
       chatterInformation: {
         recordId: this.recordId,
+        currentUserName: this.currentUserName,
         chatterMessage: this.chatterMessage
       },
       fraudLockInformation: {

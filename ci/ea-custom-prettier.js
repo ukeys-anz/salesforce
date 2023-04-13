@@ -1,7 +1,7 @@
 const fs = require("fs");
 const prettier = require("prettier");
 const { exec, execSync } = require("child_process");
-var endDir = "./ea/dataflows/";
+var endDir = "./data/ea/dataflows/";
 
 function baseName(str) {
   var base = new String(str).substring(str.lastIndexOf("/") + 1);
