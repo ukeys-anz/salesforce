@@ -24,11 +24,11 @@ public with sharing class IDREmailServiceHandler {
     if (senderEmail != null && technicalEmailAddress.contains(senderEmail)) {
       Logger.error(
         'Received email from : ' +
-          fromEmail +
-          ' Subject of email : ' +
-          subject +
-          ' Email sent to : ' +
-          senderEmail
+        fromEmail +
+        ' Subject of email : ' +
+        subject +
+        ' Email sent to : ' +
+        senderEmail
       );
       Logger.saveLog();
       isSpam = true;

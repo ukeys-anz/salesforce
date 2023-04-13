@@ -1033,8 +1033,8 @@ private class CaseTriggerHandlerTest {
     ];
     System.assertEquals(
       sampleCase1.RecordType.Name +
-        ' - ' +
-        caseTypeLabelByValue.get(sampleCase1.Type),
+      ' - ' +
+      caseTypeLabelByValue.get(sampleCase1.Type),
       sampleCase1.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
     );
@@ -1050,7 +1050,9 @@ private class CaseTriggerHandlerTest {
       LIMIT 1
     ];
     System.assertEquals(
-      sampleCase2.RecordType.Name + ' - ' + sampleCase2.Type,
+      sampleCase2.RecordType.Name +
+      ' - ' +
+      sampleCase2.Type,
       sampleCase2.Subject,
       'Failed to autopopulate Subject on Fraud cases as expected, while updating'
     );
@@ -1182,8 +1184,8 @@ private class CaseTriggerHandlerTest {
     ];
     System.assertEquals(
       sampleCase1.RecordType.Name +
-        ' - ' +
-        caseTypeLabelByValue.get(sampleCase1.Type),
+      ' - ' +
+      caseTypeLabelByValue.get(sampleCase1.Type),
       sampleCase1.Subject,
       'Failed to autopopulate Subject with Case Type label as expected, while inserting'
     );
@@ -1200,8 +1202,8 @@ private class CaseTriggerHandlerTest {
     ];
     System.assertEquals(
       sampleCase2.RecordType.Name +
-        ' - ' +
-        caseTypeLabelByValue.get(sampleCase2.Type),
+      ' - ' +
+      caseTypeLabelByValue.get(sampleCase2.Type),
       sampleCase2.Subject,
       'Failed to autopopulate Subject with Case Type label as expected, while updating'
     );
@@ -1528,7 +1530,8 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
     System.assertEquals(
       parentCase.Id,
-      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1].ParentId,
+      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1]
+      .ParentId,
       'Issue while updating parentId'
     );
   }
@@ -2142,8 +2145,8 @@ private class CaseTriggerHandlerTest {
       Integer.valueOf(Label.Test_Bulk_Size),
       newCaseRecords.size(),
       'Should have ' +
-        Label.Test_Bulk_Size +
-        ' new ANZx Non Customer Complaint records.'
+      Label.Test_Bulk_Size +
+      ' new ANZx Non Customer Complaint records.'
     );
 
     Test.stopTest();
@@ -2187,7 +2190,9 @@ private class CaseTriggerHandlerTest {
     System.assertEquals(
       Integer.valueOf(Label.Test_Bulk_Size),
       newCaseRecords.size(),
-      'Should have ' + Label.Test_Bulk_Size + ' new ANZx Complaint records.'
+      'Should have ' +
+      Label.Test_Bulk_Size +
+      ' new ANZx Complaint records.'
     );
 
     Test.stopTest();
@@ -2495,10 +2500,10 @@ private class CaseTriggerHandlerTest {
     String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
     theCase = Database.query(
       'Select Id, ' +
-        String.escapeSingleQuotes(fieldsToBeQueried) +
-        ' From Case Where Id = \'' +
-        theCase.Id +
-        '\''
+      String.escapeSingleQuotes(fieldsToBeQueried) +
+      ' From Case Where Id = \'' +
+      theCase.Id +
+      '\''
     );
     verifyCloudEventForATMDisputeCase(theCase);
 
@@ -2568,10 +2573,10 @@ private class CaseTriggerHandlerTest {
     String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
     theCase = Database.query(
       'Select Id, ' +
-        String.escapeSingleQuotes(fieldsToBeQueried) +
-        ' From Case Where Id = \'' +
-        theCase.Id +
-        '\''
+      String.escapeSingleQuotes(fieldsToBeQueried) +
+      ' From Case Where Id = \'' +
+      theCase.Id +
+      '\''
     );
     verifyCloudEventForCardDisputeCase(theCase);
     verifyCaseSubject(theCase);
@@ -2780,13 +2785,17 @@ private class CaseTriggerHandlerTest {
       disputeCasesRecordTypeNames.contains(theCase.RecordType.DeveloperName)
     ) {
       System.assertEquals(
-        theCase.RecordType.Name + ' - ' + theCase.Dispute_Reason__c,
+        theCase.RecordType.Name +
+        ' - ' +
+        theCase.Dispute_Reason__c,
         theCase.Subject,
         'New case subject should be as expected.'
       );
     } else if (fraudCasesRecordTypeNames.contains(theCase.RecordType.Name)) {
       System.assertEquals(
-        theCase.RecordType.Name + ' - ' + theCase.Type,
+        theCase.RecordType.Name +
+        ' - ' +
+        theCase.Type,
         theCase.Subject,
         'New case subject should be as expected.'
       );
@@ -2800,7 +2809,9 @@ private class CaseTriggerHandlerTest {
       } else {
         String subTypes = theCase.Sub_Type__c.replace(';', ' - ');
         System.assertEquals(
-          theCase.Type + ' - ' + subTypes,
+          theCase.Type +
+          ' - ' +
+          subTypes,
           theCase.Subject,
           'New case subject should be as expected.'
         );
@@ -2844,9 +2855,9 @@ private class CaseTriggerHandlerTest {
           true,
           e.getMessage().contains(GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR),
           'Error messages match. Expected: ' +
-            GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR +
-            ' Actual: ' +
-            e.getMessage()
+          GetHelpCaseActions.DUPLICATE_DISPUTE_ERROR +
+          ' Actual: ' +
+          e.getMessage()
         );
       }
     } else {
@@ -2929,7 +2940,9 @@ private class CaseTriggerHandlerTest {
     System.assertEquals(
       Integer.valueOf(Label.Test_Bulk_Size),
       fraudCheckCases.size(),
-      'Should have ' + Label.Test_Bulk_Size + ' new Fraud Check cases.'
+      'Should have ' +
+      Label.Test_Bulk_Size +
+      ' new Fraud Check cases.'
     );
 
     Test.stopTest();
