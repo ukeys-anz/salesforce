@@ -117,6 +117,7 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
     if (FeatureManagement.checkPermission('ANZx_View_Statements')) {
       Map<String, String> responseMap = new Map<String, String>();
       Service s = ServiceProvider.getService(FabricService.class);
+      StatementAccessModel st = createStatementAccessModel(additionalDetails);
       HttpCalloutResponse response = s.getStatementUrl(ocvId, statementId);
       if (response.successful) {
         try {
@@ -134,7 +135,8 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
             'statementType',
             additionaldetails.get('statementType')
           );
-          Logger.info('');
+          Logger.info('User viewed the Statement record')
+            .setPayload(json.serialize(st));
           Logger.saveLog();
         } catch (Exception e) {
           handleErrors(null, e, StatementAPIRepository.class);
@@ -153,6 +155,26 @@ public with sharing class StatementAPIRepository extends RepositoryBase {
     }
 
     return result;
+  }
+
+  /**
+   * @param additionalDetails map which contains the additional params required to log for statement access
+   * @return StatementAccess model class constructed for logging framework
+   * @description fetches statement model values in the form of addition details parameter and returns statement access model object
+   */
+
+  public static StatementAccessModel createStatementAccessModel(
+    Map<String, String> additionalDetails
+  ) {
+    StatementAccessModel st = new StatementAccessModel();
+    st.accountId = additionaldetails.get('accountId');
+    st.financialAccountId = additionaldetails.get('financialAccountId');
+    st.fromDate = additionaldetails.get('fromDate');
+    st.toDate = additionaldetails.get('toDate');
+    st.statementType = 'Home Loan';
+    st.timeStamp = System.now();
+    st.sUID = userinfo.getUserId();
+    return st;
   }
 
   /**

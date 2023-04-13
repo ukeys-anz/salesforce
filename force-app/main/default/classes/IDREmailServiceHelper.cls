@@ -25,7 +25,7 @@ public with sharing class IDREmailServiceHelper {
       Priority = IDRConstants.CASE_PRIORITY_STANDARD,
       Subject = email.subject,
       SuppliedEmail = fromEmail,
-      IDR_Inbox_Email_Address__c = senderEmail,
+      IDR_Inbox_Email_Address__c = senderEmail.Abbreviate(80),
       RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
       Origin = caseOrigin
     );

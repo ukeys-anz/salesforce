@@ -108,7 +108,6 @@ export default class FinancialAccountParent extends LightningElement {
         this.isHomeLoan = true;
         this.showRaiseDispute = false;
         await this.getHomeLoanResponse();
-        await this.getTransactionData();
       } else {
         this.showRaiseDispute = true;
         if (accType === "Savings") {
@@ -123,6 +122,9 @@ export default class FinancialAccountParent extends LightningElement {
         }
         await this.getFinancialData();
         await this.getGoalData();
+      }
+
+      if (!this.transactionData) {
         await this.getTransactionData();
       }
     }
@@ -142,10 +144,6 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   get displayLoan() {
-    console.log(
-      "hasHomeLoanPermission: " + JSON.stringify(hasHomeLoanPermission)
-    );
-
     return hasHomeLoanPermission && this.accRecordType === "Bank Account";
   }
 

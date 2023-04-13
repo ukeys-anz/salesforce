@@ -132,5 +132,8 @@
             <assignedToType>Queue</assignedToType>
             <formula>AND( ISNEW(), RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot; )</formula>
         </ruleEntry>
+        <ruleEntry>
+            <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;)</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

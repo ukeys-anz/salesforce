@@ -69,6 +69,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
     public String resultMessage { get; set; }
     public String statusEventId { get; set; }
     public DateTime statusTimestamp { get; set; }
+    public AccountModel customer { get; set; }
     /**
      * @description get an instance of ExternalCaseStatusWrapper
      */
@@ -87,6 +88,36 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       this.resultMessage = externalCaseStatus.Result_Message__c;
       this.statusEventId = externalCaseStatus.Status_Event_ID__c;
       this.statusTimestamp = externalCaseStatus.Status_Timestamp__c;
+      this.customer = new AccountModel(theCase);
+    }
+  }
+
+  /**
+   * @description Inner Wrapper Class for the customer data of All Dispute Cases
+   */
+  public class AccountModel {
+    public String recordId { get; set; }
+    public String ocvId { get; set; }
+    public String sourceSystem { get; set; }
+    public String sourceSystemId { get; set; }
+    public String email { get; set; }
+    public String mobile { get; set; }
+    public String firstName { get; set; }
+    public String lastName { get; set; }
+
+    /**
+     * @description get an instance of AccountModel
+     * @param theCase the Case record
+     */
+    public AccountModel(Case theCase) {
+      this.recordId = theCase.AccountId;
+      this.ocvId = theCase.Account?.OCV_ID__c;
+      this.sourceSystem = theCase.Account?.Source_System_Name__c;
+      this.sourceSystemId = theCase.Account?.Source_System_ID__c;
+      this.email = theCase.Account?.PersonEmail;
+      this.mobile = theCase.Account?.PersonMobilePhone;
+      this.firstName = theCase.Account?.firstName;
+      this.lastName = theCase.Account?.lastName;
     }
   }
 }
