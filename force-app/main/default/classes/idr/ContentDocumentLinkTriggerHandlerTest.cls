@@ -95,7 +95,6 @@ public class ContentDocumentLinkTriggerHandlerTest {
    */
   @isTest
   static void testContentDocumentDelete() {
-    List<User> usrlist = [SELECT id FROM User WHERE isActive = TRUE];
     List<User> usrlist = [
       SELECT id
       FROM User
