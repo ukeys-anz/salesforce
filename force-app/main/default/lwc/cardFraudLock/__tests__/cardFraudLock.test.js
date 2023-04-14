@@ -342,23 +342,3 @@ describe("c-card-fraud-lock | wire", () => {
     });
   });
 });
-
-describe("c-card-fraud-lock | wire", () => {
-  beforeEach(() => {
-    const element = createElement("c-card-fraud-lock", {
-      is: CardFraudLock
-    });
-    element.buttonClicked = "Cancel Card";
-    element.cardStatus = "Issued";
-    document.body.appendChild(element);
-  });
-
-  it("1. check wire Logged-in UserName", () => {
-    getRecord.emit(mockWireFraudLock);
-
-    return Promise.resolve().then(() => {
-      const userName = mockWireFraudLock.fields.Name.value;
-      expect(userName).toBe("Test Logged-in Username");
-    });
-  });
-});

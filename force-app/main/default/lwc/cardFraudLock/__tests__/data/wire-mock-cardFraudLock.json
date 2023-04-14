@@ -2,9 +2,6 @@
   "fields": {
     "OCV_ID__c": {
       "value": "Test OCV_ID"
-    },
-    "Name": {
-      "value": "Test Logged-in Username"
     }
   }
 }
