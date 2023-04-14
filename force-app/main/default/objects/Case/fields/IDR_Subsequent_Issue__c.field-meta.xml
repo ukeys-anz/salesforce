@@ -541,7 +541,7 @@
                 <default>false</default>
                 <label>Investment Performance</label>
             </value>
-             <value>
+            <value>
                 <fullName>101</fullName>
                 <default>false</default>
                 <label>Fees and Charges</label>
@@ -962,7 +962,7 @@
             <valueName>56</valueName>
         </valueSettings>
         <valueSettings>
-        <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
             <controllingFieldValue>11</controllingFieldValue>
             <valueName>10</valueName>
         </valueSettings>

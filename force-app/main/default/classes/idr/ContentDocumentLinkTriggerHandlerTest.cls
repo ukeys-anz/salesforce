@@ -131,7 +131,11 @@ public class ContentDocumentLinkTriggerHandlerTest {
    */
   @isTest
   static void testContentDocumentDelete() {
-    List<User> usrlist = [SELECT id FROM User WHERE IsActive = TRUE];
+    List<User> usrlist = [
+      SELECT id
+      FROM User
+      WHERE UserName = 'idruser@anztest.com'
+    ];
 
     System.runAs(usrlist[0]) {
       //Given a complaint case record

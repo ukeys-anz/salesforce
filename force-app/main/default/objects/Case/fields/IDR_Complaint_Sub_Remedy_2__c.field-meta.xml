@@ -157,7 +157,7 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
-             <value>
+            <value>
                 <fullName>Reward Points</fullName>
                 <default>false</default>
                 <label>Reward Points</label>
@@ -234,7 +234,7 @@
             <controllingFieldValue>3</controllingFieldValue>
             <valueName>99</valueName>
         </valueSettings>
-         <valueSettings>
+        <valueSettings>
             <controllingFieldValue>2</controllingFieldValue>
             <valueName>Reward Points</valueName>
         </valueSettings>

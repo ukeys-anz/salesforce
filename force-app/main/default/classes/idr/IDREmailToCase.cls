@@ -71,31 +71,38 @@ public with sharing class IDREmailToCase {
           }
         }
       }
-        String countryValue = String.valueof(c.get('IDR_NC_Country__c'));
-        List<String> countryAcceptableValues = getPickListValuesIntoList();
-                                    if(countryValue == 'Please select' || (countryAcceptableValues!= null && countryAcceptableValues.size()>0 && !countryAcceptableValues.contains(countryValue))){
-                                        c.put('IDR_NC_Country__c', 'Australia');
-                                    }
-        String productCategoryValue = String.valueof(c.get('IDR_Product_Category__c'));
-                                    if(productCategoryValue == 'Please select'){
-                                        c.put('IDR_Product_Category__c', 'Not product related');
-                                    }
+      String countryValue = String.valueof(c.get('IDR_NC_Country__c'));
+      List<String> countryAcceptableValues = getPickListValuesIntoList();
+      if (
+        countryValue == 'Please select' ||
+        (countryAcceptableValues != null &&
+        countryAcceptableValues.size() > 0 &&
+        !countryAcceptableValues.contains(countryValue))
+      ) {
+        c.put('IDR_NC_Country__c', 'Australia');
+      }
+      String productCategoryValue = String.valueof(
+        c.get('IDR_Product_Category__c')
+      );
+      if (productCategoryValue == 'Please select') {
+        c.put('IDR_Product_Category__c', 'Not product related');
+      }
     }
   }
-  
+
   /**
    * @description To get the picklist values for the Country field of Case object.
    * @return pickListValuesList
    */
-  public static List<String> getPickListValuesIntoList(){
+  public static List<String> getPickListValuesIntoList() {
     List<String> pickListValuesList = new List<String>();
     Schema.DescribeFieldResult fieldResult = Case.IDR_NC_Country__c.getDescribe();
     List<Schema.PicklistEntry> pickListEntry = fieldResult.getPicklistValues();
-    for(Schema.PicklistEntry pickListVal : pickListEntry){
-      if(pickListVal.isActive()){
+    for (Schema.PicklistEntry pickListVal : pickListEntry) {
+      if (pickListVal.isActive()) {
         pickListValuesList.add(pickListVal.getValue());
       }
     }
-  return pickListValuesList;
+    return pickListValuesList;
   }
 }
