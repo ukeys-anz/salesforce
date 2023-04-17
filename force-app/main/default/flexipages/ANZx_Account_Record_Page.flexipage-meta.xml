@@ -209,6 +209,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectType</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
                 <componentName>AegisPortal</componentName>
                 <identifier>AegisPortal</identifier>
                 <visibilityRule>

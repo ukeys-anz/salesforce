@@ -1200,6 +1200,7 @@
       "IA-2415860": [
         "OccurredAt__c",
         "CXOnboardingStage__c",
+        "CXOnboardingStageReason__c",
         "CXOnboardingAction__c",
         "OnboardingEvent__c",
         "SecurityDetailsSubmittedAt__c",
