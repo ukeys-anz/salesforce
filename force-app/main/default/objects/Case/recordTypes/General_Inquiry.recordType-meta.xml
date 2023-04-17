@@ -416,6 +416,56 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_Analytics_Change_Type__c</picklist>
+        <values>
+            <fullName>Existing Falcon Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Lookup List Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VCAS 3DS Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VRM Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Falcon Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Lookup List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VCAS 3DS Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VRM Rule</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Analytics_Outcome__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Assisted_ID_Event_Type__c</picklist>
         <values>
             <fullName>Customer Overseas</fullName>
@@ -3733,6 +3783,37 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Avoidable_Escalation_Reason__c</picklist>
+        <values>
+            <fullName>Complaint not closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discretion not used</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated incorrectly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplete investigation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not transferred to internal business unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Simple Complaint</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Complainant_Type__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -5720,6 +5801,17 @@
         </values>
         <values>
             <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Real_Form_Req__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -11534,6 +11626,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Create or Manage PayID</fullName>
             <default>false</default>
         </values>
@@ -11571,6 +11667,10 @@
         </values>
         <values>
             <fullName>Direct Debit or Recurring Payments stop request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Document Request</fullName>
             <default>false</default>
         </values>
         <values>
