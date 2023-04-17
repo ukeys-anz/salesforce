@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cases_Related_To_Team__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>To fetch tasks associated with Cases owned by Team</description>
+    <externalId>false</externalId>
+    <formula>OR ( Case__r.Is_Owner_s_Line_Manager_Me__c ,  Case__r.IsOwner__c,  Owner:User.ManagerId = $User.Id ,  Owner:User.Id = $User.Id  )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Cases Related To Team</label>
+    <securityClassification>Internal</securityClassification>
+    <type>Checkbox</type>
+</CustomField>
