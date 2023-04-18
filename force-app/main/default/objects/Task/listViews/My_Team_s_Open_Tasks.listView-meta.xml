@@ -14,7 +14,7 @@
     <filters>
         <field>STATUS</field>
         <operation>notEqual</operation>
-        <value>Completed</value>
+        <value>Completed,Failed</value>
     </filters>
     <filters>
         <field>Cases_Related_To_Team__c</field>
