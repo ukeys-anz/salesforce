@@ -13,14 +13,14 @@
     <columns>Case_Age_in_Days__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>Cases_Related_To_Team__c</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
-    <filters>
         <field>STATUS</field>
         <operation>notEqual</operation>
         <value>Completed</value>
+    </filters>
+    <filters>
+        <field>Cases_Related_To_Team__c</field>
+        <operation>equals</operation>
+        <value>1</value>
     </filters>
     <label>My Team&apos;s Tasks</label>
 </ListView>

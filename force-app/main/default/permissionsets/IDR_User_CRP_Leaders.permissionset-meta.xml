@@ -3,6 +3,16 @@
    <description>Separate permission set for CRP Team Leaders</description>
    <fieldPermissions>
       <editable>true</editable>
+      <field>Activity.Case_Owner__c</field>
+      <readable>true</readable>
+  </fieldPermissions>
+  <fieldPermissions>
+   <editable>true</editable>
+   <field>Activity.Cases_Related_To_Team__c</field>
+   <readable>true</readable>
+</fieldPermissions>
+   <fieldPermissions>
+      <editable>true</editable>
       <field>Case.Has_complaint_met_RG_271_delay_criteria__c</field>
       <readable>true</readable>
    </fieldPermissions>
