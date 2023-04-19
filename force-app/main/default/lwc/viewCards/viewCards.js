@@ -1,4 +1,4 @@
-import { LightningElement, wire, api, track } from "lwc";
+import { LightningElement, wire, api } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { mapCardDetailsHandler } from "./helper/helper-cards";
@@ -14,11 +14,14 @@ import {
   USER_PERMISSION as userPermission
 } from "./helper/import-sf-const";
 
+import Id from "@salesforce/user/Id";
+import UserNameField from "@salesforce/schema/User.Name";
+
 export default class ViewCards extends LightningElement {
   @api recordId;
-  @track viewAllCards = false;
-  @track cardFraudLockStatus = "";
-  @track showViewAllButton = false;
+  viewAllCards = false;
+  cardFraudLockStatus = "";
+  showViewAllButton = false;
 
   ocvId;
   subscription = null;
@@ -26,6 +29,7 @@ export default class ViewCards extends LightningElement {
   last4Digits = "";
   cardDetails = [];
   buttonClicked = "";
+  currentUserName;
   initialCardsDetails = [];
   tokenizedCardNumber = "";
   collapseExpandText = "Expand List";
@@ -51,6 +55,16 @@ export default class ViewCards extends LightningElement {
   wiredProject({ data }) {
     if (data) {
       this.ocvId = data.fields.OCV_ID__c.value;
+    }
+  }
+
+  //Get the current logged-in user details
+  @wire(getRecord, { recordId: Id, fields: [UserNameField] })
+  currentUserInfo({ data, error }) {
+    if (data) {
+      this.currentUserName = data.fields.Name.value;
+    } else if (error) {
+      this.error = error;
     }
   }
 

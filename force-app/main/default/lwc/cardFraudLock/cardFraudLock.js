@@ -33,6 +33,7 @@ export default class cardFraudLock extends LightningElement {
   @api buttonClicked;
   @api cardStatus;
   @api last4Digits;
+  @api currentUserName;
 
   ocvId;
   fraudLockOptions = [];
@@ -53,7 +54,8 @@ export default class cardFraudLock extends LightningElement {
     } else {
       this.chatterMessage = primaryButtonChatterMessage(
         this.buttonClicked,
-        this.last4Digits
+        this.last4Digits,
+        this.currentUserName
       );
       this.newCardStatus = primaryButtonToCardStatus(this.buttonClicked);
     }
@@ -102,6 +104,7 @@ export default class cardFraudLock extends LightningElement {
     let fraudLockObject = {
       chatterInformation: {
         recordId: this.recordId,
+        currentUserName: this.currentUserName,
         chatterMessage: this.chatterMessage
       },
       fraudLockInformation: {

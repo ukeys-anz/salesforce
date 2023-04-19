@@ -67,6 +67,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CXOnboardingStageReason__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>DaonEnrolmentId__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>

@@ -100,7 +100,8 @@ function cancelCardVisible(card, userPermission) {
     STATUS.Temporary_Block
   ];
   return (
-    userPermission.hasFraudPermission && allowedStatus.includes(card.status)
+    userPermission.hasCancelCardPermission &&
+    allowedStatus.includes(card.status)
   );
 }
 

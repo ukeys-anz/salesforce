@@ -43,7 +43,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>OnboardingEvent__c</field>
+                <field>CXOnboardingStageReason__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -58,6 +58,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CXOnboardingAction__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OnboardingEvent__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>

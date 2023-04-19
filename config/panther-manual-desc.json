@@ -333,6 +333,8 @@
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c"],
       "IA-2415860": [
+        "Case_Owner__c",
+        "Cases_Related_To_Team__c",
         "Lead_Quality__c",
         "Lead__c",
         "Outcome_Reason__c",
@@ -502,6 +504,7 @@
         "SI_Assigned_to_Portfolios__c",
         "SI_Business_Contacts__c",
         "IDR_Date_Received__c",
+        "IDR_Document_Count__c",
         "IDR_Parent_Systemic_Issue__c",
         "IDR_Datetime_PSI_Ticked__c",
         "IDR_Express_CMOS_Complaint__c",
@@ -1197,6 +1200,7 @@
       "IA-2415860": [
         "OccurredAt__c",
         "CXOnboardingStage__c",
+        "CXOnboardingStageReason__c",
         "CXOnboardingAction__c",
         "OnboardingEvent__c",
         "SecurityDetailsSubmittedAt__c",

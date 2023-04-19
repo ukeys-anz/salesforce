@@ -163,10 +163,21 @@
                 <componentName>cfaasFilesRelatedList</componentName>
                 <identifier>c_cfaasFilesRelatedList</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.IsPersonAccount}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Card Dispute Agent</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.Name}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>3rd Party Mobile Support Team</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -199,6 +210,10 @@
         <name>rightsidebar</name>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectType</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
                 <componentName>AegisPortal</componentName>
                 <identifier>AegisPortal</identifier>
                 <visibilityRule>
