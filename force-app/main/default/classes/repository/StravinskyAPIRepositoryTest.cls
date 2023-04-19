@@ -231,7 +231,9 @@ public with sharing class StravinskyAPIRepositoryTest {
       LicenceNumberOCRServer__c = '123123',
       LicenceCardNumber__c = '456456',
       LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
+      LicenceCardNumberOCRServer__c = '456456',
+      ExpiryDate__c = Date.today(),
+      StateOfIssue__c = 'AU'
     );
 
     COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
@@ -266,7 +268,9 @@ public with sharing class StravinskyAPIRepositoryTest {
       LicenceNumberOCRServer__c = '123123',
       LicenceCardNumber__c = '456456',
       LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
+      LicenceCardNumberOCRServer__c = '456456',
+      ExpiryDate__c = Date.today(),
+      StateOfIssue__c = 'AU'
     );
 
     COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(

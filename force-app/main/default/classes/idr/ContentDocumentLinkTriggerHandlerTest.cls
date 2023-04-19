@@ -25,34 +25,60 @@ public class ContentDocumentLinkTriggerHandlerTest {
       isActive = true
     );
     insert idrUser;
-    //Create Case
-    Case testCase = new Case();
-
-    testCase.IDR_Account_Card_Policy_Number__c = '000001234';
-    testCase.Description = 'Test decription';
-    testCase.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-    testCase.IDR_Customer_Number__c = '1234567890';
-    testCase.Status = IDRConstants.OPEN_STATUS;
-    testCase.OwnerId = idrUser.Id;
-    insert testCase;
 
     //Create user
+    PermissionSetGroup psgIdrLevel2 = [
+      SELECT Id
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'IDR_Level_2'
+      LIMIT 1
+    ];
+
     User usr = (User) FakerFactory.make(new FakerUserFactory());
     usr.ProfileId = p.Id;
     usr.Business_Function__c = 'CMOS';
     usr.Business_Role__c = 'Customer Resolution';
     insert usr;
+
+    insert new PermissionSetAssignment(
+      AssigneeId = usr.Id,
+      PermissionSetGroupId = psgIdrLevel2.Id
+    );
+
+    //Create Case
+    System.runAs(new User(Id = UserInfo.getUserId())) {
+      Case testCase = new Case();
+
+      testCase.IDR_Account_Card_Policy_Number__c = '000001234';
+      testCase.Description = 'Test decription';
+      testCase.RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
+      testCase.IDR_Customer_Number__c = '1234567890';
+      testCase.Status = IDRConstants.OPEN_STATUS;
+      testCase.OwnerId = idrUser.Id;
+      insert testCase;
+    }
   }
   /**
    * @description Test whether the case flag is updated when another user adds a file in case record
    */
   @isTest
   static void testContentDocumentNotification() {
-    List<User> usrlist = [SELECT id FROM User];
+    Id idrLevel2UserId = [
+      SELECT AssigneeId
+      FROM PermissionSetAssignment
+      WHERE PermissionSetGroup.DeveloperName = 'IDR_Level_2'
+      LIMIT 1
+    ]
+    .AssigneeId;
 
-    System.runAs(usrlist[0]) {
+    Case testCase = [SELECT Id FROM Case LIMIT 1];
+    insert new CaseShare(
+      CaseId = testCase.Id,
+      UserOrGroupId = idrLevel2UserId,
+      CaseAccessLevel = 'Read'
+    );
+    System.runAs(new User(Id = idrLevel2UserId)) {
       //Given a complaint case record
-      Case testCase = [SELECT Id FROM Case LIMIT 1];
 
       Test.startTest();
       //When another user adds a file attachment
@@ -83,10 +109,20 @@ public class ContentDocumentLinkTriggerHandlerTest {
         FROM ContentDocumentLink
         WHERE LinkedEntityId = :testCase.Id
       ];
+      testCase = [
+        SELECT Id, IDR_Document_Count__c
+        FROM Case
+        WHERE Id = :testCase.Id
+      ];
       System.assertEquals(
         testCase.Id,
         cdList[0].LinkedEntityId,
         'The content document link Id should be as expected.'
+      );
+      Assert.areEqual(
+        1,
+        testCase.IDR_Document_Count__c,
+        'DocumentCount should be incremented when a document is linked'
       );
     }
   }
@@ -95,22 +131,32 @@ public class ContentDocumentLinkTriggerHandlerTest {
    */
   @isTest
   static void testContentDocumentDelete() {
-    List<User> usrlist = [SELECT id FROM User];
+    List<User> usrlist = [SELECT id FROM User WHERE IsActive = TRUE];
 
     System.runAs(usrlist[0]) {
       //Given a complaint case record
-      Case testCase = [SELECT Id, SuppliedEmail, Origin, Description, IDR_NC_Country__c, IDR_Product_Category__c FROM Case LIMIT 1];
+      Case testCase = [
+        SELECT
+          Id,
+          SuppliedEmail,
+          Origin,
+          Description,
+          IDR_NC_Country__c,
+          IDR_Product_Category__c
+        FROM Case
+        LIMIT 1
+      ];
 
       Test.startTest();
       testCase.SuppliedEmail = System.Label.ANZ_com_Sender_Address;
       testCase.Origin = '8'; // anz.com
       testCase.Description = '[Issue Type :-: Service quality \\|-\\|  Subsequent Issue Type :-: Tone or manner of response \\|-\\| ';
       update testCase;
-      
+
       List<Case> caseList = new List<Case>();
       caseList.add(testCase);
       IDREmailToCase.processEmail(caseList);
-      
+
       //When another user adds a file attachment
       //Create a file
       ContentVersion cv = new ContentVersion();
@@ -143,7 +189,7 @@ public class ContentDocumentLinkTriggerHandlerTest {
       System.assertEquals(0, cdList.size());
     }
   }
-  
+
   @isTest
   static void testCreateCaseCloseNotification() {
     Case testCase = [

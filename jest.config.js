@@ -1,6 +1,6 @@
 const { jestConfig } = require("@salesforce/sfdx-lwc-jest/config");
 const setupFilesAfterEnv = jestConfig.setupFilesAfterEnv || [];
-setupFilesAfterEnv.push("<rootDir>/misc/jest-sa11y-setup.js");
+setupFilesAfterEnv.push("<rootDir>/ci/jest-sa11y-setup.js");
 
 module.exports = {
   ...jestConfig,
@@ -13,6 +13,8 @@ module.exports = {
     "^lightning/navigation$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/navigation",
     "^lightning/actions$":
-      "<rootDir>/force-app/tests/jest-mocks/lightning/actions"
+      "<rootDir>/force-app/tests/jest-mocks/lightning/actions",
+    "^lightning/uiRelatedListApi$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/uiRelatedListApi"
   }
 };

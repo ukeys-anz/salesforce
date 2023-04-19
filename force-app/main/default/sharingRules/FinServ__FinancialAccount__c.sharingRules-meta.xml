@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Financial_Accounts_RO_All_Internal_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>records not deleted from OCV are shared with all internal users</description>
+        <label>Financial_Accounts_RO_All_Internal_Users</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+        <criteriaItems>
+            <field>System_Record_Status__c</field>
+            <operation>notEqual</operation>
+            <value>OCV Deleted</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>Financial_Accounts_RW_System_Users</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read write access to system integration users</description>
+        <label>Financial_Accounts_RW_System_Users</label>
+        <sharedTo>
+            <group>System_Integration_Users</group>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers></allInternalUsers>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

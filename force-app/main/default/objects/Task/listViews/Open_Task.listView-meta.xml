@@ -12,9 +12,9 @@
     <columns>LAST_UPDATE</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
     <filters>
-        <field>IS_CLOSED</field>
-        <operation>equals</operation>
-        <value>0</value>
+        <field>STATUS</field>
+        <operation>notEqual</operation>
+        <value>Completed</value>
     </filters>
     <filterScope>Mine</filterScope>
     <label>My Open Tasks</label>

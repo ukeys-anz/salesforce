@@ -181,4 +181,22 @@ public with sharing class CheckCaseRecordType {
       record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
       record.ANZx_Customer__c;
   }
+
+  /**
+   * @description Check if a case is ID Ops Assistance Case
+   * @param record The case record to check
+   * @return true if the case is an ID Ops Assistance Case
+   */
+  public static Boolean isIDOpsAssistance(Case record) {
+    return record.RecordTypeId == GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID;
+  }
+
+  /**
+   * @description Check if a case is Fraud Check Case
+   * @param record The case record to check
+   * @return true if the case is an Fraud Check Case
+   */
+  public static Boolean isFraudCheck(Case record) {
+    return record.RecordTypeId == GetHelpConstants.FRAUD_CHECK_RT_ID;
+  }
 }

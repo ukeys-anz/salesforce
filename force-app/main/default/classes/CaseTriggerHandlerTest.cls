@@ -6,6 +6,17 @@ private class CaseTriggerHandlerTest {
     Case.Type
   );
 
+  private static final List<String> COB_CLOSED_STATUSES = new List<String>{
+    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
+    GetHelpConstants.COB_FAILED_OK_STATUS
+  };
+
+  private static final Integer COB_CASES_COUNT = COB_CLOSED_STATUSES.size();
+
+  private static final String FAILED_RESON = 'Selfie fail - selfie image is not clear enough to match';
+
+  private static final String EMPTY_FAILED_REASON = '';
+
   @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
@@ -2944,5 +2955,112 @@ private class CaseTriggerHandlerTest {
     );
 
     Test.stopTest();
+  }
+
+  // Test update Id Ops case by a corresponding Fraud Check Case
+  @isTest
+  public static void testUpdateIdOpsCaseStatus() {
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
+
+    //create ID Ops Cases
+    createIdOpsCases(usr);
+
+    //create Fraud Check Cases as child cases of the Id Ops Cases and set statuses
+    List<Case> fraudCheckCases = createFraudCheckCases();
+
+    List<Case> fraudCheckWithStatuses = setFraudCheckCasesStatuses(
+      fraudCheckCases
+    );
+
+    Test.startTest();
+
+    System.runAs(usr) {
+      update fraudCheckWithStatuses;
+    }
+    Test.stopTest();
+
+    assert();
+  }
+
+  private static void createIDOpsCases(User usr) {
+    List<Case> idOpsCases = new List<Case>();
+
+    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
+      idOpsCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+          Status = GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS,
+          OwnerId = usr.Id
+        )
+      );
+    }
+    insert idOpsCases;
+  }
+
+  private static List<Case> createFraudCheckCases() {
+    // Retrieve created ID Ops Cases with Ids and OwnerIds
+    List<Case> idOpsCases = getIdOpsCase();
+
+    List<Case> fraudCheckCases = new List<Case>();
+    for (Case idOpsCase : idOpsCases) {
+      fraudCheckCases.add(
+        new Case(
+          RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
+          OwnerId = idOpsCase.OwnerId,
+          ParentId = idOpsCase.Id
+        )
+      );
+    }
+
+    insert fraudCheckCases;
+
+    return fraudCheckCases;
+  }
+
+  private static List<Case> setFraudCheckCasesStatuses(
+    List<Case> fraudCheckCases
+  ) {
+    // transition Fraud Check Cases to the Closed statuses
+    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
+      fraudCheckCases[i].Status = COB_CLOSED_STATUSES[i];
+      fraudCheckCases[i]
+        .OnboardingVerificationFailedReason__c = COB_CLOSED_STATUSES[i] ==
+        GetHelpConstants.COB_FAILED_OK_STATUS
+        ? FAILED_RESON
+        : EMPTY_FAILED_REASON;
+    }
+
+    return fraudCheckCases;
+  }
+
+  private static void assert() {
+    List<Case> updatedIdOpsCases = getIdOpsCase();
+
+    //verify Id Ops cases are updated with the correct corresponding status
+    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
+      Assert.areEqual(
+        COB_CLOSED_STATUSES[i],
+        updatedIdOpsCases[i].Status,
+        'Status should be ' + COB_CLOSED_STATUSES[i]
+      );
+
+      if (
+        updatedIdOpsCases[i].Status == GetHelpConstants.COB_FAILED_OK_STATUS
+      ) {
+        Assert.areEqual(
+          FAILED_RESON,
+          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
+          'Failed reasons should be ' + FAILED_RESON
+        );
+      }
+    }
+  }
+
+  private static List<Case> getIdOpsCase() {
+    return [
+      SELECT Id, Status, OwnerId, OnboardingVerificationFailedReason__c
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+    ];
   }
 }

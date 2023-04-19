@@ -2,13 +2,27 @@
 name: Checkmarx Scan
 
 on:
+  pull_request:
+    branches: [master]
   push:
-    branches: [develop, master]
+    branches: [develop]
 
 jobs:
   checkmarx-scan:
     runs-on: [self-hosted, salesforce-prod]
     steps:
+      - name: Set GITHUB_BRANCH
+        env:
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
+        run: |
+          GITHUB_BRANCH=$GITHUB_HEAD_REF
+
+          if [[ $GITHUB_BRANCH == '' ]];then
+            GITHUB_BRANCH=$(echo ${GITHUB_REF#refs/heads/})
+          fi
+
+          echo GITHUB_BRANCH=$GITHUB_BRANCH >> $GITHUB_ENV
+
       - uses: actions/checkout@v2
       - env:
           # Do not send Google metadata server requests to the Squid proxy
@@ -42,5 +56,5 @@ jobs:
           incremental: false
           break_build: true
           bug_tracker: GitHub
-          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,rulesets\/.*,createCmosEntitlment.js
-          params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ github.head_ref }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true
+          zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,createCmosEntitlment.js
+          params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ env.GITHUB_BRANCH }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true

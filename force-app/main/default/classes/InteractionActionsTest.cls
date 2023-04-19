@@ -1136,6 +1136,7 @@ public with sharing class InteractionActionsTest {
       Name = faker.randomString(10),
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
+      InteractionType = InteractionConstants.CALL,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       OwnerId = UserInfo.getUserId(),
       Status__c = InteractionConstants.SCHEDULED_STATUS,
@@ -1150,6 +1151,7 @@ public with sharing class InteractionActionsTest {
       Name = faker.randomString(10),
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
+      InteractionType = InteractionConstants.CALL,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       StartTime = appointmentDate,
       EndTime = endDate
@@ -1196,6 +1198,7 @@ public with sharing class InteractionActionsTest {
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.CALL,
       OwnerId = UserInfo.getUserId(),
       Status__c = InteractionConstants.SCHEDULED_STATUS,
       StartTime = appointmentDate,
@@ -1224,6 +1227,7 @@ public with sharing class InteractionActionsTest {
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount2.Id,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.CALL,
       StartTime = appointmentDate,
       EndTime = endDate
     );
@@ -1293,6 +1297,7 @@ public with sharing class InteractionActionsTest {
     Interaction newInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
       AccountId = testAccount1.Id,
+      InteractionType = InteractionConstants.CALL,
       Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
       Status__c = InteractionConstants.UNASSIGNED_STATUS,
       StartTime = appointmentDate

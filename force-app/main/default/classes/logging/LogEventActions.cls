@@ -46,6 +46,9 @@ public with sharing class LogEventActions {
           traceIdsWithoutLog,
           traceIdAndlogDetailsListMap
         );
+        for (String key : traceIdAndLogMap.keySet()) {
+          traceIdAndLogIdMap.put(key, traceIdAndLogMap.get(key).Id);
+        }
         createLogEntryAndSecureLogEntryRecords(
           traceIdAndlogDetailsListMap,
           traceIdAndLogIdMap

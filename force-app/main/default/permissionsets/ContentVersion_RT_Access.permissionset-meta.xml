@@ -4,6 +4,10 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>ContentVersion RT Access</label>
     <recordTypeVisibilities>
+        <recordType>ContentVersion.CFaaS_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>ContentVersion.File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

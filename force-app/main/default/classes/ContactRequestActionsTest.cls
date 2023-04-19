@@ -54,6 +54,7 @@ public with sharing class ContactRequestActionsTest {
     Faker faker = new Faker('AU');
     Interaction testInteraction = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
+      InteractionType = InteractionConstants.CALL,
       Name = faker.randomString(15)
     );
     test.startTest();
@@ -510,6 +511,7 @@ public with sharing class ContactRequestActionsTest {
     testInteraction.StartTime = appointmentDateTime;
     testInteraction.EndTime = endDateTime;
     testInteraction.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
+    testInteraction.InteractionType = InteractionConstants.CALL;
     insert testInteraction;
   }
 

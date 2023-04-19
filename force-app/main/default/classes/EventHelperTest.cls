@@ -159,6 +159,7 @@ public with sharing class EventHelperTest {
     testInteraction.Name =
       InteractionConstants.OTHER_PURPOSE_NAME + ' Appointment';
     testInteraction.Lead__c = testLead.Id;
+    testInteraction.InteractionType = InteractionConstants.CALL;
     testInteraction.StartTime = appointmentDateTime;
     testInteraction.EndTime = endDateTime;
     testInteraction.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;

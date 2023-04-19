@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Privacy_Non_Personal_Information;Integrity_Trusted;Source_CFaaS</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Person/Commercial account, this file is linked to</description>
+    <externalId>false</externalId>
+    <label>Customer</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>CFaaS Files</relationshipLabel>
+    <relationshipName>CFaaS_Files</relationshipName>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

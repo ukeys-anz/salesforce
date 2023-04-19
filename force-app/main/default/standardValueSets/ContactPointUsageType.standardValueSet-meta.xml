@@ -81,4 +81,34 @@
         <default>false</default>
         <label>Fax</label>
     </standardValue>
+    <standardValue>
+        <fullName>Secondary Home Telephone</fullName>
+        <default>false</default>
+        <label>Secondary Home Telephone</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Secondary Business Telephone</fullName>
+        <default>false</default>
+        <label>Secondary Business Telephone</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Business Email</fullName>
+        <default>false</default>
+        <label>Business Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Commission Report Email</fullName>
+        <default>false</default>
+        <label>Commission Report Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Accreditation Email</fullName>
+        <default>false</default>
+        <label>Accreditation Email</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Marketing Email</fullName>
+        <default>false</default>
+        <label>Marketing Email</label>
+    </standardValue>
 </StandardValueSet>

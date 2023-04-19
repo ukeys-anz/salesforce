@@ -5,9 +5,9 @@
       "picklistAtrributesValueType": "CaseStatus",
       "closed": false
     },
-    "label": "Daon Failed",
+    "label": "Daon Fallout",
     "validFor": [],
-    "value": "Daon Failed"
+    "value": "Daon Fallout"
   },
   "url": "/services/data/v57.0/ui-api/object-info/Case/picklist-values/0122O000002Ue7hQAC/Status",
   "values": [
@@ -16,45 +16,45 @@
         "picklistAtrributesValueType": "CaseStatus",
         "closed": false
       },
-      "label": "Daon Failed",
+      "label": "Daon Fallout",
       "validFor": [],
-      "value": "Daon Failed"
+      "value": "Daon Fallout"
     },
     {
       "attributes": {
         "picklistAtrributesValueType": "CaseStatus",
         "closed": false
       },
-      "label": "ID Ops: Daon Approved",
+      "label": "ID Ops: Daon OK",
       "validFor": [],
-      "value": "ID Ops: Daon Approved"
+      "value": "ID Ops: Daon OK"
     },
     {
       "attributes": {
         "picklistAtrributesValueType": "CaseStatus",
         "closed": false
       },
-      "label": "Equifax Failed",
+      "label": "Equifax Fallout",
       "validFor": [],
-      "value": "Equifax Failed"
+      "value": "Equifax Fallout"
     },
     {
       "attributes": {
         "picklistAtrributesValueType": "CaseStatus",
         "closed": true
       },
-      "label": "Equifax Passed",
+      "label": "ID Check OK",
       "validFor": [],
-      "value": "Equifax Passed"
+      "value": "ID Check OK"
     },
     {
       "attributes": {
         "picklistAtrributesValueType": "CaseStatus",
         "closed": true
       },
-      "label": "Failed (OK)",
+      "label": "Failed",
       "validFor": [],
-      "value": "Failed (OK)"
+      "value": "Failed"
     },
     {
       "attributes": {

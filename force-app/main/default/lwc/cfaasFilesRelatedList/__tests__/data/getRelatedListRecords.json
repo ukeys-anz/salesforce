@@ -1,0 +1,1062 @@
+{
+  "records": [
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "pzbHoOqgHE"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "XugcKCb lSlWVy"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".docx"
+        },
+        "Date_Created__c": {
+          "displayValue": "3/8/1935, 9:19 am",
+          "value": "1935-08-02T23:19:26.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQCQQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T03:08:00.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T03:08:00.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "awYPDJsJFw"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "hCdzVfx nkrJYm"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".docx"
+        },
+        "Date_Created__c": {
+          "displayValue": "17/6/2018, 3:10 am",
+          "value": "2018-06-16T17:10:40.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQCRQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T05:55:22.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T05:55:22.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "RPyXnGWdUv"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "yrVmzyL UAuqOr"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".jpeg"
+        },
+        "Date_Created__c": {
+          "displayValue": "9/7/1961, 2:02 am",
+          "value": "1961-07-08T16:02:10.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQCTQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T04:19:36.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T04:19:36.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "SHFnUgBaUB"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "AtPlweK uPxbHT"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".jpeg"
+        },
+        "Date_Created__c": {
+          "displayValue": "17/9/1939, 6:16 am",
+          "value": "1939-09-16T20:16:02.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQCXQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T04:20:08.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T04:20:08.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "jjdxhMlwEp"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "rdhJozY PsTrWO"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".docx"
+        },
+        "Date_Created__c": {
+          "displayValue": "11/8/1946, 7:03 pm",
+          "value": "1946-08-11T09:03:39.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQCbQAO",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T04:20:20.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T04:20:20.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "kYrPpiUbIO"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "ooySXxn yYfMOV"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".jpeg"
+        },
+        "Date_Created__c": {
+          "displayValue": "17/6/1937, 4:32 pm",
+          "value": "1937-06-17T06:32:56.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQCdQAO",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T04:20:50.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T04:20:50.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "GCKwWVQrzP"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "BbQpeCq OKLRek"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".jpeg"
+        },
+        "Date_Created__c": {
+          "displayValue": "6/11/1954, 8:27 am",
+          "value": "1954-11-05T22:27:28.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQDHQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T05:56:26.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T05:56:26.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "xqsfbOobLN"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "QcPkliA wcaKgB"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".jpeg"
+        },
+        "Date_Created__c": {
+          "displayValue": "23/7/1985, 5:38 pm",
+          "value": "1985-07-23T07:38:29.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": "dbhQdthoIA",
+          "value": {
+            "apiName": "ResidentialLoanApplication",
+            "childRelationships": {},
+            "fields": {
+              "Account": {
+                "displayValue": "Therese Go",
+                "value": {
+                  "apiName": "Account",
+                  "childRelationships": {},
+                  "fields": {
+                    "OCV_ID__c": {
+                      "displayValue": null,
+                      "value": "1000120000"
+                    }
+                  },
+                  "id": "0012N00000R1x3tQAB",
+                  "lastModifiedById": "0052N000005i1HnQAI",
+                  "lastModifiedDate": "2023-01-18T05:32:08.000Z",
+                  "recordTypeId": "0122N000004bIgyQAE",
+                  "recordTypeInfo": {
+                    "available": true,
+                    "defaultRecordTypeMapping": false,
+                    "master": false,
+                    "name": "Individual",
+                    "recordTypeId": "0122N000004bIgyQAE"
+                  },
+                  "systemModstamp": "2023-01-18T05:32:08.000Z"
+                }
+              }
+            },
+            "id": "0cd2N00000000CbQAI",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-19T04:24:09.000Z",
+            "recordTypeId": "012000000000000AAA",
+            "recordTypeInfo": null,
+            "systemModstamp": "2023-01-19T04:24:09.000Z"
+          }
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQDIQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-19T04:24:10.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-19T04:24:10.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "OgCUxbqTNI"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "TSrOqvd Oykwpe"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".docx"
+        },
+        "Date_Created__c": {
+          "displayValue": "26/11/1971, 10:17 pm",
+          "value": "1971-11-26T11:17:31.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQDJQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T05:56:52.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T05:56:52.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "IaOOAhzYIf"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "rpaCaMF HGSVli"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".jpeg"
+        },
+        "Date_Created__c": {
+          "displayValue": "27/9/1954, 7:20 am",
+          "value": "1954-09-26T21:20:41.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": "uEjZLnDVEV",
+          "value": {
+            "apiName": "ResidentialLoanApplication",
+            "childRelationships": {},
+            "fields": {
+              "Account": {
+                "displayValue": "Therese Go",
+                "value": {
+                  "apiName": "Account",
+                  "childRelationships": {},
+                  "fields": {
+                    "OCV_ID__c": {
+                      "displayValue": null,
+                      "value": "1000120000"
+                    }
+                  },
+                  "id": "0012N00000R1x3tQAB",
+                  "lastModifiedById": "0052N000005i1HnQAI",
+                  "lastModifiedDate": "2023-01-18T05:32:08.000Z",
+                  "recordTypeId": "0122N000004bIgyQAE",
+                  "recordTypeInfo": {
+                    "available": true,
+                    "defaultRecordTypeMapping": false,
+                    "master": false,
+                    "name": "Individual",
+                    "recordTypeId": "0122N000004bIgyQAE"
+                  },
+                  "systemModstamp": "2023-01-18T05:32:08.000Z"
+                }
+              }
+            },
+            "id": "0cd2N00000000CaQAI",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-19T04:24:09.000Z",
+            "recordTypeId": "012000000000000AAA",
+            "recordTypeInfo": null,
+            "systemModstamp": "2023-01-19T04:24:09.000Z"
+          }
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQDKQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-19T04:24:10.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-19T04:24:10.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "DvUWygIsiA"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "tiJaueN cBFPeZ"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".jpeg"
+        },
+        "Date_Created__c": {
+          "displayValue": "19/7/1991, 2:42 am",
+          "value": "1991-07-18T16:42:57.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": null,
+          "value": null
+        },
+        "Financial_Account__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "FinServ__FinancialAccount__c",
+            "childRelationships": {},
+            "fields": {
+              "FinServ__PrimaryOwner__r": {
+                "displayValue": "Beau Metz",
+                "value": {
+                  "apiName": "Account",
+                  "childRelationships": {},
+                  "fields": {
+                    "OCV_ID__c": {
+                      "displayValue": null,
+                      "value": "ReooziMgjq2"
+                    }
+                  },
+                  "id": "0012N00000R1wo5QAB",
+                  "lastModifiedById": "0052N000005i1HnQAI",
+                  "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+                  "recordTypeId": "0122N000004bIgyQAE",
+                  "recordTypeInfo": {
+                    "available": true,
+                    "defaultRecordTypeMapping": false,
+                    "master": false,
+                    "name": "Individual",
+                    "recordTypeId": "0122N000004bIgyQAE"
+                  },
+                  "systemModstamp": "2023-01-18T05:07:32.000Z"
+                }
+              }
+            },
+            "id": "a0s2N000000b6NKQAY",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:22.000Z",
+            "recordTypeId": "0122N000004bIhHQAU",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": true,
+              "master": false,
+              "name": "Savings Account",
+              "recordTypeId": "0122N000004bIhHQAU"
+            },
+            "systemModstamp": "2023-01-18T05:07:22.000Z"
+          }
+        }
+      },
+      "id": "a1r2N000001OQDRQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-23T03:13:08.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-23T03:13:08.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "tOnDosnvCM"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "KdaWIfy UmuTvS"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": ".docx"
+        },
+        "Date_Created__c": {
+          "displayValue": "18/6/2004, 6:57 am",
+          "value": "2004-06-17T20:57:17.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": "PROTECTED"
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": "uEjZLnDVEV",
+          "value": {
+            "apiName": "ResidentialLoanApplication",
+            "childRelationships": {},
+            "fields": {
+              "Account": {
+                "displayValue": "Therese Go",
+                "value": {
+                  "apiName": "Account",
+                  "childRelationships": {},
+                  "fields": {
+                    "OCV_ID__c": {
+                      "displayValue": null,
+                      "value": "1000120000"
+                    }
+                  },
+                  "id": "0012N00000R1x3tQAB",
+                  "lastModifiedById": "0052N000005i1HnQAI",
+                  "lastModifiedDate": "2023-01-18T05:32:08.000Z",
+                  "recordTypeId": "0122N000004bIgyQAE",
+                  "recordTypeInfo": {
+                    "available": true,
+                    "defaultRecordTypeMapping": false,
+                    "master": false,
+                    "name": "Individual",
+                    "recordTypeId": "0122N000004bIgyQAE"
+                  },
+                  "systemModstamp": "2023-01-18T05:32:08.000Z"
+                }
+              }
+            },
+            "id": "0cd2N00000000CaQAI",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-19T04:24:09.000Z",
+            "recordTypeId": "012000000000000AAA",
+            "recordTypeInfo": null,
+            "systemModstamp": "2023-01-19T04:24:09.000Z"
+          }
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQDSQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-19T04:24:10.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-19T04:24:10.000Z"
+    },
+    {
+      "apiName": "CFaaS_File__c",
+      "childRelationships": {},
+      "fields": {
+        "Document_Id__c": {
+          "displayValue": null,
+          "value": "test2"
+        },
+        "File_Name__c": {
+          "displayValue": null,
+          "value": "test2"
+        },
+        "File_Extension__c": {
+          "displayValue": null,
+          "value": "pdf"
+        },
+        "Date_Created__c": {
+          "displayValue": "20/1/2023, 12:00 pm",
+          "value": "2023-01-20T01:00:00.000Z"
+        },
+        "Security_Classification__c": {
+          "displayValue": null,
+          "value": null
+        },
+        "Customer__r": {
+          "displayValue": "Beau Metz",
+          "value": {
+            "apiName": "Account",
+            "childRelationships": {},
+            "fields": {
+              "OCV_ID__c": {
+                "displayValue": null,
+                "value": "ReooziMgjq2"
+              }
+            },
+            "id": "0012N00000R1wo5QAB",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:07:32.000Z",
+            "recordTypeId": "0122N000004bIgyQAE",
+            "recordTypeInfo": {
+              "available": true,
+              "defaultRecordTypeMapping": false,
+              "master": false,
+              "name": "Individual",
+              "recordTypeId": "0122N000004bIgyQAE"
+            },
+            "systemModstamp": "2023-01-18T05:07:32.000Z"
+          }
+        },
+        "Residential_Loan_Id__r": {
+          "displayValue": "Loan Application1",
+          "value": {
+            "apiName": "ResidentialLoanApplication",
+            "childRelationships": {},
+            "fields": {
+              "Account": {
+                "displayValue": "Therese Go",
+                "value": {
+                  "apiName": "Account",
+                  "childRelationships": {},
+                  "fields": {
+                    "OCV_ID__c": {
+                      "displayValue": null,
+                      "value": "1000120000"
+                    }
+                  },
+                  "id": "0012N00000R1x3tQAB",
+                  "lastModifiedById": "0052N000005i1HnQAI",
+                  "lastModifiedDate": "2023-01-18T05:32:08.000Z",
+                  "recordTypeId": "0122N000004bIgyQAE",
+                  "recordTypeInfo": {
+                    "available": true,
+                    "defaultRecordTypeMapping": false,
+                    "master": false,
+                    "name": "Individual",
+                    "recordTypeId": "0122N000004bIgyQAE"
+                  },
+                  "systemModstamp": "2023-01-18T05:32:08.000Z"
+                }
+              }
+            },
+            "id": "0cd2N00000000CJQAY",
+            "lastModifiedById": "0052N000005i1HnQAI",
+            "lastModifiedDate": "2023-01-18T05:32:17.000Z",
+            "recordTypeId": "012000000000000AAA",
+            "recordTypeInfo": null,
+            "systemModstamp": "2023-01-18T05:32:17.000Z"
+          }
+        },
+        "Financial_Account__r": {
+          "displayValue": null,
+          "value": null
+        }
+      },
+      "id": "a1r2N000001OQYCQA4",
+      "lastModifiedById": "0052N000005i1HnQAI",
+      "lastModifiedDate": "2023-01-20T02:42:33.000Z",
+      "recordTypeId": "012000000000000AAA",
+      "recordTypeInfo": null,
+      "systemModstamp": "2023-01-20T02:42:33.000Z"
+    }
+  ],
+  "currentPageToken": "Y2xpZW50OjA=",
+  "nextPageToken": null,
+  "previousPageToken": null,
+  "pageSize": 2000,
+  "count": 53,
+  "fields": [
+    "CFaaS_File__c.Document_Id__c",
+    "CFaaS_File__c.File_Name__c",
+    "CFaaS_File__c.File_Description__c",
+    "CFaaS_File__c.File_Extension__c",
+    "CFaaS_File__c.Date_Created__c",
+    "CFaaS_File__c.Security_Classification__c"
+  ],
+  "listInfoETag": null,
+  "listReference": {
+    "id": null,
+    "inContextOfRecordId": "0012O00000MrnzUQAR",
+    "listViewApiName": null,
+    "objectApiName": null,
+    "parentObjectApiName": "Account",
+    "recordTypeId": "0122O000002J5aJQAS",
+    "relatedListId": "CFaaS_Files__r",
+    "type": "relatedList"
+  },
+  "optionalFields": [],
+  "sortBy": [],
+  "where": null
+}

@@ -6,6 +6,9 @@
     "Twilio_Channel_SID__c": {
       "displayValue": null,
       "value": "1234567789"
+    },
+    "AccountId": {
+      "value": "1234567789"
     }
   },
   "id": "0031700000pHcf8AAC",

@@ -1,0 +1,84 @@
+{
+  "accounts": [
+    {
+      "name": "accounts/390877181",
+      "account_number": "390877181",
+      "bsb": "014111",
+      "account_name": "Myron Rempel Raheem",
+      "state": "ACCOUNT_STATE_OPEN",
+      "product_details": {
+        "marketing_code": "HLVAR01",
+        "name": "ANZ Plus Standard Variable Rate Home Loan",
+        "transact_options": ["DIRECT_CREDIT", "TRANSFER_TO"],
+        "product_code": "CAP-CIS:ILS",
+        "sub_product_code": "CAP-CIS:ILSXL1"
+      },
+      "balances": {
+        "balance": {
+          "currency_code": "AUD",
+          "units": "3311",
+          "nanos": 990000000
+        },
+        "current_balance": {
+          "currency_code": "AUD",
+          "units": "-536241"
+        },
+        "ledger_balance": {
+          "currency_code": "AUD",
+          "units": "-536245"
+        },
+        "balance_update_time": "2022-12-22T01:53:01.724575Z",
+        "balance_up_to_date": true,
+        "available_limit": {
+          "currency_code": "AUD",
+          "units": "3311",
+          "nanos": 990000000
+        }
+      },
+      "open_date": {
+        "year": 2016,
+        "month": 12,
+        "day": 2
+      },
+      "loan_details": {
+        "loan_amount": {
+          "currency_code": "AUD",
+          "units": "560000"
+        },
+        "loan_start_date": {
+          "year": 2016,
+          "month": 12,
+          "day": 2
+        },
+        "loan_end_date": {
+          "year": 2036,
+          "month": 11,
+          "day": 7
+        },
+        "loan_term": 239,
+        "interests": {
+          "rate": 6.1,
+          "interest_only_term": 0,
+          "remaining_principle_interest_term": 167
+        },
+        "repayment_type": "REPAYMENT_TYPE_PRINCIPAL_INTEREST",
+        "repayment_amount": {
+          "currency_code": "AUD",
+          "units": "671",
+          "nanos": 810000000
+        },
+        "repayment_frequency": "REPAYMENT_FREQUENCY_WEEKLY",
+        "next_payment_date": {
+          "year": 2016,
+          "month": 12,
+          "day": 23
+        },
+        "redraw_amount": {
+          "value": 123.34
+        },
+        "valid_at": "2022-12-21T18:12:20.042639Z",
+        "details_up_to_date": true
+      }
+    }
+  ]
+}

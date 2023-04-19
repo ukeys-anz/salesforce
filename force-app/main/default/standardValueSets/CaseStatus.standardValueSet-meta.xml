@@ -158,40 +158,40 @@
         <label>Can’t Action</label>
     </standardValue>
     <standardValue>
-        <fullName>Daon Failed</fullName>
+        <fullName>Daon Fallout</fullName>
         <closed>false</closed>
         <default>false</default>
-        <label>Daon Failed</label>
+        <label>Daon Fallout</label>
     </standardValue>
     <standardValue>
-        <fullName>ID Ops: Daon Approved</fullName>
+        <fullName>ID Ops: Daon OK</fullName>
         <closed>false</closed>
         <default>false</default>
-        <label>ID Ops: Daon Approved</label>
+        <label>ID Ops: Daon OK</label>
     </standardValue>
     <standardValue>
-        <fullName>Fraud Check: Daon Approved</fullName>
+        <fullName>Fraud Check: Daon OK</fullName>
         <closed>true</closed>
         <default>false</default>
-        <label>Fraud Check: Daon Approved</label>
+        <label>Fraud Check: Daon OK</label>
     </standardValue>
     <standardValue>
-        <fullName>Equifax Failed</fullName>
+        <fullName>Equifax Fallout</fullName>
         <closed>false</closed>
         <default>false</default>
-        <label>Equifax Failed</label>
+        <label>Equifax Fallout</label>
     </standardValue>
     <standardValue>
-        <fullName>Equifax Passed</fullName>
+        <fullName>ID Check OK</fullName>
         <closed>true</closed>
         <default>false</default>
-        <label>Equifax Passed</label>
+        <label>ID Check OK</label>
     </standardValue>
     <standardValue>
-        <fullName>Failed (OK)</fullName>
+        <fullName>Failed</fullName>
         <closed>true</closed>
         <default>false</default>
-        <label>Failed (OK)</label>
+        <label>Failed</label>
     </standardValue>
     <standardValue>
         <fullName>Potential Fraud</fullName>

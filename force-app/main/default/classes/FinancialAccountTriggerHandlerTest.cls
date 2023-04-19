@@ -33,6 +33,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     finAccount.Account_Key__c = faker.randomString(9);
     finAccount.FinServ__FinancialAccountNumber__c = '123';
     finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
+    finAccount.IsPrimaryOwner__c = true;
 
     insert finAccount;
   }
@@ -144,6 +145,38 @@ public with sharing class FinancialAccountTriggerHandlerTest {
       Date.valueOf('2021-03-04'),
       updatedFinAccount.Primary_Owner_Start_Date__c,
       'Primary Owner Start Date does not match.'
+    );
+  }
+
+  @isTest
+  private static void testPopulateSourceStatus() {
+    // GIVEN a financial account record
+    FinServ__FinancialAccount__c finAccount = [
+      SELECT Id, FinServ__PrimaryOwner__c, Primary_Owner_Start_Date__c
+      FROM FinServ__FinancialAccount__c
+      LIMIT 1
+    ];
+
+    Test.startTest();
+    // WHEN the record is updated with source system status
+    finAccount.Source_System_Status__c = 'CAPCISOP';
+    update finAccount;
+    Test.stopTest();
+
+    // THEN the source system status display is updated from status picklist label
+    FinServ__FinancialAccount__c updatedFinAccount = [
+      SELECT Id, Source_System_Status__c, Source_System_Status_Display__c
+      FROM FinServ__FinancialAccount__c
+      LIMIT 1
+    ];
+    System.assertEquals(
+      CommonUtil.getSinglePicklistLabel(
+          FinServ__FinancialAccount__c.Source_System_Status__c,
+          updatedFinAccount.Source_System_Status__c
+        )
+        .remove('CAPCIS'),
+      updatedFinAccount.Source_System_Status_Display__c,
+      'Source System Status does not match with the picklist label.'
     );
   }
 }

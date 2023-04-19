@@ -12,6 +12,7 @@ const FIELDS = [
   "ContactPointAddress.PostalCode",
   "ContactPointAddress.Country",
   "ContactPointAddress.Global_Address_Key__c",
+  "ContactPointAddress.Delivery_Identifier__c",
   "ContactPointAddress.Customer_Name__c"
 ];
 export default class ProspectUpdateAddress extends LightningElement {
@@ -104,6 +105,7 @@ export default class ProspectUpdateAddress extends LightningElement {
     record.Country = address.country;
     record.PostalCode = address.postalCode;
     record.Global_Address_Key__c = address.globalAddressKey;
+    record.Delivery_Identifier__c = address.dpid;
 
     this.loading = true;
     this.template.querySelector("lightning-record-edit-form").submit(record);

@@ -8,23 +8,23 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Daon Failed</fullName>
+        <fullName>Daon Fallout</fullName>
         <default>true</default>
     </values>
     <values>
-        <fullName>Equifax Failed</fullName>
+        <fullName>Equifax Fallout</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Equifax Passed</fullName>
+        <fullName>ID Check OK</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Failed %28OK%29</fullName>
+        <fullName>Failed</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>ID Ops%3A Daon Approved</fullName>
+        <fullName>ID Ops%3A Daon OK</fullName>
         <default>false</default>
     </values>
     <values>

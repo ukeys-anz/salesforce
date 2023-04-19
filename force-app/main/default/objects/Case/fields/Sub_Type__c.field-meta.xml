@@ -283,14 +283,19 @@
                 <label>Raising a concern</label>
             </value>
             <value>
-                <fullName>Withholding tax refund</fullName>
+                <fullName>Withholding Tax Reversal Action</fullName>
                 <default>false</default>
-                <label>Withholding tax refund</label>
+                <label>Withholding Tax Reversal Action</label>
+            </value>
+            <value>
+                <fullName>Withholding Tax and TFN enquiry</fullName>
+                <default>false</default>
+                <label>Withholding Tax and TFN enquiry</label>
             </value>
             <value>
                 <fullName>Large Value Transfer</fullName>
                 <default>false</default>
-                <label>Large Value Transfer</label>
+                <label>Large Value Transfer enquiries</label>
             </value>
             <value>
                 <fullName>General Home Loan Enquiry</fullName>
@@ -315,14 +320,97 @@
             <value>
                 <fullName>Interest</fullName>
                 <default>false</default>
-                <label>Interest</label>
+                <label>Interest Rate</label>
             </value>
             <value>
                 <fullName>90% Centrelink Payment Request</fullName>
                 <default>false</default>
                 <label>90% Centrelink Payment Request</label>
             </value>
+            <value>
+                <fullName>Account Switching</fullName>
+                <default>false</default>
+                <label>Account Switching</label>
+            </value>
+            <value>
+                <fullName>Renewal and Restructures</fullName>
+                <default>false</default>
+                <label>Renewal and Restructures</label>
+            </value>
+            <value>
+                <fullName>Customer Onboarding information</fullName>
+                <default>false</default>
+                <label>Customer Onboarding information</label>
+            </value>
+            <value>
+                <fullName>TFN exemption (non resident &amp; &lt;16yrs old)</fullName>
+                <default>false</default>
+                <label>TFN exemption (non resident &amp; &lt;16yrs old)</label>
+            </value>
+            <value>
+                <fullName>Occupation Updates</fullName>
+                <default>false</default>
+                <label>Occupation Updates</label>
+            </value>
+            <value>
+                <fullName>Address Update (overseas)</fullName>
+                <default>false</default>
+                <label>Address Update (overseas)</label>
+            </value>
+            <value>
+                <fullName>Citizenship Update</fullName>
+                <default>false</default>
+                <label>Citizenship Update</label>
+            </value>
+            <value>
+                <fullName>Statement Requests</fullName>
+                <default>false</default>
+                <label>Statement Requests</label>
+            </value>
+            <value>
+                <fullName>Garnishee Orders</fullName>
+                <default>false</default>
+                <label>Garnishee Orders</label>
+            </value>
+            <value>
+                <fullName>Freezing Orders</fullName>
+                <default>false</default>
+                <label>Freezing Orders</label>
+            </value>
+            <value>
+                <fullName>Account Closure Enquiry</fullName>
+                <default>false</default>
+                <label>Account Closure Enquiry</label>
+            </value>
+            <value>
+                <fullName>Legal Name Change</fullName>
+                <default>false</default>
+                <label>Legal Name Change</label>
+            </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payments stop request</fullName>
+                <default>false</default>
+                <label>Direct Debit or Recurring Payments stop request</label>
+            </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
+                <default>false</default>
+                <label>Direct Debit or Recurring Payments 13 month statement</label>
+            </value>
+            <value>
+                <fullName>Large Value Transfer requests</fullName>
+                <default>false</default>
+                <label>Large Value Transfer requests</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Fees &amp; Charges</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Information</controllingFieldValue>
+            <valueName>Product Info</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Overdraft</valueName>
@@ -353,7 +441,23 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
-            <valueName>Power of attorney</valueName>
+            <valueName>TFN exemption (non resident &amp; &lt;16yrs old)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Occupation Updates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Address Update (overseas)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Citizenship Update</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Legal Name Change</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
@@ -404,10 +508,6 @@
             <valueName>ANZ branches</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>About Us</controllingFieldValue>
-            <valueName>Interest</valueName>
-        </valueSettings>
-        <valueSettings>
             <controllingFieldValue>Cards</controllingFieldValue>
             <valueName>Lost or stolen card</valueName>
         </valueSettings>
@@ -449,11 +549,27 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
-            <valueName>Withholding tax refund</valueName>
+            <valueName>Withholding Tax Reversal Action</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Withholding Tax and TFN enquiry</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Large Value Transfer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Interest</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Account Switching</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Account Closure Enquiry</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
@@ -466,6 +582,18 @@
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>
             <valueName>Making payments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Direct Debit or Recurring Payments stop request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Direct Debit or Recurring Payments 13 month statement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Payments</controllingFieldValue>
+            <valueName>Large Value Transfer requests</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
@@ -484,8 +612,8 @@
             <valueName>Loan Statements</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Follow Up</controllingFieldValue>
-            <valueName>ANZ Plus Support</valueName>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Renewal and Restructures</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>
@@ -516,12 +644,36 @@
             <valueName>Add Life Event</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Statutory Compliance</controllingFieldValue>
+            <valueName>Power of attorney</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Statutory Compliance</controllingFieldValue>
+            <valueName>Customer Onboarding information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Statutory Compliance</controllingFieldValue>
+            <valueName>Statement Requests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Statutory Compliance</controllingFieldValue>
+            <valueName>Garnishee Orders</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Statutory Compliance</controllingFieldValue>
+            <valueName>Freezing Orders</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Dispute</controllingFieldValue>
             <valueName>Cancel a Dispute</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Dispute</controllingFieldValue>
             <valueName>New Dispute</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Follow Up</controllingFieldValue>
+            <valueName>ANZ Plus Support</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Join / KYC</controllingFieldValue>
@@ -546,14 +698,6 @@
         <valueSettings>
             <controllingFieldValue>My Security</controllingFieldValue>
             <valueName>Hoax Email/SMS</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Product Information</controllingFieldValue>
-            <valueName>Fees &amp; Charges</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Product Information</controllingFieldValue>
-            <valueName>Product Info</valueName>
         </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>

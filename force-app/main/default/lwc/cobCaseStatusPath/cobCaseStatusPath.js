@@ -1,15 +1,18 @@
 import { LightningElement, wire, api } from "lwc";
 import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
-import { showToast } from "c/utils";
+import { handleErrors, showToast } from "c/utils";
 import PERSONA_ID_FIELD from "@salesforce/schema/Case.PersonaId__c";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import ONBOARDING_VERIFICATION_FAILED_REASON_FIELD from "@salesforce/schema/Case.OnboardingVerificationFailedReason__c";
 import STATUS_UPDATE_ERROR from "@salesforce/schema/Case.Status_Update_Error__c";
 import RECORD_TYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
+import PARENT_ID_FIELD from "@salesforce/schema/Case.ParentId";
 import updateStatus from "@salesforce/apex/COBCaseStatusPathController.updateStatus";
 
-const FAILED_OK = "Failed (OK)";
+const FAILED_OK = "Failed";
+const CONFIRMED_FRAUD = "Confirmed Fraud";
+
 const CASE_STATUS_UPDATE_ERROR =
   "Case update failed. Please check Status Update Error field for details";
 const SAME_CASE_STATUS_WARNING =
@@ -33,6 +36,10 @@ export default class CobCaseStatusPath extends LightningElement {
   isModalButtonDisable = false;
   error;
   statusUpdateError;
+  parentId;
+
+  confirmedFraudMessage =
+    "By confirming, you are marking this onboarding case as Fraud. Done to continue, Cancel to go back.";
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -41,7 +48,8 @@ export default class CobCaseStatusPath extends LightningElement {
       PERSONA_ID_FIELD,
       STATUS_FIELD,
       ONBOARDING_VERIFICATION_FAILED_REASON_FIELD,
-      STATUS_UPDATE_ERROR
+      STATUS_UPDATE_ERROR,
+      PARENT_ID_FIELD
     ]
   })
   wiredCaseFields({ data }) {
@@ -56,6 +64,7 @@ export default class CobCaseStatusPath extends LightningElement {
         data.fields.OnboardingVerificationFailedReason__c.value;
       this._newFailedReason = this.currentFailedReason;
       this.statusUpdateError = data.fields.Status_Update_Error__c.value;
+      this.parentId = data.fields.ParentId.value;
     }
   }
 
@@ -94,6 +103,10 @@ export default class CobCaseStatusPath extends LightningElement {
 
   get isFailedOKSelected() {
     return this._newStatus === FAILED_OK;
+  }
+
+  get isConfirmedFraudSelected() {
+    return this._newStatus === CONFIRMED_FRAUD;
   }
 
   get isFailedReasonDisabled() {
@@ -143,14 +156,15 @@ export default class CobCaseStatusPath extends LightningElement {
       } else {
         try {
           const cobCase = {
+            RecordTypeId: this.recordTypeInfo.recordTypeId,
             Id: this.recordId,
             PersonaId__c: this.personaId,
             Status: this._newStatus,
             Status_Update_Error__c: this.statusUpdateError,
             OnboardingVerificationFailedReason__c:
-              this._newStatus !== FAILED_OK ? undefined : this._newFailedReason
+              this._newStatus !== FAILED_OK ? undefined : this._newFailedReason,
+            ParentId: this.parentId
           };
-
           let isCaseUpdated = await updateStatus({
             currentStatus: this.currentStatus,
             cobCase: cobCase
@@ -184,7 +198,7 @@ export default class CobCaseStatusPath extends LightningElement {
           this.isModalLoaded = true;
           this.isModalButtonDisable = false;
 
-          showToast(this, "Error!", error.body.message, "", "error", "");
+          showToast(this, "Error!", handleErrors(error), "", "error", "");
         }
       }
     }
