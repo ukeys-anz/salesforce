@@ -867,6 +867,13 @@
         "Privacy_Classification__c",
         "Residential_Loan_Id__c",
         "Security_Classification__c"
+      ],
+      "IA-2468715": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "CFMS_Migrated_Document__c": {
@@ -1240,7 +1247,15 @@
         "EquifaxCRAResult__c",
         "EquifaxOverallResult__c"
       ],
-      "IA-2530753": ["OwnerId", "CreatedById", "LastModifiedById", "Name"]
+      "IA-2530753": [
+        "OwnerId",
+        "CreatedById",
+        "LastModifiedById",
+        "Name",
+        "CreatedDate",
+        "Id",
+        "LastModifiedDate"
+      ]
     },
 
     "Customer_Profile_Updates__c": {
@@ -2262,8 +2277,11 @@
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
-        "Skip_Validations__c"
-      ]
+        "Skip_Validations__c",
+        "Case_Owner__c",
+        "Cases_Related_To_Team__c"
+      ],
+      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [
