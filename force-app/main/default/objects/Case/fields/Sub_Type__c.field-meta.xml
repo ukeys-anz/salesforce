@@ -408,6 +408,16 @@
                 <label>Collections</label>
             </value>
             <value>
+                <fullName>Redraw</fullName>
+                <default>false</default>
+                <label>Redraw</label>
+            </value>
+            <value>
+                <fullName>Discharge</fullName>
+                <default>false</default>
+                <label>Discharge</label>
+            </value>
+            <value>
                 <fullName>Withholding Tax Reversal Action</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -636,6 +646,14 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Collections</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Redraw</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Discharge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>

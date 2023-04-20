@@ -11670,6 +11670,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Discharge</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Document Request</fullName>
             <default>false</default>
         </values>
@@ -11755,6 +11759,10 @@
         </values>
         <values>
             <fullName>Raising a concern</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Redraw</fullName>
             <default>false</default>
         </values>
         <values>
