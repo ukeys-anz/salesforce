@@ -140,8 +140,6 @@ jobs:
         working-directory: salesforce-docs
         shell: bash
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
           git add docs/governance/schema
           git commit -m "Update schema files"
 
