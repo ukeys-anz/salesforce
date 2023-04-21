@@ -96,14 +96,14 @@ jobs:
         working-directory: salesforce
         run: npx sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
 
-      - if: "${{ github.event.inputs.DOC == sysl }}"
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
         name: Generate Sysl docs
         working-directory: salesforce
         shell: bash
         run: |
           ../plugin/bin/run doc:sysl -f config/doc-def.json -p config/panther-manual-desc.json -u staging
 
-      - if: "${{ github.event.inputs.DOC == sysl }}"
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
         name: Check if there is any missed information
         working-directory: salesforce
         run: |
@@ -112,7 +112,7 @@ jobs:
             cat ./docs/sysl/sysl-error.txt
           fi
 
-      - if: "${{ github.event.inputs.DOC == sysl }}"
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
         name: Copy sysl files
         run: |
           rm -rf salesforce-docs/sysl/salesforce.business.sysl
@@ -121,7 +121,7 @@ jobs:
           cp -r salesforce/docs/sysl/salesforce.business.sysl salesforce-docs/sysl/
           cp -r salesforce/docs/sysl/salesforce.edg.sysl salesforce-docs/sysl/
 
-      - if: "${{ github.event.inputs.DOC == sysl }}"
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
         name: Create new branch on anzx/salesforce-docs and commit sysl files
         working-directory: salesforce-docs
         shell: bash
@@ -134,20 +134,20 @@ jobs:
           git commit -m "Update sysl files"
           git push origin $BRANCH_NAME
 
-      - if: "${{ github.event.inputs.DOC == schema }}"
+      - if: "${{ github.event.inputs.DOC == 'schema' }}"
         name: Generate Schema docs
         working-directory: salesforce
         shell: bash
         run: |
           ../plugin/bin/run doc:schema -f config/doc-def.json -u staging
 
-      - if: "${{ github.event.inputs.DOC == schema }}"
+      - if: "${{ github.event.inputs.DOC == 'schema' }}"
         name: Copy schema files
         run: |
           rm -rf salesforce-docs/docs/governance/schema
           cp -r salesforce/docs/schema salesforce-docs/docs/governance/
 
-      - if: "${{ github.event.inputs.DOC == schema }}"
+      - if: "${{ github.event.inputs.DOC == 'schema' }}"
         name: Create new commit for schema files
         working-directory: salesforce-docs
         shell: bash
@@ -159,20 +159,20 @@ jobs:
           git commit -m "Update schema files"
           git push origin $BRANCH_NAME
 
-      - if: "${{ github.event.inputs.DOC == access }}"
+      - if: "${{ github.event.inputs.DOC == 'access' }}"
         name: Generate Access docs
         working-directory: salesforce
         shell: bash
         run: |
           ../plugin/bin/run doc:access -f config/doc-def.json -u staging
 
-      - if: "${{ github.event.inputs.DOC == access }}"
+      - if: "${{ github.event.inputs.DOC == 'access' }}"
         name: Copy access files
         run: |
           rm -rf salesforce-docs/docs/governance/access
           cp -r salesforce/docs/access salesforce-docs/docs/governance/
 
-      - if: "${{ github.event.inputs.DOC == access }}"
+      - if: "${{ github.event.inputs.DOC == 'access' }}"
         name: Create new commit for access files
         working-directory: salesforce-docs
         shell: bash
