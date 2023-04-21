@@ -155,6 +155,7 @@ jobs:
           BRANCH_NAME=${{ env.BRANCH_NAME }}
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git checkout -b $BRANCH_NAME
           git add docs/governance/schema
           git commit -m "Update schema files"
           git push origin $BRANCH_NAME
@@ -180,6 +181,7 @@ jobs:
           BRANCH_NAME=${{ env.BRANCH_NAME }}
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git checkout -b $BRANCH_NAME
           git add docs/governance/access
           git commit -m "Update access files"
           git push origin $BRANCH_NAME
@@ -190,7 +192,7 @@ jobs:
         run: |
           sleep 10
           BRANCH_NAME=${{ env.BRANCH_NAME }}
-          if git branch | grep -q -w $BRANCH_NAME; then hub pull-request -b master -h $BRANCH_NAME --no-edit -m "Update docs | Sysl, Schema and Access files" -m "An automated PR to update documentations from https://github.com/anzx/salesforce/pull/${{ github.event.number }}"; fi
+          if git branch | grep -q -w $BRANCH_NAME; then hub pull-request -b master -h $BRANCH_NAME --no-edit -m "Update docs files" -m "An automated PR to update documentations from https://github.com/anzx/salesforce/pull/${{ github.event.number }}"; fi
           echo "✅ Pull Request raised"
         env:
           GITHUB_TOKEN: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
