@@ -462,6 +462,23 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>objectType</name>
+                    <value>CustomerOnboardingApplication__c</value>
+                </componentInstanceProperties>
+                <componentName>AegisPortal</componentName>
+                <identifier>c_AegisPortal</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_Aegis_Portal}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>accordionSections</name>
                     <value>Facet-3a783312-8ca5-4ffe-be55-97e8c2b0e17f</value>
                 </componentInstanceProperties>

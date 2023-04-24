@@ -319,7 +319,7 @@ public with sharing class TransactionHistoryModel extends CalloutModel {
    */
   public class Self {
     @AuraEnabled
-    public String href;
+    public String uri;
   }
 
   /**

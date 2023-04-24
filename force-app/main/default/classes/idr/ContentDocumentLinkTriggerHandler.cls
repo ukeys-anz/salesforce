@@ -193,8 +193,8 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     } catch (Exception err) {
       Logger.error(
         'Error in creating Case Comment when attachment is added for the existing Case :' +
-          oCase.Id +
-          err.getMessage(),
+        oCase.Id +
+        err.getMessage(),
         err
       );
       Logger.saveLog();
@@ -290,7 +290,9 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       cdRecord,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      customerName + 'New File added by ' + UserInfo.getName(),
+      customerName +
+      'New File added by ' +
+      UserInfo.getName(),
       record
     );
     return wrapper;
