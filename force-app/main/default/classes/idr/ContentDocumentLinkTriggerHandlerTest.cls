@@ -64,12 +64,18 @@ public class ContentDocumentLinkTriggerHandlerTest {
   @isTest
   static void testContentDocumentNotification() {
     Id idrLevel2UserId = [
-      SELECT AssigneeId
-      FROM PermissionSetAssignment
-      WHERE PermissionSetGroup.DeveloperName = 'IDR_Level_2'
+      SELECT Id
+      FROM User
+      WHERE
+        Id IN (
+          SELECT AssigneeId
+          FROM PermissionSetAssignment
+          WHERE PermissionSetGroup.DeveloperName = 'IDR_Level_2'
+        )
+        AND IsActive = TRUE
       LIMIT 1
     ]
-    .AssigneeId;
+    .Id;
 
     Case testCase = [SELECT Id FROM Case LIMIT 1];
     insert new CaseShare(
