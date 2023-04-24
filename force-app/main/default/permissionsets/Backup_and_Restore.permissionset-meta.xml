@@ -4598,10 +4598,6 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Case.Bug_Enquiry</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Case.CFMS_Migrated_Case</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
