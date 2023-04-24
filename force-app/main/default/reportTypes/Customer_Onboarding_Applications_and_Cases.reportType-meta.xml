@@ -67,7 +67,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>CXOnboardingStageReason__c</field>
+            <field>CXOnboardingStageChangeReason__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>
         <columns>

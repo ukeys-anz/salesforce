@@ -2352,7 +2352,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>CustomerOnboardingApplication__c.CXOnboardingStageReason__c</field>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
