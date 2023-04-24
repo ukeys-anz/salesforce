@@ -11,6 +11,16 @@
     <description>Separate permission set for IDR level 1 users</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Activity.Case_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Activity.Cases_Related_To_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Date_Closed__c</field>
         <readable>true</readable>
     </fieldPermissions>

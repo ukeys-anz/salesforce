@@ -24,14 +24,16 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
     }
 
     ce_type =
-      'anzx.salesforce.case.v1.dispute.' +
+      System.Label.ANZX_Disputes_event_ce_type +
       caseType +
       'externalstatus.' +
       action;
     ce_source = 'case.salesforce.anzx';
     ce_subject = 'ExternalCaseStatusNumber/' + externalCaseStatus.Name;
     ce_partitionkey = 'CaseNumber/' + theCase.CaseNumber;
-    ce_dataschema = System.Label.ANZX_Proto_Data_Schema + '#ExternalCaseStatus';
+    ce_dataschema =
+      System.Label.ANZX_Disputes_Event_Proto_Data_Schema +
+      '#ExternalCaseStatus';
     String sourceSystemName = '';
     if (
       theCase.Account?.Source_System_Name__c != null &&
@@ -49,7 +51,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       externalCaseStatus,
       theCase
     );
-    this.system_data = new CloudEventSystemModel(
+    this.systemData = new CloudEventSystemModel(
       externalCaseStatus.LastModifiedDate,
       theUser
     );
@@ -77,7 +79,6 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       External_Case_Status__c externalCaseStatus,
       Case theCase
     ) {
-      super(externalCaseStatus);
       this.caseNumber = theCase.CaseNumber;
       this.customerMessage = externalCaseStatus.Customer_Message__c;
       this.externalStatus = externalCaseStatus.External_Status__c;
@@ -96,28 +97,18 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
    * @description Inner Wrapper Class for the customer data of All Dispute Cases
    */
   public class AccountModel {
-    public String recordId { get; set; }
     public String ocvId { get; set; }
     public String sourceSystem { get; set; }
     public String sourceSystemId { get; set; }
-    public String email { get; set; }
-    public String mobile { get; set; }
-    public String firstName { get; set; }
-    public String lastName { get; set; }
 
     /**
      * @description get an instance of AccountModel
      * @param theCase the Case record
      */
     public AccountModel(Case theCase) {
-      this.recordId = theCase.AccountId;
       this.ocvId = theCase.Account?.OCV_ID__c;
       this.sourceSystem = theCase.Account?.Source_System_Name__c;
       this.sourceSystemId = theCase.Account?.Source_System_ID__c;
-      this.email = theCase.Account?.PersonEmail;
-      this.mobile = theCase.Account?.PersonMobilePhone;
-      this.firstName = theCase.Account?.firstName;
-      this.lastName = theCase.Account?.lastName;
     }
   }
 }

@@ -3,17 +3,26 @@ name: Create docs
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "force-app/main/default/objects/*/fields/**"
-      - config/panther-manual-desc.json
-    branches:
-      - develop
+    inputs:
+      DOC:
+        description: "Name of the docs"
+        required: true
+        default: "sysl"
+        type: choice
+        options:
+          - sysl
+          - schema
+          - access
 
 jobs:
   create_docs:
     runs-on: [self-hosted, salesforce-prod]
     steps:
+      - name: Set BRANCH_NAME
+        run: |
+          CURRENT_DATE="$(date +%F-%H-%M)"
+          echo BRANCH_NAME="${GITHUB_RUN_ID}-${CURRENT_DATE//-}" >> $GITHUB_ENV
+
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: "14"
@@ -23,6 +32,7 @@ jobs:
         with:
           repository: anzx/salesforce-docs
           token: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
+          path: salesforce-docs
 
       - name: Checkout doc plugin
         uses: actions/checkout@v2
@@ -77,34 +87,24 @@ jobs:
           secrets: |-
             sfdxurl:projects/36540621485/secrets/ghr-salesforce-prod-salesforce-sysl-np/versions/latest
 
-      - name: "Create auth files with SFDX_URL secret"
+      - name: Create auth files with SFDX_URL secret
         working-directory: salesforce
         shell: bash
         run: echo ${{ steps.secrets.outputs.sfdxurl }} > ./SFDX_URL_STAGING.txt
 
-      - name: "Authenticate all orgs in SFDX CLI"
+      - name: Authenticate all orgs in SFDX CLI
         working-directory: salesforce
         run: npx sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
 
-      - name: Generate Sysl docs
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
+        name: Generate Sysl docs
         working-directory: salesforce
         shell: bash
         run: |
           ../plugin/bin/run doc:sysl -f config/doc-def.json -p config/panther-manual-desc.json -u staging
 
-      - name: Generate Schema docs
-        working-directory: salesforce
-        shell: bash
-        run: |
-          ../plugin/bin/run doc:schema -f config/doc-def.json -u staging
-
-      - name: Generate Access docs
-        working-directory: salesforce
-        shell: bash
-        run: |
-          ../plugin/bin/run doc:access -f config/doc-def.json -u staging
-
-      - name: Check if there is any missed information
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
+        name: Check if there is any missed information
         working-directory: salesforce
         run: |
           errorsText=$( cat ./docs/sysl/sysl-error.txt )
@@ -112,36 +112,87 @@ jobs:
             cat ./docs/sysl/sysl-error.txt
           fi
 
-      - name: Copy docs
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
+        name: Copy sysl files
         run: |
-          rm -rf ./sysl/salesforce.business.sysl
-          rm -rf ./sysl/salesforce.edg.sysl
-          rm -rf ./docs/governance/access
-          rm -rf ./docs/governance/schema
+          rm -rf salesforce-docs/sysl/salesforce.business.sysl
+          rm -rf salesforce-docs/sysl/salesforce.edg.sysl
 
-          cp -r salesforce/docs/sysl/salesforce.business.sysl ./sysl/
-          cp -r salesforce/docs/sysl/salesforce.edg.sysl ./sysl/
-          cp -r salesforce/docs/access ./docs/governance/
-          cp -r salesforce/docs/schema ./docs/governance/
+          cp -r salesforce/docs/sysl/salesforce.business.sysl salesforce-docs/sysl/
+          cp -r salesforce/docs/sysl/salesforce.edg.sysl salesforce-docs/sysl/
 
-      - name: Create new branch on anzx/salesforce-docs
+      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
+        name: Create new branch on anzx/salesforce-docs and commit sysl files
+        working-directory: salesforce-docs
         shell: bash
         run: |
-          CURRENT_DATE="$(date +%F-%H-%M)"
-          BRANCH_NAME="${GITHUB_RUN_ID}-${CURRENT_DATE//-}"
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout -b $BRANCH_NAME
-          git add sysl/salesforce.business.sysl sysl/salesforce.edg.sysl docs/governance/access docs/governance/schema
-          git commit -m "Update sysl | access | schema files"
+          git add sysl/salesforce.business.sysl sysl/salesforce.edg.sysl
+          git commit -m "Update sysl files"
+          git push origin $BRANCH_NAME
+
+      - if: "${{ github.event.inputs.DOC == 'schema' }}"
+        name: Generate Schema docs
+        working-directory: salesforce
+        shell: bash
+        run: |
+          ../plugin/bin/run doc:schema -f config/doc-def.json -u staging
+
+      - if: "${{ github.event.inputs.DOC == 'schema' }}"
+        name: Copy schema files
+        run: |
+          rm -rf salesforce-docs/docs/governance/schema
+          cp -r salesforce/docs/schema salesforce-docs/docs/governance/
+
+      - if: "${{ github.event.inputs.DOC == 'schema' }}"
+        name: Create new commit for schema files
+        working-directory: salesforce-docs
+        shell: bash
+        run: |
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b $BRANCH_NAME
+          git add docs/governance/schema
+          git commit -m "Update schema files"
+          git push origin $BRANCH_NAME
+
+      - if: "${{ github.event.inputs.DOC == 'access' }}"
+        name: Generate Access docs
+        working-directory: salesforce
+        shell: bash
+        run: |
+          ../plugin/bin/run doc:access -f config/doc-def.json -u staging
+
+      - if: "${{ github.event.inputs.DOC == 'access' }}"
+        name: Copy access files
+        run: |
+          rm -rf salesforce-docs/docs/governance/access
+          cp -r salesforce/docs/access salesforce-docs/docs/governance/
+
+      - if: "${{ github.event.inputs.DOC == 'access' }}"
+        name: Create new commit for access files
+        working-directory: salesforce-docs
+        shell: bash
+        run: |
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout -b $BRANCH_NAME
+          git add docs/governance/access
+          git commit -m "Update access files"
           git push origin $BRANCH_NAME
 
       - name: Create a PR on anzx/salesforce-docs
+        working-directory: salesforce-docs
         shell: bash
         run: |
-          CURRENT_DATE="$(date +%F-%H-%M)"
-          BRANCH_NAME="${GITHUB_RUN_ID}-${CURRENT_DATE//-}"
-          if git branch | grep -q -w $BRANCH_NAME; then hub pull-request -b master -h $BRANCH_NAME --no-edit -m "${GITHUB_REF#refs/heads/}-$BRANCH_NAME docs update" -m "An automated PR to update documentations from https://github.com/anzx/salesforce/pull/${{ github.event.number }}"; fi
+          sleep 10
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
+          if git branch | grep -q -w $BRANCH_NAME; then hub pull-request -b master -h $BRANCH_NAME --no-edit -m "Update docs files" -m "An automated PR to update documentations from https://github.com/anzx/salesforce/pull/${{ github.event.number }}"; fi
           echo "✅ Pull Request raised"
         env:
           GITHUB_TOKEN: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
