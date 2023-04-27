@@ -1,5 +1,5 @@
 <template>
-  <template if:true={loading}>
+  <template lwc:if={loading}>
     <article class="slds-card slds-m-bottom_small">
       <div class="slds-align_absolute-center" style="height: 4rem">
         <div role="status" class="slds-spinner_inline">
@@ -12,17 +12,17 @@
     </article>
   </template>
 
-  <template if:false={loading}>
-    <template if:true={hasError}>
-      <template if:true={hasPermissionIssue}>
+  <template lwc:else>
+    <template lwc:if={hasError}>
+      <template lwc:if={hasPermissionIssue}>
         <c-error permission-issue={hasPermissionIssue}></c-error>
       </template>
-      <template if:false={hasPermissionIssue}>
+      <template lwc:else>
         <c-error message={errorMsg}></c-error>
       </template>
     </template>
 
-    <template if:false={hasError}>
+    <template lwc:else>
       <div class="slds-m-bottom_xx-small">
         <lightning-card>
           <h1 class="card-title">
@@ -33,7 +33,7 @@
             ></lightning-icon>
             Card Details
           </h1>
-          <template if:true={showFetch}>
+          <template lwc:if={showFetch}>
             <lightning-button
               label="Get Card Details"
               onclick={getCardDetails}
@@ -53,7 +53,7 @@
             </div>
           </template>
 
-          <template if:true={noCards}>
+          <template lwc:if={noCards}>
             <article class="slds-card">
               <h1 class="slds-card__header-title main-title">
                 <span>No cards available on account</span>
@@ -61,8 +61,8 @@
             </article>
           </template>
 
-          <template if:true={showDetails}>
-            <template if:true={showExpandCollapse}>
+          <template lwc:if={showDetails}>
+            <template lwc:if={showExpandCollapse}>
               <lightning-button
                 label={collapseExpandText}
                 slot="actions"
@@ -81,7 +81,7 @@
                 <lightning-card>
                   <div class={card.className}>
                     <template
-                      if:true={card.buttons}
+                      lwc:if={card.buttons}
                       for:each={card.buttons}
                       for:item="btn"
                     >
@@ -142,7 +142,7 @@
                           <div class="slds-col slds-size_1-of-1">
                             <div class="slds-p-bottom_medium dig-wallet">
                               <p class="slds-text-title_bold">Digital Wallet</p>
-                              <template if:true={card.hasWallet}>
+                              <template lwc:if={card.hasWallet}>
                                 <template
                                   for:each={card.walletList}
                                   for:item="wallet"
@@ -155,7 +155,7 @@
                                   </p>
                                 </template>
                               </template>
-                              <template if:false={card.hasWallet}>
+                              <template lwc:else>
                                 <p class="slds-text-body_regular">N/A</p>
                               </template>
                             </div>
@@ -179,7 +179,7 @@
                             <div class="slds-p-bottom_medium">
                               <p class="slds-text-title_bold">
                                 Status
-                                <template if:true={card.isLocked}>
+                                <template lwc:if={card.isLocked}>
                                   <lightning-helptext
                                     class="tooltip"
                                     content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
@@ -197,7 +197,7 @@
                           </div>
                         </div>
                       </div>
-                      <template if:true={card.isIssued}>
+                      <template lwc:if={card.isIssued}>
                         <div
                           class="cardDetail cardControl"
                           data-id="loaded-card-controls"
@@ -208,7 +208,7 @@
                           </div>
                         </div>
                       </template>
-                      <template if:true={card.isFraudBlocked}>
+                      <template lwc:if={card.isFraudBlocked}>
                         <div class="slds-col slds-size_1-of-1">
                           <div class="slds-col slds-size_1-of-1">
                             <div class="slds-p-bottom_medium">
@@ -229,7 +229,7 @@
               </div>
             </template>
 
-            <template if:true={showLock}>
+            <template lwc:if={showLock}>
               <c-card-temp-lock
                 show-modal={showLock}
                 card-number={tokenizedCardNumber}
@@ -238,7 +238,7 @@
               </c-card-temp-lock>
             </template>
 
-            <template if:true={showReplace}>
+            <template lwc:if={showReplace}>
               <c-replace-card
                 show-modal={showReplace}
                 card-number={tokenizedCardNumber}
@@ -250,7 +250,7 @@
               ></c-replace-card>
             </template>
 
-            <template if:true={showFraudLock}>
+            <template lwc:if={showFraudLock}>
               <c-card-fraud-lock
                 card-status={cardFraudLockStatus}
                 show-modal={showFraudLock}
@@ -264,7 +264,7 @@
             </template>
           </template>
 
-          <template if:true={showViewAllButton}>
+          <template lwc:if={showViewAllButton}>
             <button
               class="slds-button slds-align_absolute-center"
               onclick={handleViewAll}

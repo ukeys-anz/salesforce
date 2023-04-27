@@ -27,38 +27,6 @@ describe("c-close-complaint test suite", () => {
     jest.restoreAllMocks();
   });
 
-  it("Load close complaint page", () => {
-    const element = document.querySelector("c-close-complaint");
-    const divElement = element.shadowRoot.querySelector(".title");
-    expect(divElement.textContent).toBe("Close Complaint");
-  });
-
-  it("display error for invalid case befor closure", () => {
-    const element = document.querySelector("c-close-complaint");
-    element.recordId = DUMMY_RECORD_ID;
-    getRecord.emit(mockGetCaseRecordInvalid);
-    return Promise.resolve().then(() => {
-      const errorMessageDivElement = element.shadowRoot.querySelector(
-        ".validationMessage"
-      );
-      expect(errorMessageDivElement).not.toBeNull;
-      expect(errorMessageDivElement.textContent).toBe(validationMessage);
-    });
-  });
-
-  it("set recordId and recordTypeId correctly and render child component", () => {
-    const element = document.querySelector("c-close-complaint");
-    element.recordId = DUMMY_RECORD_ID;
-    getRecord.emit(mockGetCaseRecord);
-    return Promise.resolve().then(() => {
-      const childCompElement = element.shadowRoot.querySelectorAll(
-        "c-complaints-close-child"
-      );
-      expect(childCompElement).not.toBeNull;
-      expect(childCompElement.length).toBe(1);
-    });
-  });
-
   it("close a complaint", () => {
     const element = document.querySelector("c-close-complaint");
     element.recordId = DUMMY_RECORD_ID;
@@ -209,6 +177,38 @@ describe("c-close-complaint test suite", () => {
           });
         });
       });
+    });
+  });
+
+  it("Load close complaint page", () => {
+    const element = document.querySelector("c-close-complaint");
+    const divElement = element.shadowRoot.querySelector(".title");
+    expect(divElement.textContent).toBe("Close Complaint");
+  });
+
+  it("display error for invalid case befor closure", () => {
+    const element = document.querySelector("c-close-complaint");
+    element.recordId = DUMMY_RECORD_ID;
+    getRecord.emit(mockGetCaseRecordInvalid);
+    return Promise.resolve().then(() => {
+      const errorMessageDivElement = element.shadowRoot.querySelector(
+        ".validationMessage"
+      );
+      expect(errorMessageDivElement).not.toBeNull;
+      expect(errorMessageDivElement.textContent).toBe(validationMessage);
+    });
+  });
+
+  it("set recordId and recordTypeId correctly and render child component", () => {
+    const element = document.querySelector("c-close-complaint");
+    element.recordId = DUMMY_RECORD_ID;
+    getRecord.emit(mockGetCaseRecord);
+    return Promise.resolve().then(() => {
+      const childCompElement = element.shadowRoot.querySelectorAll(
+        "c-complaints-close-child"
+      );
+      expect(childCompElement).not.toBeNull;
+      expect(childCompElement.length).toBe(1);
     });
   });
 

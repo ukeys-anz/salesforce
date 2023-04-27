@@ -7,13 +7,13 @@
 
 <template>
   <label class={computedLabelClass}>
-    <template if:true={required}>
+    <template lwc:if={required}>
       <abbr class="slds-required" title={i18n.required}>*</abbr>
     </template>
     {label}
   </label>
   <lightning-helptext
-    if:true={_fieldLevelHelp}
+    lwc:if={_fieldLevelHelp}
     content={_fieldLevelHelp}
   ></lightning-helptext>
 
@@ -38,7 +38,7 @@
       onselect={handleSelect}
     ></c-base-combobox>
   </div>
-  <template if:true={_helpMessage}>
+  <template lwc:if={_helpMessage}>
     <div
       id="help-text"
       data-help-text
@@ -48,10 +48,10 @@
       {_helpMessage}
     </div>
   </template>
-  <template if:true={showSelections}>
+  <template lwc:if={showSelections}>
     <!-- Multi Select Pills -->
     <template for:each={_items} for:item="item">
-      <template if:true={item.checked}>
+      <template lwc:if={item.checked}>
         <lightning-pill
           key={item.value}
           class="slds-m-around_xx-small"

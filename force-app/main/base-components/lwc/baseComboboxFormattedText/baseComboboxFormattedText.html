@@ -6,13 +6,13 @@
  -->
 
 <template>
-  <template if:true={hasParts}>
+  <template lwc:if={hasParts}>
     <template for:each={text} for:item="item">
-      <template if:true={item.part.highlight}>
+      <template lwc:if={item.part.highlight}>
         <strong key={item.key}>{item.part.text}</strong>
       </template>
-      <template if:false={item.part.highlight}> {item.part.text} </template>
+      <template lwc:else> {item.part.text} </template>
     </template>
   </template>
-  <template if:false={hasParts}> {text} </template>
+  <template lwc:else> {text} </template>
 </template>
