@@ -157,6 +157,10 @@ public with sharing class StravinskyService extends Service {
       ApproveSelfieIDCheckPayload selfieIdPayload = new ApproveSelfieIDCheckPayload();
       selfieIdPayload.caseId = statusCaseIdMap.get(cobCase.Status);
       return JSON.serialize(selfieIdPayload);
+    } else if (cobCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS) {
+      RetryStagePayload retryStagePayload = new RetryStagePayload();
+      retryStagePayload.reason = cobCase.OnboardingVerificationFailedReason__c;
+      return JSON.serialize(retryStagePayload);
     }
 
     return EMPTY_BODY;
@@ -167,5 +171,12 @@ public with sharing class StravinskyService extends Service {
    */
   private class ApproveSelfieIDCheckPayload {
     public String caseId;
+  }
+
+  /**
+   * @description class payload for RetryState
+   */
+  private class RetryStagePayload {
+    public String reason;
   }
 }
