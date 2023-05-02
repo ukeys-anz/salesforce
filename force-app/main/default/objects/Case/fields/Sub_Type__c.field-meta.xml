@@ -417,18 +417,6 @@
                 <default>false</default>
                 <label>Discharge</label>
             </value>
-            <value>
-                <fullName>Withholding Tax Reversal Action</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Withholding Tax Reversal Action</label>
-            </value>
-            <value>
-                <fullName>Withholding Tax and TFN enquiry</fullName>
-                <default>false</default>
-                <isActive>false</isActive>
-                <label>Withholding Tax and TFN enquiry</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
