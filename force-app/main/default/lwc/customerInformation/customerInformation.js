@@ -189,6 +189,9 @@ export default class CustomerInformation extends LightningElement {
         for (x in accountsData) {
           if (accountsData[x].accountNumber != null) {
             accounts.push(accountsData[x].accountNumber);
+            if (accountsData[x].productCode != null) {
+              accounts.push(accountsData[x].productCode);
+            }
           }
         }
         customerData.accounts = accounts;

@@ -392,7 +392,8 @@ export default class CreateComplaintLWC extends NavigationMixin(
         myArray = event.detail.values
           .filter((value) => value.checked)
           .map((value) => {
-            return value.value;
+            // Remove the productCode from value
+            return value.value.split("~")[0];
           });
       }
     } else {
@@ -1229,16 +1230,15 @@ export default class CreateComplaintLWC extends NavigationMixin(
 
   initialiseOptions(accounts) {
     let accountNumberOptions = [];
-    for (let x in accounts) {
-      if (Object.prototype.hasOwnProperty.call(accounts, x)) {
-        if (accounts[x] === null) {
-          return accountNumberOptions;
+    if (Array.isArray(accounts)) {
+      accounts.forEach((account) => {
+        if (account.accountNumber != null) {
+          accountNumberOptions.push({
+            label: account.accountNumber,
+            value: account.accountNumber + "~" + account.productCode
+          });
         }
-        accountNumberOptions.push({
-          label: accounts[x],
-          value: accounts[x]
-        });
-      }
+      });
     }
     accountNumberOptions.push({ label: "N/A", value: "N/A" });
     return accountNumberOptions;
@@ -1476,7 +1476,18 @@ export default class CreateComplaintLWC extends NavigationMixin(
           '[data-id="accPolicyNum' + elementNumber + '-id"]'
         );
         disableAccNoField = true;
-        accountPolicyNoElement.selectAll({ exclude: ["N/A"] });
+        let exclusionList = ["N/A"];
+        accountPolicyNoElement.options.forEach((option) => {
+          if (
+            option.value.includes("CAP-CIS:APP") ||
+            option.value.includes("CAP-CIS:CAP") ||
+            option.value.includes("CAP-CIS:CAB") ||
+            option.value.includes("CAP-CIS:MOS")
+          ) {
+            exclusionList.push(option.value);
+          }
+        });
+        accountPolicyNoElement.selectAll({ exclude: exclusionList });
       }
       if (elementNumber === "") {
         this.disableAccNoOneField = disableAccNoField;
