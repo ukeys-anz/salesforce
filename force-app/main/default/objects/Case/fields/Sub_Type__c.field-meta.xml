@@ -397,6 +397,38 @@
                 <default>false</default>
                 <label>Large Value Transfer requests</label>
             </value>
+            <value>
+                <fullName>Document Request</fullName>
+                <default>false</default>
+                <label>Document Request</label>
+            </value>
+            <value>
+                <fullName>Collections</fullName>
+                <default>false</default>
+                <label>Collections</label>
+            </value>
+            <value>
+                <fullName>Redraw</fullName>
+                <default>false</default>
+                <label>Redraw</label>
+            </value>
+            <value>
+                <fullName>Discharge</fullName>
+                <default>false</default>
+                <label>Discharge</label>
+            </value>
+            <value>
+                <fullName>Withholding Tax Reversal Action</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Withholding Tax Reversal Action</label>
+            </value>
+            <value>
+                <fullName>Withholding Tax and TFN enquiry</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Withholding Tax and TFN enquiry</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -468,6 +500,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Hardship</valueName>
         </valueSettings>
         <valueSettings>
@@ -605,6 +638,22 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Renewal and Restructures</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Document Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Collections</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Redraw</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Discharge</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>
