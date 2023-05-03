@@ -117,7 +117,7 @@
           </div>
           <br />
           <div class="slds-p-around_medium">
-            <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+            <ul class="slds-list_vertical slds-has-dividers_bottom-space">
               <li class="slds-list__item" title="Customer Type">
                 Error : {rmDetailsError}
               </li>
@@ -127,7 +127,7 @@
       </template>
       <template if:false={showAsGrid}>
         <div class="slds-p-around_medium">
-          <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+          <ul class="slds-list_vertical slds-has-dividers_bottom-space">
             <li class="slds-list__item" title="Customer Type">
               Customer Type : {customerInfo.complainant_type}
             </li>
@@ -206,7 +206,9 @@
               <div class="slds-p-around_medium">
                 <ul>
                   <template for:each={customerInfo.accounts} for:item="account">
-                    <li class="slds-list__item" key={account}>{account}</li>
+                    <li class="slds-list__item" key={account.accountNumber}>
+                      {account.accountNumber}
+                    </li>
                   </template>
                 </ul>
               </div>
@@ -217,7 +219,7 @@
               data-id="rel-details"
             >
               <template if:true={isRMDetails}>
-                <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+                <ul class="slds-list_vertical slds-has-dividers_bottom-space">
                   <li class="slds-list__item" title="Customer Type">
                     Name : {customerInfo.rmData.name}
                   </li>
@@ -237,7 +239,7 @@
     </template>
     <template if:true={error}>
       <div class="slds-p-around_medium">
-        <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+        <ul class="slds-list_vertical slds-has-dividers_bottom-space">
           <li class="slds-list__item" title="Customer Type">Error : {error}</li>
         </ul>
       </div>
