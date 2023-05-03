@@ -161,3 +161,6 @@ force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls
 force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls
 force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls-meta.xml
 force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml
+
+#CC-2512 - Queue needs to be manually deleted so don't attempt to deploy this destructive change.
+force-app/main/default/queues/EDR_Responsible_Lending.queue-meta.xml
