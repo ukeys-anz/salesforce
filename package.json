@@ -40,7 +40,7 @@
     "prettier-plugin-apex": "^1.10.0",
     "pretty-quick": "^3.0.2",
     "saxon-js": "^2.4.0",
-    "sfdx-cli": "^7.186.2",
+    "sfdx-cli": "^7.199.7",
     "typescript": "^3.9.7"
   }
 }

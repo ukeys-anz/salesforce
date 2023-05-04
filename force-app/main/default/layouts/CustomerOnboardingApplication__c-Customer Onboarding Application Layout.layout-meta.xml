@@ -45,6 +45,10 @@
                 <behavior>Edit</behavior>
                 <field>CXOnboardingStageChangeReason__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OnboardingAttemptCount__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -405,6 +409,10 @@
     <relatedLists>
         <fields>NAME</fields>
         <relatedList>COBCitizenship__c.CustomerOnboardingApplication__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>COBIDVSearchResult__c.CustomerOnboardingApplication__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>

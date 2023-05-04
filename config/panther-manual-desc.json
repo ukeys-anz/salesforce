@@ -171,6 +171,7 @@
     "Coaching_Summary__c": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
     "COBAddress__c": "A structured address compatible with both QAS lookup results and manual entry by the prospect",
     "COBCitizenship__c": "The details of a single citizenship in a country/region",
+    "COBIDVSearchResult__c": "The data source details in the IDV search result of the COB Application",
     "COBPrimaryIDDocument__c": "The details submitted for a primary document (licence or passport), including the original OCR extractions which may have been edited",
     "COBTaxResidency__c": "The details of a single tax residency in a country/region",
     "Contact": "Contact details of an individual person. Forms part of a person account",
@@ -965,6 +966,17 @@
         "Name"
       ]
     },
+    "COBIDVSearchResult__c": {
+      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2594111": [
+        "MatchIndicator__c",
+        "PersonaDataSource__c",
+        "PersonaId__c",
+        "SearchName__c",
+        "SearchResultDetail__c",
+        "CustomerOnboardingApplication__c"
+      ]
+    },
     "COBPrimaryIDDocument__c": {
       "IA-2415860": ["SubmittedAt__c"],
       "IA-2594111": [
@@ -1209,6 +1221,7 @@
         "CXOnboardingStage__c",
         "CXOnboardingStageChangeReason__c",
         "CXOnboardingAction__c",
+        "OnboardingAttemptCount__c",
         "OnboardingEvent__c",
         "SecurityDetailsSubmittedAt__c",
         "TncAcceptedAt__c",
