@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>IDR_ClosedResolvedComplaintsByWorkBasket</name>
     <columns>
         <field>CDF1</field>
     </columns>
@@ -12,6 +11,9 @@
     </columns>
     <columns>
         <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Date_Received__c</field>
     </columns>
     <customDetailFormulas>
         <calculatedFormula>OWNER</calculatedFormula>
@@ -51,6 +53,7 @@
         <field>Case.IDR_Queue_Report_Label__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
+    <name>IDR_ClosedResolvedComplaintsByWorkBasket</name>
     <params>
         <name>units</name>
         <value>h</value>

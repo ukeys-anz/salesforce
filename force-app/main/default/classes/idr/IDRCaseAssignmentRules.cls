@@ -20,13 +20,12 @@ public with sharing class IDRCaseAssignmentRules {
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-        String productWorkbasketName = productFamilyMap.get(
+        Product_Family__c oProductFamily = productFamilyMap.get(
             c.IDR_Product_Family__c
-          )
-          ?.IDR_Workbasket__c;
+          );
         c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
           c,
-          productWorkbasketName,
+          oProductFamily,
           oldCase
         );
       }
@@ -107,7 +106,7 @@ public with sharing class IDRCaseAssignmentRules {
   /**
    * @description method to run the Case assignment rules conditions
    * @param rec case record
-   * @param productWorkbasketName name of the product the case relates to
+   * @param oProductFamily Product_Family__c object that case relates to. For accessing Name and Workbasket
    * @param oldCase old record of case
    * NcssMethodCount Suppressed : To have all the code lines together in one place. Code is a series of rules applied in order.
    * @return Queue Id
@@ -115,9 +114,11 @@ public with sharing class IDRCaseAssignmentRules {
   @SuppressWarnings('PMD.NcssMethodCount')
   private static Id getOwnerId(
     Case rec,
-    String productWorkbasketName,
+    Product_Family__c oProductFamily,
     Case oldCase
   ) {
+    String productWorkbasketName = oProductFamily?.IDR_Workbasket__c;
+    String strProductFamily = oProductFamily?.Name;
     //rules to run only on escalation
     if (
       rec.Status == IDRConstants.ESCALATED_STATUS &&
@@ -155,7 +156,12 @@ public with sharing class IDRCaseAssignmentRules {
         }
       }
 
+      System.debug('Product Family: ' + strProductFamily);
       if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        if ( strProductFamily != null
+            && strProductFamily == 'Insurance/wealth products') {
+          return QUEUE_MAP.get('EDR_Wealth');
+        }
         return QUEUE_MAP.get('EDR_Early_Resolution');
       }
 

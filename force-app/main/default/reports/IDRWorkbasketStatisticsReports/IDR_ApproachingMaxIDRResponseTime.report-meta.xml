@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>ApproachingMaxIDRResponseTimeByWorkBaske</name>
     <columns>
         <field>CASE_NUMBER</field>
     </columns>
@@ -12,6 +11,9 @@
     </columns>
     <columns>
         <field>DUE_DATE</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Date_Received__c</field>
     </columns>
     <customDetailFormulas>
         <calculatedFormula>CASE_OWNER</calculatedFormula>
@@ -51,6 +53,7 @@
             <operator>greaterOrEqual</operator>
             <value>TODAY</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
@@ -63,6 +66,7 @@
         <field>SUBJECT</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
+    <name>ApproachingMaxIDRResponseTimeByWorkBaske</name>
     <params>
         <name>closed</name>
         <value>open</value>
