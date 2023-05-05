@@ -20,8 +20,8 @@
       class="slds-card__body slds-card__body_inner padded-card"
       data-test-id="board-body"
     >
-      <template if:true={displayContent}>
-        <template if:true={loading}>
+      <template lwc:if={displayContent}>
+        <template lwc:if={loading}>
           <div class="slds-align_absolute-center" style="height: 4rem">
             <div role="status" class="slds-spinner_inline">
               <lightning-spinner
@@ -31,11 +31,11 @@
             </div>
           </div>
         </template>
-        <template if:false={loading}>
-          <template if:true={hasError}>
+        <template lwc:else>
+          <template lwc:if={hasError}>
             <c-error message={error}></c-error>
           </template>
-          <template if:false={hasError}>
+          <template lwc:else>
             <div class="search-section">
               <div class="slds-text-title_bold slds-m-bottom_medium">
                 Transaction History
@@ -68,7 +68,7 @@
                   >
                   </lightning-input>
                 </div>
-                <template if:true={disableSearch}>
+                <template lwc:if={disableSearch}>
                   <div class="slds-form-element">
                     <lightning-button
                       variant="brand"
@@ -79,7 +79,7 @@
                     ></lightning-button>
                   </div>
                 </template>
-                <template if:false={disableSearch}>
+                <template lwc:else>
                   <div class="slds-form-element">
                     <lightning-button
                       variant="brand"
@@ -95,11 +95,11 @@
                 class="slds-button expand-collapse"
                 onclick={handleExpandAll}
               >
-                <template if:true={expandAll}>Collapse All</template>
-                <template if:false={expandAll}>Expand All</template>
+                <template lwc:if={expandAll}>Collapse All</template>
+                <template lwc:else>Expand All</template>
               </button>
             </div>
-            <template if:true={transactionList}>
+            <template lwc:if={transactionList}>
               <template for:each={transactionList} for:item="transRecord">
                 <c-transaction-history-record
                   key={transRecord.transaction_id}
@@ -113,7 +113,7 @@
                 >
                 </c-transaction-history-record>
               </template>
-              <template if:true={transactionLoadMore}>
+              <template lwc:if={transactionLoadMore}>
                 <div class="slds-align_absolute-center" style="height: 4rem">
                   <div role="status" class="slds-spinner_inline">
                     <lightning-spinner
@@ -123,10 +123,10 @@
                   </div>
                 </div>
               </template>
-              <template if:false={transactionLoadMore}>
+              <template lwc:else>
                 <div class="slds-grid">
                   <div class="slds-col slds-align_absolute-center">
-                    <template if:true={showLoadMore}>
+                    <template lwc:if={showLoadMore}>
                       <button
                         class="slds-button load-more"
                         onclick={handleLoadMore}
@@ -138,7 +138,7 @@
                 </div>
               </template>
             </template>
-            <template if:false={transactionList}>
+            <template lwc:else>
               <h1 class="slds-card__header-title main-title">
                 <span class="not-found">No Transactions Found</span>
               </h1>
@@ -146,7 +146,7 @@
           </template>
         </template>
       </template>
-      <template if:false={displayContent}>
+      <template lwc:else>
         <div class="slds-text-title_bold slds-m-bottom_medium">
           Transaction History
         </div>

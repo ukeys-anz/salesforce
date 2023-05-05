@@ -18,7 +18,7 @@ import CP_ID from "@salesforce/schema/Case.CPID__c";
 import ID_FIELD from "@salesforce/schema/Case.Id";
 
 export default class CustomerInformation extends LightningElement {
-  @track loaded = true;
+  @track isLoading = false;
   @track customerInfo;
   @track showMore = false;
   @api recordId;
@@ -38,7 +38,7 @@ export default class CustomerInformation extends LightningElement {
   set customerId(customerId = "") {
     this._customerId = customerId;
     if (this.customerId) {
-      this.loaded = false;
+      this.isLoading = true;
       this.customerInfo = null;
       this.custData(this.customerId.replace(/^0+/, ""), this.custIdentifier);
     }
@@ -131,7 +131,7 @@ export default class CustomerInformation extends LightningElement {
 
   custData(customerId, custIdentifier) {
     // calling apex class method to make callout
-    this.loaded = false;
+    this.isLoading = true;
     this.error = null;
     this.rmDetailsError = null;
     this.isRMDetails = false;
@@ -166,7 +166,6 @@ export default class CustomerInformation extends LightningElement {
         let responseData = result.profile;
         let accountsData = result.accounts;
         let relationshipData = result.relationshipManager;
-        let accounts = [];
         // adding data object by reading from JSON
         customerData.complainant_type = responseData.complainantType;
         customerData.first_name = responseData.firstName;
@@ -185,13 +184,7 @@ export default class CustomerInformation extends LightningElement {
         customerData.ocvId = responseData.ocvId;
         customerData.cpId = responseData.cpId;
         customerData.dob = responseData.dob;
-        let x;
-        for (x in accountsData) {
-          if (accountsData[x].accountNumber != null) {
-            accounts.push(accountsData[x].accountNumber);
-          }
-        }
-        customerData.accounts = accounts;
+        customerData.accounts = JSON.parse(JSON.stringify(accountsData));
         if (
           !relationshipData &&
           relationshipData.details == null &&
@@ -219,7 +212,7 @@ export default class CustomerInformation extends LightningElement {
         }
 
         // adding data object to show in UI
-        this.loaded = true;
+        this.isLoading = false;
         this.customerInfo = customerData;
         this.showMore = true;
         if (
@@ -241,7 +234,7 @@ export default class CustomerInformation extends LightningElement {
       });
   }
   handleError(err) {
-    this.loaded = true;
+    this.isLoading = false;
     this.error = "Unknown error";
     if (err.body) {
       if (Array.isArray(err.body)) {

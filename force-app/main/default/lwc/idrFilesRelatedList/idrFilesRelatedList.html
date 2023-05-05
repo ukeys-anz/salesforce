@@ -72,7 +72,7 @@
     </lightning-layout>
   </div>
   <br />
-  <template if:true={files}>
+  <template lwc:if={files}>
     <lightning-datatable
       key-field="fileId"
       data={filesToDisplay}
@@ -87,7 +87,7 @@
     >
     </lightning-datatable>
   </template>
-  <template if:true={displayRemovalConfirmation}>
+  <template lwc:if={displayRemovalConfirmation}>
     <section class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container slds-grid">
         <lightning-card>
