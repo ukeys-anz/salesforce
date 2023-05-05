@@ -190,7 +190,7 @@
         <field>Activity.Voice_Call_SID__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>BusinessHours.WednesdayStartTime</field>
         <readable>true</readable>
@@ -2270,7 +2270,7 @@
         <field>Case.What_Customer_was_Trying_to_Do__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Entitlement.IsDeleted</field>
         <readable>true</readable>

@@ -207,6 +207,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OnboardingAttemptCount__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>OnboardingEvent__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>

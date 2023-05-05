@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>IDR Everyday Banking workbasket report</name>
     <columns>
         <field>CASE_OWNER</field>
     </columns>
@@ -51,7 +52,6 @@
         <field>CASE_NUMBER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>IDR Everyday Banking workbasket report</name>
     <params>
         <name>units</name>
         <value>d</value>
