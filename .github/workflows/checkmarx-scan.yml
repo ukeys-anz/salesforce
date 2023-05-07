@@ -6,6 +6,8 @@ on:
     branches: [master]
   push:
     branches: [develop]
+  schedule:
+    - cron: "0 4 * * 0-4" # Run every day between 3-4 pm
 
 jobs:
   checkmarx-scan:
@@ -59,9 +61,9 @@ jobs:
           bug_tracker: GitHub
           zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,createCmosEntitlment.js
           params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ env.GITHUB_BRANCH }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true
-        continue-on-error: true
 
-      - name: Slack message
+      - if: ${{ always() }}
+        name: Slack message
         env:
           CHECKMARX_STATUS: ${{ steps.checkmarx.outcome }}
         run: |
