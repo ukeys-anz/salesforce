@@ -122,6 +122,9 @@ public without sharing class IDRTaskActions {
     ) {
       record.ActivityDate = Date.today().addDays(1);
     }
+    if (record.OwnerId.getSobjectType() == User.SobjectType) {
+      record.Last_Assigned_Owner__c = record.OwnerId;
+    }
   }
   /**
    * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.

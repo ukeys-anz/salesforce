@@ -5126,6 +5126,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Event.Last_Assigned_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Event.Lead__c</field>
         <readable>true</readable>
@@ -7842,6 +7847,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Interaction_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Last_Assigned_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
