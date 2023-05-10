@@ -24,14 +24,16 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
     }
 
     ce_type =
-      'anzx.salesforce.case.v1.dispute.' +
+      System.Label.ANZX_Disputes_event_ce_type +
       caseType +
       'externalstatus.' +
       action;
     ce_source = 'case.salesforce.anzx';
     ce_subject = 'ExternalCaseStatusNumber/' + externalCaseStatus.Name;
     ce_partitionkey = 'CaseNumber/' + theCase.CaseNumber;
-    ce_dataschema = System.Label.ANZX_Proto_Data_Schema + '#ExternalCaseStatus';
+    ce_dataschema =
+      System.Label.ANZX_Disputes_Event_Proto_Data_Schema +
+      '#ExternalCaseStatus';
     String sourceSystemName = '';
     if (
       theCase.Account?.Source_System_Name__c != null &&
@@ -49,7 +51,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       externalCaseStatus,
       theCase
     );
-    this.system_data = new CloudEventSystemModel(
+    this.systemData = new CloudEventSystemModel(
       externalCaseStatus.LastModifiedDate,
       theUser
     );
@@ -69,6 +71,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
     public String resultMessage { get; set; }
     public String statusEventId { get; set; }
     public DateTime statusTimestamp { get; set; }
+    public AccountModel customer { get; set; }
     /**
      * @description get an instance of ExternalCaseStatusWrapper
      */
@@ -76,7 +79,6 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       External_Case_Status__c externalCaseStatus,
       Case theCase
     ) {
-      super(externalCaseStatus);
       this.caseNumber = theCase.CaseNumber;
       this.customerMessage = externalCaseStatus.Customer_Message__c;
       this.externalStatus = externalCaseStatus.External_Status__c;
@@ -87,6 +89,26 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       this.resultMessage = externalCaseStatus.Result_Message__c;
       this.statusEventId = externalCaseStatus.Status_Event_ID__c;
       this.statusTimestamp = externalCaseStatus.Status_Timestamp__c;
+      this.customer = new AccountModel(theCase);
+    }
+  }
+
+  /**
+   * @description Inner Wrapper Class for the customer data of All Dispute Cases
+   */
+  public class AccountModel {
+    public String ocvId { get; set; }
+    public String sourceSystem { get; set; }
+    public String sourceSystemId { get; set; }
+
+    /**
+     * @description get an instance of AccountModel
+     * @param theCase the Case record
+     */
+    public AccountModel(Case theCase) {
+      this.ocvId = theCase.Account?.OCV_ID__c;
+      this.sourceSystem = theCase.Account?.Source_System_Name__c;
+      this.sourceSystemId = theCase.Account?.Source_System_ID__c;
     }
   }
 }

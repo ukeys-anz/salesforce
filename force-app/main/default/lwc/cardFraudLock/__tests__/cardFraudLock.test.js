@@ -11,7 +11,7 @@ import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 
 const mockApexSuccess = require("./data/apex-mock-success.json");
 const mockApexFailure = require("./data/apex-mock-failure.json");
-const mockOcvId = require("./data/wire-mock-OCV_ID.json");
+const mockWireFraudLock = require("./data/wire-mock-cardFraudLock.json");
 const MessageContext = createTestWireAdapter();
 
 jest.mock(
@@ -335,10 +335,9 @@ describe("c-card-fraud-lock | wire", () => {
   });
 
   it("1. check wire OCV_ID", () => {
-    getRecord.emit(mockOcvId);
-
+    getRecord.emit(mockWireFraudLock);
     return Promise.resolve().then(() => {
-      const ocvID = mockOcvId.fields.OCV_ID__c.value;
+      const ocvID = mockWireFraudLock.fields.OCV_ID__c.value;
       expect(ocvID).toBe("Test OCV_ID");
     });
   });

@@ -148,6 +148,36 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBIDVSearchResult__c.MatchIndicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.PersonaDataSource__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.PersonaId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SearchName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SearchResultDetail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SubmittedAt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.CountryOfIssueOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -443,6 +473,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.DaonEnrolmentId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -578,6 +613,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.OnboardingAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.OnboardingEvent__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -659,6 +699,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>COBCitizenship__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>COBIDVSearchResult__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

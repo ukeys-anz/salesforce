@@ -112,6 +112,59 @@ public with sharing class ChatterFeedItemTriggerHandlerTest {
   }
 
   @isTest
+  static void testFeedItemContainsEmail() {
+    //GIVEN a Case chatter is created with email on chatter body
+    Case newCase = [SELECT Id FROM Case LIMIT 1];
+
+    FeedItem post = new FeedItem();
+    post.ParentId = newCase.Id;
+    post.Body = 'hello test.user@anztest.com';
+
+    // WHEN the Chatter is inserted
+    Test.startTest();
+    insert post;
+    Test.stopTest();
+
+    FeedItem insertedPost = [
+      SELECT Id, Body
+      FROM FEEDITEM
+      WHERE ParentId = :newCase.Id
+    ];
+
+    // THEN the chatter should be successfully created
+    System.assertEquals(
+      insertedPost.Body,
+      'hello test.user@anztest.com',
+      'FeedItem should be successfully inserted.'
+    );
+  }
+
+  @isTest
+  static void testFeedItemContainsEmailAndURL() {
+    //GIVEN a Case chatter is created with email and url on chatter post
+    Case newCase = [SELECT Id FROM Case LIMIT 1];
+
+    try {
+      FeedItem post = new FeedItem();
+      post.ParentId = newCase.Id;
+      post.Body = 'hallo, test.user@anztest.com. you will navigate to www.google.com';
+      insert post;
+      System.assert(
+        false,
+        'Failed to prevent against user posting feed item with url.'
+      );
+    } catch (Exception e) {
+      Boolean exceptionThrown = e.getMessage()
+        .contains('Please remove urls from chatter post');
+      System.assertEquals(
+        true,
+        exceptionThrown,
+        'The chatter post contains url.'
+      );
+    }
+  }
+
+  @isTest
   static void testInsertFeedItem() {
     //GIVEN a Case chatter is created with non-excessive body length
     Case newCase = [

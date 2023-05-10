@@ -1697,6 +1697,21 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Temporary_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Case_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Cases_Related_To_Team__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Activity.Case_Owner__c</field>
         <readable>true</readable>
@@ -3987,6 +4002,36 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBIDVSearchResult__c.MatchIndicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.PersonaDataSource__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.PersonaId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SearchName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SearchResultDetail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SubmittedAt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.CountryOfIssueOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4707,6 +4752,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.DaonEnrolmentId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4838,6 +4888,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>CustomerOnboardingApplication__c.OccurredAt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.OnboardingAttemptCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5343,6 +5398,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccountRole__c.FinServ__StartDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccountRole__c.Temporary_External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8462,6 +8522,9 @@
         <layout>COBCitizenship__c-COB Citizenship Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>COBIDVSearchResult__c-COB IDV Search Result Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>COBPrimaryIDDocument__c-COB Primary ID Document Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -8826,6 +8889,15 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>COBCitizenship__c</object>
         <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>COBIDVSearchResult__c</object>
+        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>

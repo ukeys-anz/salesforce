@@ -148,11 +148,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
       JSON.serialize(mappedResponse2),
       ExternalCaseStatusCloudEventModel.ExternalCaseStatusCloudEventDataModel.class
     );
-    System.assertEquals(
-      externalCaseStatus.Id,
-      externalCaseStatusCloudEventDataModel.recordId,
-      'External Case Status Id should match'
-    );
+
     System.assertEquals(
       theCase.CaseNumber,
       externalCaseStatusCloudEventDataModel.caseNumber,

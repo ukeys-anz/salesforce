@@ -6,6 +6,8 @@ on:
     branches: [master]
   push:
     branches: [develop]
+  schedule:
+    - cron: "0 9 * * 0-4" # Run every day between 8-9 pm
 
 jobs:
   checkmarx-scan:
@@ -44,6 +46,7 @@ jobs:
           token: ${{ secrets.CXFLOW_ACTIONS_TOKEN }}
 
       - name: Checkmarx CxFlow Action
+        id: checkmarx
         uses: ./.github/actions/platform-actions-checkmarx-cxflow
         with:
           project: github.com.anzx.salesforce
@@ -58,3 +61,19 @@ jobs:
           bug_tracker: GitHub
           zip_exclude: \.git\/.*,\.git\-hooks\/.*,\.github\/.*,apexdoc\/.*,apex\-scripts\/.*,automation\-test\/.*,bash\-scripts\/.*,ci\/.*,config\/.*,coverage\/.*,data\/.*,ea\/.*,ea\-seeder\/.*,mdapi\-source\/.*,misc\/.*,node_modules\/.*,pmdscripts\/.*,createCmosEntitlment.js
           params: --namespace=${{ github.repository_owner }} --repo-name=${{ github.event.repository.name }} --branch=${{ env.GITHUB_BRANCH }} --merge-id=${{ github.event.number }} --severity=High --checkmarx.scan-resubmit=true --checkmarx.scan-queuing=true
+
+      - if: ${{ always() }}
+        name: Slack message
+        env:
+          CHECKMARX_STATUS: ${{ steps.checkmarx.outcome }}
+        run: |
+          if [[ $CHECKMARX_STATUS == success ]];then
+            status=:white_check_mark:
+          else
+            status=:X:
+          fi
+
+          TodayDate="$(TZ=Australia/Melbourne date +%F\|%H:%M)"
+          actionURL="https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+          IDENTITY_TOKEN=$(curl -H "Metadata-Flavor: Google" 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz&format=full&licenses=TRUE')
+          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-security","templateID":"ghasfsecurity","args":{"startdatetime":"'${TodayDate}'","passed":"'${status}'","branch":"'${{env.GITHUB_BRANCH}}'","checkname":"Checkmarx","reponame":"Salesforce","resultsurl":"'${actionURL}'"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack

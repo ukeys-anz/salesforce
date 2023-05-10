@@ -1,0 +1,7 @@
+<design:component>
+		<design:attribute name="objectType" label="Object Type" />
+    <sfdc:objects>
+        <sfdc:object>Account</sfdc:object>
+        <sfdc:object>CustomerOnboardingApplication__c</sfdc:object>
+    </sfdc:objects>
+</design:component>

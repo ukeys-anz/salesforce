@@ -31,7 +31,7 @@ NOT(ISBLANK(TEXT(IDR_Issue_Type_2__c))),
 NOT(ISBLANK(TEXT(IDR_Subsequent_Issue_2__c))),
 NOT(ISBLANK(IDR_Product_2__c)),
 NOT(OR(ISBLANK(IDR_Account_Card_Policy_Number_2__c),
-        IDR_Account_Card_Policy_Number_2__c = 'N/A'))
+        IDR_Account_Card_Policy_Number_2__c = &apos;N/A&apos;))
 )
 )
 )
