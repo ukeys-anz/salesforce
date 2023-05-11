@@ -19,7 +19,11 @@ export const fraudChatterMessage = (status, last4Digits) => {
   return fraudChatterMessages[statusKey];
 };
 
-export const primaryButtonChatterMessage = (btnLabel, last4Digits) => {
+export const primaryButtonChatterMessage = (
+  btnLabel,
+  last4Digits,
+  currentUserName
+) => {
   const messageForPrimaryButtons = {
     Fraud_Unlock:
       "All fraud locks have been removed from the customer's debit card ending in " +
@@ -32,7 +36,9 @@ export const primaryButtonChatterMessage = (btnLabel, last4Digits) => {
     Cancel_Card:
       "The customer's debit card ending in " +
       last4Digits +
-      " has been permanently cancelled as part of an account closure process by the ANZ Plus Fraud team."
+      " has been permanently cancelled as part of an account closure process by " +
+      currentUserName +
+      "."
   };
   let btnKey = findCardActionKeyFromLabel(btnLabel);
   return messageForPrimaryButtons[btnKey];

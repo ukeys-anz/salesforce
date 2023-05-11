@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Users to have the access to cancel a card according to card status.</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx Cancel Card</label>
+</CustomPermission>

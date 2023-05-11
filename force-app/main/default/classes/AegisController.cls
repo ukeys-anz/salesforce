@@ -1,86 +1,161 @@
 /**
  * @author Sneha Malik
  * @since 2022
- * @description AegisController. Helper class that gives customer's mobile number, current user's session token ID and Aegis URL to redirect the user to Aegis portal.
+ * @description AegisController. Helper class that gives customer's or Customer's Onboarding Aplication mobile number, current user's session token ID and Aegis URL to redirect the user to Aegis portal.
  */
 
 @SuppressWarnings('PMD.ApexSuggestUsingNamedCred, PMD.CyclomaticComplexity')
 public with sharing class AegisController {
+  @TestVisible
+  private static final String ACCOUNT_TYPE = 'Account';
+  @TestVisible
+  private static final String COB_TYPE = 'CustomerOnboardingApplication__c';
+  @TestVisible
+  private static final String DATA_SET_NAME = 'AegisURL';
+  @TestVisible
+  private static final String NO_MOBILE_ERROR = 'This record does not have Mobile phone.';
+  @TestVisible
+  private static final String MISSING_CONFIGURATION_ERROR = 'Aegis Portal URL is not configured. Contact your Salesforce Administrator for help.';
+
   /**
    * @description The AegisPortalRedirect component uses this to fetch the Aegis Portal URL.
-   * @param accountId the id of the individual account
-   * @return string aegisURL
+   * @param recordId Record Id of the Account or Customer Onboarding Application
+   * @param objectType Object type
+   * @return String aegisURL
    */
   @AuraEnabled
-  public static string getAccount(Id accountId) {
-    Account accRecord = null;
-    String errorStr = 'Something went wrong. Contact your Salesforce administrator for help.';
-    if (Account.sObjectType.getDescribe().isQueryable()) {
-      accRecord = [
-        SELECT Id, PersonMobilePhone
-        FROM Account
-        WHERE Id = :accountId
-      ];
-    }
+  public static string getAegisUrl(Id recordId, String objectType) {
+    String mobile = getMobile(recordId, objectType);
 
-    if (accRecord != null) {
-      String identifier = null;
-      if (accRecord.PersonMobilePhone != null) {
-        identifier = EncodingUtil.base64Encode(
-          blob.valueof(accRecord.PersonMobilePhone)
-        );
-        string azureToken = getAzureToken();
-        if (azureToken != null) {
-          string aegisURL = getAegisURL(identifier, azureToken);
-          return aegisURL;
-        } else {
-          errorStr = 'Error in fetching session token. Please try sign in again or Contact your Salesforce administrator for help.';
-        }
-      } else {
-        errorStr = 'This customer does not have Mobile phone.';
-      }
-    } else {
-      errorStr = 'Not enough permissions to query Customer Account.';
-    }
-    return errorStr;
+    String azureToken = getAzureToken();
+
+    String identifier = getIdentifier(mobile);
+
+    String aegisURL = buildAegisURL(identifier, azureToken);
+    return aegisURL;
   }
+
   /**
-   * @description  retrieves current user's id token from session cache
+   * @description Retrieves current user's id token from session cache
    * @return String id token
-   * @exception TokenCacheException throws when no token is found
+   * @exception AuraHandledException throws when no token is found
    */
-  public static string getAzureToken() {
+  private static string getAzureToken() {
     String idToken = null;
     try {
       idToken = AuthTokenCacheUtil.getSessionIdToken();
     } catch (Exception e) {
-      lib_systemLog log = new lib_systemLog('AegisController', 'getAzureToken');
-      log.addMessage(
-        e.getTypeName(),
-        e.getMessage(),
-        Lib_SystemLog.Severity.ERROR
-      );
-      log.insertLogAsync();
+      throwException(e.getMessage());
     }
     return idToken;
   }
+
   /**
-   * @description tells aegis url for redirection.
-   * @param identifier mobile number of individual account
-   * @param tokenId user's id token from session cache
-   * @return String id aegis url
+   * @description Get mobile phone.
+   * @param recordId Record Id of the Account
+   * @param objectType Object type
+   * @return String Mobile phone number
    */
-  public static String getAegisURL(String identifier, String tokenId) {
-    String aegisURL = null;
-    Map<String, Aegis_Env_Setting__c> customSettingMap = Aegis_Env_Setting__c.getAll();
-    for (Aegis_Env_Setting__c custSetting : customSettingMap.values()) {
-      aegisURL = custSetting.Aegis_URL__c;
+  private static String getMobile(Id recordId, String objectType) {
+    String mobile = null;
+
+    if (objectType == ACCOUNT_TYPE) {
+      mobile = getAccountMobile(recordId);
+    } else if (objectType == COB_TYPE) {
+      mobile = getCobMobile(recordId);
     }
+
+    if (mobile == null) {
+      throwException(NO_MOBILE_ERROR);
+    }
+
+    return mobile;
+  }
+
+  /**
+   * @description Get encoded mobile phone.
+   * @param mobile Mobile phone to encode
+   * @return String Encoded mobile phone
+   */
+  @TestVisible
+  private static String getIdentifier(String mobile) {
+    String identifier = EncodingUtil.base64Encode(blob.valueof(mobile));
+
+    return identifier;
+  }
+
+  /**
+   * @description Get aegis url for redirection.
+   * @param identifier mobile number of Individual Account or Customer Onboarding Application
+   * @param tokenId user's id token from session cache
+   * @return String Aegis Url
+   */
+  @TestVisible
+  private static String buildAegisURL(String identifier, String tokenId) {
+    String aegisURL = Aegis_Env_Setting__c.getValues(DATA_SET_NAME)
+      ?.Aegis_URL__c;
+
+    if (aegisURL == null) {
+      throwException(MISSING_CONFIGURATION_ERROR);
+    }
+
     aegisURL +=
       '/search-users?identifier=' +
       identifier +
       '&azure_token=' +
       tokenId;
     return aegisURL;
+  }
+
+  /**
+   * @description Get Account mobile phone.
+   * @param accountId Record Id of the Account
+   * @return String Mobile phone number
+   */
+  private static String getAccountMobile(Id accountId) {
+    if (PermissionUtils.canQuery('Account') == true) {
+      Account accRecord = [
+        SELECT Id, PersonMobilePhone
+        FROM Account
+        WHERE Id = :accountId
+      ];
+
+      return accRecord.PersonMobilePhone;
+    }
+
+    return null;
+  }
+
+  /**
+   * @description Get Customer Onboarding Application mobile phone.
+   * @param cobId Record Id of the Customer Onboarding Application
+   * @return String Mobile phone number
+   */
+  private static String getCobMobile(Id cobId) {
+    if (PermissionUtils.canQuery('CustomerOnboardingApplication__c') == true) {
+      CustomerOnboardingApplication__c cobRecord = [
+        SELECT Id, SecurityMobile__c
+        FROM CustomerOnboardingApplication__c
+        WHERE Id = :cobId
+      ];
+
+      return cobRecord.SecurityMobile__c;
+    }
+
+    return null;
+  }
+
+  /**
+   * @description throws AuraHandledException with error message
+   * @param errorMsg error message to use in the exception
+   */
+  private static void throwException(String errorMsg) {
+    // AuraHandleException is quirky, setMessage() and constructor must be invoked otherwise "Script-thrown exception" is thrown instead of actual exception message
+    AuraHandledException e = new AuraHandledException(errorMsg);
+    e.setMessage(errorMsg);
+
+    Logger.error('Failed to redirect to Aegis Portal', e);
+    Logger.saveLog();
+    throw e;
   }
 }

@@ -17,11 +17,18 @@
         <value>interacc@anz.com</value>
     </labels>
     <labels>
-        <fullName>ANZX_Proto_Data_Schema</fullName>
+        <fullName>ANZX_Disputes_Event_Proto_Data_Schema</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Data schema url for proto files for cloud event</shortDescription>
-        <value>proto://buf.anz/anz/salesforceapis/salesforce.event.disputes.v1alpha1</value>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.disputes.v1alpha1</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Disputes_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disputes cloud event type</shortDescription>
+        <value>anzx.salesforce.case.v1alpha1.dispute.</value>
     </labels>
     <labels>
         <fullName>Anonymous_Complainant</fullName>

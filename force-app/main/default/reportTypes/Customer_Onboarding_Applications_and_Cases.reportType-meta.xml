@@ -67,6 +67,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CXOnboardingStageChangeReason__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>DaonEnrolmentId__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>
@@ -198,6 +203,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>OccurredAt__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>OnboardingAttemptCount__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>
         <columns>

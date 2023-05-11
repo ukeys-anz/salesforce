@@ -10,7 +10,7 @@ import FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD from "@salesforce/schema/FinServ__F
 import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Id";
 import PRODUCT_NAME_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Product_Name__c";
 import OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
-
+import TYPE_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 const DEFAULT_PAGE_SIZE = 10;
 
 const FIELDS = [
@@ -18,7 +18,8 @@ const FIELDS = [
   FINANCIAL_ACCOUNT_PRIMARY_OWNER_FIELD,
   FINANCIAL_ACCOUNT_ID_FIELD,
   PRODUCT_NAME_FIELD,
-  OCV_ID_FIELD
+  OCV_ID_FIELD,
+  TYPE_FIELD
 ];
 
 const columns = [
@@ -82,8 +83,14 @@ export default class StatementsViewer extends LightningElement {
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.accountId = data.fields.FinServ__PrimaryOwner__c.value;
       this.financialAccountId = data.fields.Id.value;
-      this.productName = data.fields.Product_Name__c.value;
       this.ocvId = data.fields.OCV_ID__c.value;
+      if (
+        data.fields?.FinServ__FinancialAccountType__c?.value === "Home Loan"
+      ) {
+        this.productName = "ANZ Plus Home Loan";
+      } else {
+        this.productName = data.fields.Product_Name__c.value;
+      }
       this.getStatementsData(
         this.ocvId,
         this.accountNumber,
@@ -102,35 +109,26 @@ export default class StatementsViewer extends LightningElement {
         pageSize
       });
 
-      if (!statements || (statements && !Array.isArray(statements))) {
-        throw new Error("Error: Unknown data.");
-      }
-
-      if (statements.length === 0) {
+      if (!statements || statements.length === 0) {
         this.statements = [];
         this.showLoadMoreButton = false;
-      } else if (statements.length > 0) {
-        // if returned data size no greater than default size, hide load more button
-        if (statements.length < DEFAULT_PAGE_SIZE) {
-          this.showLoadMoreButton = false;
-        }
-        // if no more statements, hide load more button and no need to process data
-        else if (
-          this.statements &&
-          this.statements.length === statements.length
-        ) {
-          this.showLoadMoreButton = false;
-          this.isLoading = false;
-          return;
-        }
-
-        const formattedData = this.formatStatements(
-          statements,
-          this.productName
-        );
-
-        this.sortStatements(formattedData, "startDate", "desc");
+        return;
       }
+      if (!Array.isArray(statements)) {
+        throw new Error("Error: Unknown data.");
+      }
+      if (this.statements?.length === statements.length) {
+        this.showLoadMoreButton = false;
+        this.isLoading = false;
+        return;
+      }
+      if (statements.length < DEFAULT_PAGE_SIZE) {
+        this.showLoadMoreButton = false;
+      }
+
+      const formattedData = this.formatStatements(statements, this.productName);
+
+      this.sortStatements(formattedData, "startDate", "desc");
     } catch (error) {
       this.handleError(error);
     } finally {

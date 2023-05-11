@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>UserId__c</fullName>
+    <businessStatus>Hidden</businessStatus>
     <description>Id of the user who executed the transaction that created the log. This user is different from createdById which is Automated Process.</description>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>

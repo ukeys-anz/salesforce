@@ -112,7 +112,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   }
 
   get showLoadMore() {
-    return this.links && this.links.next && this.links.next.href ? true : false;
+    return this.links && this.links.next && this.links.next.uri ? true : false;
   }
 
   @api
@@ -316,8 +316,8 @@ export default class TransactionHistoryBoard extends LightningElement {
     //The provided URL doesn't go through MS, so we need
     //to retrieve the params and pass them to the Apex class
     //and append it to the request
-    let nextSubstring = `${this.links.next.href.substring(
-      this.links.next.href.indexOf("?")
+    let nextSubstring = `${this.links.next.uri.substring(
+      this.links.next.uri.indexOf("?")
     )}`;
     const event = new CustomEvent("loadmore", {
       detail: nextSubstring

@@ -415,7 +415,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.ExpiryDate__c</fieldItem>
                 <identifier>RecordExpiryDate_cField</identifier>
@@ -597,7 +597,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.ExpiryDate__c</fieldItem>
                 <identifier>RecordExpiryDate_cField2</identifier>

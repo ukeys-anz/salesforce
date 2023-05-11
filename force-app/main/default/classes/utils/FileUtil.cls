@@ -15,7 +15,7 @@ public with sharing class FileUtil {
     List<String> extensions = getExtensions(mimeType);
     if (
       extensions != null &&
-      extensions.contains(fileName.substringAfterLast('.'))
+      extensions.contains(fileName.substringAfterLast('.').toLowerCase())
     ) {
       return true;
     } else {
