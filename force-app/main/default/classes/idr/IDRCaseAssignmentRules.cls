@@ -135,7 +135,7 @@ public with sharing class IDRCaseAssignmentRules {
       // Hardship
       if (rec.Type == '4' || rec.Type == '17') {
         if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
-          return QUEUE_MAP.get('Specialised_Early_Resolution_Hardship');
+          return QUEUE_MAP.get('EDR_Hardship');
         } else {
           return QUEUE_MAP.get('IDR_Hardship');
         }
