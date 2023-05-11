@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Refresh_Token__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source_Azure</complianceGroup>
+    <description>User&apos;s Azure refresh token issued by Salesforce</description>
+    <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
+    <externalId>false</externalId>
+    <label>Refresh Token</label>
+    <length>131072</length>
+    <securityClassification>Restricted</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>
