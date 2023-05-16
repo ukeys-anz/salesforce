@@ -11,7 +11,8 @@ public with sharing virtual class Service {
   protected Boolean preset = false;
   public enum IdType {
     OCVID,
-    PERSONAID
+    PERSONAID,
+    SOPID
   }
 
   /**
@@ -59,6 +60,15 @@ public with sharing virtual class Service {
     String redirectURL,
     String code
   ) {
+    return null;
+  }
+
+  /**
+   * @param sopId contains sop id
+   * @return `HttpCalloutResponse` api response
+   * @description virtual sop list asset callout
+   */
+  public virtual HttpCalloutResponse getListAssets(String sopId) {
     return null;
   }
 
