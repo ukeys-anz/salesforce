@@ -104,6 +104,7 @@ force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
 #Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
 #as metadata API does not support deleting record type, to avoid destructive change error
 force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
+force-app/main/default/objects/Case/recordTypes/Bug_Enquiry.recordType-meta.xml
 
 #Temporarily ignoring deleted Process/Flow 'Case_SLA_Notification' until it's removed form source code and prod.
 # Below line can be removed once it's removed from prod.
