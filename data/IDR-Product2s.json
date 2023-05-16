@@ -1000,7 +1000,7 @@
         "referenceId": "Product2Ref72"
       },
       "Name": "ANZ V2Plus (Retail)",
-      "IsActive": true,
+      "IsActive": false,
       "ANZ_Product_Code__c": "72",
       "IDR_Product_or_Service_Line__c": "2",
       "IDR_Product_or_Service_Category__c": "5",
