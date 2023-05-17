@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>false</active>
-    <entityName>Case</entityName>
-    <fieldName>Status</fieldName>
-    <masterLabel>Bug Enquiry Case</masterLabel>
-    <recordTypeName>Bug_Enquiry</recordTypeName>
-</PathAssistant>

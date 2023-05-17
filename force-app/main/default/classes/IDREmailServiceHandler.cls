@@ -61,7 +61,7 @@ public with sharing class IDREmailServiceHandler {
       caseToUpd = caseToUpdList[0];
 
       //Create email message
-      IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
+      IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id, caseNo);
       //Notify Case Owner
       if (fromEmail != System.Label.XpressionSenderAddress) {
         IDRBankerNotificationBuilder.sendNotification(
@@ -86,7 +86,7 @@ public with sharing class IDREmailServiceHandler {
         IDRTaskActions.insertAssignmentTask(assiTasks);
       }
       //Create files from attachments
-      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
+      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id, caseNo);
 
       return false;
     } else {
@@ -115,8 +115,8 @@ public with sharing class IDREmailServiceHandler {
       caseOrigin
     );
     if (newCase.Id != null) {
-      IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-      IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
+      IDREmailServiceHelper.createEmailMessage(email, newCase.Id, 'New');
+      IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id, 'New');
       IDREmailServiceHelper.updateCaseWithQueue(
         newCase,
         'Queue',

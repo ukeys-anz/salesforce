@@ -35,7 +35,9 @@ public with sharing class CCRMUpdateAccExternalIdBatch implements Database.Batch
         acc.Temporary_External_Id__c = acc.External_Id__c;
         acc.External_Id__c = acc.External_Id__c.substringAfter('_');
       }
-      Database.update(accountRecords);
+      List<Database.saveResult> result = Database.update(accountRecords, false);
+      Logger.error('', result);
+      Logger.saveLog();
     }
   }
 

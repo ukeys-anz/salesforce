@@ -72,10 +72,12 @@ public with sharing class IDREmailServiceHelper {
    * @description Creates a new email message record
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
+   * @param caseNumber explicit caseNumber for Logger
    */
   public static void createEmailMessage(
     Messaging.InboundEmail email,
-    Id caseId
+    Id caseId,
+    String caseNumber
   ) {
     try {
       EmailMessage emailMessage = new EmailMessage();
@@ -105,7 +107,8 @@ public with sharing class IDREmailServiceHelper {
     } catch (Exception err) {
       Logger.error(
         'EmailServiceException: ' +
-        'Error in creating email message from service class, which needs to be attached to existing case :',
+        'Error in creating email message from service class, which needs to be attached to existing case : CMOS-' +
+        caseNumber,
         caseId,
         err
       );
@@ -117,19 +120,25 @@ public with sharing class IDREmailServiceHelper {
    * @description Creates attachment/files from the email attachment
    * @param email Inbound email object
    * @param caseId The case Id that needs to be related to
+   * @param caseNumber explicit caseNumber for Logger
    */
   public static void createAttachmentFiles(
     Messaging.InboundEmail email,
-    Id caseId
+    Id caseId,
+    String caseNumber
   ) {
     List<Messaging.InboundEmail.TextAttachment> tAttachments = email.textAttachments;
     List<Messaging.InboundEmail.BinaryAttachment> bAttachments = email.binaryAttachments;
     List<ContentVersion> contentVersionList = new List<ContentVersion>();
 
     //Get all text attachments
-    contentVersionList.addAll(getTextFileAttachments(tAttachments, caseId));
+    contentVersionList.addAll(
+      getTextFileAttachments(tAttachments, caseId, caseNumber)
+    );
     //Get all binary attachments
-    contentVersionList.addAll(getTextBinaryAttachments(bAttachments, caseId));
+    contentVersionList.addAll(
+      getTextBinaryAttachments(bAttachments, caseId, caseNumber)
+    );
 
     if (contentVersionList.size() > 0) {
       AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
@@ -165,11 +174,13 @@ public with sharing class IDREmailServiceHelper {
    * @description Fetches the text attachments from the email
    * @param tAttachments The messaging inbound email text attachments
    * @param caseId The case Id that needs to be related to
+   * @param caseNumber explicit caseNumber for Logger
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextFileAttachments(
     List<Messaging.InboundEmail.TextAttachment> tAttachments,
-    Id caseId
+    Id caseId,
+    String caseNumber
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (tAttachments != null && tAttachments.size() > 0) {
@@ -189,7 +200,9 @@ public with sharing class IDREmailServiceHelper {
           returnConVerList.add(cv);
         } else {
           Logger.error(
-            'Discarded an attachment as the type was unsupported => filename : ' +
+            'CMOS-' +
+            caseNumber +
+            ': Discarded an attachment as the type was unsupported => filename : ' +
             tAttachment.fileName +
             ' , mimesubtype : ' +
             tAttachment.mimeTypeSubType,
@@ -206,11 +219,13 @@ public with sharing class IDREmailServiceHelper {
    * @description Fetches the text attachments from the email
    * @param bAttachments The messaging inbound email binary attachments
    * @param caseId The case Id that needs to be related to
+   * @param caseNumber explicit caseNumber for Logger
    * @return List<ContentVersion> Wraps through content version
    */
   public static List<ContentVersion> getTextBinaryAttachments(
     List<Messaging.InboundEmail.BinaryAttachment> bAttachments,
-    Id caseId
+    Id caseId,
+    String caseNumber
   ) {
     List<ContentVersion> returnConVerList = new List<ContentVersion>();
     if (bAttachments != null && bAttachments.size() > 0) {
@@ -230,7 +245,9 @@ public with sharing class IDREmailServiceHelper {
           returnConVerList.add(cv);
         } else {
           Logger.error(
-            'Discarded a binary attachment as the type was unsupported => filename : ' +
+            'CMOS-' +
+            caseNumber +
+            ': Discarded a binary attachment as the type was unsupported => filename : ' +
             bAttachment.fileName +
             ' , mimesubtype : ' +
             bAttachment.mimeTypeSubType,

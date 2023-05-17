@@ -36,7 +36,9 @@ public with sharing class CCRMRevertFARExternalIdBatch implements Database.Batch
       for (FinServ__FinancialAccountRole__c far : farRecords) {
         far.External_Id__c = far.Temporary_External_Id__c;
       }
-      Database.update(farRecords);
+      List<Database.saveResult> result = Database.update(farRecords, false);
+      Logger.error('', result);
+      Logger.saveLog();
     }
   }
 
