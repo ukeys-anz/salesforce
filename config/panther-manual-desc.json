@@ -1307,6 +1307,9 @@
         "Id"
       ]
     },
+    "User": {
+      "IA-2432460": ["Refresh_Token__c"]
+    },
     "Event": {
       "IA-2468715": [
         "ActivityDate",

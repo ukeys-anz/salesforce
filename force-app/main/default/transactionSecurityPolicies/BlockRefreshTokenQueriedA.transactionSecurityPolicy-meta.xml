@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TransactionSecurityPolicy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <action>
+        <block>true</block>
+        <endSession>false</endSession>
+        <freezeUser>false</freezeUser>
+        <notifications>
+            <inApp>false</inApp>
+            <sendEmail>true</sendEmail>
+            <user>GetHelpSalesforceSupport@anz.com</user>
+        </notifications>
+        <twoFactorAuthentication>false</twoFactorAuthentication>
+    </action>
+    <active>true</active>
+    <description>Blocking SOQL query for Refresh_Token__c</description>
+    <developerName>BlockRefreshTokenQueriedA</developerName>
+    <eventName>ApiEvent</eventName>
+    <flow>PolicyCondition_CAnUFBTTUBeMOfuFueUb</flow>
+    <masterLabel>BlockRefreshTokenQueriedAPIEvent</masterLabel>
+    <type>CustomConditionBuilderPolicy</type>
+</TransactionSecurityPolicy>
