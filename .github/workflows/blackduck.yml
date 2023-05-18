@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - epic/platform
+      - release
   push:
     branches:
       - develop
