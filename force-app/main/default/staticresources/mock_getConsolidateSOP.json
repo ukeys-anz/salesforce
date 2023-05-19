@@ -1,0 +1,1386 @@
+{
+  "sop": {
+    "id": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+    "versionId": "2023-05-04T07:31:38.700353Z",
+    "createTime": "2023-05-04T07:31:38.700353Z",
+    "updateTime": "2023-05-04T07:31:38.700353Z",
+    "versionCreateTime": "2023-05-04T07:31:38.700353Z",
+    "status": "SOP_STATUS_SNAPSHOT",
+    "type": "SOP_TYPE_HOMELOAN",
+    "components": [
+      {
+        "type": "COMPONENT_TYPE_LIABILITIES",
+        "confirmed": true,
+        "partyConfirmations": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "confirmedTime": "2023-05-04T08:46:53.095707Z"
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "confirmedTime": "2023-05-04T08:49:53.095707Z"
+          }
+        ]
+      },
+      {
+        "type": "COMPONENT_TYPE_INCOMES",
+        "confirmed": true,
+        "partyConfirmations": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "confirmedTime": "2023-05-04T08:49:53.095707Z"
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "confirmedTime": "2023-05-04T08:50:53.095707Z"
+          }
+        ]
+      },
+      {
+        "type": "COMPONENT_TYPE_ASSETS",
+        "confirmed": true,
+        "partyConfirmations": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "confirmedTime": "2023-05-04T09:49:53.095707Z"
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "confirmedTime": "2023-05-04T09:50:53.095707Z"
+          }
+        ]
+      },
+      {
+        "type": "COMPONENT_TYPE_EXPENSES",
+        "confirmed": true,
+        "partyConfirmations": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "confirmedTime": "2023-05-04T09:09:53.095707Z"
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "confirmedTime": "2023-05-04T09:45:53.095707Z"
+          }
+        ]
+      },
+      {
+        "type": "COMPONENT_TYPE_SAVINGS",
+        "confirmed": true,
+        "partyConfirmations": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "confirmedTime": "2023-05-04T09:29:53.095707Z"
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "confirmedTime": "2023-05-04T09:35:53.095707Z"
+          }
+        ]
+      }
+    ],
+    "parties": [
+      {
+        "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "ocvId": "1000990280",
+        "spouseEarnsIncome": true,
+        "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
+        "confirmedAccounts": "2023-05-04T07:31:38.700353Z"
+      },
+      {
+        "id": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+        "ocvId": "276543221",
+        "spouseEarnsIncome": false,
+        "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
+        "confirmedAccounts": "2023-05-04T07:31:38.700353Z"
+      }
+    ],
+    "expenseConfigVersion": "6235235224222",
+    "dependantsCount": 0,
+    "liabilitySources": [
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "EQUIFAX",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": true,
+        "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "EXPERIAN",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": true,
+        "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4"
+      },
+      {
+        "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+        "subType": "ILLION",
+        "retrievedTime": "2023-05-04T07:31:38.700353Z",
+        "success": true,
+        "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4"
+      }
+    ],
+    "etag": "1683190013095707000"
+  },
+  "transactionAnalyses": [
+    {
+      "id": "",
+      "sopId": "",
+      "analysisPeriodMonths": 12,
+      "type": "ANALYSIS_TYPE_CREDIT_CARD_MERCHANTS",
+      "amount": {
+        "currencyCode": "CURRENCY_UNSPECIFIED",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "1970-01-01T00:00:00Z"
+    }
+  ],
+  "liabilities": [
+    {
+      "id": "849380b5c-11a5-4a6b-b5f7-a3e0d9219512",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "type": "LIABILITY_TYPE_CREDIT_CARD",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "6000",
+          "nanos": 0
+        },
+        "interestRate": {
+          "value": ""
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+        "principalInterestRemainingTerm": 0,
+        "interestOnlyRemainingTerm": 0,
+        "liabilityDuePaidInFull": false,
+        "redrawAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+        "financialInstitution": "CBA"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "1000",
+        "nanos": 0
+      },
+      "account": {
+        "id": "0c2ab959-1247-4859-8318-77f75a011f3e",
+        "bsb": "",
+        "accountNumber": "98765679942",
+        "accountName": "",
+        "status": "ACCOUNT_STATE_UNSPECIFIED",
+        "financialInstitution": ""
+      },
+      "assetIds": [""],
+      "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "createTime": "2023-05-03T07:31:38.700353Z",
+      "updateTime": "2023-05-03T07:31:38.700353Z",
+      "updatedBy": "Gearbox",
+      "etag": "",
+      "originalOutstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "1050",
+        "nanos": 0
+      }
+    },
+    {
+      "id": "85902b5c-11a5-4a6b-b5f7-a3e0d9219512",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "type": "LIABILITY_TYPE_PERSONAL_LOAN",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "interestRate": {
+          "value": ""
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "1850",
+          "nanos": 0
+        },
+        "repaymentFrequency": "FREQUENCY_MONTHLY",
+        "principalInterestRemainingTerm": 36,
+        "interestOnlyRemainingTerm": 0,
+        "liabilityDuePaidInFull": false,
+        "redrawAmount": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "CBA"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "21000",
+        "nanos": 0
+      },
+      "account": {
+        "id": "0cf39265-097b-4934-bf26-ea9657718ab5",
+        "bsb": "",
+        "accountNumber": "6548673637364",
+        "accountName": "",
+        "status": "ACCOUNT_STATE_UNSPECIFIED",
+        "financialInstitution": ""
+      },
+      "assetIds": [""],
+      "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "createTime": "2023-05-02T07:31:38.700353Z",
+      "updateTime": "2023-05-02T07:31:38.700353Z",
+      "updatedBy": "Gearbox",
+      "etag": "",
+      "originalOutstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "22600",
+        "nanos": 0
+      }
+    },
+    {
+      "id": "666ce996-3c3b-4c58-b925-c515d5a36889",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "type": "LIABILITY_TYPE_HOME_LOAN",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "3850",
+          "nanos": 0
+        },
+        "repaymentFrequency": "FREQUENCY_MONTHLY",
+        "principalInterestRemainingTerm": 30,
+        "interestOnlyRemainingTerm": 2,
+        "liabilityDuePaidInFull": false,
+        "redrawAmount": {
+          "currencyCode": "AUD",
+          "units": "15000",
+          "nanos": 0
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "ANZx Plus"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "560000",
+        "nanos": 0
+      },
+      "account": {
+        "id": "0fc71e26-dfce-4f55-b658-5c34720f6c17",
+        "bsb": "014111",
+        "accountNumber": "876548291",
+        "accountName": "Mr Home loan",
+        "status": "ACCOUNT_STATE_ACTIVE",
+        "financialInstitution": "ANZx Plus"
+      },
+      "assetIds": [""],
+      "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "createTime": "2023-05-03T07:31:38.700353Z",
+      "updateTime": "2023-05-03T07:31:38.700353Z",
+      "updatedBy": "1000990280",
+      "etag": "",
+      "originalOutstandingBalance": {
+        "currencyCode": "AUD"
+      }
+    },
+    {
+      "id": "0acfda2d-4b20-4009-9479-c0a6976b2314",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "type": "LIABILITY_TYPE_STUDENT_LOAN",
+      "studentLoan": {
+        "hecsWithheldPayment": false
+      },
+      "outstandingBalance": {
+        "currencyCode": "CURRENCY_UNSPECIFIED",
+        "units": "25000",
+        "nanos": 50
+      },
+      "assetIds": [""],
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "createTime": "2023-05-03T03:31:38.700353Z",
+      "updateTime": "2023-05-03T03:31:38.700353Z",
+      "updatedBy": "1000990280",
+      "etag": "",
+      "originalOutstandingBalance": {
+        "currencyCode": "AUD",
+        "nanos": 0
+      }
+    }
+  ],
+  "employments": [
+    {
+      "id": "666ce996-3c3b-4c58-b925-c515d5a36889",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "businessName": "Bakers Delight",
+      "basis": "EMPLOYMENT_BASIS_FULL_TIME",
+      "businessLogo": {
+        "lightUri": "",
+        "darkUri": ""
+      },
+      "superAllocation": {
+        "value": "11.5"
+      },
+      "startDate": {
+        "year": 2018,
+        "month": 2,
+        "day": 15
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "1000990280",
+      "etag": "",
+      "type": "EMPLOYMENT_TYPE_PAYG"
+    },
+    {
+      "id": "666ce996-3c3b-4c58-b925-c515d5a36889",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "businessName": "Car Sales",
+      "basis": "EMPLOYMENT_BASIS_PART_TIME",
+      "businessLogo": {
+        "lightUri": "",
+        "darkUri": ""
+      },
+      "superAllocation": {
+        "value": ""
+      },
+      "startDate": {
+        "year": 2020,
+        "month": 2,
+        "day": 15
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "1000990280",
+      "etag": "",
+      "type": "EMPLOYMENT_TYPE_PAYG"
+    }
+  ],
+  "incomes": [
+    {
+      "id": "b1dc2bbb-9a5f-42a5-85c9-16234f514cd8",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "details": [
+        {
+          "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+          "type": "INCOME_TYPE_BASE_SALARY",
+          "frequency": "INCOME_FREQUENCY_MONTHLY",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "12000",
+            "nanos": 0
+          },
+          "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+        },
+        {
+          "id": "d7541d963-e71d-464e-8395-7753fe1d3344",
+          "type": "INCOME_TYPE_OVERTIME",
+          "frequency": "INCOME_FREQUENCY_WEEKLY",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "200",
+            "nanos": 0
+          },
+          "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+        }
+      ],
+      "employmentId": "666ce996-3c3b-4c58-b925-c515d5a36889",
+      "stream": {
+        "id": "c781c2bbb-9a5f-42a5-85c9-16234f519999",
+        "frequency": "INCOME_FREQUENCY_MONTHLY",
+        "type": "INCOME_TYPE_SALARY_WAGES",
+        "streamDurationMonths": 0,
+        "baseAmount": {
+          "currencyCode": "AUD",
+          "units": "8000",
+          "nanos": 0
+        },
+        "variableAmount": {
+          "currencyCode": "AUD",
+          "units": "2000",
+          "nanos": 0
+        },
+        "volatility": false,
+        "sourceAccountIds": [""],
+        "merchantId": "gl34535j235jp1512352tjfafjafda133442153",
+        "etag": ""
+      },
+      "verification": {
+        "id": "",
+        "incomeId": "b1dc2bbb-9a5f-42a5-85c9-16234f514cd8",
+        "createTime": "2023-05-04T07:31:38.700353Z",
+        "method": "VERIFICATION_METHOD_TRANSACTIONS",
+        "documentIds": [""],
+        "createdBy": ""
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": ""
+    },
+    {
+      "id": "22cb151a-5d34-40ad-bcf8-fbfabf6b100d",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "details": [
+        {
+          "id": "849380b5c-11a5-4a6b-b5f7-a3e0d9219512",
+          "type": "INCOME_TYPE_BASE_SALARY",
+          "frequency": "INCOME_FREQUENCY_MONTHLY",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "5500",
+            "nanos": 0
+          },
+          "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+        },
+        {
+          "id": "334380b5c-11a5-4a6b-b5f7-a3e0d9214444",
+          "type": "INCOME_TYPE_COMMISSION",
+          "frequency": "INCOME_FREQUENCY_WEEKLY",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "900",
+            "nanos": 0
+          },
+          "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+        }
+      ],
+      "employmentId": "666ce996-3c3b-4c58-b925-c515d5a36889",
+      "stream": {
+        "id": "",
+        "frequency": "INCOME_FREQUENCY_UNSPECIFIED",
+        "type": "INCOME_TYPE_SALARY_UNSPECIFIED",
+        "streamDurationMonths": 0,
+        "baseAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "variableAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "volatility": false,
+        "sourceAccountIds": [""],
+        "merchantId": "",
+        "etag": ""
+      },
+      "verification": {
+        "id": "",
+        "incomeId": "b1dc2bbb-9a5f-42a5-85c9-16234f514cd8",
+        "createTime": "2023-05-04T07:31:38.700353Z",
+        "method": "VERIFICATION_METHOD_UNSPECIFIED",
+        "documentIds": [""],
+        "createdBy": ""
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": ""
+    }
+  ],
+  "monthlyExpenses": [
+    {
+      "id": "80523dfc-8782-4107-b77c-112b318cc6b4",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "parentId": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+      "categoryName": "Bills, Insurance \u0026 General",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "100",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JUH04",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "06dcccd8-76a0-5e51-8aee-c3e1d0b67333",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "d556d6d8-17ae-4050-9fb9-e8f1e5ffe6f4",
+      "parentId": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+      "categoryName": "Owners Corp \u0026 Land Tax",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "125",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JOC99",
+      "otherJustificationText": "I am not paying land tax",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_NON_HEM"
+    },
+    {
+      "id": "ebbc29b8-a13b-46c4-af13-6687348b2318",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "80523dfc-8782-4107-b77c-112b318cc6b4",
+      "parentId": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+      "categoryName": "Rent",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "100",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_NON_HEM"
+    },
+    {
+      "id": "2a9bbc93-5b9b-4581-9f57-07d9e9e8aaca",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "9e66cf3d-05c5-4207-8cfb-024254856d98",
+      "parentId": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
+      "categoryName": "Car, Travel \u0026 Belongings",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "100",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JCT03",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "2dec9416-9615-446a-92a0-6e1278ca265c",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "8ff3ee2b-e90f-4303-b38e-97762b61f52b",
+      "parentId": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
+      "categoryName": "Childcare",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "356",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JCH99",
+      "otherJustificationText": "this is a test justification text",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "32a644a3-9341-4590-ac58-7c718bd1155f",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "ec52f68e-1b69-4a38-a678-36c4c92810f2",
+      "parentId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+      "categoryName": "Clothing \u0026 Personal Care",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "500",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JCP03",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "33554fea-f8ed-43ca-8966-42bfbe55c4aa",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "13561fa3-5db1-4996-b732-8510337b500d",
+      "parentId": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
+      "categoryName": "Family Support",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "670",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JFS01",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_NON_HEM"
+    },
+    {
+      "id": "35ab8483-b25d-4db5-b891-44ed26e7dfd6",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "58a66b05-5b22-47b2-82bf-1c509f8e0b48",
+      "parentId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+      "categoryName": "Groceries",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "457",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_JUSTIFIED",
+      "review": "EXPENSE_REVIEW_COMPLETED",
+      "leafNode": true,
+      "justificationCode": "JGR04",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "3d032ca6-919f-4249-8beb-4126f35cd818",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "ab6cd64e-0391-413b-938f-2e39597fca97",
+      "parentId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+      "categoryName": "Health \u0026 Wellbeing",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "50",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JHW03",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "3e18e49d-4563-47b0-b5e3-205aea607f02",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "a501f70e-f843-4613-9169-8b2943b6f54c",
+      "parentId": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
+      "categoryName": "Health, Life \u0026 Other",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "350",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JHL04",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_NON_HEM"
+    },
+    {
+      "id": "3e8b6232-bb66-42a9-852a-2b88327f8c83",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "c463b0ad-89ef-46a0-9571-e0c8341c9446",
+      "parentId": "",
+      "categoryName": "Lifestyle",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "300",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "40796313-3bbf-42f0-aa47-5616453d489f",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "f4725362-94b8-476b-be9f-14a28936a9aa",
+      "parentId": "",
+      "categoryName": "Other",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "258",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JOT99",
+      "otherJustificationText": "this is my other justification",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_NON_HEM"
+    },
+    {
+      "id": "0acfda2d-4b20-4009-9479-c0a6976b2314",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "b9615970-e432-4105-bf94-860200cf4570",
+      "parentId": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
+      "categoryName": "Pet Care",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "200",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JPE04",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "0b1ded7c-4ada-4166-b40e-dca645414ee7",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "786303fe-b09e-47c5-ab16-327ab8c6b3d3",
+      "parentId": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
+      "categoryName": "Private Education",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JPS04",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_NON_HEM"
+    },
+    {
+      "id": "0f490ccd-33f0-4619-943b-1849839a6568",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "4b5143ad-76ad-470f-a264-370a728f7abe",
+      "parentId": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
+      "categoryName": "Public Education \u0026 Services",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": 760,
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JPU03",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "0f490ccd-33f0-4619-943b-1849839a6568",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "ca354e5e-9af7-413f-aa71-7e543f373b42",
+      "parentId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+      "categoryName": "Subscriptions, Phone \u0026 Internet",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": 80,
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JPI02",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    },
+    {
+      "id": "13b7e9f0-1d38-4e3b-8022-29435077e6c9",
+      "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
+      "categoryId": "ebbc29b8-a13b-46c4-af13-6687348b2335",
+      "parentId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+      "categoryName": "Transport",
+      "statedMonthlyAverageAmount": {
+        "currencyCode": "AUD",
+        "units": 180,
+        "nanos": 0
+      },
+      "calculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "originalCalculatedMonthlyAverageAmount": {
+        "currencyCode": "AUD"
+      },
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "leafNode": true,
+      "justificationCode": "JTR02",
+      "warningCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "justificationCeilingAmount": {
+        "currencyCode": "AUD",
+        "units": "0",
+        "nanos": 0
+      },
+      "createTime": "2023-05-04T07:31:38.700353Z",
+      "updateTime": "2023-05-04T07:31:38.700353Z",
+      "updatedBy": "",
+      "etag": "",
+      "hemState": "HEM_STATE_HEM"
+    }
+  ],
+  "assets": [
+    {
+      "id": "20545432-ff8d-47b3-aa54-0b2e63c31de3",
+      "type": "ASSET_TYPE_VEHICLE",
+      "subType": "Truck",
+      "name": "My Car",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "55000"
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T09:02:19.105986Z",
+      "updateTime": "2023-05-04T09:02:19.105986Z",
+      "updatedBy": "1000990280",
+      "etag": "1683190939105986000"
+    },
+    {
+      "id": "27055ce6-529d-48f4-82f6-9390f65cb831",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "name": "Family Savings",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "4000",
+        "nanos": 350000000
+      },
+      "account": {
+        "id": "e7db2ff6-a773-43d7-9198-6aef0cbd8965",
+        "bsb": "013711",
+        "accountNumber": "876542108",
+        "accountName": "TS Account Name",
+        "status": "ACCOUNT_STATE_ACTIVE",
+        "financialInstitution": "ANZ"
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T08:59:41.084995Z",
+      "updateTime": "2023-05-04T08:59:41.084995Z",
+      "updatedBy": "1000990280",
+      "etag": "1683190781084995000"
+    },
+    {
+      "id": "b0733744-c511-4a23-bb1b-6ddecdc4152c",
+      "type": "ASSET_TYPE_VEHICLE",
+      "name": "Family Car",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "4000"
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T08:46:53.095707Z",
+      "updateTime": "2023-05-04T11:25:31.268411Z",
+      "updatedBy": "1000990280",
+      "etag": "1683199531268411000"
+    },
+    {
+      "id": "d8db2ff6-a773-43d7-9198-6aef0cbd9067",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "name": "FabricAccount",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "5000",
+        "nanos": 350000000
+      },
+      "account": {
+        "id": "e7db2ff6-a773-43d7-9198-6aef0cbd8965",
+        "bsb": "013711",
+        "accountNumber": "876542108",
+        "accountName": "TS Account Name",
+        "status": "ACCOUNT_STATE_ACTIVE",
+        "financialInstitution": "ANZ"
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "50"
+          }
+        },
+        {
+          "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+          "proportion": {
+            "value": "50"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_ANZ"],
+      "propertyId": "",
+      "createTime": "2023-05-04T09:20:11.272970Z",
+      "updateTime": "2023-05-04T09:20:11.272970Z",
+      "updatedBy": "1000990280",
+      "etag": "1683192011272970000"
+    },
+    {
+      "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "type": "ASSET_TYPE_CASH",
+      "name": "Personal savings",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "3000"
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T08:51:14.878264Z",
+      "updateTime": "2023-05-04T08:51:14.878264Z",
+      "updatedBy": "1000990280",
+      "etag": "1683190274878264000"
+    },
+    {
+      "id": "d8db2ff6-a773-43d7-9198-6aef0cbd9067",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "name": "FabricAccount",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "5000",
+        "nanos": 350000000
+      },
+      "account": {
+        "id": "e7db2ff6-a773-43d7-9198-6aef0cbd8965",
+        "bsb": "013711",
+        "accountNumber": "123456789",
+        "accountName": "TS1 Account Name",
+        "status": "ACCOUNT_STATE_ACTIVE",
+        "financialInstitution": "ANZ Plus"
+      },
+      "ownership": [
+        {
+          "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_ANZ"],
+      "propertyId": "",
+      "createTime": "2023-05-04T09:20:11.272970Z",
+      "updateTime": "2023-05-04T09:20:11.272970Z",
+      "updatedBy": "1000990280",
+      "etag": "1683192011272970123"
+    },
+    {
+      "id": "d8db2ff6-a773-43d7-9198-6aef0cbd9067",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "name": "FabricAccount",
+      "estimatedValue": {
+          "currencyCode": "AUD",
+          "units": "120000",
+          "nanos": 850000000
+      },
+      "account": {
+          "id": "e7db2ff6-a773-43d7-9198-6aef0cbd8965",
+          "bsb": "013711",
+          "accountNumber": "123456789",
+          "accountName": "TS1 Account Name",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "ANZ Plus"
+      },
+      "ownership": [
+          {
+              "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+              "proportion": {
+                  "value": "100"
+              }
+          }
+      ],
+      "source": [
+          "ASSET_SOURCE_ANZ"
+      ],
+      "propertyId": "",
+      "createTime": "2023-05-04T09:20:11.272970Z",
+      "updateTime": "2023-05-04T09:20:11.272970Z",
+      "updatedBy": "1000990280",
+      "etag": "1683192011272970123"
+    }
+  ]
+}

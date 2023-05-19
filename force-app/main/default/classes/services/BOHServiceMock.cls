@@ -15,7 +15,7 @@ public with sharing class BOHServiceMock extends Service {
   }
 
   private static final string SOP_LIST_ASSETS_RESPONSE = getStaticResource(
-    'mock_sopListAssets'
+    'mock_getConsolidateSOP'
   );
 
   /**
