@@ -1269,7 +1269,8 @@
         "Name",
         "CreatedDate",
         "Id",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "VerificationType__c"
       ]
     },
 
