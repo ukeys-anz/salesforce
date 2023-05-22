@@ -251,6 +251,7 @@
         "Source_System_ID__c",
         "Source_System_Name__c",
         "Survivor_Party_ID__c",
+        "Temporary_External_Id__c",
         "CreatedById",
         "CreatedDate",
         "Id",
@@ -325,6 +326,7 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
         "Queue__c",
         "SI_Other_Tribe_BU__c",
@@ -1407,6 +1409,7 @@
         "FinServ__Role__c",
         "FinServ__SourceSystemId__c",
         "FinServ__StartDate__c",
+        "Temporary_External_Id__c",
         "CreatedById",
         "CreatedDate",
         "Id",
@@ -2261,6 +2264,7 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
         "Priority",
         "Queue__c",
@@ -2503,7 +2507,8 @@
         "LastModifiedDate"
       ],
       "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
-      "IA-2415855": ["FinServ__ReferrerScore__c"]
+      "IA-2415855": ["FinServ__ReferrerScore__c"],
+      "IA-2432460": ["Refresh_Token__c"]
     }
   }
 }
