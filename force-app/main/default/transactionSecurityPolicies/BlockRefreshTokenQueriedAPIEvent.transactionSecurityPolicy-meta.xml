@@ -6,16 +6,16 @@
         <freezeUser>false</freezeUser>
         <notifications>
             <inApp>false</inApp>
-            <sendEmail>true</sendEmail>
-            <user>GetHelpSalesforceSupport@anz.com</user>
+            <sendEmail>false</sendEmail>
+            <user>anzx.user@anzx.com</user>
         </notifications>
         <twoFactorAuthentication>false</twoFactorAuthentication>
     </action>
     <active>true</active>
+    <apexClass>TSPHandler</apexClass>
     <description>Blocking SOQL query for Refresh_Token__c</description>
-    <developerName>BlockRefreshTokenQueriedA</developerName>
+    <developerName>BlockRefreshTokenQueriedAPIEvent</developerName>
     <eventName>ApiEvent</eventName>
-    <flow>PolicyCondition_CAnUFBTTUBeMOfuFueUb</flow>
-    <masterLabel>BlockRefreshTokenQueriedAPIEvent</masterLabel>
-    <type>CustomConditionBuilderPolicy</type>
+    <masterLabel>Block RefreshToken Queried APIEvent</masterLabel>
+    <type>CustomApexPolicy</type>
 </TransactionSecurityPolicy>
