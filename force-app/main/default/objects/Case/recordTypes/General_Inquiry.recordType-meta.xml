@@ -11766,6 +11766,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Refer a Friend</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Renewal and Restructures</fullName>
             <default>false</default>
         </values>

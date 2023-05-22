@@ -936,6 +936,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Event.Last_Assigned_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Event.Task_Sub_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1152,6 +1157,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.IDR_Tribe__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Last_Assigned_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

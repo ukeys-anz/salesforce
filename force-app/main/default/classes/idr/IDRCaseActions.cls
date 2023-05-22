@@ -249,6 +249,7 @@ public with sharing class IDRCaseActions {
       (Map<Id, Case>) oldMap
     );
     completeMilestone(records, oldMap);
+    preventTaskOwnerChange(records, oldMap);
   }
 
   /**
@@ -401,7 +402,10 @@ public with sharing class IDRCaseActions {
     Set<Id> queueIds = new Set<Id>();
 
     for (Case c : caseList) {
-      if (c.OwnerId != null && c.OwnerId.getSobjectType() == Group.SobjectType) {
+      if (
+        c.OwnerId != null &&
+        c.OwnerId.getSobjectType() == Group.SobjectType
+      ) {
         if (
           oldCaseMap != null &&
           oldCaseMap.containsKey(c.id) &&
@@ -423,6 +427,49 @@ public with sharing class IDRCaseActions {
         if (queueMap.containsKey(c.OwnerId)) {
           c.Queue__c = queueMap.get(c.OwnerId).Name;
         }
+      }
+    }
+  }
+
+  /**
+   * @description prevents related task owner chage for open tasks
+   * specific to complaints
+   * @param records case list in current context
+   * @param  oldMap old map of the cases in current context
+   */
+  private static void preventTaskOwnerChange(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    Map<Id, Case> changedOwnerCases = new Map<Id, Case>();
+    for (Case record : records) {
+      Case oldRec = (Case) oldMap.get(record.id);
+      if (
+        record.OwnerId.getSobjectType() == User.SobjectType &&
+        isIDRComplaintType(record) &&
+        record.OwnerId != oldRec.OwnerId
+      ) {
+        changedOwnerCases.put(record.Id, record);
+      }
+      List<Task> restoreTaskOwner = new List<Task>();
+      if (!changedOwnerCases.isEmpty()) {
+        // Find all the tasks for these cases and the new owner that are not closed and revert them
+        for (Task t : [
+          SELECT Id, WhatId, OwnerId, Last_Assigned_Owner__c
+          FROM Task
+          WHERE
+            WhatId IN :changedOwnerCases.keySet()
+            AND IsClosed != TRUE
+            AND Last_Assigned_Owner__c != NULL
+        ]) {
+          if (t.OwnerId != t.Last_Assigned_Owner__c) {
+            t.OwnerId = t.Last_Assigned_Owner__c;
+            restoreTaskOwner.add(t);
+          }
+        }
+      }
+      if (!restoreTaskOwner.isEmpty()) {
+        DMLUtil.updateRecords(restoreTaskOwner, false, true);
       }
     }
   }
