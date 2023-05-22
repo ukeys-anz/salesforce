@@ -1703,11 +1703,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Activity.Case_Owner__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Activity.Cases_Related_To_Team__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5186,6 +5181,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Event.Team_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Event.Type</field>
         <readable>true</readable>
@@ -7917,6 +7917,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.Task_Sub_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Team_Manager__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -342,7 +342,8 @@
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
-        "Skip_Validations__c"
+        "Skip_Validations__c",
+        "Team_Manager__c"
       ],
       "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"]
     },
@@ -2293,6 +2294,7 @@
         "Response_Status__c",
         "Response_Type__c",
         "Skip_Validations__c",
+        "Team_Manager__c",
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
       ],
