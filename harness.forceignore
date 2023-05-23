@@ -94,6 +94,9 @@ force-app/main/default/objects/Case/recordTypes/Bug_Enquiry.recordType-meta.xml
 force-app/main/default/flows/Case_SLA_Notification.flow-meta.xml
 force-app/main/default/flows/Send_Notification_to_New_User.flow-meta.xml
 
+#Temporary ignoring flow for TSP
+force-app/main/default/flows/PolicyCondition_CAnUFBTTUBeMOfuFueUb.flow-meta.xml
+
 #ANZX-29577 Ignoring Knowledge Process to force engineers to deploy this manually and do a post deployment step
 #to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
 force-app/main/default/flows/Knowledge_Process.flow-meta.xml
