@@ -17,7 +17,6 @@
                 <default>false</default>
                 <label>Pop up</label>
             </value>
-            <sorted>false</sorted>
             <value>
                 <fullName>Coach in Branch</fullName>
                 <default>false</default>
