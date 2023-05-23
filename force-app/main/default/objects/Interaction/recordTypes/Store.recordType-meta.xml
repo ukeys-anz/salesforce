@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Store</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Store_CLayout</compactLayoutAssignment>
+    <description>Record Type for Store Interactions</description>
+    <label>Store</label>
+    <picklistValues>
+        <picklist>Authentication_Method__c</picklist>
+        <values>
+            <fullName>Authenticated by Coach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call Transfer - Authenticated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Could not authenticate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer cannot be authenticated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manually Authenticated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Customer Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMS - OTP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sighted App Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sighted ID</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Channel_Booked__c</picklist>
+        <values>
+            <fullName>App</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Direction__c</picklist>
+        <values>
+            <fullName>Inbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outbound</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>InteractionType</picklist>
+        <values>
+            <fullName>Store</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Pop up</fullName>
+            <default>false</default>
+        </values>
+         <values>
+            <fullName>Coach in Branch</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Interaction_Purpose__c</picklist>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing ANZ Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Testing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wrong Number</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Place__c</picklist>
+        <values>
+            <fullName>ACT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potts Point</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Richmond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Referred_To__c</picklist>
+        <values>
+            <fullName>Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Resolution__c</picklist>
+        <values>
+            <fullName>Assisted App download</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did not Answer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice Mail</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Created</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Linked</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Show</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rescheduled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scheduled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unassigned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Walk In</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
