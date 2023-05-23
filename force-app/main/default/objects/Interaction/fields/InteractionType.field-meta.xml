@@ -8,4 +8,23 @@
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pop up</fullName>
+                <default>false</default>
+                <label>Pop up</label>
+            </value>
+        </valueSetDefinition>
+         <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Coach in Branch</fullName>
+                <default>false</default>
+                <label>Coach in Branch</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>
