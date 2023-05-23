@@ -111,9 +111,6 @@ public with sharing class AuthTokenCacheUtil {
     Id userId = UserInfo.getUserId();
     User user = [SELECT Refresh_Token__c FROM User WHERE Id = :userId];
     String refreshToken = user.Refresh_Token__c;
-    Logger.error('Session Refresh Token not found for user ' + userId);
-    Logger.saveLog();
-
     return refreshToken;
   }
 

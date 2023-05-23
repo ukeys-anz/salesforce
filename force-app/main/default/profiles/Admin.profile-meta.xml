@@ -1697,6 +1697,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Temporary_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Activity.Case_Owner__c</field>
         <readable>true</readable>
@@ -5388,6 +5393,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccountRole__c.FinServ__StartDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccountRole__c.Temporary_External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

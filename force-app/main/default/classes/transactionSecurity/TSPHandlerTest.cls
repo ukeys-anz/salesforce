@@ -194,4 +194,43 @@ public with sharing class TSPHandlerTest {
       System.assert(result, 'Should return true as the Score is more than 50');
     }
   }
+
+  @isTest
+  static void testBlockRefreshTokenQueried() {
+    //GIVEN the user with `ANZx Standard User` profile
+    User thisUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
+    insert thisUser;
+    String errorMessage =
+      'Block RefreshToken Queried APIEvent has been done by ' +
+      thisUser.Username +
+      ' (Id: ' +
+      thisUser.Id +
+      ' ) with ANZx Standard User profile.';
+
+    //WHEN the user want to query RefreshToken Field
+    Test.startTest();
+    System.runAs(thisUser) {
+      String testQuery = '[SELECT Id, Refresh_Token__c FROM User]';
+      ApiEvent testEvent = new ApiEvent();
+      testEvent.QueriedEntities = 'User';
+      testEvent.query = testQuery;
+      Boolean result = TSPHandler.evaluate(testEvent);
+      Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
+      Test.stopTest();
+
+      //THEN error message should be logged
+      LogEntry__c testLogEntry = [
+        SELECT LogMessage__c
+        FROM LogEntry__c
+        LIMIT 1
+      ];
+      String testLog = testLogEntry.LogMessage__c;
+
+      System.assertEquals(
+        errorMessage.toLowerCase(),
+        testLog.toLowerCase(),
+        'Error Message should be logged as expected'
+      );
+    }
+  }
 }
