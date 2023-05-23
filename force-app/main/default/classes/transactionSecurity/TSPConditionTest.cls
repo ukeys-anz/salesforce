@@ -225,7 +225,11 @@ public with sharing class TSPConditionTest {
       testEvent.query = testQuery;
 
       //THEN the condition should be false
-      Boolean result = TSPCondition.condition('ANZx Standard User', testEvent);
+      Boolean result = TSPCondition.condition(
+        thisUser.Id,
+        'ANZx Standard User',
+        testEvent
+      );
       System.assert(
         result,
         'Should return true as as Refresh Token is quiried'
