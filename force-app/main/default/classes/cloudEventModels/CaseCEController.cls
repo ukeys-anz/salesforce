@@ -5,7 +5,10 @@
  */
 public without sharing class CaseCEController {
   public static set<Id> caseCloudSet = new Set<Id>();
-
+  private static set<Id> cloudEventCaseRecordTypes = new Set<Id>{
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID
+  };
   /**
    * @description method to be called to clear the current set cache. In case of multiple dml to same element need to call this
    */
@@ -17,7 +20,9 @@ public without sharing class CaseCEController {
    * @param theCases list of Case records
    */
   public static void publishCloudEvents(List<Case> theCases) {
-    List<CloudEventModel> cloudEventModels = generateCloudEventModel(theCases);
+    List<CloudEventModel> cloudEventModels = generateCloudEventModel(
+      getValidCloudEventCase(theCases)
+    );
     CloudEventController.publishCloudEvents(cloudEventModels);
   }
 
@@ -31,10 +36,35 @@ public without sharing class CaseCEController {
     Map<Id, Case> theCasesOld
   ) {
     List<CloudEventModel> cloudEventModels = generateCloudEventModel(
-      theCasesNew,
-      theCasesOld
+      getValidCloudEventCase(theCasesNew),
+      getValidCloudEventCase(theCasesOld)
     );
     CloudEventController.publishCloudEvents(cloudEventModels);
+  }
+
+  /**
+   * @description Filters the Case records valid for Cloud Event
+   * @param caseList Case records List
+   * @return List<Case> List of valid Case for Cloud Event
+   */
+  private static List<Case> getValidCloudEventCase(List<Case> caseList) {
+    List<Case> validCases = new List<Case>();
+    for (Case rec : caseList) {
+      if (cloudEventCaseRecordTypes.contains(rec.RecordTypeId)) {
+        validCases.add(rec);
+      }
+    }
+    return validCases;
+  }
+
+  /**
+   * @description Filters the Case records valid for Cloud Event
+   * @param caseMap Case records Map
+   * @return Map<Id, Case> Map of valid Case for Cloud Event
+   */
+  private static Map<Id, Case> getValidCloudEventCase(Map<Id, Case> caseMap) {
+    List<Case> validCases = getValidCloudEventCase(caseMap.values());
+    return new Map<Id, Case>(validCases);
   }
 
   /**
@@ -141,8 +171,12 @@ public without sharing class CaseCEController {
     List<Case> theCasesNew,
     Map<Id, Case> theCasesOld
   ) {
-    Map<Id, Account> relatedAccounts = getRelatedAccounts(theCasesNew);
     List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
+    if (theCasesNew.isEmpty()) {
+      return cloudEventModels;
+    }
+
+    Map<Id, Account> relatedAccounts = getRelatedAccounts(theCasesNew);
     Map<Id, User> relatedUsers = getRelatedUsers(theCasesNew);
     Map<Id, CloudEventModel.UserModel> relatedOwners = getRelatedOwners(
       theCasesNew,

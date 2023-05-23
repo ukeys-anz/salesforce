@@ -4,7 +4,7 @@ name: Unit Tests
 # This workflow will only run on Pull Requests against master , develop and epic/*
 on:
   pull_request:
-    branches: [develop, master, epic/*]
+    branches: [develop, master, release, epic/*]
 
 jobs:
   jest:

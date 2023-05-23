@@ -122,12 +122,15 @@ public without sharing class IDRTaskActions {
     ) {
       record.ActivityDate = Date.today().addDays(1);
     }
+    if (record.OwnerId.getSobjectType() == User.SObjectType) {
+      record.Last_Assigned_Owner__c = record.OwnerId;
+    }
   }
   /**
    * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
    * @param records task record for insert
    */
-  public static Void insertAssignmentTask(List<Task> records) {
+  public static void insertAssignmentTask(List<Task> records) {
     if (!records.isEmpty()) {
       IDRTaskActionHelper.insertAssignmentTask(records);
     }
@@ -814,11 +817,20 @@ public without sharing class IDRTaskActions {
    * @param collectionTaskList List of collection tasks
    */
   public static void insertSystemTasks(List<Task> collectionTaskList) {
+    insertSystemTasks(collectionTaskList, '');
+  }
+
+  /**
+   * @description method to insert collection tasks and handle errors
+   * @param collectionTaskList List of collection tasks
+   * @param strFailureMessage Message for Logger if Database.insert fails
+   */
+  public static void insertSystemTasks(List<Task> collectionTaskList, String strFailureMessage) {
     List<Database.SaveResult> results = Database.insert(
       collectionTaskList,
       false
     );
-    Logger.error('', results);
+    Logger.error(strFailureMessage, results);
     Logger.saveLog();
   }
 

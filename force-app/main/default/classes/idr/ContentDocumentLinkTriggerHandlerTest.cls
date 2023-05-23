@@ -39,6 +39,9 @@ public class ContentDocumentLinkTriggerHandlerTest {
     usr.Business_Function__c = 'CMOS';
     usr.Business_Role__c = 'Customer Resolution';
     insert usr;
+    
+    // To assign the PSG to test user, after the PSG calculation is finsihed.
+    Test.calculatePermissionSetGroup(new List<String> {psgIdrLevel2.Id} );
 
     insert new PermissionSetAssignment(
       AssigneeId = usr.Id,

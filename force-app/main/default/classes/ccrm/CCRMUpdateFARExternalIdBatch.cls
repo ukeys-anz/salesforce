@@ -37,7 +37,9 @@ public with sharing class CCRMUpdateFARExternalIdBatch implements Database.Batch
         far.Temporary_External_Id__c = far.External_Id__c;
         far.External_Id__c = far.External_Id__c.substringAfter('_');
       }
-      Database.update(farRecords);
+      List<Database.saveResult> result = Database.update(farRecords, false);
+      Logger.error('', result);
+      Logger.saveLog();
     }
   }
 
