@@ -8,12 +8,12 @@
       ></lightning-icon>
       Savings Goals
     </h1>
-    <template if:true={displayContent}>
-      <template if:true={error}>
+    <template lwc:if={displayContent}>
+      <template lwc:if={error}>
         <c-error message={error}></c-error>
       </template>
-      <template if:false={error}>
-        <template if:true={hasGoals}>
+      <template lwc:else>
+        <template lwc:if={hasGoals}>
           <div class="slds-grid slds-wrap" data-id="goal-body">
             <template for:each={goalDetails} for:item="goal">
               <div
@@ -34,10 +34,10 @@
                     </a>
                   </p>
                   <div class="description-tooltip">{goal.goal.name}</div>
-                  <template if:true={goal.image}>
+                  <template lwc:if={goal.image}>
                     <img src={goal.image} width="80%" />
                   </template>
-                  <template if:false={goal.image}>
+                  <template lwc:else>
                     <div class="emoji">
                       <span>{goal.emoji}</span>
                     </div>
@@ -90,7 +90,7 @@
               </div>
             </template>
           </div>
-          <template if:true={viewAll}>
+          <template lwc:if={viewAll}>
             <div
               class="slds-border_top slds-text-align_center slds-m-top_large slds-p-top_small"
             >
@@ -104,7 +104,7 @@
             </div>
           </template>
         </template>
-        <template if:false={hasGoals}>
+        <template lwc:else>
           <h1 class="slds-card__header-title slds-text-align_center">
             <span class="no-goals" data-id="no-goals"
               >Customer hasn't set any goals</span
@@ -113,7 +113,7 @@
         </template>
       </template>
     </template>
-    <template if:false={displayContent}>
+    <template lwc:else>
       <div class="slds-grid">
         <p class="message-padding">
           Don’t worry, it’s not broken. To view this you need a higher
@@ -126,7 +126,7 @@
     </div>
   </lightning-card>
 
-  <template if:true={showInfoModal}>
+  <template lwc:if={showInfoModal}>
     <section
       role="dialog"
       class="slds-modal slds-fade-in-open"

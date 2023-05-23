@@ -4,7 +4,7 @@
       <header class="slds-media slds-media_center slds-has-flexi-truncate">
         <div class="slds-tabs_scoped">
           <ul class="slds-tabs_scoped__nav slds-grid" role="tablist">
-            <template if:true={showCaseChatTabHead}>
+            <template lwc:if={showCaseChatTabHead}>
               <li class={chatTab} title="Dial" role="presentation">
                 <div
                   class="slds-tabs_scoped__link"
@@ -15,7 +15,7 @@
                 </div>
               </li>
             </template>
-            <template if:true={showAppTab}>
+            <template lwc:if={showAppTab}>
               <li class={appointmentTab} title="Contact" role="presentation">
                 <div
                   class="slds-tabs_scoped__link"
@@ -26,7 +26,7 @@
                 </div>
               </li>
             </template>
-            <template if:true={showIntTab}>
+            <template lwc:if={showIntTab}>
               <li class={interactionTab} title="Dial" role="presentation">
                 <div
                   class="slds-tabs_scoped__link"
@@ -37,7 +37,7 @@
                 </div>
               </li>
             </template>
-            <template if:true={showAccChatTabHead}>
+            <template lwc:if={showAccChatTabHead}>
               <li class={chatTab} title="Dial" role="presentation">
                 <div
                   class="slds-tabs_scoped__link"
@@ -61,7 +61,7 @@
       </header>
     </div>
     <div class="slds-card__body slds-card__body_inner">
-      <template if:true={showAppointmentTab}>
+      <template lwc:if={showAppointmentTab}>
         <template for:each={appointmentList} for:item="appt">
           <div class="slds-m-top_small" key={appt.interactId}>
             <div class="slds-grid slds-gutters">
@@ -86,7 +86,7 @@
           </div>
         </template>
       </template>
-      <template if:true={showInteractionTab}>
+      <template lwc:if={showInteractionTab}>
         <template for:each={interactionList} for:item="interact">
           <div class="slds-m-top_small" key={interact.interactId}>
             <div class="slds-grid slds-gutters">
@@ -113,7 +113,7 @@
           </div>
         </template>
       </template>
-      <template if:true={showChatTab}>
+      <template lwc:if={showChatTab}>
         <div>
           <c-chat-topic-related-list
             record-id={recordId}

@@ -1,9 +1,6 @@
 <template>
   <div class="slds-box slds-theme_default">
-    <template if:false={releases}>
-      <strong data-id="no-release">No releases</strong>
-    </template>
-    <template if:true={releases}>
+    <template lwc:if={releases}>
       <template for:each={releases} for:item="release">
         <div class="slds-media" key={release.Id}>
           <div class="slds-media__body">
@@ -15,7 +12,7 @@
                 data-id="release-heading"
                 title={release.Name}
               >
-                <template if:true={release.Release_Notes__c}>
+                <template lwc:if={release.Release_Notes__c}>
                   <a
                     href={release.Release_Notes__c}
                     rel="noopener"
@@ -24,7 +21,7 @@
                     <strong data-id="release-name">{release.Name}</strong>
                   </a>
                 </template>
-                <template if:false={release.Release_Notes__c}>
+                <template lwc:else>
                   <strong>{release.Name}</strong>
                 </template>
               </h3>
@@ -38,7 +35,7 @@
               </p>
             </div>
 
-            <template if:true={release.Additions__c}>
+            <template lwc:if={release.Additions__c}>
               <div class="slds-grid">
                 <div class="log-container">
                   <article
@@ -70,7 +67,7 @@
               </div>
             </template>
 
-            <template if:true={release.Changes__c}>
+            <template lwc:if={release.Changes__c}>
               <div data-id="release-changes" class="slds-grid">
                 <div class="log-container">
                   <article
@@ -104,7 +101,7 @@
               </div>
             </template>
 
-            <template if:true={release.Fixes__c}>
+            <template lwc:if={release.Fixes__c}>
               <div class="slds-grid">
                 <div class="log-container">
                   <article
@@ -131,7 +128,7 @@
               </div>
             </template>
 
-            <template if:true={release.Release_Image__c}>
+            <template lwc:if={release.Release_Image__c}>
               <div class="slds-grid">
                 <div class="log-container">
                   <article
@@ -153,7 +150,7 @@
           </div>
         </div>
       </template>
-      <template if:true={loadMore}>
+      <template lwc:if={loadMore}>
         <button
           class="slds-button slds-button_brand slds-button_stretch"
           onclick={loadRecords}
@@ -163,6 +160,9 @@
           Load More
         </button>
       </template>
+    </template>
+    <template lwc:else>
+      <strong data-id="no-release">No releases</strong>
     </template>
   </div>
 </template>

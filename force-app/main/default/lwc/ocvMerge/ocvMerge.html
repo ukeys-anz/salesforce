@@ -21,14 +21,15 @@
         </li>
       </ul>
 
-      <div if:true={isLoading}>
+      <div lwc:if={isLoading}>
         <lightning-spinner alternative-text="Loading..." variant="brand">
         </lightning-spinner>
       </div>
     </div>
 
     <div slot="footer">
-      <div if:false={isLoading}>
+      <div lwc:if={isLoading}></div>
+      <div lwc:else>
         <lightning-button
           class="btn"
           variant="neutral"

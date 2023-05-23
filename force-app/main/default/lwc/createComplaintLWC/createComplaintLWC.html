@@ -7,13 +7,15 @@
       onsuccess={handleCaseSuccess}
       onerror={handleCaseError}
     >
-      <template if:false={isCustomerComplaint}>
+      <template lwc:if={isCustomerComplaint}></template>
+      <template lwc:else>
         <h3
           class="slds-m-left_large slds-m-top_small slds-section__title primaryPaletteBorder"
         >
           Non Customer Complaint
         </h3>
-        <template if:false={showSections}>
+        <template lwc:if={showSections}></template>
+        <template lwc:else>
           <div class="slds-grid">
             <div class="slds-col slds-size_5-of-6">
               <div
@@ -75,7 +77,8 @@
           type="button"
         >
         </lightning-radio-group>
-        <div if:false={consentValue} class="slds-grid">
+        <div lwc:if={consentValue}></div>
+        <div lwc:else class="slds-grid">
           <div class="slds-col slds-size_5-of-6">
             <div
               class="slds-form-element__row slds-m-left_large slds-m-top_small slds-m-bottom_small bordered-box"
@@ -111,13 +114,13 @@
         onsectiontoggle={handleSectionToggle}
         active-section-name={activeSections}
       >
-        <template if:true={showSections}>
+        <template lwc:if={showSections}>
           <lightning-accordion-section
             name="A"
             label="Customer Details"
             data-id="customer-details"
           >
-            <template if:true={isCustomerComplaint}>
+            <template lwc:if={isCustomerComplaint}>
               <div class="slds-grid slds-wrap" tabindex="0">
                 <div
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
@@ -167,7 +170,7 @@
                 </div>
               </div>
 
-              <template if:true={displayCustomerInfo}>
+              <template lwc:if={displayCustomerInfo}>
                 <c-customer-information
                   cust-identifier={customerIdentifierValue}
                   customer-id={customerId}
@@ -190,7 +193,7 @@
                   ></lightning-input-field>
                 </div>
                 <div
-                  if:true={isBusiness}
+                  lwc:if={isBusiness}
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
@@ -201,7 +204,7 @@
               </div>
             </template>
 
-            <template if:false={isCustomerComplaint}>
+            <template lwc:else>
               <div class="slds-grid slds-wrap">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
@@ -215,7 +218,7 @@
                   ></lightning-input-field>
                 </div>
                 <div
-                  if:true={isBusiness}
+                  lwc:if={isBusiness}
                   class="slds-col slds-size_1-of-4 slds-m-right_large"
                 >
                   <lightning-input-field
@@ -364,7 +367,7 @@
             ></c-idr-express-complaint>
 
             <!-- Nominated Third party details -->
-            <template if:true={consentValue}>
+            <template lwc:if={consentValue}>
               <lightning-input
                 type="toggle"
                 label="Does Customer wish to be represented by a nominated third
@@ -376,7 +379,7 @@
               >
               </lightning-input>
             </template>
-            <template if:true={hasNominatedThirdParty}>
+            <template lwc:if={hasNominatedThirdParty}>
               <lightning-input
                 type="toggle"
                 label="Switch off 3rd Party Notifications?"
@@ -529,7 +532,7 @@
                   data-id="product-id"
                 ></lightning-input-field>
               </div>
-              <template if:true={isCustomerComplaint}>
+              <template lwc:if={isCustomerComplaint}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <c-combobox
                     name="accPolicyNum-id"
@@ -588,7 +591,7 @@
               data-id="issue2-id"
             >
             </lightning-input>
-            <template if:true={hasSecondIssue}>
+            <template lwc:if={hasSecondIssue}>
               <div class="slds-grid slds-wrap">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
@@ -620,7 +623,7 @@
                     data-id="productValue2-id"
                   ></lightning-input-field>
                 </div>
-                <template if:true={isCustomerComplaint}>
+                <template lwc:if={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                     <c-combobox
                       name="accPolicyNum2-id"
@@ -651,7 +654,7 @@
             </template>
             <!-- Issue2 end here -->
             <!-- Issue3 starts here -->
-            <template if:true={hasSecondIssue}>
+            <template lwc:if={hasSecondIssue}>
               <lightning-input
                 type="toggle"
                 label="Is there another Issue?"
@@ -662,7 +665,7 @@
               >
               </lightning-input>
             </template>
-            <template if:true={hasThirdIssue}>
+            <template lwc:if={hasThirdIssue}>
               <div class="slds-grid slds-wrap">
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                   <lightning-input-field
@@ -694,7 +697,7 @@
                     data-id="productValue3-id"
                   ></lightning-input-field>
                 </div>
-                <template if:true={isCustomerComplaint}>
+                <template lwc:if={isCustomerComplaint}>
                   <div class="slds-col slds-size_1-of-4 slds-m-right_large">
                     <c-combobox
                       name="accPolicyNum3-id"
@@ -710,16 +713,6 @@
                       value={accountOrPolicyNumber3}
                       onchange={handleAccountNumber3Change}
                     ></c-combobox>
-                    <!--
-                    <c-multi-select-combobox
-                      options={accountNumberOptions}
-                      onselect={handleAccountNumber3Change}
-                      disabled={disableAccNoThreeField}
-                      label="Account/Policy Number 3"
-                      required="true"
-                      data-id="accPolicyNum3-id"
-                    ></c-multi-select-combobox>
--->
                   </div>
                 </template>
               </div>
@@ -728,11 +721,11 @@
           </lightning-accordion-section>
 
           <lightning-accordion-section name="C" label="Resolution Information">
-            <div if:true={showComplianceFields} class="slds-m-bottom_medium">
+            <div lwc:if={showComplianceFields} class="slds-m-bottom_medium">
               Compliance Checks
             </div>
             <div class="slds-grid slds-wrap">
-              <template if:true={showComplianceFields}>
+              <template lwc:if={showComplianceFields}>
                 <div class="slds-col slds-size_2-of-4">
                   <lightning-radio-group
                     required
@@ -761,7 +754,7 @@
                   ></lightning-radio-group>
                 </div>
               </template>
-              <template if:true={isAddressRequired}>
+              <template lwc:if={isAddressRequired}>
                 <div class="slds-col slds-size_2-of-4">
                   <div
                     class="slds-form-element__row slds-m-top_small slds-m-bottom_small bordered-box"
@@ -798,7 +791,7 @@
                   data-id="caseStatus-id"
                 ></lightning-combobox>
               </div>
-              <template if:true={isComplaintEscalated}>
+              <template lwc:if={isComplaintEscalated}>
                 <div
                   class="slds-col slds-size_1-of-4 slds-m-right_large slds-p-top_medium"
                 >
@@ -825,7 +818,7 @@
                   ></lightning-input-field>
                 </div>
               </template>
-              <template if:true={isComplaintResolved}>
+              <template lwc:if={isComplaintResolved}>
                 <div class="slds-col slds-size_1-of-4 slds-m-right_large"></div>
                 <c-complaints-Close-Child
                   record-id={recordId}
@@ -855,7 +848,7 @@
         </template>
       </lightning-accordion>
 
-      <template if:true={loading}>
+      <template lwc:if={loading}>
         <div style="height: 6rem">
           <div class="slds-spinner_container">
             <div
@@ -887,7 +880,7 @@
       </div>
     </lightning-record-edit-form>
   </div>
-  <template if:true={showModal}>
+  <template lwc:if={showModal}>
     <section
       role="dialog"
       tabindex="-1"

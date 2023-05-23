@@ -82,6 +82,41 @@ public with sharing class TSPHandlerTest {
   }
 
   @isTest
+  static void reportEventCondtionJoinLeadPSGTest() {
+    //GIVEN the user with `ANZ Standard User` profile
+    User thisUser = TestUtil.createTestUserWithProfile('ANZ Standard User');
+    insert thisUser;
+
+    PermissionSetGroup psgJoinLead = [
+      SELECT Id
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'Join_Lead'
+      LIMIT 1
+    ];
+    // To assign the PSG to test user, after the PSG calculation is finsihed.
+    Test.calculatePermissionSetGroup(new List<String>{ psgJoinLead.Id });
+
+    System.runAs(thisUser) {
+      Test.startTest();
+
+      insert new PermissionSetAssignment(
+        AssigneeId = thisUser.Id,
+        PermissionSetGroupId = psgJoinLead.Id
+      );
+      //WHEN the user want to query ReportEvent
+      ReportEvent testEvent = new ReportEvent();
+      testevent.Operation = 'ReportExported';
+
+      //THEN the condition should be true
+      Boolean result = TSPHandler.evaluate(testEvent);
+
+      Test.stopTest();
+
+      System.assert(result, 'Should return true');
+    }
+  }
+
+  @isTest
   static void reportEventCondtionIntegrationUserTest() {
     //GIVEN the user with `ANZ Standard User` profile
     User thisUser = TestUtil.createTestUserWithProfile('Integration User');
