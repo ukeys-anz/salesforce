@@ -19,7 +19,7 @@
         <value>EDR CM Hardship</value>
     </filters>
     <filterScope>Everything</filterScope>
-    <label>EDR CM Hardship</label>
+    <label>EDR Hardship</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
