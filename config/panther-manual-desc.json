@@ -1481,7 +1481,6 @@
         "Status__c",
         "Twilio_ID__c",
         "Engagement__c",
-        "Source__c",
         "Place__c"
       ],  
       "IA-2468715": [

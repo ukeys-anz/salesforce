@@ -59,7 +59,7 @@
     <permissionSets>View_Statements</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
-    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

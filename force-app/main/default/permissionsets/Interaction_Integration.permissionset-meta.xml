@@ -264,11 +264,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Interaction.Source__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Interaction.StartTime</field>
         <readable>true</readable>
     </fieldPermissions>
