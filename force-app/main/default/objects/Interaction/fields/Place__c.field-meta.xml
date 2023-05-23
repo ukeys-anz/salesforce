@@ -3,6 +3,7 @@
     <fullName>Place__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Store locations</description>
     <externalId>false</externalId>
     <label>Place</label>
     <required>false</required>
