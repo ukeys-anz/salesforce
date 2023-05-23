@@ -56,8 +56,8 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
       ];
       String username = u.Username;
       String profileName = u.Profile.Name;
+      Boolean condition = TSPCondition.condition(userId, profileName, event);
 
-      Boolean condition = TSPCondition.condition(profileName, event);
       if (condition) {
         Logger.error(
           eventName +
