@@ -77,16 +77,16 @@
     <picklistValues>
         <picklist>InteractionType</picklist>
         <values>
-            <fullName>Store</fullName>
-            <default>true</default>
+            <fullName>Coach in Branch</fullName>
+            <default>false</default>
         </values>
         <values>
             <fullName>Pop up</fullName>
             <default>false</default>
         </values>
-         <values>
-            <fullName>Coach in Branch</fullName>
-            <default>false</default>
+        <values>
+            <fullName>Store</fullName>
+            <default>true</default>
         </values>
     </picklistValues>
     <picklistValues>
