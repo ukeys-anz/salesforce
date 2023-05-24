@@ -166,7 +166,6 @@ export default class CustomerInformation extends LightningElement {
         let responseData = result.profile;
         let accountsData = result.accounts;
         let relationshipData = result.relationshipManager;
-        let accounts = [];
         // adding data object by reading from JSON
         customerData.complainant_type = responseData.complainantType;
         customerData.first_name = responseData.firstName;
@@ -185,13 +184,7 @@ export default class CustomerInformation extends LightningElement {
         customerData.ocvId = responseData.ocvId;
         customerData.cpId = responseData.cpId;
         customerData.dob = responseData.dob;
-        let x;
-        for (x in accountsData) {
-          if (accountsData[x].accountNumber != null) {
-            accounts.push(accountsData[x].accountNumber);
-          }
-        }
-        customerData.accounts = accounts;
+        customerData.accounts = JSON.parse(JSON.stringify(accountsData));
         if (
           !relationshipData &&
           relationshipData.details == null &&
