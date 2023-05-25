@@ -7,12 +7,12 @@
     <columns>CustomerOnboardingApplication__c</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Queue</filterScope>
     <filters>
         <field>CASES.STATUS</field>
         <operation>notContain</operation>
         <value>ID Check OK,Failed,Potential Fraud,Confirmed Fraud</value>
     </filters>
+    <filterScope>Queue</filterScope>
     <label>COB ID Ops Assistance Queue</label>
     <queue>COB_ID_Ops_Assistance_Queue</queue>
     <sharedTo>

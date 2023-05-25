@@ -29,13 +29,15 @@ jobs:
             | Squash &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |     |         |
             | ------- | --- | ------- |
             | feature | ➡️  | epic    |
-            | feature | ➡️  | develop |
-            | epic **   | ➡️  | develop |
+            | feature | ➡️  | release |
+            | feature | ➡️  | master  |
+            | epic **   | ➡️  | release |
 
             | Merge Commit |     |         |
             | ------------ | --- | ------- |
+            | release      | ➡️  | develop |
+            | release      | ➡️  | epic    |
             | develop      | ➡️  | master  |
-            | develop      | ➡️  | epic    |
             | master       | ➡️  | develop |
 
-            ** *epic branch can be squashed into develop except in scenario where epic/x contains multiple epics*
+            ** *epic branch can be squashed into release except in scenario where epic/x contains multiple epics*

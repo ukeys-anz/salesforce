@@ -2508,7 +2508,8 @@
         "LastModifiedDate"
       ],
       "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
-      "IA-2415855": ["FinServ__ReferrerScore__c"]
+      "IA-2415855": ["FinServ__ReferrerScore__c"],
+      "IA-2432460": ["Refresh_Token__c"]
     }
   }
 }
