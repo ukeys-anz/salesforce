@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
         <itemInstances>
@@ -85,55 +85,6 @@
         </itemInstances>
         <name>Facet-49771e12-9fc5-4f3c-b155-6adfd2593016</name>
         <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>checkVisitDetailsData</componentName>
-                <identifier>c_checkVisitDetailsData</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>newPageBuilderLWC</componentName>
-                <identifier>c_newPageBuilderLWC</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!$User.Email}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>nagendra.singh@anz.coms</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-d8ec77ec-b788-4ea3-a3b3-2aa5073e592b</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>visitDetails</componentName>
-                <identifier>c_visitDetails</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-49771e12-9fc5-4f3c-b155-6adfd2593016</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>main</name>
-        <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
