@@ -34,7 +34,9 @@ public with sharing class CCRMRevertAccExternalIdBatch implements Database.Batch
       for (Account acc : accountRecords) {
         acc.External_Id__c = acc.Temporary_External_ID__c;
       }
-      Database.update(accountRecords);
+      List<Database.saveResult> result = Database.update(accountRecords, false);
+      Logger.error('', result);
+      Logger.saveLog();
     }
   }
 

@@ -33,7 +33,6 @@ public with sharing class CheckCaseRecordType {
     if (
       FRAUD_RT_IDS.contains(record.RecordTypeId) ||
       record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
-      record.RecordTypeId == GetHelpConstants.BUG_RT_ID ||
       record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
       record.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
       record.RecordTypeId == GetHelpConstants.ACCOUNT_CLOSURE_RT_ID ||

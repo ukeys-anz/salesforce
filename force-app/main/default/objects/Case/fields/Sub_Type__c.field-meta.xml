@@ -417,6 +417,11 @@
                 <default>false</default>
                 <label>Discharge</label>
             </value>
+            <value>
+                <fullName>Refer a Friend</fullName>
+                <default>false</default>
+                <label>Refer a Friend</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -506,6 +511,10 @@
         <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>
             <valueName>Raising a concern</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Refer a Friend</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
