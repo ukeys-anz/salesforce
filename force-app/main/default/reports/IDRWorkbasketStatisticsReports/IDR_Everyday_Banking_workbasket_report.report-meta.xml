@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>IDR_Withdrawn Cases By Workbasket</name>
+    <name>IDR Everyday Banking workbasket report</name>
     <columns>
-        <field>CDF1</field>
+        <field>CASE_OWNER</field>
     </columns>
     <columns>
-        <field>CASE_NUMBER</field>
-    </columns>
-    <columns>
-        <field>STATUS</field>
+        <field>CREATED</field>
     </columns>
     <columns>
         <field>DESCRIPTION</field>
     </columns>
     <columns>
-        <field>Case.IDR_Date_Received__c</field>
+        <field>OLDVAL</field>
     </columns>
-    <customDetailFormulas>
-        <calculatedFormula>OWNER</calculatedFormula>
-        <dataType>Text</dataType>
-        <developerName>CDF1</developerName>
-        <label>Case Owner</label>
-        <scale>2</scale>
-    </customDetailFormulas>
-    <description>Number of cases that are withdrawn by each workbasket</description>
+    <columns>
+        <field>NEWVAL</field>
+    </columns>
+    <columns>
+        <field>CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>field_key</field>
+    </columns>
     <filter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
+            <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
+            <value>Case.Customer_Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <column>STATUS</column>
+            <column>field_key</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
+            <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Withdrawn</value>
+            <value>CASE OWNER</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case.IDR_Queue_Report_Label__c</column>
+            <column>CASE_OWNER</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>startsWith</operator>
-            <value>IDR,Hardship,CCR</value>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>IDR Everyday Banking</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.IDR_Queue_Report_Label__c</field>
+        <field>CASE_NUMBER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <params>
         <name>units</name>
-        <value>h</value>
+        <value>d</value>
     </params>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>CaseList</reportType>
+    <reportType>CaseAuditHistory</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <sortColumn>CREATED_DATE</sortColumn>
+    <sortOrder>Asc</sortOrder>
     <timeFrameFilter>
-        <dateColumn>CREATED_DATEONLY</dateColumn>
+        <dateColumn>CREATED_DATE</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>

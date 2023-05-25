@@ -58,10 +58,6 @@ public with sharing class GetHelpConstants {
     .get('KYC_QA')
     .getRecordTypeId();
 
-  public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Bug_Enquiry')
-    .getRecordTypeId();
-
   public static final Id CUSTOMER_FEEDBACK_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Customer_Feedback')
     .getRecordTypeId();

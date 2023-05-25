@@ -52,7 +52,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     IDRCaseActions.completeAfterActions();
-    GetHelpCaseActions.rollupRelatedBug(records, new List<Case>());
     SICaseActions.afterInsert(records);
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
@@ -116,7 +115,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.completeAfterActions();
-    GetHelpCaseActions.rollupRelatedBug(records, (List<Case>) oldMap.values());
     SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleDisputesPEGAIntegration(

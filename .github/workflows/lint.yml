@@ -4,7 +4,7 @@ name: Lint
 # This workflow will only run on Pull Requests against master , develop and epic/*
 on:
   pull_request:
-    branches: [develop, master, epic/*]
+    branches: [develop, master, release, epic/*]
 
 jobs:
   prettier:
@@ -67,4 +67,3 @@ jobs:
         run: |
           echo "Linting Lightning Web Components"
           npx eslint force-app/main/default/lwc/**/*.js -c .lwc-eslintrc.json
-          
