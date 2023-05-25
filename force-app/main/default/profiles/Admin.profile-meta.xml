@@ -8581,6 +8581,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>InteractionSummary-Interaction Summary Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

@@ -3,12 +3,12 @@
     <fullName>Interaction_Purpose__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>Why interaction happened</description>
+    <description>Reason for Interaction</description>
     <externalId>false</externalId>
-    <inlineHelpText>The reason for the appointment with the customer</inlineHelpText>
-    <label>Reason</label>
+    <label>Who</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>

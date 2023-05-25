@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <label>Tag</label>
     <length>255</length>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
