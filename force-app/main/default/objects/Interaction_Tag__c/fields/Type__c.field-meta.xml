@@ -6,7 +6,7 @@
     <description>Type of Interaction Context Tag</description>
     <externalId>false</externalId>
     <label>Type</label>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

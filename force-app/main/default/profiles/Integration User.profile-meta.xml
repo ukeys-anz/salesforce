@@ -219,6 +219,10 @@
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Business_Account</recordType>

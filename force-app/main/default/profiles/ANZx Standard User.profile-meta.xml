@@ -8068,6 +8068,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Lead-ANZX Lead Layout</layout>
         <recordType>Lead.ANZX_Leads</recordType>
     </layoutAssignments>
