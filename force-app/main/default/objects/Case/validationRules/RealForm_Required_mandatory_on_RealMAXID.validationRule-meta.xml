@@ -12,7 +12,10 @@ RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 AND(
 NOT( ISNEW() ),
 NOT( ISBLANK(IDR_Real_Form_Ref_No__c)),
-ISPICKVAL(IDR_Real_Form_Req__c,'No')
+OR(
+ISPICKVAL(IDR_Real_Form_Req__c,&apos;No&apos;),
+ISBLANK(TEXT(IDR_Real_Form_Req__c))
+)
 )
 )</errorConditionFormula>
     <errorMessage>You must tick &apos;Is a REAL form required?&apos; when entering a REAL Form MAX ID/Service ID.</errorMessage>

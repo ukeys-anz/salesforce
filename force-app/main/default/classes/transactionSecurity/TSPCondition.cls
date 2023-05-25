@@ -27,6 +27,13 @@ public with sharing class TSPCondition {
       when ReportAnomalyEvent reportAnomalyEvent {
         result = reportAnomalyEvent.Score >= 50;
       }
+      when ApiEvent refreshTokenQueriedEvent {
+        result =
+          refreshTokenQueriedEvent.QueriedEntities.toLowerCase()
+            .contains('user') &&
+          refreshTokenQueriedEvent.Query.toLowerCase()
+            .contains('refresh_token__c');
+      }
       when else {
         return false;
       }
