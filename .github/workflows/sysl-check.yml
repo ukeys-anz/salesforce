@@ -3,7 +3,7 @@ name: Sysl scan
 
 on:
   pull_request:
-    branches: [develop, master, epic/*]
+    branches: [develop, master, release, epic/*]
 
 jobs:
   sysl-check:

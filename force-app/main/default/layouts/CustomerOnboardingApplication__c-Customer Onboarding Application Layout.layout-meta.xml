@@ -153,14 +153,6 @@
                 <behavior>Edit</behavior>
                 <field>DaonEnrolmentTime__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DaonScore__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DaonFalseMatchRate__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -169,19 +161,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>DaonEvaluationResultURI__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>DaonEnrolmentType__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>DaonIdCheckResult__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DaonThreshold__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -213,10 +197,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EquifaxCRAResult__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EquifaxMatrixURI__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

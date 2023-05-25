@@ -115,25 +115,6 @@ public with sharing class GetHelpCaseActionsHelper {
 
   /**
    * @description Get a set of bug Ids
-   * @param records a list of cases that we need to check for bugs
-   * @param bugIdSetParam a set of bug Ids
-   * @return the set of bug record Ids
-   */
-  public static Set<Id> getBugIdSet(List<Case> records, Set<Id> bugIdSetParam) {
-    Set<Id> bugIdSet = (bugIdSetParam != null) ? bugIdSetParam : new Set<Id>();
-    for (Case c : records) {
-      if (
-        c.Related_Bug__c != null &&
-        c.RecordTypeId == GetHelpConstants.BUG_RT_ID
-      ) {
-        bugIdSet.add(c.Related_Bug__c);
-      }
-    }
-    return bugIdSet;
-  }
-
-  /**
-   * @description Get a set of bug Ids
    * @param bugIdSet a list of cases that we need to check for bugs
    * @return list of reported bugs
    */

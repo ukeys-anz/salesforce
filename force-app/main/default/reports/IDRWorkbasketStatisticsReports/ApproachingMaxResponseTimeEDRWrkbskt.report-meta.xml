@@ -13,6 +13,9 @@
     <columns>
         <field>DUE_DATE</field>
     </columns>
+    <columns>
+        <field>Case.IDR_Date_Received__c</field>
+    </columns>
     <customDetailFormulas>
         <calculatedFormula>CASE_OWNER</calculatedFormula>
         <dataType>Text</dataType>
@@ -65,6 +68,7 @@
             <operator>contains</operator>
             <value>IDR Response due in 5-days</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

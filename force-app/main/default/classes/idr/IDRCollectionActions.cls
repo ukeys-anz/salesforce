@@ -117,6 +117,7 @@ public with sharing class IDRCollectionActions {
     productNameMap = getProductNames(records);
 
     List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
+    List<Id> caseIds = new List<Id>();
 
     for (Case rec : records) {
       Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
@@ -124,6 +125,7 @@ public with sharing class IDRCollectionActions {
         stopCollectionAccList.clear();
         validateRecordForStopCollection(rec, oldRec);
         if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
+          caseIds.add(rec.Id);
           collectionsCasesEventList.add(
             buildCollectionEvent(rec, stopCollectionAccList)
           );
@@ -136,7 +138,7 @@ public with sharing class IDRCollectionActions {
     }
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
       //AR-15023 Using IDRTaskActions.insertSystemTasks as it has without sharing, as task creation is failing due to user access
-      IDRTaskActions.insertSystemTasks(stopCollectionTaskList);
+      IDRTaskActions.insertSystemTasks(stopCollectionTaskList, 'Case Ids: ' + String.join(caseIds, ', '));
       stopCollectionTaskList.clear();
     }
   }
@@ -396,13 +398,14 @@ public with sharing class IDRCollectionActions {
   /**
    * @description method to insert collection tasks and handle errors
    * @param collectionTaskList List of collection tasks
+   * @param strFailureMessage Message for Logger if Database.insert fails
    */
-  public static void insertSystemTasks(List<Task> collectionTaskList) {
+  public static void insertSystemTasks(List<Task> collectionTaskList, String strFailureMessage) {
     List<Database.SaveResult> results = Database.insert(
       collectionTaskList,
       false
     );
-    Logger.error('', results);
+    Logger.error(strFailureMessage, results);
     Logger.saveLog();
   }
 
@@ -468,7 +471,7 @@ public with sharing class IDRCollectionActions {
       startCollectionAccList.clear();
     }
     if (!isCollectionEventFailed && !startCollectionTaskList.isEmpty()) {
-      insertSystemTasks(startCollectionTaskList);
+      insertSystemTasks(startCollectionTaskList, 'Case Ids: ' + String.join(caseIds, ', '));
       startCollectionTaskList.clear();
     }
   }
