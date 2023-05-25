@@ -186,6 +186,7 @@
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "Interaction": "Represents the interaction details between the coach and the customer",
+    "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -1479,7 +1480,23 @@
         "Resolution__c",
         "StartTime",
         "Status__c",
-        "Twilio_ID__c"
+        "Twilio_ID__c",
+        "Engagement__c",
+        "Place__c"
+      ],  
+      "IA-2468715": [
+        "Actual_Topics__c",
+        "Products__c",
+        "Reason_for_Visit__c",
+        "Loan_Application__c"
+      ]
+    },
+    "Interaction_Tag__c": {
+      "IA-2415840": [
+        "Name",
+        "Type__c",
+        "Sub_Type__c",
+        "Tag__c"
       ]
     },
     "InteractionSummary": {

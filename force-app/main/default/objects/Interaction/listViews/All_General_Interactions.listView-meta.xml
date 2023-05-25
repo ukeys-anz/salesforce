@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_Store_Interactions</fullName>
+    <fullName>All_General_Interactions</fullName>
     <columns>Interaction_Number_Link__c</columns>
     <columns>Account</columns>
     <columns>Lead__c</columns>
@@ -14,7 +14,7 @@
     <filters>
         <field>RecordType</field>
         <operation>equals</operation>
-        <value>Interaction.Store</value>
+        <value>Interaction.General</value>
     </filters>
-    <label>All Store Interactions</label>
+    <label>All General Interactions</label>
 </ListView>
