@@ -87,11 +87,15 @@ force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
 #Ignore Urgent Dishonour Request dispute type, the deletion will be done as a pre-deployment step 
 #as metadata API does not support deleting record type, to avoid destructive change error
 force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
+force-app/main/default/objects/Case/recordTypes/Bug_Enquiry.recordType-meta.xml
 
 #Temporarily ignoring deleted Process/Flow 'Case_SLA_Notification' until it's removed form source code and prod.
 # Below line can be removed once it's removed from prod.
 force-app/main/default/flows/Case_SLA_Notification.flow-meta.xml
 force-app/main/default/flows/Send_Notification_to_New_User.flow-meta.xml
+
+#Temporary ignoring flow for TSP
+force-app/main/default/flows/PolicyCondition_CAnUFBTTUBeMOfuFueUb.flow-meta.xml
 
 #ANZX-29577 Ignoring Knowledge Process to force engineers to deploy this manually and do a post deployment step
 #to re-reference the queue otherwise the flow will not pick up the correct Queue Id in the destination environment
@@ -161,3 +165,6 @@ force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls
 force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls
 force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls-meta.xml
 force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml
+
+#CC-2512 - Queue needs to be manually deleted so don't attempt to deploy this destructive change.
+force-app/main/default/queues/EDR_Responsible_Lending.queue-meta.xml

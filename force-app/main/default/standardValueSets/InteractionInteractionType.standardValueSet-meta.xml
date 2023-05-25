@@ -21,4 +21,14 @@
         <default>false</default>
         <label>Video</label>
     </standardValue>
+      <standardValue>
+        <fullName>Pop up</fullName>
+        <default>false</default>
+        <label>Pop up</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Coach in Branch</fullName>
+        <default>false</default>
+        <label>Coach in Branch</label>
+    </standardValue>
 </StandardValueSet>

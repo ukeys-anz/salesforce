@@ -23,6 +23,9 @@
         <field>DESCRIPTION</field>
     </columns>
     <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>Case.Case_Age_in_Days__c</field>
     </columns>

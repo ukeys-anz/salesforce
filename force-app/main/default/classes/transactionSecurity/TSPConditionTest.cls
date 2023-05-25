@@ -131,4 +131,26 @@ public with sharing class TSPConditionTest {
       System.assert(result, 'Should return true as the score is more than 50');
     }
   }
+
+  @isTest
+  static void testBlockRefreshTokenQueried() {
+    //GIVEN the user with `ANZx Standard User` profile
+    User thisUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
+    insert thisUser;
+
+    System.runAs(thisUser) {
+      //WHEN the user want to query RefreshToken Field
+      String testQuery = '[SELECT Id, Refresh_Token__c FROM User]';
+      ApiEvent testEvent = new ApiEvent();
+      testEvent.QueriedEntities = 'User';
+      testEvent.query = testQuery;
+
+      //THEN the condition should be false
+      Boolean result = TSPCondition.condition('ANZx Standard User', testEvent);
+      System.assert(
+        result,
+        'Should return true as as Refresh Token is quiried'
+      );
+    }
+  }
 }
