@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
         <itemInstances>
@@ -140,7 +140,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Test Page</masterLabel>
+    <masterLabel>Store - Interaction</masterLabel>
     <sobjectType>Interaction</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
