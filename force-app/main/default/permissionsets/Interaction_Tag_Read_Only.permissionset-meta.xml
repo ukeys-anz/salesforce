@@ -27,8 +27,4 @@
         <object>Interaction_Tag__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <tabSettings>
-        <tab>Interaction_Tag__c</tab>
-        <visibility>Visible</visibility>
-    </tabSettings>
 </PermissionSet>

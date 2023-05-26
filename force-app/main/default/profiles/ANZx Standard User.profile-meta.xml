@@ -9693,6 +9693,10 @@
         <tab>COBPrimaryIDDocument__c</tab>
         <visibility>DefaultOff</visibility>
     </tabVisibilities>
+    <tabVisibilities>
+        <tab>Interaction_Tag__c</tab>
+        <visibility>Hidden</visibility>
+    </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <name>ActivitiesAccess</name>
