@@ -16,10 +16,15 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> apptInteractions = InteractionFilter.getApptInteractions(
       records
     );
+    List<Interaction> storeInteractions = InteractionFilter.getStoreInteractions(
+      records
+    );
+
     Map<Id, SObject> apptMap = new Map<Id, SObject>(apptInteractions);
     Set<Id> apptIds = new Set<Id>(apptMap.keyset());
     InteractionSetters.setInteractionIds(apptInteractions);
     InteractionSetters.setExternalIds(apptIds);
+    InteractionAttendeeActions.insertDefaultAttendee(storeInteractions);
 
     List<Interaction> generalInteractions = InteractionFilter.getGeneralInteractions(
       records
