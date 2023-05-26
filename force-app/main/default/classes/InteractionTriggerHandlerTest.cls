@@ -483,13 +483,13 @@ public with sharing class InteractionTriggerHandlerTest {
       StartTime = System.now()
     );
 
-    test.startTest();
+    Test.startTest();
     insert newInteraction;
-    test.stopTest();
+    Test.stopTest();
 
     Integer numberattendee = [
       SELECT COUNT()
-      FROM interactionattendee
+      FROM InteractionAttendee
       WHERE interactionid = :newInteraction.ID
     ];
 
