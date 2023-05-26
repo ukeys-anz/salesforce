@@ -6,7 +6,7 @@
     <columns>Lead__c</columns>
     <columns>Interaction_Purpose__c</columns>
     <columns>InteractionType</columns>
-    <columns>Location</columns>
+    <columns>Place__c</columns>
     <columns>Resolution__c</columns>
     <columns>StartTime</columns>
     <columns>Attendees__c</columns>
