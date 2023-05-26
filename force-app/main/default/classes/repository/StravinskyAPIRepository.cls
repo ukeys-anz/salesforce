@@ -7,6 +7,8 @@
 public with sharing class StravinskyAPIRepository extends RepositoryBase {
   @TestVisible
   public static Boolean throwException = false; // This is to force an exception to increase unit test coverage as current mock framework only returns positive response. A PDR will be raised to extend the mock framework if similar instances arise.
+  @TestVisible
+  private static final String MOCK_ERROR = 'Mock Error'; // This is to force an exception to increase unit test coverage as current mock framework only returns positive response. A PDR will be raised to extend the mock framework if similar instances arise.
 
   /**
    * @param caseRecord contains ocv id and package id
@@ -51,7 +53,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     Service s = ServiceProvider.getService(StravinskyService.class);
     HttpCalloutResponse response = s.triggerTemporalCaseWorkflow(caseRecord);
     if (!response.successful || throwException == true) {
-      handleErrors(response, null, StravinskyService.class);
+      handleErrors(response, mockException(), StravinskyService.class);
     }
   }
 
@@ -99,5 +101,40 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     }
 
     return COBPrimaryIDDocumentModel.parse(response.body);
+  }
+
+  /**
+   * @param taxResidency COB Tax Residency record
+   * @return COBTaxResidencyModel
+   * @description triggers Temporal detokenization api
+   */
+  public COBTaxResidencyModel cobTaxResidencyDetokenization(
+    COBTaxResidency__c taxResidency
+  ) {
+    Service s = ServiceProvider.getService(StravinskyService.class);
+
+    HttpCalloutResponse response = s.detokenizeCOBTaxResidency(taxResidency);
+
+    if (response.successful == false || throwException == true) {
+      handleErrors(response, mockException(), StravinskyService.class);
+    }
+
+    return COBTaxResidencyModel.parse(response.body);
+  }
+
+  private MockException mockException() {
+    MockException ex = null;
+    if (throwException == true) {
+      ex = new MockException();
+      ex.setMessage(MOCK_ERROR);
+    }
+
+    return ex;
+  }
+
+  /**
+   * @description Mock exception
+   */
+  private class MockException extends Exception {
   }
 }
