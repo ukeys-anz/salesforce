@@ -204,4 +204,20 @@ public with sharing class InteractionAttendeeActions {
       return returnString.removeEnd(', ');
     }
   }
+
+  /**
+   * @description Create interaction creator as interaction attendee for the newly created interactions.
+   * @param interactions List of newly created interactions.
+   */
+  public static void insertDefaultAttendee(List<Interaction> interactions) {
+    List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
+    for (interaction interact : interactions) {
+      InteractionAttendee intattendee = new InteractionAttendee();
+      intattendee.AttendeeType = InteractionConstants.INTERNAL;
+      intattendee.UserId = UserInfo.getUserId();
+      intattendee.InteractionId = interact.id;
+      lstInteractAttend.add(intattendee);
+    }
+    DMLUtil.insertRecords(lstInteractAttend, false, true);
+  }
 }

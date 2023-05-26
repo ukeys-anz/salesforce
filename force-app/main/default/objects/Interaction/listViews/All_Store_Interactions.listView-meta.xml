@@ -12,14 +12,9 @@
     <columns>Attendees__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>InteractionType</field>
-        <operation>equals</operation>
-        <value>Store</value>
-    </filters>
-    <filters>
         <field>RecordType</field>
         <operation>equals</operation>
-        <value>Interaction.General</value>
+        <value>Interaction.Store</value>
     </filters>
     <label>All Store Interactions</label>
 </ListView>

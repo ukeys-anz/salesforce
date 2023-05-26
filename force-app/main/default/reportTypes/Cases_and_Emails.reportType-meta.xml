@@ -1432,11 +1432,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IDR_Real_Form_Submitted__c</field>
-            <table>Case</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Fraud_Citizenship_Updated__c</field>
             <table>Case</table>
         </columns>
