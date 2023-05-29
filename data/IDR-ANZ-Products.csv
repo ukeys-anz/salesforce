@@ -107,8 +107,8 @@ ANZ Term Deposit via External Platforms & Oasis Wrap,106,2,7,38,IDR_Wealth,TRUE
 ANZ Credit Card Insurance,107,3,8,40,IDR_Everyday_Banking,TRUE
 ANZ Loan Protection Insurance,108,3,8,40,IDR_Everyday_Banking,TRUE
 ANZ Mortgage Protection Insurance,109,3,8,40,IDR_Home_Owners,TRUE
-ANZ Landlord Insurance,111,3,8,41,IDR_Wealth,TRUE
-ANZ Car Insurance (Comprehensive),112,3,8,44,IDR_Wealth,TRUE
+ANZ Landlord Insurance (QBE),111,3,8,41,IDR_Wealth,TRUE
+ANZ Car Insurance (Comprehensive) (QBE),112,3,8,44,IDR_Wealth,TRUE
 "ANZ Car Insurance (Third Party Property Damage, Fire and Theft)",113,3,8,45,IDR_Wealth,TRUE
 ANZ Car Insurance (Third Party Property Damage),114,3,8,46,IDR_Wealth,TRUE
 ANZ Travel Insurance,115,3,8,56,IDR_Wealth,TRUE
@@ -136,7 +136,7 @@ Margin Lending,136,1,4,26,IDR_Wealth,TRUE
 ANZ Business Visa Debit card (ABVD),137,2,5,27,IDR_Business_Owners,TRUE
 Missing Funds,138,2,5,27,IDR_Business_Owners,TRUE
 ANZ Access Visa Debit card (AAVD),139,2,5,31,IDR_Everyday_Banking,TRUE
-ANZ Home and Contents Insurance,140,3,8,41,IDR_Wealth,TRUE
+ANZ Home and Contents Insurance (QBE),140,3,8,41,IDR_Wealth,TRUE
 ANZ Contents Insurance,141,3,8,42,IDR_Wealth,TRUE
 ANZ ATM,142,6,19,126,IDR_Everyday_Banking,TRUE
 Bank Drafts,143,6,19,127,IDR_Everyday_Banking,TRUE
@@ -165,7 +165,6 @@ Direct Investments,166,9,31,185,IDR_Wealth,TRUE
 IPO & Capital Raising Campaigns,167,9,31,185,IDR_Business_Owners,TRUE
 Self Managed Super Fund (SMSF),172,9,32,186,IDR_Wealth,TRUE
 Open Banking/Data Sharing,173,10,34,188,IDR_Everyday_Banking,TRUE
-N/A,999,10,34,188,IDR_Everyday_Banking,TRUE
 ANZ Shield,174,6,20,138,IDR_Everyday_Banking,TRUE
 Phone Banking,175,6,20,138,IDR_Everyday_Banking,TRUE
 Deceased Estates,176,7,21,182,IDR_Everyday_Banking,TRUE
@@ -559,4 +558,11 @@ GenerationLife Investment Bond,560,9,32,186,IDR_Wealth,TRUE
 (Retail Insurance) BTLife,565,9,32,186,IDR_Wealth,TRUE
 (Retail Insurance) AMP,566,9,32,186,IDR_Wealth,TRUE
 (Retail Insurance) Asteron,567,9,32,186,IDR_Wealth,TRUE
-ABC,,3,9,61,,TRUE
+Foreign Currency Account,568,2,5,28,IDR_Everyday_Banking,TRUE
+ANZ Capital Notes,569,4,15,107,IDR_Everyday_Banking,TRUE
+ANZ Plus - Standard Variable Home Loan,570,1,2,15,,TRUE
+ANZ Plus - Fixed Home Loan,571,1,2,15,,TRUE
+ANZ Landlord Insurance (CGU),572,3,8,41,IDR_Wealth,TRUE
+ANZ Car Insurance (Comprehensive) (CGU),573,3,8,44,IDR_Wealth,TRUE
+ANZ Home and Contents Insurance (CGU),574,3,8,41,IDR_Wealth,TRUE
+N/A,999,10,34,188,IDR_Everyday_Banking,TRUE
