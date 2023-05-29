@@ -1,0 +1,30 @@
+<template>
+  <div class="slds-is-relative">
+    <!-- sldsValidatorIgnoreNextLine -->
+    <lightning-quick-action-panel header="View Details">
+      <div if:false={isLoaded}>
+        <lightning-spinner alternative-text="Loading..." variant="brand">
+        </lightning-spinner>
+      </div>
+
+      <div class="slds-var-p-around_xx-small">
+        <div class="slds-box slds-box_xx-small box-background">
+          <label class="slds-form-element__label"
+            >Tax Identification Number</label
+          >
+          <br />
+          <lightning-formatted-text
+            value={taxResidencyRecord.TaxIdentificationNumber__c}
+            data-id="TaxIdentificationNumber__c"
+          >
+          </lightning-formatted-text>
+        </div>
+      </div>
+
+      <div slot="footer">
+        <lightning-button variant="brand" label="Close" onclick={handleClose}>
+        </lightning-button>
+      </div>
+    </lightning-quick-action-panel>
+  </div>
+</template>

@@ -10,7 +10,7 @@
     <filters>
         <field>CASES.STATUS</field>
         <operation>notContain</operation>
-        <value>ID Check OK,Failed,Confirmed Fraud</value>
+        <value>ID Check OK,Failed,Potential Fraud,Confirmed Fraud</value>
     </filters>
     <filterScope>Queue</filterScope>
     <label>COB ID Ops Assistance Queue</label>
