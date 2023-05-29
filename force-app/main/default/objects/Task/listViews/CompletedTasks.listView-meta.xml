@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Open_Task</fullName>
-    <booleanFilter>1 OR (2 AND 3)</booleanFilter>
+    <fullName>CompletedTasks</fullName>
+    <booleanFilter>(1 AND 2 AND 3) OR (4 AND 5)</booleanFilter>
     <columns>SUBJECT</columns>
+    <columns>WHO_NAME</columns>
     <columns>WHAT_NAME</columns>
     <columns>DUE_DATE</columns>
     <columns>STATUS</columns>
     <columns>PRIORITY</columns>
-    <columns>CREATED_DATE</columns>
-    <columns>Case_Created__c</columns>
-    <columns>Case_Age_in_Days__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
     <columns>LAST_UPDATE</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
     <filters>
-        <field>STATUS</field>
-        <operation>notEqual</operation>
-        <value>Completed,Expired</value>
+        <field>IS_CLOSED</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>IS_RECURRENCE</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>LAST_UPDATE</field>
+        <operation>equals</operation>
+        <value>TODAY,LAST_N_DAYS:30</value>
     </filters>
     <filters>
         <field>STATUS</field>
@@ -24,12 +33,9 @@
     </filters>
     <filters>
         <field>DUE_DATE</field>
-        <operation>greaterOrEqual</operation>
+        <operation>lessThan</operation>
         <value>LAST_N_DAYS:14</value>
     </filters>
     <filterScope>Mine</filterScope>
-    <label>My Open Tasks</label>
-    <sharedTo>
-        <allInternalUsers/>
-    </sharedTo>
+    <label>Recently Completed Tasks</label>
 </ListView>
