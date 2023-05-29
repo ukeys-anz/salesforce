@@ -100,6 +100,7 @@
                       flyout-details="\{}"
                       hide-action-icon="true"
                       display-as-button="true"
+                      button-variant="neutral"
                       theme="slds"
                     ></omnistudio-flex-action>
                   </div></div
@@ -107,9 +108,14 @@
             </div>
             <div
               data-style-id="state0element1"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-text-link_reset slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
-              style=""
+              style="
+                border-top: #cccccc 1px solid;
+                border-right: #cccccc 1px solid;
+                border-bottom: #cccccc 1px solid;
+                border-left: #cccccc 1px solid;
+              "
             >
               <omnistudio-block
                 data-style-id="state0element1_child"
@@ -117,8 +123,16 @@
                 record={record}
                 label="Savings"
                 collapsible="true"
-                collapsed-by-default="false"
+                collapsed-by-default="true"
+                styles='\{"label":{"textDecoration":"","color":""}}'
+                action='\{"label":"Action","iconName":"standard-default","eventType":"onclick","actionList":[{"key":"1684728769432-9g2em0hem","label":"Action","draggable":false,"isOpen":true,"card":"{card}","stateAction":{"id":"flex-action-1684728846582","type":"cardAction","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"Current Window","flyoutType":"childCard","openFlyoutIn":"Modal","channelName":"close_modal","eventName":"reload"},"actionIndex":0},{"key":"1684728814096-387priuuo","label":"Action","draggable":true,"isOpen":false,"card":"{card}","stateAction":{"id":"test-action","type":"Custom","displayName":"Action","vlocityIcon":"standard-default","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"}}}],"showSpinner":"false"}'
+                extraclass=" slds-text-link_reset"
                 theme="slds"
+                onclick={executeAction}
+                data-element-label="yoursavings"
+                data-action-key="state0element1"
+                onkeydown={executeActionWithKeyboard}
+                tabindex="0"
                 ><div class="slds-grid slds-wrap">
                   <div
                     data-style-id="state0element1block_element0"
@@ -130,7 +144,9 @@
                       data-style-id="state0element1block_element0_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20account%3C/div%3E"
+                      placeholder=""
+                      type="text"
+                      label=""
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
@@ -144,8 +160,7 @@
                       data-style-id="state0element1block_element1_child"
                       card={card}
                       record={record}
-                      placeholder=""
-                      type="text"
+                      merge-field="%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20account%3C/div%3E"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
@@ -174,22 +189,37 @@
                       data-style-id="state0element1block_element3_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#236fa1;%22%3E%3Cstrong%3EANZ%20Plus%3C/strong%3E%3C/span%3E%3C/div%3E"
+                      placeholder=""
+                      type="text"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element1block_element4"
+                    class="slds-col slds-p-left_medium slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style="color: #000000"
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element1block_element4_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%20font-family:%20'Salesforce%20Sans',%20Arial,%20sans-serif;%22%3E%3Cstrong%3EANZ%20Plus%3C/strong%3E%3C/span%3E%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element5"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <c-cf-s-o-p_-a-n-z-plus
-                      data-style-id="state0element1block_element4_child"
+                      data-style-id="state0element1block_element5_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
-                      card-node=""
+                      card-node="\{records}"
                       parent-record={record}
                       records={_records}
                       parent-mergefields={card}
@@ -201,31 +231,46 @@
                     ></c-cf-s-o-p_-a-n-z-plus>
                   </div>
                   <div
-                    data-style-id="state0element1block_element5"
-                    class="slds-col slds-size_12-of-12"
-                    data-rindex={rindex}
-                    style=""
-                  >
-                    <omnistudio-output-field
-                      data-style-id="state0element1block_element5_child"
-                      card={card}
-                      record={record}
-                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#236fa1;%22%3E%3Cstrong%3EANZ%3C/strong%3E%3C/span%3E%3C/div%3E"
-                      theme="slds"
-                    ></omnistudio-output-field>
-                  </div>
-                  <div
                     data-style-id="state0element1block_element6"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
-                    <c-cf-s-o-p_-a-n-z3
+                    <omnistudio-output-field
                       data-style-id="state0element1block_element6_child"
+                      card={card}
+                      record={record}
+                      placeholder=""
+                      type="text"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element7"
+                    class="slds-col slds-p-left_medium slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element1block_element7_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%22%3E%3Cstrong%3EANZ%3C/strong%3E%3C/span%3E%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element8"
+                    class="slds-col slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <c-cf-s-o-p_-a-n-z3
+                      data-style-id="state0element1block_element8_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
-                      card-node=""
+                      card-node="\{records}"
                       parent-record={record}
                       records={_records}
                       parent-mergefields={card}
@@ -237,13 +282,28 @@
                     ></c-cf-s-o-p_-a-n-z3>
                   </div>
                   <div
-                    data-style-id="state0element1block_element7"
+                    data-style-id="state0element1block_element9"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element1block_element7_child"
+                      data-style-id="state0element1block_element9_child"
+                      card={card}
+                      record={record}
+                      placeholder=""
+                      type="text"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element10"
+                    class="slds-col slds-p-left_medium slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element1block_element10_child"
                       card={card}
                       record={record}
                       merge-field="%3Cdiv%3E%3Cstrong%3EOther%3C/strong%3E%3C/div%3E"
@@ -251,17 +311,17 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element1block_element8"
+                    data-style-id="state0element1block_element11"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <c-cf-s-o-p_-other
-                      data-style-id="state0element1block_element8_child"
+                      data-style-id="state0element1block_element11_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
-                      card-node=""
+                      card-node="\{records}"
                       parent-record={record}
                       records={_records}
                       parent-mergefields={card}
@@ -273,13 +333,13 @@
                     ></c-cf-s-o-p_-other>
                   </div>
                   <div
-                    data-style-id="state0element1block_element9"
+                    data-style-id="state0element1block_element12"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <c-cf-s-o-p_-message_-flex
-                      data-style-id="state0element1block_element9_child"
+                      data-style-id="state0element1block_element12_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
@@ -298,7 +358,7 @@
             </div>
             <div
               data-style-id="state0element2"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >
@@ -315,7 +375,7 @@
             </div>
             <div
               data-style-id="state0element3"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >
@@ -332,7 +392,7 @@
             </div>
             <div
               data-style-id="state0element4"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >
@@ -349,7 +409,7 @@
             </div>
             <div
               data-style-id="state0element5"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >
@@ -433,6 +493,7 @@
                       flyout-details="\{}"
                       hide-action-icon="true"
                       display-as-button="true"
+                      button-variant="neutral"
                       theme="slds"
                     ></omnistudio-flex-action>
                   </div></div
@@ -440,9 +501,14 @@
             </div>
             <div
               data-style-id="state0element1"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-text-link_reset slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
-              style=""
+              style="
+                border-top: #cccccc 1px solid;
+                border-right: #cccccc 1px solid;
+                border-bottom: #cccccc 1px solid;
+                border-left: #cccccc 1px solid;
+              "
             >
               <omnistudio-block
                 data-style-id="state0element1_child"
@@ -450,8 +516,16 @@
                 record={record}
                 label="Savings"
                 collapsible="true"
-                collapsed-by-default="false"
+                collapsed-by-default="true"
+                styles='\{"label":{"textDecoration":"","color":""}}'
+                action='\{"label":"Action","iconName":"standard-default","eventType":"onclick","actionList":[{"key":"1684728769432-9g2em0hem","label":"Action","draggable":false,"isOpen":true,"card":"{card}","stateAction":{"id":"flex-action-1684728846582","type":"cardAction","displayName":"Action","vlocityIcon":"standard-default","openUrlIn":"Current Window","flyoutType":"childCard","openFlyoutIn":"Modal","channelName":"close_modal","eventName":"reload"},"actionIndex":0},{"key":"1684728814096-387priuuo","label":"Action","draggable":true,"isOpen":false,"card":"{card}","stateAction":{"id":"test-action","type":"Custom","displayName":"Action","vlocityIcon":"standard-default","targetType":"Web Page","openUrlIn":"Current Window","Web Page":{"targetName":"/apex"}}}],"showSpinner":"false"}'
+                extraclass=" slds-text-link_reset"
                 theme="slds"
+                onclick={executeAction}
+                data-element-label="yoursavings"
+                data-action-key="state0element1"
+                onkeydown={executeActionWithKeyboard}
+                tabindex="0"
                 ><div class="slds-grid slds-wrap">
                   <div
                     data-style-id="state0element1block_element0"
@@ -463,7 +537,9 @@
                       data-style-id="state0element1block_element0_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20account%3C/div%3E"
+                      placeholder=""
+                      type="text"
+                      label=""
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
@@ -477,8 +553,7 @@
                       data-style-id="state0element1block_element1_child"
                       card={card}
                       record={record}
-                      placeholder=""
-                      type="text"
+                      merge-field="%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20account%3C/div%3E"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
@@ -507,22 +582,37 @@
                       data-style-id="state0element1block_element3_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#236fa1;%22%3E%3Cstrong%3EANZ%20Plus%3C/strong%3E%3C/span%3E%3C/div%3E"
+                      placeholder=""
+                      type="text"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element1block_element4"
+                    class="slds-col slds-p-left_medium slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style="color: #000000"
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element1block_element4_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%20font-family:%20'Salesforce%20Sans',%20Arial,%20sans-serif;%22%3E%3Cstrong%3EANZ%20Plus%3C/strong%3E%3C/span%3E%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element5"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <c-cf-s-o-p_-a-n-z-plus
-                      data-style-id="state0element1block_element4_child"
+                      data-style-id="state0element1block_element5_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
-                      card-node=""
+                      card-node="\{records}"
                       parent-record={record}
                       records={_records}
                       parent-mergefields={card}
@@ -534,31 +624,46 @@
                     ></c-cf-s-o-p_-a-n-z-plus>
                   </div>
                   <div
-                    data-style-id="state0element1block_element5"
-                    class="slds-col slds-size_12-of-12"
-                    data-rindex={rindex}
-                    style=""
-                  >
-                    <omnistudio-output-field
-                      data-style-id="state0element1block_element5_child"
-                      card={card}
-                      record={record}
-                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#236fa1;%22%3E%3Cstrong%3EANZ%3C/strong%3E%3C/span%3E%3C/div%3E"
-                      theme="slds"
-                    ></omnistudio-output-field>
-                  </div>
-                  <div
                     data-style-id="state0element1block_element6"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
-                    <c-cf-s-o-p_-a-n-z3
+                    <omnistudio-output-field
                       data-style-id="state0element1block_element6_child"
+                      card={card}
+                      record={record}
+                      placeholder=""
+                      type="text"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element7"
+                    class="slds-col slds-p-left_medium slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element1block_element7_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%3Cspan%20style=%22color:%20#000000;%22%3E%3Cstrong%3EANZ%3C/strong%3E%3C/span%3E%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element8"
+                    class="slds-col slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <c-cf-s-o-p_-a-n-z3
+                      data-style-id="state0element1block_element8_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
-                      card-node=""
+                      card-node="\{records}"
                       parent-record={record}
                       records={_records}
                       parent-mergefields={card}
@@ -570,13 +675,28 @@
                     ></c-cf-s-o-p_-a-n-z3>
                   </div>
                   <div
-                    data-style-id="state0element1block_element7"
+                    data-style-id="state0element1block_element9"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element1block_element7_child"
+                      data-style-id="state0element1block_element9_child"
+                      card={card}
+                      record={record}
+                      placeholder=""
+                      type="text"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element1block_element10"
+                    class="slds-col slds-p-left_medium slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element1block_element10_child"
                       card={card}
                       record={record}
                       merge-field="%3Cdiv%3E%3Cstrong%3EOther%3C/strong%3E%3C/div%3E"
@@ -584,17 +704,17 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element1block_element8"
+                    data-style-id="state0element1block_element11"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <c-cf-s-o-p_-other
-                      data-style-id="state0element1block_element8_child"
+                      data-style-id="state0element1block_element11_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
-                      card-node=""
+                      card-node="\{records}"
                       parent-record={record}
                       records={_records}
                       parent-mergefields={card}
@@ -606,13 +726,13 @@
                     ></c-cf-s-o-p_-other>
                   </div>
                   <div
-                    data-style-id="state0element1block_element9"
+                    data-style-id="state0element1block_element12"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <c-cf-s-o-p_-message_-flex
-                      data-style-id="state0element1block_element9_child"
+                      data-style-id="state0element1block_element12_child"
                       tracking-obj={_childCardTrackingObj}
                       is-inside-parent={insideParent}
                       parent-uniquekey={uniqueKey}
@@ -631,7 +751,7 @@
             </div>
             <div
               data-style-id="state0element2"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >
@@ -648,7 +768,7 @@
             </div>
             <div
               data-style-id="state0element3"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >
@@ -665,7 +785,7 @@
             </div>
             <div
               data-style-id="state0element4"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >
@@ -682,7 +802,7 @@
             </div>
             <div
               data-style-id="state0element5"
-              class="slds-col slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-p-around_x-small title_color slds-size_12-of-12"
               data-rindex={rindex}
               style=""
             >

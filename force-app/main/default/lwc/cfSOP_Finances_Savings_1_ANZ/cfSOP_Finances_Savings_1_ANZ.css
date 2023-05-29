@@ -1,1 +1,4 @@
-/*Custom Styles*/
+.title_color button {
+  width: 100%;
+  background: lightgray;
+}

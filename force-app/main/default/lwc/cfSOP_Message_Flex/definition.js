@@ -114,10 +114,13 @@ let definition = {
                   stateIndex: 0,
                   class: "slds-col ",
                   property: {
-                    placeholder: "Last updated:",
+                    placeholder: "",
                     record: "{record}",
                     type: "text",
-                    card: "{card}"
+                    card: "{card}",
+                    label: "Last Modified",
+                    fieldName: "",
+                    styles: { label: { color: "#868383" } }
                   },
                   type: "element",
                   styleObject: {
@@ -140,7 +143,9 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {},
+                    elementStyleProperties: {
+                      styles: { label: { color: "#868383" } }
+                    },
                     text: { align: "right", color: "" },
                     inlineStyle: "",
                     class: "slds-text-align_right ",
@@ -172,7 +177,9 @@ let definition = {
                           radius: "",
                           style: ""
                         },
-                        elementStyleProperties: {},
+                        elementStyleProperties: {
+                          styles: { label: { color: "#868383" } }
+                        },
                         text: { align: "right", color: "" },
                         inlineStyle: "",
                         class: "slds-text-align_right ",
@@ -198,15 +205,74 @@ let definition = {
                     type: "datetime",
                     card: "{card}",
                     format: "DD MMM YYYY| h:mm a",
-                    fieldName: "updateTime"
+                    fieldName: "updateTime",
+                    styles: { value: { color: "#868383" } }
                   },
                   type: "element",
                   styleObject: {
                     sizeClass: "slds-size_2-of-12 ",
-                    size: { isResponsive: false, default: "2" }
+                    size: { isResponsive: false, default: "2" },
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {
+                      styles: { value: { color: "#868383" } }
+                    },
+                    text: { align: "", color: "" },
+                    inlineStyle: ""
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-2-Field-3"
+                  elementLabel: "Block-2-Field-3",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_2-of-12 ",
+                        size: { isResponsive: false, default: "2" },
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {
+                          styles: { value: { color: "#868383" } }
+                        },
+                        text: { align: "", color: "" },
+                        inlineStyle: ""
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
                 }
               ],
               elementLabel: "Block-2"

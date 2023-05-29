@@ -44,6 +44,12 @@ export default class cfSOP_Finances_Savings_1_ANZ extends FlexCardMixin(
 
     this.setDefinition(data);
     this.registerEvents();
+    this.setAttribute(
+      "class",
+      (this.getAttribute("class") ? this.getAttribute("class") : "") +
+        " card-0ko8r0000000I6bAAE"
+    );
+    this.loadCustomStylesheetAttachement("00P8r000004ASK5EAO");
   }
 
   disconnectedCallback() {

@@ -78,13 +78,16 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public string productName {
       get {
-        FinServ__FinancialAccount__c account = [
-          SELECT Name
-          FROM FinServ__FinancialAccount__c
-          WHERE FinServ__FinancialAccountNumber__c = :this.accountNumber
-          LIMIT 1
-        ];
-        return account.Name;
+
+        List<FinServ__FinancialAccount__c> account = [SELECT Product_Name__c FROM FinServ__FinancialAccount__c WHERE
+            FinServ__FinancialAccountNumber__c = :this.accountNumber LIMIT 1];
+            if(account!= null && account.size()==1){
+              
+              return account[0].Product_Name__c;
+            }
+            else{
+              return null;
+          }
       }
     }
     @AuraEnabled

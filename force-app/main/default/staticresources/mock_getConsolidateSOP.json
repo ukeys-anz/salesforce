@@ -1381,6 +1381,40 @@
       "updateTime": "2023-05-04T09:20:11.272970Z",
       "updatedBy": "1000990280",
       "etag": "1683192011272970123"
-    }
+    },
+    {
+      "id": "d8db2ff6-a773-43d7-9198-6aef0cbd9067",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "name": "Family Savings",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "34500",
+        "nanos": 850000000
+      },
+      "account": {
+        "id": "e7db2ff6-a773-43d7-9198-6aef0cbd8965",
+        "bsb": "063345",
+        "accountNumber": "115476489",
+        "accountName": "TS1 Account Name",
+        "status": "ACCOUNT_STATE_ACTIVE",
+        "financialInstitution": "Westpac"
+      },
+      "ownership": [
+        {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "proportion": {
+                "value": "100"
+            }
+        }
+      ],
+      "source": [
+        "ASSET_SOURCE_MANUAL"
+      ],
+      "propertyId": "",
+      "createTime": "2023-05-04T09:20:11.272970Z",
+      "updateTime": "2023-05-04T09:20:11.272970Z",
+      "updatedBy": "1000990280",
+      "etag": "1683192011272970123"
+    }    
   ]
 }
