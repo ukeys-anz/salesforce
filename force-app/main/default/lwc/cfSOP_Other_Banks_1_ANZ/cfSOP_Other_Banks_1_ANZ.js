@@ -10,7 +10,9 @@ import data from "./definition";
 
 import styleDef from "./styleDefinition";
 
-export default class cfSOP_ANZPlus extends FlexCardMixin(LightningElement) {
+export default class cfSOP_Other_Banks_1_ANZ extends FlexCardMixin(
+  LightningElement
+) {
   currentPageReference;
   @wire(CurrentPageReference)
   setCurrentPageReference(currentPageReference) {

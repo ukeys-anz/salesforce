@@ -204,7 +204,7 @@ let definition = {
                     record: "{record}",
                     type: "datetime",
                     card: "{card}",
-                    format: "DD MMM YYYY| h:mm a",
+                    format: "DD MMM YYYY| h:mm A",
                     fieldName: "updateTime",
                     styles: { value: { color: "#868383" } }
                   },

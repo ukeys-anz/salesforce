@@ -25,9 +25,7 @@ let definition = {
           }
         ]
       },
-      definedActions: {
-        actions: []
-      },
+      definedActions: { actions: [] },
       name: "Active",
       isSmartAction: false,
       smartAction: {},
@@ -2900,7 +2898,7 @@ let definition = {
                     record: "{record}",
                     type: "datetime",
                     card: "{card}",
-                    format: "DD MMM YYYY| h:mm a",
+                    format: "DD MMM YYYY| h:mm A",
                     fieldName: "updateTime",
                     styles: {
                       value: { color: "#868383", textAlign: "" },
@@ -3073,12 +3071,7 @@ let definition = {
       ]
     }
   ],
-  dataSource: {
-    type: null,
-    value: {},
-    orderBy: {},
-    contextVariables: []
-  },
+  dataSource: { type: null, value: {}, orderBy: {}, contextVariables: [] },
   title: "SOP_ANZPlus",
   enableLwc: true,
   isFlex: true,

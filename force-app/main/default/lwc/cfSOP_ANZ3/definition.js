@@ -25,20 +25,12 @@ let definition = {
           }
         ]
       },
-      definedActions: {
-        actions: []
-      },
+      definedActions: { actions: [] },
       name: "Active",
       isSmartAction: false,
       smartAction: {},
       styleObject: {
-        padding: [
-          {
-            type: "around",
-            size: "x-small",
-            label: "around:x-small"
-          }
-        ],
+        padding: [{ type: "around", size: "x-small", label: "around:x-small" }],
         margin: [{ type: "left", size: "small", label: "left:small" }],
         container: { class: "slds-card" },
         size: { isResponsive: false, default: "6" },
@@ -2843,7 +2835,7 @@ let definition = {
                     type: "datetime",
                     card: "{card}",
                     fieldName: "updateTime",
-                    format: "DD MMM YYYY| h:mm a",
+                    format: "DD MMM YYYY | h:mm A",
                     styles: { value: { color: "#868383" } }
                   },
                   type: "element",
@@ -2876,9 +2868,9 @@ let definition = {
                     elementStyleProperties: {
                       styles: { value: { color: "#868383" } }
                     },
-                    text: { align: "", color: "" },
+                    text: { align: "left", color: "" },
                     inlineStyle: "",
-                    class: "slds-p-right_xxx-small ",
+                    class: "slds-text-align_left slds-p-right_xxx-small ",
                     style: "      \n         "
                   },
                   elementLabel: "Block-0-Field-15",
@@ -2915,9 +2907,9 @@ let definition = {
                         elementStyleProperties: {
                           styles: { value: { color: "#868383" } }
                         },
-                        text: { align: "", color: "" },
+                        text: { align: "left", color: "" },
                         inlineStyle: "",
-                        class: "slds-p-right_xxx-small ",
+                        class: "slds-text-align_left slds-p-right_xxx-small ",
                         style: "      \n         "
                       },
                       label: "Default",
@@ -3002,12 +2994,7 @@ let definition = {
       ]
     }
   ],
-  dataSource: {
-    type: null,
-    value: {},
-    orderBy: {},
-    contextVariables: []
-  },
+  dataSource: { type: null, value: {}, orderBy: {}, contextVariables: [] },
   title: "SOP_ANZ3",
   enableLwc: true,
   isFlex: true,

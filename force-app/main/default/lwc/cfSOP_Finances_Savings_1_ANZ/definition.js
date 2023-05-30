@@ -92,7 +92,8 @@ let definition = {
                     showSpinner: "false",
                     flyoutDetails: {},
                     hideActionIcon: true,
-                    displayAsButton: true
+                    displayAsButton: true,
+                    buttonVariant: "neutral"
                   },
                   type: "element",
                   styleObject: {
@@ -291,7 +292,9 @@ let definition = {
                   type: "text",
                   styleObject: {
                     sizeClass: "slds-size_12-of-12 ",
-                    padding: [],
+                    padding: [
+                      { type: "left", size: "medium", label: "left:medium" }
+                    ],
                     margin: [],
                     background: {
                       color: "",
@@ -312,7 +315,7 @@ let definition = {
                     elementStyleProperties: {},
                     text: { align: "", color: "#000000" },
                     inlineStyle: "",
-                    class: "",
+                    class: "slds-p-left_medium ",
                     style: "      \n        color:#000000; "
                   },
                   parentElementKey: "element_block_1_0",
@@ -323,7 +326,9 @@ let definition = {
                       conditions: "default",
                       styleObject: {
                         sizeClass: "slds-size_12-of-12 ",
-                        padding: [],
+                        padding: [
+                          { type: "left", size: "medium", label: "left:medium" }
+                        ],
                         margin: [],
                         background: {
                           color: "",
@@ -344,7 +349,7 @@ let definition = {
                         elementStyleProperties: {},
                         text: { align: "", color: "#000000" },
                         inlineStyle: "",
-                        class: "",
+                        class: "slds-p-left_medium ",
                         style: "      \n        color:#000000; "
                       },
                       label: "Default",
@@ -583,13 +588,269 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField:
-                      "%3Cdiv%3E%3Cstrong%3EOther%3C/strong%3E%3C/div%3E",
+                      "%3Cdiv%3E%3Cstrong%3EOther%20Institutuions%3C/strong%3E%3C/div%3E",
                     card: "{card}"
                   },
                   type: "text",
+                  styleObject: {
+                    sizeClass: "slds-size_12-of-12 ",
+                    padding: [
+                      { type: "left", size: "medium", label: "left:medium" }
+                    ],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "12" },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    class: "slds-p-left_medium ",
+                    style: "      \n         "
+                  },
+                  parentElementKey: "element_block_1_0",
+                  elementLabel: "Your Savings-Text-10",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_12-of-12 ",
+                        padding: [
+                          { type: "left", size: "medium", label: "left:medium" }
+                        ],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        size: { isResponsive: false, default: "12" },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "",
+                        class: "slds-p-left_medium ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
+                },
+                {
+                  key: "element_element_block_1_0_childCardPreview_11_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Other_Banks",
+                    recordId: "{recordId}",
+                    cardNode: "{records}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: {
+                    sizeClass: "slds-size_12-of-12 ",
+                    padding: [],
+                    margin: [
+                      { type: "left", size: "x-small", label: "left:x-small" },
+                      { type: "right", size: "large", label: "right:large" }
+                    ],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "12" },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    class: "slds-m-left_x-small slds-m-right_large ",
+                    style: "      \n         "
+                  },
+                  parentElementKey: "element_block_1_0",
+                  elementLabel: "Your Savings-FlexCard-11",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_12-of-12 ",
+                        padding: [],
+                        margin: [
+                          {
+                            type: "left",
+                            size: "x-small",
+                            label: "left:x-small"
+                          },
+                          { type: "right", size: "large", label: "right:large" }
+                        ],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        size: { isResponsive: false, default: "12" },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "",
+                        class: "slds-m-left_x-small slds-m-right_large ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
+                },
+                {
+                  key: "element_element_block_1_0_outputField_12_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
                   styleObject: { sizeClass: "slds-size_12-of-12" },
                   parentElementKey: "element_block_1_0",
-                  elementLabel: "Your Savings-Text-10"
+                  elementLabel: "Your Savings-Field-12"
+                },
+                {
+                  key: "element_element_block_1_0_outputField_13_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3ECash%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: {
+                    sizeClass: "slds-size_12-of-12 ",
+                    padding: [
+                      { type: "left", size: "medium", label: "left:medium" }
+                    ],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "12" },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    class: "slds-p-left_medium ",
+                    style: "      \n         "
+                  },
+                  parentElementKey: "element_block_1_0",
+                  elementLabel: "Your Savings-Text-13",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_12-of-12 ",
+                        padding: [
+                          { type: "left", size: "medium", label: "left:medium" }
+                        ],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        size: { isResponsive: false, default: "12" },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "",
+                        class: "slds-p-left_medium ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
                 },
                 {
                   name: "FlexCard",
@@ -605,13 +866,78 @@ let definition = {
                     isChildCardTrackingEnabled: false
                   },
                   type: "element",
-                  styleObject: { sizeClass: "slds-size_12-of-12" },
-                  elementLabel: "Your Savings-FlexCard-11",
-                  key: "element_element_block_1_0_childCardPreview_11_0",
-                  parentElementKey: "element_block_1_0"
+                  styleObject: {
+                    sizeClass: "slds-size_12-of-12 ",
+                    padding: [],
+                    margin: [
+                      { type: "right", size: "large", label: "right:large" }
+                    ],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "12" },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    class: "slds-m-right_large ",
+                    style: "      \n         "
+                  },
+                  elementLabel: "Your Savings-FlexCard-14",
+                  key: "element_element_block_1_0_childCardPreview_14_0",
+                  parentElementKey: "element_block_1_0",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_12-of-12 ",
+                        padding: [],
+                        margin: [
+                          { type: "right", size: "large", label: "right:large" }
+                        ],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        size: { isResponsive: false, default: "12" },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "",
+                        class: "slds-m-right_large ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
                 },
                 {
-                  key: "element_element_block_1_0_childCardPreview_12_0",
+                  key: "element_element_block_1_0_childCardPreview_15_0",
                   name: "FlexCard",
                   element: "childCardPreview",
                   size: { isResponsive: false, default: "12" },
@@ -627,7 +953,7 @@ let definition = {
                   type: "element",
                   styleObject: { sizeClass: "slds-size_12-of-12" },
                   parentElementKey: "element_block_1_0",
-                  elementLabel: "Your Savings-FlexCard-12"
+                  elementLabel: "Your Savings-FlexCard-15"
                 }
               ],
               elementLabel: "Your Savings",
@@ -1048,7 +1374,13 @@ let definition = {
           ]
         }
       },
-      childCards: ["SOP_ANZPlus", "SOP_ANZ3", "SOP_Other", "SOP_Message_Flex"],
+      childCards: [
+        "SOP_ANZPlus",
+        "SOP_ANZ3",
+        "SOP_Other_Banks",
+        "SOP_Other",
+        "SOP_Message_Flex"
+      ],
       actions: [],
       omniscripts: [],
       documents: []
@@ -1063,7 +1395,7 @@ let definition = {
       remoteMethod: "getListAssets",
       vlocityAsync: false
     },
-    orderBy: { name: "estimatedValue.value", isReverse: "True" },
+    orderBy: { name: "estimatedValue.value", isReverse: "true" },
     contextVariables: []
   },
   title: "SOP_Finances_Savings",
