@@ -1,16 +1,13 @@
 <!-- sldsValidatorIgnore -->
 <template>
-  <template if:true={hasPermissionIssue}>
+  <template lwc:if={hasPermissionIssue}>
     <c-error
       permission-issue={hasPermissionIssue}
       error-image-url={errorImageUrl}
     ></c-error>
   </template>
-  <template if:true={hasError}>
-    <c-error message={errorMsg}></c-error>
-  </template>
-  <template if:false={hasPermissionIssue}>
-    <article class="homeLoanAccount slds-card" if:true={financialAccountId}>
+  <template lwc:elseif={financialAccountId}>
+    <article class="homeLoanAccount slds-card">
       <h1 class="card-title" data-id="component-title">
         <lightning-icon
           icon-name="custom:custom107"
@@ -19,7 +16,7 @@
         ></lightning-icon>
         Loan - {accountDetails.product_details.name} Account
       </h1>
-      <template if:true={accountDetails}>
+      <template lwc:if={accountDetails}>
         <div
           class="slds-card__body slds-card__body_inner"
           data-id="fin-account"
@@ -37,13 +34,11 @@
                     <span>{accountDetails.account_name}</span>
                   </a>
                   <span
-                    if:true={accountActive}
+                    lwc:if={accountActive}
                     class="slds-badge slds-theme_success"
                     >Open</span
                   >
-                  <span
-                    if:false={accountActive}
-                    class="slds-badge slds-theme_error"
+                  <span lwc:else class="slds-badge slds-theme_error"
                     >Closed</span
                   >
                 </h2>
@@ -178,8 +173,11 @@
       </template>
     </article>
   </template>
+  <template lwc:if={hasError}>
+    <c-error message={errorMsg}></c-error>
+  </template>
 
-  <template if:true={showBalanceModal}>
+  <template lwc:if={showBalanceModal}>
     <section role="dialog" class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <header class="slds-modal__header modal-header">

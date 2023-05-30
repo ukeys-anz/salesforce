@@ -1,5 +1,5 @@
 <template>
-  <template if:true={displayFraudOptions}>
+  <template lwc:if={displayFraudOptions}>
     <section class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <article class="slds-card dialogBox">
@@ -52,7 +52,7 @@
     </section>
     <div class="slds-backdrop slds-backdrop_open"></div>
   </template>
-  <template if:false={displayFraudOptions}>
+  <template lwc:else>
     <section class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <article class="slds-card messageBox">
@@ -69,8 +69,8 @@
               <p>{message.secondMessage}</p>
               <br />
 
-              <p if:true={message.thirdMessage}>
-                <Strong if:true={message.strongText}
+              <p lwc:if={message.thirdMessage}>
+                <Strong lwc:if={message.strongText}
                   ><em>Please note: </em></Strong
                 >
                 {message.thirdMessage}

@@ -1,5 +1,5 @@
 <template>
-  <template if:true={isLoading}>
+  <template lwc:if={isLoading}>
     <div class="slds-is-relative spinner-height">
       <lightning-spinner
         alternative-text="Loading..."
@@ -12,25 +12,18 @@
     </div>
   </template>
 
-  <template if:false={isLoading}>
-    <template if:true={hasPermissionIssue}>
+  <template lwc:else>
+    <template lwc:if={hasPermissionIssue}>
       <c-error permission-issue={hasPermissionIssue}></c-error>
     </template>
 
-    <template if:false={hasPermissionIssue}>
-      <template if:true={hasError}>
+    <template lwc:else>
+      <template lwc:if={hasError}>
         <c-error message={error}></c-error>
       </template>
 
-      <template if:false={hasError}>
-        <template if:false={hasStatements}>
-          <span
-            class="slds-var-m-vertical_large slds-align_absolute-center slds-text-heading_small slds-text-title_bold"
-          >
-            There are currently no statements for this account.
-          </span>
-        </template>
-        <template if:true={hasStatements}>
+      <template lwc:else>
+        <template lwc:if={hasStatements}>
           <span
             class="slds-var-m-vertical_large slds-align_absolute-center slds-text-heading_small slds-text-title_bold"
           >
@@ -51,7 +44,15 @@
           >
           </lightning-datatable>
         </template>
-        <template if:true={hasMoreStatements}>
+        <template lwc:else>
+          <span
+            class="slds-var-m-vertical_large slds-align_absolute-center slds-text-heading_small slds-text-title_bold"
+          >
+            There are currently no statements for this account.
+          </span>
+        </template>
+
+        <template lwc:if={hasMoreStatements}>
           <lightning-button
             variant="base"
             label="Load More"

@@ -2,7 +2,7 @@
   <lightning-card class="card">
     <lightning-layout>
       <lightning-layout-item class="card-inner" size="12">
-        <div class="slds-box error" if:true={errorMessage}>{errorMessage}</div>
+        <div class="slds-box error" lwc:if={errorMessage}>{errorMessage}</div>
 
         <div class="title-banner">
           <div class="title">Log a call</div>
@@ -10,7 +10,7 @@
 
         <div class={containerClass}>
           <div class="container-inner">
-            <div if:false={showMore}>
+            <div lwc:if={showMore}>
               <button
                 class="slds-button slds-button_neutral slds-button_stretch button-padding"
                 data-test-id="log-call-button"
@@ -32,7 +32,7 @@
                 class="slds-form-element__control"
                 max-length="255"
               ></lightning-input>
-              <p if:true={errorString.subject} class="error-text">
+              <p lwc:if={errorString.subject} class="error-text">
                 {errorString.subject}
               </p>
             </div>
@@ -59,7 +59,7 @@
               message-when-too-long={fieldErrorMessages.voiceCall}
               data-test-id="voice-call-sid"
             ></lightning-input>
-            <p if:true={errorString.voiceCall} class="error-text">
+            <p lwc:if={errorString.voiceCall} class="error-text">
               {errorString.voiceCall}
             </p>
 
@@ -82,7 +82,7 @@
               data-test-id="authentication-method"
             >
             </lightning-combobox>
-            <p if:true={errorString.auth} class="error-text">
+            <p lwc:if={errorString.auth} class="error-text">
               {errorString.auth}
             </p>
 
@@ -101,11 +101,11 @@
               data-field="comment"
               value={fields.comment}
             ></lightning-textarea>
-            <p if:true={errorString.comment} class="error-text">
+            <p lwc:if={errorString.comment} class="error-text">
               {errorString.comment}
             </p>
 
-            <div if:true={isLoading}>
+            <div lwc:if={isLoading}>
               <lightning-spinner alternative-text="Loading..." variant="brand">
               </lightning-spinner>
             </div>

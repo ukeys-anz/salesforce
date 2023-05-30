@@ -1,5 +1,5 @@
 <template>
-  <template if:true={loading}>
+  <template lwc:if={loading}>
     <div style="height: 3rem">
       <div class="slds-spinner_container">
         <div
@@ -13,21 +13,12 @@
       </div>
     </div>
   </template>
-  <template if:false={loading}>
+  <template lwc:else>
     <div
       class="slds-modal__content slds-p-around_medium maxwidth"
       id="modal-content-id-0"
     >
-      <template if:false={isValidToClose}
-        ><div
-          style="text-align: center; min-height: 3rem"
-          class="validationMessage"
-        >
-          {validityMessage}
-        </div></template
-      >
-
-      <template if:true={isValidToClose}>
+      <template lwc:if={isValidToClose}>
         <div class="title">Close Complaint</div>
         <lightning-combobox
           name="ComplaintStatus"
@@ -40,7 +31,7 @@
           required="true"
           data-id="caseStatus-id"
         ></lightning-combobox>
-        <template if:true={loadChild}>
+        <template lwc:if={loadChild}>
           <c-complaints-Close-Child
             record-id={recordId}
             record-type-id={recordType}
@@ -77,8 +68,16 @@
           ></lightning-button>
         </div>
       </template>
+      <template lwc:else>
+        <div
+          style="text-align: center; min-height: 3rem"
+          class="validationMessage"
+        >
+          {validityMessage}
+        </div>
+      </template>
     </div>
-    <template if:true={showModal}>
+    <template lwc:if={showModal}>
       <section
         role="dialog"
         tabindex="-1"
