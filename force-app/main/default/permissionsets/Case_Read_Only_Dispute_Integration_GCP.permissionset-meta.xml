@@ -3,7 +3,17 @@
     <description>Grants Read only permissions for disputes related objects and fields for GCP integration purpose</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Source_System_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Source_System_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

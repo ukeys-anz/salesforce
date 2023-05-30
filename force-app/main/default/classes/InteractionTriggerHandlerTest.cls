@@ -474,6 +474,33 @@ public with sharing class InteractionTriggerHandlerTest {
   }
 
   @isTest
+  static void testAttendeeDefaultOnInsert() {
+    Interaction newInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
+      Name = 'New Interaction',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.STORE,
+      StartTime = System.now()
+    );
+
+    Test.startTest();
+    insert newInteraction;
+    Test.stopTest();
+
+    Integer numberattendee = [
+      SELECT COUNT()
+      FROM InteractionAttendee
+      WHERE interactionid = :newInteraction.ID
+    ];
+
+    System.assertEquals(
+      true,
+      numberattendee > 0,
+      'InteractionAttendee should be added'
+    );
+  }
+
+  @isTest
   static void testEndTimePopulationOnUpdate() {
     Interaction newInteractionWithoutEndtime = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,

@@ -1560,11 +1560,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>IDR_Real_Form_Submitted__c</field>
-            <table>CustomerOnboardingApplication__c.Cases__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>IDR_Reason_for_re_opening__c</field>
             <table>CustomerOnboardingApplication__c.Cases__r</table>
         </columns>

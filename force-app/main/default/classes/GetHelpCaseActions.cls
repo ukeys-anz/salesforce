@@ -414,35 +414,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description recalculate related bug rollup whenever a case is inserted/updated/deleted
-   * @param records new trigger case records to calculate rollups for
-   * @param oldRecords old trigger case records to calculate rollups for
-   */
-  public static void rollupRelatedBug(
-    List<Case> records,
-    List<Case> oldRecords
-  ) {
-    Set<Id> bugIdSet = new Set<Id>();
-    bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(records, bugIdSet);
-    bugIdSet = GetHelpCaseActionsHelper.getBugIdSet(oldRecords, bugIdSet);
-
-    List<Reported_Bug__c> bugs = new List<Reported_Bug__c>();
-    if (Reported_Bug__c.SObjectType.getDescribe().isAccessible()) {
-      bugs = GetHelpCaseActionsHelper.getReportedBugs(bugIdSet);
-    }
-
-    for (Reported_Bug__c bug : bugs) {
-      bug.Number_of_Related_Cases__c = bug.Cases__r.size();
-    }
-    if (bugs.isEmpty()) {
-      return;
-    }
-    List<Database.SaveResult> results = Database.Update(bugs, false);
-    Logger.error('', results);
-    Logger.saveLog();
-  }
-
-  /**
    * @description future method to recalculate in a deletion scenario, because if done in before delete, the rollup will be wrong. does not check record type, do this before calling
    * @param bugIdSet set of salesforce bug id's to recalculate
    */

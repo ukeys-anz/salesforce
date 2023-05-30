@@ -122,7 +122,7 @@ export default class InteractionRelatedList extends NavigationMixin(
 
       valueSet[fieldName] = this.recordId;
       const defaultValues = encodeDefaultFieldValues(valueSet);
-      
+
       if (selectRecordType) {
         stateValue = {
           defaultFieldValues: defaultValues,

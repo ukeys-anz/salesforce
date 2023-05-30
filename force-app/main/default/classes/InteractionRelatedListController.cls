@@ -102,7 +102,7 @@ public with sharing class InteractionRelatedListController {
     if (isAppointment) {
       nrWrapper.recordTypeInfo = GetHelpConstants.INTERACTION_APPT_RT_ID;
     }
-    // Commenting this line for not setting default record type as General.
+    // Remove the else block for not setting default record type as General.
 
     return nrWrapper;
   }

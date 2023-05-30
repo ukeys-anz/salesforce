@@ -58,10 +58,6 @@ public with sharing class GetHelpConstants {
     .get('KYC_QA')
     .getRecordTypeId();
 
-  public static final Id BUG_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Bug_Enquiry')
-    .getRecordTypeId();
-
   public static final Id CUSTOMER_FEEDBACK_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Customer_Feedback')
     .getRecordTypeId();
@@ -127,6 +123,11 @@ public with sharing class GetHelpConstants {
   // Interaction - General Interaction RT Id
   public static final Id INTERACTION_GENERAL_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get('General')
+    .getRecordTypeId();
+
+  // Interaction - Store Interaction RT Id
+  public static final Id INTERACTION_STORE_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('Store')
     .getRecordTypeId();
 
   // Case - Account Closure

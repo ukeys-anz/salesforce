@@ -8068,6 +8068,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Lead-ANZX Lead Layout</layout>
         <recordType>Lead.ANZX_Leads</recordType>
     </layoutAssignments>
@@ -9688,6 +9692,10 @@
     <tabVisibilities>
         <tab>COBPrimaryIDDocument__c</tab>
         <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Interaction_Tag__c</tab>
+        <visibility>Hidden</visibility>
     </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>

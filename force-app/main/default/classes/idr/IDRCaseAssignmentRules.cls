@@ -20,13 +20,12 @@ public with sharing class IDRCaseAssignmentRules {
     for (Case c : cases) {
       if (IDRCaseActions.isIDRComplaintType(c)) {
         Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-        String productWorkbasketName = productFamilyMap.get(
-            c.IDR_Product_Family__c
-          )
-          ?.IDR_Workbasket__c;
+        Product_Family__c oProductFamily = productFamilyMap.get(
+          c.IDR_Product_Family__c
+        );
         c.OwnerId = IDRCaseAssignmentRules.getOwnerId(
           c,
-          productWorkbasketName,
+          oProductFamily,
           oldCase
         );
       }
@@ -107,7 +106,7 @@ public with sharing class IDRCaseAssignmentRules {
   /**
    * @description method to run the Case assignment rules conditions
    * @param rec case record
-   * @param productWorkbasketName name of the product the case relates to
+   * @param oProductFamily Product_Family__c object that case relates to. For accessing Name and Workbasket
    * @param oldCase old record of case
    * NcssMethodCount Suppressed : To have all the code lines together in one place. Code is a series of rules applied in order.
    * @return Queue Id
@@ -115,9 +114,11 @@ public with sharing class IDRCaseAssignmentRules {
   @SuppressWarnings('PMD.NcssMethodCount')
   private static Id getOwnerId(
     Case rec,
-    String productWorkbasketName,
+    Product_Family__c oProductFamily,
     Case oldCase
   ) {
+    String productWorkbasketName = oProductFamily?.IDR_Workbasket__c;
+    String strProductFamily = oProductFamily?.Name;
     //rules to run only on escalation
     if (
       rec.Status == IDRConstants.ESCALATED_STATUS &&
@@ -132,12 +133,9 @@ public with sharing class IDRCaseAssignmentRules {
       }
 
       // Hardship
-      if (
-        rec.Type == '4' ||
-        rec.Type == '17'
-      ) {
+      if (rec.Type == '4' || rec.Type == '17') {
         if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
-          return QUEUE_MAP.get('Specialised_Early_Resolution_Hardship');
+          return QUEUE_MAP.get('EDR_Hardship');
         } else {
           return QUEUE_MAP.get('IDR_Hardship');
         }
@@ -155,7 +153,14 @@ public with sharing class IDRCaseAssignmentRules {
         }
       }
 
+      System.debug('Product Family: ' + strProductFamily);
       if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        if (
+          strProductFamily != null &&
+          strProductFamily == 'Insurance/wealth products'
+        ) {
+          return QUEUE_MAP.get('EDR_Wealth');
+        }
         return QUEUE_MAP.get('EDR_Early_Resolution');
       }
 
@@ -169,8 +174,10 @@ public with sharing class IDRCaseAssignmentRules {
       }
 
       // IDR ANZ Plus Rule #5 needs to be applied before Early Resolution Rule #7
-      if ( productWorkbasketName != null &&
-          productWorkbasketName == 'IDR_ANZ_Plus') {
+      if (
+        productWorkbasketName != null &&
+        productWorkbasketName == 'IDR_ANZ_Plus'
+      ) {
         return QUEUE_MAP.get(productWorkbasketName);
       }
 
@@ -180,18 +187,12 @@ public with sharing class IDRCaseAssignmentRules {
       }
 
       // Early Resolution
-      if (
-        rec.Type == '13' ||
-        rec.Type == '12' ||
-        rec.Type == '9'
-      ) {
+      if (rec.Type == '13' || rec.Type == '12' || rec.Type == '9') {
         return QUEUE_MAP.get('IDR_Early_Resolution');
       }
 
       //Product-based rules
-      if (
-        productWorkbasketName != null
-      ) {
+      if (productWorkbasketName != null) {
         return QUEUE_MAP.get(productWorkbasketName);
       }
 
