@@ -14,7 +14,7 @@
           onchange={handleExpressCaseToggle}
         ></lightning-input>
       </div>
-      <template if:true={showKnownOutageSelect}>
+      <template lwc:if={showKnownOutageSelect}>
         <div class="slds-col slds-size_1-of-4 slds-m-right_large">
           <lightning-combobox
             name="knownOutageSelect"

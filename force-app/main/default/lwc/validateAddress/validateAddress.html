@@ -26,7 +26,7 @@
             ></lightning-input>
           </div>
           <!-- Address List -->
-          <template if:true={showAddresses}>
+          <template lwc:if={showAddresses}>
             <div
               id="listbox-id-3"
               class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
@@ -35,7 +35,7 @@
                 class="slds-listbox slds-listbox_vertical recordListBox"
                 role="presentation"
               >
-                <template if:true={displayAddresses}>
+                <template lwc:if={displayAddresses}>
                   <template for:each={addressList} for:item="addr">
                     <li
                       key={addr.encodedAddressId}
@@ -89,7 +89,7 @@
                     </div>
                   </li>
                 </template>
-                <template if:true={displayMessage}>
+                <template lwc:if={displayMessage}>
                   <li onmousedown={displayAddressFields}>
                     <div
                       class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
@@ -119,25 +119,27 @@
         </div>
       </div>
       <lightning-messages> </lightning-messages>
-      <lightning-input-address
-        if:false={resetValidationError}
-        disabled={disabled}
-        address-label="Address"
-        street-label="Street"
-        city-label="City"
-        country-label="Country"
-        province-label="State/ Province"
-        postal-code-label="Zip/ Postal Code"
-        street={strStreet}
-        city={strCity}
-        country={strCountry}
-        province={strState}
-        postal-code={strPostalCode}
-        onchange={addressInputChange}
-        required
-      >
-      </lightning-input-address>
-      <template if:false={disabled}>
+      <template lwc:if={resetValidationError}></template>
+      <template lwc:else>
+        <lightning-input-address
+          disabled={enabled}
+          address-label="Address"
+          street-label="Street"
+          city-label="City"
+          country-label="Country"
+          province-label="State/ Province"
+          postal-code-label="Zip/ Postal Code"
+          street={strStreet}
+          city={strCity}
+          country={strCountry}
+          province={strState}
+          postal-code={strPostalCode}
+          onchange={addressInputChange}
+          required
+        >
+        </lightning-input-address>
+      </template>
+      <template lwc:if={enabled}>
         <footer class="slds-modal__footer stickyFooter">
           <lightning-button
             class="slds-m-top_small"
@@ -148,7 +150,7 @@
           </lightning-button>
         </footer>
       </template>
-      <template if:true={loading}>
+      <template lwc:if={loading}>
         <div style="height: 6rem">
           <div class="slds-spinner_container">
             <div

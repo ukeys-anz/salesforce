@@ -398,6 +398,11 @@
                 <label>Large Value Transfer requests</label>
             </value>
             <value>
+                <fullName>EOFY</fullName>
+                <default>false</default>
+                <label>EOFY</label>
+            </value>
+            <value>
                 <fullName>Document Request</fullName>
                 <default>false</default>
                 <label>Document Request</label>
@@ -571,6 +576,10 @@
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Transaction Disputes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>EOFY</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>

@@ -1,6 +1,6 @@
 <template>
   <!-- Header Label -->
-  <template if:true={label}>
+  <template lwc:if={label}>
     <label class="slds-form-element__label">
       <abbr class="slds-required" title="required">*</abbr>{label}</label
     >
@@ -41,7 +41,7 @@
         ></lightning-icon>
       </div>
       <!-- Dropdown List -->
-      <template if:true={showDropdown}>
+      <template lwc:if={showDropdown}>
         <div
           id="listbox-id-1"
           class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid multiDropDown"
@@ -50,16 +50,24 @@
             class="slds-listbox slds-listbox_vertical recordListBox"
             role="presentation"
           >
-            <template if:false={message}>
+            <template lwc:if={message}>
+              <li class="slds-listbox__item">
+                <span
+                  class="slds-media slds-listbox__option_entity verticalAlign slds-truncate"
+                  >{message}</span
+                >
+              </li>
+            </template>
+            <template lwc:else>
               <template for:each={optionData} for:item="option">
-                <template if:true={option.isVisible}>
+                <template lwc:if={option.isVisible}>
                   <li
                     key={option.value}
                     data-id={option.value}
                     onmousedown={selectItem}
                     class={option.background}
                   >
-                    <template if:true={option.selected}>
+                    <template lwc:if={option.selected}>
                       <lightning-icon
                         icon-name="utility:check"
                         size="x-small"
@@ -74,23 +82,20 @@
                 </template>
               </template>
             </template>
-            <template if:true={message}>
-              <li class="slds-listbox__item">
-                <span
-                  class="slds-media slds-listbox__option_entity verticalAlign slds-truncate"
-                  >{message}</span
-                >
-              </li>
-            </template>
           </ul>
         </div>
       </template>
     </div>
   </div>
-  <template if:false={disabled}>
+  <template lwc:if={disabled}>
+    <label class="slds-form-element__label">
+      All accounts have been automatically selected</label
+    >
+  </template>
+  <template lwc:else>
     <!-- Multi Select Pills -->
     <template for:each={optionData} for:item="option">
-      <template if:true={option.selected}>
+      <template lwc:if={option.selected}>
         <lightning-pill
           key={option.value}
           class="slds-m-around_xx-small"
@@ -100,10 +105,5 @@
         ></lightning-pill>
       </template>
     </template>
-  </template>
-  <template if:true={disabled}>
-    <label class="slds-form-element__label">
-      All accounts have been automatically selected</label
-    >
   </template>
 </template>

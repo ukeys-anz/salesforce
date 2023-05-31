@@ -1,7 +1,7 @@
 <template>
   <article class="slds-card">
     <div class="slds-card__body slds-var-m-horizontal_medium slds-is-relative">
-      <div if:false={isLoaded}>
+      <div lwc:if={isLoading}>
         <lightning-spinner
           alternative-text="Loading..."
           variant="brand"
@@ -47,7 +47,7 @@
   </article>
 
   <!-- modal start -->
-  <template if:true={showModal}>
+  <template lwc:if={showModal}>
     <section
       role="dialog"
       tabindex="-1"
@@ -72,7 +72,7 @@
           class="slds-modal__content slds-var-p-around_medium slds-is-relative"
           id="modal-content-id-1"
         >
-          <div if:false={isModalLoaded}>
+          <div lwc:if={isModalLoading}>
             <lightning-spinner
               alternative-text="Loading..."
               variant="brand"
@@ -93,7 +93,7 @@
           >
           </lightning-combobox>
 
-          <template if:true={isFailedOKSelected}>
+          <template lwc:if={isFailedOKSelected}>
             <lightning-combobox
               class="failedReason"
               name="Onboarding Verification Failed Reason"
@@ -108,7 +108,7 @@
             </lightning-combobox>
           </template>
 
-          <template if:true={isConfirmedFraudSelected}>
+          <template lwc:if={isConfirmedFraudSelected}>
             <div class="slds-text-color_error">{confirmedFraudMessage}</div>
           </template>
         </div>

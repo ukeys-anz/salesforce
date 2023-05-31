@@ -11,7 +11,7 @@
         value={searchKey}
       ></lightning-input>
     </div>
-    <template if:true={loading}>
+    <template lwc:if={loading}>
       <div class="slds-align_absolute-center" style="height: 4rem">
         <div role="status" class="slds-spinner_inline">
           <lightning-spinner
@@ -21,7 +21,7 @@
         </div>
       </div>
     </template>
-    <template if:true={showData}>
+    <template lwc:if={showData}>
       <div style="height: 500px">
         <lightning-datatable
           key-field="Id"
@@ -37,7 +37,7 @@
         </lightning-datatable>
       </div>
     </template>
-    <template if:true={noData}>
+    <template lwc:if={noData}>
       <div style="height: 100px" class="noDataFound">
         <br />
         <h1 class="slds-align_absolute-center">
@@ -46,7 +46,7 @@
       </div>
     </template>
   </lightning-card>
-  <template if:true={isEditForm}>
+  <template lwc:if={isEditForm}>
     <section
       role="dialog"
       tabindex="-1"
@@ -94,7 +94,7 @@
         </div>
         <!-- Modal/Popup Box LWC footer starts here -->
         <footer class="slds-modal__footer">
-          <template if:true={showSave}>
+          <template lwc:if={showSave}>
             <lightning-button
               class="slds-m-top_small commentSaveBtn"
               variant="brand"
@@ -109,7 +109,7 @@
     </section>
     <div class="slds-backdrop slds-backdrop_open"></div>
   </template>
-  <template if:true={isUploadFile}>
+  <template lwc:if={isUploadFile}>
     <section
       role="dialog"
       tabindex="-1"
