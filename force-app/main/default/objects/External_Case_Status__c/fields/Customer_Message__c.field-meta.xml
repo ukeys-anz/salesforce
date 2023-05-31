@@ -16,12 +16,6 @@ IF(
 ISPICKVAL(External_Status__c, &quot;Pending-QualifyDispute&quot;),
 $Label.PEGA_Dispute_Status_Pending_QualifyDispute,
 IF(
-ISPICKVAL(External_Status__c, &quot;Pending-DisputeQuestionnaire&quot;),
-$Label.PEGA_Dispute_Status_Pending_DisputeQuestionnaire,
-IF(
-ISPICKVAL(External_Status__c, &quot;Pending-PreArbInbound&quot;),
-$Label.PEGA_Dispute_Status_Pending_PreArbInbound,
-IF(
 ISPICKVAL(External_Status__c, &quot;Pending-PreArbitrationInbound&quot;),
 $Label.PEGA_Dispute_Status_Pending_PreArbitrationInbound,
 IF(
@@ -37,9 +31,6 @@ IF(
 ISPICKVAL(External_Status__c, &quot;Resolved-CardholderLiable&quot;),
 $Label.PEGA_Dispute_Status_Resolved_CardholderLiable,
 IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-MerchantCredited&quot;),
-$Label.PEGA_Dispute_Status_Resolved_MerchantCredited,
-IF(
 ISPICKVAL(External_Status__c, &quot;Resolved-MerchantCredit&quot;),
 $Label.PEGA_Dispute_Status_Resolved_MerchantCredit,
 IF(
@@ -48,50 +39,8 @@ $Label.PEGA_Dispute_Status_Resolved_Writeoff,
 IF(
 ISPICKVAL(External_Status__c, &quot;Resolved-Withdrawn&quot;),
 $Label.PEGA_Dispute_Status_Resolved_Withdrawn,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-OrderDetailsReviewed&quot;),
-$Label.PEGA_Dispute_Status_Resolved_OrderDetailsReviewed,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-Exception&quot;),
-$Label.PEGA_Dispute_Status_Resolved_Exception,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-Declined&quot;),
-$Label.PEGA_Dispute_Status_Resolved_Declined,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved–CreditTransaction&quot;),
-$Label.PEGA_Dispute_Status_Resolved_CreditTransaction,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-MatchingCredit&quot;),
-$Label.PEGA_Dispute_Status_Resolved_MatchingCredit,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-TransactionRecognized&quot;),
-$Label.PEGA_Dispute_Status_Resolved_TransactionRecognized,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-TalkOff&quot;),
-$Label.PEGA_Dispute_Status_Resolved_TalkOff,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-PreCompAccepted&quot;),
-$Label.PEGA_Dispute_Status_Resolved_PreCompAccepted,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-PreArbRejected&quot;),
-$Label.PEGA_Dispute_Status_Resolved_PreArbRejected,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-Completed&quot;),
-$Label.PEGA_Dispute_Status_Resolved_Completed,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-CustomerFavour&quot;),
-$Label.PEGA_Dispute_Status_Resolved_CustomerFavour,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-ArbIssuerLiable&quot;),
-$Label.PEGA_Dispute_Status_Resolved_ArbIssuerLiable,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-PreArbGrantedPartial&quot;),
-$Label.PEGA_Dispute_Status_Resolved_PreArbGrantedPartial,
-IF(
-ISPICKVAL(External_Status__c, &quot;Resolved-PreArbAccepted&quot;),
-$Label.PEGA_Dispute_Status_Resolved_PreArbAccepted,
 &quot;&quot;
-))))))))))))))))))))))))))))</formula>
+)))))))))))</formula>
     <inlineHelpText>Message sent to the customer via a notification in the app</inlineHelpText>
     <label>Customer Message</label>
     <required>false</required>

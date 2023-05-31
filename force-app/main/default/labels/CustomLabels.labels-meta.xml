@@ -579,24 +579,10 @@
         <value>We’re waiting to hear from you. Please check your email and get in touch within 7 days or your dispute may be closed.</value>
     </labels>
     <labels>
-        <fullName>PEGA_Dispute_Status_Pending_DisputeQuestionnaire</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Pending-DisputeQuestionnaire</shortDescription>
-        <value>Our investigation is still underway. We’re hoping to get to the bottom of this within 30 days, but it may take up to 60 days if things get complicated.</value>
-    </labels>
-    <labels>
         <fullName>PEGA_Dispute_Status_Pending_DisputeResponse</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-DisputeResponse</shortDescription>
-        <value>While our investigation is underway, we’ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn’t in your favour.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Pending_PreArbInbound</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Pending-PreArbInbound</shortDescription>
         <value>While our investigation is underway, we’ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn’t in your favour.</value>
     </labels>
     <labels>
@@ -618,70 +604,16 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-AcquirerLiable</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_ArbIssuerLiable</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-ArbIssuerLiable</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. Please ensure the amount you received is correct. If your account hasn’t been credited yet, it may take up to 3 business days.
+
+Feel free to contact us if you have any questions. You can find our contact information in the last email we sent you.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_CardholderLiable</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-CardholderLiable</shortDescription>
-        <value>We’ve finished our investigation and will send you an email with more information and our contact details.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_Completed</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-Completed</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_CreditTransaction</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved–CreditTransaction</shortDescription>
-        <value>Unfortunately, the dispute hasn’t been found in your favour as it was raised on the credit or refund. If you would still like to dispute the transaction, please lodge a new dispute on the initial charge.
-Feel free to send us a message from the Support tab if you have any questions, or would like to raise any issues or escalate any concerns.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_CustomerFavour</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-CustomerFavour</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_Declined</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-Declined</shortDescription>
-        <value>Unfortunately, the dispute hasn’t been found in your favour. We&apos;ll send you an email with more information and ways to raise any issues or escalate any concerns.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_Exception</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-Exception</shortDescription>
-        <value>It looks like a refund has already been issued. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_MatchingCredit</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-MatchingCredit</shortDescription>
-        <value>It looks like the merchant has already issued a refund. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
+        <value>Unfortunately, the dispute hasn’t been found in your favour. We’ve sent you an email with more information and ways to raise any issues or escalate any concerns.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_MerchantCredit</fullName>
@@ -693,81 +625,20 @@ Feel free to reach out to us if you have any questions.</value>
 Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_MerchantCredited</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-MerchantCredited</shortDescription>
-        <value>It looks like the merchant has already issued a refund. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_OrderDetailsReviewed</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-OrderDetailsReviewed</shortDescription>
-        <value>It looks like a refund has already been issued. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_PreArbAccepted</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-PreArbAccepted</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_PreArbGrantedPartial</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-PreArbGrantedPartial</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_PreArbRejected</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-PreArbRejected</shortDescription>
-        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_PreCompAccepted</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-PreCompAccepted</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_TalkOff</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-TalkOff</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
-    </labels>
-    <labels>
-        <fullName>PEGA_Dispute_Status_Resolved_TransactionRecognized</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>PEGA Dispute Status Resolved-TransactionRecognized</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
-    </labels>
-    <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Withdrawn</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Withdrawn</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+        <value>You’ve withdrawn your dispute, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Writeoff</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Writeoff</shortDescription>
-        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3-5 business days.
+
+Feel free to contact us if you have any questions. You can find our contact information in the last email we sent you.</value>
     </labels>
     <labels>
         <fullName>Regex_Email</fullName>
