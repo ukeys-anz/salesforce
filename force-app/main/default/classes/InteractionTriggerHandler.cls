@@ -29,6 +29,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> generalInteractions = InteractionFilter.getGeneralInteractions(
       records
     );
+
+    //Add Interaction Number for Store too.
+    generalInteractions.addAll(storeInteractions);
     Map<Id, SObject> generalMap = new Map<Id, SObject>(generalInteractions);
     Set<Id> generalIds = new Set<Id>(generalMap.keyset());
     InteractionSetters.setGeneralExternalIds(generalIds);
