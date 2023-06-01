@@ -15,7 +15,6 @@ public with sharing class InteractionSetters {
       }
     }
   }
-
   /**
    * @description future method to set the external Id after creation
    * @param interactionIds the Ids to update
@@ -32,14 +31,12 @@ public with sharing class InteractionSetters {
           interactionsToSet.add(currentInteraction);
         }
       }
-
       if (!interactionsToSet.isEmpty()) {
         setExternalIds(interactions);
         InteractionDMLHelper.updateInteractions(interactions);
       }
     }
   }
-
   /**
    * @description method to set the external Id after creation
    * of general interactions
@@ -63,7 +60,6 @@ public with sharing class InteractionSetters {
       }
     }
   }
-
   /**
    * @description goes through a list of interactions and sets the Interaction Id
    * on the linked Contact Request by searching the database for requests related to the Interactionss.
@@ -111,26 +107,77 @@ public with sharing class InteractionSetters {
       }
     }
   }
-
   /** @description Method to set the Interaction Name for manual appointment rt creations
    * and all general rt creations
    * @param interactions list of new interactions created.
+   * @param oldMap list of old records only for update operation
    */
-  public static void setNameOfInteractions(List<Interaction> interactions) {
+  public static void setNameOfInteractions(
+    List<Interaction> interactions,
+    Map<Id, sObject> oldMap
+  ) {
+    String reason;
+    List<String> reasonlist;
     Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
+    Id storeRTID = GetHelpConstants.INTERACTION_STORE_RT_ID;
     for (Interaction interact : interactions) {
-      if (interact.RecordTypeId != appointmentRTID) {
-        interact.Name = interact.Direction__c + ' ' + interact.InteractionType;
-      } else if (
-        AutomatedRequestMetadataProvider.getInstance()
-          .getMap()
-          .containsKey(interact.Interaction_Purpose__c)
-      ) {
-        interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+      if (Trigger.isInsert) {
+        if (
+          interact.RecordTypeId != appointmentRTID &&
+          interact.RecordTypeId != storeRTID
+        ) {
+          interact.Name =
+            interact.Direction__c +
+            ' ' +
+            interact.InteractionType;
+        } else if (
+          AutomatedRequestMetadataProvider.getInstance()
+            .getMap()
+            .containsKey(interact.Interaction_Purpose__c) &&
+          interact.RecordTypeId != storeRTID
+        ) {
+          interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+        } else if (
+          interact.RecordTypeId == storeRTID &&
+          String.isNotBlank(interact.Reason_for_Visit__c)
+        ) {
+          reason = interact.Reason_for_Visit__c;
+          reasonlist = reason.split(',');
+          interact.Name = interact.InteractionType + '-' + reasonlist[0];
+        } else if (interact.RecordTypeId == storeRTID) {
+          interact.Name = interact.InteractionType;
+        }
+      } else if (Trigger.isUpdate) {
+        Interaction oldInt = (Interaction) oldMap.get(interact.id);
+        if (
+          interact.RecordTypeId != appointmentRTID &&
+          interact.RecordTypeId != storeRTID &&
+          (oldInt.Direction__c != interact.Direction__c)
+        ) {
+          interact.Name =
+            interact.Direction__c +
+            ' ' +
+            interact.InteractionType;
+        } else if (
+          AutomatedRequestMetadataProvider.getInstance()
+            .getMap()
+            .containsKey(interact.Interaction_Purpose__c) &&
+          interact.RecordTypeId != storeRTID &&
+          (oldInt.Interaction_Purpose__c != interact.Interaction_Purpose__c)
+        ) {
+          interact.Name = interact.Interaction_Purpose__c + ' Appointment';
+        } else if (
+          interact.RecordTypeId == storeRTID &&
+          oldInt.Reason_for_Visit__c != interact.Reason_for_Visit__c &&
+          String.isNotBlank(interact.Reason_for_Visit__c)
+        ) {
+          reason = interact.Reason_for_Visit__c;
+          reasonlist = reason.split(',');
+          interact.Name = interact.InteractionType + '-' + reasonlist[0];
+        }
       }
     }
   }
-
   /**
    * @description Assign the ownership of newly created interactions to the Interaction Queue and update status to Unassigned
    * @param interactions List of newly created interactions.
@@ -144,7 +191,6 @@ public with sharing class InteractionSetters {
       }
     }
   }
-
   /**
    * @description Update the status of the interactions to scheduled if the owner is updated
    * @param interactions The list of interactions where the owner is updated from Queue to Coach
