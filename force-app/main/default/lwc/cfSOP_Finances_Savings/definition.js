@@ -54,7 +54,7 @@ let definition = {
                   key: "element_element_block_0_0_outputField_0_0",
                   name: "Text",
                   element: "outputField",
-                  size: { isResponsive: false, default: "9" },
+                  size: { isResponsive: false, default: "10" },
                   stateIndex: 0,
                   class: "slds-col ",
                   property: {
@@ -65,14 +65,13 @@ let definition = {
                   },
                   type: "text",
                   styleObject: {
-                    sizeClass: "slds-size_9-of-12 ",
-                    size: { isResponsive: false, default: "9" }
+                    sizeClass: "slds-size_10-of-12 ",
+                    size: { isResponsive: false, default: "10" }
                   },
                   parentElementKey: "element_block_0_0",
                   elementLabel: "Block-0-Text-0"
                 },
                 {
-                  key: "element_element_block_0_0_action_1_0",
                   name: "Action",
                   element: "action",
                   size: { isResponsive: false, default: "2" },
@@ -110,10 +109,69 @@ let definition = {
                   type: "element",
                   styleObject: {
                     sizeClass: "slds-size_2-of-12 ",
-                    size: { isResponsive: false, default: "2" }
+                    size: { isResponsive: false, default: "2" },
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "right", color: "" },
+                    inlineStyle: "",
+                    class: "slds-text-align_right ",
+                    style: "      \n         "
                   },
+                  elementLabel: "Block-0-Action-1",
+                  key: "element_element_block_0_0_action_1_0",
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Action-1"
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_2-of-12 ",
+                        size: { isResponsive: false, default: "2" },
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "right", color: "" },
+                        inlineStyle: "",
+                        class: "slds-text-align_right ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
                 }
               ],
               elementLabel: "Block-0"
@@ -237,7 +295,7 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField:
-                      "%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20account%3C/div%3E",
+                      "%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20bank%20accounts.%3C/div%3E",
                     card: "{card}"
                   },
                   type: "text",
