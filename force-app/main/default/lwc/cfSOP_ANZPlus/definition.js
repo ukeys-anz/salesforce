@@ -393,7 +393,7 @@ let definition = {
                           class: "slds-col ",
                           property: {
                             record: "{record}",
-                            mergeField: "%3Cdiv%3EBelongs%20to%3C/div%3E",
+                            mergeField: "%3Cdiv%3EBelongs%20To%3C/div%3E",
                             card: "{card}"
                           },
                           type: "text",
@@ -2798,27 +2798,24 @@ let definition = {
                   parentElementKey: "element_block_0_0"
                 },
                 {
-                  name: "Text",
+                  key: "element_element_block_0_0_outputField_14_0",
+                  name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: "8" },
                   stateIndex: 0,
                   class: "slds-col ",
                   property: {
+                    placeholder: "",
                     record: "{record}",
-                    mergeField: "%3Cdiv%3ELast%20Modified%3C/div%3E",
-                    card: "{card}"
+                    type: "text",
+                    card: "{card}",
+                    label: "Last Modified",
+                    styles: { label: { color: "#868383" } }
                   },
-                  type: "text",
+                  type: "element",
                   styleObject: {
                     sizeClass: "slds-size_8-of-12 ",
-                    size: { isResponsive: false, default: "8" },
-                    padding: [
-                      {
-                        type: "right",
-                        size: "xx-small",
-                        label: "right:xx-small"
-                      }
-                    ],
+                    padding: [],
                     margin: [],
                     background: {
                       color: "",
@@ -2827,6 +2824,7 @@ let definition = {
                       repeat: "",
                       position: ""
                     },
+                    size: { isResponsive: false, default: "8" },
                     container: { class: "" },
                     border: {
                       type: "",
@@ -2835,29 +2833,23 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {},
-                    text: { align: "right", color: "#868383" },
+                    elementStyleProperties: {
+                      styles: { label: { color: "#868383" } }
+                    },
+                    text: { align: "right", color: "" },
                     inlineStyle: "",
-                    class: "slds-text-align_right slds-p-right_xx-small ",
-                    style: "      \n        color:#868383; "
+                    class: "slds-text-align_right ",
+                    style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-14",
-                  key: "element_element_block_0_0_outputField_14_0",
                   parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-0-Field-14",
                   styleObjects: [
                     {
                       key: 0,
                       conditions: "default",
                       styleObject: {
                         sizeClass: "slds-size_8-of-12 ",
-                        size: { isResponsive: false, default: "8" },
-                        padding: [
-                          {
-                            type: "right",
-                            size: "xx-small",
-                            label: "right:xx-small"
-                          }
-                        ],
+                        padding: [],
                         margin: [],
                         background: {
                           color: "",
@@ -2866,6 +2858,7 @@ let definition = {
                           repeat: "",
                           position: ""
                         },
+                        size: { isResponsive: false, default: "8" },
                         container: { class: "" },
                         border: {
                           type: "",
@@ -2874,11 +2867,13 @@ let definition = {
                           radius: "",
                           style: ""
                         },
-                        elementStyleProperties: {},
-                        text: { align: "right", color: "#868383" },
+                        elementStyleProperties: {
+                          styles: { label: { color: "#868383" } }
+                        },
+                        text: { align: "right", color: "" },
                         inlineStyle: "",
-                        class: "slds-text-align_right slds-p-right_xx-small ",
-                        style: "      \n        color:#868383; "
+                        class: "slds-text-align_right ",
+                        style: "      \n         "
                       },
                       label: "Default",
                       name: "Default",
@@ -2898,7 +2893,7 @@ let definition = {
                     record: "{record}",
                     type: "datetime",
                     card: "{card}",
-                    format: "DD MMM YYYY| h:mm A",
+                    format: "DD MMM YYYY | h:mm A",
                     fieldName: "updateTime",
                     styles: {
                       value: { color: "#868383", textAlign: "" },
@@ -2910,11 +2905,7 @@ let definition = {
                   styleObject: {
                     sizeClass: "slds-size_4-of-12 ",
                     padding: [
-                      {
-                        type: "right",
-                        size: "xxx-small",
-                        label: "right:xxx-small"
-                      }
+                      { type: "right", size: "small", label: "right:small" }
                     ],
                     margin: [],
                     background: {
@@ -2941,10 +2932,10 @@ let definition = {
                     },
                     text: { align: "left", color: "" },
                     inlineStyle: "",
-                    class: "slds-text-align_left slds-p-right_xxx-small ",
+                    class: "slds-text-align_left slds-p-right_small ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Field-15",
+                  elementLabel: "Block-0-Field-16",
                   styleObjects: [
                     {
                       key: 0,
@@ -2952,11 +2943,7 @@ let definition = {
                       styleObject: {
                         sizeClass: "slds-size_4-of-12 ",
                         padding: [
-                          {
-                            type: "right",
-                            size: "xxx-small",
-                            label: "right:xxx-small"
-                          }
+                          { type: "right", size: "small", label: "right:small" }
                         ],
                         margin: [],
                         background: {
@@ -2983,7 +2970,7 @@ let definition = {
                         },
                         text: { align: "left", color: "" },
                         inlineStyle: "",
-                        class: "slds-text-align_left slds-p-right_xxx-small ",
+                        class: "slds-text-align_left slds-p-right_small ",
                         style: "      \n         "
                       },
                       label: "Default",

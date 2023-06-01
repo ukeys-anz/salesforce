@@ -8,12 +8,24 @@ let definition = {
       isSmartAction: false,
       smartAction: {},
       styleObject: {
-        padding: [{ type: "around", size: "x-small" }],
-        margin: [{ type: "bottom", size: "x-small" }],
+        padding: [{ type: "around", size: "x-small", label: "around:x-small" }],
+        margin: [],
         container: { class: "slds-card" },
         size: { isResponsive: false, default: "12" },
-        sizeClass: "slds-size_12-of-12",
-        class: "slds-card slds-p-around_x-small slds-m-bottom_x-small"
+        sizeClass: "slds-size_12-of-12 ",
+        class: "slds-card slds-p-around_x-small ",
+        background: {
+          color: "",
+          image: "",
+          size: "",
+          repeat: "",
+          position: ""
+        },
+        border: { type: "", width: "", color: "", radius: "", style: "" },
+        elementStyleProperties: {},
+        text: { align: "", color: "" },
+        inlineStyle: "",
+        style: "      \n         "
       },
       components: {
         "layer-0": {
@@ -168,8 +180,7 @@ let definition = {
                 padding: [
                   { type: "around", size: "x-small", label: "around:x-small" }
                 ],
-                class:
-                  "slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small title_color",
+                class: " slds-p-around_x-small title_color",
                 sizeClass: "slds-size_12-of-12 ",
                 margin: [],
                 background: {
@@ -182,12 +193,7 @@ let definition = {
                 size: { isResponsive: false, default: "12" },
                 container: { class: "" },
                 border: {
-                  type: [
-                    "border_top",
-                    "border_right",
-                    "border_bottom",
-                    "border_left"
-                  ],
+                  type: [],
                   width: "",
                   color: "#cccccc",
                   radius: "",
@@ -198,8 +204,7 @@ let definition = {
                 },
                 text: { align: "", color: "" },
                 inlineStyle: "",
-                style:
-                  "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n         ",
+                style: "      \n         ",
                 customClass: "title_color"
               },
               children: [
@@ -680,7 +685,6 @@ let definition = {
                     sizeClass: "slds-size_12-of-12 ",
                     padding: [],
                     margin: [
-                      { type: "left", size: "x-small", label: "left:x-small" },
                       { type: "right", size: "large", label: "right:large" }
                     ],
                     background: {
@@ -702,7 +706,7 @@ let definition = {
                     elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
-                    class: "slds-m-left_x-small slds-m-right_large ",
+                    class: "slds-m-right_large ",
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_1_0",
@@ -715,11 +719,6 @@ let definition = {
                         sizeClass: "slds-size_12-of-12 ",
                         padding: [],
                         margin: [
-                          {
-                            type: "left",
-                            size: "x-small",
-                            label: "left:x-small"
-                          },
                           { type: "right", size: "large", label: "right:large" }
                         ],
                         background: {
@@ -741,7 +740,7 @@ let definition = {
                         elementStyleProperties: {},
                         text: { align: "", color: "" },
                         inlineStyle: "",
-                        class: "slds-m-left_x-small slds-m-right_large ",
+                        class: "slds-m-right_large ",
                         style: "      \n         "
                       },
                       label: "Default",
@@ -970,8 +969,7 @@ let definition = {
                         label: "around:x-small"
                       }
                     ],
-                    class:
-                      "slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small title_color",
+                    class: " slds-p-around_x-small title_color",
                     sizeClass: "slds-size_12-of-12 ",
                     margin: [],
                     background: {
@@ -984,12 +982,7 @@ let definition = {
                     size: { isResponsive: false, default: "12" },
                     container: { class: "" },
                     border: {
-                      type: [
-                        "border_top",
-                        "border_right",
-                        "border_bottom",
-                        "border_left"
-                      ],
+                      type: [],
                       width: "",
                       color: "#cccccc",
                       radius: "",
@@ -1000,8 +993,7 @@ let definition = {
                     },
                     text: { align: "", color: "" },
                     inlineStyle: "",
-                    style:
-                      "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n         ",
+                    style: "      \n         ",
                     customClass: "title_color"
                   },
                   label: "Default",
@@ -1044,7 +1036,7 @@ let definition = {
                 border: {
                   type: "",
                   width: "",
-                  color: "",
+                  color: "#cccccc",
                   radius: "",
                   style: ""
                 },
@@ -1084,7 +1076,7 @@ let definition = {
                     border: {
                       type: "",
                       width: "",
-                      color: "",
+                      color: "#cccccc",
                       radius: "",
                       style: ""
                     },
@@ -1134,7 +1126,7 @@ let definition = {
                 border: {
                   type: "",
                   width: "",
-                  color: "",
+                  color: "#cccccc",
                   radius: "",
                   style: ""
                 },
@@ -1174,7 +1166,7 @@ let definition = {
                     border: {
                       type: "",
                       width: "",
-                      color: "",
+                      color: "#cccccc",
                       radius: "",
                       style: ""
                     },

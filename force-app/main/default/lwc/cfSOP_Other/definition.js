@@ -40,15 +40,11 @@ let definition = {
       smartAction: {},
       styleObject: {
         padding: [{ type: "around", size: "x-small", label: "around:x-small" }],
-        margin: [
-          { type: "left", size: "small", label: "left:small" },
-          { type: "right", size: "large", label: "right:large" }
-        ],
+        margin: [{ type: "left", size: "small", label: "left:small" }],
         container: { class: "slds-card" },
-        size: { isResponsive: false, default: "12" },
-        sizeClass: "slds-size_12-of-12 ",
-        class:
-          "slds-card slds-p-around_x-small slds-m-left_small slds-m-right_large ",
+        size: { isResponsive: false, default: "6" },
+        sizeClass: "slds-size_6-of-12 ",
+        class: "slds-card  slds-p-around_x-small slds-m-left_small ",
         background: {
           color: "",
           image: "",
@@ -56,7 +52,13 @@ let definition = {
           repeat: "",
           position: ""
         },
-        border: { type: "", width: "", color: "", radius: "", style: "" },
+        border: {
+          type: [],
+          width: "",
+          color: "#cccccc",
+          radius: "",
+          style: ""
+        },
         elementStyleProperties: {},
         text: { align: "", color: "" },
         inlineStyle: "",
@@ -68,7 +70,7 @@ let definition = {
             {
               name: "Block",
               element: "block",
-              size: { isResponsive: false, default: "6" },
+              size: { isResponsive: false, default: "12" },
               stateIndex: 0,
               class: "slds-col ",
               property: {
@@ -99,8 +101,8 @@ let definition = {
                   { type: "around", size: "x-small", label: "around:x-small" }
                 ],
                 class:
-                  "slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_xxx-small slds-p-around_x-small ",
-                sizeClass: "slds-size_6-of-12 ",
+                  "slds-theme_default slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-left_xxx-small slds-p-around_x-small ",
+                sizeClass: "slds-size_12-of-12 ",
                 margin: [],
                 background: {
                   color: "",
@@ -109,14 +111,14 @@ let definition = {
                   repeat: "",
                   position: ""
                 },
-                size: { isResponsive: false, default: "6" },
+                size: { isResponsive: false, default: "12" },
                 container: { class: "" },
                 border: {
                   type: [
                     "border_top",
-                    "border_right",
                     "border_bottom",
-                    "border_left"
+                    "border_left",
+                    "border_right"
                   ],
                   width: "1",
                   color: "#cccccc",
@@ -127,7 +129,7 @@ let definition = {
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 style:
-                  "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5 px;     ",
+                  "     border-top: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid;border-right: #cccccc 1px solid; \n    border-radius:5 px;     ",
                 theme: "theme_default"
               },
               children: [
@@ -154,7 +156,8 @@ let definition = {
                         Id: "0688r000001AVoLAAW",
                         attachmentType: "ContentVersion"
                       }
-                    }
+                    },
+                    imgHeight: "50px"
                   },
                   type: "element",
                   styleObject: {
@@ -309,25 +312,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_2_0",
-                  name: "Field",
-                  element: "outputField",
-                  size: { isResponsive: false, default: "12" },
-                  stateIndex: 0,
-                  class: "slds-col ",
-                  property: {
-                    placeholder: "",
-                    record: "{record}",
-                    type: "text",
-                    card: "{card}"
-                  },
-                  type: "element",
-                  styleObject: { sizeClass: "slds-size_12-of-12" },
-                  parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-2-Field-2"
-                },
-                {
-                  key: "element_element_block_0_0_block_3_0",
+                  key: "element_element_block_0_0_block_2_0",
                   name: "Block",
                   element: "block",
                   size: { isResponsive: false, default: "12" },
@@ -377,7 +362,7 @@ let definition = {
                   children: [
                     {
                       key:
-                        "element_element_element_element_block_0_0_block_1_0_block_3_0_block_0_0",
+                        "element_element_element_block_0_0_block_2_0_block_0_0",
                       name: "Block",
                       element: "block",
                       size: { isResponsive: false, default: "12" },
@@ -439,7 +424,7 @@ let definition = {
                           class: "slds-col ",
                           property: {
                             record: "{record}",
-                            mergeField: "%3Cdiv%3EBelongs%20to%3C/div%3E",
+                            mergeField: "%3Cdiv%3EBelongs%20To%3C/div%3E",
                             card: "{card}"
                           },
                           type: "text",
@@ -507,9 +492,9 @@ let definition = {
                             }
                           ],
                           key:
-                            "element_element_element_element_element_block_0_0_block_1_0_block_3_0_block_0_0_outputField_0_0",
+                            "element_element_element_element_block_0_0_block_2_0_block_0_0_outputField_0_0",
                           parentElementKey:
-                            "element_element_element_element_block_0_0_block_1_0_block_3_0_block_0_0"
+                            "element_element_element_block_0_0_block_2_0_block_0_0"
                         },
                         {
                           name: "Text",
@@ -529,8 +514,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -553,8 +538,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           elementLabel: "Block-2-Text-5",
@@ -567,8 +551,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -592,7 +576,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -602,13 +586,12 @@ let definition = {
                             }
                           ],
                           key:
-                            "element_element_element_element_element_block_0_0_block_1_0_block_3_0_block_0_0_outputField_1_0",
+                            "element_element_element_element_block_0_0_block_2_0_block_0_0_outputField_1_0",
                           parentElementKey:
-                            "element_element_element_element_block_0_0_block_1_0_block_3_0_block_0_0"
+                            "element_element_element_block_0_0_block_2_0_block_0_0"
                         }
                       ],
-                      parentElementKey:
-                        "element_element_element_block_0_0_block_1_0_block_3_0",
+                      parentElementKey: "element_element_block_0_0_block_2_0",
                       elementLabel: "Block-2-Block-3-Block-0",
                       styleObjects: [
                         {
@@ -716,7 +699,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_4_0",
+                  key: "element_element_block_0_0_outputField_3_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: 12 },
@@ -786,7 +769,7 @@ let definition = {
                   children: [
                     {
                       key:
-                        "element_element_element_element_block_0_0_block_1_0_block_5_0_block_0_0",
+                        "element_element_element_block_0_0_block_4_0_block_0_0",
                       name: "Block",
                       element: "block",
                       size: { isResponsive: false, default: "12" },
@@ -916,13 +899,13 @@ let definition = {
                             }
                           ],
                           key:
-                            "element_element_element_element_element_block_0_0_block_1_0_block_5_0_block_0_0_outputField_0_0",
+                            "element_element_element_element_block_0_0_block_4_0_block_0_0_outputField_0_0",
                           parentElementKey:
-                            "element_element_element_element_block_0_0_block_1_0_block_5_0_block_0_0"
+                            "element_element_element_block_0_0_block_4_0_block_0_0"
                         },
                         {
                           key:
-                            "element_element_element_element_element_block_0_0_block_1_0_block_5_0_block_0_0_outputField_1_0",
+                            "element_element_element_element_block_0_0_block_4_0_block_0_0_outputField_1_0",
                           name: "Field",
                           element: "outputField",
                           size: { isResponsive: false, default: "6" },
@@ -943,8 +926,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -967,12 +950,11 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
-                            "element_element_element_element_block_0_0_block_1_0_block_5_0_block_0_0",
+                            "element_element_element_block_0_0_block_4_0_block_0_0",
                           elementLabel: "Block-2-Block-8-Block-0-Field-1",
                           styleObjects: [
                             {
@@ -983,8 +965,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -1008,7 +990,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1019,8 +1001,7 @@ let definition = {
                           ]
                         }
                       ],
-                      parentElementKey:
-                        "element_element_element_block_0_0_block_1_0_block_5_0",
+                      parentElementKey: "element_element_block_0_0_block_4_0",
                       elementLabel: "Block-2-Block-8-Block-0",
                       styleObjects: [
                         {
@@ -1125,11 +1106,11 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_block_5_0",
+                  key: "element_element_block_0_0_block_4_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
-                  key: "element_element_block_0_0_outputField_6_0",
+                  key: "element_element_block_0_0_outputField_5_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: 0 },
@@ -1150,7 +1131,7 @@ let definition = {
                   elementLabel: "Block-2-Field-6"
                 },
                 {
-                  key: "element_element_block_0_0_block_7_0",
+                  key: "element_element_block_0_0_block_6_0",
                   name: "Block",
                   element: "block",
                   size: { isResponsive: false, default: "12" },
@@ -1200,7 +1181,7 @@ let definition = {
                   children: [
                     {
                       key:
-                        "element_element_element_element_block_0_0_block_1_0_block_7_0_block_0_0",
+                        "element_element_element_block_0_0_block_6_0_block_0_0",
                       name: "Block",
                       element: "block",
                       size: { isResponsive: false, default: "12" },
@@ -1330,9 +1311,9 @@ let definition = {
                             }
                           ],
                           key:
-                            "element_element_element_element_element_block_0_0_block_1_0_block_7_0_block_0_0_outputField_0_0",
+                            "element_element_element_element_block_0_0_block_6_0_block_0_0_outputField_0_0",
                           parentElementKey:
-                            "element_element_element_element_block_0_0_block_1_0_block_7_0_block_0_0"
+                            "element_element_element_block_0_0_block_6_0_block_0_0"
                         },
                         {
                           name: "Text",
@@ -1352,8 +1333,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -1375,15 +1356,14 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           elementLabel: "Block-2-Text-8",
                           key:
-                            "element_element_element_element_element_block_0_0_block_1_0_block_7_0_block_0_0_outputField_1_0",
+                            "element_element_element_element_block_0_0_block_6_0_block_0_0_outputField_1_0",
                           parentElementKey:
-                            "element_element_element_element_block_0_0_block_1_0_block_7_0_block_0_0",
+                            "element_element_element_block_0_0_block_6_0_block_0_0",
                           styleObjects: [
                             {
                               key: 0,
@@ -1394,8 +1374,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -1418,7 +1398,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1429,8 +1409,7 @@ let definition = {
                           ]
                         }
                       ],
-                      parentElementKey:
-                        "element_element_element_block_0_0_block_1_0_block_7_0",
+                      parentElementKey: "element_element_block_0_0_block_6_0",
                       elementLabel: "Block-2-Block-9-Block-0",
                       styleObjects: [
                         {
@@ -1555,11 +1534,11 @@ let definition = {
                     sizeClass: "slds-size_12-of-12"
                   },
                   elementLabel: "Block-2-Field-10",
-                  key: "element_element_block_0_0_outputField_8_0",
+                  key: "element_element_block_0_0_outputField_7_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
-                  key: "element_element_block_0_0_outputField_9_0",
+                  key: "element_element_block_0_0_outputField_8_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: "8" },
@@ -1644,7 +1623,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_10_0",
+                  key: "element_element_block_0_0_outputField_9_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: "4" },
@@ -1700,11 +1679,7 @@ let definition = {
                       styleObject: {
                         sizeClass: "slds-size_4-of-12 ",
                         padding: [
-                          {
-                            type: "right",
-                            size: "small",
-                            label: "right:small"
-                          }
+                          { type: "right", size: "small", label: "right:small" }
                         ],
                         margin: [],
                         background: {
@@ -1758,8 +1733,8 @@ let definition = {
                       }
                     ],
                     class:
-                      "slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_xxx-small slds-p-around_x-small ",
-                    sizeClass: "slds-size_6-of-12 ",
+                      "slds-theme_default slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-left_xxx-small slds-p-around_x-small ",
+                    sizeClass: "slds-size_12-of-12 ",
                     margin: [],
                     background: {
                       color: "",
@@ -1768,14 +1743,14 @@ let definition = {
                       repeat: "",
                       position: ""
                     },
-                    size: { isResponsive: false, default: "6" },
+                    size: { isResponsive: false, default: "12" },
                     container: { class: "" },
                     border: {
                       type: [
                         "border_top",
-                        "border_right",
                         "border_bottom",
-                        "border_left"
+                        "border_left",
+                        "border_right"
                       ],
                       width: "1",
                       color: "#cccccc",
@@ -1786,7 +1761,7 @@ let definition = {
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     style:
-                      "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5 px;     ",
+                      "     border-top: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid;border-right: #cccccc 1px solid; \n    border-radius:5 px;     ",
                     theme: "theme_default"
                   },
                   label: "Default",

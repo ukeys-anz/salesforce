@@ -413,7 +413,7 @@ let definition = {
                           class: "slds-col ",
                           property: {
                             record: "{record}",
-                            mergeField: "%3Cdiv%3EBelongs%20to%3C/div%3E",
+                            mergeField: "%3Cdiv%3EBelongs%20To%3C/div%3E",
                             card: "{card}"
                           },
                           type: "text",
@@ -913,8 +913,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -937,8 +937,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -953,8 +952,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -978,7 +977,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1321,8 +1320,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -1344,8 +1343,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -1361,8 +1359,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -1385,7 +1383,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1727,8 +1725,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -1750,8 +1748,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -1767,8 +1764,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -1791,7 +1788,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -2132,8 +2129,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -2155,8 +2152,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -2172,8 +2168,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -2196,7 +2192,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -2538,8 +2534,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -2561,8 +2557,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -2578,8 +2573,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -2602,7 +2597,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",

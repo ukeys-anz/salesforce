@@ -40,15 +40,11 @@ let definition = {
       smartAction: {},
       styleObject: {
         padding: [{ type: "around", size: "x-small", label: "around:x-small" }],
-        margin: [
-          { type: "left", size: "small", label: "left:small" },
-          { type: "right", size: "medium", label: "right:medium" }
-        ],
+        margin: [{ type: "left", size: "small", label: "left:small" }],
         container: { class: "slds-card" },
         size: { isResponsive: false, default: "6" },
         sizeClass: "slds-size_6-of-12 ",
-        class:
-          "slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-left_small slds-m-right_medium ",
+        class: "slds-card  slds-p-around_x-small slds-m-left_small ",
         background: {
           color: "",
           image: "",
@@ -57,17 +53,16 @@ let definition = {
           position: ""
         },
         border: {
-          type: ["border_top", "border_right", "border_bottom", "border_left"],
-          width: "1",
+          type: [],
+          width: "",
           color: "#cccccc",
-          radius: "5 px",
+          radius: "",
           style: ""
         },
         elementStyleProperties: {},
         text: { align: "", color: "" },
         inlineStyle: "",
-        style:
-          "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5 px;     "
+        style: "      \n         "
       },
       components: {
         "layer-0": {
@@ -91,7 +86,8 @@ let definition = {
                   { type: "left", size: "xxx-small", label: "left:xxx-small" },
                   { type: "around", size: "x-small", label: "around:x-small" }
                 ],
-                class: "slds-p-left_xxx-small slds-p-around_x-small ",
+                class:
+                  "slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_xxx-small slds-p-around_x-small ",
                 sizeClass: "slds-size_12-of-12 ",
                 margin: [],
                 background: {
@@ -104,16 +100,23 @@ let definition = {
                 size: { isResponsive: false, default: "12" },
                 container: { class: "" },
                 border: {
-                  type: "",
-                  width: "",
-                  color: "",
-                  radius: "",
+                  type: [
+                    "border_top",
+                    "border_right",
+                    "border_bottom",
+                    "border_left"
+                  ],
+                  width: "1",
+                  color: "#cccccc",
+                  radius: "5 px",
                   style: ""
                 },
                 elementStyleProperties: {},
                 text: { align: "", color: "" },
                 inlineStyle: "",
-                style: "      \n         "
+                style:
+                  "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5 px;     ",
+                theme: "theme_default"
               },
               children: [
                 {
@@ -140,7 +143,8 @@ let definition = {
                         Id: "0688r000001AM5DAAW",
                         attachmentType: "ContentVersion"
                       }
-                    }
+                    },
+                    imgHeight: "50px"
                   },
                   type: "element",
                   styleObject: {
@@ -408,7 +412,7 @@ let definition = {
                           class: "slds-col ",
                           property: {
                             record: "{record}",
-                            mergeField: "%3Cdiv%3EBelongs%20to%3C/div%3E",
+                            mergeField: "%3Cdiv%3EBelongs%20To%3C/div%3E",
                             card: "{card}"
                           },
                           type: "text",
@@ -498,8 +502,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -522,8 +526,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -538,8 +541,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -563,7 +566,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -908,8 +911,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -932,8 +935,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -948,8 +950,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -973,7 +975,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1314,8 +1316,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -1338,8 +1340,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -1354,8 +1355,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -1379,7 +1380,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1719,8 +1720,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -1743,8 +1744,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -1759,8 +1759,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -1784,7 +1784,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -2126,8 +2126,8 @@ let definition = {
                             padding: [
                               {
                                 type: "right",
-                                size: "x-large",
-                                label: "right:x-large"
+                                size: "large",
+                                label: "right:large"
                               }
                             ],
                             margin: [],
@@ -2150,8 +2150,7 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class:
-                              "slds-text-align_right slds-p-right_x-large ",
+                            class: "slds-text-align_right slds-p-right_large ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -2166,8 +2165,8 @@ let definition = {
                                 padding: [
                                   {
                                     type: "right",
-                                    size: "x-large",
-                                    label: "right:x-large"
+                                    size: "large",
+                                    label: "right:large"
                                   }
                                 ],
                                 margin: [],
@@ -2191,7 +2190,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_x-large ",
+                                  "slds-text-align_right slds-p-right_large ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -2586,7 +2585,8 @@ let definition = {
                         label: "around:x-small"
                       }
                     ],
-                    class: "slds-p-left_xxx-small slds-p-around_x-small ",
+                    class:
+                      "slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_xxx-small slds-p-around_x-small ",
                     sizeClass: "slds-size_12-of-12 ",
                     margin: [],
                     background: {
@@ -2599,16 +2599,23 @@ let definition = {
                     size: { isResponsive: false, default: "12" },
                     container: { class: "" },
                     border: {
-                      type: "",
-                      width: "",
-                      color: "",
-                      radius: "",
+                      type: [
+                        "border_top",
+                        "border_right",
+                        "border_bottom",
+                        "border_left"
+                      ],
+                      width: "1",
+                      color: "#cccccc",
+                      radius: "5 px",
                       style: ""
                     },
                     elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
-                    style: "      \n         "
+                    style:
+                      "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5 px;     ",
+                    theme: "theme_default"
                   },
                   label: "Default",
                   name: "Default",
