@@ -501,6 +501,47 @@ public with sharing class InteractionTriggerHandlerTest {
   }
 
   @isTest
+  static void testNameOfInteractions() {
+    Interaction newInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
+      Name = 'New Interaction',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.STORE,
+      StartTime = System.now()
+    );
+
+    insert newInteraction;
+
+    Interaction interact = [
+      SELECT Id, name, Reason_for_Visit__c
+      FROM Interaction
+      WHERE id = :newInteraction.id
+    ];
+    System.assertEquals(
+      true,
+      interact.Name == 'Store',
+      'Interaction Name should be Store'
+    );
+
+    interact.Reason_for_Visit__c = 'Join ANZ Plus,1:1 Appointments';
+
+    Test.startTest();
+    update interact;
+    Test.stopTest();
+
+    Interaction inter = [
+      SELECT Id, name, Reason_for_Visit__c
+      FROM Interaction
+      WHERE id = :interact.id
+    ];
+    System.assertEquals(
+      true,
+      inter.Name.contains('Join'),
+      'InteractionName should have Join in the name'
+    );
+  }
+
+  @isTest
   static void testEndTimePopulationOnUpdate() {
     Interaction newInteractionWithoutEndtime = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,
