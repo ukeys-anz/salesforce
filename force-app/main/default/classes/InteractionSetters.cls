@@ -144,7 +144,7 @@ public with sharing class InteractionSetters {
           reason = interact.Reason_for_Visit__c;
           reasonlist = reason.split(',');
           interact.Name = interact.InteractionType + '-' + reasonlist[0];
-        } else if(interact.RecordTypeId == storeRTID){
+        } else if (interact.RecordTypeId == storeRTID) {
           interact.Name = interact.InteractionType;
         }
       } else if (Trigger.isUpdate) {
