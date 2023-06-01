@@ -12,36 +12,55 @@ public class AuthTokenCacheUtilTest {
   public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
   /**
+   * @description Setup common test data
+   */
+  @testSetup
+  public static void setup() {
+    //Create anzxTestUser with ANZx Standard User Profile
+    Profile anzxProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      User anzxTestUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'ANZx_Test_User',
+          'ProfileId' => anzxProfile.Id
+        }
+      );
+      insert anzxTestUser;
+    }
+  }
+
+  /**
    * @description tests the storage and cleanup of the cache
    * GIVEN a value is stored in the org cache, it is correctly transferred to session cache
    * GIVEN a value is stored in the org cache, it is removed after the method executes
    */
   @isTest
   static void testTransferOrgToSession() {
-    Id userId = UserInfo.getUserId();
-    User testUser = new User(id = userId);
+    User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
     Cache.Org.put(
-      'local.OrgAzureTokens.idToken' + userId,
+      'local.OrgAzureTokens.idToken' + anzxTestUser.Id,
       IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
     );
-    AuthTokenCacheUtil.storeRefreshTokenField(
-      testUser,
-      AzureTestRefreshToken.REFRESHTESTVALUE
-    );
 
     Test.startTest();
-    AuthTokenCacheUtil.storeAzureSessionTokens(userId, 'ANZx Standard User');
+    System.runAs(anzxTestUser) {
+      AuthTokenCacheUtil.storeAzureSessionTokens(
+        anzxTestUser.Id,
+        'ANZx Standard User'
+      );
+    }
     Test.stopTest();
     System.assertEquals(
       IDTESTVALUE,
-      Cache.Session.get('local.SessionAzureTokens.idToken' + userId),
+      Cache.Session.get('local.SessionAzureTokens.idToken' + anzxTestUser.Id),
       'Could not find token in session cache'
     );
     System.assert(
-      !Cache.Org.contains('local.OrgAzureTokens.idToken' + userId),
+      !Cache.Org.contains('local.OrgAzureTokens.idToken' + anzxTestUser.Id),
       'Token was not cleared from org cache'
     );
   }
@@ -52,8 +71,10 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   static void testOrgCachePut() {
-    User anzxUser = createTestUserwithProfile('ANZx Standard User');
-    User anzUser = createTestUserwithProfile('ANZ Standard User');
+    User anzxUser = new User(Id = '005000000000000000');
+    anzxUser.putSObject('Profile', new Profile(Name = 'ANZx Standard User'));
+    User anzUser = new User(Id = '005000000000000001');
+    anzUser.putSObject('Profile', new Profile(Name = 'ANZ Standard User'));
 
     Test.startTest();
     AuthTokenCacheUtil.storeAzureOrgTokens(
@@ -61,18 +82,52 @@ public class AuthTokenCacheUtilTest {
       AzureTestRefreshToken.REFRESHTESTVALUE,
       IDTESTVALUE
     );
-    AuthTokenCacheUtil.storeRefreshTokenField(
+    AuthTokenCacheUtil.storeAzureOrgTokens(
       anzUser,
-      AzureTestRefreshToken.REFRESHTESTVALUE
+      AzureTestRefreshToken.REFRESHTESTVALUE,
+      IDTESTVALUE
     );
     Test.stopTest();
+    System.assert(
+      !Cache.Org.contains(
+        'local.OrgAzureTokens.idToken' + '005000000000000001'
+      ),
+      'Token was incorrectly added for a non ANZx user'
+    );
+
+    System.assert(
+      Cache.Org.contains('local.OrgAzureTokens.idToken' + '005000000000000000'),
+      'Token was correctly added for an ANZx user'
+    );
+  }
+
+  /**
+   * @description tests store refresh token field
+   */
+  @isTest
+  static void testStoreRefreshTokenField() {
+    User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
+
+    //WHEN adding Refresh Token Field to job queue
+    Test.startTest();
+    System.runAs(anzxTestUser) {
+      AuthTokenCacheUtil.storeRefreshTokenField(
+        anzxTestUser,
+        AzureTestRefreshToken.REFRESHTESTVALUE
+      );
+    }
+    Test.stopTest();
+
+    //THEN Check if the refresh Token is updated to the user
+    anzxTestUser = [
+      SELECT Refresh_Token__c
+      FROM User
+      WHERE Id = :anzxTestUser.Id
+    ];
     System.assertEquals(
       AzureTestRefreshToken.REFRESHTESTVALUE,
-      AuthTokenCacheUtil.getRefreshToken()
-    );
-    System.assert(
-      !Cache.Org.contains('local.OrgAzureTokens.idToken' + anzUser.Id),
-      'Token was incorrectly added for a non ANZx user'
+      anzxTestUser.Refresh_Token__c,
+      'Failed to retrieve refresh token'
     );
   }
 
@@ -103,26 +158,30 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   static void testSessionCacheHit() {
-    Id userId = UserInfo.getUserId();
-    User user = new User(Id = userId);
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     String idTokenResult;
     String refreshTokenResult;
 
     Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
+      'local.SessionAzureTokens.idToken' + thisUser.Id,
       IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
       false
     );
-    AuthTokenCacheUtil.storeRefreshTokenField(
-      user,
-      AzureTestRefreshToken.REFRESHTESTVALUE
-    );
+
     Test.startTest();
+    System.runAs(thisUser) {
+      AuthTokenCacheUtil.storeRefreshTokenField(
+        thisUser,
+        AzureTestRefreshToken.REFRESHTESTVALUE
+      );
+    }
+    Test.stopTest();
+
     idTokenResult = AuthTokenCacheUtil.getSessionIdToken();
     refreshTokenResult = AuthTokenCacheUtil.getRefreshToken();
-    Test.stopTest();
+
     System.assertEquals(
       IDTESTVALUE,
       idTokenResult,
@@ -142,18 +201,21 @@ public class AuthTokenCacheUtilTest {
   @isTest
   static void testSessionCacheMiss() {
     List<AuthTokenCacheUtil.TokenCacheException> exceptions = new List<AuthTokenCacheUtil.TokenCacheException>();
+    User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
+    //GIVEN that refreshtoken is null
+    anzxTestUser.Refresh_Token__c = null;
+    update anzxTestUser;
+
     Test.startTest();
-    try {
-      AuthTokenCacheUtil.getRefreshToken();
-    } catch (AuthTokenCacheUtil.TokenCacheException e) {
-      exceptions.add(e);
-    }
-    try {
-      AuthTokenCacheUtil.getSessionIdToken();
-    } catch (AuthTokenCacheUtil.TokenCacheException e) {
-      exceptions.add(e);
+    System.runAs(anzxTestUser) {
+      try {
+        AuthTokenCacheUtil.getSessionIdToken();
+      } catch (AuthTokenCacheUtil.TokenCacheException e) {
+        exceptions.add(e);
+      }
     }
     Test.stopTest();
+
     System.assertEquals(
       1,
       exceptions.size(),
@@ -167,17 +229,24 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   static void testSessionCacheRefresh() {
-    User testUser = new User(Id = UserInfo.getUserId());
-    //add a refresh token
-    AuthTokenCacheUtil.storeRefreshTokenField(
-      testUser,
-      AzureTestRefreshToken.REFRESHTESTVALUE
-    );
+    User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
 
     Test.startTest();
-    String newToken = AuthTokenCacheUtil.getRefreshToken();
+    System.runAs(anzxTestUser) {
+      //add a refresh token
+      AuthTokenCacheUtil.storeRefreshTokenField(
+        anzxTestUser,
+        AzureTestRefreshToken.REFRESHTESTVALUE
+      );
+    }
     Test.stopTest();
 
+    anzxTestUser = [
+      SELECT Refresh_Token__c
+      FROM User
+      WHERE Id = :anzxTestUser.Id
+    ];
+    String newToken = anzxTestUser.Refresh_Token__c;
     System.assertEquals(
       AzureTestRefreshToken.REFRESHTESTVALUE,
       newToken,
@@ -190,11 +259,9 @@ public class AuthTokenCacheUtilTest {
    */
   @isTest
   public static void testGetStaffToken() {
-    Id userId = UserInfo.getUserId();
-    User testUser = createTestuserWithRefreshTokenField(userId);
-    update testUser;
+    User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
     Cache.Session.put(
-      'local.SessionAzureTokens.idToken' + userId,
+      'local.SessionAzureTokens.idToken' + anzxTestUser.Id,
       AuthServiceTest.IDTESTVALUE,
       300,
       Cache.Visibility.NAMESPACE,
@@ -202,15 +269,17 @@ public class AuthTokenCacheUtilTest {
     );
 
     Test.startTest();
-    String accessToken = AuthTokenCacheUtil.getStaffToken(
-      Service.IdType.OCVID,
-      '1111'
-    );
-    System.assertEquals(
-      accessToken,
-      'xxxxx',
-      'The accessToken should be as expected.'
-    );
+    System.runAs(anzxTestUser) {
+      String accessToken = AuthTokenCacheUtil.getStaffToken(
+        Service.IdType.OCVID,
+        '1111'
+      );
+      System.assertEquals(
+        accessToken,
+        'xxxxx',
+        'The accessToken should be as expected.'
+      );
+    }
     Test.stopTest();
   }
 
@@ -266,8 +335,6 @@ public class AuthTokenCacheUtilTest {
   @isTest
   public static void testGetStaffTokenFailure() {
     Id userId = UserInfo.getUserId();
-    User testUser = createTestuserWithRefreshTokenField(userId);
-    update testUser;
     Cache.Session.put(
       'local.SessionAzureTokens.idToken' + userId,
       AuthServiceTest.IDTESTVALUE,
@@ -295,6 +362,28 @@ public class AuthTokenCacheUtilTest {
     Test.stopTest();
   }
 
+  /**
+   * @description test refresh the Azure Id and refresh tokens
+   */
+  @isTest
+  public static void testRefreshIdToken() {
+    String newIdToken;
+    User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
+
+    Test.startTest();
+    System.runAs(anzxTestUser) {
+      String existingRefreshToken = AuthTokenCacheUtil.getRefreshToken();
+      newIdToken = AuthTokenCacheUtil.refreshIdToken(existingRefreshToken);
+    }
+    Test.stopTest();
+
+    System.assertNotEquals(
+      AzureTestRefreshToken.REFRESHTESTVALUE,
+      newIdToken,
+      'Refresh Token Should be updated'
+    );
+  }
+
   private static HttpCalloutResponse getForgeTokenInvalidResponse() {
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.error = new CalloutException('Get access token failed');
@@ -302,34 +391,5 @@ public class AuthTokenCacheUtilTest {
     response.body = 'Get access token failed';
     response.successful = false;
     return response;
-  }
-
-  /**
-   * @description method for creating test user with profile
-   * @param profile
-   * @return user
-   */
-  private static User createTestUserwithProfile(String profile) {
-    User thisUser = new User(Id = UserInfo.getUserId());
-    Profile testProfile = CommonUtil.getProfileByName(Profile);
-    User testUser = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'Id' => thisUser.Id,
-        'ProfileId' => testProfile.Id
-      }
-    );
-    return thisUser;
-  }
-  /**
-   * @description method for creating test user with refresh_token__c value stored
-   * @param userId userId
-   * @return User testuser
-   */
-  private static User createTestuserWithRefreshTokenField(Id userId) {
-    User testUser = new User(
-      Id = userId,
-      Refresh_Token__c = AzureTestRefreshToken.REFRESHTESTVALUE
-    );
-    return testUser;
   }
 }

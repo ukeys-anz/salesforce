@@ -40,7 +40,7 @@ public with sharing class AuthTokenCacheUtil {
   }
 
   /**
-   * @description store tokens to the org cache, with a specified user as the key, ANZx only
+   * @description store id token to the org cache & refresh Token to User Object, with a specified user as the key, ANZx only
    * @param u user to store the tokens against, requires Profile.Name for validation
    * @param refreshToken Azure AD refresh token
    * @param idToken Azure AD id token
@@ -120,8 +120,7 @@ public with sharing class AuthTokenCacheUtil {
    * @param refreshToken refreshToken received from getUser
    */
   public static void storeRefreshTokenField(User user, String refreshToken) {
-    user.Refresh_Token__c = refreshToken;
-    update user;
+    System.enqueueJob(new StoreRefreshTokenQueueable(user, refreshToken));
   }
 
   /**
@@ -159,6 +158,7 @@ public with sharing class AuthTokenCacheUtil {
    * @param existingRefreshToken the existing refresh token to send to microsoft token endpoint
    * @return String new Id token
    */
+  @testVisible
   private static String refreshIdToken(String existingRefreshToken) {
     Id userId = UserInfo.getUserId();
     User user = new User(Id = userId);
@@ -275,6 +275,34 @@ public with sharing class AuthTokenCacheUtil {
     return expiryDateTime > Datetime.now().addMinutes(1);
   }
 
+  /**
+   * @description Adding a Queueable Job to the Asynchronous Execution Queue for storing refresh token
+   */
+  public with sharing class StoreRefreshTokenQueueable implements Queueable {
+    String refreshToken;
+    User user;
+
+    /**
+     * @description Constructor
+     * @param user user to store the tokens against
+     * @param refreshToken refreshToken
+     */
+    public StoreRefreshTokenQueueable(User user, String refreshToken) {
+      this.user = user;
+      this.refreshToken = refreshToken;
+    }
+    /**
+     * @description execute method
+     * @param context QueueableContext
+     */
+    public void execute(QueueableContext context) {
+      List<User> users = new List<User>{
+        new User(Id = user.Id, Refresh_Token__c = refreshToken)
+      };
+      //update refresh token field to the user with system mode for Queueable jobs.
+      DMLUtil.updateRecords(users, false, false);
+    }
+  }
   /**
    * @description custom exception thrown when a token session cache miss occurs
    */
