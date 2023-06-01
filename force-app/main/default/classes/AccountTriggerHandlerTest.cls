@@ -1,5 +1,11 @@
 @isTest
 private class AccountTriggerHandlerTest {
+  private final static Faker TESTFAKER = new Faker('AU');
+  private final static string TEST_MOBILE = '123456789';
+  private final static string TEST_OVC_ID_1 = '123456789';
+  private final static string TEST_OVC_ID_2 = TESTFAKER.randomString(10);
+  private final static string TEST_OVC_ID_3 = TESTFAKER.randomString(10);
+
   @TestSetup
   static void makeData() {
     Lead l = new Lead();
@@ -10,15 +16,44 @@ private class AccountTriggerHandlerTest {
     l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
 
     insert l;
+
+    createCases();
+  }
+
+  static void createCases() {
+    CustomerOnboardingApplication__c coa = new CustomerOnboardingApplication__c(
+      SecurityMobile__c = TEST_MOBILE
+    );
+    insert coa;
+
+    List<Case> cases = new List<Case>();
+    Case case1 = new Case(
+      Status = 'Open',
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      OCV_Id__c = TEST_OVC_ID_1
+    );
+    cases.add(case1);
+    Case case2 = new Case(
+      Status = 'Open',
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      OCV_Id__c = TEST_OVC_ID_2,
+      CustomerOnboardingApplication__c = coa.id
+    );
+    cases.add(case2);
+    Case case3 = new Case(
+      Status = 'Open',
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      OCV_Id__c = TEST_OVC_ID_3
+    );
+    cases.add(case3);
+    insert cases;
   }
 
   @isTest
   static void testEntitlementUpdate() {
-    Faker faker = new Faker('AU');
-
     Account testAccount = new Account(
       Name = 'Test Account',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = TESTFAKER.randomString(10),
       ANZx_Customer__c = false
     );
 
@@ -51,12 +86,11 @@ private class AccountTriggerHandlerTest {
 
   @isTest
   private static void testFirstNameMobileEmailMatch() {
-    Faker faker = new Faker('AU');
     // GIVEN an account with matching firstname, mobile and email with an existing lead
     Account testAccount = new Account(
       FirstName = 'John',
       LastName = 'Doe',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = TESTFAKER.randomString(10),
       ANZx_Customer__c = true,
       RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
       PersonEmail = 'john.something@gmail.com',
@@ -98,12 +132,11 @@ private class AccountTriggerHandlerTest {
 
   @isTest
   private static void testLastNameMobileEmailMatch() {
-    Faker faker = new Faker('AU');
     // GIVEN an account with matching lastname, mobile and email with an existing lead
     Account testAccount = new Account(
       FirstName = 'Bruce',
       LastName = 'Something',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = TESTFAKER.randomString(10),
       ANZx_Customer__c = true,
       RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
       PersonEmail = 'john.something@gmail.com',
@@ -145,12 +178,11 @@ private class AccountTriggerHandlerTest {
 
   @isTest
   private static void testFirstNameLastNameMobileMatch() {
-    Faker faker = new Faker('AU');
     // GIVEN an account with matching firstname, lastname and mobile with an existing lead
     Account testAccount = new Account(
       FirstName = 'John',
       LastName = 'Something',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = TESTFAKER.randomString(10),
       ANZx_Customer__c = true,
       RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
       PersonMobilePhone = '0401123123'
@@ -191,12 +223,11 @@ private class AccountTriggerHandlerTest {
 
   @isTest
   private static void testFirstNameLastNameEmailMatch() {
-    Faker faker = new Faker('AU');
     // GIVEN an account with matching firstname, lastname and email with an existing lead
     Account testAccount = new Account(
       FirstName = 'John',
       LastName = 'Something',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = TESTFAKER.randomString(10),
       ANZx_Customer__c = true,
       RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
       PersonEmail = 'john.something@gmail.com'
@@ -237,12 +268,11 @@ private class AccountTriggerHandlerTest {
 
   @isTest
   private static void testAccountNotMatch() {
-    Faker faker = new Faker('AU');
     // GIVEN an account with non-matching firstname, lastname and email with an existing lead
     Account testAccount = new Account(
       FirstName = 'Jane',
       LastName = 'Doe',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = TESTFAKER.randomString(10),
       ANZx_Customer__c = true,
       RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
       PersonEmail = 'jane.doe@gmail.com',
@@ -324,11 +354,10 @@ private class AccountTriggerHandlerTest {
 
     insert matchingLeads;
 
-    Faker faker = new Faker('AU');
     Account testAccount = new Account(
       FirstName = firstName,
       LastName = 'Something',
-      OCV_ID__c = faker.randomString(10),
+      OCV_ID__c = TESTFAKER.randomString(10),
       ANZx_Customer__c = true,
       RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
       PersonMobilePhone = mobile,
@@ -357,6 +386,69 @@ private class AccountTriggerHandlerTest {
       3,
       convertedLeads.size(),
       'All leads should have been converted'
+    );
+  }
+
+  @isTest
+  static void testLinkCasestoAccountByOCVIdWithFoundOCVId() {
+    // GIVEN an existing KYC QA case exists with a matching OCV ID with an account
+    Account acc = new Account(
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      FirstName = TESTFAKER.randomString(5),
+      LastName = TESTFAKER.randomString(5),
+      OCV_ID__c = TEST_OVC_ID_1,
+      ANZx_Customer__c = true,
+      External_Id__c = TESTFAKER.randomString(15)
+    );
+
+    // WHEN the account is created
+    Test.startTest();
+    insert acc;
+    Test.stopTest();
+
+    // THEN the KYC QA case should be linked to the account
+    List<Case> cases = [
+      SELECT Id
+      FROM Case
+      WHERE OCV_ID__c = :TEST_OVC_ID_1 AND AccountId = :acc.Id
+    ];
+    Assert.areEqual(
+      1,
+      cases.size(),
+      'LinkCasestoAccountByOCVId found case and link by OCVId'
+    );
+  }
+
+  @isTest
+  static void testLinkCasestoAccountByOCVIdWithFoundMobile() {
+    // GIVEN an existing KYC QA case exists with a matching mobile number with an account
+    Account acc = new Account(
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      FirstName = TESTFAKER.randomString(5),
+      LastName = TESTFAKER.randomString(5),
+      ANZx_Customer__c = true,
+      External_Id__c = TESTFAKER.randomString(15),
+      PersonMobilePhone = TEST_MOBILE,
+      OCV_ID__c = TESTFAKER.randomString(10)
+    );
+
+    // WHEN the account is created
+    Test.startTest();
+    insert acc;
+    Test.stopTest();
+
+    // THEN the KYC QA case should be linked to the account
+    List<Case> cases = [
+      SELECT Id
+      FROM Case
+      WHERE
+        AccountId = :acc.Id
+        AND CustomerOnboardingApplication__r.SecurityMobile__c = :TEST_MOBILE
+    ];
+    Assert.areEqual(
+      1,
+      cases.size(),
+      'LinkCasestoAccountByOCVId found case and link by Mobile Number'
     );
   }
 }
