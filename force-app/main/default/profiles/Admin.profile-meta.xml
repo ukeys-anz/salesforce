@@ -1417,6 +1417,21 @@
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.CAC_Sub_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Is_this_a_complaint_about_a_complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Review_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Access_Request__c.Approver__c</field>
         <readable>true</readable>

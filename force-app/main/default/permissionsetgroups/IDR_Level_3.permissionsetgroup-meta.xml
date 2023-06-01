@@ -6,5 +6,6 @@
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_3</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

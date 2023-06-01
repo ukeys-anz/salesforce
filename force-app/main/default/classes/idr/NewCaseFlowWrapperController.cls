@@ -278,6 +278,11 @@ public with sharing class NewCaseFlowWrapperController {
       recordTypesToExcl.add(mdt.DeveloperName);
     }
 
+    if (!IDRConstants.DISABLE_OMNI_FOR_CMOS) {
+      recordTypesToExcl.add(IDRConstants.CUSTOMER_COMPLAINT_RT_NAME);
+      recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
+    }
+
     try {
       List<Id> caseRecordTypeIds = CommonUtil.getAvailableRecordTypeIdsForSObject(
         'Case'
@@ -293,6 +298,16 @@ public with sharing class NewCaseFlowWrapperController {
             AND DeveloperName NOT IN :recordTypesToExcl
             AND Id IN :caseRecordTypeIds
         ];
+        if (!IDRConstants.DISABLE_OMNI_FOR_CMOS) {
+            //Fetching 'Customer-Complaint' recodtype Id
+            RecordType newrt = new RecordType(
+                Id= IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+                Name='Complaint',
+                DeveloperName='Complaint',
+                Description='Record a new complaint for an existing ANZ or non ANZ customer '
+            );
+            rtToDisplay.add(newrt); //adding new record type picklist for specific Users
+        }
         return JSON.serialize(rtToDisplay);
       }
       return null;

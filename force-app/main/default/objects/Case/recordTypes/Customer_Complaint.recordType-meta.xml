@@ -73,6 +73,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>CAC_Sub_Category__c</picklist>
+        <values>
+            <fullName>Credit file delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No resolution on original complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution considered unsuitable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solution not implemented</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Card_In_Possession_During_Transaction__c</picklist>
         <values>
             <fullName>NA</fullName>
@@ -7176,6 +7199,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Is_this_a_complaint_about_a_complaint__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>1</fullName>
@@ -8023,6 +8057,21 @@
         </values>
         <values>
             <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Outcome__c</picklist>
+        <values>
+            <fullName>Resolution Enhanced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Upheld</fullName>
             <default>false</default>
         </values>
     </picklistValues>

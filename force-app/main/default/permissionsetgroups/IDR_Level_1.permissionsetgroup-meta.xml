@@ -7,5 +7,6 @@
     <permissionSets>IDR_User_Level_1</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

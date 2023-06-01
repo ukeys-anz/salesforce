@@ -1,0 +1,22 @@
+<template>
+  <lightning-combobox
+    class="slds-size_12-of-12"
+    name="AccountPolicyNumber"
+    label={omniJsonDef.propSetMap.label}
+    value={value}
+    placeholder=""
+    options={options}
+    onchange={handleChange}
+  >
+  </lightning-combobox>
+  <div class="slds-p-raound_xx-small">
+    <template for:each={allValues} for:item="val">
+      <lightning-pill
+        key={val}
+        name={val}
+        label={val}
+        onremove={handleRemove}
+      ></lightning-pill>
+    </template>
+  </div>
+</template>

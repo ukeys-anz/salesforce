@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR23_Complaint_About_Complaint_Fields</fullName>
+    <active>true</active>
+    <description>This validation rule is part of complaint about complaint CMOS, which prevents users from updating the CAC fields only when if a specific combination is in place</description>
+    <errorConditionFormula>NOT( ISPICKVAL(Status, &apos;Closed&apos;) || ISPICKVAL(Status, &apos;Provisionally Closed&apos;))
+&amp;&amp;
+(
+NOT( ISPICKVAL(Type, &apos;9&apos;) &amp;&amp; ISPICKVAL(IDR_Subsequent_Issue__c, &apos;61&apos;))
+||
+NOT( ISPICKVAL(IDR_Issue_Type_2__c, &apos;9&apos;) &amp;&amp; ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;61&apos;))
+||
+NOT( ISPICKVAL(IDR_Issue_Type_2__c, &apos;9&apos;) &amp;&amp; ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;61&apos;))
+)
+&amp;&amp;
+(
+ISCHANGED(Is_this_a_complaint_about_a_complaint__c)
+||
+ISCHANGED(CAC_Sub_Category__c)
+||
+ISCHANGED(Review_Outcome__c)
+)</errorConditionFormula>
+    <errorMessage>You cannot update Complaint About Complaint fields (Internal
+Is this a complaint about a complaint, CAC Sub Category or Review Outcom) unless the status is closed and Issue type is service quality and sub issue type is Failure to respond to complaint</errorMessage>
+</ValidationRule>

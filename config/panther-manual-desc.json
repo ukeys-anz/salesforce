@@ -185,6 +185,7 @@
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
+    "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
@@ -469,7 +470,10 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "Survey_Response__c"
+        "Survey_Response__c",
+        "Is_this_a_complaint_about_a_complaint__c",
+        "CAC_Sub_Category__c",
+        "Review_Outcome__c"
       ],
       "IA-2453595": [
         "Actual_Outcome__c",
@@ -1419,6 +1423,9 @@
         "RecordTypeId"
       ],
       "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
+    },
+    "IDR_Omni_Settings__c": {
+      "IA-2415860": ["Disable_CMOS_Omni__c"]
     },
     "Industry__c": {
       "IA-2530401": [
