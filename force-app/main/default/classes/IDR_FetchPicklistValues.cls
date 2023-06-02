@@ -81,7 +81,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
         controllingInfo.add(
           new Map<String, String>{
             'name' => currControllingValue.getLabel(),
-            'value' => currControllingValue.getValue()
+            'value' => currControllingValue.getLabel()
           }
         );
       }

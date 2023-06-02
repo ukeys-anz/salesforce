@@ -25,7 +25,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
           this.missingFields.join(", ");
         if (
           this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-          !this.omniJsonData.Case.CustomerDetails["Customer-Block"].Customer
+          !this.omniJsonData.Case.CustomerDetails.Customer
         ) {
           this.modalMsg +=
             "<br><br>Customer number must be numbers and atleast 10 digits long";
@@ -63,6 +63,11 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
 
   // validate that all the required fields data has been provided
   valCustomerFields() {
+    if (
+      this.omniJsonData.Case.isThisCustomerComplaint === "No" &&
+      !this.omniJsonData.Case.CustomerDecision
+    )
+      this.missingFields.push("Customer Decision");
     let details = this.omniJsonData.Case.CustomerDetails;
     if (this.omniJsonData.Case.isThisCustomerComplaint === "Yes") {
       this.checkFields(details, this.omniJsonData.custMap);
@@ -73,12 +78,29 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.checkFields(details, this.omniJsonData.thirdPartyMap);
     }
     details = this.omniJsonData.Case.ComplaintDetails;
-    this.checkFields(details, this.omniJsonData.cmpMap);
+    let itype = details.IssueType;
+    let subtype = details.SubSequentIssueType;
+    let cmpMap = JSON.parse(JSON.stringify(this.omniJsonData.cmpMap));
+    if (this.omniJsonData.Case.isThisCustomerComplaint === "Yes")
+      cmpMap.push({ AccountPolicyNumber: "Account/Policy Number" });
+    this.checkFields(details, cmpMap);
     if (details.Issue2Checkbox === "Yes") {
-      this.checkFields(details, this.omniJsonData.secCmpMap);
+      let secCmpMap = JSON.parse(JSON.stringify(this.omniJsonData.secCmpMap));
+      if (this.omniJsonData.Case.isThisCustomerComplaint === "Yes")
+        secCmpMap.push({ AccountPolicyNumber2: "Account/Policy Number 2" });
+      this.checkFields(details, secCmpMap);
+      itype = details.IssueType2;
+      subtype = details.SubsequentIssueType2;
     }
     if (details.Issue3Checkbox === "Yes") {
-      this.checkFields(details, this.omniJsonData.thirdCmpMap);
+      let thirdCmpMap = JSON.parse(
+        JSON.stringify(this.omniJsonData.thirdCmpMap)
+      );
+      if (this.omniJsonData.Case.isThisCustomerComplaint === "Yes")
+        thirdCmpMap.push({ AccountPolicyNumber3: "Account/Policy Number 3" });
+      this.checkFields(details, thirdCmpMap);
+      itype = details.IssueType3;
+      subtype = details.SubsequentIssueType3;
     }
     details = this.omniJsonData.Case.ResolutionInformation;
     this.checkFields(details, this.omniJsonData.resInfoMap);
@@ -93,10 +115,21 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     if (details.systemicIssue === "Yes")
       this.checkFields(details, this.omniJsonData.sysIssueMap);
     if (details.CAC) this.checkFields(details, this.omniJsonData.cacMap);
+    if (
+      itype === "9" &&
+      subtype === "61" &&
+      (details.ComplaintStatus === "Closed" ||
+        details.ComplaintStatus === "Provisionally Closed")
+    ) {
+      if (!details.CAC)
+        this.missingFields.push("Is this a complaint about a complaint?");
+    }
     if (details.secondComplaintRemedyCheckbox === "Yes")
       this.checkFields(details, this.omniJsonData.secRemedyMap);
     if (details.thirdComplaintRemedyCheckbox === "Yes")
       this.checkFields(details, this.omniJsonData.thirdRemedyMap);
+    if (details.ComplaintStatus === "Escalated")
+      this.checkFields(details, this.omniJsonData.escMap);
   }
 
   checkFields(detail, reMap) {
