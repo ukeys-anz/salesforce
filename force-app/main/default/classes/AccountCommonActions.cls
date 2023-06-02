@@ -262,12 +262,12 @@ public with sharing class AccountCommonActions {
         if (!lcr.isSuccess()) {
           Logger.error(
             'Account_Id: ' +
-            lcr.getAccountId() +
-            '; Lead_Id: ' +
-            lcr.getLeadId() +
-            '; Lead Record Type: ANZx' +
-            '; Error_Message: ' +
-            lcr.getErrors()[0].getMessage()
+              lcr.getAccountId() +
+              '; Lead_Id: ' +
+              lcr.getLeadId() +
+              '; Lead Record Type: ANZx' +
+              '; Error_Message: ' +
+              lcr.getErrors()[0].getMessage()
           );
         }
       }
@@ -367,5 +367,46 @@ public with sharing class AccountCommonActions {
       );
       Logger.saveLog();
     }
+  }
+
+  /**
+   * @description linkCasestoAccountByOCVId link case to customer profile by OCV Id or Mobile number
+   * @param recordTypeId The Case record type Id
+   * @param records The Account records passed from Trigger.new()
+   */
+  public static void linkCasestoAccountByOCVId(
+    String recordTypeId,
+    List<Account> records
+  ) {
+    Map<String, String> ocvIdAccountIds = new Map<String, String>();
+    Map<String, String> mobileAccountIds = new Map<String, String>();
+    for (Account acc : records) {
+      if (String.isNotEmpty(acc.OCV_Id__c)) {
+        ocvIdAccountIds.put(acc.OCV_Id__c, acc.Id);
+      }
+      if (String.isNotEmpty(acc.PersonMobilePhone)) {
+        mobileAccountIds.put(acc.PersonMobilePhone, acc.Id);
+      }
+    }
+    List<Case> updateCases = [
+      SELECT Id, OCV_Id__c, CustomerOnboardingApplication__r.SecurityMobile__c
+      FROM Case
+      WHERE
+        (OCV_Id__c IN :ocvIdAccountIds.keySet()
+        OR CustomerOnboardingApplication__r.SecurityMobile__c IN :mobileAccountIds.keySet())
+        AND RecordTypeId = :recordTypeId
+        AND AccountId = NULL
+    ];
+
+    for (Case c : updateCases) {
+      if (ocvIdAccountIds.containsKey(c.OCV_Id__c)) {
+        c.AccountId = ocvIdAccountIds.get(c.OCV_Id__c);
+      } else {
+        c.AccountId = mobileAccountIds.get(
+          c.CustomerOnboardingApplication__r.SecurityMobile__c
+        );
+      }
+    }
+    update updateCases;
   }
 }

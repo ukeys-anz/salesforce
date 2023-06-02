@@ -137,6 +137,7 @@
         "API_Only",
         "Customer_Onboarding_Integration",
         "Case_Read_Write_Customer_Onboarding_Integration",
+        "Case_Read_Write_KYC_QA",
         "Disable_MFA"
       ],
       "type": "system"

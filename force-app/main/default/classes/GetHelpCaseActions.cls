@@ -479,12 +479,12 @@ public with sharing class GetHelpCaseActions {
     ) {
       Logger.info(
         'CaseNumber: ' +
-        record.CaseNumber +
-        '; Description: ' +
-        record.Description +
-        '; Notes: ' +
-        record.Comments +
-        '; Reason for logging: User entered long digits without needing to mask'
+          record.CaseNumber +
+          '; Description: ' +
+          record.Description +
+          '; Notes: ' +
+          record.Comments +
+          '; Reason for logging: User entered long digits without needing to mask'
       );
       Logger.saveLog();
     }
@@ -792,7 +792,10 @@ public with sharing class GetHelpCaseActions {
   public static void validateDuplicateKYCQACasePerAccount(List<Case> theCases) {
     Map<Id, Case> accountIdAndCaseMap = new Map<Id, Case>();
     for (Case theCase : theCases) {
-      if (theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+      if (
+        theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
+        theCase.AccountId != null
+      ) {
         accountIdAndCaseMap.put(theCase.AccountId, theCase);
       }
     }
