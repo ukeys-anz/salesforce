@@ -2369,6 +2369,20 @@
     {
       "attributes": {
         "type": "Product2",
+        "referenceId": "Product2Ref575"
+      },
+      "Name": "PayTo",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "575",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Type__c": "130",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking",
+      "IDR_Product_Family__c": "@Product_Family__cRef13"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
         "referenceId": "Product2Ref559"
       },
       "Name": "N/A",
