@@ -20,7 +20,7 @@ export default class CobPidViewAndEdit extends LightningElement {
   _initDetokenizedData = {};
   _equifaxAttemptCount = 0;
 
-  isLoaded = true;
+  isLoading = false;
   error;
 
   async connectedCallback() {
@@ -29,7 +29,7 @@ export default class CobPidViewAndEdit extends LightningElement {
     inputAlignLeft.innerText = `.slds-form-element__control input[readonly]{ padding-left:0.55rem!important; }`;
     document.body.appendChild(inputAlignLeft);
 
-    this.isLoaded = false;
+    this.isLoading = true;
   }
 
   get allowEdit() {
@@ -84,7 +84,7 @@ export default class CobPidViewAndEdit extends LightningElement {
     fields: RECORD_FIELDS
   })
   async wiredRecord({ error, data }) {
-    this.isLoaded = false;
+    this.isLoading = true;
 
     if (data) {
       this.data = {
@@ -103,7 +103,7 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   async detokenize() {
-    this.isLoaded = false;
+    this.isLoading = true;
 
     try {
       this._initDetokenizedData = await detokenizeCOBPIDData({
@@ -129,7 +129,7 @@ export default class CobPidViewAndEdit extends LightningElement {
       );
     }
 
-    this.isLoaded = true;
+    this.isLoading = false;
   }
 
   handleFieldChange(event) {
@@ -137,7 +137,7 @@ export default class CobPidViewAndEdit extends LightningElement {
   }
 
   async handleSave() {
-    this.isLoaded = false;
+    this.isLoading = true;
 
     try {
       await updateCOBPIDData({
@@ -171,7 +171,7 @@ export default class CobPidViewAndEdit extends LightningElement {
       );
     }
 
-    this.isLoaded = true;
+    this.isLoading = false;
   }
 
   handleClose() {

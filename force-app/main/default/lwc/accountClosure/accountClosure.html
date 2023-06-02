@@ -1,6 +1,6 @@
 <template>
   <lightning-card title="Account Closure">
-    <template if:true={loading}>
+    <template lwc:if={loading}>
       <article class="slds-card slds-m-bottom_small">
         <div class="slds-align_absolute-center spinner-height">
           <div role="status" class="slds-spinner_inline">
@@ -12,8 +12,8 @@
         </div>
       </article>
     </template>
-    <template if:false={loading}>
-      <template if:true={displayEnabledButton}>
+    <template lwc:else>
+      <template lwc:if={displayEnabledButton}>
         <lightning-button
           label="Close Account"
           slot="actions"
@@ -21,7 +21,7 @@
           data-id="close-account-button"
         ></lightning-button>
       </template>
-      <template if:false={displayEnabledButton}>
+      <template lwc:else>
         <button
           disabled
           class="slds-button slds-button_neutral disabled-description"
@@ -56,7 +56,7 @@
     </template>
   </lightning-card>
 
-  <template if:true={showConfirmation}>
+  <template lwc:if={showConfirmation}>
     <section class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <article class="slds-card">

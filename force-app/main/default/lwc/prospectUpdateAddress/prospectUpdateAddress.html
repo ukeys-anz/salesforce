@@ -10,7 +10,7 @@
   >
     <!-- sldsValidatorIgnoreNextLine -->
     <lightning-quick-action-panel header={title} class="slds-is-relative">
-      <lightning-spinner if:true={loading}></lightning-spinner>
+      <lightning-spinner lwc:if={loading}></lightning-spinner>
       <lightning-messages></lightning-messages>
 
       <lightning-input-field

@@ -1,10 +1,10 @@
 <template>
   <article class="total-amounts slds-card slds-m-bottom_small">
-    <template if:true={displayContent}>
-      <template if:true={error}>
+    <template lwc:if={displayContent}>
+      <template lwc:if={error}>
         <c-error message={error} data-id="error"></c-error>
       </template>
-      <template if:false={error}>
+      <template lwc:else>
         <h1 class="card-title">
           <lightning-icon
             icon-name="custom:custom41"
@@ -69,8 +69,8 @@
             </div>
           </article>
         </div>
-        <template if:true={showInfoModal}>
-          <template if:true={totalFinPositionClicked}>
+        <template lwc:if={showInfoModal}>
+          <template lwc:if={totalFinPositionClicked}>
             <section
               role="dialog"
               class="slds-modal slds-fade-in-open"
@@ -137,7 +137,7 @@
               </div>
             </section>
           </template>
-          <template if:false={totalFinPositionClicked}>
+          <template lwc:else>
             <section
               role="dialog"
               class="slds-modal slds-fade-in-open"
@@ -203,7 +203,7 @@
         </template>
       </template>
     </template>
-    <template if:false={displayContent}>
+    <template lwc:else>
       <div class="slds-grid">
         <p class="field-padding">
           Don’t worry, it’s not broken. To view this you need a higher

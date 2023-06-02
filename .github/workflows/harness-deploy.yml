@@ -30,12 +30,13 @@ jobs:
           GITHUB_REF: ${{ github.ref }}
           GITHUB_SHA: ${{ github.sha }}
           UPLOAD_ARTIFACT: ${{ contains(github.base_ref, 'develop') || contains(github.base_ref, 'master') }}
+          REPO_NAME: ${{ github.event.repository.name }}
         with:
           application-name: salesforce
           harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key}}
           target-name: salesforce-cd-np
           target-type: WORKFLOW
-          variables: "GITHUB_BASE_REF=${{ env.BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};GITHUB_SHA=${{ env.GITHUB_SHA }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }}"
+          variables: "GITHUB_BASE_REF=${{ env.BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};GITHUB_SHA=${{ env.GITHUB_SHA }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }};REPO_NAME=${{ env.REPO_NAME }}"
           wait: TRUE
 
       - uses: actions/checkout@v2

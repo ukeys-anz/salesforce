@@ -1,5 +1,5 @@
 <template>
-  <template if:true={transactionRecord.showDateTitle}>
+  <template lwc:if={transactionRecord.showDateTitle}>
     <div
       class="slds-text-color_weak slds-card__header-title transaction-date"
       data-test-id="transaction-date"
@@ -10,23 +10,23 @@
   <article class={transactionRecord.rowColour}>
     <div class="slds-grid slds-m-bottom_small">
       <div class="slds-col slds-size--1-of-7 logo-container">
-        <template if:true={transactionRecord.logo}>
+        <template lwc:if={transactionRecord.logo}>
           <img class={logoClass} alt="Logo" src={transactionRecord.logo} />
         </template>
-        <template if:true={transactionRecord.source_emoji}>
+        <template lwc:if={transactionRecord.source_emoji}>
           <div class="source-emoji">{transactionRecord.source_emoji}</div>
         </template>
-        <template if:true={transactionRecord.source_image}>
+        <template lwc:if={transactionRecord.source_image}>
           <div class={sourceClass}>
             <img src={transactionRecord.source_image} />
           </div>
         </template>
-        <template if:true={transactionRecord.destination_emoji}>
+        <template lwc:if={transactionRecord.destination_emoji}>
           <div class="destination-emoji">
             {transactionRecord.destination_emoji}
           </div>
         </template>
-        <template if:true={transactionRecord.destination_image}>
+        <template lwc:if={transactionRecord.destination_image}>
           <div class={destinationClass}>
             <img src={transactionRecord.destination_image} />
           </div>
@@ -60,7 +60,7 @@
       <div class="slds-col slds-size--1-of-7">
         <div class="slds-grid slds-form-element__label">Amount</div>
         <div class="slds-grid">
-          <template if:true={positiveAmount}>
+          <template lwc:if={positiveAmount}>
             <span class="positive-amount"
               >+<lightning-formatted-number
                 data-test-id="amount"
@@ -70,7 +70,7 @@
               ></lightning-formatted-number
             ></span>
           </template>
-          <template if:true={negativeAmount}>
+          <template lwc:if={negativeAmount}>
             <span>
               <lightning-formatted-number
                 data-test-id="amount"
@@ -84,15 +84,7 @@
       </div>
       <div class="slds-col slds-size--1-of-7 button-icon-col">
         <lightning-button-menu alternative-text="Show Actions">
-          <template if:false={showTransactionDetails}>
-            <lightning-menu-item
-              value="Show Details"
-              label="Show Details"
-              onclick={handleDetailsToggle}
-            >
-            </lightning-menu-item>
-          </template>
-          <template if:true={showTransactionDetails}>
+          <template lwc:if={showTransactionDetails}>
             <lightning-menu-item
               value="Hide Details"
               label="Hide Details"
@@ -100,7 +92,15 @@
             >
             </lightning-menu-item>
           </template>
-          <template if:true={showRaiseDispute}>
+          <template lwc:else>
+            <lightning-menu-item
+              value="Show Details"
+              label="Show Details"
+              onclick={handleDetailsToggle}
+            >
+            </lightning-menu-item>
+          </template>
+          <template lwc:if={showRaiseDispute}>
             <lightning-menu-item
               value="Raise Dispute"
               label="Raise Dispute"
@@ -108,7 +108,7 @@
               disabled={disableRaiseDisputeBtn}
             >
             </lightning-menu-item>
-            <template if:true={disableRaiseDisputeBtn}>
+            <template lwc:if={disableRaiseDisputeBtn}>
               <div
                 class="slds-popover slds-popover_tooltip slds-nubbin_left-top"
                 role="tooltip"
@@ -122,7 +122,7 @@
         </lightning-button-menu>
       </div>
     </div>
-    <template if:true={showTransactionDetails}>
+    <template lwc:if={showTransactionDetails}>
       <div class="slds-grid slds-m-bottom_small">
         <div class="slds-col slds-size--1-of-7"></div>
         <div class="slds-col slds-size--1-of-7">
@@ -154,7 +154,7 @@
         </div>
       </div>
 
-      <template if:true={transactionRecord.merchantDetails}>
+      <template lwc:if={transactionRecord.merchantDetails}>
         <div class="transaction-section">
           <h3 class="section-title">Merchant Details</h3>
           <div class="slds-grid slds-m-bottom_small">
@@ -172,7 +172,7 @@
             <div class="slds-col slds-size--1-of-7">
               <div class="slds-grid slds-form-element__label">Phone</div>
               <div class="slds-grid">
-                <template if:true={transactionRecord.merchantPhoneNumber}>
+                <template lwc:if={transactionRecord.merchantPhoneNumber}>
                   {transactionRecord.merchantPhoneNumber}
                 </template>
               </div>
@@ -191,7 +191,7 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.internationalDetails}>
+      <template lwc:if={transactionRecord.internationalDetails}>
         <div class="transaction-section">
           <h3 class="section-title">International Exchange Details</h3>
           <div class="slds-grid slds-m-bottom_small">
@@ -226,7 +226,7 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.card}>
+      <template lwc:if={transactionRecord.card}>
         <div class="transaction-section">
           <h3 class="section-title">Card Details</h3>
           <div class="slds-grid slds-m-bottom_small">
@@ -249,7 +249,7 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.transfer}>
+      <template lwc:if={transactionRecord.transfer}>
         <div class="transaction-section">
           <h3 class="section-title">Transfer Details</h3>
           <div class="slds-grid slds-m-bottom_small">
@@ -278,7 +278,7 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.bpay}>
+      <template lwc:if={transactionRecord.bpay}>
         <div class="transaction-section">
           <h3 class="section-title">BPAY Details</h3>
           <div class="slds-grid slds-m-bottom_small">
@@ -303,7 +303,7 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.pay_anyone}>
+      <template lwc:if={transactionRecord.pay_anyone}>
         <div class="transaction-section">
           <h3 class="section-title">Pay Anyone Details</h3>
           <div class="slds-grid slds-m-bottom_small">
@@ -340,7 +340,7 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.tagList}>
+      <template lwc:if={transactionRecord.tagList}>
         <div class="transaction-section">
           <h3 class="section-title">Tags</h3>
           <div class="slds-grid slds-m-bottom_small slds-wrap">
@@ -356,7 +356,7 @@
         </div>
       </template>
 
-      <template if:true={transactionRecord.mapMarkers}>
+      <template lwc:if={transactionRecord.mapMarkers}>
         <div class="transaction-section">
           <h3 class="section-title">Map</h3>
           <div class="slds-grid slds-m-bottom_small">
@@ -374,7 +374,7 @@
   </article>
 
   <!-- Show dispute record type selection modal -->
-  <template if:true={showRecordTypeSelection}>
+  <template lwc:if={showRecordTypeSelection}>
     <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <header class="slds-modal__header">
@@ -410,7 +410,7 @@
     </section>
     <div class="slds-backdrop slds-backdrop_open"></div>
   </template>
-  <template if:true={loading}>
+  <template lwc:if={loading}>
     <lightning-spinner alternative-text="Loading..." variant="brand">
     </lightning-spinner>
   </template>

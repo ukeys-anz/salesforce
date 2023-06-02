@@ -31,9 +31,9 @@ export default class CobCaseStatusPath extends LightningElement {
   currentFailedReason;
   _newFailedReason;
   pathSteps;
-  isLoaded;
+  isLoading;
   showModal;
-  isModalLoaded;
+  isModalLoading;
   isModalButtonDisable = false;
   error;
   statusUpdateError;
@@ -58,7 +58,7 @@ export default class CobCaseStatusPath extends LightningElement {
     ]
   })
   wiredCaseFields({ data }) {
-    this.isLoaded = false;
+    this.isLoading = true;
 
     if (data) {
       this.recordTypeInfo = data.recordTypeInfo;
@@ -78,7 +78,7 @@ export default class CobCaseStatusPath extends LightningElement {
     fieldApiName: STATUS_FIELD
   })
   wiredStatusFieldInfo({ data }) {
-    this.isLoaded = false;
+    this.isLoading = true;
 
     if (data) {
       this.statusOptions = data.values;
@@ -89,7 +89,7 @@ export default class CobCaseStatusPath extends LightningElement {
       }));
     }
 
-    this.isLoaded = true;
+    this.isLoading = false;
   }
 
   @wire(getPicklistValues, {
@@ -127,7 +127,7 @@ export default class CobCaseStatusPath extends LightningElement {
     this._newStatus = this.currentStatus;
     this._newFailedReason = this.currentFailedReason;
     this.showModal = true;
-    this.isModalLoaded = true;
+    this.isModalLoading = false;
   }
 
   handleStatusChange(event) {
@@ -151,10 +151,10 @@ export default class CobCaseStatusPath extends LightningElement {
 
     if (isValid) {
       this.isModalButtonDisable = true;
-      this.isModalLoaded = false;
+      this.isModalLoading = true;
 
       if (this.currentStatus === this._newStatus) {
-        this.isModalLoaded = true;
+        this.isModalLoading = false;
         this.isModalButtonDisable = false;
 
         showToast(this, "Warning", SAME_CASE_STATUS_WARNING, "", "warning", "");
@@ -194,13 +194,13 @@ export default class CobCaseStatusPath extends LightningElement {
               ""
             );
           }
-          this.isModalLoaded = true;
+          this.isModalLoading = false;
           this.isModalButtonDisable = false;
           this.handleHideModal();
           getRecordNotifyChange([{ recordId: this.recordId }]);
         } catch (error) {
           this.error = error;
-          this.isModalLoaded = true;
+          this.isModalLoading = false;
           this.isModalButtonDisable = false;
 
           showToast(this, "Error!", handleErrors(error), "", "error", "");

@@ -51,9 +51,15 @@ public with sharing class AuthTokenCacheUtil {
     String idToken
   ) {
     if (u.Profile.Name == 'ANZx Standard User') {
-      //Storing refreshtoken to custom field
-      storeRefreshTokenField(u, refreshToken);
-      //Caching idToken
+      Cache.Org.put(
+        AuthTokenCacheUtil.ORGPART +
+        'refreshToken' +
+        u.Id,
+        refreshToken,
+        300,
+        Cache.Visibility.NAMESPACE,
+        false
+      );
       Cache.Org.put(
         AuthTokenCacheUtil.ORGPART +
         'idToken' +
@@ -74,13 +80,27 @@ public with sharing class AuthTokenCacheUtil {
   @TestVisible
   private static void storeAzureSessionTokens(Id userId, String profileName) {
     if (profileName == 'ANZx Standard User') {
+      String refreshToken = (String) Cache.Org.get(
+        AuthTokenCacheUtil.ORGPART +
+        'refreshToken' +
+        userId
+      );
       String idToken = (String) Cache.Org.get(
         AuthTokenCacheUtil.ORGPART +
         'idToken' +
         userId
       );
-      if (idToken != null) {
+      if (refreshToken != null && idToken != null) {
         // move tokens to session cache
+        Cache.Session.put(
+          AuthTokenCacheUtil.SESSIONPART +
+          'refreshToken' +
+          userId,
+          refreshToken,
+          28800,
+          Cache.Visibility.NAMESPACE,
+          true
+        );
         Cache.Session.put(
           AuthTokenCacheUtil.SESSIONPART +
           'idToken' +
@@ -92,10 +112,11 @@ public with sharing class AuthTokenCacheUtil {
         );
 
         // remove org cache tokens
+        Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'refreshToken' + userId);
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
       } else {
         Logger.error(
-          'Login Flow Invocable method did not receive Azure Id Token for user: ' +
+          'Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
           userId
         );
         Logger.saveLog();
@@ -104,24 +125,23 @@ public with sharing class AuthTokenCacheUtil {
   }
 
   /**
-   * @description retrieves current user's refresh token from custom field
+   * @description retrieves current user's refresh token from session cache
    * @return String refresh token
    */
-  public static String getRefreshToken() {
+  public static String getSessionRefreshToken() {
     Id userId = UserInfo.getUserId();
-    User user = [SELECT Refresh_Token__c FROM User WHERE Id = :userId];
-    String refreshToken = user.Refresh_Token__c;
-    return refreshToken;
-  }
-
-  /**
-   * @description store RefreshToken to custom field: User.refresh_token__c
-   * @param user user to store the tokens against
-   * @param refreshToken refreshToken received from getUser
-   */
-  public static void storeRefreshTokenField(User user, String refreshToken) {
-    user.Refresh_Token__c = refreshToken;
-    update user;
+    String refreshToken = (String) Cache.Session.get(
+      AuthTokenCacheUtil.SESSIONPART +
+      'refreshToken' +
+      userId
+    );
+    if (refreshToken != null) {
+      return refreshToken;
+    } else {
+      Logger.error('Session Refresh Token not found for user ' + userId);
+      Logger.saveLog();
+      throw new TokenCacheException('Connection issue, please sign in again');
+    }
   }
 
   /**
@@ -134,7 +154,11 @@ public with sharing class AuthTokenCacheUtil {
     Id userId = UserInfo.getUserId();
     String refreshToken = NON_PROD_SETTINGS.SSO_Not_Configured__c
       ? AzureTestRefreshToken.REFRESHTESTVALUE
-      : getRefreshToken();
+      : (String) Cache.Session.get(
+          AuthTokenCacheUtil.SESSIONPART +
+          'refreshToken' +
+          userId
+        );
     String idToken = (String) Cache.Session.get(
       AuthTokenCacheUtil.SESSIONPART +
       'idToken' +
@@ -161,7 +185,6 @@ public with sharing class AuthTokenCacheUtil {
    */
   private static String refreshIdToken(String existingRefreshToken) {
     Id userId = UserInfo.getUserId();
-    User user = new User(Id = userId);
     String idToken;
     String refreshToken;
     HTTPResponse res;
@@ -174,9 +197,16 @@ public with sharing class AuthTokenCacheUtil {
       refreshToken = idenModel.refreshToken;
       idToken = idenModel.idToken;
 
-      // place new tokens in refresh__token__c
-      storeRefreshTokenField(user, refreshToken);
       // place new tokens in session cache
+      Cache.Session.put(
+        AuthTokenCacheUtil.SESSIONPART +
+        'refreshToken' +
+        userId,
+        refreshToken,
+        28800,
+        Cache.Visibility.NAMESPACE,
+        true
+      );
       Cache.Session.put(
         AuthTokenCacheUtil.SESSIONPART +
         'idToken' +

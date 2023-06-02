@@ -72,7 +72,7 @@ export default class InitiateInteraction extends LightningElement {
     fields: "$objectFields"
   })
   async wireRecord({ data }) {
-    this.loading = true;
+    this.isLoaded = false;
     if (data) {
       switch (this.objectApiName) {
         case "Account":
@@ -113,7 +113,7 @@ export default class InitiateInteraction extends LightningElement {
     } else {
       this.showChatWindow = false;
     }
-    this.loading = false;
+    this.isLoaded = true;
   }
 
   connectedCallback() {
