@@ -479,12 +479,12 @@ public with sharing class GetHelpCaseActions {
     ) {
       Logger.info(
         'CaseNumber: ' +
-          record.CaseNumber +
-          '; Description: ' +
-          record.Description +
-          '; Notes: ' +
-          record.Comments +
-          '; Reason for logging: User entered long digits without needing to mask'
+        record.CaseNumber +
+        '; Description: ' +
+        record.Description +
+        '; Notes: ' +
+        record.Comments +
+        '; Reason for logging: User entered long digits without needing to mask'
       );
       Logger.saveLog();
     }

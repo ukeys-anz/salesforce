@@ -90,7 +90,9 @@ public with sharing class COBApplicationActionsHelperTest {
     Assert.areEqual(
       OCV_IDS_COUNT,
       accountsByOCVIds.size(),
-      'There should be ' + OCV_IDS_COUNT + ' accounts.'
+      'There should be ' +
+      OCV_IDS_COUNT +
+      ' accounts.'
     );
   }
 

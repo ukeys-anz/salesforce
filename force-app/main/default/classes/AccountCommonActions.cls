@@ -262,12 +262,12 @@ public with sharing class AccountCommonActions {
         if (!lcr.isSuccess()) {
           Logger.error(
             'Account_Id: ' +
-              lcr.getAccountId() +
-              '; Lead_Id: ' +
-              lcr.getLeadId() +
-              '; Lead Record Type: ANZx' +
-              '; Error_Message: ' +
-              lcr.getErrors()[0].getMessage()
+            lcr.getAccountId() +
+            '; Lead_Id: ' +
+            lcr.getLeadId() +
+            '; Lead Record Type: ANZx' +
+            '; Error_Message: ' +
+            lcr.getErrors()[0].getMessage()
           );
         }
       }
