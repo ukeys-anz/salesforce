@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>CaseClose</name>
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>true</isOmniScriptEmbeddable>
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>true</isWebCompEnabled>
     <language>English</language>
+    <name>CaseClose</name>
     <omniProcessElements>
-        <name>Case</name>
         <childElements>
-            <name>CAC</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CAC</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -87,14 +86,14 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>45.0</sequenceNumber>
+            <sequenceNumber>47.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>CloseComplaint</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CloseComplaint</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -110,10 +109,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
-            <name>ComplaintOutcome</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintOutcome</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -150,10 +149,10 @@
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintRemedy1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintRemedy1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -190,10 +189,10 @@
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintRemedy2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintRemedy2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -223,7 +222,7 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
+        &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;SecondComplaintCheckbox&quot;
       } ]
@@ -233,16 +232,17 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;disOnTplt&quot; : false,
+  &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
             <sequenceNumber>15.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintRemedy3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintRemedy3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -256,7 +256,7 @@
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;ThirdComplaintCheckbox&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
+        &quot;data&quot; : &quot;Yes&quot;
       } ]
     }
   },
@@ -288,10 +288,10 @@
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintStatus</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintStatus</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -329,16 +329,17 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;disOnTplt&quot; : false,
+  &quot;defaultValue&quot; : &quot;Closed&quot;
 }</propertySetConfig>
             <sequenceNumber>1.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintSubRemedy1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintSubRemedy1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -360,9 +361,9 @@
     &quot;source&quot; : &quot;Case.IDR_Complaint_Sub_Remedy__c&quot;
   },
   &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
+    &quot;element&quot; : &quot;ComplaintRemedy1&quot;,
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy__c&quot;
   },
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
@@ -375,10 +376,10 @@
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintSubRemedy2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintSubRemedy2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -390,16 +391,16 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
+        &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;SecondComplaintCheckbox&quot;
       } ]
     }
   },
   &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;element&quot; : &quot;&quot;
+    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy_2__c&quot;,
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;element&quot; : &quot;ComplaintRemedy2&quot;
   },
   &quot;optionSource&quot; : {
     &quot;source&quot; : &quot;Case.IDR_Complaint_Sub_Remedy_2__c&quot;,
@@ -424,14 +425,14 @@
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintSubRemedy3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ComplaintSubRemedy3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;Complaint Sub Remedy3&quot;,
+  &quot;label&quot; : &quot;Complaint Sub Remedy 3&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
@@ -449,9 +450,9 @@
     &quot;source&quot; : &quot;Case.IDR_Complaint_Sub_Remedy_3__c&quot;
   },
   &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
+    &quot;element&quot; : &quot;ComplaintRemedy3&quot;,
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Case.IDR_Complaint_Remedy_3__c&quot;
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -459,7 +460,7 @@
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;ThirdComplaintCheckbox&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
+        &quot;data&quot; : &quot;Yes&quot;
       } ]
     }
   },
@@ -469,14 +470,14 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>25.0</sequenceNumber>
+            <sequenceNumber>27.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>CustomLWC1</name>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CustomLWC1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -488,14 +489,14 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-            <sequenceNumber>48.0</sequenceNumber>
+            <sequenceNumber>50.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
-            <name>DescriptionOutcome</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>DescriptionOutcome</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -529,10 +530,121 @@
             <type>Text Area</type>
         </childElements>
         <childElements>
-            <name>isSystemicIssue</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>detailsOfComplaint1</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 9,
+  &quot;label&quot; : &quot;Checkbox1&quot;,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : false,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;checkLabel&quot; : &quot;The details of this complaint have been provided to the product manufacturer&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;3&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ComplaintRemedy1&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>11.0</sequenceNumber>
+            <type>Checkbox</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>detailsOfComplaint2</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;ComplaintRemedy2&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;3&quot;
+      } ]
+    }
+  },
+  &quot;checkLabel&quot; : &quot;The details of this complaint have been provided to the product manufacturer&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
+  &quot;defaultValue&quot; : false,
+  &quot;readOnly&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;label&quot; : &quot;Checkbox1&quot;,
+  &quot;controlWidth&quot; : 9
+}</propertySetConfig>
+            <sequenceNumber>19.0</sequenceNumber>
+            <type>Checkbox</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>detailsOfComplaint3</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 11,
+  &quot;label&quot; : &quot;Checkbox3&quot;,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : false,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;checkLabel&quot; : &quot;The details of this complaint have been provided to the product manufacturer 3&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;3&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ComplaintRemedy3&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>25.0</sequenceNumber>
+            <type>Checkbox</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>isSystemicIssue</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -573,14 +685,14 @@
   &quot;label&quot; : &quot;Is this a possible systemic issue?&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>33.0</sequenceNumber>
+            <sequenceNumber>35.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>IsthisComplaintAboutComplaint</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>IsthisComplaintAboutComplaint</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : null,
@@ -616,14 +728,14 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>41.0</sequenceNumber>
+            <sequenceNumber>43.0</sequenceNumber>
             <type>Radio</type>
         </childElements>
         <childElements>
-            <name>LineBreak1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -635,28 +747,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak10</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak10</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-            <sequenceNumber>30.0</sequenceNumber>
-            <type>Line Break</type>
-        </childElements>
-        <childElements>
-            <name>LineBreak11</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak11&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -665,13 +762,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak12</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak11</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak12&quot;,
+  &quot;label&quot; : &quot;LineBreak11&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -680,13 +777,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak13</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak12</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak13&quot;,
+  &quot;label&quot; : &quot;LineBreak12&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -695,13 +792,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak14</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak13</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak14&quot;,
+  &quot;label&quot; : &quot;LineBreak13&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -710,13 +807,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak15</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak14</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak15&quot;,
+  &quot;label&quot; : &quot;LineBreak14&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -725,13 +822,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak16</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak15</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak16&quot;,
+  &quot;label&quot; : &quot;LineBreak15&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -740,13 +837,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak17</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak16</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak17&quot;,
+  &quot;label&quot; : &quot;LineBreak16&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -755,13 +852,13 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak18</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak17</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak18&quot;,
+  &quot;label&quot; : &quot;LineBreak17&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -770,10 +867,25 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak19</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak18</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak18&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>48.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak19</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak19&quot;,
@@ -781,14 +893,14 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
+            <sequenceNumber>12.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -800,10 +912,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak20</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak20</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak20&quot;,
@@ -811,17 +923,32 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>18.0</sequenceNumber>
+            <sequenceNumber>20.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak21</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak21</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak21&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>28.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak22</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak22&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
@@ -830,10 +957,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -845,10 +972,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -860,25 +987,25 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak5</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak1&quot;,
+  &quot;label&quot; : &quot;LineBreak5&quot;,
   &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>12.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak6</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak6</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -890,25 +1017,25 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak7</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak7</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;LineBreak7&quot;,
   &quot;padding&quot; : 0,
-  &quot;label&quot; : &quot;LineBreak1&quot;
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>20.0</sequenceNumber>
+            <sequenceNumber>18.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak8</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak8</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -920,10 +1047,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak9</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak9</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -931,16 +1058,15 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak1&quot;
 }</propertySetConfig>
-            <sequenceNumber>28.0</sequenceNumber>
+            <sequenceNumber>30.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>ParentCase</name>
             <childElements>
-                <name>DRfetchCase</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>DRfetchCase</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -989,6 +1115,7 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ParentCase</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1039,14 +1166,14 @@
   &quot;dataJsonPath&quot; : &quot;&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>43.0</sequenceNumber>
+            <sequenceNumber>45.0</sequenceNumber>
             <type>Type Ahead Block</type>
         </childElements>
         <childElements>
-            <name>PaymentAmountProvided1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>PaymentAmountProvided1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : null,
@@ -1094,14 +1221,14 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
+            <sequenceNumber>13.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
-            <name>PaymentAmountProvided2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>PaymentAmountProvided2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : null,
@@ -1149,14 +1276,14 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>19.0</sequenceNumber>
+            <sequenceNumber>21.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
-            <name>PaymentAmountProvided3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>PaymentAmountProvided3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : null,
@@ -1204,14 +1331,14 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>27.0</sequenceNumber>
+            <sequenceNumber>29.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
-            <name>PossibleSystemicIssueCategory</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>PossibleSystemicIssueCategory</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1253,14 +1380,14 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>37.0</sequenceNumber>
+            <sequenceNumber>39.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>REALFormMAXID</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>REALFormMAXID</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1300,14 +1427,14 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>31.0</sequenceNumber>
+            <sequenceNumber>33.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
-            <name>realFormRequired</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>realFormRequired</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1348,14 +1475,14 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>29.0</sequenceNumber>
+            <sequenceNumber>31.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ReviewOutcome</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>ReviewOutcome</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1397,14 +1524,14 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>47.0</sequenceNumber>
+            <sequenceNumber>49.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>saveComplaint</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>saveComplaint</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1416,92 +1543,74 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-            <sequenceNumber>49.0</sequenceNumber>
+            <sequenceNumber>51.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
-            <name>SecondComplaint</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;Second Complaint Remedy Provided?&lt;/p&gt;&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>13.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
             <name>SecondComplaintCheckbox</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 9,
-  &quot;label&quot; : &quot;Checkbox1&quot;,
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;Second Complaint Remedy Provided?&quot;,
+  &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : false,
+  &quot;horizontalMode&quot; : &quot;displayWide&quot;,
+  &quot;defaultValue&quot; : &quot;No&quot;,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;checkLabel&quot; : &quot;&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Yes&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;autoAdv&quot; : null
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;autoAdv&quot; : null
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100,
+  &quot;optionHeight&quot; : 100,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
             <sequenceNumber>14.0</sequenceNumber>
-            <type>Checkbox</type>
+            <type>Radio</type>
         </childElements>
         <childElements>
-            <name>ThirdComplaint</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;sanitize&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;SecondComplaintCheckbox&quot;
-      } ]
-    }
-  },
-  &quot;text&quot; : &quot;&lt;p&gt;Third Complaint Remedy Provided?&lt;/p&gt;&quot;,
-  &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;controlWidth&quot; : 3
-}</propertySetConfig>
-            <sequenceNumber>21.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
             <name>ThirdComplaintCheckbox</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
+  &quot;enableCaption&quot; : true,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;optionHeight&quot; : 100,
+  &quot;optionWidth&quot; : 100,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -1510,32 +1619,53 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
+        &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;SecondComplaintCheckbox&quot;
       } ]
     }
   },
-  &quot;checkLabel&quot; : &quot;&quot;,
+  &quot;controllingField&quot; : {
+    &quot;source&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;element&quot; : &quot;&quot;
+  },
+  &quot;optionSource&quot; : {
+    &quot;source&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;
+  },
+  &quot;options&quot; : [ {
+    &quot;autoAdv&quot; : null,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;developerName&quot; : null,
+    &quot;name&quot; : &quot;Yes&quot;
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;autoAdv&quot; : null
+  } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
-  &quot;defaultValue&quot; : false,
+  &quot;defaultValue&quot; : &quot;No&quot;,
+  &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;label&quot; : &quot;Checkbox1&quot;,
-  &quot;controlWidth&quot; : 7
+  &quot;required&quot; : false,
+  &quot;label&quot; : &quot;Third Complaint Remedy Provided?&quot;,
+  &quot;controlWidth&quot; : 12
 }</propertySetConfig>
             <sequenceNumber>22.0</sequenceNumber>
-            <type>Checkbox</type>
+            <type>Radio</type>
         </childElements>
         <childElements>
-            <name>WhichAdditionalIssuesaereSystemic</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>WhichAdditionalIssuesaereSystemic</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1560,8 +1690,8 @@
     &quot;value&quot; : &quot;Issue3&quot;
   } ],
   &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Case.IDR_Possible_Systemic_Issues__c&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -1574,7 +1704,7 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Select2&quot;
+        &quot;field&quot; : &quot;isSystemicIssue&quot;
       } ]
     }
   },
@@ -1588,14 +1718,14 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>39.0</sequenceNumber>
+            <sequenceNumber>41.0</sequenceNumber>
             <type>Multi-select</type>
         </childElements>
         <childElements>
-            <name>WhyIsThisPossibleSystemicIssue</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>WhyIsThisPossibleSystemicIssue</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1634,12 +1764,13 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>35.0</sequenceNumber>
+            <sequenceNumber>37.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>Case</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;&quot;,
@@ -1689,10 +1820,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>DRFetchCaseDetail</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>DRFetchCaseDetail</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1739,10 +1870,10 @@
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetRequiredFields</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SetRequiredFields</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1755,6 +1886,8 @@
     }, {
       &quot;ComplaintRemedy1&quot; : &quot;Complaint Remedy 1&quot;
     }, {
+      &quot;ComplaintSubRemedy1&quot; : &quot;Complaint Sub Remedy 1&quot;
+    }, {
       &quot;realFormRequired&quot; : &quot;Is a REAL form required?&quot;
     }, {
       &quot;isSystemicIssue&quot; : &quot;Is this a possible systemic issue?&quot;
@@ -1763,9 +1896,13 @@
     } ],
     &quot;secCmpMap&quot; : [ {
       &quot;ComplaintRemedy2&quot; : &quot;Complaint Remedy 2&quot;
+    }, {
+      &quot;ComplaintSubRemedy2&quot; : &quot;Complaint Sub Remedy 2&quot;
     } ],
     &quot;thirdCmpMap&quot; : [ {
       &quot;ComplaintRemedy3&quot; : &quot;Complaint Remedy 3&quot;
+    }, {
+      &quot;ComplaintSubRemedy3&quot; : &quot;Complaint Sub Remedy3&quot;
     } ],
     &quot;realFormMap&quot; : [ {
       &quot;REALFormMAXID&quot; : &quot;REAL Form MAX ID/ServiceNow ID&quot;
@@ -1788,7 +1925,8 @@
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
   &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
+  &quot;pubsub&quot; : false,
+  &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
         <sequenceNumber>1.0</sequenceNumber>
         <type>Set Values</type>
@@ -1893,5 +2031,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>ab299648-cf75-45c9-2f58-cc5406074344</webComponentKey>
+    <webComponentKey>180abba5-5eca-aa0b-e4b7-c7b6ebc9fe58</webComponentKey>
 </OmniScript>

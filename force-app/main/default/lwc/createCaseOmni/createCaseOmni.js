@@ -124,10 +124,24 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       if (!details.CAC)
         this.missingFields.push("Is this a complaint about a complaint?");
     }
-    if (details.secondComplaintRemedyCheckbox === "Yes")
+    if (details.ComplaintRemedy1 === "3" && !details.detailsOfComplaint1)
+      this.missingFields.push(
+        "The details of this complaint have been provided to the product manufacturer"
+      );
+    if (details.secondComplaintRemedyCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.secRemedyMap);
-    if (details.thirdComplaintRemedyCheckbox === "Yes")
+      if (details.ComplaintRemedy2 === "3" && !details.detailsOfComplaint2)
+        this.missingFields.push(
+          "The details of this complaint have been provided to the product manufacturer 2"
+        );
+    }
+    if (details.thirdComplaintRemedyCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.thirdRemedyMap);
+      if (details.ComplaintRemedy3 === "3" && !details.detailsOfComplaint3)
+        this.missingFields.push(
+          "The details of this complaint have been provided to the product manufacturer 3"
+        );
+    }
     if (details.ComplaintStatus === "Escalated")
       this.checkFields(details, this.omniJsonData.escMap);
   }

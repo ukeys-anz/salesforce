@@ -378,6 +378,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom9231</globalKey>
+        <inputFieldName>Case:ResolutionInformation:detailsOfComplaint1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Provided_details_to_Product_Manufacturer__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom515</globalKey>
         <inputFieldName>Case:CustomerDetails:thirdPartyMobile</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -560,6 +574,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom3754</globalKey>
+        <inputFieldName>Case:ResolutionInformation:additionalissues</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Possible_Systemic_Issues__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom2918</globalKey>
         <inputFieldName>Case:CustomerDetails:firstName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -637,6 +665,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_NC_Age__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom8309</globalKey>
+        <inputFieldName>Case:ResolutionInformation:detailsOfComplaint3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Provided_details_to_Prod_Manufacturer_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -847,6 +889,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Complaint_Remedy_2__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom8123</globalKey>
+        <inputFieldName>Case:ResolutionInformation:detailsOfComplaint2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Provided_details_to_Prod_Manufacturer_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
