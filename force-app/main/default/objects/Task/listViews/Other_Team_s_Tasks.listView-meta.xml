@@ -30,4 +30,7 @@
     </filters>
     <filterScope>Everything</filterScope>
     <label>Other Team&apos;s Tasks</label>
+    <sharedTo>
+        <role>Customer_Resolution_Leadership</role>
+    </sharedTo>
 </ListView>
