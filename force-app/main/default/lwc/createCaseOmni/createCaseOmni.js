@@ -103,7 +103,9 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       subtype = details.SubsequentIssueType3;
     }
     details = this.omniJsonData.Case.ResolutionInformation;
-    this.checkFields(details, this.omniJsonData.resInfoMap);
+    if (this.omniJsonData.Case.CustomerDecision !== "Disagrees") {
+      this.checkFields(details, this.omniJsonData.resInfoMap);
+    }
     if (
       details.ComplaintStatus === "Closed" ||
       details.ComplaintStatus === "Provisionally Closed"

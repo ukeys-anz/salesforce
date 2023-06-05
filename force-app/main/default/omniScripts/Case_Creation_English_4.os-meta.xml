@@ -3743,7 +3743,16 @@
   &quot;required&quot; : true,
   &quot;label&quot; : &quot;Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?&quot;,
   &quot;controlWidth&quot; : 6,
-  &quot;show&quot; : null
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Disagrees&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;CustomerDecision&quot;
+      } ]
+    }
+  }
 }</propertySetConfig>
                 <sequenceNumber>2.0</sequenceNumber>
                 <type>Radio</type>
@@ -4206,7 +4215,16 @@
   &quot;imageCountInRow&quot; : 3,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false,
-  &quot;show&quot; : null
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Disagrees&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;CustomerDecision&quot;
+      } ]
+    }
+  }
 }</propertySetConfig>
                 <sequenceNumber>1.0</sequenceNumber>
                 <type>Radio</type>
