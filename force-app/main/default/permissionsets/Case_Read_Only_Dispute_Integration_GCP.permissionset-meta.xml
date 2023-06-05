@@ -178,22 +178,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Status</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.Subject</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Submitted__c</field>
+        <field>Case.Submitted_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Submitted_Time__c</field>
+        <field>Case.Submitted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -312,4 +307,8 @@
         <recordType>Case.Card_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <userPermissions>
+        <name>ViewAllUsers</name>
+        <enabled>true</enabled>
+    </userPermissions>
 </PermissionSet>

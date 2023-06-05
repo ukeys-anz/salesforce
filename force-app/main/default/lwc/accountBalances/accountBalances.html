@@ -1,7 +1,7 @@
 <template>
-  <template if:true={displayContent}>
+  <template lwc:if={displayContent}>
     <article class="slds-card slds-m-bottom_small">
-      <template if:true={loading}>
+      <template lwc:if={loading}>
         <div class="slds-align_absolute-center" style="height: 4rem">
           <div role="status" class="slds-spinner_inline">
             <lightning-spinner
@@ -11,11 +11,11 @@
           </div>
         </div>
       </template>
-      <template if:false={loading}>
-        <template if:true={hasError}>
+      <template lwc:else>
+        <template lwc:if={hasError}>
           <c-error message={error}></c-error>
         </template>
-        <template if:false={hasError}>
+        <template lwc:else>
           <div class="slds-grid slds-wrap" data-id="balance-container">
             <div class="slds-col slds-grid slds-size_1-of-1">
               <div class="slds-grid slds-wrap slds-size_1-of-1">
@@ -41,7 +41,7 @@
           <footer class="slds-card__footer">
             <span class="lastUpdated">Last Updated {timestamp}</span>
           </footer>
-          <template if:true={showInfoModal}>
+          <template lwc:if={showInfoModal}>
             <section role="dialog" class="slds-modal slds-fade-in-open">
               <div class="slds-modal__container">
                 <header class="slds-modal__header modal-header">
@@ -104,7 +104,7 @@
       </template>
     </article>
   </template>
-  <template if:false={displayContent}>
+  <template lwc:else>
     <article class="balances slds-card slds-m-bottom_small">
       <div class="slds-card__body">
         <p class="slds-var-p-around_small">

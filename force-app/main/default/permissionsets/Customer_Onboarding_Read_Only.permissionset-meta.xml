@@ -680,6 +680,11 @@
         <field>CustomerOnboardingApplication__c.TncVersion__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CustomerOnboardingApplication__c.VerificationType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Customer Onboarding Read Only</label>
     <objectPermissions>

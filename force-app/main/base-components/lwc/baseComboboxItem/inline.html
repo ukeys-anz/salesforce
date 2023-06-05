@@ -7,7 +7,7 @@
 
 <template>
   <span class="slds-media__figure slds-listbox__option-icon">
-    <template if:true={item.iconName}>
+    <template lwc:if={item.iconName}>
       <c-icon
         alternative-text={item.iconAlternativeText}
         icon-name={item.iconName}
@@ -18,15 +18,15 @@
   <span class="slds-media__body">
     <!-- The below is an optimisation, the base-combobox-formatted-text can handle this by itself,
          but it's faster not to include it at all -->
-    <template if:false={textHasParts}>
-      <span class="slds-truncate" title={item.text}>{item.text}</span>
-    </template>
-    <template if:true={textHasParts}>
+    <template lwc:if={textHasParts}>
       <c-base-combobox-formatted-text
         text={item.text}
         class="slds-truncate"
         title={text}
       ></c-base-combobox-formatted-text>
+    </template>
+    <template lwc:else>
+      <span class="slds-truncate" title={item.text}>{item.text}</span>
     </template>
   </span>
 </template>

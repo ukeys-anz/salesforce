@@ -645,4 +645,18 @@ public with sharing class CommonUtil {
     }
     return theCase;
   }
+
+  /**
+   * @description throws AuraHandledException with error message
+   * @param errorMsg error message to use in the exception
+   */
+  public static void throwException(String errorMsg) {
+    // AuraHandleException is quirky, setMessage() and constructor must be invoked otherwise "Script-thrown exception" is thrown instead of actual exception message
+    AuraHandledException e = new AuraHandledException(errorMsg);
+    e.setMessage(errorMsg);
+
+    Logger.error(errorMsg, e);
+    Logger.saveLog();
+    throw e;
+  }
 }

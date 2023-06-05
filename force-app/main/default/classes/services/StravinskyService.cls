@@ -74,7 +74,7 @@ public with sharing class StravinskyService extends Service {
       temporalCaseWorkflowEndpoints.get(cobCase.Status),
       HTTP_METHOD.HTTP_POST,
       headers,
-      getPayload(cobCase)
+      getCaseWorkflowPayload(cobCase)
     );
 
     return response;
@@ -82,7 +82,7 @@ public with sharing class StravinskyService extends Service {
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param tokenizedFields the account number for the checking account
+   * @param tokenizedFields the tokenized fields to be detokenized
    * @return HttpCalloutResponse
    * @description stravinsky COBPID detokenization api
    */
@@ -142,12 +142,39 @@ public with sharing class StravinskyService extends Service {
   }
 
   /**
+   * @param taxResidency COB Tax Residency record
+   * @return HttpCalloutResponse
+   * @description stravinsky COBTaxResidency detokenize api
+   */
+  public override HttpCalloutResponse detokenizeCOBTaxResidency(
+    COBTaxResidency__c taxResidency
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(
+      Service.IdType.PERSONAID,
+      taxResidency.PersonaId__c,
+      headers
+    );
+    headers.put('x-span-id', UniqueIdUtil.generateSpanId());
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'callout:SF_MS_Fabric' + Label.ST_Detokenize,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      getDetokenizePayload(taxResidency)
+    );
+
+    return response;
+  }
+
+  /**
    * @param cobCase Customer Onboarding Case
    * @return String payload
-   * @description returns payload
+   * @description returns payload for Case Workflow API
    */
   @TestVisible
-  private String getPayload(Case cobCase) {
+  private String getCaseWorkflowPayload(Case cobCase) {
     Map<String, String> statusCaseIdMap = new Map<String, String>{
       GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS => cobCase.Id,
       GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => cobCase.ParentId
@@ -164,6 +191,26 @@ public with sharing class StravinskyService extends Service {
     }
 
     return EMPTY_BODY;
+  }
+
+  /**
+   * @param taxResidency COB Tax Residency
+   * @return String payload
+   * @description returns payload for detokenize API
+   */
+  @TestVisible
+  private String getDetokenizePayload(COBTaxResidency__c taxResidency) {
+    List<COBTaxResidencyModel.TokenizedValue> tokenizedFields = new List<COBTaxResidencyModel.TokenizedValue>{
+      new COBTaxResidencyModel.TokenizedValue(
+        taxResidency.TaxIdentificationNumber__c
+      )
+    };
+
+    Map<String, List<COBTaxResidencyModel.TokenizedValue>> payload = new Map<String, List<COBTaxResidencyModel.TokenizedValue>>{
+      'values' => tokenizedFields
+    };
+
+    return JSON.serialize(payload);
   }
 
   /**
