@@ -540,8 +540,8 @@ public with sharing class GetHelpCaseActionsHelper {
     
   /**
    * @description create task on case
-   * @param case record
-   * @param External_Case_Status__c Record
+   * @param caseRecord case record
+   * @param externalCaseStatusRecord External_Case_Status__c Record
    * @return task record
    */
   public static Task createTask(Case caseRecord, External_Case_Status__c externalCaseStatusRecord) {
