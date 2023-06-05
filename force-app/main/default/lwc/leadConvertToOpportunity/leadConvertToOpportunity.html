@@ -1,6 +1,6 @@
 <template>
-  <lightning-spinner if:true={isLoading}></lightning-spinner>
-  <template if:true={isModalOpen}>
+  <lightning-spinner lwc:if={isLoading}></lightning-spinner>
+  <template lwc:if={isModalOpen}>
     <section
       role="dialog"
       tabindex="-1"
@@ -10,29 +10,8 @@
     >
       <div class="slds-modal__container">
         <lightning-card title={leadTitle}>
-          <template if:false={validLead}>
-            <div>
-              <ul class="slds-m-around_medium">
-                Please resolve below list of errors in order to proceed for Lead
-                Conversion.
-                <template for:each={validationMessage} for:item="message">
-                  <li key={message.Id}>{message.id}) {message.body}</li>
-                </template>
-              </ul>
-              <br />
-            </div>
-            <div class="slds-modal__footer">
-              <lightning-button
-                variant="neutral"
-                class="slds-var-p-around_x-small"
-                label="OK"
-                onclick={closeAction}
-                >OK
-              </lightning-button>
-            </div>
-          </template>
-          <template if:true={validLead}>
-            <template if:true={leadDetails}>
+          <template lwc:if={validLead}>
+            <template lwc:if={leadDetails}>
               <lightning-card title="Lead Details" icon-name="standard:lead">
                 <div class="slds-var-m-around_medium">
                   <lightning-record-form
@@ -59,7 +38,7 @@
                 </footer>
               </lightning-card>
             </template>
-            <template if:true={searchParty}>
+            <template lwc:if={searchParty}>
               <lightning-card title="Certified Results">
                 <div style={setCertifiedTableHeight}>
                   <lightning-datatable
@@ -72,7 +51,7 @@
                   >
                   </lightning-datatable>
                 </div>
-                <template if:true={noDataCertified}>
+                <template lwc:if={noDataCertified}>
                   <div style="height: 100px">
                     <br />
                     <h1 class="slds-align_absolute-center">
@@ -93,7 +72,7 @@
                   >
                   </lightning-datatable>
                 </div>
-                <template if:true={noDataProbable}>
+                <template lwc:if={noDataProbable}>
                   <div style="height: 100px">
                     <br />
                     <h1 class="slds-align_absolute-center">
@@ -115,7 +94,7 @@
                   title="No Match"
                   onclick={createParty}
                 ></lightning-button>
-                <template if:true={isConvertLeadButton}>
+                <template lwc:if={isConvertLeadButton}>
                   <lightning-button
                     variant="neutral"
                     label="Convert Lead"
@@ -125,7 +104,7 @@
                 </template>
               </footer>
             </template>
-            <template if:true={isConvertLead}>
+            <template lwc:if={isConvertLead}>
               <div
                 class="slds-modal__content slds-p-around_medium"
                 id="modal-content-id-2"
@@ -148,6 +127,27 @@
                 {processStatus} ({progress}/100)
               </div>
             </template>
+          </template>
+          <template lwc:else>
+            <div>
+              <ul class="slds-m-around_medium">
+                Please resolve below list of errors in order to proceed for Lead
+                Conversion.
+                <template for:each={validationMessage} for:item="message">
+                  <li key={message.Id}>{message.id}) {message.body}</li>
+                </template>
+              </ul>
+              <br />
+            </div>
+            <div class="slds-modal__footer">
+              <lightning-button
+                variant="neutral"
+                class="slds-var-p-around_x-small"
+                label="OK"
+                onclick={closeAction}
+                >OK
+              </lightning-button>
+            </div>
           </template>
         </lightning-card>
       </div>

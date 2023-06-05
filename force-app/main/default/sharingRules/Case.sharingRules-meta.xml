@@ -167,7 +167,7 @@
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>(1 OR 2 OR 3) AND (4 OR 5)</booleanFilter>
+        <booleanFilter>(1 OR 2 OR 3) AND (4 OR 5 OR 6)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -192,6 +192,11 @@
             <field>IsEscalated</field>
             <operation>equals</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>equals</operation>
+            <value>Closed</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
