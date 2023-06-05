@@ -20,7 +20,14 @@
       ? component.get("v.selectedRecordTypeId")
       : component.get("v.caseRecordTypes")[0].Id;
 
-    this.handleCaseRecordOpenEvent(component, recordTypeId);
+    if (component.get("v.caseRecordTypes")[0].Name == "Complaint") {
+      this.setComplaintParameters(
+        component,
+        component.get("v.caseRecordTypes")[0].Name
+      );
+    } else {
+      this.handleCaseRecordOpenEvent(component, recordTypeId);
+    }
   },
   handleCaseRecordOpenEvent: function (component, recordTypeId) {
     // Read from URL param 'inContextOfRef' to identify parent record ID
