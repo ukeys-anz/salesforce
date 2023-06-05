@@ -179,8 +179,8 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.Origin&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateOriginPicklist&quot;,
+    &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -401,8 +401,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.Type&quot;
+    &quot;type&quot; : &quot;Custom&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateIssueTypePicklist&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -439,8 +439,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.Type&quot;
+    &quot;type&quot; : &quot;Custom&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateIssueTypePicklist&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -495,7 +495,7 @@
   },
   &quot;optionSource&quot; : {
     &quot;source&quot; : &quot;Case.Type&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
+    &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -635,8 +635,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.Priority&quot;
+    &quot;type&quot; : &quot;Custom&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populatePriorityPicklist&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -647,7 +647,8 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;disOnTplt&quot; : false,
+  &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>0.0</sequenceNumber>
                 <type>Select</type>
@@ -974,13 +975,13 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;Case.Type&quot;,
-    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateSubIssueTypeDependentPicklist&quot;,
+    &quot;type&quot; : &quot;Custom&quot;,
     &quot;element&quot; : &quot;IssueType&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Subsequent_Issue__c&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
+    &quot;source&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -1175,7 +1176,7 @@
                 <name>Age</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Age&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1219,6 +1220,50 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>BusinessName</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;debounceValue&quot; : 0,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;CustomerType&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;2&quot;
+      } ]
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
+  &quot;readOnly&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : false,
+  &quot;inputWidth&quot; : 8,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Business Name (if Bus account)&quot;,
+  &quot;controlWidth&quot; : 4
+}</propertySetConfig>
+                <sequenceNumber>13.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
+            <childElements>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
                 <name>complaintAbout</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
@@ -1240,7 +1285,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>33.0</sequenceNumber>
+                <sequenceNumber>30.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1285,9 +1330,9 @@
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Country&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>29.0</sequenceNumber>
+                <sequenceNumber>26.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1511,10 +1556,10 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 8,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Customer Type&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
                 <sequenceNumber>12.0</sequenceNumber>
                 <type>Select</type>
@@ -1526,7 +1571,7 @@
                 <name>Email</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Email&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1557,7 +1602,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>20.0</sequenceNumber>
+                <sequenceNumber>19.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -1585,7 +1630,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>43.0</sequenceNumber>
+                <sequenceNumber>40.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1638,7 +1683,7 @@
   &quot;label&quot; : &quot;Express Case creation&quot;,
   &quot;controlWidth&quot; : 5
 }</propertySetConfig>
-                <sequenceNumber>32.0</sequenceNumber>
+                <sequenceNumber>29.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -1648,10 +1693,10 @@
                 <name>firstName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;First Name&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 8,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -1682,7 +1727,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>13.0</sequenceNumber>
+                <sequenceNumber>14.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -1727,7 +1772,7 @@
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Gender&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
                 <sequenceNumber>18.0</sequenceNumber>
                 <type>Select</type>
@@ -1872,7 +1917,7 @@
                 <name>LastName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Last Name&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1920,66 +1965,6 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>30.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>LineBreak15</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak15&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-                <sequenceNumber>15.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>LineBreak16</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 0,
-  &quot;label&quot; : &quot;LineBreak15&quot;
-}</propertySetConfig>
-                <sequenceNumber>19.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>LineBreak17</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 0,
-  &quot;label&quot; : &quot;LineBreak15&quot;
-}</propertySetConfig>
-                <sequenceNumber>23.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>LineBreak18</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak15&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
                 <sequenceNumber>27.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
@@ -1995,7 +1980,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>39.0</sequenceNumber>
+                <sequenceNumber>36.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2034,12 +2019,12 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 8,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Middle Names&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>14.0</sequenceNumber>
+                <sequenceNumber>15.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2049,7 +2034,7 @@
                 <name>Mobile</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Mobile e.g. 61474977148&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -2083,7 +2068,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>21.0</sequenceNumber>
+                <sequenceNumber>20.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2114,7 +2099,7 @@
   &quot;minLength&quot; : 10,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;(614) 999-9999&quot;,
+  &quot;mask&quot; : &quot;(614) 999-99999&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-right&quot;,
   &quot;helpText&quot; : &quot;Capture this if only Mobile is unavailable&quot;,
   &quot;help&quot; : true,
@@ -2125,9 +2110,9 @@
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Phone&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>22.0</sequenceNumber>
+                <sequenceNumber>21.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2169,9 +2154,9 @@
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Postcode&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>26.0</sequenceNumber>
+                <sequenceNumber>24.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2209,7 +2194,7 @@
                 <name>State</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;State&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -2246,7 +2231,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>28.0</sequenceNumber>
+                <sequenceNumber>25.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2288,9 +2273,9 @@
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Street&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>24.0</sequenceNumber>
+                <sequenceNumber>22.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2300,7 +2285,7 @@
                 <name>Suburb</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Suburb&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -2334,7 +2319,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>25.0</sequenceNumber>
+                <sequenceNumber>23.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2397,7 +2382,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>35.0</sequenceNumber>
+                <sequenceNumber>32.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -2450,7 +2435,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>31.0</sequenceNumber>
+                <sequenceNumber>28.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -2581,7 +2566,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party country&quot;,
   &quot;controlWidth&quot; : 3
 }</propertySetConfig>
-                <sequenceNumber>45.0</sequenceNumber>
+                <sequenceNumber>42.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2622,7 +2607,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>38.0</sequenceNumber>
+                <sequenceNumber>35.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -2666,7 +2651,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>40.0</sequenceNumber>
+                <sequenceNumber>37.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2710,7 +2695,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>33.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2754,7 +2739,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party phone&quot;,
   &quot;controlWidth&quot; : 3
 }</propertySetConfig>
-                <sequenceNumber>41.0</sequenceNumber>
+                <sequenceNumber>38.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2798,7 +2783,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>44.0</sequenceNumber>
+                <sequenceNumber>41.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2845,7 +2830,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>37.0</sequenceNumber>
+                <sequenceNumber>34.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2866,11 +2851,15 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Agrees&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;CustomerDecision&quot;
+      }, {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
       } ]
     }
   },
@@ -2907,7 +2896,7 @@
   &quot;label&quot; : &quot;Does Customer wish to be represented by third party?&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-                <sequenceNumber>34.0</sequenceNumber>
+                <sequenceNumber>31.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -2954,7 +2943,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>46.0</sequenceNumber>
+                <sequenceNumber>43.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2998,7 +2987,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party street&quot;,
   &quot;controlWidth&quot; : 3
 }</propertySetConfig>
-                <sequenceNumber>42.0</sequenceNumber>
+                <sequenceNumber>39.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <isActive>true</isActive>
@@ -3719,9 +3708,9 @@
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3.0,
-  &quot;optionHeight&quot; : 100.0,
-  &quot;optionWidth&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;optionHeight&quot; : 100,
+  &quot;optionWidth&quot; : 100,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -3751,7 +3740,8 @@
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
   &quot;label&quot; : &quot;Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?&quot;,
-  &quot;controlWidth&quot; : 6.0
+  &quot;controlWidth&quot; : 6,
+  &quot;show&quot; : null
 }</propertySetConfig>
                 <sequenceNumber>2.0</sequenceNumber>
                 <type>Radio</type>
@@ -4179,7 +4169,7 @@
                 <name>custWrittenResponse</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 6.0,
+  &quot;controlWidth&quot; : 6,
   &quot;label&quot; : &quot;Has the customer requested a written response? (Do not ask the customer, only record yes if customer has specifically requested a response in writing)&quot;,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
@@ -4209,11 +4199,12 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100.0,
-  &quot;optionHeight&quot; : 100.0,
-  &quot;imageCountInRow&quot; : 3.0,
+  &quot;optionWidth&quot; : 100,
+  &quot;optionHeight&quot; : 100,
+  &quot;imageCountInRow&quot; : 3,
   &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
+  &quot;disOnTplt&quot; : false,
+  &quot;show&quot; : null
 }</propertySetConfig>
                 <sequenceNumber>1.0</sequenceNumber>
                 <type>Radio</type>
@@ -5923,7 +5914,7 @@
   },
   &quot;stylesheet&quot; : {
     &quot;newport&quot; : &quot;&quot;,
-    &quot;lightning&quot; : &quot;&quot;,
+    &quot;lightning&quot; : &quot;omniCustomCSS&quot;,
     &quot;newportRtl&quot; : &quot;&quot;,
     &quot;lightningRtl&quot; : &quot;&quot;
   },
@@ -5936,5 +5927,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>4d1e36a9-6b7f-7e53-37b5-ee0be2c00ca6</webComponentKey>
+    <webComponentKey>d449d158-3bbb-89be-9100-657fbffb59e7</webComponentKey>
 </OmniScript>

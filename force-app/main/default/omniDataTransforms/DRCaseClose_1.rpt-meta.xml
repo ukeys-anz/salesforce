@@ -384,20 +384,6 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom7369</globalKey>
-        <inputFieldName>Case:WhichAdditionalIssuesaereSystemic</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCaseClose</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Possible_Systemic_Issues__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseClose6058771135014032</globalKey>
         <inputFieldName>Case:ComplaintStatus</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
