@@ -17,6 +17,12 @@ public with sharing class GetHelpCaseActionsHelper {
     GetHelpConstants.NPP_DISPUTE_RT_ID
   };
 
+  // Set of all the dispute record Types for case closure
+  public static final Set<Id> CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS = new Set<Id> {
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID
+  };
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
@@ -518,5 +524,68 @@ public with sharing class GetHelpCaseActionsHelper {
     }
 
     return idOpsCases;
+  }
+
+  /**
+   * @description To get the Business hours being used by the Case disputes
+   * @return businesshoursId for the currently used business hours for dispute
+   */
+  public static BusinessHours getBusinessHours() {
+    if(Schema.sObjectType.BusinessHours.isQueryable()) {
+      return [SELECT Id FROM BusinessHours WHERE Name = :GetHelpConstants.ANZ_DISPUTE_BUSINESS_HOUR_NAME LIMIT 1];
+    } else {
+      return null;
+    }
+  }
+    
+  /**
+   * @description create task on case
+   * @param case record
+   * @param External_Case_Status__c Record
+   * @return task record
+   */
+  public static Task createTask(Case caseRecord, External_Case_Status__c externalCaseStatusRecord) {
+    Task newTask = new Task();
+    newTask.WhatId = caseRecord.Id;
+    newTask.WhoId = externalCaseStatusRecord.Case__r.ContactId;
+    newTask.Subject = caseRecord.Subject + ' Closure Communication Required';
+
+    // Getting Business Hours
+    Id businessHoursId;
+    if(caseRecord.BusinessHoursId != null) {
+      businessHoursId = caseRecord.BusinessHoursId;
+    } else {
+      BusinessHours businessHourDispute = getBusinessHours();
+      businessHoursId = businessHourDispute?.Id;
+    }
+
+    if(businessHoursId != null) {
+      // Add 3 business days to the task
+      Integer numberOfDays = 0;
+      Datetime prevDate = System.now();
+      Datetime nextDate;
+      while(numberOfDays < 3) {
+        nextDate = BusinessHours.nextStartDate(businessHoursId, prevDate);
+        if(nextDate.isSameDay(prevDate)) {
+          nextDate = BusinessHours.add(businessHoursId, nextDate, 86400000);
+        }
+        if(BusinessHours.isWithin(businessHoursId, nextDate)) {
+          numberOfDays++;
+        }
+        prevDate = nextDate; 
+      }
+      // Datetime dueDate = BusinessHours.add(businessHourDispute.Id, System.now(), 259200000);
+      newTask.ActivityDate = nextDate.date();
+    } else {
+      newTask.ActivityDate = System.today() + 1;
+    }
+    newTask.Description = GetHelpConstants.TASK_EMAIL_DESCRIPTION;
+    newTask.PEGA_Case_Status__c = externalCaseStatusRecord.External_Status__c;
+
+    Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
+    newTask.OwnerId = queueMap.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
+    newTask.RecordTypeId = GetHelpConstants.TASK_EMAIL_RT;
+    newTask.Case__c = caseRecord.Id;
+    return newTask;
   }
 }

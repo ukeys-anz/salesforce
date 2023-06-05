@@ -910,4 +910,37 @@ public with sharing class GetHelpCaseActions {
 
     DMLUtil.updateRecords(idOpsCases, false, true);
   }
+   
+  /**
+  * @description create task on case closure 
+  * @param records Case records from trigger
+  */
+  public static void createTaskOnDisputeCaseClosure(List<Case> records) {
+    List<Task> taskList = new List<Task>();
+    Map<Id, Case> mapClosedCases = new Map<Id, Case>();
+    List<Case> closedCases = [SELECT Id, AccountId, Subject, BusinessHoursId, LastModifiedBy.Profile.Name, IsClosed, RecordTypeId FROM Case WHERE Id IN :records];
+    for(Case record: closedCases) {
+      if(GetHelpCaseActionsHelper.CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS.contains(record.RecordTypeId) &&
+        !record.LastModifiedBy.Profile.Name.endsWith('Standard User') && record.IsClosed
+      ) {
+        mapClosedCases.put(record.Id, record);
+      }
+    }
+    
+    if(Schema.sObjectType.External_Case_Status__c.isQueryable()) {
+      for(External_Case_Status__c  externalCaseStatus: [SELECT Id, External_Status__c, Case__c, Case__r.ContactId FROM External_Case_Status__c WHERE Case__c IN :mapClosedCases.keySet()]) {
+        if(externalCaseStatus.External_Status__c == 'Resolved-WriteOff' || 
+          externalCaseStatus.External_Status__c == 'Resolved-AcqAccepted' ||
+          externalCaseStatus.External_Status__c == 'Resolved-AcquirerLiable' ||
+          externalCaseStatus.External_Status__c == 'Resolved-Duplicate' ||
+          externalCaseStatus.External_Status__c == 'Resolved-PreArbAccepted' ||
+          externalCaseStatus.External_Status__c == 'Resolved-PreArbGranted') {
+            taskList.add(GetHelpCaseActionsHelper.createTask(mapClosedCases.get(externalCaseStatus.Case__c), externalCaseStatus));
+          }   
+      }
+    }
+    if(!taskList.isEmpty()) {
+      DMLUtil.insertRecords(taskList, false, true);
+    }
+  }
 }

@@ -66,6 +66,7 @@ private class CaseTriggerHandlerTest {
       // Assign related PSs
       List<String> coachPSs = new List<String>{
         'Case_Read_Write_Get_Help',
+        'Case_Read_Write_Dispute',
         'Customer_Read_Only',
         'Quality_Assessment_Read_Only',
         'Case_Read_Write_Non_Customer_Complaints'
@@ -150,6 +151,38 @@ private class CaseTriggerHandlerTest {
         idrPsaList.add(psa);
       }
       insert idrPsaList;
+
+      // Create an Integration User
+      Profile profileIntegration = CommonUtil.getProfileByName('Integration User');
+      UserRole roleAnz = CommonUtil.getUserRoleByDevName('ANZ');
+      User integrationUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'IntegrationTest',
+          'ProfileId' => profileIntegration.Id,
+          'UserRoleId' => roleAnz.Id
+        }
+      );
+      insert integrationUser;
+
+      // Assign related PSs
+      List<String> integrationPsets = new List<String>{
+        'View_And_Edit_Task',
+        'Case_Read_Write_Get_Help',
+        'Case_Read_Write_Dispute',
+        'Read_Only_Admin'
+      };
+
+      List<PermissionSet> integrationPsList = [
+        SELECT Id
+        FROM PermissionSet
+        WHERE Name IN :integrationPsets
+      ];
+
+      List<PermissionSetAssignment> integrationPsaList = new List<PermissionSetAssignment>();
+      for (PermissionSet ps : integrationPsList) {
+        integrationPsaList.add(TestUtil.createPSAssignment(integrationUser.Id, ps.Id));
+      }
+      insert integrationPsaList;
     }
     insertTestAccountsForDisputeCases();
   }
@@ -2516,8 +2549,10 @@ private class CaseTriggerHandlerTest {
   private static void insertTestAccountsForDisputeCases() {
     List<Account> accountList = new List<Account>();
     Account newAccount1 = TestDataFactory.createTestAccountForDisputeCases('1');
+    newAccount1.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('IndustriesIndividual').getRecordTypeId();
     accountList.add(newAccount1);
     Account newAccount2 = TestDataFactory.createTestAccountForDisputeCases('2');
+    newAccount2.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('IndustriesIndividual').getRecordTypeId();
     accountList.add(newAccount2);
     insert accountList;
     List<FinServ__FinancialAccount__c> finServFinancialAccountList = new List<FinServ__FinancialAccount__c>();
@@ -2973,5 +3008,93 @@ private class CaseTriggerHandlerTest {
       FROM Case
       WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
     ];
+  }
+
+  @isTest
+  static void testEmailTaskOnCaseClosureCreation() {
+    User usr = TestUtil.getUserByFirstName('IntegrationTest');
+    Case theCase;
+    System.runAs(usr) {
+      String recordTypeDeveloperName = 'Card_Dispute';
+      List<Account> accountsList = [SELECT Id, OCV_ID__c FROM Account WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')];
+      Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
+      for(Account account : accountsList) {
+        ocvIDAndAccountMap.put(account.OCV_ID__c, account);
+      }
+      List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c FROM FinServ__FinancialAccount__c WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')];
+      Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+      for (FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList) {
+        ocvIDAndFinSerAccountMap.put(finServFinancialAccount.OCV_ID__c,finServFinancialAccount);
+      }
+
+      theCase = TestDataFactory.createCase(recordTypeDeveloperName);
+      theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
+      theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get('OCV000000001').Id;
+      theCase.External_System__c = 'Pega_Smarts';
+      theCase.External_Case_ID__c = 'C-1234';
+      insert theCase;
+
+      External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
+        Case__c = theCase.Id,
+        External_Status__c = 'Resolved-WriteOff',
+        Status_Event_ID__c = 'Status_Event_ID',
+        Result_Code__c = 'Result_Code',
+        Result_Message__c = 'Result_Message'
+      );
+      insert externalCaseStatus;
+
+      Test.startTest();
+        theCase.Status = 'Closed';
+        update theCase;
+      Test.stopTest();
+    }
+
+    String taskRecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName().get('Email_Task').getRecordTypeId();
+    Task tsk = [SELECT Id, Description FROM Task WHERE WhatId = :theCase.Id AND RecordTypeId = :taskRecordTypeId LIMIT 1];
+    Assert.areEqual(GetHelpConstants.TASK_EMAIL_DESCRIPTION, tsk.Description, 'Description should be ' + GetHelpConstants.TASK_EMAIL_DESCRIPTION);
+  }
+
+  @isTest
+  static void testEmailTaskOnCaseClosureCreationNegative() {
+    String recordTypeDeveloperName = 'Card_Dispute';
+    List<Account> accountsList = [SELECT Id, OCV_ID__c FROM Account WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')];
+    Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
+    for(Account account : accountsList) {
+      ocvIDAndAccountMap.put(account.OCV_ID__c, account);
+    }
+    List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c FROM FinServ__FinancialAccount__c WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')];
+    Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList) {
+      ocvIDAndFinSerAccountMap.put(finServFinancialAccount.OCV_ID__c,finServFinancialAccount);
+    }
+
+    User usr = TestUtil.getUserByFirstName('IntegrationTest');
+    Case theCase;
+    System.runAs(usr) {
+      theCase = TestDataFactory.createCase(recordTypeDeveloperName);
+      theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
+      theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get('OCV000000001').Id;
+      theCase.External_System__c = 'Pega_Smarts';
+      theCase.External_Case_ID__c = 'C-1234';
+      insert theCase;
+
+      External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
+        Case__c = theCase.Id,
+        External_Status__c = 'Resolved-SystemClosure',
+        Status_Event_ID__c = 'Status_Event_ID',
+        Result_Code__c = 'Result_Code',
+        Result_Message__c = 'Result_Message'
+      );
+      insert externalCaseStatus;
+
+      Test.startTest();
+        theCase.Status = 'Closed';
+        update theCase;
+      Test.stopTest();
+    }
+
+    String taskRecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName().get('Email_Task').getRecordTypeId();
+    List<Task> taskList = [SELECT Id, Description FROM Task WHERE WhatId = :theCase.Id AND RecordTypeId = :taskRecordTypeId];
+    Assert.isTrue(taskList.isEmpty(), 'No Task should be created');
   }
 }
