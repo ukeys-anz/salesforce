@@ -18,7 +18,7 @@ public with sharing class GetHelpCaseActionsHelper {
   };
 
   // Set of all the dispute record Types for case closure
-  public static final Set<Id> CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS = new Set<Id> {
+  public static final Set<Id> CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS = new Set<Id>{
     GetHelpConstants.ATM_DISPUTE_RT_ID,
     GetHelpConstants.CARD_DISPUTE_RT_ID
   };
@@ -531,20 +531,28 @@ public with sharing class GetHelpCaseActionsHelper {
    * @return businesshoursId for the currently used business hours for dispute
    */
   public static BusinessHours getBusinessHours() {
-    if(Schema.sObjectType.BusinessHours.isQueryable()) {
-      return [SELECT Id FROM BusinessHours WHERE Name = :GetHelpConstants.ANZ_DISPUTE_BUSINESS_HOUR_NAME LIMIT 1];
+    if (Schema.sObjectType.BusinessHours.isQueryable()) {
+      return [
+        SELECT Id
+        FROM BusinessHours
+        WHERE Name = :GetHelpConstants.ANZ_DISPUTE_BUSINESS_HOUR_NAME
+        LIMIT 1
+      ];
     } else {
       return null;
     }
   }
-    
+
   /**
    * @description create task on case
    * @param caseRecord case record
    * @param externalCaseStatusRecord External_Case_Status__c Record
    * @return task record
    */
-  public static Task createTask(Case caseRecord, External_Case_Status__c externalCaseStatusRecord) {
+  public static Task createTask(
+    Case caseRecord,
+    External_Case_Status__c externalCaseStatusRecord
+  ) {
     Task newTask = new Task();
     newTask.WhatId = caseRecord.Id;
     newTask.WhoId = externalCaseStatusRecord.Case__r.ContactId;
@@ -552,27 +560,27 @@ public with sharing class GetHelpCaseActionsHelper {
 
     // Getting Business Hours
     Id businessHoursId;
-    if(caseRecord.BusinessHoursId != null) {
+    if (caseRecord.BusinessHoursId != null) {
       businessHoursId = caseRecord.BusinessHoursId;
     } else {
       BusinessHours businessHourDispute = getBusinessHours();
       businessHoursId = businessHourDispute?.Id;
     }
 
-    if(businessHoursId != null) {
+    if (businessHoursId != null) {
       // Add 3 business days to the task
       Integer numberOfDays = 0;
       Datetime prevDate = System.now();
       Datetime nextDate;
-      while(numberOfDays < 3) {
+      while (numberOfDays < 3) {
         nextDate = BusinessHours.nextStartDate(businessHoursId, prevDate);
-        if(nextDate.isSameDay(prevDate)) {
+        if (nextDate.isSameDay(prevDate)) {
           nextDate = BusinessHours.add(businessHoursId, nextDate, 86400000);
         }
-        if(BusinessHours.isWithin(businessHoursId, nextDate)) {
+        if (BusinessHours.isWithin(businessHoursId, nextDate)) {
           numberOfDays++;
         }
-        prevDate = nextDate; 
+        prevDate = nextDate;
       }
       // Datetime dueDate = BusinessHours.add(businessHourDispute.Id, System.now(), 259200000);
       newTask.ActivityDate = nextDate.date();
