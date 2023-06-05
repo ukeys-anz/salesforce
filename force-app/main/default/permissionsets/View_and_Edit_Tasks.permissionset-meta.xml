@@ -373,11 +373,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Task.IsVisibleInSelfService</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Task.Lead_Quality__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -439,16 +434,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.Task_Sub_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.TwilioSF__Message_SID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.TwilioSF__To_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
