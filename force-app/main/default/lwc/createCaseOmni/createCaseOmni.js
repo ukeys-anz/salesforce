@@ -118,8 +118,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.checkFields(details, this.omniJsonData.sysIssueMap);
     if (details.CAC) this.checkFields(details, this.omniJsonData.cacMap);
     if (
-      itype === "9" &&
-      subtype === "61" &&
+      itype === "Service quality" &&
+      subtype === "Failure to properly respond to complaint" &&
       (details.ComplaintStatus === "Closed" ||
         details.ComplaintStatus === "Provisionally Closed")
     ) {
