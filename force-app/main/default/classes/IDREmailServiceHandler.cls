@@ -54,21 +54,14 @@ public with sharing class IDREmailServiceHandler {
     List<Case> caseToUpdList;
     Task[] assiTasks = new List<Task>();
     if (Case.SObjectType.getDescribe().isQueryable()) {
-      String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' ';
-      if (
-        fromEmail != System.Label.XpressionSenderAddress &&
-        senderEmail != System.Label.XpressionRecepientInboxAddress
-      ) {
-        queryString = queryString + 'AND SuppliedEmail = :fromEmail ';
-      }
-      queryString = queryString + 'LIMIT 1';
+      String queryString = 'SELECT Id, CaseNumber, OwnerId, IDR_NC_First_Name__c, IDR_NC_Last_Name__c FROM Case WHERE CaseNumber = :caseNo AND Status != \'Closed\' AND Status!= \'Provisionally Closed\' AND Status != \'Resolved\' LIMIT 1';
       caseToUpdList = Database.query(queryString);
     }
     if (caseToUpdList.size() > 0) {
       caseToUpd = caseToUpdList[0];
 
       //Create email message
-      IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id);
+      IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id, caseNo);
       //Notify Case Owner
       if (fromEmail != System.Label.XpressionSenderAddress) {
         IDRBankerNotificationBuilder.sendNotification(
@@ -93,7 +86,7 @@ public with sharing class IDREmailServiceHandler {
         IDRTaskActions.insertAssignmentTask(assiTasks);
       }
       //Create files from attachments
-      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id);
+      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id, caseNo);
 
       return false;
     } else {
@@ -122,8 +115,8 @@ public with sharing class IDREmailServiceHandler {
       caseOrigin
     );
     if (newCase.Id != null) {
-      IDREmailServiceHelper.createEmailMessage(email, newCase.Id);
-      IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id);
+      IDREmailServiceHelper.createEmailMessage(email, newCase.Id, 'New');
+      IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id, 'New');
       IDREmailServiceHelper.updateCaseWithQueue(
         newCase,
         'Queue',

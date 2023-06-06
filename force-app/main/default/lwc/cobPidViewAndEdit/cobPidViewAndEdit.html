@@ -2,13 +2,13 @@
   <div class="slds-is-relative">
     <!-- sldsValidatorIgnoreNextLine -->
     <lightning-quick-action-panel header={panelHeader}>
-      <div if:false={isLoaded}>
+      <div lwc:if={isLoading}>
         <lightning-spinner alternative-text="Loading..." variant="brand">
         </lightning-spinner>
       </div>
 
       <div class="slds-var-p-around_xx-small">
-        <template if:true={reachedEditLimit}>
+        <template lwc:if={reachedEditLimit}>
           <div
             class="slds-box slds-box_x-small slds-notify slds-notify_alert slds-var-m-bottom_medium"
             role="alert"
@@ -187,11 +187,11 @@
             </lightning-layout>
           </div>
 
-          <template if:true={showNumberFields}>
+          <template lwc:if={showNumberFields}>
             <div class="slds-var-m-vertical_large">
               <lightning-layout multiple-rows>
                 <!-- ------------------------------------------ Licence Type ------------------------------------------ -->
-                <template if:true={isLicenceType}>
+                <template lwc:if={isLicenceType}>
                   <!-- ------------------------------------------ Licence Number ------------------------------------------ -->
                   <lightning-layout-item size="4">
                     <lightning-layout
@@ -365,7 +365,7 @@
                 </template>
 
                 <!-- ------------------------------------------ Passport Type ------------------------------------------ -->
-                <template if:true={isPassportType}>
+                <template lwc:if={isPassportType}>
                   <!-- ------------------------------------------ Passport Number ------------------------------------------ -->
                   <lightning-layout-item size="6">
                     <lightning-layout
@@ -539,7 +539,7 @@
           label="Close"
           onclick={handleClose}
         ></lightning-button>
-        <template if:true={allowEdit}>
+        <template lwc:if={allowEdit}>
           <lightning-button
             class="slds-var-m-left_x-small"
             variant="brand"

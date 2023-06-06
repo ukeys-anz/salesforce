@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission Set Group having all Permission Sets related to Join Lead functions.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Join Lead</label>
+    <permissionSets>Author_Reports_and_Dashboards</permissionSets>
+    <permissionSets>Export_Reports</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

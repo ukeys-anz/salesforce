@@ -3,7 +3,7 @@
  * @since Nov 2021
  * @description Transaction security policy to block/notify different events and according different conditions
  */
-global with sharing class TSPHandler implements TxnSecurity.EventCondition {
+global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnSecurity.AsyncCondition {
   /**
    * @description Used to check what is the event that has been triggered and
    * according to that, will run the private evaluation method
@@ -25,6 +25,10 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
       when ReportAnomalyEvent reportAnomalyEventStore {
         eventName = 'Report Anomaly event';
         uId = reportAnomalyEventStore.UserId;
+      }
+      when ApiEvent refreshTokenQueriedEvent {
+        eventName = 'Block RefreshToken Queried APIEvent';
+        uId = refreshTokenQueriedEvent.userId;
       }
       when null {
         return false;
@@ -56,8 +60,8 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition {
       ];
       String username = u.Username;
       String profileName = u.Profile.Name;
+      Boolean condition = TSPCondition.condition(userId, profileName, event);
 
-      Boolean condition = TSPCondition.condition(profileName, event);
       if (condition) {
         Logger.error(
           eventName +

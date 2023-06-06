@@ -55,28 +55,18 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
    * @description Inner Wrapper Class for the account data of All Dispute Cases
    */
   public class AccountModel {
-    public String recordId { get; set; }
     public String ocvId { get; set; }
     public String sourceSystem { get; set; }
     public String sourceSystemId { get; set; }
-    public String email { get; set; }
-    public String mobile { get; set; }
-    public String firstName { get; set; }
-    public String lastName { get; set; }
 
     /**
      * @description get an instance of AccountModel
      * @param theCase the Case record
      */
     public AccountModel(Account theAccount) {
-      this.recordId = theAccount?.Id;
       this.ocvId = theAccount?.OCV_ID__c;
       this.sourceSystem = theAccount?.Source_System_Name__c;
       this.sourceSystemId = theAccount?.Source_System_ID__c;
-      this.email = theAccount?.PersonEmail;
-      this.mobile = theAccount?.PersonMobilePhone;
-      this.firstName = theAccount?.firstName;
-      this.lastName = theAccount?.lastName;
     }
   }
 
@@ -84,7 +74,6 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
    * @description Inner Wrapper Class for the financial account data of All Dispute Cases
    */
   public class FinancialAccountModel {
-    public String recordId { get; set; }
     public String bsb { get; set; }
     public String accountNumber { get; set; }
 
@@ -93,7 +82,6 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
      * @param theCase the Case record
      */
     public FinancialAccountModel(Case theCase) {
-      this.recordId = theCase.FinServ__FinancialAccount__c;
       this.bsb = theCase.Customer_Account_BSB__c;
       this.accountNumber = theCase.Customer_Account_Number__c;
     }

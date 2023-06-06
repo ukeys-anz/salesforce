@@ -171,6 +171,7 @@
     "Coaching_Summary__c": "Captures all the summaries created by the coaches against one or many Appointment Interactions.",
     "COBAddress__c": "A structured address compatible with both QAS lookup results and manual entry by the prospect",
     "COBCitizenship__c": "The details of a single citizenship in a country/region",
+    "COBIDVSearchResult__c": "The data source details in the IDV search result of the COB Application",
     "COBPrimaryIDDocument__c": "The details submitted for a primary document (licence or passport), including the original OCR extractions which may have been edited",
     "COBTaxResidency__c": "The details of a single tax residency in a country/region",
     "Contact": "Contact details of an individual person. Forms part of a person account",
@@ -250,6 +251,7 @@
         "Source_System_ID__c",
         "Source_System_Name__c",
         "Survivor_Party_ID__c",
+        "Temporary_External_Id__c",
         "CreatedById",
         "CreatedDate",
         "Id",
@@ -324,6 +326,7 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
         "Queue__c",
         "SI_Other_Tribe_BU__c",
@@ -333,6 +336,8 @@
       "IA-2460507": ["Interaction_Owner__c"],
       "IA-2468715": ["Voice_Call_SID__c"],
       "IA-2415860": [
+        "Case_Owner__c",
+        "Cases_Related_To_Team__c",
         "Lead_Quality__c",
         "Lead__c",
         "Outcome_Reason__c",
@@ -502,6 +507,7 @@
         "SI_Assigned_to_Portfolios__c",
         "SI_Business_Contacts__c",
         "IDR_Date_Received__c",
+        "IDR_Document_Count__c",
         "IDR_Parent_Systemic_Issue__c",
         "IDR_Datetime_PSI_Ticked__c",
         "IDR_Express_CMOS_Complaint__c",
@@ -864,6 +870,13 @@
         "Privacy_Classification__c",
         "Residential_Loan_Id__c",
         "Security_Classification__c"
+      ],
+      "IA-2468715": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
       ]
     },
     "CFMS_Migrated_Document__c": {
@@ -953,6 +966,17 @@
         "LastModifiedById",
         "LastModifiedDate",
         "Name"
+      ]
+    },
+    "COBIDVSearchResult__c": {
+      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2594111": [
+        "MatchIndicator__c",
+        "PersonaDataSource__c",
+        "PersonaId__c",
+        "SearchName__c",
+        "SearchResultDetail__c",
+        "CustomerOnboardingApplication__c"
       ]
     },
     "COBPrimaryIDDocument__c": {
@@ -1197,7 +1221,9 @@
       "IA-2415860": [
         "OccurredAt__c",
         "CXOnboardingStage__c",
+        "CXOnboardingStageChangeReason__c",
         "CXOnboardingAction__c",
+        "OnboardingAttemptCount__c",
         "OnboardingEvent__c",
         "SecurityDetailsSubmittedAt__c",
         "TncAcceptedAt__c",
@@ -1236,7 +1262,16 @@
         "EquifaxCRAResult__c",
         "EquifaxOverallResult__c"
       ],
-      "IA-2530753": ["OwnerId", "CreatedById", "LastModifiedById", "Name"]
+      "IA-2530753": [
+        "OwnerId",
+        "CreatedById",
+        "LastModifiedById",
+        "Name",
+        "CreatedDate",
+        "Id",
+        "LastModifiedDate",
+        "VerificationType__c"
+      ]
     },
 
     "Customer_Profile_Updates__c": {
@@ -1375,6 +1410,7 @@
         "FinServ__Role__c",
         "FinServ__SourceSystemId__c",
         "FinServ__StartDate__c",
+        "Temporary_External_Id__c",
         "CreatedById",
         "CreatedDate",
         "Id",
@@ -2230,6 +2266,7 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
         "Priority",
         "Queue__c",
@@ -2259,8 +2296,11 @@
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
-        "Skip_Validations__c"
-      ]
+        "Skip_Validations__c",
+        "Case_Owner__c",
+        "Cases_Related_To_Team__c"
+      ],
+      "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"]
     },
     "Traced_Application_Log__b": {
       "IA-2468710": [
@@ -2469,7 +2509,8 @@
         "LastModifiedDate"
       ],
       "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
-      "IA-2415855": ["FinServ__ReferrerScore__c"]
+      "IA-2415855": ["FinServ__ReferrerScore__c"],
+      "IA-2432460": ["Refresh_Token__c"]
     }
   }
 }

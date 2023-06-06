@@ -8,18 +8,18 @@
     {title}
   </h1>
   <article class="card-article slds-card">
-    <div if:true={isLoading}>
+    <div lwc:if={isLoading}>
       <lightning-spinner alternative-text="Loading..." variant="brand">
       </lightning-spinner>
     </div>
-    <div if:false={isLoading}>
-      <template if:true={error}>
+    <div lwc:else>
+      <template lwc:if={error}>
         <c-error message={error} data-id="error"></c-error>
       </template>
-      <template if:false={error}>
-        <template if:true={displayRecords}>
+      <template lwc:else>
+        <template lwc:if={displayRecords}>
           <div class="div-data-table">
-            <template if:true={showSpinner}>
+            <template lwc:if={showSpinner}>
               <lightning-spinner
                 alternative-text="Launching Preview"
               ></lightning-spinner>
@@ -41,7 +41,7 @@
             </c-custom-datatable>
           </div>
 
-          <template if:true={objectApiName}>
+          <template lwc:if={objectApiName}>
             <footer class="slds-card__footer">
               <a
                 class="slds-card__footer-action"
@@ -54,7 +54,7 @@
           </template>
         </template>
 
-        <template if:false={displayRecords}>
+        <template lwc:else>
           <div class="div-no-files slds-align_absolute-center">
             There are currently no files
           </div>

@@ -3,12 +3,13 @@
     <fullName>IDR_Subsequent_Issue__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Privacy_Non_Personal_Information;Source_Salesforce;Integrity_Trusted</complianceGroup>
+    <description>Sub categorisation of issue</description>
     <externalId>false</externalId>
     <label>Subsequent Issue Type</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -540,7 +541,7 @@
                 <default>false</default>
                 <label>Investment Performance</label>
             </value>
-             <value>
+            <value>
                 <fullName>101</fullName>
                 <default>false</default>
                 <label>Fees and Charges</label>
@@ -961,7 +962,7 @@
             <valueName>56</valueName>
         </valueSettings>
         <valueSettings>
-        <controllingFieldValue>12</controllingFieldValue>
+            <controllingFieldValue>12</controllingFieldValue>
             <controllingFieldValue>11</controllingFieldValue>
             <valueName>10</valueName>
         </valueSettings>

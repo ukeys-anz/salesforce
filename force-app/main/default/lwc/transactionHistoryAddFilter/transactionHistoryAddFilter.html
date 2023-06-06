@@ -18,7 +18,7 @@
         </lightning-combobox>
       </div>
     </div>
-    <template if:true={normalInput}>
+    <template lwc:if={normalInput}>
       <div
         class="slds-grid slds-m-left_small slds-m-bottom_small slds-m-right_x-small"
       >
@@ -30,7 +30,7 @@
         />
       </div>
     </template>
-    <template if:true={isDate}>
+    <template lwc:if={isDate}>
       <div
         class="slds-grid slds-m-left_small slds-m-bottom_small slds-m-right_x-small"
       >

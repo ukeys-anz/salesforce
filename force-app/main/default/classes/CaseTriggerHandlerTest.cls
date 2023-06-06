@@ -835,86 +835,6 @@ private class CaseTriggerHandlerTest {
   }
 
   @isTest
-  static void testRollupRelatedBugOnInsert() {
-    insert new Reported_Bug__c(Name = 'Test Bug');
-    Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
-    .Id;
-    Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
-    List<Case> newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          Related_Bug__c = bugId,
-          RecordTypeId = GetHelpConstants.BUG_RT_ID,
-          AccountId = accountId
-        )
-      );
-    }
-
-    Test.startTest();
-    insert newCases;
-    Test.stopTest();
-
-    Decimal relatedCaseNumber = [
-      SELECT Number_of_Related_Cases__c
-      FROM Reported_Bug__c
-      WHERE Name = 'Test Bug'
-      LIMIT 1
-    ]
-    .Number_of_Related_Cases__c;
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      relatedCaseNumber,
-      'Incorrect reported bug rollup value'
-    );
-  }
-
-  @isTest
-  static void testRollupRelatedBugOnUpdate() {
-    insert new Reported_Bug__c(Name = 'Test Bug');
-    Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
-    .Id;
-    Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
-    List<Case> newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          Related_Bug__c = bugId,
-          RecordTypeId = GetHelpConstants.BUG_RT_ID,
-          AccountId = accountId
-        )
-      );
-    }
-    insert newCases;
-
-    Case updateCase = new Case(
-      RecordTypeId = GetHelpConstants.BUG_RT_ID,
-      AccountId = accountId
-    );
-    insert updateCase;
-
-    CheckRecursive.firstCall = false;
-
-    Test.startTest();
-    updateCase.Related_Bug__c = bugId;
-    update updateCase;
-    Test.stopTest();
-
-    Decimal relatedCaseNumber = [
-      SELECT Number_of_Related_Cases__c
-      FROM Reported_Bug__c
-      WHERE Name = 'Test Bug'
-      LIMIT 1
-    ]
-    .Number_of_Related_Cases__c;
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size) + 1,
-      relatedCaseNumber,
-      'Incorrect reported bug rollup value'
-    );
-  }
-
-  @isTest
   static void testRollupRelatedBugOnDelete() {
     insert new Reported_Bug__c(Name = 'Test Bug');
     Id bugId = [SELECT Id FROM Reported_Bug__c WHERE Name = 'Test Bug' LIMIT 1]
@@ -2642,11 +2562,6 @@ private class CaseTriggerHandlerTest {
     );
 
     System.assertEquals(
-      theCase.Id,
-      atmDisputeCaseCloudEventDataModel.recordId,
-      'External Case Status Id should match'
-    );
-    System.assertEquals(
       theCase.CaseNumber,
       atmDisputeCaseCloudEventDataModel.caseNumber,
       'Case Number should match'
@@ -2700,11 +2615,7 @@ private class CaseTriggerHandlerTest {
       JSON.serialize(mappedResponse2),
       CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel.class
     );
-    System.assertEquals(
-      theCase.Id,
-      cardDisputeCaseCloudEventDataModel.recordId,
-      'External Case Status Id should match'
-    );
+
     System.assertEquals(
       theCase.CaseNumber,
       cardDisputeCaseCloudEventDataModel.caseNumber,

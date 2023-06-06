@@ -171,7 +171,7 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   @isTest
-  static void testGetPayloadIdOpsDaonApproved() {
+  static void testGetCaseWorkflowPayloadIdOpsDaonApproved() {
     Faker faker = new Faker('AU');
     Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
     Case newCase = new Case(
@@ -181,7 +181,7 @@ public inherited sharing class StravinskyServiceTest {
     );
 
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
-    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+    String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
@@ -194,7 +194,7 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   @isTest
-  static void testGetPayloadIdOpsEmpty() {
+  static void testGetCaseWorkflowPayloadIdOpsEmpty() {
     Faker faker = new Faker('AU');
     Case newCase = new Case(
       ParentId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
@@ -203,7 +203,7 @@ public inherited sharing class StravinskyServiceTest {
     );
 
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
-    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+    String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
 
     Assert.areEqual(
       StravinskyService.EMPTY_BODY,
@@ -213,7 +213,7 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   @isTest
-  static void testGetPayloadFraudCheckDaonApproved() {
+  static void testGetCaseWorkflowPayloadFraudCheckDaonApproved() {
     Faker faker = new Faker('AU');
     Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
     Case newCase = new Case(
@@ -223,7 +223,7 @@ public inherited sharing class StravinskyServiceTest {
     );
 
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
-    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+    String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
@@ -236,7 +236,7 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   @isTest
-  static void testGetPayloadFraudCheckEmpty() {
+  static void testGetCaseWorkflowPayloadFraudCheckEmpty() {
     Faker faker = new Faker('AU');
     Case newCase = new Case(
       ParentId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
@@ -245,7 +245,7 @@ public inherited sharing class StravinskyServiceTest {
     );
 
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
-    String payload = temporalCaseWorkflowAPI.getPayload(newCase);
+    String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
 
     Assert.areEqual(
       StravinskyService.EMPTY_BODY,
@@ -446,6 +446,109 @@ public inherited sharing class StravinskyServiceTest {
     Assert.areEqual(401, response.statusCode, 'Status code should be 401.');
   }
 
+  @isTest
+  static void testRetrieveDetokenizedCOBTaxResidencySuccess() {
+    Faker faker = new Faker('AU');
+    String personaId = faker.randomString(10);
+
+    COBTaxResidency__c taxResidency = new COBTaxResidency__c(
+      PersonaId__c = personaId,
+      TaxIdentificationNumber__c = '123456789'
+    );
+
+    //load forge staff token
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART +
+      'forgeJWTToken' +
+      personaId,
+      AuthServiceTest.IDTESTVALUE
+    );
+
+    Test.setMock(
+      HttpCalloutMock.class,
+      new MockRetrieveDetokenizedCOBTaxResidencySuccess()
+    );
+
+    Test.startTest();
+    StravinskyService stravinskyService = new StravinskyService();
+    HttpCalloutResponse response = stravinskyService.detokenizeCOBTaxResidency(
+      taxResidency
+    );
+    Test.stopTest();
+
+    Assert.areNotEqual(
+      null,
+      response.body,
+      'Response body should not be null.'
+    );
+
+    Assert.areEqual(
+      StravinskyServiceMock.DETOKENIZED_COB_TAX_RESIDENCY_SUCCESS_RESPONSE,
+      response.body,
+      'Response is not correct.'
+    );
+  }
+
+  @isTest
+  static void testRetrieveDetokenizedCOBTaxResidencyFailure() {
+    Faker faker = new Faker('AU');
+    String personaId = faker.randomString(10);
+
+    COBTaxResidency__c taxResidency = new COBTaxResidency__c(
+      PersonaId__c = personaId,
+      TaxIdentificationNumber__c = '123456789'
+    );
+
+    //load forge staff token
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART +
+      'forgeJWTToken' +
+      personaId,
+      AuthServiceTest.IDTESTVALUE
+    );
+
+    Test.setMock(
+      HttpCalloutMock.class,
+      new MockRetrieveDetokenizedCOBTaxResidencyFailure()
+    );
+
+    Test.startTest();
+    StravinskyService stravinskyService = new StravinskyService();
+    HttpCalloutResponse response = stravinskyService.detokenizeCOBTaxResidency(
+      taxResidency
+    );
+    Test.stopTest();
+
+    Assert.areEqual(401, response.statusCode, 'Status code should be 401.');
+  }
+
+  @isTest
+  static void testGetDetokenizePayload() {
+    COBTaxResidency__c taxResidency = new COBTaxResidency__c(
+      TaxIdentificationNumber__c = '123456789'
+    );
+
+    StravinskyService stravinskyService = new StravinskyService();
+    String payload = stravinskyService.getDetokenizePayload(taxResidency);
+
+    Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
+    Assert.areEqual(
+      '{' +
+      '\"values\":[' +
+      '{' +
+      '\"transform\":\"' +
+      COBTaxResidencyModel.TIN_TRANSFORM +
+      '",' +
+      '\"tokenized":\"' +
+      taxResidency.TaxIdentificationNumber__c +
+      '"}' +
+      ']' +
+      '}',
+      payload,
+      'Payload is not correct.'
+    );
+  }
+
   class MockClosePackageSuccess implements HttpCalloutMock {
     /**
      * @description mock response for callout
@@ -454,8 +557,6 @@ public inherited sharing class StravinskyServiceTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-
-      String body = req.getBody();
 
       res.setStatusCode(200);
       res.setBody(SUCCESS_CLOSE_PACKAGE_RESPONSE);
@@ -492,8 +593,6 @@ public inherited sharing class StravinskyServiceTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
-      String body = req.getBody();
-
       res.setStatusCode(200);
       res.setBody(TEMPORAL_CASE_WORKFLOW_TRIGGER_RESPONSE_SUCCESS);
 
@@ -528,8 +627,6 @@ public inherited sharing class StravinskyServiceTest {
      */
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
-
-      String body = req.getBody();
 
       res.setStatusCode(200);
       res.setHeader('Content-Type', 'application/json');
@@ -569,11 +666,9 @@ public inherited sharing class StravinskyServiceTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
 
-      String body = req.getBody();
-
       res.setStatusCode(200);
       res.setHeader('Content-Type', 'application/json');
-      res.setBody(StravinskyServiceMock.SUCCESS_TOENIZING_COBPID_RESPONSE);
+      res.setBody(StravinskyServiceMock.SUCCESS_TOKENIZING_COBPID_RESPONSE);
 
       return res;
     }
@@ -591,6 +686,44 @@ public inherited sharing class StravinskyServiceTest {
       res.setStatusCode(401);
       res.setHeader('Content-Type', 'application/json');
       res.setBody(StravinskyServiceMock.FAILURE_TOKENIZING_COBPID_RESPONSE);
+
+      return res;
+    }
+  }
+
+  class MockRetrieveDetokenizedCOBTaxResidencySuccess implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse success response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody(
+        StravinskyServiceMock.DETOKENIZED_COB_TAX_RESIDENCY_SUCCESS_RESPONSE
+      );
+
+      return res;
+    }
+  }
+
+  class MockRetrieveDetokenizedCOBTaxResidencyFailure implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+
+      res.setStatusCode(401);
+      res.setHeader('Content-Type', 'application/json');
+      res.setBody(
+        StravinskyServiceMock.DETOKENIZED_COB_TAX_RESIDENCY_FAILURE_RESPONSE
+      );
 
       return res;
     }

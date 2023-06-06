@@ -1,70 +1,69 @@
 ({
   doInit: function (component, event, helper) {
-    var action = component.get("c.getAccount");
+    var action = component.get("c.getAegisUrl");
+    //Passing parameters
     action.setParams({
-      accountId: component.get("v.recordId") //Passing parameter
+      recordId: component.get("v.recordId"),
+      objectType: component.get("v.objectType")
     });
     action.setCallback(this, function (response) {
       var state = response.getState();
       if (state === "SUCCESS") {
         var result = JSON.stringify(response.getReturnValue());
-        var getElementIndex = result.indexOf("http");
-
-        // if getElementIndex is not equal to -1 it's means list contains this element.
-        if (getElementIndex != -1 || result.startsWith("http")) {
-          component.set("v.url", response.getReturnValue());
-        } else {
-          component.set(
-            "v.errorStr",
-            JSON.stringify(response.getReturnValue())
-          );
-          component.set("v.showError", true);
-        }
+        component.set("v.url", response.getReturnValue());
       } else {
-        helper.showToast(
-          "error",
-          "Failed to retrieve account details, please contact system administrator for assistance.",
-          "Error!"
-        );
+        var errorMsg = action.getError()[0].message;
+        component.set("v.errorStr", errorMsg);
       }
     });
     $A.enqueueAction(action);
   },
   openTabWithSubtab: function (component, event, helper) {
     var aegisURL = component.get("v.url");
-    var accId = component.get("v.recordId");
-    var navService = component.find("navService");
-    var workspaceAPI = component.find("workspace");
-    workspaceAPI
-      .openTab({
-        url: "/lightning/r/Account/" + accId + "/view",
-        focus: true
-      })
-      .then(function (response) {
-        workspaceAPI
-          .openSubtab({
-            parentTabId: response,
-            url: aegisURL,
-            focus: true
-          })
-          .then(function (subtabId) {
-            // the subtab has been created, use the Id to set the label
-            workspaceAPI.setTabLabel({
-              tabId: subtabId,
-              label: "Aegis portal"
-            });
-            // the subtab has been created, use the Id to set the icon
-            workspaceAPI.setTabIcon({
-              tabId: subtabId,
-              icon: "standard:knowledge",
-              iconAlt: "SubTab Label Name"
-            });
-            workspaceAPI.focusTab({ tabId: response });
-            workspaceAPI.focusTab({ tabId: subtabId });
-          });
-      });
     if ($A.util.isUndefined(aegisURL)) {
-      helper.showToast("error", component.get("v.errorStr"), "Error!");
+      helper.showToast(
+        "error",
+        component.get("v.errorStr"),
+        "Aegis Portal Error!"
+      );
+    } else {
+      var recordId = component.get("v.recordId");
+      var objectType = component.get("v.objectType");
+      var workspaceAPI = component.find("workspace");
+      workspaceAPI
+        .openTab({
+          url: "/lightning/r/" + objectType + "/" + recordId + "/view",
+          focus: true
+        })
+        .then(function (response) {
+          workspaceAPI
+            .openSubtab({
+              parentTabId: response,
+              url: aegisURL,
+              focus: true
+            })
+            .then(function (subtabId) {
+              // the subtab has been created, use the Id to set the label
+              workspaceAPI.setTabLabel({
+                tabId: subtabId,
+                label: "Aegis portal"
+              });
+              // the subtab has been created, use the Id to set the icon
+              workspaceAPI.setTabIcon({
+                tabId: subtabId,
+                icon: "standard:knowledge",
+                iconAlt: "SubTab Label Name"
+              });
+              workspaceAPI.focusTab({ tabId: response });
+              workspaceAPI.focusTab({ tabId: subtabId });
+            })
+            .catch(function (error) {
+              helper.showToast("error", error, "Aegis Portal Error!");
+            });
+        })
+        .catch(function (error) {
+          helper.showToast("error", error, "Aegis Portal Error!");
+        });
     }
   }
 });

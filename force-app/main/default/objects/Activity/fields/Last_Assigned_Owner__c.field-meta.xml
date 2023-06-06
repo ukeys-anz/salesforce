@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Assigned_Owner__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>This field is used to restore the owner of task when parent record owner changes</description>
+    <externalId>false</externalId>
+    <label>Last Assigned Owner</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Activities</relationshipName>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Lookup</type>
+</CustomField>
