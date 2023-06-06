@@ -547,11 +547,13 @@ public with sharing class GetHelpCaseActionsHelper {
    * @description create task on case
    * @param caseRecord case record
    * @param externalCaseStatusRecord External_Case_Status__c Record
+   * @param taskOwnerId gives the owner to which the created task to be assigned
    * @return task record
    */
   public static Task createTask(
     Case caseRecord,
-    External_Case_Status__c externalCaseStatusRecord
+    External_Case_Status__c externalCaseStatusRecord,
+    Id taskOwnerId
   ) {
     Task newTask = new Task();
     newTask.WhatId = caseRecord.Id;
@@ -590,8 +592,7 @@ public with sharing class GetHelpCaseActionsHelper {
     newTask.Description = GetHelpConstants.TASK_EMAIL_DESCRIPTION;
     newTask.PEGA_Case_Status__c = externalCaseStatusRecord.External_Status__c;
 
-    Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
-    newTask.OwnerId = queueMap.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
+    newTask.OwnerId = taskOwnerId;
     newTask.RecordTypeId = GetHelpConstants.TASK_EMAIL_RT;
     newTask.Case__c = caseRecord.Id;
     return newTask;

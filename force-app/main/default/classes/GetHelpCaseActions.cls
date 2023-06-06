@@ -949,6 +949,10 @@ public with sharing class GetHelpCaseActions {
     }
 
     if (Schema.sObjectType.External_Case_Status__c.isQueryable()) {
+      Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
+      Id taskOwnerId = queueMap.get(
+        GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE
+      );
       for (External_Case_Status__c externalCaseStatus : [
         SELECT Id, External_Status__c, Case__c, Case__r.ContactId
         FROM External_Case_Status__c
@@ -965,7 +969,8 @@ public with sharing class GetHelpCaseActions {
           taskList.add(
             GetHelpCaseActionsHelper.createTask(
               mapClosedCases.get(externalCaseStatus.Case__c),
-              externalCaseStatus
+              externalCaseStatus,
+              taskOwnerId
             )
           );
         }
