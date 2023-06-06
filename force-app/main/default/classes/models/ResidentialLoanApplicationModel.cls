@@ -10,6 +10,81 @@
 public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   @AuraEnabled
   public List<SOPAsset> assets;
+  @AuraEnabled
+  public List<SOPDebt> liabilities;
+  public SOPModel sop;
+  public static final String JOINT_ACCOUNT = 'Joint Account';
+  public static Map<String, Account> partyIdToAccountMap;
+  public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
+
+  /**
+   * @description initialize the maps
+   */
+  public void initMaps() {
+    initPartyIdToAccountMap();
+    initAccNumberToFinAccountMap();
+  }
+
+  /**
+   * @description initialize the account Map
+   */
+  public void initPartyIdToAccountMap() {
+    if (ResidentialLoanApplicationModel.partyIdToAccountMap != null) {
+      return;
+    }
+    Map<String, String> partyToOcvMap = new Map<String, String>();
+    Map<String, Account> accOcvMap = new Map<String, Account>();
+    for(SOPParty party : sop.parties) {
+      partyToOcvMap.put(party.id, party.ocvId);
+    }
+
+    Set<String> ocvIdSet = new Set<String>();
+    for (SOPAsset asset : assets) {
+      if (asset.ownership != null) {
+        for (SOPOwnership owner : asset.ownership ) {
+          ocvIdSet.add(partyToOcvMap.get(owner.partyId));
+        }
+      }
+    }
+
+    List<Account> accList = [
+      SELECT FirstName, ocv_id__c
+      FROM Account
+      WHERE ocv_id__c in :ocvIdSet
+    ];
+    ResidentialLoanApplicationModel.partyIdToAccountMap = new Map<String, Account>();
+    for (Account acc: accList) {
+      accOcvMap.put(acc.ocv_id__c, acc);
+    }
+    for(String partyId: partyToOcvMap.keySet()) {
+      ResidentialLoanApplicationModel.partyIdToAccountMap.put(partyId, accOcvMap.get(partyToOcvMap.get(partyId)));
+    }
+  } 
+
+  /**
+   * @description initialize the financial account map
+   */
+  public void initAccNumberToFinAccountMap() {
+    if (ResidentialLoanApplicationModel.accNumberToFinAccountMap != null) {
+      return;
+    }
+    Set<String> accNumberSet = new Set<String>();
+    for (SOPAsset asset : assets) {
+      if (asset.account != null) {
+        accNumberSet.add(asset.account.accountNumber);
+      }
+    }
+    List<FinServ__FinancialAccount__c> finAccList = [
+      SELECT Name, FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccount__c
+      WHERE FinServ__FinancialAccountNumber__c in :accNumberSet
+    ];
+    ResidentialLoanApplicationModel.accNumberToFinAccountMap = new Map<String, FinServ__FinancialAccount__c>();
+    for (FinServ__FinancialAccount__c finAcc: finAccList) {
+      ResidentialLoanApplicationModel.accNumberToFinAccountMap.put(finAcc.FinServ__FinancialAccountNumber__c, finAcc);
+    }
+  }
+
   /**
    * @description SOPAsset returns all the sop asset related values
    */
@@ -21,7 +96,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     @AuraEnabled
     public String name;
     @AuraEnabled
-    public SOPEstimatedValue estimatedValue;
+    public SOPMoney estimatedValue;
     @AuraEnabled
     public SOPAccounts account;
     @AuraEnabled
@@ -34,12 +109,204 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public Datetime updateTime;
     @AuraEnabled
     public String updatedBy;
+
+    /**
+     * @description return the owner name of the asset
+     */
+    @AuraEnabled
+    public string ownerName {
+      get {
+        if (this.ownership.size() == 1) {
+          return this.ownership[0].ownerName;
+        } 
+        return JOINT_ACCOUNT;
+      }
+    }
+  }
+
+  /**
+   * @description SOPDebt wrapper for SOP liability information
+   */
+  public class SOPDebt {
+    @AuraEnabled
+    public String id;
+    @AuraEnabled
+    public String sopId;
+    @AuraEnabled
+    public String type;
+    /**
+     * @description return the debt type
+     */
+    @AuraEnabled
+    public String debtType {
+      get {
+        return getReadableType(type);
+      }
+    }
+
+    /**
+     * @description return the readable debt type
+     * @param inputStr the input type from json
+     * @return String the readable debt type
+     */
+    public String getReadableType(String inputStr) {
+      String[] words = inputStr.split('_');
+      String result = '';
+      words.remove(0);
+      words.remove(0);
+      
+      for (String word : words) {
+        if (word.equalsIgnoreCase('of')) {
+          result += 'of ';
+        } else {
+          result += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + ' ';
+        }
+      }
+      return result.trim();
+    }
+    @AuraEnabled
+    public SOPInstitutionalLiability institutionalLiability;
+    @AuraEnabled
+    public SOPAccounts account;
+    @AuraEnabled
+    public List<SOPOwnership> ownership;
+    @AuraEnabled
+    public String createTime;
+    @AuraEnabled
+    public String updateTime;
+    @AuraEnabled
+    public String updatedBy;
+    @AuraEnabled
+    public SOPMoney originalOutstandingBalance;
+    @AuraEnabled
+    public SOPMoney outstandingBalance;
+    @AuraEnabled 
+    public SOPStudentLoan studentLoan;
+
+    /**
+     * @description return the owner name of the debt
+     */
+    @AuraEnabled
+    public string ownerName {
+      get {
+        if (this.ownership.size() == 1) {
+          return this.ownership[0].ownerName;
+        } 
+        return JOINT_ACCOUNT;
+      }
+    }
+  }
+
+  /**
+   * @description model for general model configuration
+   */
+  public class SOPModel {
+    public List<SOPParty> parties;
+  }
+
+  /**
+   * @description model for party
+   */
+  public class SOPParty {
+    public String id;
+    public String ocvId;
+  }
+
+  /**
+   * @description wrapper of institution liability model
+   */
+  public class SOPInstitutionalLiability {
+    @AuraEnabled
+    public SOPMoney limitAmount;
+    @AuraEnabled
+    public SOPInterestRate interestRate;
+    @AuraEnabled
+    public SOPMoney minimumPayment;
+    @AuraEnabled
+    public SOPMoney repaymentAmount;
+    @AuraEnabled
+    public String repaymentFrequency;
+    @AuraEnabled
+    public Integer principalInterestRemainingTerm;
+    @AuraEnabled
+    public Integer interestOnlyRemainingTerm;
+    @AuraEnabled
+    public Boolean liabilityDuePaidInFull;
+    @AuraEnabled
+    public SOPMoney redrawAmount;
+    @AuraEnabled
+    public String paymentMethod;
+    @AuraEnabled
+    public String financialInstitution;
+    /**
+     * @description return a readable frequency
+     */
+    @AuraEnabled 
+    public String readableFrequency {
+      get {
+        String[] words = repaymentFrequency.split('_');
+        String result = '';
+        words.remove(0);
+        
+        for (String word : words) {
+          result += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + ' ';
+        }
+        return result.trim();
+      }
+    }
+
+    /**
+     * @description return a readable P&I Terms in years and months
+     */
+    @AuraEnabled
+    public string readablePIRemainingTerm{
+      get {
+        if (principalInterestRemainingTerm == null || principalInterestRemainingTerm == 0) {
+          return '0';
+        }
+        Integer years = principalInterestRemainingTerm / 12;
+        Integer months = Math.mod(principalInterestRemainingTerm, 12);
+        String result = '';
+        if (years > 0) {
+          result += years + ' year';
+          if (years > 1) {
+            result += 's';
+          }
+          if (months > 0) {
+            result += ', ';
+          }
+        }
+        if (months > 0) {
+          result += months + ' month';
+          if (months > 1) {
+            result += 's';
+          }
+        }
+        return result;
+      }
+    }
+  }
+
+  /**
+   * @description wrapper of interest rate model
+   */
+  public class SOPInterestRate {
+    @AuraEnabled
+    public string value;
+  }
+
+  /**
+   * @description wrapper of student loan model
+   */
+  public class SOPStudentLoan {
+    @AuraEnabled
+    public Boolean hecsWithheldPayment;
   }
 
   /**
    * @description returns the estimated value with with currency code units and nanos
    */
-  public class SOPEstimatedValue {
+  public class SOPMoney {
     @AuraEnabled
     public String currencyCode;
     @AuraEnabled
@@ -78,16 +345,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public string productName {
       get {
-
-        List<FinServ__FinancialAccount__c> account = [SELECT Product_Name__c FROM FinServ__FinancialAccount__c WHERE
-            FinServ__FinancialAccountNumber__c = :this.accountNumber LIMIT 1];
-            if(account!= null && account.size()==1){
-              
-              return account[0].Product_Name__c;
-            }
-            else{
-              return null;
-          }
+        FinServ__FinancialAccount__c finAcc = ResidentialLoanApplicationModel.accNumberToFinAccountMap.get(this.accountNumber);
+        return finAcc != null ? finAcc.Name : '';
       }
     }
     @AuraEnabled
@@ -112,14 +371,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     @AuraEnabled
     public string ownerName {
       get {
-        List<Account> acc = [
-          SELECT FirstName
-          FROM Account
-          WHERE ocv_id__c = :this.partyId
-          LIMIT 1
-        ];
-        if (acc != null && acc.size() == 1) {
-          return acc[0].FirstName;
+        Account acc = ResidentialLoanApplicationModel.partyIdToAccountMap.get(this.partyId);
+        if (acc != null) {
+          return acc.FirstName;
         } else {
           return null;
         }
@@ -141,9 +395,11 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
   public static ResidentialLoanApplicationModel parse(String json) {
-    return (ResidentialLoanApplicationModel) deserialize(
+    ResidentialLoanApplicationModel model = (ResidentialLoanApplicationModel) deserialize(
       json,
       ResidentialLoanApplicationModel.class
     );
+    model.initMaps();
+    return model;
   }
 }
