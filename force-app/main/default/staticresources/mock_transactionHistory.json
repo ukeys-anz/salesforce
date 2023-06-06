@@ -1181,16 +1181,16 @@
   },
   "links": {
     "self": {
-      "href": "mockresponsebeta1/transactions?page_size=20&cursor.value=aaa"
+      "uri": "mockresponsebeta1/transactions?page_size=20&cursor.value=aaa"
     },
     "first": {
-      "href": "mockresponsebeta1/transactions?page_size=20&cursor.value=bbb"
+      "uri": "mockresponsebeta1/transactions?page_size=20&cursor.value=bbb"
     },
     "prev": {
-      "href": "mockresponsebeta1/transactions?page_size=20&cursor.value=ccc"
+      "uri": "mockresponsebeta1/transactions?page_size=20&cursor.value=ccc"
     },
     "next": {
-      "href": "mockresponsebeta1/transactions?page_size=20&cursor.value=ddd"
+      "uri": "mockresponsebeta1/transactions?page_size=20&cursor.value=ddd"
     }
   }
 }

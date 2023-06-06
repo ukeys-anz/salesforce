@@ -1,7 +1,7 @@
 <template>
   <section class="slds-modal slds-fade-in-open">
     <div class="slds-modal__container">
-      <template if:true={loading}>
+      <template lwc:if={loading}>
         <article class="slds-card slds-m-bottom_small">
           <div class="slds-align_absolute-center" style="height: 4rem">
             <div role="status" class="slds-spinner_inline">
@@ -13,7 +13,7 @@
           </div>
         </article>
       </template>
-      <template if:false={loading}>
+      <template lwc:else>
         <article class="slds-card">
           <div class="slds-card__header slds-grid header-div">
             <header class="slds-has-flexi-truncate card-header">

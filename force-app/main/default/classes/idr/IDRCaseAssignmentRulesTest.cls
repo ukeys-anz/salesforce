@@ -122,7 +122,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
         Priority = 'Financial Hardship',
         Type = '17',
         Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-        Description = 'Specialised_Early_Resolution_Hardship'
+        Description = 'EDR_Hardship'
       )
     );
     cases.add(

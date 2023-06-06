@@ -4,6 +4,7 @@ name: Deploy
 on:
   push:
     branches:
+      - "release"
       - "develop"
       - "epic/*"
 
@@ -14,25 +15,28 @@ jobs:
       - name: Set BASE_REF
         run: echo BASE_REF=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
 
-      - name: Read Harness API Key
+      - if: env.BASE_REF != 'release'
+        name: Read Harness API Key
         id: secrets
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           secrets: |-
             harness-api-key:projects/36540621485/secrets/ghr-salesforce-prod-salesforce-harness-np/versions/1
 
-      - name: Trigger Harness Job
+      - if: env.BASE_REF != 'release'
+        name: Trigger Harness Job
         uses: docker://anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest
         env:
           GITHUB_REF: ${{ github.ref }}
           GITHUB_SHA: ${{ github.sha }}
           UPLOAD_ARTIFACT: ${{ contains(github.base_ref, 'develop') || contains(github.base_ref, 'master') }}
+          REPO_NAME: ${{ github.event.repository.name }}
         with:
           application-name: salesforce
           harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key}}
           target-name: salesforce-cd-np
           target-type: WORKFLOW
-          variables: "GITHUB_BASE_REF=${{ env.BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};GITHUB_SHA=${{ env.GITHUB_SHA }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }}"
+          variables: "GITHUB_BASE_REF=${{ env.BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};GITHUB_SHA=${{ env.GITHUB_SHA }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }};REPO_NAME=${{ env.REPO_NAME }}"
           wait: TRUE
 
       - uses: actions/checkout@v2

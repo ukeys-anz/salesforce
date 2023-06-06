@@ -22,7 +22,7 @@ const APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS = require("./data/fraudLockCards
 const APEX_CARD_BLOCK_CNP = require("./data/fraudLockCards-fraudStatus.json");
 const APEX_GET_CARD_LIST_FAILURE = require("./data/getCardList-failure.json");
 const APEX_STORE_CARD_CONTROLS_FAILURE = require("./data/storeCardControls-failure.json");
-const mockOcvId = require("./data/wire-mock-OCV_ID.json");
+const mockWireViewCard = require("./data/wire-mock-viewCard.json");
 
 jest.mock(
   "@salesforce/apex/CardDetailsController.getCardList",
@@ -78,9 +78,8 @@ describe("c-view-cards", () => {
 
       expect(status.textContent).toBe("Issued");
 
-      let initialWalletSection = element.shadowRoot.querySelector(
-        ".dig-wallet"
-      );
+      let initialWalletSection =
+        element.shadowRoot.querySelector(".dig-wallet");
       expect(initialWalletSection).toBeTruthy();
 
       let initialWallets = Array.from(
@@ -731,9 +730,8 @@ describe("c-view-cards", () => {
         replaceButton.click();
       })
       .then(() => {
-        let replaceCardComponent = viewCardsElement.shadowRoot.querySelector(
-          "c-replace-card"
-        );
+        let replaceCardComponent =
+          viewCardsElement.shadowRoot.querySelector("c-replace-card");
 
         replaceCardComponent.replaceLostUnavailable = false;
         replaceCardComponent.replaceLockUnavailable = false;
@@ -752,9 +750,8 @@ describe("c-view-cards", () => {
             lockButtonPath.click();
           })
           .then(() => {
-            let lockCardComponent = viewCardsElement.shadowRoot.querySelector(
-              "c-card-temp-lock"
-            );
+            let lockCardComponent =
+              viewCardsElement.shadowRoot.querySelector("c-card-temp-lock");
             expect(lockCardComponent).toBeTruthy();
           });
       });
@@ -945,9 +942,9 @@ describe("c-view-cards | wire", () => {
     return new Promise((resolve) => setImmediate(resolve));
   }
   it("1. check wire OCV_ID", () => {
-    getRecord.emit(mockOcvId);
+    getRecord.emit(mockWireViewCard);
     return flushPromises().then(() => {
-      const ocvID = mockOcvId.fields.OCV_ID__c.value;
+      const ocvID = mockWireViewCard.fields.OCV_ID__c.value;
       expect(ocvID).toBe("Test OCV_ID");
     });
   });
@@ -956,5 +953,13 @@ describe("c-view-cards | wire", () => {
     expect(() => {
       getRecord.emit({});
     }).toThrow();
+  });
+
+  it("3. check wire the current logged-in username", () => {
+    getRecord.emit(mockWireViewCard);
+    return flushPromises().then(() => {
+      const currentUsername = mockWireViewCard.fields.Name.value;
+      expect(currentUsername).toBe("Test Logged-in Username");
+    });
   });
 });

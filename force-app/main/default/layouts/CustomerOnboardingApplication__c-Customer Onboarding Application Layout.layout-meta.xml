@@ -43,7 +43,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>OnboardingEvent__c</field>
+                <field>CXOnboardingStageChangeReason__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OnboardingAttemptCount__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -58,6 +62,14 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CXOnboardingAction__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>OnboardingEvent__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>VerificationType__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -145,14 +157,6 @@
                 <behavior>Edit</behavior>
                 <field>DaonEnrolmentTime__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DaonScore__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DaonFalseMatchRate__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -161,19 +165,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>DaonEvaluationResultURI__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>DaonEnrolmentType__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>DaonIdCheckResult__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DaonThreshold__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -205,10 +201,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EquifaxCRAResult__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EquifaxMatrixURI__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -403,6 +395,10 @@
         <relatedList>COBCitizenship__c.CustomerOnboardingApplication__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>COBIDVSearchResult__c.CustomerOnboardingApplication__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -433,7 +429,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000003DrXK</masterLabel>
+        <masterLabel>00h2O000003wZK4</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

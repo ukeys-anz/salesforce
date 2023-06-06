@@ -67,6 +67,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CXOnboardingStageChangeReason__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>DaonEnrolmentId__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>
@@ -202,6 +207,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>OnboardingAttemptCount__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>OnboardingEvent__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>
@@ -263,6 +273,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>TncVersion__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>VerificationType__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>
         <masterLabel>Customer Onboarding Applications</masterLabel>
@@ -1546,11 +1561,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>IDR_Real_Form_Ref_No__c</field>
-            <table>CustomerOnboardingApplication__c.Cases__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>IDR_Real_Form_Submitted__c</field>
             <table>CustomerOnboardingApplication__c.Cases__r</table>
         </columns>
         <columns>

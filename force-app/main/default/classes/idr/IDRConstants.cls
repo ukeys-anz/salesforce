@@ -269,7 +269,9 @@ public with sharing class IDRConstants {
           'CCR_Complaints',
           'Hardship_IDR_Letter',
           'IDR_ANZ_Plus',
-          'IDR_Spare'      //IDR Disputes & Scams
+          'EDR_Hardship',
+          'EDR_Wealth',
+          'IDR_Spare' //IDR Disputes & Scams
         };
       }
       return workBasketNames;

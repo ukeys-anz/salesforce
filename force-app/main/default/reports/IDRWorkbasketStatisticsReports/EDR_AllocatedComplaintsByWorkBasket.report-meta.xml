@@ -38,6 +38,21 @@
         <field>DESCRIPTION</field>
     </columns>
     <columns>
+        <field>Case.IDR_AFCA_Due_Date__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_AFCA_Status__c</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Date_Received__c</field>
+    </columns>
+    <columns>
+        <field>Case.Case_Age_in_Days__c</field>
+    </columns>
+    <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>CDF1</field>
     </columns>
@@ -51,7 +66,7 @@
     </customDetailFormulas>
     <description>Cases that are allocated to a user</description>
     <filter>
-        <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
+        <booleanFilter>1 AND 2 AND (3 OR 4) AND 5</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -79,6 +94,13 @@
             <isUnlocked>false</isUnlocked>
             <operator>contains</operator>
             <value>Specialised</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Resolved,Closed</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

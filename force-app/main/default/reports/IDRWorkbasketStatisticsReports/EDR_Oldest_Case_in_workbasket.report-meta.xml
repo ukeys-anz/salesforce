@@ -23,6 +23,15 @@
         <field>DESCRIPTION</field>
     </columns>
     <columns>
+        <field>Case.IDR_AFCA_Status__c</field>
+    </columns>
+    <columns>
+        <field>TYPE</field>
+    </columns>
+    <columns>
+        <field>STATUS</field>
+    </columns>
+    <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>Case.Case_Age_in_Days__c</field>
     </columns>
@@ -64,6 +73,7 @@
             <operator>startsWith</operator>
             <value>Specialised</value>
         </criteriaItems>
+        <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>

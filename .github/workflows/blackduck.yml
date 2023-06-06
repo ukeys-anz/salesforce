@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - epic/platform
+      - release
   push:
     branches:
       - develop
@@ -56,5 +57,7 @@ jobs:
           fi
 
           TodayDate="$(TZ=Australia/Melbourne date +%F\|%H:%M)"
+          actionURL="https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+
           IDENTITY_TOKEN=$(curl -H "Metadata-Flavor: Google" 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz&format=full&licenses=TRUE')
-          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-blackduck","templateID":"ghasfblackduck","args":{"startdatetime":"'${TodayDate}'","passed":"'${status}'","branch":"'$GITHUB_HEAD_REF'"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack
+          curl -H "Authorization: Bearer ${IDENTITY_TOKEN}" --data '{"channel":"sf-security","templateID":"ghasfsecurity","args":{"startdatetime":"'${TodayDate}'","passed":"'${status}'","branch":"'$GITHUB_HEAD_REF'","checkname":"Blackduck","reponame":"Salesforce","resultsurl":"'${actionURL}'"}}' https://platform-notify.platform-notify.services-platdev.x.gcpnp.anz/slack

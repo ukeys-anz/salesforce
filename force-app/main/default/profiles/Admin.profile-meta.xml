@@ -484,6 +484,18 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>COBTaxResidencyModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COBTaxResidencyViewController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COBTaxResidencyViewControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CommonUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1694,6 +1706,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Survivor_Party_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Temporary_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Case_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Cases_Related_To_Team__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3977,6 +4004,36 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBIDVSearchResult__c.MatchIndicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.PersonaDataSource__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.PersonaId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SearchName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SearchResultDetail__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.SubmittedAt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.CountryOfIssueOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4697,6 +4754,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.CXOnboardingStageChangeReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.DaonEnrolmentId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4832,6 +4894,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.OnboardingAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.OnboardingEvent__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4893,6 +4960,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>CustomerOnboardingApplication__c.TncVersion__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.VerificationType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5073,6 +5145,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Event.Interaction_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Event.Last_Assigned_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5333,6 +5410,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccountRole__c.FinServ__StartDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>FinServ__FinancialAccountRole__c.Temporary_External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7795,6 +7877,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Last_Assigned_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Task.Lead__c</field>
         <readable>true</readable>
@@ -8452,6 +8539,9 @@
         <layout>COBCitizenship__c-COB Citizenship Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>COBIDVSearchResult__c-COB IDV Search Result Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>COBPrimaryIDDocument__c-COB Primary ID Document Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -8816,6 +8906,15 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>COBCitizenship__c</object>
         <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>COBIDVSearchResult__c</object>
+        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -9605,11 +9704,6 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Case.Account_Closure</recordType>
-        <visible>false</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <recordType>Case.Bug_Enquiry</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

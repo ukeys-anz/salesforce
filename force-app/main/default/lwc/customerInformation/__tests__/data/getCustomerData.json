@@ -35,12 +35,12 @@
   "accounts": [
     {
       "accountNumber": "708405438",
-      "productCode": "CAP-CIS:DDA",
+      "productCode": "CAP-CIS:APP",
       "subProductCode": "CAP-CIS:DDABC"
     },
     {
       "accountNumber": "708405431",
-      "productCode": "CAP-CIS:DDS",
+      "productCode": "CAP-CIS:APP",
       "subProductCode": "CAP-CIS:DDEFG"
     }
   ]
