@@ -8716,6 +8716,10 @@
         <recordType>Task.Compliance_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Email Task Layout</layout>
+        <recordType>Task.Email_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-IDR System Task</layout>
         <recordType>Task.IDR_System_Task</recordType>
     </layoutAssignments>
@@ -8726,10 +8730,6 @@
     <layoutAssignments>
         <layout>Task-SI Task Layout</layout>
         <recordType>Task.Systemic_Issue_Task</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Task-Email Task Layout</layout>
-        <recordType>Task.Email_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>User-User Layout</layout>

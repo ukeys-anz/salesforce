@@ -527,23 +527,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description To get the Business hours being used by the Case disputes
-   * @return businesshoursId for the currently used business hours for dispute
-   */
-  public static BusinessHours getBusinessHours() {
-    if (Schema.sObjectType.BusinessHours.isQueryable()) {
-      return [
-        SELECT Id
-        FROM BusinessHours
-        WHERE Name = :GetHelpConstants.ANZ_DISPUTE_BUSINESS_HOUR_NAME
-        LIMIT 1
-      ];
-    } else {
-      return null;
-    }
-  }
-
-  /**
    * @description create task on case
    * @param caseRecord case record
    * @param externalCaseStatusRecord External_Case_Status__c Record
@@ -565,7 +548,7 @@ public with sharing class GetHelpCaseActionsHelper {
     if (caseRecord.BusinessHoursId != null) {
       businessHoursId = caseRecord.BusinessHoursId;
     } else {
-      BusinessHours businessHourDispute = getBusinessHours();
+      BusinessHours businessHourDispute = CommonUtil.getBusinessHours();
       businessHoursId = businessHourDispute?.Id;
     }
 
