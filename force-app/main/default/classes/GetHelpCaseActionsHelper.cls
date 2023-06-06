@@ -533,7 +533,7 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param taskOwnerId gives the owner to which the created task to be assigned
    * @return task record
    */
-  public static Task createTask(
+  public static Task createEmailTask(
     Case caseRecord,
     External_Case_Status__c externalCaseStatusRecord,
     Id taskOwnerId

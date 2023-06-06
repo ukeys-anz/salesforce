@@ -949,6 +949,14 @@ public with sharing class GetHelpCaseActions {
       }
     }
 
+    Set<String> externalCaseStatusSet = new Set<String>{
+      'Resolved-PreArbGranted',
+      'Resolved-PreArbAccepted',
+      'Resolved-Writeoff',
+      'Resolved-AcqAccepted',
+      'Resolved-AcquirerLiable',
+      'Resolved-Duplicate'
+    };
     if (Schema.sObjectType.External_Case_Status__c.isQueryable()) {
       Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
       Id taskOwnerId = queueMap.get(
@@ -960,15 +968,10 @@ public with sharing class GetHelpCaseActions {
         WHERE Case__c IN :mapClosedCases.keySet()
       ]) {
         if (
-          externalCaseStatus.External_Status__c == 'Resolved-WriteOff' ||
-          externalCaseStatus.External_Status__c == 'Resolved-AcqAccepted' ||
-          externalCaseStatus.External_Status__c == 'Resolved-AcquirerLiable' ||
-          externalCaseStatus.External_Status__c == 'Resolved-Duplicate' ||
-          externalCaseStatus.External_Status__c == 'Resolved-PreArbAccepted' ||
-          externalCaseStatus.External_Status__c == 'Resolved-PreArbGranted'
+          externalCaseStatusSet.contains(externalCaseStatus.External_Status__c)
         ) {
           taskList.add(
-            GetHelpCaseActionsHelper.createTask(
+            GetHelpCaseActionsHelper.createEmailTask(
               mapClosedCases.get(externalCaseStatus.Case__c),
               externalCaseStatus,
               taskOwnerId
