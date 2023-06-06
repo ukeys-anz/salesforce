@@ -168,7 +168,7 @@ private class CaseTriggerHandlerTest {
 
       // Assign related PSs
       List<String> integrationPsets = new List<String>{
-        'View_And_Edit_Task',
+        'View_And_Edit_Tasks',
         'Case_Read_Write_Get_Help',
         'Case_Read_Write_Dispute',
         'Read_Only_Admin'
