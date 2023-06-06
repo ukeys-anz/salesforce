@@ -1,5 +1,5 @@
 <template>
-  <template if:true={showOptions}>
+  <template lwc:if={showOptions}>
     <br />
 
     <lightning-record-edit-form
@@ -53,7 +53,7 @@
           ></lightning-input-field>
         </div>
         <div class="slds-col slds-size_2-of-4 slds-m-right_large">
-          <template if:true={isOtherSubFinRemedy}>
+          <template lwc:if={isOtherSubFinRemedy}>
             <lightning-input-field
               variant="label-stacked"
               required
@@ -67,7 +67,7 @@
         <div
           class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
         >
-          <template if:true={showFinancialCompensation}>
+          <template lwc:if={showFinancialCompensation}>
             <label class="slds-form-element__label" for="text-input-id-149">
               <abbr class="slds-required" title="required">* </abbr>Financial
               Amount</label
@@ -87,8 +87,8 @@
             ></lightning-input>
           </template>
         </div>
-        <template if:true={isNonFinancialComplaintRemedy}>
-          <template if:true={isRewardPoints}>
+        <template lwc:if={isNonFinancialComplaintRemedy}>
+          <template lwc:if={isRewardPoints}>
             <div class="slds-col slds-size_2-of-4 slds-m-right_large">
               <lightning-input-field
                 variant="label-stacked"
@@ -104,7 +104,7 @@
             </div>
           </template>
         </template>
-        <template if:true={isReferredToProductManufacturer}>
+        <template lwc:if={isReferredToProductManufacturer}>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
@@ -121,7 +121,7 @@
             ></lightning-input>
           </div>
         </template>
-        <template if:true={showDuration}>
+        <template lwc:if={showDuration}>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
@@ -153,7 +153,7 @@
           </lightning-input>
         </div>
         <!--Complaint Remedy 2-->
-        <template if:true={showRemedy2}>
+        <template lwc:if={showRemedy2}>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
@@ -182,7 +182,7 @@
               role="textbox"
             ></lightning-input-field>
           </div>
-          <template if:true={isOtherSubFinRemedy2}>
+          <template lwc:if={isOtherSubFinRemedy2}>
             <div
               class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
             >
@@ -199,7 +199,7 @@
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
-            <template if:true={showFinancialCompensation2}>
+            <template lwc:if={showFinancialCompensation2}>
               <label class="slds-form-element__label" for="text-input-id-149">
                 <abbr class="slds-required" title="required">* </abbr>Financial
                 Amount 2</label
@@ -219,8 +219,8 @@
               ></lightning-input>
             </template>
           </div>
-          <template if:true={isNonFinancialComplaintRemedy2}>
-            <template if:true={isRewardPoints2}>
+          <template lwc:if={isNonFinancialComplaintRemedy2}>
+            <template lwc:if={isRewardPoints2}>
               <div
                 class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
               >
@@ -238,7 +238,7 @@
               </div>
             </template>
           </template>
-          <template if:true={isReferredToProductManufacturer2}>
+          <template lwc:if={isReferredToProductManufacturer2}>
             <div
               class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
             >
@@ -255,7 +255,7 @@
               ></lightning-input>
             </div>
           </template>
-          <template if:true={showDuration2}>
+          <template lwc:if={showDuration2}>
             <div
               class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
             >
@@ -288,7 +288,7 @@
           </div>
         </template>
         <!--Complaint Remedy 3-->
-        <template if:true={showRemedy3}>
+        <template lwc:if={showRemedy3}>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
@@ -317,7 +317,7 @@
               role="textbox"
             ></lightning-input-field>
           </div>
-          <template if:true={isOtherSubFinRemedy3}>
+          <template lwc:if={isOtherSubFinRemedy3}>
             <div
               class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
             >
@@ -334,7 +334,7 @@
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
-            <template if:true={showFinancialCompensation3}>
+            <template lwc:if={showFinancialCompensation3}>
               <label class="slds-form-element__label" for="text-input-id-149">
                 <abbr class="slds-required" title="required">* </abbr>Financial
                 Amount 3</label
@@ -354,8 +354,8 @@
               ></lightning-input>
             </template>
           </div>
-          <template if:true={isNonFinancialComplaintRemedy3}>
-            <template if:true={isRewardPoints3}>
+          <template lwc:if={isNonFinancialComplaintRemedy3}>
+            <template lwc:if={isRewardPoints3}>
               <div
                 class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
               >
@@ -373,7 +373,7 @@
               </div>
             </template>
           </template>
-          <template if:true={isReferredToProductManufacturer3}>
+          <template lwc:if={isReferredToProductManufacturer3}>
             <div
               class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
             >
@@ -390,7 +390,7 @@
               ></lightning-input>
             </div>
           </template>
-          <template if:true={showDuration3}>
+          <template lwc:if={showDuration3}>
             <div
               class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
             >
@@ -408,17 +408,11 @@
             </div>
           </template>
         </template>
-        <template if:true={showAvoidableEscalation}>
+        <template lwc:if={showAvoidableEscalation}>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
             <div class="slds-form-element slds-grid">
-              <!-- <label class="slds-form-element__label" for="input-avoidableescalation">
-                Avoidable Escalation?
-              </label>
-              <lightning-helptext if:true={caseObjectInfo.data}
-                content={caseObjectInfo.data.fields.IDR_Avoidable_Escalation__c.inlineHelpText}
-              ></lightning-helptext> -->
               <lightning-input
                 label="Avoidable Escalation?"
                 type="toggle"
@@ -430,14 +424,14 @@
                 message-toggle-inactive="No"
               ></lightning-input>
               <lightning-helptext
-                if:true={caseObjectInfo.data}
+                lwc:if={caseObjectInfo.data}
                 class="slds-var-p-left_small"
                 content={caseObjectInfo.data.fields.IDR_Avoidable_Escalation__c.inlineHelpText}
               ></lightning-helptext>
             </div>
           </div>
         </template>
-        <template if:true={showAvoidableEscalationReason}>
+        <template lwc:if={showAvoidableEscalationReason}>
           <div
             class="slds-col slds-size_2-of-4 slds-m-right_large slds-p-top_medium"
           >
@@ -453,7 +447,20 @@
       </div>
       <div class="slds-grid slds-wrap">
         <div class={radioStyle}>
-          <template if:false={recordId}>
+          <template lwc:if={recordId}>
+            <lightning-combobox
+              required
+              aria-required="true"
+              name="realFormRequiredGroup"
+              label="Is a REAL form required?"
+              onchange={handleRealFormNeeded}
+              options={realFormReqOptions}
+              value={realFormRequiredValue}
+              data-id="realFormRequiredGroup-id"
+              field-level-help="A REAL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search 'REAL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REAL'."
+            ></lightning-combobox>
+          </template>
+          <template lwc:else>
             <lightning-radio-group
               required
               aria-required="true"
@@ -470,24 +477,11 @@
             >
             </lightning-helptext>
           </template>
-          <template if:true={recordId}>
-            <lightning-combobox
-              required
-              aria-required="true"
-              name="realFormRequiredGroup"
-              label="Is a REAL form required?"
-              onchange={handleRealFormNeeded}
-              options={realFormReqOptions}
-              value={realFormRequiredValue}
-              data-id="realFormRequiredGroup-id"
-              field-level-help="A REAL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search 'REAL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REAL'."
-            ></lightning-combobox>
-          </template>
         </div>
-        <template if:true={recordId}>
+        <template lwc:if={recordId}>
           <div class="slds-col slds-size_2-of-4"></div>
         </template>
-        <template if:true={isRealFormNeededBooleanValue}>
+        <template lwc:if={isRealFormNeededBooleanValue}>
           <div class={elementStyle}>
             <lightning-input
               type="text"
@@ -505,7 +499,21 @@
       <!--Systemic issues-->
       <div class="slds-grid slds-wrap">
         <div class={radioStyle}>
-          <template if:false={recordId}>
+          <template lwc:if={recordId}>
+            <lightning-combobox
+              required
+              aria-required="true"
+              name="commoncomplaintGroup"
+              label="Is this a possible systemic issue?"
+              onchange={handleCommonComplaint}
+              options={commoncomplaintoptions}
+              value={isCommonComplaintYesNo}
+              data-id="commoncomplaintGroup-id"
+              field-level-help="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
+            >
+            </lightning-combobox>
+          </template>
+          <template lwc:else>
             <lightning-radio-group
               required
               aria-required="true"
@@ -524,22 +532,8 @@
             >
             </lightning-helptext>
           </template>
-          <template if:true={recordId}>
-            <lightning-combobox
-              required
-              aria-required="true"
-              name="commoncomplaintGroup"
-              label="Is this a possible systemic issue?"
-              onchange={handleCommonComplaint}
-              options={commoncomplaintoptions}
-              value={isCommonComplaintYesNo}
-              data-id="commoncomplaintGroup-id"
-              field-level-help="Issues which may impact more than one customer AND are of a compliance nature. E.g. ANZ systems or processes not working properly or non-compliance with terms and conditions"
-            >
-            </lightning-combobox>
-          </template>
         </div>
-        <template if:true={isCommonComplaint}>
+        <template lwc:if={isCommonComplaint}>
           <div class={elementStyle}>
             <lightning-input-field
               variant="label-stacked"
@@ -560,8 +554,9 @@
               data-id="siCategory-id"
             ></lightning-input-field>
           </div>
-          <template if:true={showAdditionalIssues}>
-            <template if:false={recordId}>
+          <template lwc:if={showAdditionalIssues}>
+            <template lwc:if={recordId}></template>
+            <template lwc:else>
               <div class="slds-col slds-size_2-of-4"></div>
             </template>
             <div

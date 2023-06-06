@@ -1,5 +1,5 @@
 <template>
-  <template if:true={filterItem}>
+  <template lwc:if={filterItem}>
     <article class="slds-card slds-card_boundary slds-m-bottom_small">
       <lightning-icon
         class="close-button slds-m-right_xx-small slds-m-top_xx-small"
@@ -15,10 +15,10 @@
       </div>
       <div class="slds-grid slds-m-left_small slds-m-bottom_small">
         {operatorLabel}
-        <template if:true={normalValue}>
+        <template lwc:if={normalValue}>
           &nbsp;{filterItem.filtervalue}
         </template>
-        <template if:true={amountValue}>
+        <template lwc:if={amountValue}>
           &nbsp;$<lightning-formatted-number
             value={filterItem.filtervalue}
           ></lightning-formatted-number>

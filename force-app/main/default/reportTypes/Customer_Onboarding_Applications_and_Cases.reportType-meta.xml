@@ -275,6 +275,11 @@
             <field>TncVersion__c</field>
             <table>CustomerOnboardingApplication__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>VerificationType__c</field>
+            <table>CustomerOnboardingApplication__c</table>
+        </columns>
         <masterLabel>Customer Onboarding Applications</masterLabel>
     </sections>
     <sections>

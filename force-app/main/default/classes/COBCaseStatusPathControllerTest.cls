@@ -134,26 +134,36 @@ public with sharing class COBCaseStatusPathControllerTest {
 
     StravinskyAPIRepository.throwException = true; // Simulate a callout exception
 
-    Boolean isCaseUpdated = false;
     Test.startTest();
-    try {
-      isCaseUpdated = COBCaseStatusPathController.updateStatus(
-        GetHelpConstants.COB_DAON_FAILED_STATUS,
-        cobCase
-      );
-    } catch (Exception ce) {
-      Assert.areEqual(
-        false,
-        isCaseUpdated,
-        'Case status should not have been updated.'
-      );
-      Assert.areEqual(
-        true,
-        ce.getMessage().contains('FIELD_CUSTOM_VALIDATION_EXCEPTION'),
-        'DML exception should have been thrown.'
-      );
-    }
+    Boolean isCaseUpdated = COBCaseStatusPathController.updateStatus(
+      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      cobCase
+    );
     Test.stopTest();
+
+    Assert.areEqual(
+      false,
+      isCaseUpdated,
+      'Callout should not have been successful.'
+    );
+
+    Assert.areEqual(
+      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      cobCase.Status,
+      'Case status should not have been updated.'
+    );
+
+    Assert.areEqual(
+      false,
+      String.isBlank(cobCase.Status_Update_Error__c),
+      'Status Update Error field should not be blank.'
+    );
+
+    Assert.areNotEqual(
+      'Previous case status update error',
+      cobCase.Status_Update_Error__c,
+      'Status Update Error field should be updated.'
+    );
   }
 
   @isTest

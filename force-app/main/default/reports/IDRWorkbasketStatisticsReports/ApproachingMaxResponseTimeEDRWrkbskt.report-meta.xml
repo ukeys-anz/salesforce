@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>ApproachingMaxResponseTimeEDRWrkbskt</name>
     <columns>
         <field>CASE_NUMBER</field>
     </columns>
@@ -80,7 +81,6 @@
         <field>SUBJECT</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>ApproachingMaxResponseTimeEDRWrkbskt</name>
     <params>
         <name>closed</name>
         <value>open</value>

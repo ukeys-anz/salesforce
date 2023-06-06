@@ -1,13 +1,10 @@
 <!-- sldsValidatorIgnore -->
 <template>
-  <template if:true={hasPermissionIssue}>
+  <template lwc:if={hasPermissionIssue}>
     <c-error permission-issue={hasPermissionIssue}></c-error>
   </template>
-  <template if:true={hasError}>
-    <c-error message={errorMsg}></c-error>
-  </template>
-  <template if:false={hasPermissionIssue}>
-    <article class="homeLoanAccount slds-card" if:true={financialAccountId}>
+  <template lwc:elseif={financialAccountId}>
+    <article class="homeLoanAccount slds-card">
       <div class="slds-section slds-is-open">
         <h1 class="slds-section__title slds-theme_shade">
           <lightning-icon
@@ -34,15 +31,11 @@
                   <span>{accountDetails.account_name}</span>
                 </a>
                 <span
-                  if:true={accountActive}
+                  lwc:if={accountActive}
                   class="slds-badge slds-theme_success"
                   >Open</span
                 >
-                <span
-                  if:false={accountActive}
-                  class="slds-badge slds-theme_error"
-                  >Closed</span
-                >
+                <span lwc:else class="slds-badge slds-theme_error">Closed</span>
               </h2>
             </header>
           </div>
@@ -307,8 +300,11 @@
       </div>
     </article>
   </template>
+  <template lwc:if={hasError}>
+    <c-error message={errorMsg}></c-error>
+  </template>
 
-  <template if:true={showBalanceModal}>
+  <template lwc:if={showBalanceModal}>
     <section role="dialog" class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <header class="slds-modal__header modal-header">
@@ -356,7 +352,7 @@
     <div class="slds-backdrop slds-backdrop_open"></div>
   </template>
   <!--Added changes here-->
-  <template if:true={showRedrawAvailableModal}>
+  <template lwc:if={showRedrawAvailableModal}>
     <section role="dialog" class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <header class="slds-modal__header modal-header">

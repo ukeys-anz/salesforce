@@ -2,14 +2,15 @@
   <lightning-quick-action-panel title="Escalate to CRC" class="maxwidth">
     <div>
       <b>Are you sure you want to publish this article?</b>
-      <div if:true={isLoading}>
+      <div lwc:if={isLoading}>
         <lightning-spinner alternative-text="Loading..." variant="brand">
         </lightning-spinner>
       </div>
     </div>
 
     <div slot="footer">
-      <div if:false={isLoading}>
+      <div lwc:if={isLoading}></div>
+      <div lwc:else>
         <lightning-button
           class="btn"
           variant="neutral"
