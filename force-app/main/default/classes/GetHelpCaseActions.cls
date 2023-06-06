@@ -930,7 +930,8 @@ public with sharing class GetHelpCaseActions {
         BusinessHoursId,
         LastModifiedBy.Profile.Name,
         IsClosed,
-        RecordTypeId
+        RecordTypeId,
+        Status
       FROM Case
       WHERE Id IN :records
     ];
