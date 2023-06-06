@@ -484,6 +484,18 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>COBTaxResidencyModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COBTaxResidencyViewController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COBTaxResidencyViewControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CommonUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1699,16 +1711,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Temporary_External_Id__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Activity.Cases_Related_To_Team__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Activity.Case_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4953,6 +4955,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>CustomerOnboardingApplication__c.TncVersion__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.VerificationType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

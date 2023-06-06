@@ -1,5 +1,5 @@
 <template>
-  <template if:true={loading}>
+  <template lwc:if={loading}>
     <div class="slds-align_absolute-center" style="height: 4rem">
       <div role="status" class="slds-spinner_inline">
         <lightning-spinner
@@ -9,7 +9,7 @@
       </div>
     </div>
   </template>
-  <template if:false={loading}>
+  <template lwc:else>
     <article class="slds-card slds-card_boundary">
       <div class="slds-page-header slds-grid">
         <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -37,7 +37,7 @@
           </div>
         </header>
       </div>
-      <template if:true={totalRecordCount}>
+      <template lwc:if={totalRecordCount}>
         <div
           class="slds-card__body slds-scrollable container"
           style="max-height: 150px; min-height: 80px"
@@ -104,7 +104,7 @@
                       data-id={chatTopic.id}
                       onselect={handleOnselect}
                     >
-                      <template if:true={chatTopic.enableReinitiate}>
+                      <template lwc:if={chatTopic.enableReinitiate}>
                         <lightning-menu-item
                           label="Reply"
                           value="re_initiate"
@@ -120,11 +120,11 @@
                 </tr>
               </template>
             </tbody>
-            <template if:true={showLoadMore}>
+            <template lwc:if={showLoadMore}>
               <tfoot>
                 <tr>
                   <td>
-                    <template if:true={showLoadMore}>
+                    <template lwc:if={showLoadMore}>
                       <button
                         class="slds-button slds-button_neutral load-more"
                         onclick={handleLoadMore}

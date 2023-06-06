@@ -20,14 +20,14 @@
         class="filter-buttons"
       ></lightning-button>
     </div>
-    <template if:true={displayContent}>
-      <template if:true={error}>
+    <template lwc:if={displayContent}>
+      <template lwc:if={error}>
         <c-error message={error} data-id="error"></c-error>
       </template>
-      <template if:false={error}>
+      <template lwc:else>
         <div class="slds-card__body slds-card__body_inner padded-card">
           <article class="slds-card goal-container">
-            <template if:true={goalList}>
+            <template lwc:if={goalList}>
               <p class="slds-p-around_small">
                 Select one or more goals by clicking on the name and hit 'Apply
                 filters' to see all transactions for that goal(s).
@@ -127,8 +127,8 @@
                   </div>
                 </template>
               </div>
-              <template if:true={nextPageToken}>
-                <template if:true={loadingMore}>
+              <template lwc:if={nextPageToken}>
+                <template lwc:if={loadingMore}>
                   <div class="slds-align_absolute-center" style="height: 4rem">
                     <div role="status" class="slds-spinner_inline">
                       <lightning-spinner
@@ -138,7 +138,7 @@
                     </div>
                   </div>
                 </template>
-                <template if:false={loadingMore}>
+                <template lwc:else>
                   <div
                     class="slds-grid slds-text-align_center slds-box slds-box_xx-small slds-m-top_large"
                   >
@@ -151,7 +151,7 @@
                 </template>
               </template>
 
-              <template if:true={showInfoModal}>
+              <template lwc:if={showInfoModal}>
                 <section
                   role="dialog"
                   class="slds-modal slds-fade-in-open"
@@ -215,7 +215,7 @@
                 <div class="slds-backdrop slds-backdrop_open"></div>
               </template>
             </template>
-            <template if:false={goalList}>
+            <template lwc:else>
               <h1 class="slds-card__header-title main-title">
                 <span class="not-found" data-id="no-goals"
                   >Customer hasn't set any goals</span
@@ -226,7 +226,7 @@
         </div>
       </template>
     </template>
-    <template if:false={displayContent}>
+    <template lwc:else>
       <div class="slds-grid">
         <p class="field-padding">
           Don’t worry, it’s not broken. To view this you need a higher

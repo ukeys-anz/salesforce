@@ -1,7 +1,7 @@
 <template>
   <section role="dialog" class="slds-modal slds-fade-in-open">
     <div class="slds-modal__container">
-      <template if:true={loading}>
+      <template lwc:if={loading}>
         <article class="slds-card slds-m-bottom_small">
           <div class="slds-align_absolute-center" style="height: 4rem">
             <div role="status" class="slds-spinner_inline">
@@ -13,8 +13,8 @@
           </div>
         </article>
       </template>
-      <template if:false={loading}>
-        <template if:true={showSelectionMenu}>
+      <template lwc:else>
+        <template lwc:if={showSelectionMenu}>
           <header class="slds-modal__header header">
             <h2 class="slds-modal__title slds-hyphenate">
               Card Management Options
@@ -65,7 +65,7 @@
             </button>
           </footer>
         </template>
-        <template if:true={showLostMenu}>
+        <template lwc:if={showLostMenu}>
           <header class="slds-modal__header header">
             <h2 class="slds-modal__title slds-hyphenate">
               Card Management Options
@@ -113,7 +113,7 @@
             </button>
           </footer>
         </template>
-        <template if:true={showReplaceMenu}>
+        <template lwc:if={showReplaceMenu}>
           <header class="slds-modal__header header">
             <h2 class="slds-modal__title slds-hyphenate">
               Card Management Options
