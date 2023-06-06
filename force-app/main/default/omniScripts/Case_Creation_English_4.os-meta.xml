@@ -1440,7 +1440,7 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;^[0-9]{10}&quot;,
+  &quot;pattern&quot; : &quot;^[0-9]{10}|^[0-9]{7}&quot;,
   &quot;ptrnErrText&quot; : &quot;Customer number must be numbers and at least 10 digits long&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
@@ -4160,13 +4160,23 @@
                 <name>ComplianceChecks</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock11&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;Compliance Checks&lt;/p&gt;&quot;,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
+  &quot;sanitize&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Disagrees&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;CustomerDecision&quot;
+      } ]
+    }
+  }
 }</propertySetConfig>
                 <sequenceNumber>0.0</sequenceNumber>
                 <type>Text Block</type>
@@ -5832,7 +5842,12 @@
       &quot;ComplaintEscalationReason&quot; : &quot;Complaint Escalation Reason&quot;
     }, {
       &quot;RestrictionLevel&quot; : &quot;Restriction Level&quot;
-    } ]
+    } ],
+    &quot;Priority&quot; : &quot;Standard&quot;,
+    &quot;ChannelReceived&quot; : &quot;Phone&quot;,
+    &quot;thirdPartyCountry&quot; : &quot;Australia&quot;,
+    &quot;RestrictionLevel&quot; : &quot;No Restriction&quot;,
+    &quot;Country&quot; : &quot;Australia&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
@@ -5945,5 +5960,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>5ce6f293-734d-d49d-cabe-d11c0aa0acfa</webComponentKey>
+    <webComponentKey>428f3e5f-9c69-06e7-f466-91e3faf4e7ca</webComponentKey>
 </OmniScript>
