@@ -914,8 +914,12 @@ public with sharing class GetHelpCaseActions {
   /**
    * @description create task on case closure
    * @param records Case records from trigger
+   * @param oldMap oldMap of the cases
    */
-  public static void createTaskOnDisputeCaseClosure(List<Case> records) {
+  public static void createTaskOnDisputeCaseClosure(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
     List<Task> taskList = new List<Task>();
     Map<Id, Case> mapClosedCases = new Map<Id, Case>();
     List<Case> closedCases = [
@@ -931,12 +935,14 @@ public with sharing class GetHelpCaseActions {
       WHERE Id IN :records
     ];
     for (Case record : closedCases) {
+      Case oldCase = oldMap.get(record.Id);
       if (
         GetHelpCaseActionsHelper.CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS.contains(
           record.RecordTypeId
         ) &&
         !record.LastModifiedBy.Profile.Name.endsWith('Standard User') &&
-        record.IsClosed
+        record.IsClosed &&
+        record.Status != oldCase.Status
       ) {
         mapClosedCases.put(record.Id, record);
       }
