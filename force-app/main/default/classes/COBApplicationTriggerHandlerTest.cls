@@ -75,7 +75,9 @@ public with sharing class COBApplicationTriggerHandlerTest {
       'API_Only',
       'Customer_Onboarding_Integration',
       'Case_Read_Write_Customer_Onboarding_Integration',
-      'Case_Read_Write_KYC_QA'
+      'Case_Read_Write_KYC_QA',
+      //This PS is set to overcome restrictions of System.runAs() that runs the test in USER_MODE
+      'Customer_Read_Only'
     };
 
     List<PermissionSet> psList = [
@@ -173,6 +175,13 @@ public with sharing class COBApplicationTriggerHandlerTest {
       OCV_IDS_COUNT,
       kycQACases.size(),
       OCV_IDS_COUNT + ' new KYC QA cases should have been created.'
+    );
+
+    Assert.areEqual(
+      ACCOUNTS_WITH_OCV_IDS_NUMBER,
+      kycQACasesWithAccount.size(),
+      ACCOUNTS_WITH_OCV_IDS_NUMBER +
+      ' new Person Account linked KYC QA case(s) should have been created.'
     );
   }
 }

@@ -43,6 +43,6 @@ public with sharing class COBApplicationActions {
       ocvIdsKycQACases.put(acc.OCV_ID__c, kycQACase);
     }
 
-    DMLUtil.insertRecords(ocvIdsKycQACases.values(), false, true);
+    DMLUtil.insertRecords(ocvIdsKycQACases.values(), false, false);
   }
 }
