@@ -527,6 +527,73 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description create closed case map which are last modified by Non Standard User
+   * @param records Case records from trigger
+   * @param oldMap oldMap of the cases
+   * @return closed case map
+   */
+  public static Map<Id, Case> createClosedCaseMap(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    Map<Id, Case> mapClosedCases = new Map<Id, Case>();
+    List<Case> closedCases = [
+      SELECT
+        Id,
+        AccountId,
+        Subject,
+        BusinessHoursId,
+        LastModifiedBy.Profile.Name,
+        IsClosed,
+        RecordTypeId,
+        Status
+      FROM Case
+      WHERE Id IN :records
+    ];
+    for (Case record : closedCases) {
+      Case oldCase = oldMap.get(record.Id);
+      if (
+        GetHelpCaseActionsHelper.CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS.contains(
+          record.RecordTypeId
+        ) &&
+        !record.LastModifiedBy.Profile.Name.endsWith('Standard User') &&
+        record.IsClosed &&
+        record.Status != oldCase.Status
+      ) {
+        mapClosedCases.put(record.Id, record);
+      }
+    }
+
+    return mapClosedCases;
+  }
+
+  /**
+   * @description To add 3 business days to current date
+   * @param businessHoursId busness hours Id according to which 3 days needs to be added
+   * @return 3rd business day date from today
+   */
+  private static Date addThreeBusinessDaysToCurrentDate(Id businessHoursId) {
+    if (businessHoursId == null) {
+      BusinessHours businessHourDispute = CommonUtil.getBusinessHours();
+      businessHoursId = businessHourDispute?.Id;
+    }
+    Integer numberOfDays = 0;
+    Datetime prevDate = System.now();
+    Datetime nextDate;
+    while (numberOfDays < 3) {
+      nextDate = BusinessHours.nextStartDate(businessHoursId, prevDate);
+      if (nextDate.isSameDay(prevDate)) {
+        nextDate = BusinessHours.add(businessHoursId, nextDate, 86400000);
+      }
+      if (BusinessHours.isWithin(businessHoursId, nextDate)) {
+        numberOfDays++;
+      }
+      prevDate = nextDate;
+    }
+    return nextDate.date();
+  }
+
+  /**
    * @description create task on case
    * @param caseRecord case record
    * @param externalCaseStatusRecord External_Case_Status__c Record
@@ -542,42 +609,12 @@ public with sharing class GetHelpCaseActionsHelper {
     newTask.WhatId = caseRecord.Id;
     newTask.WhoId = externalCaseStatusRecord.Case__r.ContactId;
     newTask.Subject = caseRecord.Subject + ' Closure Communication Required';
-
-    // Getting Business Hours
-    Id businessHoursId;
-    if (caseRecord.BusinessHoursId != null) {
-      businessHoursId = caseRecord.BusinessHoursId;
-    } else {
-      BusinessHours businessHourDispute = CommonUtil.getBusinessHours();
-      businessHoursId = businessHourDispute?.Id;
-    }
-
-    if (businessHoursId != null) {
-      // Add 3 business days to the task
-      Integer numberOfDays = 0;
-      Datetime prevDate = System.now();
-      Datetime nextDate;
-      while (numberOfDays < 3) {
-        nextDate = BusinessHours.nextStartDate(businessHoursId, prevDate);
-        if (nextDate.isSameDay(prevDate)) {
-          nextDate = BusinessHours.add(businessHoursId, nextDate, 86400000);
-        }
-        if (BusinessHours.isWithin(businessHoursId, nextDate)) {
-          numberOfDays++;
-        }
-        prevDate = nextDate;
-      }
-      // Datetime dueDate = BusinessHours.add(businessHourDispute.Id, System.now(), 259200000);
-      newTask.ActivityDate = nextDate.date();
-    } else {
-      newTask.ActivityDate = System.today() + 1;
-    }
     newTask.Description = GetHelpConstants.TASK_EMAIL_DESCRIPTION;
     newTask.PEGA_Case_Status__c = externalCaseStatusRecord.External_Status__c;
-
     newTask.OwnerId = taskOwnerId;
     newTask.RecordTypeId = GetHelpConstants.TASK_EMAIL_RT;
     newTask.Case__c = caseRecord.Id;
+    newTask.ActivityDate = addThreeBusinessDaysToCurrentDate(caseRecord.BusinessHoursId);
     return newTask;
   }
 }

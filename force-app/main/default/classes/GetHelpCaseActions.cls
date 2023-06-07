@@ -920,34 +920,14 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    List<Task> taskList = new List<Task>();
-    Map<Id, Case> mapClosedCases = new Map<Id, Case>();
-    List<Case> closedCases = [
-      SELECT
-        Id,
-        AccountId,
-        Subject,
-        BusinessHoursId,
-        LastModifiedBy.Profile.Name,
-        IsClosed,
-        RecordTypeId,
-        Status
-      FROM Case
-      WHERE Id IN :records
-    ];
-    for (Case record : closedCases) {
-      Case oldCase = oldMap.get(record.Id);
-      if (
-        GetHelpCaseActionsHelper.CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS.contains(
-          record.RecordTypeId
-        ) &&
-        !record.LastModifiedBy.Profile.Name.endsWith('Standard User') &&
-        record.IsClosed &&
-        record.Status != oldCase.Status
-      ) {
-        mapClosedCases.put(record.Id, record);
-      }
+    if (!Schema.sObjectType.External_Case_Status__c.isQueryable()) {
+      return;
     }
+    List<Task> taskList = new List<Task>();
+    Map<Id, Case> mapClosedCases = GetHelpCaseActionsHelper.createClosedCaseMap(
+      records,
+      oldMap
+    );
 
     Set<String> externalCaseStatusSet = new Set<String>{
       'Resolved-PreArbGranted',
@@ -957,31 +937,24 @@ public with sharing class GetHelpCaseActions {
       'Resolved-AcquirerLiable',
       'Resolved-Duplicate'
     };
-    if (Schema.sObjectType.External_Case_Status__c.isQueryable()) {
-      Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
-      Id taskOwnerId = queueMap.get(
-        GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE
+    Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
+    Id taskOwnerId = queueMap.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
+    for (External_Case_Status__c externalCaseStatus : [
+      SELECT Id, External_Status__c, Case__c, Case__r.ContactId
+      FROM External_Case_Status__c
+      WHERE
+        Case__c IN :mapClosedCases.keySet()
+        AND External_Status__c IN :externalCaseStatusSet
+    ]) {
+      taskList.add(
+        GetHelpCaseActionsHelper.createEmailTask(
+          mapClosedCases.get(externalCaseStatus.Case__c),
+          externalCaseStatus,
+          taskOwnerId
+        )
       );
-      for (External_Case_Status__c externalCaseStatus : [
-        SELECT Id, External_Status__c, Case__c, Case__r.ContactId
-        FROM External_Case_Status__c
-        WHERE Case__c IN :mapClosedCases.keySet()
-      ]) {
-        if (
-          externalCaseStatusSet.contains(externalCaseStatus.External_Status__c)
-        ) {
-          taskList.add(
-            GetHelpCaseActionsHelper.createEmailTask(
-              mapClosedCases.get(externalCaseStatus.Case__c),
-              externalCaseStatus,
-              taskOwnerId
-            )
-          );
-        }
-      }
     }
-    if (!taskList.isEmpty()) {
-      DMLUtil.insertRecords(taskList, false, true);
-    }
+
+    DMLUtil.insertRecords(taskList, false, true);
   }
 }
