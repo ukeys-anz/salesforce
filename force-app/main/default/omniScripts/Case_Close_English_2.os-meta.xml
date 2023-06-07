@@ -3,7 +3,7 @@
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>true</isOmniScriptEmbeddable>
@@ -588,7 +588,7 @@
       } ]
     }
   },
-  &quot;checkLabel&quot; : &quot;The details of this complaint have been provided to the product manufacturer&quot;,
+  &quot;checkLabel&quot; : &quot;The details of this complaint have been provided to the product manufacturer 2&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
@@ -2031,5 +2031,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>180abba5-5eca-aa0b-e4b7-c7b6ebc9fe58</webComponentKey>
+    <webComponentKey>acad129f-f3fa-25ab-1e0e-14daacb272fb</webComponentKey>
 </OmniScript>

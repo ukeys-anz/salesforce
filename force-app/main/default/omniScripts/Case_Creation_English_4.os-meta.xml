@@ -1440,7 +1440,7 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;^[0-9]{10}|^[0-9]{7}&quot;,
+  &quot;pattern&quot; : &quot;^[0-9]{10}|^[0-9]{9}|^[0-9]{7}&quot;,
   &quot;ptrnErrText&quot; : &quot;Customer number must be numbers and at least 10 digits long&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
@@ -3122,7 +3122,7 @@
   &quot;mask&quot; : null,
   &quot;show&quot; : null,
   &quot;hide&quot; : true,
-  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType%==\&quot;Collections\&quot;||(%Case:ComplaintDetails:IssueType%==\&quot;Credit assessment\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;Inappropriate lending/maladministration\&quot;)||(%Case:ComplaintDetails:IssueType%==\&quot;Credit reporting\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;Default listing dispute\&quot;)),false,true)&quot;,
+  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType%==\&quot;17\&quot;||(%Case:ComplaintDetails:IssueType%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;42\&quot;)),false,true)&quot;,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;&quot;,
@@ -5960,5 +5960,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>428f3e5f-9c69-06e7-f466-91e3faf4e7ca</webComponentKey>
+    <webComponentKey>edf34e83-f8e0-33ed-3a80-d8bf6f60b493</webComponentKey>
 </OmniScript>

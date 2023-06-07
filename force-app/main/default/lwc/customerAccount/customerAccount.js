@@ -48,11 +48,11 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
     if (
-      (cmpDetails.IssueType === "Financial difficulty & hardship" &&
+      (cmpDetails.IssueType === "4" &&
         this.omniJsonDef.name === "AccountPolicyNumber") ||
-      (cmpDetails.IssueType2 === "Financial difficulty & hardship" &&
+      (cmpDetails.IssueType2 === "4" &&
         this.omniJsonDef.name === "AccountPolicyNumber2") ||
-      (cmpDetails.IssueType3 === "Financial difficulty & hardship" &&
+      (cmpDetails.IssueType3 === "4" &&
         this.omniJsonDef.name === "AccountPolicyNumber3")
     ) {
       this.allValues = [];
@@ -65,9 +65,9 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       }
       this.allSelected = true;
     } else if (
-      cmpDetails.IssueType !== "Financial difficulty & hardship" ||
-      cmpDetails.IssueType2 !== "Financial difficulty & hardship" ||
-      cmpDetails.IssueType3 !== "Financial difficulty & hardship"
+      cmpDetails.IssueType !== "4" ||
+      cmpDetails.IssueType2 !== "4" ||
+      cmpDetails.IssueType3 !== "4"
     ) {
       if (this.allSelected) {
         this.allValues = [];
