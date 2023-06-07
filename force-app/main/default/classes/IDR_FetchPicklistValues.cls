@@ -80,7 +80,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
       ) {
         controllingInfo.add(
           new Map<String, String>{
-            'name' => currControllingValue.getLabel(),
+            'name' => currControllingValue.getValue(),
             'value' => currControllingValue.getLabel()
           }
         );
@@ -116,7 +116,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
     List<Schema.PicklistEntry> dependentValues = dependentFieldInfo.getPicklistValues();
     for (Schema.PicklistEntry currControllingValue : controllingValues) {
       controllingInfo.put(
-        currControllingValue.getLabel(),
+        currControllingValue.getValue(),
         new List<Map<String, String>>()
       );
     }
@@ -140,37 +140,37 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
           val = curr - 48;
         }
         if ((val & 8) == 8) {
-          controllingInfo.get(controllingValues[baseCount + 0].getLabel())
+          controllingInfo.get(controllingValues[baseCount + 0].getValue())
             .add(
               new Map<String, String>{
-                'name' => currDependentValue.getLabel(),
+                'name' => currDependentValue.getValue(),
                 'value' => currDependentValue.getLabel()
               }
             );
         }
         if ((val & 4) == 4) {
-          controllingInfo.get(controllingValues[baseCount + 1].getLabel())
+          controllingInfo.get(controllingValues[baseCount + 1].getValue())
             .add(
               new Map<String, String>{
-                'name' => currDependentValue.getLabel(),
+                'name' => currDependentValue.getValue(),
                 'value' => currDependentValue.getLabel()
               }
             );
         }
         if ((val & 2) == 2) {
-          controllingInfo.get(controllingValues[baseCount + 2].getLabel())
+          controllingInfo.get(controllingValues[baseCount + 2].getValue())
             .add(
               new Map<String, String>{
-                'name' => currDependentValue.getLabel(),
+                'name' => currDependentValue.getValue(),
                 'value' => currDependentValue.getLabel()
               }
             );
         }
         if ((val & 1) == 1) {
-          controllingInfo.get(controllingValues[baseCount + 3].getLabel())
+          controllingInfo.get(controllingValues[baseCount + 3].getValue())
             .add(
               new Map<String, String>{
-                'name' => currDependentValue.getLabel(),
+                'name' => currDependentValue.getValue(),
                 'value' => currDependentValue.getLabel()
               }
             );
