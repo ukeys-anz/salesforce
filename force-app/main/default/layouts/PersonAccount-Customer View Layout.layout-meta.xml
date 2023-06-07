@@ -40,6 +40,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>TFN_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>CPID_Link__c</field>
             </layoutItems>
             <layoutItems>
@@ -79,6 +83,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Deceased_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Bankrupt_Date__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

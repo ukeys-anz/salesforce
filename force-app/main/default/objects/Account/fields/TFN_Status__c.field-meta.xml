@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TFN_Status__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_OCV</complianceGroup>
+    <description>This Value determine TFN and TFN Exemption of the Customer.</description>
+    <externalId>false</externalId>
+    <label>TFN Status</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>NO TIN</fullName>
+                <default>false</default>
+                <label>NO TIN - Party opted not to provide a TIN - Depending on the jurisdiction this is perfectly acceptable/legal. E.g. Australia</label>
+            </value>
+            <value>
+                <fullName>V</fullName>
+                <default>false</default>
+                <label>VALID TFN - 8 OR 9 DIGIT AUST TAX FILE NUMBER SUPPLIED BY THE CUSTOMER</label>
+            </value>
+            <value>
+                <fullName>I</fullName>
+                <default>false</default>
+                <label>INVALID TFN - THE TFN SUPPLIED BY THE CUSTOMER DID NOT PASS THE ATO ALGORITHM</label>
+            </value>
+            <value>
+                <fullName>CHILD</fullName>
+                <default>false</default>
+                <label>CHILD - The party is a minor/child and not required to provide a TIN</label>
+            </value>
+            <value>
+                <fullName>AGE PENSION</fullName>
+                <default>false</default>
+                <label>AGE PENSION - Exemption for people on the age service, including veterans and invalid pension.</label>
+            </value>
+            <value>
+                <fullName>OTHER GOVERNMENT PENSION</fullName>
+                <default>false</default>
+                <label>OTHER GOVERNMENT PENSION - Exemption for people on any other eligible pension or benefit e.g. supporting parent&apos;s pension, widow&apos;s pension.</label>
+            </value>
+            <value>
+                <fullName>TAX EXEMPT</fullName>
+                <default>false</default>
+                <label>TAX EXEMPT - Exemption for entities not required to lodge an income tax return e.g. charities</label>
+            </value>
+            <value>
+                <fullName>BANK ORG</fullName>
+                <default>false</default>
+                <label>BANK ORG - The party is recognised as a bank and TIN is not applicable</label>
+            </value>
+            <value>
+                <fullName>NON RESIDENT</fullName>
+                <default>false</default>
+                <label>NON RESIDENT - The party is a NON RESIDENT of the given jurisdiction</label>
+            </value>
+            <value>
+                <fullName>ABN LODGD</fullName>
+                <default>false</default>
+                <label>The party lodged an Australian Business Number (ABN) in lieu of a TIN</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
