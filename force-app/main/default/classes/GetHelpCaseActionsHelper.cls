@@ -614,7 +614,9 @@ public with sharing class GetHelpCaseActionsHelper {
     newTask.OwnerId = taskOwnerId;
     newTask.RecordTypeId = GetHelpConstants.TASK_EMAIL_RT;
     newTask.Case__c = caseRecord.Id;
-    newTask.ActivityDate = addThreeBusinessDaysToCurrentDate(caseRecord.BusinessHoursId);
+    newTask.ActivityDate = addThreeBusinessDaysToCurrentDate(
+      caseRecord.BusinessHoursId
+    );
     return newTask;
   }
 }
