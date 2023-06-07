@@ -40,7 +40,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>TFN_Status__c</field>
+                <field>Tax_Exemption_Reason__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

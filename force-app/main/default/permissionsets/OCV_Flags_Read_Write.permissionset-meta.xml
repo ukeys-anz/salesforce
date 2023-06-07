@@ -23,7 +23,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.TFN_Status__c</field>
+        <field>Account.Tax_Exemption_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -281,7 +281,7 @@
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
-        "TFN_Status__c"
+        "Tax_Exemption_Reason__c"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
       "IA-2530753": [

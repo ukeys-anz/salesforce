@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>TFN_Status__c</fullName>
+    <fullName>Tax_Exemption_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_OCV</complianceGroup>
     <description>This Value determine TFN and TFN Exemption of the Customer.</description>
     <externalId>false</externalId>
-    <label>TFN Status</label>
+    <label>Tax Exemption Reason</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
