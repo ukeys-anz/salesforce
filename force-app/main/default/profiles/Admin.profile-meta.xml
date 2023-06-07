@@ -4064,6 +4064,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.DateofBirthOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.DateOfBirthOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4099,6 +4104,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.FirstNameOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.FirstNameOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4119,6 +4129,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.LastNameOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.LastNameOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4135,6 +4150,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBPrimaryIDDocument__c.LicenceCardNumberOCRClient__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.LicenceCardNumberOCRMatch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4169,6 +4189,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.LicenceNumberOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.LicenceNumberOCRServerTransform__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4194,6 +4219,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.MiddleNamesOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.MiddleNamesOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4210,6 +4240,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBPrimaryIDDocument__c.PassportNumberOCRClient__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.PassportNumberOCRMatch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
