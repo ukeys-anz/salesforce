@@ -1235,6 +1235,7 @@
     {
       "id": "b0733744-c511-4a23-bb1b-6ddecdc4152c",
       "type": "ASSET_TYPE_VEHICLE",
+      "subType": "Van",
       "name": "Family Car",
       "estimatedValue": {
         "currencyCode": "AUD",
@@ -1353,29 +1354,27 @@
       "type": "ASSET_TYPE_BANK_ACCOUNT",
       "name": "FabricAccount",
       "estimatedValue": {
-          "currencyCode": "AUD",
-          "units": "120000",
-          "nanos": 850000000
+        "currencyCode": "AUD",
+        "units": "120000",
+        "nanos": 850000000
       },
       "account": {
-          "id": "e7db2ff6-a773-43d7-9198-6aef0cbd8965",
-          "bsb": "013711",
-          "accountNumber": "123456789",
-          "accountName": "TS1 Account Name",
-          "status": "ACCOUNT_STATE_ACTIVE",
-          "financialInstitution": "ANZ Plus"
+        "id": "e7db2ff6-a773-43d7-9198-6aef0cbd8965",
+        "bsb": "013711",
+        "accountNumber": "123456789",
+        "accountName": "TS1 Account Name",
+        "status": "ACCOUNT_STATE_ACTIVE",
+        "financialInstitution": "ANZ Plus"
       },
       "ownership": [
-          {
-              "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
-              "proportion": {
-                  "value": "100"
-              }
+        {
+          "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+          "proportion": {
+            "value": "100"
           }
+        }
       ],
-      "source": [
-          "ASSET_SOURCE_ANZ"
-      ],
+      "source": ["ASSET_SOURCE_ANZ"],
       "propertyId": "",
       "createTime": "2023-05-04T09:20:11.272970Z",
       "updateTime": "2023-05-04T09:20:11.272970Z",
@@ -1401,20 +1400,135 @@
       },
       "ownership": [
         {
-            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
-            "proportion": {
-                "value": "100"
-            }
+          "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+          "proportion": {
+            "value": "100"
+          }
         }
       ],
-      "source": [
-        "ASSET_SOURCE_MANUAL"
-      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
       "propertyId": "",
       "createTime": "2023-05-04T09:20:11.272970Z",
       "updateTime": "2023-05-04T09:20:11.272970Z",
       "updatedBy": "1000990280",
       "etag": "1683192011272970123"
-    }    
+    },
+    {
+      "id": "3d032ca6-919f-4249-8beb-4126f35cd818",
+      "type": "ASSET_TYPE_PROPERTY",
+      "name": "463 Tooronga Road, HAWTHORN EAST  VIC  3123",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "850000",
+        "nanos": 600000000
+      },
+      "ownership": [
+        {
+          "partyId": "1000991493",
+
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "propertyId": "",
+      "createTime": "2023-04-05T03:57:57.766623Z",
+      "updateTime": "2023-04-05T03:57:57.766623Z",
+      "updatedBy": "1000991493"
+    },
+    {
+      "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "type": "ASSET_TYPE_SUPER",
+      "name": "Super Account",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "3000"
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T08:51:14.878264Z",
+      "updateTime": "2023-05-04T08:51:14.878264Z",
+      "updatedBy": "1000990280",
+      "etag": "1683190274878264000"
+    },
+    {
+      "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "type": "ASSET_TYPE_UNSPECIFIED",
+      "name": "Other",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "345000",
+        "nanos": 850000000
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T08:51:14.878264Z",
+      "updateTime": "2023-05-04T08:51:14.878264Z",
+      "updatedBy": "1000990280",
+      "etag": "1683190274878264000"
+    },
+    {
+      "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "type": "ASSET_TYPE_HOME_CONTENTS",
+      "name": "Other",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "125000",
+        "nanos": 850000000
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T08:51:14.878264Z",
+      "updateTime": "2023-05-04T08:51:14.878264Z",
+      "updatedBy": "1000990280",
+      "etag": "1683190274878264000"
+    },
+    {
+      "id": "20545432-ff8d-47b3-aa54-0b2e63c31de3",
+      "type": "ASSET_TYPE_SHARES",
+      "name": "Investment",
+      "estimatedValue": {
+        "currencyCode": "AUD",
+        "units": "55000"
+      },
+      "ownership": [
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "source": ["ASSET_SOURCE_MANUAL"],
+      "propertyId": "",
+      "createTime": "2023-05-04T09:02:19.105986Z",
+      "updateTime": "2023-05-04T09:02:19.105986Z",
+      "updatedBy": "1000990280",
+      "etag": "1683190939105986000"
+    }
   ]
 }

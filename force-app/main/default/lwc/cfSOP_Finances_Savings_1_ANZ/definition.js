@@ -8,12 +8,24 @@ let definition = {
       isSmartAction: false,
       smartAction: {},
       styleObject: {
-        padding: [{ type: "around", size: "x-small" }],
-        margin: [{ type: "bottom", size: "x-small" }],
+        padding: [{ type: "around", size: "x-small", label: "around:x-small" }],
+        margin: [],
         container: { class: "slds-card" },
         size: { isResponsive: false, default: "12" },
-        sizeClass: "slds-size_12-of-12",
-        class: "slds-card slds-p-around_x-small slds-m-bottom_x-small"
+        sizeClass: "slds-size_12-of-12 ",
+        class: "slds-card slds-p-around_x-small ",
+        background: {
+          color: "",
+          image: "",
+          size: "",
+          repeat: "",
+          position: ""
+        },
+        border: { type: "", width: "", color: "", radius: "", style: "" },
+        elementStyleProperties: {},
+        text: { align: "", color: "" },
+        inlineStyle: "",
+        style: "      \n         "
       },
       components: {
         "layer-0": {
@@ -42,7 +54,7 @@ let definition = {
                   key: "element_element_block_0_0_outputField_0_0",
                   name: "Text",
                   element: "outputField",
-                  size: { isResponsive: false, default: "9" },
+                  size: { isResponsive: false, default: "10" },
                   stateIndex: 0,
                   class: "slds-col ",
                   property: {
@@ -53,14 +65,13 @@ let definition = {
                   },
                   type: "text",
                   styleObject: {
-                    sizeClass: "slds-size_9-of-12 ",
-                    size: { isResponsive: false, default: "9" }
+                    sizeClass: "slds-size_10-of-12 ",
+                    size: { isResponsive: false, default: "10" }
                   },
                   parentElementKey: "element_block_0_0",
                   elementLabel: "Block-0-Text-0"
                 },
                 {
-                  key: "element_element_block_0_0_action_1_0",
                   name: "Action",
                   element: "action",
                   size: { isResponsive: false, default: "2" },
@@ -98,10 +109,69 @@ let definition = {
                   type: "element",
                   styleObject: {
                     sizeClass: "slds-size_2-of-12 ",
-                    size: { isResponsive: false, default: "2" }
+                    size: { isResponsive: false, default: "2" },
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "right", color: "" },
+                    inlineStyle: "",
+                    class: "slds-text-align_right ",
+                    style: "      \n         "
                   },
+                  elementLabel: "Block-0-Action-1",
+                  key: "element_element_block_0_0_action_1_0",
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Action-1"
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_2-of-12 ",
+                        size: { isResponsive: false, default: "2" },
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "right", color: "" },
+                        inlineStyle: "",
+                        class: "slds-text-align_right ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
                 }
               ],
               elementLabel: "Block-0"
@@ -168,8 +238,7 @@ let definition = {
                 padding: [
                   { type: "around", size: "x-small", label: "around:x-small" }
                 ],
-                class:
-                  "slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small title_color",
+                class: " slds-p-around_x-small title_color",
                 sizeClass: "slds-size_12-of-12 ",
                 margin: [],
                 background: {
@@ -182,12 +251,7 @@ let definition = {
                 size: { isResponsive: false, default: "12" },
                 container: { class: "" },
                 border: {
-                  type: [
-                    "border_top",
-                    "border_right",
-                    "border_bottom",
-                    "border_left"
-                  ],
+                  type: [],
                   width: "",
                   color: "#cccccc",
                   radius: "",
@@ -198,8 +262,7 @@ let definition = {
                 },
                 text: { align: "", color: "" },
                 inlineStyle: "",
-                style:
-                  "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n         ",
+                style: "      \n         ",
                 customClass: "title_color"
               },
               children: [
@@ -232,7 +295,7 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField:
-                      "%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20account%3C/div%3E",
+                      "%3Cdiv%3EThis%20includes%20any%20cash%20and%20money%20in%20your%20bank%20accounts.%3C/div%3E",
                     card: "{card}"
                   },
                   type: "text",
@@ -370,7 +433,7 @@ let definition = {
                     recordId: "{recordId}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false,
-                    cardNode: "{records}"
+                    cardNode: "{record.assets}"
                   },
                   type: "element",
                   styleObject: { sizeClass: "slds-size_12-of-12" },
@@ -490,7 +553,7 @@ let definition = {
                   property: {
                     cardName: "SOP_ANZ3",
                     recordId: "{recordId}",
-                    cardNode: "{records}",
+                    cardNode: "{record.assets}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false
                   },
@@ -588,7 +651,7 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField:
-                      "%3Cdiv%3E%3Cstrong%3EOther%20Institutuions%3C/strong%3E%3C/div%3E",
+                      "%3Cdiv%3E%3Cstrong%3EOther%20Institutions%3C/strong%3E%3C/div%3E",
                     card: "{card}"
                   },
                   type: "text",
@@ -662,7 +725,6 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_1_0_childCardPreview_11_0",
                   name: "FlexCard",
                   element: "childCardPreview",
                   size: { isResponsive: false, default: "12" },
@@ -671,88 +733,17 @@ let definition = {
                   property: {
                     cardName: "SOP_Other_Banks",
                     recordId: "{recordId}",
-                    cardNode: "{records}",
+                    cardNode: "{record.assets}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false
                   },
                   type: "element",
-                  styleObject: {
-                    sizeClass: "slds-size_12-of-12 ",
-                    padding: [],
-                    margin: [
-                      { type: "left", size: "x-small", label: "left:x-small" },
-                      { type: "right", size: "large", label: "right:large" }
-                    ],
-                    background: {
-                      color: "",
-                      image: "",
-                      size: "",
-                      repeat: "",
-                      position: ""
-                    },
-                    size: { isResponsive: false, default: "12" },
-                    container: { class: "" },
-                    border: {
-                      type: "",
-                      width: "",
-                      color: "",
-                      radius: "",
-                      style: ""
-                    },
-                    elementStyleProperties: {},
-                    text: { align: "", color: "" },
-                    inlineStyle: "",
-                    class: "slds-m-left_x-small slds-m-right_large ",
-                    style: "      \n         "
-                  },
-                  parentElementKey: "element_block_1_0",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
                   elementLabel: "Your Savings-FlexCard-11",
-                  styleObjects: [
-                    {
-                      key: 0,
-                      conditions: "default",
-                      styleObject: {
-                        sizeClass: "slds-size_12-of-12 ",
-                        padding: [],
-                        margin: [
-                          {
-                            type: "left",
-                            size: "x-small",
-                            label: "left:x-small"
-                          },
-                          { type: "right", size: "large", label: "right:large" }
-                        ],
-                        background: {
-                          color: "",
-                          image: "",
-                          size: "",
-                          repeat: "",
-                          position: ""
-                        },
-                        size: { isResponsive: false, default: "12" },
-                        container: { class: "" },
-                        border: {
-                          type: "",
-                          width: "",
-                          color: "",
-                          radius: "",
-                          style: ""
-                        },
-                        elementStyleProperties: {},
-                        text: { align: "", color: "" },
-                        inlineStyle: "",
-                        class: "slds-m-left_x-small slds-m-right_large ",
-                        style: "      \n         "
-                      },
-                      label: "Default",
-                      name: "Default",
-                      conditionString: "",
-                      draggable: false
-                    }
-                  ]
+                  key: "element_element_block_1_0_childCardPreview_11_0"
                 },
                 {
-                  key: "element_element_block_1_0_outputField_12_0",
+                  key: "element_element_block_1_0_outputField_11_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: "12" },
@@ -861,7 +852,7 @@ let definition = {
                   property: {
                     cardName: "SOP_Other",
                     recordId: "{recordId}",
-                    cardNode: "{records}",
+                    cardNode: "{record.assets}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false
                   },
@@ -970,8 +961,7 @@ let definition = {
                         label: "around:x-small"
                       }
                     ],
-                    class:
-                      "slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small title_color",
+                    class: " slds-p-around_x-small title_color",
                     sizeClass: "slds-size_12-of-12 ",
                     margin: [],
                     background: {
@@ -984,12 +974,7 @@ let definition = {
                     size: { isResponsive: false, default: "12" },
                     container: { class: "" },
                     border: {
-                      type: [
-                        "border_top",
-                        "border_right",
-                        "border_bottom",
-                        "border_left"
-                      ],
+                      type: [],
                       width: "",
                       color: "#cccccc",
                       radius: "",
@@ -1000,8 +985,7 @@ let definition = {
                     },
                     text: { align: "", color: "" },
                     inlineStyle: "",
-                    style:
-                      "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n         ",
+                    style: "      \n         ",
                     customClass: "title_color"
                   },
                   label: "Default",
@@ -1044,7 +1028,7 @@ let definition = {
                 border: {
                   type: "",
                   width: "",
-                  color: "",
+                  color: "#cccccc",
                   radius: "",
                   style: ""
                 },
@@ -1054,7 +1038,393 @@ let definition = {
                 customClass: "title_color",
                 style: "      \n         "
               },
-              children: [],
+              children: [
+                {
+                  key: "element_element_block_2_0_outputField_0_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-0"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_1_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3EThese%20are%20all%20the%20assets%20-%20including%20any%20properties,%20vehicles,%20investments%20or%20any%20other%20asset%20owned.%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-1"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_2_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-2"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_3_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-3"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_4_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EProperty%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-4"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_5_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Property",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-5"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_6_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-6"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_7_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3ESuper%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-7"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_8_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Super",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-8"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_9_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-9"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_10_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EVehicles%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-10"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_11_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Vehicles",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-11"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_12_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-12"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_13_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EOther%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-13"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_14_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Other",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-14"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_15_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}",
+                    label: ""
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-15"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_16_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EContents%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-16"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_17_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Content",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-17"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_18_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-18"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_19_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EInvestments%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-19"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_20_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Asset_Shares",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-20"
+                }
+              ],
               elementLabel: "Your Assets",
               userUpdatedElementLabel: true,
               styleObjects: [
@@ -1084,7 +1454,7 @@ let definition = {
                     border: {
                       type: "",
                       width: "",
-                      color: "",
+                      color: "#cccccc",
                       radius: "",
                       style: ""
                     },
@@ -1134,7 +1504,7 @@ let definition = {
                 border: {
                   type: "",
                   width: "",
-                  color: "",
+                  color: "#cccccc",
                   radius: "",
                   style: ""
                 },
@@ -1174,7 +1544,7 @@ let definition = {
                     border: {
                       type: "",
                       width: "",
-                      color: "",
+                      color: "#cccccc",
                       radius: "",
                       style: ""
                     },
@@ -1379,7 +1749,13 @@ let definition = {
         "SOP_ANZ3",
         "SOP_Other_Banks",
         "SOP_Other",
-        "SOP_Message_Flex"
+        "SOP_Message_Flex",
+        "SOP_Assets_Property",
+        "SOP_Assets_Super",
+        "SOP_Vehicles",
+        "SOP_Assets_Other",
+        "SOP_Assets_Content",
+        "SOP_Asset_Shares"
       ],
       actions: [],
       omniscripts: [],
@@ -1390,7 +1766,7 @@ let definition = {
     type: "ApexRemote",
     value: {
       dsDelay: "",
-      resultVar: '["object"]["assets"]',
+      resultVar: '["object"]',
       remoteClass: "ResidentialLoanApplicationController",
       remoteMethod: "getListAssets",
       vlocityAsync: false
@@ -1410,7 +1786,7 @@ let definition = {
     NamespacePrefix: "c",
     ManageableState: "unmanaged"
   },
-  isRepeatable: false,
+  isRepeatable: true,
   osSupport: true,
   globalCSS: true,
   Name: "SOP_Finances_Savings",

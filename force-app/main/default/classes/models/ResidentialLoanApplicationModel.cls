@@ -34,14 +34,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
     Map<String, String> partyToOcvMap = new Map<String, String>();
     Map<String, Account> accOcvMap = new Map<String, Account>();
-    for(SOPParty party : sop.parties) {
+    for (SOPParty party : sop.parties) {
       partyToOcvMap.put(party.id, party.ocvId);
     }
 
     Set<String> ocvIdSet = new Set<String>();
     for (SOPAsset asset : assets) {
       if (asset.ownership != null) {
-        for (SOPOwnership owner : asset.ownership ) {
+        for (SOPOwnership owner : asset.ownership) {
           ocvIdSet.add(partyToOcvMap.get(owner.partyId));
         }
       }
@@ -50,16 +50,19 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     List<Account> accList = [
       SELECT FirstName, ocv_id__c
       FROM Account
-      WHERE ocv_id__c in :ocvIdSet
+      WHERE ocv_id__c IN :ocvIdSet
     ];
     ResidentialLoanApplicationModel.partyIdToAccountMap = new Map<String, Account>();
-    for (Account acc: accList) {
+    for (Account acc : accList) {
       accOcvMap.put(acc.ocv_id__c, acc);
     }
-    for(String partyId: partyToOcvMap.keySet()) {
-      ResidentialLoanApplicationModel.partyIdToAccountMap.put(partyId, accOcvMap.get(partyToOcvMap.get(partyId)));
+    for (String partyId : partyToOcvMap.keySet()) {
+      ResidentialLoanApplicationModel.partyIdToAccountMap.put(
+        partyId,
+        accOcvMap.get(partyToOcvMap.get(partyId))
+      );
     }
-  } 
+  }
 
   /**
    * @description initialize the financial account map
@@ -77,11 +80,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     List<FinServ__FinancialAccount__c> finAccList = [
       SELECT Name, FinServ__FinancialAccountNumber__c
       FROM FinServ__FinancialAccount__c
-      WHERE FinServ__FinancialAccountNumber__c in :accNumberSet
+      WHERE FinServ__FinancialAccountNumber__c IN :accNumberSet
     ];
     ResidentialLoanApplicationModel.accNumberToFinAccountMap = new Map<String, FinServ__FinancialAccount__c>();
-    for (FinServ__FinancialAccount__c finAcc: finAccList) {
-      ResidentialLoanApplicationModel.accNumberToFinAccountMap.put(finAcc.FinServ__FinancialAccountNumber__c, finAcc);
+    for (FinServ__FinancialAccount__c finAcc : finAccList) {
+      ResidentialLoanApplicationModel.accNumberToFinAccountMap.put(
+        finAcc.FinServ__FinancialAccountNumber__c,
+        finAcc
+      );
     }
   }
 
@@ -93,6 +99,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public String id;
     @AuraEnabled
     public String type;
+    @AuraEnabled
+    public String subType;
     @AuraEnabled
     public String name;
     @AuraEnabled
@@ -118,7 +126,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         if (this.ownership.size() == 1) {
           return this.ownership[0].ownerName;
-        } 
+        }
         return JOINT_ACCOUNT;
       }
     }
@@ -154,12 +162,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       String result = '';
       words.remove(0);
       words.remove(0);
-      
+
       for (String word : words) {
         if (word.equalsIgnoreCase('of')) {
           result += 'of ';
         } else {
-          result += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + ' ';
+          result +=
+            word.substring(0, 1).toUpperCase() +
+            word.substring(1).toLowerCase() +
+            ' ';
         }
       }
       return result.trim();
@@ -180,7 +191,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public SOPMoney originalOutstandingBalance;
     @AuraEnabled
     public SOPMoney outstandingBalance;
-    @AuraEnabled 
+    @AuraEnabled
     public SOPStudentLoan studentLoan;
 
     /**
@@ -191,7 +202,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         if (this.ownership.size() == 1) {
           return this.ownership[0].ownerName;
-        } 
+        }
         return JOINT_ACCOUNT;
       }
     }
@@ -241,15 +252,18 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description return a readable frequency
      */
-    @AuraEnabled 
+    @AuraEnabled
     public String readableFrequency {
       get {
         String[] words = repaymentFrequency.split('_');
         String result = '';
         words.remove(0);
-        
+
         for (String word : words) {
-          result += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() + ' ';
+          result +=
+            word.substring(0, 1).toUpperCase() +
+            word.substring(1).toLowerCase() +
+            ' ';
         }
         return result.trim();
       }
@@ -259,9 +273,12 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      * @description return a readable P&I Terms in years and months
      */
     @AuraEnabled
-    public string readablePIRemainingTerm{
+    public string readablePIRemainingTerm {
       get {
-        if (principalInterestRemainingTerm == null || principalInterestRemainingTerm == 0) {
+        if (
+          principalInterestRemainingTerm == null ||
+          principalInterestRemainingTerm == 0
+        ) {
           return '0';
         }
         Integer years = principalInterestRemainingTerm / 12;
@@ -345,7 +362,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public string productName {
       get {
-        FinServ__FinancialAccount__c finAcc = ResidentialLoanApplicationModel.accNumberToFinAccountMap.get(this.accountNumber);
+        FinServ__FinancialAccount__c finAcc = ResidentialLoanApplicationModel.accNumberToFinAccountMap.get(
+          this.accountNumber
+        );
         return finAcc != null ? finAcc.Name : '';
       }
     }
@@ -371,7 +390,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     @AuraEnabled
     public string ownerName {
       get {
-        Account acc = ResidentialLoanApplicationModel.partyIdToAccountMap.get(this.partyId);
+        Account acc = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+          this.partyId
+        );
         if (acc != null) {
           return acc.FirstName;
         } else {

@@ -433,7 +433,7 @@ let definition = {
                     recordId: "{recordId}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false,
-                    cardNode: "{records}"
+                    cardNode: "{record.assets}"
                   },
                   type: "element",
                   styleObject: { sizeClass: "slds-size_12-of-12" },
@@ -553,7 +553,7 @@ let definition = {
                   property: {
                     cardName: "SOP_ANZ3",
                     recordId: "{recordId}",
-                    cardNode: "{records}",
+                    cardNode: "{record.assets}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false
                   },
@@ -725,7 +725,6 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_1_0_childCardPreview_11_0",
                   name: "FlexCard",
                   element: "childCardPreview",
                   size: { isResponsive: false, default: "12" },
@@ -734,79 +733,15 @@ let definition = {
                   property: {
                     cardName: "SOP_Other_Banks",
                     recordId: "{recordId}",
-                    cardNode: "{records}",
+                    cardNode: "{record.assets}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false
                   },
                   type: "element",
-                  styleObject: {
-                    sizeClass: "slds-size_12-of-12 ",
-                    padding: [],
-                    margin: [
-                      { type: "right", size: "large", label: "right:large" }
-                    ],
-                    background: {
-                      color: "",
-                      image: "",
-                      size: "",
-                      repeat: "",
-                      position: ""
-                    },
-                    size: { isResponsive: false, default: "12" },
-                    container: { class: "" },
-                    border: {
-                      type: "",
-                      width: "",
-                      color: "",
-                      radius: "",
-                      style: ""
-                    },
-                    elementStyleProperties: {},
-                    text: { align: "", color: "" },
-                    inlineStyle: "",
-                    class: "slds-m-right_large ",
-                    style: "      \n         "
-                  },
-                  parentElementKey: "element_block_1_0",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
                   elementLabel: "Your Savings-FlexCard-11",
-                  styleObjects: [
-                    {
-                      key: 0,
-                      conditions: "default",
-                      styleObject: {
-                        sizeClass: "slds-size_12-of-12 ",
-                        padding: [],
-                        margin: [
-                          { type: "right", size: "large", label: "right:large" }
-                        ],
-                        background: {
-                          color: "",
-                          image: "",
-                          size: "",
-                          repeat: "",
-                          position: ""
-                        },
-                        size: { isResponsive: false, default: "12" },
-                        container: { class: "" },
-                        border: {
-                          type: "",
-                          width: "",
-                          color: "",
-                          radius: "",
-                          style: ""
-                        },
-                        elementStyleProperties: {},
-                        text: { align: "", color: "" },
-                        inlineStyle: "",
-                        class: "slds-m-right_large ",
-                        style: "      \n         "
-                      },
-                      label: "Default",
-                      name: "Default",
-                      conditionString: "",
-                      draggable: false
-                    }
-                  ]
+                  key: "element_element_block_1_0_childCardPreview_11_0",
+                  parentElementKey: "element_block_1_0"
                 },
                 {
                   key: "element_element_block_1_0_outputField_12_0",
@@ -918,7 +853,7 @@ let definition = {
                   property: {
                     cardName: "SOP_Other",
                     recordId: "{recordId}",
-                    cardNode: "{records}",
+                    cardNode: "{record.assets}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false
                   },
@@ -1003,7 +938,7 @@ let definition = {
                   property: {
                     cardName: "SOP_Message_Flex",
                     recordId: "{recordId}",
-                    cardNode: "",
+                    cardNode: "{record.assets}",
                     selectedState: "Active",
                     isChildCardTrackingEnabled: false
                   },
@@ -1104,7 +1039,412 @@ let definition = {
                 customClass: "title_color",
                 style: "      \n         "
               },
-              children: [],
+              children: [
+                {
+                  key: "element_element_block_2_0_outputField_0_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-0"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_1_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3EThese%20are%20all%20the%20assets%20-%20including%20any%20properties,%20vehicles,%20investments%20or%20any%20other%20asset%20owned.%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-1"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_2_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-2"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_3_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-3"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_4_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EProperty%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-4"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_5_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Property",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-5"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_6_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-6"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_7_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3ESuper%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-7"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_8_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Super",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-8"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_9_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-9"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_10_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EVehicles%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-10"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_11_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Vehicles",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-11"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_12_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-12"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_13_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EOther%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-13"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_14_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Other",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-14"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_15_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}",
+                    label: ""
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-15"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_16_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EContents%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-16"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_17_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Assets_Content",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-17"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_18_0",
+                  name: "Field",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    placeholder: "",
+                    record: "{record}",
+                    type: "text",
+                    card: "{card}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Field-18"
+                },
+                {
+                  key: "element_element_block_2_0_outputField_19_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EInvestments%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-Text-19"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_20_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Asset_Shares",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-20"
+                },
+                {
+                  key: "element_element_block_2_0_childCardPreview_21_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Message_Flex",
+                    recordId: "{recordId}",
+                    cardNode: "{record.assets}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_2_0",
+                  elementLabel: "Your Assets-FlexCard-21"
+                }
+              ],
               elementLabel: "Your Assets",
               userUpdatedElementLabel: true,
               styleObjects: [
@@ -1429,6 +1769,13 @@ let definition = {
         "SOP_ANZ3",
         "SOP_Other_Banks",
         "SOP_Other",
+        "SOP_Message_Flex",
+        "SOP_Assets_Property",
+        "SOP_Assets_Super",
+        "SOP_Vehicles",
+        "SOP_Assets_Other",
+        "SOP_Assets_Content",
+        "SOP_Asset_Shares",
         "SOP_Message_Flex"
       ],
       actions: [],
@@ -1440,7 +1787,7 @@ let definition = {
     type: "ApexRemote",
     value: {
       dsDelay: "",
-      resultVar: '["object"]["assets"]',
+      resultVar: '["object"]',
       remoteClass: "ResidentialLoanApplicationController",
       remoteMethod: "getListAssets",
       vlocityAsync: false
@@ -1460,7 +1807,7 @@ let definition = {
     NamespacePrefix: "c",
     ManageableState: "unmanaged"
   },
-  isRepeatable: false,
+  isRepeatable: true,
   osSupport: true,
   globalCSS: true,
   Name: "SOP_Finances_Savings",
