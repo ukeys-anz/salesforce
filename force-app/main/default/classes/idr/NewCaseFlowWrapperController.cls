@@ -5,6 +5,8 @@
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
 public with sharing class NewCaseFlowWrapperController {
+  // Shell case conversion Change Record type Button 
+  public static Boolean isShellCaseCRTB = false;
   /**
    * @description Get the Developer Name of a Case record type based on its Id
    * @param id Record Type ID
@@ -231,7 +233,10 @@ public with sharing class NewCaseFlowWrapperController {
     if (CheckCaseRecordType.isAEM(caseRecord)) {
       return getCaseRecordTypesForAEM();
     } else {
-      return getCaseRecordTypes();
+      // On click of Shell case conversion Change Record type Button, seeting the variable to true
+      isShellCaseCRTB = true;
+      String value = getCaseRecordTypes();
+      return value;
     }
   }
 
@@ -278,7 +283,7 @@ public with sharing class NewCaseFlowWrapperController {
       recordTypesToExcl.add(mdt.DeveloperName);
     }
 
-    if (!IDRConstants.DISABLE_OMNI_FOR_CMOS) {
+    if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
       recordTypesToExcl.add(IDRConstants.CUSTOMER_COMPLAINT_RT_NAME);
       recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
     }
@@ -298,7 +303,7 @@ public with sharing class NewCaseFlowWrapperController {
             AND DeveloperName NOT IN :recordTypesToExcl
             AND Id IN :caseRecordTypeIds
         ];
-        if (!IDRConstants.DISABLE_OMNI_FOR_CMOS) {
+        if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
             //Fetching 'Customer-Complaint' recodtype Id
             RecordType newrt = new RecordType(
                 Id= IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
