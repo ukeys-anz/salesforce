@@ -217,7 +217,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseClose7266949143908095</globalKey>
-        <inputFieldName>realFormRequired</inputFieldName>
+        <inputFieldName>Case:realFormRequired</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRCaseClose</name>
@@ -252,23 +252,6 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Review_Outcome__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:realFormRequired &quot;Yes&quot; == true false IF</formulaConverted>
-        <formulaExpression>IF(Case:realFormRequired==&quot;Yes&quot;,true,false)</formulaExpression>
-        <formulaResultPath>realFormRequired</formulaResultPath>
-        <formulaSequence>1.0</formulaSequence>
-        <globalKey>DRCaseCloseCustom989</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCaseClose</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>

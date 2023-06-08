@@ -3,7 +3,7 @@
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -179,7 +179,7 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateOriginPicklist&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.PopulateOriginPicklist&quot;,
     &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ ],
@@ -373,7 +373,7 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;label&quot; : &quot;Is there  third Issue?&quot;,
+  &quot;label&quot; : &quot;Is there a third Issue?&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
                 <sequenceNumber>17.0</sequenceNumber>
@@ -3497,12 +3497,12 @@
                 <name>caseEscalateText</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock11&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;If Yes, Case must be escalated.&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Yes&quot;,
         &quot;condition&quot; : &quot;=&quot;,
@@ -5823,7 +5823,7 @@
       &quot;systemicIssueCat&quot; : &quot;Possible Systemic Issue Category&quot;
     } ],
     &quot;cacMap&quot; : [ {
-      &quot;ParentCase-Block&quot; : &quot;Parent Case&quot;
+      &quot;ParentCase&quot; : &quot;Parent Case&quot;
     }, {
       &quot;CACSubCat&quot; : &quot;CAC Sub Category&quot;
     }, {
@@ -5961,5 +5961,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>ef195ffe-3621-289c-ec3a-f89f3b611f66</webComponentKey>
+    <webComponentKey>17012fa8-57d5-f4fa-9f61-11e36fed2300</webComponentKey>
 </OmniScript>

@@ -45,6 +45,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       this.omniJsonDef.name === "AccountPolicyNumber"
     ) {
       this.allValues.push("N/A");
+      this.updateDataJson();
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
     if (
