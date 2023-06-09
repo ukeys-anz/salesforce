@@ -150,7 +150,12 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
 
   checkFields(detail, reMap) {
     reMap.forEach((field) => {
-      if (!detail[Object.keys(field)[0]]) {
+      let ele = Object.keys(field)[0];
+      if (ele.includes("Block")) {
+        if (!detail[ele] || (detail[ele] && !detail[ele][ele.split("-")[0]])) {
+          this.missingFields.push(Object.values(field)[0]);
+        }
+      } else if (!detail[ele]) {
         this.missingFields.push(Object.values(field)[0]);
       }
     });
