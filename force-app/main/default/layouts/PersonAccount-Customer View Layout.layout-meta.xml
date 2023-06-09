@@ -40,7 +40,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Tax_Exemption_Reason__c</field>
+                <field>Tax_Exemption_Type__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
@@ -66,7 +66,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Has_Customer_Provided_TFN__c</field>
+                <field>TFN_Verification__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

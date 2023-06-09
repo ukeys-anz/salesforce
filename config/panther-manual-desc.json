@@ -238,7 +238,6 @@
         "FinServ__KYCStatus__c",
         "FinServ__Status__c",
         "Hardship__c",
-        "Has_Customer_Provided_TFN__c",
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c"
       ],
@@ -281,7 +280,8 @@
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
-        "Tax_Exemption_Reason__c"
+        "Tax_Exemption_Type__c",
+        "TFN_Verification__c"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
       "IA-2530753": [

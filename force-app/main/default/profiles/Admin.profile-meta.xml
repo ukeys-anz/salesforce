@@ -1468,7 +1468,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Tax_Exemption_Reason__c</field>
+        <field>Account.Tax_Exemption_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1663,7 +1663,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Has_Customer_Provided_TFN__c</field>
+        <field>Account.TFN_Verification__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
