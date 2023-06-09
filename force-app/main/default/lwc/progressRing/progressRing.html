@@ -15,20 +15,20 @@
         stroke-dasharray={progressStyle}
       ></circle>
     </svg>
-    <template if:true={image}>
+    <template lwc:if={image}>
       <div class="imagery" data-progress={progress}>
         <img class="image" src={image} />
       </div>
       <div class="progress-text hide" data-progress={progress}>{progress}%</div>
     </template>
-    <template if:false={image}>
-      <template if:true={emoticon}>
+    <template lwc:else>
+      <template lwc:if={emoticon}>
         <div class="imagery" data-progress={progress}>{emoticon}</div>
         <div class="progress-text hide" data-progress={progress}>
           {progress}%
         </div>
       </template>
-      <template if:false={emoticon}>
+      <template lwc:else>
         <div class="progress-text" data-progress={progress}>{progress}%</div>
       </template>
     </template>

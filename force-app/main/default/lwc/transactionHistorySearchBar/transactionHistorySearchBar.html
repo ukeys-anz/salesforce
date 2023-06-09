@@ -35,7 +35,7 @@
               </lightning-combobox>
             </div>
           </div>
-          <template if:true={showAddFilter}>
+          <template lwc:if={showAddFilter}>
             <c-transaction-history-add-filter
               related-field={relatedField}
               onaddfiltercancel={handleCancelAdd}

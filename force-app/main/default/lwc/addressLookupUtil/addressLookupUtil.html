@@ -20,14 +20,14 @@
       </div>
       <!-- Address List -->
       <div
-        if:true={showAddresses}
+        lwc:if={showAddresses}
         class="pnlSearchResult slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid"
       >
         <ul
           class="slds-listbox slds-listbox_vertical recordListBox"
           role="presentation"
         >
-          <li if:true={isSearching}>looking up address...</li>
+          <li lwc:if={isSearching}>looking up address...</li>
 
           <li
             for:each={addressList}
@@ -58,7 +58,7 @@
             </div>
           </li>
 
-          <li if:true={allowManualInput} onmousedown={displayAddressFields}>
+          <li lwc:if={allowManualInput} onmousedown={displayAddressFields}>
             <div
               class="slds-media slds-listbox__option slds-listbox__option_entity slds-media_center"
               role="option"
@@ -82,22 +82,24 @@
       </div>
     </div>
   </div>
-  <lightning-input-address
-    if:false={resetValidationError}
-    disabled={disabled}
-    address-label={addressLabel}
-    street-label="Street"
-    city-label="City"
-    country-label="Country"
-    province-label="State/ Province"
-    postal-code-label="Zip/ Postal Code"
-    street={currentAddress.street}
-    city={currentAddress.city}
-    country={currentAddress.country}
-    province={currentAddress.state}
-    postal-code={currentAddress.postalCode}
-    onchange={addressInputChange}
-    required={required}
-  >
-  </lightning-input-address>
+  <template lwc:if={resetValidationError}></template>
+  <template lwc:else>
+    <lightning-input-address
+      disabled={disabled}
+      address-label={addressLabel}
+      street-label="Street"
+      city-label="City"
+      country-label="Country"
+      province-label="State/ Province"
+      postal-code-label="Zip/ Postal Code"
+      street={currentAddress.street}
+      city={currentAddress.city}
+      country={currentAddress.country}
+      province={currentAddress.state}
+      postal-code={currentAddress.postalCode}
+      onchange={addressInputChange}
+      required={required}
+    >
+    </lightning-input-address>
+  </template>
 </template>

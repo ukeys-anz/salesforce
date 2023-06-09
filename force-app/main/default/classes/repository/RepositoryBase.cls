@@ -18,14 +18,10 @@ public virtual with sharing class RepositoryBase {
     Type apexType
   ) {
     Exception err = error != null ? error : response.error;
-    if (err instanceof JSONException) {
-      Logger.error(err.getMessage(), err);
-    } else if (err instanceof CalloutException) {
-      Logger.error(err.getMessage(), err);
-    } else {
-      Logger.error(err.getMessage(), err);
-    }
+
+    Logger.error(err.getMessage(), err);
     Logger.saveLog();
+
     throw err;
   }
 }

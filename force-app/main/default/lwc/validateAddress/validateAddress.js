@@ -31,7 +31,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
   searchString;
   selectedAddress;
   keyLength = 0;
-  disabled = true;
+  enabled = false;
   message;
   isDataValid = true;
   loading = false;
@@ -224,7 +224,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
         });
     }
     this.showAddresses = false;
-    this.disabled = false;
+    this.enabled = true;
   }
 
   displayAddressFields() {
@@ -232,7 +232,7 @@ export default class AddressLwc extends NavigationMixin(LightningElement) {
     this.strLatitude = "";
     this.strLongitude = "";
     this.showAddresses = false;
-    this.disabled = false;
+    this.enabled = true;
   }
 
   validateFields() {

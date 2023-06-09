@@ -191,6 +191,17 @@ public with sharing class GetHelpConstants {
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
 
+  // Dispute Business Hour Name
+  public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
+
+  // Task Record Type for Email Case
+  public static final String TASK_EMAIL_RT = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
+    .get('Email_Task')
+    .getRecordTypeId();
+
+  // Email Task Description
+  public static final String TASK_EMAIL_DESCRIPTION = 'Please send the customer the relevant closure email(s)';
+
   //Customer Onboarding 'ID Ops'->'Fraud Check' corresponding Case statuses
   public static final Map<String, String> COB_ID_OPS_TO_FRAUD_CHECK_STATUS_MAP = new Map<String, String>{
     GetHelpConstants.COB_DAON_FAILED_STATUS => GetHelpConstants.COB_DAON_FAILED_STATUS,

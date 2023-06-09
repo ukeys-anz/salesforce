@@ -8,8 +8,8 @@
       ></lightning-icon>
       {componentTitle}
     </h1>
-    <template if:true={displayContent}>
-      <template if:true={accountDetails}>
+    <template lwc:if={displayContent}>
+      <template lwc:if={accountDetails}>
         <template for:each={accountDetails} for:item="finAccount">
           <div
             class="slds-card__body slds-card__body_inner"
@@ -75,7 +75,7 @@
                   </div>
                 </div>
               </div>
-              <template if:true={savingsJar}>
+              <template lwc:if={savingsJar}>
                 <div class="slds-grid slds-wrap slds-border_top">
                   <div
                     class="slds-col slds-grid slds-size_1-of-1 slds-p-top_medium"
@@ -87,7 +87,7 @@
                         <p class="slds-text-color_weak">
                           {savingsJar.goal.name}
                         </p>
-                        <template if:true={savingsJar.image}>
+                        <template lwc:if={savingsJar.image}>
                           <img src={savingsJar.image} width="90%" />
                         </template>
                       </div>
@@ -126,7 +126,7 @@
           </div>
         </template>
       </template>
-      <template if:false={accountDetails}>
+      <template lwc:else>
         <h1 class="slds-card__header-title slds-text-align_center">
           <span class="not-found" data-id="no-accounts"
             >No {accountType} Accounts</span
@@ -134,7 +134,7 @@
         </h1>
       </template>
     </template>
-    <template if:false={displayContent}>
+    <template lwc:else>
       <div class="slds-grid">
         <p class="message-padding">
           Don’t worry, it’s not broken. To view this you need a higher
@@ -143,7 +143,7 @@
       </div>
     </template>
   </article>
-  <template if:true={showInfoModal}>
+  <template lwc:if={showInfoModal}>
     <section role="dialog" class="slds-modal slds-fade-in-open">
       <div class="slds-modal__container">
         <header class="slds-modal__header modal-header">

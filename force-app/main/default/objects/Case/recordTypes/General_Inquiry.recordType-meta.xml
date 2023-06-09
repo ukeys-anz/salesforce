@@ -11670,6 +11670,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>EOFY</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Discharge</fullName>
             <default>false</default>
         </values>

@@ -1,9 +1,9 @@
 <template>
   <div class="slds-card" data-test-id="initiate-interact-card">
     <div class="slds-tabs_scoped slds-tabs_medium">
-      <template if:false={loading}>
+      <template lwc:if={isLoaded}>
         <ul class="slds-tabs_scoped__nav" role="tablist">
-          <template if:true={contactCustomer}>
+          <template lwc:if={contactCustomer}>
             <li class={contactTab} title="Contact" role="presentation">
               <div
                 class="slds-tabs_scoped__link slds-text-align_center"
@@ -38,11 +38,11 @@
             </div>
           </li>
         </ul>
-        <template if:true={showContactTab}>
+        <template lwc:if={showContactTab}>
           <div>
             <div class="slds-m-around_small">
-              <template if:true={showMessageCustomer}>
-                <template if:true={displayOutboundChat}>
+              <template lwc:if={showMessageCustomer}>
+                <template lwc:if={displayOutboundChat}>
                   <div class="slds-align_absolute-center">
                     <lightning-button
                       data-id="message-customer"
@@ -57,7 +57,7 @@
                     </lightning-button>
                   </div>
                 </template>
-                <template if:false={displayOutboundChat}>
+                <template lwc:else>
                   <div class="slds-align_absolute-center">
                     <lightning-button
                       data-id="message-customer"
@@ -74,8 +74,8 @@
                 </template>
               </template>
               <div class="slds-align_absolute-center">
-                <template if:true={callPhoneNumber}>
-                  <template if:true={displayOutboundDial}>
+                <template lwc:if={callPhoneNumber}>
+                  <template lwc:if={displayOutboundDial}>
                     <lightning-button
                       data-id="call-customer"
                       data-test-id="call-customer-button"
@@ -88,7 +88,7 @@
                     >
                     </lightning-button>
                   </template>
-                  <template if:false={displayOutboundDial}>
+                  <template lwc:else>
                     <lightning-button
                       data-id="call-customer"
                       data-test-id="call-customer-button"
@@ -116,7 +116,7 @@
             </div>
           </div>
         </template>
-        <template if:true={showDialTab}>
+        <template lwc:if={showDialTab}>
           <div>
             <div class="slds-m-around-small dial-tab">
               <label class="slds-form-element__label slds-p-top_small">
@@ -149,7 +149,7 @@
                 >
               </div>
               <div class="slds-m-bottom_x-small slds-align_absolute-center">
-                <template if:true={displayOutboundDial}>
+                <template lwc:if={displayOutboundDial}>
                   <lightning-button
                     data-id="call-now"
                     variant="brand"
@@ -162,7 +162,7 @@
                   >
                   </lightning-button>
                 </template>
-                <template if:false={displayOutboundDial}>
+                <template lwc:else>
                   <lightning-button
                     data-id="call-now"
                     variant="brand"
@@ -178,7 +178,7 @@
             </div>
           </div>
         </template>
-        <template if:true={showChatWindow}>
+        <template lwc:if={showChatWindow}>
           <div>
             <div class="slds-m-around-small chat-window">
               <div class="slds-m-top_medium">
@@ -198,7 +198,7 @@
                   </div>
                 </div>
               </div>
-              <template if:true={showMessageDialog}>
+              <template lwc:if={showMessageDialog}>
                 <lightning-textarea
                   data-id="message-body"
                   data-test-id="message-body-textarea"
@@ -211,7 +211,7 @@
                   message-when-value-missing="Please enter a valid message"
                 ></lightning-textarea>
                 <span class={remainingCharStyle}>{remainingCharMsg}</span>
-                <div if:true={isLoadingCase}>
+                <div lwc:if={isLoadingCase}>
                   <lightning-spinner
                     alternative-text="Loading..."
                     variant="brand"
@@ -247,8 +247,8 @@
                   </div>
                 </div>
               </template>
-              <template if:true={showMessageToast}>
-                <template if:true={showSuccessMessage}>
+              <template lwc:if={showMessageToast}>
+                <template lwc:if={showSuccessMessage}>
                   <div class="slds-is-relative slds-p-top_large">
                     <div class="slds-theme_success" role="status">
                       <span class="slds-assistive-text">Success</span>
@@ -270,7 +270,7 @@
                     </div>
                   </div>
                 </template>
-                <template if:true={showErrorMessage}>
+                <template lwc:if={showErrorMessage}>
                   <div class="slds-is-relative slds-p-top_large">
                     <div class="slds-theme_error" role="status">
                       <span class="slds-assistive-text">Error</span>
@@ -299,14 +299,14 @@
                       </lightning-button>
                     </div>
                     <div class="slds-col slds-size_1-of-2">
-                      <template if:true={isLoadingCase}>
+                      <template lwc:if={isLoadingCase}>
                         <lightning-spinner
                           alternative-text="Loading..."
                           variant="brand"
                         >
                         </lightning-spinner>
                       </template>
-                      <template if:false={isLoadingCase}>
+                      <template lwc:else>
                         <lightning-button
                           data-id="send-now"
                           data-test-id="reinitiate-chat-button"

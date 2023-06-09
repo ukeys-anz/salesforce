@@ -484,6 +484,18 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>COBTaxResidencyModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COBTaxResidencyViewController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>COBTaxResidencyViewControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CommonUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -4952,6 +4964,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.VerificationType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Customer_Profile_Updates__c.Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8701,6 +8718,10 @@
     <layoutAssignments>
         <layout>Task-Compliance Task Layout</layout>
         <recordType>Task.Compliance_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Email Task Layout</layout>
+        <recordType>Task.Email_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-IDR System Task</layout>
