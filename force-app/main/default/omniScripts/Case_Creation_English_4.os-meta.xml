@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>CaseCreation</name>
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
@@ -11,6 +10,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>true</isWebCompEnabled>
     <language>English</language>
+    <name>CaseCreation</name>
     <omniProcessElements>
         <name>Case</name>
         <childElements>
@@ -249,7 +249,7 @@
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Provide a detailed, accurate and grammatically correct description of the customer&apos;s desired outcome - regardless of whether ANZ is able to achieve this outcome&quot;,
+  &quot;helpText&quot; : &quot;Provide a detailed, accurate and grammatically correct description of the customer&apos;s concern, from Customer&apos;s perspective. This field should not display subjective comments from your, or ANZ&apos;s perspective.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
@@ -437,7 +437,7 @@
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;help text&quot;,
+  &quot;helpText&quot; : &quot;If Financial Difficulty and Hardship is selected, ALL the customer accounts must be entered in the Account/Policy Number field&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
@@ -501,7 +501,7 @@
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;help text&quot;,
+  &quot;helpText&quot; : &quot;If Financial Difficulty and Hardship is selected, ALL the customer accounts must be entered in the Account/Policy Number field&quot;,
   &quot;help&quot; : true,
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -838,7 +838,7 @@
   &quot;maxLength&quot; : 255,
   &quot;minLength&quot; : 0,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;need to add help text here&quot;,
+  &quot;helpText&quot; : &quot;Start typing the ANZ product or Service the issue relates to for available options to appear&quot;,
   &quot;help&quot; : true,
   &quot;readOnly&quot; : false,
   &quot;required&quot; : true,
@@ -928,7 +928,7 @@
   &quot;required&quot; : true,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;need to add help text here&quot;,
+  &quot;helpText&quot; : &quot;Start typing the ANZ product or Service the issue relates to for available options to appear&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
@@ -3302,7 +3302,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>56.0</sequenceNumber>
+                <sequenceNumber>68.0</sequenceNumber>
                 <type>Multi-select</type>
             </childElements>
             <childElements>
@@ -3410,7 +3410,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>58.0</sequenceNumber>
+                <sequenceNumber>70.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -3457,7 +3457,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>62.0</sequenceNumber>
+                <sequenceNumber>74.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -3852,7 +3852,7 @@
   &quot;label&quot; : &quot;Complaint Remedy 2&quot;,
   &quot;controlWidth&quot; : 5
 }</propertySetConfig>
-                <sequenceNumber>25.0</sequenceNumber>
+                <sequenceNumber>29.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -3916,7 +3916,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>38.0</sequenceNumber>
+                <sequenceNumber>46.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -4071,7 +4071,7 @@
   &quot;label&quot; : &quot;Complaint Sub Remedy 2&quot;,
   &quot;controlWidth&quot; : 5
 }</propertySetConfig>
-                <sequenceNumber>27.0</sequenceNumber>
+                <sequenceNumber>31.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -4120,7 +4120,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>40.0</sequenceNumber>
+                <sequenceNumber>48.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -4242,7 +4242,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>18.0</sequenceNumber>
+                <sequenceNumber>22.0</sequenceNumber>
                 <type>Checkbox</type>
             </childElements>
             <childElements>
@@ -4279,7 +4279,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>31.0</sequenceNumber>
+                <sequenceNumber>39.0</sequenceNumber>
                 <type>Checkbox</type>
             </childElements>
             <childElements>
@@ -4316,7 +4316,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>44.0</sequenceNumber>
+                <sequenceNumber>56.0</sequenceNumber>
                 <type>Checkbox</type>
             </childElements>
             <childElements>
@@ -4347,11 +4347,19 @@
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;16&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;ComplaintSubRemedy1&quot;
+      }, {
+        &quot;field&quot; : &quot;ComplaintSubRemedy1&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;20&quot;
+      }, {
+        &quot;field&quot; : &quot;ComplaintSubRemedy1&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Repayment arrangement&quot;
       } ]
     }
   },
@@ -4387,14 +4395,22 @@
         &quot;field&quot; : &quot;ComplaintSubRemedy2&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;16&quot;
+      }, {
+        &quot;field&quot; : &quot;ComplaintSubRemedy2&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;20&quot;
+      }, {
+        &quot;field&quot; : &quot;ComplaintSubRemedy2&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Repayment arrangement&quot;
       } ]
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;maxLength&quot; : 255,
   &quot;minLength&quot; : 0,
-  &quot;ptrnErrText&quot; : &quot;Enter a valid value&quot;,
-  &quot;pattern&quot; : &quot;^[0-9]&quot;,
+  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
+  &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;Maximum of 3 digits&quot;,
@@ -4410,7 +4426,7 @@
   &quot;label&quot; : &quot;Duration of Remedy (months) 2&quot;,
   &quot;controlWidth&quot; : 5
 }</propertySetConfig>
-                <sequenceNumber>29.0</sequenceNumber>
+                <sequenceNumber>33.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -4434,8 +4450,8 @@
   &quot;helpText&quot; : &quot;Maximum of 3 digits&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;^[0-9]&quot;,
-  &quot;ptrnErrText&quot; : &quot;Enter a valid value&quot;,
+  &quot;pattern&quot; : &quot;[0-9]+&quot;,
+  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
@@ -4446,6 +4462,14 @@
         &quot;data&quot; : &quot;16&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;
+      }, {
+        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;20&quot;
+      }, {
+        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Repayment arrangement&quot;
       } ]
     }
   },
@@ -4457,7 +4481,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>42.0</sequenceNumber>
+                <sequenceNumber>50.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -4485,7 +4509,7 @@
   &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak9&quot;
 }</propertySetConfig>
-                <sequenceNumber>48.0</sequenceNumber>
+                <sequenceNumber>60.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4499,7 +4523,7 @@
   &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak7&quot;
 }</propertySetConfig>
-                <sequenceNumber>51.0</sequenceNumber>
+                <sequenceNumber>63.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4528,7 +4552,7 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak36&quot;
 }</propertySetConfig>
-                <sequenceNumber>28.0</sequenceNumber>
+                <sequenceNumber>32.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4543,7 +4567,21 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak5&quot;
 }</propertySetConfig>
-                <sequenceNumber>41.0</sequenceNumber>
+                <sequenceNumber>49.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak18</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;padding&quot; : 0.0,
+  &quot;label&quot; : &quot;LineBreak12&quot;
+}</propertySetConfig>
+                <sequenceNumber>17.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4586,7 +4624,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>39.0</sequenceNumber>
+                <sequenceNumber>47.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4600,7 +4638,7 @@
   &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak9&quot;
 }</propertySetConfig>
-                <sequenceNumber>61.0</sequenceNumber>
+                <sequenceNumber>73.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4630,7 +4668,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>19.0</sequenceNumber>
+                <sequenceNumber>23.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4645,7 +4683,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>30.0</sequenceNumber>
+                <sequenceNumber>38.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4660,7 +4698,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>43.0</sequenceNumber>
+                <sequenceNumber>55.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4675,7 +4713,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>45.0</sequenceNumber>
+                <sequenceNumber>57.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4690,7 +4728,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>22.0</sequenceNumber>
+                <sequenceNumber>26.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4705,7 +4743,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>24.0</sequenceNumber>
+                <sequenceNumber>28.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4720,7 +4758,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>26.0</sequenceNumber>
+                <sequenceNumber>30.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4735,7 +4773,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>34.0</sequenceNumber>
+                <sequenceNumber>42.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4750,7 +4788,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>37.0</sequenceNumber>
+                <sequenceNumber>45.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4764,7 +4802,81 @@
   &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak8&quot;
 }</propertySetConfig>
-                <sequenceNumber>57.0</sequenceNumber>
+                <sequenceNumber>69.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak40</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak36&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>34.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak41</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak5&quot;,
+  &quot;padding&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 4
+}</propertySetConfig>
+                <sequenceNumber>51.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak42</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;padding&quot; : 0.0,
+  &quot;label&quot; : &quot;LineBreak12&quot;
+}</propertySetConfig>
+                <sequenceNumber>19.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak43</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 0,
+  &quot;label&quot; : &quot;LineBreak36&quot;
+}</propertySetConfig>
+                <sequenceNumber>36.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak44</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;padding&quot; : 0,
+  &quot;label&quot; : &quot;LineBreak5&quot;
+}</propertySetConfig>
+                <sequenceNumber>53.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4779,7 +4891,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>17.0</sequenceNumber>
+                <sequenceNumber>21.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4794,7 +4906,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>32.0</sequenceNumber>
+                <sequenceNumber>40.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4808,7 +4920,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>63.0</sequenceNumber>
+                <sequenceNumber>75.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4822,7 +4934,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>55.0</sequenceNumber>
+                <sequenceNumber>67.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4836,7 +4948,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>59.0</sequenceNumber>
+                <sequenceNumber>71.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -4872,7 +4984,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>21.0</sequenceNumber>
+                <sequenceNumber>25.0</sequenceNumber>
                 <type>Number</type>
             </childElements>
             <childElements>
@@ -4908,7 +5020,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>44.0</sequenceNumber>
                 <type>Number</type>
             </childElements>
             <childElements>
@@ -4944,8 +5056,146 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>47.0</sequenceNumber>
+                <sequenceNumber>59.0</sequenceNumber>
                 <type>Number</type>
+            </childElements>
+            <childElements>
+                <name>otherRemedy1</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 5,
+  &quot;label&quot; : &quot;Other Remedy 1&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;Enter a brief, high level description of the remedy provided&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;99&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ComplaintSubRemedy1&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;autocomplete&quot; : null
+}</propertySetConfig>
+                <sequenceNumber>18.0</sequenceNumber>
+                <type>Text Area</type>
+            </childElements>
+            <childElements>
+                <name>otherRemedy2</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;autocomplete&quot; : null,
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;debounceValue&quot; : 0,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;99&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ComplaintSubRemedy2&quot;
+      } ]
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;Enter a brief, high level description of the remedy provided&quot;,
+  &quot;help&quot; : true,
+  &quot;defaultValue&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : true,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Other Remedy 2&quot;,
+  &quot;controlWidth&quot; : 5
+}</propertySetConfig>
+                <sequenceNumber>35.0</sequenceNumber>
+                <type>Text Area</type>
+            </childElements>
+            <childElements>
+                <name>otherRemedy3</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 5,
+  &quot;label&quot; : &quot;Other Remedy 3&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;Enter a brief, high level description of the remedy provided&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;99&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;autocomplete&quot; : null
+}</propertySetConfig>
+                <sequenceNumber>52.0</sequenceNumber>
+                <type>Text Area</type>
             </childElements>
             <childElements>
                 <name>ParentCase</name>
@@ -5052,7 +5302,7 @@
   &quot;dataJsonPath&quot; : &quot;&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>60.0</sequenceNumber>
+                <sequenceNumber>72.0</sequenceNumber>
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
@@ -5107,7 +5357,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>20.0</sequenceNumber>
+                <sequenceNumber>24.0</sequenceNumber>
                 <type>Currency</type>
             </childElements>
             <childElements>
@@ -5162,7 +5412,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>33.0</sequenceNumber>
+                <sequenceNumber>41.0</sequenceNumber>
                 <type>Currency</type>
             </childElements>
             <childElements>
@@ -5217,7 +5467,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>46.0</sequenceNumber>
+                <sequenceNumber>58.0</sequenceNumber>
                 <type>Currency</type>
             </childElements>
             <childElements>
@@ -5261,7 +5511,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>50.0</sequenceNumber>
+                <sequenceNumber>62.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -5326,7 +5576,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;defaultValue&quot; : &quot;No&quot;
 }</propertySetConfig>
-                <sequenceNumber>49.0</sequenceNumber>
+                <sequenceNumber>61.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -5436,8 +5686,149 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>64.0</sequenceNumber>
+                <sequenceNumber>76.0</sequenceNumber>
                 <type>Select</type>
+            </childElements>
+            <childElements>
+                <name>rewaesPoints3</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;autocomplete&quot; : null,
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;debounceValue&quot; : 0,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Reward Points&quot;
+      } ]
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
+  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
+  &quot;pattern&quot; : &quot;[0-9]+&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : true,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Reward Points 3&quot;,
+  &quot;controlWidth&quot; : 5
+}</propertySetConfig>
+                <sequenceNumber>54.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
+            <childElements>
+                <name>rewardPoints1</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;autocomplete&quot; : null,
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;debounceValue&quot; : 0,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;ComplaintSubRemedy1&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Reward Points&quot;
+      } ]
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
+  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
+  &quot;pattern&quot; : &quot;[0-9]+&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : true,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Reward Points 1&quot;,
+  &quot;controlWidth&quot; : 5
+}</propertySetConfig>
+                <sequenceNumber>20.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
+            <childElements>
+                <name>rewardPoints2</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 5,
+  &quot;label&quot; : &quot;Reward Points 2&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;[0-9]+&quot;,
+  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Reward Points&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ComplaintSubRemedy2&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;autocomplete&quot; : null
+}</propertySetConfig>
+                <sequenceNumber>37.0</sequenceNumber>
+                <type>Text</type>
             </childElements>
             <childElements>
                 <name>secondComplaintRemedyCheckbox</name>
@@ -5502,7 +5893,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>23.0</sequenceNumber>
+                <sequenceNumber>27.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -5562,7 +5953,7 @@
   &quot;label&quot; : &quot;Is this a possible systemic issue?&quot;,
   &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-                <sequenceNumber>52.0</sequenceNumber>
+                <sequenceNumber>64.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -5609,7 +6000,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>54.0</sequenceNumber>
+                <sequenceNumber>66.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -5652,7 +6043,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>53.0</sequenceNumber>
+                <sequenceNumber>65.0</sequenceNumber>
                 <type>Text Area</type>
             </childElements>
             <childElements>
@@ -5714,7 +6105,7 @@
   &quot;label&quot; : &quot;Third Complaint Remedy Provided?&quot;,
   &quot;controlWidth&quot; : 5
 }</propertySetConfig>
-                <sequenceNumber>35.0</sequenceNumber>
+                <sequenceNumber>43.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <isActive>true</isActive>
@@ -6110,5 +6501,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>a4023893-7afd-2b1a-fe59-c2f341f8bac1</webComponentKey>
+    <webComponentKey>460f4272-8fdb-2881-9e9b-29cccbf79144</webComponentKey>
 </OmniScript>
