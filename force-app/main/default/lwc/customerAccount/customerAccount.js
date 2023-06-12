@@ -12,8 +12,10 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   @track allSelected = false;
   @api set omniJsonData(data) {
     this._omniData = data;
-    this.populateAccountNumbers(this._omniData);
-    this.validateNAoption(this._omniData);
+    if (data && data.Case) {
+      this.populateAccountNumbers(this._omniData);
+      this.validateNAoption(this._omniData);
+    }
   }
 
   get omniJsonData() {
@@ -101,7 +103,14 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   }
 
   validateNAoption(data) {
-    if (data && data.Case && data.Case.displayNAOption) {
+    if (
+      (data.Case.displayNAOption &&
+        this.omniJsonDef.name === "AccountPolicyNumber") ||
+      (data.Case.displayNAOption2 &&
+        this.omniJsonDef.name === "AccountPolicyNumber2") ||
+      (data.Case.displayNAOption3 &&
+        this.omniJsonDef.name === "AccountPolicyNumber3")
+    ) {
       this.options.push({ label: "N/A", value: "N/A" });
     } else {
       if (this.allValues && this.allValues.length > 0)
