@@ -43,7 +43,7 @@ public with sharing class StravinskyServiceMock extends Service {
     '}';
 
   @TestVisible
-  private static final String SUCCESS_TOENIZING_COBPID_RESPONSE =
+  private static final String SUCCESS_TOKENIZING_COBPID_RESPONSE =
     '{' +
     '  \"passport\": {' +
     '    \"firstName\": \"Adam\",' +
@@ -63,6 +63,34 @@ public with sharing class StravinskyServiceMock extends Service {
 
   @TestVisible
   private static final String FAILURE_TOKENIZING_COBPID_RESPONSE =
+    '{' +
+    '  \"code\": \"unknown\",' +
+    '  \"message\": \"error signaling Temporal\"' +
+    '}';
+
+  @TestVisible
+  private static final String TOKENIZED_TIN = 'Q2CmJdCA0';
+
+  @TestVisible
+  private static final String DETOKENIZED_TIN = 'PA0940444';
+
+  @TestVisible
+  private static final String DETOKENIZED_COB_TAX_RESIDENCY_SUCCESS_RESPONSE =
+    '{' +
+    '  \"values\": [' +
+    '    {' +
+    '      \"Tokenized\": \"' +
+    TOKENIZED_TIN +
+    '\",' +
+    '      \"Detokenized\": \"' +
+    DETOKENIZED_TIN +
+    '\"' +
+    '    }' +
+    '  ]' +
+    '}';
+
+  @TestVisible
+  private static final String DETOKENIZED_COB_TAX_RESIDENCY_FAILURE_RESPONSE =
     '{' +
     '  \"code\": \"unknown\",' +
     '  \"message\": \"error signaling Temporal\"' +
@@ -130,7 +158,22 @@ public with sharing class StravinskyServiceMock extends Service {
     COBPrimaryIDDocumentModel detokenizedValue
   ) {
     if (!preset) {
-      response.body = SUCCESS_TOENIZING_COBPID_RESPONSE;
+      response.body = SUCCESS_TOKENIZING_COBPID_RESPONSE;
+    }
+
+    return response;
+  }
+
+  /**
+   * @param taxResidency COB Tax Residency record
+   * @return HttpCalloutResponse
+   * @description stravinsky COBTaxResidency detokenize api
+   */
+  public override HttpCalloutResponse detokenizeCOBTaxResidency(
+    COBTaxResidency__c taxResidency
+  ) {
+    if (!preset) {
+      response.body = DETOKENIZED_COB_TAX_RESIDENCY_SUCCESS_RESPONSE;
     }
 
     return response;

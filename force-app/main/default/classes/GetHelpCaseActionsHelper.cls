@@ -17,6 +17,12 @@ public with sharing class GetHelpCaseActionsHelper {
     GetHelpConstants.NPP_DISPUTE_RT_ID
   };
 
+  // Set of all the dispute record Types for case closure
+  public static final Set<Id> CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS = new Set<Id>{
+    GetHelpConstants.ATM_DISPUTE_RT_ID,
+    GetHelpConstants.CARD_DISPUTE_RT_ID
+  };
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
@@ -518,5 +524,99 @@ public with sharing class GetHelpCaseActionsHelper {
     }
 
     return idOpsCases;
+  }
+
+  /**
+   * @description create closed case map which are last modified by Non Standard User
+   * @param records Case records from trigger
+   * @param oldMap oldMap of the cases
+   * @return closed case map
+   */
+  public static Map<Id, Case> createClosedCaseMap(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    Map<Id, Case> mapClosedCases = new Map<Id, Case>();
+    List<Case> closedCases = [
+      SELECT
+        Id,
+        AccountId,
+        Subject,
+        BusinessHoursId,
+        LastModifiedBy.Profile.Name,
+        IsClosed,
+        RecordTypeId,
+        Status
+      FROM Case
+      WHERE Id IN :records
+    ];
+    for (Case record : closedCases) {
+      Case oldCase = oldMap.get(record.Id);
+      if (
+        GetHelpCaseActionsHelper.CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS.contains(
+          record.RecordTypeId
+        ) &&
+        !record.LastModifiedBy.Profile.Name.endsWith('Standard User') &&
+        record.IsClosed &&
+        record.Status != oldCase.Status
+      ) {
+        mapClosedCases.put(record.Id, record);
+      }
+    }
+
+    return mapClosedCases;
+  }
+
+  /**
+   * @description To add 3 business days to current date
+   * @param businessHoursId busness hours Id according to which 3 days needs to be added
+   * @return 3rd business day date from today
+   */
+  private static Date addThreeBusinessDaysToCurrentDate(Id businessHoursId) {
+    if (businessHoursId == null) {
+      BusinessHours businessHourDispute = CommonUtil.getBusinessHours();
+      businessHoursId = businessHourDispute?.Id;
+    }
+    Integer numberOfDays = 0;
+    Datetime prevDate = System.now();
+    Datetime nextDate;
+    while (numberOfDays < 3) {
+      nextDate = BusinessHours.nextStartDate(businessHoursId, prevDate);
+      if (nextDate.isSameDay(prevDate)) {
+        nextDate = BusinessHours.add(businessHoursId, nextDate, 86400000);
+      }
+      if (BusinessHours.isWithin(businessHoursId, nextDate)) {
+        numberOfDays++;
+      }
+      prevDate = nextDate;
+    }
+    return nextDate.date();
+  }
+
+  /**
+   * @description create task on case
+   * @param caseRecord case record
+   * @param externalCaseStatusRecord External_Case_Status__c Record
+   * @param taskOwnerId gives the owner to which the created task to be assigned
+   * @return task record
+   */
+  public static Task createEmailTask(
+    Case caseRecord,
+    External_Case_Status__c externalCaseStatusRecord,
+    Id taskOwnerId
+  ) {
+    Task newTask = new Task();
+    newTask.WhatId = caseRecord.Id;
+    newTask.WhoId = externalCaseStatusRecord.Case__r.ContactId;
+    newTask.Subject = caseRecord.Subject + ' Closure Communication Required';
+    newTask.Description = GetHelpConstants.TASK_EMAIL_DESCRIPTION;
+    newTask.PEGA_Case_Status__c = externalCaseStatusRecord.External_Status__c;
+    newTask.OwnerId = taskOwnerId;
+    newTask.RecordTypeId = GetHelpConstants.TASK_EMAIL_RT;
+    newTask.Case__c = caseRecord.Id;
+    newTask.ActivityDate = addThreeBusinessDaysToCurrentDate(
+      caseRecord.BusinessHoursId
+    );
+    return newTask;
   }
 }

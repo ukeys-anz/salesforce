@@ -159,6 +159,13 @@
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Quality_Assessment__c-General Layout</layout>
+        <recordType>Quality_Assessment__c.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Quality_Assessment__c-Quality Assessment Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

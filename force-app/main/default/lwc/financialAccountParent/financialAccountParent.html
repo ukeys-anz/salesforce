@@ -1,15 +1,6 @@
 <template>
-  <template if:true={displayLoan}>
-    <template if:false={loading}>
-      <template if:true={loanData}>
-        <c-home-loan-account
-          record-id={primaryOwner}
-          object-api-name={objectApiName}
-          account-details={loanData}
-        ></c-home-loan-account>
-      </template>
-    </template>
-    <template if:true={loading}>
+  <template lwc:if={displayLoan}>
+    <template lwc:if={loading}>
       <div
         class="slds-align_absolute-center"
         style="height: 4rem"
@@ -23,9 +14,30 @@
         </div>
       </div>
     </template>
+    <template lwc:elseif={loanData}>
+      <c-home-loan-account
+        record-id={primaryOwner}
+        object-api-name={objectApiName}
+        account-details={loanData}
+      ></c-home-loan-account>
+    </template>
   </template>
-  <template if:true={displayNotLoan}>
-    <template if:false={loading}>
+  <template lwc:if={displayNotLoan}>
+    <template lwc:if={loading}>
+      <div
+        class="slds-align_absolute-center"
+        style="height: 4rem"
+        data-id="loading-spinner"
+      >
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </template>
+    <template lwc:else>
       <div class="slds-clearfix">
         <lightning-button
           label="Refresh all"
@@ -42,7 +54,7 @@
         data-id="financial-account"
       ></c-financial-account-header>
       <div class="slds-m-top_small"></div>
-      <template if:true={isSavings}>
+      <template lwc:if={isSavings}>
         <c-financial-goals
           record-id={recordId}
           goal-data={goalData}
@@ -56,22 +68,8 @@
         <div class="slds-m-top_small"></div>
       </template>
     </template>
-    <template if:true={loading}>
-      <div
-        class="slds-align_absolute-center"
-        style="height: 4rem"
-        data-id="loading-spinner"
-      >
-        <div role="status" class="slds-spinner_inline">
-          <lightning-spinner
-            alternative-text="Loading"
-            variant="brand"
-          ></lightning-spinner>
-        </div>
-      </div>
-    </template>
   </template>
-  <template if:true={transactionData}>
+  <template lwc:if={transactionData}>
     <c-transaction-history-board
       component-title={componentTitle}
       record-id={recordId}

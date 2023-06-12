@@ -1,7 +1,7 @@
 <template>
   <lightning-card title="Customer Information" icon-name="standard:people">
-    <template if:true={customerInfo}>
-      <template if:true={showAsGrid}>
+    <template lwc:if={customerInfo}>
+      <template lwc:if={showAsGrid}>
         <div class="slds-grid slds-wrap slds-m-left_medium">
           <div
             class="slds-col slds-size_1-of-4 slds-text-body_regular slds-m-right_large slds-m-bottom_large slds-border_bottom"
@@ -84,7 +84,7 @@
             Country : {customerInfo.country}
           </div>
         </div>
-        <template if:true={isRMDetails}>
+        <template lwc:if={isRMDetails}>
           <div
             class="slds-text-heading_small slds-m-left_medium slds-text-title_bold"
           >
@@ -109,7 +109,7 @@
             </div>
           </div>
         </template>
-        <template if:true={rmDetailsError}>
+        <template lwc:if={rmDetailsError}>
           <div
             class="slds-text-heading_small slds-m-left_medium slds-text-title_bold"
           >
@@ -117,7 +117,7 @@
           </div>
           <br />
           <div class="slds-p-around_medium">
-            <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+            <ul class="slds-list_vertical slds-has-dividers_bottom-space">
               <li class="slds-list__item" title="Customer Type">
                 Error : {rmDetailsError}
               </li>
@@ -125,9 +125,9 @@
           </div>
         </template>
       </template>
-      <template if:false={showAsGrid}>
+      <template lwc:else>
         <div class="slds-p-around_medium">
-          <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+          <ul class="slds-list_vertical slds-has-dividers_bottom-space">
             <li class="slds-list__item" title="Customer Type">
               Customer Type : {customerInfo.complainant_type}
             </li>
@@ -142,20 +142,10 @@
             </li>
             <li class="slds-list__item" title="Last Name">
               RM Complaint :
-              <template if:true={customerInfo.isRmPresent}>YES</template>
-              <template if:false={customerInfo.isRmPresent}>NO</template>
+              <template lwc:if={customerInfo.isRmPresent}>YES</template>
+              <template lwc:else>NO</template>
             </li>
-            <template if:false={showMore}>
-              <div>
-                <button
-                  class="slds-button showMore"
-                  onclick={showAllCustomerData}
-                >
-                  Show More
-                </button>
-              </div>
-            </template>
-            <template if:true={showMore}>
+            <template lwc:if={showMore}>
               <li class="slds-list__item" title="Gender">
                 Gender : {customerInfo.gender}
               </li>
@@ -190,9 +180,19 @@
                 Country : {customerInfo.country}
               </li>
             </template>
+            <template lwc:else>
+              <div>
+                <button
+                  class="slds-button showMore"
+                  onclick={showAllCustomerData}
+                >
+                  Show More
+                </button>
+              </div>
+            </template>
           </ul>
         </div>
-        <template if:true={showMore}>
+        <template lwc:if={showMore}>
           <lightning-accordion
             class="example-accordion"
             allow-multiple-sections-open
@@ -206,7 +206,9 @@
               <div class="slds-p-around_medium">
                 <ul>
                   <template for:each={customerInfo.accounts} for:item="account">
-                    <li class="slds-list__item" key={account}>{account}</li>
+                    <li class="slds-list__item" key={account.accountNumber}>
+                      {account.accountNumber}
+                    </li>
                   </template>
                 </ul>
               </div>
@@ -216,8 +218,8 @@
               label="Relationship Manager Details"
               data-id="rel-details"
             >
-              <template if:true={isRMDetails}>
-                <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+              <template lwc:if={isRMDetails}>
+                <ul class="slds-list_vertical slds-has-dividers_bottom-space">
                   <li class="slds-list__item" title="Customer Type">
                     Name : {customerInfo.rmData.name}
                   </li>
@@ -229,20 +231,20 @@
                   </li>
                 </ul>
               </template>
-              <template if:true={rmDetailsError}> rmDetailsError </template>
+              <template lwc:if={rmDetailsError}> rmDetailsError </template>
             </lightning-accordion-section>
           </lightning-accordion>
         </template>
       </template>
     </template>
-    <template if:true={error}>
+    <template lwc:if={error}>
       <div class="slds-p-around_medium">
-        <ul class="slds-list--vertical slds-has-dividers--bottom-space">
+        <ul class="slds-list_vertical slds-has-dividers_bottom-space">
           <li class="slds-list__item" title="Customer Type">Error : {error}</li>
         </ul>
       </div>
     </template>
-    <template if:false={loaded}>
+    <template lwc:if={isLoading}>
       <div class="spinner">
         <lightning-spinner
           size="small"

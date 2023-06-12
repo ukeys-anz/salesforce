@@ -1,21 +1,21 @@
 <template>
   <div class="slds-card slds-grid slds-grid_vertical-align-center">
     <div class="slds-col">
-      <template if:false={errorImageUrl}>
-        <span class="emoji">&#128531;</span>
-      </template>
-      <template if:true={errorImageUrl}>
+      <template lwc:if={errorImageUrl}>
         <img class="error-image" src={errorImageUrl} />
+      </template>
+      <template lwc:else>
+        <span class="emoji">&#128531;</span>
       </template>
     </div>
     <div class="slds-col">
-      <template if:true={errorMessage}>
+      <template lwc:if={errorMessage}>
         <span
           class="slds-text-align_center slds-text-color_weak slds-text-heading_small"
           >{errorMessage}</span
         >
       </template>
-      <template if:false={errorMessage}>
+      <template lwc:else>
         <span
           class="slds-text-align_center slds-text-color_weak slds-text-heading_small"
           >An error has occurred. Please refresh and try again. If the problem
