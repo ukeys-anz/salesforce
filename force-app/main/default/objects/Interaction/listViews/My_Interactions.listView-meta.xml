@@ -9,16 +9,21 @@
     <columns>Resolution__c</columns>
     <columns>StartTime</columns>
     <columns>Attendees__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>RecordType</field>
         <operation>equals</operation>
         <value>Interaction.General</value>
     </filters>
     <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>Interaction.Store</value>
+    </filters>
+    <filters>
         <field>Is_User_Attendee__c</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>My Interactions</label>
 </ListView>
