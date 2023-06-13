@@ -138,6 +138,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -178,6 +179,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {

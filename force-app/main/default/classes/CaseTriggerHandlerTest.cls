@@ -2893,6 +2893,47 @@ private class CaseTriggerHandlerTest {
     assert();
   }
 
+  @isTest
+  static void testEntitlementInsertKYCQA() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    // WHEN a KYC QA case is created
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      Type = 'KYC QA Sample',
+      AccountId = acc.Id
+    );
+
+    Test.startTest();
+    insert newCase;
+    Test.stopTest();
+
+    Case testingCase = [
+      SELECT Id, EntitlementId
+      FROM Case
+      WHERE Id = :newCase.Id
+      LIMIT 1
+    ];
+
+    Entitlement accountEntitlement = [
+      SELECT Id
+      FROM Entitlement
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
+
+    Assert.areEqual(
+      accountEntitlement.Id,
+      testingCase.EntitlementId,
+      'Link Entitlement from Account to KYC QA case.'
+    );
+  }
+
   private static void createIDOpsCases(User usr) {
     List<Case> idOpsCases = new List<Case>();
 

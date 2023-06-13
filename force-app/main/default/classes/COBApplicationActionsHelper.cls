@@ -7,6 +7,12 @@ public with sharing class COBApplicationActionsHelper {
   public static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
     'Pending_KYC_QA'
   );
+  public static final Map<String, String> VERIFICATION_TYPE_PRIORITY = new Map<String, String>{
+    'MANUAL' => 'High',
+    'UNSPECIFIED' => 'High',
+    'ASSISTED' => 'Medium',
+    'STP' => 'Standard'
+  };
 
   /**
    * @description Create KYC QA cases
@@ -19,7 +25,8 @@ public with sharing class COBApplicationActionsHelper {
       OwnerId = PENDING_KYC_QA_QUEUE.Id,
       CustomerOnboardingApplication__c = cobApp.Id,
       PersonaId__c = cobApp.PersonaId__c,
-      OCV_Id__c = cobApp.OCVId__c
+      OCV_Id__c = cobApp.OCVId__c,
+      Priority = VERIFICATION_TYPE_PRIORITY.get(cobApp.VerificationType__c)
     );
 
     return kycQACase;

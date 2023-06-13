@@ -9,10 +9,18 @@ public with sharing class COBApplicationActionsHelperTest {
   private static final Faker FAKER = new Faker('AU');
   private static final Set<String> OCV_IDS = new Set<String>{
     '0123456789',
-    '9876543210'
+    '9876543210',
+    '9876543211',
+    '9876543212'
   };
 
   private static final Integer OCV_IDS_COUNT = OCV_IDS.size();
+  private static final Map<String, String> OCV_ID_VERIFICATION_TYPES = new Map<String, String>{
+    '0123456789' => 'MANUAL',
+    '9876543210' => 'UNSPECIFIED',
+    '9876543211' => 'ASSISTED',
+    '9876543212' => 'STP'
+  };
 
   @TestSetup
   private static void makeData() {
@@ -43,13 +51,14 @@ public with sharing class COBApplicationActionsHelperTest {
   private static CustomerOnboardingApplication__c createCOBApp(String ocvId) {
     return new CustomerOnboardingApplication__c(
       OCVId__c = ocvId,
-      PersonaId__c = FAKER.randomString(15)
+      PersonaId__c = FAKER.randomString(15),
+      VerificationType__c = OCV_ID_VERIFICATION_TYPES.get(ocvId)
     );
   }
 
   private static List<CustomerOnboardingApplication__c> getCOBApps() {
     return [
-      SELECT Id, OCVId__c, PersonaId__c
+      SELECT Id, OCVId__c, PersonaId__c, VerificationType__c
       FROM CustomerOnboardingApplication__c
     ];
   }
@@ -60,7 +69,6 @@ public with sharing class COBApplicationActionsHelperTest {
 
     for (CustomerOnboardingApplication__c cobApp : cobApps) {
       Case kycQACase = COBApplicationActionsHelper.createKYCQACase(cobApp);
-
       Assert.areEqual(
         cobApp.OCVId__c,
         kycQACase.OCV_Id__c,
@@ -75,6 +83,14 @@ public with sharing class COBApplicationActionsHelperTest {
         cobApp.id,
         kycQACase.CustomerOnboardingApplication__c,
         'The Case COB App lookup should have been the same as COB App Id'
+      );
+
+      Assert.areEqual(
+        COBApplicationActionsHelper.VERIFICATION_TYPE_PRIORITY.get(
+          cobApp.VerificationType__c
+        ),
+        kycQACase.Priority,
+        'The priority should be ' + kycQACase.Priority
       );
     }
   }
