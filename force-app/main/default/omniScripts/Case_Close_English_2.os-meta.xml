@@ -664,9 +664,9 @@
     &quot;type&quot; : &quot;&quot;
   },
   &quot;options&quot; : [ {
-    &quot;autoAdv&quot; : null,
+    &quot;name&quot; : &quot;Yes&quot;,
     &quot;value&quot; : &quot;Yes&quot;,
-    &quot;name&quot; : &quot;Yes&quot;
+    &quot;autoAdv&quot; : null
   }, {
     &quot;name&quot; : &quot;No&quot;,
     &quot;value&quot; : &quot;No&quot;,
@@ -1912,7 +1912,7 @@
       &quot;PossibleSystemicIssueCategory&quot; : &quot;Possible Systemic Issue Category&quot;
     } ],
     &quot;cacMap&quot; : [ {
-      &quot;ParentCase&quot; : &quot;Parent Case&quot;
+      &quot;ParentCase-Block&quot; : &quot;Parent Case&quot;
     }, {
       &quot;CAC&quot; : &quot;CAC Sub Category&quot;
     }, {
@@ -2018,7 +2018,7 @@
   },
   &quot;stylesheet&quot; : {
     &quot;newport&quot; : &quot;&quot;,
-    &quot;lightning&quot; : &quot;&quot;,
+    &quot;lightning&quot; : &quot;CloseCaseOmniCSS&quot;,
     &quot;newportRtl&quot; : &quot;&quot;,
     &quot;lightningRtl&quot; : &quot;&quot;
   },
@@ -2031,5 +2031,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>acad129f-f3fa-25ab-1e0e-14daacb272fb</webComponentKey>
+    <webComponentKey>6a6f9be6-3efb-e849-2e75-06c6295ec54e</webComponentKey>
 </OmniScript>

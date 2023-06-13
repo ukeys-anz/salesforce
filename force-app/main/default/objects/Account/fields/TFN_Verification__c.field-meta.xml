@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TFN_Verification__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_OCV</complianceGroup>
+    <description>This Value determine TFN and TFN Exemption of the Customer.</description>
+    <externalId>false</externalId>
+    <label>TFN Verification</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>V</fullName>
+                <default>false</default>
+                <label>VALID TFN - 8 OR 9 DIGIT AUST TAX FILE NUMBER SUPPLIED BY THE CUSTOMER</label>
+            </value>
+            <value>
+                <fullName>I</fullName>
+                <default>false</default>
+                <label>INVALID TFN - THE TFN SUPPLIED BY THE CUSTOMER DID NOT PASS THE ATO ALGORITHM</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -261,7 +261,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom6531</globalKey>
-        <inputFieldName>Case:CustomerDetails:LastName</inputFieldName>
+        <inputFieldName>lastName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRTransformCaseDetails</name>
@@ -638,6 +638,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom3824</globalKey>
+        <inputFieldName>Case:CustomerDetails:switchOffCustNotification</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:switchOffCustNotification</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Customer/\/\/Complaint&apos;&quot; QUERY | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Non-Customer/\/\/Complaint&apos;&quot; QUERY IF</formulaConverted>
         <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,QUERY(&quot;select id from RecordType where Name = &apos;Customer Complaint&apos;&quot;),QUERY(&quot;select id from RecordType where Name = &apos;Non-Customer Complaint&apos;&quot;))</formulaExpression>
         <formulaResultPath>recordType</formulaResultPath>
@@ -908,7 +922,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom1226</globalKey>
-        <inputFieldName>Case:CustomerDetails:firstName</inputFieldName>
+        <inputFieldName>firstName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRTransformCaseDetails</name>
@@ -957,6 +971,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:ResolutionInformation:detailsOfComplaint1</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:lastName var:Case:CustomerDetails:LastName IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:lastName%,%Case:CustomerDetails:LastName%)</formulaExpression>
+        <formulaResultPath>lastName</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom2472</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -1037,13 +1068,30 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom5618</globalKey>
-        <inputFieldName>Case:CustomerDetails:MiddleName</inputFieldName>
+        <inputFieldName>middleName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRTransformCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:CustomerDetails:MiddleName</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:middleName var:Case:CustomerDetails:MiddleName IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:middleName%,%Case:CustomerDetails:MiddleName%)</formulaExpression>
+        <formulaResultPath>middleName</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom1992</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -1198,6 +1246,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:CustomerDetails:Age</outputFieldName>
         <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:firstName var:Case:CustomerDetails:firstName IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:firstName%,%Case:CustomerDetails:firstName%)</formulaExpression>
+        <formulaResultPath>firstName</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom5188</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRTransformCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>

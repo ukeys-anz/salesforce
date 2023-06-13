@@ -4,24 +4,24 @@ import tmp from "./knownIssues.html";
 
 const KNOWN_ISSUES = [
   {
-    IDR_Channel_Received__c: "",
-    IDR_Priority__c: "",
-    IDR_Issue_Type__c: "",
+    IDR_Channel_Received__c: " ",
+    IDR_Priority__c: " ",
+    IDR_Issue_Type__c: " ",
     IDR_Sub_Issue_Type__c: "",
-    IDR_Description_of_Issue__c: " ",
-    IDR_Customer_Desired_Outcome__c: " ",
+    IDR_Description_of_Issue__c: "",
+    IDR_Customer_Desired_Outcome__c: "",
     IDR_Written_Response_Required__c: "",
     IDR_Is_there_another_issue__c: "",
-    IDR_REAL_Form_Required__c: null,
+    IDR_REAL_Form_Required__c: "",
     IDR_Possible_Systemic_Issue__c: "",
     IDR_Status__c: "",
     IDR_Complaint_Outcome__c: "",
-    IDR_Description_of_Outcome__c: " ",
+    IDR_Description_of_Outcome__c: "",
     IDR_Complaint_Remedy__c: "",
     IDR_Non_Financial_Remedy__c: "",
-    IDR_Written_Response_Requested__c: " ",
+    IDR_Written_Response_Requested__c: "",
     Product__c: true,
-    Product__r: { Name: " " }
+    Product__r: { Name: "" }
   }
 ];
 
@@ -95,8 +95,10 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
     ResolutionInformation.realFormRequired = issue[0].IDR_REAL_Form_Required__c
       ? "true"
       : "false";
-    ResolutionInformation.systemicIssue =
-      issue[0].IDR_Possible_Systemic_Issue__c;
+    ResolutionInformation.systemicIssue = issue[0]
+      .IDR_Possible_Systemic_Issue__c
+      ? issue[0].IDR_Possible_Systemic_Issue__c
+      : "No";
     ResolutionInformation.ComplaintStatus = issue[0].IDR_Status__c;
     ResolutionInformation.ComplaintOutcome = issue[0].IDR_Complaint_Outcome__c;
     ResolutionInformation.ComplaintDescription =

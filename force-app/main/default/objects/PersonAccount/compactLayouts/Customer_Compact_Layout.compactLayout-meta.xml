@@ -7,6 +7,6 @@
     <fields>Phone</fields>
     <fields>BillingAddress</fields>
     <fields>FinServ__KYCStatus__c</fields>
-    <fields>Has_Customer_Provided_TFN__c</fields>
+    <fields>TFN_Verification__c</fields>
     <label>Customer Compact Layout</label>
 </CompactLayout>
