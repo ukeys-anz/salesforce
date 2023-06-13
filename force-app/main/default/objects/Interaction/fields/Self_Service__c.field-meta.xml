@@ -7,6 +7,7 @@
     <description>Engagement Type: Self Service</description>
     <externalId>false</externalId>
     <label>Self Service</label>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>

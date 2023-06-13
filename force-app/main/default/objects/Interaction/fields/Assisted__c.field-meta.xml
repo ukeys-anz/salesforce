@@ -7,6 +7,7 @@
     <description>Engagement Type: Assisted</description>
     <externalId>false</externalId>
     <label>Assisted</label>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>
