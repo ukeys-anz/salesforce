@@ -1534,7 +1534,350 @@ let definition = {
                 customClass: "title_color",
                 style: "      \n         "
               },
-              children: [],
+              children: [
+                {
+                  key: "element_element_block_3_0_outputField_0_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField: "",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-0"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_1_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3EThese%20are%20the%20debts%20including%20any%20loans,%20credit%20cards,%20buy%20now%20pay%20later%20or%20other%20lines%20of%20credit%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-1"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_2_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField: "",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-2"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_3_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField: "",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-3"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_4_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EHome%20Loans%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-4"
+                },
+                {
+                  key: "element_element_block_3_0_childCardPreview_5_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Home_Loan",
+                    recordId: "{recordId}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false,
+                    cardNode: "{record.liabilities}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-FlexCard-5"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_6_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EVehicle%20Loans%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-6"
+                },
+                {
+                  key: "element_element_block_3_0_childCardPreview_7_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Vehicle_Loan",
+                    recordId: "{recordId}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false,
+                    cardNode: "{record.liabilities}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-FlexCard-7"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_8_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EStudent%20Loans%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-8"
+                },
+                {
+                  key: "element_element_block_3_0_childCardPreview_9_0",
+                  name: "FlexCard",
+                  element: "childCardPreview",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    cardName: "SOP_Student_Loan",
+                    recordId: "{recordId}",
+                    selectedState: "Active",
+                    isChildCardTrackingEnabled: false,
+                    cardNode: "{record.liabilities}"
+                  },
+                  type: "element",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-FlexCard-9"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_10_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EPersonal%20Loans%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-10"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_11_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3ECredit%20Cards%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-11"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_12_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EOther%20Limit%20Liability%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-12"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_13_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EOther%20Loans%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-13"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_14_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3ELease/Hire%20Purchase%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-14"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_15_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EOverdraft%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-15"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_16_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EMargin%20Loans%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-16"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_17_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3ELine%20of%20Credit%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-17"
+                },
+                {
+                  key: "element_element_block_3_0_outputField_18_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%3Cstrong%3EBuy%20now&nbsp;%3C/strong%3E%3C/div%3E",
+                    card: "{card}"
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_3_0",
+                  elementLabel: "Debts-Text-18"
+                }
+              ],
               elementLabel: "Debts",
               userUpdatedElementLabel: true,
               styleObjects: [
@@ -1776,7 +2119,10 @@ let definition = {
         "SOP_Assets_Other",
         "SOP_Assets_Content",
         "SOP_Asset_Shares",
-        "SOP_Message_Flex"
+        "SOP_Message_Flex",
+        "SOP_Home_Loan",
+        "SOP_Vehicle_Loan",
+        "SOP_Student_Loan"
       ],
       actions: [],
       omniscripts: [],
@@ -1810,9 +2156,7 @@ let definition = {
   isRepeatable: true,
   osSupport: true,
   globalCSS: true,
-  Name: "SOP_Finances_Savings",
-  uniqueKey: "SOP_Finances_Savings",
-  Id: "0ko8r0000000I6bAAE",
+  Id: "0ko8s0000000CqnAAE",
   OmniUiCardKey: "SOP_Finances_Savings/ANZ/1.0",
   OmniUiCardType: "Parent"
 };

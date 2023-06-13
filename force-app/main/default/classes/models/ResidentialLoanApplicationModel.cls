@@ -13,7 +13,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   @AuraEnabled
   public List<SOPDebt> liabilities;
   public SOPModel sop;
-  public static final String JOINT_ACCOUNT = 'Joint Account';
+  public static final String JOINT_ACCOUNT = 'Joint';
   public static Map<String, Account> partyIdToAccountMap;
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
 
@@ -310,6 +310,23 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPInterestRate {
     @AuraEnabled
     public string value;
+
+    /**
+     * @description return a readable interest rate value
+     */
+    @AuraEnabled
+    public string readableValue{
+      get {
+        try {
+          Decimal givenValue = Decimal.valueOf(value);
+          String result = (givenValue / 100).setScale(2) + '%';
+          return result;
+        }
+        catch (Exception e) {
+          return '0';
+        }
+      }
+    }
   }
 
   /**
@@ -318,6 +335,20 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPStudentLoan {
     @AuraEnabled
     public Boolean hecsWithheldPayment;
+    
+    /**
+     * @description return Yes or No for withheld value
+     */
+    @AuraEnabled
+    public String outputWithheld{ 
+      get {
+        if(hecsWithheldPayment) {
+          return 'Yes';
+        } else {
+          return 'No';
+        }
+      }
+    }
   }
 
   /**
