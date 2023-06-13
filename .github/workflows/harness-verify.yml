@@ -33,6 +33,7 @@ jobs:
           GITHUB_BASE_REF: ${{ github.base_ref }}
           GITHUB_REF: ${{ github.ref }}
           DRAFT_PR: ${{ github.event.pull_request.draft }}
+          REPO_NAME: ${{ github.event.repository.name }}
           UPLOAD_ARTIFACT: ${{ !github.event.pull_request.draft }}
           RUN_SPECIFIED_TESTS_LABEL: ${{ contains( toJson(github.event.pull_request.labels), 'Run Specified Tests') }}
         with:
@@ -40,7 +41,7 @@ jobs:
           harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key}}
           target-name: salesforce-ci-np
           target-type: WORKFLOW
-          variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }};DRAFT_PR=${{ env.DRAFT_PR }};RUN_SPECIFIED_TESTS=${{ env.RUN_SPECIFIED_TESTS_LABEL }}"
+          variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};UPLOAD_ARTIFACT=${{ env.UPLOAD_ARTIFACT }};DRAFT_PR=${{ env.DRAFT_PR }};RUN_SPECIFIED_TESTS=${{ env.RUN_SPECIFIED_TESTS_LABEL }};REPO_NAME=${{ env.REPO_NAME }}"
           wait: True
 
       - if: success()
@@ -49,10 +50,11 @@ jobs:
         env:
           GITHUB_BASE_REF: ${{ github.base_ref }}
           GITHUB_REF: ${{ github.ref }}
+          REPO_NAME: ${{ github.event.repository.name }}
         with:
           application-name: salesforce
           harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key}}
           target-name: salesforce-code-coverage-np
           target-type: WORKFLOW
-          variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }}"
+          variables: "GITHUB_BASE_REF=${{ env.GITHUB_BASE_REF }};GITHUB_REF=${{ env.GITHUB_REF }};REPO_NAME=${{ env.REPO_NAME }}"
           wait: True
