@@ -25,11 +25,6 @@
                 <label>Product</label>
             </value>
             <value>
-                <fullName>Engagement</fullName>
-                <default>false</default>
-                <label>Engagement</label>
-            </value>
-            <value>
                 <fullName>Topic</fullName>
                 <default>false</default>
                 <label>Topic</label>

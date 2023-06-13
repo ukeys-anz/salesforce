@@ -38,7 +38,9 @@
     <permissionSets>force__FSCInsurance</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>Fraud_Lock_Card</permissionSets>
+    <permissionSets>Interaction_Context_Tag_Read_Write</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
+    <permissionSets>Interaction_Tag_Read_Write</permissionSets>
     <permissionSets>Knowledge_Base_Author</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Modify_All</permissionSets>
@@ -60,6 +62,5 @@
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>
-    <permissionSets>Interaction_Tag_Read_Write</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
