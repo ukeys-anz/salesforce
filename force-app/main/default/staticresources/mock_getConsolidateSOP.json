@@ -357,7 +357,13 @@
         {
           "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
           "proportion": {
-            "value": "100"
+            "value": "50"
+          }
+        },
+        {
+          "partyId": "ea1d6d5d-c498-43a9-8a10-223232323223",
+          "proportion": {
+            "value": "50"
           }
         }
       ],
@@ -369,6 +375,358 @@
         "currencyCode": "AUD",
         "nanos": 0
       }
+    },
+    {
+      "id": "09d02873-0979-4753-91e3-56427e540975",
+      "type": "LIABILITY_TYPE_BPL_FACILITY",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "6000"
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "NAB"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "15500",
+        "nanos": 100000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-05-24T04:29:15.832785Z",
+      "updatedBy": "1000990280",
+      "etag": "1684902555832785000"
+    },
+    {
+      "id": "00616c45-1ffa-4f1c-a387-a3d755072d64",
+      "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "10000"
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "NAB"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "15500",
+        "nanos": 100000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-05-24T06:31:35.866504Z",
+      "updatedBy": "1000990280",
+      "etag": "1684909895866504000"
+    },
+    {
+      "id": "6c2c0fa7-3ad8-47a8-8917-98efd5abc618",
+      "type": "LIABILITY_TYPE_OVERDRAFT",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "10000"
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "NAB"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "15500",
+        "nanos": 100000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-05-24T08:21:17.581432Z",
+      "updatedBy": "1000990280",
+      "etag": "1684916477581432000"
+    },
+    {
+      "id": "40b02f68-c62e-414c-b2f3-62a4e797f2d3",
+      "type": "LIABILITY_TYPE_VEHICLE_LOAN",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "10000"
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "NAB"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "15500",
+        "nanos": 100000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-05-24T08:24:36.128250Z",
+      "updatedBy": "1000990280",
+      "etag": "1684916676128250000"
+    },
+    {
+      "id": "5f21e58d-b90d-4c82-bf48-8d11edfdc9d0",
+      "type": "LIABILITY_TYPE_OTHER_LIABILITY",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "10000"
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "CBA"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "15500",
+        "nanos": 100000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-06-07T02:28:03.460393Z",
+      "updatedBy": "1000990280",
+      "etag": "1686104883460393000"
+    },
+    {
+      "id": "ac52b368-d370-4d83-a939-da5d6ff7f418",
+      "type": "LIABILITY_TYPE_OTHER_LOAN",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "10000"
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "NAB"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "15500",
+        "nanos": 100000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-06-07T02:32:19.655116Z",
+      "updatedBy": "1000990280",
+      "etag": "1686105139655116000"
+    },
+    {
+      "id": "a596d60f-1891-4174-8f0b-e7409ca8d6a3",
+      "type": "LIABILITY_TYPE_MARGIN_LOAN",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "10000"
+        },
+        "interestRate": {
+          "value": "550"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "650"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "NAB"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "15500",
+        "nanos": 100000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-06-05T06:28:52.996269Z",
+      "updatedBy": "1000990280",
+      "etag": "1685946532996269000"
+    },
+    {
+      "id": "ac52b368-d370-4d83-a939-da5d6ff7f418",
+      "type": "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
+      "institutionalLiability": {
+        "limit": {
+          "currencyCode": "AUD",
+          "units": "20000"
+        },
+        "interestRate": {
+          "value": "450"
+        },
+        "minimumPayment": {
+          "currencyCode": "AUD",
+          "units": "570"
+        },
+        "repaymentAmount": {
+          "currencyCode": "AUD",
+          "units": "890"
+        },
+        "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+        "redrawAmount": {
+          "currencyCode": "AUD"
+        },
+        "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+        "financialInstitution": "CBA"
+      },
+      "outstandingBalance": {
+        "currencyCode": "AUD",
+        "units": "4500",
+        "nanos": 200000000
+      },
+      "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+      "ownership": [
+        {
+          "partyId": "1000990280",
+          "proportion": {
+            "value": "100"
+          }
+        }
+      ],
+      "updateTime": "2023-06-07T02:32:19.655116Z",
+      "updatedBy": "1000990280",
+      "etag": "1686105139655116000"
     }
   ],
   "employments": [
