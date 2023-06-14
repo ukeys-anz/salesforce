@@ -17,7 +17,6 @@ export default class PillOmniComponent extends OmniscriptBaseMixin(
   }
 
   set allValues(value) {
-    console.log("value -> " + JSON.stringify(value));
     this._allValues = value;
   }
 
