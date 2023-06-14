@@ -1,0 +1,64 @@
+omnistudio-omniscript-ip-action button[type="button"] {
+  margin-top: 1rem;
+}
+
+section .slds-accordion__summary {
+  --slds-c-accordion-summary-color-background: var(
+    --slds-g-color-neutral-base-95,
+    var(--lwc-colorBackground, rgb(243, 243, 243))
+  );
+  --slds-c-accordion-sizing-border: 0px;
+}
+
+label[omnistudio-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
+div .omniscript-button-position {
+  justify-content: flex-start;
+}
+
+div .omniscript-sfl-actions {
+  justify-content: flex-end;
+  display: flex;
+  --slds-c-button-spacing-inline-start: var(
+    --slds-c-button-neutral-spacing-inline-start,
+    var(
+      --sds-c-button-neutral-spacing-inline-start,
+      var(--lwc-spacingMedium, 1rem)
+    )
+  );
+  --slds-c-button-spacing-inline-end: var(
+    --slds-c-button-neutral-spacing-inline-end,
+    var(
+      --sds-c-button-neutral-spacing-inline-end,
+      var(--lwc-spacingMedium, 1rem)
+    )
+  );
+  transition: border 0.15s linear;
+  --slds-c-button-color-background: var(
+    --slds-c-button-neutral-color-background,
+    var(
+      --sds-c-button-neutral-color-background,
+      var(
+        --slds-g-color-neutral-base-100,
+        var(--lwc-buttonColorBackgroundPrimary, rgb(255, 255, 255))
+      )
+    )
+  );
+  --slds-c-button-color-border: var(
+    --slds-c-button-neutral-color-border,
+    var(
+      --sds-c-button-neutral-color-border,
+      var(
+        --slds-g-color-border-base-4,
+        var(--lwc-buttonColorBorderPrimary, rgb(201, 201, 201))
+      )
+    )
+  );
+}
