@@ -43,12 +43,12 @@
         <name>GetRecordTypeNameForInteraction</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>GetRecordTypeNameForInteractionCustom1186</globalKey>
-        <inputFieldName>recordType:Name</inputFieldName>
+        <globalKey>GetRecordTypeNameForInteractionCustom7577</globalKey>
+        <inputFieldName>accountFromDatabase:Name</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>recordTypeName</outputFieldName>
+        <outputFieldName>account:value</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -91,12 +91,12 @@
         <name>GetRecordTypeNameForInteraction</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>GetRecordTypeNameForInteractionCustom7577</globalKey>
-        <inputFieldName>accountFromDatabase:Name</inputFieldName>
+        <globalKey>GetRecordTypeNameForInteractionCustom1186</globalKey>
+        <inputFieldName>recordType:Name</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>account:value</outputFieldName>
+        <outputFieldName>recordTypeName</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

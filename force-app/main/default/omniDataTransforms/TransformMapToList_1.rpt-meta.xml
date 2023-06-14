@@ -146,21 +146,6 @@
         <name>TransformMapToList</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TransformMapToListCustom6015</globalKey>
-        <inputFieldName>resultfromtopictags:resultfromtopictag:type</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
-        <outputFieldName>resultfromtopictags:type</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TransformMapToList</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>TransformMapToListCustom108</globalKey>
         <inputFieldName>resultfromtopictags:resultfromtopictag:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -176,57 +161,40 @@
         <name>TransformMapToList</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TransformMapToListCustom8022</globalKey>
-        <inputFieldName>resultfromtopictags:resultfromtopictag:label</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
-        <outputFieldName>resultfromtopictags:label</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TransformMapToList</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TransformMapToListCustom265</globalKey>
-        <inputFieldName>resultfromreasontags:resultfromreasontag:label</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
-        <outputFieldName>resultfromreasontags:label</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TransformMapToList</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TransformMapToListCustom1879</globalKey>
-        <inputFieldName>resultfromreasontags:resultfromreasontag:type</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
-        <outputFieldName>resultfromreasontags:type</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TransformMapToList</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>TransformMapToListCustom7917</globalKey>
         <inputFieldName>resultfromproducttags:resultfromproducttag:selected</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>resultfromproducttags:selected</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom246</globalKey>
+        <inputFieldName>resultfromreasontags:resultfromreasontag:selected</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>resultfromreasontags:selected</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom430</globalKey>
+        <inputFieldName>resultfromtopictags:resultfromtopictag:selected</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>resultfromtopictags:selected</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -280,6 +248,51 @@
         <name>TransformMapToList</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom265</globalKey>
+        <inputFieldName>resultfromreasontags:resultfromreasontag:label</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromreasontags:label</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom8022</globalKey>
+        <inputFieldName>resultfromtopictags:resultfromtopictag:label</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromtopictags:label</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom1879</globalKey>
+        <inputFieldName>resultfromreasontags:resultfromreasontag:type</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromreasontags:type</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>TransformMapToListCustom9776</globalKey>
         <inputFieldName>resultfromreasontags:resultfromreasontag:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -295,26 +308,13 @@
         <name>TransformMapToList</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TransformMapToListCustom246</globalKey>
-        <inputFieldName>resultfromreasontags:resultfromreasontag:selected</inputFieldName>
+        <globalKey>TransformMapToListCustom6015</globalKey>
+        <inputFieldName>resultfromtopictags:resultfromtopictag:type</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>resultfromreasontags:selected</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>TransformMapToList</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TransformMapToListCustom430</globalKey>
-        <inputFieldName>resultfromtopictags:resultfromtopictag:selected</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>resultfromtopictags:selected</outputFieldName>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromtopictags:type</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
