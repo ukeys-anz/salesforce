@@ -13,13 +13,9 @@ export default class PillOmniComponent extends OmniscriptBaseMixin(
 
   handleRemoveTags(event) {
     const valueToRemove = event.target.name;
-    console.log("this.valueToRemove 2-> " + JSON.stringify(valueToRemove));
-    console.log("before this.allValues-> " + JSON.stringify(this.allValues));
     // eslint-disable-next-line @lwc/lwc/no-api-reassignments
     this.allValues = this.deselectValue(this.allValues, valueToRemove);
     //this.allValues = this.allValues.filter(item => item.value === valueToRemove);
-
-    console.log("this.allValues-> " + JSON.stringify(this.allValues));
     if (
       this.omniJsonData &&
       this.omniJsonData.basenode &&
