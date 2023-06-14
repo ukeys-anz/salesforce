@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Engagement__c</fullName>
+    <fullName>Tag_Name__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Comma separated Selected of Engagement Interaction Context LWC</description>
+    <description>Interaction Tag Name from Parent object: Interaction Tag</description>
     <externalId>false</externalId>
-    <label>Engagement</label>
-    <length>255</length>
+    <formula>Interaction_Tag__r.Tag__c</formula>
+    <label>Tag Name</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Interaction permission set with Read Only access.</description>
     <classAccesses>
         <apexClass>InitiateInteractionController</apexClass>
         <enabled>true</enabled>
@@ -49,6 +48,7 @@
         <apexClass>InteractionTimeValidations</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <description>Interaction permission set with Read Only access.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.ANZ_Number__c</field>
@@ -62,11 +62,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Appointment__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-     <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.Actual_Topics__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -137,11 +132,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.EndTime</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.Engagement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -240,16 +230,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Interaction.Products__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Interaction.Reason_for_Visit__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Interaction.Referred_To__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -276,6 +256,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Twilio_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Self_Service__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Assisted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
