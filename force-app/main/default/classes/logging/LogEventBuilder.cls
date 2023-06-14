@@ -428,6 +428,21 @@ public without sharing class LogEventBuilder {
   }
 
   /**
+   * @description Sets the payload on log event from Omnistudio
+   * @param payload The payload to be store on log entry
+   * @return The same instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public LogEventBuilder setPayloadForOmniStudio(String payload) {
+    if (this.shouldSave == true) {
+      this.logEvent.Payload__c = LogEventBuilderHelper.truncateFieldValue(
+        Schema.LogEvent__e.Payload__c,
+        payload
+      );
+    }
+    return this;
+  }
+
+  /**
    * @description Sets the lwc component name on log event
    * @param cmpName The component name
    * @return The same instance of `LogEventBuilder`, useful for chaining methods
