@@ -275,6 +275,6 @@
     <subType>DeleteTags</subType>
     <type>Interaction</type>
     <uniqueName>Interaction_DeleteTags_Procedure_1</uniqueName>
-    <versionNumber>4.0</versionNumber>
+    <versionNumber>1.0</versionNumber>
     <webComponentKey>276e525c-07be-9616-5a25-d81f93a804c5</webComponentKey>
 </OmniIntegrationProcedure>
