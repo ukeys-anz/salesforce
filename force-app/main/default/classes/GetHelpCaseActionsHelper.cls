@@ -568,32 +568,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description To add 3 business days to current date
-   * @param businessHoursId busness hours Id according to which 3 days needs to be added
-   * @return 3rd business day date from today
-   */
-  private static Date addThreeBusinessDaysToCurrentDate(Id businessHoursId) {
-    if (businessHoursId == null) {
-      BusinessHours businessHourDispute = CommonUtil.getBusinessHours();
-      businessHoursId = businessHourDispute?.Id;
-    }
-    Integer numberOfDays = 0;
-    Datetime prevDate = System.now();
-    Datetime nextDate;
-    while (numberOfDays < 3) {
-      nextDate = BusinessHours.nextStartDate(businessHoursId, prevDate);
-      if (nextDate.isSameDay(prevDate)) {
-        nextDate = BusinessHours.add(businessHoursId, nextDate, 86400000);
-      }
-      if (BusinessHours.isWithin(businessHoursId, nextDate)) {
-        numberOfDays++;
-      }
-      prevDate = nextDate;
-    }
-    return nextDate.date();
-  }
-
-  /**
    * @description create task on case
    * @param caseRecord case record
    * @param externalCaseStatusRecord External_Case_Status__c Record
@@ -614,9 +588,12 @@ public with sharing class GetHelpCaseActionsHelper {
     newTask.OwnerId = taskOwnerId;
     newTask.RecordTypeId = GetHelpConstants.TASK_EMAIL_RT;
     newTask.Case__c = caseRecord.Id;
-    newTask.ActivityDate = addThreeBusinessDaysToCurrentDate(
-      caseRecord.BusinessHoursId
-    );
+    newTask.ActivityDate = DateTimeUtils.addBusinessDays(
+        caseRecord.BusinessHoursId,
+        System.now(),
+        3
+      )
+      .date();
     return newTask;
   }
 }
