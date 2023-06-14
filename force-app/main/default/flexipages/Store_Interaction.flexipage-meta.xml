@@ -34,8 +34,12 @@
         <name>Facet-003da93e-a551-4558-9eb4-5e1a0845516f</name>
         <itemInstances>
             <componentInstance>
-                <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>InteractionFlexCard</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
