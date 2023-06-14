@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>For creation of Interaction Record,</description>
+    <description>OmniScript for creating and editing Store Interactions</description>
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
@@ -12,78 +12,6 @@
     <isWebCompEnabled>true</isWebCompEnabled>
     <language>English</language>
     <name>CreateInteractionJourney</name>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>AllJunctionblank</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;basenodeflag&quot;
-      }, {
-        &quot;field&quot; : &quot;basenodeForReasonForCVflag&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      }, {
-        &quot;field&quot; : &quot;productbasenodeflag&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;JunctionData&quot; : {
-      &quot;products&quot; : [ ],
-      &quot;topics&quot; : [ ],
-      &quot;reasonForVisit&quot; : [ ]
-    }
-  },
-  &quot;label&quot; : &quot;AllJunctionblank&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>11.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>CheckIfVisitDetailsSectionIsFilled</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;CheckIfVisitDetailsSectionIsFilled&quot;,
-  &quot;elementValueMap&quot; : {
-    &quot;reasonforvisiterror&quot; : &quot;=COUNT(%reasonForVisit%) &gt; 5&quot;,
-    &quot;topicerror&quot; : &quot;=COUNT(%topics%) &gt; 5&quot;,
-    &quot;producterror&quot; : &quot;=COUNT(%products%) &gt; 5&quot;,
-    &quot;reasonflag&quot; : &quot;=COUNT(%reasonForVisit%)&quot;,
-    &quot;topicflag&quot; : &quot;=COUNT(%topics%)&quot;,
-    &quot;productflag&quot; : &quot;=COUNT(%products%)&quot;
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>20.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -140,66 +68,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>21.0</sequenceNumber>
-        <type>Integration Procedure Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>CountJunctionShowError</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;CountJunctionShowError&quot;,
-  &quot;integrationProcedureKey&quot; : &quot;CountArrayNodes_CountArrayNodes&quot;,
-  &quot;useContinuation&quot; : false,
-  &quot;remoteOptions&quot; : {
-    &quot;preTransformBundle&quot; : &quot;&quot;,
-    &quot;postTransformBundle&quot; : &quot;&quot;,
-    &quot;useFuture&quot; : false,
-    &quot;chainable&quot; : false
-  },
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;preTransformBundle&quot; : &quot;&quot;,
-  &quot;postTransformBundle&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;JunctionData&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;extraPayload&quot; : { },
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;svgSprite&quot; : &quot;&quot;,
-  &quot;svgIcon&quot; : &quot;&quot;,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>19.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -261,63 +130,8 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;toastComplete&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>26.0</sequenceNumber>
+        <sequenceNumber>14.0</sequenceNumber>
         <type>Integration Procedure Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>CreateInteractionwithJunctionObject</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;CreateInteractionwithJunctionObject&quot;,
-  &quot;bundle&quot; : &quot;CreateInteractionwithJunctionObject&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;postTransformBundle&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;DataForInteractionAndJunction&quot;,
-  &quot;sendJSONNode&quot; : &quot;DataForInteractionAndJunction&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Submit&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : null,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;RecordId&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>30.0</sequenceNumber>
-        <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
@@ -385,7 +199,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -416,7 +230,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>23.0</sequenceNumber>
+        <sequenceNumber>11.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -456,109 +270,8 @@
   &quot;label&quot; : &quot;DataForInteractionAndJunction&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>24.0</sequenceNumber>
+        <sequenceNumber>12.0</sequenceNumber>
         <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>DataRaptorPostAction1</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
-  &quot;bundle&quot; : &quot;InteractionCreation&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;postTransformBundle&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;DataForInteractionAndJunction&quot;,
-  &quot;sendJSONNode&quot; : &quot;DataForInteractionAndJunction&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Submit&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>32.0</sequenceNumber>
-        <type>DataRaptor Post Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>EditInteractionRecord</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;EditInteractionRecord&quot;,
-  &quot;bundle&quot; : &quot;EditInteractionJunctionObject&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;postTransformBundle&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;DataForInteractionAndJunction&quot;,
-  &quot;sendJSONNode&quot; : &quot;DataForInteractionAndJunction&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Submit&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : null,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;RecordId&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>31.0</sequenceNumber>
-        <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <childElements>
@@ -2326,58 +2039,8 @@
   &quot;validationRequired&quot; : true,
   &quot;label&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>10.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Step</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>ExtractInteractionTags</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Extract Interaction Tags&quot;,
-  &quot;bundle&quot; : &quot;ExtractInteractionTags&quot;,
-  &quot;ignoreCache&quot; : false,
-  &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;element&quot; : &quot;EditInteractionId&quot;,
-    &quot;inputParam&quot; : &quot;InteractId&quot;
-  } ],
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>29.0</sequenceNumber>
-        <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
@@ -2435,157 +2098,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
-        <type>DataRaptor Extract Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>FetchProducts</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;FetchDataFromInteractionTag&quot;,
-  &quot;bundle&quot; : &quot;FetchDataFromInteractionTag&quot;,
-  &quot;ignoreCache&quot; : false,
-  &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;element&quot; : &quot;productvalue&quot;,
-    &quot;inputParam&quot; : &quot;typevalue&quot;
-  } ],
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;resultfromproducttags&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
-        <type>DataRaptor Extract Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>FetchReasons</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;FetchReasons&quot;,
-  &quot;bundle&quot; : &quot;FetchDataFromInteractionTag&quot;,
-  &quot;ignoreCache&quot; : false,
-  &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;element&quot; : &quot;reasonforvistvalue&quot;,
-    &quot;inputParam&quot; : &quot;typevalue&quot;
-  } ],
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;resultfromreasontags&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
         <sequenceNumber>4.0</sequenceNumber>
-        <type>DataRaptor Extract Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>FetchTopics</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;enableActionMessage&quot; : false,
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;default&quot; : null,
-    &quot;custom&quot; : [ ]
-  },
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;responseJSONNode&quot; : &quot;resultfromtopictags&quot;,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;element&quot; : &quot;actualtopicvalue&quot;,
-    &quot;inputParam&quot; : &quot;typevalue&quot;
-  } ],
-  &quot;ignoreCache&quot; : false,
-  &quot;bundle&quot; : &quot;FetchDataFromInteractionTag&quot;,
-  &quot;label&quot; : &quot;FetchDataFromInteractionTag&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2712,7 +2225,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>25.0</sequenceNumber>
+        <sequenceNumber>13.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2758,7 +2271,7 @@
   &quot;label&quot; : &quot;NavigateToInteraction&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>35.0</sequenceNumber>
+        <sequenceNumber>17.0</sequenceNumber>
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2806,52 +2319,8 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;targetName&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
-        <sequenceNumber>34.0</sequenceNumber>
+        <sequenceNumber>16.0</sequenceNumber>
         <type>Navigate Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>ProductJunctionDataBlank</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;basenodeflag&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;basenodeForReasonForCVflag&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;productbasenodeflag&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;JunctionData&quot; : {
-      &quot;products&quot; : [ ],
-      &quot;topics&quot; : &quot;%basenodeForReasonForCV%&quot;,
-      &quot;reasonForVisit&quot; : &quot;%basenode%&quot;
-    }
-  },
-  &quot;label&quot; : &quot;ProductJunctionDataBlank&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>18.0</sequenceNumber>
-        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
@@ -2917,184 +2386,6 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>ReasonandProductJunctionblank</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;basenodeflag&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;productbasenodeflag&quot;
-      }, {
-        &quot;field&quot; : &quot;basenodeForReasonForCVflag&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;JunctionData&quot; : {
-      &quot;products&quot; : [ ],
-      &quot;topics&quot; : &quot;%basenodeForReasonForCV%&quot;,
-      &quot;reasonForVisit&quot; : [ ]
-    }
-  },
-  &quot;label&quot; : &quot;ReasonandProductJunctionblank&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>13.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>ReasonandTopicJunctionblank</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;ReasonandTopicJunctionblank&quot;,
-  &quot;elementValueMap&quot; : {
-    &quot;JunctionData&quot; : {
-      &quot;reasonForVisit&quot; : [ ],
-      &quot;topics&quot; : [ ],
-      &quot;products&quot; : &quot;%productbasenode%&quot;
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;basenodeflag&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;basenodeForReasonForCVflag&quot;
-      }, {
-        &quot;field&quot; : &quot;productbasenodeflag&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>12.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>ReasonJunctionDataBlank</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;basenodeflag&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;basenodeForReasonForCVflag&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;productbasenodeflag&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;JunctionData&quot; : {
-      &quot;products&quot; : &quot;%productbasenode%&quot;,
-      &quot;topics&quot; : &quot;%basenodeForReasonForCV%&quot;,
-      &quot;reasonForVisit&quot; : [ ]
-    }
-  },
-  &quot;label&quot; : &quot;ReasonJunctionDataBlank&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>15.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>SaveInteractionAndJunction</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;enableActionMessage&quot; : false,
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;default&quot; : null,
-    &quot;custom&quot; : [ ]
-  },
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;validationRequired&quot; : &quot;Submit&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;DataForInteractionAndJunction&quot;,
-  &quot;postTransformBundle&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;bundle&quot; : &quot;CreateInteraction&quot;,
-  &quot;label&quot; : &quot;SaveInteractionAndJunction&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>33.0</sequenceNumber>
-        <type>DataRaptor Post Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -3153,31 +2444,8 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>22.0</sequenceNumber>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>Integration Procedure Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>SetEditInteractionId</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Set Edit Interaction Id&quot;,
-  &quot;elementValueMap&quot; : {
-    &quot;EditInteractionId&quot; : &quot;0kzBo00000003CPIAY&quot;
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>28.0</sequenceNumber>
-        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
@@ -3245,7 +2513,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>5.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3341,7 +2609,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>17.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3471,96 +2739,8 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>27.0</sequenceNumber>
+        <sequenceNumber>15.0</sequenceNumber>
         <type>Step</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>TopicandProductJunctionblank</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;basenodeForReasonForCVflag&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;productbasenodeflag&quot;
-      }, {
-        &quot;field&quot; : &quot;basenodeflag&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;JunctionData&quot; : {
-      &quot;products&quot; : [ ],
-      &quot;topics&quot; : [ ],
-      &quot;reasonForVisit&quot; : &quot;%basenode%&quot;
-    }
-  },
-  &quot;label&quot; : &quot;TopicandProductJunctionblank&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>14.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>TopicJunctionDataBlank</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;basenodeflag&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;0&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;basenodeForReasonForCVflag&quot;
-      }, {
-        &quot;data&quot; : &quot;0&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;productbasenodeflag&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;JunctionData&quot; : {
-      &quot;products&quot; : &quot;%productbasenode%&quot;,
-      &quot;topics&quot; : [ &quot;%basenodeForReasonForCV%&quot; ],
-      &quot;reasonForVisit&quot; : &quot;%basenode%&quot;
-    }
-  },
-  &quot;label&quot; : &quot;TopicJunctionDataBlank&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>16.0</sequenceNumber>
-        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
     <propertySetConfig>{
@@ -3659,9 +2839,9 @@
   &quot;currentLanguage&quot; : &quot;en_US&quot;,
   &quot;designTokenOverride&quot; : &quot;&quot;
 }</propertySetConfig>
-    <subType>CreateInteractionJourney</subType>
-    <type>CreateInteractionJourney</type>
-    <uniqueName>CreateInteractionJourney_CreateInteractionJourney_English_15</uniqueName>
-    <versionNumber>15.0</versionNumber>
-    <webComponentKey>f304a651-f19d-20e2-8b15-66a8bd6e8bfa</webComponentKey>
+    <subType>CreateAndEditFlow</subType>
+    <type>Interaction</type>
+    <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <webComponentKey>cfe05bd7-d79e-f6df-68e7-f1b6a6c3cb18</webComponentKey>
 </OmniScript>
