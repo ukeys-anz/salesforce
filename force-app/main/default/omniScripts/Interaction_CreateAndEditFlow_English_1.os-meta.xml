@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>OmniScript for creating and editing Store Interactions</description>
+    <name>CreateInteractionJourney</name>
+    <description>OmniScript for creating and editing Store Interactions records</description>
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
@@ -11,12 +12,11 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>true</isWebCompEnabled>
     <language>English</language>
-    <name>CreateInteractionJourney</name>
     <omniProcessElements>
+        <name>ConvertJSONToArray</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ConvertJSONToArray</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -72,10 +72,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>CreateAndEditInteractionJunctionObject</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>CreateAndEditInteractionJunctionObject</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -134,10 +134,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>CreatePillNodes</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>CreatePillNodes</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -203,10 +203,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>DataForInteractionAndJunction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DataForInteractionAndJunction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -234,10 +234,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>DataForInteractionAndJunctionEdit</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DataForInteractionAndJunctionEdit</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;pubsub&quot; : false,
@@ -274,12 +274,14 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>enterInteractionDetailsStep</name>
         <childElements>
+            <name>Block2</name>
             <childElements>
+                <name>createdByName</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>createdByName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -304,10 +306,10 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>lastModifiedByName</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>lastModifiedByName</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -332,10 +334,10 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>name</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>name</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -370,10 +372,10 @@
                 <type>Text</type>
             </childElements>
             <childElements>
+                <name>ownerNameDetail</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>ownerNameDetail</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -400,7 +402,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Block2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -419,10 +420,10 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>cancelForEdit</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>cancelForEdit</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -464,10 +465,10 @@
             <type>Navigate Action</type>
         </childElements>
         <childElements>
+            <name>cancelForNew</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>cancelForNew</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 2,
@@ -510,11 +511,12 @@
             <type>Navigate Action</type>
         </childElements>
         <childElements>
+            <name>contactDetailsBlock</name>
             <childElements>
+                <name>account</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>account</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -572,10 +574,10 @@
                 <type>Lookup</type>
             </childElements>
             <childElements>
+                <name>contactMobile</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>contactMobile</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -610,10 +612,10 @@
                 <type>Telephone</type>
             </childElements>
             <childElements>
+                <name>lead</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>lead</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -673,7 +675,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>contactDetailsBlock</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -692,10 +693,10 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>CustomLWC1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -711,11 +712,12 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>detailsSection</name>
             <childElements>
+                <name>actionTaken</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>actionTaken</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -757,10 +759,10 @@
                 <type>Lookup</type>
             </childElements>
             <childElements>
+                <name>actualtopic</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>actualtopic</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 11,
@@ -806,10 +808,10 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
+                <name>AddProduct</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>AddProduct</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 1,
@@ -868,10 +870,10 @@
                 <type>Integration Procedure Action</type>
             </childElements>
             <childElements>
+                <name>AddReason</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>AddReason</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 1,
@@ -930,10 +932,10 @@
                 <type>Integration Procedure Action</type>
             </childElements>
             <childElements>
+                <name>AddTopic</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>AddTopic</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 1,
@@ -992,10 +994,10 @@
                 <type>Integration Procedure Action</type>
             </childElements>
             <childElements>
+                <name>Assisted</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>Assisted</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
@@ -1020,10 +1022,10 @@
                 <type>Checkbox</type>
             </childElements>
             <childElements>
+                <name>CustomLWC2</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1045,10 +1047,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC3</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1070,10 +1072,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>CustomLWC7</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>CustomLWC7</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1095,10 +1097,10 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>Engagement</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>Engagement</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
@@ -1114,10 +1116,10 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>LineBreak1</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>LineBreak1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -1129,10 +1131,10 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
+                <name>LineBreak2</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>LineBreak2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak2&quot;,
@@ -1144,10 +1146,10 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
+                <name>LineBreak3</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>LineBreak3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak3&quot;,
@@ -1159,10 +1161,10 @@
                 <type>Line Break</type>
             </childElements>
             <childElements>
+                <name>product</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>product</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 11,
@@ -1208,10 +1210,10 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
+                <name>reasonforvisit</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>reasonforvisit</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 11,
@@ -1257,10 +1259,10 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
+                <name>ReferredTo</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>ReferredTo</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -1306,10 +1308,10 @@
                 <type>Select</type>
             </childElements>
             <childElements>
+                <name>selfService</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>selfService</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -1334,10 +1336,10 @@
                 <type>Checkbox</type>
             </childElements>
             <childElements>
+                <name>TextBlock3</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>TextBlock3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1362,10 +1364,10 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>TextBlock6</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>TextBlock6</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -1390,10 +1392,10 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>TextBlock7</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>TextBlock7</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1420,7 +1422,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>detailsSection</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1439,11 +1440,12 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>inPersonInteractionDetails</name>
             <childElements>
+                <name>authenticationMethod</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>authenticationMethod</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -1489,10 +1491,10 @@
                 <type>Select</type>
             </childElements>
             <childElements>
+                <name>channel</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>channel</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;errorMessage&quot; : {
@@ -1530,10 +1532,10 @@
                 <type>Lookup</type>
             </childElements>
             <childElements>
+                <name>interactionNumber</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>interactionNumber</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -1568,10 +1570,10 @@
                 <type>Text</type>
             </childElements>
             <childElements>
+                <name>place</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>place</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -1608,10 +1610,10 @@
                 <type>Select</type>
             </childElements>
             <childElements>
+                <name>startTime</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>startTime</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -1645,10 +1647,10 @@
                 <type>Date/Time (Local)</type>
             </childElements>
             <childElements>
+                <name>who</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>who</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -1696,7 +1698,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>inPersonInteractionDetails</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;hide&quot; : false,
@@ -1715,10 +1716,10 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>LineBreak4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak4&quot;,
@@ -1730,11 +1731,12 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>relatedDetailsBlock</name>
             <childElements>
+                <name>caseID</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>caseID</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -1792,10 +1794,10 @@
                 <type>Lookup</type>
             </childElements>
             <childElements>
+                <name>coachingSummary</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>coachingSummary</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
@@ -1853,10 +1855,10 @@
                 <type>Lookup</type>
             </childElements>
             <childElements>
+                <name>loanApplication</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>loanApplication</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;errorMessage&quot; : {
@@ -1916,7 +1918,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>relatedDetailsBlock</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1935,10 +1936,10 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>TextBlock4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -1963,10 +1964,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>TextBlock5</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -1993,7 +1994,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>enterInteractionDetailsStep</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -2043,10 +2043,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>FetchExistingData</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>FetchExistingData</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2102,10 +2102,10 @@
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>GetRecordtypeNameDataExtract</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>GetRecordtypeNameDataExtract</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2155,10 +2155,10 @@
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>Interaction_DeleteTags</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>Interaction_DeleteTags</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2229,10 +2229,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>NavigateActionOnEdit</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>NavigateActionOnEdit</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;targetName&quot; : &quot;Interaction&quot;,
@@ -2275,10 +2275,10 @@
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>NavigateToInteraction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>NavigateToInteraction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2323,10 +2323,10 @@
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>Query_InteractionTags</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>Query_InteractionTags</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2386,10 +2386,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SeparateTagsBasedOnSelected</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SeparateTagsBasedOnSelected</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2448,10 +2448,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetExistingValues</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetExistingValues</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2517,10 +2517,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetValues1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetValues1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2559,10 +2559,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetValues3</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetValues3</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2586,10 +2586,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetValuesToJunctionData</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetValuesToJunctionData</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2613,11 +2613,12 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ShowErrorMessageFromDR</name>
         <childElements>
+            <name>Continue</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>Continue</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 2,
@@ -2648,10 +2649,10 @@
             <type>Navigate Action</type>
         </childElements>
         <childElements>
+            <name>LineBreak5</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak5&quot;,
@@ -2663,10 +2664,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>TextBlockWhenFail</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlockWhenFail</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2684,7 +2685,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ShowErrorMessageFromDR</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;&quot;,
