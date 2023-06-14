@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
     <description>To Display the Customer Name</description>
     <externalId>false</externalId>
-    <formula>Case__r.Account.Name</formula>
+    <formula>IF(ISBLANK(Case__r.Account.MiddleName), Case__r.Account.FirstName + &quot; &quot; + Case__r.Account.LastName, Case__r.Account.FirstName + &quot; &quot; + Case__r.Account.MiddleName + &quot; &quot; + Case__r.Account.LastName)</formula>
     <label>Customer Name</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
