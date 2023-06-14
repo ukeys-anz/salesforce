@@ -49,20 +49,20 @@
           >
             <div
               if:true={cardLoaded}
-              class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-left_small"
-              style=""
+              class="slds-grid slds-wrap slds-theme_default slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-left_small"
+              style="
+                border-top: #cccccc 1px solid;
+                border-right: #cccccc 1px solid;
+                border-bottom: #cccccc 1px solid;
+                border-left: #cccccc 1px solid;
+                border-radius: 5 px;
+              "
             >
               <div
                 data-style-id="state0element0"
-                class="slds-col slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_xxx-small slds-p-around_x-small slds-size_12-of-12"
+                class="slds-col slds-theme_default slds-p-left_xxx-small slds-p-around_x-small slds-size_12-of-12"
                 data-rindex={rindex}
-                style="
-                  border-top: #cccccc 1px solid;
-                  border-right: #cccccc 1px solid;
-                  border-bottom: #cccccc 1px solid;
-                  border-left: #cccccc 1px solid;
-                  border-radius: 5 px;
-                "
+                style=""
               >
                 <omnistudio-block
                   data-style-id="state0element0_child"
@@ -92,21 +92,38 @@
                     </div>
                     <div
                       data-style-id="state0element0block_element1"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_6-of-12"
+                      class="slds-col slds-p-left_medium slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
-                      <omnistudio-output-field
+                      <omnistudio-block
                         data-style-id="state0element0block_element1_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3E%3Cstrong%3E%7Baccount.financialInstitution%7D%3C/strong%3E%3C/div%3E"
+                        label="Block"
+                        collapsible="false"
+                        collapsed-by-default="false"
                         theme="slds"
-                      ></omnistudio-output-field>
+                        ><div class="slds-grid slds-wrap">
+                          <div
+                            data-style-id="state0element0block_element1block_element0"
+                            class="slds-col slds-text-align_left slds-p-left_xx-small slds-size_9-of-12"
+                            data-rindex={rindex}
+                            style=""
+                          >
+                            <omnistudio-output-field
+                              data-style-id="state0element0block_element1block_element0_child"
+                              card={card}
+                              record={record}
+                              merge-field="%3Cdiv%3E%3Cstrong%3E%7Baccount.financialInstitution%7D%3C/strong%3E%3C/div%3E"
+                              theme="slds"
+                            ></omnistudio-output-field>
+                          </div></div
+                      ></omnistudio-block>
                     </div>
                     <div
                       data-style-id="state0element0block_element2"
-                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -121,7 +138,7 @@
                         ><div class="slds-grid slds-wrap">
                           <div
                             data-style-id="state0element0block_element2block_element0"
-                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                             data-rindex={rindex}
                             style=""
                           >
@@ -150,7 +167,7 @@
                                 </div>
                                 <div
                                   data-style-id="state0element0block_element2block_element0block_element1"
-                                  class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                  class="slds-col slds-text-align_right slds-size_6-of-12"
                                   data-rindex={rindex}
                                   style=""
                                 >
@@ -184,7 +201,7 @@
                     </div>
                     <div
                       data-style-id="state0element0block_element4"
-                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -199,7 +216,7 @@
                         ><div class="slds-grid slds-wrap">
                           <div
                             data-style-id="state0element0block_element4block_element0"
-                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                             data-rindex={rindex}
                             style=""
                           >
@@ -228,7 +245,7 @@
                                 </div>
                                 <div
                                   data-style-id="state0element0block_element4block_element0block_element1"
-                                  class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                  class="slds-col slds-text-align_right slds-size_6-of-12"
                                   data-rindex={rindex}
                                   style=""
                                 >
@@ -266,7 +283,7 @@
                     </div>
                     <div
                       data-style-id="state0element0block_element6"
-                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -281,7 +298,7 @@
                         ><div class="slds-grid slds-wrap">
                           <div
                             data-style-id="state0element0block_element6block_element0"
-                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                             data-rindex={rindex}
                             style=""
                           >
@@ -310,7 +327,7 @@
                                 </div>
                                 <div
                                   data-style-id="state0element0block_element6block_element0block_element1"
-                                  class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                  class="slds-col slds-text-align_right slds-size_6-of-12"
                                   data-rindex={rindex}
                                   style=""
                                 >
@@ -343,7 +360,7 @@
                     </div>
                     <div
                       data-style-id="state0element0block_element8"
-                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -358,7 +375,7 @@
                         ><div class="slds-grid slds-wrap">
                           <div
                             data-style-id="state0element0block_element8block_element0"
-                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                             data-rindex={rindex}
                             style=""
                           >
@@ -387,7 +404,7 @@
                                 </div>
                                 <div
                                   data-style-id="state0element0block_element8block_element0block_element1"
-                                  class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                  class="slds-col slds-text-align_right slds-size_6-of-12"
                                   data-rindex={rindex}
                                   style=""
                                 >
@@ -421,7 +438,7 @@
                     </div>
                     <div
                       data-style-id="state0element0block_element10"
-                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                      class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -436,7 +453,7 @@
                         ><div class="slds-grid slds-wrap">
                           <div
                             data-style-id="state0element0block_element10block_element0"
-                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                            class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                             data-rindex={rindex}
                             style=""
                           >
@@ -465,7 +482,7 @@
                                 </div>
                                 <div
                                   data-style-id="state0element0block_element10block_element0block_element1"
-                                  class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                  class="slds-col slds-text-align_right slds-size_6-of-12"
                                   data-rindex={rindex}
                                   style=""
                                 >
@@ -515,7 +532,7 @@
                     </div>
                     <div
                       data-style-id="state0element0block_element13"
-                      class="slds-col slds-text-align_left slds-p-right_medium slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-size_4-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -525,7 +542,7 @@
                         record={record}
                         placeholder=""
                         type="datetime"
-                        format="DD MMM YYYY | h:mm A"
+                        format="D MMM YYYY | h:mm A"
                         styles='\{"value":{"color":"#868383"}}'
                         field-name="updateTime"
                         theme="slds"
@@ -548,20 +565,20 @@
         >
           <div
             if:true={cardLoaded}
-            class="slds-grid slds-wrap slds-card slds-p-around_x-small slds-m-left_small"
-            style=""
+            class="slds-grid slds-wrap slds-theme_default slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-left_small"
+            style="
+              border-top: #cccccc 1px solid;
+              border-right: #cccccc 1px solid;
+              border-bottom: #cccccc 1px solid;
+              border-left: #cccccc 1px solid;
+              border-radius: 5 px;
+            "
           >
             <div
               data-style-id="state0element0"
-              class="slds-col slds-theme_default slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-left_xxx-small slds-p-around_x-small slds-size_12-of-12"
+              class="slds-col slds-theme_default slds-p-left_xxx-small slds-p-around_x-small slds-size_12-of-12"
               data-rindex={rindex}
-              style="
-                border-top: #cccccc 1px solid;
-                border-right: #cccccc 1px solid;
-                border-bottom: #cccccc 1px solid;
-                border-left: #cccccc 1px solid;
-                border-radius: 5 px;
-              "
+              style=""
             >
               <omnistudio-block
                 data-style-id="state0element0_child"
@@ -591,21 +608,38 @@
                   </div>
                   <div
                     data-style-id="state0element0block_element1"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_6-of-12"
+                    class="slds-col slds-p-left_medium slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
-                    <omnistudio-output-field
+                    <omnistudio-block
                       data-style-id="state0element0block_element1_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3E%3Cstrong%3E%7Baccount.financialInstitution%7D%3C/strong%3E%3C/div%3E"
+                      label="Block"
+                      collapsible="false"
+                      collapsed-by-default="false"
                       theme="slds"
-                    ></omnistudio-output-field>
+                      ><div class="slds-grid slds-wrap">
+                        <div
+                          data-style-id="state0element0block_element1block_element0"
+                          class="slds-col slds-text-align_left slds-p-left_xx-small slds-size_9-of-12"
+                          data-rindex={rindex}
+                          style=""
+                        >
+                          <omnistudio-output-field
+                            data-style-id="state0element0block_element1block_element0_child"
+                            card={card}
+                            record={record}
+                            merge-field="%3Cdiv%3E%3Cstrong%3E%7Baccount.financialInstitution%7D%3C/strong%3E%3C/div%3E"
+                            theme="slds"
+                          ></omnistudio-output-field>
+                        </div></div
+                    ></omnistudio-block>
                   </div>
                   <div
                     data-style-id="state0element0block_element2"
-                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -620,7 +654,7 @@
                       ><div class="slds-grid slds-wrap">
                         <div
                           data-style-id="state0element0block_element2block_element0"
-                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                           data-rindex={rindex}
                           style=""
                         >
@@ -649,7 +683,7 @@
                               </div>
                               <div
                                 data-style-id="state0element0block_element2block_element0block_element1"
-                                class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                class="slds-col slds-text-align_right slds-size_6-of-12"
                                 data-rindex={rindex}
                                 style=""
                               >
@@ -683,7 +717,7 @@
                   </div>
                   <div
                     data-style-id="state0element0block_element4"
-                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -698,7 +732,7 @@
                       ><div class="slds-grid slds-wrap">
                         <div
                           data-style-id="state0element0block_element4block_element0"
-                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                           data-rindex={rindex}
                           style=""
                         >
@@ -727,7 +761,7 @@
                               </div>
                               <div
                                 data-style-id="state0element0block_element4block_element0block_element1"
-                                class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                class="slds-col slds-text-align_right slds-size_6-of-12"
                                 data-rindex={rindex}
                                 style=""
                               >
@@ -765,7 +799,7 @@
                   </div>
                   <div
                     data-style-id="state0element0block_element6"
-                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -780,7 +814,7 @@
                       ><div class="slds-grid slds-wrap">
                         <div
                           data-style-id="state0element0block_element6block_element0"
-                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                           data-rindex={rindex}
                           style=""
                         >
@@ -809,7 +843,7 @@
                               </div>
                               <div
                                 data-style-id="state0element0block_element6block_element0block_element1"
-                                class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                class="slds-col slds-text-align_right slds-size_6-of-12"
                                 data-rindex={rindex}
                                 style=""
                               >
@@ -842,7 +876,7 @@
                   </div>
                   <div
                     data-style-id="state0element0block_element8"
-                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -857,7 +891,7 @@
                       ><div class="slds-grid slds-wrap">
                         <div
                           data-style-id="state0element0block_element8block_element0"
-                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                           data-rindex={rindex}
                           style=""
                         >
@@ -886,7 +920,7 @@
                               </div>
                               <div
                                 data-style-id="state0element0block_element8block_element0block_element1"
-                                class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                class="slds-col slds-text-align_right slds-size_6-of-12"
                                 data-rindex={rindex}
                                 style=""
                               >
@@ -920,7 +954,7 @@
                   </div>
                   <div
                     data-style-id="state0element0block_element10"
-                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-size_12-of-12"
+                    class="slds-col slds-p-left_xx-large slds-p-left_x-large slds-p-right_large slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -935,7 +969,7 @@
                       ><div class="slds-grid slds-wrap">
                         <div
                           data-style-id="state0element0block_element10block_element0"
-                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_xx-small slds-size_12-of-12"
+                          class="slds-col slds-p-left_medium slds-p-left_small slds-p-right_medium slds-size_12-of-12"
                           data-rindex={rindex}
                           style=""
                         >
@@ -964,7 +998,7 @@
                               </div>
                               <div
                                 data-style-id="state0element0block_element10block_element0block_element1"
-                                class="slds-col slds-text-align_right slds-p-right_large slds-size_6-of-12"
+                                class="slds-col slds-text-align_right slds-size_6-of-12"
                                 data-rindex={rindex}
                                 style=""
                               >
@@ -1014,7 +1048,7 @@
                   </div>
                   <div
                     data-style-id="state0element0block_element13"
-                    class="slds-col slds-text-align_left slds-p-right_medium slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-size_4-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -1024,7 +1058,7 @@
                       record={record}
                       placeholder=""
                       type="datetime"
-                      format="DD MMM YYYY | h:mm A"
+                      format="D MMM YYYY | h:mm A"
                       styles='\{"value":{"color":"#868383"}}'
                       field-name="updateTime"
                       theme="slds"

@@ -1,6 +1,9 @@
 import { FlexCardMixin } from "omnistudio/flexCardMixin";
 import { CurrentPageReference } from "lightning/navigation";
-//import {interpolateWithRegex, interpolateKeyValue, loadCssFromStaticResource } from "omnistudio/flexCardUtility";
+import //interpolateWithRegex,
+//interpolateKeyValue,
+//loadCssFromStaticResource
+"omnistudio/flexCardUtility";
 
 import { LightningElement, api, track, wire } from "lwc";
 //import pubsub from "omnistudio/pubsub";
@@ -44,9 +47,9 @@ export default class cfSOP_Finances_Savings extends FlexCardMixin(
     this.setAttribute(
       "class",
       (this.getAttribute("class") ? this.getAttribute("class") : "") +
-        " card-0ko8s0000000CqnAAE"
+        " card-0ko8r0000000I6bAAE"
     );
-    this.loadCustomStylesheetAttachement("00P8s000001pvyMEAQ");
+    this.loadCustomStylesheetAttachement("00P8r000004ASK5EAO");
   }
 
   disconnectedCallback() {

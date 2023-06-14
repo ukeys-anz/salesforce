@@ -188,50 +188,8 @@ let definition = {
                 record: "{record}",
                 collapsedByDefault: true,
                 card: "{card}",
-                styles: { label: { textDecoration: "", color: "" } },
-                action: {
-                  label: "Action",
-                  iconName: "standard-default",
-                  eventType: "onclick",
-                  actionList: [
-                    {
-                      key: "1684728769432-9g2em0hem",
-                      label: "Action",
-                      draggable: false,
-                      isOpen: true,
-                      card: "{card}",
-                      stateAction: {
-                        id: "flex-action-1684728846582",
-                        type: "cardAction",
-                        displayName: "Action",
-                        vlocityIcon: "standard-default",
-                        openUrlIn: "Current Window",
-                        flyoutType: "childCard",
-                        openFlyoutIn: "Modal",
-                        channelName: "close_modal",
-                        eventName: "reload"
-                      },
-                      actionIndex: 0
-                    },
-                    {
-                      key: "1684728814096-387priuuo",
-                      label: "Action",
-                      draggable: true,
-                      isOpen: false,
-                      card: "{card}",
-                      stateAction: {
-                        id: "test-action",
-                        type: "Custom",
-                        displayName: "Action",
-                        vlocityIcon: "standard-default",
-                        targetType: "Web Page",
-                        openUrlIn: "Current Window",
-                        "Web Page": { targetName: "/apex" }
-                      }
-                    }
-                  ],
-                  showSpinner: "false"
-                }
+                styles: { label: { textDecoration: "", color: "#000000" } },
+                action: null
               },
               type: "block",
               styleObject: {
@@ -258,7 +216,7 @@ let definition = {
                   style: ""
                 },
                 elementStyleProperties: {
-                  styles: { label: { textDecoration: "", color: "" } }
+                  styles: { label: { textDecoration: "", color: "#000000" } }
                 },
                 text: { align: "", color: "" },
                 inlineStyle: "",
@@ -982,7 +940,9 @@ let definition = {
                       style: ""
                     },
                     elementStyleProperties: {
-                      styles: { label: { textDecoration: "", color: "" } }
+                      styles: {
+                        label: { textDecoration: "", color: "#000000" }
+                      }
                     },
                     text: { align: "", color: "" },
                     inlineStyle: "",
@@ -1007,7 +967,8 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}"
+                card: "{card}",
+                styles: { label: { color: "#000000" } }
               },
               type: "block",
               styleObject: {
@@ -1033,7 +994,9 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {},
+                elementStyleProperties: {
+                  styles: { label: { color: "#000000" } }
+                },
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -1478,7 +1441,9 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {},
+                    elementStyleProperties: {
+                      styles: { label: { color: "#000000" } }
+                    },
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -1502,7 +1467,8 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}"
+                card: "{card}",
+                styles: { label: { color: "#000000" } }
               },
               type: "block",
               styleObject: {
@@ -1528,7 +1494,9 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {},
+                elementStyleProperties: {
+                  styles: { label: { color: "#000000" } }
+                },
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -2082,7 +2050,9 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {},
+                    elementStyleProperties: {
+                      styles: { label: { color: "#000000" } }
+                    },
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -2106,7 +2076,8 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}"
+                card: "{card}",
+                styles: { label: { color: "#000000" } }
               },
               type: "block",
               styleObject: {
@@ -2132,7 +2103,9 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {},
+                elementStyleProperties: {
+                  styles: { label: { color: "#000000" } }
+                },
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -2172,7 +2145,9 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {},
+                    elementStyleProperties: {
+                      styles: { label: { color: "#000000" } }
+                    },
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -2196,7 +2171,8 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}"
+                card: "{card}",
+                styles: { label: { color: "#000000" } }
               },
               type: "block",
               styleObject: {
@@ -2222,7 +2198,9 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {},
+                elementStyleProperties: {
+                  styles: { label: { color: "#000000" } }
+                },
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -2262,7 +2240,9 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {},
+                    elementStyleProperties: {
+                      styles: { label: { color: "#000000" } }
+                    },
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -2336,7 +2316,9 @@ let definition = {
   isRepeatable: true,
   osSupport: true,
   globalCSS: true,
-  Id: "0ko8s0000000CqnAAE",
+  Name: "SOP_Finances_Savings",
+  uniqueKey: "SOP_Finances_Savings",
+  Id: "0ko8r0000000I6bAAE",
   OmniUiCardKey: "SOP_Finances_Savings/ANZ/1.0",
   OmniUiCardType: "Parent"
 };

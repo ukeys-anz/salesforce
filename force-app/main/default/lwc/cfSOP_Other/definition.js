@@ -44,7 +44,8 @@ let definition = {
         container: { class: "slds-card" },
         size: { isResponsive: false, default: "6" },
         sizeClass: "slds-size_6-of-12 ",
-        class: "slds-card  slds-p-around_x-small slds-m-left_small ",
+        class:
+          "slds-theme_default slds-card slds-border_top slds-border_right slds-border_bottom slds-border_left slds-p-around_x-small slds-m-left_small ",
         background: {
           color: "",
           image: "",
@@ -53,16 +54,18 @@ let definition = {
           position: ""
         },
         border: {
-          type: [],
-          width: "",
+          type: ["border_top", "border_right", "border_bottom", "border_left"],
+          width: "1",
           color: "#cccccc",
-          radius: "",
+          radius: "5 px",
           style: ""
         },
         elementStyleProperties: {},
         text: { align: "", color: "" },
         inlineStyle: "",
-        style: "      \n         "
+        style:
+          "     border-top: #cccccc 1px solid;border-right: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid; \n    border-radius:5 px;     ",
+        theme: "theme_default"
       },
       components: {
         "layer-0": {
@@ -101,7 +104,7 @@ let definition = {
                   { type: "around", size: "x-small", label: "around:x-small" }
                 ],
                 class:
-                  "slds-theme_default slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-left_xxx-small slds-p-around_x-small ",
+                  "slds-theme_default  slds-p-left_xxx-small slds-p-around_x-small ",
                 sizeClass: "slds-size_12-of-12 ",
                 margin: [],
                 background: {
@@ -114,22 +117,16 @@ let definition = {
                 size: { isResponsive: false, default: "12" },
                 container: { class: "" },
                 border: {
-                  type: [
-                    "border_top",
-                    "border_bottom",
-                    "border_left",
-                    "border_right"
-                  ],
-                  width: "1",
-                  color: "#cccccc",
-                  radius: "5 px",
+                  type: [],
+                  width: "",
+                  color: "",
+                  radius: "",
                   style: ""
                 },
                 elementStyleProperties: {},
                 text: { align: "", color: "" },
                 inlineStyle: "",
-                style:
-                  "     border-top: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid;border-right: #cccccc 1px solid; \n    border-radius:5 px;     ",
+                style: "      \n         ",
                 theme: "theme_default"
               },
               children: [
@@ -384,14 +381,10 @@ let definition = {
                             label: "left:medium"
                           },
                           { type: "left", size: "small", label: "left:small" },
-                          {
-                            type: "right",
-                            size: "xx-small",
-                            label: "right:xx-small"
-                          }
+                          { type: "right", size: "small", label: "right:small" }
                         ],
                         class:
-                          "slds-p-left_medium slds-p-left_small slds-p-right_xx-small ",
+                          "slds-p-left_medium slds-p-left_small slds-p-right_small ",
                         sizeClass: "slds-size_12-of-12 ",
                         margin: [],
                         background: {
@@ -516,6 +509,11 @@ let definition = {
                                 type: "right",
                                 size: "large",
                                 label: "right:large"
+                              },
+                              {
+                                type: "right",
+                                size: "xx-small",
+                                label: "right:xx-small"
                               }
                             ],
                             margin: [],
@@ -538,7 +536,8 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class: "slds-text-align_right slds-p-right_large ",
+                            class:
+                              "slds-text-align_right slds-p-right_large slds-p-right_xx-small ",
                             style: "      \n         "
                           },
                           elementLabel: "Block-2-Text-5",
@@ -553,6 +552,11 @@ let definition = {
                                     type: "right",
                                     size: "large",
                                     label: "right:large"
+                                  },
+                                  {
+                                    type: "right",
+                                    size: "xx-small",
+                                    label: "right:xx-small"
                                   }
                                 ],
                                 margin: [],
@@ -576,7 +580,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_large ",
+                                  "slds-text-align_right slds-p-right_large slds-p-right_xx-small ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -611,12 +615,12 @@ let definition = {
                               },
                               {
                                 type: "right",
-                                size: "xx-small",
-                                label: "right:xx-small"
+                                size: "small",
+                                label: "right:small"
                               }
                             ],
                             class:
-                              "slds-p-left_medium slds-p-left_small slds-p-right_xx-small ",
+                              "slds-p-left_medium slds-p-left_small slds-p-right_small ",
                             sizeClass: "slds-size_12-of-12 ",
                             margin: [],
                             background: {
@@ -791,14 +795,10 @@ let definition = {
                             label: "left:medium"
                           },
                           { type: "left", size: "small", label: "left:small" },
-                          {
-                            type: "right",
-                            size: "xx-small",
-                            label: "right:xx-small"
-                          }
+                          { type: "right", size: "small", label: "right:small" }
                         ],
                         class:
-                          "slds-p-left_medium slds-p-left_small slds-p-right_xx-small ",
+                          "slds-p-left_medium slds-p-left_small slds-p-right_small ",
                         sizeClass: "slds-size_12-of-12 ",
                         margin: [],
                         background: {
@@ -928,6 +928,11 @@ let definition = {
                                 type: "right",
                                 size: "large",
                                 label: "right:large"
+                              },
+                              {
+                                type: "right",
+                                size: "xx-small",
+                                label: "right:xx-small"
                               }
                             ],
                             margin: [],
@@ -950,7 +955,8 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class: "slds-text-align_right slds-p-right_large ",
+                            class:
+                              "slds-text-align_right slds-p-right_large slds-p-right_xx-small ",
                             style: "      \n         "
                           },
                           parentElementKey:
@@ -967,6 +973,11 @@ let definition = {
                                     type: "right",
                                     size: "large",
                                     label: "right:large"
+                                  },
+                                  {
+                                    type: "right",
+                                    size: "xx-small",
+                                    label: "right:xx-small"
                                   }
                                 ],
                                 margin: [],
@@ -990,7 +1001,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_large ",
+                                  "slds-text-align_right slds-p-right_large slds-p-right_xx-small ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1021,12 +1032,12 @@ let definition = {
                               },
                               {
                                 type: "right",
-                                size: "xx-small",
-                                label: "right:xx-small"
+                                size: "small",
+                                label: "right:small"
                               }
                             ],
                             class:
-                              "slds-p-left_medium slds-p-left_small slds-p-right_xx-small ",
+                              "slds-p-left_medium slds-p-left_small slds-p-right_small ",
                             sizeClass: "slds-size_12-of-12 ",
                             margin: [],
                             background: {
@@ -1203,14 +1214,10 @@ let definition = {
                             label: "left:medium"
                           },
                           { type: "left", size: "small", label: "left:small" },
-                          {
-                            type: "right",
-                            size: "xx-small",
-                            label: "right:xx-small"
-                          }
+                          { type: "right", size: "small", label: "right:small" }
                         ],
                         class:
-                          "slds-p-left_medium slds-p-left_small slds-p-right_xx-small ",
+                          "slds-p-left_medium slds-p-left_small slds-p-right_small ",
                         sizeClass: "slds-size_12-of-12 ",
                         margin: [],
                         background: {
@@ -1335,6 +1342,11 @@ let definition = {
                                 type: "right",
                                 size: "large",
                                 label: "right:large"
+                              },
+                              {
+                                type: "right",
+                                size: "xx-small",
+                                label: "right:xx-small"
                               }
                             ],
                             margin: [],
@@ -1356,7 +1368,8 @@ let definition = {
                             elementStyleProperties: {},
                             text: { align: "right", color: "" },
                             inlineStyle: "",
-                            class: "slds-text-align_right slds-p-right_large ",
+                            class:
+                              "slds-text-align_right slds-p-right_large slds-p-right_xx-small ",
                             style: "      \n         "
                           },
                           elementLabel: "Block-2-Text-8",
@@ -1376,6 +1389,11 @@ let definition = {
                                     type: "right",
                                     size: "large",
                                     label: "right:large"
+                                  },
+                                  {
+                                    type: "right",
+                                    size: "xx-small",
+                                    label: "right:xx-small"
                                   }
                                 ],
                                 margin: [],
@@ -1398,7 +1416,7 @@ let definition = {
                                 text: { align: "right", color: "" },
                                 inlineStyle: "",
                                 class:
-                                  "slds-text-align_right slds-p-right_large ",
+                                  "slds-text-align_right slds-p-right_large slds-p-right_xx-small ",
                                 style: "      \n         "
                               },
                               label: "Default",
@@ -1429,12 +1447,12 @@ let definition = {
                               },
                               {
                                 type: "right",
-                                size: "xx-small",
-                                label: "right:xx-small"
+                                size: "small",
+                                label: "right:small"
                               }
                             ],
                             class:
-                              "slds-p-left_medium slds-p-left_small slds-p-right_xx-small ",
+                              "slds-p-left_medium slds-p-left_small slds-p-right_small ",
                             sizeClass: "slds-size_12-of-12 ",
                             margin: [],
                             background: {
@@ -1634,7 +1652,7 @@ let definition = {
                     record: "{record}",
                     type: "datetime",
                     card: "{card}",
-                    format: "DD MMM YYYY | h:mm A",
+                    format: "D MMM YYYY | h:mm A",
                     fieldName: "updateTime",
                     styles: { value: { color: "#868383" } },
                     label: ""
@@ -1733,7 +1751,7 @@ let definition = {
                       }
                     ],
                     class:
-                      "slds-theme_default slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-left_xxx-small slds-p-around_x-small ",
+                      "slds-theme_default  slds-p-left_xxx-small slds-p-around_x-small ",
                     sizeClass: "slds-size_12-of-12 ",
                     margin: [],
                     background: {
@@ -1746,22 +1764,16 @@ let definition = {
                     size: { isResponsive: false, default: "12" },
                     container: { class: "" },
                     border: {
-                      type: [
-                        "border_top",
-                        "border_bottom",
-                        "border_left",
-                        "border_right"
-                      ],
-                      width: "1",
-                      color: "#cccccc",
-                      radius: "5 px",
+                      type: [],
+                      width: "",
+                      color: "",
+                      radius: "",
                       style: ""
                     },
                     elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
-                    style:
-                      "     border-top: #cccccc 1px solid;border-bottom: #cccccc 1px solid;border-left: #cccccc 1px solid;border-right: #cccccc 1px solid; \n    border-radius:5 px;     ",
+                    style: "      \n         ",
                     theme: "theme_default"
                   },
                   label: "Default",
