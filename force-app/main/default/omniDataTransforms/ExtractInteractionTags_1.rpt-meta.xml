@@ -32,10 +32,10 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>tagsToBeDeleted:value</filterValue>
-        <globalKey>ExtractInteractionTagsCustom4389</globalKey>
-        <inputFieldName>Interaction_Tag__c</inputFieldName>
-        <inputObjectName>Interaction_InteractionTag__c</inputObjectName>
+        <filterValue>interactid</filterValue>
+        <globalKey>ExtractInteractionTagsCustom1427</globalKey>
+        <inputFieldName>Interaction__c</inputFieldName>
+        <inputObjectName>Interaction_Context_Tag__c</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
@@ -49,10 +49,10 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>interactid</filterValue>
-        <globalKey>ExtractInteractionTagsCustom1427</globalKey>
-        <inputFieldName>Interaction__c</inputFieldName>
-        <inputObjectName>Interaction_InteractionTag__c</inputObjectName>
+        <filterValue>tagsToBeDeleted:value</filterValue>
+        <globalKey>ExtractInteractionTagsCustom4389</globalKey>
+        <inputFieldName>Interaction_Tag__c</inputFieldName>
+        <inputObjectName>Interaction_Context_Tag__c</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
@@ -63,10 +63,14 @@
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;interactid&quot; : &quot;0kzBo000000001dIAA&quot;,
+  &quot;interactid&quot; : &quot;0kzBo00000001CDIAY&quot;,
   &quot;tagsToBeDeleted&quot; : [ {
     &quot;selected&quot; : true,
-    &quot;value&quot; : &quot;a1yBo0000003cLhIAI&quot;,
+    &quot;value&quot; : &quot;a1yBo0000003cS9IAI&quot;,
+    &quot;label&quot; : &quot;Join ANZ&quot;
+  }, {
+    &quot;selected&quot; : true,
+    &quot;value&quot; : &quot;a1yBo0000003cQXIAY&quot;,
     &quot;label&quot; : &quot;Join ANZ&quot;
   } ]
 }</previewJsonData>

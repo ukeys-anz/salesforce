@@ -80,13 +80,44 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem1</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel</inputFieldName>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem8</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:lead</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>InteractionType</outputFieldName>
+        <outputFieldName>Lead__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObjectCustom9824</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:recordTypeId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
+        <formulaExpression>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel + &apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
+        <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:Block2:name</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>CreateInteractionwithJunctionObjectCustom6687</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -109,26 +140,12 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem12</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:relatedDetailsBlock:loanApplication</inputFieldName>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem9</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:startTime</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Loan_Application__c</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem11</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:relatedDetailsBlock:coachingSummary</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Coaching_Summary__c</outputFieldName>
+        <outputFieldName>StartTime</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -151,12 +168,12 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem9</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:startTime</inputFieldName>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem11</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:relatedDetailsBlock:coachingSummary</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>StartTime</outputFieldName>
+        <outputFieldName>Coaching_Summary__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -165,100 +182,30 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem8</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:lead</inputFieldName>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem12</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:relatedDetailsBlock:loanApplication</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Lead__c</outputFieldName>
+        <outputFieldName>Loan_Application__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem7</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:contactMobile</inputFieldName>
+        <filterOperator>=</filterOperator>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem15</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Contact_Mobile__c</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem6</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:account</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>AccountId</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem5</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:Block2:name</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Name</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom2326</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:selfService</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Self_Service__c</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom6088</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:Assisted</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Assisted__c</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem17</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:junctionData:value</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Interaction_Tag__c</outputFieldName>
-        <outputObjectName>Interaction_InteractionTag__c</outputObjectName>
-        <requiredForUpsert>true</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
-        <upsertKey>true</upsertKey>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Interaction_Context_Tag__c</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>CreateInteractionwithJunctionObject</name>
@@ -272,24 +219,24 @@
         <migrationValue>FAKEMAPPING</migrationValue>
         <outputCreationSequence>2.0</outputCreationSequence>
         <outputFieldName>Interaction__c</outputFieldName>
-        <outputObjectName>Interaction_InteractionTag__c</outputObjectName>
+        <outputObjectName>Interaction_Context_Tag__c</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>true</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>CreateInteractionwithJunctionObject</name>
-        <disabled>true</disabled>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem15</globalKey>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem17</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:junctionData:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>Interaction_InteractionTag__c</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
+        <outputFieldName>Interaction_Tag__c</outputFieldName>
+        <outputObjectName>Interaction_Context_Tag__c</outputObjectName>
+        <requiredForUpsert>true</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>true</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>CreateInteractionwithJunctionObject</name>
@@ -323,12 +270,54 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem4</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:authenticationMethod</inputFieldName>
+        <globalKey>CreateInteractionwithJunctionObjectCustom2326</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:selfService</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Authentication_Method__c</outputFieldName>
+        <outputFieldName>Self_Service__c</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem1</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>InteractionType</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObjectCustom6088</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:Assisted</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Assisted__c</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem2</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:who</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Interaction_Purpose__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -351,12 +340,54 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem2</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:who</inputFieldName>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem4</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:authenticationMethod</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Interaction_Purpose__c</outputFieldName>
+        <outputFieldName>Authentication_Method__c</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem5</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:Block2:name</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Name</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem6</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:account</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AccountId</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem7</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:contactMobile</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Contact_Mobile__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -364,6 +395,8 @@
     <outputType>SObject</outputType>
     <previewJsonData>{
   &quot;DataForInteractionAndJunction&quot; : {
+    &quot;updatedNameValue&quot; : &quot;1:1 Appointment&quot;,
+    &quot;recordTypeId&quot; : &quot;012Bo0000005njFIAQ&quot;,
     &quot;junctionData&quot; : [ {
       &quot;selected&quot; : true,
       &quot;value&quot; : &quot;a1yBo0000003cGrIAI&quot;,

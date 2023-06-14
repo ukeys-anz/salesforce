@@ -25,41 +25,12 @@
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <name>FetchTagDataFromInteractionTag</name>
-        <defaultValue>true</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>FetchTagDataFromInteractionTagCustom7789</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldFormat>Boolean</outputFieldFormat>
-        <outputFieldName>AllResult:selected</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>FetchTagDataFromInteractionTag</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>FetchTagDataFromInteractionTagCustom3431</globalKey>
-        <inputFieldName>interactionTag:Type__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>AllResult:type</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>FetchTagDataFromInteractionTag</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>type:type</filterValue>
-        <globalKey>FetchTagDataFromInteractionTagCustom11</globalKey>
-        <inputFieldName>Type__c</inputFieldName>
+        <filterValue>subtype</filterValue>
+        <globalKey>FetchTagDataFromInteractionTagCustom2726</globalKey>
+        <inputFieldName>Sub_Type__c</inputFieldName>
         <inputObjectName>Interaction_Tag__c</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -101,15 +72,44 @@
         <name>FetchTagDataFromInteractionTag</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>FetchTagDataFromInteractionTagCustom3431</globalKey>
+        <inputFieldName>interactionTag:Type__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AllResult:type</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>FetchTagDataFromInteractionTag</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>subtype</filterValue>
-        <globalKey>FetchTagDataFromInteractionTagCustom2726</globalKey>
-        <inputFieldName>Sub_Type__c</inputFieldName>
+        <filterValue>type:type</filterValue>
+        <globalKey>FetchTagDataFromInteractionTagCustom11</globalKey>
+        <inputFieldName>Type__c</inputFieldName>
         <inputObjectName>Interaction_Tag__c</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>interactionTag</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>FetchTagDataFromInteractionTag</name>
+        <defaultValue>true</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>FetchTagDataFromInteractionTagCustom7789</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>Boolean</outputFieldFormat>
+        <outputFieldName>AllResult:selected</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
