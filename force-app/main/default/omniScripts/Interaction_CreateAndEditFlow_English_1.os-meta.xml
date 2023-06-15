@@ -459,14 +459,12 @@
             <type>Block</type>
         </childElements>
         <childElements>
-            <name>ButtonBlock</name>
-            <childElements>
-                <name>cancelForEdit</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
+            <name>cancelForEdit</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;targetLWCLayout&quot; : &quot;lightning&quot;,
@@ -502,16 +500,16 @@
   &quot;label&quot; : &quot;Cancel&quot;,
   &quot;controlWidth&quot; : 2
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
-                <type>Navigate Action</type>
-            </childElements>
-            <childElements>
-                <name>cancelForNew</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
+            <sequenceNumber>10.0</sequenceNumber>
+            <type>Navigate Action</type>
+        </childElements>
+        <childElements>
+            <name>cancelForNew</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
   &quot;controlWidth&quot; : 2,
   &quot;label&quot; : &quot;Cancel&quot;,
   &quot;validationRequired&quot; : &quot;Submit&quot;,
@@ -548,67 +546,8 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;targetName&quot; : &quot;Interaction_List_View&quot;
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
-                <type>Navigate Action</type>
-            </childElements>
-            <childElements>
-                <name>CustomLWC1</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;CustomLWC1&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;hide&quot; : false,
-  &quot;lwcName&quot; : &quot;customNextButtonOmni&quot;,
-  &quot;bStandalone&quot; : false,
-  &quot;customAttributes&quot; : [ ]
-}</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
-                <type>Custom Lightning Web Component</type>
-            </childElements>
-            <childElements>
-                <name>TextBlock2</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;TextBlock2&quot;,
-  &quot;text&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
-                <type>Text Block</type>
-            </childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;&quot;,
-  &quot;collapse&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;headingLevel&quot; : null
-}</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
-            <type>Block</type>
+            <sequenceNumber>11.0</sequenceNumber>
+            <type>Navigate Action</type>
         </childElements>
         <childElements>
             <name>contactDetailsBlock</name>
@@ -821,6 +760,25 @@
 }</propertySetConfig>
             <sequenceNumber>3.0</sequenceNumber>
             <type>Block</type>
+        </childElements>
+        <childElements>
+            <name>CustomLWC1</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;CustomLWC1&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customNextButtonOmni&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
+}</propertySetConfig>
+            <sequenceNumber>12.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
             <name>detailsSection</name>
@@ -1385,7 +1343,7 @@
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
-                <name>Select1</name>
+                <name>ReferredTo</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
@@ -1906,6 +1864,21 @@
             <type>Block</type>
         </childElements>
         <childElements>
+            <name>LineBreak17</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak9&quot;,
+  &quot;padding&quot; : 10,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
             <name>LineBreak4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2157,6 +2130,25 @@
 }</propertySetConfig>
             <sequenceNumber>6.0</sequenceNumber>
             <type>Block</type>
+        </childElements>
+        <childElements>
+            <name>TextBlock2</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>9.0</sequenceNumber>
+            <type>Text Block</type>
         </childElements>
         <childElements>
             <name>TextBlock4</name>
@@ -2767,7 +2759,7 @@
     }, {
       &quot;type&quot; : &quot;Topic&quot;
     } ],
-    &quot;RecordId&quot; : &quot;%interactionRecordId%&quot;,
+    &quot;RecordId&quot; : &quot;=%interactionRecordId%&quot;,
     &quot;AccountIdFromState&quot; : &quot;=%accountId%&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
@@ -3066,5 +3058,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>ac3fda4a-e3a8-0861-fc3a-7a3d0c4c292f</webComponentKey>
+    <webComponentKey>73e7151c-36fe-106d-b8a9-d755003fba7b</webComponentKey>
 </OmniScript>
