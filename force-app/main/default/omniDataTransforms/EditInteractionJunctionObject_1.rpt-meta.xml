@@ -195,6 +195,23 @@
         <name>EditInteractionJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; != &apos;/\/\/&apos; var:DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo IF</formulaConverted>
+        <formulaExpression>IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel != &apos;Store&apos; , &apos; &apos;,DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo)</formulaExpression>
+        <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>EditInteractionJunctionObjectCustom1536</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>EditInteractionJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
         <formulaExpression>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel + &apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
         <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:Block2:name</formulaResultPath>
@@ -233,6 +250,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>StartTime</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>EditInteractionJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; != &apos;/\/\/&apos; var:DataForInteractionAndJunction:DetailSectionData:detailsSection:actionTaken IF</formulaConverted>
+        <formulaExpression>IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel != &apos;Store&apos; , &apos; &apos;,DataForInteractionAndJunction:DetailSectionData:detailsSection:actionTaken)</formulaExpression>
+        <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:detailsSection:actionTaken</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>EditInteractionJunctionObjectCustom7798</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -447,72 +481,39 @@
     <outputType>SObject</outputType>
     <previewJsonData>{
   &quot;DataForInteractionAndJunction&quot; : {
-    &quot;updatedNameValue&quot; : &quot;1:1 Appointment&quot;,
-    &quot;junctionData&quot; : [ {
-      &quot;selected&quot; : true,
-      &quot;value&quot; : &quot;a1yBo0000003cGrIAI&quot;,
-      &quot;label&quot; : &quot;1:1 Appointment&quot;
-    }, {
-      &quot;selected&quot; : true,
-      &quot;value&quot; : &quot;a1yBo0000003cK5IAI&quot;,
-      &quot;label&quot; : &quot;Join ANZ 2&quot;
-    }, {
-      &quot;selected&quot; : true,
-      &quot;value&quot; : &quot;a1yBo0000003cITIAY&quot;,
-      &quot;label&quot; : &quot;ANZ Query&quot;
-    }, {
-      &quot;selected&quot; : true,
-      &quot;value&quot; : &quot;a1yBo0000003cS9IAI&quot;,
-      &quot;label&quot; : &quot;Product2&quot;
-    } ],
+    &quot;RecordId&quot; : &quot;0kzBo00000004q1IAA&quot;,
+    &quot;updatedNameValue&quot; : &quot;ANZ Query&quot;,
     &quot;DetailSectionData&quot; : {
+      &quot;contactDetailsBlock&quot; : {
+        &quot;lead&quot; : &quot;&quot;,
+        &quot;account&quot; : &quot;&quot;,
+        &quot;contactMobile&quot; : &quot;64546745646&quot;
+      },
       &quot;detailsSection&quot; : {
-        &quot;selfService&quot; : false,
-        &quot;Assisted&quot; : true,
         &quot;ReferredTo&quot; : &quot;Branch&quot;,
-        &quot;reasonforvisit-Block&quot; : {
-          &quot;reasonforvisit&quot; : &quot;Join ANZ&quot;,
-          &quot;value&quot; : &quot;a1yBo0000003cFFIAY&quot;,
-          &quot;type&quot; : &quot;Reason&quot;,
-          &quot;label&quot; : &quot;Join ANZ&quot;
-        },
-        &quot;actualtopic-Block&quot; : {
-          &quot;actualtopic&quot; : &quot;Topic1&quot;,
-          &quot;value&quot; : &quot;a1yBo0000003cQXIAY&quot;,
-          &quot;type&quot; : &quot;Topic&quot;,
-          &quot;label&quot; : &quot;Topic1&quot;
-        },
-        &quot;product-Block&quot; : {
-          &quot;product&quot; : &quot;Product2&quot;,
-          &quot;value&quot; : &quot;a1yBo0000003cS9IAI&quot;,
-          &quot;type&quot; : &quot;Product&quot;,
-          &quot;label&quot; : &quot;Product2&quot;
-        },
-        &quot;actionTaken&quot; : &quot;Did not Answer&quot;
+        &quot;Assisted&quot; : false,
+        &quot;actionTaken&quot; : &quot;Referred&quot;,
+        &quot;selfService&quot; : true
       },
       &quot;inPersonInteractionDetails&quot; : {
-        &quot;startTime&quot; : &quot;2023-06-01T06:30:00.000Z&quot;,
-        &quot;channel&quot; : &quot;Store&quot;,
-        &quot;interactionNumber&quot; : null,
-        &quot;who&quot; : &quot;Customer&quot;,
-        &quot;authenticationMethod&quot; : &quot;Not Required&quot;,
-        &quot;place&quot; : &quot;Potts Point&quot;
-      },
-      &quot;contactDetailsBlock&quot; : {
-        &quot;lead&quot; : &quot;00QBo000005Mg7NMAS&quot;,
-        &quot;contactMobile&quot; : &quot;9072394870&quot;,
-        &quot;account&quot; : &quot;001Bo000006bO81IAE&quot;
+        &quot;who&quot; : null,
+        &quot;interactionNumber&quot; : &quot;IR-00064710&quot;,
+        &quot;place&quot; : &quot;ACT&quot;,
+        &quot;startTime&quot; : &quot;2023-06-15T06:30:00.000Z&quot;,
+        &quot;channel&quot; : &quot;Pop up&quot;,
+        &quot;authenticationMethod&quot; : null
       },
       &quot;relatedDetailsBlock&quot; : {
-        &quot;caseID&quot; : &quot;500Bo000005gm73IAA&quot;,
-        &quot;coachingSummary&quot; : &quot;a1ZBo000000bgrVMAQ&quot;,
-        &quot;loanApplication&quot; : &quot;0cdBo00000004GXIAY&quot;
+        &quot;coachingSummary&quot; : &quot;&quot;,
+        &quot;caseID&quot; : &quot;&quot;,
+        &quot;loanApplication&quot; : &quot;&quot;
       },
       &quot;Block2&quot; : {
-        &quot;name&quot; : &quot;null Store&quot;
+        &quot;name&quot; : &quot;Store - ANZ Query&quot;
       }
     },
-    &quot;RecordId&quot; : &quot;0kzBo00000004q1IAA&quot;
+    &quot;junctionData&quot; : &quot;&quot;,
+    &quot;recordTypeId&quot; : &quot;&quot;
   }
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
