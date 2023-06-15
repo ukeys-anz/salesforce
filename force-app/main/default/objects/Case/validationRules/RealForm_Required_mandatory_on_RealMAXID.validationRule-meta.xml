@@ -9,6 +9,8 @@ OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
+!isChanged(IDR_Additional_Correspondence_reviewed__c),
+!isChanged(IDR_Document_Count__c),
 AND(
 NOT( ISNEW() ),
 NOT( ISBLANK(IDR_Real_Form_Ref_No__c)),
