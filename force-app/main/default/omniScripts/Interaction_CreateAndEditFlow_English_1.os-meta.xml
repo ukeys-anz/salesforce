@@ -5,7 +5,7 @@
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -216,7 +216,7 @@
       &quot;junctionData&quot; : &quot;%tagsToBeInserted%&quot;,
       &quot;DetailSectionData&quot; : &quot;%enterInteractionDetailsStep%&quot;,
       &quot;updatedNameValue&quot; : &quot;%updatedNameValue%&quot;,
-      &quot;recordTypeId&quot; : &quot;%recordTypeId%&quot;
+      &quot;recordTypeId&quot; : &quot;%RecordTypeId%&quot;
     },
     &quot;interactid&quot; : &quot;=%RecordId%&quot;,
     &quot;tagsToBeDeleted&quot; : &quot;=%tagsToBeDeleted%&quot;,
@@ -302,7 +302,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -330,8 +330,38 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak11</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak9&quot;,
+  &quot;padding&quot; : 10,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak12</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 10,
+  &quot;label&quot; : &quot;LineBreak9&quot;
+}</propertySetConfig>
+                <sequenceNumber>3.0</sequenceNumber>
+                <type>Line Break</type>
             </childElements>
             <childElements>
                 <name>name</name>
@@ -344,7 +374,7 @@
   &quot;label&quot; : &quot;Name&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -364,11 +394,11 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
+  &quot;hide&quot; : true,
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -396,7 +426,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <isActive>true</isActive>
@@ -410,7 +440,16 @@
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;RecordId&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -420,12 +459,14 @@
             <type>Block</type>
         </childElements>
         <childElements>
-            <name>cancelForEdit</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
+            <name>ButtonBlock</name>
+            <childElements>
+                <name>cancelForEdit</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;targetLWCLayout&quot; : &quot;lightning&quot;,
@@ -461,16 +502,16 @@
   &quot;label&quot; : &quot;Cancel&quot;,
   &quot;controlWidth&quot; : 2
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
-            <type>Navigate Action</type>
-        </childElements>
-        <childElements>
-            <name>cancelForNew</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
+                <sequenceNumber>1.0</sequenceNumber>
+                <type>Navigate Action</type>
+            </childElements>
+            <childElements>
+                <name>cancelForNew</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
   &quot;controlWidth&quot; : 2,
   &quot;label&quot; : &quot;Cancel&quot;,
   &quot;validationRequired&quot; : &quot;Submit&quot;,
@@ -507,8 +548,67 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;targetName&quot; : &quot;Interaction_List_View&quot;
 }</propertySetConfig>
+                <sequenceNumber>2.0</sequenceNumber>
+                <type>Navigate Action</type>
+            </childElements>
+            <childElements>
+                <name>CustomLWC1</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;CustomLWC1&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customNextButtonOmni&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
+}</propertySetConfig>
+                <sequenceNumber>3.0</sequenceNumber>
+                <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
+                <name>TextBlock2</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;collapse&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;headingLevel&quot; : null
+}</propertySetConfig>
             <sequenceNumber>8.0</sequenceNumber>
-            <type>Navigate Action</type>
+            <type>Block</type>
         </childElements>
         <childElements>
             <name>contactDetailsBlock</name>
@@ -520,7 +620,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
-  &quot;label&quot; : &quot;Account&quot;,
+  &quot;label&quot; : &quot;Customer&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -570,7 +670,7 @@
     &quot;default&quot; : null
   }
 }</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Lookup</type>
             </childElements>
             <childElements>
@@ -608,7 +708,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -669,8 +769,38 @@
     &quot;default&quot; : null
   }
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Lookup</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak13</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 10,
+  &quot;label&quot; : &quot;LineBreak4&quot;
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak14</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak4&quot;,
+  &quot;padding&quot; : 10,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>3.0</sequenceNumber>
+                <type>Line Break</type>
             </childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -693,25 +823,6 @@
             <type>Block</type>
         </childElements>
         <childElements>
-            <name>CustomLWC1</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;CustomLWC1&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;hide&quot; : false,
-  &quot;lwcName&quot; : &quot;customNextButtonOmni&quot;,
-  &quot;bStandalone&quot; : false,
-  &quot;customAttributes&quot; : [ ]
-}</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
-            <type>Custom Lightning Web Component</type>
-        </childElements>
-        <childElements>
             <name>detailsSection</name>
             <childElements>
                 <name>actionTaken</name>
@@ -730,33 +841,37 @@
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
+  &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
-  &quot;dataSource&quot; : {
-    &quot;type&quot; : &quot;PicklistFilteredbyRecordType&quot;,
-    &quot;mapItems&quot; : {
-      &quot;phase1MapItems&quot; : [ ],
-      &quot;phase2MapItems&quot; : [ ]
-    },
-    &quot;picklistObjectAndField&quot; : &quot;Interaction.Resolution__c&quot;,
-    &quot;picklistRecordType&quot; : &quot;%RecordTypeName%&quot;
+  &quot;options&quot; : [ ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Interaction.Resolution__c&quot;
   },
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;who&quot;,
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Interaction.Interaction_Purpose__c&quot;
+  },
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;who&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Optional if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;clearValue&quot; : true,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>18.0</sequenceNumber>
-                <type>Lookup</type>
+                <sequenceNumber>20.0</sequenceNumber>
+                <type>Select</type>
             </childElements>
             <childElements>
                 <name>actualtopic</name>
@@ -779,8 +894,8 @@
   },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;Actual Topic Is Mandatory&quot;,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;The topic their query originated from within our authenticated channels.&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
@@ -804,7 +919,7 @@
   &quot;dataJsonPath&quot; : &quot;resultfromtopictags&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
@@ -866,7 +981,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>11.0</sequenceNumber>
+                <sequenceNumber>12.0</sequenceNumber>
                 <type>Integration Procedure Action</type>
             </childElements>
             <childElements>
@@ -928,7 +1043,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Integration Procedure Action</type>
             </childElements>
             <childElements>
@@ -990,7 +1105,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Integration Procedure Action</type>
             </childElements>
             <childElements>
@@ -1018,7 +1133,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>17.0</sequenceNumber>
+                <sequenceNumber>18.0</sequenceNumber>
                 <type>Checkbox</type>
             </childElements>
             <childElements>
@@ -1043,7 +1158,7 @@
     &quot;source&quot; : &quot;%basenode%&quot;
   } ]
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1068,7 +1183,7 @@
     &quot;source&quot; : &quot;%basenodeForReasonForCV%&quot;
   } ]
 }</propertySetConfig>
-                <sequenceNumber>7.0</sequenceNumber>
+                <sequenceNumber>8.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1093,7 +1208,7 @@
     &quot;source&quot; : &quot;%productbasenode%&quot;
   } ]
 }</propertySetConfig>
-                <sequenceNumber>12.0</sequenceNumber>
+                <sequenceNumber>13.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1108,7 +1223,37 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak15</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 20,
+  &quot;label&quot; : &quot;LineBreak1&quot;
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak16</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 20,
+  &quot;label&quot; : &quot;LineBreak3&quot;
+}</propertySetConfig>
+                <sequenceNumber>19.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -1123,7 +1268,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>9.0</sequenceNumber>
+                <sequenceNumber>10.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -1138,7 +1283,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>14.0</sequenceNumber>
+                <sequenceNumber>15.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -1162,8 +1307,8 @@
   },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;Product Is Mandatory&quot;,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;Select the products the query was related to. Choose ‘Not product related’ if it doesn’t apply.&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
@@ -1187,7 +1332,7 @@
   &quot;dataJsonPath&quot; : &quot;resultfromproducttags&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>10.0</sequenceNumber>
+                <sequenceNumber>11.0</sequenceNumber>
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
@@ -1211,8 +1356,8 @@
   },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;Select the original reasons for visiting the coaching lab, pop-up or branch. For referrals from branch staff, select the reasons they were referred to ANZ Plus.&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
@@ -1236,56 +1381,56 @@
   &quot;dataJsonPath&quot; : &quot;resultfromreasontags&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Type Ahead Block</type>
             </childElements>
             <childElements>
-                <name>ReferredTo</name>
+                <name>Select1</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 6,
-  &quot;label&quot; : &quot;Referred To&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;bottom-right&quot;,
-  &quot;options&quot; : [ ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Interaction.Referred_To__c&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;actionTaken&quot;,
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Interaction.Resolution__c&quot;
-  },
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Optional if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Referred&quot;,
+        &quot;field&quot; : &quot;actionTaken&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;actionTaken&quot;
-      } ]
+        &quot;data&quot; : &quot;Referred&quot;
+      } ],
+      &quot;operator&quot; : &quot;AND&quot;
     }
   },
-  &quot;conditionType&quot; : &quot;Optional if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;controllingField&quot; : {
+    &quot;source&quot; : &quot;Interaction.Resolution__c&quot;,
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;element&quot; : &quot;actionTaken&quot;
+  },
+  &quot;optionSource&quot; : {
+    &quot;source&quot; : &quot;Interaction.Referred_To__c&quot;,
+    &quot;type&quot; : &quot;SObject&quot;
+  },
+  &quot;options&quot; : [ ],
+  &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : true,
+  &quot;defaultValue&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Referred To&quot;,
+  &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-                <sequenceNumber>19.0</sequenceNumber>
+                <sequenceNumber>21.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1313,7 +1458,7 @@
   &quot;label&quot; : &quot;Checkbox1&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-                <sequenceNumber>16.0</sequenceNumber>
+                <sequenceNumber>17.0</sequenceNumber>
                 <type>Checkbox</type>
             </childElements>
             <childElements>
@@ -1332,7 +1477,7 @@
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;controlWidth&quot; : 3
 }</propertySetConfig>
-                <sequenceNumber>15.0</sequenceNumber>
+                <sequenceNumber>16.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1360,7 +1505,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>13.0</sequenceNumber>
+                <sequenceNumber>14.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1388,7 +1533,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1416,7 +1561,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>8.0</sequenceNumber>
+                <sequenceNumber>9.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <isActive>true</isActive>
@@ -1487,7 +1632,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>8.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1528,7 +1673,7 @@
   &quot;label&quot; : &quot;Channel&quot;,
   &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Lookup</type>
             </childElements>
             <childElements>
@@ -1566,8 +1711,53 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Text</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak6</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak6&quot;,
+  &quot;padding&quot; : 10,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak7</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 10,
+  &quot;label&quot; : &quot;LineBreak6&quot;
+}</propertySetConfig>
+                <sequenceNumber>3.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak8</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak6&quot;,
+  &quot;padding&quot; : 10,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>6.0</sequenceNumber>
+                <type>Line Break</type>
             </childElements>
             <childElements>
                 <name>place</name>
@@ -1606,7 +1796,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1643,7 +1833,7 @@
   &quot;timeInterval&quot; : 30,
   &quot;datePlaceholder&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Date/Time (Local)</type>
             </childElements>
             <childElements>
@@ -1692,7 +1882,7 @@
   &quot;label&quot; : &quot;Who&quot;,
   &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <isActive>true</isActive>
@@ -1757,9 +1947,9 @@
     &quot;mapItems&quot; : {
       &quot;phase1MapItems&quot; : [ {
         &quot;InterfaceObjectName__c&quot; : &quot;Case&quot;,
-        &quot;InterfaceFieldAPIName__c&quot; : &quot;Subject&quot;,
-        &quot;FilterOperator__c&quot; : &quot;&lt;&gt;&quot;,
-        &quot;FilterValue__c&quot; : &quot;&apos;&apos;&quot;,
+        &quot;InterfaceFieldAPIName__c&quot; : &quot;AccountId&quot;,
+        &quot;FilterOperator__c&quot; : &quot;=&quot;,
+        &quot;FilterValue__c&quot; : &quot;AccountIdFromUI&quot;,
         &quot;InterfaceObjectLookupOrder__c&quot; : 1,
         &quot;DomainObjectFieldAPIName__c&quot; : &quot;CasesFromLookup&quot;
       } ],
@@ -1774,7 +1964,10 @@
         &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
         &quot;DomainObjectCreationOrder__c&quot; : 1
       } ],
-      &quot;inputParameters&quot; : [ ]
+      &quot;inputParameters&quot; : [ {
+        &quot;element&quot; : &quot;account&quot;,
+        &quot;inputParam&quot; : &quot;AccountIdFromUI&quot;
+      } ]
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
@@ -1790,7 +1983,7 @@
     &quot;default&quot; : null
   }
 }</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Lookup</type>
             </childElements>
             <childElements>
@@ -1851,8 +2044,38 @@
     &quot;default&quot; : null
   }
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Lookup</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak10</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 10,
+  &quot;label&quot; : &quot;LineBreak9&quot;
+}</propertySetConfig>
+                <sequenceNumber>3.0</sequenceNumber>
+                <type>Line Break</type>
+            </childElements>
+            <childElements>
+                <name>LineBreak9</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak9&quot;,
+  &quot;padding&quot; : 10,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Line Break</type>
             </childElements>
             <childElements>
                 <name>loanApplication</name>
@@ -1912,7 +2135,7 @@
   &quot;label&quot; : &quot;Loan Application&quot;,
   &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Lookup</type>
             </childElements>
             <isActive>true</isActive>
@@ -2526,7 +2749,7 @@
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;SetValues1&quot;,
   &quot;elementValueMap&quot; : {
-    &quot;RecordTypeId&quot; : &quot;%recordTypeId%&quot;,
+    &quot;RecordTypeId&quot; : &quot;=%recordTypeId%&quot;,
     &quot;reasonforvistvalue&quot; : &quot;Reason&quot;,
     &quot;actualtopicvalue&quot; : &quot;Topic&quot;,
     &quot;productvalue&quot; : &quot;Product&quot;,
@@ -2843,5 +3066,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>2ea29da5-94c3-6891-5fdf-c6cf1f926524</webComponentKey>
+    <webComponentKey>ac3fda4a-e3a8-0861-fc3a-7a3d0c4c292f</webComponentKey>
 </OmniScript>
