@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <name>CreateInteractionJourney</name>
-    <description>OmniScript for creating and editing Store Interactions records</description>
+    <description>OmniScript for creating and editing Store Interactions</description>
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
 }</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -730,8 +730,8 @@
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : null,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Please Enter the Correct Value&quot;,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;dataSource&quot; : {
     &quot;type&quot; : &quot;PicklistFilteredbyRecordType&quot;,
@@ -779,7 +779,7 @@
   },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
-  &quot;help&quot; : true,
+  &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;Actual Topic Is Mandatory&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;minLength&quot; : 0,
@@ -1007,8 +1007,8 @@
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : false,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Assisted needs to Enter&quot;,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;checkLabel&quot; : &quot;Assisted&quot;,
   &quot;show&quot; : null,
@@ -1097,25 +1097,6 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
-                <name>Engagement</name>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
-  &quot;label&quot; : &quot;TextBlock2&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;/p&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;p&gt;Engagement&amp;nbsp;&lt;/p&gt;&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>15.0</sequenceNumber>
-                <type>Text Block</type>
-            </childElements>
-            <childElements>
                 <name>LineBreak1</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -1181,7 +1162,7 @@
   },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
-  &quot;help&quot; : true,
+  &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;Product Is Mandatory&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;minLength&quot; : 0,
@@ -1230,8 +1211,8 @@
   },
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Reason for Visit Is Mandatory&quot;,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
@@ -1275,9 +1256,9 @@
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : null,
-  &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Please enter the correct value&quot;,
-  &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;bottom-right&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;SObject&quot;,
@@ -1322,8 +1303,8 @@
   &quot;show&quot; : null,
   &quot;checkLabel&quot; : &quot;Self-Service&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
-  &quot;helpText&quot; : &quot;Self Service&quot;,
-  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
   &quot;defaultValue&quot; : false,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -1334,6 +1315,25 @@
 }</propertySetConfig>
                 <sequenceNumber>16.0</sequenceNumber>
                 <type>Checkbox</type>
+            </childElements>
+            <childElements>
+                <name>TextBlock1</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : null,
+  &quot;text&quot; : &quot;&lt;p class=\&quot;slds-p-top_small\&quot;&gt;Engagement&amp;nbsp;&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;controlWidth&quot; : 3
+}</propertySetConfig>
+                <sequenceNumber>15.0</sequenceNumber>
+                <type>Text Block</type>
             </childElements>
             <childElements>
                 <name>TextBlock3</name>
@@ -1546,7 +1546,7 @@
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
+  &quot;readOnly&quot; : true,
   &quot;defaultValue&quot; : &quot;&quot;,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
@@ -2843,5 +2843,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>cfe05bd7-d79e-f6df-68e7-f1b6a6c3cb18</webComponentKey>
+    <webComponentKey>2ea29da5-94c3-6891-5fdf-c6cf1f926524</webComponentKey>
 </OmniScript>
