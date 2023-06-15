@@ -58,7 +58,7 @@ IF(
 ISPICKVAL(External_Status__c, &quot;Resolved-Declined&quot;),
 $Label.PEGA_Dispute_Status_Resolved_Declined,
 IF(
-ISPICKVAL(External_Status__c, &quot;Resolved–CreditTransaction&quot;),
+ISPICKVAL(External_Status__c, &quot;Resolved-CreditTransaction&quot;),
 $Label.PEGA_Dispute_Status_Resolved_CreditTransaction,
 IF(
 ISPICKVAL(External_Status__c, &quot;Resolved-MatchingCredit&quot;),
