@@ -6698,6 +6698,26 @@
             <fullName>99</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Digital only service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No direct phone line</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not enough stores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not working on device</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request won%27t be actioned</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue__c</picklist>
