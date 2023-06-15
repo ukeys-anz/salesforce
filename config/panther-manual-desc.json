@@ -241,8 +241,8 @@
         "FinServ__KYCStatus__c",
         "FinServ__Status__c",
         "Hardship__c",
-        "Has_Customer_Provided_TFN__c",
-        "KYC_Verification_Level__c"
+        "KYC_Verification_Level__c",
+        "KYCVerificationDate__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [
@@ -282,7 +282,9 @@
         "PersonMobilePhone",
         "Phone",
         "Self_Certified_Tax_Date__c",
-        "Self_Certified_Tax_Residency__c"
+        "Self_Certified_Tax_Residency__c",
+        "Tax_Exemption_Type__c",
+        "TFN_Verification__c"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
       "IA-2530753": [
@@ -315,12 +317,8 @@
       ]
     },
     "Activity": {
-      "IA-2415999": [
-        "PEGA_Case_Status__c"
-      ],
-      "IA-2415984": [
-        "Customer_Name__c"
-      ],
+      "IA-2415999": ["PEGA_Case_Status__c"],
+      "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
@@ -1139,11 +1137,21 @@
         "Last_Modified_By__c",
         "Last_Modified_Date__c"
       ],
-      "IA-2415984": ["Preferred_Indicator__c"]
+      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415720": [
+        "Verification_Status__c",
+        "Verification_Date__c",
+        "Verification_Method__c"
+      ]
     },
     "ContactPointPhone": {
       "IA-2530753": ["Customer_Name__c"],
-      "IA-2415984": ["Preferred_Indicator__c"]
+      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415720": [
+        "Verification_Status__c",
+        "Verification_Date__c",
+        "Verification_Method__c"
+      ]
     },
     "ContactRequest": {
       "IA-2453595": [
