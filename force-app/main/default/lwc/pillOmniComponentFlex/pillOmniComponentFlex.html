@@ -6,50 +6,61 @@
 <template>
   <div class="slds-var-p-bottom_small">
     <label class="slds-form-element__label">
-      <abbr class="slds-required" title="required">* </abbr>Reason For
-      Visit</label
-    >
+      <abbr class="slds-required" title="required">* </abbr>Reason For Visit
+      <lightning-helptext
+        class="helpTextCustomCss"
+        content="Select the original reasons for visiting the coaching lab, pop-up or branch. For referrals from branch staff, select the reasons they were referred to ANZ Plus."
+      ></lightning-helptext>
+    </label>
     <div
       class="slds-form-element__control slds-var-p-top_small underlineCustom"
     >
       <template for:each={_allValuesReason} for:item="eachValue">
-        <lightning-pill
+        <lightning-badge
           key={eachValue.value}
           label={eachValue.label}
-          class="slds-var-p-around_xx-small textblue"
-        ></lightning-pill>
+          class="slds-var-p-around_xx-small textblue pillcss"
+        ></lightning-badge>
       </template>
     </div>
   </div>
   <div class="slds-var-p-bottom_small">
     <label class="slds-form-element__label">
-      <abbr class="slds-required" title="required">* </abbr>Actual Topic</label
-    >
+      <abbr class="slds-required" title="required">* </abbr>Actual Topic
+      <lightning-helptext
+        class="helpTextCustomCss"
+        content="Select each topic they raised."
+      ></lightning-helptext>
+    </label>
     <div
       class="slds-form-element__control slds-var-p-top_small underlineCustom"
     >
       <template for:each={_allValuesTopic} for:item="eachValue">
-        <lightning-pill
+        <lightning-badge
           key={eachValue.value}
           label={eachValue.label}
-          class="slds-var-p-around_xx-small textblue"
-        ></lightning-pill>
+          class="slds-var-p-around_xx-small textblue pillcss"
+        ></lightning-badge>
       </template>
     </div>
   </div>
   <div class="slds-var-p-bottom_small">
     <label class="slds-form-element__label">
-      <abbr class="slds-required" title="required">* </abbr>Products</label
-    >
+      <abbr class="slds-required" title="required">* </abbr>Products
+      <lightning-helptext
+        class="helpTextCustomCss"
+        content="Select the products the query was related to. Choose ‘Not product related’ if it doesn’t apply."
+      ></lightning-helptext>
+    </label>
     <div
       class="slds-form-element__control slds-var-p-top_small underlineCustom"
     >
       <template for:each={_allValuesProduct} for:item="eachValue">
-        <lightning-pill
+        <lightning-badge
           key={eachValue.value}
           label={eachValue.label}
-          class="slds-var-p-around_xx-small textblue"
-        ></lightning-pill>
+          class="slds-var-p-around_xx-small textblue pillcss"
+        ></lightning-badge>
       </template>
     </div>
   </div>

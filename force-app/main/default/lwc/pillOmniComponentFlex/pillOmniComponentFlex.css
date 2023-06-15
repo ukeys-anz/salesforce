@@ -1,0 +1,25 @@
+.pillcss {
+  margin: var(--lwc-borderWidthThick, 2px);
+  border-radius: var(--lwc-borderRadiusSmall, 0.125rem);
+  font-weight: unset;
+  padding: 5px;
+  --slds-c-badge-color-background: var(
+    --slds-c-badge-lightest-color-background,
+    var(
+      --sds-c-badge-lightest-color-background,
+      var(--slds-g-color-neutral-base-100, #fff)
+    )
+  );
+  --slds-c-badge-color-border: var(
+    --slds-c-badge-lightest-color-border,
+    var(
+      --sds-c-badge-lightest-color-border,
+      var(--slds-g-color-border-base-1, #e5e5e5)
+    )
+  );
+}
+
+.helpTextCustomCss {
+  position: relative;
+  top: -5px;
+}
