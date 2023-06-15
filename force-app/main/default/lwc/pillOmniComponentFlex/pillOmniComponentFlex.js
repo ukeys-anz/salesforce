@@ -18,7 +18,6 @@ export default class PillOmniComponentFlex extends FlexCardMixin(
     return this._allValues;
   }
   set allValues(value) {
-    console.log("value -> " + JSON.stringify(value));
     this._allValues = value.JunctionObject;
     let allJunctionData = this._allValues;
     if (allJunctionData && !Array.isArray(allJunctionData)) {
