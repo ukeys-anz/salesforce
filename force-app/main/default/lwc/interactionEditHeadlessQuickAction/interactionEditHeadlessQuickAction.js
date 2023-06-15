@@ -7,10 +7,6 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
   booledit = false;
   _recordId;
 
-  @api invoke() {
-    console.log("Test");
-  }
-
   @api set recordId(recordId) {
     if (recordId !== this._recordId) {
       console.log("recordId -> " + recordId);
