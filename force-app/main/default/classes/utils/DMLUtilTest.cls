@@ -1,7 +1,7 @@
 /**
  * @description       : Test class for DMLUtil class
  * @author            : Prakash B
- * @last modified on  : 30-01-2023
+ * @last modified on  : 19-04-2023
  **/
 @isTest
 public with sharing class DMLUtilTest {
@@ -56,7 +56,11 @@ public with sharing class DMLUtilTest {
 
     Test.startTest();
     System.runAs(qaUser) {
-      DMLUtil.insertRecords(qaList, true, true);
+      DMLUtil.insertRecords(
+        qaList,
+        DMLUtil.ALLOW_PARTIAL_UPDATE,
+        DMLUtil.USER_MODE
+      );
     }
     Test.stopTest();
 
@@ -77,7 +81,11 @@ public with sharing class DMLUtilTest {
     }
 
     Test.startTest();
-    DMLUtil.insertRecords(qaList, true, true);
+    DMLUtil.insertRecords(
+      qaList,
+      DMLUtil.ALLOW_PARTIAL_UPDATE,
+      DMLUtil.USER_MODE
+    );
     Test.stopTest();
 
     List<LogEntry__c> logEntryList = new List<LogEntry__c>(
@@ -103,7 +111,11 @@ public with sharing class DMLUtilTest {
     }
 
     Test.startTest();
-    DMLUtil.upsertRecords(qaList, true, true);
+    DMLUtil.upsertRecords(
+      qaList,
+      DMLUtil.ALLOW_PARTIAL_UPDATE,
+      DMLUtil.USER_MODE
+    );
     Test.stopTest();
 
     List<LogEntry__c> logEntryList = new List<LogEntry__c>(
@@ -153,7 +165,11 @@ public with sharing class DMLUtilTest {
 
     Test.startTest();
     System.runAs(coachUser) {
-      DMLUtil.insertRecords(qaList, true, true);
+      DMLUtil.insertRecords(
+        qaList,
+        DMLUtil.ALLOW_PARTIAL_UPDATE,
+        DMLUtil.USER_MODE
+      );
     }
     Test.stopTest();
 
@@ -189,7 +205,11 @@ public with sharing class DMLUtilTest {
     }
 
     Test.startTest();
-    DMLUtil.updateRecords(qaList, true, true);
+    DMLUtil.updateRecords(
+      qaList,
+      DMLUtil.ALLOW_PARTIAL_UPDATE,
+      DMLUtil.USER_MODE
+    );
     Test.stopTest();
 
     List<LogEntry__c> logEntryList = new List<LogEntry__c>(
@@ -222,7 +242,11 @@ public with sharing class DMLUtilTest {
     System.assertEquals(10, qaList.size(), '10 QA records should be created');
 
     Test.startTest();
-    DMLUtil.deleteRecords(qaList, true, true);
+    DMLUtil.deleteRecords(
+      qaList,
+      DMLUtil.ALLOW_PARTIAL_UPDATE,
+      DMLUtil.USER_MODE
+    );
     Test.stopTest();
 
     qaList = [SELECT ID FROM Quality_Assessment__c];
@@ -262,7 +286,11 @@ public with sharing class DMLUtilTest {
     );
 
     Test.startTest();
-    DMLUtil.undeleteRecords(qaList, true, true);
+    DMLUtil.undeleteRecords(
+      qaList,
+      DMLUtil.ALLOW_PARTIAL_UPDATE,
+      DMLUtil.USER_MODE
+    );
     Test.stopTest();
 
     qaList = [SELECT ID FROM Quality_Assessment__c];
