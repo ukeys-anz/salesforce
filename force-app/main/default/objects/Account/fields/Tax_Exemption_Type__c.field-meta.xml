@@ -17,12 +17,12 @@
             <value>
                 <fullName>NO TIN</fullName>
                 <default>false</default>
-                <label>NO TIN - Party opted not to provide a TIN - Depending on the jurisdiction this is perfectly acceptable/legal. E.g. Australia</label>
+                <label>NO TFN/TIN - Party opted not to provide a TFN/TIN - Depending on the jurisdiction this is perfectly acceptable/legal. E.g. Australia</label>
             </value>
             <value>
                 <fullName>CHILD</fullName>
                 <default>false</default>
-                <label>CHILD - The party is a minor/child and not required to provide a TIN</label>
+                <label>CHILD - The party is a minor/child and not required to provide a TFN/TIN</label>
             </value>
             <value>
                 <fullName>AGE PENSION</fullName>
@@ -42,7 +42,7 @@
             <value>
                 <fullName>BANK ORG</fullName>
                 <default>false</default>
-                <label>BANK ORG - The party is recognised as a bank and TIN is not applicable</label>
+                <label>BANK ORG - The party is recognised as a bank and TFN/TIN is not applicable</label>
             </value>
             <value>
                 <fullName>NON RESIDENT</fullName>
@@ -52,7 +52,7 @@
             <value>
                 <fullName>ABN LODGD</fullName>
                 <default>false</default>
-                <label>The party lodged an Australian Business Number (ABN) in lieu of a TIN</label>
+                <label>ABN LODGD - The party lodged an Australian Business Number (ABN) in lieu of a TFN/TIN</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -699,7 +699,6 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>9</controllingFieldValue>
-            <controllingFieldValue>13</controllingFieldValue>
             <valueName>Request won&apos;t be actioned</valueName>
         </valueSettings>
         <valueSettings>
@@ -729,6 +728,22 @@
         <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
             <valueName>9</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Not working on device</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>No direct phone line</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Not enough stores</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>13</controllingFieldValue>
+            <valueName>Digital only service</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>18</controllingFieldValue>
