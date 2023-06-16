@@ -41,7 +41,11 @@ public with sharing class AuthSessionRemoverBatch implements Database.Batchable<
     List<AuthSession> authSessionScope
   ) {
     if (authSessionScope?.size() > 0) {
-      Database.delete(authSessionScope, false);
+      DMLUtil.deleteRecords(
+        authSessionScope,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.USER_MODE
+      );
     }
   }
 
