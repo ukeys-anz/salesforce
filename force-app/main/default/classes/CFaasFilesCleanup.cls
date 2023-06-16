@@ -27,22 +27,14 @@ public with sharing class CFaasFilesCleanup {
    * @param filesElapsedByDate Datetime - Elapsed datetime.
    **/
   public static void processCleanup(Datetime filesElapsedByDate) {
-    try {
-      List<ContentDocument> listContentDocument = getDocuments(
-        filesElapsedByDate
-      );
-
-      List<Database.DeleteResult> deleteResults = Database.delete(
-        listContentDocument,
-        false
-      );
-
-      logResults(deleteResults);
-    } catch (Exception e) {
-      Logger.error('Error occurred while processing the cleanup', e);
-    }
-
-    Logger.saveLog();
+    List<ContentDocument> listContentDocument = getDocuments(
+      filesElapsedByDate
+    );
+    DMLUtil.deleteRecords(
+      listContentDocument,
+      DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+      DMLUtil.USER_MODE
+    );
   }
 
   /**
