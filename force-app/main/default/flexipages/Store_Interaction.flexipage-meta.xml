@@ -16,6 +16,9 @@
                         <valueListItems>
                             <value>FeedItem.TextPost</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>ChangeOwnerOne</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
