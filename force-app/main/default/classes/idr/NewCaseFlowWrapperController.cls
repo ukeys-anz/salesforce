@@ -5,7 +5,7 @@
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
 public with sharing class NewCaseFlowWrapperController {
-  // Shell case conversion Change Record type Button 
+  // Shell case conversion Change Record type Button
   public static Boolean isShellCaseCRTB = false;
   /**
    * @description Get the Developer Name of a Case record type based on its Id
@@ -304,14 +304,14 @@ public with sharing class NewCaseFlowWrapperController {
             AND Id IN :caseRecordTypeIds
         ];
         if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
-            //Fetching 'Customer-Complaint' recodtype Id
-            RecordType newrt = new RecordType(
-                Id= IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-                Name='Complaint',
-                DeveloperName='Complaint',
-                Description='Record a new complaint for an existing ANZ or non ANZ customer '
-            );
-            rtToDisplay.add(newrt); //adding new record type picklist for specific Users
+          //Fetching 'Customer-Complaint' recodtype Id
+          RecordType newrt = new RecordType(
+            Id = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+            Name = 'Complaint',
+            DeveloperName = 'Complaint',
+            Description = 'Record a new complaint for an existing ANZ or non ANZ customer '
+          );
+          rtToDisplay.add(newrt); //adding new record type picklist for specific Users
         }
         return JSON.serialize(rtToDisplay);
       }

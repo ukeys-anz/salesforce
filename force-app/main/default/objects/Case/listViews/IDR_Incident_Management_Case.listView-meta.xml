@@ -7,12 +7,12 @@
     <columns>IDR_Date_Received__c</columns>
     <columns>IDR_Office_Created_By__c</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>Queue__c</field>
         <operation>equals</operation>
         <value>IDR Incident Management</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>IDR Incident Management</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>

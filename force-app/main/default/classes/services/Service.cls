@@ -450,7 +450,7 @@ public with sharing virtual class Service {
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param tokenizedFields the account number for the checking account
+   * @param tokenizedFields the tokenized fields to be detokenized
    * @return `HttpCalloutResponse` api response
    * @description virtual stravinsky cobPid detokenize api
    */
@@ -465,11 +465,22 @@ public with sharing virtual class Service {
    * @param personaId COB Primary ID record Persona Id
    * @param detokenizedValue detokenized COBPID ready for tokenization
    * @return `HttpCalloutResponse` api response
-   * @description virtual stravinsky cobPid detokenize api
+   * @description virtual stravinsky cobPid tokenize api
    */
   public virtual HttpCalloutResponse tokenizeCOBPID(
     String personaId,
     COBPrimaryIDDocumentModel detokenizedValue
+  ) {
+    return null;
+  }
+
+  /**
+   * @param taxResidency COB Tax Residency record
+   * @return `HttpCalloutResponse` api response
+   * @description virtual stravinsky COBTaxResidency detokenize api
+   */
+  public virtual HttpCalloutResponse detokenizeCOBTaxResidency(
+    COBTaxResidency__c taxResidency
   ) {
     return null;
   }
