@@ -799,7 +799,7 @@
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : null,
-  &quot;help&quot; : true,
+  &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;options&quot; : [ ],
@@ -1376,7 +1376,7 @@
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : true,
+  &quot;help&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -1406,7 +1406,7 @@
   &quot;show&quot; : null,
   &quot;checkLabel&quot; : &quot;Self-Service&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
-  &quot;helpText&quot; : &quot;asdasdasd&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
   &quot;defaultValue&quot; : false,
   &quot;readOnly&quot; : false,
@@ -3044,5 +3044,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>60c78503-1bef-27cb-82a6-dc9989b6a7f3</webComponentKey>
+    <webComponentKey>055f7bc4-25a5-fe5d-62fd-d84268472041</webComponentKey>
 </OmniScript>
