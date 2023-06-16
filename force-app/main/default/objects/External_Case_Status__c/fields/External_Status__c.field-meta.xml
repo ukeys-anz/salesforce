@@ -501,11 +501,6 @@
                 <label>Resolved-MerchantCredited</label>
             </value>
             <value>
-                <fullName>Resolved–CreditTransaction</fullName>
-                <default>false</default>
-                <label>Resolved–CreditTransaction</label>
-            </value>
-            <value>
                 <fullName>Resolved-ArbIssuerLiable</fullName>
                 <default>false</default>
                 <label>Resolved-ArbIssuerLiable</label>
