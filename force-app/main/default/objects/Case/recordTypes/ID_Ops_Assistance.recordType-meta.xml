@@ -7221,6 +7221,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Doc fail - document details unreadable</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Doc fail - document is a picture of a picture</fullName>
             <default>false</default>
         </values>

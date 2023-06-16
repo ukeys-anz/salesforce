@@ -1,0 +1,7 @@
+Name,ANZ_Product_Code__c,IDR_Product_or_Service_Line__c,IDR_Product_or_Service_Category__c,IDR_Product_or_Service_Type__c,IDR_Workbasket__c,IsActive
+ANZ Landlord Insurance (QBE),111,3,8,41,IDR_Wealth,TRUE
+ANZ Car Insurance (Comprehensive) (QBE),112,3,8,44,IDR_Wealth,TRUE
+ANZ Home and Contents Insurance (QBE),140,3,8,41,IDR_Wealth,TRUE
+ANZ Landlord Insurance (CGU),572,3,8,41,IDR_Wealth,TRUE
+ANZ Car Insurance (Comprehensive) (CGU),573,3,8,44,IDR_Wealth,TRUE
+ANZ Home and Contents Insurance (CGU),574,3,8,41,IDR_Wealth,TRUE

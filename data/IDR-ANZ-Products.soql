@@ -1,0 +1,9 @@
+SELECT Name,
+    ANZ_Product_Code__c,
+    IDR_Product_or_Service_Line__c,
+    IDR_Product_or_Service_Category__c,
+    IDR_Product_or_Service_Type__c,
+    IDR_Workbasket__c,
+    IsActive
+FROM Product2
+ORDER BY ANZ_Product_Code_Num__c

@@ -9,7 +9,10 @@
     NOT(ISNEW()),
     RecordType.DeveloperName = &apos;Systemic_Issue_Task&apos;,
     NOT($UserRole.DeveloperName = &apos;Systemic_Issue_Team&apos;),
-    ActivityDate &lt;   TODAY(),
+    AND(
+        ISPICKVAL(Status,&apos;Expired&apos;),
+        ActivityDate &lt;   TODAY()
+    ),
     OR(
         ISCHANGED( Action__c ),
         ISCHANGED( Description ),

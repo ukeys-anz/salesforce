@@ -6,6 +6,7 @@
   <lightning:workspaceAPI aura:id="workspace" />
   <aura:attribute name="cmpInstanceIdentifier" type="String" default="" />
   <aura:attribute name="showComponent" type="Boolean" default="false" />
+  <aura:attribute name="showOmni" type="Boolean" default="false" />
   <aura:attribute name="recordTypeId" type="String" />
   <aura:attribute name="recordTypeDevName" type="String" />
   <aura:attribute name="contextRecordId" type="String" />
@@ -23,12 +24,15 @@
   <aura:handler name="change" value="{!v.pageReference}" action="{!c.init}" />
 
   <aura:renderIf isTrue="{!v.showComponent}">
-    <c:createComplaintLWC
+    -<c:createComplaintLWC
       recordTypeId="{!v.selectedRecordTypeId}"
       recordTypeDevName="{!v.recordTypeDevName}"
       contextRecordId="{!v.contextRecordId}"
       onnavigaterecord="{!c.handleNavigateRecord}"
     />
+  </aura:renderIf>
+  <aura:renderIf isTrue="{!v.showOmni}">
+    <!--<c:caseCreationEnglish layout="lightning" />-->
   </aura:renderIf>
 
   <aura:if isTrue="{! v.loading }">

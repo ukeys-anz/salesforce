@@ -1,562 +1,568 @@
-Name,ANZ_Product_Code__c,IDR_Product_or_Service_Line__c,IDR_Product_or_Service_Category__c,IDR_Product_or_Service_Type__c,IDR_Workbasket__c
-ANZ Business Black Credit Card,1,1,1,1,IDR_Business_Owners
-ANZ Business 55 Days Interest Free Credit Card,2,1,1,1,IDR_Business_Owners
-ANZ Business Rewards Options Credit Card,3,1,1,1,IDR_Business_Owners
-ANZ Business Low Rate Credit Card,4,1,1,1,IDR_Business_Owners
-ANZ Visa Purchasing Card,5,1,1,1,IDR_Business_Owners
-ANZ Virtual Card,6,1,1,1,IDR_Business_Owners
-ANZ Travel Account,7,1,1,1,IDR_Business_Owners
-ANZ Corporate Card,8,1,1,1,IDR_Business_Owners
-AGRI Finance Loan,9,1,1,2,IDR_Business_Owners
-ANZ Business Loan (ABL) for Personal Investment,10,1,1,2,IDR_Business_Owners
-ANZ Business Loan (ABL),11,1,1,2,IDR_Business_Owners
-ANZ Business Mortgage Loan (BML),12,1,1,2,IDR_Business_Owners
-ANZ Business Saver Loan,13,1,1,2,IDR_Business_Owners
-Investment Property Loan (Grand Fathered),14,1,1,2,IDR_Business_Owners
-Tailored Commercial Facility (TCF) - VARIABLE INT,15,1,1,3,IDR_Business_Owners
-Tailored Commercial Facility (TCF) - RANGE INT,16,1,1,3,IDR_Business_Owners
-Tailored Commercial Facility (TCF) - FIXED INT,17,1,1,3,IDR_Business_Owners
-Tailored Commercial Facility (TCF) - FIX INT IN ADV,18,1,1,3,IDR_Business_Owners
-Tailored Commercial Facility (TCF) - CAPPED INT,19,1,1,3,IDR_Business_Owners
-Tailored Commercial Facility (TCF),20,1,1,3,IDR_Business_Owners
-ANZ Tailored Business Facility,21,1,1,3,IDR_Business_Owners
-Chattel Mortgage,22,1,1,4,IDR_Business_Owners
-Finance Lease,23,1,1,4,IDR_Business_Owners
-Novated Lease,24,1,1,4,IDR_Business_Owners
-Luxury Asset Lease,25,1,1,4,IDR_Business_Owners
-Offer to Hire,26,1,1,4,IDR_Business_Owners
-ANZ Revolving AGRI Line overdraft,27,1,1,6,IDR_Business_Owners
-Business Credit Facility (Commercial Overdraft),28,1,1,6,IDR_Business_Owners
-Business Advantage Overdraft,29,1,1,6,IDR_Business_Owners
-Agri Finance Offset Account,30,2,5,27,IDR_Business_Owners
-ANZ Business Offset,31,2,5,27,IDR_Business_Owners
-BML Offset Account - with Cheque Book,32,2,5,27,IDR_Business_Owners
-ANZ First Credit Card,33,1,2,11,IDR_Everyday_Banking
-ANZ Platinum Credit Card,34,1,2,11,IDR_Everyday_Banking
-ANZ First (for Students) Credit Card,35,1,2,11,IDR_Everyday_Banking
-ANZ Low Rate Credit Card,36,1,2,11,IDR_Everyday_Banking
-ANZ Rewards Black Credit Card,37,1,2,11,IDR_Everyday_Banking
-ANZ Rewards Travel Adventures Credit Card,38,1,2,11,IDR_Everyday_Banking
-ANZ Rewards Platinum Credit Card,39,1,2,11,IDR_Everyday_Banking
-ANZ Rewards Credit Card,40,1,2,11,IDR_Everyday_Banking
-ANZ Frequent Flyer Credit Card,41,1,2,11,IDR_Everyday_Banking
-ANZ Frequent Flyer Platinum Credit Card,42,1,2,11,IDR_Everyday_Banking
-ANZ Frequent Flyer Black Credit Card,43,1,2,11,IDR_Everyday_Banking
-Travel Money,44,1,2,11,IDR_Everyday_Banking
-ANZ Travel Card (Multi Currency),45,6,20,139,IDR_Everyday_Banking
-ANZ Breakfree Package,46,1,2,15,IDR_Home_Owners
-ANZ Standard Variable Home Loan,47,1,2,15,IDR_Home_Owners
-ANZ Fixed Home Loan,48,1,2,15,IDR_Home_Owners
-ANZ Simplicity Plus Home Loan,49,1,2,15,IDR_Home_Owners
-ANZ Equity Manager,50,1,2,18,IDR_Home_Owners
-ANZ Assured,51,1,2,18,IDR_Everyday_Banking
-ANZ Personal Overdraft,52,1,2,18,IDR_Everyday_Banking
-ANZ Variable Rate Personal Loan,53,1,2,20,IDR_Everyday_Banking
-ANZ Fixed Rate Personal Loan,54,1,2,20,IDR_Everyday_Banking
-Cash Covered Facility Account,55,1,3,23,IDR_Everyday_Banking
-Cash Cover Indemnity Guarantee,56,1,3,23,IDR_Everyday_Banking
-Indemnity Guarantee Facility,57,1,3,23,IDR_Everyday_Banking
-Business Classic Account,58,2,5,27,IDR_Business_Owners
-GST Payment Account,59,2,5,27,IDR_Business_Owners
-Business Extra 50 Account,60,2,5,27,IDR_Business_Owners
-Business Extra Account,61,2,5,27,IDR_Business_Owners
-Negotiator Account,62,2,5,27,IDR_Business_Owners
-ANZ Business Essentials (Previously ANZ Business Premium Saver),63,2,5,27,IDR_Business_Owners
-Negotiator Investor Account,64,2,5,27,IDR_Business_Owners
-Statutory Trust Account,65,2,5,27,IDR_Business_Owners
-Business Advantage Account,66,2,5,27,IDR_Business_Owners
-Security Deposit Account,67,2,5,27,IDR_Business_Owners
-Farm Management Deposit Account,68,2,5,27,IDR_Business_Owners
-ANZ One Offset Account,69,2,5,29,IDR_Everyday_Banking
-ANZ Access Select,70,2,5,31,IDR_Everyday_Banking
-ANZ Everyday Visa Debit,71,2,5,31,IDR_Everyday_Banking
-ANZ V2Plus (Retail),72,2,5,31,IDR_Everyday_Banking
-ANZ First Home Saver,73,2,5,31,IDR_Everyday_Banking
-ANZ Cash Management Account,74,2,5,31,IDR_Everyday_Banking
-ANZ Passbook Pensioner Advantage,75,2,5,31,IDR_Everyday_Banking
-ANZ Passbook Savings,76,2,5,31,IDR_Everyday_Banking
-ANZ Access Advantage,77,2,5,31,IDR_Everyday_Banking
-ANZ Pensioner Advantage,78,2,5,31,IDR_Everyday_Banking
-ANZ Access Basic,79,2,5,31,IDR_Everyday_Banking
-Staff Cheque Account,80,2,5,31,IDR_Everyday_Banking
-Retired Officers Cheque Account,81,2,5,31,IDR_Everyday_Banking
-Security Deposit,82,2,5,31,IDR_Everyday_Banking
-ANZ Access Limited,83,2,5,31,IDR_Everyday_Banking
-V2 Plus,84,2,5,31,IDR_Everyday_Banking
-V2 Plus Broking,85,2,5,31,IDR_Everyday_Banking
-V2 Plus including Margin Lending,86,2,5,31,IDR_Everyday_Banking
-V2 Plus Intermediary,87,2,5,31,IDR_Everyday_Banking
-Custodial Services,88,2,6,33,IDR_Everyday_Banking
-ANZ Premium Cash Management Account,89,2,7,35,IDR_Everyday_Banking
-ANZ Cash Investment Account,90,2,7,35,IDR_Everyday_Banking
-Investor Cash Hub,91,2,7,35,IDR_Everyday_Banking
-ANZ SMSF Cash Hub,92,2,7,35,IDR_Everyday_Banking
-ANZ Cash Advantage,93,2,7,35,IDR_Everyday_Banking
-Prime Cash Management Account,94,2,7,35,IDR_Everyday_Banking
-Prime Cash Management Account - Pension,95,2,7,35,IDR_Everyday_Banking
-ANZ Online Saver,97,2,7,37,IDR_Everyday_Banking
-ANZ Progress Saver,98,2,7,37,IDR_Everyday_Banking
-Business Online Saver Account,99,2,7,37,IDR_Everyday_Banking
-ANZ Term Deposit,100,2,7,38,IDR_Everyday_Banking
-ANZ Advance Notice Term Deposit,101,2,7,38,IDR_Everyday_Banking
-OnePath Life Term Deposit,102,2,7,38,IDR_Wealth
-ANZ Farm Management Deposit,103,2,7,38,IDR_Business_Owners
-Seniors Term Deposit,104,2,7,38,IDR_Everyday_Banking
-ANZ Business Notice Term Deposit,105,2,7,38,IDR_Business_Owners
-ANZ Term Deposit via External Platforms & Oasis Wrap,106,2,7,38,IDR_Wealth
-ANZ Credit Card Insurance,107,3,8,40,IDR_Everyday_Banking
-ANZ Loan Protection Insurance,108,3,8,40,IDR_Everyday_Banking
-ANZ Mortgage Protection Insurance,109,3,8,40,IDR_Home_Owners
-ANZ Landlord Insurance,111,3,8,41,IDR_Wealth
-ANZ Car Insurance (Comprehensive),112,3,8,44,IDR_Wealth
-"ANZ Car Insurance (Third Party Property Damage, Fire and Theft)",113,3,8,45,IDR_Wealth
-ANZ Car Insurance (Third Party Property Damage),114,3,8,46,IDR_Wealth
-ANZ Travel Insurance,115,3,8,56,IDR_Wealth
-ANZ Share Investment Loan,116,4,15,111,IDR_Wealth
-White-Label ANZ Share Investing Service,117,4,15,111,IDR_Wealth
-ANZ Accident Cover Plus,118,5,17,115,IDR_Wealth
-ANZ Critical Illness Cover,119,5,17,115,IDR_Wealth
-ANZ Income Cover,120,5,17,115,IDR_Wealth
-ANZ Income Protection,121,5,17,115,IDR_Wealth
-ANZ 50+ Life Cover,122,5,18,116,IDR_Wealth
-ANZ Life Insurance,123,5,18,120,IDR_Wealth
-ANZ Recover Well,124,5,18,122,IDR_Wealth
-ANZ Credit Cover Plus,125,5,18,122,IDR_Wealth
-ANZ Credit Cover,126,5,18,122,IDR_Wealth
-ANZ Smart Choice Super for Employers and their Employees,127,8,24,177,IDR_Wealth
-ANZ Smart Choice Pension,128,8,28,172,IDR_Wealth
-ANZ Smart Choice Super,129,8,28,177,IDR_Wealth
-ANZ Lenders Mortgage Insurance,130,3,8,40,IDR_Home_Owners
-Asset Finance,131,1,1,4,IDR_Business_Owners
-ANZ Low Rate Platinum Credit Card,132,1,2,11,IDR_Everyday_Banking
-ANZ Fixed Investment Property Loan,133,1,2,17,IDR_Home_Owners
-ANZ Simplicity Plus Investment Property Loan,134,1,2,17,IDR_Home_Owners
-ANZ Standard Variable Investment Property Loan,135,1,2,17,IDR_Home_Owners
-Margin Lending,136,1,4,26,IDR_Wealth
-ANZ Business Visa Debit card (ABVD),137,2,5,27,IDR_Business_Owners
-Missing Funds,138,2,5,27,IDR_Business_Owners
-ANZ Access Visa Debit card (AAVD),139,2,5,31,IDR_Everyday_Banking
-ANZ Home and Contents Insurance,140,3,8,41,IDR_Wealth
-ANZ Contents Insurance,141,3,8,42,IDR_Wealth
-ANZ ATM,142,6,19,126,IDR_Everyday_Banking
-Bank Drafts,143,6,19,127,IDR_Everyday_Banking
-Cheque,144,6,19,128,IDR_Everyday_Banking
-Branch Transaction,145,6,19,129,IDR_Everyday_Banking
-Direct Debit,146,6,19,130,IDR_Everyday_Banking
-EFTPOS Transaction,147,6,19,131,IDR_Everyday_Banking
-Cash Pack,148,6,19,133,IDR_Everyday_Banking
-Foreign Currency Transaction,149,6,19,133,IDR_Everyday_Banking
-FOREX,150,6,19,133,IDR_Everyday_Banking
-International payments,151,6,19,133,IDR_Everyday_Banking
-Merchant services,152,6,19,134,IDR_Business_Owners
-ANZ Reward Points,154,6,20,137,IDR_Everyday_Banking
-Qantas Frequent Flyer Points,155,6,20,137,IDR_Everyday_Banking
-ANZ App,156,6,20,138,IDR_Everyday_Banking
-ANZ Cashactive Virtual,157,6,20,138,IDR_Everyday_Banking
-ANZ FX Online,158,6,20,138,IDR_Everyday_Banking
-ANZ IB4B - Internet Banking for Business,159,6,20,138,IDR_Everyday_Banking
-ANZ Internet Banking,160,6,20,138,IDR_Everyday_Banking
-ANZ Private FX Online,161,6,20,138,IDR_Everyday_Banking
-ANZ Transactive,162,6,20,138,IDR_Everyday_Banking
-Currency by ANZ (app),163,6,20,138,IDR_Everyday_Banking
-Power of Attorney,164,7,21,180,IDR_Everyday_Banking
-Wills,165,7,21,181,IDR_Everyday_Banking
-Direct Investments,166,9,31,185,IDR_Wealth
-IPO & Capital Raising Campaigns,167,9,31,185,IDR_Business_Owners
-Self Managed Super Fund (SMSF),172,9,32,186,IDR_Wealth
-Open Banking/Data Sharing,173,10,34,188,IDR_Everyday_Banking
-N/A,999,10,34,188,IDR_Everyday_Banking
-ANZ Shield,174,6,20,138,IDR_Everyday_Banking
-Phone Banking,175,6,20,138,IDR_Everyday_Banking
-Deceased Estates,176,7,21,182,IDR_Everyday_Banking
-IVR,177,10,34,188,IDR_Everyday_Banking
-Business One,178,1,1,1,IDR_Business_Owners
-Salary Packaging Card,179,1,1,1,IDR_Business_Owners
-Business Overdraft,180,1,1,2,IDR_Business_Owners
-Business Select Package,181,1,1,2,IDR_Business_Owners
-Residential Investment Property Loan (Commercial Regulated Loan),182,1,1,2,IDR_Business_Owners
-Documentary Credit Facility,183,1,1,2,IDR_Business_Owners
-Import Credit & Trade Facility,184,1,1,2,IDR_Business_Owners
-Trade Finance Loan,185,1,1,2,IDR_Business_Owners
-Export Trade Facility,186,1,1,2,IDR_Business_Owners
-Encashment Facility,187,1,1,2,IDR_Business_Owners
-Commercial Bills,188,1,1,3,IDR_Business_Owners
-Asset Finance - Car Loans,189,1,1,4,IDR_Business_Owners
-Asset Finance - Esanda Business Equipment finance,190,1,1,4,IDR_Business_Owners
-Asset Finance - Hire purchase,191,1,1,4,IDR_Business_Owners
-Letter of Credit,192,1,1,5,IDR_Business_Owners
-Standby Letter of Credit,193,1,1,5,IDR_Business_Owners
-ANZ Frequent Flyer Visa Gold,194,1,2,11,IDR_Everyday_Banking
-ANZ Prepaid Card,195,1,2,11,IDR_Everyday_Banking
-ANZ Rewards Visa Gold,196,1,2,11,IDR_Everyday_Banking
-Aussie Mastercard,197,1,2,11,IDR_Everyday_Banking
-ANZ Balance Visa,198,1,2,11,IDR_Everyday_Banking
-Verified by Visa,199,1,2,11,IDR_Everyday_Banking
-ANZ Easy Start Residential Investment Loan,200,1,2,15,IDR_Home_Owners
-ANZ Easy Start Home Loan,201,1,2,15,IDR_Home_Owners
-Equity Release Fixed Rate Loan,202,1,2,15,IDR_Home_Owners
-Equity Release Variable Rate Loan,203,1,2,15,IDR_Home_Owners
-Fixed Rate,204,1,2,15,IDR_Home_Owners
-Home Loan Interest Saver,205,1,2,15,IDR_Home_Owners
-ANZ Money saver Home Loan,206,1,2,15,IDR_Home_Owners
-ANZ Money Saver Residential Investment Loan,207,1,2,15,IDR_Home_Owners
-Business Cash Management,208,2,5,27,IDR_Home_Owners
-Negotiable Certificate of Deposit,209,2,5,27,IDR_Business_Owners
-Premium Business Cash Account,210,2,5,27,IDR_Business_Owners
-Premium Business Cash Management,211,2,5,27,IDR_Business_Owners
-Short Term or Call Deposit,212,2,5,27,IDR_Business_Owners
-Structured Bill Investment,213,2,5,27,IDR_Business_Owners
-Corporate Transaction Account,214,2,5,27,IDR_Business_Owners
-Client Money Account (Cache),215,2,5,27,IDR_Business_Owners
-Corporate Statutory Trust (Cache),216,2,5,27,IDR_Business_Owners
-ANZ Design My Card,217,2,5,31,IDR_Everyday_Banking
-ANZ Online Investment Account,218,2,5,31,IDR_Everyday_Banking
-Esanda Term Deposit,219,2,5,31,IDR_Everyday_Banking
-Safe Deposit/ Locked Box/ Sealed Packet,220,2,5,31,IDR_Everyday_Banking
-Seniors Privilege,221,2,5,31,IDR_Everyday_Banking
-Access Deeming,222,2,5,31,IDR_Everyday_Banking
-Access Simplicity,223,2,5,31,IDR_Everyday_Banking
-Premier Cheque Account,224,2,5,31,IDR_Everyday_Banking
-Premier Cheque Account - with Overdraft,225,2,5,31,IDR_Everyday_Banking
-ANZ Plus - Savings (ANZ Save Account),226,2,5,31,IDR_Everyday_Banking
-ANZ Plus - Everyday (ANZ Plus Account),227,2,5,31,IDR_Everyday_Banking
-Corporate Term Deposit (Cache),228,2,7,38,IDR_Business_Owners
-Corporate Notice Term Deposit,229,2,7,38,IDR_Business_Owners
-Money Market Deposits,230,2,7,38,IDR_Business_Owners
-"FX - Spot, Value Today and Value Tomorrow",231,4,12,82,IDR_Business_Owners
-FX - Flexible Forwards,232,4,12,83,IDR_Business_Owners
-FX - Forward Exchange Contracts,233,4,12,83,IDR_Business_Owners
-FX - Foreign Currency Options,234,4,12,85,IDR_Business_Owners
-Commodity Swap Facilities,235,4,12,86,IDR_Business_Owners
-Agri Commodity Swap,236,4,12,86,IDR_Business_Owners
-International Money Transfers,237,6,19,133,IDR_Everyday_Banking
-Digital Wallets,238,6,20,138,IDR_Everyday_Banking
-ANZ Plus App,239,6,20,138,IDR_Everyday_Banking
-ANZ Cash Escrow Facility,240,6,20,138,IDR_Business_Owners
-Home Loan Protection Insurance,241,3,8,40,IDR_Home_Owners
-ANZ Standard Variable Residential Land Loan,242,1,2,15,IDR_Home_Owners
-ANZ Standard Variable Residential Investment Loan in a Company Name,243,1,2,15,IDR_Home_Owners
-ANZ Standard Variable Home Loan in a Company Name,244,1,2,15,IDR_Home_Owners
-ANZ Fixed Residential Investment Loan in a Company Name,245,1,2,15,IDR_Home_Owners
-ANZ Fixed Home Loan in a Company Name,246,1,2,15,IDR_Home_Owners
-ANZ Equity Manager in a Company Name,247,1,2,15,IDR_Home_Owners
-ANZ Standard Variable Residential Investment Land Loan,248,1,2,15,IDR_Home_Owners
-ANZ Interest-in-Advance Residential Investment Loan in a Company Name,249,1,2,15,IDR_Home_Owners
-ANZ Interest-in-Advance Residential Investment Loan,250,1,2,15,IDR_Home_Owners
-ANZ Portfolio Package,251,1,2,15,IDR_Home_Owners
-ANZ Staff Concessional Lending (SCC),252,1,2,15,IDR_Home_Owners
-ANZ Relief Home Loan,253,1,2,15,IDR_Home_Owners
-ANZ Money Saver Residential Investment Loan in a Company Name,254,1,2,15,IDR_Home_Owners
-ANZ Money Saver Residential Land Loan,255,1,2,15,IDR_Home_Owners
-ANZ Money Saver Residential Investment Land Loan,256,1,2,15,IDR_Home_Owners
-ANZ Home Equity Loan- Savings,257,1,2,15,IDR_Home_Owners
-ANZ Home Equity Loan In a Company Name-Cheque,258,1,2,15,IDR_Home_Owners
-ANZ Home Equity Loan,259,1,2,15,IDR_Home_Owners
-ANZ Home Equity Loan in a Company Name-Savings,260,1,2,15,IDR_Home_Owners
-ANZ Home Loan Protection (HLP)  Insurance,261,3,8,40,IDR_Everyday_Banking
-Man AHL Alpha (AUD),262,4,12,84,IDR_Wealth
-AQR Wholesale Managed Futures 1P,263,4,12,84,IDR_Wealth
-Winton Global Alpha,264,4,12,84,IDR_Wealth
-iShares Australian Equity Index,265,4,13,88,IDR_Wealth
-Vanguard Australian Shares Index,266,4,13,88,IDR_Wealth
-Ausbil Australian Active Equity,267,4,13,88,IDR_Wealth
-Bennelong Australian Equities,268,4,13,88,IDR_Wealth
-Bennelong ex-20 Australian Equities,269,4,13,88,IDR_Wealth
-Greencape Broadcap,270,4,13,88,IDR_Wealth
-Nikko AM Australian Share W,271,4,13,88,IDR_Wealth
-Perpetual Wholesale Ethical SRI,272,4,13,88,IDR_Wealth
-Investors Mutual WS Australian Share,273,4,13,88,IDR_Wealth
-Pendal Horizon Fund,274,4,13,88,IDR_Wealth
-Schroder WS Australian Equity Fund - WC,275,4,13,88,IDR_Wealth
-State Street Australian Equity,276,4,13,88,IDR_Wealth
-Yarra Australian Equities Fund,277,4,13,88,IDR_Wealth
-BlackRock Advantage Australian Equity,278,4,13,88,IDR_Wealth
-Fidelity Australian Equities,279,4,13,88,IDR_Wealth
-Alphinity Australian Share,280,4,13,88,IDR_Wealth
-Alphinity Sustainable Share,281,4,13,88,IDR_Wealth
-Ausbil Australian Emerging Leaders,282,4,13,88,IDR_Wealth
-Eley Griffiths Group Small Companies,283,4,13,88,IDR_Wealth
-Ironbark Karara Australian Small Comp,284,4,13,88,IDR_Wealth
-Pendal Smaller Companies,285,4,13,88,IDR_Wealth
-Ausbil 130/30 Focus - Wholesale,286,4,13,88,IDR_Wealth
-Pengana Emerging Companies,287,4,13,88,IDR_Wealth
-Perpetual W Share Plus L/S,288,4,13,88,IDR_Wealth
-Perpetual Wholesale Industrial,289,4,13,88,IDR_Wealth
-OnePath Wholesale -Select Leaders,290,4,13,88,IDR_Wealth
-OnePath Wholesale - Emerging Companies,291,4,13,88,IDR_Wealth
-Perpetual Wholesale Australian,292,4,13,88,IDR_Wealth
-Optimix Wholesale -Australian Share No.2,293,4,13,88,IDR_Wealth
-Merlon Australian Share Income,294,4,13,88,IDR_Wealth
-Perpetual Wholesale Geared Australian,295,4,13,88,IDR_Wealth
-Generation Life Bennelong Concentrated Australian Equities,296,4,13,88,IDR_Wealth
-Generation Investors Mutual Australian,297,4,13,88,IDR_Wealth
-Generation Investors Mutual Future Leaders,298,4,13,88,IDR_Wealth
-Generation iShares Wholesale Australian Equity Index,299,4,13,88,IDR_Wealth
-Generation Legg Mason Martin Currie Equities Inc,300,4,13,88,IDR_Wealth
-Generation Mutual 50 Leaders Australian,301,4,13,88,IDR_Wealth
-Generation Life Pendal Sustainability Aus Shares Fund,302,4,13,88,IDR_Wealth
-Generation Perpetual Wholesale Australia,303,4,13,88,IDR_Wealth
-Generation Perpetual Wholesale Etcl SRI,304,4,13,88,IDR_Wealth
-Generation Perpetual Wholsale Geared Aus,305,4,13,88,IDR_Wealth
-Generation BlackRock Concentrated Industrial Shares,306,4,13,88,IDR_Wealth
-ANZ Australian Small Companies SIV Portfolio,307,4,13,88,IDR_Wealth
-ANZ Australian Equities Capital (Tax Payer) Pfolio,308,4,13,88,IDR_Wealth
-ANZ Australian Equities Income (Tax Payer) Pfolio,309,4,13,88,IDR_Wealth
-OC Micro-Cap,310,4,13,88,IDR_Wealth
-Macquarie Australian Emerging Companies,311,4,13,88,IDR_Wealth
-Martin Currie Real Income Fund,312,4,13,88,IDR_Wealth
-First Sentier Australian Property Fund,313,4,13,88,IDR_Wealth
-Challenger Guaranteed Income Fund,314,4,13,88,IDR_Wealth
-IML Wholesale Australian Share Fund,315,4,13,88,IDR_Wealth
-Melior Australian Impact Fund,316,4,13,88,IDR_Wealth
-Inspire Australian Equities Fund,317,4,13,88,IDR_Wealth
-Perpetual Exact Market Cash,318,4,13,89,IDR_Wealth
-BlackRock Cash Fund,319,4,13,89,IDR_Wealth
-FSI Premium Cash Enhanced,320,4,13,89,IDR_Wealth
-ANZ Cash Plus,321,4,13,89,IDR_Wealth
-OnePath OA FR IP-ANZ Cash Advantage,322,4,13,89,IDR_Wealth
-UBS Cash Fund,323,4,13,89,IDR_Wealth
-UBS Income Solution Fund,324,4,13,89,IDR_Wealth
-Generation Mutual ADI/Bank Securities,325,4,13,89,IDR_Wealth
-Generation Kapstream Absolute Return Inc,326,4,13,89,IDR_Wealth
-Generation Life Term Deposit,327,4,13,89,IDR_Wealth
-Generation Macquarie Treasury,328,4,13,89,IDR_Wealth
-Patamar Fund II,329,4,13,89,IDR_Wealth
-Vanguard International Shares Index,330,4,13,94,IDR_Wealth
-Vanguard International Shares Index Hedged AUD,331,4,13,94,IDR_Wealth
-iShares Hedged International Equity Index,332,4,13,94,IDR_Wealth
-iShares International Equity Index,333,4,13,94,IDR_Wealth
-AMP Capital Ethical Leaders International Share A,334,4,13,94,IDR_Wealth
-Antipodes Global Fund - Long P,335,4,13,94,IDR_Wealth
-BlackRock Advantage International Equity Fund,336,4,13,94,IDR_Wealth
-Epoch Global Equity Shareholder Yield Fund Unhedged,337,4,13,94,IDR_Wealth
-IFP Global Franchise,338,4,13,94,IDR_Wealth
-MFS Global Equity Trust W,339,4,13,94,IDR_Wealth
-OnePath OneAnswer Frontier Investment Portfolio -OnePath Global Share,340,4,13,94,IDR_Wealth
-Platinum International Fund,341,4,13,94,IDR_Wealth
-Arrowstreet Global Equity,342,4,13,94,IDR_Wealth
-Arrowstreet Global Equity Hedged,343,4,13,94,IDR_Wealth
-Realindex Global Share-Class A,344,4,13,94,IDR_Wealth
-Realindex Global Share Hedged-Class A,345,4,13,94,IDR_Wealth
-State Street Global Equity,346,4,13,94,IDR_Wealth
-Stewart Investors W Worldwide Sustainability,347,4,13,94,IDR_Wealth
-Walter Scott Global Equity,348,4,13,94,IDR_Wealth
-Magellan Global Open Class,349,4,13,94,IDR_Wealth
-Vanguard Emerging Markets Shares Index,350,4,13,94,IDR_Wealth
-Aberdeen Standard Emerging Opports Fund,351,4,13,94,IDR_Wealth
-OnePath Wholesale - OnePath Global Emerging Markets Share,352,4,13,94,IDR_Wealth
-Vanguard International Small Companies Index Hedged,353,4,13,94,IDR_Wealth
-Vanguard International Small Companies,354,4,13,94,IDR_Wealth
-Lazard Global Small Cap W,355,4,13,94,IDR_Wealth
-T. Rowe Price Global Equity I,356,4,13,94,IDR_Wealth
-MFS Emerging Markets Equity Trust,357,4,13,94,IDR_Wealth
-Fidelity China,358,4,13,94,IDR_Wealth
-Fidelity India,359,4,13,94,IDR_Wealth
-Platinum Asia,360,4,13,94,IDR_Wealth
-Epoch Global Equity Shareholder Yield Fund Hedged,361,4,13,94,IDR_Wealth
-Optimix Wholesale - Global Share,362,4,13,94,IDR_Wealth
-Pendal Concentrated Global Share No.2,363,4,13,94,IDR_Wealth
-Pendal Concentrated Global Share Hedged,364,4,13,94,IDR_Wealth
-Platinum International Brands Fund,365,4,13,94,IDR_Wealth
-Walter Scott Global Equity Hedged,366,4,13,94,IDR_Wealth
-Zurich Investments Global Growth,367,4,13,94,IDR_Wealth
-Aberdeen Standard Actively Hedged International Equities Fund,368,4,13,94,IDR_Wealth
-Aberdeen Standard International Equity Fund,369,4,13,94,IDR_Wealth
-Optimix Wholesale - Global Smaller Companies,370,4,13,94,IDR_Wealth
-Altrinsic Global Equities Trust,371,4,13,94,IDR_Wealth
-Platinum European Fund,372,4,13,94,IDR_Wealth
-Zurich Investments Global Thematic Share,373,4,13,94,IDR_Wealth
-Zurich Investments Unhedged Global Thematic Share,374,4,13,94,IDR_Wealth
-Generation Dimensional Global Small Companies,375,4,13,94,IDR_Wealth
-Generation iShares Hedged International Equity Index,376,4,13,94,IDR_Wealth
-Generation iShares Wholesale International Equity Index,377,4,13,94,IDR_Wealth
-Generation Magellan Global,378,4,13,94,IDR_Wealth
-Generation Life Investment Bonds MFS Concentrated Global Equity Trust,379,4,13,94,IDR_Wealth
-Generation Perpetual Wholesale International,380,4,13,94,IDR_Wealth
-Generation Life LMMC Emerging Markets,381,4,13,94,IDR_Wealth
-ANZ Australian Equities Capital (Non-Tax Payer) Portfolio,382,4,13,96,IDR_Wealth
-ANZ Australian Equities Income (Non-Tax Payer) Portfolio,383,4,13,96,IDR_Wealth
-ANZ Australian Equities Capital (Tax Payer) Portfolio,384,4,13,96,IDR_Wealth
-ANZ Australian Equities Income (Tax Payer) Portfolio,385,4,13,96,IDR_Wealth
-ANZ Active International Equities Portfolio,386,4,13,96,IDR_Wealth
-ANZ Dynamic International Equities Portfolio,387,4,13,96,IDR_Wealth
-ANZ Nikko Ex-20 Portfolio,388,4,13,96,IDR_Wealth
-ANZ Nikko Income Portfolio,389,4,13,96,IDR_Wealth
-ANZ Yarra Ex-20 Portfolio,390,4,13,96,IDR_Wealth
-ANZ Dynamic Fixed Income Portfolio,391,4,13,96,IDR_Wealth
-ANZ Australian Fixed Income Portfolio,392,4,13,96,IDR_Wealth
-ANZ Enhanced Yield Portfolio,393,4,13,96,IDR_Wealth
-ANZ International Fixed Income Portfolio,394,4,13,96,IDR_Wealth
-Aviva Investors Multi-Strategy Target Return,395,4,13,96,IDR_Wealth
-ANZ Dynamic 30 Diversified Portfolio,396,4,13,96,IDR_Wealth
-ANZ Dynamic 50 Diversified Portfolio,397,4,13,96,IDR_Wealth
-ANZ Dynamic 70 Diversified Portfolio,398,4,13,96,IDR_Wealth
-ANZ Dynamic 100 Diversified (Non-Tax Payer) Portfolio,399,4,13,96,IDR_Wealth
-ANZ Dynamic 100 Diversified (Tax Payer) Portfolio,400,4,13,96,IDR_Wealth
-Dynamic Core D30,401,4,13,96,IDR_Wealth
-Dynamic Core D50,402,4,13,96,IDR_Wealth
-Dynamic Core D70,403,4,13,96,IDR_Wealth
-Dynamic Core D100,404,4,13,96,IDR_Wealth
-Dynamic Managed 30,405,4,13,96,IDR_Wealth
-Dynamic Managed 50,406,4,13,96,IDR_Wealth
-Dynamic Managed 70,407,4,13,96,IDR_Wealth
-Dynamic Managed 100,408,4,13,96,IDR_Wealth
-Vanguard Conservative Index,409,4,13,98,IDR_Wealth
-Vanguard Balanced Index Fund,410,4,13,98,IDR_Wealth
-Vanguard Growth Index,411,4,13,98,IDR_Wealth
-Vanguard High Growth Index,412,4,13,98,IDR_Wealth
-OnePath Wholesale - Balanced Trust,413,4,13,98,IDR_Wealth
-OnePath Wholesale - Capital Stable Trust,414,4,13,98,IDR_Wealth
-OnePath Wholesale - Managed Growth,415,4,13,98,IDR_Wealth
-Pendal Active Growth,416,4,13,98,IDR_Wealth
-Pendal Balanced Returns,417,4,13,98,IDR_Wealth
-Perpetual Wholesale Balanced Growth,418,4,13,98,IDR_Wealth
-First Sentier Investors Wholesale Conservative,419,4,13,98,IDR_Wealth
-First Sentier Investors Wholesale High Growth,420,4,13,98,IDR_Wealth
-Generation Life DFA World Allocation 50/50 Trust,421,4,13,98,IDR_Wealth
-Generation Dimensional World Allocation 70/30 Trust,422,4,13,98,IDR_Wealth
-Generation Life MLC Horizon 2 Income,423,4,13,98,IDR_Wealth
-Generation Life MLC Horizon 3 Conservative Growth,424,4,13,98,IDR_Wealth
-Generation MLC Horizon 4 Balanced Portfolio,425,4,13,98,IDR_Wealth
-Generation Life Pendal Sustainability Balanced Fund,426,4,13,98,IDR_Wealth
-Generation Perpetual Wholesale Balanced Growth,427,4,13,98,IDR_Wealth
-Generation Perpetual Wholesale Conservative Growth,428,4,13,98,IDR_Wealth
-Generation Life Sectoral Blend,429,4,13,98,IDR_Wealth
-Generation Life Investment Bonds Vanguard Balance Portfolio,430,4,13,98,IDR_Wealth
-Generation Life Investment Bonds Vanguard Conservative Portfolio,431,4,13,98,IDR_Wealth
-Generation Life Investment Bonds Vanguard Growth Portolio,432,4,13,98,IDR_Wealth
-Generation Life Investment Bonds Vanguard High Growth Portfolio,433,4,13,98,IDR_Wealth
-Generation Life MLC Horizon 6 Share,434,4,13,98,IDR_Wealth
-Ironbark GCM Global Macro,435,4,13,98,IDR_Wealth
-AQR WS DELTA 1F,436,4,13,98,IDR_Wealth
-Fulcrum Diversified Investments Fund,437,4,13,98,IDR_Wealth
-Pendal Pure Alpha Fixed Income,438,4,13,98,IDR_Wealth
-Aviva Inv Mlt-Stgy Tgt Ret Fh AUD Inc,439,4,13,98,IDR_Wealth
-OnePath OA FR IP-OnePath Alts Gr,440,4,13,98,IDR_Wealth
-Schroder Real Return Fnd -WC,441,4,13,98,IDR_Wealth
-Generation Schroder Rl Rt CPI Plus 5%,442,4,13,98,IDR_Wealth
-Kilter Murray-Darling Basin Balanced Water Fund,443,4,13,100,IDR_Wealth
-Australian Unity Specialist Disability Accommodation Fund,444,4,13,101,IDR_Wealth
-Synergis Fund,445,4,13,101,IDR_Wealth
-Vanguard Australian Property Securities Index,446,4,14,105,IDR_Wealth
-iShares Australian Listed Property Index,447,4,14,105,IDR_Wealth
-APN Australian Real Estate Investment Trusts Fund,448,4,14,105,IDR_Wealth
-OnePath Wholesale - Property Securities Trust,449,4,14,105,IDR_Wealth
-Pendal Property Investment,450,4,14,105,IDR_Wealth
-Ironbark Paladin Property Securities,451,4,14,105,IDR_Wealth
-Zurich Investments Aus Property Securities,452,4,14,105,IDR_Wealth
-Optimix Wholesale - Property Securities B,453,4,14,105,IDR_Wealth
-SG Hiscock Property,454,4,14,105,IDR_Wealth
-Vanguard International Property Securities Index Hedged,455,4,14,105,IDR_Wealth
-Vanguard International Property Securities Index,456,4,14,105,IDR_Wealth
-iShares Global Listed Property Index Fund - Hedged S Class Units,457,4,14,105,IDR_Wealth
-OnePath OneAnswer Frontier Investment Portfolio - OnePath Global Property Securities Index,458,4,14,105,IDR_Wealth
-Resolution Capital Global Property Securities,459,4,14,105,IDR_Wealth
-AMP Capital Global Property Securities A,460,4,14,105,IDR_Wealth
-First Sentier Global Listed Infrastructure Fund,461,4,14,105,IDR_Wealth
-Lazard Global Listed Infrastructure,462,4,14,105,IDR_Wealth
-Magellan Infrastructure,463,4,14,105,IDR_Wealth
-Ironbark Global (ex-Aus) Property Securities,464,4,14,105,IDR_Wealth
-Generation iShares Wholesale Australian Listed Property Index,465,4,14,105,IDR_Wealth
-Generation Mason Martin Currie Rl Inc,466,4,14,105,IDR_Wealth
-Generation AMP Capital Global Property Securities,467,4,14,105,IDR_Wealth
-Generation Magellan Infrastructure,468,4,14,105,IDR_Wealth
-Kilter Australian Farmland Funds,469,4,14,105,IDR_Wealth
-Infrastructure Access Fund,470,4,14,105,IDR_Wealth
-The Impact Fund,471,4,14,105,IDR_Wealth
-Infradebt Ethical Investment Fund 2,472,4,14,105,IDR_Wealth
-Kapstream Absolute Return Income,473,4,15,107,IDR_Wealth
-Bentham Global Income,474,4,15,107,IDR_Wealth
-Franklin Templeton Multisector Bond W,475,4,15,107,IDR_Wealth
-Janus Henderson Glb Fixed Intst Ttl Ret,476,4,15,107,IDR_Wealth
-Yarra Enhanced Income Fund,477,4,15,107,IDR_Wealth
-Macquarie Income Opportunities,478,4,15,107,IDR_Wealth
-State Street Floating Rate Fund,479,4,15,107,IDR_Wealth
-Ardea Real Outcome Fund,480,4,15,107,IDR_Wealth
-Schroder Absolute Return Income Fund -WC,481,4,15,107,IDR_Wealth
-OnePath WS-Dvrs Crdt,482,4,15,107,IDR_Wealth
-Generation Life Schroder Abs Rtrn Income,483,4,15,107,IDR_Wealth
-iShares Australian Bond Index,484,4,15,107,IDR_Wealth
-Vanguard Australian Fixed Interest Index,485,4,15,107,IDR_Wealth
-PIMCO Australian Bond W,486,4,15,107,IDR_Wealth
-Schroder Fixed Income Fund - Wholesale,487,4,15,107,IDR_Wealth
-Janus Henderson Australian Fxd Intst,488,4,15,107,IDR_Wealth
-Janus Henderson Tactical Income,489,4,15,107,IDR_Wealth
-Vanguard International Fxd Intr Idx Hdg,490,4,15,107,IDR_Wealth
-PIMCO Global Bond W,491,4,15,107,IDR_Wealth
-OnePath WS-Diversified Fixed Interest,492,4,15,107,IDR_Wealth
-PIMCO Diversified Fixed Interest W,493,4,15,107,IDR_Wealth
-Vanguard Diversified Bond Index,494,4,15,107,IDR_Wealth
-UBS Diversified Fixed Income Fund,495,4,15,107,IDR_Wealth
-Generation iShares Wholesale AUS Bd Idx,496,4,15,107,IDR_Wealth
-Generation PIMCO Wholesale Australian Bd,497,4,15,107,IDR_Wealth
-Generation PIMCO Wholesale Global Bond,498,4,15,107,IDR_Wealth
-Zurich Ezicover Income Protection,499,5,17,115,IDR_Wealth
-OneCare Income Protection,500,5,17,115,IDR_Wealth
-Zurich Income Protection,501,5,17,115,IDR_Wealth
-TAL Income Protection,502,5,17,115,IDR_Wealth
-AIA Income Protection,503,5,17,115,IDR_Wealth
-BT Life Income Protection,504,5,17,115,IDR_Wealth
-AMP Income Protection,505,5,17,115,IDR_Wealth
-Asteron Income Protection,506,5,17,115,IDR_Wealth
-Challenger Annuity,507,5,18,116,IDR_Wealth
-Challenger SIV Annuity,508,5,18,116,IDR_Wealth
-Zurich Ezicover Life Insurance,509,5,18,120,IDR_Wealth
-OneCare Life Insurance,510,5,18,120,IDR_Wealth
-Zurich Life Insurance,511,5,18,120,IDR_Wealth
-TAL Life Insurance,512,5,18,120,IDR_Wealth
-AIA Life Insurance,513,5,18,120,IDR_Wealth
-BT Life Life Insurance,514,5,18,120,IDR_Wealth
-AMP Life Insurance,515,5,18,120,IDR_Wealth
-Asteron Life Insurance,516,5,18,120,IDR_Wealth
-OneCare TPD,517,5,18,122,IDR_Wealth
-Zurich TPD,518,5,18,122,IDR_Wealth
-TAL TPD,519,5,18,122,IDR_Wealth
-AIA TPD,520,5,18,122,IDR_Wealth
-BT Life TPD,521,5,18,122,IDR_Wealth
-AMP TPD,522,5,18,122,IDR_Wealth
-Asteron TPD,523,5,18,122,IDR_Wealth
-OneCare Trauma Insurance,524,5,18,123,IDR_Wealth
-Zurich Trauma Insurance,525,5,18,123,IDR_Wealth
-TAL Trauma Insurance,526,5,18,123,IDR_Wealth
-AIA Trauma Insurance,527,5,18,123,IDR_Wealth
-BT Life Trauma Insurance,528,5,18,123,IDR_Wealth
-AMP Trauma Insurance,529,5,18,123,IDR_Wealth
-Asteron Trauma Insurance,530,5,18,123,IDR_Wealth
-International Visa Debit,531,6,19,133,IDR_Everyday_Banking
-Credit Transaction,532,6,19,133,IDR_Everyday_Banking
-International Telegraphic Transfer,533,6,19,135,IDR_Everyday_Banking
-Domestic Telegraphic Transfer,534,6,19,135,IDR_Everyday_Banking
-Challenger Pension,535,8,22,143,IDR_Wealth
-ANZ Staff Super - Life cover,536,8,24,173,IDR_Wealth
-ANZ Staff Super Retirement Income,537,8,24,172,IDR_Wealth
-ANZ Staff Super Scheme,539,8,24,177,IDR_Wealth
-ANZ Staff Super - TPD,540,8,24,175,IDR_Wealth
-ANZ Staff Super - Income Protection,541,8,24,122,IDR_Wealth
-OneAnswer Frontier Pension,542,8,28,172,IDR_Wealth
-ANZ OneAnswer Pension,543,8,28,172,IDR_Wealth
-OneAnswer Frontier Super,544,8,28,177,IDR_Wealth
-ANZ OneAnswer Super,545,8,28,177,IDR_Wealth
-ANZ OneAnswer Superannuation,546,9,32,186,IDR_Wealth
-ANZ OneAnswer Investment Portfolio,547,9,32,186,IDR_Wealth
-OneAnswer Frontier Superannuation,548,9,32,186,IDR_Wealth
-OneAnswer Frontier Investment Portfolio,549,9,32,186,IDR_Wealth
-BT Wrap - Investment,550,9,32,186,IDR_Wealth
-BT Wrap - Super/Pension,551,9,32,186,IDR_Wealth
-Netwealth Accelerator Plus - Investments,552,9,32,186,IDR_Wealth
-Netwealth Accelerator Plus - Super,553,9,32,186,IDR_Wealth
-Netwealth Accelerator Core - Investments,554,9,32,186,IDR_Wealth
-Netwealth Accelerator Core - Super,555,9,32,186,IDR_Wealth
-Praemium Wrap,556,9,32,186,IDR_Wealth
-Panorama Wrap,557,9,32,186,IDR_Wealth
-Challenger Guaranteed Annuity,558,9,32,186,IDR_Wealth
-Challenger Guaranteed Annuity - Liquid Lifetime,559,9,32,186,IDR_Wealth
-GenerationLife Investment Bond,560,9,32,186,IDR_Wealth
-(Retail Insurance) OneCare,561,9,32,186,IDR_Wealth
-(Retail Insurance) Zurich,562,9,32,186,IDR_Wealth
-(Retail Insurance) TAL,563,9,32,186,IDR_Wealth
-(Retail Insurance) AIA,564,9,32,186,IDR_Wealth
-(Retail Insurance) BTLife,565,9,32,186,IDR_Wealth
-(Retail Insurance) AMP,566,9,32,186,IDR_Wealth
-(Retail Insurance) Asteron,567,9,32,186,IDR_Wealth
-ABC,,3,9,61,
+Name,ANZ_Product_Code__c,IDR_Product_or_Service_Line__c,IDR_Product_or_Service_Category__c,IDR_Product_or_Service_Type__c,IDR_Workbasket__c,IsActive
+ANZ Business Black Credit Card,1,1,1,1,IDR_Business_Owners,TRUE
+ANZ Business 55 Days Interest Free Credit Card,2,1,1,1,IDR_Business_Owners,TRUE
+ANZ Business Rewards Options Credit Card,3,1,1,1,IDR_Business_Owners,TRUE
+ANZ Business Low Rate Credit Card,4,1,1,1,IDR_Business_Owners,TRUE
+ANZ Visa Purchasing Card,5,1,1,1,IDR_Business_Owners,TRUE
+ANZ Virtual Card,6,1,1,1,IDR_Business_Owners,TRUE
+ANZ Travel Account,7,1,1,1,IDR_Business_Owners,TRUE
+ANZ Corporate Card,8,1,1,1,IDR_Business_Owners,TRUE
+AGRI Finance Loan,9,1,1,2,IDR_Business_Owners,TRUE
+ANZ Business Loan (ABL) for Personal Investment,10,1,1,2,IDR_Business_Owners,TRUE
+ANZ Business Loan (ABL),11,1,1,2,IDR_Business_Owners,TRUE
+ANZ Business Mortgage Loan (BML),12,1,1,2,IDR_Business_Owners,TRUE
+ANZ Business Saver Loan,13,1,1,2,IDR_Business_Owners,TRUE
+Investment Property Loan (Grand Fathered),14,1,1,2,IDR_Business_Owners,TRUE
+Tailored Commercial Facility (TCF) - VARIABLE INT,15,1,1,3,IDR_Business_Owners,TRUE
+Tailored Commercial Facility (TCF) - RANGE INT,16,1,1,3,IDR_Business_Owners,TRUE
+Tailored Commercial Facility (TCF) - FIXED INT,17,1,1,3,IDR_Business_Owners,TRUE
+Tailored Commercial Facility (TCF) - FIX INT IN ADV,18,1,1,3,IDR_Business_Owners,TRUE
+Tailored Commercial Facility (TCF) - CAPPED INT,19,1,1,3,IDR_Business_Owners,TRUE
+Tailored Commercial Facility (TCF),20,1,1,3,IDR_Business_Owners,TRUE
+ANZ Tailored Business Facility,21,1,1,3,IDR_Business_Owners,TRUE
+Chattel Mortgage,22,1,1,4,IDR_Business_Owners,TRUE
+Finance Lease,23,1,1,4,IDR_Business_Owners,TRUE
+Novated Lease,24,1,1,4,IDR_Business_Owners,TRUE
+Luxury Asset Lease,25,1,1,4,IDR_Business_Owners,TRUE
+Offer to Hire,26,1,1,4,IDR_Business_Owners,TRUE
+ANZ Revolving AGRI Line overdraft,27,1,1,6,IDR_Business_Owners,TRUE
+Business Credit Facility (Commercial Overdraft),28,1,1,6,IDR_Business_Owners,TRUE
+Business Advantage Overdraft,29,1,1,6,IDR_Business_Owners,TRUE
+Agri Finance Offset Account,30,2,5,27,IDR_Business_Owners,TRUE
+ANZ Business Offset,31,2,5,27,IDR_Business_Owners,TRUE
+BML Offset Account - with Cheque Book,32,2,5,27,IDR_Business_Owners,TRUE
+ANZ First Credit Card,33,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Platinum Credit Card,34,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ First (for Students) Credit Card,35,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Low Rate Credit Card,36,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Rewards Black Credit Card,37,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Rewards Travel Adventures Credit Card,38,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Rewards Platinum Credit Card,39,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Rewards Credit Card,40,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Frequent Flyer Credit Card,41,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Frequent Flyer Platinum Credit Card,42,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Frequent Flyer Black Credit Card,43,1,2,11,IDR_Everyday_Banking,TRUE
+Travel Money,44,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Travel Card (Multi Currency),45,6,20,139,IDR_Everyday_Banking,TRUE
+ANZ Breakfree Package,46,1,2,15,IDR_Home_Owners,TRUE
+ANZ Standard Variable Home Loan,47,1,2,15,IDR_Home_Owners,TRUE
+ANZ Fixed Home Loan,48,1,2,15,IDR_Home_Owners,TRUE
+ANZ Simplicity Plus Home Loan,49,1,2,15,IDR_Home_Owners,TRUE
+ANZ Equity Manager,50,1,2,18,IDR_Home_Owners,TRUE
+ANZ Assured,51,1,2,18,IDR_Everyday_Banking,TRUE
+ANZ Personal Overdraft,52,1,2,18,IDR_Everyday_Banking,TRUE
+ANZ Variable Rate Personal Loan,53,1,2,20,IDR_Everyday_Banking,TRUE
+ANZ Fixed Rate Personal Loan,54,1,2,20,IDR_Everyday_Banking,TRUE
+Cash Covered Facility Account,55,1,3,23,IDR_Everyday_Banking,TRUE
+Cash Cover Indemnity Guarantee,56,1,3,23,IDR_Everyday_Banking,TRUE
+Indemnity Guarantee Facility,57,1,3,23,IDR_Everyday_Banking,TRUE
+Business Classic Account,58,2,5,27,IDR_Business_Owners,TRUE
+GST Payment Account,59,2,5,27,IDR_Business_Owners,TRUE
+Business Extra 50 Account,60,2,5,27,IDR_Business_Owners,TRUE
+Business Extra Account,61,2,5,27,IDR_Business_Owners,TRUE
+Negotiator Account,62,2,5,27,IDR_Business_Owners,TRUE
+ANZ Business Essentials (Previously ANZ Business Premium Saver),63,2,5,27,IDR_Business_Owners,TRUE
+Negotiator Investor Account,64,2,5,27,IDR_Business_Owners,TRUE
+Statutory Trust Account,65,2,5,27,IDR_Business_Owners,TRUE
+Business Advantage Account,66,2,5,27,IDR_Business_Owners,TRUE
+Security Deposit Account,67,2,5,27,IDR_Business_Owners,TRUE
+Farm Management Deposit Account,68,2,5,27,IDR_Business_Owners,TRUE
+ANZ One Offset Account,69,2,5,29,IDR_Everyday_Banking,TRUE
+ANZ Access Select,70,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Everyday Visa Debit,71,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ V2Plus (Retail),72,2,5,31,IDR_Everyday_Banking,FALSE
+ANZ First Home Saver,73,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Cash Management Account,74,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Passbook Pensioner Advantage,75,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Passbook Savings,76,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Access Advantage,77,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Pensioner Advantage,78,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Access Basic,79,2,5,31,IDR_Everyday_Banking,TRUE
+Staff Cheque Account,80,2,5,31,IDR_Everyday_Banking,TRUE
+Retired Officers Cheque Account,81,2,5,31,IDR_Everyday_Banking,TRUE
+Security Deposit,82,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Access Limited,83,2,5,31,IDR_Everyday_Banking,TRUE
+V2 Plus,84,2,5,31,IDR_Everyday_Banking,TRUE
+V2 Plus Broking,85,2,5,31,IDR_Everyday_Banking,TRUE
+V2 Plus including Margin Lending,86,2,5,31,IDR_Everyday_Banking,TRUE
+V2 Plus Intermediary,87,2,5,31,IDR_Everyday_Banking,TRUE
+Custodial Services,88,2,6,33,IDR_Everyday_Banking,TRUE
+ANZ Premium Cash Management Account,89,2,7,35,IDR_Everyday_Banking,TRUE
+ANZ Cash Investment Account,90,2,7,35,IDR_Everyday_Banking,TRUE
+Investor Cash Hub,91,2,7,35,IDR_Everyday_Banking,TRUE
+ANZ SMSF Cash Hub,92,2,7,35,IDR_Everyday_Banking,TRUE
+ANZ Cash Advantage,93,2,7,35,IDR_Everyday_Banking,TRUE
+Prime Cash Management Account,94,2,7,35,IDR_Everyday_Banking,TRUE
+Prime Cash Management Account - Pension,95,2,7,35,IDR_Everyday_Banking,TRUE
+ANZ Online Saver,97,2,7,37,IDR_Everyday_Banking,TRUE
+ANZ Progress Saver,98,2,7,37,IDR_Everyday_Banking,TRUE
+Business Online Saver Account,99,2,7,37,IDR_Everyday_Banking,TRUE
+ANZ Term Deposit,100,2,7,38,IDR_Everyday_Banking,TRUE
+ANZ Advance Notice Term Deposit,101,2,7,38,IDR_Everyday_Banking,TRUE
+OnePath Life Term Deposit,102,2,7,38,IDR_Wealth,TRUE
+ANZ Farm Management Deposit,103,2,7,38,IDR_Business_Owners,TRUE
+Seniors Term Deposit,104,2,7,38,IDR_Everyday_Banking,TRUE
+ANZ Business Notice Term Deposit,105,2,7,38,IDR_Business_Owners,TRUE
+ANZ Term Deposit via External Platforms & Oasis Wrap,106,2,7,38,IDR_Wealth,TRUE
+ANZ Credit Card Insurance,107,3,8,40,IDR_Everyday_Banking,TRUE
+ANZ Loan Protection Insurance,108,3,8,40,IDR_Everyday_Banking,TRUE
+ANZ Mortgage Protection Insurance,109,3,8,40,IDR_Home_Owners,TRUE
+ANZ Landlord Insurance (QBE),111,3,8,41,IDR_Wealth,TRUE
+ANZ Car Insurance (Comprehensive) (QBE),112,3,8,44,IDR_Wealth,TRUE
+"ANZ Car Insurance (Third Party Property Damage, Fire and Theft)",113,3,8,45,IDR_Wealth,TRUE
+ANZ Car Insurance (Third Party Property Damage),114,3,8,46,IDR_Wealth,TRUE
+ANZ Travel Insurance,115,3,8,56,IDR_Wealth,TRUE
+ANZ Share Investment Loan,116,4,15,111,IDR_Wealth,TRUE
+White-Label ANZ Share Investing Service,117,4,15,111,IDR_Wealth,TRUE
+ANZ Accident Cover Plus,118,5,17,115,IDR_Wealth,TRUE
+ANZ Critical Illness Cover,119,5,17,115,IDR_Wealth,TRUE
+ANZ Income Cover,120,5,17,115,IDR_Wealth,TRUE
+ANZ Income Protection,121,5,17,115,IDR_Wealth,TRUE
+ANZ 50+ Life Cover,122,5,18,116,IDR_Wealth,TRUE
+ANZ Life Insurance,123,5,18,120,IDR_Wealth,TRUE
+ANZ Recover Well,124,5,18,122,IDR_Wealth,TRUE
+ANZ Credit Cover Plus,125,5,18,122,IDR_Wealth,TRUE
+ANZ Credit Cover,126,5,18,122,IDR_Wealth,TRUE
+ANZ Smart Choice Super for Employers and their Employees,127,8,24,177,IDR_Wealth,TRUE
+ANZ Smart Choice Pension,128,8,28,172,IDR_Wealth,TRUE
+ANZ Smart Choice Super,129,8,28,177,IDR_Wealth,TRUE
+ANZ Lenders Mortgage Insurance,130,3,8,40,IDR_Home_Owners,TRUE
+Asset Finance,131,1,1,4,IDR_Business_Owners,TRUE
+ANZ Low Rate Platinum Credit Card,132,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Fixed Investment Property Loan,133,1,2,17,IDR_Home_Owners,TRUE
+ANZ Simplicity Plus Investment Property Loan,134,1,2,17,IDR_Home_Owners,TRUE
+ANZ Standard Variable Investment Property Loan,135,1,2,17,IDR_Home_Owners,TRUE
+Margin Lending,136,1,4,26,IDR_Wealth,TRUE
+ANZ Business Visa Debit card (ABVD),137,2,5,27,IDR_Business_Owners,TRUE
+Missing Funds,138,2,5,27,IDR_Business_Owners,TRUE
+ANZ Access Visa Debit card (AAVD),139,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Home and Contents Insurance (QBE),140,3,8,41,IDR_Wealth,TRUE
+ANZ Contents Insurance,141,3,8,42,IDR_Wealth,TRUE
+ANZ ATM,142,6,19,126,IDR_Everyday_Banking,TRUE
+Bank Drafts,143,6,19,127,IDR_Everyday_Banking,TRUE
+Cheque,144,6,19,128,IDR_Everyday_Banking,TRUE
+Branch Transaction,145,6,19,129,IDR_Everyday_Banking,TRUE
+Direct Debit,146,6,19,130,IDR_Everyday_Banking,TRUE
+EFTPOS Transaction,147,6,19,131,IDR_Everyday_Banking,TRUE
+Cash Pack,148,6,19,133,IDR_Everyday_Banking,TRUE
+Foreign Currency Transaction,149,6,19,133,IDR_Everyday_Banking,TRUE
+FOREX,150,6,19,133,IDR_Everyday_Banking,TRUE
+International payments,151,6,19,133,IDR_Everyday_Banking,TRUE
+Merchant services,152,6,19,134,IDR_Business_Owners,TRUE
+ANZ Reward Points,154,6,20,137,IDR_Everyday_Banking,TRUE
+Qantas Frequent Flyer Points,155,6,20,137,IDR_Everyday_Banking,TRUE
+ANZ App,156,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ Cashactive Virtual,157,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ FX Online,158,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ IB4B - Internet Banking for Business,159,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ Internet Banking,160,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ Private FX Online,161,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ Transactive,162,6,20,138,IDR_Everyday_Banking,TRUE
+Currency by ANZ (app),163,6,20,138,IDR_Everyday_Banking,TRUE
+Power of Attorney,164,7,21,180,IDR_Everyday_Banking,TRUE
+Wills,165,7,21,181,IDR_Everyday_Banking,TRUE
+Direct Investments,166,9,31,185,IDR_Wealth,TRUE
+IPO & Capital Raising Campaigns,167,9,31,185,IDR_Business_Owners,TRUE
+Self Managed Super Fund (SMSF),172,9,32,186,IDR_Wealth,TRUE
+Open Banking/Data Sharing,173,10,34,188,IDR_Everyday_Banking,TRUE
+ANZ Shield,174,6,20,138,IDR_Everyday_Banking,TRUE
+Phone Banking,175,6,20,138,IDR_Everyday_Banking,TRUE
+Deceased Estates,176,7,21,182,IDR_Everyday_Banking,TRUE
+IVR,177,10,34,188,IDR_Everyday_Banking,TRUE
+Business One,178,1,1,1,IDR_Business_Owners,TRUE
+Salary Packaging Card,179,1,1,1,IDR_Business_Owners,TRUE
+Business Overdraft,180,1,1,2,IDR_Business_Owners,TRUE
+Business Select Package,181,1,1,2,IDR_Business_Owners,TRUE
+Residential Investment Property Loan (Commercial Regulated Loan),182,1,1,2,IDR_Business_Owners,TRUE
+Documentary Credit Facility,183,1,1,2,IDR_Business_Owners,TRUE
+Import Credit & Trade Facility,184,1,1,2,IDR_Business_Owners,TRUE
+Trade Finance Loan,185,1,1,2,IDR_Business_Owners,TRUE
+Export Trade Facility,186,1,1,2,IDR_Business_Owners,TRUE
+Encashment Facility,187,1,1,2,IDR_Business_Owners,TRUE
+Commercial Bills,188,1,1,3,IDR_Business_Owners,TRUE
+Asset Finance - Car Loans,189,1,1,4,IDR_Business_Owners,TRUE
+Asset Finance - Esanda Business Equipment finance,190,1,1,4,IDR_Business_Owners,TRUE
+Asset Finance - Hire purchase,191,1,1,4,IDR_Business_Owners,TRUE
+Letter of Credit,192,1,1,5,IDR_Business_Owners,TRUE
+Standby Letter of Credit,193,1,1,5,IDR_Business_Owners,TRUE
+ANZ Frequent Flyer Visa Gold,194,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Prepaid Card,195,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Rewards Visa Gold,196,1,2,11,IDR_Everyday_Banking,TRUE
+Aussie Mastercard,197,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Balance Visa,198,1,2,11,IDR_Everyday_Banking,TRUE
+Verified by Visa,199,1,2,11,IDR_Everyday_Banking,TRUE
+ANZ Easy Start Residential Investment Loan,200,1,2,15,IDR_Home_Owners,TRUE
+ANZ Easy Start Home Loan,201,1,2,15,IDR_Home_Owners,TRUE
+Equity Release Fixed Rate Loan,202,1,2,15,IDR_Home_Owners,TRUE
+Equity Release Variable Rate Loan,203,1,2,15,IDR_Home_Owners,TRUE
+Fixed Rate,204,1,2,15,IDR_Home_Owners,TRUE
+Home Loan Interest Saver,205,1,2,15,IDR_Home_Owners,TRUE
+ANZ Money saver Home Loan,206,1,2,15,IDR_Home_Owners,TRUE
+ANZ Money Saver Residential Investment Loan,207,1,2,15,IDR_Home_Owners,TRUE
+Business Cash Management,208,2,5,27,IDR_Home_Owners,TRUE
+Negotiable Certificate of Deposit,209,2,5,27,IDR_Business_Owners,TRUE
+Premium Business Cash Account,210,2,5,27,IDR_Business_Owners,TRUE
+Premium Business Cash Management,211,2,5,27,IDR_Business_Owners,TRUE
+Short Term or Call Deposit,212,2,5,27,IDR_Business_Owners,TRUE
+Structured Bill Investment,213,2,5,27,IDR_Business_Owners,TRUE
+Corporate Transaction Account,214,2,5,27,IDR_Business_Owners,TRUE
+Client Money Account (Cache),215,2,5,27,IDR_Business_Owners,TRUE
+Corporate Statutory Trust (Cache),216,2,5,27,IDR_Business_Owners,TRUE
+ANZ Design My Card,217,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Online Investment Account,218,2,5,31,IDR_Everyday_Banking,TRUE
+Esanda Term Deposit,219,2,5,31,IDR_Everyday_Banking,TRUE
+Safe Deposit/ Locked Box/ Sealed Packet,220,2,5,31,IDR_Everyday_Banking,TRUE
+Seniors Privilege,221,2,5,31,IDR_Everyday_Banking,TRUE
+Access Deeming,222,2,5,31,IDR_Everyday_Banking,TRUE
+Access Simplicity,223,2,5,31,IDR_Everyday_Banking,TRUE
+Premier Cheque Account,224,2,5,31,IDR_Everyday_Banking,TRUE
+Premier Cheque Account - with Overdraft,225,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Plus - Savings (ANZ Save Account),226,2,5,31,IDR_Everyday_Banking,TRUE
+ANZ Plus - Everyday (ANZ Plus Account),227,2,5,31,IDR_Everyday_Banking,TRUE
+Corporate Term Deposit (Cache),228,2,7,38,IDR_Business_Owners,TRUE
+Corporate Notice Term Deposit,229,2,7,38,IDR_Business_Owners,TRUE
+Money Market Deposits,230,2,7,38,IDR_Business_Owners,TRUE
+"FX - Spot, Value Today and Value Tomorrow",231,4,12,82,IDR_Business_Owners,TRUE
+FX - Flexible Forwards,232,4,12,83,IDR_Business_Owners,TRUE
+FX - Forward Exchange Contracts,233,4,12,83,IDR_Business_Owners,TRUE
+FX - Foreign Currency Options,234,4,12,85,IDR_Business_Owners,TRUE
+Commodity Swap Facilities,235,4,12,86,IDR_Business_Owners,TRUE
+Agri Commodity Swap,236,4,12,86,IDR_Business_Owners,TRUE
+International Money Transfers,237,6,19,133,IDR_Everyday_Banking,TRUE
+Digital Wallets,238,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ Plus App,239,6,20,138,IDR_Everyday_Banking,TRUE
+ANZ Cash Escrow Facility,240,6,20,138,IDR_Business_Owners,TRUE
+Home Loan Protection Insurance,241,3,8,40,IDR_Home_Owners,TRUE
+ANZ Standard Variable Residential Land Loan,242,1,2,15,IDR_Home_Owners,TRUE
+ANZ Standard Variable Residential Investment Loan in a Company Name,243,1,2,15,IDR_Home_Owners,TRUE
+ANZ Standard Variable Home Loan in a Company Name,244,1,2,15,IDR_Home_Owners,TRUE
+ANZ Fixed Residential Investment Loan in a Company Name,245,1,2,15,IDR_Home_Owners,TRUE
+ANZ Fixed Home Loan in a Company Name,246,1,2,15,IDR_Home_Owners,TRUE
+ANZ Equity Manager in a Company Name,247,1,2,15,IDR_Home_Owners,TRUE
+ANZ Standard Variable Residential Investment Land Loan,248,1,2,15,IDR_Home_Owners,TRUE
+ANZ Interest-in-Advance Residential Investment Loan in a Company Name,249,1,2,15,IDR_Home_Owners,TRUE
+ANZ Interest-in-Advance Residential Investment Loan,250,1,2,15,IDR_Home_Owners,TRUE
+ANZ Portfolio Package,251,1,2,15,IDR_Home_Owners,TRUE
+ANZ Staff Concessional Lending (SCC),252,1,2,15,IDR_Home_Owners,TRUE
+ANZ Relief Home Loan,253,1,2,15,IDR_Home_Owners,TRUE
+ANZ Money Saver Residential Investment Loan in a Company Name,254,1,2,15,IDR_Home_Owners,TRUE
+ANZ Money Saver Residential Land Loan,255,1,2,15,IDR_Home_Owners,TRUE
+ANZ Money Saver Residential Investment Land Loan,256,1,2,15,IDR_Home_Owners,TRUE
+ANZ Home Equity Loan- Savings,257,1,2,15,IDR_Home_Owners,TRUE
+ANZ Home Equity Loan In a Company Name-Cheque,258,1,2,15,IDR_Home_Owners,TRUE
+ANZ Home Equity Loan,259,1,2,15,IDR_Home_Owners,TRUE
+ANZ Home Equity Loan in a Company Name-Savings,260,1,2,15,IDR_Home_Owners,TRUE
+ANZ Home Loan Protection (HLP)  Insurance,261,3,8,40,IDR_Everyday_Banking,TRUE
+Man AHL Alpha (AUD),262,4,12,84,IDR_Wealth,TRUE
+AQR Wholesale Managed Futures 1P,263,4,12,84,IDR_Wealth,TRUE
+Winton Global Alpha,264,4,12,84,IDR_Wealth,TRUE
+iShares Australian Equity Index,265,4,13,88,IDR_Wealth,TRUE
+Vanguard Australian Shares Index,266,4,13,88,IDR_Wealth,TRUE
+Ausbil Australian Active Equity,267,4,13,88,IDR_Wealth,TRUE
+Bennelong Australian Equities,268,4,13,88,IDR_Wealth,TRUE
+Bennelong ex-20 Australian Equities,269,4,13,88,IDR_Wealth,TRUE
+Greencape Broadcap,270,4,13,88,IDR_Wealth,TRUE
+Nikko AM Australian Share W,271,4,13,88,IDR_Wealth,TRUE
+Perpetual Wholesale Ethical SRI,272,4,13,88,IDR_Wealth,TRUE
+Investors Mutual WS Australian Share,273,4,13,88,IDR_Wealth,TRUE
+Pendal Horizon Fund,274,4,13,88,IDR_Wealth,TRUE
+Schroder WS Australian Equity Fund - WC,275,4,13,88,IDR_Wealth,TRUE
+State Street Australian Equity,276,4,13,88,IDR_Wealth,TRUE
+Yarra Australian Equities Fund,277,4,13,88,IDR_Wealth,TRUE
+BlackRock Advantage Australian Equity,278,4,13,88,IDR_Wealth,TRUE
+Fidelity Australian Equities,279,4,13,88,IDR_Wealth,TRUE
+Alphinity Australian Share,280,4,13,88,IDR_Wealth,TRUE
+Alphinity Sustainable Share,281,4,13,88,IDR_Wealth,TRUE
+Ausbil Australian Emerging Leaders,282,4,13,88,IDR_Wealth,TRUE
+Eley Griffiths Group Small Companies,283,4,13,88,IDR_Wealth,TRUE
+Ironbark Karara Australian Small Comp,284,4,13,88,IDR_Wealth,TRUE
+Pendal Smaller Companies,285,4,13,88,IDR_Wealth,TRUE
+Ausbil 130/30 Focus - Wholesale,286,4,13,88,IDR_Wealth,TRUE
+Pengana Emerging Companies,287,4,13,88,IDR_Wealth,TRUE
+Perpetual W Share Plus L/S,288,4,13,88,IDR_Wealth,TRUE
+Perpetual Wholesale Industrial,289,4,13,88,IDR_Wealth,TRUE
+OnePath Wholesale -Select Leaders,290,4,13,88,IDR_Wealth,TRUE
+OnePath Wholesale - Emerging Companies,291,4,13,88,IDR_Wealth,TRUE
+Perpetual Wholesale Australian,292,4,13,88,IDR_Wealth,TRUE
+Optimix Wholesale -Australian Share No.2,293,4,13,88,IDR_Wealth,TRUE
+Merlon Australian Share Income,294,4,13,88,IDR_Wealth,TRUE
+Perpetual Wholesale Geared Australian,295,4,13,88,IDR_Wealth,TRUE
+Generation Life Bennelong Concentrated Australian Equities,296,4,13,88,IDR_Wealth,TRUE
+Generation Investors Mutual Australian,297,4,13,88,IDR_Wealth,TRUE
+Generation Investors Mutual Future Leaders,298,4,13,88,IDR_Wealth,TRUE
+Generation iShares Wholesale Australian Equity Index,299,4,13,88,IDR_Wealth,TRUE
+Generation Legg Mason Martin Currie Equities Inc,300,4,13,88,IDR_Wealth,TRUE
+Generation Mutual 50 Leaders Australian,301,4,13,88,IDR_Wealth,TRUE
+Generation Life Pendal Sustainability Aus Shares Fund,302,4,13,88,IDR_Wealth,TRUE
+Generation Perpetual Wholesale Australia,303,4,13,88,IDR_Wealth,TRUE
+Generation Perpetual Wholesale Etcl SRI,304,4,13,88,IDR_Wealth,TRUE
+Generation Perpetual Wholsale Geared Aus,305,4,13,88,IDR_Wealth,TRUE
+Generation BlackRock Concentrated Industrial Shares,306,4,13,88,IDR_Wealth,TRUE
+ANZ Australian Small Companies SIV Portfolio,307,4,13,88,IDR_Wealth,TRUE
+ANZ Australian Equities Capital (Tax Payer) Pfolio,308,4,13,88,IDR_Wealth,TRUE
+ANZ Australian Equities Income (Tax Payer) Pfolio,309,4,13,88,IDR_Wealth,TRUE
+OC Micro-Cap,310,4,13,88,IDR_Wealth,TRUE
+Macquarie Australian Emerging Companies,311,4,13,88,IDR_Wealth,TRUE
+Martin Currie Real Income Fund,312,4,13,88,IDR_Wealth,TRUE
+First Sentier Australian Property Fund,313,4,13,88,IDR_Wealth,TRUE
+Challenger Guaranteed Income Fund,314,4,13,88,IDR_Wealth,TRUE
+IML Wholesale Australian Share Fund,315,4,13,88,IDR_Wealth,TRUE
+Melior Australian Impact Fund,316,4,13,88,IDR_Wealth,TRUE
+Inspire Australian Equities Fund,317,4,13,88,IDR_Wealth,TRUE
+Perpetual Exact Market Cash,318,4,13,89,IDR_Wealth,TRUE
+BlackRock Cash Fund,319,4,13,89,IDR_Wealth,TRUE
+FSI Premium Cash Enhanced,320,4,13,89,IDR_Wealth,TRUE
+ANZ Cash Plus,321,4,13,89,IDR_Wealth,TRUE
+OnePath OA FR IP-ANZ Cash Advantage,322,4,13,89,IDR_Wealth,TRUE
+UBS Cash Fund,323,4,13,89,IDR_Wealth,TRUE
+UBS Income Solution Fund,324,4,13,89,IDR_Wealth,TRUE
+Generation Mutual ADI/Bank Securities,325,4,13,89,IDR_Wealth,TRUE
+Generation Kapstream Absolute Return Inc,326,4,13,89,IDR_Wealth,TRUE
+Generation Life Term Deposit,327,4,13,89,IDR_Wealth,TRUE
+Generation Macquarie Treasury,328,4,13,89,IDR_Wealth,TRUE
+Patamar Fund II,329,4,13,89,IDR_Wealth,TRUE
+Vanguard International Shares Index,330,4,13,94,IDR_Wealth,TRUE
+Vanguard International Shares Index Hedged AUD,331,4,13,94,IDR_Wealth,TRUE
+iShares Hedged International Equity Index,332,4,13,94,IDR_Wealth,TRUE
+iShares International Equity Index,333,4,13,94,IDR_Wealth,TRUE
+AMP Capital Ethical Leaders International Share A,334,4,13,94,IDR_Wealth,TRUE
+Antipodes Global Fund - Long P,335,4,13,94,IDR_Wealth,TRUE
+BlackRock Advantage International Equity Fund,336,4,13,94,IDR_Wealth,TRUE
+Epoch Global Equity Shareholder Yield Fund Unhedged,337,4,13,94,IDR_Wealth,TRUE
+IFP Global Franchise,338,4,13,94,IDR_Wealth,TRUE
+MFS Global Equity Trust W,339,4,13,94,IDR_Wealth,TRUE
+OnePath OneAnswer Frontier Investment Portfolio -OnePath Global Share,340,4,13,94,IDR_Wealth,TRUE
+Platinum International Fund,341,4,13,94,IDR_Wealth,TRUE
+Arrowstreet Global Equity,342,4,13,94,IDR_Wealth,TRUE
+Arrowstreet Global Equity Hedged,343,4,13,94,IDR_Wealth,TRUE
+Realindex Global Share-Class A,344,4,13,94,IDR_Wealth,TRUE
+Realindex Global Share Hedged-Class A,345,4,13,94,IDR_Wealth,TRUE
+State Street Global Equity,346,4,13,94,IDR_Wealth,TRUE
+Stewart Investors W Worldwide Sustainability,347,4,13,94,IDR_Wealth,TRUE
+Walter Scott Global Equity,348,4,13,94,IDR_Wealth,TRUE
+Magellan Global Open Class,349,4,13,94,IDR_Wealth,TRUE
+Vanguard Emerging Markets Shares Index,350,4,13,94,IDR_Wealth,TRUE
+Aberdeen Standard Emerging Opports Fund,351,4,13,94,IDR_Wealth,TRUE
+OnePath Wholesale - OnePath Global Emerging Markets Share,352,4,13,94,IDR_Wealth,TRUE
+Vanguard International Small Companies Index Hedged,353,4,13,94,IDR_Wealth,TRUE
+Vanguard International Small Companies,354,4,13,94,IDR_Wealth,TRUE
+Lazard Global Small Cap W,355,4,13,94,IDR_Wealth,TRUE
+T. Rowe Price Global Equity I,356,4,13,94,IDR_Wealth,TRUE
+MFS Emerging Markets Equity Trust,357,4,13,94,IDR_Wealth,TRUE
+Fidelity China,358,4,13,94,IDR_Wealth,TRUE
+Fidelity India,359,4,13,94,IDR_Wealth,TRUE
+Platinum Asia,360,4,13,94,IDR_Wealth,TRUE
+Epoch Global Equity Shareholder Yield Fund Hedged,361,4,13,94,IDR_Wealth,TRUE
+Optimix Wholesale - Global Share,362,4,13,94,IDR_Wealth,TRUE
+Pendal Concentrated Global Share No.2,363,4,13,94,IDR_Wealth,TRUE
+Pendal Concentrated Global Share Hedged,364,4,13,94,IDR_Wealth,TRUE
+Platinum International Brands Fund,365,4,13,94,IDR_Wealth,TRUE
+Walter Scott Global Equity Hedged,366,4,13,94,IDR_Wealth,TRUE
+Zurich Investments Global Growth,367,4,13,94,IDR_Wealth,TRUE
+Aberdeen Standard Actively Hedged International Equities Fund,368,4,13,94,IDR_Wealth,TRUE
+Aberdeen Standard International Equity Fund,369,4,13,94,IDR_Wealth,TRUE
+Optimix Wholesale - Global Smaller Companies,370,4,13,94,IDR_Wealth,TRUE
+Altrinsic Global Equities Trust,371,4,13,94,IDR_Wealth,TRUE
+Platinum European Fund,372,4,13,94,IDR_Wealth,TRUE
+Zurich Investments Global Thematic Share,373,4,13,94,IDR_Wealth,TRUE
+Zurich Investments Unhedged Global Thematic Share,374,4,13,94,IDR_Wealth,TRUE
+Generation Dimensional Global Small Companies,375,4,13,94,IDR_Wealth,TRUE
+Generation iShares Hedged International Equity Index,376,4,13,94,IDR_Wealth,TRUE
+Generation iShares Wholesale International Equity Index,377,4,13,94,IDR_Wealth,TRUE
+Generation Magellan Global,378,4,13,94,IDR_Wealth,TRUE
+Generation Life Investment Bonds MFS Concentrated Global Equity Trust,379,4,13,94,IDR_Wealth,TRUE
+Generation Perpetual Wholesale International,380,4,13,94,IDR_Wealth,TRUE
+Generation Life LMMC Emerging Markets,381,4,13,94,IDR_Wealth,TRUE
+ANZ Australian Equities Capital (Non-Tax Payer) Portfolio,382,4,13,96,IDR_Wealth,TRUE
+ANZ Australian Equities Income (Non-Tax Payer) Portfolio,383,4,13,96,IDR_Wealth,TRUE
+ANZ Australian Equities Capital (Tax Payer) Portfolio,384,4,13,96,IDR_Wealth,TRUE
+ANZ Australian Equities Income (Tax Payer) Portfolio,385,4,13,96,IDR_Wealth,TRUE
+ANZ Active International Equities Portfolio,386,4,13,96,IDR_Wealth,TRUE
+ANZ Dynamic International Equities Portfolio,387,4,13,96,IDR_Wealth,TRUE
+ANZ Nikko Ex-20 Portfolio,388,4,13,96,IDR_Wealth,TRUE
+ANZ Nikko Income Portfolio,389,4,13,96,IDR_Wealth,TRUE
+ANZ Yarra Ex-20 Portfolio,390,4,13,96,IDR_Wealth,TRUE
+ANZ Dynamic Fixed Income Portfolio,391,4,13,96,IDR_Wealth,TRUE
+ANZ Australian Fixed Income Portfolio,392,4,13,96,IDR_Wealth,TRUE
+ANZ Enhanced Yield Portfolio,393,4,13,96,IDR_Wealth,TRUE
+ANZ International Fixed Income Portfolio,394,4,13,96,IDR_Wealth,TRUE
+Aviva Investors Multi-Strategy Target Return,395,4,13,96,IDR_Wealth,TRUE
+ANZ Dynamic 30 Diversified Portfolio,396,4,13,96,IDR_Wealth,TRUE
+ANZ Dynamic 50 Diversified Portfolio,397,4,13,96,IDR_Wealth,TRUE
+ANZ Dynamic 70 Diversified Portfolio,398,4,13,96,IDR_Wealth,TRUE
+ANZ Dynamic 100 Diversified (Non-Tax Payer) Portfolio,399,4,13,96,IDR_Wealth,TRUE
+ANZ Dynamic 100 Diversified (Tax Payer) Portfolio,400,4,13,96,IDR_Wealth,TRUE
+Dynamic Core D30,401,4,13,96,IDR_Wealth,TRUE
+Dynamic Core D50,402,4,13,96,IDR_Wealth,TRUE
+Dynamic Core D70,403,4,13,96,IDR_Wealth,TRUE
+Dynamic Core D100,404,4,13,96,IDR_Wealth,TRUE
+Dynamic Managed 30,405,4,13,96,IDR_Wealth,TRUE
+Dynamic Managed 50,406,4,13,96,IDR_Wealth,TRUE
+Dynamic Managed 70,407,4,13,96,IDR_Wealth,TRUE
+Dynamic Managed 100,408,4,13,96,IDR_Wealth,TRUE
+Vanguard Conservative Index,409,4,13,98,IDR_Wealth,TRUE
+Vanguard Balanced Index Fund,410,4,13,98,IDR_Wealth,TRUE
+Vanguard Growth Index,411,4,13,98,IDR_Wealth,TRUE
+Vanguard High Growth Index,412,4,13,98,IDR_Wealth,TRUE
+OnePath Wholesale - Balanced Trust,413,4,13,98,IDR_Wealth,TRUE
+OnePath Wholesale - Capital Stable Trust,414,4,13,98,IDR_Wealth,TRUE
+OnePath Wholesale - Managed Growth,415,4,13,98,IDR_Wealth,TRUE
+Pendal Active Growth,416,4,13,98,IDR_Wealth,TRUE
+Pendal Balanced Returns,417,4,13,98,IDR_Wealth,TRUE
+Perpetual Wholesale Balanced Growth,418,4,13,98,IDR_Wealth,TRUE
+First Sentier Investors Wholesale Conservative,419,4,13,98,IDR_Wealth,TRUE
+First Sentier Investors Wholesale High Growth,420,4,13,98,IDR_Wealth,TRUE
+Generation Life DFA World Allocation 50/50 Trust,421,4,13,98,IDR_Wealth,TRUE
+Generation Dimensional World Allocation 70/30 Trust,422,4,13,98,IDR_Wealth,TRUE
+Generation Life MLC Horizon 2 Income,423,4,13,98,IDR_Wealth,TRUE
+Generation Life MLC Horizon 3 Conservative Growth,424,4,13,98,IDR_Wealth,TRUE
+Generation MLC Horizon 4 Balanced Portfolio,425,4,13,98,IDR_Wealth,TRUE
+Generation Life Pendal Sustainability Balanced Fund,426,4,13,98,IDR_Wealth,TRUE
+Generation Perpetual Wholesale Balanced Growth,427,4,13,98,IDR_Wealth,TRUE
+Generation Perpetual Wholesale Conservative Growth,428,4,13,98,IDR_Wealth,TRUE
+Generation Life Sectoral Blend,429,4,13,98,IDR_Wealth,TRUE
+Generation Life Investment Bonds Vanguard Balance Portfolio,430,4,13,98,IDR_Wealth,TRUE
+Generation Life Investment Bonds Vanguard Conservative Portfolio,431,4,13,98,IDR_Wealth,TRUE
+Generation Life Investment Bonds Vanguard Growth Portolio,432,4,13,98,IDR_Wealth,TRUE
+Generation Life Investment Bonds Vanguard High Growth Portfolio,433,4,13,98,IDR_Wealth,TRUE
+Generation Life MLC Horizon 6 Share,434,4,13,98,IDR_Wealth,TRUE
+Ironbark GCM Global Macro,435,4,13,98,IDR_Wealth,TRUE
+AQR WS DELTA 1F,436,4,13,98,IDR_Wealth,TRUE
+Fulcrum Diversified Investments Fund,437,4,13,98,IDR_Wealth,TRUE
+Pendal Pure Alpha Fixed Income,438,4,13,98,IDR_Wealth,TRUE
+Aviva Inv Mlt-Stgy Tgt Ret Fh AUD Inc,439,4,13,98,IDR_Wealth,TRUE
+OnePath OA FR IP-OnePath Alts Gr,440,4,13,98,IDR_Wealth,TRUE
+Schroder Real Return Fnd -WC,441,4,13,98,IDR_Wealth,TRUE
+Generation Schroder Rl Rt CPI Plus 5%,442,4,13,98,IDR_Wealth,TRUE
+Kilter Murray-Darling Basin Balanced Water Fund,443,4,13,100,IDR_Wealth,TRUE
+Australian Unity Specialist Disability Accommodation Fund,444,4,13,101,IDR_Wealth,TRUE
+Synergis Fund,445,4,13,101,IDR_Wealth,TRUE
+Vanguard Australian Property Securities Index,446,4,14,105,IDR_Wealth,TRUE
+iShares Australian Listed Property Index,447,4,14,105,IDR_Wealth,TRUE
+APN Australian Real Estate Investment Trusts Fund,448,4,14,105,IDR_Wealth,TRUE
+OnePath Wholesale - Property Securities Trust,449,4,14,105,IDR_Wealth,TRUE
+Pendal Property Investment,450,4,14,105,IDR_Wealth,TRUE
+Ironbark Paladin Property Securities,451,4,14,105,IDR_Wealth,TRUE
+Zurich Investments Aus Property Securities,452,4,14,105,IDR_Wealth,TRUE
+Optimix Wholesale - Property Securities B,453,4,14,105,IDR_Wealth,TRUE
+SG Hiscock Property,454,4,14,105,IDR_Wealth,TRUE
+Vanguard International Property Securities Index Hedged,455,4,14,105,IDR_Wealth,TRUE
+Vanguard International Property Securities Index,456,4,14,105,IDR_Wealth,TRUE
+iShares Global Listed Property Index Fund - Hedged S Class Units,457,4,14,105,IDR_Wealth,TRUE
+OnePath OneAnswer Frontier Investment Portfolio - OnePath Global Property Securities Index,458,4,14,105,IDR_Wealth,TRUE
+Resolution Capital Global Property Securities,459,4,14,105,IDR_Wealth,TRUE
+AMP Capital Global Property Securities A,460,4,14,105,IDR_Wealth,TRUE
+First Sentier Global Listed Infrastructure Fund,461,4,14,105,IDR_Wealth,TRUE
+Lazard Global Listed Infrastructure,462,4,14,105,IDR_Wealth,TRUE
+Magellan Infrastructure,463,4,14,105,IDR_Wealth,TRUE
+Ironbark Global (ex-Aus) Property Securities,464,4,14,105,IDR_Wealth,TRUE
+Generation iShares Wholesale Australian Listed Property Index,465,4,14,105,IDR_Wealth,TRUE
+Generation Mason Martin Currie Rl Inc,466,4,14,105,IDR_Wealth,TRUE
+Generation AMP Capital Global Property Securities,467,4,14,105,IDR_Wealth,TRUE
+Generation Magellan Infrastructure,468,4,14,105,IDR_Wealth,TRUE
+Kilter Australian Farmland Funds,469,4,14,105,IDR_Wealth,TRUE
+Infrastructure Access Fund,470,4,14,105,IDR_Wealth,TRUE
+The Impact Fund,471,4,14,105,IDR_Wealth,TRUE
+Infradebt Ethical Investment Fund 2,472,4,14,105,IDR_Wealth,TRUE
+Kapstream Absolute Return Income,473,4,15,107,IDR_Wealth,TRUE
+Bentham Global Income,474,4,15,107,IDR_Wealth,TRUE
+Franklin Templeton Multisector Bond W,475,4,15,107,IDR_Wealth,TRUE
+Janus Henderson Glb Fixed Intst Ttl Ret,476,4,15,107,IDR_Wealth,TRUE
+Yarra Enhanced Income Fund,477,4,15,107,IDR_Wealth,TRUE
+Macquarie Income Opportunities,478,4,15,107,IDR_Wealth,TRUE
+State Street Floating Rate Fund,479,4,15,107,IDR_Wealth,TRUE
+Ardea Real Outcome Fund,480,4,15,107,IDR_Wealth,TRUE
+Schroder Absolute Return Income Fund -WC,481,4,15,107,IDR_Wealth,TRUE
+OnePath WS-Dvrs Crdt,482,4,15,107,IDR_Wealth,TRUE
+Generation Life Schroder Abs Rtrn Income,483,4,15,107,IDR_Wealth,TRUE
+iShares Australian Bond Index,484,4,15,107,IDR_Wealth,TRUE
+Vanguard Australian Fixed Interest Index,485,4,15,107,IDR_Wealth,TRUE
+PIMCO Australian Bond W,486,4,15,107,IDR_Wealth,TRUE
+Schroder Fixed Income Fund - Wholesale,487,4,15,107,IDR_Wealth,TRUE
+Janus Henderson Australian Fxd Intst,488,4,15,107,IDR_Wealth,TRUE
+Janus Henderson Tactical Income,489,4,15,107,IDR_Wealth,TRUE
+Vanguard International Fxd Intr Idx Hdg,490,4,15,107,IDR_Wealth,TRUE
+PIMCO Global Bond W,491,4,15,107,IDR_Wealth,TRUE
+OnePath WS-Diversified Fixed Interest,492,4,15,107,IDR_Wealth,TRUE
+PIMCO Diversified Fixed Interest W,493,4,15,107,IDR_Wealth,TRUE
+Vanguard Diversified Bond Index,494,4,15,107,IDR_Wealth,TRUE
+UBS Diversified Fixed Income Fund,495,4,15,107,IDR_Wealth,TRUE
+Generation iShares Wholesale AUS Bd Idx,496,4,15,107,IDR_Wealth,TRUE
+Generation PIMCO Wholesale Australian Bd,497,4,15,107,IDR_Wealth,TRUE
+Generation PIMCO Wholesale Global Bond,498,4,15,107,IDR_Wealth,TRUE
+Zurich Ezicover Income Protection,499,5,17,115,IDR_Wealth,TRUE
+OneCare Income Protection,500,5,17,115,IDR_Wealth,TRUE
+Zurich Income Protection,501,5,17,115,IDR_Wealth,TRUE
+TAL Income Protection,502,5,17,115,IDR_Wealth,TRUE
+AIA Income Protection,503,5,17,115,IDR_Wealth,TRUE
+BT Life Income Protection,504,5,17,115,IDR_Wealth,TRUE
+AMP Income Protection,505,5,17,115,IDR_Wealth,TRUE
+Asteron Income Protection,506,5,17,115,IDR_Wealth,TRUE
+Challenger Annuity,507,5,18,116,IDR_Wealth,TRUE
+Challenger SIV Annuity,508,5,18,116,IDR_Wealth,TRUE
+Zurich Ezicover Life Insurance,509,5,18,120,IDR_Wealth,TRUE
+OneCare Life Insurance,510,5,18,120,IDR_Wealth,TRUE
+Zurich Life Insurance,511,5,18,120,IDR_Wealth,TRUE
+TAL Life Insurance,512,5,18,120,IDR_Wealth,TRUE
+AIA Life Insurance,513,5,18,120,IDR_Wealth,TRUE
+BT Life Life Insurance,514,5,18,120,IDR_Wealth,TRUE
+AMP Life Insurance,515,5,18,120,IDR_Wealth,TRUE
+Asteron Life Insurance,516,5,18,120,IDR_Wealth,TRUE
+OneCare TPD,517,5,18,122,IDR_Wealth,TRUE
+Zurich TPD,518,5,18,122,IDR_Wealth,TRUE
+TAL TPD,519,5,18,122,IDR_Wealth,TRUE
+AIA TPD,520,5,18,122,IDR_Wealth,TRUE
+BT Life TPD,521,5,18,122,IDR_Wealth,TRUE
+AMP TPD,522,5,18,122,IDR_Wealth,TRUE
+Asteron TPD,523,5,18,122,IDR_Wealth,TRUE
+OneCare Trauma Insurance,524,5,18,123,IDR_Wealth,TRUE
+Zurich Trauma Insurance,525,5,18,123,IDR_Wealth,TRUE
+TAL Trauma Insurance,526,5,18,123,IDR_Wealth,TRUE
+AIA Trauma Insurance,527,5,18,123,IDR_Wealth,TRUE
+BT Life Trauma Insurance,528,5,18,123,IDR_Wealth,TRUE
+AMP Trauma Insurance,529,5,18,123,IDR_Wealth,TRUE
+Asteron Trauma Insurance,530,5,18,123,IDR_Wealth,TRUE
+International Visa Debit,531,6,19,133,IDR_Everyday_Banking,TRUE
+Credit Transaction,532,6,19,133,IDR_Everyday_Banking,TRUE
+International Telegraphic Transfer,533,6,19,135,IDR_Everyday_Banking,TRUE
+Domestic Telegraphic Transfer,534,6,19,135,IDR_Everyday_Banking,TRUE
+Challenger Pension,535,8,22,143,IDR_Wealth,TRUE
+ANZ Staff Super - Life cover,536,8,24,173,IDR_Wealth,TRUE
+ANZ Staff Super Retirement Income,537,8,24,172,IDR_Wealth,TRUE
+ANZ Staff Super Scheme,539,8,24,177,IDR_Wealth,TRUE
+ANZ Staff Super - TPD,540,8,24,175,IDR_Wealth,TRUE
+ANZ Staff Super - Income Protection,541,8,24,122,IDR_Wealth,TRUE
+OneAnswer Frontier Pension,542,8,28,172,IDR_Wealth,TRUE
+ANZ OneAnswer Pension,543,8,28,172,IDR_Wealth,TRUE
+OneAnswer Frontier Super,544,8,28,177,IDR_Wealth,TRUE
+ANZ OneAnswer Super,545,8,28,177,IDR_Wealth,TRUE
+ANZ OneAnswer Superannuation,546,9,32,186,IDR_Wealth,TRUE
+ANZ OneAnswer Investment Portfolio,547,9,32,186,IDR_Wealth,TRUE
+OneAnswer Frontier Superannuation,548,9,32,186,IDR_Wealth,TRUE
+OneAnswer Frontier Investment Portfolio,549,9,32,186,IDR_Wealth,TRUE
+BT Wrap - Investment,550,9,32,186,IDR_Wealth,TRUE
+BT Wrap - Super/Pension,551,9,32,186,IDR_Wealth,TRUE
+Netwealth Accelerator Plus - Investments,552,9,32,186,IDR_Wealth,TRUE
+Netwealth Accelerator Plus - Super,553,9,32,186,IDR_Wealth,TRUE
+Netwealth Accelerator Core - Investments,554,9,32,186,IDR_Wealth,TRUE
+Netwealth Accelerator Core - Super,555,9,32,186,IDR_Wealth,TRUE
+Praemium Wrap,556,9,32,186,IDR_Wealth,TRUE
+Panorama Wrap,557,9,32,186,IDR_Wealth,TRUE
+Challenger Guaranteed Annuity,558,9,32,186,IDR_Wealth,TRUE
+Challenger Guaranteed Annuity - Liquid Lifetime,559,9,32,186,IDR_Wealth,TRUE
+GenerationLife Investment Bond,560,9,32,186,IDR_Wealth,TRUE
+(Retail Insurance) OneCare,561,9,32,186,IDR_Wealth,TRUE
+(Retail Insurance) Zurich,562,9,32,186,IDR_Wealth,TRUE
+(Retail Insurance) TAL,563,9,32,186,IDR_Wealth,TRUE
+(Retail Insurance) AIA,564,9,32,186,IDR_Wealth,TRUE
+(Retail Insurance) BTLife,565,9,32,186,IDR_Wealth,TRUE
+(Retail Insurance) AMP,566,9,32,186,IDR_Wealth,TRUE
+(Retail Insurance) Asteron,567,9,32,186,IDR_Wealth,TRUE
+Foreign Currency Account,568,2,5,28,IDR_Everyday_Banking,TRUE
+ANZ Capital Notes,569,4,15,107,IDR_Everyday_Banking,TRUE
+ANZ Plus - Standard Variable Home Loan,570,1,2,15,,TRUE
+ANZ Plus - Fixed Home Loan,571,1,2,15,,TRUE
+ANZ Landlord Insurance (CGU),572,3,8,41,IDR_Wealth,TRUE
+ANZ Car Insurance (Comprehensive) (CGU),573,3,8,44,IDR_Wealth,TRUE
+ANZ Home and Contents Insurance (CGU),574,3,8,41,IDR_Wealth,TRUE
+N/A,999,10,34,188,IDR_Everyday_Banking,TRUE
