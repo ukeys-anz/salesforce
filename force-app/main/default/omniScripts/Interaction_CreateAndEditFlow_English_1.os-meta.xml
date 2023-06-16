@@ -1406,7 +1406,7 @@
   &quot;show&quot; : null,
   &quot;checkLabel&quot; : &quot;Self-Service&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;asdasdasd&quot;,
   &quot;help&quot; : false,
   &quot;defaultValue&quot; : false,
   &quot;readOnly&quot; : false,
@@ -2450,44 +2450,30 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;targetName&quot; : &quot;Interaction&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;targetLWCLayout&quot; : &quot;lightning&quot;,
-  &quot;replace&quot; : true,
-  &quot;iconPosition&quot; : &quot;left&quot;,
-  &quot;iconVariant&quot; : &quot;&quot;,
-  &quot;iconName&quot; : &quot;&quot;,
-  &quot;variant&quot; : &quot;brand&quot;,
-  &quot;targetId&quot; : &quot;%RecordId%&quot;,
-  &quot;targetFilter&quot; : &quot;Recent&quot;,
-  &quot;loginAction&quot; : &quot;login&quot;,
-  &quot;recordAction&quot; : &quot;view&quot;,
-  &quot;objectAction&quot; : &quot;home&quot;,
-  &quot;targetType&quot; : &quot;Current Page&quot;,
-  &quot;message&quot; : {
-    &quot;saveTriggered&quot; : &quot;%RecordId%&quot;
-  },
-  &quot;pubsub&quot; : true,
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigateActionOnEdit&quot;,
+  &quot;elementValueMap&quot; : { },
+  &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;RecordId&quot;,
+        &quot;data&quot; : null,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : null
+        &quot;field&quot; : &quot;RecordId&quot;
       } ]
     }
   },
-  &quot;validationRequired&quot; : &quot;Submit&quot;,
-  &quot;label&quot; : &quot;NavigateToInteraction&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : {
+    &quot;saveTriggered&quot; : &quot;%RecordId%&quot;
+  },
+  &quot;pubsub&quot; : true
 }</propertySetConfig>
         <sequenceNumber>17.0</sequenceNumber>
-        <type>Navigate Action</type>
+        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <name>NavigateToInteraction</name>
@@ -3058,5 +3044,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>73e7151c-36fe-106d-b8a9-d755003fba7b</webComponentKey>
+    <webComponentKey>60c78503-1bef-27cb-82a6-dc9989b6a7f3</webComponentKey>
 </OmniScript>
