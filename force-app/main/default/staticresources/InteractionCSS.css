@@ -62,3 +62,16 @@ div .omniscript-sfl-actions {
     )
   );
 }
+omnistudio-omniscript-text[data-omni-key="Engagement"]
+  div[class="slds-form-element__control slds-form-element__control-animated-label"] {
+  display: none;
+}
+omnistudio-omniscript-text[data-omni-key="Engagement"] {
+  margin-top: 0.8rem;
+  width: 33%;
+}
+omnistudio-omniscript-ip-action[data-omni-key*="Add"]
+  button[class="vlocity-btn slds-button slds-button_brand slds-button_stretch"] {
+  background-color: rgb(255, 255, 255);
+  color: var(--lwc-brandTextLink, rgb(1, 118, 211));
+}
