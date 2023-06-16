@@ -189,49 +189,7 @@ let definition = {
                 collapsedByDefault: true,
                 card: "{card}",
                 styles: { label: { textDecoration: "", color: "" } },
-                action: {
-                  label: "Action",
-                  iconName: "standard-default",
-                  eventType: "onclick",
-                  actionList: [
-                    {
-                      key: "1684728769432-9g2em0hem",
-                      label: "Action",
-                      draggable: false,
-                      isOpen: true,
-                      card: "{card}",
-                      stateAction: {
-                        id: "flex-action-1684728846582",
-                        type: "cardAction",
-                        displayName: "Action",
-                        vlocityIcon: "standard-default",
-                        openUrlIn: "Current Window",
-                        flyoutType: "childCard",
-                        openFlyoutIn: "Modal",
-                        channelName: "close_modal",
-                        eventName: "reload"
-                      },
-                      actionIndex: 0
-                    },
-                    {
-                      key: "1684728814096-387priuuo",
-                      label: "Action",
-                      draggable: true,
-                      isOpen: false,
-                      card: "{card}",
-                      stateAction: {
-                        id: "test-action",
-                        type: "Custom",
-                        displayName: "Action",
-                        vlocityIcon: "standard-default",
-                        targetType: "Web Page",
-                        openUrlIn: "Current Window",
-                        "Web Page": { targetName: "/apex" }
-                      }
-                    }
-                  ],
-                  showSpinner: "false"
-                }
+                action: null
               },
               type: "block",
               styleObject: {

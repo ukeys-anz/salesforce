@@ -75,9 +75,10 @@
                   ><div class="slds-grid slds-wrap">
                     <div
                       data-style-id="state0element0block_element0"
-                      class="slds-col slds-size_1-of-12"
+                      class="slds-col slds-size_1-of-12 condition-element"
                       data-rindex={rindex}
                       style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                     >
                       <omnistudio-flex-img
                         data-style-id="state0element0block_element0_child"
@@ -86,26 +87,31 @@
                         size=""
                         extraclass="slds-align_absolute-center"
                         state-img='\{"imgsrc":"/sfc/servlet.shepherd/version/download/0688s000001SHGfAAO","alternativeText":"Image description","document":{"label":"Card credit (Version:1)","value":"/sfc/servlet.shepherd/version/download/0688s000001SHGfAAO","title":"Card credit","Id":"0688s000001SHGfAAO","attachmentType":"ContentVersion"}}'
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                         theme="slds"
                       ></omnistudio-flex-img>
                     </div>
                     <div
                       data-style-id="state0element0block_element1"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                      class="slds-col slds-size_1-of-12 condition-element"
                       data-rindex={rindex}
                       style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                     >
-                      <omnistudio-output-field
+                      <omnistudio-flex-img
                         data-style-id="state0element0block_element1_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3EBelongs%20To%3C/div%3E"
+                        size=""
+                        extraclass="slds-align_absolute-center"
+                        state-img='\{"imgsrc":"/sfc/servlet.shepherd/version/download/0688s000001WFzRAAW","alternativeText":"Image description","document":{"label":"ANZ-Classic-lotus-circle (Version:1)","value":"/sfc/servlet.shepherd/version/download/0688s000001WFzRAAW","title":"ANZ-Classic-lotus-circle","Id":"0688s000001WFzRAAW","attachmentType":"ContentVersion"}}'
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                         theme="slds"
-                      ></omnistudio-output-field>
+                      ></omnistudio-flex-img>
                     </div>
                     <div
                       data-style-id="state0element0block_element2"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -113,18 +119,32 @@
                         data-style-id="state0element0block_element2_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3E%7BownerName%7D%3C/div%3E"
+                        merge-field="%3Cdiv%3EBelongs%20To%3C/div%3E"
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element3"
-                      class="slds-col slds-size_1-of-12"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element3_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3E%7BownerName%7D%3C/div%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element4"
+                      class="slds-col slds-size_1-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element4_child"
                         card={card}
                         record={record}
                         placeholder=""
@@ -133,22 +153,8 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element4"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
-                      data-rindex={rindex}
-                      style=""
-                    >
-                      <omnistudio-output-field
-                        data-style-id="state0element0block_element4_child"
-                        card={card}
-                        record={record}
-                        merge-field="%3Cdiv%3EDebt%20Type%3C/div%3E"
-                        theme="slds"
-                      ></omnistudio-output-field>
-                    </div>
-                    <div
                       data-style-id="state0element0block_element5"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -156,13 +162,13 @@
                         data-style-id="state0element0block_element5_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3ECredit%20Card%3C/div%3E"
+                        merge-field="%3Cdiv%3EDebt%20Type%3C/div%3E"
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element6"
-                      class="slds-col slds-size_12-of-12"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -170,13 +176,13 @@
                         data-style-id="state0element0block_element6_child"
                         card={card}
                         record={record}
-                        merge-field=""
+                        merge-field="%3Cdiv%3ECredit%20Card%3C/div%3E"
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element7"
-                      class="slds-col slds-size_1-of-12"
+                      class="slds-col slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -190,7 +196,7 @@
                     </div>
                     <div
                       data-style-id="state0element0block_element8"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                      class="slds-col slds-size_1-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -198,13 +204,13 @@
                         data-style-id="state0element0block_element8_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3EInstitution%3C/div%3E"
+                        merge-field=""
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element9"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -212,18 +218,32 @@
                         data-style-id="state0element0block_element9_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3E%7BinstitutionalLiability.financialInstitution%7D%3C/div%3E"
+                        merge-field="%3Cdiv%3EInstitution%3C/div%3E"
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element10"
-                      class="slds-col slds-size_12-of-12"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element10_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3E%7BinstitutionalLiability.financialInstitution%7D%3C/div%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element11"
+                      class="slds-col slds-size_12-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element11_child"
                         card={card}
                         record={record}
                         placeholder=""
@@ -232,22 +252,8 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element11"
-                      class="slds-col slds-size_1-of-12"
-                      data-rindex={rindex}
-                      style=""
-                    >
-                      <omnistudio-output-field
-                        data-style-id="state0element0block_element11_child"
-                        card={card}
-                        record={record}
-                        merge-field=""
-                        theme="slds"
-                      ></omnistudio-output-field>
-                    </div>
-                    <div
                       data-style-id="state0element0block_element12"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                      class="slds-col slds-size_1-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -255,18 +261,32 @@
                         data-style-id="state0element0block_element12_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3ECard%20Limit%3C/div%3E"
+                        merge-field=""
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element13"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element13_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3ECard%20Limit%3C/div%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element14"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element14_child"
                         card={card}
                         record={record}
                         placeholder="0.0"
@@ -278,13 +298,13 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element14"
+                      data-style-id="state0element0block_element15"
                       class="slds-col slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
-                        data-style-id="state0element0block_element14_child"
+                        data-style-id="state0element0block_element15_child"
                         card={card}
                         record={record}
                         placeholder=""
@@ -294,22 +314,8 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element15"
-                      class="slds-col slds-size_1-of-12"
-                      data-rindex={rindex}
-                      style=""
-                    >
-                      <omnistudio-output-field
-                        data-style-id="state0element0block_element15_child"
-                        card={card}
-                        record={record}
-                        merge-field=""
-                        theme="slds"
-                      ></omnistudio-output-field>
-                    </div>
-                    <div
                       data-style-id="state0element0block_element16"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                      class="slds-col slds-size_1-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -317,13 +323,13 @@
                         data-style-id="state0element0block_element16_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3ECard%20Number%3C/div%3E"
+                        merge-field=""
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element17"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -331,18 +337,32 @@
                         data-style-id="state0element0block_element17_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3E%7Baccount.accountNumber%7D%3C/div%3E"
+                        merge-field="%3Cdiv%3ECard%20Number%3C/div%3E"
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element18"
-                      class="slds-col slds-size_12-of-12"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element18_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3E%7Baccount.accountNumber%7D%3C/div%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element19"
+                      class="slds-col slds-size_12-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element19_child"
                         card={card}
                         record={record}
                         placeholder=""
@@ -351,22 +371,8 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element19"
-                      class="slds-col slds-size_1-of-12"
-                      data-rindex={rindex}
-                      style=""
-                    >
-                      <omnistudio-output-field
-                        data-style-id="state0element0block_element19_child"
-                        card={card}
-                        record={record}
-                        merge-field=""
-                        theme="slds"
-                      ></omnistudio-output-field>
-                    </div>
-                    <div
                       data-style-id="state0element0block_element20"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                      class="slds-col slds-size_1-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -374,18 +380,32 @@
                         data-style-id="state0element0block_element20_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3ECurrent%20Balance%3C/div%3E"
+                        merge-field=""
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element21"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element21_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3ECurrent%20Balance%3C/div%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element22"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element22_child"
                         card={card}
                         record={record}
                         placeholder="output"
@@ -399,13 +419,13 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element22"
+                      data-style-id="state0element0block_element23"
                       class="slds-col slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
-                        data-style-id="state0element0block_element22_child"
+                        data-style-id="state0element0block_element23_child"
                         card={card}
                         record={record}
                         placeholder=""
@@ -414,78 +434,72 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element23"
-                      class="slds-col slds-size_1-of-12"
-                      data-rindex={rindex}
-                      style=""
-                    >
-                      <omnistudio-output-field
-                        data-style-id="state0element0block_element23_child"
-                        card={card}
-                        record={record}
-                        merge-field=""
-                        theme="slds"
-                      ></omnistudio-output-field>
-                    </div>
-                    <div
                       data-style-id="state0element0block_element24"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                      class="slds-col slds-size_1-of-12 condition-element"
                       data-rindex={rindex}
                       style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element24_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3ERepayment%20Type%3C/div%3E"
+                        merge-field=""
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element25"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12 condition-element"
                       data-rindex={rindex}
                       style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-9","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element25_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3EMinimum%3C/div%3E"
+                        merge-field="%3Cdiv%3ERepayment%20Type%3C/div%3E"
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-9","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element26"
-                      class="slds-col slds-size_12-of-12"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12 condition-element"
                       data-rindex={rindex}
                       style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-16","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element26_child"
                         card={card}
                         record={record}
-                        merge-field=""
+                        merge-field="%3Cdiv%3EMinimum%3C/div%3E"
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-16","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element27"
-                      class="slds-col slds-size_1-of-12"
+                      class="slds-col slds-size_12-of-12 condition-element"
                       data-rindex={rindex}
                       style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-23","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element27_child"
                         card={card}
                         record={record}
                         merge-field=""
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-23","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element28"
-                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                      class="slds-col slds-size_1-of-12"
                       data-rindex={rindex}
                       style=""
                     >
@@ -493,18 +507,32 @@
                         data-style-id="state0element0block_element28_child"
                         card={card}
                         record={record}
-                        merge-field="%3Cdiv%3EMinimum%20Monthly%20Repayment%3C/div%3E"
+                        merge-field=""
                         theme="slds"
                       ></omnistudio-output-field>
                     </div>
                     <div
                       data-style-id="state0element0block_element29"
-                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
                         data-style-id="state0element0block_element29_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3EMinimum%20Monthly%20Repayment%3C/div%3E"
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element30"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                      data-rindex={rindex}
+                      style=""
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element30_child"
                         card={card}
                         record={record}
                         placeholder="output"
@@ -516,13 +544,13 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element30"
+                      data-style-id="state0element0block_element31"
                       class="slds-col slds-size_12-of-12"
                       data-rindex={rindex}
                       style=""
                     >
                       <omnistudio-output-field
-                        data-style-id="state0element0block_element30_child"
+                        data-style-id="state0element0block_element31_child"
                         card={card}
                         record={record}
                         placeholder=""
@@ -531,13 +559,77 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element31"
-                      class="slds-col slds-text-align_right slds-size_8-of-12"
+                      data-style-id="state0element0block_element32"
+                      class="slds-col slds-size_1-of-12 condition-element"
+                      data-rindex={rindex}
+                      style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-30","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element32_child"
+                        card={card}
+                        record={record}
+                        merge-field=""
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-30","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element33"
+                      class="slds-col slds-p-left_large slds-size_7-of-12 condition-element"
+                      data-rindex={rindex}
+                      style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-37","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element33_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3EInterest%20Rate%3C/div%3E"
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-37","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element34"
+                      class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12 condition-element"
+                      data-rindex={rindex}
+                      style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-44","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element34_child"
+                        card={card}
+                        record={record}
+                        merge-field="%3Cdiv%3E%7BinstitutionalLiability.interestRate.readableValue%7D%3C/div%3E"
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-44","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element35"
+                      class="slds-col slds-size_12-of-12 condition-element"
+                      data-rindex={rindex}
+                      style=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-51","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                    >
+                      <omnistudio-output-field
+                        data-style-id="state0element0block_element35_child"
+                        card={card}
+                        record={record}
+                        merge-field=""
+                        data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-51","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                        theme="slds"
+                      ></omnistudio-output-field>
+                    </div>
+                    <div
+                      data-style-id="state0element0block_element36"
+                      class="slds-col slds-text-align_right slds-p-right_small slds-size_8-of-12"
                       data-rindex={rindex}
                       style="color: #868383"
                     >
                       <omnistudio-output-field
-                        data-style-id="state0element0block_element31_child"
+                        data-style-id="state0element0block_element36_child"
                         card={card}
                         record={record}
                         placeholder="Last Modified"
@@ -546,18 +638,18 @@
                       ></omnistudio-output-field>
                     </div>
                     <div
-                      data-style-id="state0element0block_element32"
-                      class="slds-col slds-text-align_right slds-size_4-of-12"
+                      data-style-id="state0element0block_element37"
+                      class="slds-col slds-text-align_left slds-size_4-of-12"
                       data-rindex={rindex}
                       style="color: #868383"
                     >
                       <omnistudio-output-field
-                        data-style-id="state0element0block_element32_child"
+                        data-style-id="state0element0block_element37_child"
                         card={card}
                         record={record}
                         placeholder="output"
                         type="datetime"
-                        format="DD MMM YYYY| h:mm a"
+                        format="D MMM YYYY | h:mm A"
                         field-name="updateTime"
                         theme="slds"
                       ></omnistudio-output-field>
@@ -605,9 +697,10 @@
                 ><div class="slds-grid slds-wrap">
                   <div
                     data-style-id="state0element0block_element0"
-                    class="slds-col slds-size_1-of-12"
+                    class="slds-col slds-size_1-of-12 condition-element"
                     data-rindex={rindex}
                     style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                   >
                     <omnistudio-flex-img
                       data-style-id="state0element0block_element0_child"
@@ -616,26 +709,31 @@
                       size=""
                       extraclass="slds-align_absolute-center"
                       state-img='\{"imgsrc":"/sfc/servlet.shepherd/version/download/0688s000001SHGfAAO","alternativeText":"Image description","document":{"label":"Card credit (Version:1)","value":"/sfc/servlet.shepherd/version/download/0688s000001SHGfAAO","title":"Card credit","Id":"0688s000001SHGfAAO","attachmentType":"ContentVersion"}}'
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                       theme="slds"
                     ></omnistudio-flex-img>
                   </div>
                   <div
                     data-style-id="state0element0block_element1"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                    class="slds-col slds-size_1-of-12 condition-element"
                     data-rindex={rindex}
                     style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                   >
-                    <omnistudio-output-field
+                    <omnistudio-flex-img
                       data-style-id="state0element0block_element1_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3EBelongs%20To%3C/div%3E"
+                      size=""
+                      extraclass="slds-align_absolute-center"
+                      state-img='\{"imgsrc":"/sfc/servlet.shepherd/version/download/0688s000001WFzRAAW","alternativeText":"Image description","document":{"label":"ANZ-Classic-lotus-circle (Version:1)","value":"/sfc/servlet.shepherd/version/download/0688s000001WFzRAAW","title":"ANZ-Classic-lotus-circle","Id":"0688s000001WFzRAAW","attachmentType":"ContentVersion"}}'
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-0","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                       theme="slds"
-                    ></omnistudio-output-field>
+                    ></omnistudio-flex-img>
                   </div>
                   <div
                     data-style-id="state0element0block_element2"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -643,18 +741,32 @@
                       data-style-id="state0element0block_element2_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3E%7BownerName%7D%3C/div%3E"
+                      merge-field="%3Cdiv%3EBelongs%20To%3C/div%3E"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element3"
-                    class="slds-col slds-size_1-of-12"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element3_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%7BownerName%7D%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element4"
+                    class="slds-col slds-size_1-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element4_child"
                       card={card}
                       record={record}
                       placeholder=""
@@ -663,22 +775,8 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element4"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
-                    data-rindex={rindex}
-                    style=""
-                  >
-                    <omnistudio-output-field
-                      data-style-id="state0element0block_element4_child"
-                      card={card}
-                      record={record}
-                      merge-field="%3Cdiv%3EDebt%20Type%3C/div%3E"
-                      theme="slds"
-                    ></omnistudio-output-field>
-                  </div>
-                  <div
                     data-style-id="state0element0block_element5"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -686,13 +784,13 @@
                       data-style-id="state0element0block_element5_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3ECredit%20Card%3C/div%3E"
+                      merge-field="%3Cdiv%3EDebt%20Type%3C/div%3E"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element6"
-                    class="slds-col slds-size_12-of-12"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -700,13 +798,13 @@
                       data-style-id="state0element0block_element6_child"
                       card={card}
                       record={record}
-                      merge-field=""
+                      merge-field="%3Cdiv%3ECredit%20Card%3C/div%3E"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element7"
-                    class="slds-col slds-size_1-of-12"
+                    class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -720,7 +818,7 @@
                   </div>
                   <div
                     data-style-id="state0element0block_element8"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                    class="slds-col slds-size_1-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -728,13 +826,13 @@
                       data-style-id="state0element0block_element8_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3EInstitution%3C/div%3E"
+                      merge-field=""
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element9"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -742,18 +840,32 @@
                       data-style-id="state0element0block_element9_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3E%7BinstitutionalLiability.financialInstitution%7D%3C/div%3E"
+                      merge-field="%3Cdiv%3EInstitution%3C/div%3E"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element10"
-                    class="slds-col slds-size_12-of-12"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element10_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%7BinstitutionalLiability.financialInstitution%7D%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element11"
+                    class="slds-col slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element11_child"
                       card={card}
                       record={record}
                       placeholder=""
@@ -762,22 +874,8 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element11"
-                    class="slds-col slds-size_1-of-12"
-                    data-rindex={rindex}
-                    style=""
-                  >
-                    <omnistudio-output-field
-                      data-style-id="state0element0block_element11_child"
-                      card={card}
-                      record={record}
-                      merge-field=""
-                      theme="slds"
-                    ></omnistudio-output-field>
-                  </div>
-                  <div
                     data-style-id="state0element0block_element12"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                    class="slds-col slds-size_1-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -785,18 +883,32 @@
                       data-style-id="state0element0block_element12_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3ECard%20Limit%3C/div%3E"
+                      merge-field=""
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element13"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element13_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3ECard%20Limit%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element14"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element14_child"
                       card={card}
                       record={record}
                       placeholder="0.0"
@@ -808,13 +920,13 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element14"
+                    data-style-id="state0element0block_element15"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element0block_element14_child"
+                      data-style-id="state0element0block_element15_child"
                       card={card}
                       record={record}
                       placeholder=""
@@ -824,22 +936,8 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element15"
-                    class="slds-col slds-size_1-of-12"
-                    data-rindex={rindex}
-                    style=""
-                  >
-                    <omnistudio-output-field
-                      data-style-id="state0element0block_element15_child"
-                      card={card}
-                      record={record}
-                      merge-field=""
-                      theme="slds"
-                    ></omnistudio-output-field>
-                  </div>
-                  <div
                     data-style-id="state0element0block_element16"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                    class="slds-col slds-size_1-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -847,13 +945,13 @@
                       data-style-id="state0element0block_element16_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3ECard%20Number%3C/div%3E"
+                      merge-field=""
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element17"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -861,18 +959,32 @@
                       data-style-id="state0element0block_element17_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3E%7Baccount.accountNumber%7D%3C/div%3E"
+                      merge-field="%3Cdiv%3ECard%20Number%3C/div%3E"
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element18"
-                    class="slds-col slds-size_12-of-12"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element18_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%7Baccount.accountNumber%7D%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element19"
+                    class="slds-col slds-size_12-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element19_child"
                       card={card}
                       record={record}
                       placeholder=""
@@ -881,22 +993,8 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element19"
-                    class="slds-col slds-size_1-of-12"
-                    data-rindex={rindex}
-                    style=""
-                  >
-                    <omnistudio-output-field
-                      data-style-id="state0element0block_element19_child"
-                      card={card}
-                      record={record}
-                      merge-field=""
-                      theme="slds"
-                    ></omnistudio-output-field>
-                  </div>
-                  <div
                     data-style-id="state0element0block_element20"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                    class="slds-col slds-size_1-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -904,18 +1002,32 @@
                       data-style-id="state0element0block_element20_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3ECurrent%20Balance%3C/div%3E"
+                      merge-field=""
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element21"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element21_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3ECurrent%20Balance%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element22"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element22_child"
                       card={card}
                       record={record}
                       placeholder="output"
@@ -929,13 +1041,13 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element22"
+                    data-style-id="state0element0block_element23"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element0block_element22_child"
+                      data-style-id="state0element0block_element23_child"
                       card={card}
                       record={record}
                       placeholder=""
@@ -944,78 +1056,72 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element23"
-                    class="slds-col slds-size_1-of-12"
-                    data-rindex={rindex}
-                    style=""
-                  >
-                    <omnistudio-output-field
-                      data-style-id="state0element0block_element23_child"
-                      card={card}
-                      record={record}
-                      merge-field=""
-                      theme="slds"
-                    ></omnistudio-output-field>
-                  </div>
-                  <div
                     data-style-id="state0element0block_element24"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                    class="slds-col slds-size_1-of-12 condition-element"
                     data-rindex={rindex}
                     style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element24_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3ERepayment%20Type%3C/div%3E"
+                      merge-field=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-2","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element25"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12 condition-element"
                     data-rindex={rindex}
                     style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-9","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element25_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3EMinimum%3C/div%3E"
+                      merge-field="%3Cdiv%3ERepayment%20Type%3C/div%3E"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-9","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element26"
-                    class="slds-col slds-size_12-of-12"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12 condition-element"
                     data-rindex={rindex}
                     style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-16","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element26_child"
                       card={card}
                       record={record}
-                      merge-field=""
+                      merge-field="%3Cdiv%3EMinimum%3C/div%3E"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-16","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element27"
-                    class="slds-col slds-size_1-of-12"
+                    class="slds-col slds-size_12-of-12 condition-element"
                     data-rindex={rindex}
                     style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-23","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element27_child"
                       card={card}
                       record={record}
                       merge-field=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-23","field":"institutionalLiability.financialInstitution","operator":"!=","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element28"
-                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
+                    class="slds-col slds-size_1-of-12"
                     data-rindex={rindex}
                     style=""
                   >
@@ -1023,18 +1129,32 @@
                       data-style-id="state0element0block_element28_child"
                       card={card}
                       record={record}
-                      merge-field="%3Cdiv%3EMinimum%20Monthly%20Repayment%3C/div%3E"
+                      merge-field=""
                       theme="slds"
                     ></omnistudio-output-field>
                   </div>
                   <div
                     data-style-id="state0element0block_element29"
-                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    class="slds-col slds-text-align_left slds-p-left_large slds-size_7-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
                       data-style-id="state0element0block_element29_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3EMinimum%20Monthly%20Repayment%3C/div%3E"
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element30"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12"
+                    data-rindex={rindex}
+                    style=""
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element30_child"
                       card={card}
                       record={record}
                       placeholder="output"
@@ -1046,13 +1166,13 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element30"
+                    data-style-id="state0element0block_element31"
                     class="slds-col slds-size_12-of-12"
                     data-rindex={rindex}
                     style=""
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element0block_element30_child"
+                      data-style-id="state0element0block_element31_child"
                       card={card}
                       record={record}
                       placeholder=""
@@ -1061,13 +1181,77 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element31"
-                    class="slds-col slds-text-align_right slds-size_8-of-12"
+                    data-style-id="state0element0block_element32"
+                    class="slds-col slds-size_1-of-12 condition-element"
+                    data-rindex={rindex}
+                    style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-30","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element32_child"
+                      card={card}
+                      record={record}
+                      merge-field=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-30","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element33"
+                    class="slds-col slds-p-left_large slds-size_7-of-12 condition-element"
+                    data-rindex={rindex}
+                    style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-37","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element33_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3EInterest%20Rate%3C/div%3E"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-37","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element34"
+                    class="slds-col slds-text-align_right slds-p-right_large slds-size_4-of-12 condition-element"
+                    data-rindex={rindex}
+                    style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-44","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element34_child"
+                      card={card}
+                      record={record}
+                      merge-field="%3Cdiv%3E%7BinstitutionalLiability.interestRate.readableValue%7D%3C/div%3E"
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-44","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element35"
+                    class="slds-col slds-size_12-of-12 condition-element"
+                    data-rindex={rindex}
+                    style=""
+                    data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-51","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                  >
+                    <omnistudio-output-field
+                      data-style-id="state0element0block_element35_child"
+                      card={card}
+                      record={record}
+                      merge-field=""
+                      data-conditions='\{"id":"state-condition-object","isParent":true,"group":[{"id":"state-new-condition-51","field":"institutionalLiability.financialInstitution","operator":"==","value":"ANZx Plus","type":"custom","hasMergeField":false}]}'
+                      theme="slds"
+                    ></omnistudio-output-field>
+                  </div>
+                  <div
+                    data-style-id="state0element0block_element36"
+                    class="slds-col slds-text-align_right slds-p-right_small slds-size_8-of-12"
                     data-rindex={rindex}
                     style="color: #868383"
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element0block_element31_child"
+                      data-style-id="state0element0block_element36_child"
                       card={card}
                       record={record}
                       placeholder="Last Modified"
@@ -1076,18 +1260,18 @@
                     ></omnistudio-output-field>
                   </div>
                   <div
-                    data-style-id="state0element0block_element32"
-                    class="slds-col slds-text-align_right slds-size_4-of-12"
+                    data-style-id="state0element0block_element37"
+                    class="slds-col slds-text-align_left slds-size_4-of-12"
                     data-rindex={rindex}
                     style="color: #868383"
                   >
                     <omnistudio-output-field
-                      data-style-id="state0element0block_element32_child"
+                      data-style-id="state0element0block_element37_child"
                       card={card}
                       record={record}
                       placeholder="output"
                       type="datetime"
-                      format="DD MMM YYYY| h:mm a"
+                      format="D MMM YYYY | h:mm A"
                       field-name="updateTime"
                       theme="slds"
                     ></omnistudio-output-field>

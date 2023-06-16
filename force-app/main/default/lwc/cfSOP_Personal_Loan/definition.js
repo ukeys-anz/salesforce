@@ -1592,12 +1592,13 @@ let definition = {
                   stateIndex: 0,
                   class: "slds-col ",
                   property: {
-                    placeholder: "13,000",
+                    placeholder: "",
                     record: "{record}",
                     type: "currency",
                     card: "{card}",
                     locale: "en-AU",
-                    currency: "AUD"
+                    currency: "AUD",
+                    fieldName: "institutionalLiability.repaymentAmount.value"
                   },
                   type: "element",
                   styleObject: {
@@ -2220,7 +2221,7 @@ let definition = {
                   stateIndex: 0,
                   class: "slds-col ",
                   property: {
-                    placeholder: "Last Modified:",
+                    placeholder: "Last Modified",
                     record: "{record}",
                     type: "text",
                     card: "{card}"
@@ -2228,7 +2229,9 @@ let definition = {
                   type: "element",
                   styleObject: {
                     sizeClass: "slds-size_8-of-12 ",
-                    padding: [],
+                    padding: [
+                      { type: "right", size: "small", label: "right:small" }
+                    ],
                     margin: [],
                     background: {
                       color: "",
@@ -2249,7 +2252,7 @@ let definition = {
                     elementStyleProperties: {},
                     text: { align: "right", color: "" },
                     inlineStyle: "color: #868383",
-                    class: "slds-text-align_right ",
+                    class: "slds-text-align_right slds-p-right_small ",
                     style: "      \n         color: #868383"
                   },
                   elementLabel: "Block-0-Field-32",
@@ -2259,7 +2262,9 @@ let definition = {
                       conditions: "default",
                       styleObject: {
                         sizeClass: "slds-size_8-of-12 ",
-                        padding: [],
+                        padding: [
+                          { type: "right", size: "small", label: "right:small" }
+                        ],
                         margin: [],
                         background: {
                           color: "",
@@ -2280,7 +2285,7 @@ let definition = {
                         elementStyleProperties: {},
                         text: { align: "right", color: "" },
                         inlineStyle: "color: #868383",
-                        class: "slds-text-align_right ",
+                        class: "slds-text-align_right slds-p-right_small ",
                         style: "      \n         color: #868383"
                       },
                       label: "Default",
@@ -2303,7 +2308,7 @@ let definition = {
                     record: "{record}",
                     type: "datetime",
                     card: "{card}",
-                    format: "DD MMM YYYY | h:mm a",
+                    format: "D MMM YYYY | h:mm A",
                     fieldName: "updateTime"
                   },
                   type: "element",
@@ -2328,9 +2333,9 @@ let definition = {
                       style: ""
                     },
                     elementStyleProperties: {},
-                    text: { align: "right", color: "" },
+                    text: { align: "left", color: "" },
                     inlineStyle: "color: #868383",
-                    class: "slds-text-align_right ",
+                    class: "slds-text-align_left ",
                     style: "      \n         color: #868383"
                   },
                   elementLabel: "Block-0-Field-33",
@@ -2359,9 +2364,9 @@ let definition = {
                           style: ""
                         },
                         elementStyleProperties: {},
-                        text: { align: "right", color: "" },
+                        text: { align: "left", color: "" },
                         inlineStyle: "color: #868383",
-                        class: "slds-text-align_right ",
+                        class: "slds-text-align_left ",
                         style: "      \n         color: #868383"
                       },
                       label: "Default",

@@ -188,7 +188,7 @@ let definition = {
                 record: "{record}",
                 collapsedByDefault: true,
                 card: "{card}",
-                styles: { label: { textDecoration: "", color: "#000000" } },
+                styles: { label: { textDecoration: "", color: "" } },
                 action: null
               },
               type: "block",
@@ -216,7 +216,7 @@ let definition = {
                   style: ""
                 },
                 elementStyleProperties: {
-                  styles: { label: { textDecoration: "", color: "#000000" } }
+                  styles: { label: { textDecoration: "", color: "" } }
                 },
                 text: { align: "", color: "" },
                 inlineStyle: "",
@@ -940,9 +940,7 @@ let definition = {
                       style: ""
                     },
                     elementStyleProperties: {
-                      styles: {
-                        label: { textDecoration: "", color: "#000000" }
-                      }
+                      styles: { label: { textDecoration: "", color: "" } }
                     },
                     text: { align: "", color: "" },
                     inlineStyle: "",
@@ -967,8 +965,7 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}",
-                styles: { label: { color: "#000000" } }
+                card: "{card}"
               },
               type: "block",
               styleObject: {
@@ -994,9 +991,7 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {
-                  styles: { label: { color: "#000000" } }
-                },
+                elementStyleProperties: {},
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -1441,9 +1436,7 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {
-                      styles: { label: { color: "#000000" } }
-                    },
+                    elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -1467,8 +1460,7 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}",
-                styles: { label: { color: "#000000" } }
+                card: "{card}"
               },
               type: "block",
               styleObject: {
@@ -1494,9 +1486,7 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {
-                  styles: { label: { color: "#000000" } }
-                },
+                elementStyleProperties: {},
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -2050,9 +2040,7 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {
-                      styles: { label: { color: "#000000" } }
-                    },
+                    elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -2076,8 +2064,7 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}",
-                styles: { label: { color: "#000000" } }
+                card: "{card}"
               },
               type: "block",
               styleObject: {
@@ -2103,9 +2090,7 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {
-                  styles: { label: { color: "#000000" } }
-                },
+                elementStyleProperties: {},
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -2145,9 +2130,7 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {
-                      styles: { label: { color: "#000000" } }
-                    },
+                    elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -2171,8 +2154,7 @@ let definition = {
                 collapsible: true,
                 record: "{record}",
                 collapsedByDefault: true,
-                card: "{card}",
-                styles: { label: { color: "#000000" } }
+                card: "{card}"
               },
               type: "block",
               styleObject: {
@@ -2198,9 +2180,7 @@ let definition = {
                   radius: "",
                   style: ""
                 },
-                elementStyleProperties: {
-                  styles: { label: { color: "#000000" } }
-                },
+                elementStyleProperties: {},
                 text: { align: "", color: "" },
                 inlineStyle: "",
                 customClass: "title_color",
@@ -2240,9 +2220,7 @@ let definition = {
                       radius: "",
                       style: ""
                     },
-                    elementStyleProperties: {
-                      styles: { label: { color: "#000000" } }
-                    },
+                    elementStyleProperties: {},
                     text: { align: "", color: "" },
                     inlineStyle: "",
                     customClass: "title_color",
@@ -2316,9 +2294,7 @@ let definition = {
   isRepeatable: true,
   osSupport: true,
   globalCSS: true,
-  Name: "SOP_Finances_Savings",
-  uniqueKey: "SOP_Finances_Savings",
-  Id: "0ko8r0000000I6bAAE",
+  Id: "0ko8s0000000CqnAAE",
   OmniUiCardKey: "SOP_Finances_Savings/ANZ/1.0",
   OmniUiCardType: "Parent"
 };

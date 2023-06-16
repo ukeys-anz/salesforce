@@ -120,6 +120,20 @@ let definition = {
                         Id: "0688s000001SHGfAAO",
                         attachmentType: "ContentVersion"
                       }
+                    },
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-0",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "!=",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
                     }
                   },
                   type: "element",
@@ -151,6 +165,112 @@ let definition = {
                   },
                   elementLabel: "Block-0-Image-0",
                   key: "element_element_block_0_0_flexImg_0_0",
+                  parentElementKey: "element_block_0_0",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        size: { isResponsive: false, default: "1" },
+                        sizeClass: "slds-size_1-of-12 ",
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "",
+                        class: "",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
+                },
+                {
+                  name: "Image",
+                  element: "flexImg",
+                  size: { isResponsive: false, default: "1" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    card: "{card}",
+                    size: "",
+                    extraclass: "slds-align_absolute-center",
+                    stateImg: {
+                      imgsrc:
+                        "/sfc/servlet.shepherd/version/download/0688s000001WFzRAAW",
+                      alternativeText: "Image description",
+                      document: {
+                        label: "ANZ-Classic-lotus-circle (Version:1)",
+                        value:
+                          "/sfc/servlet.shepherd/version/download/0688s000001WFzRAAW",
+                        title: "ANZ-Classic-lotus-circle",
+                        Id: "0688s000001WFzRAAW",
+                        attachmentType: "ContentVersion"
+                      }
+                    },
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-0",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "==",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
+                  },
+                  type: "element",
+                  styleObject: {
+                    size: { isResponsive: false, default: "1" },
+                    sizeClass: "slds-size_1-of-12 ",
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    class: "",
+                    style: "      \n         "
+                  },
+                  elementLabel: "Block-0-Image-1",
+                  key: "element_element_block_0_0_flexImg_1_0",
                   parentElementKey: "element_block_0_0",
                   styleObjects: [
                     {
@@ -229,7 +349,7 @@ let definition = {
                     class: "slds-text-align_left slds-p-left_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-1",
+                  elementLabel: "Block-0-Text-2",
                   styleObjects: [
                     {
                       key: 0,
@@ -268,7 +388,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_1_0",
+                  key: "element_element_block_0_0_outputField_2_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -311,8 +431,8 @@ let definition = {
                     class: "slds-text-align_right slds-p-right_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-2",
-                  key: "element_element_block_0_0_outputField_2_0",
+                  elementLabel: "Block-0-Text-3",
+                  key: "element_element_block_0_0_outputField_3_0",
                   parentElementKey: "element_block_0_0",
                   styleObjects: [
                     {
@@ -392,8 +512,8 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Field-3",
-                  key: "element_element_block_0_0_outputField_3_0",
+                  elementLabel: "Block-0-Field-4",
+                  key: "element_element_block_0_0_outputField_4_0",
                   parentElementKey: "element_block_0_0",
                   styleObjects: [
                     {
@@ -433,7 +553,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_4_0",
+                  key: "element_element_block_0_0_outputField_5_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: "7" },
@@ -474,7 +594,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Text-4",
+                  elementLabel: "Block-0-Text-5",
                   styleObjects: [
                     {
                       key: 0,
@@ -515,7 +635,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_5_0",
+                  key: "element_element_block_0_0_outputField_6_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: 4 },
@@ -556,7 +676,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Text-5",
+                  elementLabel: "Block-0-Text-6",
                   styleObjects: [
                     {
                       key: 0,
@@ -597,7 +717,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_6_0",
+                  key: "element_element_block_0_0_outputField_7_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: "12" },
@@ -611,10 +731,10 @@ let definition = {
                   type: "text",
                   styleObject: { sizeClass: "slds-size_12-of-12" },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Text-6"
+                  elementLabel: "Block-0-Text-7"
                 },
                 {
-                  key: "element_element_block_0_0_outputField_7_0",
+                  key: "element_element_block_0_0_outputField_8_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: "1" },
@@ -653,7 +773,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Text-7",
+                  elementLabel: "Block-0-Text-8",
                   styleObjects: [
                     {
                       key: 0,
@@ -731,7 +851,7 @@ let definition = {
                     class: "slds-text-align_left slds-p-left_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-8",
+                  elementLabel: "Block-0-Text-9",
                   styleObjects: [
                     {
                       key: 0,
@@ -770,7 +890,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_8_0",
+                  key: "element_element_block_0_0_outputField_9_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -814,7 +934,7 @@ let definition = {
                     class: "slds-text-align_right slds-p-right_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-9",
+                  elementLabel: "Block-0-Text-10",
                   styleObjects: [
                     {
                       key: 0,
@@ -853,7 +973,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_9_0",
+                  key: "element_element_block_0_0_outputField_10_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -872,7 +992,7 @@ let definition = {
                   styleObject: { sizeClass: "slds-size_12-of-12" },
                   elementLabel: "Field-3",
                   userUpdatedElementLabel: true,
-                  key: "element_element_block_0_0_outputField_10_0",
+                  key: "element_element_block_0_0_outputField_11_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -913,7 +1033,7 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-11",
+                  elementLabel: "Block-0-Text-12",
                   styleObjects: [
                     {
                       key: 0,
@@ -950,7 +1070,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_11_0",
+                  key: "element_element_block_0_0_outputField_12_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -993,7 +1113,7 @@ let definition = {
                     class: "slds-text-align_left slds-p-left_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-12",
+                  elementLabel: "Block-0-Text-13",
                   styleObjects: [
                     {
                       key: 0,
@@ -1032,11 +1152,11 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_12_0",
+                  key: "element_element_block_0_0_outputField_13_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
-                  key: "element_element_block_0_0_outputField_13_0",
+                  key: "element_element_block_0_0_outputField_14_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: "4" },
@@ -1081,7 +1201,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Field-13",
+                  elementLabel: "Block-0-Field-14",
                   styleObjects: [
                     {
                       key: 0,
@@ -1122,7 +1242,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_14_0",
+                  key: "element_element_block_0_0_outputField_15_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: "12" },
@@ -1179,7 +1299,7 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-15",
+                  elementLabel: "Block-0-Text-16",
                   styleObjects: [
                     {
                       key: 0,
@@ -1216,7 +1336,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_15_0",
+                  key: "element_element_block_0_0_outputField_16_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -1260,7 +1380,7 @@ let definition = {
                     style: "      \n         "
                   },
                   elementLabel: "Block-0-Text-3",
-                  key: "element_element_block_0_0_outputField_16_0",
+                  key: "element_element_block_0_0_outputField_17_0",
                   parentElementKey: "element_block_0_0",
                   styleObjects: [
                     {
@@ -1345,7 +1465,7 @@ let definition = {
                   },
                   elementLabel: "Block-0-Text-4",
                   userUpdatedElementLabel: true,
-                  key: "element_element_block_0_0_outputField_17_0",
+                  key: "element_element_block_0_0_outputField_18_0",
                   parentElementKey: "element_block_0_0",
                   styleObjects: [
                     {
@@ -1403,8 +1523,8 @@ let definition = {
                     size: { isResponsive: false, default: 0 },
                     sizeClass: "slds-size_12-of-12"
                   },
-                  elementLabel: "Block-0-Field-18",
-                  key: "element_element_block_0_0_outputField_18_0",
+                  elementLabel: "Block-0-Field-19",
+                  key: "element_element_block_0_0_outputField_19_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -1445,7 +1565,7 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-19",
+                  elementLabel: "Block-0-Text-20",
                   styleObjects: [
                     {
                       key: 0,
@@ -1482,7 +1602,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_19_0",
+                  key: "element_element_block_0_0_outputField_20_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -1525,7 +1645,7 @@ let definition = {
                     class: "slds-text-align_left slds-p-left_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-20",
+                  elementLabel: "Block-0-Text-21",
                   styleObjects: [
                     {
                       key: 0,
@@ -1564,7 +1684,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_20_0",
+                  key: "element_element_block_0_0_outputField_21_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -1613,8 +1733,8 @@ let definition = {
                     class: "slds-text-align_right slds-p-right_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Field-21",
-                  key: "element_element_block_0_0_outputField_21_0",
+                  elementLabel: "Block-0-Field-22",
+                  key: "element_element_block_0_0_outputField_22_0",
                   parentElementKey: "element_block_0_0",
                   styleObjects: [
                     {
@@ -1672,8 +1792,8 @@ let definition = {
                     size: { isResponsive: false, default: "12" },
                     sizeClass: "slds-size_12-of-12 "
                   },
-                  elementLabel: "Block-0-Field-22",
-                  key: "element_element_block_0_0_outputField_22_0",
+                  elementLabel: "Block-0-Field-23",
+                  key: "element_element_block_0_0_outputField_23_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -1685,7 +1805,21 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField: "",
-                    card: "{card}"
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-2",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "!=",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
                   },
                   type: "text",
                   styleObject: {
@@ -1714,7 +1848,7 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-23",
+                  elementLabel: "Block-0-Text-24",
                   styleObjects: [
                     {
                       key: 0,
@@ -1751,11 +1885,11 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_23_0",
+                  key: "element_element_block_0_0_outputField_24_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
-                  key: "element_element_block_0_0_outputField_24_0",
+                  key: "element_element_block_0_0_outputField_25_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: "7" },
@@ -1764,7 +1898,21 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField: "%3Cdiv%3ERepayment%20Type%3C/div%3E",
-                    card: "{card}"
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-9",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "!=",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
                   },
                   type: "text",
                   styleObject: {
@@ -1796,7 +1944,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Text-24",
+                  elementLabel: "Block-0-Text-25",
                   styleObjects: [
                     {
                       key: 0,
@@ -1837,7 +1985,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_25_0",
+                  key: "element_element_block_0_0_outputField_26_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: 4 },
@@ -1846,7 +1994,21 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField: "%3Cdiv%3EMinimum%3C/div%3E",
-                    card: "{card}"
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-16",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "!=",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
                   },
                   type: "text",
                   styleObject: {
@@ -1878,7 +2040,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Text-25",
+                  elementLabel: "Block-0-Text-26",
                   styleObjects: [
                     {
                       key: 0,
@@ -1919,7 +2081,7 @@ let definition = {
                   ]
                 },
                 {
-                  key: "element_element_block_0_0_outputField_26_0",
+                  key: "element_element_block_0_0_outputField_27_0",
                   name: "Text",
                   element: "outputField",
                   size: { isResponsive: false, default: 12 },
@@ -1928,7 +2090,21 @@ let definition = {
                   property: {
                     record: "{record}",
                     mergeField: "",
-                    card: "{card}"
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-23",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "!=",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
                   },
                   type: "text",
                   styleObject: {
@@ -1936,7 +2112,7 @@ let definition = {
                     sizeClass: "slds-size_12-of-12"
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Text-26"
+                  elementLabel: "Block-0-Text-27"
                 },
                 {
                   name: "Text",
@@ -1976,7 +2152,7 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-27",
+                  elementLabel: "Block-0-Text-28",
                   styleObjects: [
                     {
                       key: 0,
@@ -2013,7 +2189,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_27_0",
+                  key: "element_element_block_0_0_outputField_28_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -2057,7 +2233,7 @@ let definition = {
                     class: "slds-text-align_left slds-p-left_large ",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Text-28",
+                  elementLabel: "Block-0-Text-29",
                   styleObjects: [
                     {
                       key: 0,
@@ -2096,11 +2272,11 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_28_0",
+                  key: "element_element_block_0_0_outputField_29_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
-                  key: "element_element_block_0_0_outputField_29_0",
+                  key: "element_element_block_0_0_outputField_30_0",
                   name: "Field",
                   element: "outputField",
                   size: { isResponsive: false, default: "4" },
@@ -2145,7 +2321,7 @@ let definition = {
                     style: "      \n         "
                   },
                   parentElementKey: "element_block_0_0",
-                  elementLabel: "Block-0-Field-31",
+                  elementLabel: "Block-0-Field-30",
                   styleObjects: [
                     {
                       key: 0,
@@ -2224,7 +2400,7 @@ let definition = {
                     class: "",
                     style: "      \n         "
                   },
-                  elementLabel: "Block-0-Field-32",
+                  elementLabel: "Block-0-Field-31",
                   styleObjects: [
                     {
                       key: 0,
@@ -2261,8 +2437,324 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_30_0",
+                  key: "element_element_block_0_0_outputField_31_0",
                   parentElementKey: "element_block_0_0"
+                },
+                {
+                  key: "element_element_block_0_0_outputField_32_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "1" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField: "",
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-30",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "==",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
+                  },
+                  type: "text",
+                  styleObject: {
+                    sizeClass: "slds-size_1-of-12 ",
+                    padding: [],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "1" },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    class: "",
+                    style: "      \n         "
+                  },
+                  parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-0-Text-32",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_1-of-12 ",
+                        padding: [],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        size: { isResponsive: false, default: "1" },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "",
+                        class: "",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
+                },
+                {
+                  key: "element_element_block_0_0_outputField_33_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "7" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField: "%3Cdiv%3EInterest%20Rate%3C/div%3E",
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-37",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "==",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
+                  },
+                  type: "text",
+                  styleObject: {
+                    sizeClass: "slds-size_7-of-12 ",
+                    padding: [
+                      { type: "left", size: "large", label: "left:large" }
+                    ],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "7" },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "", color: "" },
+                    inlineStyle: "",
+                    class: "slds-p-left_large ",
+                    style: "      \n         "
+                  },
+                  parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-0-Text-33",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_7-of-12 ",
+                        padding: [
+                          { type: "left", size: "large", label: "left:large" }
+                        ],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        size: { isResponsive: false, default: "7" },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "", color: "" },
+                        inlineStyle: "",
+                        class: "slds-p-left_large ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
+                },
+                {
+                  key: "element_element_block_0_0_outputField_34_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "4" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField:
+                      "%3Cdiv%3E%7BinstitutionalLiability.interestRate.readableValue%7D%3C/div%3E",
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-44",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "==",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
+                  },
+                  type: "text",
+                  styleObject: {
+                    sizeClass: "slds-size_4-of-12 ",
+                    padding: [
+                      { type: "right", size: "large", label: "right:large" }
+                    ],
+                    margin: [],
+                    background: {
+                      color: "",
+                      image: "",
+                      size: "",
+                      repeat: "",
+                      position: ""
+                    },
+                    size: { isResponsive: false, default: "4" },
+                    container: { class: "" },
+                    border: {
+                      type: "",
+                      width: "",
+                      color: "",
+                      radius: "",
+                      style: ""
+                    },
+                    elementStyleProperties: {},
+                    text: { align: "right", color: "" },
+                    inlineStyle: "",
+                    class: "slds-text-align_right slds-p-right_large ",
+                    style: "      \n         "
+                  },
+                  parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-0-Text-34",
+                  styleObjects: [
+                    {
+                      key: 0,
+                      conditions: "default",
+                      styleObject: {
+                        sizeClass: "slds-size_4-of-12 ",
+                        padding: [
+                          { type: "right", size: "large", label: "right:large" }
+                        ],
+                        margin: [],
+                        background: {
+                          color: "",
+                          image: "",
+                          size: "",
+                          repeat: "",
+                          position: ""
+                        },
+                        size: { isResponsive: false, default: "4" },
+                        container: { class: "" },
+                        border: {
+                          type: "",
+                          width: "",
+                          color: "",
+                          radius: "",
+                          style: ""
+                        },
+                        elementStyleProperties: {},
+                        text: { align: "right", color: "" },
+                        inlineStyle: "",
+                        class: "slds-text-align_right slds-p-right_large ",
+                        style: "      \n         "
+                      },
+                      label: "Default",
+                      name: "Default",
+                      conditionString: "",
+                      draggable: false
+                    }
+                  ]
+                },
+                {
+                  key: "element_element_block_0_0_outputField_35_0",
+                  name: "Text",
+                  element: "outputField",
+                  size: { isResponsive: false, default: "12" },
+                  stateIndex: 0,
+                  class: "slds-col ",
+                  property: {
+                    record: "{record}",
+                    mergeField: "",
+                    card: "{card}",
+                    "data-conditions": {
+                      id: "state-condition-object",
+                      isParent: true,
+                      group: [
+                        {
+                          id: "state-new-condition-51",
+                          field: "institutionalLiability.financialInstitution",
+                          operator: "==",
+                          value: "ANZx Plus",
+                          type: "custom",
+                          hasMergeField: false
+                        }
+                      ]
+                    }
+                  },
+                  type: "text",
+                  styleObject: { sizeClass: "slds-size_12-of-12" },
+                  parentElementKey: "element_block_0_0",
+                  elementLabel: "Block-0-Text-35"
                 },
                 {
                   name: "Field",
@@ -2279,7 +2771,9 @@ let definition = {
                   type: "element",
                   styleObject: {
                     sizeClass: "slds-size_8-of-12 ",
-                    padding: [],
+                    padding: [
+                      { type: "right", size: "small", label: "right:small" }
+                    ],
                     margin: [],
                     background: {
                       color: "",
@@ -2300,17 +2794,19 @@ let definition = {
                     elementStyleProperties: {},
                     text: { align: "right", color: "" },
                     inlineStyle: "color: #868383",
-                    class: "slds-text-align_right ",
+                    class: "slds-text-align_right slds-p-right_small ",
                     style: "      \n         color: #868383"
                   },
-                  elementLabel: "Block-0-Field-33",
+                  elementLabel: "Block-0-Field-36",
                   styleObjects: [
                     {
                       key: 0,
                       conditions: "default",
                       styleObject: {
                         sizeClass: "slds-size_8-of-12 ",
-                        padding: [],
+                        padding: [
+                          { type: "right", size: "small", label: "right:small" }
+                        ],
                         margin: [],
                         background: {
                           color: "",
@@ -2331,7 +2827,7 @@ let definition = {
                         elementStyleProperties: {},
                         text: { align: "right", color: "" },
                         inlineStyle: "color: #868383",
-                        class: "slds-text-align_right ",
+                        class: "slds-text-align_right slds-p-right_small ",
                         style: "      \n         color: #868383"
                       },
                       label: "Default",
@@ -2340,7 +2836,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_31_0",
+                  key: "element_element_block_0_0_outputField_36_0",
                   parentElementKey: "element_block_0_0"
                 },
                 {
@@ -2354,7 +2850,7 @@ let definition = {
                     record: "{record}",
                     type: "datetime",
                     card: "{card}",
-                    format: "DD MMM YYYY| h:mm a",
+                    format: "D MMM YYYY | h:mm A",
                     fieldName: "updateTime"
                   },
                   type: "element",
@@ -2379,12 +2875,12 @@ let definition = {
                       style: ""
                     },
                     elementStyleProperties: {},
-                    text: { align: "right", color: "" },
+                    text: { align: "left", color: "" },
                     inlineStyle: "color: #868383",
-                    class: "slds-text-align_right ",
+                    class: "slds-text-align_left ",
                     style: "      \n         color: #868383"
                   },
-                  elementLabel: "Block-0-Field-34",
+                  elementLabel: "Block-0-Field-37",
                   styleObjects: [
                     {
                       key: 0,
@@ -2410,9 +2906,9 @@ let definition = {
                           style: ""
                         },
                         elementStyleProperties: {},
-                        text: { align: "right", color: "" },
+                        text: { align: "left", color: "" },
                         inlineStyle: "color: #868383",
-                        class: "slds-text-align_right ",
+                        class: "slds-text-align_left ",
                         style: "      \n         color: #868383"
                       },
                       label: "Default",
@@ -2421,7 +2917,7 @@ let definition = {
                       draggable: false
                     }
                   ],
-                  key: "element_element_block_0_0_outputField_32_0",
+                  key: "element_element_block_0_0_outputField_37_0",
                   parentElementKey: "element_block_0_0"
                 }
               ],
@@ -2490,6 +2986,11 @@ let definition = {
         {
           Id: "0688s000001SHGfAAO",
           developerName: "Card credit",
+          type: "ContentVersion"
+        },
+        {
+          Id: "0688s000001WFzRAAW",
+          developerName: "ANZ-Classic-lotus-circle",
           type: "ContentVersion"
         }
       ]
