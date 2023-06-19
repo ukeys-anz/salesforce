@@ -10,11 +10,11 @@
     <columns>Resolution__c</columns>
     <columns>StartTime</columns>
     <columns>Attendees__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>RecordType</field>
         <operation>equals</operation>
         <value>Interaction.Store</value>
     </filters>
-    <label>All Store Interactions</label>
+    <filterScope>Everything</filterScope>
+    <label>All In Person Interactions</label>
 </ListView>
