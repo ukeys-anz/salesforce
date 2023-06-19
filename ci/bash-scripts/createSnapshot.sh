@@ -28,6 +28,17 @@ sfdx force:org:list
 echoMessageCreator "" $stepNo false
 ########################
 
+# Pre-deploy steps for any package installation
+# manual steps
+echoMessageCreator "Pre-deploy steps for any package installation" $stepNo true
+read -rp "${green}Do you want to open the scratch org (y/n)? " openOrg
+echo "${reset}"
+if [[ $openOrg == y || $openOrg == Y ]]; then
+    sfdx force:org:open -u $scratchorgalias 
+fi
+continueTheJob
+echoMessageCreator "" $stepNo false
+
 # install managed packages
 echoMessageCreator "install managed packages" $stepNo true
 sfdx force:mdapi:deploy -d mdapi-source/packages/ | tee stderr
