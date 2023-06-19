@@ -14,14 +14,14 @@
     <standardValue>
         <fullName>Store</fullName>
         <default>false</default>
-        <label>Store</label>
+        <label>Coaching Lab</label>
     </standardValue>
     <standardValue>
         <fullName>Video</fullName>
         <default>false</default>
         <label>Video</label>
     </standardValue>
-      <standardValue>
+    <standardValue>
         <fullName>Pop up</fullName>
         <default>false</default>
         <label>Pop up</label>
@@ -29,6 +29,6 @@
     <standardValue>
         <fullName>Coach in Branch</fullName>
         <default>false</default>
-        <label>Coach in Branch</label>
+        <label>Branch</label>
     </standardValue>
 </StandardValueSet>
