@@ -24,7 +24,7 @@
   <aura:handler name="change" value="{!v.pageReference}" action="{!c.init}" />
 
   <aura:renderIf isTrue="{!v.showComponent}">
-    -<c:createComplaintLWC
+    <c:createComplaintLWC
       recordTypeId="{!v.selectedRecordTypeId}"
       recordTypeDevName="{!v.recordTypeDevName}"
       contextRecordId="{!v.contextRecordId}"
