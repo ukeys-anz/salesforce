@@ -387,6 +387,14 @@ public with sharing class GetHelpCaseActions {
       oldMap,
       caseList
     );
+
+    // Add KYC QA
+    for (Case newCase : caseList) {
+      if (newCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+        filteredCases.add(newCase);
+      }
+    }
+
     if (filteredCases.size() == 0) {
       return;
     }
