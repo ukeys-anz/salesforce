@@ -68,6 +68,11 @@
                 <label>Doc fail - doc details are outside of fixable threshold</label>
             </value>
             <value>
+                <fullName>Doc fail - document details unreadable</fullName>
+                <default>false</default>
+                <label>Doc fail - document details unreadable</label>
+            </value>
+            <value>
                 <fullName>EV fail - retries exhausted on customer name variations</fullName>
                 <default>false</default>
                 <label>EV fail - retries exhausted on customer name variations</label>
@@ -122,6 +127,10 @@
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Doc fail - doc details are outside of fixable threshold</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Doc fail - document details unreadable</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>

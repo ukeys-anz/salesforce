@@ -20,7 +20,14 @@
       ? component.get("v.selectedRecordTypeId")
       : component.get("v.caseRecordTypes")[0].Id;
 
-    this.handleCaseRecordOpenEvent(component, recordTypeId);
+    if (component.get("v.caseRecordTypes")[0].Name == "Complaint") {
+      this.setComplaintParameters(
+        component,
+        component.get("v.caseRecordTypes")[0].Name
+      );
+    } else {
+      this.handleCaseRecordOpenEvent(component, recordTypeId);
+    }
   },
   handleCaseRecordOpenEvent: function (component, recordTypeId) {
     // Read from URL param 'inContextOfRef' to identify parent record ID
@@ -145,7 +152,8 @@
   isComplaintCase: function (recordType) {
     return (
       recordType == "Non_Customer_Complaint" ||
-      recordType == "Customer_Complaint"
+      recordType == "Customer_Complaint" ||
+      recordType == "Complaint"
     );
   },
   setComplaintParameters: function (component, recordType) {
@@ -154,7 +162,13 @@
       component.get("v.pageReference").state.recordTypeId
     );
     component.set("v.recordTypeDevName", recordType);
-    component.set("v.showComponent", true);
+    if (recordType == "Complaint") {
+      component.set("v.showComponent", false);
+      component.set("v.showOmni", true);
+    } else {
+      component.set("v.showOmni", false);
+      component.set("v.showComponent", true);
+    }
     // Hide the record type selection page
     component.set("v.showRecordTypeSelection", false);
   },

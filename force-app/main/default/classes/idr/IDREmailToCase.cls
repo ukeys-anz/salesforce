@@ -71,7 +71,7 @@ public with sharing class IDREmailToCase {
           }
         }
       }
-      String countryValue = String.valueof(c.get('IDR_NC_Country__c'));
+      String countryValue = String.valueOf(c.get('IDR_NC_Country__c'));
       List<String> countryAcceptableValues = getPickListValuesIntoList();
       if (
         countryValue == 'Please select' ||
@@ -81,7 +81,7 @@ public with sharing class IDREmailToCase {
       ) {
         c.put('IDR_NC_Country__c', 'Australia');
       }
-      String productCategoryValue = String.valueof(
+      String productCategoryValue = String.valueOf(
         c.get('IDR_Product_Category__c')
       );
       if (productCategoryValue == 'Please select') {

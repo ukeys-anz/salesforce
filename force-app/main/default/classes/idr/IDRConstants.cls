@@ -293,4 +293,37 @@ public with sharing class IDRConstants {
     DEBT_MANAGEMENT_FIRM,
     WEALTH_REPRESENTATIVE
   };
+
+  public static final Boolean DISABLE_OMNI_FOR_CMOS = IDR_Omni_Settings__c.getInstance(
+      UserInfo.getUserId()
+    )
+    .Disable_CMOS_Omni__c;
+  public static final String CUSTOMER_COMPLAINT_RT_NAME = 'Customer_Complaint';
+  public static final String NON_CUSTOMER_COMPLAINT_RT_NAME = 'Non_Customer_Complaint';
+
+  public static final List<String> IDR_PRIORITY_VALUES = new List<String>{
+    'Standard',
+    'Financial Hardship',
+    'Vulnerable Customer',
+    'Customer in Collections'
+  };
+
+  public static final List<String> IDR_ORIGIN_VALUES = new List<String>{
+    '1',
+    'Phone',
+    '3',
+    '4',
+    '5',
+    'Email',
+    '6',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '14',
+    '15',
+    'Chat',
+    'ANZ Plus App'
+  };
 }

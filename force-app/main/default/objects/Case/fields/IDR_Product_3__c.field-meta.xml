@@ -8,6 +8,15 @@
     <externalId>false</externalId>
     <inlineHelpText>Start typing the ANZ product or Service the issue relates to for available options to appear</inlineHelpText>
     <label>Product or Service Name 3</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Product2.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Product2</referenceTo>
     <relationshipLabel>Related Issues 3</relationshipLabel>
     <relationshipName>RelatedIssues3</relationshipName>
