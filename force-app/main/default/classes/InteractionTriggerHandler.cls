@@ -70,6 +70,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       }
     }
     interactiontoDeleteEvents.addAll(changedOwnerInteractions);
+    InteractionAttendeeActions.insertOwnerChangeAttendee(
+      changedOwnerInteractions
+    );
 
     createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
       userOwnedInteractions

@@ -220,4 +220,36 @@ public with sharing class InteractionAttendeeActions {
     }
     DMLUtil.insertRecords(lstInteractAttend, false, true);
   }
+
+  /**
+   * @description Create interaction attendee when the owner is updated.
+   * @param interactions List of interactions with owner's changed.
+   */
+  public static void insertOwnerChangeAttendee(List<Interaction> interactions) {
+    Id storeInteraction = GetHelpConstants.INTERACTION_STORE_RT_ID;
+    List<Id> storeOwnerId = new List<Id>();
+    List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
+    for (interaction interact : interactions) {
+      storeOwnerId.add(interact.OwnerId);
+    }
+    List<InteractionAttendee> lstattendee = [
+      SELECT Id, UserId
+      FROM InteractionAttendee
+      WHERE InteractionId IN :interactions AND UserId IN :storeOwnerId
+    ];
+
+    if (lstattendee.isEmpty()) {
+      for (interaction interact : interactions) {
+        if (interact.RecordTypeId == storeInteraction) {
+          InteractionAttendee intattendee = new InteractionAttendee();
+          intattendee.AttendeeType = InteractionConstants.INTERNAL;
+          intattendee.UserId = interact.OwnerId;
+          intattendee.InteractionId = interact.id;
+          lstInteractAttend.add(intattendee);
+        }
+      }
+    }
+
+    DMLUtil.insertRecords(lstInteractAttend, false, true);
+  }
 }

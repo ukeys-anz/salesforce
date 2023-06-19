@@ -1,7 +1,16 @@
 ({
   doInit: function (component, event, helper) {
     const navService = component.find("navService");
-    const recordTypeId = component.get("v.pageReference").state.recordTypeId;
+    let recordTypeId = component.get("v.pageReference").state.recordTypeId;
+    if (typeof recordTypeId === undefined) {
+      const base64Context = component.get("v.pageReference").state
+        .inContextOfRef;
+      if (base64Context.startsWith("1. ")) {
+        base64Context = base64Context.substring(2);
+      }
+      const addressableContext = JSON.parse(window.atob(base64Context));
+      recordTypeId = addressableContext.attributes.recordTypeId;
+    }
     const wsState = component.get("v.pageReference").state.ws;
 
     //Retrieving account id from page reference
@@ -30,7 +39,21 @@
       }
     };
 
-    component.set("v.pageReference", pageReference);
+    const pageReferenceWhenNoRecordTypeExists = {
+      type: "standard__objectPage",
+      attributes: {
+        objectApiName: "Interaction",
+        actionName: "new"
+      },
+      state: {
+        nooverride: "1"
+      }
+    };
+    if (recordTypeId) {
+      component.set("v.pageReference", pageReference);
+    } else {
+      component.set("v.pageReference", pageReferenceWhenNoRecordTypeExists);
+    }
 
     //Fetch developer name of the record type and verify if it is store.
     //If Store then open omniscript flow ,if not open the standard new page.
@@ -48,7 +71,11 @@
         navService.navigate(pageReference, true);
       }
     });
-
-    $A.enqueueAction(fetchRTs);
+    component.set("v.spinner", false);
+    if (recordTypeId) {
+      $A.enqueueAction(fetchRTs);
+    } else {
+      navService.navigate(pageReferenceWhenNoRecordTypeExists, true);
+    }
   }
 });
