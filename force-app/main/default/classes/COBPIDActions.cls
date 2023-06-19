@@ -25,6 +25,10 @@ public with sharing class COBPIDActions {
         cobPid.FirstName__c == cobPid.FirstNameOCRServer__c;
       cobPid.LastNameOCRMatch__c =
         cobPid.LastName__c == cobPid.LastNameOCRServer__c;
+      cobPid.MiddleNamesOCRMatch__c = COBPIDActionsHelper.compareMiddleNamesValues(
+        cobPid.MiddleNames__c,
+        cobPid.MiddleNamesOCRServer__c
+      );
     }
   }
 }

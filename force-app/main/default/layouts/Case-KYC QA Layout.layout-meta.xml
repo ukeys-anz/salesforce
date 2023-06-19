@@ -84,11 +84,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Fraud_Middle_Name__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Fraud_Middle_Initial__c</field>
+                <field>Fraud_MiddleNameCheck__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

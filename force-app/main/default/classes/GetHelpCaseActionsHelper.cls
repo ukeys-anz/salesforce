@@ -391,6 +391,7 @@ public with sharing class GetHelpCaseActionsHelper {
     record.Fraud_Customer_Details__c = YES;
     record.Fraud_Middle_Name__c = YES;
     record.Fraud_Middle_Initial__c = YES;
+    record.Fraud_MiddleNameCheck__c = YES;
     record.Fraud_Selfie_Comparison_Match__c = YES;
     record.Fraud_PO_Box__c = YES;
     record.Fraud_Address_Valid__c = YES;

@@ -555,6 +555,7 @@
         "Fraud_ID_Not_Picture__c",
         "Fraud_ID_True_Document__c",
         "Fraud_Loss_Reason_Code__c",
+        "Fraud_MiddleNameCheck__c",
         "Fraud_Middle_Name__c",
         "Fraud_Middle_Initial__c",
         "Fraud_PIN_Status__c",

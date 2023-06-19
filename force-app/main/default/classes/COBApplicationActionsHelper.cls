@@ -4,9 +4,12 @@
  * @description Helper class for @link COBApplicationActions
  */
 public with sharing class COBApplicationActionsHelper {
-  public static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
+  private static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
     'Pending_KYC_QA'
   );
+
+  private static final String EXPR_0 = 'expr0';
+
   public static final Map<String, String> VERIFICATION_TYPE_PRIORITY = new Map<String, String>{
     'MANUAL' => 'High',
     'UNSPECIFIED' => 'High',
@@ -15,7 +18,7 @@ public with sharing class COBApplicationActionsHelper {
   };
 
   /**
-   * @description Create KYC QA cases
+   * @description Create KYC QA case
    * @param cobApp Customer Onboarding Application
    * @return Case KYC QA case
    */
@@ -33,11 +36,11 @@ public with sharing class COBApplicationActionsHelper {
   }
 
   /**
-   * @description Get Accounts by OCV ids
-   * @param ocvIds Case ids
-   * @return List<account> List of accounts
+   * @description Get Accounts by OCV Ids
+   * @param ocvIds OCV ids
+   * @return List<account> List of Accounts
    */
-  public static List<Account> getAccountsByOCVID(Set<String> ocvIds) {
+  public static List<Account> getAccountsByOCVIds(Set<String> ocvIds) {
     if (ocvIds.isEmpty()) {
       return new List<Account>();
     }
@@ -47,5 +50,47 @@ public with sharing class COBApplicationActionsHelper {
     }
 
     return new List<Account>();
+  }
+
+  /**
+   * @description Get PID by  OCV Ids
+   * @param ocvIds OCV ids
+   * @return List<COBPrimaryIDDocument__c> COB Primary ID Documents
+   */
+  public static List<COBPrimaryIDDocument__c> getCOBPIDsByOCVIds(
+    Set<String> ocvIds
+  ) {
+    if (
+      ocvIds.isEmpty() ||
+      PermissionUtils.canQuery('COBPrimaryIDDocument__c') == false
+    ) {
+      return new List<COBPrimaryIDDocument__c>();
+    }
+
+    //getting max COB PID records createdDate for each cobAppId
+    List<AggregateResult> records = [
+      SELECT CustomerOnboardingApplication__r.OCVId__c, MAX(Id)
+      FROM COBPrimaryIDDocument__c
+      WHERE CustomerOnboardingApplication__r.OCVId__c IN :ocvIds
+      GROUP BY CustomerOnboardingApplication__r.OCVId__c
+    ];
+
+    Set<Id> latestCreatedIds = new Set<Id>();
+    for (AggregateResult record : records) {
+      latestCreatedIds.add((Id) record.get(EXPR_0));
+    }
+
+    //get lastest COB PID record for each cobAppId
+    return [
+      SELECT
+        Id,
+        IdDocumentType__c,
+        CustomerOnboardingApplication__r.OCVId__c,
+        MiddleNamesOCRMatch__c
+      FROM COBPrimaryIDDocument__c
+      WHERE
+        CustomerOnboardingApplication__r.OCVId__c IN :ocvIds
+        AND Id IN :latestCreatedIds
+    ];
   }
 }

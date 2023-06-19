@@ -9,6 +9,7 @@ public with sharing class COBPIDTriggerHandlerTest {
   private static final String NON_OCR_LICENCE_CARD_NUMBER = 'LC-88888';
   private static final String NON_OCR_PASSPORT_NUMBER = 'PB-454545';
   private static final String NON_OCR_FIRST_NAME = 'First';
+  private static final String NON_OCR_MIDDLE_NAMES = 'Middle';
   private static final String NON_OCR_LAST_NAME = 'Last';
   private static final Date NON_OCR_DATE_OF_BIRTH = Date.today();
 
@@ -16,6 +17,7 @@ public with sharing class COBPIDTriggerHandlerTest {
   private static final String SERVER_OCR_MATCHING_LICENCE_CARD_NUMBER = 'LC-88888';
   private static final String SERVER_OCR_MATCHING_PASSPORT_NUMBER = 'PB-454545';
   private static final String SERVER_OCR_MATCHING_FIRST_NAME = 'First';
+  private static final String SERVER_OCR_MATCHING_MIDDLE_NAMES = 'Middle';
   private static final String SERVER_OCR_MATCHING_LAST_NAME = 'Last';
   private static final Date SERVER_OCR_MATCHING_DATE_OF_BIRTH = Date.today();
 
@@ -23,6 +25,7 @@ public with sharing class COBPIDTriggerHandlerTest {
   private static final String SERVER_OCR_NON_MATCHING_LICENCE_CARD_NUMBER = 'LC-000000';
   private static final String SERVER_OCR_NON_MATCHING_PASSPORT_NUMBER = 'PB-898989';
   private static final String SERVER_OCR_NON_MATCHING_FIRST_NAME = 'FirstFirst';
+  private static final String SERVER_OCR_NON_MATCHING_MIDDLE_NAMES = 'MiddleMiddle';
   private static final String SERVER_OCR_NON_MATCHING_LAST_NAME = 'LastLast';
   private static final Date SERVER_OCR_NON_MATCHING_DATE_OF_BIRTH =
     Date.today() + 1;
@@ -59,6 +62,8 @@ public with sharing class COBPIDTriggerHandlerTest {
       cobPid.PassportNumberOCRServer__c = SERVER_OCR_MATCHING_PASSPORT_NUMBER;
       cobPid.FirstName__c = NON_OCR_FIRST_NAME;
       cobPid.FirstNameOCRServer__c = SERVER_OCR_MATCHING_FIRST_NAME;
+      cobPid.MiddleNames__c = NON_OCR_MIDDLE_NAMES;
+      cobPid.MiddleNamesOCRServer__c = SERVER_OCR_MATCHING_MIDDLE_NAMES;
       cobPid.LastName__c = NON_OCR_LAST_NAME;
       cobPid.LastNameOCRServer__c = SERVER_OCR_MATCHING_LAST_NAME;
       cobPid.DateOfBirth__c = NON_OCR_DATE_OF_BIRTH;
@@ -77,6 +82,7 @@ public with sharing class COBPIDTriggerHandlerTest {
         LicenceCardNumberOCRMatch__c,
         PassportNumberOCRMatch__c,
         FirstNameOCRMatch__c,
+        MiddleNamesOCRMatch__c,
         LastNameOCRMatch__c,
         DateOfBirthOCRMatch__c
       FROM COBPrimaryIDDocument__c
@@ -122,6 +128,11 @@ public with sharing class COBPIDTriggerHandlerTest {
     );
 
     Assert.isTrue(
+      insertedCobPids[0].MiddleNamesOCRMatch__c,
+      'Middle Names OCR Match should be true'
+    );
+
+    Assert.isTrue(
       insertedCobPids[0].LastNameOCRMatch__c,
       'Last Name OCR Match should be true'
     );
@@ -143,6 +154,7 @@ public with sharing class COBPIDTriggerHandlerTest {
       cobPids[i]
         .PassportNumberOCRServer__c = SERVER_OCR_NON_MATCHING_PASSPORT_NUMBER;
       cobPids[i].FirstNameOCRServer__c = SERVER_OCR_NON_MATCHING_FIRST_NAME;
+      cobPids[i].MiddleNamesOCRServer__c = SERVER_OCR_NON_MATCHING_MIDDLE_NAMES;
       cobPids[i].LastNameOCRServer__c = SERVER_OCR_NON_MATCHING_LAST_NAME;
       cobPids[i]
         .DateOfBirthOCRServer__c = SERVER_OCR_NON_MATCHING_DATE_OF_BIRTH;
@@ -175,6 +187,11 @@ public with sharing class COBPIDTriggerHandlerTest {
     Assert.isFalse(
       updatedCobPids[0].FirstNameOCRMatch__c,
       'First Name OCR Match should be false'
+    );
+
+    Assert.isFalse(
+      updatedCobPids[0].MiddleNamesOCRMatch__c,
+      'Middle Names OCR Match should be false'
     );
 
     Assert.isFalse(
