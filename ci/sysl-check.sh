@@ -32,7 +32,7 @@ function checkFieldMetadataInformation() {
 }
 
 function checkPantherIdInformation() {
-    if [[ $3 != *"$2.$1,"* && $3 != *",$2.$1"* ]];then
+    if [[ $3 != *"$2.$1,"* && $3 != *",$2.$1"* && $3 != "$2.$1" ]];then
         echo "$2.$1 : Missed pantherId"
     fi
 }

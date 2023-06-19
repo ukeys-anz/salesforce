@@ -34,7 +34,7 @@
             <value>
                 <fullName>3</fullName>
                 <default>false</default>
-                <label>Referred to product manufacturer</label>
+                <label>Referred to other financial firm or manufacturer</label>
             </value>
         </valueSetDefinition>
     </valueSet>

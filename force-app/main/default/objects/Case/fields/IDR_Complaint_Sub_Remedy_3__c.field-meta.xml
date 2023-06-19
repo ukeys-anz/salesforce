@@ -128,6 +128,11 @@
                 <label>IOOF</label>
             </value>
             <value>
+                <fullName>CGU</fullName>
+                <default>false</default>
+                <label>CGU</label>
+            </value>
+            <value>
                 <fullName>QBE</fullName>
                 <default>false</default>
                 <label>QBE</label>
@@ -265,6 +270,10 @@
         <valueSettings>
             <controllingFieldValue>3</controllingFieldValue>
             <valueName>IOOF</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>3</controllingFieldValue>
+            <valueName>CGU</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>3</controllingFieldValue>
