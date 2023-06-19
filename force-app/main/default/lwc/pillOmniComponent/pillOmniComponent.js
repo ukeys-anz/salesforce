@@ -17,7 +17,43 @@ export default class PillOmniComponent extends OmniscriptBaseMixin(
   }
 
   set allValues(value) {
-    this._allValues = value;
+    let errorFromValidation = {};
+    let boolEnteredError = false;
+    if (this._allValues !== undefined) {
+      let clonedExistingValues = [...this._allValues].filter(
+        (item) => item.selected === true
+      );
+      let clonedIncomoingValues = [...value].filter(
+        (item) => item.selected === true
+      );
+
+      if (
+        clonedExistingValues.length === 5 &&
+        clonedIncomoingValues.length > 5
+      ) {
+        if (this.elementName === "pillForReason") {
+          errorFromValidation.basenode = [...this._allValues];
+          errorFromValidation.reasonforvisiterror = true;
+          boolEnteredError = true;
+        }
+        if (this.elementName === "pillForTopic") {
+          errorFromValidation.basenodeForReasonForCV = [...this._allValues];
+          errorFromValidation.topicerror = true;
+          boolEnteredError = true;
+        }
+        if (this.elementName === "pillForProduct") {
+          errorFromValidation.productbasenode = [...this._allValues];
+          errorFromValidation.producterror = true;
+          boolEnteredError = true;
+        }
+
+        this.omniApplyCallResp(errorFromValidation);
+      }
+    }
+
+    if (!boolEnteredError) {
+      this._allValues = value;
+    }
   }
 
   handleRemoveTags(event) {
