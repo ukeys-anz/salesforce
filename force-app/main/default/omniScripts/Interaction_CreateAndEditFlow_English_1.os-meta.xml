@@ -1769,7 +1769,7 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;The channel that the appointment will be held through e.g. through phone or store&quot;,
   &quot;help&quot; : false,
-  &quot;defaultValue&quot; : &quot;Store&quot;,
+  &quot;defaultValue&quot; : &quot;&quot;,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
@@ -2908,7 +2908,9 @@
     },
     &quot;contactMobile&quot; : &quot;=%InteractionsDetails:Interactions:ContactMobile%&quot;,
     &quot;interactionNumber&quot; : &quot;=%InteractionsDetails:Interactions:InteractionExternalId%&quot;,
-    &quot;channel&quot; : &quot;=%InteractionsDetails:Interactions:InteractionType%&quot;,
+    &quot;channel&quot; : {
+      &quot;value&quot; : &quot;%InteractionsDetails:Interactions:InteractionType%&quot;
+    },
     &quot;who&quot; : &quot;=%InteractionsDetails:Interactions:Who%&quot;,
     &quot;authenticationMethod&quot; : &quot;=%InteractionsDetails:Interactions:AuthenticationMethod%&quot;,
     &quot;place&quot; : &quot;=%InteractionsDetails:Interactions:Place%&quot;,
@@ -2990,7 +2992,11 @@
       &quot;type&quot; : &quot;Topic&quot;
     } ],
     &quot;RecordId&quot; : &quot;=%interactionRecordId%&quot;,
-    &quot;AccountIdFromState&quot; : &quot;=%accountId%&quot;
+    &quot;AccountIdFromState&quot; : &quot;=%accountId%&quot;,
+    &quot;channel&quot; : {
+      &quot;value&quot; : &quot;Coaching Lab&quot;,
+      &quot;name&quot; : &quot;Store&quot;
+    }
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
@@ -3288,5 +3294,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>9e93b31a-0e38-508e-e981-f65ce4db7eb7</webComponentKey>
+    <webComponentKey>408b5c4f-69eb-5d04-3087-a8b172e3b9f0</webComponentKey>
 </OmniScript>

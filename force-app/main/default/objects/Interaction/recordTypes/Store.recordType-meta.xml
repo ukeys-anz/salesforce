@@ -4,7 +4,7 @@
     <active>true</active>
     <compactLayoutAssignment>Store</compactLayoutAssignment>
     <description>Record Type for Store Interactions</description>
-    <label>Store</label>
+    <label>In Person</label>
     <picklistValues>
         <picklist>Authentication_Method__c</picklist>
         <values>
