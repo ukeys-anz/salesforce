@@ -40,6 +40,14 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>TFN_Verification__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Tax_Exemption_Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>CPID_Link__c</field>
             </layoutItems>
             <layoutItems>
@@ -59,10 +67,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>PersonEmail</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Has_Customer_Provided_TFN__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
