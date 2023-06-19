@@ -22,6 +22,6 @@
     <filterScope>Everything</filterScope>
     <label>IDR Early Resolution Spare</label>
     <sharedTo>
-        <allInternalUsers> </allInternalUsers>
+        <allInternalUsers/>
     </sharedTo>
 </ListView>

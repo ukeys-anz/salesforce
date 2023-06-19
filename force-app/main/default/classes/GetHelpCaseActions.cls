@@ -910,4 +910,51 @@ public with sharing class GetHelpCaseActions {
 
     DMLUtil.updateRecords(idOpsCases, false, true);
   }
+
+  /**
+   * @description create task on case closure
+   * @param records Case records from trigger
+   * @param oldMap oldMap of the cases
+   */
+  public static void createTaskOnDisputeCaseClosure(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    if (!Schema.sObjectType.External_Case_Status__c.isQueryable()) {
+      return;
+    }
+    List<Task> taskList = new List<Task>();
+    Map<Id, Case> mapClosedCases = GetHelpCaseActionsHelper.createClosedCaseMap(
+      records,
+      oldMap
+    );
+
+    Set<String> externalCaseStatusSet = new Set<String>{
+      'Resolved-PreArbGranted',
+      'Resolved-PreArbAccepted',
+      'Resolved-Writeoff',
+      'Resolved-AcqAccepted',
+      'Resolved-AcquirerLiable',
+      'Resolved-Duplicate'
+    };
+    Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
+    Id taskOwnerId = queueMap.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
+    for (External_Case_Status__c externalCaseStatus : [
+      SELECT Id, External_Status__c, Case__c, Case__r.ContactId
+      FROM External_Case_Status__c
+      WHERE
+        Case__c IN :mapClosedCases.keySet()
+        AND External_Status__c IN :externalCaseStatusSet
+    ]) {
+      taskList.add(
+        GetHelpCaseActionsHelper.createEmailTask(
+          mapClosedCases.get(externalCaseStatus.Case__c),
+          externalCaseStatus,
+          taskOwnerId
+        )
+      );
+    }
+
+    DMLUtil.insertRecords(taskList, false, true);
+  }
 }

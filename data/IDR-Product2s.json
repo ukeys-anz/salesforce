@@ -1517,12 +1517,12 @@
         "type": "Product2",
         "referenceId": "Product2Ref109"
       },
-        "Name": "ANZ Landlord Insurance (QBE)",
+      "Name": "ANZ Landlord Insurance (QBE)",
       "IsActive": true,
-        "ANZ_Product_Code__c": "111",
+      "ANZ_Product_Code__c": "111",
       "IDR_Product_or_Service_Line__c": "3",
       "IDR_Product_or_Service_Category__c": "8",
-        "IDR_Product_or_Service_Type__c": "41",
+      "IDR_Product_or_Service_Type__c": "41",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
     },
@@ -1531,12 +1531,12 @@
         "type": "Product2",
         "referenceId": "Product2Ref110"
       },
-        "Name": "ANZ Car Insurance (Comprehensive) (QBE)",
+      "Name": "ANZ Car Insurance (Comprehensive) (QBE)",
       "IsActive": true,
-        "ANZ_Product_Code__c": "112",
+      "ANZ_Product_Code__c": "112",
       "IDR_Product_or_Service_Line__c": "3",
       "IDR_Product_or_Service_Category__c": "8",
-        "IDR_Product_or_Service_Type__c": "44",
+      "IDR_Product_or_Service_Type__c": "44",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
     },
@@ -2312,8 +2312,8 @@
     },
     {
       "attributes": {
-         "type": "Product2",
-         "referenceId": "Product2Ref173"
+        "type": "Product2",
+        "referenceId": "Product2Ref173"
       },
       "Name": "Open Banking/Data Sharing",
       "IsActive": true,
@@ -2323,15 +2323,15 @@
       "IDR_Product_or_Service_Type__c": "188",
       "IDR_Workbasket__c": "IDR_Everyday_Banking",
       "IDR_Product_Family__c": "@Product_Family__cRef13"
-      },
-      {
-        "attributes": {
-          "type": "Product2",
-          "referenceId": "Product2Ref174"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref174"
       },
       "Name": "ANZ Shield",
       "IsActive": true,
-        "ANZ_Product_Code__c": "174",
+      "ANZ_Product_Code__c": "174",
       "IDR_Product_or_Service_Line__c": "6",
       "IDR_Product_or_Service_Category__c": "20",
       "IDR_Product_or_Service_Type__c": "138",

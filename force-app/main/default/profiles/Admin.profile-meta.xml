@@ -1429,6 +1429,21 @@
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.CAC_Sub_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Is_this_a_complaint_about_a_complaint__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Review_Outcome__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Access_Request__c.Approver__c</field>
         <readable>true</readable>
@@ -1451,6 +1466,56 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Access_Request__c.Requestor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Hardship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Collections__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Tax_Exemption_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.KYCVerificationDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointEmail.Verification_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointEmail.Verification_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointEmail.Verification_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointPhone.Verification_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointPhone.Verification_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointPhone.Verification_Method__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1521,11 +1586,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.CLG__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.Collections__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1614,13 +1674,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.Hardship__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Has_Customer_Provided_TFN__c</field>
+        <field>Account.TFN_Verification__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8719,6 +8774,10 @@
     <layoutAssignments>
         <layout>Task-Compliance Task Layout</layout>
         <recordType>Task.Compliance_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Email Task Layout</layout>
+        <recordType>Task.Email_Task</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-IDR System Task</layout>

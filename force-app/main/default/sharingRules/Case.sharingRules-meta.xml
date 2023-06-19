@@ -252,6 +252,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Escalated_Complaint_for_Quality_Analyst_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing rule for Escalated complaints for Quality Analyst.</description>
+        <label>Escalated Complaint for Quality Analyst Role RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Quality_Capability_Lead</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_QA_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>All Cases having Dispute related record types are to be shared with Quality Analyst with Read access.</description>

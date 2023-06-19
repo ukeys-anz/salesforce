@@ -1,0 +1,56 @@
+# This workflow run all tests
+name: Run all tests
+
+# This workflow will only run on Pull Reqeusts against master
+on:
+  workflow_dispatch:
+    inputs:
+      SANDBOX:
+        description: "Name of the sandbox"
+        required: true
+        default: "test"
+        type: choice
+        options:
+          - test
+          - preprod
+
+  pull_request:
+    branches:
+      - "master"
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
+
+jobs:
+  # This job will run all the tests
+  run_all_tests:
+    runs-on: [self-hosted, salesforce-prod]
+    steps:
+      - name: Find the sandbox name
+        run: |
+          if [[ ${{ github.event_name }} == 'workflow_dispatch' ]];then
+            echo SANDBOX_NAME="${{ github.event.inputs.SANDBOX }}" >> $GITHUB_ENV
+          else
+            echo SANDBOX_NAME="test" >> $GITHUB_ENV
+          fi
+
+      - name: Read Harness API Key
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            harness-api-key:projects/36540621485/secrets/ghr-salesforce-prod-salesforce-harness-np/versions/1
+
+      - name: Trigger Harness Job
+        uses: docker://anzx-docker.artifactory.gcp.anz/github-actions-harness-trigger:latest
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        with:
+          application-name: salesforce
+          harness-api-key-plaintext: ${{ steps.secrets.outputs.harness-api-key}}
+          target-name: salesforce-run-tests-np
+          target-type: WORKFLOW
+          variables: "SANDBOX_NAME=${{ env.SANDBOX_NAME }};REPO_NAME=${{ env.REPO_NAME }}"
+          wait: True

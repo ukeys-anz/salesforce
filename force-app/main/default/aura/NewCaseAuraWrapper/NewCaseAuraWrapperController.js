@@ -1,8 +1,9 @@
 ({
   init: function (component, event, helper) {
-    // Always reset showComponent to false, so the lwc does not show along with record type selection page.
+    // Always reset showComponent and showOmni to false, so the lwc does not show along with record type selection page.
     // This happens in non-console app when user selected 'Customer Complaint' or 'Non-Customer Complaint' record type previously.
     component.set("v.showComponent", false);
+    component.set("v.showOmni", false);
 
     //Make the context record id available to the wrapped LWC
     component.set("v.contextRecordId", helper.getContextRecordId(component));

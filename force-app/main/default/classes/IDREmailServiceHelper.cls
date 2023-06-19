@@ -20,12 +20,23 @@ public with sharing class IDREmailServiceHelper {
     String fromEmail,
     String caseOrigin
   ) {
+    String strValidatedEmail;
+    if (
+      !String.isBlank(senderEmail) &&
+      Pattern.matches(Label.Regex_Email, senderEmail)
+    ) {
+      strValidatedEmail = senderEmail;
+      if (strValidatedEmail.length() > 80) {
+        strValidatedEmail = strValidatedEmail.substring(0, 70) + 'abbrev.com';
+      }
+    }
+
     Case newCase = new Case(
       Description = email.plainTextBody?.replaceAll('<.*>', 'REMOVED'),
       Priority = IDRConstants.CASE_PRIORITY_STANDARD,
       Subject = email.subject,
       SuppliedEmail = fromEmail,
-      IDR_Inbox_Email_Address__c = senderEmail.Abbreviate(80),
+      IDR_Inbox_Email_Address__c = strValidatedEmail,
       RecordTypeId = IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID,
       Origin = caseOrigin
     );
