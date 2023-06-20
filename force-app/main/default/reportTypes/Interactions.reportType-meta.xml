@@ -231,11 +231,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>RelatedRecord</field>
-            <table>Interaction</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>StartTime</field>
             <table>Interaction</table>
         </columns>
@@ -460,11 +455,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Referred_To__c</field>
-            <table>Interaction.Interactions__r</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>RelatedRecord</field>
             <table>Interaction.Interactions__r</table>
         </columns>
         <columns>
@@ -3304,7 +3294,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Account.Has_Customer_Provided_TFN__c</field>
+            <field>Account.TFN_Verification__c</field>
             <table>Interaction</table>
         </columns>
         <columns>
@@ -4045,11 +4035,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Appointment__c.Referred_To__c</field>
-            <table>Interaction</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Appointment__c.RelatedRecord</field>
             <table>Interaction</table>
         </columns>
         <columns>

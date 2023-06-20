@@ -2,9 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Hardship__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
-    <description>Customer is in collections (one or more of their ANZx or AR&amp;C accounts are currently in Collections)</description>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_OCV</complianceGroup>
     <defaultValue>false</defaultValue>
+    <description>This Flag indicates if Customer is undergoing Hardship or not.</description>
     <externalId>false</externalId>
     <inlineHelpText>Customer is currently in hardship (requested hardship assistance OR hardship request under review OR under hardship arrangement)</inlineHelpText>
     <label>Hardship</label>

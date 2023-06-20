@@ -192,6 +192,18 @@
       "type": "user"
     },
     {
+      "name": "GCP API User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "KYC_QA_Integration"
+      ],
+      "type": "system"
+    },
+    {
       "name": "IDR Reporting Analyst",
       "profile": "ANZ Standard User",
       "permissionsetgroups": ["IDR_Data_Analyst"],
@@ -296,7 +308,8 @@
         "Moderate_Chatter",
         "Read_Write_Customer_Details",
         "CCRM_Marketing_Integration_User",
-        "Disable_MFA"
+        "Disable_MFA",
+        "OCV_Flags_Read_Write"
       ],
       "type": "system"
     },
@@ -439,7 +452,7 @@
       "type": "user"
     },
     {
-      "name": "Twilio Integration User",
+      "name": "Twilio API User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [

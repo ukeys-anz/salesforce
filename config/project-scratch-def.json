@@ -21,7 +21,8 @@
     "IndustriesActionPlan",
     "DocumentChecklist",
     "WorkThanksPref",
-    "CaseClassification"
+    "CaseClassification",
+    "InsuranceCalculationUser"
   ],
   "settings": {
     "chatterSettings": {

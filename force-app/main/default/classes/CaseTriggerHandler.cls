@@ -128,6 +128,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     );
     //Update ID Ops Case's status (parent) following the Fraud Check case's (child) status update. Using afterUpdate context as the child must be closed before the parent's status can be updated.
     GetHelpCaseActions.updateIdOpsCaseStatus(records, (Map<Id, Case>) oldMap);
+    // craete task for dispute cases on case closure
+    GetHelpCaseActions.createTaskOnDisputeCaseClosure(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**

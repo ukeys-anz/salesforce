@@ -81,7 +81,11 @@
     },
     "Task": {
       "IDR_Pend_Reason__c": "Reason why a case is pending",
-      "IDR_Portfolio_or_Business_Unit__c": "Party details a case is pending with"
+      "IDR_Portfolio_or_Business_Unit__c": "Party details a case is pending with",
+      "Case_Number__c": "To Display the Case Number for which email needs to be send out",
+      "PEGA_Case_Status__c": "To Display the last PEGA SMARTS Status for Resolved",
+      "Customer_Name__c": "To Display the Customer Name",
+      "PEGA_Case_Id__c": "Show the PEGA case number against the email task is created"
     },
     "trailheadapp__Badge__c": {
       "trailheadapp__Archived__c": "Boolean to reflect whether the module has been archived",
@@ -185,6 +189,7 @@
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
+    "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
@@ -237,8 +242,8 @@
         "FinServ__KYCStatus__c",
         "FinServ__Status__c",
         "Hardship__c",
-        "Has_Customer_Provided_TFN__c",
-        "KYC_Verification_Level__c"
+        "KYC_Verification_Level__c",
+        "KYCVerificationDate__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [
@@ -278,7 +283,9 @@
         "PersonMobilePhone",
         "Phone",
         "Self_Certified_Tax_Date__c",
-        "Self_Certified_Tax_Residency__c"
+        "Self_Certified_Tax_Residency__c",
+        "Tax_Exemption_Type__c",
+        "TFN_Verification__c"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
       "IA-2530753": [
@@ -311,6 +318,8 @@
       ]
     },
     "Activity": {
+      "IA-2415999": ["PEGA_Case_Status__c"],
+      "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
@@ -334,7 +343,7 @@
         "Task_Sub_Type__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
-      "IA-2468715": ["Voice_Call_SID__c"],
+      "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
       "IA-2415860": [
         "Case_Owner__c",
         "Cases_Related_To_Team__c",
@@ -343,7 +352,8 @@
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
-        "Skip_Validations__c"
+        "Skip_Validations__c",
+        "Team_Manager__c"
       ],
       "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"]
     },
@@ -468,7 +478,10 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "Survey_Response__c"
+        "Survey_Response__c",
+        "Is_this_a_complaint_about_a_complaint__c",
+        "CAC_Sub_Category__c",
+        "Review_Outcome__c"
       ],
       "IA-2453595": [
         "Actual_Outcome__c",
@@ -1136,11 +1149,21 @@
         "Last_Modified_By__c",
         "Last_Modified_Date__c"
       ],
-      "IA-2415984": ["Preferred_Indicator__c"]
+      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415720": [
+        "Verification_Status__c",
+        "Verification_Date__c",
+        "Verification_Method__c"
+      ]
     },
     "ContactPointPhone": {
       "IA-2530753": ["Customer_Name__c"],
-      "IA-2415984": ["Preferred_Indicator__c"]
+      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415720": [
+        "Verification_Status__c",
+        "Verification_Date__c",
+        "Verification_Method__c"
+      ]
     },
     "ContactRequest": {
       "IA-2453595": [
@@ -1426,6 +1449,9 @@
         "RecordTypeId"
       ],
       "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
+    },
+    "IDR_Omni_Settings__c": {
+      "IA-2415860": ["Disable_CMOS_Omni__c"]
     },
     "Industry__c": {
       "IA-2530401": [
@@ -2303,6 +2329,7 @@
         "Response_Status__c",
         "Response_Type__c",
         "Skip_Validations__c",
+        "Team_Manager__c",
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
       ],

@@ -2,10 +2,16 @@
  * @description       : Util class for DML operations
  * @author            : Prakash B
  * @group             : Util
- * @last modified on  : 30-01-2023
+ * @last modified on  : 19-04-2023
  **/
 
 public inherited sharing class DMLUtil {
+  //Partial Update Constants
+  public static final Boolean ALLOW_PARTIAL_UPDATE = true;
+  public static final Boolean NOT_ALLOW_PARTIAL_UPDATE = false;
+  //Access Level Constants
+  public static final Boolean USER_MODE = true;
+  public static final Boolean SYSTEM_MODE = false;
   /**
    * @description Method to perform database updates
    * @param records List of records to update

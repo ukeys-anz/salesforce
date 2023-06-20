@@ -360,12 +360,11 @@ public with sharing class AccountCommonActions {
      * @param contactList list of contacts from lead conversion
      */
     private void deleteAutoCreatedContacts(List<Contact> contactList) {
-      List<Database.DeleteResult> results = Database.delete(contactList, false);
-      Logger.error(
-        'Error occured while deleting contacts during lead conversion.',
-        results
+      DMLUtil.deleteRecords(
+        contactList,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.USER_MODE
       );
-      Logger.saveLog();
     }
   }
 
