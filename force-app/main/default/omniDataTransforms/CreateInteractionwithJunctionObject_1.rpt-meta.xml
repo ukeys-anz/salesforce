@@ -108,8 +108,8 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
-        <formulaExpression>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel + &apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
+        <formulaConverted>| var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
+        <formulaExpression>IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel) + &apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
         <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:Block2:name</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
         <globalKey>CreateInteractionwithJunctionObjectCustom6687</globalKey>
