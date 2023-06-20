@@ -1577,7 +1577,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;background-color: #ffffff; color: #e03e2d;\&quot;&gt;Please select upto 5 Products.&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;background-color: #ffffff; color: #e03e2d;\&quot;&gt;You can only select up to 5 values for Product field.&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -1617,7 +1617,7 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;background-color: #ffffff; color: #e03e2d;\&quot;&gt;Please select upto 5 Reasons For Visits.&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;background-color: #ffffff; color: #e03e2d;\&quot;&gt;You can only select up to 5 values for Reason for Visit field.&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
@@ -1633,7 +1633,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;background-color: #ffffff; color: #e03e2d;\&quot;&gt;Please select upto 5 Topics.&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;background-color: #ffffff; color: #e03e2d;\&quot;&gt;You can only select up to 5 values for Actual Topic field.&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;rules&quot; : [ {
