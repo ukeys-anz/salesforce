@@ -387,6 +387,14 @@ public with sharing class GetHelpCaseActions {
       oldMap,
       caseList
     );
+
+    // Add KYC QA
+    for (Case newCase : caseList) {
+      if (newCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+        filteredCases.add(newCase);
+      }
+    }
+
     if (filteredCases.size() == 0) {
       return;
     }
@@ -792,7 +800,10 @@ public with sharing class GetHelpCaseActions {
   public static void validateDuplicateKYCQACasePerAccount(List<Case> theCases) {
     Map<Id, Case> accountIdAndCaseMap = new Map<Id, Case>();
     for (Case theCase : theCases) {
-      if (theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+      if (
+        theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
+        theCase.AccountId != null
+      ) {
         accountIdAndCaseMap.put(theCase.AccountId, theCase);
       }
     }

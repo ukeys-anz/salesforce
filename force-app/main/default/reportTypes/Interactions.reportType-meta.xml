@@ -459,6 +459,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>RelatedRecord</field>
+            <table>Interaction.Interactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>StartTime</field>
             <table>Interaction.Interactions__r</table>
         </columns>
@@ -2414,6 +2419,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CaseId__c.Fraud_MiddleNameCheck__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Lead__c.ABN__c</field>
             <table>Interaction</table>
         </columns>
@@ -3289,7 +3299,7 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Account.TFN_Verification__c</field>
+            <field>Account.Has_Customer_Provided_TFN__c</field>
             <table>Interaction</table>
         </columns>
         <columns>
@@ -4030,6 +4040,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Appointment__c.Referred_To__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Appointment__c.RelatedRecord</field>
             <table>Interaction</table>
         </columns>
         <columns>

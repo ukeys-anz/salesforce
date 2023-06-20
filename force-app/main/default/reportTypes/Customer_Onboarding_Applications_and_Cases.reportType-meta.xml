@@ -2278,6 +2278,11 @@
             <field>IDR_Avoidable_Escalation_Reason__c</field>
             <table>CustomerOnboardingApplication__c.Cases__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Fraud_MiddleNameCheck__c</field>
+            <table>CustomerOnboardingApplication__c.Cases__r</table>
+        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
 </ReportType>

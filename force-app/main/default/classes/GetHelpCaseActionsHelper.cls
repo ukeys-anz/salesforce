@@ -144,6 +144,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -184,6 +185,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -395,6 +397,7 @@ public with sharing class GetHelpCaseActionsHelper {
     record.Fraud_Customer_Details__c = YES;
     record.Fraud_Middle_Name__c = YES;
     record.Fraud_Middle_Initial__c = YES;
+    record.Fraud_MiddleNameCheck__c = YES;
     record.Fraud_Selfie_Comparison_Match__c = YES;
     record.Fraud_PO_Box__c = YES;
     record.Fraud_Address_Valid__c = YES;
