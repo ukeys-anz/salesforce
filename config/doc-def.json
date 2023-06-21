@@ -309,7 +309,8 @@
         "Moderate_Chatter",
         "Read_Write_Customer_Details",
         "CCRM_Marketing_Integration_User",
-        "Disable_MFA"
+        "Disable_MFA",
+        "OCV_Flags_Read_Write"
       ],
       "type": "system"
     },

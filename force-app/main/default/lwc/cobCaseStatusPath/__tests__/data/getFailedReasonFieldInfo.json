@@ -73,6 +73,12 @@
     },
     {
       "attributes": null,
+      "label": "Doc fail - document details unreadable",
+      "validFor": [4],
+      "value": "Doc fail - document details unreadable"
+    },
+    {
+      "attributes": null,
       "label": "EV fail - retries exhausted on customer name variations",
       "validFor": [4],
       "value": "EV fail - retries exhausted on customer name variations"

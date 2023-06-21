@@ -18,6 +18,7 @@ public with sharing class IDRExpressComplaintController {
           Name,
           IDR_Issue_Type__c,
           Product__c,
+          Product__r.Name,
           IDR_Sub_Issue_Type__c,
           IDR_Description_of_Issue__c,
           IDR_Customer_Desired_Outcome__c,

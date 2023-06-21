@@ -40,7 +40,7 @@ public with sharing class AuthTokenCacheUtil {
   }
 
   /**
-   * @description store tokens to the org cache, with a specified user as the key, ANZx only
+   * @description store id token to the org cache & refresh Token to User Object, with a specified user as the key, ANZx only
    * @param u user to store the tokens against, requires Profile.Name for validation
    * @param refreshToken Azure AD refresh token
    * @param idToken Azure AD id token
@@ -51,15 +51,9 @@ public with sharing class AuthTokenCacheUtil {
     String idToken
   ) {
     if (u.Profile.Name == 'ANZx Standard User') {
-      Cache.Org.put(
-        AuthTokenCacheUtil.ORGPART +
-        'refreshToken' +
-        u.Id,
-        refreshToken,
-        300,
-        Cache.Visibility.NAMESPACE,
-        false
-      );
+      //Storing refreshtoken to custom field
+      storeRefreshTokenField(u, refreshToken);
+      //Caching idToken
       Cache.Org.put(
         AuthTokenCacheUtil.ORGPART +
         'idToken' +
@@ -80,27 +74,13 @@ public with sharing class AuthTokenCacheUtil {
   @TestVisible
   private static void storeAzureSessionTokens(Id userId, String profileName) {
     if (profileName == 'ANZx Standard User') {
-      String refreshToken = (String) Cache.Org.get(
-        AuthTokenCacheUtil.ORGPART +
-        'refreshToken' +
-        userId
-      );
       String idToken = (String) Cache.Org.get(
         AuthTokenCacheUtil.ORGPART +
         'idToken' +
         userId
       );
-      if (refreshToken != null && idToken != null) {
+      if (idToken != null) {
         // move tokens to session cache
-        Cache.Session.put(
-          AuthTokenCacheUtil.SESSIONPART +
-          'refreshToken' +
-          userId,
-          refreshToken,
-          28800,
-          Cache.Visibility.NAMESPACE,
-          true
-        );
         Cache.Session.put(
           AuthTokenCacheUtil.SESSIONPART +
           'idToken' +
@@ -112,11 +92,10 @@ public with sharing class AuthTokenCacheUtil {
         );
 
         // remove org cache tokens
-        Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'refreshToken' + userId);
         Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
       } else {
         Logger.error(
-          'Login Flow Invocable method did not receive Azure Refresh or Id Token for user: ' +
+          'Login Flow Invocable method did not receive Azure Id Token for user: ' +
           userId
         );
         Logger.saveLog();
@@ -125,23 +104,23 @@ public with sharing class AuthTokenCacheUtil {
   }
 
   /**
-   * @description retrieves current user's refresh token from session cache
+   * @description retrieves current user's refresh token from custom field
    * @return String refresh token
    */
-  public static String getSessionRefreshToken() {
+  public static String getRefreshToken() {
     Id userId = UserInfo.getUserId();
-    String refreshToken = (String) Cache.Session.get(
-      AuthTokenCacheUtil.SESSIONPART +
-      'refreshToken' +
-      userId
-    );
-    if (refreshToken != null) {
-      return refreshToken;
-    } else {
-      Logger.error('Session Refresh Token not found for user ' + userId);
-      Logger.saveLog();
-      throw new TokenCacheException('Connection issue, please sign in again');
-    }
+    User user = [SELECT Refresh_Token__c FROM User WHERE Id = :userId];
+    String refreshToken = user.Refresh_Token__c;
+    return refreshToken;
+  }
+
+  /**
+   * @description store RefreshToken to custom field: User.refresh_token__c
+   * @param user user to store the tokens against
+   * @param refreshToken refreshToken received from getUser
+   */
+  public static void storeRefreshTokenField(User user, String refreshToken) {
+    System.enqueueJob(new StoreRefreshTokenQueueable(user, refreshToken));
   }
 
   /**
@@ -154,11 +133,7 @@ public with sharing class AuthTokenCacheUtil {
     Id userId = UserInfo.getUserId();
     String refreshToken = NON_PROD_SETTINGS.SSO_Not_Configured__c
       ? AzureTestRefreshToken.REFRESHTESTVALUE
-      : (String) Cache.Session.get(
-          AuthTokenCacheUtil.SESSIONPART +
-          'refreshToken' +
-          userId
-        );
+      : getRefreshToken();
     String idToken = (String) Cache.Session.get(
       AuthTokenCacheUtil.SESSIONPART +
       'idToken' +
@@ -179,12 +154,14 @@ public with sharing class AuthTokenCacheUtil {
   }
 
   /**
-   * @description refreshes the Azure Id and refresh tokens, using refresh_token grant type
+   * @description refreshes the Azure Id, using refresh_token grant type
    * @param existingRefreshToken the existing refresh token to send to microsoft token endpoint
    * @return String new Id token
    */
+  @testVisible
   private static String refreshIdToken(String existingRefreshToken) {
     Id userId = UserInfo.getUserId();
+    User user = new User(Id = userId);
     String idToken;
     String refreshToken;
     HTTPResponse res;
@@ -198,15 +175,6 @@ public with sharing class AuthTokenCacheUtil {
       idToken = idenModel.idToken;
 
       // place new tokens in session cache
-      Cache.Session.put(
-        AuthTokenCacheUtil.SESSIONPART +
-        'refreshToken' +
-        userId,
-        refreshToken,
-        28800,
-        Cache.Visibility.NAMESPACE,
-        true
-      );
       Cache.Session.put(
         AuthTokenCacheUtil.SESSIONPART +
         'idToken' +
@@ -305,6 +273,34 @@ public with sharing class AuthTokenCacheUtil {
     return expiryDateTime > Datetime.now().addMinutes(1);
   }
 
+  /**
+   * @description Adding a Queueable Job to the Asynchronous Execution Queue for storing refresh token
+   */
+  public with sharing class StoreRefreshTokenQueueable implements Queueable {
+    String refreshToken;
+    User user;
+
+    /**
+     * @description Constructor
+     * @param user user to store the tokens against
+     * @param refreshToken refreshToken
+     */
+    public StoreRefreshTokenQueueable(User user, String refreshToken) {
+      this.user = user;
+      this.refreshToken = refreshToken;
+    }
+    /**
+     * @description execute method
+     * @param context QueueableContext
+     */
+    public void execute(QueueableContext context) {
+      List<User> users = new List<User>{
+        new User(Id = user.Id, Refresh_Token__c = refreshToken)
+      };
+      //update refresh token field to the user with system mode for Queueable jobs.
+      DMLUtil.updateRecords(users, false, false);
+    }
+  }
   /**
    * @description custom exception thrown when a token session cache miss occurs
    */
