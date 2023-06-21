@@ -1770,6 +1770,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Activity.Case_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Activity.Cases_Related_To_Team__c</field>
         <readable>true</readable>
     </fieldPermissions>

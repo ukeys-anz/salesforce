@@ -1328,16 +1328,15 @@
             </childElements>
             <childElements>
                 <name>Country</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;disOnTplt&quot; : false,
+  &quot;customAttributes&quot; : [ ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;omniText&quot;,
   &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1349,30 +1348,11 @@
       &quot;operator&quot; : &quot;AND&quot;
     }
   },
-  &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;element&quot; : &quot;&quot;
-  },
-  &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_NC_Country__c&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
-  },
-  &quot;options&quot; : [ ],
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;readOnly&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Country&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
                 <sequenceNumber>26.0</sequenceNumber>
-                <type>Select</type>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>custInfoCPID</name>
@@ -2218,7 +2198,6 @@
             </childElements>
             <childElements>
                 <name>State</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
@@ -2226,25 +2205,6 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;State&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : true,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;readOnly&quot; : false,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;options&quot; : [ ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_NC_State__c&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;Country&quot;,
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_NC_Country__c&quot;
-  },
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -2256,13 +2216,13 @@
     }
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;lwcName&quot; : &quot;omniText&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
                 <sequenceNumber>25.0</sequenceNumber>
-                <type>Select</type>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>Street</name>
@@ -4515,7 +4475,7 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;ComplaintSubRemedy2&quot;,
         &quot;condition&quot; : &quot;=&quot;,
@@ -4583,7 +4543,7 @@
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;16&quot;,
         &quot;condition&quot; : &quot;=&quot;,
@@ -6480,10 +6440,6 @@
       &quot;Gender&quot; : &quot;Gender&quot;
     }, {
       &quot;Postcode&quot; : &quot;Postcode&quot;
-    }, {
-      &quot;State&quot; : &quot;State&quot;
-    }, {
-      &quot;Country&quot; : &quot;Country&quot;
     } ],
     &quot;thirdPartyMap&quot; : [ {
       &quot;thirdPartyName&quot; : &quot;Nominated 3rd party name&quot;
@@ -6688,5 +6644,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>01fe4ffb-5fe3-7e3e-2df6-126b0260d128</webComponentKey>
+    <webComponentKey>7dda14be-b708-ed56-9eca-d41ce2415143</webComponentKey>
 </OmniScript>

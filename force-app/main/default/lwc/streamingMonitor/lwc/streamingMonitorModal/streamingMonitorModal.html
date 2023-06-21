@@ -1,0 +1,72 @@
+<template>
+  <div>
+    <lightning-modal-header label={eventData.channel}></lightning-modal-header>
+    <lightning-modal-body>
+      <div class="slds-region_narrow" style="height: 600px">
+        <lightning-tabset>
+          <lightning-tab label="Detail view">
+            <div class="slds-form slds-form_horizontal">
+              <lightning-input
+                name="time"
+                readonly="true"
+                value={eventData.time}
+                label="Time"
+              ></lightning-input>
+              <lightning-input
+                name="channel"
+                readonly="true"
+                value={eventData.channel}
+                label="Channel"
+              ></lightning-input>
+              <lightning-input
+                name="replayId"
+                readonly="true"
+                value={eventData.replayId}
+                label="Replay Id"
+              ></lightning-input>
+            </div>
+
+            <lightning-textarea
+              name="payload"
+              disabled="true"
+              label="Payload"
+              class="large-area"
+              value={eventData.payload}
+            ></lightning-textarea>
+          </lightning-tab>
+
+          <lightning-tab label="Raw payload">
+            <lightning-textarea
+              name="payload"
+              disabled="true"
+              label="Payload"
+              class="large-area"
+              value={eventData.rawPayload}
+            ></lightning-textarea>
+          </lightning-tab>
+
+          <template lwc:if={isPlatformEvent}>
+            <lightning-tab label="Deep view">
+              <lightning-combobox
+                name="deepViewField"
+                label="Select a Field"
+                options={deepViewFieldList}
+                onchange={handleFieldChange}
+              ></lightning-combobox>
+
+              <lightning-textarea
+                name="payload"
+                disabled="true"
+                class="large-area"
+                lwc:ref="deepViewData"
+              ></lightning-textarea>
+            </lightning-tab>
+          </template>
+        </lightning-tabset>
+      </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+      <lightning-button label="Close" onclick={handleOkay}></lightning-button>
+    </lightning-modal-footer>
+  </div>
+</template>
