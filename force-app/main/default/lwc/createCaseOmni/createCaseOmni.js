@@ -40,7 +40,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.showModal = true;
     } else if (
       !this.missingFields.length &&
-      this.omniScriptHeaderDef.hasInvalidElements
+      this.omniScriptHeaderDef.hasInvalidElements &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes"
     ) {
       this.modalMsg = "Please complete all required fields";
       this.showModal = true;

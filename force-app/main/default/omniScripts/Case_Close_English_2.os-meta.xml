@@ -835,7 +835,7 @@
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;horizontalMode&quot; : true,
+  &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
@@ -2275,5 +2275,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>d4b07e01-1108-c1ba-bafc-01ed477ab08b</webComponentKey>
+    <webComponentKey>e38cc6ee-8635-22f8-53c8-899eccc6a438</webComponentKey>
 </OmniScript>
