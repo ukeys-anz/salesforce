@@ -32,6 +32,8 @@
     "FinServ__FinancialAccountRole__c",
     "Identifier__c",
     "Interaction",
+    "Interaction_Tag__c",
+    "Interaction_Context_Tag__c",
     "InteractionSummary",
     "Industry__c",
     "Knowledge__kav",
