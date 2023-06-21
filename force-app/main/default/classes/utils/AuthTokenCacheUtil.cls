@@ -154,7 +154,7 @@ public with sharing class AuthTokenCacheUtil {
   }
 
   /**
-   * @description refreshes the Azure Id and refresh tokens, using refresh_token grant type
+   * @description refreshes the Azure Id, using refresh_token grant type
    * @param existingRefreshToken the existing refresh token to send to microsoft token endpoint
    * @return String new Id token
    */
@@ -174,8 +174,6 @@ public with sharing class AuthTokenCacheUtil {
       refreshToken = idenModel.refreshToken;
       idToken = idenModel.idToken;
 
-      // place new tokens in refresh__token__c
-      storeRefreshTokenField(user, refreshToken);
       // place new tokens in session cache
       Cache.Session.put(
         AuthTokenCacheUtil.SESSIONPART +
