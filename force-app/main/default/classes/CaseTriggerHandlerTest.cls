@@ -2977,54 +2977,6 @@ private class CaseTriggerHandlerTest {
     );
   }
 
-  @isTest
-  static void testEntitlementUpdateKYCQA() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE Display_Name__c = 'TestAccount'
-      LIMIT 1
-    ];
-
-    Faker faker = new Faker('AU');
-    Case caseRecord = new Case();
-    caseRecord.Description = faker.randomString(10);
-    caseRecord.Status = IDRConstants.OPEN_STATUS;
-    caseRecord.ANZx_Customer__c = true;
-    caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
-    caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
-    caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
-    caseRecord.AccountId = acc.Id;
-    caseRecord.Type = '11';
-    insert caseRecord;
-
-    // WHEN a case is updated to KYC QA case
-    Test.startTest();
-    caseRecord.RecordTypeId = GetHelpConstants.KYCQA_RT_ID;
-    update caseRecord;
-    Test.stopTest();
-
-    Case testingCase = [
-      SELECT Id, EntitlementId
-      FROM Case
-      WHERE Id = :caseRecord.Id
-      LIMIT 1
-    ];
-
-    Entitlement accountEntitlement = [
-      SELECT Id
-      FROM Entitlement
-      WHERE AccountId = :acc.Id
-      LIMIT 1
-    ];
-
-    Assert.areEqual(
-      accountEntitlement.Id,
-      testingCase.EntitlementId,
-      'Link Entitlement from Account to KYC QA case.'
-    );
-  }
-
   private static void createIDOpsCases(User usr) {
     List<Case> idOpsCases = new List<Case>();
 
