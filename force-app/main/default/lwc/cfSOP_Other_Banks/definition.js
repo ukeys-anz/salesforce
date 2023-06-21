@@ -586,8 +586,7 @@ let definition = {
                           class: "slds-col ",
                           property: {
                             record: "{record}",
-                            mergeField:
-                              "%3Cdiv%3E%7Bownership%5B0%5D.ownerName%7D%3C/div%3E",
+                            mergeField: "%3Cdiv%3E%7BownerName%7D%3C/div%3E",
                             card: "{card}"
                           },
                           type: "text",

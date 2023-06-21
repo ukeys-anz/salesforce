@@ -78,7 +78,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
     List<FinServ__FinancialAccount__c> finAccList = [
-      SELECT Name, FinServ__FinancialAccountNumber__c
+      SELECT Name, FinServ__FinancialAccountNumber__c, Product_Name__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :accNumberSet
     ];
@@ -94,7 +94,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   /**
    * @description SOPAsset returns all the sop asset related values
    */
-  public class SOPAsset {
+  public class SOPAsset implements Comparable {
     @AuraEnabled
     public String id;
     @AuraEnabled
@@ -129,6 +129,24 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
         return JOINT_ACCOUNT;
       }
+    }
+
+    /**
+     * @description sort the balance values to show on the Savings and Assets flexcard.
+     * @param compareTo input Sobject to compare
+     * @return `returnValue`
+     */
+    public Integer compareTo(Object compareTo) {
+      SOPAsset compareToIncome = (SOPAsset) compareTo;
+      Integer returnValue = 0;
+      if (this.estimatedValue.value < compareToIncome.estimatedValue.value) {
+        returnValue = 1;
+      } else if (
+        this.estimatedValue.value > compareToIncome.estimatedValue.value
+      ) {
+        returnValue = -1;
+      }
+      return returnValue;
     }
   }
 
@@ -315,14 +333,13 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      * @description return a readable interest rate value
      */
     @AuraEnabled
-    public string readableValue{
+    public string readableValue {
       get {
         try {
           Decimal givenValue = Decimal.valueOf(value);
           String result = (givenValue / 100).setScale(2) + '%';
           return result;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
           return '0';
         }
       }
@@ -335,14 +352,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPStudentLoan {
     @AuraEnabled
     public Boolean hecsWithheldPayment;
-    
+
     /**
      * @description return Yes or No for withheld value
      */
     @AuraEnabled
-    public String outputWithheld{ 
+    public String outputWithheld {
       get {
-        if(hecsWithheldPayment) {
+        if (hecsWithheldPayment) {
           return 'Yes';
         } else {
           return 'No';
@@ -396,7 +413,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         FinServ__FinancialAccount__c finAcc = ResidentialLoanApplicationModel.accNumberToFinAccountMap.get(
           this.accountNumber
         );
-        return finAcc != null ? finAcc.Name : '';
+        return finAcc != null ? finAcc.Product_Name__c : '';
       }
     }
     @AuraEnabled
@@ -452,6 +469,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       ResidentialLoanApplicationModel.class
     );
     model.initMaps();
+    model.assets.sort();
     return model;
   }
 }

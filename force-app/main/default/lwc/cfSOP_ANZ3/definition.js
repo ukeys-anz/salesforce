@@ -463,7 +463,7 @@ let definition = {
                   children: [
                     {
                       key:
-                        "element_element_element_block_0_0_block_1_0_block_0_0",
+                        "element_element_element_block_0_0_block_2_0_block_0_0",
                       name: "Block",
                       element: "block",
                       size: { isResponsive: false, default: "12" },
@@ -519,7 +519,7 @@ let definition = {
                       children: [
                         {
                           key:
-                            "element_element_element_element_block_0_0_block_1_0_block_0_0_outputField_0_0",
+                            "element_element_element_element_block_0_0_block_2_0_block_0_0_outputField_0_0",
                           name: "Text",
                           element: "outputField",
                           size: { isResponsive: false, default: "6" },
@@ -558,7 +558,7 @@ let definition = {
                             style: "      \n         "
                           },
                           parentElementKey:
-                            "element_element_element_block_0_0_block_1_0_block_0_0",
+                            "element_element_element_block_0_0_block_2_0_block_0_0",
                           elementLabel: "Block-0-Block-2-Block-0-Text-0",
                           styleObjects: [
                             {
@@ -599,7 +599,7 @@ let definition = {
                         },
                         {
                           key:
-                            "element_element_element_element_block_0_0_block_1_0_block_0_0_outputField_2_0",
+                            "element_element_element_element_block_0_0_block_2_0_block_0_0_outputField_1_0",
                           name: "Text",
                           element: "outputField",
                           size: { isResponsive: false, default: "6" },
@@ -607,8 +607,7 @@ let definition = {
                           class: "slds-col ",
                           property: {
                             record: "{record}",
-                            mergeField:
-                              "%3Cdiv%3E%7Bownership%5B0%5D.ownerName%7D%3C/div%3E",
+                            mergeField: "%3Cdiv%3E%7BownerName%7D%3C/div%3E",
                             card: "{card}"
                           },
                           type: "text",
@@ -646,7 +645,7 @@ let definition = {
                             style: "      \n         "
                           },
                           parentElementKey:
-                            "element_element_element_block_0_0_block_1_0_block_0_0",
+                            "element_element_element_block_0_0_block_2_0_block_0_0",
                           elementLabel: "Block-0-Block-2-Block-0-Text-1",
                           styleObjects: [
                             {
@@ -693,7 +692,7 @@ let definition = {
                           ]
                         }
                       ],
-                      parentElementKey: "element_element_block_0_0_block_1_0",
+                      parentElementKey: "element_element_block_0_0_block_2_0",
                       elementLabel: "Block-0-Block-2-Block-0",
                       styleObjects: [
                         {
