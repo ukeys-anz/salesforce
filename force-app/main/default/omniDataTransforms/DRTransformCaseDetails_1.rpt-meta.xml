@@ -1,0 +1,1540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;Case&quot; : {
+    &quot;ComplaintDetails&quot; : {
+      &quot;SubsequentIssueType3&quot; : &quot;38&quot;,
+      &quot;SubsequentIssueType2&quot; : &quot;49&quot;,
+      &quot;IssueType2&quot; : &quot;8&quot;,
+      &quot;CustomerDesiredOutcome&quot; : &quot;rewwre&quot;,
+      &quot;AccountPolicyNumber3&quot; : &quot;00000000000000713642610;&quot;,
+      &quot;AccountPolicyNumber2&quot; : &quot;00000000000000713642610;&quot;,
+      &quot;ProductServiceName3-Block&quot; : {
+        &quot;Name&quot; : &quot;ANZ Money saver Home Loan&quot;,
+        &quot;ProductServiceName3&quot; : &quot;ANZ Money saver Home Loan&quot;,
+        &quot;Id&quot; : &quot;01t2P000000GKTSQA4&quot;
+      },
+      &quot;SubSequentIssueType&quot; : &quot;93&quot;,
+      &quot;ProductServiceName-Block&quot; : {
+        &quot;Name&quot; : &quot;ANZ Rewards Visa Gold&quot;,
+        &quot;ProductServiceName&quot; : &quot;ANZ Rewards Visa Gold&quot;
+      },
+      &quot;ProductServiceName2-Block&quot; : {
+        &quot;Name&quot; : &quot;ANZ Easy Start Residential Investment Loan&quot;,
+        &quot;ProductServiceName2&quot; : &quot;ANZ Easy Start Residential Investment Loan&quot;,
+        &quot;Id&quot; : &quot;01t2P000000GKTMQA4&quot;
+      },
+      &quot;AccountPolicyNumber&quot; : &quot;00000000000000713642610;&quot;,
+      &quot;Issue2Checkbox&quot; : true,
+      &quot;IssueType&quot; : &quot;21&quot;,
+      &quot;Priority&quot; : &quot;Critical&quot;,
+      &quot;DescriptionOfIssue&quot; : &quot;test21FTTD&quot;,
+      &quot;IssueType3&quot; : &quot;5&quot;,
+      &quot;ChannelReceived&quot; : &quot;4&quot;
+    },
+    &quot;ResolutionInformation&quot; : {
+      &quot;systemicIssue&quot; : &quot;Yes&quot;,
+      &quot;ComplaintStatus&quot; : &quot;Provisionally Closed&quot;,
+      &quot;custWrittenResponse&quot; : &quot;Yes&quot;,
+      &quot;complaintRelatedHardship&quot; : &quot;Yes&quot;,
+      &quot;ComplaintOutcome&quot; : &quot;1&quot;,
+      &quot;thirdComplaintRemedyCheckbox&quot; : true,
+      &quot;realFormRequired&quot; : &quot;Yes&quot;,
+      &quot;ReviewOutcome&quot; : &quot;Resolution Enhanced&quot;,
+      &quot;realFormMAXId&quot; : &quot;343535&quot;,
+      &quot;systemicIssueCat&quot; : &quot;3&quot;,
+      &quot;CACSubCat&quot; : &quot;Categorsied incorrectly&quot;,
+      &quot;ComplaintRemedy3&quot; : &quot;1&quot;,
+      &quot;ComplaintDescription&quot; : &quot;drtdtr&quot;,
+      &quot;systemicIssueReason&quot; : &quot;ftyftytyfy&quot;,
+      &quot;ComplaintRemedy2&quot; : &quot;4&quot;,
+      &quot;CAC&quot; : &quot;Yes&quot;,
+      &quot;ComplaintRemedy1&quot; : &quot;1&quot;,
+      &quot;secondComplaintRemedyCheckbox&quot; : true,
+      &quot;ComplaintSubRemedy3&quot; : &quot;8&quot;,
+      &quot;ComplaintSubRemedy2&quot; : &quot;3&quot;,
+      &quot;ComplaintSubRemedy1&quot; : &quot;2&quot;
+    }
+  },
+  &quot;recordType&quot; : &quot;0125m0000004Jm7AAE&quot;
+}</expectedInputJson>
+    <expectedOutputJson>{
+  &quot;Case&quot; : {
+    &quot;CustomerDetails&quot; : {
+      &quot;Checkbox1&quot; : false,
+      &quot;ExpressCaseCreation&quot; : true,
+      &quot;Select1&quot; : null,
+      &quot;ThirdPartyRepresent&quot; : true,
+      &quot;Checkbox4&quot; : false,
+      &quot;Text1&quot; : &quot;deen &quot;,
+      &quot;Select2&quot; : &quot;3&quot;,
+      &quot;Email1&quot; : &quot;deen@dd.com&quot;,
+      &quot;Telephone1&quot; : &quot;3434345434&quot;,
+      &quot;Telephone2&quot; : &quot;3344535335&quot;,
+      &quot;Text2&quot; : &quot;rrytr&quot;,
+      &quot;Text3&quot; : &quot;tddffdfdf&quot;,
+      &quot;Number1&quot; : 44464,
+      &quot;Select3&quot; : &quot;Albania&quot;,
+      &quot;Select4&quot; : &quot;2&quot;,
+      &quot;CustIdnetifier&quot; : &quot;Customer/Business CAP ID&quot;,
+      &quot;CustType&quot; : &quot;1&quot;,
+      &quot;CustNumber&quot; : 3434343
+    },
+    &quot;ComplaintDetails&quot; : {
+      &quot;Issue2Checkbox&quot; : false,
+      &quot;IssueType2&quot; : null,
+      &quot;SubsequentIssueType2&quot; : null,
+      &quot;ProductServiceName2-Block&quot; : null,
+      &quot;AccountPolicyNumber2&quot; : null,
+      &quot;Issue3Checkbox&quot; : null,
+      &quot;IssueType3&quot; : null,
+      &quot;SubsequentIssueType3&quot; : null,
+      &quot;ProductServiceName3-Block&quot; : null,
+      &quot;AccountPolicyNumber3&quot; : null,
+      &quot;Priority&quot; : &quot;High&quot;,
+      &quot;ChannelReceived&quot; : &quot;Email&quot;,
+      &quot;IssueType&quot; : &quot;13&quot;,
+      &quot;SubSequentIssueType&quot; : &quot;2&quot;,
+      &quot;ProductServiceName-Block&quot; : {
+        &quot;ProductServiceName&quot; : &quot;Lazard Global Small Cap W&quot;,
+        &quot;Name&quot; : &quot;Lazard Global Small Cap W&quot;
+      },
+      &quot;DescriptionOfIssue&quot; : &quot;ygyg&quot;,
+      &quot;CustomerDesiredOutcome&quot; : &quot;ftft&quot;
+    },
+    &quot;ResolutionInformation&quot; : {
+      &quot;ComplaintEscalationReason&quot; : &quot;Under Investigation&quot;,
+      &quot;RestrictionLevel&quot; : &quot;No Restriction&quot;,
+      &quot;ComplaintOutcome&quot; : null,
+      &quot;ComplaintDescription&quot; : null,
+      &quot;ComplaintRemedy1&quot; : null,
+      &quot;ComplaintSubRemedy1&quot; : null,
+      &quot;SecondComplaintRemedy&quot; : null,
+      &quot;ComplaintRemedy2&quot; : null,
+      &quot;ComplaintSubRemedy2&quot; : null,
+      &quot;ThirdComplaintRemedy&quot; : null,
+      &quot;ComplaintRemedy3&quot; : null,
+      &quot;ComplaintSubRemedy3&quot; : null,
+      &quot;Radio3&quot; : null,
+      &quot;Radio4&quot; : null,
+      &quot;ComplaintStatus&quot; : &quot;Escalated&quot;,
+      &quot;Radio1&quot; : &quot;Yes&quot;,
+      &quot;Radio2&quot; : &quot;Yes&quot;
+    }
+  }
+}</expectedOutputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>DRTransformCaseDetails</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom2429</globalKey>
+        <inputFieldName>Case:ComplaintDetails:ProductServiceName3-Block:Id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:ProductService3Id</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom6231</globalKey>
+        <inputFieldName>Case:ComplaintDetails:SubsequentIssueType2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:SubsequentIssueType2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom6942</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintRemedy3</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom6720</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyPhone</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyPhone</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5249</globalKey>
+        <inputFieldName>Case:CustomerDetails:Phone</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Phone</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5916</globalKey>
+        <inputFieldName>Case:CustomerDetails:Country</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Country</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5601</globalKey>
+        <inputFieldName>Case:ComplaintDetails:IssueType3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:IssueType3</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom3964</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintRemedy2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintRemedy2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom1987</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintSubRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintSubRemedy3</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom6531</globalKey>
+        <inputFieldName>lastName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:LastName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom3401</globalKey>
+        <inputFieldName>Case:ResolutionInformation:PaymentAmountProvided2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:PaymentAmountProvided2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails1482305029480735</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintEscalationReason</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintEscalationReason</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5271</globalKey>
+        <inputFieldName>Case:ResolutionInformation:PaymentAmountProvided3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:PaymentAmountProvided3</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails9190696857108474</globalKey>
+        <inputFieldName>Case:ComplaintDetails:Priority</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:Priority</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7413</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyMobile</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyMobile</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails28910106851355666</globalKey>
+        <inputFieldName>Case:ComplaintDetails:ProductServiceName-Block:Id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:ProductServiceId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom4066</globalKey>
+        <inputFieldName>recordType</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>recordType</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom6321</globalKey>
+        <inputFieldName>Case:ResolutionInformation:systemicIssueReason</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:systemicIssueReason</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7008</globalKey>
+        <inputFieldName>Case:ResolutionInformation:systemicIssueCat</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:systemicIssueCat</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails31245698008298617</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintOutcome</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintOutcome</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails368051737471081</globalKey>
+        <inputFieldName>Case:ComplaintDetails:IssueType</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:IssueType</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom1826</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ReviewOutcome</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ReviewOutcome</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7936</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyPostCode</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyPostCode</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5159</globalKey>
+        <inputFieldName>Case:CustomerDetails:State</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:State</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails5089445920817564</globalKey>
+        <inputFieldName>Case:ComplaintDetails:CustomerDesiredOutcome</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:CustomerDesiredOutcome</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7031</globalKey>
+        <inputFieldName>Case:ComplaintDetails:ProductServiceName2-Block:Id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:ProductService2Id</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom2072</globalKey>
+        <inputFieldName>Case:ResolutionInformation:detailsOfComplaint2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:detailsOfComplaint2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom8405</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyRel</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyRel</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails5987951070219251</globalKey>
+        <inputFieldName>Case:ComplaintDetails:ChannelReceived</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:ChannelReceived</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom3162</globalKey>
+        <inputFieldName>Case:ResolutionInformation:realFormMAXId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:realFormMAXId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom1888</globalKey>
+        <inputFieldName>Case:ComplaintDetails:thirdPartyStreet</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:thirdPartyStreet</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5296</globalKey>
+        <inputFieldName>Case:ResolutionInformation:additionalissues</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:additionalissues</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom2200</globalKey>
+        <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:AccountPolicyNumber2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7003</globalKey>
+        <inputFieldName>Case:CustomerDetails:Suburb</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Suburb</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7887</globalKey>
+        <inputFieldName>Case:CustomerDetails:BusinessName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:BusinessName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails29620277956849606</globalKey>
+        <inputFieldName>Case:ComplaintDetails:SubSequentIssueType</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:SubSequentIssueType</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom3824</globalKey>
+        <inputFieldName>Case:CustomerDetails:switchOffCustNotification</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:switchOffCustNotification</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Customer/\/\/Complaint&apos;&quot; QUERY | &quot;select/\/\/id/\/\/from/\/\/RecordType/\/\/where/\/\/Name/\/\/=/\/\/&apos;Non-Customer/\/\/Complaint&apos;&quot; QUERY IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,QUERY(&quot;select id from RecordType where Name = &apos;Customer Complaint&apos;&quot;),QUERY(&quot;select id from RecordType where Name = &apos;Non-Customer Complaint&apos;&quot;))</formulaExpression>
+        <formulaResultPath>recordType</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom9494</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails5831947838526299</globalKey>
+        <inputFieldName>Case:ComplaintDetails:DescriptionOfIssue</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:DescriptionOfIssue</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom2097</globalKey>
+        <inputFieldName>Case:ResolutionInformation:CAC</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:CAC</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom8582</globalKey>
+        <inputFieldName>Case:CustomerDetails:CustomerIdentifier</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:CustomerIdentifier</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom3559</globalKey>
+        <inputFieldName>Case:ResolutionInformation:PaymentAmountProvided1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:PaymentAmountProvided1</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5928</globalKey>
+        <inputFieldName>Case:ResolutionInformation:systemicIssue</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:systemicIssue</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom4723</globalKey>
+        <inputFieldName>Case:CustomerDetails:Mobile</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Mobile</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom4849</globalKey>
+        <inputFieldName>Case:ResolutionInformation:detailsOfComplaint3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:detailsOfComplaint3</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom8774</globalKey>
+        <inputFieldName>secondIssue</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:Issue2Checkbox</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom689</globalKey>
+        <inputFieldName>Case:ResolutionInformation:CACSubCat</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:CACSubCat</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails28068017626303354</globalKey>
+        <inputFieldName>Case:CustomerDetails:ThirdPartyRepresent</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:ThirdPartyRepresent</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails6022860449239078</globalKey>
+        <inputFieldName>Case:CustomerDetails:ExpressCaseCreation</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:ExpressCaseCreation</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5016</globalKey>
+        <inputFieldName>Case:CustomerDetails:Postcode</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Postcode</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails502832643784511</globalKey>
+        <inputFieldName>Case:CustomerDetails:Customer</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Customer</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom1298</globalKey>
+        <inputFieldName>Case:ResolutionInformation:realFormRequired</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:realFormRequired</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7072</globalKey>
+        <inputFieldName>Case:ResolutionInformation:complaintRelatedHardship</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:complaintRelatedHardship</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom1977</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails06483418563631482</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom9269</globalKey>
+        <inputFieldName>Case:ResolutionInformation:custWrittenResponse</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:custWrittenResponse</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom1226</globalKey>
+        <inputFieldName>firstName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:firstName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails9421866437131015</globalKey>
+        <inputFieldName>Case:CustomerDetails:Telephone1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Telephone1</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom8389</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ParentCase-Block:CaseId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ParentCaseId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5914</globalKey>
+        <inputFieldName>Case:ResolutionInformation:detailsOfComplaint1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:detailsOfComplaint1</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:lastName var:Case:CustomerDetails:LastName IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:lastName%,%Case:CustomerDetails:LastName%)</formulaExpression>
+        <formulaResultPath>lastName</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom2472</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom4542</globalKey>
+        <inputFieldName>Case:CustomerDetails:Gender</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Gender</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom4848</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyEmail</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyEmail</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails3064052164763371</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintDescription</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintDescription</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintDetails:Issue3Checkbox &quot;Yes&quot; == true false IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintDetails:Issue3Checkbox==&quot;Yes&quot;,true,false)</formulaExpression>
+        <formulaResultPath>thirdIssue</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom8106</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom8368</globalKey>
+        <inputFieldName>Case:CustomerDetails:Street</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Street</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5618</globalKey>
+        <inputFieldName>middleName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:MiddleName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:middleName var:Case:CustomerDetails:MiddleName IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:middleName%,%Case:CustomerDetails:MiddleName%)</formulaExpression>
+        <formulaResultPath>middleName</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom1992</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails17686056645200154</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintSubRemedy2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintSubRemedy2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails526935614293534</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintRemedy1</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom254</globalKey>
+        <inputFieldName>Case:CustomerDetails:Email</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Email</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails6093473346815663</globalKey>
+        <inputFieldName>Case:CustomerDetails:Telephone2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Telephone2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom3855</globalKey>
+        <inputFieldName>Case:ComplaintDetails:IssueType2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:IssueType2</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom6611</globalKey>
+        <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:AccountPolicyNumber3</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom1969</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyCountry</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyCountry</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails3999182223311337</globalKey>
+        <inputFieldName>Case:ResolutionInformation:RestrictionLevel</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:RestrictionLevel</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom2084</globalKey>
+        <inputFieldName>Case:ComplaintDetails:SubsequentIssueType3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:SubsequentIssueType3</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5857</globalKey>
+        <inputFieldName>Case:CustomerDetails:CustomerType</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:CustomerType</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7836</globalKey>
+        <inputFieldName>Case:CustomerDetails:Age</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:Age</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isThisCustomerComplaint &quot;Yes&quot; == var:Response:profile:firstName var:Case:CustomerDetails:firstName IF</formulaConverted>
+        <formulaExpression>IF(%Case:isThisCustomerComplaint%==&quot;Yes&quot;,%Response:profile:firstName%,%Case:CustomerDetails:firstName%)</formulaExpression>
+        <formulaResultPath>firstName</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom5188</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails7905302793040014</globalKey>
+        <inputFieldName>Case:ResolutionInformation:SecondComplaintRemedy</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:SecondComplaintRemedy</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom594</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ComplaintSubRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ComplaintSubRemedy1</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetails8193253160863898</globalKey>
+        <inputFieldName>Case:ResolutionInformation:ThirdComplaintRemedy</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ResolutionInformation:ThirdComplaintRemedy</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom8511</globalKey>
+        <inputFieldName>thirdIssue</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:Issue3Checkbox</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintDetails:Issue2Checkbox &quot;Yes&quot; == true false IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintDetails:Issue2Checkbox==&quot;Yes&quot;,true,false)</formulaExpression>
+        <formulaResultPath>secondIssue</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>DRTransformCaseDetailsCustom9698</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom5814</globalKey>
+        <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:ComplaintDetails:AccountPolicyNumber</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;omniscriptId&quot; : &quot;0jN5O000000020XUAQ&quot;,
+  &quot;language&quot; : &quot;English&quot;,
+  &quot;type&quot; : &quot;Case&quot;,
+  &quot;runMode&quot; : &quot;preview&quot;,
+  &quot;sId&quot; : &quot;0jN5O000000020XUAQ&quot;,
+  &quot;theme&quot; : &quot;lightning&quot;,
+  &quot;subType&quot; : &quot;Creation&quot;,
+  &quot;timeStamp&quot; : &quot;2023-05-01T23:14:36.802Z&quot;,
+  &quot;userProfile&quot; : &quot;System Administrator&quot;,
+  &quot;userTimeZoneName&quot; : &quot;Australia/Sydney&quot;,
+  &quot;userTimeZone&quot; : &quot;600&quot;,
+  &quot;userCurrencyCode&quot; : &quot;AUD&quot;,
+  &quot;userName&quot; : &quot;laxmiteja.vuyyuru@anz.com.omni&quot;,
+  &quot;userId&quot; : &quot;0055O000001YdI3QAK&quot;,
+  &quot;omniProcessId&quot; : &quot;0jN5O000000020XUAQ&quot;,
+  &quot;Case&quot; : {
+    &quot;Customer Decision&quot; : null,
+    &quot;CustomerDetails&quot; : {
+      &quot;Customer-Block&quot; : {
+        &quot;Customer&quot; : &quot;4024865085&quot;
+      },
+      &quot;CustType&quot; : null,
+      &quot;firstName&quot; : null,
+      &quot;MiddleName&quot; : null,
+      &quot;LastName&quot; : null,
+      &quot;Age&quot; : null,
+      &quot;Gender&quot; : null,
+      &quot;Email&quot; : null,
+      &quot;Mobile&quot; : null,
+      &quot;Phone&quot; : null,
+      &quot;Street&quot; : null,
+      &quot;Suburb&quot; : null,
+      &quot;Postcode&quot; : null,
+      &quot;State&quot; : null,
+      &quot;Country&quot; : null,
+      &quot;switchOffCustNotCheckbox&quot; : false,
+      &quot;expressCaseCreationCheckbox&quot; : false,
+      &quot;complaintAbout&quot; : null,
+      &quot;thirdPartyRepCheckbox&quot; : true,
+      &quot;switchOff3rdPartyNotCheckbox&quot; : false,
+      &quot;thirdPartyName&quot; : &quot;nlt&quot;,
+      &quot;thirdPartyRel&quot; : &quot;3&quot;,
+      &quot;thirdPartyEmail&quot; : &quot;eee@gmail.com&quot;,
+      &quot;thirdPartyMobile&quot; : &quot;4313220222&quot;,
+      &quot;thirdPartyPhone&quot; : &quot;2425353643&quot;,
+      &quot;thirdPartyStreet&quot; : &quot;gfg&quot;,
+      &quot;thirdPartyPostCode&quot; : 3029,
+      &quot;thirdPartyCountry&quot; : &quot;Antarctica&quot;,
+      &quot;thirdPartyState&quot; : &quot;2&quot;
+    },
+    &quot;ComplaintDetails&quot; : {
+      &quot;Issue2Checkbox&quot; : false,
+      &quot;IssueType2&quot; : null,
+      &quot;SubsequentIssueType2&quot; : null,
+      &quot;ProductServiceName2-Block&quot; : null,
+      &quot;Issue3Checkbox&quot; : null,
+      &quot;IssueType3&quot; : null,
+      &quot;SubsequentIssueType3&quot; : null,
+      &quot;ProductServiceName3-Block&quot; : null,
+      &quot;Priority&quot; : &quot;Critical&quot;,
+      &quot;ChannelReceived&quot; : &quot;Law Enforcement&quot;,
+      &quot;IssueType&quot; : &quot;10&quot;,
+      &quot;SubSequentIssueType&quot; : &quot;45&quot;,
+      &quot;ProductServiceName-Block&quot; : {
+        &quot;ProductServiceName&quot; : &quot;ANZ Balance Visa&quot;,
+        &quot;Name&quot; : &quot;ANZ Balance Visa&quot;,
+        &quot;Id&quot; : &quot;01t2P000000GKTKQA4&quot;
+      },
+      &quot;AccountPolicyNumber&quot; : &quot;00000000000000713642613;&quot;,
+      &quot;DescriptionOfIssue&quot; : &quot;test&quot;,
+      &quot;CustomerDesiredOutcome&quot; : &quot;test&quot;
+    },
+    &quot;ResolutionInformation&quot; : {
+      &quot;ComplaintEscalationReason&quot; : null,
+      &quot;RestrictionLevel&quot; : null,
+      &quot;ComplaintOutcome&quot; : &quot;2&quot;,
+      &quot;ComplaintDescription&quot; : &quot;test&quot;,
+      &quot;ComplaintRemedy1&quot; : &quot;4&quot;,
+      &quot;ComplaintSubRemedy1&quot; : &quot;7&quot;,
+      &quot;secondComplaintRemedyCheckbox&quot; : true,
+      &quot;ComplaintRemedy2&quot; : &quot;1&quot;,
+      &quot;ComplaintSubRemedy2&quot; : &quot;2&quot;,
+      &quot;thirdComplaintRemedyCheckbox&quot; : true,
+      &quot;ComplaintRemedy3&quot; : &quot;1&quot;,
+      &quot;ComplaintSubRemedy3&quot; : &quot;3&quot;,
+      &quot;realFormRequired&quot; : &quot;Yes&quot;,
+      &quot;realFormMAXId&quot; : &quot;4545&quot;,
+      &quot;systemicIssue&quot; : &quot;Yes&quot;,
+      &quot;systemicIssueReason&quot; : &quot;test&quot;,
+      &quot;systemicIssueCat&quot; : &quot;1&quot;,
+      &quot;CAC&quot; : null,
+      &quot;parentCase&quot; : null,
+      &quot;CACSubCat&quot; : null,
+      &quot;ReviewOutcome&quot; : null,
+      &quot;ComplaintStatus&quot; : &quot;Provisionally Closed&quot;,
+      &quot;custWrittenResponse&quot; : &quot;Yes&quot;,
+      &quot;complaintRelatedHardship&quot; : &quot;No&quot;
+    },
+    &quot;systemicAddIssue&quot; : null,
+    &quot;isThisCustomerComplaint&quot; : &quot;Yes&quot;
+  },
+  &quot;Response&quot; : {
+    &quot;accounts&quot; : [ {
+      &quot;accountNumber&quot; : &quot;00000000000000713642611&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:APP&quot;,
+      &quot;subProductCode&quot; : null
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000713642610&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:APP&quot;,
+      &quot;subProductCode&quot; : null
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000713642612&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:APP&quot;,
+      &quot;subProductCode&quot; : null
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000713642613&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:APP&quot;,
+      &quot;subProductCode&quot; : null
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000210405591&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:DDA&quot;,
+      &quot;subProductCode&quot; : &quot;CAP-CIS:DDANH&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000182364197&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:DDA&quot;,
+      &quot;subProductCode&quot; : &quot;CAP-CIS:DDACD&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000456234614&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:DDA&quot;,
+      &quot;subProductCode&quot; : null
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000210405516&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:DDA&quot;,
+      &quot;subProductCode&quot; : &quot;CAP-CIS:DDAPT&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000219360238&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:DDA&quot;,
+      &quot;subProductCode&quot; : &quot;CAP-CIS:DDAI3&quot;
+    }, {
+      &quot;accountNumber&quot; : &quot;00000000000000210405663&quot;,
+      &quot;productCode&quot; : &quot;CAP-CIS:DDA&quot;,
+      &quot;subProductCode&quot; : &quot;CAP-CIS:DDAEB&quot;
+    } ],
+    &quot;profile&quot; : {
+      &quot;age&quot; : &quot;75&quot;,
+      &quot;businessName&quot; : null,
+      &quot;companyName&quot; : null,
+      &quot;complainantType&quot; : &quot;Individual&quot;,
+      &quot;country&quot; : &quot;AUS&quot;,
+      &quot;cpId&quot; : &quot;L0808&quot;,
+      &quot;customerId&quot; : &quot;4024865085&quot;,
+      &quot;dob&quot; : &quot;1948-01-13&quot;,
+      &quot;email&quot; : &quot;linkeshchandrasekar@gmail.com&quot;,
+      &quot;firstName&quot; : &quot;BOLLENBACHE&quot;,
+      &quot;gender&quot; : &quot;M&quot;,
+      &quot;lastName&quot; : &quot;ALEXANDER&quot;,
+      &quot;middleName&quot; : &quot;CAROLYN&quot;,
+      &quot;mobile&quot; : &quot;+919840976244&quot;,
+      &quot;ocvId&quot; : &quot;1000972464&quot;,
+      &quot;phone&quot; : &quot;+919840976244&quot;,
+      &quot;postCode&quot; : &quot;3000&quot;,
+      &quot;state&quot; : &quot;VIC&quot;,
+      &quot;street&quot; : &quot;EMPIRE 22 25/2 WILLS STREET EAST&quot;,
+      &quot;suburb&quot; : &quot;MELBOURNE&quot;
+    },
+    &quot;relationshipManager&quot; : {
+      &quot;details&quot; : null,
+      &quot;error&quot; : null
+    }
+  }
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <responseCacheType>1</responseCacheType>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>DRTransformCaseDetails_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

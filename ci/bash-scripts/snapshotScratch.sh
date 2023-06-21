@@ -73,8 +73,25 @@ echoMessageCreator "" $stepNo false
 
 # pre deploy : change on some files
 echoMessageCreator "Pre Deploy Checking Step" $stepNo true
-changeMetadata force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml IDRRestriction 
-changeMetadata force-app/main/default/objects/Case/fields/IDR_3rdParty_Country__c.field-meta.xml IDRRestriction 
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Restriction_Level__c.field-meta.xml TrackHistoryOff 
+changeMetadata force-app/main/default/objects/Case/fields/IDR_3rdParty_Country__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_3rdParty_State__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Complaint_Sub_Remedy_2__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Complaint_Sub_Remedy_3__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Complaint_Sub_Remedy__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Product_2__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Product_3__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Product_Manufacturer__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Real_Form_Ref_No__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Real_Form_Req__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Reason_for_re_opening__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Subsequent_Issue_2__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Subsequent_Issue_3__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/IDR_Subsequent_Issue__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/PersonaId__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/SI_Definite__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/objects/Case/fields/Status_Update_Error__c.field-meta.xml TrackHistoryOff
+changeMetadata force-app/main/default/applications/Coaches_Console.app-meta.xml CoachConsoleApp
 changeMetadata force-app/main/default/objects/Case/fields/IDR_NC_State__c.field-meta.xml IDRNCState
 changeMetadata force-app/main/default/objects/Case/fields/OnboardingVerificationFailedReason__c.field-meta.xml OnboardingVerificationFailedReason
 changeMetadata force-app/main/default/settings/Address.settings-meta.xml AddressSettings
@@ -98,6 +115,18 @@ changeMetadata force-app/main/default/permissionsets/Key_Manager.permissionset-m
 changeMetadata force-app/main/default/wave/NLP_Reporting.wapp-meta.xml NLPReporting
 changeMetadata force-app/main/default/permissionsets/myTrailhead_Content_Access.permissionset-meta.xml myTrailheadContentAccess
 changeMetadata "force-app/main/default/objects/Case/businessProcesses/Bug Enquiry.businessProcess-meta.xml" bugEnquiry
+changeMetadata "force-app/main/default/wave/Cases.wdash" DashboardSourceLink
+changeMetadata force-app/main/default/wave/CMOS_Dashboard.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/Customer_Feedback_NPS_Metrics.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/Fraud_Daily_Statistics.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/Fraud_Data.wlens DashboardSourceLink
+changeMetadata force-app/main/default/wave/FraudX_Operational_Management.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/FraudX.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/Get_Help_QA.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/Join_QA.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/KYC_Compliance_Rate_Summary.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/KYC_QA.wdash DashboardSourceLink
+changeMetadata force-app/main/default/wave/NLP_Reporting_Dashboard.wdash DashboardSourceLink
 echoMessageCreator "" $stepNo false
 ###########################
 
@@ -148,7 +177,6 @@ mv h.forceignore .forceignore
 sfdx force:source:deploy -u $scratchorgalias -p "force-app/main/default/sharingRules"
 
 git checkout .
-sfdx force:source:deploy -u $scratchorgalias -p force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml
 
 echo "${red}-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 echo "Please open the scratchOrg"
