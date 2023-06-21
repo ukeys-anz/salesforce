@@ -22,7 +22,9 @@
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
+    <permissionSets>InteractionOmniClasses</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
