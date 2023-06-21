@@ -5,7 +5,8 @@
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The 3rd dollar amount of the compensation paid as a result of the complaint</description>
     <externalId>false</externalId>
-    <label>Financial Amount 3</label>
+    <inlineHelpText>Refers to the actual amount that was paid to the customer or net loss incurred by ANZ. Ensure the exact dollar amount is entered. Evidence of any approvals obtained can be uploaded in the ‘files’ tab of the complaint record.</inlineHelpText>
+    <label>Payment Amount Provided 3</label>
     <precision>9</precision>
     <required>false</required>
     <scale>2</scale>

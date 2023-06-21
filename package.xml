@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <name>ListView</name>
+        <members>Account.ANZ_Plus_customers_with_Deceased_Date</members>
+    </types>
+    <version>57.0</version>
+</Package>
