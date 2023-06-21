@@ -3,206 +3,212 @@
     <sorted>false</sorted>
     <standardValue>
         <fullName>New</fullName>
-        <closed>false</closed>
         <default>true</default>
         <label>New</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Action Required</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Action Required</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Open</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Open</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Working</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Working</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Under Investigation</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Under Investigation</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>On Hold</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>On Hold</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Escalated</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Escalated</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Withdrawn</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Withdrawn</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Resolved</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Resolved</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Closed</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Closed</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Re-opened</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Re-opened</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Customer Education</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Customer Education</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Awaiting Recovery</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Awaiting Recovery</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Pend 14 Days</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Pend 14 Days</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Return Funds</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Return Funds</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Reimbursement</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Reimbursement</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Closed - Customer Educated</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Closed - Customer Educated</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Closed - Future Release</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Closed - Future Release</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Closed - Won&apos;t Be Fixed</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Closed - Won&apos;t Be Fixed</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Under Review</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Under Review</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Rectify Defect</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Rectify Defect</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Pending Documents</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Pending Documents</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Provisionally Closed</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Provisionally Closed</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Spam / Advertising</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Spam / Advertising</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Duplicate</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Duplicate</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Can’t Action</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Can’t Action</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Daon Fallout</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Daon Fallout</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>ID Ops: Daon OK</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>ID Ops: Daon OK</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Fraud Check: Daon OK</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Fraud Check: Daon OK</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Equifax Fallout</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Equifax Fallout</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>ID Check OK</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>ID Check OK</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Failed</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Failed</label>
+        <closed>true</closed>
     </standardValue>
     <standardValue>
         <fullName>Potential Fraud</fullName>
-        <closed>false</closed>
         <default>false</default>
         <label>Potential Fraud</label>
+        <closed>false</closed>
     </standardValue>
     <standardValue>
         <fullName>Confirmed Fraud</fullName>
-        <closed>true</closed>
         <default>false</default>
         <label>Confirmed Fraud</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Documents Uploaded</fullName>
+        <default>false</default>
+        <label>Documents Uploaded</label>
+        <closed>false</closed>
     </standardValue>
 </StandardValueSet>
