@@ -107,6 +107,7 @@ public with sharing class IDRConstants {
 
   //To auto assign cases checking for Subsequent Issue Type Set
   public static final Set<String> SUB_ISSUE_TYPE_HARDSHIP = new Set<String>{
+    '20',
     '21',
     '22',
     '23',
