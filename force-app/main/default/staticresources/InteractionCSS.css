@@ -13,7 +13,27 @@ section .slds-accordion__summary {
 }
 
 /* Show required tag on typeahead */
-label[omnistudio-typeahead_typeahead_slds]:before {
+omnistudio-omniscript-typeahead[data-omni-key*="reason"]
+  label[omnistudio-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
+omnistudio-omniscript-typeahead[data-omni-key*="topic"]
+  label[omnistudio-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+omnistudio-omniscript-typeahead[data-omni-key*="product"]
+  label[omnistudio-typeahead_typeahead_slds]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
