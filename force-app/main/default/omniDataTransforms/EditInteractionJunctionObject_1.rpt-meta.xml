@@ -320,7 +320,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem6</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:account</inputFieldName>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:account-Block:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -348,7 +348,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem8</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:lead</inputFieldName>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:lead-Block:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -488,23 +488,50 @@
         &quot;selfService&quot; : true,
         &quot;Assisted&quot; : true,
         &quot;ReferredTo&quot; : null,
-        &quot;actionTaken&quot; : &quot;Assisted App download&quot;
+        &quot;actionTaken&quot; : &quot;No Action&quot;,
+        &quot;reasonforvisit-Block&quot; : {
+          &quot;reasonforvisit&quot; : &quot;Join ANZ&quot;,
+          &quot;selected&quot; : true,
+          &quot;value&quot; : &quot;a2BBn000001FfVJMA0&quot;,
+          &quot;type&quot; : &quot;Reason&quot;,
+          &quot;label&quot; : &quot;Join ANZ&quot;
+        },
+        &quot;actualtopic-Block&quot; : {
+          &quot;actualtopic&quot; : &quot;ANZ Topic&quot;,
+          &quot;selected&quot; : true,
+          &quot;value&quot; : &quot;a2BBn000001FfWvMAK&quot;,
+          &quot;type&quot; : &quot;Topic&quot;,
+          &quot;label&quot; : &quot;ANZ Topic&quot;
+        },
+        &quot;product-Block&quot; : {
+          &quot;product&quot; : &quot;ANZ Product&quot;,
+          &quot;selected&quot; : true,
+          &quot;value&quot; : &quot;a2BBn000001FOW5MAO&quot;,
+          &quot;type&quot; : &quot;Product&quot;,
+          &quot;label&quot; : &quot;ANZ Product&quot;
+        }
       },
       &quot;Block2&quot; : {
-        &quot;name&quot; : &quot;Coaching Lab&quot;
+        &quot;name&quot; : &quot;Inbound Call&quot;
+      },
+      &quot;contactDetailsBlock&quot; : {
+        &quot;account-Block&quot; : {
+          &quot;value&quot; : &quot;001Bn000007n4KNIAY&quot;,
+          &quot;account&quot; : &quot;Complaint Entitlement Account&quot;
+        },
+        &quot;contactMobile&quot; : &quot;657657&quot;,
+        &quot;lead-Block&quot; : {
+          &quot;lead&quot; : &quot;Sita Gupta&quot;,
+          &quot;value&quot; : &quot;00QBn000005iUvZMAU&quot;
+        }
       },
       &quot;inPersonInteractionDetails&quot; : {
         &quot;channel&quot; : &quot;Store&quot;,
         &quot;startTime&quot; : null,
         &quot;place&quot; : &quot;Potts Point&quot;,
-        &quot;authenticationMethod&quot; : &quot;Could not authenticate&quot;,
-        &quot;who&quot; : &quot;Financial Wellbeing&quot;,
-        &quot;interactionNumber&quot; : &quot;IR-00000003&quot;
-      },
-      &quot;contactDetailsBlock&quot; : {
-        &quot;account&quot; : &quot;001Bn000007n7fSIAQ&quot;,
-        &quot;contactMobile&quot; : null,
-        &quot;lead&quot; : &quot;&quot;
+        &quot;authenticationMethod&quot; : &quot;Not Required&quot;,
+        &quot;who&quot; : &quot;Customer&quot;,
+        &quot;interactionNumber&quot; : &quot;IR-00000017&quot;
       },
       &quot;relatedDetailsBlock&quot; : {
         &quot;loanApplication&quot; : &quot;&quot;,
@@ -512,10 +539,22 @@
         &quot;caseID&quot; : &quot;&quot;
       }
     },
-    &quot;junctionData&quot; : &quot;&quot;,
-    &quot;RecordId&quot; : &quot;0kzBn00000005anIAA&quot;
+    &quot;junctionData&quot; : [ {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a2BBn000001FfVJMA0&quot;,
+      &quot;label&quot; : &quot;Join ANZ&quot;
+    }, {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a2BBn000001FfWvMAK&quot;,
+      &quot;label&quot; : &quot;ANZ Topic&quot;
+    }, {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a2BBn000001FOW5MAO&quot;,
+      &quot;label&quot; : &quot;ANZ Product&quot;
+    } ],
+    &quot;RecordId&quot; : &quot;0kzBn000000065RIAQ&quot;
   },
-  &quot;RecordId&quot; : &quot;0kzBn00000005anIAA&quot;
+  &quot;RecordId&quot; : &quot;0kzBn000000065RIAQ&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
