@@ -160,6 +160,12 @@
                 <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>forceChatter:recordFeedContainer</componentName>
+                <identifier>forceChatter_recordFeedContainer</identifier>
+            </componentInstance>
+        </itemInstances>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
