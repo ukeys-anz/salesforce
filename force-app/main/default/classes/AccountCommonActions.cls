@@ -373,12 +373,13 @@ public with sharing class AccountCommonActions {
    * @param recordTypeId The Case record type Id
    * @param records The Account records passed from Trigger.new()
    */
-  public static void linkCasestoAccountByOCVId(
+  public static void linkCasesToAccountByOCVId(
     String recordTypeId,
     List<Account> records
   ) {
     Map<String, String> ocvIdAccountIds = new Map<String, String>();
     Map<String, String> mobileAccountIds = new Map<String, String>();
+    List<Id> accountIds = new List<Id>();
     for (Account acc : records) {
       if (String.isNotEmpty(acc.OCV_Id__c)) {
         ocvIdAccountIds.put(acc.OCV_Id__c, acc.Id);
@@ -386,16 +387,19 @@ public with sharing class AccountCommonActions {
       if (String.isNotEmpty(acc.PersonMobilePhone)) {
         mobileAccountIds.put(acc.PersonMobilePhone, acc.Id);
       }
+      accountIds.add(acc.Id);
     }
-    List<Case> updateCases = [
-      SELECT Id, OCV_Id__c, CustomerOnboardingApplication__r.SecurityMobile__c
-      FROM Case
-      WHERE
-        (OCV_Id__c IN :ocvIdAccountIds.keySet()
-        OR CustomerOnboardingApplication__r.SecurityMobile__c IN :mobileAccountIds.keySet())
-        AND RecordTypeId = :recordTypeId
-        AND AccountId = NULL
-    ];
+
+    List<Case> updateCases = AccountCommonActionsHelper.getCasesByOCVIdsOrMobiles(
+      ocvIdAccountIds.keySet(),
+      mobileAccountIds.keySet(),
+      recordTypeId
+    );
+
+    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getEntitlements(
+      accountIds,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
 
     for (Case c : updateCases) {
       if (ocvIdAccountIds.containsKey(c.OCV_Id__c)) {
@@ -405,6 +409,7 @@ public with sharing class AccountCommonActions {
           c.CustomerOnboardingApplication__r.SecurityMobile__c
         );
       }
+      c.EntitlementId = accountIdEntitlmentMap.get(c.AccountId);
     }
     update updateCases;
   }
