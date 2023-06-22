@@ -8,6 +8,8 @@ public with sharing class COBApplicationActions {
   private static final String YES = 'Yes';
   @TestVisible
   private static final String NONE = null;
+  @TestVisible
+  private static final String CURRENT = 'Current';
 
   /**
    * @description Create KYC QA cases when a COB Application is updated with Electronic Verification Acknowledged == true
@@ -25,13 +27,91 @@ public with sharing class COBApplicationActions {
       return;
     }
 
-    //Link to Person Account if exist
-    linkToPersonAccount(ocvIdsKYCQACases);
-
-    //Set KYC QA Case test fields
-    setKYCQATestFelds(ocvIdsKYCQACases);
+    //Set KYC QA Case fields
+    setKYCQAFields(records, ocvIdsKYCQACases);
 
     DMLUtil.insertRecords(ocvIdsKYCQACases.values(), false, false);
+  }
+
+  /**
+   * @description Update KYC QA case after query
+   * @param cobApps List of COB Applications
+   * @param ocvIdsKycQACases Map of OCV id and KYC QA case
+   */
+  public static void setKYCQAFields(
+    List<CustomerOnboardingApplication__c> cobApps,
+    Map<String, Case> ocvIdsKycQACases
+  ) {
+    setKYCQAFieldsAccount(ocvIdsKycQACases);
+    setKYCQAFieldsCOBPID(cobApps, ocvIdsKycQACases);
+    setKYCQAFieldsCOBAddress(ocvIdsKycQACases);
+  }
+
+  /**
+   * @description Update KYC QA case Account Id field
+   * @param ocvIdsKycQACases map of OCV id and KYC QA case
+   */
+  public static void setKYCQAFieldsAccount(Map<String, Case> ocvIdsKycQACases) {
+    Map<String, Account> accs = COBApplicationActionsHelper.getAccountsByOCVIDs(
+      ocvIdsKycQACases.keySet()
+    );
+    for (Case kycQACase : ocvIdsKycQACases.values()) {
+      Account acc = accs.get(kycQACase.OCV_Id__c);
+      kycQACase.AccountId = acc?.Id;
+    }
+  }
+
+  /**
+   * @description Update KYC QA case Fields base on COB Primary ID Document
+   * @param cobApps List of COB Applications
+   * @param ocvIdsKycQACases Map of OCV id and KYC QA case
+   */
+  public static void setKYCQAFieldsCOBPID(
+    List<CustomerOnboardingApplication__c> cobApps,
+    Map<String, Case> ocvIdsKycQACases
+  ) {
+    Map<Id, CustomerOnboardingApplication__c> cobAppIdApps = new Map<Id, CustomerOnboardingApplication__c>(
+      cobApps
+    );
+    Map<String, COBPrimaryIDDocument__c> cobPIDDs = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
+      ocvIdsKycQACases.keySet()
+    );
+
+    for (Case kycQACase : ocvIdsKycQACases.values()) {
+      COBPrimaryIDDocument__c cobPIDD = cobPIDDs.get(kycQACase.OCV_Id__c);
+      if (cobPIDD != null) {
+        kycQACase.Fraud_MiddleNameCheck__c = cobPIDD.MiddleNamesOCRMatch__c
+          ? YES
+          : NONE;
+        kycQACase.Fraud_Customer_Details__c = COBApplicationActionsHelper.populateFraudCustomerDetails(
+          cobAppIdApps.get(kycQACase.CustomerOnboardingApplication__c),
+          cobPIDD
+        );
+      }
+    }
+  }
+
+  /**
+   * @description Update KYC QA case Fields base on COB Address
+   * @param ocvIdsKycQACases Map of OCV id and KYC QA case
+   */
+  private static void setKYCQAFieldsCOBAddress(
+    Map<String, Case> ocvIdsKycQACases
+  ) {
+    Map<String, COBAddress__c> cobAddresses = COBApplicationActionsHelper.getCOBAddressByOCVIdAddressType(
+      ocvIdsKycQACases.keySet(),
+      CURRENT
+    );
+
+    for (Case kycQACase : ocvIdsKycQACases.values()) {
+      COBAddress__c cobAddress = cobAddresses.get(kycQACase.OCV_Id__c);
+      if (cobAddress != null) {
+        kycQACase.Fraud_PO_Box__c = cobAddress.QASAddress__c ? YES : NONE;
+        kycQACase.Fraud_Address_Valid__c = cobAddress.QASAddress__c
+          ? YES
+          : NONE;
+      }
+    }
   }
 
   /**
@@ -61,35 +141,5 @@ public with sharing class COBApplicationActions {
     }
 
     return ocvIdsKYCQACases;
-  }
-
-  /**
-   * @description Link KYC QA case with Person Account if exists by OCV ID
-   * @param ocvIdsKYCQACases OCV IDs with KYC QA Cases
-   */
-  @TestVisible
-  private static void linkToPersonAccount(Map<String, Case> ocvIdsKYCQACases) {
-    List<Account> accounts = COBApplicationActionsHelper.getAccountsByOCVIds(
-      ocvIdsKYCQACases.keySet()
-    );
-
-    for (Account acc : accounts) {
-      ocvIdsKYCQACases.get(acc.OCV_ID__c).AccountId = acc.Id;
-    }
-  }
-
-  /**
-   * @description Set KYC QA Case test fields
-   * @param ocvIdsKYCQACases OCV IDs with KYC QA Cases
-   */
-  @TestVisible
-  private static void setKYCQATestFelds(Map<String, Case> ocvIdsKYCQACases) {
-    List<COBPrimaryIDDocument__c> cobPids = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
-      ocvIdsKYCQACases.keySet()
-    );
-    for (COBPrimaryIDDocument__c cobPid : cobPids) {
-      ocvIdsKYCQACases.get(cobPid.CustomerOnboardingApplication__r.OCVId__c)
-        .Fraud_MiddleNameCheck__c = cobPid.MiddleNamesOCRMatch__c ? YES : NONE;
-    }
   }
 }

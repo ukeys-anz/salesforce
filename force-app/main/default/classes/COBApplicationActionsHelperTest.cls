@@ -35,6 +35,7 @@ public with sharing class COBApplicationActionsHelperTest {
     List<Account> personAccounts = new List<Account>();
     List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
     List<COBPrimaryIDDocument__c> cobPids = new List<COBPrimaryIDDocument__c>();
+    List<COBAddress__c> cobAddresses = new List<COBAddress__c>();
 
     for (String ocvId : OCV_IDS) {
       personAccounts.add(createPersonAccount(ocvId));
@@ -48,8 +49,17 @@ public with sharing class COBApplicationActionsHelperTest {
       for (String idDocType : ID_DOC_TYPE) {
         cobPids.add(createCOBPid(cobApp.id, idDocType));
       }
+      cobAddresses.add(
+        new COBAddress__c(
+          CustomerOnboardingApplication__c = cobApp.id,
+          AddressQASId__c = FAKER.randomString(15),
+          AddressType__c = COBApplicationActions.CURRENT
+        )
+      );
     }
+
     insert cobPids;
+    insert cobAddresses;
   }
 
   private static Account createPersonAccount(String ocvId) {
@@ -132,7 +142,7 @@ public with sharing class COBApplicationActionsHelperTest {
   @isTest
   private static void testGetAccountsByOCVIds() {
     Test.startTest();
-    List<Account> accountsByOCVIds = COBApplicationActionsHelper.getAccountsByOCVIds(
+    Map<String, Account> accountsByOCVIds = COBApplicationActionsHelper.getAccountsByOCVIds(
       OCV_IDS
     );
     Test.stopTest();
@@ -148,7 +158,7 @@ public with sharing class COBApplicationActionsHelperTest {
 
   @isTest
   private static void testGetAccountsByOCVIdsEmptySet() {
-    List<Account> accountsByOCVIds = COBApplicationActionsHelper.getAccountsByOCVIds(
+    Map<String, Account> accountsByOCVIds = COBApplicationActionsHelper.getAccountsByOCVIds(
       new Set<String>()
     );
 
@@ -168,7 +178,7 @@ public with sharing class COBApplicationActionsHelperTest {
     }
 
     Test.startTest();
-    List<COBPrimaryIDDocument__c> latestCOBPIDs = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
+    Map<String, COBPrimaryIDDocument__c> latestCOBPIDs = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
       OCV_IDS
     );
     Test.stopTest();
@@ -179,7 +189,7 @@ public with sharing class COBApplicationActionsHelperTest {
       'There should be only one (latest) COB Primary ID Document per COB App'
     );
 
-    for (COBPrimaryIDDocument__c cobPid : latestCOBPIDs) {
+    for (COBPrimaryIDDocument__c cobPid : latestCOBPIDs.values()) {
       Assert.areEqual(
         PASSPORT_TYPE,
         cobPid.IdDocumentType__c,
@@ -190,13 +200,82 @@ public with sharing class COBApplicationActionsHelperTest {
 
   @isTest
   private static void testGetCOBPIDsByOCVIdsEmptySet() {
-    List<COBPrimaryIDDocument__c> cobPIDs = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
+    Map<String, COBPrimaryIDDocument__c> cobPIDs = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
       new Set<String>()
     );
 
     Assert.isTrue(
       cobPIDs.isEmpty(),
       'There should be an empty list of COB Primary ID Documents.'
+    );
+  }
+
+  @isTest
+  private static void testGetCOBAddressByOCVIdAddressType() {
+    Test.startTest();
+    Map<String, COBAddress__c> cobAddresses = COBApplicationActionsHelper.getCOBAddressByOCVIdAddressType(
+      OCV_IDS,
+      COBApplicationActions.CURRENT
+    );
+    Test.stopTest();
+
+    for (COBAddress__c cobAddress : cobAddresses.values()) {
+      Assert.isTrue(cobAddress.QASAddress__c, 'QASAddress should be true.');
+    }
+  }
+
+  @isTest
+  private static void testGetCOBAddressByOCVIdAddressTypeEmptySet() {
+    Map<String, COBAddress__c> cobPIDs = COBApplicationActionsHelper.getCOBAddressByOCVIdAddressType(
+      new Set<String>(),
+      COBApplicationActions.CURRENT
+    );
+
+    Assert.isTrue(
+      cobPIDs.isEmpty(),
+      'There should be an empty list of COB Address.'
+    );
+  }
+
+  @isTest
+  private static void testPopulateFraudCustomerDetails() {
+    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
+      EquifaxDVSResult__c = COBApplicationActionsHelper.PASS
+    );
+    COBPrimaryIDDocument__c cobPID = new COBPrimaryIDDocument__c(
+      IdDocumentType__c = LICENCE_TYPE,
+      LicenceNumberOCRMatch__c = true,
+      LicenceCardNumberOCRMatch__c = true
+    );
+    Assert.areEqual(
+      COBApplicationActionsHelper.YES,
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'Document is licence and it is matched.'
+    );
+
+    cobPID.LicenceNumberOCRMatch__c = false;
+    cobPID.FirstNameOCRMatch__c = true;
+    cobPID.LastNameOCRMatch__c = true;
+    cobPID.DateOfBirthOCRMatch__c = true;
+    Assert.areEqual(
+      COBApplicationActionsHelper.YES,
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'Document is licence. And first name, last name, dob are matched.'
+    );
+
+    cobPID.IdDocumentType__c = PASSPORT_TYPE;
+    cobPID.PassportNumberOCRMatch__c = true;
+    Assert.areEqual(
+      COBApplicationActionsHelper.YES,
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'Document is passport and it is matched.'
+    );
+
+    cobApp.EquifaxDVSResult__c = null;
+
+    Assert.isNull(
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'AC 1: Salesforce would populate Yes for "KYC Information is a Match & Complete" when DVS is Pass.'
     );
   }
 }

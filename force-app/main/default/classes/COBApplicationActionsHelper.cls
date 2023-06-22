@@ -17,6 +17,17 @@ public with sharing class COBApplicationActionsHelper {
     'STP' => 'Standard'
   };
 
+  @TestVisible
+  private static final String YES = 'Yes';
+  @TestVisible
+  private static final String NONE = null;
+  @TestVisible
+  private static final String PASS = 'PASS';
+  @TestVisible
+  private static final String LICENCE = 'Licence';
+  @TestVisible
+  private static final String PASSPORT = 'Passport';
+
   /**
    * @description Create KYC QA case
    * @param cobApp Customer Onboarding Application
@@ -36,61 +47,152 @@ public with sharing class COBApplicationActionsHelper {
   }
 
   /**
-   * @description Get Accounts by OCV Ids
-   * @param ocvIds OCV ids
-   * @return List<account> List of Accounts
+   * @description Get Accounts by OCV ids
+   * @param ocvIds OCV Ids
+   * @return Map<Id, Account> Map of OCV ids and Accounts
    */
-  public static List<Account> getAccountsByOCVIds(Set<String> ocvIds) {
+
+  public static Map<String, Account> getAccountsByOCVIDs(Set<String> ocvIds) {
+    Map<String, Account> accountsByOCVIDs = new Map<String, Account>();
+
     if (ocvIds.isEmpty()) {
-      return new List<Account>();
+      return accountsByOCVIDs;
     }
 
     if (PermissionUtils.canQuery('Account')) {
-      return [SELECT Id, OCV_ID__c FROM Account WHERE OCV_ID__c IN :ocvIds];
+      List<Account> accs = [
+        SELECT Id, OCV_ID__c
+        FROM Account
+        WHERE OCV_ID__c IN :ocvIds
+      ];
+
+      for (Account acc : accs) {
+        accountsByOCVIDs.put(acc.OCV_ID__c, acc);
+      }
     }
 
-    return new List<Account>();
+    return accountsByOCVIDs;
   }
 
   /**
    * @description Get PID by  OCV Ids
-   * @param ocvIds OCV ids
-   * @return List<COBPrimaryIDDocument__c> COB Primary ID Documents
+   * @param ocvIds OCV Ids
+   * @return Map<Id, COBPrimaryIDDocument__c> Map of OCV ids and COB Primary ID Documents
    */
-  public static List<COBPrimaryIDDocument__c> getCOBPIDsByOCVIds(
+  public static Map<String, COBPrimaryIDDocument__c> getCOBPIDsByOCVIds(
     Set<String> ocvIds
   ) {
-    if (
-      ocvIds.isEmpty() ||
-      PermissionUtils.canQuery('COBPrimaryIDDocument__c') == false
-    ) {
-      return new List<COBPrimaryIDDocument__c>();
+    Map<String, COBPrimaryIDDocument__c> cobPIDs = new Map<String, COBPrimaryIDDocument__c>();
+    if (ocvIds.isEmpty()) {
+      return cobPIDs;
     }
 
-    //getting max COB PID records createdDate for each cobAppId
-    List<AggregateResult> records = [
-      SELECT CustomerOnboardingApplication__r.OCVId__c, MAX(Id)
-      FROM COBPrimaryIDDocument__c
-      WHERE CustomerOnboardingApplication__r.OCVId__c IN :ocvIds
-      GROUP BY CustomerOnboardingApplication__r.OCVId__c
-    ];
+    if (PermissionUtils.canQuery('COBPrimaryIDDocument__c')) {
+      //getting max COB PID records createdDate for each cobAppId
+      List<CustomerOnboardingApplication__c> cobApps = [
+        SELECT
+          OCVId__c,
+          (
+            SELECT
+              Id,
+              IdDocumentType__c,
+              CustomerOnboardingApplication__c,
+              MiddleNamesOCRMatch__c,
+              FirstNameOCRMatch__c,
+              LastNameOCRMatch__c,
+              LicenceNumberOCRMatch__c,
+              LicenceCardNumberOCRMatch__c,
+              PassportNumberOCRMatch__c,
+              DateOfBirthOCRMatch__c
+            FROM COBPrimaryIDDocuments__r
+            ORDER BY CreatedDate DESC
+          )
+        FROM CustomerOnboardingApplication__c
+        WHERE OCVId__c IN :ocvIds
+      ];
 
-    Set<Id> latestCreatedIds = new Set<Id>();
-    for (AggregateResult record : records) {
-      latestCreatedIds.add((Id) record.get(EXPR_0));
+      for (CustomerOnboardingApplication__c cobApp : cobApps) {
+        if (!cobApp.COBPrimaryIDDocuments__r.isEmpty()) {
+          cobPIDs.put(cobApp.OCVId__c, cobApp.COBPrimaryIDDocuments__r[0]);
+        }
+      }
     }
 
-    //get lastest COB PID record for each cobAppId
-    return [
-      SELECT
-        Id,
-        IdDocumentType__c,
-        CustomerOnboardingApplication__r.OCVId__c,
-        MiddleNamesOCRMatch__c
-      FROM COBPrimaryIDDocument__c
-      WHERE
-        CustomerOnboardingApplication__r.OCVId__c IN :ocvIds
-        AND Id IN :latestCreatedIds
-    ];
+    return cobPIDs;
+  }
+
+  /**
+   * @description Get COB Address by AddressType
+   * @param ocvIds  OCV id
+   * @param addressType  Address Type
+   * @return getCOBAddressByAddressType COB Address
+   */
+  @testVisible
+  public static Map<String, COBAddress__c> getCOBAddressByOCVIdAddressType(
+    Set<String> ocvIds,
+    String addressType
+  ) {
+    Map<String, COBAddress__c> cobAppIdAddresses = new Map<String, COBAddress__c>();
+    if (ocvIds.isEmpty()) {
+      return cobAppIdAddresses;
+    }
+
+    if (PermissionUtils.canQuery('COBAddress__c')) {
+      List<CustomerOnboardingApplication__c> cobApps = [
+        SELECT
+          OCVId__c,
+          (
+            SELECT Id, CustomerOnboardingApplication__c, QASAddress__c
+            FROM COBAddresses__r
+            WHERE AddressType__c = :addressType
+            ORDER BY CreatedDate DESC
+          )
+        FROM CustomerOnboardingApplication__c
+        WHERE OCVId__c IN :ocvIds
+      ];
+
+      for (CustomerOnboardingApplication__c cobApp : cobApps) {
+        if (!cobApp.COBAddresses__r.isEmpty()) {
+          cobAppIdAddresses.put(cobApp.OCVId__c, cobApp.COBAddresses__r[0]);
+        }
+      }
+    }
+    return cobAppIdAddresses;
+  }
+
+  /**
+   * @description Populate Fraud Customer Details test result
+   * @param cobApp  COB Application
+   * @param cobPrimaryIDDocument  COB Primary ID Document
+   * @return Fraud Customer Details result
+   */
+  public static String populateFraudCustomerDetails(
+    CustomerOnboardingApplication__c cobApp,
+    COBPrimaryIDDocument__c cobPrimaryIDDocument
+  ) {
+    if (cobApp != null && cobPrimaryIDDocument != null) {
+      if (cobApp.EquifaxDVSResult__c == PASS) {
+        if (
+          cobPrimaryIDDocument.IdDocumentType__c == LICENCE &&
+          cobPrimaryIDDocument.LicenceNumberOCRMatch__c &&
+          cobPrimaryIDDocument.LicenceCardNumberOCRMatch__c
+        ) {
+          return YES;
+        } else if (
+          cobPrimaryIDDocument.IdDocumentType__c == PASSPORT &&
+          cobPrimaryIDDocument.PassportNumberOCRMatch__c
+        ) {
+          return YES;
+        } else if (
+          cobPrimaryIDDocument.IdDocumentType__c == LICENCE &&
+          cobPrimaryIDDocument.FirstNameOCRMatch__c &&
+          cobPrimaryIDDocument.LastNameOCRMatch__c &&
+          cobPrimaryIDDocument.DateOfBirthOCRMatch__c
+        ) {
+          return YES;
+        }
+      }
+    }
+    return NONE;
   }
 }

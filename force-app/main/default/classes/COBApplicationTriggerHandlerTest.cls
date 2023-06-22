@@ -44,6 +44,18 @@ public with sharing class COBApplicationTriggerHandlerTest {
     OCV_ID3 => COBApplicationActions.NONE
   };
 
+  private static final Map<String, String> FRAUD_CUSTOMER_DETAILS_TEST = new Map<String, String>{
+    OCV_ID1 => COBApplicationActions.YES,
+    OCV_ID2 => COBApplicationActions.YES,
+    OCV_ID3 => COBApplicationActions.NONE
+  };
+
+  private static final Map<String, String> QASADDRESS_TEST = new Map<String, String>{
+    OCV_ID1 => COBApplicationActions.YES,
+    OCV_ID2 => COBApplicationActions.YES,
+    OCV_ID3 => COBApplicationActions.NONE
+  };
+
   private static final Map<String, List<String>> OCV_ID_MIDDLE_NAME_MATCHING = new Map<String, List<String>>{
     OCV_ID1 => MATCHING_MIDDLE_NAMES,
     OCV_ID2 => MATCHING_MIDDLE_NAMES,
@@ -58,11 +70,13 @@ public with sharing class COBApplicationTriggerHandlerTest {
     System.runAs(integrationUser) {
       List<CustomerOnboardingApplication__c> cobApps = createCOBApps();
       List<COBPrimaryIDDocument__c> cobPIDs = new List<COBPrimaryIDDocument__c>();
+      List<COBAddress__c> cobAddresses = new List<COBAddress__c>();
       for (CustomerOnboardingApplication__c cobApp : cobApps) {
         cobPIDs.add(createCOBPid(cobApp));
+        cobAddresses.add(createCOBAddress(cobApp));
       }
       insert cobPIDs;
-      System.debug('inserted cobPid: ' + cobPIDs);
+      insert cobAddresses;
     }
 
     //Create Person Accounts
@@ -140,7 +154,8 @@ public with sharing class COBApplicationTriggerHandlerTest {
       CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
         OCVId__c = ocvId,
         PersonaId__c = FAKER.randomString(15),
-        ElectronicVerificationAcknowledged__c = false
+        ElectronicVerificationAcknowledged__c = false,
+        EquifaxDVSResult__c = COBApplicationActionsHelper.PASS
       );
       cobApps.add(cobApp);
     }
@@ -177,7 +192,36 @@ public with sharing class COBApplicationTriggerHandlerTest {
       cobApp.OCVId__c
     )[1];
 
+    Boolean isMatched = FRAUD_CUSTOMER_DETAILS_TEST.get(cobApp.OCVId__c) ==
+      COBApplicationActions.YES
+      ? true
+      : false;
+    cobPid.IdDocumentType__c = COBApplicationActionsHelper.LICENCE;
+    cobPid.LicenceNumber__c = FAKER.randomString(10);
+    cobPid.LicenceNumberOCRServer__c = isMatched
+      ? cobPid.LicenceNumber__c
+      : FAKER.randomString(10);
+    cobPid.LicenceCardNumber__c = FAKER.randomString(10);
+    cobPid.LicenceCardNumberOCRServer__c = isMatched
+      ? cobPid.LicenceCardNumber__c
+      : FAKER.randomString(10);
+    cobPid.FirstName__c = FAKER.randomString(5);
+
     return cobPid;
+  }
+
+  private static COBAddress__c createCOBAddress(
+    CustomerOnboardingApplication__c cobApp
+  ) {
+    COBAddress__c cobAddress = new COBAddress__c(
+      CustomerOnboardingApplication__c = cobApp.id,
+      AddressType__c = COBApplicationActions.CURRENT
+    );
+    cobAddress.AddressQASId__c = QASADDRESS_TEST.get(cobApp.OCVId__c) ==
+      COBApplicationActions.YES
+      ? FAKER.randomString(15)
+      : null;
+    return cobAddress;
   }
 
   private static List<CustomerOnboardingApplication__c> getCOBApps() {
@@ -187,7 +231,8 @@ public with sharing class COBApplicationTriggerHandlerTest {
         OCVId__c,
         PersonaId__c,
         ElectronicVerificationAcknowledged__c,
-        VerificationType__c
+        VerificationType__c,
+        EquifaxDVSResult__c
       FROM CustomerOnboardingApplication__c
     ];
   }
@@ -215,6 +260,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
 
     for (CustomerOnboardingApplication__c cobApp : cobApps) {
       Case kycQACase = new Case(
+        CustomerOnboardingApplication__c = cobApp.Id,
         RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
         OCV_Id__c = cobApp.OCVId__c
       );
@@ -311,10 +357,12 @@ public with sharing class COBApplicationTriggerHandlerTest {
   }
 
   @isTest
-  public static void testLinkToPersonAccount() {
+  public static void testSetKYCQATestFields() {
+    List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
     Map<String, Case> ocvIdsKYCQACases = createKYCQACases(getCOBApps());
+
     Test.startTest();
-    COBApplicationActions.linkToPersonAccount(ocvIdsKYCQACases);
+    COBApplicationActions.setKYCQAFields(cobApps, ocvIdsKYCQACases);
     Test.stopTest();
 
     List<Case> linkedKYCQACases = new List<Case>();
@@ -322,6 +370,34 @@ public with sharing class COBApplicationTriggerHandlerTest {
       if (kycQACase.AccountId != null) {
         linkedKYCQACases.add(kycQACase);
       }
+
+      Assert.areEqual(
+        OCV_ID_MIDDLE_NAME_TEST.get(kycQACase.OCV_Id__c),
+        kycQACase.Fraud_MiddleNameCheck__c,
+        'Middle Name Check should have been set to ' +
+        OCV_ID_MIDDLE_NAME_TEST.get(kycQACase.OCV_Id__c)
+      );
+
+      Assert.areEqual(
+        FRAUD_CUSTOMER_DETAILS_TEST.get(kycQACase.OCV_Id__c),
+        kycQACase.Fraud_Customer_Details__c,
+        'Fraud Customer Details should have been set to ' +
+        FRAUD_CUSTOMER_DETAILS_TEST.get(kycQACase.OCV_Id__c)
+      );
+
+      Assert.areEqual(
+        QASADDRESS_TEST.get(kycQACase.OCV_Id__c),
+        kycQACase.Fraud_PO_Box__c,
+        'Fraud PO Box should have been set to ' +
+        QASADDRESS_TEST.get(kycQACase.OCV_Id__c)
+      );
+
+      Assert.areEqual(
+        QASADDRESS_TEST.get(kycQACase.OCV_Id__c),
+        kycQACase.Fraud_Address_Valid__c,
+        'Fraud Address Valid should have been set to ' +
+        QASADDRESS_TEST.get(kycQACase.OCV_Id__c)
+      );
     }
 
     Assert.areEqual(
@@ -330,23 +406,5 @@ public with sharing class COBApplicationTriggerHandlerTest {
       LINKED_OCV_IDS.size() +
       ' new Person Account linked KYC QA case(s) should have been created.'
     );
-  }
-
-  @isTest
-  public static void testSetKYCQATestFields() {
-    Map<String, Case> ocvIdsKYCQACases = createKYCQACases(getCOBApps());
-
-    Test.startTest();
-    COBApplicationActions.setKYCQATestFelds(ocvIdsKYCQACases);
-    Test.stopTest();
-
-    for (Case kycQACase : ocvIdsKYCQACases.values()) {
-      Assert.areEqual(
-        OCV_ID_MIDDLE_NAME_TEST.get(kycQACase.OCV_Id__c),
-        kycQACase.Fraud_MiddleNameCheck__c,
-        'Middle Name Check should have been set to ' +
-        OCV_ID_MIDDLE_NAME_TEST.get(kycQACase.OCV_Id__c)
-      );
-    }
   }
 }
