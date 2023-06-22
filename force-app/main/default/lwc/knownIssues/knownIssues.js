@@ -33,7 +33,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
   render() {
     if (this.omniJsonData && this.omniJsonData.KnownIssue) {
       this.omniJsonData.KnownIssue.forEach((issue) => {
-        this.options.push({ label: issue.Name, value: issue.Name });
+        this.options.push({ label: issue.Name, value: issue.Id });
       });
     }
     if (
@@ -64,7 +64,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
     this.value = event.target.value;
     this.omniUpdateDataJson(this.value);
     let issue = this.omniJsonData.KnownIssue.filter(
-      (ele) => ele.Name === this.value
+      (ele) => ele.Id === this.value
     );
     let Case = JSON.parse(JSON.stringify(this.omniJsonData.Case));
     this.populateIssues(Case, issue);
