@@ -440,6 +440,87 @@
         <recordType>Interaction.Store</recordType>
         <type>Flexipage</type>
     </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZ Standard User</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZ Standard User</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard User</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Admin</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Minimum Access - Salesforce</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>Minimum Access - Salesforce</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Interaction</pageOrSobjectType>
+        <profile>ANZx Standard Automation User</profile>
+        <recordType>Interaction.General</recordType>
+        <type>Flexipage</type>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Case</tabs>
