@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>CreateInteractionJourney</name>
     <description>OmniScript for creating and editing Store Interactions</description>
     <elementTypeComponentMapping>{
   &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
@@ -12,6 +11,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>true</isWebCompEnabled>
     <language>English</language>
+    <name>CreateInteractionJourney</name>
     <omniProcessElements>
         <name>ConvertJSONToArray</name>
         <isActive>true</isActive>
@@ -1043,7 +1043,7 @@
   &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;The topic their query originated from within our authenticated channels.&quot;,
+  &quot;helpText&quot; : &quot;Select each topic they raised.&quot;,
   &quot;helpTextPos&quot; : &quot;bottom-left&quot;,
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
