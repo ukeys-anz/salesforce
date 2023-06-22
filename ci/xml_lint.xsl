@@ -98,8 +98,31 @@ xmlns:saxon="http://saxon.sf.net/">
             </xsl:copy>
 
     </xsl:template>
-
     <!-- / End Permission Set -->
+
+    <!-- StandardValueSets have a specific sequence -->
+    <xsl:template match="sf:StandardValueSet//sf:standardValue">
+        <xsl:copy>
+            <xsl:apply-templates select="sf:fullName|sf:name"></xsl:apply-templates>
+            <xsl:apply-templates select="sf:default"></xsl:apply-templates>
+            <xsl:apply-templates select="sf:label"></xsl:apply-templates>
+            <xsl:apply-templates select="node()[not(self::sf:fullName|self::sf:name|self::sf:default|self::sf:label)]">
+                <xsl:sort select="local-name()" data-type="text"/>
+            </xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
+
+    <!-- OmniScripts don't sort name node to the top -->
+    <xsl:template match="sf:OmniScript|
+                        sf:OmniIntegrationProcedure|
+                        sf:OmniDataTransform|
+                        sf:OmniUiCard">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:sort select="local-name()" data-type="text" />
+            </xsl:apply-templates>
+        </xsl:copy>
+    </xsl:template>
 
 
     <!-- For Everything else, order by Node Alphabetically -->

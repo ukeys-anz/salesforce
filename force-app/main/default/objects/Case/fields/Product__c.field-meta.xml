@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <deleteConstraint>SetNull</deleteConstraint>
     <description>Foreign key to Product2 table, if a case relates to a specific product, this links to that product</description>
     <externalId>false</externalId>
@@ -10,7 +10,7 @@
     <label>Product or Service Name</label>
     <lookupFilter>
         <active>true</active>
-        <booleanFilter>1 OR (2 AND 3) OR 4</booleanFilter>
+        <booleanFilter>(1 OR (2 AND 3) OR 4) AND 5</booleanFilter>
         <filterItems>
             <field>$User.Division</field>
             <operation>notEqual</operation>
@@ -29,7 +29,12 @@
         <filterItems>
             <field>$Source.IDR_Product_Category__c</field>
             <operation>equals</operation>
-            <value></value>
+            <value/>
+        </filterItems>
+        <filterItems>
+            <field>Product2.IsActive</field>
+            <operation>equals</operation>
+            <value>True</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>

@@ -41,6 +41,7 @@
     <permissionSets>Run_reports_and_dashboards</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
+    <permissionSets>View_and_Edit_Tasks</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <status>Updated</status>
