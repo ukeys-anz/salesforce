@@ -2,6 +2,8 @@ import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
 import tmp from "./customerAccount.html";
 const FINANCIAL_DIFFICULTY = "4";
+const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
+
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -30,10 +32,12 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     this.options = [];
     if (data && data.Response && data.Response.accounts) {
       data.Response.accounts.forEach((acc) => {
-        this.options.push({
-          label: acc.accountNumber,
-          value: acc.accountNumber
-        });
+        if (!EXCL_ACC.includes(acc.productCode)) {
+          this.options.push({
+            label: acc.accountNumber,
+            value: acc.accountNumber
+          });
+        }
       });
     }
 
