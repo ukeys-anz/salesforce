@@ -9,13 +9,13 @@
     <name>DRFetchParentCase</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <name>DRFetchParentCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchParentCaseCustom209</globalKey>
         <inputFieldName>Case:Id</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchParentCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>CaseId</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -23,13 +23,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchParentCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchParentCaseCustom1113</globalKey>
         <inputFieldName>Case:CaseNumber</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchParentCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>CaseNumber</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -37,7 +37,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchParentCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>LIKE</filterOperator>
@@ -47,6 +46,7 @@
         <inputObjectName>Case</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchParentCase</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Case</outputFieldName>
         <outputObjectName>json</outputObjectName>

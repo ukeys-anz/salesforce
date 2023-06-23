@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>This field is part of Complaint about Complaints for CMOS</description>
     <externalId>false</externalId>
-    <label>Review Outcome</label>
+    <label>Review Outcome of Original Complaint</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>

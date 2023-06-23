@@ -11,10 +11,10 @@
     <language>Procedure</language>
     <name>GetCustomerInfo</name>
     <omniProcessElements>
-        <name>HTTPAction1</name>
         <isActive>false</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>HTTPAction1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -62,10 +62,10 @@
         <type>Rest Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>RemoteAction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>RemoteAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,

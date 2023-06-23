@@ -2255,6 +2255,7 @@
         "ApexClassName__c",
         "ApexMethodName__c",
         "Log__c",
+        "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
       ]

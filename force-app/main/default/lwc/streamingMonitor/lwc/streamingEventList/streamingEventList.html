@@ -1,0 +1,25 @@
+<template>
+  <lightning-card title="Events received">
+    <div slot="actions">
+      <lightning-badge label={receivedEvents.length}></lightning-badge>
+      <lightning-button-icon
+        icon-name="utility:delete"
+        variant="bare"
+        alternative-text="Clear received events"
+        class="slds-m-left_x-small"
+        onclick={clearReceivedEvents}
+      >
+      </lightning-button-icon>
+    </div>
+    <div class="slds-p-horizontal_small">
+      <lightning-datatable
+        key-field="id"
+        columns={columns}
+        data={receivedEvents}
+        hide-checkbox-column="true"
+        onrowaction={handleEventTableRowAction}
+      >
+      </lightning-datatable>
+    </div>
+  </lightning-card>
+</template>

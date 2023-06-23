@@ -9,7 +9,6 @@
     <name>DRFetchCustomers</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <name>DRFetchCustomers</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -19,6 +18,7 @@
         <inputObjectName>Account</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCustomers</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Customer</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -26,13 +26,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRFetchCustomers</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCustomers10371379579266216</globalKey>
         <inputFieldName>Customer:Name</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCustomers</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>CustomerName</outputFieldName>
         <outputObjectName>json</outputObjectName>
