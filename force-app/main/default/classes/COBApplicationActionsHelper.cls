@@ -170,27 +170,27 @@ public with sharing class COBApplicationActionsHelper {
     CustomerOnboardingApplication__c cobApp,
     COBPrimaryIDDocument__c cobPrimaryIDDocument
   ) {
+    Boolean isLicenceMatch =
+      cobPrimaryIDDocument.IdDocumentType__c == LICENCE &&
+      cobPrimaryIDDocument.LicenceNumberOCRMatch__c;
+    Boolean isPassportMatch =
+      cobPrimaryIDDocument.IdDocumentType__c == PASSPORT &&
+      cobPrimaryIDDocument.PassportNumberOCRMatch__c;
     if (cobApp != null && cobPrimaryIDDocument != null) {
-      if (cobApp.EquifaxDVSResult__c == PASS) {
-        if (
-          cobPrimaryIDDocument.IdDocumentType__c == LICENCE &&
-          cobPrimaryIDDocument.LicenceNumberOCRMatch__c &&
-          cobPrimaryIDDocument.LicenceCardNumberOCRMatch__c
-        ) {
-          return YES;
-        } else if (
-          cobPrimaryIDDocument.IdDocumentType__c == PASSPORT &&
-          cobPrimaryIDDocument.PassportNumberOCRMatch__c
-        ) {
-          return YES;
-        } else if (
-          cobPrimaryIDDocument.IdDocumentType__c == LICENCE &&
-          cobPrimaryIDDocument.FirstNameOCRMatch__c &&
-          cobPrimaryIDDocument.LastNameOCRMatch__c &&
-          cobPrimaryIDDocument.DateOfBirthOCRMatch__c
-        ) {
-          return YES;
-        }
+      if (
+        cobApp.EquifaxDVSResult__c == PASS &&
+        (isLicenceMatch || isPassportMatch)
+      ) {
+        return YES;
+      } else if (
+        cobApp.EquifaxDVSResult__c != PASS &&
+        cobPrimaryIDDocument.FirstNameOCRMatch__c &&
+        cobPrimaryIDDocument.LastNameOCRMatch__c &&
+        cobPrimaryIDDocument.DateOfBirthOCRMatch__c &&
+        ((isLicenceMatch &&
+        cobPrimaryIDDocument.LicenceCardNumberOCRMatch__c) || isPassportMatch)
+      ) {
+        return YES;
       }
     }
     return NONE;

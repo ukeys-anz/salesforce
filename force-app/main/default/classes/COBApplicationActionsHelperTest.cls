@@ -250,32 +250,23 @@ public with sharing class COBApplicationActionsHelperTest {
     Assert.areEqual(
       COBApplicationActionsHelper.YES,
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
-      'Document is licence and it is matched.'
+      'PASS and Document is licence and it is matched.'
     );
 
-    cobPID.LicenceNumberOCRMatch__c = false;
+    cobApp.EquifaxDVSResult__c = null;
     cobPID.FirstNameOCRMatch__c = true;
     cobPID.LastNameOCRMatch__c = true;
     cobPID.DateOfBirthOCRMatch__c = true;
     Assert.areEqual(
       COBApplicationActionsHelper.YES,
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
-      'Document is licence. And first name, last name, dob are matched.'
+      'Not PASS and Id, first name, last name, dob are matched.'
     );
 
-    cobPID.IdDocumentType__c = PASSPORT_TYPE;
-    cobPID.PassportNumberOCRMatch__c = true;
-    Assert.areEqual(
-      COBApplicationActionsHelper.YES,
-      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
-      'Document is passport and it is matched.'
-    );
-
-    cobApp.EquifaxDVSResult__c = null;
-
+    cobPID.FirstNameOCRMatch__c = false;
     Assert.isNull(
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
-      'AC 1: Salesforce would populate Yes for "KYC Information is a Match & Complete" when DVS is Pass.'
+      'It should be null when DVS not PASS and either Id, first name, last name, dob or id doc are not matched.'
     );
   }
 }
