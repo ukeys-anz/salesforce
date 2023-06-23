@@ -25,6 +25,8 @@ public with sharing class InteractionConstants {
   public static final String STORE = 'Store';
   public static final String CANCELLED = 'Cancelled';
   public static final String INTERNAL = 'Internal';
+  public static final String CUSTOMER = 'Customer';
+  public static final String INBOUND = 'Inbound';
   public static final Id APPOINTMENT_RECORD_TYPE_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
     .get(InteractionConstants.APPOINTMENT_RECORD_TYPE_NAME)
     .getRecordTypeId();
