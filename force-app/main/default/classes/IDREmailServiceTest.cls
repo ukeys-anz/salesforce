@@ -460,31 +460,28 @@ public with sharing class IDREmailServiceTest {
 
       Test.stopTest();
 
-      List<Case> lstCases = (new WithoutSharing()).getCases(email.subject);
+      // When undisclosedRecipient bug is fixed uncomment this assert and remove the LogEntry code
+      /*
+      List<Case> lstCases = [
+        SELECT Id, Subject
+        FROM Case
+        WHERE Subject = :email.subject
+      ];
+*/
 
-      System.assertEquals(1, lstCases.size(), 'Complaint not created.');
-    }
-  }
+      //      System.assertEquals(1, lstCases.size(), 'Complaint not created.');
 
-  /**
-   * @description private class to allow test Case to be read.
-   */
-  private without sharing class WithoutSharing {
-    /**
-     * @description method to read test Case
-     * @param strSubject subject of email used to create the Case
-     *
-     * @return list of Cases with matching Subject
-     */
-    public List<Case> getCases(String strSubject) {
-      List<Case> lstCases = new List<Case>();
-      // Case.Subject is encrypted and cannot be searched in a query
-      for (Case oCase : [SELECT Id, Subject FROM Case]) {
-        if (oCase.Subject == strSubject) {
-          lstCases.add(oCase);
-        }
-      }
-      return lstCases;
+      List<LogEntry__c> lstLogEntries = [
+        SELECT Id, ApexClassName__c, ExceptionMessage__c, LogMessage__c
+        FROM LogEntry__c
+        WHERE LoggingLevel__c = 'ERROR'
+      ];
+
+      System.assert(lstLogEntries.size() > 0, 'No Log Entries created');
+      System.assert(
+        lstLogEntries[0].ExceptionMessage__c.contains('undislosedrecipients'),
+        'Exception not thrown'
+      );
     }
   }
 

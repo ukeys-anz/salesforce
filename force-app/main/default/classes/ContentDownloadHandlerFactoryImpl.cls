@@ -40,6 +40,7 @@ public with sharing class ContentDownloadHandlerFactoryImpl implements Sfc.Conte
       SELECT Id, Title, FileType
       FROM ContentVersion
       WHERE Id IN :ids AND RecordType.DeveloperName = 'CFaaS_File'
+      WITH SECURITY_ENFORCED
     ];
 
     if (contentVersionList.isEmpty()) {
