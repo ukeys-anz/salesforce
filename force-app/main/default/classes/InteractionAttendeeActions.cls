@@ -226,11 +226,12 @@ public with sharing class InteractionAttendeeActions {
    * @param interactions List of interactions with owner's changed.
    */
   public static void insertOwnerChangeAttendee(List<Interaction> interactions) {
-    Id storeInteraction = GetHelpConstants.INTERACTION_STORE_RT_ID;
-    Map<Id, Integer> interactionAttendeeIdSizeMap = new Map<Id, Integer>();
     Map<Id, Set<Id>> interActionWithAttendee = new Map<Id, Set<Id>>();
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
     List<Id> storeOwnerId = new List<Id>();
+    Set<Id> recordtypes = new Set<Id>();
+    recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
 
     //Loop in interaction and filter out all owner ids
     for (Interaction interact : interactions) {
@@ -267,16 +268,18 @@ public with sharing class InteractionAttendeeActions {
     // Now Finally loop on proginal interaction, check if there is any existin interaction attendee with the
     // OwnerId, if yes, ignore it, if not insert the interactionattendee.
     for (Interaction interact : interactions) {
-      Set<Id> existingAttendeeIds = interActionWithAttendee.get(interact.Id);
-      if (
-        existingAttendeeIds != null &&
-        !existingAttendeeIds.contains(interact.OwnerId)
-      ) {
-        InteractionAttendee intattendee = new InteractionAttendee();
-        intattendee.AttendeeType = InteractionConstants.INTERNAL;
-        intattendee.UserId = interact.OwnerId;
-        intattendee.InteractionId = interact.id;
-        lstInteractAttend.add(intattendee);
+      if (recordtypes.contains(interact.RecordTypeId)) {
+        Set<Id> existingAttendeeIds = interActionWithAttendee.get(interact.Id);
+        if (
+          existingAttendeeIds != null &&
+          !existingAttendeeIds.contains(interact.OwnerId)
+        ) {
+          InteractionAttendee intattendee = new InteractionAttendee();
+          intattendee.AttendeeType = InteractionConstants.INTERNAL;
+          intattendee.UserId = interact.OwnerId;
+          intattendee.InteractionId = interact.id;
+          lstInteractAttend.add(intattendee);
+        }
       }
     }
 
