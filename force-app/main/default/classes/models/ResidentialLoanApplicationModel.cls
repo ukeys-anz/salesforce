@@ -9,9 +9,9 @@
 )
 public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   @AuraEnabled
-  public List<SOPAsset> assets;
+  public List<SOPAssetSummary> assetsSummaries;
   @AuraEnabled
-  public List<SOPDebt> liabilities;
+  public List<SOPDebtSummary> liabilitiesSummaries;
   public SOPModel sop;
   public static final String JOINT_ACCOUNT = 'Joint';
   public static Map<String, Account> partyIdToAccountMap;
@@ -39,10 +39,21 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
 
     Set<String> ocvIdSet = new Set<String>();
-    for (SOPAsset asset : assets) {
-      if (asset.ownership != null) {
-        for (SOPOwnership owner : asset.ownership) {
-          ocvIdSet.add(partyToOcvMap.get(owner.partyId));
+    if (assetsSummaries.size() > 0) {
+      for (SOPAsset asset : assetsSummaries[0].assets) {
+        if (asset.ownership != null) {
+          for (SOPOwnership owner : asset.ownership) {
+            ocvIdSet.add(partyToOcvMap.get(owner.partyId));
+          }
+        }
+      }
+    }
+    if (liabilitiesSummaries.size() > 0) {
+      for (SOPDebt debt : liabilitiesSummaries[0].liabilities) {
+        if (debt.ownership != null) {
+          for (SOPOwnership owner : debt.ownership) {
+            ocvIdSet.add(partyToOcvMap.get(owner.partyId));
+          }
         }
       }
     }
@@ -72,9 +83,18 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       return;
     }
     Set<String> accNumberSet = new Set<String>();
-    for (SOPAsset asset : assets) {
-      if (asset.account != null) {
-        accNumberSet.add(asset.account.accountNumber);
+    if (assetsSummaries.size() > 0) {
+      for (SOPAsset asset : assetsSummaries[0].assets) {
+        if (asset.account != null) {
+          accNumberSet.add(asset.account.accountNumber);
+        }
+      }
+    }
+    if (liabilitiesSummaries.size() > 0) {
+      for (SOPDebt debt : liabilitiesSummaries[0].liabilities) {
+        if (debt.account != null) {
+          accNumberSet.add(debt.account.accountNumber);
+        }
       }
     }
     List<FinServ__FinancialAccount__c> finAccList = [
@@ -89,6 +109,28 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         finAcc
       );
     }
+  }
+
+  /**
+   * @description SOPDebtSummary returns all the sop debt related values and total
+   */
+  public class SOPDebtSummary {
+    @AuraEnabled
+    public List<SOPDebt> liabilities;
+    @AuraEnabled
+    public SOPMoney liabilitiesTotalAmount;
+  }
+
+  /**
+   * @description SOPASummary returns all the sop asset related values and total assets and savings
+   */
+  public class SOPAssetSummary {
+    @AuraEnabled
+    public List<SOPAsset> assets;
+    @AuraEnabled
+    public SOPMoney assetsTotalAmount;
+    @AuraEnabled
+    public SOPMoney savingsTotalAmount;
   }
 
   /**
@@ -333,13 +375,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      * @description return a readable interest rate value
      */
     @AuraEnabled
-    public string readableValue {
+    public string readableValue{
       get {
         try {
           Decimal givenValue = Decimal.valueOf(value);
           String result = (givenValue / 100).setScale(2) + '%';
           return result;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
           return '0';
         }
       }
@@ -352,14 +395,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPStudentLoan {
     @AuraEnabled
     public Boolean hecsWithheldPayment;
-
+    
     /**
      * @description return Yes or No for withheld value
      */
     @AuraEnabled
-    public String outputWithheld {
+    public String outputWithheld{ 
       get {
-        if (hecsWithheldPayment) {
+        if(hecsWithheldPayment) {
           return 'Yes';
         } else {
           return 'No';
@@ -390,6 +433,20 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           : 0;
         Decimal nanoValue = this.nanos != null ? this.nanos : 0;
         return unitValue + (nanoValue / 1000000000);
+      }
+    }
+
+    /**
+     * @description calculated minus value used for debts
+     */
+    @AuraEnabled
+    public Decimal minusValue {
+      get {
+        if (value > 0) {
+          return -value;
+        } else {
+          return value;
+        }
       }
     }
   }
@@ -469,7 +526,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       ResidentialLoanApplicationModel.class
     );
     model.initMaps();
-    model.assets.sort();
+    if (model.assetsSummaries.size() > 0) {
+      model.assetsSummaries[0].assets.sort();
+    }
     return model;
   }
 }
