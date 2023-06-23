@@ -328,6 +328,7 @@ public with sharing class LogEventActionTest {
       APIVersion__c = '53.0',
       EnvironmentType__c = 'Sandbox',
       InstanceName__c = 'TestD',
+      LogMessage__c = 'Test log message',
       TraceId__c = 'abcdef123',
       Payload__c = 'Sensitive payload'
     );
@@ -343,7 +344,7 @@ public with sharing class LogEventActionTest {
     Test.stopTest();
     List<LogEntry__c> logEntries = [SELECT Id FROM LogEntry__c];
     List<SecureLogEntry__c> secureLogEntries = [
-      SELECT Id
+      SELECT Id, LogMessage__c
       FROM SecureLogEntry__c
     ];
 
@@ -356,6 +357,11 @@ public with sharing class LogEventActionTest {
       1,
       secureLogEntries.size(),
       'Secure log entry record should have been created'
+    );
+    System.assertEquals(
+      'Test log message',
+      secureLogEntries[0].LogMessage__c,
+      'Secure log entry log message should match'
     );
   }
 
