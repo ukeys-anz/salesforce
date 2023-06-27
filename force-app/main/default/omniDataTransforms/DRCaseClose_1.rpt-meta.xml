@@ -21,23 +21,38 @@
   &quot;userId&quot; : &quot;0055O000001YdI3QAK&quot;,
   &quot;omniProcessId&quot; : &quot;0jN5O00000001uoUAA&quot;,
   &quot;Case&quot; : {
+    &quot;durationOfRemedy1&quot; : null,
+    &quot;otherRemedy1&quot; : null,
+    &quot;rewardPoints1&quot; : null,
+    &quot;detailsOfComplaint1&quot; : null,
     &quot;PaymentAmountProvided1&quot; : null,
-    &quot;SecondComplaintCheckbox&quot; : false,
     &quot;ComplaintRemedy2&quot; : null,
     &quot;ComplaintSubRemedy2&quot; : null,
+    &quot;durationOfRemedy2&quot; : null,
+    &quot;otherRemedy2&quot; : null,
+    &quot;rewardPoints2&quot; : null,
+    &quot;detailsOfComplaint2&quot; : null,
     &quot;PaymentAmountProvided2&quot; : null,
     &quot;ThirdComplaintCheckbox&quot; : null,
     &quot;ComplaintRemedy3&quot; : null,
+    &quot;durationOfRemedy3&quot; : null,
+    &quot;otherRemedy3&quot; : null,
+    &quot;rewardPoints3&quot; : null,
+    &quot;detailsOfComplaint3&quot; : null,
     &quot;ComplaintSubRemedy3&quot; : null,
     &quot;PaymentAmountProvided3&quot; : null,
+    &quot;avoidableEscalation&quot; : null,
+    &quot;avoidableEscalationReason&quot; : null,
     &quot;REALFormMAXID&quot; : null,
     &quot;WhyIsThisPossibleSystemicIssue&quot; : null,
     &quot;PossibleSystemicIssueCategory&quot; : null,
     &quot;WhichAdditionalIssuesaereSystemic&quot; : null,
+    &quot;IsthisComplaintAboutComplaint&quot; : null,
     &quot;ParentCase-Block&quot; : null,
     &quot;CAC&quot; : null,
     &quot;ReviewOutcome&quot; : null,
-    &quot;realFormRequired&quot; : &quot;No&quot;
+    &quot;ComplaintStatus&quot; : &quot;Closed&quot;,
+    &quot;SecondComplaintCheckbox&quot; : &quot;No&quot;
   }
 }</expectedInputJson>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
@@ -48,12 +63,25 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom7384</globalKey>
+        <inputFieldName>Case:otherRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Other_Remedy_Provided__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7893</globalKey>
         <inputFieldName>Case:ParentCase-Block:CaseId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Issue_Type_2__c</outputFieldName>
+        <outputFieldName>ParentId</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -62,12 +90,12 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom2594</globalKey>
-        <inputFieldName>Case:product3</inputFieldName>
+        <globalKey>DRCaseCloseCustom887</globalKey>
+        <inputFieldName>Case:DescriptionOutcome</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Product_3__c</outputFieldName>
+        <outputFieldName>IDR_Description_of_Outcome__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -76,12 +104,12 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom3730</globalKey>
-        <inputFieldName>Case:accountNumber3</inputFieldName>
+        <globalKey>DRCaseCloseCustom9796</globalKey>
+        <inputFieldName>Case:WhyIsThisPossibleSystemicIssue</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Account_Card_Policy_Number_3__c</outputFieldName>
+        <outputFieldName>IDR_Systemic_Issue_Description__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -90,12 +118,12 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom7373</globalKey>
-        <inputFieldName>Case:subIssueType2</inputFieldName>
+        <globalKey>DRCaseCloseCustom5977</globalKey>
+        <inputFieldName>Case:IsthisComplaintAboutComplaint</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Subsequent_Issue_2__c</outputFieldName>
+        <outputFieldName>Is_this_a_complaint_about_a_complaint__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -104,12 +132,12 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom4302</globalKey>
-        <inputFieldName>Case:thirdIssue</inputFieldName>
+        <globalKey>DRCaseCloseCustom8290</globalKey>
+        <inputFieldName>Case:SecondComplaintCheckbox</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Third_Issue__c</outputFieldName>
+        <outputFieldName>IDR_Second_Issue__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -118,12 +146,12 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom6712</globalKey>
-        <inputFieldName>Case:product2</inputFieldName>
+        <globalKey>DRCaseCloseCustom4250</globalKey>
+        <inputFieldName>Case:ComplaintRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Product_2__c</outputFieldName>
+        <outputFieldName>IDR_Complaint_Remedy_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -132,26 +160,12 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom7286</globalKey>
-        <inputFieldName>Case:REALFormMAXID</inputFieldName>
+        <globalKey>DRCaseCloseCustom6889</globalKey>
+        <inputFieldName>Case:detailsOfComplaint1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Real_Form_Ref_No__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom9056</globalKey>
-        <inputFieldName>Case:durationOfRemedy2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Duration_of_Remedy_2__c</outputFieldName>
+        <outputFieldName>Provided_details_to_Product_Manufacturer__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -174,12 +188,39 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom9056</globalKey>
+        <inputFieldName>Case:durationOfRemedy2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Duration_of_Remedy_2__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7286</globalKey>
         <inputFieldName>Case:REALFormMAXID</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Provided_details_to_Product_Manufacturer__c</outputFieldName>
+        <outputFieldName>IDR_Real_Form_Ref_No__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom2360</globalKey>
+        <inputFieldName>Case:isSystemicIssue</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Is_Common__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -207,305 +248,7 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Is_Common__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom887</globalKey>
-        <inputFieldName>Case:DescriptionOutcome</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Description_of_Outcome__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom8772</globalKey>
-        <inputFieldName>Case:PaymentAmountProvided3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Financial_Compensation_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom7893</globalKey>
-        <inputFieldName>Case:ParentCase-Block:CaseId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ParentId</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom9515</globalKey>
-        <inputFieldName>Case:otherRemedy3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Other_Remedy_Provided_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom7384</globalKey>
-        <inputFieldName>Case:otherRemedy1</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Other_Remedy_Provided__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom2703</globalKey>
-        <inputFieldName>Case:detailsOfComplaint3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Provided_details_to_Prod_Manufacturer_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom5330</globalKey>
-        <inputFieldName>Case:ComplaintSubRemedy3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Sub_Remedy_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom5802</globalKey>
-        <inputFieldName>Case:PaymentAmountProvided2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Is_this_a_complaint_about_a_complaint__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom9796</globalKey>
-        <inputFieldName>Case:WhyIsThisPossibleSystemicIssue</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Systemic_Issue_Description__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom1474</globalKey>
-        <inputFieldName>Case:ComplaintSubRemedy1</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Sub_Remedy__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom7097</globalKey>
-        <inputFieldName>Case:rewardPoints2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Financial_Remedy_Points_2__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom3227</globalKey>
-        <inputFieldName>Case:avoidableEscalationReason</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Avoidable_Escalation_Reason__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom8674</globalKey>
-        <inputFieldName>Case:durationOfRemedy3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Duration_of_Remedy_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom1392</globalKey>
-        <inputFieldName>Case:ComplaintRemedy3</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Remedy_3__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom3227</globalKey>
-        <inputFieldName>Case:avoidableEscalationReason</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Remedy__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:avoidableEscalation &quot;Yes&quot; == true false IF</formulaConverted>
-        <formulaExpression>IF(Case:avoidableEscalation==&quot;Yes&quot;,true,false)</formulaExpression>
-        <formulaResultPath>avoidEsc</formulaResultPath>
-        <formulaSequence>1.0</formulaSequence>
-        <globalKey>DRCaseCloseCustom7337</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Possible_Systemic_Issues__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom2145</globalKey>
-        <inputFieldName>Case:Id</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>true</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom5802</globalKey>
-        <inputFieldName>Case:PaymentAmountProvided2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Financial_Compensation_2__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom6289</globalKey>
-        <inputFieldName>Case:otherRemedy2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Other_Remedy_Provided_2__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom2498</globalKey>
-        <inputFieldName>Case:rewardPoints1</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Financial_Remedy_Points__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRCaseClose</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom6655</globalKey>
-        <inputFieldName>Case:detailsOfComplaint2</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Provided_details_to_Prod_Manufacturer_2__c</outputFieldName>
+        <outputFieldName>IDR_Systemic_Issue_Category__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -529,12 +272,27 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom8772</globalKey>
-        <inputFieldName>Case:PaymentAmountProvided3</inputFieldName>
+        <globalKey>DRCaseClose7266949143908095</globalKey>
+        <inputFieldName>Case:realFormRequired</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Outcome__c</outputFieldName>
+        <outputFieldName>IDR_Real_Form_Req__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom6049</globalKey>
+        <inputFieldName>Case:ComplaintSubRemedy2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Complaint_Sub_Remedy_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -557,12 +315,12 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseCloseCustom6049</globalKey>
-        <inputFieldName>Case:ComplaintSubRemedy2</inputFieldName>
+        <globalKey>DRCaseClose7222211729647365</globalKey>
+        <inputFieldName>Case:ComplaintOutcome</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Complaint_Sub_Remedy_2__c</outputFieldName>
+        <outputFieldName>IDR_Complaint_Outcome__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -571,12 +329,307 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCaseClose7266949143908095</globalKey>
-        <inputFieldName>Case:realFormRequired</inputFieldName>
+        <globalKey>DRCaseCloseCustom6655</globalKey>
+        <inputFieldName>Case:detailsOfComplaint2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IDR_Real_Form_Req__c</outputFieldName>
+        <outputFieldName>Provided_details_to_Prod_Manufacturer_2__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom2498</globalKey>
+        <inputFieldName>Case:rewardPoints1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Financial_Remedy_Points__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom6289</globalKey>
+        <inputFieldName>Case:otherRemedy2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Other_Remedy_Provided_2__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom5802</globalKey>
+        <inputFieldName>Case:PaymentAmountProvided2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Financial_Compensation_2__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom3360</globalKey>
+        <inputFieldName>Case:ComplaintRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Complaint_Remedy__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom2145</globalKey>
+        <inputFieldName>Case:Id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>true</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom8373</globalKey>
+        <inputFieldName>Case:WhichAdditionalIssuesaereSystemic</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Possible_Systemic_Issues__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom5115</globalKey>
+        <inputFieldName>Case:CAC</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>CAC_Sub_Category__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom738</globalKey>
+        <inputFieldName>Case:ThirdComplaintCheckbox</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Third_Issue__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom1392</globalKey>
+        <inputFieldName>Case:ComplaintRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Complaint_Remedy_3__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom8674</globalKey>
+        <inputFieldName>Case:durationOfRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Duration_of_Remedy_3__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom3227</globalKey>
+        <inputFieldName>Case:avoidableEscalationReason</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Avoidable_Escalation_Reason__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom7097</globalKey>
+        <inputFieldName>Case:rewardPoints2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Financial_Remedy_Points_2__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom4096</globalKey>
+        <inputFieldName>Case:durationOfRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Duration_of_Remedy__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:avoidableEscalation &quot;Yes&quot; == true false IF</formulaConverted>
+        <formulaExpression>IF(Case:avoidableEscalation==&quot;Yes&quot;,true,false)</formulaExpression>
+        <formulaResultPath>avoidEsc</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom7337</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseClose6058771135014032</globalKey>
+        <inputFieldName>Case:ComplaintStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Status</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom7857</globalKey>
+        <inputFieldName>avoidEsc</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Avoidable_Escalation__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom5330</globalKey>
+        <inputFieldName>Case:ComplaintSubRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Complaint_Sub_Remedy_3__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom2703</globalKey>
+        <inputFieldName>Case:detailsOfComplaint3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Provided_details_to_Prod_Manufacturer_3__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom9515</globalKey>
+        <inputFieldName>Case:otherRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Other_Remedy_Provided_3__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom8772</globalKey>
+        <inputFieldName>Case:PaymentAmountProvided3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Financial_Compensation_3__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRCaseClose</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCaseCloseCustom1474</globalKey>
+        <inputFieldName>Case:ComplaintSubRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Complaint_Sub_Remedy__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
