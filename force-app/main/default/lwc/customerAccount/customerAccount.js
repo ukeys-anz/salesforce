@@ -113,11 +113,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     ) {
       this.options.push({ label: "N/A", value: "N/A" });
     } else {
-      if (
-        this.allValues &&
-        this.allValues.length > 0 &&
-        this.allValues.indexOf("N/A") !== -1
-      )
+      if (this.allValues && this.allValues.length > 0)
         this.allValues.splice(this.allValues.indexOf("N/A"), 1);
     }
     if (data && data.Case && data.Case.CustomerDetails) {
