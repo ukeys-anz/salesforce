@@ -1,7 +1,7 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
 import tmp from "./customerAccount.html";
-
+const FINANCIAL_DIFFICULTY = "4";
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -30,12 +30,10 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     this.options = [];
     if (data && data.Response && data.Response.accounts) {
       data.Response.accounts.forEach((acc) => {
-        if (!EXCL_ACC.includes(acc.productCode)) {
-          this.options.push({
-            label: acc.accountNumber,
-            value: acc.accountNumber
-          });
-        }
+        this.options.push({
+          label: acc.accountNumber,
+          value: acc.accountNumber
+        });
       });
     }
 
