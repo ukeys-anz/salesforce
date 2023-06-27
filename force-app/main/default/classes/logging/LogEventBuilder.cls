@@ -77,6 +77,10 @@ public without sharing class LogEventBuilder {
     }
 
     this.logEvent.ExceptionMessage__c = apexException.getMessage();
+    if ( this.logEvent.ExceptionMessage__c.contains('HTML Body: data value too large: &lt;html&gt;')) {
+      // ExceptionMessage looks likely to have included html content. Possibly email content. Need to remove it.
+      this.logEvent.ExceptionMessage__c = this.logEvent.ExceptionMessage__c.substringBefore('&lt;html&gt;');
+    }
     this.logEvent.ExceptionType__c = apexException.getTypeName();
 
     return this;

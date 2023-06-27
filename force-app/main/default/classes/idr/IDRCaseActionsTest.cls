@@ -120,6 +120,7 @@ private with sharing class IDRCaseActionsTest {
   @isTest
   static void testPseudoAutoEscalation5Days() {
     //GIVEN new complaints created as UNDER INVESTIGATION
+    //GIVEN blank IDR_Escalation_Reason__c
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
@@ -152,6 +153,53 @@ private with sharing class IDRCaseActionsTest {
       IDRCaseActions.DAY_5_ESCALATION_REASON,
       c.IDR_Escalation_Reason__c,
       'Escalation reason should be auto-escalated'
+    );
+  }
+
+  @isTest
+  static void testPseudoAutoEscalation5DaysWithComplaintReasonFilled() {
+    //GIVEN new complaints created as OPEN Status
+    //GIVEN IDR_Escalation_Reason__c = Indexing, the only allowed pre-filled escalation reason to be auto escalated for cases.
+    Case[] newCases = new List<Case>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      newCases.add(
+        new Case(
+          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          Status = IDRConstants.OPEN_STATUS,
+          IDR_Escalation_Reason__C = IDRCaseActions.INDEXING_ESCALATION_REASON,
+          isEscalated = false
+        )
+      );
+    }
+    insert newCases;
+
+    //WHEN they are updated as auto-escalation would do (owner and escalated flag)
+    Set<Id> caseIds = (new Map<Id, Case>(newCases)).keySet();
+    newCases = [SELECT OwnerId, isEscalated FROM Case WHERE id IN :caseIds];
+    for (Case c : newCases) {
+      c.OwnerId = IDRCaseActions.queue.id;
+      c.IsEscalated = true;
+      c.IDR_Escalated_to__c = '1';
+    }
+    update newCases;
+
+    //THEN escalation reason should not updated, as it has been pre-filled
+    Case c = [
+      SELECT IDR_Escalation_Reason__c, Status
+      FROM Case
+      WHERE id = :newCases[0].Id
+    ];
+
+    System.assertEquals(
+      IDRConstants.ESCALATED_STATUS,
+      c.Status,
+      'Status should be escalated'
+    );
+
+    System.assertEquals(
+      IDRCaseActions.INDEXING_ESCALATION_REASON,
+      c.IDR_Escalation_Reason__c,
+      'Escalation reason should be 18, the API named for Indexing.'
     );
   }
 

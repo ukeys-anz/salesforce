@@ -283,11 +283,11 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ActivitiesAccess</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>EditTask</name>
+        <enabled>true</enabled>
     </userPermissions>
 </PermissionSet>
