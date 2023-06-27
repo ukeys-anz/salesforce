@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
     <errorIgnored>false</errorIgnored>
@@ -178,19 +178,6 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCaseDetailsCustom1276</globalKey>
-        <inputFieldName>Case:CustomerDetails:complaintAbout</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:CustomerDetails:complaintAbout</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom6720</globalKey>
         <inputFieldName>Case:CustomerDetails:thirdPartyPhone</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -274,19 +261,6 @@
     <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
         <name>DRTransformCaseDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>DRTransformCaseDetailsCustom4593</globalKey>
-        <inputFieldName>expressCMOS</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:expressCMOS</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom6531</globalKey>
@@ -385,6 +359,20 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRTransformCaseDetails</name>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom7176</globalKey>
+        <inputFieldName>Case:avoidableEscalation</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:avoidableEscalation</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom4066</globalKey>
@@ -1037,11 +1025,22 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:CustomerDetails:expressCaseCreationCheckbox &quot;Yes&quot; == true false IF</formulaConverted>
-        <formulaExpression>IF(Case:CustomerDetails:expressCaseCreationCheckbox==&quot;Yes&quot;,true,false)</formulaExpression>
-        <formulaResultPath>expressCMOS</formulaResultPath>
-        <formulaSequence>9.0</formulaSequence>
-        <globalKey>DRTransformCaseDetailsCustom9318</globalKey>
+        <globalKey>DRTransformCaseDetailsCustom9154</globalKey>
+        <inputFieldName>Case:avoidableEscalationReason</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:avoidableEscalationReason</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom4848</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyEmail</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
