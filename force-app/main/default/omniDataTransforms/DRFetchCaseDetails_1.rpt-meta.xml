@@ -224,7 +224,7 @@
         <formulaConverted>| | var:Case:IDR_Complaint_Remedy_2__c ISNOTBLANK &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
         <formulaExpression>IF(ISNOTBLANK(Case:IDR_Complaint_Remedy_2__c),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
         <formulaResultPath>Case:secondIssue</formulaResultPath>
-        <formulaSequence>2.0</formulaSequence>
+        <formulaSequence>1.0</formulaSequence>
         <globalKey>DRFetchCaseDetailsCustom4232</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -623,7 +623,7 @@
         <formulaConverted>| | var:Case:IDR_Complaint_Remedy_3__c ISNOTBLANK &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
         <formulaExpression>IF(ISNOTBLANK(Case:IDR_Complaint_Remedy_3__c),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
         <formulaResultPath>Case:thirdIssue</formulaResultPath>
-        <formulaSequence>3.0</formulaSequence>
+        <formulaSequence>2.0</formulaSequence>
         <globalKey>DRFetchCaseDetailsCustom8974</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -846,8 +846,8 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom5431</globalKey>
-        <inputFieldName>Case:IDR_Subsequent_Issue_2__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom5674</globalKey>
+        <inputFieldName>Case:IDR_Other_Remedy_Provided_2__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -874,8 +874,8 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom884</globalKey>
-        <inputFieldName>Case:IDR_Account_Card_Policy_Number_2__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom9219</globalKey>
+        <inputFieldName>Case:IDR_Other_Remedy_Provided__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
@@ -928,7 +928,7 @@
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;CaseId&quot; : &quot;5009j000005b5VhAAI&quot;
+  &quot;CaseId&quot; : &quot;5009j000005orkcAAA&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

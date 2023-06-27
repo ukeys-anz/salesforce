@@ -232,7 +232,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Customer Desired Outcome&quot;,
@@ -253,7 +253,7 @@
   &quot;label&quot; : &quot;Description of Issue&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -415,8 +415,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;Custom&quot;,
-    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateIssueTypePicklist&quot;
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;source&quot; : &quot;Case.Type&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -747,7 +747,7 @@
     &quot;country&quot; : &quot;&quot;,
     &quot;postal_code&quot; : &quot;&quot;
   },
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Start typing the ANZ product or Service the complaint relates to for available options to appear&quot;,
@@ -1006,13 +1006,13 @@
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateSubIssueTypeDependentPicklist&quot;,
-    &quot;type&quot; : &quot;Custom&quot;,
+    &quot;source&quot; : &quot;Case.Type&quot;,
+    &quot;type&quot; : &quot;SObject&quot;,
     &quot;element&quot; : &quot;IssueType&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;Custom&quot;
+    &quot;source&quot; : &quot;Case.IDR_Subsequent_Issue__c&quot;,
+    &quot;type&quot; : &quot;SObject&quot;
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -1021,7 +1021,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Subsequent Issue Type&quot;,
@@ -3817,7 +3817,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;label&quot; : &quot;Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?&quot;,
   &quot;controlWidth&quot; : 6,
   &quot;show&quot; : {
@@ -4278,7 +4278,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
   &quot;label&quot; : &quot;Has the customer requested a written response? (Do not ask the customer, only record yes if customer has specifically requested a response in writing)&quot;,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -6392,7 +6392,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -6455,7 +6455,6 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetValues</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -6686,5 +6685,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>7dda14be-b708-ed56-9eca-d41ce2415143</webComponentKey>
+    <webComponentKey>c7e749dc-2310-4771-eba7-4d4719e8c7c8</webComponentKey>
 </OmniScript>
