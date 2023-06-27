@@ -34,7 +34,7 @@ public with sharing class IDRCaseNotificationManager {
             UserInfo.getUserId() != records[i].OwnerId &&
             IDRCaseActions.isIDRComplaintType(records[i])
           ) {
-            if (!(fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID))){
+            if (!(fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID))) {
               wrapperList.add(createNotification(fieldLabel, records[i], null));
             }
             assiTasks.addAll(
@@ -150,6 +150,12 @@ public with sharing class IDRCaseNotificationManager {
           ' ' +
           customerName)
         : ('A new email response has been received on case : ' + c.CaseNumber);
+    } else if (fieldLabel == 'Email Attachment Failure') {
+      subjectStr =
+        'Email attachment has failed to upload' +
+        c.CaseNumber +
+        ' ' +
+        customerName;
     } else if (fieldLabel != 'Parent Updated') {
       if (
         fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
@@ -166,6 +172,13 @@ public with sharing class IDRCaseNotificationManager {
       Task assiTaskRec = IDRTaskActions.createAssignmentTask(c, subjectStr);
       if (fieldLabel == 'Email Response Attached') {
         assiTaskRec.Description = 'Any attachments included with this email will be available to view in the \'Files\' tab in CMOS';
+      }
+      if (fieldLabel == 'Email Attachment Failure') {
+        assiTaskRec.OwnerId = c.OwnerId != null
+          ? !(String.valueOf(c.OwnerId).startsWith('00G'))
+              ? c.OwnerId
+              : UserInfo.getUserId()
+          : UserInfo.getUserId();
       }
       assiTasks.add(assiTaskRec);
     }
@@ -249,7 +262,7 @@ public with sharing class IDRCaseNotificationManager {
   ) {
     List<IDR_Notification_Event__e> nEventList = new List<IDR_Notification_Event__e>();
     Integer timeVal = Datetime.now().millisecond();
-    
+
     IDR_Notification_Event__e nEvent = new IDR_Notification_Event__e();
     nEvent.Case_ID__c = c.Id;
     nEvent.Case_Number__c = c.CaseNumber;
@@ -285,7 +298,7 @@ public with sharing class IDRCaseNotificationManager {
     managerEvent.EmailTemplate__c = IDRConstants.MANAGER_EMAIL_NOTIFICATION_TEMPLATE;
 
     nEventList.add(managerEvent);
-    
+
     return nEventList;
   }
 }

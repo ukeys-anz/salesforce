@@ -6,6 +6,7 @@
  * @runTests IDREmailServiceTest
  */
 public with sharing class IDREmailServiceHelper {
+  public static Boolean attachmentFailureDetected = false;
   /**
    * @description Creates a new case
    * @param email Inbound email object
@@ -210,6 +211,7 @@ public with sharing class IDREmailServiceHelper {
           );
           returnConVerList.add(cv);
         } else {
+          attachmentFailureDetected = true;
           Logger.error(
             'CMOS-' +
             caseNumber +
@@ -255,6 +257,7 @@ public with sharing class IDREmailServiceHelper {
           );
           returnConVerList.add(cv);
         } else {
+          attachmentFailureDetected = true;
           Logger.error(
             'CMOS-' +
             caseNumber +
