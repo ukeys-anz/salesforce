@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Subsequent_Issue_3__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Sub categorisation of third issue</description>
     <externalId>false</externalId>
     <label>Subsequent Issue Type 3</label>

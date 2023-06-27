@@ -1,8 +1,6 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
 import tmp from "./customerAccount.html";
-const FINANCIAL_DIFFICULTY = "4";
-const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
 
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
@@ -43,21 +41,23 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
     if (
+      data &&
+      data.Case &&
       data.Case.CustomerDetails &&
       data.Case.CustomerDetails.complaintAbout &&
       !this.allValues.length > 0 &&
       this.omniJsonDef.name === "AccountPolicyNumber"
     ) {
       this.allValues.push("N/A");
-      this.value = "N/A";
+      this.updateDataJson();
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
     if (
-      (cmpDetails.IssueType === FINANCIAL_DIFFICULTY &&
+      (cmpDetails.IssueType === "4" &&
         this.omniJsonDef.name === "AccountPolicyNumber") ||
-      (cmpDetails.IssueType2 === FINANCIAL_DIFFICULTY &&
+      (cmpDetails.IssueType2 === "4" &&
         this.omniJsonDef.name === "AccountPolicyNumber2") ||
-      (cmpDetails.IssueType3 === FINANCIAL_DIFFICULTY &&
+      (cmpDetails.IssueType3 === "4" &&
         this.omniJsonDef.name === "AccountPolicyNumber3")
     ) {
       this.allValues = [];
@@ -70,9 +70,9 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       }
       this.allSelected = true;
     } else if (
-      cmpDetails.IssueType !== FINANCIAL_DIFFICULTY ||
-      cmpDetails.IssueType2 !== FINANCIAL_DIFFICULTY ||
-      cmpDetails.IssueType3 !== FINANCIAL_DIFFICULTY
+      cmpDetails.IssueType !== "4" ||
+      cmpDetails.IssueType2 !== "4" ||
+      cmpDetails.IssueType3 !== "4"
     ) {
       if (this.allSelected) {
         this.allValues = [];
@@ -131,7 +131,6 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.expCase === "Yes"
       ) {
         this.allValues.splice(this.allValues.indexOf("N/A"), 1);
-        this.value = "";
       }
     }
   }
