@@ -2,7 +2,7 @@ import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
 const SERVICE_QUALITY = "9";
 const FAILURE_TO_RESPOND = "61";
-const REFERRED_TO_PRODUCT = "3";
+//const REFERRED_TO_PRODUCT = "3";
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
