@@ -3,6 +3,11 @@ omnistudio-omniscript-ip-action button[type="button"] {
   margin-top: 1rem;
 }
 
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-ip-action button[type="button"] {
+  margin-top: 1rem;
+}
+
 /* Used to expand button as a standard section page and beautify it to match the standard section accordian */
 section .slds-accordion__summary {
   --slds-c-accordion-summary-color-background: var(
@@ -23,6 +28,17 @@ omnistudio-omniscript-typeahead[data-omni-key*="reason"]
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
 
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="reason"]
+  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
 omnistudio-omniscript-typeahead[data-omni-key*="topic"]
   label[omnistudio-typeahead_typeahead_slds]:before {
   content: "*";
@@ -32,8 +48,31 @@ omnistudio-omniscript-typeahead[data-omni-key*="topic"]
   );
   margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
 }
+
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="topic"]
+  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
 omnistudio-omniscript-typeahead[data-omni-key*="product"]
   label[omnistudio-typeahead_typeahead_slds]:before {
+  content: "*";
+  color: var(
+    --slds-g-color-error-base-40,
+    var(--lwc-colorTextError, rgb(234, 0, 30))
+  );
+  margin: 0 var(--lwc-spacingXxxSmall, 0.125rem);
+}
+
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-typeahead[data-omni-key*="product"]
+  label[runtime_omnistudio_common-typeahead_typeahead_slds]:before {
   content: "*";
   color: var(
     --slds-g-color-error-base-40,
@@ -48,8 +87,20 @@ omnistudio-omniscript-text[data-omni-key="Engagement"]
   display: none;
 }
 
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-text[data-omni-key="Engagement"]
+  div[class="slds-form-element__control slds-form-element__control-animated-label"] {
+  display: none;
+}
+
 /* Expand label compoent of Engagement box */
 omnistudio-omniscript-text[data-omni-key="Engagement"] {
+  margin-top: 0.8rem;
+  width: 33%;
+}
+
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-text[data-omni-key="Engagement"] {
   margin-top: 0.8rem;
   width: 33%;
 }
@@ -61,7 +112,24 @@ omnistudio-omniscript-ip-action[data-omni-key*="Add"]
   color: var(--lwc-brandTextLink, rgb(1, 118, 211));
 }
 
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-ip-action[data-omni-key*="Add"]
+  button[class="vlocity-btn slds-button slds-button_brand slds-button_stretch"] {
+  background-color: rgb(255, 255, 255);
+  color: var(--lwc-brandTextLink, rgb(1, 118, 211));
+}
+
 /* Hide the top line */
 .vlc-separator {
   display: none;
+}
+
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-typeahead-block[data-omni-key="account-Block"] {
+  max-width: 42%;
+}
+
+/* runtime css */
+runtime_omnistudio_omniscript-omniscript-typeahead-block[data-omni-key="lead-Block"] {
+  max-width: 42%;
 }
