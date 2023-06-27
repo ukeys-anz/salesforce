@@ -867,7 +867,6 @@
     </omniDataTransformItem>
     <omniDataTransformItem>
         <name>DRCreateCase</name>
-        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom3861</globalKey>
@@ -979,7 +978,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>DRCreateCase</name>
         <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
