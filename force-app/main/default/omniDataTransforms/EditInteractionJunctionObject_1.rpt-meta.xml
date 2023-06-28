@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>EditInteractionJunctionObject</name>
     <active>true</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
@@ -75,7 +74,51 @@
 }</expectedInputJson>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
+    <name>EditInteractionJunctionObject</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>EditInteractionJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem1</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>InteractionType</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>EditInteractionJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem19</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:junctionData:value</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Interaction_Tag__c</outputFieldName>
+        <outputObjectName>Interaction_Context_Tag__c</outputObjectName>
+        <requiredForUpsert>true</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>true</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>EditInteractionJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EditInteractionJunctionObjectCustom9498</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:RecordId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>true</upsertKey>
+    </omniDataTransformItem>
     <omniDataTransformItem>
         <name>EditInteractionJunctionObject</name>
         <disabled>false</disabled>
@@ -169,49 +212,6 @@
         <name>EditInteractionJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem1</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>InteractionType</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>EditInteractionJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem19</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:junctionData:value</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Interaction_Tag__c</outputFieldName>
-        <outputObjectName>Interaction_Context_Tag__c</outputObjectName>
-        <requiredForUpsert>true</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
-        <upsertKey>true</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>EditInteractionJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EditInteractionJunctionObjectCustom9498</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:RecordId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>true</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>EditInteractionJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:DataForInteractionAndJunction:DetailSectionData:detailsSection:actionTaken &apos;Referred&apos; != &apos;/\/\/&apos; var:DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo IF</formulaConverted>
         <formulaExpression>IF(DataForInteractionAndJunction:DetailSectionData:detailsSection:actionTaken != &apos;Referred&apos;,&apos; &apos;,DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo)</formulaExpression>
         <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo</formulaResultPath>
@@ -223,6 +223,23 @@
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>EditInteractionJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem8</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:lead-Block:value</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Lead__c</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{
+  &quot;null&quot; : &quot;&quot;
+}</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
@@ -347,20 +364,6 @@
         <name>EditInteractionJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EditInteractionJunctionObjectCustom0jIBo000000144nMAAItem8</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:lead-Block:value</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Lead__c</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>EditInteractionJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; != &apos;/\/\/&apos; var:DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo IF</formulaConverted>
         <formulaExpression>IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel != &apos;Store&apos; , &apos; &apos;,DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo)</formulaExpression>
         <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo</formulaResultPath>
@@ -448,6 +451,9 @@
         <outputFieldName>CaseId__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{
+  &quot;null&quot; : &quot;&quot;
+}</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
@@ -462,6 +468,9 @@
         <outputFieldName>Coaching_Summary__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{
+  &quot;null&quot; : &quot;&quot;
+}</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
@@ -476,6 +485,9 @@
         <outputFieldName>Loan_Application__c</outputFieldName>
         <outputObjectName>Interaction</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{
+  &quot;null&quot; : &quot;&quot;
+}</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>SObject</outputType>
