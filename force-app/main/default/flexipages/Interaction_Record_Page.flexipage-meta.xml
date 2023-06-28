@@ -5,26 +5,12 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>Interaction.Create_Case_New</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Edit</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>ChangeOwnerOne</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>collapsed</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsConfiguration</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsInNative</name>
@@ -270,7 +256,7 @@
         </itemInstances>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Call - Interaction Record Page</masterLabel>
+    <masterLabel>Interaction Record Page</masterLabel>
     <sobjectType>Interaction</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>

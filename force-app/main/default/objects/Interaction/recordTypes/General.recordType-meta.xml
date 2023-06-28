@@ -3,8 +3,8 @@
     <fullName>General</fullName>
     <active>true</active>
     <compactLayoutAssignment>General</compactLayoutAssignment>
-    <description>Call Record Type for Interactions</description>
-    <label>Call</label>
+    <description>General Record Type for Interactions</description>
+    <label>General</label>
     <picklistValues>
         <picklist>Authentication_Method__c</picklist>
         <values>
