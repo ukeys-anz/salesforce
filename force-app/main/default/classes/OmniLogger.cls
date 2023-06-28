@@ -3,7 +3,7 @@
  * @since 06/2023
  * @description  Omni logger class to log errors or info logs from omnistudio compoments
  */
-global without sharing class OmniLogger implements Callable {
+global without sharing class OmniLogger implements omnistudio.VlocityOpenInterface, Callable {
   /**
    * @description invokeMethod to handle insertion of logs from omnistudio.
    * @param methodName Method named to be called.
@@ -12,7 +12,7 @@ global without sharing class OmniLogger implements Callable {
    * @param options Options passed from omnistudio.
    * @return Object containing outMap, which can contain custom message and should return success as false and true based on logic.
    */
-  global Object invokeMethod(
+  global Boolean invokeMethod(
     String methodName,
     Map<String, Object> inputMap,
     Map<String, Object> outMap,
@@ -28,8 +28,6 @@ global without sharing class OmniLogger implements Callable {
       error = e.getMessage() + ' StackTrace -> ' + e.getStackTraceString();
       success = false;
     }
-    outMap.put('success', success);
-    outMap.put('error', error);
     return success;
   }
 
@@ -56,7 +54,7 @@ global without sharing class OmniLogger implements Callable {
    * @param args Dynamic arguments to passed from omnistudio.
    * @return Object containing outMap, which can contain custom message and should return success as false and true based on logic.
    */
-  public Object call(String action, Map<String, Object> args) {
+  global Object call(String action, Map<String, Object> args) {
     Map<String, Object> input = (Map<String, Object>) args.get('input');
     Map<String, Object> output = (Map<String, Object>) args.get('output');
     Map<String, Object> options = (Map<String, Object>) args.get('options');
