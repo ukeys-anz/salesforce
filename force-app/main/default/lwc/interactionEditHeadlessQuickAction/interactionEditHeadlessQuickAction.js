@@ -1,6 +1,5 @@
 import { LightningElement, api } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
-import pubsub from "omnistudio/pubsub";
 
 export default class InteractionEditHeadlessQuickAction extends LightningElement {
   interactionDetail;
@@ -24,17 +23,38 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
   }
 
   /**
-   * handler for listener from pubsub
-   */
-  handleEventObject = {
-    data: this.handleOmniAction.bind(this)
-  };
-
-  /**
    * Register to omniscript actions to listen to cancel and navigate actions.
    */
   connectedCallback() {
-    pubsub.register("omniscript_action", this.handleEventObject);
+    window.addEventListener("message", this.handleEventObject, false);
+  }
+
+  /**
+   * handler for listener from post message
+   */
+  handleEventObject = this.onMessage.bind(this);
+
+  /**
+   * processor for Omni Event Change
+   */
+  onMessage(event) {
+    try {
+      if (event.data && event.data["OmniScript-Messaging"]) {
+        console.log("Omni Json " + JSON.stringify(event.data));
+        let elementNameFromOmni =
+          event.data["OmniScript-Messaging"].ElementName;
+        if (elementNameFromOmni === "NavigateActionOnEdit") {
+          this.updateRecordView();
+        }
+        if (elementNameFromOmni === "cancelForEdit") {
+          this.closeModal();
+        }
+      }
+    } catch (error) {
+      console.error(
+        "Interaction Edit Headless Action " + JSON.stringify(error)
+      );
+    }
   }
 
   /**
@@ -47,17 +67,6 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
     }
     this.booledit = false;
     this.dispatchEvent(new CloseActionScreenEvent());
-  }
-
-  handleOmniAction(data) {
-    if (data && data.name) {
-      if (data.name === "cancelForEdit") {
-        this.closeModal();
-      }
-      if (data.name === "NavigateActionOnEdit") {
-        this.updateRecordView();
-      }
-    }
   }
 
   /**
@@ -99,6 +108,6 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
    * Disconnect the listener
    */
   disconnectedCallback() {
-    pubsub.unregister("omniscript_action", this.handleEventObject);
+    window.removeEventListener("message", this.handleEventObject, false);
   }
 }
