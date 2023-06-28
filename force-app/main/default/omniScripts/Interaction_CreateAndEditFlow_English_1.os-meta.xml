@@ -68,7 +68,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>10.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -130,7 +130,7 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;toastComplete&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>15.0</sequenceNumber>
+        <sequenceNumber>14.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -199,7 +199,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -230,7 +230,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>12.0</sequenceNumber>
+        <sequenceNumber>11.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -270,7 +270,7 @@
   &quot;label&quot; : &quot;DataForInteractionAndJunction&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>13.0</sequenceNumber>
+        <sequenceNumber>12.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2667,7 +2667,7 @@
   &quot;validationRequired&quot; : true,
   &quot;label&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2726,7 +2726,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2800,59 +2800,6 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>GetRecordtypeNameDataExtract</name>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;GetRecordtypeNameDataExtract&quot;,
-  &quot;bundle&quot; : &quot;GetRecordTypeNameForInteraction&quot;,
-  &quot;ignoreCache&quot; : false,
-  &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;element&quot; : &quot;RecordTypeId&quot;,
-    &quot;inputParam&quot; : &quot;recordTypeId&quot;
-  }, {
-    &quot;element&quot; : &quot;AccountIdFromState:accountIdFromURL&quot;,
-    &quot;inputParam&quot; : &quot;accountIdFromURL&quot;
-  } ],
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;RecordTypeNameNode&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
-        <type>DataRaptor Extract Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
         <name>Interaction_DeleteTags</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2923,7 +2870,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>14.0</sequenceNumber>
+        <sequenceNumber>13.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2956,7 +2903,7 @@
   },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>18.0</sequenceNumber>
+        <sequenceNumber>17.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3004,7 +2951,7 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;targetName&quot; : &quot;Interaction&quot;
 }</propertySetConfig>
-        <sequenceNumber>17.0</sequenceNumber>
+        <sequenceNumber>16.0</sequenceNumber>
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3067,7 +3014,7 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;sendOnlyExtraPayload&quot; : true
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
+        <sequenceNumber>3.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3129,7 +3076,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>11.0</sequenceNumber>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3201,7 +3148,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>5.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3283,7 +3230,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3310,7 +3257,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3440,7 +3387,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>16.0</sequenceNumber>
+        <sequenceNumber>15.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
@@ -3544,5 +3491,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>441ab15c-0afb-8456-da39-7b2018985453</webComponentKey>
+    <webComponentKey>85e26a0d-e3af-76ba-2281-ddb1702dfff0</webComponentKey>
 </OmniScript>
