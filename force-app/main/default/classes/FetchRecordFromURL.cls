@@ -1,3 +1,8 @@
+/**
+ * @author Nagendra Singh
+ * @since 06/2023
+ * @description  Class for FetchRecordFromURL to check if callable interface calls correct method based on params.
+ */
 global without sharing class FetchRecordFromURL implements omnistudio.VlocityOpenInterface, Callable {
   /**
    * @description invokeMethod to handle insertion of logs from omnistudio.
@@ -17,7 +22,7 @@ global without sharing class FetchRecordFromURL implements omnistudio.VlocityOpe
     String error = '';
     try {
       if (methodName == 'fetchRecordFromURL') {
-        fetchRecordFromURL(inputMap, outMap, options);
+        processURLAndReturnRecord(inputMap, outMap, options);
       }
     } catch (Exception e) {
       error = e.getMessage() + ' StackTrace -> ' + e.getStackTraceString();
@@ -32,7 +37,7 @@ global without sharing class FetchRecordFromURL implements omnistudio.VlocityOpe
    * @param outMap Output to be returned as a response to caller Omnicomponent.
    * @param options Options passed from omnistudio.
    */
-  public void fetchRecordFromURL(
+  public void processURLAndReturnRecord(
     Map<String, Object> inputMap,
     Map<String, Object> outMap,
     Map<String, Object> options
