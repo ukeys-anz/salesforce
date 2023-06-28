@@ -117,6 +117,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom4802</globalKey>
+        <inputFieldName>Case:Product__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:product1</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom1417</globalKey>
         <inputFieldName>Case:IDR_Financial_Remedy_Points_2__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -253,6 +267,20 @@
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:WhichAdditionalIssuesaereSystemic</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2530</globalKey>
+        <inputFieldName>Case:IDR_Inbox_Email_Address__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:inboxEmail</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
