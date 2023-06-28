@@ -113,7 +113,7 @@
             <valueName>WA</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Coach in Branch</controllingFieldValue>
+            <controllingFieldValue>Branch</controllingFieldValue>
             <valueName>Branch</valueName>
         </valueSettings>
     </valueSet>

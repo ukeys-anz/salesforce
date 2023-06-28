@@ -139,6 +139,7 @@
         "API_Only",
         "Customer_Onboarding_Integration",
         "Case_Read_Write_Customer_Onboarding_Integration",
+        "Case_Read_Write_KYC_QA",
         "Disable_MFA"
       ],
       "type": "system"
@@ -309,8 +310,7 @@
         "Moderate_Chatter",
         "Read_Write_Customer_Details",
         "CCRM_Marketing_Integration_User",
-        "Disable_MFA",
-        "OCV_Flags_Read_Write"
+        "Disable_MFA"
       ],
       "type": "system"
     },

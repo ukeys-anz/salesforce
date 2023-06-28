@@ -46,8 +46,7 @@
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{
-  &quot;Store&quot; : &quot;Coaching Lab&quot;,
-  &quot;Coach in Branch&quot; : &quot;Branch&quot;
+  &quot;Store&quot; : &quot;Coaching Lab&quot;
 }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>

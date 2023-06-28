@@ -1,0 +1,25 @@
+:host {
+  --slds-c-textarea-color-background: #444444;
+  --slds-c-textarea-text-color: #fff;
+  --slds-c-textarea-color-background-focus: #4a4a4a;
+  --slds-c-textarea-text-color-focus: #fff;
+  --slds-c-textarea-color-border: #333333;
+  --slds-c-textarea-sizing-min-height: 75vh;
+  --slds-g-color-neutral-base-80: #444444;
+}
+.large-area {
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  resize: none;
+  font-family: monospace;
+  transition: background 0.25s, color 0.25s;
+}
+
+.large-area:focus {
+  color: #fff;
+}

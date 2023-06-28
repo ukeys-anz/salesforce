@@ -49,7 +49,6 @@
     <permissionSets>Lead_Read_Write</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
     <permissionSets>Manage_Users</permissionSets>
-    <permissionSets>OCV_Flags_Read_Only</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Write</permissionSets>

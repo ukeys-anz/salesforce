@@ -423,6 +423,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_MiddleNameCheck__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Middle_Initial__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -878,11 +883,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.Related_Bug__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.SLA_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -975,11 +975,6 @@
         <editable>true</editable>
         <field>Notification_Handler__c.Description__c</field>
         <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Reported_Bug__c.Number_of_Related_Cases__c</field>
-        <readable>false</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Case Read/Write - Fraud Agent</label>

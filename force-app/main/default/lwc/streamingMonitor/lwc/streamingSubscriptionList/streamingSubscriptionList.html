@@ -1,0 +1,31 @@
+<template>
+  <lightning-card title="Active subscriptions">
+    <div slot="actions">
+      <lightning-badge label={subscriptions.length}></lightning-badge>
+    </div>
+    <div class="slds-p-horizontal_small">
+      <template for:each={subscriptions} for:item="subscription">
+        <div
+          class="slds-grid slds-p-vertical_x-small subscription"
+          key={subscription.channel}
+        >
+          <div class="slds-has-flexi-truncate">
+            <div class="slds-truncate">{subscription.channel}</div>
+          </div>
+          <div class="slds-no-flex">
+            <lightning-button-icon
+              icon-name="utility:delete"
+              variant="bare"
+              alternative-text="Unsubscribe"
+              onclick={onUnsubscribe}
+              name={subscription.channel}
+              data-item={subscription.channel}
+              class="slds-m-left_x-small"
+            >
+            </lightning-button-icon>
+          </div>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>
