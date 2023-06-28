@@ -272,6 +272,7 @@ public with sharing class IDRConstants {
           'IDR_ANZ_Plus',
           'EDR_Hardship',
           'EDR_Wealth',
+          'IDR_Satellite',
           'IDR_Spare' //IDR Disputes & Scams
         };
       }
