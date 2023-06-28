@@ -109,7 +109,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:subIssueType2</outputFieldName>
+        <outputFieldName>Case:IDR_Subsequent_Issue_2__c</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -143,7 +143,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom8018</globalKey>
         <inputFieldName>Case:IDR_Subsequent_Issue__c</inputFieldName>
@@ -275,12 +275,12 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom2530</globalKey>
-        <inputFieldName>Case:IDR_Inbox_Email_Address__c</inputFieldName>
+        <inputFieldName>showProdServiceError</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:inboxEmail</outputFieldName>
+        <outputFieldName>Case:showProdServiceError</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -322,7 +322,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:issueType2</outputFieldName>
+        <outputFieldName>Case:IDR_Issue_Type_2__c</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -342,7 +342,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom5987</globalKey>
         <inputFieldName>Case:Type</inputFieldName>
@@ -798,6 +798,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Product_2__c ISBLANK || | var:Case:IDR_Product_3__c ISBLANK || | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; true false IF</formulaConverted>
+        <formulaExpression>IF((ISBLANK(Case:Product__c)||ISBLANK(Case:IDR_Product_2__c)||ISBLANK(Case:IDR_Product_3__c))&amp;&amp;ISNOTBLANK(Case:IDR_Inbox_Email_Address__c),true,false)</formulaExpression>
+        <formulaResultPath>showProdServiceError</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom9060</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom158</globalKey>
         <inputFieldName>Case:IDR_Duration_of_Remedy__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -825,7 +842,7 @@
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;CaseId&quot; : &quot;5009j000005t7lxAAA&quot;
+  &quot;CaseId&quot; : &quot;5009j000005mhe8AAA&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

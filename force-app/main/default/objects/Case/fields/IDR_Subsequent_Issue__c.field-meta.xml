@@ -497,11 +497,6 @@
                 <label>No direct phone line</label>
             </value>
             <value>
-                <fullName>Stores are cashless</fullName>
-                <default>false</default>
-                <label>Stores are cashless</label>
-            </value>
-            <value>
                 <fullName>Not enough stores</fullName>
                 <default>false</default>
                 <label>Not enough stores</label>
