@@ -524,7 +524,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'To';
+      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
       sendTo.value = 'YourFeedback@anz.com';
       emailHeaders.add(sendTo);
 
