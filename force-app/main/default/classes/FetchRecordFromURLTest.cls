@@ -76,7 +76,6 @@ private class FetchRecordFromURLTest {
       Test.startTest();
       fetchRecordFromURLCallable.call('fetchRecordFromURL', params);
       Test.stopTest();
-      System.debug('params -> ' + JSON.serializePretty(params));
     }
   }
 }
