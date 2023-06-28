@@ -20,7 +20,7 @@
                             <value>ChangeOwnerOne</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Interaction.Update_Account</value>
+                            <value>Interaction.Update_Customer</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
