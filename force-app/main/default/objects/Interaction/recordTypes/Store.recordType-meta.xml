@@ -77,7 +77,7 @@
     <picklistValues>
         <picklist>InteractionType</picklist>
         <values>
-            <fullName>Coach in Branch</fullName>
+            <fullName>Branch</fullName>
             <default>false</default>
         </values>
         <values>

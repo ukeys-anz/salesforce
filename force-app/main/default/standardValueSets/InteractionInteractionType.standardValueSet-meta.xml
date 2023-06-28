@@ -27,7 +27,7 @@
         <label>Pop up</label>
     </standardValue>
     <standardValue>
-        <fullName>Coach in Branch</fullName>
+        <fullName>Branch</fullName>
         <default>false</default>
         <label>Branch</label>
     </standardValue>
