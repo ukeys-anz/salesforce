@@ -76,8 +76,10 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
+        <content>interactionCreateOmniscriptWrapper</content>
         <formFactor>Large</formFactor>
-        <type>Default</type>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
@@ -114,14 +116,6 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Interaction_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -137,7 +131,7 @@
         <type>Default</type>
     </actionOverrides>
     <compactLayoutAssignment>Appointment</compactLayoutAssignment>
-    <enableFeeds>false</enableFeeds>
+    <enableFeeds>true</enableFeeds>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>LastModifiedDate</customTabListAdditionalFields>

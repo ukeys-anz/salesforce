@@ -1721,6 +1721,10 @@
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Opportunity-Commercial Opportunity Layout</layout>
         <recordType>Opportunity.Commercial_Opportunity</recordType>
     </layoutAssignments>

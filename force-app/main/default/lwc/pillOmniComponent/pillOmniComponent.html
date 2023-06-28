@@ -1,0 +1,19 @@
+<!--
+ - Created by Nagendra on 02-06-2023.
+ -->
+
+<!-- Pill Omni Component -->
+<template>
+  <div class="slds-var-p-around_xx-small">
+    <template for:each={allValues} for:item="eachValue">
+      <lightning-pill
+        if:true={eachValue.selected}
+        key={eachValue.value}
+        name={eachValue.value}
+        label={eachValue.label}
+        onremove={handleRemoveTags}
+        class="slds-var-p-around_xx-small"
+      ></lightning-pill>
+    </template>
+  </div>
+</template>

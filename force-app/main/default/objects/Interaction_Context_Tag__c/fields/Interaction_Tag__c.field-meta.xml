@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Interaction_Tag__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Parent object: Interaction Tag</description>
+    <externalId>false</externalId>
+    <label>Interaction Tag</label>
+    <referenceTo>Interaction_Tag__c</referenceTo>
+    <relationshipLabel>Interaction Context Tags</relationshipLabel>
+    <relationshipName>Interaction_Context_Tags</relationshipName>
+    <required>true</required>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

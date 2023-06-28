@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>TransformMapToList</name>
+    <active>true</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;resultfromreasontags&quot; : [ {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cFFIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cGrIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;1:1 Appointment&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cK5IAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ 2&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cLhIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join Anz 3&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cNJIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join Anz 4&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cOvIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join Anz 5&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jLZIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ 6&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jNBIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ 8&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jOnIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;ANZ Join 8&quot;
+    }
+  } ],
+  &quot;resultfromtopictags&quot; : [ {
+    &quot;resultfromtopictag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cITIAY&quot;,
+      &quot;type&quot; : &quot;Topic&quot;,
+      &quot;label&quot; : &quot;ANZ Query&quot;
+    }
+  }, {
+    &quot;resultfromtopictag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cQXIAY&quot;,
+      &quot;type&quot; : &quot;Topic&quot;,
+      &quot;label&quot; : &quot;Topic1&quot;
+    }
+  }, {
+    &quot;resultfromtopictag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jQPIAY&quot;,
+      &quot;type&quot; : &quot;Topic&quot;,
+      &quot;label&quot; : &quot;ANZ Query&quot;
+    }
+  } ],
+  &quot;resultfromproducttags&quot; : [ {
+    &quot;resultfromproducttag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cS9IAI&quot;,
+      &quot;type&quot; : &quot;Product&quot;,
+      &quot;label&quot; : &quot;Product2&quot;
+    }
+  }, {
+    &quot;resultfromproducttag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cTlIAI&quot;,
+      &quot;type&quot; : &quot;Product&quot;,
+      &quot;label&quot; : &quot;Product3&quot;
+    }
+  } ]
+}</expectedInputJson>
+    <expectedOutputJson>{
+  &quot;resultfromreasontags&quot; : [ {
+    &quot;value&quot; : &quot;a1yBo0000003cFFIAY&quot;,
+    &quot;type&quot; : &quot;Reason&quot;,
+    &quot;label&quot; : &quot;Join ANZ&quot;
+  } ],
+  &quot;resultfromtopictags&quot; : [ {
+    &quot;value&quot; : &quot;a1yBo0000003cITIAY&quot;,
+    &quot;type&quot; : &quot;Topic&quot;,
+    &quot;label&quot; : &quot;ANZ Query&quot;
+  } ],
+  &quot;resultfromproducttags&quot; : [ {
+    &quot;value&quot; : &quot;a1yBo0000003cS9IAI&quot;,
+    &quot;type&quot; : &quot;Product&quot;,
+    &quot;label&quot; : &quot;Product2&quot;
+  } ]
+}</expectedOutputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>TransformMapToListCustom0jIBo0000000zUvMAIItem0</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom108</globalKey>
+        <inputFieldName>resultfromtopictags:resultfromtopictag:value</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromtopictags:value</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom7917</globalKey>
+        <inputFieldName>resultfromproducttags:resultfromproducttag:selected</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>resultfromproducttags:selected</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom246</globalKey>
+        <inputFieldName>resultfromreasontags:resultfromreasontag:selected</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>resultfromreasontags:selected</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom430</globalKey>
+        <inputFieldName>resultfromtopictags:resultfromtopictag:selected</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>resultfromtopictags:selected</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom2476</globalKey>
+        <inputFieldName>resultfromproducttags:resultfromproducttag:label</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromproducttags:label</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom9497</globalKey>
+        <inputFieldName>resultfromproducttags:resultfromproducttag:type</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromproducttags:type</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom4992</globalKey>
+        <inputFieldName>resultfromproducttags:resultfromproducttag:value</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromproducttags:value</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom265</globalKey>
+        <inputFieldName>resultfromreasontags:resultfromreasontag:label</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromreasontags:label</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom8022</globalKey>
+        <inputFieldName>resultfromtopictags:resultfromtopictag:label</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromtopictags:label</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom1879</globalKey>
+        <inputFieldName>resultfromreasontags:resultfromreasontag:type</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromreasontags:type</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom9776</globalKey>
+        <inputFieldName>resultfromreasontags:resultfromreasontag:value</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromreasontags:value</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TransformMapToList</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TransformMapToListCustom6015</globalKey>
+        <inputFieldName>resultfromtopictags:resultfromtopictag:type</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;Map&gt;</outputFieldFormat>
+        <outputFieldName>resultfromtopictags:type</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>JSON</outputType>
+    <previewJsonData>{
+  &quot;resultfromreasontags&quot; : [ {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cFFIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cGrIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;1:1 Appointment&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cK5IAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ 2&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cLhIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join Anz 3&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cNJIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join Anz 4&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cOvIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join Anz 5&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jLZIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ 6&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jNBIAY&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;Join ANZ 8&quot;
+    }
+  }, {
+    &quot;resultfromreasontag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jOnIAI&quot;,
+      &quot;type&quot; : &quot;Reason&quot;,
+      &quot;label&quot; : &quot;ANZ Join 8&quot;
+    }
+  } ],
+  &quot;resultfromtopictags&quot; : [ {
+    &quot;resultfromtopictag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cITIAY&quot;,
+      &quot;type&quot; : &quot;Topic&quot;,
+      &quot;label&quot; : &quot;ANZ Query&quot;
+    }
+  }, {
+    &quot;resultfromtopictag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cQXIAY&quot;,
+      &quot;type&quot; : &quot;Topic&quot;,
+      &quot;label&quot; : &quot;Topic1&quot;
+    }
+  }, {
+    &quot;resultfromtopictag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003jQPIAY&quot;,
+      &quot;type&quot; : &quot;Topic&quot;,
+      &quot;label&quot; : &quot;ANZ Query&quot;
+    }
+  } ],
+  &quot;resultfromproducttags&quot; : [ {
+    &quot;resultfromproducttag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cS9IAI&quot;,
+      &quot;type&quot; : &quot;Product&quot;,
+      &quot;label&quot; : &quot;Product2&quot;
+    }
+  }, {
+    &quot;resultfromproducttag&quot; : {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a1yBo0000003cTlIAI&quot;,
+      &quot;type&quot; : &quot;Product&quot;,
+      &quot;label&quot; : &quot;Product3&quot;
+    }
+  } ]
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Transform</type>
+    <uniqueName>TransformMapToList_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>
