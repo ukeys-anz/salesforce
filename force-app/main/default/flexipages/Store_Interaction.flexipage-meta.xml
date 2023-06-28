@@ -19,6 +19,9 @@
                         <valueListItems>
                             <value>ChangeOwnerOne</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Interaction.Update_Account</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

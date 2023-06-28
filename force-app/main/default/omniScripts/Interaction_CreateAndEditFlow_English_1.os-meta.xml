@@ -659,7 +659,7 @@
     &quot;postal_code&quot; : &quot;&quot;
   },
   &quot;required&quot; : false,
-  &quot;readOnly&quot; : false,
+  &quot;readOnly&quot; : true,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
