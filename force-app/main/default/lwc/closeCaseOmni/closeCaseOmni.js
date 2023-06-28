@@ -1,5 +1,8 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
+const SERVICE_QUALITY = "9";
+const FAILURE_TO_RESPOND = "61";
+//const REFERRED_TO_PRODUCT = "3";
 export default class CloseCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -76,18 +79,25 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       this.checkFields(details, this.omniJsonData.realFormMap);
     if (details.isSystemicIssue === "Yes")
       this.checkFields(details, this.omniJsonData.sysIssueMap);
+    if (
+      (details.Type === SERVICE_QUALITY &&
+        details.IDR_Subsequent_Issue__c === FAILURE_TO_RESPOND) ||
+      (details.IDR_Issue_Type_2__c === SERVICE_QUALITY &&
+        details.IDR_Subsequent_Issue_2__c === FAILURE_TO_RESPOND) ||
+      (details.IDR_Issue_Type_3__c === SERVICE_QUALITY &&
+        details.IDR_Subsequent_Issue_3__c === FAILURE_TO_RESPOND)
+    ) {
+      if (!details.IsthisComplaintAboutComplaint) {
+        this.missingFields.push("Is this a complaint about a complaint?");
+      }
+    }
     if (details.IsthisComplaintAboutComplaint === "Yes")
       this.checkFields(details, this.omniJsonData.cacMap);
   }
 
   checkFields(detail, reMap) {
     reMap.forEach((field) => {
-      let ele = Object.keys(field)[0];
-      if (ele.includes("Block")) {
-        if (!detail[ele] || (detail[ele] && !detail[ele][ele.split("-")[0]])) {
-          this.missingFields.push(Object.values(field)[0]);
-        }
-      } else if (!detail[ele]) {
+      if (!detail[Object.keys(field)[0]]) {
         this.missingFields.push(Object.values(field)[0]);
       }
     });

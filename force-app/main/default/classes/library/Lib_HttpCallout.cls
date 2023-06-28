@@ -54,6 +54,7 @@ public with sharing class Lib_HttpCallout {
   private Map<String, String> getHeaders(HttpRequest request) {
     Map<String, String> autheader = new Map<String, String>();
     autheader.put('Authorization', request.getHeader('Authorization'));
+    autheader.put('x-correlation-id', request.getHeader('x-correlation-id'));
     return autheader;
   }
 
@@ -76,12 +77,12 @@ public with sharing class Lib_HttpCallout {
    * @description with a prebuilt request, actions the callout
    */
   private HttpCalloutResponse performCallout(HttpRequest request) {
+    Logger.info(request.getEndpoint() + request.getMethod());
     Logger.debug('HttpRequest Header')
       .setPayload(JSON.serializePretty(getHeaders(request)));
     Logger.debug('HttpRequest Body').setPayload(request.getBody());
     HttpCalloutResponse callResponse = new HttpCalloutResponse();
     HTTPResponse response = null;
-    Logger.info(request.getEndpoint() + request.getMethod());
 
     try {
       Http http = new Http();
@@ -90,6 +91,7 @@ public with sharing class Lib_HttpCallout {
       Logger.debug('HttpResponse Header')
         .setPayload(JSON.serializePretty(getHeaders(response)));
       Logger.debug('HttpResponse Body').setPayload(response.getBody());
+      Logger.debug('HttpResponse Status Code: ' + response.getStatusCode());
       if (response == null) {
         callResponse.successful = false;
         callResponse.error = new CalloutException('Response is null');
@@ -114,10 +116,9 @@ public with sharing class Lib_HttpCallout {
         callResponse.error = new CalloutException(response.getBody());
       }
 
-      Logger.info(request.getEndpoint() + request.getMethod());
       Logger.saveLog();
     } catch (Exception e) {
-      Logger.error(request.getEndpoint() + request.getMethod());
+      Logger.error('Exception for HttpCallout', e);
       Logger.saveLog();
       callResponse.successful = false;
       callResponse.error = e;

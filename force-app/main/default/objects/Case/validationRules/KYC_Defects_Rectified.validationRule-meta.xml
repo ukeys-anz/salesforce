@@ -16,9 +16,8 @@ ISPICKVAL (Fraud_ID_Legible__c , &quot;No&quot;),
 ISPICKVAL (Fraud_Customer_Details__c , &quot;No&quot;),
 ISPICKVAL (Fraud_Restraint_Status__c, &quot;Applied&quot;),
 ISPICKVAL (Fraud_Selfie_Comparison_Match__c , &quot;No&quot;),
-ISPICKVAL (Fraud_Middle_Initial__c , &quot;No&quot;),
+ISPICKVAL (Fraud_MiddleNameCheck__c , &quot;No&quot;),
 ISPICKVAL (Fraud_PO_Box__c , &quot;No&quot;),
-ISPICKVAL (Fraud_Middle_Name__c , &quot;No&quot;),
 ISPICKVAL (Fraud_Address_Valid__c , &quot;No&quot;)))</errorConditionFormula>
     <errorMessage>You have selected that an error has been found in the individual&apos;s KYC and have not selected that the error has been rectified or that the customer has failed to respond with required documents. Please check the field &quot;Have All Defects Been Rectified&quot;.</errorMessage>
 </ValidationRule>

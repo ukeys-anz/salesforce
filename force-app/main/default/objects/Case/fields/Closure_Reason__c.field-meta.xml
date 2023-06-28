@@ -47,6 +47,11 @@
                 <label>No reason specified</label>
             </value>
             <value>
+                <fullName>Bank Initiated Closure - Collections</fullName>
+                <default>false</default>
+                <label>Bank Initiated Closure - Collections</label>
+            </value>
+            <value>
                 <fullName>Other - please specify</fullName>
                 <default>false</default>
                 <label>Other - please specify</label>

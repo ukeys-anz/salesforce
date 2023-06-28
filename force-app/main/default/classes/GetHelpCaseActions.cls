@@ -353,22 +353,14 @@ public with sharing class GetHelpCaseActions {
    * @param caseList list of cases from the trigger
    */
   public static void updateEntitlement(List<Case> caseList) {
-    List<Id> accountIds = new List<Id>();
-    Map<Id, Id> entMap = new Map<Id, Id>();
+    List<Id> accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
+      caseList
+    );
 
-    accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(caseList);
-
-    if (Entitlement.sObjectType.getDescribe().isQueryable()) {
-      List<Entitlement> entList;
-      entList = GetHelpCaseActionsHelper.getEntitlements(
-        accountIds,
-        'Basic Subscription'
-      );
-
-      for (Entitlement en : entList) {
-        entMap.put(en.AccountId, en.Id);
-      }
-    }
+    Map<Id, Id> entMap = GetHelpCaseActionsHelper.getEntitlements(
+      accountIds,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
 
     GetHelpCaseActionsHelper.updateEntitlementIdOnCase(caseList, entMap);
   }
@@ -387,28 +379,20 @@ public with sharing class GetHelpCaseActions {
       oldMap,
       caseList
     );
+
     if (filteredCases.size() == 0) {
       return;
     }
 
     List<Id> accountIds = new List<Id>();
-    Map<Id, Id> entMap = new Map<Id, Id>();
 
     accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
       filteredCases
     );
-
-    if (Entitlement.sObjectType.getDescribe().isQueryable()) {
-      List<Entitlement> entList;
-      entList = GetHelpCaseActionsHelper.getEntitlements(
-        accountIds,
-        'Basic Subscription'
-      );
-
-      for (Entitlement en : entList) {
-        entMap.put(en.AccountId, en.Id);
-      }
-    }
+    Map<Id, Id> entMap = GetHelpCaseActionsHelper.getEntitlements(
+      accountIds,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
 
     GetHelpCaseActionsHelper.updateEntitlementIdOnCase(caseList, entMap);
   }
@@ -792,7 +776,10 @@ public with sharing class GetHelpCaseActions {
   public static void validateDuplicateKYCQACasePerAccount(List<Case> theCases) {
     Map<Id, Case> accountIdAndCaseMap = new Map<Id, Case>();
     for (Case theCase : theCases) {
-      if (theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+      if (
+        theCase.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
+        theCase.AccountId != null
+      ) {
         accountIdAndCaseMap.put(theCase.AccountId, theCase);
       }
     }
