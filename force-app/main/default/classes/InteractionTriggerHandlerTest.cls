@@ -474,6 +474,139 @@ public with sharing class InteractionTriggerHandlerTest {
   }
 
   @isTest
+  static void testAttendeeDefaultOnInsert() {
+    Interaction newInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
+      Name = 'New Interaction',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.STORE,
+      StartTime = System.now()
+    );
+
+    Test.startTest();
+    insert newInteraction;
+    Test.stopTest();
+
+    Integer numberattendee = [
+      SELECT COUNT()
+      FROM InteractionAttendee
+      WHERE interactionid = :newInteraction.ID
+    ];
+
+    System.assertEquals(
+      true,
+      numberattendee > 0,
+      'InteractionAttendee should be added'
+    );
+  }
+
+  @isTest
+  static void testAttendeeOnChangeOwner() {
+    //Insert Interaction record.
+    Interaction newInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
+      Name = 'New Interaction',
+      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+      InteractionType = InteractionConstants.STORE,
+      StartTime = System.now()
+    );
+    insert newInteraction;
+
+    // Insert User , to get around MIXED_DML_OPERATION error
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      // Create a Coach User with 'Coach Agent' role
+      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+      User coach = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CoachTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => coachRole.Id,
+          'Username' => 'This.Is.A@Test.User'
+        }
+      );
+      insert coach;
+
+      newInteraction.OwnerId = coach.id;
+      Test.startTest();
+      update newInteraction;
+      Test.stopTest();
+
+      Integer numberattendee = [
+        SELECT COUNT()
+        FROM InteractionAttendee
+        WHERE interactionid = :newInteraction.ID
+      ];
+
+      System.assertEquals(
+        true,
+        numberattendee > 1,
+        'Changed Owner should be added as an InteractionAttendee'
+      );
+    }
+  }
+
+  @isTest
+  static void testAttendeeOnChangeOwnerCall() {
+    //Insert Call Interaction record.
+    Interaction newInteraction = new Interaction(
+      RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+      Name = 'New Interaction',
+      Interaction_Purpose__c = InteractionConstants.CUSTOMER,
+      Direction__c = InteractionConstants.INBOUND,
+      InteractionType = InteractionConstants.CALL,
+      StartTime = System.now()
+    );
+    insert newInteraction;
+
+    Integer numberattendee = [
+      SELECT COUNT()
+      FROM InteractionAttendee
+      WHERE interactionid = :newInteraction.ID
+    ];
+
+    System.assertEquals(
+      true,
+      numberattendee < 1,
+      'There should be no Interaction Attendee associated with the created call interaction'
+    );
+
+    // Insert User , to get around MIXED_DML_OPERATION error
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      // Create a Coach User with 'Coach Agent' role
+      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
+      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+      User coach = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'CoachTest',
+          'ProfileId' => profile.Id,
+          'UserRoleId' => coachRole.Id,
+          'Username' => 'This.Is.A@Test.User'
+        }
+      );
+      insert coach;
+
+      newInteraction.OwnerId = coach.id;
+      Test.startTest();
+      update newInteraction;
+      Test.stopTest();
+
+      Integer attendeecount = [
+        SELECT COUNT()
+        FROM InteractionAttendee
+        WHERE interactionid = :newInteraction.ID
+      ];
+
+      System.assertEquals(
+        true,
+        attendeecount > 0,
+        'Changed Owner should be added as an InteractionAttendee for this call interaction'
+      );
+    }
+  }
+  @isTest
   static void testEndTimePopulationOnUpdate() {
     Interaction newInteractionWithoutEndtime = new Interaction(
       RecordTypeId = GetHelpConstants.INTERACTION_APPT_RT_ID,

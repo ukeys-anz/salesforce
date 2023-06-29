@@ -176,6 +176,10 @@
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
     <loginIpRanges>
         <description>Allow all ips for this automation user to avoid MFA</description>
         <endAddress>255.255.255.255</endAddress>

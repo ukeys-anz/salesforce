@@ -162,10 +162,14 @@ public with sharing class InteractionComparisonHelper {
     Map<Id, SObject> oldMap,
     List<Interaction> records
   ) {
-    Id appointmentRTID = GetHelpConstants.INTERACTION_APPT_RT_ID;
     List<Interaction> result = new List<Interaction>();
+    Set<Id> recordtypes = new Set<Id>();
+    recordtypes.add(GetHelpConstants.INTERACTION_APPT_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+
     for (Interaction currentInteraction : records) {
-      if (currentInteraction.RecordTypeId != appointmentRTID) {
+      if (!recordtypes.contains(currentInteraction.RecordTypeId)) {
         continue;
       }
       if (oldMap.containsKey(currentInteraction.Id)) {

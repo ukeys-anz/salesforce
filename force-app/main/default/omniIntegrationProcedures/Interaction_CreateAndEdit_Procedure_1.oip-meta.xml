@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customJavaScript>{
+    &quot;DataForInteractionAndJunction&quot;: {
+        &quot;recordTypeId&quot;: &quot;&quot;,
+        &quot;updatedNameValue&quot;: &quot;Join Anz 3&quot;,
+        &quot;DetailSectionData&quot;: {
+            &quot;detailsSection&quot;: {
+                &quot;selfService&quot;: false,
+                &quot;Assisted&quot;: false,
+                &quot;reasonforvisit-Block&quot;: {
+                    &quot;reasonforvisit&quot;: &quot;Join Anz 3&quot;,
+                    &quot;selected&quot;: true,
+                    &quot;value&quot;: &quot;a1yBo0000003cLhIAI&quot;,
+                    &quot;type&quot;: &quot;Reason&quot;,
+                    &quot;label&quot;: &quot;Join Anz 3&quot;
+                },
+                &quot;actualtopic-Block&quot;: {
+                    &quot;actualtopic&quot;: &quot;Topic 7&quot;,
+                    &quot;selected&quot;: true,
+                    &quot;value&quot;: &quot;a1yBo0000003o9xIAA&quot;,
+                    &quot;type&quot;: &quot;Topic&quot;,
+                    &quot;label&quot;: &quot;Topic 7&quot;
+                },
+                &quot;product-Block&quot;: {
+                    &quot;product&quot;: &quot;Product 4&quot;,
+                    &quot;selected&quot;: true,
+                    &quot;value&quot;: &quot;a1yBo0000003oDBIAY&quot;,
+                    &quot;type&quot;: &quot;Product&quot;,
+                    &quot;label&quot;: &quot;Product 4&quot;
+                },
+                &quot;actionTaken&quot;: &quot;Resolved&quot;
+            },
+            &quot;inPersonInteractionDetails&quot;: {
+                &quot;channel&quot;: &quot;Store&quot;,
+                &quot;who&quot;: &quot;Non-Customer&quot;,
+                &quot;place&quot;: &quot;Potts Point&quot;,
+                &quot;authenticationMethod&quot;: &quot;Not Required&quot;
+            },
+            &quot;contactDetailsBlock&quot;: {
+                &quot;account&quot;: &quot;&quot;
+            },
+            &quot;Block2&quot;: {
+                &quot;name&quot;: &quot;asdasd&quot;
+            }
+        },
+        &quot;junctionData&quot;: [
+            {
+                &quot;selected&quot;: true,
+                &quot;value&quot;: &quot;a1yBo0000003cLhIAI&quot;,
+                &quot;label&quot;: &quot;Join Anz 3&quot;
+            },
+            {
+                &quot;selected&quot;: true,
+                &quot;value&quot;: &quot;a1yBo0000003o9xIAA&quot;,
+                &quot;label&quot;: &quot;Topic 7&quot;
+            },
+            {
+                &quot;selected&quot;: true,
+                &quot;value&quot;: &quot;a1yBo0000003oDBIAY&quot;,
+                &quot;label&quot;: &quot;Product 4&quot;
+            }
+        ]
+    },
+    &quot;RecordId&quot;: &quot;&quot;
+}</customJavaScript>
+    <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
+    <isActive>true</isActive>
+    <isIntegrationProcedure>true</isIntegrationProcedure>
+    <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
+    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+    <isTestProcedure>false</isTestProcedure>
+    <isWebCompEnabled>false</isWebCompEnabled>
+    <language>Procedure</language>
+    <name>CreateAndEditInteractionJunctionObject</name>
+    <omniProcessElements>
+        <name>CatchTheErrorInDR</name>
+        <childElements>
+            <name>ConditionalBlock1</name>
+            <childElements>
+                <name>CreateInteractionwithJunctionObject</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : { },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : false,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;DataForInteractionAndJunction&quot;,
+  &quot;sendJSONNode&quot; : &quot;DataForInteractionAndJunction&quot;,
+  &quot;bundle&quot; : &quot;CreateInteractionwithJunctionObject&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>1.0</sequenceNumber>
+                <type>DataRaptor Post Action</type>
+            </childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;ISBLANK(%RecordId%)&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Conditional Block</type>
+        </childElements>
+        <childElements>
+            <name>ConditionalBlock2</name>
+            <childElements>
+                <name>EditInteractionJunctionObject</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : { },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : false,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;DataForInteractionAndJunction&quot;,
+  &quot;sendJSONNode&quot; : &quot;DataForInteractionAndJunction&quot;,
+  &quot;bundle&quot; : &quot;EditInteractionJunctionObject&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;DataRaptorPostAction2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>1.0</sequenceNumber>
+                <type>DataRaptor Post Action</type>
+            </childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;ISNOTBLANK(%RecordId%)&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Conditional Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;failureResponse&quot; : { },
+  &quot;remoteClass&quot; : &quot;OmniLogger&quot;,
+  &quot;remoteMethod&quot; : &quot;insertError&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnBlockError&quot; : true,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;TryCatchBlock1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Try Catch Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ResponseAction1</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;ISBLANK(%RecordId%)&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;DRId_Interaction&quot; : &quot;%CreateInteractionwithJunctionObject:Interaction_1:Id%&quot;,
+    &quot;CreateInteractionwithJunctionObject&quot; : &quot;%CreateInteractionwithJunctionObject%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ResponseAction2</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;ISNOTBLANK(%RecordId%)&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;EditInteractionJunctionObject&quot; : &quot;%EditInteractionJunctionObject%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessKey>Interaction_CreateAndEdit</omniProcessKey>
+    <omniProcessType>Integration Procedure</omniProcessType>
+    <propertySetConfig>{
+  &quot;linkToExternalObject&quot; : &quot;&quot;,
+  &quot;trackingCustomData&quot; : { },
+  &quot;includeAllActionsInResponse&quot; : false,
+  &quot;columnsPropertyMap&quot; : [ ],
+  &quot;relationshipFieldsMap&quot; : [ ],
+  &quot;labelSingular&quot; : &quot;&quot;,
+  &quot;labelPlural&quot; : &quot;&quot;,
+  &quot;description&quot; : &quot;&quot;,
+  &quot;nameColumn&quot; : &quot;&quot;,
+  &quot;rollbackOnError&quot; : true,
+  &quot;chainableQueriesLimit&quot; : 50,
+  &quot;chainableDMLStatementsLimit&quot; : null,
+  &quot;chainableCpuLimit&quot; : 2000,
+  &quot;chainableHeapSizeLimit&quot; : null,
+  &quot;chainableDMLRowsLimit&quot; : null,
+  &quot;chainableQueryRowsLimit&quot; : null,
+  &quot;chainableSoslQueriesLimit&quot; : null,
+  &quot;chainableActualTimeLimit&quot; : null,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;queueableChainableQueriesLimit&quot; : 120,
+  &quot;queueableChainableCpuLimit&quot; : 40000,
+  &quot;queueableChainableHeapSizeLimit&quot; : 6,
+  &quot;ttlMinutes&quot; : 5,
+  &quot;mockResponseMap&quot; : { }
+}</propertySetConfig>
+    <subType>CreateAndEdit</subType>
+    <type>Interaction</type>
+    <uniqueName>Interaction_CreateAndEdit_Procedure_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <webComponentKey>67342185-8a1d-b447-16f0-b7f769912cab</webComponentKey>
+</OmniIntegrationProcedure>
