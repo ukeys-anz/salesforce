@@ -210,4 +210,7 @@ public with sharing class GetHelpConstants {
     GetHelpConstants.COB_FAILED_OK_STATUS => GetHelpConstants.COB_FAILED_OK_STATUS,
     GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
   };
+
+  // Basic Subscription Entitlment Process Name
+  public static final String BASIC_SUBSCRIPTION_ENTITLEMENT_NAME = 'Basic Subscription';
 }

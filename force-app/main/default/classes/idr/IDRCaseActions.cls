@@ -11,6 +11,8 @@
 public with sharing class IDRCaseActions {
   @TestVisible
   private static final string DAY_5_ESCALATION_REASON = 'Day 5 auto escalation';
+  @TestVisible
+  private static final string INDEXING_ESCALATION_REASON = '18';
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
@@ -499,15 +501,18 @@ public with sharing class IDRCaseActions {
    * @param oldRec trigger context variable to check on old values.
    */
   private static void handleCaseEscalationRules(Case record, Case oldRec) {
+    //adding 'Indexing' to the condition, so a converted AEM cases are also included for auto escalation.
     if (
       record.IsEscalated &&
       record.Status != IDRConstants.ESCALATED_STATUS &&
-      String.isBlank(record.IDR_Escalation_Reason__c)
+      (String.isBlank(record.IDR_Escalation_Reason__c) ||
+      record.IDR_Escalation_Reason__c == INDEXING_ESCALATION_REASON)
     ) {
       // set default values for auto escalated cases: Status, Escalated To, Escalation Reason
       record.Status = IDRConstants.ESCALATED_STATUS;
       if (
         oldRec != null &&
+        String.isBlank(record.IDR_Escalation_Reason__c) &&
         (oldRec.Status == IDRConstants.UNDER_INVESTIGATION_STATUS ||
         oldRec.Status == IDRConstants.OPEN_STATUS)
       ) {

@@ -1,0 +1,170 @@
+<template>
+  <lightning-card title="Actions">
+    <template lwc:if={isLoading}>
+      <lightning-spinner size="medium" variant="brand"> </lightning-spinner>
+    </template>
+
+    <lightning-accordion allow-multiple-sections-open="true">
+      <!-- Subscribe to an event -->
+      <lightning-accordion-section label="Subscribe to an event">
+        <lightning-combobox
+          name="subEventType"
+          label="Event type"
+          value={subEventType}
+          options={eventTypeOptions}
+          placeholder="Select type"
+          onchange={handleFieldChange}
+        >
+        </lightning-combobox>
+        <lightning-combobox
+          name="subEventName"
+          label="Event name"
+          value={subEventName}
+          options={subEventOptions}
+          placeholder="Select event"
+          onchange={handleFieldChange}
+          disabled={disableSubEventName}
+        >
+        </lightning-combobox>
+        <lightning-input
+          name="subChannel"
+          label="Streaming channel"
+          value={subChannel}
+          disabled="true"
+        >
+        </lightning-input>
+        <lightning-combobox
+          name="subReplay"
+          label="Replay option"
+          options={replayOption}
+          value={subReplay}
+          onchange={handleFieldChange}
+        >
+        </lightning-combobox>
+        <div class="slds-align_absolute-center slds-m-top_medium">
+          <lightning-button
+            variant="brand"
+            label="Subscribe"
+            onclick={onSubscribe}
+            disabled={disableSubscribe}
+          >
+          </lightning-button>
+        </div>
+      </lightning-accordion-section>
+
+      <!-- Publish an event -->
+      <lightning-accordion-section label="Publish an event">
+        <lightning-combobox
+          name="pubEventType"
+          label="Event type"
+          value={pubEventType}
+          options={eventTypeOptions}
+          placeholder="Select type"
+          onchange={handleFieldChange}
+        >
+        </lightning-combobox>
+
+        <template lwc:if={publishGenericOrPlatformEvent}>
+          <lightning-combobox
+            name="pubEventName"
+            label="Event name"
+            value={pubEventName}
+            options={pubEventOptions}
+            placeholder="Select event"
+            onchange={handleFieldChange}
+          >
+          </lightning-combobox>
+          <lightning-input
+            name="pubChannel"
+            label="Streaming channel"
+            value={pubChannel}
+            disabled="true"
+          >
+          </lightning-input>
+          <lightning-textarea
+            name="pubEventPayload"
+            label="Event payload"
+            value={pubEventPayload}
+            onchange={handleFieldChange}
+          >
+          </lightning-textarea>
+          <div class="slds-align_absolute-center slds-m-top_medium">
+            <lightning-button
+              variant="brand"
+              label="Publish"
+              onclick={onPublish}
+              disabled={disablePublish}
+            >
+            </lightning-button>
+          </div>
+        </template>
+
+        <template lwc:elseif={publishPushTopicOrCDC}>
+          <div class="slds-media slds-media_center slds-m-vertical_small">
+            <div class="slds-media__figure">
+              <lightning-icon
+                icon-name="utility:info"
+                size="normal"
+                alternative-text="Info icon"
+              ></lightning-icon>
+            </div>
+            <div class="slds-media__body">
+              <p>This type of event can only be published via data change.</p>
+            </div>
+          </div>
+        </template>
+      </lightning-accordion-section>
+
+      <!-- Register an event type -->
+      <lightning-accordion-section label="Register/Activate an event source">
+        <lightning-combobox
+          name="regEventType"
+          label="Event type"
+          value={regEventType}
+          options={eventTypeOptions}
+          onchange={handleFieldChange}
+          placeholder="Select type"
+          class="slds-m-bottom_medium"
+        >
+        </lightning-combobox>
+
+        <template lwc:if={isRegEventTypePusTopic}>
+          <p class="slds-m-bottom_small">
+            Customize and execute the following code in Apex to register a new
+            PushTopic:
+          </p>
+          <textarea disabled="disabled" class="slds-textarea">
+                        PushTopic pushTopic = new PushTopic();
+                        pushTopic.Name = 'Pushtopic name';
+                        pushTopic.Query = 'SELECT Id, Name, XXX, XXX FROM XXX';
+                        pushTopic.ApiVersion = 56.0;
+                        pushTopic.NotifyForOperationCreate = true;
+                        pushTopic.NotifyForOperationUpdate = true;
+                        pushTopic.NotifyForOperationUndelete = true;
+                        pushTopic.NotifyForOperationDelete = true;
+                        pushTopic.NotifyForFields = 'Referenced';
+                        insert pushTopic;
+                    </textarea
+          >
+        </template>
+        <template lwc:elseif={isRegEventTypeGenericEvent}>
+          Navigate to the
+          <a href="/lightning/o/StreamingChannel/list">Streaming Channel</a> tab
+          to register a generic event.
+        </template>
+        <template lwc:elseif={isRegEventTypePlatformEvent}>
+          Navigate to the
+          <a href="/lightning/setup/EventObjects/home">Platform Event</a> page
+          in Setup to register a platform event.
+        </template>
+        <template lwc:elseif={isRegEventTypeCDC}>
+          Navigate to the
+          <a href="/lightning/setup/CdcObjectEnablement/home"
+            >Change Data Capture</a
+          >
+          page in Setup to activate a change data capture event.
+        </template>
+      </lightning-accordion-section>
+    </lightning-accordion>
+  </lightning-card>
+</template>
