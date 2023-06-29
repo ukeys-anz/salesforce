@@ -1039,7 +1039,7 @@
             &quot;condition&quot; : &quot;=&quot;,
             &quot;data&quot; : &quot;9&quot;
           }, {
-            &quot;field&quot; : &quot;Case: IDR_Subsequent_Issue_2__c&quot;,
+            &quot;field&quot; : &quot;Case:IDR_Subsequent_Issue_2__c&quot;,
             &quot;condition&quot; : &quot;=&quot;,
             &quot;data&quot; : &quot;61&quot;
           } ]
@@ -1052,7 +1052,7 @@
             &quot;condition&quot; : &quot;=&quot;,
             &quot;data&quot; : &quot;9&quot;
           }, {
-            &quot;field&quot; : &quot;Case: IDR_Subsequent_Issue_3__c&quot;,
+            &quot;field&quot; : &quot;Case:IDR_Subsequent_Issue_3__c&quot;,
             &quot;condition&quot; : &quot;=&quot;,
             &quot;data&quot; : &quot;61&quot;
           } ]
@@ -2657,7 +2657,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;Please complete Product Service Name fields.&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p class=\&quot;slds-align_absolute-center\&quot;&gt;Please complete Product Service Name fields.&lt;/p&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -2703,31 +2703,9 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;Case:product1&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : null
-          }, {
-            &quot;field&quot; : &quot;Case:product2&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : null
-          }, {
-            &quot;field&quot; : &quot;Case:product3&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : null
-          } ]
-        }
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;AND&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;Case:inboxEmail&quot;,
-            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : null
-          } ]
-        }
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;showProdServiceError&quot;
       } ]
     }
   },
@@ -2911,5 +2889,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>b253d3ef-7f0d-4d9c-9a76-8da3f286652d</webComponentKey>
+    <webComponentKey>c6052a9e-5c5f-5032-83be-05bc8e744b36</webComponentKey>
 </OmniScript>

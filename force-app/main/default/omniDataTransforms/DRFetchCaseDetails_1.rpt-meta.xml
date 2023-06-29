@@ -280,7 +280,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:showProdServiceError</outputFieldName>
+        <outputFieldName>showProdServiceError</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -798,8 +798,8 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Product_2__c ISBLANK || | var:Case:IDR_Product_3__c ISBLANK || | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; true false IF</formulaConverted>
-        <formulaExpression>IF((ISBLANK(Case:Product__c)||ISBLANK(Case:IDR_Product_2__c)||ISBLANK(Case:IDR_Product_3__c))&amp;&amp;ISNOTBLANK(Case:IDR_Inbox_Email_Address__c),true,false)</formulaExpression>
+        <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Product_2__c ISBLANK || | var:Case:IDR_Product_3__c ISBLANK || | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
+        <formulaExpression>IF((ISBLANK(Case:Product__c)||ISBLANK(Case:IDR_Product_2__c)||ISBLANK(Case:IDR_Product_3__c))&amp;&amp;ISNOTBLANK(Case:IDR_Inbox_Email_Address__c),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
         <formulaResultPath>showProdServiceError</formulaResultPath>
         <formulaSequence>3.0</formulaSequence>
         <globalKey>DRFetchCaseDetailsCustom9060</globalKey>
