@@ -12,10 +12,32 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public List<SOPAssetSummary> assetsSummaries;
   @AuraEnabled
   public List<SOPDebtSummary> liabilitiesSummaries;
+  @AuraEnabled
+  public List<SOPIncome> incomes;
+  @AuraEnabled
+  public List<SOPEmployment> employments;
+  public static Map<String, SOPEmployment> employeeIdToEmployeeMap;
+  public static Map<String, String> employeeIdToPartyIdMap;
   public SOPModel sop;
   public static final String JOINT_ACCOUNT = 'Joint';
   public static Map<String, Account> partyIdToAccountMap;
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
+
+  /**
+   * @description attribute to display no income message on flexcard.
+   * If the json received has no value incomeSize should be set to 0.
+   * @return `returnValue`
+   */
+  @AuraEnabled
+  public Integer incomeSize {
+    get {
+      if (incomes.size() == 0) {
+        return 0;
+      } else {
+        return incomes.size();
+      }
+    }
+  }
 
   /**
    * @description initialize the maps
@@ -23,6 +45,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public void initMaps() {
     initPartyIdToAccountMap();
     initAccNumberToFinAccountMap();
+    initEmployeeIdToEmployeeMap();
   }
 
   /**
@@ -112,6 +135,25 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
+   * @description get Employee details from the employment node
+   */
+  public void initEmployeeIdToEmployeeMap() {
+    if (ResidentialLoanApplicationModel.employeeIdToEmployeeMap != null) {
+      return;
+    } else {
+      ResidentialLoanApplicationModel.employeeIdToEmployeeMap = new Map<String, SOPEmployment>();
+      if (this.employments != null) {
+        for (SOPEmployment employment : this.employments) {
+          ResidentialLoanApplicationModel.employeeIdToEmployeeMap.put(
+            employment.Id,
+            employment
+          );
+        }
+      }
+    }
+  }
+
+  /**
    * @description SOPDebtSummary returns all the sop debt related values and total
    */
   public class SOPDebtSummary {
@@ -175,7 +217,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
 
     /**
      * @description sort the balance values to show on the Savings and Assets flexcard.
-     * @param compareTo input Sobject to compare
+     * @param compareTo input object
      * @return `returnValue`
      */
     public Integer compareTo(Object compareTo) {
@@ -375,14 +417,13 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      * @description return a readable interest rate value
      */
     @AuraEnabled
-    public string readableValue{
+    public string readableValue {
       get {
         try {
           Decimal givenValue = Decimal.valueOf(value);
           String result = (givenValue / 100).setScale(2) + '%';
           return result;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
           return '0';
         }
       }
@@ -395,14 +436,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPStudentLoan {
     @AuraEnabled
     public Boolean hecsWithheldPayment;
-    
+
     /**
      * @description return Yes or No for withheld value
      */
     @AuraEnabled
-    public String outputWithheld{ 
+    public String outputWithheld {
       get {
-        if(hecsWithheldPayment) {
+        if (hecsWithheldPayment) {
           return 'Yes';
         } else {
           return 'No';
@@ -513,6 +554,324 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public class SOPProportion {
     @AuraEnabled
     public String value;
+  }
+
+  /**
+   * @description Income class for the income node
+   */
+  public class SOPIncome implements Comparable {
+    @AuraEnabled
+    public String id;
+    /**
+     * @description null check for the income child flexcard
+     */
+    @AuraEnabled
+    public String idNullCheck {
+      get {
+        if (id != null) {
+          return 'Y';
+        } else {
+          return 'N';
+        }
+      }
+    }
+    @AuraEnabled
+    public String sopId;
+    @AuraEnabled
+    public List<SOPIncomeDetail> details;
+    @AuraEnabled
+    public string employmentId;
+    @AuraEnabled
+    public string updateTime;
+    @AuraEnabled
+    public SOPverification verification;
+    /**
+     * @description ownerName for the income card
+     */
+    @AuraEnabled
+    public string ownerName {
+      get {
+        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
+          this.employmentId
+        );
+
+        if (employment != null && employment.partyId != null) {
+          Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
+            employment.partyId
+          );
+          if (act.FirstName != null) {
+            return act.FirstName;
+          } else {
+            return null;
+          }
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description employer name for the income card
+     */
+    @AuraEnabled
+    public String employer {
+      get {
+        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
+          this.employmentId
+        );
+        if (employment != null && employment.businessName != null) {
+          return employment.businessName;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description employment name for the income card
+     */
+    @AuraEnabled
+    public String employmentBasis {
+      get {
+        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
+          this.employmentId
+        );
+        if (employment != null && employment.basis != null) {
+          return employment.basis;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description startdate for the income card
+     */
+    @AuraEnabled
+    public String startDate {
+      get {
+        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
+          this.employmentId
+        );
+        if (employment != null && employment.startDate != null) {
+          return employment.startDate.year +
+            employment.startDate.month +
+            employment.startDate.day;
+        } else {
+          return null;
+        }
+      }
+    }
+
+    /**
+     * @description employment Type for the income card
+     */
+    @AuraEnabled
+    public String employmentType {
+      get {
+        String[] words = employmentBasis.split('_');
+        String result = '';
+        words.remove(0);
+        words.remove(0);
+
+        for (Integer i = 0; i < words.size(); i++) {
+          if (i == 0) {
+            result +=
+              words[i].substring(0, 1).toUpperCase() +
+              words[i].substring(1).toLowerCase() +
+              '-';
+          } else {
+            result +=
+              words[i].substring(0, 1).toUpperCase() +
+              words[i].substring(1).toLowerCase() +
+              ' ';
+          }
+          System.debug('Result:' + result);
+        }
+        return result.trim();
+      }
+    }
+
+    /**
+     * @description baseIncome for the income card
+     */
+    @AuraEnabled
+    public ResidentialLoanApplicationModel.SOPIncomeDetail baseIncome {
+      get {
+        for (SOPIncomeDetail detail : details) {
+          if (detail.type == 'INCOME_TYPE_BASE_SALARY') {
+            return detail;
+          }
+        }
+        return null;
+      }
+    }
+
+    /**
+     * @description overTimeIncome for the income card
+     */
+    @AuraEnabled
+    public ResidentialLoanApplicationModel.SOPIncomeDetail overTimeIncome {
+      get {
+        for (SOPIncomeDetail detail : details) {
+          if (detail.type == 'INCOME_TYPE_OVERTIME') {
+            return detail;
+          }
+        }
+        return null;
+      }
+    }
+
+    /**
+     * @description commissionIncome for the income card
+     */
+    @AuraEnabled
+    public ResidentialLoanApplicationModel.SOPIncomeDetail commissionIncome {
+      get {
+        for (SOPIncomeDetail detail : details) {
+          if (detail.type == 'INCOME_TYPE_COMMISSION') {
+            return detail;
+          }
+        }
+        return null;
+      }
+    }
+
+    /**
+     * @description bonusIncome for the income card
+     */
+    @AuraEnabled
+    public ResidentialLoanApplicationModel.SOPIncomeDetail bonusIncome {
+      get {
+        for (SOPIncomeDetail detail : details) {
+          if (detail.type == 'INCOME_TYPE_BONUS') {
+            return detail;
+          }
+        }
+        return null;
+      }
+    }
+
+    /**
+     * @description compareTo attribute to compare the base income
+     * @param compareTo
+     * @return `returnValue`
+     */
+    public Integer compareTo(Object compareTo) {
+      SOPIncome compareToIncome = (SOPIncome) compareTo;
+      Integer returnValue = 0;
+      if (
+        this.baseIncome.amount.value < compareToIncome.baseIncome.amount.value
+      ) {
+        returnValue = 1;
+      } else if (
+        this.baseIncome.amount.value > compareToIncome.baseIncome.amount.value
+      ) {
+        returnValue = -1;
+      }
+      return returnValue;
+    }
+
+    /**
+     * @description income Verified for the income card
+     */
+    @AuraEnabled
+    public String incomeVerified {
+      get {
+        System.debug('Verification method: ' + verification);
+        if (this.verification.method == 'VERIFICATION_METHOD_UNSPECIFIED') {
+          return 'Yes';
+        } else {
+          return 'No';
+        }
+      }
+    }
+  }
+  /**
+   * @description Income detail class
+   */
+
+  public class SOPIncomeDetail {
+    @AuraEnabled
+    public String id;
+    @AuraEnabled
+    public String type;
+    /**
+     * @description income Type
+     */
+    @AuraEnabled
+    public String incomeType {
+      get {
+        String categoryOfIncome;
+        if (this.amountType == 'INCOME_AMOUNT_TYPE_GROSS') {
+          categoryOfIncome = 'Before Tax';
+        }
+        return categoryOfIncome;
+      }
+    }
+
+    /**
+     * @description frequency
+     */
+    @AuraEnabled
+    public String frequency {
+      get {
+        String result = '';
+        String[] words = this.frequency.split('_');
+        words.remove(0);
+        words.remove(0);
+
+        for (String word : words) {
+          result =
+            word.substring(0, 1).toUpperCase() +
+            word.substring(1).toLowerCase() +
+            ' ';
+        }
+        return result.trim();
+      }
+    }
+    @AuraEnabled
+    public SOPMoney amount;
+    @AuraEnabled
+    public String amountType;
+  }
+
+  /**
+   * @description model for Employment for income
+   */
+  public class SOPEmployment {
+    @AuraEnabled
+    public String id;
+    @AuraEnabled
+    public String partyId;
+    @AuraEnabled
+    public String businessName;
+    @AuraEnabled
+    public String basis;
+    @AuraEnabled
+    public beginDate startDate;
+    @AuraEnabled
+    public Datetime updateTime;
+  }
+
+  /**
+   * @description start date
+   */
+  public class BeginDate {
+    public String year;
+    public String month;
+    public String day;
+  }
+  /**
+   * @description verfication
+   */
+  public class SOPVerification {
+    public string id;
+    public string incomeId;
+    public string createTime;
+    public string method;
+    public List<string> documentIds;
+    public string createdBy;
   }
 
   /**

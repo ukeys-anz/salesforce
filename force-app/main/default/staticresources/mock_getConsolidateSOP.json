@@ -739,7 +739,7 @@
       }
     }
   ],
-  
+
   "employments": [
     {
       "id": "666ce996-3c3b-4c58-b925-c515d5a36889",
@@ -813,6 +813,28 @@
           "amount": {
             "currencyCode": "AUD",
             "units": "200",
+            "nanos": 0
+          },
+          "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+        },
+        {
+          "id": "d7541d963-e71d-464e-8395-7753fe1d3345",
+          "type": "INCOME_TYPE_COMMISSION",
+          "frequency": "INCOME_FREQUENCY_ANNUALLY",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "3000",
+            "nanos": 0
+          },
+          "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+        },
+        {
+          "id": "d7541d963-e71d-464e-8395-7753fe1d3345",
+          "type": "INCOME_TYPE_BONUS",
+          "frequency": "INCOME_FREQUENCY_ANNUALLY",
+          "amount": {
+            "currencyCode": "AUD",
+            "units": "400",
             "nanos": 0
           },
           "amountType": "INCOME_AMOUNT_TYPE_GROSS"
@@ -1797,7 +1819,7 @@
           "ownership": [
             {
               "partyId": "1000991493",
-    
+
               "proportion": {
                 "value": "100"
               }
