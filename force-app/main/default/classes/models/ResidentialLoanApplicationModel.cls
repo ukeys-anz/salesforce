@@ -24,9 +24,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
 
   /**
-   * @description attribute to display no income message on flexcard.
-   * If the json received has no value incomeSize should be set to 0.
-   * @return `returnValue`
+   * @description return the income size attribute to display no income message on flexcard.
    */
   @AuraEnabled
   public Integer incomeSize {
@@ -35,6 +33,23 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         return 0;
       } else {
         return incomes.size();
+      }
+    }
+  }
+
+  /**
+   * @description return the debt size attribute to display no debt message on flexcard.
+   */
+  @AuraEnabled
+  public Integer debtSize {
+    get {
+      if (
+        liabilitiesSummaries.isEmpty() ||
+        liabilitiesSummaries[0].liabilities.isEmpty()
+      ) {
+        return 0;
+      } else {
+        return liabilitiesSummaries[0].liabilities.size();
       }
     }
   }
@@ -254,6 +269,26 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
 
+    public List<String> sources;
+
+    /**
+     * @description return the source type
+     */
+    @AuraEnabled
+    public String sourceType {
+      get {
+        if (!sources.isEmpty()) {
+          if (sources[0] == 'LIABILITY_SOURCE_TYPE_ANZ') {
+            return 'ANZ';
+          }
+          if (sources[0] == 'LIABILITY_SOURCE_TYPE_BUREAU') {
+            return 'Bureau';
+          }
+        }
+        return 'Other';
+      }
+    }
+
     /**
      * @description return the readable debt type
      * @param inputStr the input type from json
@@ -424,7 +459,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           String result = (givenValue / 100).setScale(2) + '%';
           return result;
         } catch (Exception e) {
-          return '0';
+          return 'Not Provided';
         }
       }
     }
@@ -754,8 +789,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
 
     /**
      * @description compareTo attribute to compare the base income
-     * @param compareTo
-     * @return `returnValue`
+     * @param compareTo input object
+     * @return Integer result which one is greater
      */
     public Integer compareTo(Object compareTo) {
       SOPIncome compareToIncome = (SOPIncome) compareTo;
