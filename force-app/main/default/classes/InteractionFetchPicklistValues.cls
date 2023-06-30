@@ -101,7 +101,8 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
         populatePicklist(inputMap, outMap, options, 'InteractionType');
       }
     } catch (Exception e) {
-      System.debug('ERROR in DemoReset: ' + e.getStackTraceString());
+      Logger.error('ERROR in DemoReset: ', e.getStackTraceString());
+      Logger.saveLog();
     }
     return success;
   }
@@ -136,8 +137,6 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
         }
       );
     }
-
-    System.debug('controllingInfo -> ' + JSON.serializePretty(controllingInfo));
     outMap.put('options', controllingInfo);
   }
 
@@ -175,10 +174,7 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
         }
       }
       finalMap.put(key, lstMap);
-      System.debug('------------ \n');
     }
-
-    System.debug('lstMap -> ' + JSON.serializePretty(finalMap));
     outMap.put('dependency', finalMap);
   }
 }

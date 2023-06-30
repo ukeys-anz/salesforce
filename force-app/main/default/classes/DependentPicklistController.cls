@@ -66,7 +66,6 @@ public with sharing class DependentPicklistController {
       '/' +
       fieldName;
 
-    System.debug('endpoint -> ' + endpoint);
     // Create the endpoint dynamically for your org
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
@@ -157,7 +156,8 @@ public with sharing class DependentPicklistController {
         }
       }
     } else {
-      System.debug(' Response Body For Error : ' + res.body);
+      Logger.error(' Response Body For Error : ', res.body);
+      Logger.saveLog();
     }
 
     return mapPicklistValues;

@@ -19,13 +19,13 @@ public class GetSessionId {
    */
   public static string getUserSessionId() {
     SessionId sessionJson = new SessionId();
-    if (!Test.isRunningTest()) {
-      sessionJson = (SessionId) JSON.deserialize(
-        Page.SessionId.getContent().toString(),
-        SessionId.class
-      );
-      return sessionJson.sessionId;
-    }
-    return UserInfo.getSessionId();
+    String sessionIdForUser = Test.isRunningTest()
+      ? '{"sessionId":"' + UserInfo.getSessionId() + '"}'
+      : Page.SessionId.getContent().toString();
+    sessionJson = (SessionId) JSON.deserialize(
+      sessionIdForUser,
+      SessionId.class
+    );
+    return sessionJson.sessionId;
   }
 }

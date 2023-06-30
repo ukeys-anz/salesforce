@@ -7,9 +7,10 @@
 global class MockInteractionFetchPickValues implements HttpCalloutMock {
   private String calloutResponse = '';
 
-  public MockInteractionFetchPickValues() {
-  }
-
+  /**
+   * @description mock response for callout
+   * @param responseFromRealCallout incoming request
+   */
   public MockInteractionFetchPickValues(String responseFromRealCallout) {
     this.calloutResponse = responseFromRealCallout;
   }
