@@ -2,6 +2,7 @@ import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
 import tmp from "./customerAccount.html";
 const FINANCIAL_DIFFICULTY = "4";
+const COLLECTIONS = "17";
 const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
 
 export default class CustomerAccount extends OmniscriptBaseMixin(
@@ -31,14 +32,32 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   populateAccountNumbers(data) {
     this.options = [];
     if (data && data.Response && data.Response.accounts) {
-      data.Response.accounts.forEach((acc) => {
-        if (!EXCL_ACC.includes(acc.productCode)) {
+      let accounts = data.Response.accounts;
+      let cmpDet = data.Case.ComplaintDetails;
+      if (
+        (cmpDet.IssueType === COLLECTIONS &&
+          this.omniJsonDef.name === "AccountPolicyNumber") ||
+        (cmpDet.IssueType2 === COLLECTIONS &&
+          this.omniJsonDef.name === "AccountPolicyNumber2") ||
+        (cmpDet.IssueType3 === COLLECTIONS &&
+          this.omniJsonDef.name === "AccountPolicyNumber3")
+      ) {
+        accounts.forEach((acc) => {
+          if (!EXCL_ACC.includes(acc.productCode)) {
+            this.options.push({
+              label: acc.accountNumber,
+              value: acc.accountNumber
+            });
+          }
+        });
+      } else {
+        accounts.forEach((acc) => {
           this.options.push({
             label: acc.accountNumber,
             value: acc.accountNumber
           });
-        }
-      });
+        });
+      }
     }
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
@@ -101,6 +120,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     this.allValues.forEach((ele) => {
       accString = accString + ele + ";";
     });
+    accString = accString.substring(0, accString.length - 1);
     this.omniUpdateDataJson(accString);
   }
 

@@ -6,61 +6,105 @@
     <errorIgnored>false</errorIgnored>
     <expectedInputJson>{
   &quot;Case&quot; : {
-    &quot;ComplaintDetails&quot; : {
-      &quot;SubsequentIssueType3&quot; : &quot;38&quot;,
-      &quot;SubsequentIssueType2&quot; : &quot;49&quot;,
-      &quot;IssueType2&quot; : &quot;8&quot;,
-      &quot;CustomerDesiredOutcome&quot; : &quot;rewwre&quot;,
-      &quot;AccountPolicyNumber3&quot; : &quot;00000000000000713642610;&quot;,
-      &quot;AccountPolicyNumber2&quot; : &quot;00000000000000713642610;&quot;,
-      &quot;ProductServiceName3-Block&quot; : {
-        &quot;Name&quot; : &quot;ANZ Money saver Home Loan&quot;,
-        &quot;ProductServiceName3&quot; : &quot;ANZ Money saver Home Loan&quot;,
-        &quot;Id&quot; : &quot;01t2P000000GKTSQA4&quot;
-      },
-      &quot;SubSequentIssueType&quot; : &quot;93&quot;,
-      &quot;ProductServiceName-Block&quot; : {
-        &quot;Name&quot; : &quot;ANZ Rewards Visa Gold&quot;,
-        &quot;ProductServiceName&quot; : &quot;ANZ Rewards Visa Gold&quot;
-      },
-      &quot;ProductServiceName2-Block&quot; : {
-        &quot;Name&quot; : &quot;ANZ Easy Start Residential Investment Loan&quot;,
-        &quot;ProductServiceName2&quot; : &quot;ANZ Easy Start Residential Investment Loan&quot;,
-        &quot;Id&quot; : &quot;01t2P000000GKTMQA4&quot;
-      },
-      &quot;AccountPolicyNumber&quot; : &quot;00000000000000713642610;&quot;,
-      &quot;Issue2Checkbox&quot; : true,
-      &quot;IssueType&quot; : &quot;21&quot;,
-      &quot;Priority&quot; : &quot;Critical&quot;,
-      &quot;DescriptionOfIssue&quot; : &quot;test21FTTD&quot;,
-      &quot;IssueType3&quot; : &quot;5&quot;,
-      &quot;ChannelReceived&quot; : &quot;4&quot;
+    &quot;CustomerDetails&quot; : {
+      &quot;ThirdPartyRepresent&quot; : &quot;Text&quot;,
+      &quot;ExpressCaseCreation&quot; : &quot;Text&quot;,
+      &quot;Customer&quot; : &quot;Text&quot;,
+      &quot;Telephone1&quot; : &quot;Text&quot;,
+      &quot;Telephone2&quot; : &quot;Text&quot;,
+      &quot;CustomerType&quot; : &quot;Text&quot;,
+      &quot;firstName&quot; : &quot;Text&quot;,
+      &quot;MiddleName&quot; : &quot;Text&quot;,
+      &quot;LastName&quot; : &quot;Text&quot;,
+      &quot;Age&quot; : &quot;Text&quot;,
+      &quot;Gender&quot; : &quot;Text&quot;,
+      &quot;Email&quot; : &quot;Text&quot;,
+      &quot;Mobile&quot; : &quot;Text&quot;,
+      &quot;Phone&quot; : &quot;Text&quot;,
+      &quot;Street&quot; : &quot;Text&quot;,
+      &quot;Suburb&quot; : &quot;Text&quot;,
+      &quot;Postcode&quot; : &quot;Text&quot;,
+      &quot;State&quot; : &quot;Text&quot;,
+      &quot;Country&quot; : &quot;Text&quot;,
+      &quot;thirdPartyName&quot; : &quot;Text&quot;,
+      &quot;thirdPartyRel&quot; : &quot;Text&quot;,
+      &quot;thirdPartyEmail&quot; : &quot;Text&quot;,
+      &quot;thirdPartyMobile&quot; : &quot;Text&quot;,
+      &quot;thirdPartyPhone&quot; : &quot;Text&quot;,
+      &quot;thirdPartyPostCode&quot; : &quot;Text&quot;,
+      &quot;thirdPartyCountry&quot; : &quot;Text&quot;,
+      &quot;CustomerIdentifier&quot; : &quot;Text&quot;,
+      &quot;BusinessName&quot; : &quot;Text&quot;,
+      &quot;switchOffCustNotification&quot; : &quot;Text&quot;,
+      &quot;complaintAbout&quot; : &quot;Text&quot;
     },
     &quot;ResolutionInformation&quot; : {
-      &quot;systemicIssue&quot; : &quot;Yes&quot;,
-      &quot;ComplaintStatus&quot; : &quot;Provisionally Closed&quot;,
-      &quot;custWrittenResponse&quot; : &quot;Yes&quot;,
-      &quot;complaintRelatedHardship&quot; : &quot;Yes&quot;,
-      &quot;ComplaintOutcome&quot; : &quot;1&quot;,
-      &quot;thirdComplaintRemedyCheckbox&quot; : true,
-      &quot;realFormRequired&quot; : &quot;Yes&quot;,
-      &quot;ReviewOutcome&quot; : &quot;Resolution Enhanced&quot;,
-      &quot;realFormMAXId&quot; : &quot;343535&quot;,
-      &quot;systemicIssueCat&quot; : &quot;3&quot;,
-      &quot;CACSubCat&quot; : &quot;Categorsied incorrectly&quot;,
-      &quot;ComplaintRemedy3&quot; : &quot;1&quot;,
-      &quot;ComplaintDescription&quot; : &quot;drtdtr&quot;,
-      &quot;systemicIssueReason&quot; : &quot;ftyftytyfy&quot;,
-      &quot;ComplaintRemedy2&quot; : &quot;4&quot;,
-      &quot;CAC&quot; : &quot;Yes&quot;,
-      &quot;ComplaintRemedy1&quot; : &quot;1&quot;,
-      &quot;secondComplaintRemedyCheckbox&quot; : true,
-      &quot;ComplaintSubRemedy3&quot; : &quot;8&quot;,
-      &quot;ComplaintSubRemedy2&quot; : &quot;3&quot;,
-      &quot;ComplaintSubRemedy1&quot; : &quot;2&quot;
-    }
+      &quot;ComplaintDescription&quot; : &quot;Text&quot;,
+      &quot;ComplaintRemedy1&quot; : &quot;Text&quot;,
+      &quot;ComplaintStatus&quot; : &quot;Text&quot;,
+      &quot;ComplaintSubRemedy2&quot; : &quot;Text&quot;,
+      &quot;RestrictionLevel&quot; : &quot;Text&quot;,
+      &quot;SecondComplaintRemedy&quot; : &quot;Text&quot;,
+      &quot;ThirdComplaintRemedy&quot; : &quot;Text&quot;,
+      &quot;realFormRequired&quot; : &quot;Text&quot;,
+      &quot;realFormMAXId&quot; : &quot;Text&quot;,
+      &quot;systemicIssue&quot; : &quot;Text&quot;,
+      &quot;systemicIssueCat&quot; : &quot;Text&quot;,
+      &quot;CACSubCat&quot; : &quot;Text&quot;,
+      &quot;ReviewOutcome&quot; : &quot;Text&quot;,
+      &quot;ComplaintRemedy2&quot; : &quot;Text&quot;,
+      &quot;ComplaintRemedy3&quot; : &quot;Text&quot;,
+      &quot;complaintRelatedHardship&quot; : &quot;Text&quot;,
+      &quot;systemicIssueReason&quot; : &quot;Text&quot;,
+      &quot;custWrittenResponse&quot; : &quot;Text&quot;,
+      &quot;CAC&quot; : &quot;Text&quot;,
+      &quot;ParentCaseId&quot; : &quot;Text&quot;,
+      &quot;PaymentAmountProvided1&quot; : &quot;Text&quot;,
+      &quot;PaymentAmountProvided2&quot; : &quot;Text&quot;,
+      &quot;PaymentAmountProvided3&quot; : &quot;Text&quot;,
+      &quot;detailsOfComplaint1&quot; : &quot;Text&quot;,
+      &quot;detailsOfComplaint2&quot; : &quot;Text&quot;,
+      &quot;detailsOfComplaint3&quot; : &quot;Text&quot;,
+      &quot;additionalissues&quot; : &quot;Text&quot;,
+      &quot;ComplaintSubRemedy1&quot; : &quot;Text&quot;,
+      &quot;ComplaintSubRemedy3&quot; : &quot;Text&quot;,
+      &quot;ComplaintOutcome&quot; : &quot;Text&quot;,
+      &quot;ComplaintEscalationReason&quot; : &quot;Text&quot;,
+      &quot;durationOfRemedy1&quot; : &quot;Text&quot;,
+      &quot;durationOfRemedy2&quot; : &quot;Text&quot;,
+      &quot;durationOfRemedy3&quot; : &quot;Text&quot;,
+      &quot;otherRemedy1&quot; : &quot;Text&quot;,
+      &quot;otherRemedy2&quot; : &quot;Text&quot;,
+      &quot;otherRemedy3&quot; : &quot;Text&quot;,
+      &quot;rewardPoints3&quot; : &quot;Text&quot;,
+      &quot;rewardPoints1&quot; : &quot;Text&quot;,
+      &quot;rewardPoints2&quot; : &quot;Text&quot;
+    },
+    &quot;ComplaintDetails&quot; : {
+      &quot;AccountPolicyNumber&quot; : &quot;Text&quot;,
+      &quot;Issue2Checkbox&quot; : &quot;Text&quot;,
+      &quot;IssueType2&quot; : &quot;Text&quot;,
+      &quot;SubsequentIssueType2&quot; : &quot;Text&quot;,
+      &quot;AccountPolicyNumber3&quot; : &quot;Text&quot;,
+      &quot;ProductService2Id&quot; : &quot;Text&quot;,
+      &quot;IssueType3&quot; : &quot;Text&quot;,
+      &quot;SubsequentIssueType3&quot; : &quot;Text&quot;,
+      &quot;ProductService3Id&quot; : &quot;Text&quot;,
+      &quot;AccountPolicyNumber2&quot; : &quot;Text&quot;,
+      &quot;Issue3Checkbox&quot; : &quot;Text&quot;,
+      &quot;thirdPartyStreet&quot; : &quot;Text&quot;,
+      &quot;ProductServiceId&quot; : &quot;Text&quot;,
+      &quot;CustomerDesiredOutcome&quot; : &quot;Text&quot;,
+      &quot;ChannelReceived&quot; : &quot;Text&quot;,
+      &quot;DescriptionOfIssue&quot; : &quot;Text&quot;,
+      &quot;Priority&quot; : &quot;Text&quot;,
+      &quot;IssueType&quot; : &quot;Text&quot;,
+      &quot;SubSequentIssueType&quot; : &quot;Text&quot;
+    },
+    &quot;CustomerDecision&quot; : &quot;Text&quot;,
+    &quot;expressCMOS&quot; : &quot;Text&quot;
   },
-  &quot;recordType&quot; : &quot;0125m0000004Jm7AAE&quot;
+  &quot;recordType&quot; : &quot;Text&quot;
 }</expectedInputJson>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
@@ -203,6 +247,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Real_Form_Ref_No__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom1573</globalKey>
+        <inputFieldName>Case:ResolutionInformation:rewardPoints2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Financial_Remedy_Points_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -371,6 +429,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_NC_Mobile__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom6648</globalKey>
+        <inputFieldName>Case:ResolutionInformation:otherRemedy2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Other_Remedy_Provided_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -588,6 +660,34 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom9896</globalKey>
+        <inputFieldName>Case:ResolutionInformation:otherRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Other_Remedy_Provided__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom4301</globalKey>
+        <inputFieldName>Case:ResolutionInformation:durationOfRemedy2</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Duration_of_Remedy_2__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom3754</globalKey>
         <inputFieldName>Case:ResolutionInformation:additionalissues</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -595,6 +695,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Possible_Systemic_Issues__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom3980</globalKey>
+        <inputFieldName>Case:ResolutionInformation:durationOfRemedy1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Duration_of_Remedy__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -728,6 +842,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom7061</globalKey>
+        <inputFieldName>Case:ResolutionInformation:rewardPoints3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Financial_Remedy_Points_3__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom6238</globalKey>
         <inputFieldName>Case:ComplaintDetails:AccountPolicyNumber</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -763,6 +891,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Review_Outcome__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom6404</globalKey>
+        <inputFieldName>Case:ResolutionInformation:rewardPoints1</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Financial_Remedy_Points__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -819,6 +961,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>RecordTypeId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom1783</globalKey>
+        <inputFieldName>Case:ResolutionInformation:durationOfRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Duration_of_Remedy_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -931,6 +1087,20 @@
         <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Product__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRCreateCaseCustom7322</globalKey>
+        <inputFieldName>Case:ResolutionInformation:otherRemedy3</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCreateCase</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IDR_Other_Remedy_Provided_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -1163,39 +1333,104 @@
     <previewJsonData>{
   &quot;Case&quot; : {
     &quot;CustomerDetails&quot; : {
-      &quot;Age&quot; : &quot;1&quot;,
-      &quot;LastName&quot; : &quot;test3&quot;,
-      &quot;Country&quot; : &quot;Australia&quot;,
-      &quot;Street&quot; : &quot;dtrdrtdrtdrtdrt&quot;,
-      &quot;State&quot; : &quot;1&quot;,
-      &quot;Phone&quot; : &quot;43543543&quot;,
-      &quot;firstName&quot; : &quot;test1&quot;,
-      &quot;Postcode&quot; : &quot;4545&quot;,
-      &quot;Mobile&quot; : &quot;4534354354&quot;,
-      &quot;CustomerType&quot; : &quot;1&quot;,
-      &quot;MiddleName&quot; : &quot;test2&quot;,
-      &quot;Gender&quot; : &quot;1&quot;,
-      &quot;Suburb&quot; : &quot;rtddrtdrtdrtdtrd&quot;,
-      &quot;Email&quot; : &quot;test2@test.com&quot;
-    },
-    &quot;ComplaintDetails&quot; : {
-      &quot;CustomerDesiredOutcome&quot; : &quot;ftyftfyftytyfty&quot;,
-      &quot;ProductServiceId&quot; : &quot;01t2P000000GKTIQA4&quot;,
-      &quot;Issue2Checkbox&quot; : false,
-      &quot;Priority&quot; : &quot;Standard&quot;,
-      &quot;IssueType&quot; : &quot;21&quot;,
-      &quot;DescriptionOfIssue&quot; : &quot;ftfftftyftyfy&quot;,
-      &quot;Issue3Checkbox&quot; : false,
-      &quot;SubSequentIssueType&quot; : &quot;36&quot;,
-      &quot;ChannelReceived&quot; : &quot;Phone&quot;
+      &quot;ThirdPartyRepresent&quot; : &quot;Text&quot;,
+      &quot;ExpressCaseCreation&quot; : &quot;Text&quot;,
+      &quot;Customer&quot; : &quot;Text&quot;,
+      &quot;Telephone1&quot; : &quot;Text&quot;,
+      &quot;Telephone2&quot; : &quot;Text&quot;,
+      &quot;CustomerType&quot; : &quot;Text&quot;,
+      &quot;firstName&quot; : &quot;Text&quot;,
+      &quot;MiddleName&quot; : &quot;Text&quot;,
+      &quot;LastName&quot; : &quot;Text&quot;,
+      &quot;Age&quot; : &quot;Text&quot;,
+      &quot;Gender&quot; : &quot;Text&quot;,
+      &quot;Email&quot; : &quot;Text&quot;,
+      &quot;Mobile&quot; : &quot;Text&quot;,
+      &quot;Phone&quot; : &quot;Text&quot;,
+      &quot;Street&quot; : &quot;Text&quot;,
+      &quot;Suburb&quot; : &quot;Text&quot;,
+      &quot;Postcode&quot; : &quot;Text&quot;,
+      &quot;State&quot; : &quot;Text&quot;,
+      &quot;Country&quot; : &quot;Text&quot;,
+      &quot;thirdPartyName&quot; : &quot;Text&quot;,
+      &quot;thirdPartyRel&quot; : &quot;Text&quot;,
+      &quot;thirdPartyEmail&quot; : &quot;Text&quot;,
+      &quot;thirdPartyMobile&quot; : &quot;Text&quot;,
+      &quot;thirdPartyPhone&quot; : &quot;Text&quot;,
+      &quot;thirdPartyPostCode&quot; : &quot;Text&quot;,
+      &quot;thirdPartyCountry&quot; : &quot;Text&quot;,
+      &quot;CustomerIdentifier&quot; : &quot;Text&quot;,
+      &quot;BusinessName&quot; : &quot;Text&quot;,
+      &quot;switchOffCustNotification&quot; : &quot;Text&quot;,
+      &quot;complaintAbout&quot; : &quot;Text&quot;
     },
     &quot;ResolutionInformation&quot; : {
-      &quot;ComplaintStatus&quot; : &quot;Open&quot;,
-      &quot;custWrittenResponse&quot; : &quot;No&quot;,
-      &quot;complaintRelatedHardship&quot; : &quot;No&quot;
-    }
+      &quot;ComplaintDescription&quot; : &quot;Text&quot;,
+      &quot;ComplaintRemedy1&quot; : &quot;Text&quot;,
+      &quot;ComplaintStatus&quot; : &quot;Text&quot;,
+      &quot;ComplaintSubRemedy2&quot; : &quot;Text&quot;,
+      &quot;RestrictionLevel&quot; : &quot;Text&quot;,
+      &quot;SecondComplaintRemedy&quot; : &quot;Text&quot;,
+      &quot;ThirdComplaintRemedy&quot; : &quot;Text&quot;,
+      &quot;realFormRequired&quot; : &quot;Text&quot;,
+      &quot;realFormMAXId&quot; : &quot;Text&quot;,
+      &quot;systemicIssue&quot; : &quot;Text&quot;,
+      &quot;systemicIssueCat&quot; : &quot;Text&quot;,
+      &quot;CACSubCat&quot; : &quot;Text&quot;,
+      &quot;ReviewOutcome&quot; : &quot;Text&quot;,
+      &quot;ComplaintRemedy2&quot; : &quot;Text&quot;,
+      &quot;ComplaintRemedy3&quot; : &quot;Text&quot;,
+      &quot;complaintRelatedHardship&quot; : &quot;Text&quot;,
+      &quot;systemicIssueReason&quot; : &quot;Text&quot;,
+      &quot;custWrittenResponse&quot; : &quot;Text&quot;,
+      &quot;CAC&quot; : &quot;Text&quot;,
+      &quot;ParentCaseId&quot; : &quot;Text&quot;,
+      &quot;PaymentAmountProvided1&quot; : &quot;Text&quot;,
+      &quot;PaymentAmountProvided2&quot; : &quot;Text&quot;,
+      &quot;PaymentAmountProvided3&quot; : &quot;Text&quot;,
+      &quot;detailsOfComplaint1&quot; : &quot;Text&quot;,
+      &quot;detailsOfComplaint2&quot; : &quot;Text&quot;,
+      &quot;detailsOfComplaint3&quot; : &quot;Text&quot;,
+      &quot;additionalissues&quot; : &quot;Text&quot;,
+      &quot;ComplaintSubRemedy1&quot; : &quot;Text&quot;,
+      &quot;ComplaintSubRemedy3&quot; : &quot;Text&quot;,
+      &quot;ComplaintOutcome&quot; : &quot;Text&quot;,
+      &quot;ComplaintEscalationReason&quot; : &quot;Text&quot;,
+      &quot;durationOfRemedy1&quot; : &quot;Text&quot;,
+      &quot;durationOfRemedy2&quot; : &quot;Text&quot;,
+      &quot;durationOfRemedy3&quot; : &quot;Text&quot;,
+      &quot;otherRemedy1&quot; : &quot;Text&quot;,
+      &quot;otherRemedy2&quot; : &quot;Text&quot;,
+      &quot;otherRemedy3&quot; : &quot;Text&quot;,
+      &quot;rewardPoints3&quot; : &quot;Text&quot;,
+      &quot;rewardPoints1&quot; : &quot;Text&quot;,
+      &quot;rewardPoints2&quot; : &quot;Text&quot;
+    },
+    &quot;ComplaintDetails&quot; : {
+      &quot;AccountPolicyNumber&quot; : &quot;Text&quot;,
+      &quot;Issue2Checkbox&quot; : &quot;Text&quot;,
+      &quot;IssueType2&quot; : &quot;Text&quot;,
+      &quot;SubsequentIssueType2&quot; : &quot;Text&quot;,
+      &quot;AccountPolicyNumber3&quot; : &quot;Text&quot;,
+      &quot;ProductService2Id&quot; : &quot;Text&quot;,
+      &quot;IssueType3&quot; : &quot;Text&quot;,
+      &quot;SubsequentIssueType3&quot; : &quot;Text&quot;,
+      &quot;ProductService3Id&quot; : &quot;Text&quot;,
+      &quot;AccountPolicyNumber2&quot; : &quot;Text&quot;,
+      &quot;Issue3Checkbox&quot; : &quot;Text&quot;,
+      &quot;thirdPartyStreet&quot; : &quot;Text&quot;,
+      &quot;ProductServiceId&quot; : &quot;Text&quot;,
+      &quot;CustomerDesiredOutcome&quot; : &quot;Text&quot;,
+      &quot;ChannelReceived&quot; : &quot;Text&quot;,
+      &quot;DescriptionOfIssue&quot; : &quot;Text&quot;,
+      &quot;Priority&quot; : &quot;Text&quot;,
+      &quot;IssueType&quot; : &quot;Text&quot;,
+      &quot;SubSequentIssueType&quot; : &quot;Text&quot;
+    },
+    &quot;CustomerDecision&quot; : &quot;Text&quot;,
+    &quot;expressCMOS&quot; : &quot;Text&quot;
   },
-  &quot;recordType&quot; : &quot;0125m0000004Jm7AAE&quot;
+  &quot;recordType&quot; : &quot;Text&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

@@ -5825,54 +5825,6 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>rewaesPoints3</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;autocomplete&quot; : null,
-  &quot;disOnTplt&quot; : false,
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Reward Points&quot;
-      } ]
-    }
-  },
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
-  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
-  &quot;pattern&quot; : &quot;[0-9]+&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Reward Points 3&quot;,
-  &quot;controlWidth&quot; : 5
-}</propertySetConfig>
-                <sequenceNumber>54.0</sequenceNumber>
-                <type>Text</type>
-            </childElements>
-            <childElements>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
                 <name>rewardPoints1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
@@ -5962,6 +5914,54 @@
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
                 <sequenceNumber>37.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
+            <childElements>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>rewardPoints3</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;autocomplete&quot; : null,
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;debounceValue&quot; : 0,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Reward Points&quot;
+      } ]
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
+  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
+  &quot;pattern&quot; : &quot;[0-9]+&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : true,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Reward Points 3&quot;,
+  &quot;controlWidth&quot; : 5
+}</propertySetConfig>
+                <sequenceNumber>54.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -6354,7 +6354,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -6415,31 +6415,6 @@
 }</propertySetConfig>
         <sequenceNumber>0.0</sequenceNumber>
         <type>Remote Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>SetErrors</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;elementErrorMap&quot; : {
-    &quot;IssueType&quot; : &quot;Please complete this field&quot;,
-    &quot;SubSequentIssueType&quot; : &quot;Please complete this field&quot;
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
-        <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
@@ -6669,5 +6644,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>c5f37c00-a718-0873-4045-db6dd1788d5f</webComponentKey>
+    <webComponentKey>42d204ee-7827-cb57-026f-fb8ecb086ad7</webComponentKey>
 </OmniScript>
