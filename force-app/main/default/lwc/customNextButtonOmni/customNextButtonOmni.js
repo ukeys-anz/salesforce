@@ -10,6 +10,7 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
         let reasonForVisits = this.omniJsonData.basenode;
         let actualTopics = this.omniJsonData.basenodeForReasonForCV;
         let products = this.omniJsonData.productbasenode;
+        let recordTypeName = this.omniJsonData.RecordTypeName;
         let boolShowError = false;
         let errorFromValidation = {};
         errorFromValidation.reasonforvisiterror = false;
@@ -22,7 +23,10 @@ export default class CustomNextButtonOmni extends OmniscriptBaseMixin(
         products = products.filter((item) => item.selected === true);
 
         //Here we add error to omniscript parent JSON if any of the three fields is having any error
-        if (reasonForVisits.length === 0 || reasonForVisits.length > 5) {
+        if (
+          (reasonForVisits.length === 0 || reasonForVisits.length > 5) &&
+          recordTypeName === "In Person"
+        ) {
           errorFromValidation.reasonforvisiterror = true;
           boolShowError = true;
         }

@@ -16,4 +16,21 @@ public with sharing class FetchRecordTypeName {
     );
     return JSON.serialize(rts);
   }
+
+  /**
+   * @description Retrieves the existing values present in the Interaction Record on Load
+   * @param recordId
+   * @return Returns a map of key and values of the interaction id and recordtype.
+   */
+  @AuraEnabled(cacheable=true)
+  public static String getRecordTypeDeveloperNameEdit(String recordId) {
+    Map<Id, Interaction> rts = new Map<Id, Interaction>(
+      [
+        SELECT Id, RecordType.DeveloperName
+        FROM Interaction
+        WHERE Id = :recordId
+      ]
+    );
+    return JSON.serialize(rts);
+  }
 }

@@ -38,6 +38,7 @@
     <permissionSets>Raise_Dispute</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Run_reports_and_dashboards</permissionSets>
+    <permissionSets>Salesforce_Internal_API</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_and_Edit_Tasks</permissionSets>
