@@ -259,7 +259,6 @@
         <inputFieldName>Case:ResolutionInformation:rewardPoints2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Remedy_Points_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -267,6 +266,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom2757</globalKey>
@@ -441,7 +441,6 @@
         <inputFieldName>Case:ResolutionInformation:otherRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Other_Remedy_Provided_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -449,6 +448,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom8196</globalKey>
@@ -665,7 +665,6 @@
         <inputFieldName>Case:ResolutionInformation:otherRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Other_Remedy_Provided__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -673,13 +672,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom4301</globalKey>
         <inputFieldName>Case:ResolutionInformation:durationOfRemedy2</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -687,6 +686,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom3754</globalKey>
@@ -707,7 +707,6 @@
         <inputFieldName>Case:ResolutionInformation:durationOfRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -715,6 +714,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom2918</globalKey>
@@ -847,7 +847,6 @@
         <inputFieldName>Case:ResolutionInformation:rewardPoints3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Remedy_Points_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -855,6 +854,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom6238</globalKey>
@@ -903,7 +903,6 @@
         <inputFieldName>Case:ResolutionInformation:rewardPoints1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Financial_Remedy_Points__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -911,6 +910,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom65</globalKey>
@@ -973,7 +973,6 @@
         <inputFieldName>Case:ResolutionInformation:durationOfRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -981,6 +980,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom3099</globalKey>
@@ -1085,7 +1085,6 @@
         <inputFieldName>Case:ResolutionInformation:otherRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRCreateCase</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Other_Remedy_Provided_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
@@ -1093,6 +1092,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom2445</globalKey>
