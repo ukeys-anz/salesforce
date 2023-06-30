@@ -3,9 +3,11 @@
  * @author Afreen
  * @since 11/2020
  * @description Responsible to trigger the Notification for banker.
+ * StdCyclomaticComplexity Suppressed : contains a method that uses structured if/else but complexity measure is more than limit.
  * @runTests IDRCaseNotificationManagerTest, CaseTriggerHandlerTest, IDREmailServiceTest
  *
  */
+@SuppressWarnings('PMD.StdCyclomaticComplexity')
 public with sharing class IDRCaseNotificationManager {
   /**
    * @description Assesses whether or not to generate a banker notification
@@ -124,11 +126,13 @@ public with sharing class IDRCaseNotificationManager {
   }
   /**
    * @description Builds Task A new email response has been received and when A Case has been re-assigned.
+   * StdCyclomaticComplexity Suppressed : This method uses structured if/else but complexity measure is more than limit.
    * @param fieldLabel Field label where the change has been detected
    * @param c case record where the  change has detected
    * @param parentCase parent case record which is attached to parentId of the above case
    * @return Task records associated with new email or new case assigned.
    */
+  @SuppressWarnings('PMD.StdCyclomaticComplexity')
   public static List<Task> createNotificationTask(
     String fieldLabel,
     Case c,
@@ -156,6 +160,12 @@ public with sharing class IDRCaseNotificationManager {
         c.CaseNumber +
         ' ' +
         customerName;
+    } else if (fieldLabel == 'Email has failed to upload') {
+      subjectStr =
+        'Email has failed to upload Case: ' +
+        c.CaseNumber +
+        ' ' +
+        customerName;
     } else if (fieldLabel != 'Parent Updated') {
       if (
         fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
@@ -173,7 +183,8 @@ public with sharing class IDRCaseNotificationManager {
       if (fieldLabel == 'Email Response Attached') {
         assiTaskRec.Description = 'Any attachments included with this email will be available to view in the \'Files\' tab in CMOS';
       }
-      if (fieldLabel == 'Email Attachment Failure') {
+      if (fieldLabel == 'Email Attachment Failure' ||
+          fieldLabel == 'Email has failed to upload') {
         assiTaskRec.OwnerId = c.OwnerId != null
           ? !(String.valueOf(c.OwnerId).startsWith('00G'))
               ? c.OwnerId

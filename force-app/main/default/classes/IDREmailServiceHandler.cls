@@ -73,13 +73,23 @@ public with sharing class IDREmailServiceHandler {
             )
           }
         );
-        assiTasks.addAll(
-          IDRCaseNotificationManager.createNotificationTask(
-            'Email Response Attached',
-            caseToUpd,
-            null
-          )
-        );
+        if (IDREmailServiceHelper.emailIngestionFailure) {
+          assiTasks.addAll(
+            IDRCaseNotificationManager.createNotificationTask(
+              'Email has failed to upload',
+              caseToUpd,
+              null
+            )
+          );
+        } else {
+          assiTasks.addAll(
+            IDRCaseNotificationManager.createNotificationTask(
+              'Email Response Attached',
+              caseToUpd,
+              null
+            )
+          );
+        }
       }
 
       //Create files from attachments

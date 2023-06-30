@@ -7,6 +7,7 @@
  */
 public with sharing class IDREmailServiceHelper {
   public static Boolean attachmentFailureDetected = false;
+  public static Boolean emailIngestionFailure = false;
   /**
    * @description Creates a new case
    * @param email Inbound email object
@@ -100,6 +101,10 @@ public with sharing class IDREmailServiceHelper {
       emailMessage.HtmlBody = email
         ?.htmlBody
         ?.replaceAll('<a.*<.{1}a>', 'REMOVED');
+      if (emailMessage.HtmlBody.length() > 32000) {
+        // New Complaint with a long email body. Just rely on the plain text email.
+        emailMessage.HtmlBody = '';
+      }
       emailMessage.TextBody = email?.plainTextBody;
       AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
         'EmailMessage',
@@ -117,6 +122,7 @@ public with sharing class IDREmailServiceHelper {
         insert emailMessage;
       }
     } catch (Exception err) {
+      emailIngestionFailure = true;
       Logger.error(
         'EmailServiceException: ' +
         'Error in creating email message from service class, which needs to be attached to existing case : CMOS-' +
