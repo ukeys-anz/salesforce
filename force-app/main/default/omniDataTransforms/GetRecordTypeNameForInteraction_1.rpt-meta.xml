@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>GetRecordTypeNameForInteraction</name>
     <active>true</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
     <errorIgnored>false</errorIgnored>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
+    <name>GetRecordTypeNameForInteraction</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <name>GetRecordTypeNameForInteraction</name>

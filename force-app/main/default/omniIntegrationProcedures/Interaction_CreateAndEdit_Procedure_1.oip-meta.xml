@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>CreateAndEditInteractionJunctionObject</name>
     <customJavaScript>{
     &quot;DataForInteractionAndJunction&quot;: {
         &quot;recordTypeId&quot;: &quot;&quot;,
@@ -73,6 +72,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
+    <name>CreateAndEditInteractionJunctionObject</name>
     <omniProcessElements>
         <name>CatchTheErrorInDR</name>
         <childElements>

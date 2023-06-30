@@ -168,3 +168,9 @@ force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml
 
 #CC-2512 - Queue needs to be manually deleted so don't attempt to deploy this destructive change.
 force-app/main/default/queues/EDR_Responsible_Lending.queue-meta.xml
+
+# (Release 5th July) - Ignore omnistudio files
+force-app/main/default/omniDataTransforms
+force-app/main/default/omniIntegrationProcedures
+force-app/main/default/omniScripts
+force-app/main/default/omniUiCard

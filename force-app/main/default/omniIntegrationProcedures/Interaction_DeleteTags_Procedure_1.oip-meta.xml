@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>InteractionDeleteTags</name>
     <customJavaScript>{
     &quot;interactid&quot;: &quot;0kzBo00000001CDIAY&quot;,
     &quot;tagsToBeDeleted&quot;: [
@@ -24,6 +23,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
+    <name>InteractionDeleteTags</name>
     <omniProcessElements>
         <name>ConditionalBlock1</name>
         <childElements>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>SeparateTagsBasedOnSelected</name>
     <customJavaScript>{
     &quot;JunctionData&quot;: [
         {
@@ -50,6 +49,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
+    <name>SeparateTagsBasedOnSelected</name>
     <omniProcessElements>
         <name>FilterSelectedReasonForVisit</name>
         <isActive>true</isActive>

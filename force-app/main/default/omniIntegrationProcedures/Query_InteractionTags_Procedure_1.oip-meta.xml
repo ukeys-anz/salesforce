@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>QueryTagsAndConvertToMap</name>
     <customJavaScript>{
     &quot;subtype&quot;: &quot;Store&quot;,
     &quot;type&quot;: [
@@ -23,6 +22,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
+    <name>QueryTagsAndConvertToMap</name>
     <omniProcessElements>
         <name>DataRaptorTransformAction4</name>
         <isActive>true</isActive>

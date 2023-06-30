@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>createjsonnode</name>
     <customJavaScript>{
     &quot;basenode&quot;: [
         {
@@ -156,6 +155,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
+    <name>createjsonnode</name>
     <omniProcessElements>
         <name>AddProduct</name>
         <childElements>
