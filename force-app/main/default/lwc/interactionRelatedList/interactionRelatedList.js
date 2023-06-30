@@ -118,19 +118,32 @@ export default class InteractionRelatedList extends NavigationMixin(
       let fieldName = result.fieldName;
       let selectRecordType = result.recordTypeInfo;
       let valueSet = {};
+      let stateValue = null;
+
       valueSet[fieldName] = this.recordId;
       const defaultValues = encodeDefaultFieldValues(valueSet);
+
+      if (selectRecordType) {
+        stateValue = {
+          defaultFieldValues: defaultValues,
+          nooverride: "1",
+          recordTypeId: selectRecordType
+        };
+      } else {
+        stateValue = {
+          defaultFieldValues: defaultValues,
+          nooverride: "1",
+          useRecordTypeCheck: "1"
+        };
+      }
+
       this[NavigationMixin.Navigate]({
         type: "standard__objectPage",
         attributes: {
           objectApiName: "Interaction",
           actionName: "new"
         },
-        state: {
-          defaultFieldValues: defaultValues,
-          nooverride: "1",
-          recordTypeId: selectRecordType
-        }
+        state: stateValue
       });
     });
   }

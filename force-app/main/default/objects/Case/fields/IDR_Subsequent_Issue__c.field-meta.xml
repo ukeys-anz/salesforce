@@ -567,6 +567,10 @@
             <valueName>Request won&apos;t be actioned</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>9</controllingFieldValue>
+            <valueName>Stores are cashless</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>13</controllingFieldValue>
             <valueName>2</valueName>
         </valueSettings>

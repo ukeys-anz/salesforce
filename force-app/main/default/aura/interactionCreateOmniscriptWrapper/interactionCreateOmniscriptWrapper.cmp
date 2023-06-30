@@ -1,0 +1,33 @@
+<aura:component
+  implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride,lightning:hasPageReference"
+  access="global"
+  controller="FetchRecordTypeName"
+>
+  <lightning:navigation aura:id="navService" />
+  <aura:attribute name="pageReference" type="Object" />
+  <aura:attribute name="recordTypeIdFromParam" type="String"></aura:attribute>
+  <aura:attribute name="boolIsStore" type="Boolean"></aura:attribute>
+  <aura:attribute name="acccountPrefill" type="String"></aura:attribute>
+  <aura:attribute name="spinner" type="boolean" default="TRUE" />
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
+
+  <!--loading spinner start-->
+  <aura:if isTrue="{!v.spinner}">
+    <div aura:id="spinnerId" class="slds-spinner_container">
+      <div
+        class="slds-spinner--brand slds-spinner slds-spinner--large slds-is-relative"
+        role="alert"
+      >
+        <span class="slds-assistive-text">Loading...</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+      </div>
+    </div>
+  </aura:if>
+  <aura:if isTrue="{!v.boolIsStore}">
+    <c:interactionCreateAndEditFlowEnglish
+      prefill="{!v.acccountPrefill}"
+      layout="lightning"
+    ></c:interactionCreateAndEditFlowEnglish>
+  </aura:if>
+</aura:component>

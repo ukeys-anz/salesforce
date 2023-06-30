@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Place__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Store locations</description>
+    <externalId>false</externalId>
+    <label>Place</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>InteractionType</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Potts Point</fullName>
+                <default>false</default>
+                <label>Potts Point</label>
+            </value>
+            <value>
+                <fullName>Richmond</fullName>
+                <default>false</default>
+                <label>Richmond</label>
+            </value>
+            <value>
+                <fullName>ACT</fullName>
+                <default>false</default>
+                <label>ACT</label>
+            </value>
+            <value>
+                <fullName>NSW</fullName>
+                <default>false</default>
+                <label>NSW</label>
+            </value>
+            <value>
+                <fullName>NT</fullName>
+                <default>false</default>
+                <label>NT</label>
+            </value>
+            <value>
+                <fullName>QLD</fullName>
+                <default>false</default>
+                <label>QLD</label>
+            </value>
+            <value>
+                <fullName>SA</fullName>
+                <default>false</default>
+                <label>SA</label>
+            </value>
+            <value>
+                <fullName>TAS</fullName>
+                <default>false</default>
+                <label>TAS</label>
+            </value>
+            <value>
+                <fullName>VIC</fullName>
+                <default>false</default>
+                <label>VIC</label>
+            </value>
+            <value>
+                <fullName>WA</fullName>
+                <default>false</default>
+                <label>WA</label>
+            </value>
+            <value>
+                <fullName>Branch</fullName>
+                <default>false</default>
+                <label>Branch</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Potts Point</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Richmond</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>ACT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>NSW</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>NT</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>QLD</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>SA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>TAS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>VIC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pop up</controllingFieldValue>
+            <valueName>WA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Branch</controllingFieldValue>
+            <valueName>Branch</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

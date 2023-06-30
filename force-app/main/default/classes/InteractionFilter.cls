@@ -119,6 +119,24 @@ public with sharing class InteractionFilter {
   }
 
   /**
+   * @description Returns the list of Store interactions
+   * @param interactions List<Interaction> list of new interaction records.
+   * @return List<Interaction> list of Store interactions.
+   */
+  public static List<Interaction> getStoreInteractions(
+    List<Interaction> interactions
+  ) {
+    Id storeRTID = GetHelpConstants.INTERACTION_STORE_RT_ID;
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Interaction interact : interactions) {
+      if (interact.RecordTypeId == storeRTID) {
+        interactionList.add(interact);
+      }
+    }
+    return interactionList;
+  }
+
+  /**
    * @description Returns the list of general interactions
    * @param interactions List<Interaction> list of new interaction records.
    * @return List<Interaction> list of general interactions.

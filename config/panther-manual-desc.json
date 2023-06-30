@@ -191,6 +191,8 @@
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
+    "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
+    "Interaction_Context_Tag__c": "Junction Object between Interaction and Interaction Tag",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -568,6 +570,7 @@
         "Fraud_ID_Not_Picture__c",
         "Fraud_ID_True_Document__c",
         "Fraud_Loss_Reason_Code__c",
+        "Fraud_MiddleNameCheck__c",
         "Fraud_Middle_Name__c",
         "Fraud_Middle_Initial__c",
         "Fraud_PIN_Status__c",
@@ -1027,31 +1030,37 @@
         "DateOfBirthOCRServer__c",
         "DateOfBirthOCRClient__c"
       ],
-      "IA-2415992": [
-        "LicenceNumber__c",
-        "LicenceNumberOCRServer__c",
-        "LicenceNumberOCRClient__c",
-        "LicenceCardNumber__c",
-        "LicenceCardNumberOCRServer__c",
-        "LicenceCardNumberOCRClient__c",
-        "PassportNumber__c",
-        "PassportNumberOCRServer__c",
-        "PassportNumberOCRClient__c"
-      ],
       "IA-2530753": [
-        "Id",
         "CreatedById",
         "CreatedDate",
+        "Id",
+        "DateOfBirthOCRMatch__c",
+        "FirstNameOCRMatch__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Name",
+        "LastNameOCRMatch__c",
+        "LicenceCardNumber__c",
+        "LicenceCardNumberOCRClient__c",
         "LicenceCardNumberOCRClientTransform__c",
+        "LicenceCardNumberOCRMatch__c",
+        "LicenceCardNumberOCRServer__c",
         "LicenceCardNumberOCRServerTransform__c",
         "LicenceCardNumberTransform__c",
+        "LicenceNumber__c",
+        "LicenceNumberOCRClient__c",
         "LicenceNumberOCRClientTransform__c",
+        "LicenceNumberOCRMatch__c",
+        "LicenceNumberOCRServer__c",
         "LicenceNumberOCRServerTransform__c",
         "LicenceNumberTransform__c",
+        "MiddleNamesInitialsOCRMatch__c",
+        "MiddleNamesOCRMatch__c",
+        "Name",
+        "PassportNumber__c",
+        "PassportNumberOCRClient__c",
         "PassportNumberOCRClientTransform__c",
+        "PassportNumberOCRMatch__c",
+        "PassportNumberOCRServer__c",
         "PassportNumberOCRServerTransform__c",
         "PassportNumberTransform__c"
       ]
@@ -1506,7 +1515,23 @@
         "Resolution__c",
         "StartTime",
         "Status__c",
-        "Twilio_ID__c"
+        "Twilio_ID__c",
+        "Assisted__c",
+        "Self_Service__c",
+        "Place__c"
+      ],
+      "IA-2468715": ["Loan_Application__c"]
+    },
+    "Interaction_Tag__c": {
+      "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"]
+    },
+    "Interaction_Context_Tag__c": {
+      "IA-2415840": [
+        "Name",
+        "Interaction__c",
+        "Interaction_Tag__c",
+        "Type__c",
+        "Tag_Name__c"
       ]
     },
     "InteractionSummary": {

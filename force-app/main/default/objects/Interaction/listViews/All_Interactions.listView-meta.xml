@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_Interactions</fullName>
+    <booleanFilter>1 OR 2</booleanFilter>
     <columns>Interaction_Number_Link__c</columns>
     <columns>Account</columns>
     <columns>Lead__c</columns>
@@ -10,11 +11,16 @@
     <columns>Resolution__c</columns>
     <columns>Attendees__c</columns>
     <columns>ANZ_Number__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>RecordType</field>
         <operation>equals</operation>
         <value>Interaction.General</value>
     </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>Interaction.Store</value>
+    </filters>
+    <filterScope>Everything</filterScope>
     <label>All Interactions</label>
 </ListView>

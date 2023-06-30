@@ -39,33 +39,8 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
       populatePicklist(input, outMap, options, 'Priority');
     } else if (methodName.equals('populateOriginPicklist')) {
       populatePicklist(input, outMap, options, 'Origin');
-    } else if (methodName.equals('getCountryPicklist')) {
-      populatePicklist(input, outMap, options, 'IDR_NC_Country__c');
-    } else if (methodName.equals('getDependentValues')) {
-      getDependentValues(input, outMap, options);
     }
     return true;
-  }
-
-  /**
-   * @description method to fetch dependent picklist values
-   * @param input map containg fieldname
-   * @param output output map
-   * @param options
-   */
-  public void getDependentValues(
-    Map<String, Object> input,
-    Map<String, Object> output,
-    Map<String, Object> options
-  ) {
-    String controllingField = (String) input.get('fieldName');
-    String dependentField = (String) input.get('dependField');
-    Map<String, List<Map<String, String>>> depends = dependentPicklist(
-      'Case',
-      controllingField,
-      dependentField
-    );
-    output.put('options', depends.get((String) input.get('fieldValue')));
   }
 
   /**
@@ -93,9 +68,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
     for (Schema.PicklistEntry currControllingValue : controllingValues) {
       if (
         (controllingField == 'Type' &&
-        IDRConstants.IDR_TYPE_VALUES.contains(
-          currControllingValue.getValue()
-        )) ||
+        currControllingValue.getValue().isNumeric()) ||
         (controllingField == 'Priority' &&
         IDRConstants.IDR_PRIORITY_VALUES.contains(
           currControllingValue.getValue()
@@ -103,8 +76,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
         (controllingField == 'Origin' &&
         IDRConstants.IDR_ORIGIN_VALUES.contains(
           currControllingValue.getValue()
-        )) ||
-        controllingField == 'IDR_NC_Country__c'
+        ))
       ) {
         controllingInfo.add(
           new Map<String, String>{
@@ -131,24 +103,6 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
     String objectName = 'Case';
     String controllingField = 'Type';
     String dependentField = 'IDR_Subsequent_Issue__c';
-    outMap.put(
-      'dependency',
-      dependentPicklist(objectName, controllingField, dependentField)
-    );
-  }
-
-  /**
-   * @description method to access Issue type picklist values
-   * @param objectName
-   * @param controllingField
-   * @param dependentField
-   * @return map of dependent picklist
-   */
-  public Map<String, List<Map<String, String>>> dependentPicklist(
-    String objectName,
-    String controllingField,
-    String dependentField
-  ) {
     Map<String, List<Map<String, String>>> controllingInfo = new Map<String, List<Map<String, String>>>();
     Schema.SObjectType objType = Schema.getGlobalDescribe().get(objectName);
     Schema.DescribeSObjectResult describeResult = objType.getDescribe();
@@ -224,7 +178,7 @@ global with sharing class IDR_FetchPicklistValues implements Callable {
         baseCount = baseCount + 4;
       }
     }
-    return controllingInfo;
+    outMap.put('dependency', +controllingInfo);
   }
 
   /**

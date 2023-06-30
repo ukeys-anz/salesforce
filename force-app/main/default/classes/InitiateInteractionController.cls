@@ -152,7 +152,7 @@ public with sharing class InitiateInteractionController {
   }
 
   /**
-   * @description Fetches customer details
+   * @description Fetches customer details if current user has proper access
    * @param accountId the id of the customers account
    * @param methodName the name of the method calling this
    * @return `Account` Returns the customer
