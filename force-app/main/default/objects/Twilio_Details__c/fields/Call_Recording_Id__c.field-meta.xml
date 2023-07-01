@@ -3,7 +3,7 @@
     <fullName>Call_Recording_Id__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity - Trusted</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Twilio</complianceGroup>
     <description>Used to store the unique call recording ID of the call</description>
     <externalId>true</externalId>
     <label>Call Recording Id</label>
