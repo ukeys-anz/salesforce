@@ -47,6 +47,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy1 &quot;16&quot; == var:Case:ComplaintSubRemedy1 &quot;20&quot; == || var:Case:ComplaintSubRemedy1 &quot;Repayment/\/\/arrangement&quot; == || var:Case:durationOfRemedy1 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy1==&quot;16&quot;||Case:ComplaintSubRemedy1==&quot;20&quot;||Case:ComplaintSubRemedy1==&quot;Repayment arrangement&quot;,%Case:durationOfRemedy1%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:durationOfRemedy1</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom9168</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom7384</globalKey>
         <inputFieldName>Case:otherRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -131,6 +148,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy3 &quot;99&quot; == var:Case:otherRemedy3 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy3==&quot;99&quot;,%Case:otherRemedy3%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:otherRemedy3</formulaResultPath>
+        <formulaSequence>7.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom6814</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom2559</globalKey>
         <inputFieldName>Case:rewardPoints3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -145,6 +179,40 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isSystemicIssue &quot;Yes&quot; == var:Case:WhichAdditionalIssuesaereSystemic &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:isSystemicIssue==&quot;Yes&quot;,%Case:WhichAdditionalIssuesaereSystemic%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:WhichAdditionalIssuesaereSystemic</formulaResultPath>
+        <formulaSequence>13.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom5608</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy1 &quot;99&quot; == var:Case:otherRemedy1 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy1==&quot;99&quot;,%Case:otherRemedy1%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:otherRemedy1</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom5875</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3966</globalKey>
         <inputFieldName>Case:PossibleSystemicIssueCategory</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -153,6 +221,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Systemic_Issue_Category__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isSystemicIssue &quot;Yes&quot; == var:Case:PossibleSystemicIssueCategory &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:isSystemicIssue==&quot;Yes&quot;,%Case:PossibleSystemicIssueCategory%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:PossibleSystemicIssueCategory</formulaResultPath>
+        <formulaSequence>12.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom3101</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -201,6 +286,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy3 &quot;Reward/\/\/points&quot; == var:Case:rewardPoints3 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy3==&quot;Reward points&quot;,%Case:rewardPoints3%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:rewardPoints3</formulaResultPath>
+        <formulaSequence>10.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom9882</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3360</globalKey>
         <inputFieldName>Case:ComplaintRemedy1</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -243,6 +345,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:realFormRequired &quot;Yes&quot; == var:Case:REALFormMAXID &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:realFormRequired==&quot;Yes&quot;,%Case:REALFormMAXID%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:REALFormMAXID</formulaResultPath>
+        <formulaSequence>11.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom6281</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom8674</globalKey>
         <inputFieldName>Case:durationOfRemedy3</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -251,6 +370,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Duration_of_Remedy_3__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;99&quot; == var:Case:otherRemedy2 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy2==&quot;99&quot;,%Case:otherRemedy2%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:otherRemedy2</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom2601</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -279,6 +415,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Account_Card_Policy_Number_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy3 &quot;16&quot; == var:Case:ComplaintSubRemedy3 &quot;20&quot; == || var:Case:ComplaintSubRemedy3 &quot;Repayment/\/\/arrangement&quot; == || var:Case:durationOfRemedy3 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy3==&quot;16&quot;||Case:ComplaintSubRemedy3==&quot;20&quot;||Case:ComplaintSubRemedy3==&quot;Repayment arrangement&quot;,%Case:durationOfRemedy3%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:durationOfRemedy3</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom3440</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -335,6 +488,23 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Product_2__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;Reward/\/\/points&quot; == var:Case:rewardPoints2 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy2==&quot;Reward points&quot;,%Case:rewardPoints2%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:rewardPoints2</formulaResultPath>
+        <formulaSequence>9.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom1948</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -650,6 +820,23 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy1 &quot;Reward/\/\/points&quot; == var:Case:rewardPoints1 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy1==&quot;Reward points&quot;,%Case:rewardPoints1%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:rewardPoints1</formulaResultPath>
+        <formulaSequence>8.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom6749</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>DRCaseCloseCustom3227</globalKey>
         <inputFieldName>Case:avoidableEscalationReason</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -658,6 +845,40 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IDR_Avoidable_Escalation_Reason__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:ComplaintSubRemedy2 &quot;16&quot; == var:Case:ComplaintSubRemedy2 &quot;20&quot; == || var:Case:ComplaintSubRemedy2 &quot;Repayment/\/\/arrangement&quot; == || var:Case:durationOfRemedy2 &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:ComplaintSubRemedy2==&quot;16&quot;||Case:ComplaintSubRemedy2==&quot;20&quot;||Case:ComplaintSubRemedy2==&quot;Repayment arrangement&quot;,%Case:durationOfRemedy2%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:durationOfRemedy2</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom91</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:Case:isSystemicIssue &quot;Yes&quot; == var:Case:WhyIsThisPossibleSystemicIssue &quot;&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:isSystemicIssue==&quot;Yes&quot;,%Case:WhyIsThisPossibleSystemicIssue%,&quot;&quot;)</formulaExpression>
+        <formulaResultPath>Case:WhyIsThisPossibleSystemicIssue</formulaResultPath>
+        <formulaSequence>14.0</formulaSequence>
+        <globalKey>DRCaseCloseCustom299</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRCaseClose</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
