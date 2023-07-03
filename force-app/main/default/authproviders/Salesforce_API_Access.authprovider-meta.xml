@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
-    <authorizeUrl>https://test.salesforce.com/services/oauth2/authorize</authorizeUrl>
     <consumerKey>Consumer_Key</consumerKey>
-    <consumerSecret>Consumer_Secret</consumerSecret>
+    <consumerSecret>Placeholder_Value</consumerSecret>
     <friendlyName>Salesforce API Access</friendlyName>
     <includeOrgIdInIdentifier>true</includeOrgIdInIdentifier>
     <providerType>Salesforce</providerType>
     <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
     <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
     <sendSecretInApis>true</sendSecretInApis>
-    <tokenUrl>https://test.salesforce.com/services/oauth2/token</tokenUrl>
 </AuthProvider>
