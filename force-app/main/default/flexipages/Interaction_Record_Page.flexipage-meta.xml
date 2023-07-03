@@ -11,10 +11,16 @@
                             <value>Interaction.Create_Case_New</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Edit</value>
+                            <value>Interaction.Edit</value>
                         </valueListItems>
                         <valueListItems>
                             <value>ChangeOwnerOne</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Interaction.Update_Customer</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>FeedItem.TextPost</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -48,8 +54,12 @@
         <name>Facet-a6a8b7b6-013e-47e4-99a4-c0a0d060f00d</name>
         <itemInstances>
             <componentInstance>
-                <componentName>force:detailPanel</componentName>
-                <identifier>force_detailPanel</identifier>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>CallInteractionFlexCard</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -90,11 +100,15 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>lookupFieldName</name>
-                    <value>Id</value>
+                    <value>Interaction.TwilioDetailsID__c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>titleFieldName</name>
+                    <value>Twilio Details</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>updateQuickActionName</name>
-                    <value>Interaction.Twilio</value>
+                    <value>Twilio_Details__c.Twilio_Action</value>
                 </componentInstanceProperties>
                 <componentName>console:relatedRecord</componentName>
                 <identifier>console_relatedRecord</identifier>

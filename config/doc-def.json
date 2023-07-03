@@ -55,6 +55,7 @@
     "Reported_Bug__c",
     "SkyhighNetworks__SHNEvent__c",
     "Task",
+    "Twilio_Details__c",
     "Traced_Application_Log__b",
     "trailheadapp__Badge__c",
     "trailheadapp__Debug_Log__c",
@@ -139,7 +140,6 @@
         "API_Only",
         "Customer_Onboarding_Integration",
         "Case_Read_Write_Customer_Onboarding_Integration",
-        "Case_Read_Write_KYC_QA",
         "Disable_MFA"
       ],
       "type": "system"
@@ -310,7 +310,8 @@
         "Moderate_Chatter",
         "Read_Write_Customer_Details",
         "CCRM_Marketing_Integration_User",
-        "Disable_MFA"
+        "Disable_MFA",
+        "OCV_Flags_Read_Write"
       ],
       "type": "system"
     },
