@@ -38,6 +38,7 @@ SingleSignOn.settings
 #auth provider to make the build pass and we do the manual deployment later
 force-app/main/default/authproviders/Azure_AD_Custom_OIDC.authprovider-meta.xml
 force-app/main/default/authproviders/ANZ_Single_Sign_On.authprovider-meta.xml
+force-app/main/default/authproviders/Salesforce_API_Access.authprovider-meta.xml
 
 # Ignoring PSL that does not exist in scratch org (not yet supported in scratch definition)
 force-app/main/default/permissionsets/myTrailhead_PSL.permissionset-meta.xml
@@ -174,3 +175,6 @@ force-app/main/default/omniDataTransforms
 force-app/main/default/omniIntegrationProcedures
 force-app/main/default/omniScripts
 force-app/main/default/omniUiCard
+
+#named credential to make the build pass and we do the manual deployment later
+force-app/main/default/namedCredentials/Salesforce_Internal_API.namedCredential-meta.xml
