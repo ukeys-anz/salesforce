@@ -44,10 +44,13 @@ export default class CobTinView extends LightningElement {
         TaxIdentificationNumber__c: this.taxResidencyRecord.fields
           .TaxIdentificationNumber__c.value
       };
-      let detokenizedTin = await detokenizeTaxResidencyData({
-        cobTaxResidency: cobTaxResidency
-      });
 
+      let detokenizedTin =
+        cobTaxResidency.TaxIdentificationNumber__c !== null
+          ? await detokenizeTaxResidencyData({
+              cobTaxResidency: cobTaxResidency
+            })
+          : "";
       this.taxResidencyRecord.TaxIdentificationNumber__c = detokenizedTin;
       this.error = undefined;
     } catch (error) {

@@ -16,9 +16,8 @@ ISPICKVAL (Fraud_Security_Features__c , &quot;Yes&quot;),
 ISPICKVAL (Fraud_ID_Legible__c , &quot;Yes&quot;),
 ISPICKVAL (Fraud_Customer_Details__c , &quot;Yes&quot;),
 ISPICKVAL (Fraud_Selfie_Comparison_Match__c , &quot;Yes&quot;),
-ISPICKVAL (Fraud_Middle_Initial__c , &quot;Yes&quot;),
+ISPICKVAL (Fraud_MiddleNameCheck__c , &quot;Yes&quot;),
 ISPICKVAL (Fraud_PO_Box__c , &quot;Yes&quot;),
-ISPICKVAL (Fraud_Middle_Name__c , &quot;Yes&quot;),
 ISPICKVAL (Fraud_Address_Valid__c , &quot;Yes&quot;))</errorConditionFormula>
     <errorMessage>You have selected that an error has been rectified in the individual&apos;s KYC or that the customer has failed to respond with documents but have not selected what metric has recorded an error. Please check all fields prior to case closure.</errorMessage>
 </ValidationRule>

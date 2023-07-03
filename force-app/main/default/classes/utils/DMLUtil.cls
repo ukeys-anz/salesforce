@@ -1,5 +1,6 @@
 /**
  * @description       : Util class for DML operations
+ * inherited sharing: to declaring a class to enforce the sharing rules of the class that calls it
  * @author            : Prakash B
  * @group             : Util
  * @last modified on  : 19-04-2023

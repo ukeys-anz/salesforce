@@ -219,6 +219,10 @@
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
     <loginIpRanges>
         <description>Splunk Prod</description>
         <endAddress>203.110.235.255</endAddress>

@@ -32,6 +32,8 @@
     "FinServ__FinancialAccountRole__c",
     "Identifier__c",
     "Interaction",
+    "Interaction_Tag__c",
+    "Interaction_Context_Tag__c",
     "InteractionSummary",
     "Industry__c",
     "Knowledge__kav",
@@ -137,6 +139,7 @@
         "API_Only",
         "Customer_Onboarding_Integration",
         "Case_Read_Write_Customer_Onboarding_Integration",
+        "Case_Read_Write_KYC_QA",
         "Disable_MFA"
       ],
       "type": "system"
