@@ -1725,6 +1725,9 @@
         <recordType>Interaction.Store</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Twilio_Details__c-Twilio Detail Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Opportunity-Commercial Opportunity Layout</layout>
         <recordType>Opportunity.Commercial_Opportunity</recordType>
     </layoutAssignments>

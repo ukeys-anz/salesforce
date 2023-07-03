@@ -2735,6 +2735,9 @@
         <recordType>Interaction.Store</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Twilio_Details__c-Twilio Detail Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
