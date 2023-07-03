@@ -4817,10 +4817,6 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Stores are cashless</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Systemic_Issue_Category__c</picklist>
