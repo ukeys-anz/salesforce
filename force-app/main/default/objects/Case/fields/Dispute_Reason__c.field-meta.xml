@@ -168,14 +168,24 @@
                 <label>Incorrect Biller Code</label>
             </value>
             <value>
-                <fullName>Incorrect Customer Reference Number</fullName>
+                <fullName>Unintended Payment</fullName>
                 <default>false</default>
-                <label>Incorrect Customer Reference Number</label>
+                <label>Unintended Payment</label>
             </value>
             <value>
                 <fullName>Payment not received by biller</fullName>
                 <default>false</default>
                 <label>Payment not received by biller</label>
+            </value>
+            <value>
+                <fullName>Cash Deposit Error</fullName>
+                <default>false</default>
+                <label>Cash Deposit Error</label>
+            </value>
+            <value>
+                <fullName>Cheque Deposit Error</fullName>
+                <default>false</default>
+                <label>Cheque Deposit Error</label>
             </value>
         </valueSetDefinition>
     </valueSet>
