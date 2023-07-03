@@ -32,6 +32,7 @@ public with sharing class CCRMConstants {
   public static final String IS_BUSINESS = 'isBusiness';
   public static final String IS_INDIVIDUAL = 'isIndividual';
   public static final String IS_INVALID = 'isInvalid';
+  public static final string INVALID_OCV_ROLE_ERROR_MESSAGE = 'OCV Role Id is not found in the Reciprocal Role table';
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
     'Business_Account'
   };
@@ -76,10 +77,25 @@ public with sharing class CCRMConstants {
     .get('IndustriesBusiness')
     .getRecordTypeId();
 
-  //Account Record Type IDs for prospect (to be extended later)
-  public static final Set<Id> PROSPECT_ACCOUNT_RECORDTYPES = new Set<Id>{
-    CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
-  };
+  //Contact - Hidden Record Type Id
+  public static final Id CONTACT_HIDDEN_RT_ID = Schema.SObjectType.Contact.getRecordTypeInfosByDeveloperName()
+    .get('Hidden')
+    .getRecordTypeId();
+
+  //FinServ__ReciprocalRole__c Contact Role Record Type Id
+  public static final Id RECIPROCAL_CONTACT_ROLE_RT_ID = Schema.SObjectType.FinServ__ReciprocalRole__c.getRecordTypeInfosByDeveloperName()
+    .get('ContactRole')
+    .getRecordTypeId();
+
+  //Financial Account Role - System Role Record Type Id
+  public static final Id FAR_SYSTEM_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
+    .get('System_Role')
+    .getRecordTypeId();
+
+  //Financial Account Role - Contact Role Record Type Id
+  public static final Id FAR_CONTACT_RT_ID = Schema.SObjectType.FinServ__FinancialAccountRole__c.getRecordTypeInfosByDeveloperName()
+    .get('ContactRole')
+    .getRecordTypeId();
 
   /**
    * To be used for apex validations that are meant to replace Custom Validation rules

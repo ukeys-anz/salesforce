@@ -8,7 +8,7 @@ private class LeadTriggerHandlerTest {
   @testSetup
   static void setup() {
     User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
-    User ccrmIntegrationUser = CCRMTestDataFactory.createCCRMIntegrationUser();
+    CCRMTestDataFactory.createCCRMIntegrationUser();
     //CREATE Test Lead Records
     System.runAs(ccrmUser) {
       CCRMTestDataFactory.createLeadRecords(
@@ -136,7 +136,7 @@ private class LeadTriggerHandlerTest {
     //WHEN it is inserted
     Database.DMLOptions dml = new Database.DMLOptions();
     dml.DuplicateRuleHeader.AllowSave = true;
-    Database.SaveResult sr = Database.insert(leadRecord, dml);
+    Database.insert(leadRecord, dml);
     Test.stopTest();
     //THEN the field values will be copied from previous lead to new lead
     List<Lead> records = [
@@ -145,9 +145,21 @@ private class LeadTriggerHandlerTest {
       WHERE Previous_Lead__c = :leads[0].Id
     ];
     if (records.size() > 0) {
-      system.assertEquals(leads[0].LastName, records[0].LastName);
-      system.assertEquals(leads[0].Description, records[0].Description);
-      system.assertEquals(leads[0].Business_Id__c, records[0].Business_Id__c);
+      system.assertEquals(
+        leads[0].LastName,
+        records[0].LastName,
+        'Last Name does not match'
+      );
+      system.assertEquals(
+        leads[0].Description,
+        records[0].Description,
+        'Description does not match'
+      );
+      system.assertEquals(
+        leads[0].Business_Id__c,
+        records[0].Business_Id__c,
+        'BusinessId does not match'
+      );
     }
   }
 
