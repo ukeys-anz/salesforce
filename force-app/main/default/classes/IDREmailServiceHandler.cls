@@ -73,20 +73,42 @@ public with sharing class IDREmailServiceHandler {
             )
           }
         );
+        if (IDREmailServiceHelper.emailIngestionFailure) {
+          assiTasks.addAll(
+            IDRCaseNotificationManager.createNotificationTask(
+              'Email has failed to upload',
+              caseToUpd,
+              null
+            )
+          );
+        } else {
+          assiTasks.addAll(
+            IDRCaseNotificationManager.createNotificationTask(
+              'Email Response Attached',
+              caseToUpd,
+              null
+            )
+          );
+        }
+      }
+
+      //Create files from attachments
+      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id, caseNo);
+
+      if (IDREmailServiceHelper.attachmentFailureDetected) {
         assiTasks.addAll(
           IDRCaseNotificationManager.createNotificationTask(
-            'Email Response Attached',
+            'Email Attachment Failure',
             caseToUpd,
             null
           )
         );
       }
+
       if (!assiTasks.isEmpty()) {
         //insert Assignment Tasks on New Email received or Complaint assignment
         IDRTaskActions.insertAssignmentTask(assiTasks);
       }
-      //Create files from attachments
-      IDREmailServiceHelper.createAttachmentFiles(email, caseToUpd.Id, caseNo);
 
       return false;
     } else {
@@ -107,6 +129,7 @@ public with sharing class IDREmailServiceHandler {
     String fromEmail,
     String caseOrigin
   ) {
+    Task[] assiTasks = new List<Task>();
     //Create new case
     Case newCase = IDREmailServiceHelper.createNewCase(
       email,
@@ -117,6 +140,20 @@ public with sharing class IDREmailServiceHandler {
     if (newCase.Id != null) {
       IDREmailServiceHelper.createEmailMessage(email, newCase.Id, 'New');
       IDREmailServiceHelper.createAttachmentFiles(email, newCase.Id, 'New');
+      if (IDREmailServiceHelper.attachmentFailureDetected) {
+        assiTasks.addAll(
+          IDRCaseNotificationManager.createNotificationTask(
+            'Email Attachment Failure',
+            newCase,
+            null
+          )
+        );
+      }
+
+      if (!assiTasks.isEmpty()) {
+        //insert Assignment Tasks on New Email received or Complaint assignment
+        IDRTaskActions.insertAssignmentTask(assiTasks);
+      }
       IDREmailServiceHelper.updateCaseWithQueue(
         newCase,
         'Queue',

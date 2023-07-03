@@ -8653,6 +8653,9 @@
         <layout>COBTaxResidency__c-COB Tax Residency Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>CollaborationGroup-All Active CMOS Group Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>ContentVersion-Content Version</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -9912,6 +9915,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>CollaborationGroup.CMOS</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
