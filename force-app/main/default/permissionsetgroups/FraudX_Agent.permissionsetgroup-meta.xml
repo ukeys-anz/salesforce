@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Permission Set Group consolidating all Permissions related to FraudX Agent functions.</description>
+    <description>Permission Set Group consolidating all Permissions related to FraudX Agent
+        functions.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>FraudX Agent</label>
     <permissionSets>Account_Closure_LWC</permissionSets>
@@ -49,6 +50,7 @@
     <permissionSets>Run_reports_and_dashboards</permissionSets>
     <permissionSets>Salesforce_Internal_API</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
+    <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>

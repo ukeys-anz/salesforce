@@ -221,6 +221,7 @@
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
     "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
     "Task": "A task to remind a user to follow up on something",
+    "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
     "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
@@ -570,7 +571,6 @@
         "Fraud_ID_Not_Picture__c",
         "Fraud_ID_True_Document__c",
         "Fraud_Loss_Reason_Code__c",
-        "Fraud_MiddleNameCheck__c",
         "Fraud_Middle_Name__c",
         "Fraud_Middle_Initial__c",
         "Fraud_PIN_Status__c",
@@ -1030,37 +1030,31 @@
         "DateOfBirthOCRServer__c",
         "DateOfBirthOCRClient__c"
       ],
+      "IA-2415992": [
+        "LicenceNumber__c",
+        "LicenceNumberOCRServer__c",
+        "LicenceNumberOCRClient__c",
+        "LicenceCardNumber__c",
+        "LicenceCardNumberOCRServer__c",
+        "LicenceCardNumberOCRClient__c",
+        "PassportNumber__c",
+        "PassportNumberOCRServer__c",
+        "PassportNumberOCRClient__c"
+      ],
       "IA-2530753": [
+        "Id",
         "CreatedById",
         "CreatedDate",
-        "Id",
-        "DateOfBirthOCRMatch__c",
-        "FirstNameOCRMatch__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "LastNameOCRMatch__c",
-        "LicenceCardNumber__c",
-        "LicenceCardNumberOCRClient__c",
+        "Name",
         "LicenceCardNumberOCRClientTransform__c",
-        "LicenceCardNumberOCRMatch__c",
-        "LicenceCardNumberOCRServer__c",
         "LicenceCardNumberOCRServerTransform__c",
         "LicenceCardNumberTransform__c",
-        "LicenceNumber__c",
-        "LicenceNumberOCRClient__c",
         "LicenceNumberOCRClientTransform__c",
-        "LicenceNumberOCRMatch__c",
-        "LicenceNumberOCRServer__c",
         "LicenceNumberOCRServerTransform__c",
         "LicenceNumberTransform__c",
-        "MiddleNamesInitialsOCRMatch__c",
-        "MiddleNamesOCRMatch__c",
-        "Name",
-        "PassportNumber__c",
-        "PassportNumberOCRClient__c",
         "PassportNumberOCRClientTransform__c",
-        "PassportNumberOCRMatch__c",
-        "PassportNumberOCRServer__c",
         "PassportNumberOCRServerTransform__c",
         "PassportNumberTransform__c"
       ]
@@ -1518,7 +1512,8 @@
         "Twilio_ID__c",
         "Assisted__c",
         "Self_Service__c",
-        "Place__c"
+        "Place__c",
+        "TwilioDetailsID__c"
       ],
       "IA-2468715": ["Loan_Application__c"]
     },
@@ -2280,7 +2275,6 @@
         "ApexClassName__c",
         "ApexMethodName__c",
         "Log__c",
-        "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
       ]
@@ -2525,6 +2519,15 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "Twilio_Details__c": {
+      "IA-2415840": [
+        "ANZ_Queue__c",
+        "Call_Recording_Id__c",
+        "Chat_or_Call_SID__c",
+        "Status__c",
+        "Twilio_ID__c"
       ]
     },
     "User": {
