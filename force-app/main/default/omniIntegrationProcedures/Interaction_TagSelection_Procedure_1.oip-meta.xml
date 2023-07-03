@@ -4,41 +4,24 @@
     &quot;JunctionData&quot;: [
         {
             &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a1yBo0000003cGrIAI&quot;,
-            &quot;type&quot;: &quot;&apos;Reason&apos;&quot;,
-            &quot;label&quot;: &quot;1:1 Appointment&quot;
+            &quot;value&quot;: &quot;a2BBn000001FfiDMAS&quot;,
+            &quot;label&quot;: &quot;Booked FWB appointment&quot;
         },
         {
             &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a1yBo0000003cFFIAY&quot;,
-            &quot;type&quot;: &quot;&apos;Reason&apos;&quot;,
-            &quot;label&quot;: &quot;Join ANZ&quot;
-        },
-        {
-            &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a1yBo0000003cQXIAY&quot;,
-            &quot;label&quot;: &quot;Topic1&quot;
-        },
-        {
-            &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a1yBo0000003cS9IAI&quot;,
-            &quot;label&quot;: &quot;Product2&quot;
+            &quot;value&quot;: &quot;a2BBn000001FOW5MAO&quot;,
+            &quot;label&quot;: &quot;ANZ Product&quot;
         }
     ],
-    &quot;ReasonForVisitData&quot;: [
+    &quot;RecordTypeName&quot;: &quot;Call&quot;,
+    &quot;ActualTopicsData&quot;: [
         {
             &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a1yBo0000003cGrIAI&quot;,
-            &quot;type&quot;: &quot;&apos;Reason&apos;&quot;,
-            &quot;label&quot;: &quot;1:1 Appointment&quot;
-        },
-        {
-            &quot;selected&quot;: true,
-            &quot;value&quot;: &quot;a1yBo0000003cFFIAY&quot;,
-            &quot;type&quot;: &quot;&apos;Reason&apos;&quot;,
-            &quot;label&quot;: &quot;Join ANZ&quot;
+            &quot;value&quot;: &quot;a2BBn000001FfiDMAS&quot;,
+            &quot;label&quot;: &quot;Booked FWB appointment&quot;
         }
     ],
+    &quot;ReasonForVisitData&quot;: &quot;&quot;,
     &quot;JunctionDataFromDatabase&quot;: &quot;&quot;
 }</customJavaScript>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
@@ -51,13 +34,56 @@
     <language>Procedure</language>
     <name>SeparateTagsBasedOnSelected</name>
     <omniProcessElements>
+        <name>FilterSelectedActualTopics</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName!=&apos;In Person&apos;,true,false)&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : { },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : false,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;FilteredTrueActualTopics&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;advancedMerge&quot; : false,
+  &quot;advancedMergeMap&quot; : [ ],
+  &quot;mergeFields&quot; : [ ],
+  &quot;allowMergeNulls&quot; : true,
+  &quot;hasPrimary&quot; : false,
+  &quot;primaryListKey&quot; : &quot;&quot;,
+  &quot;sortBy&quot; : [ ],
+  &quot;sortInDescendingOrder&quot; : false,
+  &quot;mergeListsOrder&quot; : [ &quot;ActualTopicsData&quot; ],
+  &quot;filterListFormula&quot; : &quot;selected == true&quot;,
+  &quot;dynamicOutputFields&quot; : &quot;&quot;,
+  &quot;updateFieldValue&quot; : { },
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ListAction3&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>6.0</sequenceNumber>
+        <type>List Merge Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>FilterSelectedReasonForVisit</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName==&apos;In Person&apos;,true,false)&quot;,
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;useFormulas&quot; : true,
@@ -157,7 +183,7 @@
   &quot;label&quot; : &quot;LoopBlock1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -277,7 +303,7 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName==&apos;In Person&apos;,true,false)&quot;,
   &quot;useFormulas&quot; : true,
   &quot;additionalOutput&quot; : {
     &quot;tagsToBeInserted&quot; : &quot;%NewTagsToBeInserted:tagsToBeInserted%&quot;,
@@ -297,7 +323,37 @@
   &quot;label&quot; : &quot;ResponseAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
+        <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ResponseAction2</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;IF(RecordTypeName!=&apos;In Person&apos;,true,false)&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;tagsToBeInserted&quot; : &quot;%NewTagsToBeInserted:tagsToBeInserted%&quot;,
+    &quot;tagsToBeDeleted&quot; : &quot;%SetValues1:tagsToBeDeleted%&quot;,
+    &quot;updatedNameValue&quot; : &quot;%FilteredTrueActualTopics|1:label%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -357,5 +413,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_TagSelection_Procedure_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>c147db87-8bab-1c28-402a-ed8e1e38be38</webComponentKey>
+    <webComponentKey>db05f332-c643-26f4-8bcc-d317a5e9d93b</webComponentKey>
 </OmniIntegrationProcedure>

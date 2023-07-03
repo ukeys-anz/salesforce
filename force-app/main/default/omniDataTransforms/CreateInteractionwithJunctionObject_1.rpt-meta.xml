@@ -80,49 +80,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom9547</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:actionTaken</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Resolution__c</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom2326</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:selfService</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Self_Service__c</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem1</globalKey>
-        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>InteractionType</outputFieldName>
-        <outputObjectName>Interaction</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>CreateInteractionwithJunctionObject</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom6088</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject13454540323943553</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:Assisted</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -136,7 +94,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem2</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject05450639018081049</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:who</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -150,7 +108,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem3</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject8682883911778991</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:place</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -164,7 +122,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem4</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject47050889386292827</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:authenticationMethod</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -178,7 +136,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem5</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject7582681645416149</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:Block2:name</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -192,7 +150,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem6</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject5646685561530005</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:account-Block:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -206,7 +164,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem7</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject6161671649584435</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:contactMobile</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -220,11 +178,30 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
-        <formulaExpression>IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel) + &apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
+        <globalKey>CreateInteractionwithJunctionObjectCustom5240</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Direction__c</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:DataForInteractionAndJunction:RecordTypeName &apos;Call&apos; == var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction &apos;/\/\/&apos; + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF IF &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
+        <formulaExpression>IF(DataForInteractionAndJunction:RecordTypeName == &apos;Call&apos;
+,(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction+ &apos; &apos; 
++ IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,
+&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel)),IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,
+&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel) )+ 
+&apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
         <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:Block2:name</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
-        <globalKey>CreateInteractionwithJunctionObjectCustom6687</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject8982509904942007</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
@@ -238,7 +215,7 @@
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem0</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject3218241181751422</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
@@ -252,7 +229,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem9</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject0731602746035902</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:startTime</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -266,7 +243,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem10</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject22513585979153272</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:relatedDetailsBlock:caseID</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -280,7 +257,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem11</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject46508697983475455</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:relatedDetailsBlock:coachingSummary</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -294,7 +271,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem12</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject021487986285901872</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:relatedDetailsBlock:loanApplication</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -309,7 +286,7 @@
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem15</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject03631280043179852</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
@@ -324,7 +301,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem16</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject8094380153811842</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedFieldName>Id</linkedFieldName>
         <linkedObjectSequence>1.0</linkedObjectSequence>
@@ -339,7 +316,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem17</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject7628178620742918</globalKey>
         <inputFieldName>DataForInteractionAndJunction:junctionData:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -354,7 +331,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom6593</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject9172505214617601</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:ReferredTo</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -368,7 +345,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom0jIBo00000012MLMAYItem8</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject12520470212671175</globalKey>
         <inputFieldName>DataForInteractionAndJunction:DetailSectionData:contactDetailsBlock:lead-Block:value</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -382,7 +359,7 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>CreateInteractionwithJunctionObjectCustom9824</globalKey>
+        <globalKey>CreateInteractionwithJunctionObject8775295699782808</globalKey>
         <inputFieldName>DataForInteractionAndJunction:recordTypeId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -392,83 +369,106 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObject9390434300162791</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:actionTaken</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Resolution__c</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObject0828400111213492</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:detailsSection:selfService</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Self_Service__c</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>CreateInteractionwithJunctionObject</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>CreateInteractionwithJunctionObject5707108242725418</globalKey>
+        <inputFieldName>DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>InteractionType</outputFieldName>
+        <outputObjectName>Interaction</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <outputType>SObject</outputType>
     <previewJsonData>{
   &quot;DataForInteractionAndJunction&quot; : {
-    &quot;recordTypeId&quot; : &quot;&quot;,
-    &quot;updatedNameValue&quot; : &quot;Join ANZ&quot;,
+    &quot;junctionData&quot; : [ {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a2BBn000001FfjpMAC&quot;,
+      &quot;label&quot; : &quot;Booked Mastering the ANZ Plus app appointment&quot;
+    }, {
+      &quot;selected&quot; : true,
+      &quot;value&quot; : &quot;a2BBn000001Fh46MAC&quot;,
+      &quot;label&quot; : &quot;ANZ Plus Home Loan - Variable&quot;
+    } ],
     &quot;DetailSectionData&quot; : {
       &quot;detailsSection&quot; : {
-        &quot;selfService&quot; : true,
-        &quot;Assisted&quot; : true,
         &quot;ReferredTo&quot; : null,
-        &quot;actionTaken&quot; : &quot;No Action&quot;,
-        &quot;reasonforvisit-Block&quot; : {
-          &quot;reasonforvisit&quot; : &quot;Join ANZ&quot;,
-          &quot;selected&quot; : true,
-          &quot;value&quot; : &quot;a2BBn000001FfVJMA0&quot;,
-          &quot;type&quot; : &quot;Reason&quot;,
-          &quot;label&quot; : &quot;Join ANZ&quot;
-        },
         &quot;actualtopic-Block&quot; : {
-          &quot;actualtopic&quot; : &quot;ANZ Topic&quot;,
+          &quot;actualtopic&quot; : &quot;Booked Mastering the ANZ Plus app appointment&quot;,
           &quot;selected&quot; : true,
-          &quot;value&quot; : &quot;a2BBn000001FfWvMAK&quot;,
+          &quot;value&quot; : &quot;a2BBn000001FfjpMAC&quot;,
           &quot;type&quot; : &quot;Topic&quot;,
-          &quot;label&quot; : &quot;ANZ Topic&quot;
+          &quot;label&quot; : &quot;Booked Mastering the ANZ Plus app appointment&quot;
         },
         &quot;product-Block&quot; : {
-          &quot;product&quot; : &quot;ANZ Product&quot;,
+          &quot;product&quot; : &quot;ANZ Plus Home Loan - Variable&quot;,
           &quot;selected&quot; : true,
-          &quot;value&quot; : &quot;a2BBn000001FOW5MAO&quot;,
+          &quot;value&quot; : &quot;a2BBn000001Fh46MAC&quot;,
           &quot;type&quot; : &quot;Product&quot;,
-          &quot;label&quot; : &quot;ANZ Product&quot;
-        }
+          &quot;label&quot; : &quot;ANZ Plus Home Loan - Variable&quot;
+        },
+        &quot;actionTaken&quot; : &quot;Did not Answer&quot;
       },
-      &quot;Block2&quot; : {
-        &quot;name&quot; : &quot;Inbound Call&quot;
-      },
+      &quot;Block2&quot; : null,
       &quot;contactDetailsBlock&quot; : {
         &quot;account-Block&quot; : {
           &quot;value&quot; : &quot;001Bn000007n4KMIAY&quot;,
-          &quot;account&quot; : &quot;Sample Account for Entitlements&quot;
+          &quot;account&quot; : &quot;Sample Account for Entitlements -&quot;
         },
-        &quot;contactMobile&quot; : &quot;657657&quot;,
         &quot;lead-Block&quot; : {
-          &quot;lead&quot; : &quot;test test&quot;,
-          &quot;value&quot; : &quot;00QBn000005iNMDMA2&quot;
+          &quot;lead&quot; : &quot;Lead 1 Test Data1&quot;,
+          &quot;value&quot; : &quot;00QBn000005iWz1MAE&quot;
         }
       },
       &quot;inPersonInteractionDetails&quot; : {
-        &quot;channel&quot; : &quot;Store&quot;,
-        &quot;startTime&quot; : null,
-        &quot;place&quot; : &quot;Potts Point&quot;,
-        &quot;authenticationMethod&quot; : &quot;Not Required&quot;,
+        &quot;channel&quot; : &quot;Call&quot;,
         &quot;who&quot; : &quot;Customer&quot;,
-        &quot;interactionNumber&quot; : &quot;IR-00000017&quot;
+        &quot;Direction&quot; : &quot;Inbound&quot;,
+        &quot;authenticationMethod&quot; : &quot;Call Transfer - Authenticated&quot;
       },
       &quot;relatedDetailsBlock&quot; : {
-        &quot;loanApplication&quot; : &quot;&quot;,
-        &quot;coachingSummary&quot; : &quot;&quot;,
-        &quot;caseID&quot; : &quot;&quot;
+        &quot;caseID&quot; : &quot;500Bn000006y2RhIAI&quot;,
+        &quot;loanApplication&quot; : &quot;0cdBn00000006S1IAI&quot;,
+        &quot;coachingSummary&quot; : &quot;a1gBn000001tw2nIAA&quot;
       }
     },
-    &quot;junctionData&quot; : [ {
-      &quot;selected&quot; : true,
-      &quot;value&quot; : &quot;a2BBn000001FfVJMA0&quot;,
-      &quot;label&quot; : &quot;Join ANZ&quot;
-    }, {
-      &quot;selected&quot; : true,
-      &quot;value&quot; : &quot;a2BBn000001FfWvMAK&quot;,
-      &quot;label&quot; : &quot;ANZ Topic&quot;
-    }, {
-      &quot;selected&quot; : true,
-      &quot;value&quot; : &quot;a2BBn000001FOW5MAO&quot;,
-      &quot;label&quot; : &quot;ANZ Product&quot;
-    } ],
-    &quot;RecordId&quot; : &quot;&quot;
-  },
-  &quot;RecordId&quot; : &quot;&quot;
+    &quot;updatedNameValue&quot; : &quot;Booked Mastering the ANZ Plus app appointment&quot;,
+    &quot;recordTypeId&quot; : &quot;012Bn0000007d0OIAQ&quot;,
+    &quot;RecordTypeName&quot; : &quot;Call&quot;
+  }
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

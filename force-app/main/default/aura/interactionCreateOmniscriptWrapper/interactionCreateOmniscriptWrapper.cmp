@@ -7,6 +7,7 @@
   <aura:attribute name="pageReference" type="Object" />
   <aura:attribute name="recordTypeIdFromParam" type="String"></aura:attribute>
   <aura:attribute name="boolIsStore" type="Boolean"></aura:attribute>
+  <aura:attribute name="boolIsGeneral" type="Boolean"></aura:attribute>
   <aura:attribute name="acccountPrefill" type="String"></aura:attribute>
   <aura:attribute name="spinner" type="boolean" default="TRUE" />
   <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
@@ -29,5 +30,11 @@
       prefill="{!v.acccountPrefill}"
       layout="lightning"
     ></c:interactionCreateAndEditFlowEnglish>
+  </aura:if>
+  <aura:if isTrue="{!v.boolIsGeneral}">
+    <c:interactionCreateAndEditFlowForCallEnglish
+      prefill="{!v.acccountPrefill}"
+      layout="lightning"
+    ></c:interactionCreateAndEditFlowForCallEnglish>
   </aura:if>
 </aura:component>

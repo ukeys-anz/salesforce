@@ -1,9 +1,13 @@
 import { LightningElement, api } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
+import getRecordTypeDeveloperNameEdit from "@salesforce/apex/FetchRecordTypeName.getRecordTypeDeveloperNameEdit";
 
 export default class InteractionEditHeadlessQuickAction extends LightningElement {
   interactionDetail;
   booledit = false;
+  boolEditStore = false;
+  boolEditCall = false;
+  recordTypeName;
   _recordId;
 
   @api set recordId(recordId) {
@@ -14,12 +18,42 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
         this.booledit = true;
         this.interactionDetail =
           '{"interactionRecordId":"' + this._recordId + '"}';
+        this.getRecordTypeName();
       }
     }
   }
 
   get recordId() {
     return this._recordId;
+  }
+
+  /**
+   * handler for recordTypeName of the record
+   */
+  getRecordTypeName() {
+    getRecordTypeDeveloperNameEdit({
+      recordId: this._recordId
+    })
+      .then((result) => {
+        let mapOfDeveloperNameAndIds = JSON.parse(result);
+        this.recordTypeName =
+          mapOfDeveloperNameAndIds[this._recordId].RecordType.DeveloperName;
+        if (this.recordTypeName) {
+          if (this.recordTypeName === "Store") {
+            this.boolEditStore = true;
+          }
+          if (this.recordTypeName === "General") {
+            this.boolEditCall = true;
+          }
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "Interaction Edit Headless Action For RecordType Fetch " +
+            JSON.stringify(error)
+        );
+        this.recordTypeName = undefined;
+      });
   }
 
   /**
