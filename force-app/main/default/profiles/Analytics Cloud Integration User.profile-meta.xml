@@ -2706,8 +2706,7 @@
         <layout>FinServ__Card__c-FinServ__Card Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>FinServ__FinancialAccount__c-FinServ__Financial Account %28Checking Account%29
-            Layout</layout>
+        <layout>FinServ__FinancialAccount__c-FinServ__Financial Account %28Checking Account%29 Layout</layout>
         <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
