@@ -5,5 +5,6 @@
     <fields>AccountId</fields>
     <fields>Lead__c</fields>
     <fields>Interaction_Purpose__c</fields>
+    <fields>Record_Type__c</fields>
     <label>General</label>
 </CompactLayout>
