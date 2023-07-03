@@ -26,7 +26,8 @@
         <enabled>false</enabled>
     </classAccesses>
     <custom>true</custom>
-    <description>Baseline profile for integration users, AKA service accounts. Shall be extended with permission sets according to the least privilege principle,</description>
+    <description>Baseline profile for integration users, AKA service accounts. Shall be extended
+        with permission sets according to the least privilege principle,</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.KYC_Verification_Level__c</field>
@@ -222,6 +223,9 @@
     <layoutAssignments>
         <layout>Interaction-Store Interaction Layout</layout>
         <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Twilio_Details__c-Twilio Detail Layout</layout>
     </layoutAssignments>
     <recordTypeVisibilities>
         <default>true</default>
