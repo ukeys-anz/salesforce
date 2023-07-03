@@ -293,6 +293,11 @@
                 <label>Large Value Transfer enquiries</label>
             </value>
             <value>
+                <fullName>Proof of Amount</fullName>
+                <default>false</default>
+                <label>Proof of Amount</label>
+            </value>
+            <value>
                 <fullName>General Home Loan Enquiry</fullName>
                 <default>false</default>
                 <label>General Home Loan Enquiry</label>
@@ -600,6 +605,10 @@
         <valueSettings>
             <controllingFieldValue>Money</controllingFieldValue>
             <valueName>Account Closure Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Money</controllingFieldValue>
+            <valueName>Proof of Amount</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Message Channel to communicate in Streaming app</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Message Name</description>
+        <fieldName>messageName</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Data to share between components</description>
+        <fieldName>data</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Streaming_app_message_service</masterLabel>
+</LightningMessageChannel>

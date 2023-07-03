@@ -2590,6 +2590,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_MiddleNameCheck__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Middle_Initial__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4114,6 +4119,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.DateofBirthOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.DateOfBirthOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4149,6 +4159,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.FirstNameOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.FirstNameOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4169,6 +4184,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.LastNameOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.LastNameOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4185,6 +4205,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBPrimaryIDDocument__c.LicenceCardNumberOCRClient__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.LicenceCardNumberOCRMatch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4219,6 +4244,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.LicenceNumberOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.LicenceNumberOCRServerTransform__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4244,6 +4274,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.MiddleNamesOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.MiddleNamesOCRServer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4260,6 +4295,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBPrimaryIDDocument__c.PassportNumberOCRClient__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.PassportNumberOCRMatch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7808,6 +7848,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>SecureLogEntry__c.LogMessage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>SecureLogEntry__c.Payload__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8666,6 +8711,10 @@
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>InteractionSummary-Interaction Summary Layout</layout>

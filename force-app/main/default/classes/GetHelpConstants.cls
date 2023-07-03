@@ -125,6 +125,11 @@ public with sharing class GetHelpConstants {
     .get('General')
     .getRecordTypeId();
 
+  // Interaction - Store Interaction RT Id
+  public static final Id INTERACTION_STORE_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('Store')
+    .getRecordTypeId();
+
   // Case - Account Closure
   public static final Id ACCOUNT_CLOSURE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Account_Closure')
@@ -210,4 +215,7 @@ public with sharing class GetHelpConstants {
     GetHelpConstants.COB_FAILED_OK_STATUS => GetHelpConstants.COB_FAILED_OK_STATUS,
     GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
   };
+
+  // Basic Subscription Entitlment Process Name
+  public static final String BASIC_SUBSCRIPTION_ENTITLEMENT_NAME = 'Basic Subscription';
 }

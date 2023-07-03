@@ -204,4 +204,85 @@ public with sharing class InteractionAttendeeActions {
       return returnString.removeEnd(', ');
     }
   }
+
+  /**
+   * @description Create interaction creator as interaction attendee for the newly created interactions.
+   * @param interactions List of newly created interactions.
+   */
+  public static void insertDefaultAttendee(List<Interaction> interactions) {
+    List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
+    for (interaction interact : interactions) {
+      InteractionAttendee intattendee = new InteractionAttendee();
+      intattendee.AttendeeType = InteractionConstants.INTERNAL;
+      intattendee.UserId = UserInfo.getUserId();
+      intattendee.InteractionId = interact.id;
+      lstInteractAttend.add(intattendee);
+    }
+    DMLUtil.insertRecords(lstInteractAttend, false, true);
+  }
+
+  /**
+   * @description Create interaction attendee when the owner is updated.
+   * @param interactions List of interactions with owner's changed.
+   */
+  public static void insertOwnerChangeAttendee(List<Interaction> interactions) {
+    Map<Id, Set<Id>> interActionWithAttendee = new Map<Id, Set<Id>>();
+    List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
+    List<Id> storeOwnerId = new List<Id>();
+    Set<Id> recordtypes = new Set<Id>();
+    recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+
+    //Loop in interaction and filter out all owner ids
+    for (Interaction interact : interactions) {
+      storeOwnerId.add(interact.OwnerId);
+      interActionWithAttendee.put(interact.Id, new Set<Id>{});
+    }
+
+    //Fetch all list of attendees for the current users and current interactions
+    List<InteractionAttendee> lstattendee = [
+      SELECT UserId, InteractionId
+      FROM InteractionAttendee
+      WHERE InteractionId IN :interactions AND UserId IN :storeOwnerId
+    ];
+
+    //Lopp in and create a Map of Interaction Id and list of attendees.
+    for (InteractionAttendee lstAttendeeFromDatabase : lstattendee) {
+      if (
+        !interActionWithAttendee.containsKey(
+          lstAttendeeFromDatabase.InteractionId
+        )
+      ) {
+        interActionWithAttendee.put(
+          lstAttendeeFromDatabase.InteractionId,
+          new Set<Id>{ lstAttendeeFromDatabase.UserId }
+        );
+      } else {
+        Set<Id> allInteractionAttendees = interActionWithAttendee.get(
+          lstAttendeeFromDatabase.InteractionId
+        );
+        allInteractionAttendees.add(lstAttendeeFromDatabase.UserId);
+      }
+    }
+
+    // Now Finally loop on proginal interaction, check if there is any existin interaction attendee with the
+    // OwnerId, if yes, ignore it, if not insert the interactionattendee.
+    for (Interaction interact : interactions) {
+      if (recordtypes.contains(interact.RecordTypeId)) {
+        Set<Id> existingAttendeeIds = interActionWithAttendee.get(interact.Id);
+        if (
+          existingAttendeeIds != null &&
+          !existingAttendeeIds.contains(interact.OwnerId)
+        ) {
+          InteractionAttendee intattendee = new InteractionAttendee();
+          intattendee.AttendeeType = InteractionConstants.INTERNAL;
+          intattendee.UserId = interact.OwnerId;
+          intattendee.InteractionId = interact.id;
+          lstInteractAttend.add(intattendee);
+        }
+      }
+    }
+
+    DMLUtil.insertRecords(lstInteractAttend, false, true);
+  }
 }

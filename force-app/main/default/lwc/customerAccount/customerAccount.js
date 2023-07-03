@@ -1,7 +1,7 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
 import tmp from "./customerAccount.html";
-
+//const FINANCIAL_DIFFICULTY = "4";
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {

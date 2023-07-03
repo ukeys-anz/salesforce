@@ -85,6 +85,10 @@
                 <field>Deceased_Date__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Bankrupt_Date__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>FinServ__Status__c</field>
             </layoutItems>

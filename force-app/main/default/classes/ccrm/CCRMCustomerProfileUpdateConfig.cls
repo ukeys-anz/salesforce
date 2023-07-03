@@ -10,6 +10,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
     SELECT Lan_Id__c
     FROM User
     WHERE Id = :UserInfo.getUserId()
+    WITH SECURITY_ENFORCED
   ];
 
   public static final Map<String, Map<String, String>> TRANSFORM_CONFIGS = new Map<String, Map<String, String>>{

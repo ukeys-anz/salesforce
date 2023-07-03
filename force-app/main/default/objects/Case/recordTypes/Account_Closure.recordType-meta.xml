@@ -151,6 +151,10 @@
     <picklistValues>
         <picklist>Closure_Reason__c</picklist>
         <values>
+            <fullName>Bank Initiated Closure - Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer did not mean to proceed to account opening</fullName>
             <default>false</default>
         </values>
