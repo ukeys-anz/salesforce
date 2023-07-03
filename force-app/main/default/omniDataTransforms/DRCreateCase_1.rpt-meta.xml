@@ -294,7 +294,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom532</globalKey>
         <inputFieldName>Case:ComplaintDetails:ProductService3Id</inputFieldName>
@@ -546,7 +546,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom7279</globalKey>
         <inputFieldName>Case:ComplaintDetails:ProductService2Id</inputFieldName>
@@ -1078,7 +1078,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRCreateCaseCustom961</globalKey>
         <inputFieldName>Case:ComplaintDetails:ProductServiceId</inputFieldName>
