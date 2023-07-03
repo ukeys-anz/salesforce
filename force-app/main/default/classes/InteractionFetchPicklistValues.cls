@@ -100,8 +100,8 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
       } else if (methodName.equals('populateChannelForCall')) {
         populatePicklist(inputMap, outMap, options, 'InteractionType');
       }
-    } catch (Exception e) {
-      Logger.error('ERROR in DemoReset: ', e.getStackTraceString());
+    } catch (Exception objectException) {
+      Logger.error('ERROR in Fetching Picklist Values: ', objectException);
       Logger.saveLog();
     }
     return success;

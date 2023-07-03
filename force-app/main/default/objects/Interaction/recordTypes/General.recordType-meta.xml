@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>General</fullName>
     <active>true</active>
-    <compactLayoutAssignment>General</compactLayoutAssignment>
+    <compactLayoutAssignment>Store</compactLayoutAssignment>
     <description>Call Record Type for Interactions</description>
     <label>Call</label>
     <picklistValues>
