@@ -45,7 +45,15 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       this.omniRemoteCall(params, true).then((res) => {
         console.log("res ", JSON.parse(JSON.stringify(res)));
         this.loading = false;
-        if (this.omniJsonData.recordId) {
+        this.modalMsg = "";
+        if (res.result && res.result.IPResult && res.result.IPResult.result) {
+          let errorPath = res.result.IPResult.result.errorsAsJson;
+          if (errorPath.DRError.includes("FIELD_CUSTOM_VALIDATION_EXCEPTION")) {
+            this.modalMsg =
+              "You are not authorized to make updates to this record.";
+            this.showModal = true;
+          }
+        } else {
           let url = window.location.origin + "/" + this.omniJsonData.recordId;
           window.open(url, "_self");
         }
