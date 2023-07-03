@@ -1,8 +1,0 @@
-<!--
-    * Author: Shivam Swaraj
-    * @since  06/2023
-    * Description : Created this comopnent to handle the manage runtime context for Omniscript to make the callout for DependentPicklistController
--->
-<apex:page contentType="application/json">
-  {"sessionId":"{!$Api.Session_ID}"}
-</apex:page>

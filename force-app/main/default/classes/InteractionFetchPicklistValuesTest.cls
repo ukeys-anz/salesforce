@@ -24,8 +24,7 @@ public class InteractionFetchPicklistValuesTest {
       'Case_Read_Write_Get_Help',
       'Customer_Read_Only',
       'Quality_Assessment_Read_Only',
-      'Case_Read_Write_Dispute',
-      'Salesforce_Internal_API'
+      'Case_Read_Write_Dispute'
     };
     List<PermissionSet> coachPsList = [
       SELECT Id

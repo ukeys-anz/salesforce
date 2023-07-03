@@ -48,7 +48,6 @@
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
     <permissionSets>Run_reports_and_dashboards</permissionSets>
-    <permissionSets>Salesforce_Internal_API</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>

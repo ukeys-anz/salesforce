@@ -59,7 +59,6 @@
     <permissionSets>Release_Author</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
     <permissionSets>Run_reports_and_dashboards</permissionSets>
-    <permissionSets>Salesforce_Internal_API</permissionSets>
     <permissionSets>Store_Location_Read_Write</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>

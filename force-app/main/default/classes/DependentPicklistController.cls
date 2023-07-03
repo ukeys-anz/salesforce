@@ -56,10 +56,8 @@ public with sharing class DependentPicklistController {
     String recordTypeId,
     String fieldName
   ) {
-    String endpoint = URL.getSalesforceBaseUrl().toExternalForm();
-    endpoint += '/services/data/v56.0';
-    endpoint +=
-      '/ui-api/object-info/' +
+    String endpoint =
+      'callout:Salesforce_Internal_API/' +
       objectType +
       '/picklist-values/' +
       recordTypeId +
@@ -70,7 +68,6 @@ public with sharing class DependentPicklistController {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     headers.put('Content-Type', 'application/json');
-    headers.put('Authorization', 'Bearer ' + GetSessionId.getUserSessionId());
     HttpCalloutResponse res = calloutService.makeRestCallout(
       endpoint,
       HTTP_METHOD.HTTP_GET,
