@@ -3,7 +3,8 @@
     <contactEmail>shivam.swaraj@anz.com</contactEmail>
     <label>Salesforce API Access</label>
     <oauthConfig>
-        <callbackUrl>https://test.salesforce.com</callbackUrl>
+        <callbackUrl>https://test.my.salesforce.com/services/authcallback/Salesforce_API_Access</callbackUrl>
+        <consumerKey>Consumer_Key</consumerKey>
         <isAdminApproved>false</isAdminApproved>
         <isConsumerSecretOptional>false</isConsumerSecretOptional>
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
