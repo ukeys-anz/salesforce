@@ -112,14 +112,14 @@
         change&quot;}]}</propertySetConfig>
     <sampleDataSourceResponse>[{&quot;Interactions&quot;:{&quot;InteractionTypeName&quot;:&quot;Call&quot;,&quot;AccountName&quot;:&quot;Sample
         Account for
-        Entitlements&quot;,&quot;ActionTaken&quot;:&quot;Referred&quot;,&quot;LastModifiedById&quot;:&quot;005Bn000002kxUbIAI&quot;,&quot;Assisted&quot;:false,&quot;CreatedDate&quot;:&quot;2023-06-27T05:35:57.000Z&quot;,&quot;LoanApplication&quot;:&quot;Test1SS&quot;,&quot;LoanApplicationId&quot;:&quot;0cdBn00000006S1IAI&quot;,&quot;CoachingSummaryId&quot;:&quot;a1gBn000001tw2nIAA&quot;,&quot;CaseId&quot;:&quot;00001022&quot;,&quot;CoachingSummary&quot;:&quot;CS-00000000&quot;,&quot;StartTime&quot;:&quot;2023-06-30T06:30:00.000Z&quot;,&quot;CaseRecordId&quot;:&quot;500Bn000006y2RhIAI&quot;,&quot;RecordTypeName&quot;:&quot;Call&quot;,&quot;ContactMobile&quot;:&quot;1234567890&quot;,&quot;InteractionExternalId&quot;:&quot;IR-00000061&quot;,&quot;LastModifiedByName&quot;:&quot;Test
-        Coach0&quot;,&quot;Who&quot;:&quot;Non-Customer&quot;,&quot;ReferredTo&quot;:&quot;Business&quot;,&quot;SelfService&quot;:false,&quot;LeadId&quot;:&quot;00QBn000005uXGlMAM&quot;,&quot;Lead&quot;:&quot;Nilesh
-        Kalal&quot;,&quot;CreatedById&quot;:&quot;005Bn000002l7jIIAQ&quot;,&quot;OwnerId&quot;:&quot;005Bn000002l7jIIAQ&quot;,&quot;Name&quot;:&quot;Outbound
+        Entitlements&quot;,&quot;ActionTaken&quot;:&quot;Referred&quot;,&quot;LastModifiedById&quot;:&quot;005Bn000002l8qbIAA&quot;,&quot;Assisted&quot;:false,&quot;CreatedDate&quot;:&quot;2023-06-27T05:35:57.000Z&quot;,&quot;LoanApplication&quot;:&quot;Test1SS&quot;,&quot;LoanApplicationId&quot;:&quot;0cdBn00000006S1IAI&quot;,&quot;CoachingSummaryId&quot;:&quot;a1gBn000001tw2nIAA&quot;,&quot;CaseId&quot;:&quot;00001022&quot;,&quot;CoachingSummary&quot;:&quot;CS-00000000&quot;,&quot;StartTime&quot;:&quot;2023-06-30T06:30:00.000Z&quot;,&quot;CaseRecordId&quot;:&quot;500Bn000006y2RhIAI&quot;,&quot;RecordTypeName&quot;:&quot;Call&quot;,&quot;ContactMobile&quot;:&quot;1234567890&quot;,&quot;InteractionExternalId&quot;:&quot;IR-00000061&quot;,&quot;LastModifiedByName&quot;:&quot;Nilesh
+        Kalal&quot;,&quot;Who&quot;:&quot;Non-Customer&quot;,&quot;ReferredTo&quot;:&quot;Business&quot;,&quot;SelfService&quot;:false,&quot;LeadId&quot;:&quot;00QBn000005uXGlMAM&quot;,&quot;Lead&quot;:&quot;Nilesh
+        Kalal&quot;,&quot;CreatedById&quot;:&quot;005Bn000002l7jIIAQ&quot;,&quot;OwnerId&quot;:&quot;005Bn000002l8qbIAA&quot;,&quot;Name&quot;:&quot;Outbound
         Call - Attended Mastering the ANZ Plus app
         appointment&quot;,&quot;Direction&quot;:&quot;Outbound&quot;,&quot;AuthenticationMethod&quot;:&quot;Call
         Transfer -
-        Authenticated&quot;,&quot;AccountId&quot;:&quot;001Bn000007n4KMIAY&quot;,&quot;OwnerName&quot;:&quot;Shivam
-        Swaraj&quot;,&quot;JunctionObject&quot;:[{&quot;Interaction_Tag&quot;:&quot;a2BBn000001FfofMAC&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc1MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;Attended
+        Authenticated&quot;,&quot;AccountId&quot;:&quot;001Bn000007n4KMIAY&quot;,&quot;OwnerName&quot;:&quot;Nilesh
+        Kalal&quot;,&quot;JunctionObject&quot;:[{&quot;Interaction_Tag&quot;:&quot;a2BBn000001FfofMAC&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc1MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;Attended
         Mastering the ANZ Plus app
         appointment&quot;,&quot;Type&quot;:&quot;Topic&quot;},{&quot;Interaction_Tag&quot;:&quot;a2BBn000001FfWvMAK&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc2MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;ANZ
         Topic&quot;,&quot;Type&quot;:&quot;Topic&quot;},{&quot;Interaction_Tag&quot;:&quot;a2BBn000001FfjpMAC&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc3MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;Booked
@@ -127,7 +127,7 @@
         appointment&quot;,&quot;Type&quot;:&quot;Topic&quot;},{&quot;Interaction_Tag&quot;:&quot;a2BBn000001FiWUMA0&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc4MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;ANZ
         branches&quot;,&quot;Type&quot;:&quot;Topic&quot;},{&quot;Interaction_Tag&quot;:&quot;a2BBn000001FfqHMAS&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc5MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;Downloaded
         ANZ Plus
-        app&quot;,&quot;Type&quot;:&quot;Topic&quot;},{&quot;Interaction_Tag&quot;:&quot;a2BBn000001Fgw1MAC&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc6MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;Product1&quot;,&quot;Type&quot;:&quot;Product&quot;}],&quot;LastModifiedDate&quot;:&quot;2023-06-30T10:04:07.000Z&quot;,&quot;CreatedByName&quot;:&quot;Shivam
+        app&quot;,&quot;Type&quot;:&quot;Topic&quot;},{&quot;Interaction_Tag&quot;:&quot;a2BBn000001Fgw1MAC&quot;,&quot;Id&quot;:&quot;a2CBn000000Fkc6MAC&quot;,&quot;Interaction&quot;:&quot;0kzBn00000009UjIAI&quot;,&quot;TagName&quot;:&quot;Product1&quot;,&quot;Type&quot;:&quot;Product&quot;}],&quot;LastModifiedDate&quot;:&quot;2023-06-30T12:25:05.000Z&quot;,&quot;CreatedByName&quot;:&quot;Shivam
         Swaraj&quot;,&quot;InteractionType&quot;:&quot;Call&quot;}}]</sampleDataSourceResponse>
     <stylingConfiguration>{&quot;customStyles&quot;:&quot;.accordianCustomSection
         button[class=\&quot;slds-button slds-p-horizontal_x-small\&quot;] {\n background: #f3f3f3;\n
