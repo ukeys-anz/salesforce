@@ -2706,7 +2706,8 @@
         <layout>FinServ__Card__c-FinServ__Card Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>FinServ__FinancialAccount__c-FinServ__Financial Account %28Checking Account%29 Layout</layout>
+        <layout>FinServ__FinancialAccount__c-FinServ__Financial Account %28Checking Account%29
+            Layout</layout>
         <recordType>FinServ__FinancialAccount__c.FinServ__CheckingAccount</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -2733,6 +2734,9 @@
     <layoutAssignments>
         <layout>Interaction-Store Interaction Layout</layout>
         <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Twilio_Details__c-Twilio Detail Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>

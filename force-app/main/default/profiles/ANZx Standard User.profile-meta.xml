@@ -1368,7 +1368,8 @@
         <name>Non_Prod_Settings__c</name>
         <enabled>true</enabled>
     </customSettingAccesses>
-    <description>This will have all generic profile configuration that needs to be auto deployed. To be used by all ANZx standard users.</description>
+    <description>This will have all generic profile configuration that needs to be auto deployed. To
+        be used by all ANZx standard users.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.AccountNumber</field>
@@ -8108,6 +8109,9 @@
     <layoutAssignments>
         <layout>Task-Email Task Layout</layout>
         <recordType>Task.Email_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Twilio_Details__c-Twilio Detail Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>User-User Layout</layout>
