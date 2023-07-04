@@ -16,6 +16,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> apptInteractions = InteractionFilter.getApptInteractions(
       records
     );
+
     List<Interaction> storeInteractions = InteractionFilter.getStoreInteractions(
       records
     );
