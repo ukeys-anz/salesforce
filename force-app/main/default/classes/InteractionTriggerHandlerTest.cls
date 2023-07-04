@@ -575,7 +575,7 @@ public with sharing class InteractionTriggerHandlerTest {
       System.assertEquals(
         true,
         numberattendee > 0,
-        'InteractionAttendee should be added'
+        'InteractionAttendee should be added.'
       );
     }
   }
