@@ -35,11 +35,14 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       let accounts = data.Response.accounts;
       let cmpDet = data.Case.ComplaintDetails;
       if (
-        (cmpDet.IssueType === COLLECTIONS &&
+        ((cmpDet.IssueType === COLLECTIONS ||
+          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
           this.omniJsonDef.name === "AccountPolicyNumber") ||
-        (cmpDet.IssueType2 === COLLECTIONS &&
+        ((cmpDet.IssueType2 === COLLECTIONS ||
+          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
           this.omniJsonDef.name === "AccountPolicyNumber2") ||
-        (cmpDet.IssueType3 === COLLECTIONS &&
+        ((cmpDet.IssueType3 === COLLECTIONS ||
+          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
           this.omniJsonDef.name === "AccountPolicyNumber3")
       ) {
         accounts.forEach((acc) => {

@@ -355,6 +355,7 @@ public with sharing class IDRConstants {
   };
 
   public static final List<String> IDR_ESCALATION_VALUES  = new List<String>{
+    '7',
     '8',
     '9',
     '10',
