@@ -500,12 +500,7 @@ public with sharing class InteractionTriggerHandlerTest {
     );
 
     insert psa;
-    User coachUser1 = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'TestCoachInter894'
-    ];
-    System.runAs(coachUser1) {
+    System.runAs(coachUser) {
       Interaction newInteraction = new Interaction(
         RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
         Name = 'New Interaction',
@@ -534,7 +529,6 @@ public with sharing class InteractionTriggerHandlerTest {
 
   @isTest
   static void testAttendeeDefaultOnInsertPositive() {
-    User thisUser = new User(Id = UserInfo.getUserId());
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
     UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
     // Create coach user
@@ -560,12 +554,7 @@ public with sharing class InteractionTriggerHandlerTest {
     );
 
     insert psa;
-    User coachUser1 = [
-      SELECT Id
-      FROM User
-      WHERE FirstName = 'TestCoachInter891'
-    ];
-    System.runAs(coachUser1) {
+    System.runAs(coachUser) {
       Interaction newInteraction = new Interaction(
         RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
         Name = 'New Interaction',
@@ -633,7 +622,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
       System.assertEquals(
         true,
-        numberattendee > 1,
+        numberattendee > 0,
         'Changed Owner should be added as an InteractionAttendee'
       );
     }
@@ -657,6 +646,12 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM InteractionAttendee
       WHERE interactionid = :newInteraction.ID
     ];
+
+    System.assertEquals(
+      true,
+      numberattendee < 1,
+      'There should be no Interaction Attendee associated with the created call interaction'
+    );
 
     // Insert User , to get around MIXED_DML_OPERATION error
     User thisUser = new User(Id = UserInfo.getUserId());

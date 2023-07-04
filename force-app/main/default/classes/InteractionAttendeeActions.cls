@@ -211,16 +211,16 @@ public with sharing class InteractionAttendeeActions {
    */
   public static void insertDefaultAttendee(List<Interaction> interactions) {
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
-    User userDetail = [
-      SELECT id, profile.name
-      FROM user
-      WHERE id = :UserInfo.getUserId()
-    ];
     Set<String> profilenames = new Set<String>();
     Set<Id> recordtypes = new Set<Id>();
     profilenames.add('ANZx Standard User');
     recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+    User userDetail = [
+      SELECT id, profile.name
+      FROM user
+      WHERE id = :UserInfo.getUserId()
+    ];
 
     for (Interaction interact : interactions) {
       if (
