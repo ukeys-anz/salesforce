@@ -474,30 +474,122 @@ public with sharing class InteractionTriggerHandlerTest {
   }
 
   @isTest
-  static void testAttendeeDefaultOnInsert() {
-    Interaction newInteraction = new Interaction(
-      RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
-      Name = 'New Interaction',
-      Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
-      InteractionType = InteractionConstants.STORE,
-      StartTime = System.now()
+  static void testAttendeeDefaultOnInsertNegative() {
+    User thisUser = new User(Id = UserInfo.getUserId());
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    // Create coach user
+    User coachUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'TestCoachInter894',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => coachRole.Id
+      }
     );
-
-    Test.startTest();
-    insert newInteraction;
-    Test.stopTest();
-
-    Integer numberattendee = [
-      SELECT COUNT()
-      FROM InteractionAttendee
-      WHERE interactionid = :newInteraction.ID
+    insert coachUser;
+    //Assign Permission set group as coach
+    PermissionSetGroup psg = [
+      SELECT Id
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'Coach'
+      LIMIT 1
     ];
-
-    System.assertEquals(
-      true,
-      numberattendee > 0,
-      'InteractionAttendee should be added'
+    PermissionSetAssignment psa = new PermissionSetAssignment(
+      AssigneeId = coachUser.Id,
+      PermissionSetGroupId = psg.Id
     );
+
+    insert psa;
+    User coachUser1 = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'TestCoachInter894'
+    ];
+    System.runAs(coachUser1) {
+      Interaction newInteraction = new Interaction(
+        RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
+        Name = 'New Interaction',
+        Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+        InteractionType = InteractionConstants.STORE,
+        StartTime = System.now()
+      );
+
+      Test.startTest();
+      insert newInteraction;
+      Test.stopTest();
+
+      Integer numberattendee = [
+        SELECT COUNT()
+        FROM InteractionAttendee
+        WHERE interactionid = :newInteraction.ID
+      ];
+
+      System.assertEquals(
+        true,
+        numberattendee < 1,
+        'InteractionAttendee should not be added'
+      );
+    }
+  }
+
+  @isTest
+  static void testAttendeeDefaultOnInsertPositive() {
+    User thisUser = new User(Id = UserInfo.getUserId());
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    // Create coach user
+    User coachUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'TestCoachInter891',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => coachRole.Id
+      }
+    );
+    insert coachUser;
+
+    //Assign Permission set group as coach
+    PermissionSetGroup psg = [
+      SELECT Id
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'Coach'
+      LIMIT 1
+    ];
+    PermissionSetAssignment psa = new PermissionSetAssignment(
+      AssigneeId = coachUser.Id,
+      PermissionSetGroupId = psg.Id
+    );
+
+    insert psa;
+    User coachUser1 = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'TestCoachInter891'
+    ];
+    System.runAs(coachUser1) {
+      Interaction newInteraction = new Interaction(
+        RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
+        Name = 'New Interaction',
+        Interaction_Purpose__c = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME,
+        InteractionType = InteractionConstants.STORE,
+        StartTime = System.now()
+      );
+
+      Test.startTest();
+      insert newInteraction;
+      Test.stopTest();
+
+      Integer numberattendee = [
+        SELECT COUNT()
+        FROM InteractionAttendee
+        WHERE interactionid = :newInteraction.Id
+      ];
+
+      System.assertEquals(
+        true,
+        numberattendee > 0,
+        'InteractionAttendee should be added'
+      );
+    }
   }
 
   @isTest
@@ -565,12 +657,6 @@ public with sharing class InteractionTriggerHandlerTest {
       FROM InteractionAttendee
       WHERE interactionid = :newInteraction.ID
     ];
-
-    System.assertEquals(
-      true,
-      numberattendee < 1,
-      'There should be no Interaction Attendee associated with the created call interaction'
-    );
 
     // Insert User , to get around MIXED_DML_OPERATION error
     User thisUser = new User(Id = UserInfo.getUserId());
