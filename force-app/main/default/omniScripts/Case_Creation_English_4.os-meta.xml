@@ -186,8 +186,8 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.Origin&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateOriginPicklist&quot;,
+    &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
@@ -657,8 +657,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.Priority&quot;
+    &quot;type&quot; : &quot;Custom&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populatePriorityPicklist&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -3634,8 +3634,8 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Escalation_Reason__c&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateEscalationPicklist&quot;,
+    &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ {
     &quot;value&quot; : &quot;Open&quot;,
@@ -6644,5 +6644,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>42d204ee-7827-cb57-026f-fb8ecb086ad7</webComponentKey>
+    <webComponentKey>3c8407e6-ee27-b586-c768-910a1ac13d59</webComponentKey>
 </OmniScript>

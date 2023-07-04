@@ -62,8 +62,6 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
     if (
-      data &&
-      data.Case &&
       data.Case.CustomerDetails &&
       data.Case.CustomerDetails.complaintAbout &&
       !this.allValues.length > 0 &&
