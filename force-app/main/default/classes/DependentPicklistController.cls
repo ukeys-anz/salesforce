@@ -153,7 +153,7 @@ public with sharing class DependentPicklistController {
         }
       }
     } else {
-      Logger.error(' Response Body For Error : ', res.body);
+      Logger.error(' Response Body For Error : ' + res.body);
       Logger.saveLog();
     }
 
