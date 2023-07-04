@@ -14,4 +14,3 @@ force-app/main/default/flows/**     @shawgreg @dawsond1x @patelsu @aimaj-anz @ch
 Dockerfile                          @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar @sebastienquinternet-anz
 ci/**                               @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar @sebastienquinternet-anz
 .github/**                          @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar @sebastienquinternet-anz
-config/sandbox-config/**            @shawgreg @dawsond1x @patelsu @aimaj-anz @chiranjeebdhar @sebastienquinternet-anz
