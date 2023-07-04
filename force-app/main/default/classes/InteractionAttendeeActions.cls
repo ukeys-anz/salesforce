@@ -211,12 +211,28 @@ public with sharing class InteractionAttendeeActions {
    */
   public static void insertDefaultAttendee(List<Interaction> interactions) {
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
-    for (interaction interact : interactions) {
-      InteractionAttendee intattendee = new InteractionAttendee();
-      intattendee.AttendeeType = InteractionConstants.INTERNAL;
-      intattendee.UserId = UserInfo.getUserId();
-      intattendee.InteractionId = interact.id;
-      lstInteractAttend.add(intattendee);
+    Set<String> profilenames = new Set<String>();
+    Set<Id> recordtypes = new Set<Id>();
+    profilenames.add('ANZx Standard User');
+    recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+    User userDetail = [
+      SELECT id, profile.name
+      FROM user
+      WHERE id = :UserInfo.getUserId()
+    ];
+
+    for (Interaction interact : interactions) {
+      if (
+        profilenames.contains(userDetail.profile.name) &&
+        recordtypes.contains(interact.RecordTypeId)
+      ) {
+        InteractionAttendee intattendee = new InteractionAttendee();
+        intattendee.AttendeeType = InteractionConstants.INTERNAL;
+        intattendee.UserId = UserInfo.getUserId();
+        intattendee.InteractionId = interact.id;
+        lstInteractAttend.add(intattendee);
+      }
     }
     DMLUtil.insertRecords(lstInteractAttend, false, true);
   }

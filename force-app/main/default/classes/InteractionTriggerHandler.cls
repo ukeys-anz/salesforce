@@ -24,7 +24,7 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     Set<Id> apptIds = new Set<Id>(apptMap.keyset());
     InteractionSetters.setInteractionIds(apptInteractions);
     InteractionSetters.setExternalIds(apptIds);
-    InteractionAttendeeActions.insertDefaultAttendee(storeInteractions);
+    InteractionAttendeeActions.insertDefaultAttendee(records);
 
     List<Interaction> generalInteractions = InteractionFilter.getGeneralInteractions(
       records
