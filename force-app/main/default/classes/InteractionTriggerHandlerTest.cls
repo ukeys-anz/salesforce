@@ -475,7 +475,6 @@ public with sharing class InteractionTriggerHandlerTest {
 
   @isTest
   static void testAttendeeDefaultOnInsertNegative() {
-    User thisUser = new User(Id = UserInfo.getUserId());
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
     UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
     // Create coach user
