@@ -12,7 +12,6 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
 
   @api set recordId(recordId) {
     if (recordId !== this._recordId) {
-      console.log("recordId -> " + recordId);
       this._recordId = recordId;
       if (this._recordId) {
         this.booledit = true;
@@ -74,7 +73,6 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
   onMessage(event) {
     try {
       if (event.data && event.data["OmniScript-Messaging"]) {
-        console.log("Omni Json " + JSON.stringify(event.data));
         let elementNameFromOmni =
           event.data["OmniScript-Messaging"].ElementName;
         if (elementNameFromOmni === "NavigateActionOnEdit") {
