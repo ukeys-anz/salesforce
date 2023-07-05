@@ -3,13 +3,11 @@
   <template if:true={booledit}>
     <template if:true={boolEditStore}>
       <c-interaction-create-and-edit-flow-english
-        prefill={interactionRecordId}
         layout="lightning"
       ></c-interaction-create-and-edit-flow-english>
     </template>
     <template if:true={boolEditCall}>
       <c-interaction-create-and-edit-flow-for-call-english
-        prefill={interactionRecordId}
         layout="lightning"
       ></c-interaction-create-and-edit-flow-for-call-english>
     </template>

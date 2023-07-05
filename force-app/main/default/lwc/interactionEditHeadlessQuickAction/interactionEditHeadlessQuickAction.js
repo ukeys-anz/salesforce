@@ -5,7 +5,6 @@ import { getRecord } from "lightning/uiRecordApi";
 const fields = ["Interaction.Record_Type__c"];
 
 export default class InteractionEditHeadlessQuickAction extends LightningElement {
-  interactionDetail;
   booledit = false;
   boolEditStore = false;
   boolEditCall = false;
@@ -17,8 +16,6 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
       this._recordId = recordId;
       if (this._recordId) {
         this.booledit = true;
-        this.interactionDetail =
-          '{"interactionRecordId":"' + this._recordId + '"}';
       }
     }
   }
