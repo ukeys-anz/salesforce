@@ -6,7 +6,7 @@
     <description>PO BOX</description>
     <externalId>false</externalId>
     <label>PO BOX</label>
-    <length>30</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>

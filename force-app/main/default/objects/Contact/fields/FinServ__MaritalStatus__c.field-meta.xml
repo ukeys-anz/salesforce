@@ -46,54 +46,51 @@
             <value>
                 <fullName>Z</fullName>
                 <default>false</default>
-                <label>Not disclosed</label>
+                <label>Not Disclosed</label>
             </value>
             <value>
                 <fullName>Single</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Single-old</label>
             </value>
             <value>
                 <fullName>Married</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Married-old</label>
             </value>
             <value>
                 <fullName>Separated</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Separated-old</label>
             </value>
             <value>
                 <fullName>Divorced</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Divorced-old</label>
             </value>
             <value>
                 <fullName>Widowed</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Widowed-old</label>
             </value>
             <value>
                 <fullName>Other</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Other-old</label>
             </value>
             <value>
-                <fullName>Married/Defacto</fullName>
+                <fullName>Married/DeFacto</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
-                <label>Married/Defacto-old</label>
+                <label>Married/DeFacto-old</label>
+            </value>
+            <value>
+                <fullName>Married/De Facto</fullName>
+                <default>false</default>
+                <label>Married/De Facto-old</label>
             </value>
             <value>
                 <fullName>Unknown</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Unknown-old</label>
             </value>
         </valueSetDefinition>
