@@ -18,7 +18,9 @@ global with sharing class Vlocity_Utils implements Callable {
             getCustomerInfo(input, output, options);
         }else if('getKnownIssues'.equals(methodName)) {
       		getKnownIssues(input, output, options);
-    	}
+        }else if('getDisableOmni'.equals(methodName)){
+            getDisableOmni(input, output, options);
+        }
         return true;
     }
 
@@ -68,5 +70,15 @@ global with sharing class Vlocity_Utils implements Callable {
     	Map<String, Object> options){
         	List<Known_Issues__c> knownIssuesList = IDRExpressComplaintController.getAllKnownIssues();
        		output.put('KnownIssue', knownIssuesList);
+    }
+    
+   /**
+   * @param input
+   * @param output The output holds custom settings value
+   * @param options
+   * @description to get custom setting value
+   */
+    public static void getDisableOmni(Map<String, Object> input, Map<String, Object> output, Map<String, Object> options){
+        output.put('disableOmni',IDRConstants.DISABLE_OMNI_FOR_CMOS);
     }
 }
