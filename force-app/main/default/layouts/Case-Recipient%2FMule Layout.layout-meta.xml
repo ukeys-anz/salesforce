@@ -103,7 +103,7 @@
         <label>Case Information</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Fraud_Detection_Case_Reference__c</field>
             </layoutItems>
             <layoutItems>
