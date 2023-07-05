@@ -2657,7 +2657,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p class=\&quot;slds-align_absolute-center\&quot;&gt;Please complete Product Service Name fields.&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p class=\&quot;slds-align_absolute-center\&quot;&gt;Please update Product or Service Name before closing the case.&lt;/p&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -2889,5 +2889,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>c6052a9e-5c5f-5032-83be-05bc8e744b36</webComponentKey>
+    <webComponentKey>155658b1-15df-8e2b-e968-be294cf7591f</webComponentKey>
 </OmniScript>
