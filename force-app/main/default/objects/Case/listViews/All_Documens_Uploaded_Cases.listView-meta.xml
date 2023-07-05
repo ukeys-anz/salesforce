@@ -13,7 +13,7 @@
         <value>Documents Uploaded</value>
     </filters>
     <filterScope>Queue</filterScope>
-    <label>All Documens Uploaded Cases</label>
+    <label>All Documents Uploaded Cases</label>
     <language>en_US</language>
     <queue>Pending_KYC_QA</queue>
     <sharedTo>
