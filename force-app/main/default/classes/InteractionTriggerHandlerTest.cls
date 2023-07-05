@@ -498,7 +498,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     PermissionSetAssignment psa = new PermissionSetAssignment(
       AssigneeId = coachUser.Id,
-      PermissionSetGroupId = psg.Id
+      PermissionSetGroupId = psgCoach.Id
     );
 
     insert psa;
@@ -555,7 +555,7 @@ public with sharing class InteractionTriggerHandlerTest {
 
     PermissionSetAssignment psa = new PermissionSetAssignment(
       AssigneeId = coachUser.Id,
-      PermissionSetGroupId = psg.Id
+      PermissionSetGroupId = psgCoach.Id
     );
 
     insert psa;
