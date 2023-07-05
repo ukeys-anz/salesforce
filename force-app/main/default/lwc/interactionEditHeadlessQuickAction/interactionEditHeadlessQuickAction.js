@@ -1,6 +1,8 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
-import getRecordTypeDeveloperNameEdit from "@salesforce/apex/FetchRecordTypeName.getRecordTypeDeveloperNameEdit";
+import { getRecord } from "lightning/uiRecordApi";
+
+const fields = ["Interaction.Record_Type__c"];
 
 export default class InteractionEditHeadlessQuickAction extends LightningElement {
   interactionDetail;
@@ -17,7 +19,6 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
         this.booledit = true;
         this.interactionDetail =
           '{"interactionRecordId":"' + this._recordId + '"}';
-        this.getRecordTypeName();
       }
     }
   }
@@ -27,32 +28,26 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
   }
 
   /**
-   * handler for recordTypeName of the record
+   * Wire Method To Fetch RecordTypeName
    */
-  getRecordTypeName() {
-    getRecordTypeDeveloperNameEdit({
-      recordId: this._recordId
-    })
-      .then((result) => {
-        let mapOfDeveloperNameAndIds = JSON.parse(result);
-        this.recordTypeName =
-          mapOfDeveloperNameAndIds[this._recordId].RecordType.DeveloperName;
-        if (this.recordTypeName) {
-          if (this.recordTypeName === "Store") {
-            this.boolEditStore = true;
-          }
-          if (this.recordTypeName === "General") {
-            this.boolEditCall = true;
-          }
+
+  @wire(getRecord, { recordId: "$_recordId", fields })
+  interactionRecord({ data, error }) {
+    if (data) {
+      if (data.fields && data.fields.Record_Type__c.value) {
+        this.recordTypeName = data.fields.Record_Type__c.value;
+        if (this.recordTypeName === "In Person") {
+          this.boolEditStore = true;
         }
-      })
-      .catch((error) => {
-        console.error(
-          "Interaction Edit Headless Action For RecordType Fetch " +
-            JSON.stringify(error)
-        );
-        this.recordTypeName = undefined;
-      });
+        if (this.recordTypeName === "Call") {
+          this.boolEditCall = true;
+        }
+      }
+    } else {
+      console.error(
+        "Error in Fetching RecordTypeName -> " + JSON.stringify(error)
+      );
+    }
   }
 
   /**
