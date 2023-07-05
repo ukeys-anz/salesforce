@@ -322,9 +322,6 @@ public with sharing class IDRConstants {
     '9',
     '10',
     '11',
-    '12',
-    '14',
-    '15',
     'Chat',
     'ANZ Plus App'
   };
