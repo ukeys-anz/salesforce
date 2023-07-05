@@ -103,6 +103,10 @@
         <label>Case Information</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>Fraud_Detection_Case_Reference__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Fraud_Customer_Event_Age__c</field>
             </layoutItems>
@@ -121,6 +125,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Fraud_Funds_to_Institution_Other__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fraud_Funds_to_OFI_Account__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

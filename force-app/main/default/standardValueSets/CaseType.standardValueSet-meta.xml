@@ -317,6 +317,11 @@
         <label>Potential Recipient</label>
     </standardValue>
     <standardValue>
+        <fullName>Bank Impersonation</fullName>
+        <default>false</default>
+        <label>Bank Impersonation</label>
+    </standardValue>
+    <standardValue>
         <fullName>11</fullName>
         <default>false</default>
         <label>Other</label>
