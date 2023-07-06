@@ -274,8 +274,22 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom3658</globalKey>
-        <inputFieldName>Case:IDR_Real_Form_Ref_No__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom6372</globalKey>
+        <inputFieldName>avoidableEscalation</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:avoidableEscalation</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2530</globalKey>
+        <inputFieldName>showProdServiceError</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
@@ -501,8 +515,25 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom1520</globalKey>
-        <inputFieldName>Case:IDR_Account_Card_Policy_Number_3__c</inputFieldName>
+        <formulaConverted>| var:Case:IDR_Avoidable_Escalation__c &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
+        <formulaExpression>IF(Case:IDR_Avoidable_Escalation__c,&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
+        <formulaResultPath>avoidableEscalation</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom6254</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom7974</globalKey>
+        <inputFieldName>Case:IDR_Product_3__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
@@ -714,8 +745,22 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom4173</globalKey>
-        <inputFieldName>Case:IDR_Financial_Compensation_2__c</inputFieldName>
+        <globalKey>DRFetchCaseDetailsCustom4169</globalKey>
+        <inputFieldName>Case:IDR_Avoidable_Escalation_Reason__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>DRFetchCaseDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:avoidableEscalationReason</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom76</globalKey>
+        <inputFieldName>Case:Provided_details_to_Prod_Manufacturer_3__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
@@ -798,8 +843,11 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRFetchCaseDetailsCustom5813</globalKey>
-        <inputFieldName>Case:IDR_Financial_Remedy_Points__c</inputFieldName>
+        <formulaConverted>| | var:Case:Product__c ISBLANK | var:Case:IDR_Inbox_Email_Address__c ISNOTBLANK &amp;&amp; &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
+        <formulaExpression>IF(ISBLANK(Case:Product__c)&amp;&amp;ISNOTBLANK(Case:IDR_Inbox_Email_Address__c),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
+        <formulaResultPath>showProdServiceError</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom9060</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>DRFetchCaseDetails</name>
