@@ -54,6 +54,7 @@ export default class KnownIssues extends OmniscriptBaseMixin(LightningElement) {
         let caseObj = JSON.parse(JSON.stringify(this.omniJsonData.Case));
         this.value = "";
         this.populateIssues(caseObj, issue);
+        this.omniUpdateDataJson("");
       }
     }
     return tmp;
