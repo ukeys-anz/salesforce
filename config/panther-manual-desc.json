@@ -1153,6 +1153,7 @@
         "Created_By__c",
         "Created_Date__c",
         "Customer_Name__c",
+        "External_Id__c",
         "Last_Modified_By__c",
         "Last_Modified_Date__c",
         "Previous_Related_Account__c"
@@ -1165,7 +1166,11 @@
       ]
     },
     "ContactPointPhone": {
-      "IA-2530753": ["Customer_Name__c", "Previous_Related_Account__c"],
+      "IA-2530753": [
+        "Customer_Name__c",
+        "External_Id__c",
+        "Previous_Related_Account__c"
+      ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
