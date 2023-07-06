@@ -21,11 +21,6 @@ public with sharing class CCRMLeadConversionActions {
       LIMIT 1
     ];
 
-    lib_systemLog log = new lib_systemLog(
-      CCRMLeadConversion.class.getName(),
-      'deleteAutoCreatedContact'
-    );
-
     if (
       !Schema.sObjectType.Contact.isDeletable() &&
       !Schema.sObjectType.OpportunityContactRole.isDeletable()
@@ -249,8 +244,6 @@ public with sharing class CCRMLeadConversionActions {
     public string ocvId;
     @AuraEnabled
     public string name;
-    @AuraEnabled
-    public string clg;
     @AuraEnabled
     public string suburb;
     @AuraEnabled

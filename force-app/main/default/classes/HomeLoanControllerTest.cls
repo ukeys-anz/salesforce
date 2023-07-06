@@ -64,7 +64,6 @@ public inherited sharing class HomeLoanControllerTest {
     finAccount.FinServ__Status__c = 'Active';
     finAccount.FinServ__PrimaryOwner__c = homeLoanCustomer.Id;
     finAccount.Account_Key__c = faker.randomString(10);
-    finAccount.Primary_Owner_Start_Date__c = faker.randomPastDate();
 
     insert finAccount;
     Test.startTest();

@@ -487,15 +487,18 @@ public with sharing class InteractionTriggerHandlerTest {
     );
     insert coachUser;
     //Assign Permission set group as coach
-    PermissionSetGroup psg = [
+    PermissionSetGroup psgCoach = [
       SELECT Id
       FROM PermissionSetGroup
       WHERE DeveloperName = 'Coach'
       LIMIT 1
     ];
+
+    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+
     PermissionSetAssignment psa = new PermissionSetAssignment(
       AssigneeId = coachUser.Id,
-      PermissionSetGroupId = psg.Id
+      PermissionSetGroupId = psgCoach.Id
     );
 
     insert psa;
@@ -541,15 +544,18 @@ public with sharing class InteractionTriggerHandlerTest {
     insert coachUser;
 
     //Assign Permission set group as coach
-    PermissionSetGroup psg = [
+    PermissionSetGroup psgCoach = [
       SELECT Id
       FROM PermissionSetGroup
       WHERE DeveloperName = 'Coach'
       LIMIT 1
     ];
+
+    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+
     PermissionSetAssignment psa = new PermissionSetAssignment(
       AssigneeId = coachUser.Id,
-      PermissionSetGroupId = psg.Id
+      PermissionSetGroupId = psgCoach.Id
     );
 
     insert psa;

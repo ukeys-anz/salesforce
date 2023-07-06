@@ -46,5 +46,9 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
       prospectContacts,
       (Map<Id, Contact>) oldMap
     );
+    CCRMContactActions.hideCommercialContacts(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
   }
 }

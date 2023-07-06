@@ -17,7 +17,6 @@ public with sharing class AccountBalancesControllerTest {
     finAccount.FinServ__FinancialAccountType__c = 'Checking';
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
     finAccount.Account_Key__c = '342490981';
-    finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
 
     insert finAccount;
 

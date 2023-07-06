@@ -19,12 +19,15 @@ public with sharing class CCRMTestDataFactory {
       'Minimum Access - Salesforce'
     )
     .Id;
-  public static UserRole bankerRole = CommonUtil.getUserRoleByDevName('Banker');
+  public static UserRole commercialBankerRole = CommonUtil.getUserRoleByDevName(
+    'Commercial_Banking'
+  );
 
   private static User adminUser;
   private static User ccrmBaseUser;
   private static User ccrmIntegrationUser;
   private static User twilioIntegrationUser;
+  private static User ocvIntegrationUser;
 
   /**
    * @description Create a CCRM System Admin User
@@ -37,9 +40,12 @@ public with sharing class CCRMTestDataFactory {
     adminUser = (User) FakerFactory.make(new FakerUserFactory());
     adminUser.FirstName = 'TestUser' + staticNumber;
     adminUser.LastName = 'Admin';
-    adminUser.UserRoleId = bankerRole.Id;
+    adminUser.UserRoleId = commercialBankerRole.Id;
     adminUser.ProfileId = adminProfileId;
     insert adminUser;
+
+    addCCRMUserPS(adminUser.id, 'Read_Write_Customer_Details');
+
     return adminUser;
   }
 
@@ -76,7 +82,7 @@ public with sharing class CCRMTestDataFactory {
     ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
     ccrmBaseUser.FirstName = 'BaseUser' + staticNumber;
     ccrmBaseUser.LastName = 'CCRM';
-    ccrmBaseUser.UserRoleId = bankerRole.Id;
+    ccrmBaseUser.UserRoleId = commercialBankerRole.Id;
     ccrmBaseUser.ProfileId = anzStandardProfileId;
     insert ccrmBaseUser;
     addCCRMUserPS(ccrmBaseUser.id, 'CCRM_User_Base');
@@ -115,10 +121,12 @@ public with sharing class CCRMTestDataFactory {
     ccrmIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
     ccrmIntegrationUser.FirstName = 'IntegrationUser' + staticNumber;
     ccrmIntegrationUser.LastName = 'CCRM';
-    ccrmIntegrationUser.UserRoleId = bankerRole.Id;
+    ccrmIntegrationUser.UserRoleId = commercialBankerRole.Id;
     ccrmIntegrationUser.ProfileId = integrationProfileId;
     insert ccrmIntegrationUser;
     addCCRMUserPS(ccrmIntegrationUser.id, 'CCRM_Marketing_Integration_User');
+    addCCRMUserPS(ccrmIntegrationUser.id, 'Read_Write_Customer_Details');
+    addCCRMUserPS(ccrmIntegrationUser.id, 'Financial_Accounts_Read_and_Edit');
     return ccrmIntegrationUser;
   }
 
@@ -145,9 +153,9 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
-   * @description Create OCV Integration User
-   * @name createOCVIntegrationUser
-   * @return ANZ Standard User with CCRM Integration User Permission Set.
+   * @description Create Twilio Integration User
+   * @name createTwilioIntegrationUser
+   * @return Twilio Integration User.
    */
   public static User createTwilioIntegrationUser() {
     twilioIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
@@ -167,6 +175,32 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create OCV Integration User
+   * @name createOCVIntegrationUser
+   * @return OCV Integration User
+   */
+  public static User createOCVIntegrationUser() {
+    ocvIntegrationUser = (User) FakerFactory.make(new FakerUserFactory());
+    ocvIntegrationUser.FirstName = 'IntegrationUserOCV';
+    ocvIntegrationUser.UserRoleId = CommonUtil.getUserRoleByDevName('ANZx').Id;
+    ocvIntegrationUser.ProfileId = CommonUtil.getProfileByName(
+        'Integration User'
+      )
+      .Id;
+    insert ocvIntegrationUser;
+    TestUtil.assignPermissionSets(
+      new List<String>{
+        'Read_Write_Customer_Details',
+        'Moderate_Chatter',
+        'Customer_Relationships_Read_Write',
+        'FinancialServicesCloudStandard'
+      },
+      new List<User>{ ocvIntegrationUser }
+    );
+    return ocvIntegrationUser;
+  }
+
+  /**
    * @description Create ADOBE Integration User
    * @name createAdobeIntegrationUser
    * @return ADOBE Integration User with API Only & CCRM Base User Permission Set.
@@ -182,7 +216,7 @@ public with sharing class CCRMTestDataFactory {
     adobeUser.FirstName = 'IntegrationUser' + staticNumber;
     adobeUser.LastName = 'Adobe ';
     adobeUser.Username = 'adobe.integration@anzx.com.unittest';
-    adobeUser.UserRoleId = bankerRole.Id;
+    adobeUser.UserRoleId = commercialBankerRole.Id;
     adobeUser.ProfileId = integrationProfileId;
     insert adobeUser;
     addCCRMUserPS(adobeUser.id, 'CCRM_User_Base');
@@ -206,7 +240,7 @@ public with sharing class CCRMTestDataFactory {
     unicaUser.FirstName = 'IntegrationUser' + staticNumber;
     unicaUser.LastName = 'Unica ';
     unicaUser.Username = 'unica.integration@anzx.com.unittest';
-    unicaUser.UserRoleId = bankerRole.Id;
+    unicaUser.UserRoleId = commercialBankerRole.Id;
     unicaUser.ProfileId = integrationProfileId;
     insert unicaUser;
     addCCRMUserPS(unicaUser.id, 'CCRM_User_Base');
@@ -323,6 +357,61 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create Reciprocal Role
+   * @name createReciprocalRole
+   * @param name Name of Role
+   * @param inverseRole Inverse Role
+   * @return FinServ__ReciprocalRole__c Reciprocal Role
+   */
+  public static FinServ__ReciprocalRole__c createReciprocalRole(
+    String name,
+    String inverseRole
+  ) {
+    FinServ__ReciprocalRole__c reciprocalRole = new FinServ__ReciprocalRole__c();
+    reciprocalRole.Name = name;
+    reciprocalRole.FinServ__InverseRole__c = inverseRole;
+    reciprocalRole.FinServ__CreateInverseRole__c = false;
+    insert reciprocalRole;
+    return reciprocalRole;
+  }
+
+  /**
+   * @description Create Account With CLG Relationship
+   * @name createAccountToAccountWithClgRelationship
+   * @param accountId Account Id
+   * @param relatedAccountId Related Account Id
+   * @param role Reciprocal Role Id
+   */
+  public static void createAccountToAccountWithClgRelationship(
+    Id accountId,
+    Id relatedAccountId,
+    Id role
+  ) {
+    FinServ__AccountAccountRelation__c accToAccRelationship = new FinServ__AccountAccountRelation__c();
+    accToAccRelationship.FinServ__Account__c = accountId;
+    accToAccRelationship.FinServ__RelatedAccount__c = relatedAccountId;
+    accToAccRelationship.FinServ__Active__c = true;
+    accToAccRelationship.FinServ__Role__c = role;
+    insert accToAccRelationship;
+  }
+
+  /**
+   * @description Create CLG Account
+   * @name createClgAccount
+   * @return Account CLG Account
+   */
+  public static Account createClgAccount() {
+    Account clgAccount = new Account();
+    clgAccount.Name = 'Clg Account';
+    clgAccount.OCV_ID__c = 'OCV7861';
+    clgAccount.FinServ__KYCStatus__c = 'Completed - Valid';
+    clgAccount.FinServ__Status__c = 'Active';
+    clgAccount.RecordTypeId = CCRMConstants.ACCOUNT_CLG_RT_ID;
+    insert clgAccount;
+    return clgAccount;
+  }
+
+  /**
    * @description Create leads with related parties
    * @name createLeadRecordsWithCustomerRelatedParty
    * @param leads List of leads.
@@ -371,7 +460,7 @@ public with sharing class CCRMTestDataFactory {
     accnt.Name = 'TestAccount';
     accnt.Display_Name__c = 'TestAccount';
     accnt.OCV_ID__c = faker.randomString(10);
-    accnt.AR_C_Customer__c = true;
+    accnt.ANZx_Customer__c = false;
     accnt.FinServ__TotalFinAcctsPrimaryOwner__c = 200;
     accnt.External_Id__c = faker.randomString(10);
     accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
@@ -441,6 +530,26 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create a System Customer and save ID to custom setting Financial_Account_Settings__c.System_Customer_Id__c
+   * @name createSystemCustomer
+   * @return The System Customer record
+   */
+  public static Account createSystemCustomer() {
+    Faker faker = new Faker('AU');
+    Account accnt = new Account();
+    accnt.Name = 'System Customer';
+    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    insert accnt;
+
+    Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
+    faSettings.System_Customer_Id__c = accnt.Id;
+    upsert faSettings;
+
+    return accnt;
+  }
+
+  /**
    * @description Create a Prospect Business Account with contact
    * @name createProspectBusinessAccount
    * @param ownerId Id of the owner user
@@ -477,6 +586,7 @@ public with sharing class CCRMTestDataFactory {
     contact.MobilePhone = faker.person.phone(true, true);
     contact.Phone = faker.person.phone(true, false);
     contact.AccountId = accnt.Id;
+    contact.RecordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID;
     insert contact;
 
     return accnt;
@@ -747,15 +857,13 @@ public with sharing class CCRMTestDataFactory {
     Boolean doInsert
   ) {
     Faker faker = new Faker('AU');
-    //Deafault Count to 200 when in excess.
+    //Default Count to 200 when in excess.
     count = count == null || count == 0 ? 1 : count;
-    Account parentAccount = createBusinessAccount();
 
     Account objAccount = new Account();
     objAccount.Name = 'Test Account';
     objAccount.OCV_ID__c = faker.randomString(10);
     objAccount.FinServ__KYCStatus__c = 'Completed - Valid';
-    objAccount.ParentId = parentAccount.Id;
     objAccount.FinServ__Status__c = 'Active';
     objAccount.RecordTypeId = CCRMConstants.ACCOUNT_CLG_RT_ID;
     insert objAccount;
@@ -791,7 +899,7 @@ public with sharing class CCRMTestDataFactory {
     List<User> newUsers = new List<User>();
     for (String key : setOfEmployeeId) {
       User ccrmUser = (User) FakerFactory.make(new FakerUserFactory());
-      ccrmUser.UserRoleId = bankerRole.Id;
+      ccrmUser.UserRoleId = commercialBankerRole.Id;
       ccrmUser.ProfileId = anzStandardProfileId;
       ccrmUser.Employee_Id__c = key;
       newUsers.add(ccrmUser);
@@ -821,5 +929,45 @@ public with sharing class CCRMTestDataFactory {
     }
     Database.insert(newCPs);
     return newCPs;
+  }
+
+  /**
+   * @description Create Commercial Contacts
+   * @name createContacts
+   * @param count Count of contacts to be created
+   * @param withContactDetails create contact with contat details - Mobile/Fax/Phone/Email
+   * @return List<Contact> Contacts created
+   */
+  public static List<Contact> createContacts(
+    Integer count,
+    Boolean withContactDetails
+  ) {
+    Faker faker = new Faker('AU');
+    Account accnt = new Account();
+    accnt.Name = faker.randomString(10);
+    accnt.OCV_ID__c = faker.randomString(10);
+    accnt.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+    accnt.Phone = faker.person.phone(true, false);
+    accnt.Source_System_ID__c = 'BUS1234';
+    accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
+    accnt.FinServ__Status__c = 'Active';
+    insert accnt;
+
+    List<Contact> conList = new List<Contact>();
+    for (Integer i = 1; i <= count; i++) {
+      Contact contact = new Contact();
+      contact.FirstName = faker.person.firstName();
+      contact.LastName = faker.randomString(10);
+      if (withContactDetails) {
+        contact.Email = 'testenddate@anz.com';
+        contact.MobilePhone = faker.person.phone(true, true);
+        contact.Phone = faker.person.phone(true, false);
+        contact.Fax = '+61233334444';
+      }
+      contact.AccountId = accnt.Id;
+      conList.add(contact);
+    }
+    insert conList;
+    return conList;
   }
 }

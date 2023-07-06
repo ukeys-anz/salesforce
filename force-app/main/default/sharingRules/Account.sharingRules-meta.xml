@@ -41,57 +41,22 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Share_Complaint_Entitlement_Account</fullName>
+        <fullName>DCRM_Account_RO</fullName>
         <accessLevel>Read</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Read</contactAccessLevel>
-            <opportunityAccessLevel>None</opportunityAccessLevel>
-        </accountSettings>
-        <description>Share Complaint Entitlement Account with all ANZ users.</description>
-        <label>Share Complaint Entitlement Account</label>
-        <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>AR_C_Customer__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
-        <fullName>CCRM_Account_RW</fullName>
-        <accessLevel>Edit</accessLevel>
         <accountSettings>
             <caseAccessLevel>None</caseAccessLevel>
             <contactAccessLevel>None</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>ANZ Organisation record type to be shared with Read/Write access.</description>
-        <label>CCRM Account RW</label>
+        <description>provide read only access to all AR &amp; C customers</description>
+        <label>DCRM_Account_RO</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <roleAndSubordinates>AR_C</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
             <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Organisation</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>FinServ__Status__c</field>
-            <operation>equals</operation>
-            <value>Prospect</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Source_System_Name__c</field>
-            <operation>equals</operation>
-            <value>CAP-CIS</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

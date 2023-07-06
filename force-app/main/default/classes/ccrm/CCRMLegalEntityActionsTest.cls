@@ -5,6 +5,8 @@
  */
 @isTest
 public with sharing class CCRMLegalEntityActionsTest {
+  public static final String KYC_STATUS = 'Completed - Valid';
+  public static final String ACCOUNT_STATUS = 'Active';
   static User ccrmUser = CCRMTestDataFactory.createCCRMBaseUser();
 
   @isTest
@@ -31,6 +33,7 @@ public with sharing class CCRMLegalEntityActionsTest {
 
   @isTest
   static void testLegalEntityWithIncorrectAccountShouldFail() {
+    Faker faker = new Faker('AU');
     System.runAs(ccrmUser) {
       //GIVEN
       Integer count = 1;
@@ -38,7 +41,7 @@ public with sharing class CCRMLegalEntityActionsTest {
         count
       );
       Account account = new Account();
-      account.Name = 'Test Account';
+      account.Name = faker.person.firstName();
       account.OCV_ID__c = 'OCv1234';
       insert account;
       entitiesList[0].Account__c = account.Id;
@@ -50,7 +53,7 @@ public with sharing class CCRMLegalEntityActionsTest {
         //THEN
         if (
           ex.getMessage()
-            .contains(CCRMLegalEntityActions.INCORRECT_LEGAL_ENTITY)
+            .contains(CCRMLegalEntityActions.INCORRECT_ACCOUNT_ON_LEGAL_ENTITY)
         ) {
           System.assert(true, 'Error message displayed');
         } else {
@@ -96,19 +99,16 @@ public with sharing class CCRMLegalEntityActionsTest {
   static void testOpportunityAccountUpdateWithSingleEntity() {
     System.runAs(ccrmUser) {
       //GIVEN
-      CCRMTestDataFactory.createOpportunityRecords(1, null);
+      List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
+        1,
+        null
+      );
 
       OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
       insert oli;
 
-      Account childAccount = [
-        SELECT Id
-        FROM Account
-        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_CLG_RT_ID
-        LIMIT 1
-      ];
       Legal_Entity__c entity = new Legal_Entity__c();
-      entity.Account__c = childAccount.Id;
+      entity.Account__c = opps[0].AccountId;
       entity.Opportunity_Product__c = oli.Id;
 
       //WHEN
@@ -133,47 +133,70 @@ public with sharing class CCRMLegalEntityActionsTest {
 
   @isTest
   static void testOpportunityAccountUpdateWithMultipleEntities() {
-    System.runAs(ccrmUser) {
+    FinServ__ReciprocalRole__c role = new FinServ__ReciprocalRole__c();
+    Faker faker = new Faker('AU');
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
       //GIVEN
-      //Create Opportunity
-      CCRMTestDataFactory.createOpportunityRecords(1, null);
-      //Create Opportunity product
-      OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
-      insert oli;
-      //Parent Account
-      Account parentAccount = [
-        SELECT Id
-        FROM Account
-        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
-        LIMIT 1
-      ];
-      //Child Account 1
-      Account childAccount1 = [
-        SELECT Id
-        FROM Account
-        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_CLG_RT_ID
-        LIMIT 1
-      ];
-
+      role = CCRMTestDataFactory.createReciprocalRole('CG', 'INVCG');
       Test.startTest();
-      //Child Account 2
-      Account childAccount2 = new Account();
-      childAccount2.Name = 'Child Account';
-      childAccount2.OCV_ID__c = 'OCV7860';
-      childAccount2.FinServ__KYCStatus__c = 'Completed - Valid';
-      childAccount2.ParentId = parentAccount.Id;
-      childAccount2.FinServ__Status__c = 'Active';
-      insert childAccount2;
+      //Account 2
+      Account firstAccount = new Account();
+      firstAccount.Name = faker.person.firstName();
+      firstAccount.OCV_ID__c = 'OCV7860';
+      firstAccount.FinServ__KYCStatus__c = KYC_STATUS;
+      firstAccount.FinServ__Status__c = ACCOUNT_STATUS;
+      firstAccount.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+      insert firstAccount;
 
-      //Create First Entity
+      //Create CLG Account
+      Account clgAccount = CCRMTestDataFactory.createClgAccount();
+
+      //Associate CLG Account to account on opportunity
+      CCRMTestDataFactory.createAccountToAccountWithClgRelationship(
+        firstAccount.Id,
+        clgAccount.Id,
+        role.Id
+      );
+
+      //Create Opportunity
+      Opportunity objOpportunity = new Opportunity();
+      objOpportunity.Name = faker.person.firstName();
+      objOpportunity.Accountid = firstAccount.id;
+      objOpportunity.StageName = 'Prospecting';
+      objOpportunity.CloseDate = system.Today() + 3;
+      objOpportunity.Description = faker.text.realText(10, 20);
+      objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
+      insert objOpportunity;
+
+      OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
+      oli.OpportunityId = objOpportunity.id;
+      insert oli;
+
+      //Create First Entity using account on opportunity
       Legal_Entity__c entity1 = new Legal_Entity__c();
-      entity1.Account__c = childAccount1.Id;
+      entity1.Account__c = firstAccount.Id;
       entity1.Opportunity_Product__c = oli.Id;
       insert entity1;
 
-      //Create Second Entity
+      //Second Account
+      Account secondAccount = new Account();
+      secondAccount.Name = faker.person.firstName();
+      secondAccount.OCV_ID__c = 'OCV78601';
+      secondAccount.FinServ__KYCStatus__c = KYC_STATUS;
+      secondAccount.FinServ__Status__c = ACCOUNT_STATUS;
+      secondAccount.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+      insert secondAccount;
+
+      //Associate CLG Account to new account
+      CCRMTestDataFactory.createAccountToAccountWithClgRelationship(
+        secondAccount.Id,
+        clgAccount.Id,
+        role.Id
+      );
+
+      //Create Second Entity using new account associated to same CLG account to which account on opportunity is associated
       Legal_Entity__c entity2 = new Legal_Entity__c();
-      entity2.Account__c = childAccount2.Id;
+      entity2.Account__c = secondAccount.Id;
       entity2.Opportunity_Product__c = oli.Id;
 
       //WHEN
@@ -182,43 +205,54 @@ public with sharing class CCRMLegalEntityActionsTest {
 
       //THEN
       Opportunity opp = [SELECT Id, AccountId FROM Opportunity LIMIT 1];
-
       System.assertEquals(
-        parentAccount.Id,
         opp.AccountId,
-        'Opportunity account updated to parent account.'
+        clgAccount.Id,
+        'Opportunity account updated to CLG account.'
       );
     }
   }
 
   @isTest
   static void testFirstLegalEntityWithAccountNotMatchingOpportunityAccount() {
-    System.runAs(ccrmUser) {
+    FinServ__ReciprocalRole__c role = new FinServ__ReciprocalRole__c();
+    Faker faker = new Faker('AU');
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
       //GIVEN
-      Integer count = 1;
-      List<Legal_Entity__c> entitiesList = CCRMTestDataFactory.createLegalEntities(
-        count
+      role = CCRMTestDataFactory.createReciprocalRole('CG', 'INVCG');
+      //Create Opportunity
+      List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
+        1,
+        null
       );
+      //Create Opportunity product
+      OpportunityLineItem oli = CCRMTestDataFactory.createOpportunityLineItem();
+      insert oli;
 
-      Account parentAccount = [
-        SELECT Id
-        FROM Account
-        WHERE RecordTypeId = :CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
-        LIMIT 1
-      ];
+      Test.startTest();
+      //Account 2
+      Account newAccount = new Account();
+      newAccount.Name = faker.person.firstName();
+      newAccount.OCV_ID__c = 'OCV7860';
+      newAccount.FinServ__KYCStatus__c = KYC_STATUS;
+      newAccount.FinServ__Status__c = ACCOUNT_STATUS;
+      newAccount.RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID;
+      insert newAccount;
 
-      Account childAccount = new Account();
-      childAccount.Name = 'Incorrect Account';
-      childAccount.OCV_ID__c = 'OCV12345';
-      childAccount.ParentId = parentAccount.Id;
-      insert childAccount;
-
-      entitiesList[0].Account__c = childAccount.Id;
+      //Create First Entity using account on opportunity
+      Legal_Entity__c entity1 = new Legal_Entity__c();
+      entity1.Account__c = newAccount.Id;
+      entity1.Opportunity_Product__c = oli.Id;
 
       //WHEN
       try {
-        insert entitiesList;
+        insert entity1;
       } catch (Exception ex) {
+        System.Debug('ex message=' + ex.getMessage());
+        System.Debug(
+          'INCORRECT_ACCOUNT_ON_LEGAL_ENTITY=' +
+          CCRMLegalEntityActions.INCORRECT_ACCOUNT_ON_LEGAL_ENTITY
+        );
         //THEN
         if (
           ex.getMessage()

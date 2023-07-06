@@ -24,7 +24,6 @@ Trial Customer Portal User.profile
 
 # SFDX based permissions that are only available in Production
 force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
-force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
 force-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionsetgroup-meta.xml
 
 # Ignoring sharing rules for now until the dx issue is fixed https://github.com/forcedotcom/cli/issues/136
@@ -71,7 +70,6 @@ force-app/main/default/objects/ServiceTerritory/
 force-app/main/default/objects/WorkTypeGroup/
 force-app/main/default/objects/Individual/
 force-app/main/default/objects/FinServ__Securities__c/
-force-app/main/default/objects/FinServ__ReciprocalRole__c/
 force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
 force-app/main/default/objects/SocialPost/
 force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/FinServ__RelatedContact__c.field-meta.xml
