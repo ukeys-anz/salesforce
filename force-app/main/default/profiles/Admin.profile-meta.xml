@@ -8664,6 +8664,7 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>CollaborationGroup-All Active CMOS Group Layout</layout>
+        <recordType>CollaborationGroup.CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>ContentVersion-Content Version</layout>
