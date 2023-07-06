@@ -24,6 +24,19 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
 
   /**
+   * @description return the asset size attribute to display no asset message on flexcard
+   */
+  @AuraEnabled
+  public Integer assetSize {
+    get {
+      if (assetsSummaries.isEmpty() || assetsSummaries[0].assets.isEmpty()) {
+        return 0;
+      } else {
+        return assetsSummaries[0].assets.size();
+      }
+    }
+  }
+  /**
    * @description return the income size attribute to display no income message on flexcard.
    */
   @AuraEnabled
@@ -923,6 +936,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     if (model.assetsSummaries.size() > 0) {
       model.assetsSummaries[0].assets.sort();
     }
+    model.incomes.sort();
     return model;
   }
 }
