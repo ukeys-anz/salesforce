@@ -85,10 +85,16 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
     public String lastName;
     public String licenceNumber;
     public TokenizedValue licenceNumberToken;
+    public String licenceNumberOCRServer;
+    public TokenizedValue licenceNumberOCRServerToken;
     public String licenceCardNumber;
     public TokenizedValue licenceCardNumberToken;
+    public String licenceCardNumberOCRServer;
+    public TokenizedValue licenceCardNumberOCRServerToken;
     public String passportNumber;
     public TokenizedValue passportNumberToken;
+    public String passportNumberOCRServer;
+    public TokenizedValue passportNumberOCRServerToken;
     public DateWrapper dateOfBirth;
     public DateWrapper expiryDate;
     public String stateOfIssue;
