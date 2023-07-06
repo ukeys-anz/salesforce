@@ -140,6 +140,7 @@ public with sharing class IDRCaseNotificationManager {
     String subjectStr = null;
     Task[] assiTasks = new List<Task>();
 
+    String caseNumber = c.CaseNumber != null ? c.CaseNumber : '';
     String customerName = (c.IDR_NC_First_Name__c != null ||
       c.IDR_NC_Last_Name__c != null)
       ? ('Customer Name : ' +
@@ -149,22 +150,22 @@ public with sharing class IDRCaseNotificationManager {
     Map<String, String> mpFieldLabel2Subject = new Map<String, String>{
       'Email Response Attached' => (customerName != '')
         ? ('A new email response has been received on case : ' +
-          c.CaseNumber +
+          caseNumber +
           ' ' +
           customerName)
-        : ('A new email response has been received on case : ' + c.CaseNumber),
-      'Email Attachment Failure' => 'Email attachment has failed to upload' +
-      c.CaseNumber +
+        : ('A new email response has been received on case : ' + caseNumber),
+      'Email Attachment Failure' => 'Email attachment has failed to upload ' +
+      caseNumber +
       ' ' +
       customerName,
       'Email has failed to upload' => 'Email has failed to upload Case: ' +
-      c.CaseNumber +
+      caseNumber +
       ' ' +
       customerName,
       'Parent Updated' => (fieldLabel.equalsIgnoreCase(
           IDRConstants.CASE_OWNER_ID
         ) && (!(String.valueOf(c.OwnerId).startsWith('00G'))))
-        ? 'A Case has been assigned to you ' + c.CaseNumber + ' ' + customerName
+        ? 'A Case has been assigned to you ' + caseNumber + ' ' + customerName
         : ''
     };
     subjectStr = mpFieldLabel2Subject.get(fieldLabel);
