@@ -8,13 +8,10 @@
   'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
 )
 public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
-  @AuraEnabled
   public List<SOPAssetSummary> assetsSummaries;
-  @AuraEnabled
   public List<SOPDebtSummary> liabilitiesSummaries;
-  @AuraEnabled
+  public List<SOPExpenseSummary> monthlyExpensesSummaries;
   public List<SOPIncome> incomes;
-  @AuraEnabled
   public List<SOPEmployment> employments;
   public static Map<String, SOPEmployment> employeeIdToEmployeeMap;
   public static Map<String, String> employeeIdToPartyIdMap;
@@ -22,6 +19,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static final String JOINT_ACCOUNT = 'Joint';
   public static Map<String, Account> partyIdToAccountMap;
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
+  public List<SOPExpenseNode> expenseNodes;
 
   /**
    * @description return the asset size attribute to display no asset message on flexcard
@@ -36,10 +34,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
   }
+  
   /**
    * @description return the income size attribute to display no income message on flexcard.
    */
-  @AuraEnabled
   public Integer incomeSize {
     get {
       if (incomes.size() == 0) {
@@ -53,7 +51,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
    */
-  @AuraEnabled
   public Integer debtSize {
     get {
       if (
@@ -182,180 +179,68 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
+   * @description organize expense nodes into a tree structure
+   */
+  public void organizeExpenseNodes() {
+    if (monthlyExpensesSummaries.isEmpty()) {
+      return;
+    }
+    expenseNodes = new List<SOPExpenseNode>();
+    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
+      if (expense.expenseParent == null) {
+        expense.layer = 1;
+        expenseNodes.add(new SOPExpenseNode(expense));
+      }
+    }
+    List <SOPExpenseNode> l1Nodes = new List<SOPExpenseNode>();
+    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
+      if (expense.layer == null) {
+        for (SOPExpenseNode node: expenseNodes) {
+          if (node.expense.categoryId == expense.expenseParent) {
+            expense.layer = 2;
+            SOPExpenseNode newNode = new SOPExpenseNode(expense);
+            node.childExpenses.add(newNode);
+            l1Nodes.add(newNode);
+          }
+        }
+      }
+    }
+    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
+      if (expense.layer == null) {
+        for (SOPExpenseNode node: l1Nodes) {
+          if (node.expense.categoryId == expense.expenseParent) {
+            expense.layer = 3;
+            SOPExpenseNode newNode = new SOPExpenseNode(expense);
+            node.childExpenses.add(newNode);
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * @description SOPDebtSummary returns all the sop debt related values and total
    */
   public class SOPDebtSummary {
-    @AuraEnabled
     public List<SOPDebt> liabilities;
-    @AuraEnabled
     public SOPMoney liabilitiesTotalAmount;
+  }
+
+  /**
+   * @description SOPExpenseSummary returns all the sop expense related values and total
+   */
+  public class SOPExpenseSummary {
+    public List<SOPExpense> monthlyExpenses;
+    public SOPMoney expensesTotalAmount;
   }
 
   /**
    * @description SOPASummary returns all the sop asset related values and total assets and savings
    */
   public class SOPAssetSummary {
-    @AuraEnabled
     public List<SOPAsset> assets;
-    @AuraEnabled
     public SOPMoney assetsTotalAmount;
-    @AuraEnabled
     public SOPMoney savingsTotalAmount;
-  }
-
-  /**
-   * @description SOPAsset returns all the sop asset related values
-   */
-  public class SOPAsset implements Comparable {
-    @AuraEnabled
-    public String id;
-    @AuraEnabled
-    public String type;
-    @AuraEnabled
-    public String subType;
-    @AuraEnabled
-    public String name;
-    @AuraEnabled
-    public SOPMoney estimatedValue;
-    @AuraEnabled
-    public SOPAccounts account;
-    @AuraEnabled
-    public List<SOPOwnership> ownership;
-    @AuraEnabled
-    public String propertyId;
-    @AuraEnabled
-    public String createTime;
-    @AuraEnabled
-    public Datetime updateTime;
-    @AuraEnabled
-    public String updatedBy;
-
-    /**
-     * @description return the owner name of the asset
-     */
-    @AuraEnabled
-    public string ownerName {
-      get {
-        if (this.ownership.size() == 1) {
-          return this.ownership[0].ownerName;
-        }
-        return JOINT_ACCOUNT;
-      }
-    }
-
-    /**
-     * @description sort the balance values to show on the Savings and Assets flexcard.
-     * @param compareTo input object
-     * @return `returnValue`
-     */
-    public Integer compareTo(Object compareTo) {
-      SOPAsset compareToIncome = (SOPAsset) compareTo;
-      Integer returnValue = 0;
-      if (this.estimatedValue.value < compareToIncome.estimatedValue.value) {
-        returnValue = 1;
-      } else if (
-        this.estimatedValue.value > compareToIncome.estimatedValue.value
-      ) {
-        returnValue = -1;
-      }
-      return returnValue;
-    }
-  }
-
-  /**
-   * @description SOPDebt wrapper for SOP liability information
-   */
-  public class SOPDebt {
-    @AuraEnabled
-    public String id;
-    @AuraEnabled
-    public String sopId;
-    @AuraEnabled
-    public String type;
-    /**
-     * @description return the debt type
-     */
-    @AuraEnabled
-    public String debtType {
-      get {
-        return getReadableType(type);
-      }
-    }
-
-    public List<String> sources;
-
-    /**
-     * @description return the source type
-     */
-    @AuraEnabled
-    public String sourceType {
-      get {
-        if (!sources.isEmpty()) {
-          if (sources[0] == 'LIABILITY_SOURCE_TYPE_ANZ') {
-            return 'ANZ';
-          }
-          if (sources[0] == 'LIABILITY_SOURCE_TYPE_BUREAU') {
-            return 'Bureau';
-          }
-        }
-        return 'Other';
-      }
-    }
-
-    /**
-     * @description return the readable debt type
-     * @param inputStr the input type from json
-     * @return String the readable debt type
-     */
-    public String getReadableType(String inputStr) {
-      String[] words = inputStr.split('_');
-      String result = '';
-      words.remove(0);
-      words.remove(0);
-
-      for (String word : words) {
-        if (word.equalsIgnoreCase('of')) {
-          result += 'of ';
-        } else {
-          result +=
-            word.substring(0, 1).toUpperCase() +
-            word.substring(1).toLowerCase() +
-            ' ';
-        }
-      }
-      return result.trim();
-    }
-    @AuraEnabled
-    public SOPInstitutionalLiability institutionalLiability;
-    @AuraEnabled
-    public SOPAccounts account;
-    @AuraEnabled
-    public List<SOPOwnership> ownership;
-    @AuraEnabled
-    public String createTime;
-    @AuraEnabled
-    public String updateTime;
-    @AuraEnabled
-    public String updatedBy;
-    @AuraEnabled
-    public SOPMoney originalOutstandingBalance;
-    @AuraEnabled
-    public SOPMoney outstandingBalance;
-    @AuraEnabled
-    public SOPStudentLoan studentLoan;
-
-    /**
-     * @description return the owner name of the debt
-     */
-    @AuraEnabled
-    public string ownerName {
-      get {
-        if (this.ownership.size() == 1) {
-          return this.ownership[0].ownerName;
-        }
-        return JOINT_ACCOUNT;
-      }
-    }
   }
 
   /**
@@ -374,246 +259,13 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
-   * @description wrapper of institution liability model
-   */
-  public class SOPInstitutionalLiability {
-    @AuraEnabled
-    public SOPMoney limitAmount;
-    @AuraEnabled
-    public SOPInterestRate interestRate;
-    @AuraEnabled
-    public SOPMoney minimumPayment;
-    @AuraEnabled
-    public SOPMoney repaymentAmount;
-    @AuraEnabled
-    public String repaymentFrequency;
-    @AuraEnabled
-    public Integer principalInterestRemainingTerm;
-    @AuraEnabled
-    public Integer interestOnlyRemainingTerm;
-    @AuraEnabled
-    public Boolean liabilityDuePaidInFull;
-    @AuraEnabled
-    public SOPMoney redrawAmount;
-    @AuraEnabled
-    public String paymentMethod;
-    @AuraEnabled
-    public String financialInstitution;
-    /**
-     * @description return a readable frequency
-     */
-    @AuraEnabled
-    public String readableFrequency {
-      get {
-        String[] words = repaymentFrequency.split('_');
-        String result = '';
-        words.remove(0);
-
-        for (String word : words) {
-          result +=
-            word.substring(0, 1).toUpperCase() +
-            word.substring(1).toLowerCase() +
-            ' ';
-        }
-        return result.trim();
-      }
-    }
-
-    /**
-     * @description return a readable P&I Terms in years and months
-     */
-    @AuraEnabled
-    public string readablePIRemainingTerm {
-      get {
-        if (
-          principalInterestRemainingTerm == null ||
-          principalInterestRemainingTerm == 0
-        ) {
-          return '0';
-        }
-        Integer years = principalInterestRemainingTerm / 12;
-        Integer months = Math.mod(principalInterestRemainingTerm, 12);
-        String result = '';
-        if (years > 0) {
-          result += years + ' year';
-          if (years > 1) {
-            result += 's';
-          }
-          if (months > 0) {
-            result += ', ';
-          }
-        }
-        if (months > 0) {
-          result += months + ' month';
-          if (months > 1) {
-            result += 's';
-          }
-        }
-        return result;
-      }
-    }
-  }
-
-  /**
-   * @description wrapper of interest rate model
-   */
-  public class SOPInterestRate {
-    @AuraEnabled
-    public string value;
-
-    /**
-     * @description return a readable interest rate value
-     */
-    @AuraEnabled
-    public string readableValue {
-      get {
-        try {
-          Decimal givenValue = Decimal.valueOf(value);
-          String result = (givenValue / 100).setScale(2) + '%';
-          return result;
-        } catch (Exception e) {
-          return 'Not Provided';
-        }
-      }
-    }
-  }
-
-  /**
-   * @description wrapper of student loan model
-   */
-  public class SOPStudentLoan {
-    @AuraEnabled
-    public Boolean hecsWithheldPayment;
-
-    /**
-     * @description return Yes or No for withheld value
-     */
-    @AuraEnabled
-    public String outputWithheld {
-      get {
-        if (hecsWithheldPayment) {
-          return 'Yes';
-        } else {
-          return 'No';
-        }
-      }
-    }
-  }
-
-  /**
-   * @description returns the estimated value with with currency code units and nanos
-   */
-  public class SOPMoney {
-    @AuraEnabled
-    public String currencyCode;
-    @AuraEnabled
-    public String units;
-    @AuraEnabled
-    public Integer nanos;
-    /**
-     * @description calculated value
-     */
-    @AuraEnabled
-    public Decimal value {
-      get {
-        //Need to check if units and nanos exist as they aren't always returned
-        Decimal unitValue = String.isNotBlank(this.units)
-          ? decimal.valueOf(this.units)
-          : 0;
-        Decimal nanoValue = this.nanos != null ? this.nanos : 0;
-        return unitValue + (nanoValue / 1000000000);
-      }
-    }
-
-    /**
-     * @description calculated minus value used for debts
-     */
-    @AuraEnabled
-    public Decimal minusValue {
-      get {
-        if (value > 0) {
-          return -value;
-        } else {
-          return value;
-        }
-      }
-    }
-  }
-
-  /**
-   * @description returns the bank account parameters
-   */
-  public class SOPAccounts {
-    @AuraEnabled
-    public string id;
-    @AuraEnabled
-    public string bsb;
-    @AuraEnabled
-    public string accountNumber;
-    @AuraEnabled
-    /**
-     * @description returns the product name from an account number
-     */
-    public string productName {
-      get {
-        FinServ__FinancialAccount__c finAcc = ResidentialLoanApplicationModel.accNumberToFinAccountMap.get(
-          this.accountNumber
-        );
-        return finAcc != null ? finAcc.Product_Name__c : '';
-      }
-    }
-    @AuraEnabled
-    public string accountName;
-    @AuraEnabled
-    public string status;
-    @AuraEnabled
-    public string financialInstitution;
-  }
-
-  /**
-   * @description returns the ownership values
-   */
-  public class SOPOwnership {
-    @AuraEnabled
-    public String partyId;
-    @AuraEnabled
-    public SOPProportion proportion;
-    /**
-     * @description returns the owner name from a given partyid
-     */
-    @AuraEnabled
-    public string ownerName {
-      get {
-        Account acc = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
-          this.partyId
-        );
-        if (acc != null) {
-          return acc.FirstName;
-        } else {
-          return null;
-        }
-      }
-    }
-  }
-
-  /**
-   * @description returns the SOP proportion value
-   */
-  public class SOPProportion {
-    @AuraEnabled
-    public String value;
-  }
-
-  /**
    * @description Income class for the income node
    */
   public class SOPIncome implements Comparable {
-    @AuraEnabled
     public String id;
     /**
      * @description null check for the income child flexcard
      */
-    @AuraEnabled
     public String idNullCheck {
       get {
         if (id != null) {
@@ -623,20 +275,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
-    @AuraEnabled
     public String sopId;
-    @AuraEnabled
     public List<SOPIncomeDetail> details;
-    @AuraEnabled
     public string employmentId;
-    @AuraEnabled
     public string updateTime;
-    @AuraEnabled
     public SOPverification verification;
     /**
      * @description ownerName for the income card
      */
-    @AuraEnabled
     public string ownerName {
       get {
         SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
@@ -661,7 +307,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description employer name for the income card
      */
-    @AuraEnabled
     public String employer {
       get {
         SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
@@ -678,7 +323,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description employment name for the income card
      */
-    @AuraEnabled
     public String employmentBasis {
       get {
         SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
@@ -695,7 +339,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description startdate for the income card
      */
-    @AuraEnabled
     public String startDate {
       get {
         SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
@@ -714,7 +357,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description employment Type for the income card
      */
-    @AuraEnabled
     public String employmentType {
       get {
         String[] words = employmentBasis.split('_');
@@ -743,7 +385,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description baseIncome for the income card
      */
-    @AuraEnabled
     public ResidentialLoanApplicationModel.SOPIncomeDetail baseIncome {
       get {
         for (SOPIncomeDetail detail : details) {
@@ -758,7 +399,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description overTimeIncome for the income card
      */
-    @AuraEnabled
     public ResidentialLoanApplicationModel.SOPIncomeDetail overTimeIncome {
       get {
         for (SOPIncomeDetail detail : details) {
@@ -773,7 +413,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description commissionIncome for the income card
      */
-    @AuraEnabled
     public ResidentialLoanApplicationModel.SOPIncomeDetail commissionIncome {
       get {
         for (SOPIncomeDetail detail : details) {
@@ -788,7 +427,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description bonusIncome for the income card
      */
-    @AuraEnabled
     public ResidentialLoanApplicationModel.SOPIncomeDetail bonusIncome {
       get {
         for (SOPIncomeDetail detail : details) {
@@ -823,7 +461,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description income Verified for the income card
      */
-    @AuraEnabled
     public String incomeVerified {
       get {
         System.debug('Verification method: ' + verification);
@@ -840,14 +477,11 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
 
   public class SOPIncomeDetail {
-    @AuraEnabled
     public String id;
-    @AuraEnabled
     public String type;
     /**
      * @description income Type
      */
-    @AuraEnabled
     public String incomeType {
       get {
         String categoryOfIncome;
@@ -861,7 +495,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     /**
      * @description frequency
      */
-    @AuraEnabled
     public String frequency {
       get {
         String result = '';
@@ -878,48 +511,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         return result.trim();
       }
     }
-    @AuraEnabled
     public SOPMoney amount;
-    @AuraEnabled
     public String amountType;
-  }
-
-  /**
-   * @description model for Employment for income
-   */
-  public class SOPEmployment {
-    @AuraEnabled
-    public String id;
-    @AuraEnabled
-    public String partyId;
-    @AuraEnabled
-    public String businessName;
-    @AuraEnabled
-    public String basis;
-    @AuraEnabled
-    public beginDate startDate;
-    @AuraEnabled
-    public Datetime updateTime;
-  }
-
-  /**
-   * @description start date
-   */
-  public class BeginDate {
-    public String year;
-    public String month;
-    public String day;
-  }
-  /**
-   * @description verfication
-   */
-  public class SOPVerification {
-    public string id;
-    public string incomeId;
-    public string createTime;
-    public string method;
-    public List<string> documentIds;
-    public string createdBy;
   }
 
   /**
@@ -933,6 +526,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       ResidentialLoanApplicationModel.class
     );
     model.initMaps();
+    model.organizeExpenseNodes();
     if (model.assetsSummaries.size() > 0) {
       model.assetsSummaries[0].assets.sort();
     }
