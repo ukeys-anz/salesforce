@@ -1,23 +1,30 @@
-import { LightningElement, track } from "lwc";
-import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
+import { LightningElement, track, wire } from "lwc";
+import getDisableOmni from "@salesforce/apex/Vlocity_Utils.getDisableOmni";
+// Util methods
+import { handleErrorShowToast } from "c/utils";
 
-export default class closeCase extends OmniscriptBaseMixin(LightningElement) {
+export default class closeCase extends LightningElement {
   @track showLWC = false;
   @track showOmni = false;
 
-  connectedCallback() {
-    const params = {
-      input: {},
-      sClassName: "Vlocity_Utils",
-      sMethodName: "getDisableOmni",
-      options: {}
-    };
-    this.omniRemoteCall(params, true).then((res) => {
-      if (res.result.disableOmni) {
-        this.showLWC = true; //if custom setting for disable omni is true, lwc will be displayed
-      } else {
-        this.showOmni = true;
+  @wire(getDisableOmni, {})
+  responseData({ error, data }) {
+    if (data) {
+      this.showLWC = true;
+      this.showOmni = false;
+    } else {
+      this.showOmni = true;
+      this.showLWC = false;
+      if (error) {
+        // error handling
+        handleErrorShowToast(
+          this,
+          "Please reach out to administrator ",
+          error,
+          error.body.message,
+          "pester"
+        );
       }
-    });
+    }
   }
 }
