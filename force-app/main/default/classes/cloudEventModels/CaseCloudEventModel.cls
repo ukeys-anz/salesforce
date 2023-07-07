@@ -23,7 +23,7 @@ public virtual without sharing class CaseCloudEventModel extends CloudEventModel
     public String priority { get; set; }
     public String status { get; set; }
     public String subject { get; set; }
-    public DateTime disputeClosedDate { get; set; }
+    public FabricType.Timestamp disputeClosedDate { get; set; }
 
     public CaseCloudEventDataModel(Case theCase) {
       this.caseNumber = theCase.CaseNumber;
@@ -31,7 +31,7 @@ public virtual without sharing class CaseCloudEventModel extends CloudEventModel
       this.priority = theCase.Priority;
       this.status = theCase.Status;
       this.subject = theCase.Subject;
-      this.disputeClosedDate = theCase.ClosedDate;
+      this.disputeClosedDate = new FabricType.Timestamp(theCase.ClosedDate);
     }
   }
 }

@@ -36,7 +36,7 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
     public String externalCaseId { get; set; }
     public String externalSystem { get; set; }
     public Boolean submitted { get; set; }
-    public Datetime submittedTime { get; set; }
+    public FabricType.Timestamp submittedTime { get; set; }
 
     public DisputeCaseCloudEventDataModel(Case theCase, Account theAccount) {
       super(theCase);
@@ -48,7 +48,7 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
       this.externalCaseId = theCase.External_Case_ID__c;
       this.externalSystem = theCase.External_System__c;
       this.submitted = theCase.Submitted__c;
-      this.submittedTime = theCase.Submitted_Time__c;
+      this.submittedTime = new FabricType.Timestamp(theCase.Submitted_Time__c);
     }
   }
   /**
@@ -91,12 +91,10 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
    * @description Inner Wrapper Class for the transaction data of All Dispute Cases
    */
   public class TransactionModel {
-    public Date datePosted { get; set; }
-    public Date effectiveDate { get; set; }
-    public Decimal postedAmount { get; set; }
-    public String postedCurrency { get; set; }
-    public Decimal transactionAmount { get; set; }
-    public String transactionCurrency { get; set; }
+    public FabricType.FabricDate datePosted { get; set; }
+    public FabricType.FabricDate effectiveDate { get; set; }
+    public FabricType.FabricMoney postedAmount { get; set; }
+    public FabricType.FabricMoney transactionAmount { get; set; }
     public String transactionDescription { get; set; }
     public String transactionId { get; set; }
     public String transactionUuid { get; set; }
@@ -106,12 +104,16 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
      * @param theCase the Case record
      */
     public TransactionModel(Case theCase) {
-      this.datePosted = theCase.Date_Posted__c;
-      this.effectiveDate = theCase.Effective_Date__c;
-      this.postedAmount = theCase.Posted_Amount__c;
-      this.postedCurrency = theCase.Posted_Currency__c;
-      this.transactionAmount = theCase.Transaction_Amount__c;
-      this.transactionCurrency = theCase.Transaction_Currency__c;
+      this.datePosted = new FabricType.FabricDate(theCase.Date_Posted__c);
+      this.effectiveDate = new FabricType.FabricDate(theCase.Effective_Date__c);
+      this.postedAmount = new FabricType.FabricMoney(
+        theCase.Posted_Currency__c,
+        theCase.Posted_Amount__c
+      );
+      this.transactionAmount = new FabricType.FabricMoney(
+        theCase.Transaction_Currency__c,
+        theCase.Transaction_Amount__c
+      );
       this.transactionDescription = theCase.Transaction_Description__c;
       this.transactionId = theCase.Transaction_Id__c;
       this.transactionUuid = theCase.Transaction_UUID__c;

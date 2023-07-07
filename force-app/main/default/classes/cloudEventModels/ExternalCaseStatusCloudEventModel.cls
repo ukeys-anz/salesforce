@@ -70,7 +70,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
     public String resultCode { get; set; }
     public String resultMessage { get; set; }
     public String statusEventId { get; set; }
-    public DateTime statusTimestamp { get; set; }
+    public FabricType.Timestamp statusTimestamp { get; set; }
     public AccountModel customer { get; set; }
     /**
      * @description get an instance of ExternalCaseStatusWrapper
@@ -88,7 +88,9 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       this.resultCode = externalCaseStatus.Result_Code__c;
       this.resultMessage = externalCaseStatus.Result_Message__c;
       this.statusEventId = externalCaseStatus.Status_Event_ID__c;
-      this.statusTimestamp = externalCaseStatus.Status_Timestamp__c;
+      this.statusTimestamp = new FabricType.Timestamp(
+        externalCaseStatus.Status_Timestamp__c
+      );
       this.customer = new AccountModel(theCase);
     }
   }
