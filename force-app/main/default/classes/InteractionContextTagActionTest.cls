@@ -12,7 +12,7 @@ public with sharing class InteractionContextTagActionTest {
     // Create coach user
     User coachUser = TestUtil.createTestUser(
       new Map<String, Object>{
-        'FirstName' => 'TestCoachInter894',
+        'FirstName' => 'Coach Test ICT',
         'ProfileId' => stdUserProfile.Id,
         'UserRoleId' => coachRole.Id
       }
@@ -25,9 +25,7 @@ public with sharing class InteractionContextTagActionTest {
       WHERE DeveloperName = 'Coach'
       LIMIT 1
     ];
-
     Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
-
     PermissionSetAssignment psa = new PermissionSetAssignment(
       AssigneeId = coachUser.Id,
       PermissionSetGroupId = psgCoach.Id
@@ -117,7 +115,7 @@ public with sharing class InteractionContextTagActionTest {
     User coachUser = [
       SELECT Id, Name, FirstName
       FROM User
-      WHERE FirstName = 'TestCoachInter894'
+      WHERE FirstName = 'Coach Test ICT'
     ];
     System.runAs(coachUser) {
       List<Interaction_Context_Tag__c> listOfInsertedIct = [
@@ -144,7 +142,7 @@ public with sharing class InteractionContextTagActionTest {
     User coachUser = [
       SELECT Id, Name, FirstName
       FROM User
-      WHERE FirstName = 'TestCoachInter894'
+      WHERE FirstName = 'Coach Test ICT'
     ];
     System.runAs(coachUser) {
       List<Interaction> listOfInteraction = [
@@ -152,12 +150,19 @@ public with sharing class InteractionContextTagActionTest {
         FROM Interaction
       ];
       Interaction_Context_Tag__c insertedIct = [
-        SELECT Id, Interaction__c
+        SELECT Id, Interaction__c, IsDeleted
         FROM Interaction_Context_Tag__c
         WHERE Interaction__c = :listOfInteraction[0].Id
         LIMIT 1
       ];
       delete insertedIct;
+      Interaction_Context_Tag__c deletedIct = [
+        SELECT Id, IsDeleted
+        FROM Interaction_Context_Tag__c
+        WHERE Id = :insertedIct.Id
+        ALL ROWS
+      ];
+      System.assertEquals(deletedIct.IsDeleted, true);
     }
     Test.stopTest();
   }
