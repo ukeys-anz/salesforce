@@ -48,7 +48,11 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
       this.externalCaseId = theCase.External_Case_ID__c;
       this.externalSystem = theCase.External_System__c;
       this.submitted = theCase.Submitted__c;
-      this.submittedTime = new FabricType.Timestamp(theCase.Submitted_Time__c);
+      if (theCase.Submitted_Time__c != null) {
+        this.submittedTime = new FabricType.Timestamp(
+          theCase.Submitted_Time__c
+        );
+      }
     }
   }
   /**
@@ -104,16 +108,26 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
      * @param theCase the Case record
      */
     public TransactionModel(Case theCase) {
-      this.datePosted = new FabricType.FabricDate(theCase.Date_Posted__c);
-      this.effectiveDate = new FabricType.FabricDate(theCase.Effective_Date__c);
-      this.postedAmount = new FabricType.FabricMoney(
-        theCase.Posted_Currency__c,
-        theCase.Posted_Amount__c
-      );
-      this.transactionAmount = new FabricType.FabricMoney(
-        theCase.Transaction_Currency__c,
-        theCase.Transaction_Amount__c
-      );
+      if (theCase.Date_Posted__c != null) {
+        this.datePosted = new FabricType.FabricDate(theCase.Date_Posted__c);
+      }
+      if (theCase.Effective_Date__c != null) {
+        this.effectiveDate = new FabricType.FabricDate(
+          theCase.Effective_Date__c
+        );
+      }
+      if (theCase.Posted_Amount__c != null) {
+        this.postedAmount = new FabricType.FabricMoney(
+          theCase.Posted_Currency__c,
+          theCase.Posted_Amount__c
+        );
+      }
+      if (theCase.Transaction_Amount__c != null) {
+        this.transactionAmount = new FabricType.FabricMoney(
+          theCase.Transaction_Currency__c,
+          theCase.Transaction_Amount__c
+        );
+      }
       this.transactionDescription = theCase.Transaction_Description__c;
       this.transactionId = theCase.Transaction_Id__c;
       this.transactionUuid = theCase.Transaction_UUID__c;

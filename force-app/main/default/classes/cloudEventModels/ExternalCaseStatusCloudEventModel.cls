@@ -88,9 +88,11 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       this.resultCode = externalCaseStatus.Result_Code__c;
       this.resultMessage = externalCaseStatus.Result_Message__c;
       this.statusEventId = externalCaseStatus.Status_Event_ID__c;
-      this.statusTimestamp = new FabricType.Timestamp(
-        externalCaseStatus.Status_Timestamp__c
-      );
+      if (externalCaseStatus.Status_Timestamp__c != null) {
+        this.statusTimestamp = new FabricType.Timestamp(
+          externalCaseStatus.Status_Timestamp__c
+        );
+      }
       this.customer = new AccountModel(theCase);
     }
   }

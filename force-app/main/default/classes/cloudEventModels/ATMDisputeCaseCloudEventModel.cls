@@ -55,18 +55,22 @@ public without sharing class ATMDisputeCaseCloudEventModel extends DisputeCaseCl
       this.cardInPossessionDuringTransaction = theCase.Card_In_Possession_During_Transaction__c;
       this.cardNumber = theCase.Card_Number__c;
       this.cardScheme = theCase.Card_Scheme__c;
-      this.claimedAmount = new FabricType.FabricMoney(
-        theCase.Received_Currency__c,
-        theCase.Claimed_Amount__c
-      );
+      if (theCase.Claimed_Amount__c != null) {
+        this.claimedAmount = new FabricType.FabricMoney(
+          theCase.Received_Currency__c,
+          theCase.Claimed_Amount__c
+        );
+      }
       this.hasTheCardBeenStopped = theCase.Has_The_Card_Been_Stopped__c;
       this.isTheCardLostStolen = theCase.Is_The_Card_Lost_Stolen__c;
       this.location = theCase.Location__c;
       this.merchantDescription = theCase.Merchant_Description__c;
-      this.receivedAmount = new FabricType.FabricMoney(
-        theCase.Received_Currency__c,
-        theCase.Received_Amount__c
-      );
+      if (theCase.Received_Amount__c != null) {
+        this.receivedAmount = new FabricType.FabricMoney(
+          theCase.Received_Currency__c,
+          theCase.Received_Amount__c
+        );
+      }
     }
   }
 }

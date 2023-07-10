@@ -31,10 +31,10 @@ public with sharing class FabricTypeTest {
     System.assertEquals(d1.units, '-5');
     System.assertEquals(e1.units, '0');
     System.assertEquals(e1.nanos, 0);
-    System.assertEquals(f1.value, 0);
+    System.assertEquals(f1.value(), 0);
     System.assertEquals(g1.currencyCode, 'AUD');
-    System.assertEquals(g1.value, 0.000478564);
-    System.assertEquals(k1.value, null);
+    System.assertEquals(g1.value(), 0.000478564);
+    System.assertEquals(k1.value(), null);
   }
   @isTest
   static void testDate() {
@@ -47,10 +47,10 @@ public with sharing class FabricTypeTest {
     FabricType.FabricDate b1 = new FabricType.FabricDate(today);
     FabricType.FabricDate c1 = new FabricType.FabricDate(null);
 
-    System.assertEquals(a1.year, today.year());
-    System.assertEquals(b1.month, today.month());
-    System.assertEquals(b1.value, today);
-    System.assertEquals(c1.value, null);
+    System.assertEquals(a1.year.value, today.year());
+    System.assertEquals(b1.month.value, today.month());
+    System.assertEquals(b1.value(), today);
+    System.assertEquals(c1.value(), null);
   }
 
   @isTest
@@ -62,7 +62,7 @@ public with sharing class FabricTypeTest {
 
     System.assertEquals(a1.seconds, b1.seconds);
     System.assertEquals(a1.nanos, b1.nanos);
-    System.assertEquals(b1.value, now);
-    System.assertEquals(c1.value, null);
+    System.assertEquals(b1.value(), now);
+    System.assertEquals(c1.value(), null);
   }
 }

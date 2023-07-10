@@ -44,7 +44,9 @@ public virtual with sharing class CloudEventModel {
 
     public CloudEventSystemModel(Datetime modifiedTime, User relatedUser) {
       this.lastModifiedByUser = new UserModel(relatedUser);
-      this.lastModifiedTime = new FabricType.Timestamp(modifiedTime);
+      if (modifiedTime != null) {
+        this.lastModifiedTime = new FabricType.Timestamp(modifiedTime);
+      }
     }
   }
 

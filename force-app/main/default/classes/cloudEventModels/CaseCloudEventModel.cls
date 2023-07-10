@@ -31,7 +31,9 @@ public virtual without sharing class CaseCloudEventModel extends CloudEventModel
       this.priority = theCase.Priority;
       this.status = theCase.Status;
       this.subject = theCase.Subject;
-      this.disputeClosedDate = new FabricType.Timestamp(theCase.ClosedDate);
+      if (theCase.ClosedDate != null) {
+        this.disputeClosedDate = new FabricType.Timestamp(theCase.ClosedDate);
+      }
     }
   }
 }

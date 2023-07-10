@@ -94,19 +94,16 @@ public with sharing class FabricType {
      * @description calculate the value of the amount charged from units and nanos
      * @return `Decimal` amount value store in salesforce format
      */
-    @AuraEnabled
-    public Decimal value {
-      get {
-        //Need to check if units and nanos exist as they aren't always returned
-        if (String.isBlank(this.units) && this.nanos == null) {
-          return null;
-        }
-        Decimal unitValue = String.isNotBlank(this.units)
-          ? decimal.valueOf(this.units)
-          : 0;
-        Decimal nanoValue = this.nanos != null ? this.nanos : 0;
-        return unitValue + (nanoValue / 1000000000);
+    public Decimal value() {
+      //Need to check if units and nanos exist as they aren't always returned
+      if (String.isBlank(this.units) && this.nanos == null) {
+        return null;
       }
+      Decimal unitValue = String.isNotBlank(this.units)
+        ? decimal.valueOf(this.units)
+        : 0;
+      Decimal nanoValue = this.nanos != null ? this.nanos : 0;
+      return unitValue + (nanoValue / 1000000000);
     }
   }
 
@@ -116,11 +113,11 @@ public with sharing class FabricType {
    */
   public class FabricDate {
     @AuraEnabled
-    public Integer year;
+    public FabricOptionalInt year;
     @AuraEnabled
-    public Integer month;
+    public FabricOptionalInt month;
     @AuraEnabled
-    public Integer day;
+    public FabricOptionalInt day;
     /**
      * @description Constructor to set the fabric Date
      * @param year Year of the date. Must be from 1 to 9999.
@@ -128,9 +125,9 @@ public with sharing class FabricType {
      * @param day Day of a month. Must be from 1 to 31 and valid for the year and month
      */
     public FabricDate(Integer year, Integer month, Integer day) {
-      this.year = year;
-      this.month = month;
-      this.day = day;
+      this.year = new FabricOptionalInt(year);
+      this.month = new FabricOptionalInt(month);
+      this.day = new FabricOptionalInt(day);
     }
     /**
      * @description Constructor to set the fabric Date
@@ -138,24 +135,41 @@ public with sharing class FabricType {
      */
     public FabricDate(Date dateVal) {
       if (dateVal != null) {
-        this.year = dateVal.year();
-        this.month = dateVal.month();
-        this.day = dateVal.day();
+        this.year = new FabricOptionalInt(dateVal.year());
+        this.month = new FabricOptionalInt(dateVal.month());
+        this.day = new FabricOptionalInt(dateVal.day());
       }
     }
     /**
      * @description converts Fabric Date into Salesforce Date value
      * @return `Date` format as stored in salesforce.
      */
-    @AuraEnabled
-    public Date value {
-      get {
-        if (this.year != null && this.month != null && this.day != null) {
-          return date.newInstance(this.year, this.month, this.day);
-        } else {
-          return null;
-        }
+    public Date value() {
+      if (this.year != null && this.month != null && this.day != null) {
+        return date.newInstance(
+          this.year.value,
+          this.month.value,
+          this.day.value
+        );
+      } else {
+        return null;
       }
+    }
+  }
+
+  /**
+   * @description Represents a optional Integer from fabric optional
+   * https://github.com/anzx/apis/blob/main/anz/fabricapis/fabric/type/optional.proto#L38
+   */
+  public class FabricOptionalInt {
+    @AuraEnabled
+    public Integer value;
+    /**
+     * @description Constructor to set the fabric Optional Int
+     * @param value accepts integer.
+     */
+    public FabricOptionalInt(Integer value) {
+      this.value = value;
     }
   }
 
@@ -192,17 +206,14 @@ public with sharing class FabricType {
      * @description Converts Google Timestamp into Salesforce DateTime value
      * @return DateTime format as stored in salesforce.
      */
-    @AuraEnabled
-    public DateTime value {
-      get {
-        if (this.seconds != null && this.nanos != null) {
-          Long secondsValue = (this.seconds * 1000);
-          Long nanoValue = (this.nanos / 1000000);
-          Long mills = secondsValue + nanoValue;
-          return DateTime.newInstance(mills);
-        }
-        return null;
+    public DateTime value() {
+      if (this.seconds != null && this.nanos != null) {
+        Long secondsValue = (this.seconds * 1000);
+        Long nanoValue = (this.nanos / 1000000);
+        Long mills = secondsValue + nanoValue;
+        return DateTime.newInstance(mills);
       }
+      return null;
     }
   }
 }
