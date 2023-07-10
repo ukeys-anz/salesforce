@@ -68,6 +68,11 @@ public with sharing class InteractionContextTagActionTest {
       interactionTagToInsert4.Tag__c = 'Join ANZ Plus';
       interactionTagToInsert4.Type__c = 'Reason';
       listOfInteractionTags.add(interactionTagToInsert4);
+      Interaction_Tag__c interactionTagToInsert5 = new Interaction_Tag__c();
+      interactionTagToInsert5.Sub_Type__c = 'Store';
+      interactionTagToInsert5.Tag__c = 'ANZ Plan';
+      interactionTagToInsert5.Type__c = 'Reason';
+      listOfInteractionTags.add(interactionTagToInsert5);
       insert listOfInteractionTags;
 
       Integer i = 0;
@@ -105,6 +110,14 @@ public with sharing class InteractionContextTagActionTest {
         )
         .id;
       listOfIctToInsert.add(interactionContextTagToInsert3);
+      Interaction_Context_Tag__c interactionContextTagToInsert4 = new Interaction_Context_Tag__c();
+      interactionContextTagToInsert4.Interaction__c = listOfInteractions.get(0)
+        .Id;
+      interactionContextTagToInsert4.Interaction_Tag__c = listOfInteractionTags.get(
+          4
+        )
+        .id;
+      listOfIctToInsert.add(interactionContextTagToInsert4);
       insert listOfIctToInsert;
     }
   }
@@ -128,7 +141,7 @@ public with sharing class InteractionContextTagActionTest {
         WHERE Id = :listOfInsertedIct[0].Interaction__c
       ];
       System.assertEquals(
-        'ANZ Query',
+        'ANZ Query,ANZ Plan',
         listOfInterationRecord[0].Reason_for_Visit__c,
         'Result not matched'
       );
@@ -155,6 +168,11 @@ public with sharing class InteractionContextTagActionTest {
         WHERE Interaction__c = :listOfInteraction[0].Id
         LIMIT 1
       ];
+      System.assertEquals(
+        'ANZ Query,ANZ Plan',
+        listOfInteraction[0].Reason_for_Visit__c,
+        'Result not matched'
+      );
       delete insertedIct;
       Interaction_Context_Tag__c deletedIct = [
         SELECT Id, IsDeleted, Interaction__c, Interaction__r.Reason_for_Visit__c
@@ -163,7 +181,7 @@ public with sharing class InteractionContextTagActionTest {
         ALL ROWS
       ];
       System.assertEquals(
-        null,
+        'ANZ Plan',
         deletedIct.Interaction__r.Reason_for_Visit__c,
         'Related interaction is not updated'
       );
