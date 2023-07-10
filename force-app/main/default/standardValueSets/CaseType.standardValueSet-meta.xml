@@ -386,4 +386,24 @@
         <default>false</default>
         <label>Statutory Compliance</label>
     </standardValue>
+    <standardValue>
+        <fullName>Under Investigation</fullName>
+        <default>false</default>
+        <label>Under Investigation</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Recipient</fullName>
+        <default>false</default>
+        <label>Recipient</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Potential AML</fullName>
+        <default>false</default>
+        <label>Potential AML</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Account/Card Abuse</fullName>
+        <default>false</default>
+        <label>Account/Card Abuse</label>
+    </standardValue>
 </StandardValueSet>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>False_Customer_Profile</fullName>
+    <active>true</active>
+    <businessProcess>False Customer Profile Support Process</businessProcess>
+    <description>Record a False Customer Profile for existing or non-existing customers</description>
+    <label>False Customer Profile</label>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Under Investigation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recipient</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potential Recipient</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potential AML</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Account/Card Abuse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Fraud</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Ribbon Failed Task</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Splunk Alert</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KYC QA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FalconX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other ANZ Plus Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other AR&amp;C Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_ID_Compromise_Type__c</picklist>
+        <values>
+            <fullName>Stolen ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falsified/Modified ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer (Complicit)</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer (Scam Victim)</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Onboarding_Selfie_Of__c</picklist>
+        <values>
+            <fullName>Potential Offender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer (Replay)</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer (Real)</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_ANZX_Fraud_Confirm__c</picklist>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_ARC_Profile_Exist__c</picklist>
+        <values>
+            <fullName>Yes (Single)</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes (Multiple)</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_ARC_Profile_Status__c</picklist>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Genuine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Both</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N/A</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Prevented__c</picklist>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N/A</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

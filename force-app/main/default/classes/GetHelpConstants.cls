@@ -70,6 +70,10 @@ public with sharing class GetHelpConstants {
     .get('Fraud_Check')
     .getRecordTypeId();
 
+  public static final Id FALSE_CUSTOMER_PROFILE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('False_Customer_Profile')
+    .getRecordTypeId();
+
   //Quality Assessment - General RT Id
   public static final Id QUALITY_ASSESSMENT_GENERAL_RT_ID = Schema.SObjectType.Quality_Assessment__c.getRecordTypeInfosByDeveloperName()
     .get('General')

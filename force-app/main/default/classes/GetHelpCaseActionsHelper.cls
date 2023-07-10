@@ -370,6 +370,36 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Check if the case is a false customer profile, then make the onboarding customer name value -
+   * - to be customer name
+   * @param records New record instances to process
+   */
+  public static void setFraudCustomerProfileCase(List<Case> records) {
+    Map<Id, Case> caseList = new Map<Id, Case>();
+    set<Id> accountIds = new Set<Id>();
+
+    for (Case record : records) {
+      if (
+        record.RecordTypeId == GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID
+      ) {
+        accountIds.add(record.AccountId);
+        caseList.put(record.AccountId, record);
+      }
+    }
+    if (accountIds.Size() > 0 && Schema.sObjectType.Account.isQueryable()) {
+      List<Account> accs = [
+        SELECT Id, Name
+        FROM Account
+        WHERE Id IN :accountIds
+      ];
+      for (Account acc : accs) {
+        Case c = caseList.get(acc.Id);
+        c.Fraud_Onboarding_Customer_Name__c = acc.Name;
+      }
+    }
+  }
+
+  /**
    * @description Check if the account on the case has changed
    * @param records New record instances to process
    * @param oldCaseMap Old case map

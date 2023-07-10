@@ -465,6 +465,7 @@
         "External_System__c",
         "FinServ__FinancialAccount__c",
         "Fraud_COR_Event_ID__c",
+        "Fraud_Onboarding_Customer_Name__c",
         "IsOwnerCoachOrCoachLead__c",
         "OwnerId",
         "ParentId",
@@ -602,6 +603,12 @@
         "Fraud_Analytics_Change_Type__c",
         "Fraud_Analytics_Rule_Name__c",
         "Fraud_Analytics_Date_Complete__c",
+        "Fraud_ID_Compromise_Type__c",
+        "Fraud_Onboarding_Selfie_Of__c",
+        "Fraud_ANZX_Fraud_Confirm__c",
+        "Fraud_ARC_Profile_Exist__c",
+        "Fraud_ARC_Profile_Status__c",
+        "Fraud_Prevented__c",
         "Has_The_Card_Been_Stopped__c",
         "IDR_AFCA_Date__c",
         "IDR_AFCA_Due_Date__c",
@@ -871,7 +878,8 @@
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
         "PersonaId__c",
-        "PersonID__c"
+        "PersonID__c",
+        "Fraud_PersonID__c"
       ]
     },
     "CFaaS_File__c": {

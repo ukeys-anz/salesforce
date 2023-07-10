@@ -38,6 +38,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.populateOCVOnComplaint(records);
     GetHelpCaseActions.validateDuplicateKYCQACasePerAccount(records);
     GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
+    GetHelpCaseActionsHelper.setFraudCustomerProfileCase(records);
   }
 
   /**

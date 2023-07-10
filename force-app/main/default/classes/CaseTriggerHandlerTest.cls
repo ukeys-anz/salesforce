@@ -221,6 +221,29 @@ private class CaseTriggerHandlerTest {
       'CaseNumber__c should be equal to CaseNumber.'
     );
   }
+
+  @isTest
+  static void testFraudCustomerProfileDefaultValue() {
+    Account personAcc = [SELECT Id, Name FROM Account LIMIT 1];
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = personAcc.Id
+    );
+    Test.startTest();
+    insert newCase;
+    Case c = [
+      SELECT Id, Fraud_Onboarding_Customer_Name__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertEquals(
+      c.Fraud_Onboarding_Customer_Name__c,
+      personAcc.Name,
+      'By default, the Customer name on fraud customer profile should be the customer name'
+    );
+    Test.stopTest();
+  }
+
   @IsTest
   static void testCaseNumberNoCopy() {
     // GIVEN cases which already have their case number copied
