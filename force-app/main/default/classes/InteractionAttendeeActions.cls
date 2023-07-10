@@ -216,6 +216,8 @@ public with sharing class InteractionAttendeeActions {
     profilenames.add('ANZx Standard User');
     recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
+    System.debug('recordtypes' + recordtypes);
     User userDetail = [
       SELECT id, profile.name
       FROM user
@@ -244,14 +246,14 @@ public with sharing class InteractionAttendeeActions {
   public static void insertOwnerChangeAttendee(List<Interaction> interactions) {
     Map<Id, Set<Id>> interActionWithAttendee = new Map<Id, Set<Id>>();
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
-    List<Id> storeOwnerId = new List<Id>();
+    List<Id> interactionOwnerId = new List<Id>();
     Set<Id> recordtypes = new Set<Id>();
     recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
-
+    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
     //Loop in interaction and filter out all owner ids
     for (Interaction interact : interactions) {
-      storeOwnerId.add(interact.OwnerId);
+      interactionOwnerId.add(interact.OwnerId);
       interActionWithAttendee.put(interact.Id, new Set<Id>{});
     }
 
@@ -259,7 +261,7 @@ public with sharing class InteractionAttendeeActions {
     List<InteractionAttendee> lstattendee = [
       SELECT UserId, InteractionId
       FROM InteractionAttendee
-      WHERE InteractionId IN :interactions AND UserId IN :storeOwnerId
+      WHERE InteractionId IN :interactions AND UserId IN :interactionOwnerId
     ];
 
     //Lopp in and create a Map of Interaction Id and list of attendees.

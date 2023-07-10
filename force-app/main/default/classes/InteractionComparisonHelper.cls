@@ -167,6 +167,7 @@ public with sharing class InteractionComparisonHelper {
     recordtypes.add(GetHelpConstants.INTERACTION_APPT_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
+    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
 
     for (Interaction currentInteraction : records) {
       if (!recordtypes.contains(currentInteraction.RecordTypeId)) {

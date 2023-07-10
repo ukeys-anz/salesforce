@@ -130,6 +130,11 @@ public with sharing class GetHelpConstants {
     .get('Store')
     .getRecordTypeId();
 
+  // Interaction - Message Interaction RT Id
+  public static final Id INTERACTION_MESSAGE_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('Message')
+    .getRecordTypeId();
+
   // Case - Account Closure
   public static final Id ACCOUNT_CLOSURE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Account_Closure')
