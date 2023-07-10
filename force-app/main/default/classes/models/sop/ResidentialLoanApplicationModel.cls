@@ -34,7 +34,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
   }
-  
+
   /**
    * @description return the income size attribute to display no income message on flexcard.
    */
@@ -192,10 +192,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         expenseNodes.add(new SOPExpenseNode(expense));
       }
     }
-    List <SOPExpenseNode> l1Nodes = new List<SOPExpenseNode>();
+    List<SOPExpenseNode> l1Nodes = new List<SOPExpenseNode>();
     for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
       if (expense.layer == null) {
-        for (SOPExpenseNode node: expenseNodes) {
+        for (SOPExpenseNode node : expenseNodes) {
           if (node.expense.categoryId == expense.expenseParent) {
             expense.layer = 2;
             SOPExpenseNode newNode = new SOPExpenseNode(expense);
@@ -207,7 +207,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
     for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
       if (expense.layer == null) {
-        for (SOPExpenseNode node: l1Nodes) {
+        for (SOPExpenseNode node : l1Nodes) {
           if (node.expense.categoryId == expense.expenseParent) {
             expense.layer = 3;
             SOPExpenseNode newNode = new SOPExpenseNode(expense);
@@ -238,6 +238,162 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    * @description SOPASummary returns all the sop asset related values and total assets and savings
    */
   public class SOPAssetSummary {
+    /**
+     * @description returns cashSavingsExists value to show Cash tile title on Savings flexcard
+     */
+    public boolean cashSavingsExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (asset.type != null && asset.type == 'ASSET_TYPE_CASH') {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns propertyAssetsExists value to show Property tile title on Assets flexcard
+     */
+    public boolean propertyAssetsExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (asset.type != null && asset.type == 'ASSET_TYPE_PROPERTY') {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns savingsANZPlusExists value to show ANZ Plus tile title on Savings flexcard
+     */
+    public boolean savingsANZPlusExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (
+            asset.type != null &&
+            asset.type == 'ASSET_TYPE_BANK_ACCOUNT' &&
+            asset.account != null &&
+            asset.account.financialInstitution == 'ANZ Plus'
+          ) {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns savingsANZExists value to show ANZ tile title on Savings flexcard
+     */
+    public boolean savingsANZExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (
+            asset.type != null &&
+            asset.type == 'ASSET_TYPE_BANK_ACCOUNT' &&
+            asset.account != null &&
+            asset.account.financialInstitution == 'ANZ'
+          ) {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns otherInstExists value to show Other Institution tile title on Savings flexcard
+     */
+    public boolean otherInstExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (
+            asset.type != null &&
+            asset.type == 'ASSET_TYPE_BANK_ACCOUNT' &&
+            asset.account != null &&
+            asset.account.financialInstitution != 'ANZ' &&
+            asset.account.financialInstitution != 'ANZ Plus'
+          ) {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns superAssetsExists value to show Super tile title on Assets flexcard
+     */
+    public boolean superAssetsExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (asset.type != null && asset.type == 'ASSET_TYPE_SUPER') {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns vehicleAssetsExists value to show Vehicle tile title on Assets flexcard
+     */
+    public boolean vehicleAssetsExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (asset.type != null && asset.type == 'ASSET_TYPE_VEHICLE') {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns otherAssetsExists value to show Other tile title on Assets flexcard
+     */
+    public boolean otherAssetsExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (asset.type != null && asset.type == 'ASSET_TYPE_OTHER') {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns homeContentsAssetsExists value to show Home Content tile title on Assets flexcard
+     */
+    public boolean homeContentsAssetsExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (asset.type != null && asset.type == 'ASSET_TYPE_HOME_CONTENTS') {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns sharesAssetsExists value to show Investment tile title on Assets flexcard
+     */
+    public boolean sharesAssetsExists {
+      get {
+        boolean returnValue = false;
+        for (SOPAsset asset : assets) {
+          if (asset.type != null && asset.type == 'ASSET_TYPE_SHARES') {
+            returnValue = true;
+          }
+        }
+        return returnValue;
+      }
+    }
     public List<SOPAsset> assets;
     public SOPMoney assetsTotalAmount;
     public SOPMoney savingsTotalAmount;
@@ -346,7 +502,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         );
         if (employment != null && employment.startDate != null) {
           return employment.startDate.year +
+            '-' +
             employment.startDate.month +
+            '-' +
             employment.startDate.day;
         } else {
           return null;
@@ -365,18 +523,19 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         words.remove(0);
 
         for (Integer i = 0; i < words.size(); i++) {
-          if (i == 0) {
+          if (i == 0 && words.size() > 1) {
             result +=
               words[i].substring(0, 1).toUpperCase() +
               words[i].substring(1).toLowerCase() +
               '-';
+          } else if (words[i] == 'UNSPECIFIED') {
+            result = 'Not Specified';
           } else {
             result +=
               words[i].substring(0, 1).toUpperCase() +
               words[i].substring(1).toLowerCase() +
               ' ';
           }
-          System.debug('Result:' + result);
         }
         return result.trim();
       }
@@ -487,6 +646,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         String categoryOfIncome;
         if (this.amountType == 'INCOME_AMOUNT_TYPE_GROSS') {
           categoryOfIncome = 'Before Tax';
+        } else if (this.amountType == 'INCOME_AMOUNT_TYPE_NET') {
+          categoryOfIncome = 'After Tax';
         }
         return categoryOfIncome;
       }
@@ -503,10 +664,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         words.remove(0);
 
         for (String word : words) {
-          result =
-            word.substring(0, 1).toUpperCase() +
-            word.substring(1).toLowerCase() +
-            ' ';
+          if (word == 'UNSPECIFIED') {
+            result = 'Not Specified';
+          } else {
+            result =
+              word.substring(0, 1).toUpperCase() +
+              word.substring(1).toLowerCase() +
+              ' ';
+          }
         }
         return result.trim();
       }
