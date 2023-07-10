@@ -190,8 +190,12 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
     List<TokenizedValue> tokenizedValues = new List<TokenizedValue>();
 
     for (String fieldName : fields) {
-      TokenizedValue tv = new TokenizedValue((String) pid.get(fieldName));
-      tokenizedValues.add(tv);
+      String fieldValue = (String) pid.get(fieldName);
+      if (String.isBlank(fieldValue)) {
+        continue;
+      }
+
+      tokenizedValues.add(new TokenizedValue(fieldValue));
     }
 
     return tokenizedValues;
