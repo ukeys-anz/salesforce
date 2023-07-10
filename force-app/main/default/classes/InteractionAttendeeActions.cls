@@ -217,7 +217,6 @@ public with sharing class InteractionAttendeeActions {
     recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
     recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
-    System.debug('recordtypes' + recordtypes);
     User userDetail = [
       SELECT id, profile.name
       FROM user

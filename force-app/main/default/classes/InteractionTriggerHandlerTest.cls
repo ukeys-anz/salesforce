@@ -609,6 +609,35 @@ public with sharing class InteractionTriggerHandlerTest {
 
   @isTest
   static void testAttendeeOnChangeOwner() {
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
+    // Create coach user
+    User coachUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'TestCoachInter891',
+        'ProfileId' => stdUserProfile.Id,
+        'UserRoleId' => coachRole.Id
+      }
+    );
+    insert coachUser;
+
+    //Assign Permission set group as coach
+    PermissionSetGroup psgCoach = [
+      SELECT Id
+      FROM PermissionSetGroup
+      WHERE DeveloperName = 'Coach'
+      LIMIT 1
+    ];
+
+    Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+
+    PermissionSetAssignment psa = new PermissionSetAssignment(
+      AssigneeId = coachUser.Id,
+      PermissionSetGroupId = psgCoach.Id
+    );
+
+    insert psa;
+
     // created list of interaction record types
     List<Id> interactionRecordtypesList = new List<Id>();
     List<Interaction> insertInteractionList = new List<Interaction>();
@@ -642,30 +671,14 @@ public with sharing class InteractionTriggerHandlerTest {
       numberattendeeinsert < 1,
       'There should be no Interaction Attendee associated with the created call interaction'
     );
-
-    // Insert User , to get around MIXED_DML_OPERATION error
-    User thisUser = new User(Id = UserInfo.getUserId());
-    System.runAs(thisUser) {
-      // Create a Coach User with 'Coach Agent' role
-      Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
-      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
-      User coach = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CoachTest',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => coachRole.Id,
-          'Username' => 'This.Is.A@Test.User'
-        }
-      );
-      insert coach;
-
+    System.runAs(coachUser) {
+      User coach = [SELECT Id FROM User WHERE FirstName = 'TestCoachInter891'];
       Test.startTest();
       for (Interaction interactrecord : insertInteractionList) {
         interactrecord.OwnerId = coach.id;
         updateInteractionList.add(interactrecord);
       }
-
-      update updateInteractionList;
+      DMLUtil.updateRecords(updateInteractionList, false, true);
       Test.stopTest();
 
       // Checking the number of attendee on ownner change by  ANZX standard user
@@ -681,6 +694,7 @@ public with sharing class InteractionTriggerHandlerTest {
         'Changed Owner should be added as an InteractionAttendee'
       );
     }
+
   }
 
   @isTest
