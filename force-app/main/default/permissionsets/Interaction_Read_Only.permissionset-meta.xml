@@ -61,6 +61,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Actual_Topics__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Appointment__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -225,6 +230,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Products__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.ReferenceIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -241,6 +251,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Resolution__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Reason_for_Visit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

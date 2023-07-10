@@ -1525,7 +1525,12 @@
         "Place__c",
         "TwilioDetailsID__c"
       ],
-      "IA-2468715": ["Loan_Application__c"]
+      "IA-2468715": [
+        "Loan_Application__c",
+        "Actual_Topics__c",
+        "Products__c",
+        "Reason_for_Visit__c"
+      ]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"]
