@@ -12,7 +12,7 @@ public with sharing class InteractionContextTagActionTest {
     // Create coach user
     User coachUser = TestUtil.createTestUser(
       new Map<String, Object>{
-        'FirstName' => 'Coach Test ICT',
+        'FirstName' => 'Coach Test ICT012',
         'ProfileId' => stdUserProfile.Id,
         'UserRoleId' => coachRole.Id
       }
@@ -115,7 +115,7 @@ public with sharing class InteractionContextTagActionTest {
     User coachUser = [
       SELECT Id, Name, FirstName
       FROM User
-      WHERE FirstName = 'Coach Test ICT'
+      WHERE FirstName = 'Coach Test ICT012'
     ];
     System.runAs(coachUser) {
       List<Interaction_Context_Tag__c> listOfInsertedIct = [
@@ -142,7 +142,7 @@ public with sharing class InteractionContextTagActionTest {
     User coachUser = [
       SELECT Id, Name, FirstName
       FROM User
-      WHERE FirstName = 'Coach Test ICT'
+      WHERE FirstName = 'Coach Test ICT012'
     ];
     System.runAs(coachUser) {
       List<Interaction> listOfInteraction = [
@@ -150,19 +150,23 @@ public with sharing class InteractionContextTagActionTest {
         FROM Interaction
       ];
       Interaction_Context_Tag__c insertedIct = [
-        SELECT Id, Interaction__c, IsDeleted
+        SELECT Id, Interaction__c
         FROM Interaction_Context_Tag__c
         WHERE Interaction__c = :listOfInteraction[0].Id
         LIMIT 1
       ];
       delete insertedIct;
       Interaction_Context_Tag__c deletedIct = [
-        SELECT Id, IsDeleted
+        SELECT Id, IsDeleted, Interaction__c, Interaction__r.Reason_for_Visit__c
         FROM Interaction_Context_Tag__c
         WHERE Id = :insertedIct.Id
         ALL ROWS
       ];
-      System.assertEquals(deletedIct.IsDeleted, true);
+      System.assertEquals(
+        null,
+        deletedIct.Interaction__r.Reason_for_Visit__c,
+        'Related interaction is not updated'
+      );
     }
     Test.stopTest();
   }
