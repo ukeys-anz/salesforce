@@ -37,7 +37,6 @@ public with sharing class StravinskyControllerTest {
     checkingAccount.FinServ__FinancialAccountType__c = 'Checking';
     checkingAccount.FinServ__PrimaryOwner__c = acc.Id;
     checkingAccount.Account_Key__c = faker.randomString(10);
-    checkingAccount.Primary_Owner_Start_Date__c = Date.valueOf('2022-08-03');
     insert checkingAccount;
 
     FinServ__FinancialAccount__c savingsAccount = new FinServ__FinancialAccount__c();
@@ -48,7 +47,6 @@ public with sharing class StravinskyControllerTest {
     savingsAccount.FinServ__FinancialAccountType__c = 'Savings';
     savingsAccount.FinServ__PrimaryOwner__c = acc.Id;
     savingsAccount.Account_Key__c = faker.randomString(10);
-    savingsAccount.Primary_Owner_Start_Date__c = Date.valueOf('2022-08-03');
     insert savingsAccount;
   }
 

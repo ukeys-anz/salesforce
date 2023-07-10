@@ -52,19 +52,42 @@ public with sharing class CCRMContactActions {
         !String.isBlank(record.Phone) &&
         !Pattern.matches(Label.Regex_Phone, record.Phone)
       ) {
-        record.addError('Phone', INVALID_PHONE_ERROR);
+        record.addError(
+          Schema.SObjectType.Contact.fields.Phone.Name,
+          INVALID_PHONE_ERROR
+        );
       }
       if (
         !String.isBlank(record.MobilePhone) &&
         !Pattern.matches(Label.Regex_Mobile, record.MobilePhone)
       ) {
-        record.addError('MobilePhone', INVALID_MOBILE_ERROR);
+        record.addError(
+          Schema.SObjectType.Contact.fields.MobilePhone.Name,
+          INVALID_MOBILE_ERROR
+        );
       }
       if (
         !String.isBlank(record.Email) &&
         !Pattern.matches(Label.Regex_Email, record.Email)
       ) {
-        record.addError('Email', INVALID_EMAIL_ERROR);
+        record.addError(
+          Schema.SObjectType.Contact.fields.Email.Name,
+          INVALID_EMAIL_ERROR
+        );
+      }
+      if (
+        String.isBlank(record.Phone) &&
+        String.isBlank(record.MobilePhone) &&
+        String.isBlank(record.Fax)
+      ) {
+        record.addError(CONTACT_METHOD_ERROR);
+      }
+      if (
+        String.isBlank(record.Phone) &&
+        String.isBlank(record.MobilePhone) &&
+        String.isBlank(record.Fax)
+      ) {
+        record.addError(CONTACT_METHOD_ERROR);
       }
       if (
         String.isBlank(record.Phone) &&
@@ -108,6 +131,51 @@ public with sharing class CCRMContactActions {
       ) {
         record.addError(MAX_CONTACT_PER_ORG_ERROR);
       }
+    }
+  }
+
+  /**
+   * @description Hide commercial contacts by setting Active To Date and Record Type = Hidden on contact
+   * when Phone and Mobile and Fax deleted from commercial contact
+   * @param records List of new contacts records
+   * @param oldRecordsMap Map of contacts old records
+   */
+  public static void hideCommercialContacts(
+    List<Contact> records,
+    Map<Id, Contact> oldRecordsMap
+  ) {
+    List<Contact> recordsToUpdate = new List<Contact>();
+    for (Contact record : records) {
+      Contact contactOldRec = oldRecordsMap != null
+        ? oldRecordsMap.get(record.id)
+        : new Contact();
+      if (
+        record.RecordTypeId == CCRMConstants.CONTACT_BUSINESS_RT_ID &&
+        ((!String.isBlank(contactOldRec.Phone) ||
+        !String.isBlank(contactOldRec.MobilePhone) ||
+        !String.isBlank(contactOldRec.Fax)) &&
+        (String.isBlank(record.Phone) &&
+        String.isBlank(record.MobilePhone) &&
+        String.isBlank(record.Fax)))
+      ) {
+        record.Active_To__c = System.today();
+        recordsToUpdate.add(record);
+      }
+    }
+    hideContacts(recordsToUpdate);
+  }
+
+  /**
+   * @description Helper method to hide commercial contact by updating record type to "Hidden" after back up record type to Previous_Record_Type__c
+   * @param records List of contacts records
+   */
+  public static void hideContacts(List<Contact> records) {
+    for (Contact record : records) {
+      record.Previous_Record_Type__c = Schema.SObjectType.Contact
+        .getRecordTypeInfosById()
+        .get(record.RecordTypeId)
+        .getName();
+      record.RecordTypeId = CCRMConstants.CONTACT_HIDDEN_RT_ID;
     }
   }
 }

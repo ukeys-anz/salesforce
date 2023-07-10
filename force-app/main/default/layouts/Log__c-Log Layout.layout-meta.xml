@@ -108,11 +108,26 @@
     </layoutSections>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>LoggingLevel__c</fields>
+        <fields>LogMessage__c</fields>
+        <fields>SpanId__c</fields>
+        <fields>ApexClassName__c</fields>
+        <fields>ApexMethodName__c</fields>
+        <fields>CREATED_DATE</fields>
         <relatedList>LogEntry__c.Log__c</relatedList>
+        <sortField>CREATED_DATE</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>SpanId__c</fields>
+        <fields>LogMessage__c</fields>
+        <fields>ApexClassName__c</fields>
+        <fields>ApexMethodName__c</fields>
+        <fields>CREATED_DATE</fields>
         <relatedList>SecureLogEntry__c.Log__c</relatedList>
+        <sortField>CREATED_DATE</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -120,7 +135,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h2O000002ayyI</masterLabel>
+        <masterLabel>00h2P000000NKjz</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

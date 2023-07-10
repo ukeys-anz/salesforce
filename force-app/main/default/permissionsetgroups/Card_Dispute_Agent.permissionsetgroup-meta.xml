@@ -14,6 +14,7 @@
     <permissionSets>Case_Read_Write_Get_Help</permissionSets>
     <permissionSets>Case_Read_Write_KYC_QA</permissionSets>
     <permissionSets>Case_Read_Write_Non_Customer_Complaints</permissionSets>
+    <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>
     <permissionSets>Coaches_Workbench</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
@@ -23,11 +24,14 @@
     <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Fraud_Lock_Card</permissionSets>
+    <permissionSets>Interaction_Context_Tag_Read_Write</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
+    <permissionSets>Interaction_Tag_Read_Only</permissionSets>
+    <permissionSets>InteractionOmniClasses</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
-    <permissionSets>OCV_Flags_Read_Only</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
@@ -37,6 +41,7 @@
     <permissionSets>Run_reports_and_dashboards</permissionSets>
     <permissionSets>Tableau_CRM_Allow_CSV_Download</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
+    <permissionSets>View_and_Edit_Tasks</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <status>Updated</status>

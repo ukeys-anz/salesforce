@@ -191,6 +191,8 @@
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
     "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
+    "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
+    "Interaction_Context_Tag__c": "Junction Object between Interaction and Interaction Tag",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -234,7 +236,6 @@
     "Account": {
       "IA-2415720": [
         "ANZx_Customer__c",
-        "AR_C_Customer__c",
         "Anniversary_Date__c",
         "Anniversary_Duration__c",
         "Collections__c",
@@ -284,6 +285,9 @@
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
+        "Full_First_Name__c",
+        "Full_Middle_Name__c",
+        "Full_Last_Name__c",
         "Tax_Exemption_Type__c",
         "TFN_Verification__c"
       ],
@@ -293,10 +297,11 @@
         "Controlling_Post__c",
         "CPID_Link__c",
         "CPID__c",
+        "IsSkeleton__c",
         "IsSnapshotError__c",
         "IsSnapshotInProgress__c"
       ],
-      "IA-2415860": ["FinServ__CustomerType__c"]
+      "IA-2415860": ["FinServ__CustomerType__c", "IsTruncated__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -1097,7 +1102,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Previous_Record_Type__c"
       ],
       "IA-2415860": ["Occurrence_Number__c"],
       "IA-2415984": [
@@ -1127,6 +1133,7 @@
         "Last_Modified_Date__c",
         "LastModifiedById",
         "LastModifiedDate",
+        "Previous_Related_Account__c",
         "RecordTypeId"
       ],
       "IA-2415984": [
@@ -1146,8 +1153,10 @@
         "Created_By__c",
         "Created_Date__c",
         "Customer_Name__c",
+        "External_Id__c",
         "Last_Modified_By__c",
-        "Last_Modified_Date__c"
+        "Last_Modified_Date__c",
+        "Previous_Related_Account__c"
       ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
@@ -1157,7 +1166,11 @@
       ]
     },
     "ContactPointPhone": {
-      "IA-2530753": ["Customer_Name__c"],
+      "IA-2530753": [
+        "Customer_Name__c",
+        "External_Id__c",
+        "Previous_Related_Account__c"
+      ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
@@ -1385,6 +1398,10 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
+    "FinServ__ContactContactRelation__c": {
+      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2453350": ["External_Id__c"]
+    },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
         "Account_Key__c",
@@ -1393,7 +1410,6 @@
         "FinServ__RecordTypeName__c",
         "Marketing_Code__c",
         "OCV_ID__c",
-        "Primary_Owner_Start_Date__c",
         "Product_Type__c",
         "CreatedById",
         "CreatedDate",
@@ -1412,7 +1428,6 @@
         "FinServ__OpenDate__c",
         "FinServ__Status__c",
         "Interest_Accrued__c",
-        "Role_Type__c",
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",
         "Name",
@@ -1420,7 +1435,6 @@
       ],
       "IA-2415987": ["Interest_Rate_URL__c"],
       "IA-2530753": [
-        "IsPrimaryOwner__c",
         "OCV_Event_Version__c",
         "Product_SubCode__c",
         "Source_System_Status_Display__c",
@@ -1448,7 +1462,10 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
+      "IA-2530753": ["Role_Type__c"]
+    },
+    "FinServ__ReciprocalRole__c": {
+      "IA-2530753": ["OCV_Role__c", "Role_Description__c"]
     },
     "IDR_Omni_Settings__c": {
       "IA-2415860": ["Disable_CMOS_Omni__c"]
@@ -1513,7 +1530,23 @@
         "Resolution__c",
         "StartTime",
         "Status__c",
-        "Twilio_ID__c"
+        "Twilio_ID__c",
+        "Assisted__c",
+        "Self_Service__c",
+        "Place__c"
+      ],
+      "IA-2468715": ["Loan_Application__c"]
+    },
+    "Interaction_Tag__c": {
+      "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"]
+    },
+    "Interaction_Context_Tag__c": {
+      "IA-2415840": [
+        "Name",
+        "Interaction__c",
+        "Interaction_Tag__c",
+        "Type__c",
+        "Tag_Name__c"
       ]
     },
     "InteractionSummary": {
@@ -2262,6 +2295,7 @@
         "ApexClassName__c",
         "ApexMethodName__c",
         "Log__c",
+        "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
       ]

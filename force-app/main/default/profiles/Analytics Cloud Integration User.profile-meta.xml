@@ -8,11 +8,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.AR_C_Customer__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Account.Anniversary_Date__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1618,11 +1613,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__FinancialAccount__c.Primary_Owner_Start_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Total_Number_of_Cards__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2729,6 +2719,10 @@
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>

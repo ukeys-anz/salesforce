@@ -97,6 +97,7 @@ public with sharing class LogEventActions {
       Payload__c = eventRecord.Payload__c,
       SpanId__c = eventRecord.SpanId__c,
       Log__c = logId,
+      LogMessage__c = eventRecord.LogMessage__c,
       RecordsJson__c = eventRecord.RecordsJson__c
     );
     return secureLogEntry;

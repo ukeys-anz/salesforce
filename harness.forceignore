@@ -23,7 +23,6 @@ Trial Customer Portal User.profile
 
 # SFDX based permissions that are only available in Production
 force-app/main/default/permissionsets/SFDX_Full_Dev_Hub_Access.permissionset-meta.xml
-force-app/main/default/permissionsets/Backup_and_Restore.permissionset-meta.xml
 force-app/main/default/permissionsets/Prod_Only_Backup_Restore.permissionset-meta.xml
 
 # Don't pull because delegated authenticaton (and therefore IsSsoEnabled permission) cannot currently be enabled in scratch orgs
@@ -52,7 +51,7 @@ force-app/main/default/objects/ServiceTerritory/
 force-app/main/default/objects/WorkTypeGroup/
 force-app/main/default/objects/Individual/
 force-app/main/default/objects/FinServ__Securities__c/
-force-app/main/default/objects/FinServ__ReciprocalRole__c/
+#force-app/main/default/objects/FinServ__ReciprocalRole__c/
 force-app/main/default/objects/FinServ__RollupByLookupConfig__c/
 force-app/main/default/objects/SocialPost/
 force-app/main/default/objects/FinServ__FinancialGoal__c/fields/FinServ__Household__c.field-meta.xml
@@ -154,6 +153,9 @@ force-app/main/default/approvalProcesses/IDR_Letter_Approval__c.Letter_Approval_
 #ignoring CreateCommsData metadata to be created in destructive file, as it is already deleted
 force-app/main/default/classes/idr/CreateCommsData.cls-meta.xml
 
+#ignoring Account.AR_C_Customer__c field as it will be manually deleted to avoid deployment issues
+force-app/main/default/objects/Account/fields/AR_C_Customer__c.field-meta.xml
+
 #Temporarily adding FinServ__FinancialAccount__c sharing rule to avoid deployment issues.
 force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
 
@@ -166,5 +168,18 @@ force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls
 force-app/main/default/classes/utils/SingleSignOnCacheUtil.cls-meta.xml
 force-app/main/default/classes/utils/SingleSignOnCacheUtilTest.cls-meta.xml
 
+#CC-3470,CC-3492 - ignore for manual deletion
+force-app/main/default/objects/FinServ__FinancialAccountRole__c/fields/IsPrimaryOwner__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccount__c/fields/IsPrimaryOwner__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccount__c/fields/Role_Type__c.field-meta.xml
+force-app/main/default/objects/FinServ__FinancialAccount__c/fields/Primary_Owner_Start_Date__c.field-meta.xml
+
+
 #CC-2512 - Queue needs to be manually deleted so don't attempt to deploy this destructive change.
 force-app/main/default/queues/EDR_Responsible_Lending.queue-meta.xml
+
+# (Release 5th July) - Ignore omnistudio files
+force-app/main/default/omniDataTransforms
+force-app/main/default/omniIntegrationProcedures
+force-app/main/default/omniScripts
+force-app/main/default/omniUiCard

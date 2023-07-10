@@ -6,9 +6,8 @@
         "referenceId": "AccountRef1"
       },
       "Name": "Complaint Entitlement Account",
-      "OCV_ID__c": "18234567",
-      "ANZx_Customer__c": false,
-      "AR_C_Customer__c": true
+      "OCV_ID__c": "Generic-IDR",
+      "ANZx_Customer__c": true
     }
   ]
 }

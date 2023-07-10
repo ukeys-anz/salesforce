@@ -140,7 +140,9 @@ public with sharing class AppointmentNotificationTest {
       '.' +
       testLead.LastName +
       '@test.test';
-    insert testLead;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      insert testLead;
+    }
 
     Interaction interactionSubject = createInteraction();
     interactionSubject.Lead__c = testLead.Id;
@@ -148,7 +150,9 @@ public with sharing class AppointmentNotificationTest {
     Integer duration = 30;
     DateTime endDate = interactionSubject.StartTime.addMinutes(duration);
     interactionSubject.EndTime = endDate;
-    insert interactionSubject;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      insert interactionSubject;
+    }
 
     test.startTest();
     interactionSubject = [
@@ -182,6 +186,8 @@ public with sharing class AppointmentNotificationTest {
       .newPlatformEvent(interactionSubject, dataMap, platformEvent);
 
     interactionEventComparison(interactionSubject, notificationEvent);
+
+    test.stopTest();
 
     System.assertEquals(
       duration,

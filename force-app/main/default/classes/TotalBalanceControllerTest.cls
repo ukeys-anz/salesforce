@@ -37,7 +37,6 @@ public with sharing class TotalBalanceControllerTest {
     finAccount.FinServ__FinancialAccountType__c = 'Checking';
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
     finAccount.Account_Key__c = faker.randomString(9);
-    finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
 
     insert finAccount;
 
@@ -51,8 +50,7 @@ public with sharing class TotalBalanceControllerTest {
           FinServ__Status__c = 'Active',
           FinServ__FinancialAccountType__c = 'Savings',
           FinServ__PrimaryOwner__c = accnt.Id,
-          Account_Key__c = faker.randomString(9),
-          Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11')
+          Account_Key__c = faker.randomString(9)
         )
       );
     }

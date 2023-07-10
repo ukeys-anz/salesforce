@@ -60,7 +60,6 @@ public class CCRMLeadConversionTest {
     leadResponseData1.autoCreateActivities = false;
 
     String result = '';
-    List<Opportunity> opps;
 
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {

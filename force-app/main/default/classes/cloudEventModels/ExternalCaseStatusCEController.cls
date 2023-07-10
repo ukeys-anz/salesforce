@@ -2,6 +2,7 @@
  * @author Lance Shi
  * @since  01/2023
  * @description Class to generate Cloud Event Model objects
+ * witout sharing: to allow trigger publish Clound Event when users create/update Case/ExternalCaseStatus
  */
 public without sharing class ExternalCaseStatusCEController {
   /**

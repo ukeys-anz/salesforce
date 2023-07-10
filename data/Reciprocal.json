@@ -1,0 +1,204 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef1"
+      },
+      "OCV_Role__c": "100001",
+      "Name": "Also Known As",
+      "FinServ__InverseRole__c": "Also Known As",
+      "Role_Description__c": "CAP Rel Code - AKA"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef2"
+      },
+      "OCV_Role__c": "100002",
+      "Name": "Customer Group",
+      "FinServ__InverseRole__c": "Customer Group",
+      "Role_Description__c": "CAP Rel Code - CGP"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef3"
+      },
+      "OCV_Role__c": "100003",
+      "Name": "Chairman",
+      "FinServ__InverseRole__c": "Chairman",
+      "Role_Description__c": "CAP Rel Code - CHR"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef4"
+      },
+      "OCV_Role__c": "100004",
+      "Name": "Customer Lending Group",
+      "FinServ__InverseRole__c": "Customer Lending Group",
+      "Role_Description__c": "CAP Rel Code - CLG"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef5"
+      },
+      "OCV_Role__c": "100005",
+      "Name": "Director",
+      "FinServ__InverseRole__c": "Director",
+      "Role_Description__c": "CAP Rel Code - DIR"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef6"
+      },
+      "OCV_Role__c": "100006",
+      "Name": "CLG Contact All",
+      "FinServ__InverseRole__c": "CLG Contact All",
+      "Role_Description__c": "CAP Rel Code - KCA"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef7"
+      },
+      "OCV_Role__c": "100007",
+      "Name": "CLG Contact Business",
+      "FinServ__InverseRole__c": "CLG Contact Business",
+      "Role_Description__c": "CAP Rel Code - KCB"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef8"
+      },
+      "OCV_Role__c": "100008",
+      "Name": "CLG Contact Consumer",
+      "FinServ__InverseRole__c": "CLG Contact Consumer",
+      "Role_Description__c": "CAP Rel Code - KCC"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef9"
+      },
+      "OCV_Role__c": "100009",
+      "Name": "Managing Director",
+      "FinServ__InverseRole__c": "Managing Director",
+      "Role_Description__c": "CAP Rel Code - MAN"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef10"
+      },
+      "OCV_Role__c": "100010",
+      "Name": "Manager",
+      "FinServ__InverseRole__c": "Manager",
+      "Role_Description__c": "CAP Rel Code - MGR"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef11"
+      },
+      "OCV_Role__c": "100011",
+      "Name": "Partner",
+      "FinServ__InverseRole__c": "Partner",
+      "Role_Description__c": "CAP Rel Code - PTR"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef12"
+      },
+      "OCV_Role__c": "100012",
+      "Name": "Related Customer",
+      "FinServ__InverseRole__c": "Related Customer",
+      "Role_Description__c": "CAP Rel Code - REL"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef13"
+      },
+      "OCV_Role__c": "100013",
+      "Name": "Subsidiary Organisation",
+      "FinServ__InverseRole__c": "Subsidiary Organisation Owner",
+      "Role_Description__c": "CAP Rel Code - SBI / SBO"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef15"
+      },
+      "OCV_Role__c": "100015",
+      "Name": "Secretary",
+      "FinServ__InverseRole__c": "Secretary",
+      "Role_Description__c": "CAP Rel Code - SEC"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef16"
+      },
+      "OCV_Role__c": "100016",
+      "Name": "Spouse",
+      "FinServ__InverseRole__c": "Spouse",
+      "Role_Description__c": "CAP Rel Code - SPS"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef17"
+      },
+      "OCV_Role__c": "100017",
+      "Name": "Trading As",
+      "FinServ__InverseRole__c": "Trading As",
+      "Role_Description__c": "CAP Rel Code - T/A"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef18"
+      },
+      "OCV_Role__c": "100018",
+      "Name": "Treasurer",
+      "FinServ__InverseRole__c": "Treasurer",
+      "Role_Description__c": "CAP Rel Code - TSR"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef19"
+      },
+      "OCV_Role__c": "100019",
+      "Name": "Business Card Billing Group",
+      "FinServ__InverseRole__c": "Business Card Billing Group",
+      "Role_Description__c": "CAP REL CODE - BCG"
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef20"
+      },
+      "OCV_Role__c": "999999",
+      "Name": "Unknown",
+      "FinServ__InverseRole__c": "Unknown",
+      "Role_Description__c": ""
+    },
+    {
+      "attributes": {
+        "type": "FinServ__ReciprocalRole__c",
+        "referenceId": "ReciprocalRoleRef21"
+      },
+      "OCV_Role__c": "100021",
+      "Name": "Authorised User",
+      "FinServ__InverseRole__c": "Authorised User",
+      "Role_Description__c": "Party is an authorised user of systems on behalf of another Party"
+    }
+  ]
+}
