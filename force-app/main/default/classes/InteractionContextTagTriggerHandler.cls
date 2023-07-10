@@ -26,12 +26,8 @@ public with sharing class InteractionContextTagTriggerHandler extends Lib_Trigge
      * @description update topics fields: Actual Topic, Product from Topic Details & Reason for Visit of Interaction Object after Deletion of ICT.
      * @param listOfInteractionContextTags through which to iterate.
      */
-    try {
-      InteractionContextTagAction.processAndUpdateTopicFields(
-        listOfInteractionContextTags
-      );
-    } catch (Exception e) {
-      Logger.error('Exception occured while deleting the record', e);
-    }
+    InteractionContextTagAction.processAndUpdateTopicFields(
+      listOfInteractionContextTags
+    );
   }
 }
