@@ -12,7 +12,7 @@
                             <value>Interaction.Create_Case_New</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Interaction.Edit</value>
+                            <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
                             <value>ChangeOwnerOne</value>
@@ -55,12 +55,8 @@
         <name>Facet-a6a8b7b6-013e-47e4-99a4-c0a0d060f00d</name>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>flexcardName</name>
-                    <value>CallInteractionFlexCard</value>
-                </componentInstanceProperties>
-                <componentName>runtime_omnistudio:flexcard</componentName>
-                <identifier>runtime_omnistudio_flexcard</identifier>
+                <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>

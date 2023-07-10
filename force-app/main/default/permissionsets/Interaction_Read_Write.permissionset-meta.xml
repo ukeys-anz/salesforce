@@ -363,6 +363,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Interaction.Message</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Interaction.Store</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
