@@ -79,7 +79,6 @@ public with sharing class DisputesValidationTest {
   // When Case Owner is manually re-assigned from Queue to an invalid User Role
   @isTest
   static void testDisputesQueuetoUser() {
-    String expectedErrorMessage = 'For ATM or Card cases, the Case Owner Queue must be the Card Disputes, Pending Card Disputes, ID Ops, Coach or Support Coach Queues. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.';
     Case c = (Case) [SELECT Id, OwnerId FROM Case LIMIT 1];
     UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
     User anzx = [SELECT Id FROM User WHERE UserRoleId = :anzxRole.Id LIMIT 1];
@@ -94,7 +93,10 @@ public with sharing class DisputesValidationTest {
     } catch (Exception e) {
       System.assertEquals(
         true,
-        e.getMessage().contains(expectedErrorMessage),
+        e.getMessage()
+          .contains(
+            'For ATM or Card cases, the Case Owner Queue must be the Card Disputes Queues, Pending Card Disputes Queues, ID Ops Queue or Coach Queue. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.'
+          ),
         'Incorrect error message.'
       );
     }

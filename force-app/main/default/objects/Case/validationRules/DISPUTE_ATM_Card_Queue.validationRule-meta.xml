@@ -14,7 +14,6 @@ NOT(Owner:Queue.QueueName = &apos;Card Dispute - General Queue&apos;),
 NOT(Owner:Queue.QueueName = &apos;Card Dispute - Fraud Queue&apos;),
 NOT(Owner:Queue.QueueName = &apos;Pending Card Dispute - General Queue&apos;),
 NOT(Owner:Queue.QueueName = &apos;Pending Card Dispute - Fraud Queue&apos;),
-NOT(Owner:Queue.QueueName = &apos;Support Coach Queue&apos;),
 NOT(Owner:Queue.QueueName = &apos;ID Ops Queue&apos;),
 NOT(Owner:Queue.QueueName = &apos;Coach Queue&apos;),
 NOT(Owner:User.UserRole.Name = &apos;Coach&apos;),
@@ -23,5 +22,5 @@ NOT(Owner:User.UserRole.Name = &apos;Support Coach&apos;),
 NOT(Owner:User.UserRole.Name = &apos;Card Dispute Agent&apos;),
 NOT(Owner:User.UserRole.Name = &apos;FraudX Agent&apos;))
 )</errorConditionFormula>
-    <errorMessage>For ATM or Card cases, the Case Owner Queue must be the Card Disputes, Pending Card Disputes, ID Ops, Coach or Support Coach Queues. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.</errorMessage>
+    <errorMessage>For ATM or Card cases, the Case Owner Queue must be the Card Disputes Queues, Pending Card Disputes Queues, ID Ops Queue or Coach Queue. Or the Case Owner must have a Coach, Coach Lead, Support Coach, Card Dispute Agent or FraudX Agent Role.</errorMessage>
 </ValidationRule>
