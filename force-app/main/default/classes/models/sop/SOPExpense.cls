@@ -5,11 +5,12 @@
  * @group Models
  */
 public class SOPExpense { 
-    public Integer layer; 
-    public String name; 
-    public String categoryId;
-    public String expenseParent;
-    public String categoryName; 
-    public SOPMoney statedMonthlyAverageAmount; 
-    public Boolean leafNode;
-  }
+  public Integer layer; 
+  public String name; 
+  public String categoryId;
+  public String expenseParent;
+  public String categoryName; 
+  public String review;
+  public SOPMoney statedMonthlyAverageAmount; 
+  public Boolean leafNode;
+}

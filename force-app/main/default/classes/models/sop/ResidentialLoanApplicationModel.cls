@@ -20,6 +20,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, Account> partyIdToAccountMap;
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
   public List<SOPExpenseNode> expenseNodes;
+  public Map<String, SOPExpense> expenseMap;
 
   /**
    * @description return the asset size attribute to display no asset message on flexcard
@@ -215,6 +216,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           }
         }
       }
+    }
+    expenseMap = new Map<String, SOPExpense>();
+    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) { 
+      expenseMap.put(expense.categoryName, expense);
     }
   }
 
