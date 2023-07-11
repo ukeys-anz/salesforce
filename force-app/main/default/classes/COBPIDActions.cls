@@ -40,6 +40,9 @@ public with sharing class COBPIDActions {
       cobPid.MiddleNamesOCRMatch__c = String.isNotEmpty(cobPid.MiddleNames__c)
         ? cobPid.MiddleNames__c == cobPid.MiddleNamesOCRServer__c
         : false;
+      cobPid.ExpiryDateOCRMatch__c = cobPid.ExpiryDate__c != null
+        ? cobPid.ExpiryDate__c == cobPid.ExpiryDateOCRServer__c
+        : false;
     }
   }
 }

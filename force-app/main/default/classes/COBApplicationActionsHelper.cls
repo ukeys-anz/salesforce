@@ -24,6 +24,10 @@ public with sharing class COBApplicationActionsHelper {
   private static final String LICENCE = 'Licence';
   @TestVisible
   private static final String PASSPORT = 'Passport';
+  @TestVisible
+  private static final String VERIFICATION_TYPE_ASSISTED = 'ASSISTED';
+  @TestVisible
+  private static final String VERIFICATION_TYPE_STP = 'STP';
 
   /**
    * @description Set KYC QA case base fields
@@ -173,28 +177,26 @@ public with sharing class COBApplicationActionsHelper {
     CustomerOnboardingApplication__c cobApp,
     COBPrimaryIDDocument__c cobPrimaryIDDocument
   ) {
-    Boolean doesLicenceMatch =
-      cobPrimaryIDDocument.IdDocumentType__c == LICENCE &&
-      cobPrimaryIDDocument.LicenceNumberOCRMatch__c;
-    Boolean doesPassportMatch =
-      cobPrimaryIDDocument.IdDocumentType__c == PASSPORT &&
-      cobPrimaryIDDocument.PassportNumberOCRMatch__c;
-    if (cobApp != null && cobPrimaryIDDocument != null) {
+    if (
+      (cobApp.VerificationType__c == VERIFICATION_TYPE_STP ||
+      cobApp.VerificationType__c == VERIFICATION_TYPE_ASSISTED)
+    ) {
       if (
-        cobApp.EquifaxDVSResult__c == PASS &&
-        (doesLicenceMatch || doesPassportMatch)
+        doesLicenceMatch(cobPrimaryIDDocument) ||
+        doesPassportMatch(cobPrimaryIDDocument)
       ) {
         return YES;
-      } else if (
-        cobApp.EquifaxDVSResult__c != PASS &&
-        cobPrimaryIDDocument.FirstNameOCRMatch__c &&
-        cobPrimaryIDDocument.LastNameOCRMatch__c &&
-        cobPrimaryIDDocument.DateOfBirthOCRMatch__c &&
-        ((doesLicenceMatch &&
-        cobPrimaryIDDocument.LicenceCardNumberOCRMatch__c) || doesPassportMatch)
-      ) {
-        return YES;
+      } else {
+        return NONE;
       }
+    } else if (
+      doesFullNameMatch(cobPrimaryIDDocument) &&
+      cobPrimaryIDDocument.DateOfBirthOCRMatch__c &&
+      cobPrimaryIDDocument.ExpiryDateOCRMatch__c &&
+      (doesLicenceMatch(cobPrimaryIDDocument) ||
+      doesPassportMatch(cobPrimaryIDDocument))
+    ) {
+      return YES;
     }
     return NONE;
   }

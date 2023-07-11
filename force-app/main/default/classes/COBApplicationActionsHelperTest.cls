@@ -299,33 +299,63 @@ public with sharing class COBApplicationActionsHelperTest {
   @isTest
   private static void testPopulateFraudCustomerDetails() {
     CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
-      EquifaxDVSResult__c = COBApplicationActionsHelper.PASS
+      VerificationType__c = COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
     );
     COBPrimaryIDDocument__c cobPID = new COBPrimaryIDDocument__c(
-      IdDocumentType__c = LICENCE_TYPE,
-      LicenceNumberOCRMatch__c = true,
-      LicenceCardNumberOCRMatch__c = true
+      IdDocumentType__c = COBApplicationActionsHelper.LICENCE,
+      LicenceNumberOCRMatch__c = true
     );
     Assert.areEqual(
       COBApplicationActionsHelper.YES,
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
-      'PASS and Document is licence and it is matched.'
+      'Yes when the Verification Type is STP or Assisted and the match on ID Document Numbers.'
     );
 
-    cobApp.EquifaxDVSResult__c = null;
-    cobPID.FirstNameOCRMatch__c = true;
-    cobPID.LastNameOCRMatch__c = true;
+    cobPID.LicenceNumberOCRMatch__c = false;
+    Assert.areEqual(
+      COBApplicationActionsHelper.NONE,
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'None when the Verification Type is STP or Assisted and mismatch on ID Document Numbers.'
+    );
+
+    String firstName = FAKER.randomString(5);
+    String middleName = FAKER.randomString(5);
+    String lastName = FAKER.randomString(5);
+    cobApp.VerificationType__c = 'MANUAL';
+    cobPID.FirstName__c = firstName;
+    cobPID.MiddleNames__c = middleName;
+    cobPID.LastName__c = lastName;
+    cobPID.FirstNameOCRServer__c = firstName + ' ' + middleName;
+    cobPID.LastNameOCRServer__c = lastName;
     cobPID.DateOfBirthOCRMatch__c = true;
+    cobPID.ExpiryDateOCRMatch__c = true;
+    cobPID.LicenceNumberOCRMatch__c = true;
     Assert.areEqual(
       COBApplicationActionsHelper.YES,
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
-      'Not PASS and Id, first name, last name, dob are matched.'
+      'Yes when the Verification Type is not STP or Assisted and Licence ID customer values matches with Licence ID OCR Server Values.'
     );
 
-    cobPID.FirstNameOCRMatch__c = false;
-    Assert.isNull(
+    cobPID.LicenceNumberOCRMatch__c = false;
+    Assert.areEqual(
+      COBApplicationActionsHelper.NONE,
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
-      'It should be null when DVS not PASS and either Id, first name, last name, dob or id doc are not matched.'
+      'None when the Verification Type is not STP or Assisted and Licence ID customer values mismatches with Licence ID OCR Server Values.'
+    );
+
+    cobPID.PassportNumberOCRMatch__c = true;
+    cobPID.IdDocumentType__c = COBApplicationActionsHelper.PASSPORT;
+    Assert.areEqual(
+      COBApplicationActionsHelper.YES,
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'Yes when the Verification Type is not STP or Assisted and Passport ID customer values matches with Passport ID OCR Server Values.'
+    );
+
+    cobPID.PassportNumberOCRMatch__c = false;
+    Assert.areEqual(
+      COBApplicationActionsHelper.NONE,
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'None when the Verification Type is not STP or Assisted and Passport ID customer values mismatches with Licence ID OCR Server Values.'
     );
   }
 

@@ -137,7 +137,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
         OCVId__c = ocvId,
         PersonaId__c = FAKER.randomString(15),
         ElectronicVerificationAcknowledged__c = false,
-        EquifaxDVSResult__c = COBApplicationActionsHelper.PASS
+        VerificationType__c = COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
       );
       cobApps.add(cobApp);
     }
@@ -203,10 +203,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
     cobPid.LicenceNumber__c = FAKER.randomString(10);
     cobPid.LicenceNumberOCRServer__c = isMatched
       ? cobPid.LicenceNumber__c
-      : FAKER.randomString(10);
-    cobPid.LicenceCardNumber__c = FAKER.randomString(10);
-    cobPid.LicenceCardNumberOCRServer__c = isMatched
-      ? cobPid.LicenceCardNumber__c
       : FAKER.randomString(10);
 
     return cobPid;

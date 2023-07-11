@@ -555,6 +555,16 @@
                 <identifier>RecordExpiryDateOCRServer_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ExpiryDateOCRMatch__c</fieldItem>
+                <identifier>ExpiryDateOCRMatch__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
