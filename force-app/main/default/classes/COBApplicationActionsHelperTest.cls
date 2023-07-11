@@ -30,6 +30,12 @@ public with sharing class COBApplicationActionsHelperTest {
     '9876543212' => 'STP'
   };
 
+  private static final String FIRST_NAME = 'First Double';
+  private static final String MIDDLE_NAMES = '  MiddleOne MiddleTwo  ';
+  private static final String LAST_NAME = 'Last Double';
+  private static final String DUMMY = 'DUMMY';
+  private static final String EMPTY_STR = '';
+
   @TestSetup
   private static void makeData() {
     List<Account> personAccounts = new List<Account>();
@@ -107,12 +113,65 @@ public with sharing class COBApplicationActionsHelperTest {
     ];
   }
 
+  private static void constructCOBPidFullName(
+    COBPrimaryIDDocument__c cobPid,
+    Boolean doesMatch
+  ) {
+    cobPid.FirstName__c = FIRST_NAME;
+    cobPid.MiddleNames__c = MIDDLE_NAMES + (doesMatch ? EMPTY_STR : DUMMY);
+    cobPid.LastName__c = LAST_NAME;
+  }
+
+  private static void constructCOBPidMiddleNames(
+    COBPrimaryIDDocument__c cobPid,
+    Boolean doesMatch,
+    Boolean isMiddleNamesOCRServerEmpty
+  ) {
+    cobPid.MiddleNamesOCRMatch__c = doesMatch;
+    cobPid.MiddleNamesOCRServer__c = isMiddleNamesOCRServerEmpty
+      ? EMPTY_STR
+      : MIDDLE_NAMES;
+  }
+
+  private static void constructCOBPidFullNameOCRServer(
+    COBPrimaryIDDocument__c cobPid,
+    Boolean isFirstNameOCRServerEmpty,
+    Boolean isLastNameOCRServerEmpty
+  ) {
+    cobPid.FirstNameOCRServer__c = isFirstNameOCRServerEmpty
+      ? EMPTY_STR
+      : CommonUtil.buildTrimedConcatenatedString(
+          new List<String>{ FIRST_NAME, MIDDLE_NAMES }
+        );
+    cobPid.LastNameOCRServer__c = isLastNameOCRServerEmpty
+      ? EMPTY_STR
+      : LAST_NAME;
+  }
+
+  private static void constructCOBPidLicence(
+    COBPrimaryIDDocument__c cobPid,
+    Boolean doesMatch
+  ) {
+    cobPid.IdDocumentType__c = COBApplicationActionsHelper.LICENCE;
+    cobPid.LicenceNumberOCRMatch__c = doesMatch;
+  }
+
+  private static void constructCOBPidPassport(
+    COBPrimaryIDDocument__c cobPid,
+    Boolean doesMatch
+  ) {
+    cobPid.IdDocumentType__c = COBApplicationActionsHelper.PASSPORT;
+    cobPid.PassportNumberOCRMatch__c = doesMatch;
+  }
+
   @isTest
-  private static void testCreateKYCQACase() {
+  private static void testSetKYCQACaseBaseFields() {
     List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
 
     for (CustomerOnboardingApplication__c cobApp : cobApps) {
-      Case kycQACase = COBApplicationActionsHelper.createKYCQACase(cobApp);
+      Case kycQACase = COBApplicationActionsHelper.setKYCQACaseBaseFields(
+        cobApp
+      );
       Assert.areEqual(
         cobApp.OCVId__c,
         kycQACase.OCV_Id__c,
@@ -267,6 +326,212 @@ public with sharing class COBApplicationActionsHelperTest {
     Assert.isNull(
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
       'It should be null when DVS not PASS and either Id, first name, last name, dob or id doc are not matched.'
+    );
+  }
+
+  @isTest
+  private static void testAreFirstAndLastNamesOCRServerBlank() {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
+
+    constructCOBPidFullNameOCRServer(cobPid, true, true);
+    Boolean areFirstAndLastNamesOCRServerBlank = COBApplicationActionsHelper.areFirstAndLastNamesOCRServerBlank(
+      cobPid
+    );
+
+    Assert.isTrue(
+      areFirstAndLastNamesOCRServerBlank,
+      'The First and Last Name OCR Server are blank'
+    );
+
+    constructCOBPidFullNameOCRServer(cobPid, true, false);
+    areFirstAndLastNamesOCRServerBlank = COBApplicationActionsHelper.areFirstAndLastNamesOCRServerBlank(
+      cobPid
+    );
+
+    Assert.isFalse(
+      areFirstAndLastNamesOCRServerBlank,
+      'The First Name OCR Server is blank, Last Name OCR Server is not blank'
+    );
+
+    constructCOBPidFullNameOCRServer(cobPid, false, true);
+    areFirstAndLastNamesOCRServerBlank = COBApplicationActionsHelper.areFirstAndLastNamesOCRServerBlank(
+      cobPid
+    );
+
+    Assert.isFalse(
+      areFirstAndLastNamesOCRServerBlank,
+      'The First Name OCR Server is not blank, Last Name OCR Server is blank'
+    );
+
+    constructCOBPidFullNameOCRServer(cobPid, false, false);
+    areFirstAndLastNamesOCRServerBlank = COBApplicationActionsHelper.areFirstAndLastNamesOCRServerBlank(
+      cobPid
+    );
+
+    Assert.isFalse(
+      areFirstAndLastNamesOCRServerBlank,
+      'The First and Last Name OCR Server are not blank'
+    );
+  }
+
+  @isTest
+  private static void testDoMiddleNamesMatch() {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
+
+    constructCOBPidMiddleNames(cobPid, true, false);
+    Boolean doMiddleNamesMatch = COBApplicationActionsHelper.doMiddleNamesMatch(
+      cobPid
+    );
+
+    Assert.isTrue(
+      doMiddleNamesMatch,
+      'The Middle Names should match - both provided Middle Names and Middle Names OCR Server are matching'
+    );
+
+    constructCOBPidMiddleNames(cobPid, false, false);
+    doMiddleNamesMatch = COBApplicationActionsHelper.doMiddleNamesMatch(cobPid);
+
+    Assert.isFalse(
+      doMiddleNamesMatch,
+      'The Middle Names should not match - both provided Middle Names and Middle Names OCR Server are not matching'
+    );
+
+    constructCOBPidMiddleNames(cobPid, true, true);
+    doMiddleNamesMatch = COBApplicationActionsHelper.doMiddleNamesMatch(cobPid);
+
+    Assert.isFalse(
+      doMiddleNamesMatch,
+      'The Middle Names should not match - both provided Middle Names and Middle Names OCR Server are empty'
+    );
+
+    constructCOBPidMiddleNames(cobPid, false, true);
+    doMiddleNamesMatch = COBApplicationActionsHelper.doMiddleNamesMatch(cobPid);
+
+    Assert.isFalse(
+      doMiddleNamesMatch,
+      'The Middle Names should not match - Middle Names OCR Server are empty'
+    );
+  }
+
+  @isTest
+  private static void testDoesFullNameMatch() {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
+
+    constructCOBPidFullName(cobPid, true);
+    constructCOBPidFullNameOCRServer(cobPid, false, false);
+    Boolean doesFullNameMatch = COBApplicationActionsHelper.doesFullNameMatch(
+      cobPid
+    );
+
+    Assert.isTrue(doesFullNameMatch, 'The Full Name should match');
+
+    constructCOBPidFullName(cobPid, false);
+    constructCOBPidFullNameOCRServer(cobPid, false, false);
+    doesFullNameMatch = COBApplicationActionsHelper.doesFullNameMatch(cobPid);
+
+    Assert.isFalse(doesFullNameMatch, 'The Full Name should not match');
+  }
+
+  @isTest
+  private static void testDoesLicenceMatch() {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
+
+    constructCOBPidLicence(cobPid, true);
+    Boolean doesLicenceMatch = COBApplicationActionsHelper.doesLicenceMatch(
+      cobPid
+    );
+
+    Assert.isTrue(doesLicenceMatch, 'The Licence should match');
+
+    constructCOBPidLicence(cobPid, false);
+    doesLicenceMatch = COBApplicationActionsHelper.doesLicenceMatch(cobPid);
+
+    Assert.isFalse(doesLicenceMatch, 'The Licence should not match');
+  }
+
+  @isTest
+  private static void testDoesPassportMatch() {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
+
+    constructCOBPidPassport(cobPid, true);
+    Boolean doesPassportMatch = COBApplicationActionsHelper.doesPassportMatch(
+      cobPid
+    );
+
+    Assert.isTrue(doesPassportMatch, 'The Licence should match');
+
+    constructCOBPidLicence(cobPid, false);
+    doesPassportMatch = COBApplicationActionsHelper.doesPassportMatch(cobPid);
+
+    Assert.isFalse(doesPassportMatch, 'The Licence should not match');
+  }
+
+  @isTest
+  private static void testPopulateMiddleNameCheck() {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
+
+    constructCOBPidFullNameOCRServer(cobPid, true, true);
+    String middleNameCheck = COBApplicationActionsHelper.populateMiddleNameCheck(
+      cobPid
+    );
+
+    Assert.areEqual(
+      COBApplicationActionsHelper.NONE,
+      middleNameCheck,
+      'The First and Last Name OCR Server are blank - Middle Name Check should be \'None\''
+    );
+
+    constructCOBPidFullNameOCRServer(cobPid, false, true);
+    constructCOBPidMiddleNames(cobPid, true, false);
+    middleNameCheck = COBApplicationActionsHelper.populateMiddleNameCheck(
+      cobPid
+    );
+
+    Assert.areEqual(
+      COBApplicationActionsHelper.YES,
+      middleNameCheck,
+      'Both provided Middle Names and Middle Names OCR Server are matching and not empty - Middle Name Check should be \'Yes\''
+    );
+
+    constructCOBPidFullNameOCRServer(cobPid, false, false);
+    constructCOBPidMiddleNames(cobPid, false, true);
+    constructCOBPidFullName(cobPid, true);
+    constructCOBPidLicence(cobPid, true);
+    middleNameCheck = COBApplicationActionsHelper.populateMiddleNameCheck(
+      cobPid
+    );
+
+    Assert.areEqual(
+      COBApplicationActionsHelper.YES,
+      middleNameCheck,
+      'The Full Name and Licence Number are matching - Middle Name Check should be \'Yes\''
+    );
+
+    constructCOBPidFullNameOCRServer(cobPid, false, true);
+    constructCOBPidMiddleNames(cobPid, false, true);
+    constructCOBPidFullName(cobPid, false);
+    middleNameCheck = COBApplicationActionsHelper.populateMiddleNameCheck(
+      cobPid
+    );
+
+    Assert.areEqual(
+      COBApplicationActionsHelper.NONE,
+      middleNameCheck,
+      'The First Name OCR Server is blank, Middle Names and Full Names not matching - Middle Name Check should be \'None\''
+    );
+
+    constructCOBPidFullNameOCRServer(cobPid, false, true);
+    constructCOBPidMiddleNames(cobPid, true, true);
+    constructCOBPidFullName(cobPid, true);
+    constructCOBPidLicence(cobPid, false);
+    middleNameCheck = COBApplicationActionsHelper.populateMiddleNameCheck(
+      cobPid
+    );
+
+    Assert.areEqual(
+      COBApplicationActionsHelper.NONE,
+      middleNameCheck,
+      'The First Name OCR Server is blank, Middle Names are empty and Full Names are matching, Licence Number is not matching - Middle Name Check should be \'None\''
     );
   }
 }

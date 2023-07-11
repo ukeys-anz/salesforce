@@ -102,4 +102,31 @@ public with sharing class CommonUtilTest {
       'Failed to convert base64url to base64.'
     );
   }
+
+  @isTest
+  static void testBildTrimedConcatenatedString() {
+    String strWithSpace = 'string   with space';
+    String strAdditional = 'additional string';
+    List<String> items = new List<String>{
+      '   ',
+      '',
+      null,
+      ' ',
+      '  ' +
+      strWithSpace +
+      '   ',
+      strAdditional
+    };
+
+    String trimmedConcatenated = CommonUtil.buildTrimedConcatenatedString(
+      items
+    );
+
+    String expected = strWithSpace + ' ' + strAdditional;
+    Assert.areEqual(
+      expected,
+      trimmedConcatenated,
+      'The trimmed concatenated string should be ' + expected
+    );
+  }
 }
