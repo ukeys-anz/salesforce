@@ -1,4 +1,4 @@
-import { LightningElement, track, wire } from "lwc";
+import { LightningElement, track, wire, api } from "lwc";
 import getDisableOmni from "@salesforce/apex/Vlocity_Utils.getDisableOmni";
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -6,6 +6,7 @@ import { handleErrorShowToast } from "c/utils";
 export default class closeCase extends LightningElement {
   @track showLWC = false;
   @track showOmni = false;
+  @api recordId;
 
   @wire(getDisableOmni, {})
   responseData({ error, data }) {
