@@ -40,13 +40,11 @@ public virtual with sharing class CloudEventModel {
    */
   public class CloudEventSystemModel {
     public UserModel lastModifiedByUser { get; set; }
-    public FabricType.Timestamp lastModifiedTime { get; set; }
+    public Datetime lastModifiedTime { get; set; }
 
     public CloudEventSystemModel(Datetime modifiedTime, User relatedUser) {
       this.lastModifiedByUser = new UserModel(relatedUser);
-      if (modifiedTime != null) {
-        this.lastModifiedTime = new FabricType.Timestamp(modifiedTime);
-      }
+      this.lastModifiedTime = modifiedTime;
     }
   }
 

@@ -52,17 +52,4 @@ public with sharing class FabricTypeTest {
     System.assertEquals(b1.value(), today);
     System.assertEquals(c1.value(), null);
   }
-
-  @isTest
-  static void testTimeStamp() {
-    DateTime now = System.now();
-    FabricType.Timestamp a1 = new FabricType.Timestamp(now);
-    FabricType.Timestamp b1 = new FabricType.Timestamp(a1.seconds, a1.nanos);
-    FabricType.Timestamp c1 = new FabricType.Timestamp(null);
-
-    System.assertEquals(a1.seconds, b1.seconds);
-    System.assertEquals(a1.nanos, b1.nanos);
-    System.assertEquals(b1.value(), now);
-    System.assertEquals(c1.value(), null);
-  }
 }

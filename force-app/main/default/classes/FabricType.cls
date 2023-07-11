@@ -172,48 +172,4 @@ public with sharing class FabricType {
       this.value = value;
     }
   }
-
-  /**
-   * @description Represents a whole or partial calendar date including timne, in google type format
-   * https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/timestamp.proto
-   */
-  public class Timestamp {
-    @AuraEnabled
-    public Long seconds;
-    @AuraEnabled
-    public Long nanos;
-    /**
-     * @description Constructor to set the Google Timestamp
-     * @param seconds Represents seconds of UTC time since Unix epoch
-     * @param nanos Non-negative fractions of a second at nanosecond resolution. Negative second values with fractions must still have non-negative nanos values that count forward in time
-     */
-    public Timestamp(Long seconds, Long nanos) {
-      this.seconds = seconds;
-      this.nanos = nanos;
-    }
-    /**
-     * @description Constructor to set the Google Timestamp
-     * @param dateTimeval `DateTime` format as stored in salesforce.
-     */
-    public Timestamp(DateTime dateTimeval) {
-      if (dateTimeval != null) {
-        long millis = dateTimeval.getTime();
-        this.seconds = (millis / 1000);
-        this.nanos = math.mod(millis, 1000) * 1000000;
-      }
-    }
-    /**
-     * @description Converts Google Timestamp into Salesforce DateTime value
-     * @return DateTime format as stored in salesforce.
-     */
-    public DateTime value() {
-      if (this.seconds != null && this.nanos != null) {
-        Long secondsValue = (this.seconds * 1000);
-        Long nanoValue = (this.nanos / 1000000);
-        Long mills = secondsValue + nanoValue;
-        return DateTime.newInstance(mills);
-      }
-      return null;
-    }
-  }
 }

@@ -36,7 +36,7 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
     public String externalCaseId { get; set; }
     public String externalSystem { get; set; }
     public Boolean submitted { get; set; }
-    public FabricType.Timestamp submittedTime { get; set; }
+    public Datetime submittedTime { get; set; }
 
     public DisputeCaseCloudEventDataModel(Case theCase, Account theAccount) {
       super(theCase);
@@ -48,11 +48,7 @@ public virtual without sharing class DisputeCaseCloudEventModel extends CaseClou
       this.externalCaseId = theCase.External_Case_ID__c;
       this.externalSystem = theCase.External_System__c;
       this.submitted = theCase.Submitted__c;
-      if (theCase.Submitted_Time__c != null) {
-        this.submittedTime = new FabricType.Timestamp(
-          theCase.Submitted_Time__c
-        );
-      }
+      this.submittedTime = theCase.Submitted_Time__c;
     }
   }
   /**
