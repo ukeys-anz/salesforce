@@ -3,7 +3,6 @@
     <fullName>NLP_Topic__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Twilio</complianceGroup>
-    <description>Used to store the unique Chat / Call Channel ID</description>
     <description>NLP Topic from Twilio</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>

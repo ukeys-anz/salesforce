@@ -43,7 +43,6 @@ global with sharing class InteractionTwilioService {
     Twilio_Details__c twilioDetailRecordToInsertOrUpdate = new Twilio_Details__c();
     twilioDetailRecordToInsertOrUpdate.Twilio_ID__c = params.twilioId;
     twilioDetailRecordToInsertOrUpdate.Chat_or_Call_SID__c = params.chatOrCallId;
-    //twilioDetailRecordToInsertOrUpdate.Status__c = params.chatOrCallStatus;
     twilioDetailRecordToInsertOrUpdate.Call_Recording_Id__c = params.callRecordingId;
     twilioDetailRecordToInsertOrUpdate.ANZ_Queue__c = params.queueName;
     Database.upsert(
