@@ -1,9 +1,9 @@
 /**
- * @author Shivam Swaraj
- * @since  06/2023
- * @description This class helps in fetching the dependent picklist values based on record types for Omniscript Lookup Fields.
+ * @author Nagendra Singh
+ * @since 06/2023
+ * @description  InteractionFetchPicklistValuesForChat This class helps in fetching the dependent picklist values based on Message record types for Omniscript Lookup Fields.
  */
-global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInterface, Callable {
+global class InteractionFetchPicklistValuesForChat implements omnistudio.VlocityOpenInterface, Callable {
   public static Map<String, Object> fullPickListValue = new Map<String, Object>();
 
   // Static block to initilize the picklist values
@@ -12,12 +12,12 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
       PicklistCache.class,
       'local.Utility' +
       '.' +
-      GetHelpConstants.INTERACTION_STORE_RT_ID
+      GetHelpConstants.INTERACTION_MESSAGE_RT_ID
     );
   }
 
   /**
-   * @description call retreives the picklist values for the given fieldname
+   * @description chat retreives the picklist values for the given fieldname
    * @param action
    * @param args
    * @return return object to send back to omniscript
@@ -45,7 +45,7 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
   ) {
     Boolean success = true;
     try {
-      if (methodName.equals('populateWhoForStore')) {
+      if (methodName.equals('populateWhoForChat')) {
         FetchPicklistUtil.populateDependentPicklistValues(
           inputMap,
           outMap,
@@ -53,7 +53,7 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
           'Interaction_Purpose__c',
           fullPickListValue
         );
-      } else if (methodName.equals('populateAuthMethodForStore')) {
+      } else if (methodName.equals('populateAuthMethodForChat')) {
         FetchPicklistUtil.populateDependentPicklistValues(
           inputMap,
           outMap,
@@ -61,7 +61,7 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
           'Authentication_Method__c',
           fullPickListValue
         );
-      } else if (methodName.equals('populateActionTakenForStore')) {
+      } else if (methodName.equals('populateActionTakenForChat')) {
         FetchPicklistUtil.populateDependentPicklistValues(
           inputMap,
           outMap,
@@ -69,13 +69,21 @@ global class InteractionFetchPicklistValues implements omnistudio.VlocityOpenInt
           'Resolution__c',
           fullPickListValue
         );
-      } else if (methodName.equals('populateReferredToForStore')) {
+      } else if (methodName.equals('populateReferredToForChat')) {
         FetchPicklistUtil.populateDependentPicklistValues(
           inputMap,
           outMap,
           options,
           'Referred_To__c',
           fullPickListValue
+        );
+      } else if (methodName.equals('populateChannelForChat')) {
+        FetchPicklistUtil.populatePicklist(
+          inputMap,
+          outMap,
+          options,
+          'InteractionType',
+          'Interaction'
         );
       }
     } catch (Exception objectException) {
