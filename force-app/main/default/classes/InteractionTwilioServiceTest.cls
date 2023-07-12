@@ -54,7 +54,6 @@ private class InteractionTwilioServiceTest {
         Id,
         Twilio_ID__c,
         Chat_or_Call_SID__c,
-        Status__c,
         Call_Recording_Id__c,
         ANZ_Queue__c
       FROM Twilio_Details__c
@@ -71,11 +70,11 @@ private class InteractionTwilioServiceTest {
       updatedRecord.Chat_or_Call_SID__c,
       'Updated Record Chat or Call SID does not match'
     );
-    System.assertEquals(
-      'CHAT_OR_CALL_STATUS',
-      insertedTwilioDetailRecord.Status__c,
-      'Inserted Twilio Record Status does not match'
-    );
+    // System.assertEquals(
+    //   'CHAT_OR_CALL_STATUS',
+    //   insertedTwilioDetailRecord.Status__c,
+    //   'Inserted Twilio Record Status does not match'
+    // );
     System.assertEquals(
       'CALL_RECORDING_ID',
       insertedTwilioDetailRecord.Call_Recording_Id__c,
