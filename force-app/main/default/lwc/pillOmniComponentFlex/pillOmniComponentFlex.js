@@ -13,7 +13,7 @@ export default class PillOmniComponentFlex extends FlexCardMixin(
   @track _allValuesProduct;
   @track _allValues;
   recordTypeName;
-  isCallRecordType;
+  isCallOrChatRecordType;
   isStoreRecordType;
 
   @api
@@ -23,10 +23,10 @@ export default class PillOmniComponentFlex extends FlexCardMixin(
   set allValues(value) {
     this._allValues = value.JunctionObject;
     this.recordTypeName = value.RecordTypeName;
-    this.isCallRecordType = this.recordTypeName === "Call";
+    this.isCallOrChatRecordType =
+      this.recordTypeName === "Call" || this.recordTypeName === "Message";
     this.isStoreRecordType = this.recordTypeName === "In Person";
     let allJunctionData = this._allValues;
-
     // Detect if all Junction data is array if not, convert it into array
     if (allJunctionData && !Array.isArray(allJunctionData)) {
       allJunctionData = [allJunctionData];

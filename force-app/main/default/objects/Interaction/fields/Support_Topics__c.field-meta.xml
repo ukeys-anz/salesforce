@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Support_Topics__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Twilio</complianceGroup>
+    <description>Support Topics used for Chat Inbound</description>
+    <externalId>false</externalId>
+    <label>Support Topics</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Transaction Disputes</fullName>
+                <default>false</default>
+                <label>Transaction Disputes</label>
+            </value>
+            <value>
+                <fullName>Add/Edit Details</fullName>
+                <default>false</default>
+                <label>Add/Edit Details</label>
+            </value>
+            <value>
+                <fullName>Add Life Event</fullName>
+                <default>false</default>
+                <label>Add Life Event</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus Support</fullName>
+                <default>false</default>
+                <label>ANZ Plus Support</label>
+            </value>
+            <value>
+                <fullName>App Guide</fullName>
+                <default>false</default>
+                <label>App Guide</label>
+            </value>
+            <value>
+                <fullName>App security</fullName>
+                <default>false</default>
+                <label>App security</label>
+            </value>
+            <value>
+                <fullName>Bug Report</fullName>
+                <default>false</default>
+                <label>Bug Report</label>
+            </value>
+            <value>
+                <fullName>Cancel a Dispute</fullName>
+                <default>false</default>
+                <label>Cancel a Dispute</label>
+            </value>
+            <value>
+                <fullName>Card Enquiry</fullName>
+                <default>false</default>
+                <label>Card Enquiry</label>
+            </value>
+            <value>
+                <fullName>Card Issue</fullName>
+                <default>false</default>
+                <label>Card Issue</label>
+            </value>
+            <value>
+                <fullName>Card Lost/Stolen</fullName>
+                <default>false</default>
+                <label>Card Lost/Stolen</label>
+            </value>
+            <value>
+                <fullName>Coaching/Needs based Discussion</fullName>
+                <default>false</default>
+                <label>Coaching/Needs based Discussion</label>
+            </value>
+            <value>
+                <fullName>Create or Manage PayID</fullName>
+                <default>false</default>
+                <label>Create or Manage PayID</label>
+            </value>
+            <value>
+                <fullName>Credit Reporting</fullName>
+                <default>false</default>
+                <label>Credit Reporting</label>
+            </value>
+            <value>
+                <fullName>Device Support</fullName>
+                <default>false</default>
+                <label>Device Support</label>
+            </value>
+            <value>
+                <fullName>Digital Support</fullName>
+                <default>false</default>
+                <label>Digital Support</label>
+            </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payment</fullName>
+                <default>false</default>
+                <label>Direct Debit or Recurring Payment</label>
+            </value>
+            <value>
+                <fullName>Feature Request</fullName>
+                <default>false</default>
+                <label>Feature Request</label>
+            </value>
+            <value>
+                <fullName>Fees &amp; Charges</fullName>
+                <default>false</default>
+                <label>Fees &amp; Charges</label>
+            </value>
+            <value>
+                <fullName>Fraud</fullName>
+                <default>false</default>
+                <label>Fraud</label>
+            </value>
+            <value>
+                <fullName>Hoax Email/SMS</fullName>
+                <default>false</default>
+                <label>Hoax Email/SMS</label>
+            </value>
+            <value>
+                <fullName>KYC</fullName>
+                <default>false</default>
+                <label>KYC</label>
+            </value>
+            <value>
+                <fullName>New Dispute</fullName>
+                <default>false</default>
+                <label>New Dispute</label>
+            </value>
+            <value>
+                <fullName>Overdraft</fullName>
+                <default>false</default>
+                <label>Overdraft</label>
+            </value>
+            <value>
+                <fullName>Product Info</fullName>
+                <default>false</default>
+                <label>Product Info</label>
+            </value>
+            <value>
+                <fullName>Re-Identification</fullName>
+                <default>false</default>
+                <label>Re-Identification</label>
+            </value>
+            <value>
+                <fullName>Re-Joining</fullName>
+                <default>false</default>
+                <label>Re-Joining</label>
+            </value>
+            <value>
+                <fullName>Round Ups</fullName>
+                <default>false</default>
+                <label>Round Ups</label>
+            </value>
+            <value>
+                <fullName>Savings Goals</fullName>
+                <default>false</default>
+                <label>Savings Goals</label>
+            </value>
+            <value>
+                <fullName>Transaction</fullName>
+                <default>false</default>
+                <label>Transaction</label>
+            </value>
+            <value>
+                <fullName>About ANZ Plus</fullName>
+                <default>false</default>
+                <label>About ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>Privacy</fullName>
+                <default>false</default>
+                <label>Privacy</label>
+            </value>
+            <value>
+                <fullName>ANZ branches</fullName>
+                <default>false</default>
+                <label>ANZ branches</label>
+            </value>
+            <value>
+                <fullName>Lost or stolen card</fullName>
+                <default>false</default>
+                <label>Lost or stolen card</label>
+            </value>
+            <value>
+                <fullName>Damaged card</fullName>
+                <default>false</default>
+                <label>Damaged card</label>
+            </value>
+            <value>
+                <fullName>Using card</fullName>
+                <default>false</default>
+                <label>Using card</label>
+            </value>
+            <value>
+                <fullName>Using account</fullName>
+                <default>false</default>
+                <label>Using account</label>
+            </value>
+            <value>
+                <fullName>Savings and goals</fullName>
+                <default>false</default>
+                <label>Savings and goals</label>
+            </value>
+            <value>
+                <fullName>Using tiles</fullName>
+                <default>false</default>
+                <label>Using tiles</label>
+            </value>
+            <value>
+                <fullName>Statements</fullName>
+                <default>false</default>
+                <label>Statements</label>
+            </value>
+            <value>
+                <fullName>Making payments</fullName>
+                <default>false</default>
+                <label>Making payments</label>
+            </value>
+            <value>
+                <fullName>Updating details</fullName>
+                <default>false</default>
+                <label>Updating details</label>
+            </value>
+            <value>
+                <fullName>Lost or new phone</fullName>
+                <default>false</default>
+                <label>Lost or new phone</label>
+            </value>
+            <value>
+                <fullName>Power of attorney</fullName>
+                <default>false</default>
+                <label>Power of attorney</label>
+            </value>
+            <value>
+                <fullName>General fraud enquiry</fullName>
+                <default>false</default>
+                <label>General fraud enquiry</label>
+            </value>
+            <value>
+                <fullName>Card/device block enquiry</fullName>
+                <default>false</default>
+                <label>Card/device block enquiry</label>
+            </value>
+            <value>
+                <fullName>Falcon transaction confirmation</fullName>
+                <default>false</default>
+                <label>Falcon transaction confirmation</label>
+            </value>
+            <value>
+                <fullName>Hardship</fullName>
+                <default>false</default>
+                <label>Hardship</label>
+            </value>
+            <value>
+                <fullName>Coaching</fullName>
+                <default>false</default>
+                <label>Coaching</label>
+            </value>
+            <value>
+                <fullName>Extra Care</fullName>
+                <default>false</default>
+                <label>Extra Care</label>
+            </value>
+            <value>
+                <fullName>Digital wallet provisioning</fullName>
+                <default>false</default>
+                <label>Digital wallet provisioning</label>
+            </value>
+            <value>
+                <fullName>Digital wallet issue</fullName>
+                <default>false</default>
+                <label>Digital wallet issue</label>
+            </value>
+            <value>
+                <fullName>Raising a concern</fullName>
+                <default>false</default>
+                <label>Raising a concern</label>
+            </value>
+            <value>
+                <fullName>Withholding tax refund</fullName>
+                <default>false</default>
+                <label>Withholding tax refund</label>
+            </value>
+            <value>
+                <fullName>Large Value Transfer enquiries</fullName>
+                <default>false</default>
+                <label>Large Value Transfer enquiries</label>
+            </value>
+            <value>
+                <fullName>Proof of Amount</fullName>
+                <default>false</default>
+                <label>Proof of Amount</label>
+            </value>
+            <value>
+                <fullName>General Home Loan Enquiry</fullName>
+                <default>false</default>
+                <label>General Home Loan Enquiry</label>
+            </value>
+            <value>
+                <fullName>Managing Repayments</fullName>
+                <default>false</default>
+                <label>Managing Repayments</label>
+            </value>
+            <value>
+                <fullName>Close Home Loan</fullName>
+                <default>false</default>
+                <label>Close Home Loan</label>
+            </value>
+            <value>
+                <fullName>Loan Statements</fullName>
+                <default>false</default>
+                <label>Loan Statements</label>
+            </value>
+            <value>
+                <fullName>Interest Rate</fullName>
+                <default>false</default>
+                <label>Interest Rate</label>
+            </value>
+            <value>
+                <fullName>90% Centrelink Payment Request</fullName>
+                <default>false</default>
+                <label>90% Centrelink Payment Request</label>
+            </value>
+            <value>
+                <fullName>Account Switching</fullName>
+                <default>false</default>
+                <label>Account Switching</label>
+            </value>
+            <value>
+                <fullName>Renewal and Restructures</fullName>
+                <default>false</default>
+                <label>Renewal and Restructures</label>
+            </value>
+            <value>
+                <fullName>Customer Onboarding information</fullName>
+                <default>false</default>
+                <label>Customer Onboarding information</label>
+            </value>
+            <value>
+                <fullName>TFN exemption (non resident &amp; &lt;16yrs old)</fullName>
+                <default>false</default>
+                <label>TFN exemption (non resident &amp; &lt;16yrs old)</label>
+            </value>
+            <value>
+                <fullName>Occupation Updates</fullName>
+                <default>false</default>
+                <label>Occupation Updates</label>
+            </value>
+            <value>
+                <fullName>Address Update (overseas)</fullName>
+                <default>false</default>
+                <label>Address Update (overseas)</label>
+            </value>
+            <value>
+                <fullName>Citizenship Update</fullName>
+                <default>false</default>
+                <label>Citizenship Update</label>
+            </value>
+            <value>
+                <fullName>Statement Requests</fullName>
+                <default>false</default>
+                <label>Statement Requests</label>
+            </value>
+            <value>
+                <fullName>Garnishee Orders</fullName>
+                <default>false</default>
+                <label>Garnishee Orders</label>
+            </value>
+            <value>
+                <fullName>Freezing Orders</fullName>
+                <default>false</default>
+                <label>Freezing Orders</label>
+            </value>
+            <value>
+                <fullName>Account Closure Enquiry</fullName>
+                <default>false</default>
+                <label>Account Closure Enquiry</label>
+            </value>
+            <value>
+                <fullName>Legal Name Change</fullName>
+                <default>false</default>
+                <label>Legal Name Change</label>
+            </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payments stop request</fullName>
+                <default>false</default>
+                <label>Direct Debit or Recurring Payments stop request</label>
+            </value>
+            <value>
+                <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
+                <default>false</default>
+                <label>Direct Debit or Recurring Payments 13 month statement</label>
+            </value>
+            <value>
+                <fullName>Large Value Transfer requests</fullName>
+                <default>false</default>
+                <label>Large Value Transfer requests</label>
+            </value>
+            <value>
+                <fullName>EOFY</fullName>
+                <default>false</default>
+                <label>EOFY</label>
+            </value>
+            <value>
+                <fullName>Document Request</fullName>
+                <default>false</default>
+                <label>Document Request</label>
+            </value>
+            <value>
+                <fullName>Collections</fullName>
+                <default>false</default>
+                <label>Collections</label>
+            </value>
+            <value>
+                <fullName>Redraw</fullName>
+                <default>false</default>
+                <label>Redraw</label>
+            </value>
+            <value>
+                <fullName>Discharge</fullName>
+                <default>false</default>
+                <label>Discharge</label>
+            </value>
+            <value>
+                <fullName>Refer a Friend</fullName>
+                <default>false</default>
+                <label>Refer a Friend</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
