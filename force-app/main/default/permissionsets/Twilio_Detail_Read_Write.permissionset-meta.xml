@@ -26,6 +26,11 @@
         <field>Twilio_Details__c.Twilio_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Twilio_Details__c.NLP_Topic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Twilio Detail Read Write</label>
     <objectPermissions>

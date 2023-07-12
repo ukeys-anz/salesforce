@@ -2,15 +2,28 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Trusted;Privacy - Non Personal Information;Source - Twilio</complianceGroup>
-    <description>Latest Status of Call or Chat Interaction from Twilio</description>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Twilio</complianceGroup>
+    <description>Manual entry by coach</description>
     <externalId>false</externalId>
     <label>Status</label>
-    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Created</fullName>
+                <default>false</default>
+                <label>Created</label>
+            </value>
+            <value>
+                <fullName>Linked</fullName>
+                <default>false</default>
+                <label>Linked</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
 </CustomField>
