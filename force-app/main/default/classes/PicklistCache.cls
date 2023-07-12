@@ -40,7 +40,6 @@ public class PicklistCache implements Cache.CacheBuilder {
     Map<String, Object> root = (Map<String, Object>) JSON.deserializeUntyped(
       res.body
     );
-    System.debug('root -> ' + root);
     if (Test.isRunningTest()) {
       Cache.Org.put(
         'local.Utility.' + keyForCache,
