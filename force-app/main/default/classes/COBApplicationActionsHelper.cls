@@ -111,7 +111,8 @@ public with sharing class COBApplicationActionsHelper {
               LicenceNumberOCRMatch__c,
               LicenceCardNumberOCRMatch__c,
               PassportNumberOCRMatch__c,
-              DateOfBirthOCRMatch__c
+              DateOfBirthOCRMatch__c,
+              ExpiryDateOCRMatch__c
             FROM COBPrimaryIDDocuments__r
             ORDER BY CreatedDate DESC
           )
@@ -177,6 +178,24 @@ public with sharing class COBApplicationActionsHelper {
     CustomerOnboardingApplication__c cobApp,
     COBPrimaryIDDocument__c cobPrimaryIDDocument
   ) {
+    Logger.debug('Verification Type: ' + cobApp.VerificationType__c);
+    Logger.debug(
+      'Does Licence Match: ' + doesLicenceMatch(cobPrimaryIDDocument)
+    );
+    Logger.debug(
+      'Does Passport Match: ' + doesPassportMatch(cobPrimaryIDDocument)
+    );
+    Logger.debug(
+      'Does Full Name Match: ' + doesFullNameMatch(cobPrimaryIDDocument)
+    );
+    Logger.debug(
+      'Date Of Birth OCR Match: ' + cobPrimaryIDDocument.DateOfBirthOCRMatch__c
+    );
+    Logger.debug(
+      'Expiry Date OCR Match: ' + cobPrimaryIDDocument.ExpiryDateOCRMatch__c
+    );
+    Logger.saveLog();
+
     if (
       (cobApp.VerificationType__c == VERIFICATION_TYPE_STP ||
       cobApp.VerificationType__c == VERIFICATION_TYPE_ASSISTED)
@@ -207,6 +226,16 @@ public with sharing class COBApplicationActionsHelper {
    * @return Middle Name Check result
    */
   public static String populateMiddleNameCheck(COBPrimaryIDDocument__c cobPid) {
+    Logger.debug(
+      'Are First And Last Names OCR Server Blank: ' +
+      areFirstAndLastNamesOCRServerBlank(cobPid)
+    );
+    Logger.debug('Does Midddle Names Match: ' + doMiddleNamesMatch(cobPid));
+    Logger.debug('Does Full Name Match: ' + doesFullNameMatch(cobPid));
+    Logger.debug('Does Licence Match: ' + doesLicenceMatch(cobPid));
+    Logger.debug('Does Passport Match: ' + doesPassportMatch(cobPid));
+    Logger.saveLog();
+
     if (areFirstAndLastNamesOCRServerBlank(cobPid)) {
       return NONE;
     } else if (doMiddleNamesMatch(cobPid)) {
