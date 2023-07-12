@@ -119,6 +119,16 @@ runtime_omnistudio_omniscript-omniscript-ip-action[data-omni-key*="Add"]
   color: var(--lwc-brandTextLink, rgb(1, 118, 211));
 }
 
+/* runtime css for adjusting Video call checkbox */
+runtime_omnistudio_omniscript-omniscript-checkbox[data-omni-key="VideoCall"]
+  span[class="slds-checkbox_faux"] {
+  margin-left: 168px;
+}
+runtime_omnistudio_omniscript-omniscript-checkbox[data-omni-key="VideoCall"]
+  span[class="slds-form-element__label slds-show--inline slds-p-top_none"] {
+  margin-left: -192px;
+}
+
 /* Hide the top line */
 .vlc-separator {
   display: none;
