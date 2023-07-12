@@ -1523,7 +1523,9 @@
         "Assisted__c",
         "Self_Service__c",
         "Place__c",
-        "TwilioDetailsID__c"
+        "TwilioDetailsID__c",
+        "Support_Topics__c",
+        "Video_Call__c"
       ],
       "IA-2468715": [
         "Loan_Application__c",
