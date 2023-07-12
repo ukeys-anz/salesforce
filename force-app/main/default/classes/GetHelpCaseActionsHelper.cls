@@ -9,7 +9,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
-
+  public static final String FRAUD_GENERIC_CUSTOMER_NAME = 'Fraud Entitlement Account';
   // Set of record type Ids that will be sent to PEGA
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
     GetHelpConstants.ATM_DISPUTE_RT_ID,
@@ -394,7 +394,13 @@ public with sharing class GetHelpCaseActionsHelper {
       ];
       for (Account acc : accs) {
         Case c = caseList.get(acc.Id);
-        c.Fraud_Onboarding_Customer_Name__c = acc.Name;
+        if (
+          String.isBlank(c.Fraud_Onboarding_Customer_Name__c) ||
+          (c.Fraud_Onboarding_Customer_Name__c != FRAUD_GENERIC_CUSTOMER_NAME &&
+          acc.Name != FRAUD_GENERIC_CUSTOMER_NAME)
+        ) {
+          c.Fraud_Onboarding_Customer_Name__c = acc.Name;
+        }
       }
     }
   }
