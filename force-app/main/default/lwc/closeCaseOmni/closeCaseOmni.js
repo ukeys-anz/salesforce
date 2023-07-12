@@ -50,9 +50,9 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.modalMsg = "";
         if (res.result && res.result.IPResult && res.result.IPResult.result) {
           let errorPath = res.result.IPResult.result.errorsAsJson;
-          if (errorPath.DRError.includes("FIELD_CUSTOM_VALIDATION_EXCEPTION")) {
+          if (errorPath.DRError) {
             this.modalMsg =
-              "You are not authorized to make updates to this record.";
+              "Update Failed: You are not authorized to make updates to this field.";
             this.showModal = true;
           }
         } else {
