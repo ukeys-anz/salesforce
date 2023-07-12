@@ -333,6 +333,14 @@ public with sharing class COBApplicationActionsHelperTest {
     Assert.areEqual(
       COBApplicationActionsHelper.YES,
       COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
+      'Yes when the Verification Type is not STP or Assisted and Licence ID customer values matches with Licence ID OCR Server Values, FirstNameOCRServer included firstName and middleName'
+    );
+
+    cobPID.FirstNameOCRServer__c = firstName;
+    cobPID.MiddleNamesOCRServer__c = middleName;
+    Assert.areEqual(
+      COBApplicationActionsHelper.YES,
+      COBApplicationActionsHelper.populateFraudCustomerDetails(cobApp, cobPID),
       'Yes when the Verification Type is not STP or Assisted and Licence ID customer values matches with Licence ID OCR Server Values.'
     );
 

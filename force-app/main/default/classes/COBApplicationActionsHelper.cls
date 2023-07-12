@@ -276,6 +276,7 @@ public with sharing class COBApplicationActionsHelper {
     String cobPIDDFullNameOCRServer = CommonUtil.buildTrimedConcatenatedString(
       new List<String>{
         cobPid.FirstNameOCRServer__c,
+        cobPid.MiddleNamesOCRServer__c,
         cobPid.LastNameOCRServer__c
       }
     );
