@@ -21,6 +21,10 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       records
     );
 
+    List<Interaction> chatInteractions = InteractionFilter.getChatInteractions(
+      records
+    );
+
     Map<Id, SObject> apptMap = new Map<Id, SObject>(apptInteractions);
     Set<Id> apptIds = new Set<Id>(apptMap.keyset());
     InteractionSetters.setInteractionIds(apptInteractions);
@@ -33,6 +37,10 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
 
     //Add Interaction Number for Store too.
     generalInteractions.addAll(storeInteractions);
+
+    //Add Interaction Number for Chat too
+    generalInteractions.addAll(chatInteractions);
+
     Map<Id, SObject> generalMap = new Map<Id, SObject>(generalInteractions);
     Set<Id> generalIds = new Set<Id>(generalMap.keyset());
     InteractionSetters.setGeneralExternalIds(generalIds);
