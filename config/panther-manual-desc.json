@@ -2202,6 +2202,7 @@
         "Settlement_ID__c",
         "Status"
       ],
+      "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate", "Version__c"],
       "IA-2594111": [
         "ApplicationExtIdentifier",
