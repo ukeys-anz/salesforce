@@ -92,35 +92,15 @@
     <picklistValues>
         <picklist>Interaction_Purpose__c</picklist>
         <values>
-            <fullName>Customer</fullName>
+            <fullName>ANZ Customer</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Existing ANZ Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Financial Wellbeing</fullName>
+            <fullName>ANZ Plus Customer</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Non-Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Testing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wrong Number</fullName>
             <default>false</default>
         </values>
     </picklistValues>
