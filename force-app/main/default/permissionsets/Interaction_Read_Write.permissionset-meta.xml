@@ -314,7 +314,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Interaction.TwilioDetailsID__c</field>
         <readable>true</readable>
     </fieldPermissions>
