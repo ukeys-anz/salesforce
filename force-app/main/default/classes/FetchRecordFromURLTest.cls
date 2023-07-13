@@ -78,4 +78,42 @@ private class FetchRecordFromURLTest {
       Test.stopTest();
     }
   }
+
+  @isTest
+  static void testIfFetchRecordPositiveInteraction() {
+    Faker faker = new Faker('AU');
+    // Insert an Interaction to cover else part
+    Interaction interactNew = new Interaction();
+    interactNew.RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID;
+    String randInteractName = faker.randomString(10);
+    interactNew.Name = randInteractName;
+    interactNew.StartTime = System.now().addDays(30);
+    interactNew.EndTime = interactNew.StartTime.addMinutes(30);
+    insert interactNew;
+
+    User coachUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'TestCoachInter123'
+    ];
+    System.runAs(coachUser) {
+      FetchRecordFromURL fetchRecordFromURLCallable = new FetchRecordFromURL();
+      Map<String, Object> params = new Map<String, Object>();
+      params.put(
+        'input',
+        new Map<String, Object>{
+          'ws' => '/lightning/r/Interaction/' +
+          interactNew.Id +
+          '/view',
+          'recordTypeId' => GetHelpConstants.INTERACTION_STORE_RT_ID
+        }
+      );
+      params.put('output', new Map<String, Object>());
+      params.put('options', new Map<String, Object>());
+
+      Test.startTest();
+      fetchRecordFromURLCallable.call('fetchRecordFromURL', params);
+      Test.stopTest();
+    }
+  }
 }
