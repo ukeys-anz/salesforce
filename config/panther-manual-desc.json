@@ -2544,7 +2544,8 @@
         "Call_Recording_Id__c",
         "Chat_or_Call_SID__c",
         "Status__c",
-        "Twilio_ID__c"
+        "Twilio_ID__c",
+        "NLP_Topic__c"
       ]
     },
     "User": {
