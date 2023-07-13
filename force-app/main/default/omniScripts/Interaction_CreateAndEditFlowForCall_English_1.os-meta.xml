@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>OmniScript for creating and editing Store Interactions</description>
-    <elementTypeComponentMapping>{
-  &quot;ElementTypeToHTMLTemplateList&quot; : [ ]
-}</elementTypeComponentMapping>
+    <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
@@ -1011,7 +1009,7 @@
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;who&quot;,
     &quot;type&quot; : &quot;Custom&quot;,
-    &quot;source&quot; : &quot;InteractionFetchPicklistValues.populateActionTakenForCall&quot;
+    &quot;source&quot; : &quot;InteractionFetchPicklistValuesForCall.populateActionTakenForCall&quot;
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1387,7 +1385,7 @@
     }
   },
   &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;InteractionFetchPicklistValues.populateReferredToForCall&quot;,
+    &quot;source&quot; : &quot;InteractionFetchPicklistValuesForCall.populateReferredToForCall&quot;,
     &quot;type&quot; : &quot;Custom&quot;,
     &quot;element&quot; : &quot;actionTaken&quot;
   },
@@ -1441,7 +1439,7 @@
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;actionTaken&quot;,
     &quot;type&quot; : &quot;Custom&quot;,
-    &quot;source&quot; : &quot;InteractionFetchPicklistValues.populateReferredToForCall&quot;
+    &quot;source&quot; : &quot;InteractionFetchPicklistValuesForCall.populateReferredToForCall&quot;
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1606,7 +1604,7 @@
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;channel&quot;,
     &quot;type&quot; : &quot;Custom&quot;,
-    &quot;source&quot; : &quot;InteractionFetchPicklistValues.populateAuthMethodForCall&quot;
+    &quot;source&quot; : &quot;InteractionFetchPicklistValuesForCall.populateAuthMethodForCall&quot;
   },
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Optional if False&quot;,
@@ -1905,7 +1903,7 @@
   &quot;conditionType&quot; : &quot;Optional if False&quot;,
   &quot;show&quot; : null,
   &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;InteractionFetchPicklistValues.populateWhoForCall&quot;,
+    &quot;source&quot; : &quot;InteractionFetchPicklistValuesForCall.populateWhoForCall&quot;,
     &quot;type&quot; : &quot;Custom&quot;,
     &quot;element&quot; : &quot;channel&quot;
   },
@@ -3263,5 +3261,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>9cb136cb-a002-2cc1-6b29-d70bd0abcb4d</webComponentKey>
+    <webComponentKey>8213aa83-f791-55d4-8d0f-049826522223</webComponentKey>
 </OmniScript>

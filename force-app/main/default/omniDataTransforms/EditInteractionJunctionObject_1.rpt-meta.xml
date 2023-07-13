@@ -390,12 +390,12 @@
         <name>EditInteractionJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:DataForInteractionAndJunction:RecordTypeName &apos;Call&apos; == &apos;Chat&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction &apos;/\/\/&apos; + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF IF &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
-        <formulaExpression>IF(DataForInteractionAndJunction:RecordTypeName == &apos;Call&apos;,&apos;Chat&apos;
-,(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction+ &apos; &apos; 
+        <formulaConverted>| var:DataForInteractionAndJunction:RecordTypeName &apos;Call&apos; == var:DataForInteractionAndJunction:RecordTypeName &apos;Message&apos; == || var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction &apos;/\/\/&apos; + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF IF &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
+        <formulaExpression>IF((DataForInteractionAndJunction:RecordTypeName == &apos;Call&apos; || DataForInteractionAndJunction:RecordTypeName == &apos;Message&apos;)
+,(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction+ &apos; &apos;
 + IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,
 &apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel)),IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,
-&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel) )+ 
+&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel) )+
 &apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
         <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:Block2:name</formulaResultPath>
         <formulaSequence>4.0</formulaSequence>
@@ -561,7 +561,7 @@
       },
       &quot;contactDetailsBlock&quot; : {
         &quot;lead-Block&quot; : {
-          &quot;value&quot; : &quot;00QBn000005iWz0MAE&quot;,
+          &quot;value&quot; : &quot;&quot;,
           &quot;lead&quot; : &quot;Lead 0 Test Data0&quot;
         },
         &quot;account-Block&quot; : {
@@ -589,7 +589,7 @@
     &quot;RecordTypeName&quot; : &quot;Call&quot;,
     &quot;RecordId&quot; : &quot;0kzBn0000000AqbIAE&quot;
   },
-  &quot;RecordId&quot; : &quot;0kzBn0000000AqbIAE&quot;,
+  &quot;RecordId&quot; : &quot;0129h000000AeMWAA0&quot;,
   &quot;omniScriptId&quot; : &quot;0jNBn0000006JxdMAE&quot;,
   &quot;elementName&quot; : &quot;CreateAndEditInteractionJunctionObject&quot;
 }</previewJsonData>

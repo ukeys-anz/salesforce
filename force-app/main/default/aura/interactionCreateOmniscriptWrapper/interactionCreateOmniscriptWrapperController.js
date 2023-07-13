@@ -70,7 +70,7 @@
         component.set("v.boolIsGeneral", true);
         component.set("v.spinner", false);
       } else if (rtDeveloperName === "Message") {
-        component.set("v.boolIsMessage", true);
+        component.set("v.boolIsChat", true);
         component.set("v.spinner", false);
       } else {
         component.set("v.spinner", false);

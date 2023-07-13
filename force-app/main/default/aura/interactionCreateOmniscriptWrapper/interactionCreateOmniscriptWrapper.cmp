@@ -8,7 +8,7 @@
   <aura:attribute name="recordTypeIdFromParam" type="String"></aura:attribute>
   <aura:attribute name="boolIsStore" type="Boolean"></aura:attribute>
   <aura:attribute name="boolIsGeneral" type="Boolean"></aura:attribute>
-  <aura:attribute name="boolIsMessage" type="Boolean"></aura:attribute>
+  <aura:attribute name="boolIsChat" type="Boolean"></aura:attribute>
   <aura:attribute name="acccountPrefill" type="String"></aura:attribute>
   <aura:attribute name="spinner" type="boolean" default="TRUE" />
   <aura:handler name="init" value="{!this}" action="{!c.doInit}"></aura:handler>
@@ -38,7 +38,7 @@
       layout="lightning"
     ></c:interactionCreateAndEditFlowForCallEnglish>
   </aura:if>
-  <aura:if isTrue="{!v.boolIsMessage}">
+  <aura:if isTrue="{!v.boolIsChat}">
     <c:interactionCreateAndEditFlowForMessageEnglish
       prefill="{!v.acccountPrefill}"
       layout="lightning"

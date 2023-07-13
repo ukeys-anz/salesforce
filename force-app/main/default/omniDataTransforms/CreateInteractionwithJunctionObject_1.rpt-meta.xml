@@ -323,12 +323,12 @@
         <name>CreateInteractionwithJunctionObject</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:DataForInteractionAndJunction:RecordTypeName &apos;Call&apos; == &apos;Chat&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction &apos;/\/\/&apos; + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF IF &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
-        <formulaExpression>IF(DataForInteractionAndJunction:RecordTypeName == &apos;Call&apos;,&apos;Chat&apos;
-,(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction+ &apos; &apos; 
+        <formulaConverted>| var:DataForInteractionAndJunction:RecordTypeName &apos;Call&apos; == var:DataForInteractionAndJunction:RecordTypeName &apos;Message&apos; == || var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction &apos;/\/\/&apos; + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF + | var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel &apos;Store&apos; == &apos;Coaching/\/\/Lab&apos; var:DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel IF IF &apos;/\/\/-/\/\/&apos; + var:DataForInteractionAndJunction:updatedNameValue +</formulaConverted>
+        <formulaExpression>IF((DataForInteractionAndJunction:RecordTypeName == &apos;Call&apos; || DataForInteractionAndJunction:RecordTypeName == &apos;Message&apos;)
+,(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:Direction+ &apos; &apos;
 + IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,
 &apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel)),IF(DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel == &apos;Store&apos;,
-&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel) )+ 
+&apos;Coaching Lab&apos;,DataForInteractionAndJunction:DetailSectionData:inPersonInteractionDetails:channel) )+
 &apos; - &apos; + DataForInteractionAndJunction:updatedNameValue</formulaExpression>
         <formulaResultPath>DataForInteractionAndJunction:DetailSectionData:Block2:name</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
@@ -473,12 +473,12 @@
       &quot;Block2&quot; : null,
       &quot;contactDetailsBlock&quot; : {
         &quot;account-Block&quot; : {
-          &quot;value&quot; : &quot;001Bn000007n4KMIAY&quot;,
+          &quot;value&quot; : &quot;&quot;,
           &quot;account&quot; : &quot;Sample Account for Entitlements -&quot;
         },
         &quot;lead-Block&quot; : {
           &quot;lead&quot; : &quot;Lead 1 Test Data1&quot;,
-          &quot;value&quot; : &quot;00QBn000005iWz1MAE&quot;
+          &quot;value&quot; : &quot;&quot;
         }
       },
       &quot;inPersonInteractionDetails&quot; : {
@@ -488,13 +488,13 @@
         &quot;authenticationMethod&quot; : &quot;Call Transfer - Authenticated&quot;
       },
       &quot;relatedDetailsBlock&quot; : {
-        &quot;caseID&quot; : &quot;500Bn000006y2RhIAI&quot;,
-        &quot;loanApplication&quot; : &quot;0cdBn00000006S1IAI&quot;,
-        &quot;coachingSummary&quot; : &quot;a1gBn000001tw2nIAA&quot;
+        &quot;caseID&quot; : &quot;&quot;,
+        &quot;loanApplication&quot; : &quot;&quot;,
+        &quot;coachingSummary&quot; : &quot;&quot;
       }
     },
     &quot;updatedNameValue&quot; : &quot;Booked Mastering the ANZ Plus app appointment&quot;,
-    &quot;recordTypeId&quot; : &quot;012Bn0000007d0OIAQ&quot;,
+    &quot;recordTypeId&quot; : &quot;0129h000000AeMWAA0&quot;,
     &quot;RecordTypeName&quot; : &quot;Call&quot;
   }
 }</previewJsonData>
