@@ -661,6 +661,34 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description checks if the user is having given permission sets assigned to it
+   * @param userId user Id
+   * @param permissionSetNames Set of permission set that needs to be verified
+   * @return Boolean if the user is having the permissions assigned to it
+   */
+  public static Boolean userPermissionCheck(
+    Id userId,
+    Set<String> permissionSetNames
+  ) {
+    Boolean isHavingPermission = false;
+    List<PermissionSetAssignment> permissionSetAssignments = [
+      SELECT PermissionSet.Name
+      FROM PermissionsetAssignment
+      WHERE AssigneeId = :userId
+    ];
+    Set<String> assignedPermissionSetGroups = new Set<String>();
+    for (PermissionSetAssignment assignment : permissionSetAssignments) {
+      assignedPermissionSetGroups.add(assignment.PermissionSet.Name);
+    }
+    for (String permissionSetName : permissionSetNames) {
+      if (assignedPermissionSetGroups.contains(permissionSetName)) {
+        isHavingPermission = true;
+      }
+    }
+    return isHavingPermission;
+  }
+
+  /**
    * @description Build Trimmed and Concatenated values of Strings
    * @param items  List of Strings
    * @return Trimmed and Concatenated values of items

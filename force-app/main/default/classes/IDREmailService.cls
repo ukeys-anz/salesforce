@@ -28,7 +28,7 @@ global with sharing class IDREmailService implements Messaging.InboundEmailHandl
     }
     String senderEmail = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_EMAIL_REGEX,
-      headerMap.get('To')
+      headerMap.get('X-MS-Exchange-Inbox-Rules-Loop')
     );
     String fromEmail = CommonUtil.filterStringUsingRegEx(
       IDRConstants.CASE_EMAIL_REGEX,

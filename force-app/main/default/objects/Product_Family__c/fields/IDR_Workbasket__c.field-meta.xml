@@ -75,6 +75,11 @@
                 <default>false</default>
                 <label>IDR ANZ Plus</label>
             </value>
+            <value>
+                <fullName>IDR_Satellite</fullName>
+                <default>false</default>
+                <label>IDR Cards</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
