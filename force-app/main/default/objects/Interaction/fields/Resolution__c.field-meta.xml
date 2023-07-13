@@ -53,30 +53,35 @@
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Did not Answer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
             <valueName>Follow-up Required</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
             <valueName>Referred</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
             <valueName>Resolved</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Voice Mail</valueName>
         </valueSettings>
@@ -84,7 +89,6 @@
             <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Digital Support</controllingFieldValue>
             <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
-            <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Other</controllingFieldValue>
             <controllingFieldValue>Testing</controllingFieldValue>
             <controllingFieldValue>Wrong Number</controllingFieldValue>
@@ -100,6 +104,8 @@
             <controllingFieldValue>Testing</controllingFieldValue>
             <controllingFieldValue>Wrong Number</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
             <valueName>No Action</valueName>
         </valueSettings>
     </valueSet>
