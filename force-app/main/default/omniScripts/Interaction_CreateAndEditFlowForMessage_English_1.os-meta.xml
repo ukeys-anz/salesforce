@@ -2026,7 +2026,7 @@
   &quot;label&quot; : &quot;Status&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -3408,5 +3408,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForMessage_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>9e7f9d50-297b-a5a1-eaa4-35980a06451d</webComponentKey>
+    <webComponentKey>faf610eb-d9ae-84b4-54e3-31aa9471b873</webComponentKey>
 </OmniScript>
