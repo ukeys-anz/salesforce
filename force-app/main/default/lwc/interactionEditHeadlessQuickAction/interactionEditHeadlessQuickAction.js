@@ -8,6 +8,7 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
   booledit = false;
   boolEditStore = false;
   boolEditCall = false;
+  boolEditChat = false;
   recordTypeName;
   _recordId;
 
@@ -38,6 +39,9 @@ export default class InteractionEditHeadlessQuickAction extends LightningElement
         }
         if (this.recordTypeName === "Call") {
           this.boolEditCall = true;
+        }
+        if (this.recordTypeName === "Message") {
+          this.boolEditChat = true;
         }
       }
     } else {
