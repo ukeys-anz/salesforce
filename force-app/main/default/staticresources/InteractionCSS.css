@@ -119,6 +119,17 @@ runtime_omnistudio_omniscript-omniscript-ip-action[data-omni-key*="Add"]
   color: var(--lwc-brandTextLink, rgb(1, 118, 211));
 }
 
+/* Hide input component of Video Call Check box */
+runtime_omnistudio_omniscript-omniscript-text[data-omni-key="VideoCallLabel"]
+  div[class="slds-form-element__control slds-form-element__control-animated-label"] {
+  display: none;
+}
+
+/* Adjust the margins of Video Call Checkbox */
+runtime_omnistudio_omniscript-omniscript-text[data-omni-key="VideoCallLabel"] {
+  margin-top: 0.8rem;
+}
+
 /* Hide the top line */
 .vlc-separator {
   display: none;

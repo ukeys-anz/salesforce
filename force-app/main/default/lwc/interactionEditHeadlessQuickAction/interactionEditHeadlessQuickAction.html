@@ -11,5 +11,10 @@
         layout="lightning"
       ></c-interaction-create-and-edit-flow-for-call-english>
     </template>
+    <template if:true={boolEditChat}>
+      <c-interaction-create-and-edit-flow-for-message-english
+        layout="lightning"
+      ></c-interaction-create-and-edit-flow-for-message-english>
+    </template>
   </template>
 </template>
