@@ -70,18 +70,21 @@
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Customer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Digital Support</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Financial Wellbeing</valueName>
         </valueSettings>
@@ -95,12 +98,14 @@
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Other</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
+            <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Testing</valueName>
         </valueSettings>
@@ -117,6 +122,10 @@
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>
             <valueName>ANZ Customer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Existing ANZ Customer</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
