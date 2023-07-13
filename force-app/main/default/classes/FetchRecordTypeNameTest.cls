@@ -38,7 +38,7 @@ public with sharing class FetchRecordTypeNameTest {
 
     Interaction testInteraction = new Interaction(
       Status__c = InteractionConstants.UNASSIGNED_STATUS,
-      Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME,
+      Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
       InteractionType = InteractionConstants.CALL,
       RecordTypeId = GetHelpConstants.INTERACTION_STORE_RT_ID,
       StartTime = startTime,

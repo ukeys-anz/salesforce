@@ -513,7 +513,7 @@ public with sharing class InteractionTriggerHandlerTest {
         Interaction newInteraction = new Interaction(
           RecordTypeId = interactionrecord,
           Name = 'New Interaction',
-          Interaction_Purpose__c = InteractionConstants.CUSTOMER,
+          Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
           InteractionType = InteractionConstants.STORE,
           Direction__c = InteractionConstants.INBOUND,
           StartTime = System.now()
@@ -581,7 +581,7 @@ public with sharing class InteractionTriggerHandlerTest {
         Interaction newInteraction = new Interaction(
           RecordTypeId = interactionrecord,
           Name = 'New Interaction',
-          Interaction_Purpose__c = InteractionConstants.CUSTOMER,
+          Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
           InteractionType = InteractionConstants.STORE,
           Direction__c = InteractionConstants.INBOUND,
           StartTime = System.now()
@@ -650,7 +650,7 @@ public with sharing class InteractionTriggerHandlerTest {
       Interaction newInteraction = new Interaction(
         RecordTypeId = interactionrecord,
         Name = 'New Interaction',
-        Interaction_Purpose__c = InteractionConstants.CUSTOMER,
+        Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
         InteractionType = InteractionConstants.STORE,
         Direction__c = InteractionConstants.INBOUND,
         StartTime = System.now()
