@@ -19,7 +19,7 @@ public with sharing class InteractionContextServiceUpdateTest {
         'FirstName' => 'Coach Test ICT012',
         'ProfileId' => stdUserProfile.Id,
         'UserRoleId' => coachRole.Id,
-        'Email' => 'testCoach@xyz.com'
+        'Email' => 'testCoach@anz.com'
       }
     );
 
