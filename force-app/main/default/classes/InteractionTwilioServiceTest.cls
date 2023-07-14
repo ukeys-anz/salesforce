@@ -2,10 +2,11 @@
  * @author
  * @since August 2022
  * @description InteractionTwilioServiceTest is the test class for InteractionTwilioService Class.
+ * Deprecated Class as Twilio Team will be using Rest Context InteractionContextServiceUpdate for updating interaction. This class will not be used anymore -Shivam July 2023 ANZX-103285
  */
 @isTest
 private class InteractionTwilioServiceTest {
-  @isTest
+  /*@isTest
   static void updateInteractionFail() {
     Test.startTest();
     try {
@@ -21,9 +22,9 @@ private class InteractionTwilioServiceTest {
       );
     }
     Test.stopTest();
-  }
+  }*/
 
-  @isTest
+  /*@isTest
   static void updateInteractionSuccess() {
     Faker faker = new Faker('AU');
     Interaction interactionRecord = new Interaction(
@@ -80,5 +81,5 @@ private class InteractionTwilioServiceTest {
       insertedTwilioDetailRecord.ANZ_Queue__c,
       'Inserted Twilio ANZ Queue does not match'
     );
-  }
+  }*/
 }
