@@ -1683,7 +1683,7 @@
   &quot;label&quot; : &quot;Direction&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -3261,5 +3261,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>8213aa83-f791-55d4-8d0f-049826522223</webComponentKey>
+    <webComponentKey>01c72f2f-9ccb-a3cc-c48d-08c8f5d2cbeb</webComponentKey>
 </OmniScript>
