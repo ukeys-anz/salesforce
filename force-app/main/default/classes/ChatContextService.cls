@@ -40,6 +40,7 @@ global with sharing class ChatContextService {
   @HttpPost
   global static void doPost(List<ChatContextRequest> contextRequests) {
     List<ChatContextResponse> responseList = new List<ChatContextResponse>();
+    Integer finalStatusCode = 400;
     responseList.add(
       generateErrorResponse(
         '',
@@ -49,7 +50,6 @@ global with sharing class ChatContextService {
       )
     );
     /*Map<String, ChatContextRequest> requestByOCVId = new Map<String, ChatContextRequest>();
-    Integer finalStatusCode = 400;
     if (!contextRequests.isEmpty()) {
       for (ChatContextRequest req : contextRequests) {
         if (isValidRequest(req)) {
