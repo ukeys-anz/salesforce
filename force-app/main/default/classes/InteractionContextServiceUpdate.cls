@@ -21,7 +21,7 @@ global with sharing class InteractionContextServiceUpdate {
         contextRequest
       );
     } catch (Exception e) {
-      Logger.error('Error updating interaction using open CTI', e);
+      Logger.error('Error upserting Twilio Details and Interaction', e);
       Logger.saveLog();
       throw e;
     }

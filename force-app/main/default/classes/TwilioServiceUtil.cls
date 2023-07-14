@@ -12,11 +12,11 @@ public with sharing class TwilioServiceUtil {
   public static List<InteractionContextServiceUpdate.TwilioContextResponse> upsertTwilioDetailsRecord(
     List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioContextRequest
   ) {
-    List<Twilio_Details__c> twilioDetailRecordToInsertOrUpdate = new List<Twilio_Details__c>();
     List<Interaction> interactionToBeUpdated = new List<Interaction>();
+    List<InteractionContextServiceUpdate.TwilioContextResponse> responseList = new List<InteractionContextServiceUpdate.TwilioContextResponse>();
+    List<Twilio_Details__c> twilioDetailRecordToInsertOrUpdate = new List<Twilio_Details__c>();
     Set<String> agentEmailList = new Set<String>();
     Map<String, Id> agentOwnerIdMap = new Map<String, Id>();
-    List<InteractionContextServiceUpdate.TwilioContextResponse> responseList = new List<InteractionContextServiceUpdate.TwilioContextResponse>();
     for (
       Integer intCount = 0; intCount < twilioContextRequest.size(); intCount++
     ) {
@@ -65,13 +65,11 @@ public with sharing class TwilioServiceUtil {
 
       if (twilioRecordUpserted.isSuccess()) {
         responseList.add(generateResponse());
-        String ownerId = '';
         if (!String.isBlank(payLoad.agentEmail)) {
-          ownerId = agentOwnerIdMap.get(payLoad.agentEmail);
           interactionToBeUpdated.add(
             new Interaction(
               Id = payLoad.interactionId,
-              OwnerId = ownerId,
+              OwnerId = agentOwnerIdMap.get(payLoad.agentEmail),
               TwilioDetailsID__c = twilioRecordUpserted.getId()
             )
           );
@@ -90,7 +88,23 @@ public with sharing class TwilioServiceUtil {
       }
     }
 
-    Database.update(interactionToBeUpdated, false);
+    if (!interactionToBeUpdated.isEmpty()) {
+      List<Database.SaveResult> results = Database.update(
+        interactionToBeUpdated,
+        false
+      );
+      for (Integer i = 0; i < interactionToBeUpdated.size(); i++) {
+        Database.SaveResult sr = results[i];
+        if (sr.isSuccess()) {
+          responseList.add(generateResponse());
+        } else {
+          List<Database.Error> err = sr.getErrors();
+          String errorvalues = String.join(err, '/n');
+          responseList.add(generateErrorResponse(errorvalues));
+        }
+      }
+    }
+
     return responseList;
   }
 

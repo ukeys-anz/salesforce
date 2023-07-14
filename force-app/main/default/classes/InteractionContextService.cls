@@ -7,8 +7,8 @@
 @SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.ExcessivePublicCount')
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
-  global static final String INTERACTION_TYPE = 'Call';
-  global static final String CHAT_INTERACTION_TYPE = 'Chat';
+  global static final String INTERACTION_TYPE = 'call';
+  global static final String CHAT_INTERACTION_TYPE = 'chat';
   global static final String INBOUND_DIRECTION = 'Inbound';
   global static final String OUTBOUND_DIRECTION = 'Outbound';
   /**
@@ -20,25 +20,27 @@ global with sharing class InteractionContextService {
   @HttpPost
   global static void doPost(List<InteractionContextRequest> contextRequest) {
     Integer finalStatusCode = 400;
+    Map<String, Id> accountsByOCVId = new Map<String, Id>();
+    Map<String, List<String>> interactionsByAccount = new Map<String, List<String>>();
     Map<String, InteractionContextRequest> requestByOCVId = new Map<String, InteractionContextRequest>();
     Map<String, InteractionContextRequest> requestByPhoneNumber = new Map<String, InteractionContextRequest>();
-    List<String> phoneNumberReceivedFromTwillo = new List<String>();
-    List<InteractionContextResponse> responseList = new List<InteractionContextResponse>();
-    List<Interaction> interactionToBeCreated = new List<Interaction>();
     List<Account> accountsToUpdate = new List<Account>();
-    Map<String, Id> accountsByOCVId = new Map<String, Id>();
-    Map<String, Id> accountsByPhoneNumber = new Map<String, Id>();
-    Map<String, List<String>> interactionsByAccount = new Map<String, List<String>>();
+    List<Interaction> interactionToBeCreated = new List<Interaction>();
+    List<InteractionContextResponse> responseList = new List<InteractionContextResponse>();
     List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList = new List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>();
 
     //Validating the response recived from Twilio
     if (!contextRequest.isEmpty()) {
       for (Integer intCount = 0; intCount < contextRequest.size(); intCount++) {
         InteractionContextRequest req = contextRequest.get(intCount);
-        if (isValidRequest(req).isEmpty() && req.type.toLowerCase() == 'chat') {
+        if (
+          isValidRequest(req).isEmpty() &&
+          req.type.toLowerCase() == CHAT_INTERACTION_TYPE
+        ) {
           requestByOCVId.put(req.ocvId, req);
         } else if (
-          isValidRequest(req).isEmpty() && req.type.toLowerCase() == 'call'
+          isValidRequest(req).isEmpty() &&
+          req.type.toLowerCase() == INTERACTION_TYPE
         ) {
           requestByPhoneNumber.put(req.phoneNumber, req);
         } else {
@@ -89,62 +91,34 @@ global with sharing class InteractionContextService {
       }
     }
 
-    //Finding Available Accounts based on the phoneNumber received.
-    if (!requestByPhoneNumber.isEmpty()) {
-      phoneNumberReceivedFromTwillo.addAll(requestByPhoneNumber.keySet());
-      String searchQuery =
-        'FIND {' +
-        String.join(phoneNumberReceivedFromTwillo, ' OR ') +
-        '} IN PHONE FIELDS RETURNING Account(Id,PersonMobilePhone,External_Id__c,OCV_ID__c,PPID__c WHERE ANZx_Customer__c=TRUE)';
-      List<List<SObject>> searchResults = search.query(searchQuery);
-      List<Account> availableAccounts = searchResults[0];
-      if (!availableAccounts.isEmpty()) {
-        for (Account acc : availableAccounts) {
-          accountsByPhoneNumber.put(acc.PersonMobilePhone, acc.id);
-        }
-      }
-    }
-
     //Creation of New Interaction Record To Be Created
     if (!contextRequest.isEmpty()) {
       for (Integer intCount = 0; intCount < contextRequest.size(); intCount++) {
-        InteractionContextRequest req = contextRequest.get(intCount);
+        InteractionContextRequest interactContext = contextRequest.get(
+          intCount
+        );
         if (
-          requestByOCVId.containsKey(req.ocvId) &&
+          requestByOCVId.containsKey(interactContext.ocvId) &&
           (!accountsByOCVId.isEmpty() &&
-          String.isNotBlank(accountsByOCVId.get(req.ocvId)))
+          String.isNotBlank(accountsByOCVId.get(interactContext.ocvId)))
         ) {
           if (
             (!interactionsByAccount.isEmpty() &&
-            !interactionsByAccount.get(req.ocvId).contains(req.chatOrCallId)) ||
+            interactionsByAccount.containsKey(interactContext.ocvId) &&
+            !interactionsByAccount.get(interactContext.ocvId)
+              .contains(interactContext.chatOrCallId)) ||
             interactionsByAccount.isEmpty()
           ) {
-            Interaction intToInsert = new Interaction();
-            intToInsert.Direction__c = req.direction;
-            intToInsert.InteractionType = CHAT_INTERACTION_TYPE;
-            intToInsert.Contact_Mobile__c = req.phoneNumber;
-            intToInsert.Chat_or_Call_SID__c = req.chatOrCallId;
-            intToInsert.Status__c = req.chatOrCallStatus;
-            intToInsert.StartTime = System.now();
-            intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
-            intToInsert.Support_Topics__c = req.issueSubtype;
-            intToInsert.AccountId = accountsByOCVId.get(req.ocvId);
-            interactionToBeCreated.add(intToInsert);
+            interactionToBeCreated.addAll(
+              createInteraction(interactContext, accountsByOCVId)
+            );
           }
-        } else if (requestByPhoneNumber.containsKey(req.phoneNumber)) {
-          Interaction intToInsert = new Interaction();
-          intToInsert.Direction__c = req.direction;
-          intToInsert.InteractionType = INTERACTION_TYPE;
-          intToInsert.Contact_Mobile__c = req.phoneNumber;
-          intToInsert.Chat_or_Call_SID__c = req.chatOrCallId;
-          intToInsert.Status__c = req.chatOrCallStatus;
-          intToInsert.StartTime = System.now();
-          intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
-          intToInsert.AccountId = (!accountsByPhoneNumber.isEmpty() &&
-            String.isNotBlank(accountsByPhoneNumber.get(req.phoneNumber)))
-            ? accountsByPhoneNumber.get(req.phoneNumber)
-            : null;
-          interactionToBeCreated.add(intToInsert);
+        } else if (
+          requestByPhoneNumber.containsKey(interactContext.phoneNumber)
+        ) {
+          interactionToBeCreated.addAll(
+            createInteraction(interactContext, accountsByOCVId)
+          );
         }
       }
     }
@@ -172,27 +146,14 @@ global with sharing class InteractionContextService {
         Database.SaveResult sr = results[i];
         if (sr.isSuccess()) {
           InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContext = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
-          if (
-            newInteractionMap.get(interactionToBeCreated[i].Id)
-              .InteractionType == 'Chat'
-          ) {
-            twilioContext.interactionId = interactionToBeCreated[i].Id;
-            twilioContext.callRecordingId = contextRequest[i].callRecordingId;
-            twilioContext.chatOrCallId = contextRequest[i].chatOrCallId;
-            twilioContext.chatOrCallStatus = contextRequest[i].chatOrCallStatus;
-            twilioContext.twilioId = contextRequest[i].twilioId;
-            twilioDetailsByInteractionList.add(twilioContext);
-          } else if (
-            newInteractionMap.get(interactionToBeCreated[i].Id)
-              .InteractionType == 'Call'
-          ) {
-            twilioContext.interactionId = interactionToBeCreated[i].Id;
-            twilioContext.callRecordingId = contextRequest[i].callRecordingId;
-            twilioContext.chatOrCallId = contextRequest[i].chatOrCallId;
-            twilioContext.chatOrCallStatus = contextRequest[i].chatOrCallStatus;
-            twilioContext.twilioId = contextRequest[i].twilioId;
-            twilioDetailsByInteractionList.add(twilioContext);
-          }
+
+          twilioContext.interactionId = interactionToBeCreated[i].Id;
+          twilioContext.callRecordingId = contextRequest[i].callRecordingId;
+          twilioContext.chatOrCallId = contextRequest[i].chatOrCallId;
+          twilioContext.chatOrCallStatus = contextRequest[i].chatOrCallStatus;
+          twilioContext.twilioId = contextRequest[i].twilioId;
+          twilioDetailsByInteractionList.add(twilioContext);
+
           responseList.add(
             generateResponse(
               interactionToBeCreated[i].Id,
@@ -434,5 +395,42 @@ global with sharing class InteractionContextService {
      * @description Label for chat to display
      */
     public String chatLabel { get; set; }
+  }
+
+  /**
+   * @description Method to check if the request record is valid or not.
+   * @param interactContextRequest Chat Context instance
+   * @param accountsMap accountsByOCVId
+   * @return InteractionContextRequest which contains error messages if any
+   */
+  private static List<Interaction> createInteraction(
+    InteractionContextRequest interactContextRequest,
+    Map<String, Id> accountsMap
+  ) {
+    List<Interaction> listOfInteractionsToCreate = new List<Interaction>();
+    if (interactContextRequest.type.toLowerCase() == CHAT_INTERACTION_TYPE) {
+      Interaction intToInsert = new Interaction();
+      intToInsert.Direction__c = interactContextRequest.direction;
+      intToInsert.InteractionType = 'Chat';
+      intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
+      intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
+      intToInsert.Status__c = interactContextRequest.chatOrCallStatus;
+      intToInsert.StartTime = System.now();
+      intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
+      intToInsert.Support_Topics__c = interactContextRequest.issueSubtype;
+      intToInsert.AccountId = accountsMap.get(interactContextRequest.ocvId);
+      listOfInteractionsToCreate.add(intToInsert);
+    } else if (interactContextRequest.type.toLowerCase() == INTERACTION_TYPE) {
+      Interaction intToInsert = new Interaction();
+      intToInsert.Direction__c = interactContextRequest.direction;
+      intToInsert.InteractionType = 'Call';
+      intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
+      intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
+      intToInsert.Status__c = interactContextRequest.chatOrCallStatus;
+      intToInsert.StartTime = System.now();
+      intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
+      listOfInteractionsToCreate.add(intToInsert);
+    }
+    return listOfInteractionsToCreate;
   }
 }

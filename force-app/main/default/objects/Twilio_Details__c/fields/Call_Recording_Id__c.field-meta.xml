@@ -2,10 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Call_Recording_Id__c</fullName>
     <businessStatus>Active</businessStatus>
-    <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Twilio</complianceGroup>
+    <complianceGroup>Integrity - Trusted</complianceGroup>
     <description>Used to store the unique call recording ID of the call</description>
-    <externalId>true</externalId>
+    <encryptionScheme>None</encryptionScheme>
+    <externalId>false</externalId>
     <label>Call Recording Id</label>
     <length>34</length>
     <required>false</required>
@@ -13,5 +13,5 @@
     <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
-    <unique>true</unique>
+    <unique>false</unique>
 </CustomField>
