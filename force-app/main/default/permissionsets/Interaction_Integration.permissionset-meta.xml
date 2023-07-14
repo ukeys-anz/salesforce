@@ -25,6 +25,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>InteractionContextServiceUpdate</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>InteractionConstants</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -54,6 +58,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>InteractionTriggerHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TwilioServiceUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <description>Interaction permission set with Read/Write for Twilio access.</description>
@@ -259,12 +267,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Interaction.Support_Topics__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Interaction.Twilio_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.TwilioDetailsID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.Video_Call__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

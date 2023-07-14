@@ -2,6 +2,7 @@
  * @author
  * @since  August 2022
  * @description SOAP API class that will update Interaction with Twilio ID.
+ * Deprecated Class as Twilio Team will be using Rest Context InteractionContextServiceUpdate for updating interaction. This class will not be used anymore -Shivam July 2023 ANZX-103285
  */
 global with sharing class InteractionTwilioService {
   /**
@@ -9,7 +10,7 @@ global with sharing class InteractionTwilioService {
    * Salesforce would then update the interaction using the interaction Id
    * @param jsonString contains the payload
    */
-  webService static void updateInteraction(String jsonString) {
+  /*webService static void updateInteraction(String jsonString) {
     try {
       UpdateInteractionPayload params = (UpdateInteractionPayload) JSON.deserialize(
         jsonString,
@@ -66,5 +67,5 @@ global with sharing class InteractionTwilioService {
     String callRecordingId;
     @TestVisible
     String queueName;
-  }
+  }*/
 }
