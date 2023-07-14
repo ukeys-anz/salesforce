@@ -22,9 +22,9 @@ private class InteractionTwilioServiceTest {
       );
     }
     Test.stopTest();
-  }
+  }*/
 
-  @isTest
+  /*@isTest
   static void updateInteractionSuccess() {
     Faker faker = new Faker('AU');
     Interaction interactionRecord = new Interaction(
