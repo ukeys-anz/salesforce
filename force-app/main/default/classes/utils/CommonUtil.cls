@@ -687,4 +687,19 @@ public with sharing class CommonUtil {
     }
     return isHavingPermission;
   }
+
+  /**
+   * @description Build Trimmed and Concatenated values of Strings
+   * @param items  List of Strings
+   * @return Trimmed and Concatenated values of items
+   */
+  public static String buildTrimedConcatenatedString(List<String> items) {
+    List<String> newContents = new List<String>();
+    for (String item : items) {
+      if (String.isNotBlank(item?.trim())) {
+        newContents.add(item.trim());
+      }
+    }
+    return String.join(newContents, ' ');
+  }
 }

@@ -4,7 +4,7 @@
     <active>true</active>
     <businessProcess>ANZx Complaint Support Process</businessProcess>
     <description>Record and track complaints lodged by ANZ Plus customers</description>
-    <label>ANZ Plus Complaint</label> 
+    <label>ANZ Plus Complaint</label>
     <picklistValues>
         <picklist>ANZx_Product__c</picklist>
         <values>

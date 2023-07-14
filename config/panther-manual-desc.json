@@ -1072,7 +1072,8 @@
         "PassportNumberOCRMatch__c",
         "PassportNumberOCRServer__c",
         "PassportNumberOCRServerTransform__c",
-        "PassportNumberTransform__c"
+        "PassportNumberTransform__c",
+        "ExpiryDateOCRMatch__c"
       ]
     },
     "COBTaxResidency__c": {
