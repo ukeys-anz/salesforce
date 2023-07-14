@@ -42,41 +42,40 @@ public with sharing class InteractionContextServiceUpdateTest {
     Profile p = CommonUtil.getProfileByName('Minimum Access - External Apps');
     UserRole role = CommonUtil.getUserRoleByDevName('ANZx');
 
-    // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      //Create Twilio API User User
-      User apiUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'APIUserTestForInteraction',
-          'ProfileId' => p.Id,
-          'UserRoleId' => role.Id
-        }
-      );
-
-      insert apiUser;
-
-      // Assign Interaction related PS on API User
-      List<String> psNames = new List<String>{
-        'Chat_Read_Write',
-        'Interaction_Read_Write',
-        'API_Access_Twilio',
-        'API_Only',
-        'Enforce_mTLS',
-        'Twilio_Detail_Read_Write',
-        'Interaction_Integration'
-      };
-      List<PermissionSet> psList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :psNames
-      ];
-      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : psList) {
-        psaList.add(TestUtil.createPSAssignment(apiUser.id, ps.Id));
+    //Create Twilio API User User
+    User apiUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'APIUserTestForInteraction',
+        'ProfileId' => p.Id,
+        'UserRoleId' => role.Id,
+        'Email' => 'testAPI@anz.com'
       }
-      insert psaList;
+    );
 
+    insert apiUser;
+
+    // Assign Interaction related PS on API User
+    List<String> psNames = new List<String>{
+      'Chat_Read_Write',
+      'Interaction_Read_Write',
+      'API_Access_Twilio',
+      'API_Only',
+      'Enforce_mTLS',
+      'Twilio_Detail_Read_Write',
+      'Interaction_Integration'
+    };
+    List<PermissionSet> psList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :psNames
+    ];
+    List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : psList) {
+      psaList.add(TestUtil.createPSAssignment(apiUser.id, ps.Id));
+    }
+    insert psaList;
+
+    System.runAs(apiUser) {
       List<Twilio_Details__c> twilioDetailsList = new List<Twilio_Details__c>();
       Twilio_Details__c twilioDetailRecord1 = new Twilio_Details__c();
       twilioDetailRecord1.Twilio_ID__c = faker.randomString(10);
@@ -120,6 +119,7 @@ public with sharing class InteractionContextServiceUpdateTest {
 
       insert listOfInteractions;
     }
+
   }
 
   @isTest
