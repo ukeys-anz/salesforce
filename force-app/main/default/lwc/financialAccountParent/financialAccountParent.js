@@ -10,7 +10,6 @@ import getTransactionHistoryAura from "@salesforce/apex/CoachBankingAPIRepositor
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
-
 import FIN_ACCOUNT_PRIMARY_OWNER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
@@ -97,7 +96,7 @@ export default class FinancialAccountParent extends LightningElement {
     fields: [
       FIN_ACCOUNT_NUMBER,
       FIN_ACCOUNT_OCV_ID,
-      FIN_ACCOUNT_RECORD_TYPE,
+      FIN_ACCOUNT_RT_APINAME,
       FIN_ACCOUNT_PRIMARY_OWNER,
       FIN_ACCOUNT_INTEREST
     ]
