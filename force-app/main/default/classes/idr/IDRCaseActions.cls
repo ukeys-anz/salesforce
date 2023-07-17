@@ -16,8 +16,6 @@ public with sharing class IDRCaseActions {
 
   private static final String ESCALATED_TO_CRC_API_NAME = '1';
 
-  private static final String CRC_QUEUE_DEVELOPER_NAME = 'CRC_Team';
-
   public static final String QUEUE_TYPE = 'Queue';
 
   private static final String DELETE_ERROR = 'You cannot delete cases';
@@ -43,13 +41,6 @@ public with sharing class IDRCaseActions {
   //User Map to get the User Division for IDR_Office__c as we dont want to query everytime
   //We query all the caseOwnerIds for the case records.
   private static Map<ID, User> userMap = new Map<Id, User>();
-
-  @TestVisible
-  private static Group queue = [
-    SELECT id
-    FROM group
-    WHERE developername = :CRC_QUEUE_DEVELOPER_NAME AND Type = :QUEUE_TYPE
-  ];
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
