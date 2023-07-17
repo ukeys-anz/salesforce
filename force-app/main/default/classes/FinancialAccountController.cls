@@ -29,6 +29,7 @@ public with sharing class FinancialAccountController {
     List<String> accountNumbers
   ) {
     List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
+    List<FinServ__FinancialAccount__c> financialAccountsUpdate = new List<FinServ__FinancialAccount__c>();
     try {
       CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
       FinancialAccountModel result = coachapi.getAccounts(
@@ -40,6 +41,14 @@ public with sharing class FinancialAccountController {
       if (result.account_list == null) {
         return financialAccounts;
       }
+
+      Set<String> financialAccountNumbers = new Set<String>();
+      for (FinancialAccountModel.AccountList finAccount : result.account_list) {
+        financialAccountNumbers.add(finAccount.account_number);
+      }
+      Map<String, Id> finAccNumberToIdMap = getFinAccNumberToIdMap(
+        financialAccountNumbers
+      );
 
       for (FinancialAccountModel.AccountList finAccount : result.account_list) {
         //Format opened date from string to date
@@ -56,19 +65,29 @@ public with sharing class FinancialAccountController {
             BSB__c = finAccount.bsb,
             FinServ__OpenDate__c = openedDate,
             FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
-            FinServ__FinancialAccountType__c = getAccountType(
-              finAccount.marketing_product.code
-            )
+            RecordType = getAccountRecordType(finAccount.marketing_product.code)
           )
         );
+
+        if (finAccNumberToIdMap.keySet().contains(finAccount.account_number)) {
+          financialAccountsUpdate.add(
+            new FinServ__FinancialAccount__c(
+              Id = finAccNumberToIdMap.get(finAccount.account_number),
+              Name = finAccount.name,
+              FinServ__Balance__c = finAccount.balance.value,
+              FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
+              FinServ__OpenDate__c = openedDate
+            )
+          );
+        }
       }
+
       SystemModeActions actions = new SystemModeActions(
         'FinancialAccountController',
         'getFinancialAccountFabric'
       );
-      Boolean hasError = actions.upsertRecords(
-        financialAccounts,
-        FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c,
+      Boolean hasError = actions.updateRecords(
+        financialAccountsUpdate,
         'FinServ__FinancialAccount__c'
       );
 
@@ -90,24 +109,45 @@ public with sharing class FinancialAccountController {
   }
 
   /**
+   * @description builds a map of finaccnumber to sf id
+   * fabric only knows the finaccnumber, so we need to fetch the id to do an update
+   *
+   * @param financialAccountNumbers the financial account identifiers
+   * @return Map<String, Id> map of the fin acc number to the salesforce id
+   */
+  private static Map<String, Id> getFinAccNumberToIdMap(
+    Set<String> financialAccountNumbers
+  ) {
+    Map<String, Id> finAccNumberToIdMap = new Map<String, Id>();
+    for (FinServ__FinancialAccount__c fa : [
+      SELECT Id, FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccount__c
+      WHERE FinServ__FinancialAccountNumber__c IN :financialAccountNumbers
+    ]) {
+      finAccNumberToIdMap.put(fa.FinServ__FinancialAccountNumber__c, fa.Id);
+    }
+    return finAccNumberToIdMap;
+  }
+
+  /**
    * @description The Financial Account component uses this as a fallback to fetch the records to display.
    * If the getFinancialAccountFabric fails, the LWC will use this as a fallback to fetch the existing
    * records in Salesforce and return them
    *
    * @param ownerId the id of the owner of the financial account
-   * @param type the account type to retrieve
+   * @param recordTypeDeveloperNames the account type to retrieve
    * @return List<FinServ__FinancialAccount__c>
    */
   @AuraEnabled
   public static List<FinServ__FinancialAccount__c> getFinancialAccountDB(
     Id ownerId,
-    List<String> type
+    List<String> recordTypeDeveloperNames
   ) {
     List<FinServ__FinancialAccount__c> financialAccount;
     if (
       FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable() &&
       String.isNotBlank(ownerId) &&
-      !type.isEmpty()
+      !recordTypeDeveloperNames.isEmpty()
     ) {
       financialAccount = [
         SELECT
@@ -116,12 +156,12 @@ public with sharing class FinancialAccountController {
           FinServ__Balance__c,
           FinServ__Status__c,
           FinServ__FinancialAccountNumber__c,
-          LastModifiedDate,
-          FinServ__FinancialAccountType__c
+          RecordType.DeveloperName,
+          LastModifiedDate
         FROM FinServ__FinancialAccount__c
         WHERE
           FinServ__PrimaryOwner__c = :ownerId
-          AND FinServ__FinancialAccountType__c IN :type
+          AND RecordType.DeveloperName IN :recordTypeDeveloperNames
         ORDER BY FinServ__OpenDate__c DESC, FinServ__Status__c ASC
       ];
     }
@@ -134,20 +174,28 @@ public with sharing class FinancialAccountController {
 
   /**
    * @description The Financial Account component uses this method to differentiate between the type of account.
-   * This method takes in marketing code as input and returns the type of account.
+   * This method takes in marketing code as input and returns the label of the corresponding record type
+   * The reason this method is required, is to avoid having to query database when fabric response is received,
+   * else a query to pull FinServ__RecordTypeName__c would be required
    * @param code the marketing code input
-   * @return Account type
+   * @return Account record type
    */
-  public static String getAccountType(String code) {
+  public static RecordType getAccountRecordType(String code) {
     switch on code {
       when 'TRANSACT01' {
-        return 'Checking';
+        return new RecordType(
+          DeveloperName = GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME
+        );
       }
       when 'SAVING01' {
-        return 'Savings';
+        return new RecordType(
+          DeveloperName = GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
+        );
       }
       when else {
-        return 'Home Loan';
+        return new RecordType(
+          DeveloperName = GetHelpConstants.BANK_ACCOUNT_RT_APINAME
+        );
       }
     }
   }

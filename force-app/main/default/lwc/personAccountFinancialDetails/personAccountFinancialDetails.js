@@ -19,6 +19,12 @@ import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
+
+import {
+  CHECKING_ACCOUNT_RT_APINAME,
+  SAVINGS_ACCOUNT_RT_APINAME
+} from "c/financialAccountParent";
+
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
   @api objectApiName;
@@ -92,7 +98,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       //the records stored in Salesforce
       let accountDetails = await getFinancialAccountDB({
         ownerId: this.recordId,
-        type: ["checking", "savings"]
+        type: [CHECKING_ACCOUNT_RT_APINAME, SAVINGS_ACCOUNT_RT_APINAME]
       });
       this.handleAccountInformation(accountDetails);
     } finally {
@@ -162,12 +168,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
             ? "slds-badge slds-theme_success"
             : "slds-badge slds-theme_error";
         //Determine the type of financial account
-        if (
-          account.FinServ__FinancialAccountType__c.toLowerCase() === "checking"
-        ) {
+        if (account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME) {
           this.accountData.checking.push(account);
         } else if (
-          account.FinServ__FinancialAccountType__c.toLowerCase() === "savings"
+          account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
         ) {
           this.accountData.savings.push(account);
           this.savingsId = account.Id;

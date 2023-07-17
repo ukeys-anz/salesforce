@@ -42,15 +42,18 @@ public without sharing class SystemModeActions {
    * @description method to update records in a without sharing context when needed
    * @param records records to update
    * @param objectName object name we're updating
+   * @return boolean whether or not any errors were logged
    */
-  public void updateRecords(List<SObject> records, String objectName) {
+  public boolean updateRecords(List<SObject> records, String objectName) {
     if (records == null || records.size() == 0) {
-      return;
+      return false;
     }
 
     List<Database.SaveResult> results = Database.Update(records, false);
     Logger.error('', results);
+    Boolean hasError = Logger.hasError();
     Logger.saveLog();
+    return hasError;
   }
 
   /**
