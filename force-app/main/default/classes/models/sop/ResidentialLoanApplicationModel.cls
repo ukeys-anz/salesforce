@@ -23,20 +23,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public Map<String, SOPExpense> expenseMap;
 
   /**
-   * @description return the asset size attribute to display no asset message on flexcard
-   */
-  @AuraEnabled
-  public Integer assetSize {
-    get {
-      if (assetsSummaries.isEmpty() || assetsSummaries[0].assets.isEmpty()) {
-        return 0;
-      } else {
-        return assetsSummaries[0].assets.size();
-      }
-    }
-  }
-
-  /**
    * @description return the income size attribute to display no income message on flexcard.
    */
   public Integer incomeSize {
@@ -218,7 +204,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
     expenseMap = new Map<String, SOPExpense>();
-    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) { 
+    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
       expenseMap.put(expense.categoryName, expense);
     }
   }
@@ -395,6 +381,23 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           if (asset.type != null && asset.type == 'ASSET_TYPE_SHARES') {
             returnValue = true;
           }
+        }
+        return returnValue;
+      }
+    }
+    /**
+     * @description returns savingsExists value to show the message if none of savings type exists.
+     */
+    public boolean savingsExists {
+      get {
+        boolean returnValue = false;
+        if (
+          this.cashSavingsExists ||
+          this.savingsANZPlusExists ||
+          this.savingsANZExists ||
+          this.otherInstExists
+        ) {
+          returnValue = true;
         }
         return returnValue;
       }
