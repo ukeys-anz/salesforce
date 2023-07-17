@@ -58,6 +58,7 @@ public with sharing class FinancialAccountController {
 
         financialAccounts.add(
           new FinServ__FinancialAccount__c(
+            Id = finAccNumberToIdMap.get(finAccount.account_number),
             Name = finAccount.name,
             FinServ__FinancialAccountNumber__c = finAccount.account_number,
             FinServ__Balance__c = finAccount.balance.value,
