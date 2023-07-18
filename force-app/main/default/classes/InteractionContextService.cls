@@ -2,12 +2,12 @@
  * @author Rebecca Jan
  * @since  April 2022
  * @description APEX REST API class to handle incoming requests from Twilio.
- * Added Chat Interaction and Twilio Details Creation Logic by Shivam , July 2023
+ * Added Chat Interaction and Twilio Details Creation Logic and updated Call Interaction Creation Logic as part of ANZX-103285 by Shivam , July 2023
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.ExcessivePublicCount')
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
-  global static final String INTERACTION_TYPE = 'call';
+  global static final String INTERACTION_TYPE = 'voice';
   global static final String CHAT_INTERACTION_TYPE = 'chat';
   global static final String INBOUND_DIRECTION = 'Inbound';
   global static final String OUTBOUND_DIRECTION = 'Outbound';
@@ -21,9 +21,10 @@ global with sharing class InteractionContextService {
   global static void doPost(List<InteractionContextRequest> contextRequest) {
     Integer finalStatusCode = 400;
     Map<String, Id> accountsByOCVId = new Map<String, Id>();
-    Map<String, List<String>> interactionsByAccount = new Map<String, List<String>>();
     Map<String, InteractionContextRequest> requestByOCVId = new Map<String, InteractionContextRequest>();
     Map<String, InteractionContextRequest> requestByPhoneNumber = new Map<String, InteractionContextRequest>();
+    Map<String, Interaction> existingInteractionsBySID = new Map<String, Interaction>();
+    Set<String> callOrChatSidList = new Set<String>();
     List<Account> accountsToUpdate = new List<Account>();
     List<Interaction> interactionToBeCreated = new List<Interaction>();
     List<InteractionContextResponse> responseList = new List<InteractionContextResponse>();
@@ -38,11 +39,13 @@ global with sharing class InteractionContextService {
           req.type.toLowerCase() == CHAT_INTERACTION_TYPE
         ) {
           requestByOCVId.put(req.ocvId, req);
+          callOrChatSidList.add(req.chatOrCallId);
         } else if (
           isValidRequest(req).isEmpty() &&
           req.type.toLowerCase() == INTERACTION_TYPE
         ) {
           requestByPhoneNumber.put(req.phoneNumber, req);
+          callOrChatSidList.add(req.chatOrCallId);
         } else {
           responseList.addAll(isValidRequest(req));
         }
@@ -69,56 +72,61 @@ global with sharing class InteractionContextService {
       }
     }
 
-    //For Checking Existing Interations to avoid creation of new interaction while reinitiating chat
-
-    if (!accountsByOCVId.isEmpty()) {
+    //For Creating List of Existing Interactions with ChatOrCallId
+    if (!callOrChatSidList.isEmpty()) {
       for (Interaction interact : [
-        SELECT Id, Account.OCV_ID__c, Chat_or_Call_SID__c
+        SELECT
+          Id,
+          Interaction_External_Id__c,
+          Account.OCV_ID__c,
+          Chat_or_Call_SID__c
         FROM Interaction
-        WHERE Account.OCV_ID__c IN :accountsByOCVId.keySet()
+        WHERE Chat_or_Call_SID__c IN :callOrChatSidList
       ]) {
-        if (!interactionsByAccount.containsKey(interact.Account.OCV_ID__c)) {
-          interactionsByAccount.put(
-            interact.Account.OCV_ID__c,
-            new List<String>{ interact.Chat_or_Call_SID__c }
-          );
-        } else {
-          List<String> existingInteractionsList = interactionsByAccount.get(
-            interact.Account.OCV_ID__c
-          );
-          existingInteractionsList.add(interact.Chat_or_Call_SID__c);
-        }
+        existingInteractionsBySID.put(interact.Chat_or_Call_SID__c, interact);
       }
     }
 
-    //Creation of New Interaction Record To Be Created
+    //Creation of New Interaction Record To Be Created and Checking Existing Interations to avoid creation of new interaction
     if (!contextRequest.isEmpty()) {
       for (Integer intCount = 0; intCount < contextRequest.size(); intCount++) {
         InteractionContextRequest interactContext = contextRequest.get(
           intCount
         );
         if (
-          requestByOCVId.containsKey(interactContext.ocvId) &&
-          (!accountsByOCVId.isEmpty() &&
-          String.isNotBlank(accountsByOCVId.get(interactContext.ocvId)))
+          !existingInteractionsBySID.isEmpty() &&
+          (existingInteractionsBySID.containsKey(
+            interactContext.chatOrCallId
+          ) &&
+          String.isNotBlank(
+            existingInteractionsBySID.get(interactContext.chatOrCallId).Id
+          ))
         ) {
+          responseList.add(
+            generateResponse(
+              existingInteractionsBySID.get(interactContext.chatOrCallId).Id,
+              existingInteractionsBySID.get(interactContext.chatOrCallId)
+                .Interaction_External_Id__c,
+              interactContext.ocvId,
+              interactContext.issueSubtype
+            )
+          );
+        } else {
           if (
-            (!interactionsByAccount.isEmpty() &&
-            interactionsByAccount.containsKey(interactContext.ocvId) &&
-            !interactionsByAccount.get(interactContext.ocvId)
-              .contains(interactContext.chatOrCallId)) ||
-            interactionsByAccount.isEmpty()
+            requestByOCVId.containsKey(interactContext.ocvId) &&
+            (!accountsByOCVId.isEmpty() &&
+            String.isNotBlank(accountsByOCVId.get(interactContext.ocvId)))
+          ) {
+            interactionToBeCreated.addAll(
+              createInteraction(interactContext, accountsByOCVId)
+            );
+          } else if (
+            requestByPhoneNumber.containsKey(interactContext.phoneNumber)
           ) {
             interactionToBeCreated.addAll(
               createInteraction(interactContext, accountsByOCVId)
             );
           }
-        } else if (
-          requestByPhoneNumber.containsKey(interactContext.phoneNumber)
-        ) {
-          interactionToBeCreated.addAll(
-            createInteraction(interactContext, accountsByOCVId)
-          );
         }
       }
     }
@@ -417,7 +425,9 @@ global with sharing class InteractionContextService {
       intToInsert.Status__c = interactContextRequest.chatOrCallStatus;
       intToInsert.StartTime = System.now();
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
-      intToInsert.Support_Topics__c = interactContextRequest.issueSubtype;
+      intToInsert.Support_Topics__c = validateSupportTopic(
+        interactContextRequest.issueSubtype
+      );
       intToInsert.AccountId = accountsMap.get(interactContextRequest.ocvId);
       listOfInteractionsToCreate.add(intToInsert);
     } else if (interactContextRequest.type.toLowerCase() == INTERACTION_TYPE) {
@@ -426,11 +436,31 @@ global with sharing class InteractionContextService {
       intToInsert.InteractionType = 'Call';
       intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
       intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
-      intToInsert.Status__c = interactContextRequest.chatOrCallStatus;
       intToInsert.StartTime = System.now();
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
       listOfInteractionsToCreate.add(intToInsert);
     }
     return listOfInteractionsToCreate;
+  }
+
+  /**
+   * @description validatedSupportTopic validates supportTopics in requests regardless of case sensitvity
+   * @param issueSubType the Subtype received in request to validate
+   * @return subtype the validated Subtype taking into account case sensitivity
+   */
+  private static String validateSupportTopic(String issueSubType) {
+    Map<String, String> supportTopicMap = new Map<String, String>();
+    Schema.DescribeFieldResult fieldPicklist = Interaction.Support_Topics__c.getDescribe();
+    system.debug('Valid Picklist Value' + fieldPicklist);
+    for (Schema.PicklistEntry supTop : fieldPicklist.getPicklistValues()) {
+      supportTopicMap.put(supTop.getValue().toLowerCase(), supTop.getValue());
+    }
+    system.debug('supportTopicMap' + supportTopicMap);
+    if (String.isNotBlank(supportTopicMap.get(issueSubType.toLowerCase()))) {
+      String validSubtype = supportTopicMap.get(issueSubType.toLowerCase());
+      return validSubtype;
+    } else {
+      return 'Support Enquiry';
+    }
   }
 }

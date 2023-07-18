@@ -430,6 +430,11 @@
                 <default>false</default>
                 <label>Refer a Friend</label>
             </value>
+            <value>
+                <fullName>Support Enquiry</fullName>
+                <default>false</default>
+                <label>Support Enquiry</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>
