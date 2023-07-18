@@ -232,7 +232,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Customer Desired Outcome&quot;,
@@ -253,7 +253,7 @@
   &quot;label&quot; : &quot;Description of Issue&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -404,7 +404,7 @@
   &quot;label&quot; : &quot;Issue Type&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -747,7 +747,7 @@
     &quot;country&quot; : &quot;&quot;,
     &quot;postal_code&quot; : &quot;&quot;
   },
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Start typing the ANZ product or Service the complaint relates to for available options to appear&quot;,
@@ -1021,7 +1021,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Subsequent Issue Type&quot;,
@@ -1328,16 +1328,15 @@
             </childElements>
             <childElements>
                 <name>Country</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;disOnTplt&quot; : false,
+  &quot;customAttributes&quot; : [ ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;omniText&quot;,
   &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -1349,30 +1348,11 @@
       &quot;operator&quot; : &quot;AND&quot;
     }
   },
-  &quot;controllingField&quot; : {
-    &quot;source&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;element&quot; : &quot;&quot;
-  },
-  &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_NC_Country__c&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
-  },
-  &quot;options&quot; : [ ],
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;readOnly&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Country&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
                 <sequenceNumber>26.0</sequenceNumber>
-                <type>Select</type>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>custInfoCPID</name>
@@ -2218,7 +2198,6 @@
             </childElements>
             <childElements>
                 <name>State</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
@@ -2226,25 +2205,6 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;State&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : true,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;readOnly&quot; : false,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;options&quot; : [ ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_NC_State__c&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;Country&quot;,
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.IDR_NC_Country__c&quot;
-  },
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -2256,13 +2216,13 @@
     }
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;lwcName&quot; : &quot;omniText&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
                 <sequenceNumber>25.0</sequenceNumber>
-                <type>Select</type>
+                <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
                 <name>Street</name>
@@ -3140,7 +3100,7 @@
   &quot;mask&quot; : null,
   &quot;show&quot; : null,
   &quot;hide&quot; : true,
-  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType%==\&quot;17\&quot;||(%Case:ComplaintDetails:IssueType%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;42\&quot;)),false,true)&quot;,
+  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType%==\&quot;17\&quot;||%Case:ComplaintDetails:IssueType%==\&quot;4\&quot;||(%Case:ComplaintDetails:IssueType%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubSequentIssueType%==\&quot;42\&quot;)),false,true)&quot;,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;&quot;,
@@ -3160,7 +3120,7 @@
   &quot;label&quot; : &quot;&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName2-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType2%==\&quot;17\&quot;||(%Case:ComplaintDetails:IssueType2%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType2%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType2%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType2%==\&quot;42\&quot;)),false,true)&quot;,
+  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName2-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType2%==\&quot;17\&quot;||%Case:ComplaintDetails:IssueType2%==\&quot;4\&quot;||(%Case:ComplaintDetails:IssueType2%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType2%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType2%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType2%==\&quot;42\&quot;)),false,true)&quot;,
   &quot;hide&quot; : true,
   &quot;show&quot; : null,
   &quot;mask&quot; : null,
@@ -3188,7 +3148,7 @@
   &quot;mask&quot; : null,
   &quot;show&quot; : null,
   &quot;hide&quot; : true,
-  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName3-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType3%==\&quot;17\&quot;||(%Case:ComplaintDetails:IssueType3%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType3%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType3%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType3%==\&quot;42\&quot;)),false,true)&quot;,
+  &quot;expression&quot; : &quot;IF(!%Case:ComplaintDetails:ProductServiceName3-Block:AllowAccountPolicyNumber%&amp;&amp;(%Case:ComplaintDetails:IssueType3%==\&quot;17\&quot;||%Case:ComplaintDetails:IssueType3%==\&quot;4\&quot;||(%Case:ComplaintDetails:IssueType3%==\&quot;5\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType3%==\&quot;38\&quot;)||(%Case:ComplaintDetails:IssueType3%==\&quot;19\&quot;&amp;&amp;%Case:ComplaintDetails:SubsequentIssueType3%==\&quot;42\&quot;)),false,true)&quot;,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;&quot;,
@@ -3676,8 +3636,8 @@
     &quot;element&quot; : &quot;&quot;
   },
   &quot;optionSource&quot; : {
-    &quot;source&quot; : &quot;Case.IDR_Escalation_Reason__c&quot;,
-    &quot;type&quot; : &quot;SObject&quot;
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateEscalationPicklist&quot;,
+    &quot;type&quot; : &quot;Custom&quot;
   },
   &quot;options&quot; : [ {
     &quot;value&quot; : &quot;Open&quot;,
@@ -3819,7 +3779,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;label&quot; : &quot;Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?&quot;,
   &quot;controlWidth&quot; : 6,
   &quot;show&quot; : {
@@ -4280,7 +4240,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
   &quot;label&quot; : &quot;Has the customer requested a written response? (Do not ask the customer, only record yes if customer has specifically requested a response in writing)&quot;,
-  &quot;required&quot; : true,
+  &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -4515,7 +4475,7 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;ComplaintSubRemedy2&quot;,
         &quot;condition&quot; : &quot;=&quot;,
@@ -4583,7 +4543,7 @@
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;16&quot;,
         &quot;condition&quot; : &quot;=&quot;,
@@ -5863,54 +5823,6 @@
                 <type>Select</type>
             </childElements>
             <childElements>
-                <name>rewaesPoints3</name>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;autocomplete&quot; : null,
-  &quot;disOnTplt&quot; : false,
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Reward Points&quot;
-      } ]
-    }
-  },
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
-  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
-  &quot;pattern&quot; : &quot;[0-9]+&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : true,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Reward Points 3&quot;,
-  &quot;controlWidth&quot; : 5
-}</propertySetConfig>
-                <sequenceNumber>54.0</sequenceNumber>
-                <type>Text</type>
-            </childElements>
-            <childElements>
                 <name>rewardPoints1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
@@ -6004,6 +5916,54 @@
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
                 <sequenceNumber>37.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
+            <childElements>
+                <name>rewardPoints3</name>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;autocomplete&quot; : null,
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;debounceValue&quot; : 0,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;ComplaintSubRemedy3&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Reward Points&quot;
+      } ]
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0,
+  &quot;ptrnErrText&quot; : &quot;Enter a valid value.&quot;,
+  &quot;pattern&quot; : &quot;[0-9]+&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : true,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Reward Points 3&quot;,
+  &quot;controlWidth&quot; : 5
+}</propertySetConfig>
+                <sequenceNumber>54.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -6480,10 +6440,6 @@
       &quot;Gender&quot; : &quot;Gender&quot;
     }, {
       &quot;Postcode&quot; : &quot;Postcode&quot;
-    }, {
-      &quot;State&quot; : &quot;State&quot;
-    }, {
-      &quot;Country&quot; : &quot;Country&quot;
     } ],
     &quot;thirdPartyMap&quot; : [ {
       &quot;thirdPartyName&quot; : &quot;Nominated 3rd party name&quot;
@@ -6688,5 +6644,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>01fe4ffb-5fe3-7e3e-2df6-126b0260d128</webComponentKey>
+    <webComponentKey>3c8407e6-ee27-b586-c768-910a1ac13d59</webComponentKey>
 </OmniScript>

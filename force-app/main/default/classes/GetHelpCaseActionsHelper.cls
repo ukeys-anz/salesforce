@@ -9,7 +9,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
-
+  public static final String FRAUD_GENERIC_CUSTOMER_NAME = 'Fraud Entitlement Account';
   // Set of record type Ids that will be sent to PEGA
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
     GetHelpConstants.ATM_DISPUTE_RT_ID,
@@ -365,6 +365,42 @@ public with sharing class GetHelpCaseActionsHelper {
         CommonUtil.getProfileByName('ANZx Standard User').Id
       ) {
         record.ANZx_Customer__c = true;
+      }
+    }
+  }
+
+  /**
+   * @description Check if the case is a false customer profile, then make the onboarding customer name value -
+   * - to be customer name
+   * @param records New record instances to process
+   */
+  public static void setFraudCustomerProfileCase(List<Case> records) {
+    Map<Id, Case> caseList = new Map<Id, Case>();
+    set<Id> accountIds = new Set<Id>();
+
+    for (Case record : records) {
+      if (
+        record.RecordTypeId == GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID
+      ) {
+        accountIds.add(record.AccountId);
+        caseList.put(record.AccountId, record);
+      }
+    }
+    if (accountIds.Size() > 0 && Schema.sObjectType.Account.isQueryable()) {
+      List<Account> accs = [
+        SELECT Id, Name
+        FROM Account
+        WHERE Id IN :accountIds
+      ];
+      for (Account acc : accs) {
+        Case c = caseList.get(acc.Id);
+        if (
+          String.isBlank(c.Fraud_Onboarding_Customer_Name__c) ||
+          (c.Fraud_Onboarding_Customer_Name__c != FRAUD_GENERIC_CUSTOMER_NAME &&
+          acc.Name != FRAUD_GENERIC_CUSTOMER_NAME)
+        ) {
+          c.Fraud_Onboarding_Customer_Name__c = acc.Name;
+        }
       }
     }
   }

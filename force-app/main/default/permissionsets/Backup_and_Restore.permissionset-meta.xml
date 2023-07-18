@@ -283,6 +283,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.ExpiryDateOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.FirstNameOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -868,6 +873,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_Detection_Case_Reference__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Fraud_Device_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -919,6 +929,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Funds_to_Institution__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Funds_to_OFI_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

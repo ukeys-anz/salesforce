@@ -8005,6 +8005,10 @@
         <recordType>Case.Direct_Entry_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-False Customer Profile Layout</layout>
+        <recordType>Case.False_Customer_Profile</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Fraud Layout</layout>
         <recordType>Case.Fraud</recordType>
     </layoutAssignments>

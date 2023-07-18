@@ -2427,6 +2427,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_Detection_Case_Reference__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Dispute_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2468,6 +2473,41 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.FinServ__FinancialAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ANZX_Fraud_Confirm__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ARC_Profile_Exist__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ARC_Profile_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ID_Compromise_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Onboarding_Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Onboarding_Selfie_Of__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Prevented__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2718,6 +2758,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Total_Scam_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Funds_to_OFI_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4162,6 +4207,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBPrimaryIDDocument__c.ExpiryDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.ExpiryDateOCRMatch__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8598,6 +8648,10 @@
         <recordType>Case.Direct_Entry_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-False Customer Profile Layout</layout>
+        <recordType>Case.False_Customer_Profile</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Fraud Check Layout</layout>
         <recordType>Case.Fraud_Check</recordType>
     </layoutAssignments>
@@ -8678,6 +8732,10 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>COBTaxResidency__c-COB Tax Residency Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CollaborationGroup-All Active CMOS Group Layout</layout>
+        <recordType>CollaborationGroup.CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>ContentVersion-Content Version</layout>
@@ -9939,6 +9997,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Case_Product__c.Systemic_Issues_and_Products</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>CollaborationGroup.CMOS</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
