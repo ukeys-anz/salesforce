@@ -160,9 +160,3 @@ force-app/main/default/objects/LogEntry__c/fields/RecordsJson__c.field-meta.xml
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
-
-# (Release 5th July) - Ignore omnistudio files
-force-app/main/default/omniDataTransforms
-force-app/main/default/omniIntegrationProcedures
-force-app/main/default/omniScripts
-force-app/main/default/omniUiCard

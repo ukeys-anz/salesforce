@@ -70,7 +70,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
     public String resultCode { get; set; }
     public String resultMessage { get; set; }
     public String statusEventId { get; set; }
-    public DateTime statusTimestamp { get; set; }
+    public Datetime statusTimestamp { get; set; }
     public AccountModel customer { get; set; }
     /**
      * @description get an instance of ExternalCaseStatusWrapper

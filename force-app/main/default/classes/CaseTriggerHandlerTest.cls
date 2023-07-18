@@ -116,6 +116,12 @@ private class CaseTriggerHandlerTest {
         AR_C_Customer__c = true
       );
       accnts.add(a);
+
+      Account fraudAcc = new Account(
+        Name = 'Fraud Entitlement Account',
+        OCV_ID__c = faker.randomString(10)
+      );
+      accnts.add(fraudAcc);
       insert accnts;
 
       // Create IDR L1 user
@@ -221,6 +227,106 @@ private class CaseTriggerHandlerTest {
       'CaseNumber__c should be equal to CaseNumber.'
     );
   }
+
+  @isTest
+  static void testFraudCustomerProfileDefaultValue() {
+    Account personAcc = [SELECT Id, Name FROM Account LIMIT 1];
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = personAcc.Id
+    );
+    Test.startTest();
+    insert newCase;
+    Case c = [
+      SELECT Id, Fraud_Onboarding_Customer_Name__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertEquals(
+      c.Fraud_Onboarding_Customer_Name__c,
+      personAcc.Name,
+      'By default, the Customer name on fraud customer profile should be the customer name'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testFraudCustomerProfileNoUpdateForGenericValue() {
+    // GIVEN: We have a Fraud Cusotmer Profile case with Fraud Generic customer
+    Account fraudAcc = [
+      SELECT Id, Name
+      FROM Account
+      WHERE Name = 'Fraud Entitlement Account'
+      LIMIT 1
+    ];
+    Account personAcc = [
+      SELECT Id, Name
+      FROM Account
+      WHERE Name != 'Fraud Entitlement Account'
+      LIMIT 1
+    ];
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = fraudAcc.Id
+    );
+
+    Test.startTest();
+    insert newCase;
+
+    // WHEN we update the account to be another not generic customer
+    newCase.AccountId = personAcc.Id;
+    update newCase;
+
+    // THEN the Onboarding Customer Name should not be updated
+    Case updatedCase = [
+      SELECT Id, Fraud_Onboarding_Customer_Name__c, AccountId
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertNotEquals(
+      updatedCase.Fraud_Onboarding_Customer_Name__c,
+      newCase.Fraud_Onboarding_Customer_Name__c,
+      'Onboarding Customer Name should not be updated.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testFraudCustomerProfileUpdateValue() {
+    // GIVEN: We have a Fraud Cusotmer Profile case with not Fraud Generic customer
+    List<Account> personAcc = [
+      SELECT Id, Name
+      FROM Account
+      WHERE Name != 'Fraud Entitlement Account'
+      LIMIT 2
+    ];
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = personAcc[0].Id
+    );
+
+    Test.startTest();
+    insert newCase;
+
+    // WHEN we update the account to be another not generic customer
+    newCase.AccountId = personAcc[1].Id;
+    update newCase;
+
+    // THEN the Onboarding Customer Name should be updated
+    Case updatedCase = [
+      SELECT Id, Fraud_Onboarding_Customer_Name__c, AccountId
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+
+    System.assertEquals(
+      updatedCase.Fraud_Onboarding_Customer_Name__c,
+      personAcc[1].Name,
+      'When we update a real customer, that should update the Onboarding Customer Name as well.'
+    );
+    Test.stopTest();
+  }
+
   @IsTest
   static void testCaseNumberNoCopy() {
     // GIVEN cases which already have their case number copied

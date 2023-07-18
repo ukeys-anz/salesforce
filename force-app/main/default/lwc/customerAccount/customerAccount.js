@@ -1,7 +1,10 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
 import tmp from "./customerAccount.html";
-//const FINANCIAL_DIFFICULTY = "4";
+const FINANCIAL_DIFFICULTY = "4";
+const COLLECTIONS = "17";
+const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
+
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -29,33 +32,54 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   populateAccountNumbers(data) {
     this.options = [];
     if (data && data.Response && data.Response.accounts) {
-      data.Response.accounts.forEach((acc) => {
-        this.options.push({
-          label: acc.accountNumber,
-          value: acc.accountNumber
+      let accounts = data.Response.accounts;
+      let cmpDet = data.Case.ComplaintDetails;
+      if (
+        ((cmpDet.IssueType === COLLECTIONS ||
+          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
+          this.omniJsonDef.name === "AccountPolicyNumber") ||
+        ((cmpDet.IssueType2 === COLLECTIONS ||
+          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
+          this.omniJsonDef.name === "AccountPolicyNumber2") ||
+        ((cmpDet.IssueType3 === COLLECTIONS ||
+          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
+          this.omniJsonDef.name === "AccountPolicyNumber3")
+      ) {
+        accounts.forEach((acc) => {
+          if (!EXCL_ACC.includes(acc.productCode)) {
+            this.options.push({
+              label: acc.accountNumber,
+              value: acc.accountNumber
+            });
+          }
         });
-      });
+      } else {
+        accounts.forEach((acc) => {
+          this.options.push({
+            label: acc.accountNumber,
+            value: acc.accountNumber
+          });
+        });
+      }
     }
 
     // To select all Account/Policy Number values by default when Issue typen is 'Financial Difficulty & Hardship'
     if (
-      data &&
-      data.Case &&
       data.Case.CustomerDetails &&
       data.Case.CustomerDetails.complaintAbout &&
       !this.allValues.length > 0 &&
       this.omniJsonDef.name === "AccountPolicyNumber"
     ) {
       this.allValues.push("N/A");
-      this.updateDataJson();
+      this.value = "N/A";
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
     if (
-      (cmpDetails.IssueType === "4" &&
+      (cmpDetails.IssueType === FINANCIAL_DIFFICULTY &&
         this.omniJsonDef.name === "AccountPolicyNumber") ||
-      (cmpDetails.IssueType2 === "4" &&
+      (cmpDetails.IssueType2 === FINANCIAL_DIFFICULTY &&
         this.omniJsonDef.name === "AccountPolicyNumber2") ||
-      (cmpDetails.IssueType3 === "4" &&
+      (cmpDetails.IssueType3 === FINANCIAL_DIFFICULTY &&
         this.omniJsonDef.name === "AccountPolicyNumber3")
     ) {
       this.allValues = [];
@@ -68,9 +92,9 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       }
       this.allSelected = true;
     } else if (
-      cmpDetails.IssueType !== "4" ||
-      cmpDetails.IssueType2 !== "4" ||
-      cmpDetails.IssueType3 !== "4"
+      cmpDetails.IssueType !== FINANCIAL_DIFFICULTY ||
+      cmpDetails.IssueType2 !== FINANCIAL_DIFFICULTY ||
+      cmpDetails.IssueType3 !== FINANCIAL_DIFFICULTY
     ) {
       if (this.allSelected) {
         this.allValues = [];
@@ -99,6 +123,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     this.allValues.forEach((ele) => {
       accString = accString + ele + ";";
     });
+    accString = accString.substring(0, accString.length - 1);
     this.omniUpdateDataJson(accString);
   }
 
@@ -113,7 +138,11 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     ) {
       this.options.push({ label: "N/A", value: "N/A" });
     } else {
-      if (this.allValues && this.allValues.length > 0)
+      if (
+        this.allValues &&
+        this.allValues.length > 0 &&
+        this.allValues.indexOf("N/A") !== -1
+      )
         this.allValues.splice(this.allValues.indexOf("N/A"), 1);
     }
     if (data && data.Case && data.Case.CustomerDetails) {
@@ -125,6 +154,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         this.expCase === "Yes"
       ) {
         this.allValues.splice(this.allValues.indexOf("N/A"), 1);
+        this.value = "";
       }
     }
   }

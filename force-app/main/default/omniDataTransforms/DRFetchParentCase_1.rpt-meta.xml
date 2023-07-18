@@ -54,7 +54,9 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>
-    <previewJsonData>{ }</previewJsonData>
+    <previewJsonData>{
+  &quot;CaseNumber&quot; : &quot;0148&quot;
+}</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
     <rollbackOnError>false</rollbackOnError>

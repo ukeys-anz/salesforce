@@ -1,6 +1,11 @@
 <template>
-  <!--<c-case-close-english
-    prefill={recordId}
-    layout="lightning"
-  ></c-case-close-english>-->
+  <template if:true={showOmni}>
+    <c-case-close-english
+      prefill={recordId}
+      layout="lightning"
+    ></c-case-close-english>
+  </template>
+  <template if:true={showLWC}>
+    <c-close-complaint record-id={recordId}></c-close-complaint>
+  </template>
 </template>
