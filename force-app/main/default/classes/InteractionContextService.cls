@@ -7,10 +7,11 @@
 @SuppressWarnings('PMD.StdCyclomaticComplexity,PMD.ExcessivePublicCount')
 @RestResource(urlMapping='/InteractionContextRequests/*')
 global with sharing class InteractionContextService {
-  global static final String INTERACTION_TYPE = 'voice';
+  global static final String CALL_INTERACTION_TYPE = 'voice';
   global static final String CHAT_INTERACTION_TYPE = 'chat';
   global static final String INBOUND_DIRECTION = 'Inbound';
   global static final String OUTBOUND_DIRECTION = 'Outbound';
+  public static Map<String, String> supportTopicMap = new Map<String, String>();
   /**
    * @description HTTP POST method passing incoming interaction context in to Salesforce.
    * Salesforce would then return a interaction id created
@@ -20,6 +21,7 @@ global with sharing class InteractionContextService {
   @HttpPost
   global static void doPost(List<InteractionContextRequest> contextRequest) {
     Integer finalStatusCode = 400;
+
     Map<String, Id> accountsByOCVId = new Map<String, Id>();
     Map<String, InteractionContextRequest> requestByOCVId = new Map<String, InteractionContextRequest>();
     Map<String, InteractionContextRequest> requestByPhoneNumber = new Map<String, InteractionContextRequest>();
@@ -42,7 +44,7 @@ global with sharing class InteractionContextService {
           callOrChatSidList.add(req.chatOrCallId);
         } else if (
           isValidRequest(req).isEmpty() &&
-          req.type.toLowerCase() == INTERACTION_TYPE
+          req.type.toLowerCase() == CALL_INTERACTION_TYPE
         ) {
           requestByPhoneNumber.put(req.phoneNumber, req);
           callOrChatSidList.add(req.chatOrCallId);
@@ -50,6 +52,14 @@ global with sharing class InteractionContextService {
           responseList.addAll(isValidRequest(req));
         }
       }
+    }
+
+    //Fetching valid support topic values and creating the map.
+    Schema.DescribeFieldResult fieldSupportTopicPicklistValues = Interaction.Support_Topics__c.getDescribe();
+    for (
+      Schema.PicklistEntry supTop : fieldSupportTopicPicklistValues.getPicklistValues()
+    ) {
+      supportTopicMap.put(supTop.getValue().toLowerCase(), supTop.getValue());
     }
 
     //Finding available accounts based on OCV Id received for Chat
@@ -95,12 +105,7 @@ global with sharing class InteractionContextService {
         );
         if (
           !existingInteractionsBySID.isEmpty() &&
-          (existingInteractionsBySID.containsKey(
-            interactContext.chatOrCallId
-          ) &&
-          String.isNotBlank(
-            existingInteractionsBySID.get(interactContext.chatOrCallId).Id
-          ))
+          existingInteractionsBySID.containsKey(interactContext.chatOrCallId)
         ) {
           responseList.add(
             generateResponse(
@@ -430,7 +435,9 @@ global with sharing class InteractionContextService {
       );
       intToInsert.AccountId = accountsMap.get(interactContextRequest.ocvId);
       listOfInteractionsToCreate.add(intToInsert);
-    } else if (interactContextRequest.type.toLowerCase() == INTERACTION_TYPE) {
+    } else if (
+      interactContextRequest.type.toLowerCase() == CALL_INTERACTION_TYPE
+    ) {
       Interaction intToInsert = new Interaction();
       intToInsert.Direction__c = interactContextRequest.direction;
       intToInsert.InteractionType = 'Call';
@@ -449,16 +456,8 @@ global with sharing class InteractionContextService {
    * @return subtype the validated Subtype taking into account case sensitivity
    */
   private static String validateSupportTopic(String issueSubType) {
-    Map<String, String> supportTopicMap = new Map<String, String>();
-    Schema.DescribeFieldResult fieldPicklist = Interaction.Support_Topics__c.getDescribe();
-    system.debug('Valid Picklist Value' + fieldPicklist);
-    for (Schema.PicklistEntry supTop : fieldPicklist.getPicklistValues()) {
-      supportTopicMap.put(supTop.getValue().toLowerCase(), supTop.getValue());
-    }
-    system.debug('supportTopicMap' + supportTopicMap);
     if (String.isNotBlank(supportTopicMap.get(issueSubType.toLowerCase()))) {
-      String validSubtype = supportTopicMap.get(issueSubType.toLowerCase());
-      return validSubtype;
+      return supportTopicMap.get(issueSubType.toLowerCase());
     } else {
       return 'Support Enquiry';
     }
