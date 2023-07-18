@@ -179,7 +179,7 @@ public with sharing class InteractionContextServiceTest {
       '',
       'Inbound',
       '123456',
-      'Call',
+      'Voice',
       'TW' + faker.randomString(10),
       'CR' + faker.randomString(10),
       'Created'
@@ -226,7 +226,7 @@ public with sharing class InteractionContextServiceTest {
       '',
       'Inbound',
       '',
-      'Call',
+      'Voice',
       'TW' + faker.randomString(10),
       'CR' + faker.randomString(10),
       'Created'
