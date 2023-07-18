@@ -6,9 +6,9 @@
     <description>Street Number</description>
     <externalId>false</externalId>
     <label>Street Number</label>
-    <length>10</length>
-    <securityClassification>Confidential</securityClassification>
+    <length>255</length>
     <required>false</required>
+    <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Text</type>
     <unique>false</unique>

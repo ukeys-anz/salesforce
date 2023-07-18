@@ -41,6 +41,8 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
       records
     );
 
+    CCRMContactPointActions.updateContactPoints(records);
+
     CCRMContactPointEmailActions.validateProspectEmails(prospectEmails);
     CCRMContactPointEmailActions.unlinkProspectParentOnDeactivation(
       prospectEmails,

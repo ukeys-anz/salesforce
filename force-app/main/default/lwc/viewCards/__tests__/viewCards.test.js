@@ -78,8 +78,9 @@ describe("c-view-cards", () => {
 
       expect(status.textContent).toBe("Issued");
 
-      let initialWalletSection =
-        element.shadowRoot.querySelector(".dig-wallet");
+      let initialWalletSection = element.shadowRoot.querySelector(
+        ".dig-wallet"
+      );
       expect(initialWalletSection).toBeTruthy();
 
       let initialWallets = Array.from(
@@ -730,8 +731,9 @@ describe("c-view-cards", () => {
         replaceButton.click();
       })
       .then(() => {
-        let replaceCardComponent =
-          viewCardsElement.shadowRoot.querySelector("c-replace-card");
+        let replaceCardComponent = viewCardsElement.shadowRoot.querySelector(
+          "c-replace-card"
+        );
 
         replaceCardComponent.replaceLostUnavailable = false;
         replaceCardComponent.replaceLockUnavailable = false;
@@ -750,8 +752,9 @@ describe("c-view-cards", () => {
             lockButtonPath.click();
           })
           .then(() => {
-            let lockCardComponent =
-              viewCardsElement.shadowRoot.querySelector("c-card-temp-lock");
+            let lockCardComponent = viewCardsElement.shadowRoot.querySelector(
+              "c-card-temp-lock"
+            );
             expect(lockCardComponent).toBeTruthy();
           });
       });

@@ -19,6 +19,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     CCRMOpportunityActions.populateFields(records, null);
+    CCRMOpportunityActions.populateClgAccount(records, null);
   }
 
   /**
