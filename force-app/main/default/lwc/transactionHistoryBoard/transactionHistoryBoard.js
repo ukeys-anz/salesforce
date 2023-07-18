@@ -1,6 +1,7 @@
 import { LightningElement, track, wire, api } from "lwc";
 import getPersonAccount from "@salesforce/apex/TransactionHistoryController.getPersonAccount";
 import { getRecord } from "lightning/uiRecordApi";
+import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
 import { publish, MessageContext } from "lightning/messageService";
 import ExpandCollapseAll from "@salesforce/messageChannel/ListCollapseExpandAll__c";
 import { handleErrorShowToast } from "c/utils";
@@ -96,7 +97,7 @@ export default class TransactionHistoryBoard extends LightningElement {
   messageContext;
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: []
+    fields: [FIN_ACCOUNT_TYPE]
   })
   wireRecord({ data }) {
     if (data) {
