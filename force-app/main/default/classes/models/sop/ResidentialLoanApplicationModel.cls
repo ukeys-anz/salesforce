@@ -457,7 +457,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
           Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
             employment.partyId
           );
-          if (act.FirstName != null) {
+          if (act != null) {
             return act.FirstName;
           } else {
             return null;

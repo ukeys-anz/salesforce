@@ -522,4 +522,35 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+
+  /**
+   * @param creditId to receive credit assessment list
+   * @return HttpCalloutResponse api response
+   * @description virtual fetches list of credit assessments
+   */
+  public virtual HttpCalloutResponse getCreditAssessments(String creditId) {
+    return null;
+  }
+
+  /**
+   * @param creditId credit id from credit assessment
+   * @return HttpCalloutResponse api response
+   * @description submits credit assessment for reassessment
+   */
+  public virtual HttpCalloutResponse creditReassessment(String creditId) {
+    return null;
+  }
+
+  /**
+   * @param creditId credit id from credit assessment
+   * @param assessmentId id of assessment submitted for finalisation
+   * @return HttpCalloutResponse api response
+   * @description submits credit assessment for reassessment
+   */
+  public virtual HttpCalloutResponse finaliseAssessment(
+    String creditId,
+    String assessmentId
+  ) {
+    return null;
+  }
 }
