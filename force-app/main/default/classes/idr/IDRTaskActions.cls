@@ -182,6 +182,7 @@ public without sharing class IDRTaskActions {
    */
   public static void afterInsertActions(List<Task> records) {
     closeOldIDRMaximumTimeTasks(records);
+    IDRTaskActions2.checkForUrgentCaseAllocationTask(records);
   }
   /**
    * @description beforeUpdateActions is called onBeforeUpdate

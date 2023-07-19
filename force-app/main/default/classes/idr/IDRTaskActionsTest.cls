@@ -430,4 +430,51 @@ private with sharing class IDRTaskActionsTest {
       }
     }
   }
+
+  @IsTest
+  static void urgentCaseAllocationTask() {
+
+    Group oGroup = [SELECT Id
+                    FROM Group
+                    WHERE DeveloperName = 'IDR_Everyday_Banking'
+                    LIMIT 1];
+
+    List<GroupMember> lstGroupMembers = new List<GroupMember>{
+      new GroupMember(GroupId = oGroup.Id, UserOrGroupId = UserInfo.getUserId())
+    };
+    insert lstGroupMembers;
+
+    Test.startTest();
+
+    // Insert User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      Case[] newCases = new List<Case>();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        newCases.add(
+          new Case(
+            RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+            IDR_Date_Received__c = System.now(),
+            OwnerId = oGroup.Id
+          )
+        );
+      }
+      insert newCases;
+
+      List<Task> lstTasks = new List<Task>();
+      for (Case c : newCases) {
+        Task idrTask = new Task(
+          WhatId = c.Id,
+          Subject = IDRTaskActions2.TASK_SUBJECT_URGENT,
+          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          Priority = 'Standard',
+          ActivityDate = System.today()
+        );
+        lstTasks.add(idrTask);
+      }
+
+      insert lstTasks;
+    }
+    Test.stopTest();
+  }
 }
