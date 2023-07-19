@@ -225,6 +225,7 @@ public without sharing class IDRTaskActions {
    */
   public static void afterUpdateActions(List<Task> records) {
     closeMilestonesOfClosedTask(records);
+    IDRTaskActionHelper.updateCases(records);
   }
   /**
    * @description closeOldIDRMaximumTimeTasks will close out old IDR Task reminders against case when a new Task is created.
@@ -825,7 +826,10 @@ public without sharing class IDRTaskActions {
    * @param collectionTaskList List of collection tasks
    * @param strFailureMessage Message for Logger if Database.insert fails
    */
-  public static void insertSystemTasks(List<Task> collectionTaskList, String strFailureMessage) {
+  public static void insertSystemTasks(
+    List<Task> collectionTaskList,
+    String strFailureMessage
+  ) {
     List<Database.SaveResult> results = Database.insert(
       collectionTaskList,
       false
