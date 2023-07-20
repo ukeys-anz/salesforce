@@ -27,14 +27,6 @@
             <fullName>SMS - OTP</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Sighted App Profile</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sighted ID</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Channel_Booked__c</picklist>
@@ -68,18 +60,6 @@
             <fullName>Call</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Chat</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Store</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Video</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Interaction_Purpose__c</picklist>
@@ -101,6 +81,53 @@
         </values>
         <values>
             <fullName>Wrong Number</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Place__c</picklist>
+        <values>
+            <fullName>ACT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Branch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NSW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Potts Point</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Richmond</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TAS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WA</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -129,10 +156,6 @@
     </picklistValues>
     <picklistValues>
         <picklist>Resolution__c</picklist>
-        <values>
-            <fullName>Assisted App download</fullName>
-            <default>false</default>
-        </values>
         <values>
             <fullName>Did not Answer</fullName>
             <default>false</default>

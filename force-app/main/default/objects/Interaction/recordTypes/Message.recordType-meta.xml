@@ -96,6 +96,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Testing</fullName>
             <default>false</default>
         </values>
@@ -208,11 +212,35 @@
     <picklistValues>
         <picklist>Status__c</picklist>
         <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed %26 Archived</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Created</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Linked</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Hold %28By Coach%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>On Hold %28By Customer%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
