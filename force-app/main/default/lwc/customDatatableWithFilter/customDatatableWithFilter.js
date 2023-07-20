@@ -309,6 +309,11 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   handleRowAction(event) {
     const actionName = event.detail.action.name;
     const row = event.detail.row;
+    if (actionName) {
+      if (row) {
+        //Shivam will add his code in this method to use these varaible
+      }
+    }
   }
 
   handleSort(event) {
