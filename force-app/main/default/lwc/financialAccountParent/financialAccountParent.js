@@ -182,7 +182,7 @@ export default class FinancialAccountParent extends LightningElement {
       // If the API callout fails to fetch latest data, use this as a fallback to fetch
       // the records stored in Salesforce
       let accountDetails = await getFinancialAccountDB({
-        ownerId: this.recordId,
+        ownerId: this.primaryOwner,
         type: [this.accRecordTypeApiName]
       });
       this.accountData = this.handleAccountInformation(accountDetails);
