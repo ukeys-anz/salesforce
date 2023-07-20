@@ -12,32 +12,40 @@ public with sharing class InteractionRecordServiceController {
    * @param maxRecords
    * @return List<Interaction> the queried Interaction list
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static List<InteractionWrapper> getInteractionRecord(
     String strParentId,
     String strRecordTypeName,
     Integer maxRecords
   ) {
-    Map<String, Object> params = new Map<String, Object>();
-    Map<String, Object> inputMap = new Map<String, Object>();
-    Map<String, Object> outMap = new Map<String, Object>();
-    Map<String, Object> options = new Map<String, Object>();
-    inputMap.put('anyRecordId', strParentId);
-    inputMap.put('recordTypeDeveloperName', strRecordTypeName);
-    inputMap.put('maxNumber', maxRecords);
-    params.put('input', inputMap);
-    params.put('output', outMap);
-    params.put('options', options);
-    InteractionListViewFetchData interactionListViewData = new InteractionListViewFetchData();
-    interactionListViewData.call('fetchDataBasedOnRecordId', params);
-    List<Interaction> interactionList = (List<Interaction>) outMap.get(
-      'interactions'
-    );
-    List<InteractionWrapper> wrapperList = new List<InteractionWrapper>();
-    for (Interaction record : interactionList) {
-      wrapperList.add(new InteractionWrapper(record));
+    try {
+      Callable interactionListViewCtrl = (Callable) Type.forName(
+          'InteractionListViewFetchData'
+        )
+        .newInstance();
+      Map<String, Object> args = new Map<String, Object>();
+      args.put(
+        'input',
+        new Map<String, Object>{
+          'anyRecordId' => strParentId,
+          'recordTypeDeveloperName' => strRecordTypeName,
+          'maxNumber' => maxRecords
+        }
+      );
+      args.put('output', new Map<String, Object>());
+      interactionListViewCtrl.call('fetchDataBasedOnRecordId', args);
+      Map<String, Object> mapOutput = (Map<String, Object>) args.get('output');
+      List<Interaction> interactionList = (List<Interaction>) mapOutput.get(
+        'interactions'
+      );
+      List<InteractionWrapper> wrapperList = new List<InteractionWrapper>();
+      for (Interaction record : interactionList) {
+        wrapperList.add(new InteractionWrapper(record));
+      }
+      return wrapperList;
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
     }
-    return wrapperList;
   }
 
   /**

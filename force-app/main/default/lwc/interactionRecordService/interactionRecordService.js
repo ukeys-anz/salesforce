@@ -5,6 +5,7 @@ import { publish, MessageContext } from "lightning/messageService";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+
 // Util methods
 import { handleErrorShowToast } from "c/utils";
 
@@ -78,14 +79,11 @@ export default class InteractionRecordService extends NavigationMixin(
   }
 
   showViewAll() {
-    if (this.totalInteractionRecords > 0) {
-      this.showInteractionRecords = true;
-    } else {
-      this.showInteractionRecords = false;
-    }
+    this.showInteractionRecords =
+      this.totalInteractionRecords > 0 ? true : false;
 
     this.dispatchEvent(
-      new CustomEvent("pass", {
+      new CustomEvent("showviewall", {
         detail: this.showInteractionRecords
       })
     );

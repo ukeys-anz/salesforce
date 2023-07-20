@@ -127,7 +127,7 @@
         max-number={maxRecords}
         lightning-page-name={lightningPageName}
         message-record={messageRecord}
-        onpass={fetchViewValue}
+        onshowviewall={fetchViewValue}
       ></c-interaction-record-service>
       <template lwc:if={showViewAll}>
         <footer class="slds-card__footer">
@@ -147,7 +147,7 @@
         max-number={maxRecords}
         lightning-page-name={lightningPageName}
         general-record={generalRecord}
-        onpass={fetchViewValue}
+        onshowviewall={fetchViewValue}
       ></c-interaction-record-service>
       <template lwc:if={showViewAll}>
         <footer class="slds-card__footer">
@@ -167,7 +167,7 @@
         max-number={maxRecords}
         lightning-page-name={lightningPageName}
         store-record={storeRecord}
-        onpass={fetchViewValue}
+        onshowviewall={fetchViewValue}
       ></c-interaction-record-service>
       <template lwc:if={showViewAll}>
         <footer class="slds-card__footer">
@@ -181,12 +181,14 @@
       </template>
     </template>
     <template lwc:if={showChatTab}>
-      <div>
-        <c-chat-topic-related-list
-          record-id={recordId}
-          object-name={sObjectType}
-        >
-        </c-chat-topic-related-list>
+      <div class="slds-card__body slds-card__body_inner">
+        <div>
+          <c-chat-topic-related-list
+            record-id={recordId}
+            object-name={sObjectType}
+          >
+          </c-chat-topic-related-list>
+        </div>
       </div>
     </template>
   </article>
