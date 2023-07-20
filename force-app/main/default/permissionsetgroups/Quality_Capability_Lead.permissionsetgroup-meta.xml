@@ -18,6 +18,7 @@
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Interaction_Read_Only</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Only</permissionSets>

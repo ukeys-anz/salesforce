@@ -8,5 +8,6 @@
     <permissionSets>Case_Credit_Referral</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
