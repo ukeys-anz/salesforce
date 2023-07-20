@@ -183,7 +183,7 @@ export default class FinancialAccountParent extends LightningElement {
       // the records stored in Salesforce
       let accountDetails = await getFinancialAccountDB({
         ownerId: this.primaryOwner,
-        type: [this.accRecordTypeApiName]
+        recordTypeDeveloperNames: [this.accRecordTypeApiName]
       });
       this.accountData = this.handleAccountInformation(accountDetails);
     }

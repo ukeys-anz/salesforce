@@ -98,7 +98,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       //the records stored in Salesforce
       let accountDetails = await getFinancialAccountDB({
         ownerId: this.recordId,
-        type: [CHECKING_ACCOUNT_RT_APINAME, SAVINGS_ACCOUNT_RT_APINAME]
+        recordTypeDeveloperNames: [
+          CHECKING_ACCOUNT_RT_APINAME,
+          SAVINGS_ACCOUNT_RT_APINAME
+        ]
       });
       this.handleAccountInformation(accountDetails);
     } finally {
