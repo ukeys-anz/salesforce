@@ -27,9 +27,6 @@ global with sharing class InteractionContextService {
         status.Interaction_Status__c
       );
     }
-    System.debug(
-      'InteractionStatusMappingForTwilio__mdt' + interactionTwilioStatusMap
-    );
   }
 
   /**
