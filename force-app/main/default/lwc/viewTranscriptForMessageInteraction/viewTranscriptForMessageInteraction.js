@@ -73,8 +73,8 @@ export default class ViewTranscriptForInteraction extends LightningElement {
     } finally {
       if (!boolIsError) {
         this.showToast("Success", "View Transcript Ran Successfully");
-        this.isExecuting = false;
       }
+      this.isExecuting = false;
     }
   }
 

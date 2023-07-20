@@ -68,23 +68,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Financial Wellbeing</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Existing ANZ Customer</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Non-Customer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
