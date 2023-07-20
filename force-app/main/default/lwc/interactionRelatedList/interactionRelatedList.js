@@ -9,7 +9,7 @@ import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
 const NORMAL_TAB = "slds-tabs_scoped__item";
 const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
 
-export default class InteractionRelatedList extends NavigationMixin(
+export default class InteractionRelatesList extends NavigationMixin(
   LightningElement
 ) {
   showAppointmentTab = true;
@@ -23,10 +23,26 @@ export default class InteractionRelatedList extends NavigationMixin(
   sObjectType;
   showAccChatTabHead = false;
   showCaseChatTabHead = false;
+  showMessageTab = false;
+  showCallTab = false;
+  showStoreTab = false;
+  messageTab = NORMAL_TAB;
+  callTab = NORMAL_TAB;
+  storeTab = NORMAL_TAB;
+  lightningPageName = "InteractionCustomListViews";
+  messageRecord = "Message";
+  generalRecord = "General";
+  storeRecord = "Store";
+  showViewAll = false;
+  showAppointmentRecords = false;
+
   @api recordId;
   @api showAppTab;
   @api showIntTab;
   @api maxRecords;
+  @api showMsgTab;
+  @api showCallIntTab;
+  @api showStoreIntTab;
 
   handleShowAppointmentTab() {
     this.showAppointmentTab = true;
@@ -35,15 +51,12 @@ export default class InteractionRelatedList extends NavigationMixin(
     this.appointmentTab = ACTIVE_TAB;
     this.interactionTab = NORMAL_TAB;
     this.chatTab = NORMAL_TAB;
-  }
-
-  handleShowInteractionTab() {
-    this.showAppointmentTab = false;
-    this.showInteractionTab = true;
-    this.showChatTab = false;
-    this.appointmentTab = NORMAL_TAB;
-    this.interactionTab = ACTIVE_TAB;
-    this.chatTab = NORMAL_TAB;
+    this.showMessageTab = false;
+    this.showCallTab = false;
+    this.showStoreTab = false;
+    this.messageTab = NORMAL_TAB;
+    this.callTab = NORMAL_TAB;
+    this.storeTab = NORMAL_TAB;
   }
 
   handleShowChatTab() {
@@ -53,11 +66,63 @@ export default class InteractionRelatedList extends NavigationMixin(
     this.appointmentTab = NORMAL_TAB;
     this.interactionTab = NORMAL_TAB;
     this.chatTab = ACTIVE_TAB;
+    this.showMessageTab = false;
+    this.showCallTab = false;
+    this.showStoreTab = false;
+    this.messageTab = NORMAL_TAB;
+    this.callTab = NORMAL_TAB;
+    this.storeTab = NORMAL_TAB;
   }
 
+  handleShowMessageTab() {
+    this.showAppointmentTab = false;
+    this.showInteractionTab = false;
+    this.showChatTab = false;
+    this.appointmentTab = NORMAL_TAB;
+    this.interactionTab = NORMAL_TAB;
+    this.chatTab = NORMAL_TAB;
+    this.showMessageTab = true;
+    this.showCallTab = false;
+    this.showStoreTab = false;
+    this.messageTab = ACTIVE_TAB;
+    this.callTab = NORMAL_TAB;
+    this.storeTab = NORMAL_TAB;
+  }
+
+  handleShowCallTab() {
+    this.showAppointmentTab = false;
+    this.showInteractionTab = false;
+    this.showChatTab = false;
+    this.appointmentTab = NORMAL_TAB;
+    this.interactionTab = NORMAL_TAB;
+    this.chatTab = NORMAL_TAB;
+    this.showMessageTab = false;
+    this.showCallTab = true;
+    this.showStoreTab = false;
+    this.messageTab = NORMAL_TAB;
+    this.callTab = ACTIVE_TAB;
+    this.storeTab = NORMAL_TAB;
+  }
+
+  handleShowStoreTab() {
+    this.showAppointmentTab = false;
+    this.showInteractionTab = false;
+    this.showChatTab = false;
+    this.appointmentTab = NORMAL_TAB;
+    this.interactionTab = NORMAL_TAB;
+    this.chatTab = NORMAL_TAB;
+    this.showMessageTab = false;
+    this.showCallTab = false;
+    this.showStoreTab = true;
+    this.messageTab = NORMAL_TAB;
+    this.callTab = NORMAL_TAB;
+    this.storeTab = ACTIVE_TAB;
+  }
   connectedCallback() {
     if (!this.showAppTab) {
-      this.handleShowInteractionTab();
+      this.handleShowMessageTab();
+    } else {
+      this.handleShowAppointmentTab();
     }
 
     getSObjectType({
@@ -71,6 +136,12 @@ export default class InteractionRelatedList extends NavigationMixin(
         if (result === "Case") {
           this.showCaseChatTabHead = true;
           this.handleShowChatTab();
+        }
+        if (result === "Coaching_Summary__c") {
+          this.handleShowMessageTab();
+        }
+        if (result === "ResidentialLoanApplication") {
+          this.handleShowMessageTab();
         }
       }
     });
@@ -88,8 +159,9 @@ export default class InteractionRelatedList extends NavigationMixin(
       sId: this.recordId,
       maxNumber: this.maxRecords
     }).then((result) => {
-      if (result != null) {
+      if (result != null && result.length > 0) {
         this.appointmentList = result;
+        this.showAppointmentRecords = true;
       }
     });
   }
@@ -162,5 +234,9 @@ export default class InteractionRelatedList extends NavigationMixin(
         actionName: "view"
       }
     });
+  }
+
+  fetchViewValue(event) {
+    this.showViewAll = event.detail;
   }
 }

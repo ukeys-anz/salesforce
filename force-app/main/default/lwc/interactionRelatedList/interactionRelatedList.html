@@ -3,7 +3,7 @@
     <div class="slds-card__header slds-grid">
       <header class="slds-media slds-media_center slds-has-flexi-truncate">
         <div class="slds-tabs_scoped">
-          <ul class="slds-tabs_scoped__nav slds-grid" role="tablist">
+          <ul class="slds-tabs_scoped__nav slds-grid slds-wrap" role="tablist">
             <template lwc:if={showCaseChatTabHead}>
               <li class={chatTab} title="Dial" role="presentation">
                 <div
@@ -26,14 +26,36 @@
                 </div>
               </li>
             </template>
-            <template lwc:if={showIntTab}>
-              <li class={interactionTab} title="Dial" role="presentation">
+            <template lwc:if={showMsgTab}>
+              <li class={messageTab} title="Message" role="presentation">
                 <div
                   class="slds-tabs_scoped__link"
                   role="tab"
-                  onclick={handleShowInteractionTab}
+                  onclick={handleShowMessageTab}
                 >
-                  Interactions
+                  Messages
+                </div>
+              </li>
+            </template>
+            <template if:true={showCallIntTab}>
+              <li class={callTab} title="Call" role="presentation">
+                <div
+                  class="slds-tabs_scoped__link"
+                  role="tab"
+                  onclick={handleShowCallTab}
+                >
+                  Calls
+                </div>
+              </li>
+            </template>
+            <template lwc:if={showStoreIntTab}>
+              <li class={storeTab} title="Store" role="presentation">
+                <div
+                  class="slds-tabs_scoped__link"
+                  role="tab"
+                  onclick={handleShowStoreTab}
+                >
+                  In Person
                 </div>
               </li>
             </template>
@@ -62,72 +84,110 @@
     </div>
     <div class="slds-card__body slds-card__body_inner">
       <template lwc:if={showAppointmentTab}>
-        <template for:each={appointmentList} for:item="appt">
-          <div class="slds-m-top_small" key={appt.interactId}>
-            <div class="slds-grid slds-gutters">
-              <div class="slds-col">
-                <a
-                  href="#"
-                  onclick={handleViewRecord}
-                  data-id={appt.interactId}
-                >
-                  {appt.interactName}
-                </a>
+        <template lwc:if={showAppointmentRecords}>
+          <template for:each={appointmentList} for:item="appt">
+            <div class="slds-m-top_small" key={appt.interactId}>
+              <div class="slds-grid slds-gutters">
+                <div class="slds-col">
+                  <a
+                    href="#"
+                    onclick={handleViewRecord}
+                    data-id={appt.interactId}
+                  >
+                    {appt.interactName}
+                  </a>
+                </div>
+              </div>
+              <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-2">Date and Time:</div>
+                <div class="slds-col slds-size_1-of-2">{appt.interactTime}</div>
+              </div>
+              <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-2">Owner Name:</div>
+                <div class="slds-col slds-size_1-of-2">{appt.ownerName}</div>
               </div>
             </div>
-            <div class="slds-grid slds-gutters">
-              <div class="slds-col slds-size_1-of-2">Date and Time:</div>
-              <div class="slds-col slds-size_1-of-2">{appt.interactTime}</div>
-            </div>
-            <div class="slds-grid slds-gutters">
-              <div class="slds-col slds-size_1-of-2">Owner Name:</div>
-              <div class="slds-col slds-size_1-of-2">{appt.ownerName}</div>
-            </div>
-          </div>
+          </template>
+          <footer class="slds-card__footer">
+            <a
+              class="slds-card__footer-action"
+              href="javascript:void(0);"
+              onclick={handleViewAll}
+              >View All
+              <span class="slds-assistive-text">Interactions</span>
+            </a>
+          </footer>
         </template>
-      </template>
-      <template lwc:if={showInteractionTab}>
-        <template for:each={interactionList} for:item="interact">
-          <div class="slds-m-top_small" key={interact.interactId}>
-            <div class="slds-grid slds-gutters">
-              <div class="slds-col">
-                <a
-                  href="#"
-                  onclick={handleViewRecord}
-                  data-id={interact.interactId}
-                >
-                  {interact.interactName}
-                </a>
-              </div>
-            </div>
-            <div class="slds-grid slds-gutters">
-              <div class="slds-col slds-size_1-of-2">Date and Time:</div>
-              <div class="slds-col slds-size_1-of-2">
-                {interact.interactTime}
-              </div>
-            </div>
-            <div class="slds-grid slds-gutters">
-              <div class="slds-col slds-size_1-of-2">Owner Name:</div>
-              <div class="slds-col slds-size_1-of-2">{interact.ownerName}</div>
-            </div>
-          </div>
-        </template>
-      </template>
-      <template lwc:if={showChatTab}>
-        <div>
-          <c-chat-topic-related-list
-            record-id={recordId}
-            object-name={sObjectType}
-          >
-          </c-chat-topic-related-list>
-        </div>
       </template>
     </div>
-    <footer class="slds-card__footer">
-      <a class="slds-card__footer-action" href="#" onclick={handleViewAll}
-        >View All
-        <span class="slds-assistive-text">Interactions</span>
-      </a>
-    </footer>
+    <template lwc:if={showMessageTab}>
+      <c-interaction-record-service
+        str-parent-id={recordId}
+        str-record-type-name="Message"
+        max-number={maxRecords}
+        lightning-page-name={lightningPageName}
+        message-record={messageRecord}
+        onpass={fetchViewValue}
+      ></c-interaction-record-service>
+      <template lwc:if={showViewAll}>
+        <footer class="slds-card__footer">
+          <c-view-all-generic
+            any-record-id={recordId}
+            record-type-developer-name={messageRecord}
+            lightning-page-name={lightningPageName}
+          >
+          </c-view-all-generic>
+        </footer>
+      </template>
+    </template>
+    <template lwc:if={showCallTab}>
+      <c-interaction-record-service
+        str-parent-id={recordId}
+        str-record-type-name="General"
+        max-number={maxRecords}
+        lightning-page-name={lightningPageName}
+        general-record={generalRecord}
+        onpass={fetchViewValue}
+      ></c-interaction-record-service>
+      <template lwc:if={showViewAll}>
+        <footer class="slds-card__footer">
+          <c-view-all-generic
+            any-record-id={recordId}
+            record-type-developer-name={generalRecord}
+            lightning-page-name={lightningPageName}
+          >
+          </c-view-all-generic>
+        </footer>
+      </template>
+    </template>
+    <template lwc:if={showStoreTab}>
+      <c-interaction-record-service
+        str-parent-id={recordId}
+        str-record-type-name="Store"
+        max-number={maxRecords}
+        lightning-page-name={lightningPageName}
+        store-record={storeRecord}
+        onpass={fetchViewValue}
+      ></c-interaction-record-service>
+      <template lwc:if={showViewAll}>
+        <footer class="slds-card__footer">
+          <c-view-all-generic
+            any-record-id={recordId}
+            record-type-developer-name={storeRecord}
+            lightning-page-name={lightningPageName}
+          >
+          </c-view-all-generic>
+        </footer>
+      </template>
+    </template>
+    <template lwc:if={showChatTab}>
+      <div>
+        <c-chat-topic-related-list
+          record-id={recordId}
+          object-name={sObjectType}
+        >
+        </c-chat-topic-related-list>
+      </div>
+    </template>
   </article>
 </template>
