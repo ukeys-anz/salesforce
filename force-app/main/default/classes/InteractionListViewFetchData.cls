@@ -74,6 +74,7 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
       }
     }
 
+    //statusSearch works conditionally when passed from LWC or Aura.When the status search is passed then it will be appended to the query and records will be filtered based on that.
     interactionQuery += ' AND RecordType.DeveloperName = :recordTypeDeveloperName';
     if (statusSearch != null && !statusSearch.isEmpty()) {
       interactionQuery +=

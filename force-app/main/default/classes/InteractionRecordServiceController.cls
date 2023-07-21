@@ -12,7 +12,7 @@ public with sharing class InteractionRecordServiceController {
    * @param maxRecords
    * @return List<Interaction> the queried Interaction list
    */
-  @AuraEnabled
+  @AuraEnabled(cacheable=true)
   public static List<InteractionWrapper> getInteractionRecord(
     String strParentId,
     String strRecordTypeName,
@@ -44,6 +44,8 @@ public with sharing class InteractionRecordServiceController {
       }
       return wrapperList;
     } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
   }
@@ -100,8 +102,10 @@ public with sharing class InteractionRecordServiceController {
       } else {
         this.interactTime = record.CreatedDate.format('dd/MM/yyyy h:mm a');
       }
-      if (record.Status__c != 'Completed') {
-        this.enableReinitiate = true;
+      if (record.Status__c != null) {
+        this.enableReinitiate = record.Status__c.equals(
+          InteractionConstants.CLOSED_AND_ARCHIVED
+        );
       } else {
         this.enableReinitiate = false;
       }

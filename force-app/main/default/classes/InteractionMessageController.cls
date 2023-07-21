@@ -36,6 +36,8 @@ public with sharing class InteractionMessageController {
       Map<String, Object> mapOutput = (Map<String, Object>) args.get('output');
       return (List<Interaction>) mapOutput.get('interactions');
     } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
   }

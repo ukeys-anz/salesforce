@@ -7,10 +7,6 @@
 
 @isTest
 public with sharing class InteractionRecordServiceControllerTest {
-  public static final String CUSTOMER_PURPOSE = 'Customer';
-  public static final String OPEN_STATUS = 'Open';
-  public static final String STORE_LOCATION = 'Store';
-  public static final String GENERAL_RECORD_TYPE = 'General';
   @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
@@ -32,19 +28,13 @@ public with sharing class InteractionRecordServiceControllerTest {
     Faker faker = new Faker('AU');
 
     Case newCase = new Case(
-      Status = OPEN_STATUS,
+      Status = GetHelpConstants.OPEN_STATUS,
       RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID
     );
     insert newCase;
 
-    Schema.Location testLocation = new Schema.Location();
-    testLocation.LocationType = STORE_LOCATION;
-    testLocation.Name = faker.randomString(10);
-    insert testLocation;
-
     Coaching_Summary__c coachSummary = new Coaching_Summary__c();
-    coachSummary.Name__c =
-      CUSTOMER_PURPOSE + InteractionConstants.COACHING_SUMMARY_LABEL;
+    coachSummary.Name__c = InteractionConstants.COACHING_SUMMARY_LABEL;
     coachSummary.Status__c = InteractionConstants.NEW_STATUS;
     coachSummary.Account__c = testAcc.Id;
     insert coachSummary;
@@ -73,18 +63,24 @@ public with sharing class InteractionRecordServiceControllerTest {
       AccountId = testAcc.Id,
       CaseId__c = newCase.Id,
       StartTime = Datetime.now(),
-      InteractionType = STORE_LOCATION,
-      LocationId = testLocation.Id,
+      InteractionType = InteractionConstants.CALL,
+      Direction__c = 'Outbound',
       Coaching_Summary__c = coachSummary.Id,
       Lead__c = testLead.Id,
       Loan_Application__c = testRLA.Id
     );
     List<Interaction> intList = new List<Interaction>{ testInteraction };
     insert intList;
+    List<String> listOfStatusSearch = new List<String>{ 'Created', 'Linked' };
+    InteractionMessageController.fetchDataForInteraction(
+      testAcc.Id,
+      InteractionConstants.GENERAL,
+      listOfStatusSearch
+    );
     Test.stopTest();
     List<InteractionRecordServiceController.InteractionWrapper> wrapperList = InteractionRecordServiceController.getInteractionRecord(
       testAcc.Id,
-      GENERAL_RECORD_TYPE,
+      InteractionConstants.GENERAL,
       3
     );
     System.assertEquals(
@@ -100,7 +96,7 @@ public with sharing class InteractionRecordServiceControllerTest {
 
     List<InteractionRecordServiceController.InteractionWrapper> intWrapperList = InteractionRecordServiceController.getInteractionRecord(
       newCase.Id,
-      GENERAL_RECORD_TYPE,
+      InteractionConstants.GENERAL,
       3
     );
     System.assertEquals(
@@ -111,7 +107,7 @@ public with sharing class InteractionRecordServiceControllerTest {
 
     List<InteractionRecordServiceController.InteractionWrapper> csWrapperList = InteractionRecordServiceController.getInteractionRecord(
       coachSummary.Id,
-      GENERAL_RECORD_TYPE,
+      InteractionConstants.GENERAL,
       3
     );
     System.assertEquals(
@@ -122,7 +118,7 @@ public with sharing class InteractionRecordServiceControllerTest {
 
     List<InteractionRecordServiceController.InteractionWrapper> leadWrapperList = InteractionRecordServiceController.getInteractionRecord(
       testLead.Id,
-      GENERAL_RECORD_TYPE,
+      InteractionConstants.GENERAL,
       3
     );
     System.assertEquals(
@@ -133,7 +129,7 @@ public with sharing class InteractionRecordServiceControllerTest {
 
     List<InteractionRecordServiceController.InteractionWrapper> rlaWrapperList = InteractionRecordServiceController.getInteractionRecord(
       testRLA.Id,
-      GENERAL_RECORD_TYPE,
+      InteractionConstants.GENERAL,
       3
     );
     System.assertEquals(

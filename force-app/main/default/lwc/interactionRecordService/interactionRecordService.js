@@ -41,7 +41,7 @@ export default class InteractionRecordService extends NavigationMixin(
 
   @wire(MessageContext)
   messageContext;
-
+  //This method will get the interactions associated to the parent record example Account, case, lead, coaching summary
   @wire(getInteractionRecord, {
     strParentId: "$strParentId",
     strRecordTypeName: "$strRecordTypeName",
@@ -54,6 +54,7 @@ export default class InteractionRecordService extends NavigationMixin(
       if (data.length > 0) {
         this.interactionrecords.data = data;
         this.totalInteractionRecords = data.length;
+        this.showInteractionRecords = true;
       }
       this.showViewAll();
     } else if (error) {
@@ -62,6 +63,7 @@ export default class InteractionRecordService extends NavigationMixin(
     }
   }
 
+  //This is called when view all link is clicked on appointment tab and show all list of interactions.
   handleViewRecord(evt) {
     evt.preventDefault();
     evt.stopPropagation();
@@ -78,13 +80,11 @@ export default class InteractionRecordService extends NavigationMixin(
     });
   }
 
+  // This method controls the visibility of view all link on message, call, store tab
   showViewAll() {
-    this.showInteractionRecords =
-      this.totalInteractionRecords > 0 ? true : false;
-
     this.dispatchEvent(
       new CustomEvent("showviewall", {
-        detail: this.showInteractionRecords
+        detail: this.totalInteractionRecords > 0
       })
     );
   }
@@ -93,6 +93,7 @@ export default class InteractionRecordService extends NavigationMixin(
     this.chatOrCallSid = event.target.dataset.id;
   }
 
+  // this method will perform the action based on selection of View transcript and Reply to customers button
   handleActionSelect(event) {
     let accountId = event.target.dataset.id;
     let selectedAction = event.target.value;

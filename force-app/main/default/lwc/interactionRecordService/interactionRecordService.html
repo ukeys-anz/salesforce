@@ -32,7 +32,7 @@
                     data-id={record.chatOrCallSid}
                     onselect={handleOnselect}
                   >
-                    <template if:true={record.enableReinitiate}>
+                    <template if:false={record.enableReinitiate}>
                       <lightning-menu-item
                         label="Reply to Customer"
                         value="re_initiate"

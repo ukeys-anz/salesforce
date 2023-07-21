@@ -9,7 +9,7 @@ import { encodeDefaultFieldValues } from "lightning/pageReferenceUtils";
 const NORMAL_TAB = "slds-tabs_scoped__item";
 const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
 
-export default class InteractionRelatesList extends NavigationMixin(
+export default class InteractionRelatedList extends NavigationMixin(
   LightningElement
 ) {
   showAppointmentTab = true;
@@ -44,6 +44,7 @@ export default class InteractionRelatesList extends NavigationMixin(
   @api showCallIntTab;
   @api showStoreIntTab;
 
+  // This method will help in showing the list of appointments under appointment tab
   handleShowAppointmentTab() {
     this.showAppointmentTab = true;
     this.showInteractionTab = false;
@@ -74,6 +75,7 @@ export default class InteractionRelatesList extends NavigationMixin(
     this.storeTab = NORMAL_TAB;
   }
 
+  // This method will help in showing the list of Message interactions under Message tab
   handleShowMessageTab() {
     this.showAppointmentTab = false;
     this.showInteractionTab = false;
@@ -89,6 +91,7 @@ export default class InteractionRelatesList extends NavigationMixin(
     this.storeTab = NORMAL_TAB;
   }
 
+  // This method will help in showing the list of Call interactions under Call tab
   handleShowCallTab() {
     this.showAppointmentTab = false;
     this.showInteractionTab = false;
@@ -104,6 +107,7 @@ export default class InteractionRelatesList extends NavigationMixin(
     this.storeTab = NORMAL_TAB;
   }
 
+  // This method will help in showing the list of In Person interactions under In Person tab
   handleShowStoreTab() {
     this.showAppointmentTab = false;
     this.showInteractionTab = false;
@@ -118,6 +122,8 @@ export default class InteractionRelatesList extends NavigationMixin(
     this.callTab = NORMAL_TAB;
     this.storeTab = ACTIVE_TAB;
   }
+
+  // this method help in making the default tab on pageload
   connectedCallback() {
     if (!this.showAppTab) {
       this.handleShowMessageTab();
@@ -166,6 +172,7 @@ export default class InteractionRelatesList extends NavigationMixin(
     });
   }
 
+  //This method will help in navigating to specific interaction after clicking on actual topic link etc
   handleViewRecord(evt) {
     evt.preventDefault();
     evt.stopPropagation();
@@ -182,6 +189,7 @@ export default class InteractionRelatesList extends NavigationMixin(
     });
   }
 
+  // This helps in creating a new interaction
   handleNewButton() {
     getNewRecordInfo({
       sId: this.recordId,
@@ -220,6 +228,7 @@ export default class InteractionRelatesList extends NavigationMixin(
     });
   }
 
+  //This method is only for appointment tab View all
   handleViewAll() {
     let relationshiptName = "Interactions__r";
     if (this.sObjectType === "Account") {
@@ -236,6 +245,7 @@ export default class InteractionRelatesList extends NavigationMixin(
     });
   }
 
+  // this method get the value from child and controls the visibilty of footer on parent record.
   fetchViewValue(event) {
     this.showViewAll = event.detail;
   }

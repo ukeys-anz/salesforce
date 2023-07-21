@@ -32,6 +32,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   boolIsMessage = false;
   page = 1;
   filterClass = "slds-hide";
+  // Fields to be shown on the custom list view for call record type
   fieldsforcall = [
     { label: "Name", fieldName: "Name", sortable: true },
     {
@@ -68,7 +69,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     },
     { label: "Attendees", fieldName: "Attendees__c", sortable: true }
   ];
-
+  // Fields to be shown on the custom list view for message record type
   fieldsformessage = [
     { label: "Name", fieldName: "Name", sortable: true },
     {
@@ -110,7 +111,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       typeAttributes: { rowActions: this.getRowActions }
     }
   ];
-
+  // Fields to be shown on the custom list view for store record type
   fieldsforstore = [
     { label: "Name", fieldName: "Name", sortable: true },
     {
@@ -159,6 +160,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   })
   statusPickListValues;
 
+  //This method will give the list of status for filtering the ineractions
   get checkboxOptions() {
     if (this.statusPickListValues.data) {
       return this.statusPickListValues.data.values;
@@ -202,24 +204,6 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     );
     this._sortDirection = this.sortDirection;
   }
-
-  //   originalColumns(value) {
-  //     if(value){
-  //         switch(this.recordTypeDeveloperName){
-  //             case 'Message':
-  //                 this._originalColumns =  fieldsformessage;
-  //                 break;
-  //             case 'General':
-  //                 this._originalColumns =  fieldsforcall;
-  //                 break;
-  //             case 'Store':
-  //                 this._originalColumns =  fieldsforstore;
-  //                 break;
-  //             default:
-  //                 this._originalColumns = [];
-  //         }
-  //     }
-  //   }
 
   pageData = () => {
     if (!this._originalRecords) {
