@@ -198,15 +198,16 @@ esac
 
 case ${ccrmpartycheck:0:1} in
 y | Y)
-    echoMessageCreator "Pre-loading CCRM Industry data" $stepNo true
+    echoMessageCreator "Pre-loading CCRM data" $stepNo true
     sfdx force:data:bulk:upsert --sobjecttype Industry__c --csvfile data/CCRM-Industry__c.csv --externalid Code__c --wait 2 2>&1 | tee stderr
+    sfdx force:data:tree:import -p data/Reciprocal-plan.json 2>&1 | tee stderr
     if [[ ($(cat stderr) == *'ERROR'*)  || ($(cat stderr) == *'statusCode=502'*) ]]; then
         exit 1
     fi
 
     echoMessageCreator "" $stepNo false
     ;;
-*) echo "${green}Skipping CCRM Industry data preload${reset}" ;;
+*) echo "${green}Skipping CCRM data preload${reset}" ;;
 esac
 ###########################
 

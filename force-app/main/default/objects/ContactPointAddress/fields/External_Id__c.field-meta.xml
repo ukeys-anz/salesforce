@@ -6,7 +6,7 @@
     <description>OCV + Source System Name + Source System Id</description>
     <externalId>true</externalId>
     <label>External Id</label>
-    <length>100</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>

@@ -1,3 +1,9 @@
+/**
+ * @author Tan Phan
+ * @since 09/2022
+ * @description CCRMCustomerProfileUpdateHelper contains helpers related to handling Customer_Profile_Updates__c object.
+ * @runTests CCRMCustomerProfileUpdateHelperTest
+ */
 @IsTest
 private class CCRMCustomerProfileUpdateHelperTest {
   static Faker faker = new Faker('AU');
@@ -5,7 +11,7 @@ private class CCRMCustomerProfileUpdateHelperTest {
   @TestSetup
   static void makeData() {
     System.runAs(CCRMTestDataFactory.getAdminUser()) {
-      Account acc = CCRMTestDataFactory.createProspectBusinessAccount(
+      CCRMTestDataFactory.createProspectBusinessAccount(
         CCRMTestDataFactory.getCCRMBaseUser().Id
       );
     }
@@ -125,14 +131,6 @@ private class CCRMCustomerProfileUpdateHelperTest {
 
   @IsTest
   static void testRevertNewRecords() {
-    //GIVEN a prospect with 2 contacts
-    Account prospect = [
-      SELECT Id, Name
-      FROM Account
-      WHERE Is_Prospect__c = TRUE
-      LIMIT 1
-    ];
-
     //WHEN banker added a contact to that account
     Contact con = [
       SELECT Id, AccountId
@@ -156,7 +154,10 @@ private class CCRMCustomerProfileUpdateHelperTest {
       'Contact added by banker should be deleted after Customer Update event is raised'
     );
   }
-
+  /** 
+  * @description 
+  WHEN That record is updated.
+*/
   @IsTest
   static void testTrackingRequest() {
     List<Customer_Profile_Updates__c> updates;

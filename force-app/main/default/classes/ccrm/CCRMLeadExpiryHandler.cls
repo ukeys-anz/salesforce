@@ -20,7 +20,8 @@ public with sharing class CCRMLeadExpiryHandler {
       if (Schema.sObjectType.Lead.isUpdateable() && !updatedLeads.isEmpty()) {
         List<Database.SaveResult> results = Database.update(
           updatedLeads,
-          false
+          false,
+          AccessLevel.USER_MODE
         );
         Logger.error(
           'Error occured while updating Lead Status to Expired.',

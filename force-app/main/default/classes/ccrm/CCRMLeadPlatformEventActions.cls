@@ -11,7 +11,6 @@ public with sharing class CCRMLeadPlatformEventActions {
   private static Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
   private static String action;
   private static string originator;
-  private static List<Lead> listOfLeads = new List<Lead>();
 
   /**
    * @description Publish manual CCRM leads to UNICA via MuleSoft.

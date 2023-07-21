@@ -197,6 +197,19 @@ public with sharing class LoggerHelperTest {
     }
   }
 
+  @isTest
+  static void testHasError() {
+    System.runAs(getEngineer()) {
+      LoggerHelper.newEntry(LoggingLevel.DEBUG);
+      LoggerHelper.newEntry(LoggingLevel.ERROR);
+
+      System.assert(
+        LoggerHelper.hasError(),
+        'hasError should return true because there is an error'
+      );
+    }
+  }
+
   /**
    * @description Returns the engineer user
    * @return The engineer user

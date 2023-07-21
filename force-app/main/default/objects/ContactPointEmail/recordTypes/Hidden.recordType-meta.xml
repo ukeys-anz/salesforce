@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hidden</fullName>
+    <active>true</active>
+    <label>Hidden</label>
+    <picklistValues>
+        <picklist>UsageType</picklist>
+        <values>
+            <fullName>Business Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fax Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fax Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Primary Business Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Primary Home Telephone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security Mobile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Temporary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Work</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

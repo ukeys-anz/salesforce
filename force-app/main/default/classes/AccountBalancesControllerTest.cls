@@ -14,10 +14,9 @@ public with sharing class AccountBalancesControllerTest {
     finAccount.FinServ__Balance__c = 200;
     finAccount.FinServ__CurrentPostedBalance__c = 200;
     finAccount.FinServ__Status__c = 'Active';
-    finAccount.FinServ__FinancialAccountType__c = 'Checking';
+    finAccount.RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
     finAccount.Account_Key__c = '342490981';
-    finAccount.Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11');
 
     insert finAccount;
 

@@ -446,7 +446,7 @@ private class CCRMRegionSharingUtilTest {
       User ccrmBaseUser = (User) FakerFactory.make(new FakerUserFactory());
       ccrmBaseUser.FirstName = 'BaseUser' + String.valueOf(i).leftPad(6, '0');
       ccrmBaseUser.LastName = 'RegionSharingTest';
-      ccrmBaseUser.UserRoleId = CCRMTestDataFactory.bankerRole.Id;
+      ccrmBaseUser.UserRoleId = CCRMTestDataFactory.commercialBankerRole.Id;
       ccrmBaseUser.ProfileId = CCRMTestDataFactory.anzStandardProfileId;
       ccrmBaseUser.IsActive = true;
       users.add(ccrmBaseUser);
