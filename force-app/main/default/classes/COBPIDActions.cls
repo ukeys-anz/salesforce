@@ -45,4 +45,27 @@ public with sharing class COBPIDActions {
         : false;
     }
   }
+
+  /**
+   * @description Trim the multiple spaces between the names
+   * @param records PID records from trigger
+   */
+  public static void correctNamesSpaces(List<COBPrimaryIDDocument__c> records) {
+    for (COBPrimaryIDDocument__c cobPid : records) {
+      cobPid.FirstName__c = CommonUtil.removeExtraSpaces(cobPid.FirstName__c);
+      cobPid.FirstNameOCRServer__c = CommonUtil.removeExtraSpaces(
+        cobPid.FirstNameOCRServer__c
+      );
+      cobPid.MiddleNames__c = CommonUtil.removeExtraSpaces(
+        cobPid.MiddleNames__c
+      );
+      cobPid.MiddleNamesOCRServer__c = CommonUtil.removeExtraSpaces(
+        cobPid.MiddleNamesOCRServer__c
+      );
+      cobPid.LastName__c = CommonUtil.removeExtraSpaces(cobPid.LastName__c);
+      cobPid.LastNameOCRServer__c = CommonUtil.removeExtraSpaces(
+        cobPid.LastNameOCRServer__c
+      );
+    }
+  }
 }
