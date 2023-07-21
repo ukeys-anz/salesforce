@@ -1,4 +1,4 @@
-import fetchDataForInteraction from "@salesforce/apex/InteractionMessageController.fetchDataForInteraction";
+import fetchDataForInteraction from "@salesforce/apex/InteractionSearchStringController.fetchDataForInteraction";
 import INTERACTION_STATUS from "@salesforce/schema/Interaction.Status__c";
 import { getObjectInfo, getPicklistValues } from "lightning/uiObjectInfoApi";
 import { LightningElement, api, wire, track } from "lwc";
@@ -256,7 +256,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     this.statusValue = event.detail.value;
     this.getRecordsFromDB();
   }
-
+  // To fetch the Interaction Records from the database based on search string. Also perform sorting, pagination
   getRecordsFromDB() {
     this.loading = !this.loading;
     fetchDataForInteraction({

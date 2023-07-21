@@ -72,7 +72,7 @@ public with sharing class InteractionRecordServiceControllerTest {
     List<Interaction> intList = new List<Interaction>{ testInteraction };
     insert intList;
     List<String> listOfStatusSearch = new List<String>{ 'Created', 'Linked' };
-    InteractionMessageController.fetchDataForInteraction(
+    InteractionSearchStringController.fetchDataForInteraction(
       testAcc.Id,
       InteractionConstants.GENERAL,
       listOfStatusSearch

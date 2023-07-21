@@ -1,9 +1,9 @@
 /**
  * @author Nagendra Singh
  * @since July 2023
- * @description InteractionMessageController
+ * @description InteractionSearchStringController
  */
-public with sharing class InteractionMessageController {
+public with sharing class InteractionSearchStringController {
   /**
    * @description fetchDataForInteraction is to query Interaction based on search string
    * @param anyRecordId the id to be queried
