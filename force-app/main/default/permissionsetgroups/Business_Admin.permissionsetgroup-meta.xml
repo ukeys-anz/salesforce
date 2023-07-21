@@ -37,6 +37,7 @@
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__FSCInsurance</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Fraud_Lock_Card</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>Knowledge_Base_Author</permissionSets>

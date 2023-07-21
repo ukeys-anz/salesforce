@@ -855,9 +855,20 @@
         "IDR_Additional_Correspondence_reviewed__c",
         "IDR_Avoidable_Escalation__c",
         "IDR_Avoidable_Escalation_Reason__c",
-        "Closure_Reason__c"
+        "Closure_Reason__c",
+        "Credit_Id__c",
+        "Loan_Application__c",
+        "Case_Authority_Level__c",
+        "Loan_Purpose__c",
+        "Application_Status__c",
+        "Assessment_Outcome__c",
+        "Assessment_Id__c"
       ],
-      "IA-2415860": ["Package_Id__c", "Status_Update_Error__c"],
+      "IA-2415860": [
+        "Package_Id__c",
+        "Status_Update_Error__c",
+        "System_Action__c"
+      ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
         "PersonaId__c",
@@ -2147,6 +2158,28 @@
         "RecordTypeId"
       ]
     },
+
+    "Reason_Outcome__c": {
+      "IA-2415840": [
+        "External_ID__c",
+        "Name",
+        "Outcome_Code__c",
+        "Outcome_Description__c",
+        "Referral_Reason__c"
+      ]
+    },
+
+    "Referral_Reason__c": {
+      "IA-2415840": [
+        "Assessment_Category__c",
+        "Authority_Level__c",
+        "Authority_Level_Code__c",
+        "Guidance_Code__c",
+        "Name",
+        "Reason_Code__c",
+        "Reason_Description__c"
+      ]
+    },
     "Release__c": {
       "IA-2468708": [
         "Additions__c",
@@ -2200,7 +2233,8 @@
         "Package_Code__c",
         "Package_Version__c",
         "Settlement_ID__c",
-        "Status"
+        "Status",
+        "Credit_Reassess_Required__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": ["CreatedDate", "LastModifiedDate", "Version__c"],

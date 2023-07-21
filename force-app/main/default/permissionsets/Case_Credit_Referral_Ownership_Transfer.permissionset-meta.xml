@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provide access to transfer case ownership between credit referral leads, bypassing sharing rules</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Case Credit Referral Ownership Transfer</label>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Case</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <userPermissions>
+        <name>TransferAnyCase</name>
+        <enabled>true</enabled>
+    </userPermissions>
+</PermissionSet>
