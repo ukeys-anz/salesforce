@@ -1422,6 +1422,7 @@
         "FinServ__InterestRate__c",
         "FinServ__OpenDate__c",
         "FinServ__Status__c",
+        "Number_Of_Signatures__c",
         "Interest_Accrued__c",
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",

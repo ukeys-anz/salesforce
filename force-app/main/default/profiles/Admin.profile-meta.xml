@@ -6036,6 +6036,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>FinServ__FinancialAccount__c.Number_Of_Signatures__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>FinServ__FinancialAccount__c.OCV_Event_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
