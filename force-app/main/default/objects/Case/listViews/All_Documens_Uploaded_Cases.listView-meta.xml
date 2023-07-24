@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>COB_ID_Ops_Assistance_Queue_Case</fullName>
+    <fullName>All_Documens_Uploaded_Cases</fullName>
     <columns>CASES.CASE_NUMBER</columns>
+    <columns>NAME</columns>
     <columns>CASES.SUBJECT</columns>
     <columns>CASES.STATUS</columns>
-    <columns>CustomerOnboardingApplication__c</columns>
-    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
-    <columns>CORE.USERS.ALIAS</columns>
+    <columns>OWNER_NAME</columns>
+    <columns>CASES.LAST_UPDATE</columns>
     <filters>
         <field>CASES.STATUS</field>
-        <operation>notContain</operation>
-        <value>ID Check OK,Failed,Potential Fraud,Confirmed Fraud</value>
+        <operation>equals</operation>
+        <value>Documents Uploaded</value>
     </filters>
     <filterScope>Queue</filterScope>
-    <label>COB ID Ops Assistance Queue</label>
-    <queue>COB_ID_Ops_Assistance_Queue</queue>
+    <label>All Documents Uploaded Cases</label>
+    <language>en_US</language>
+    <queue>Pending_KYC_QA</queue>
     <sharedTo>
-        <role>Business_Admin</role>
         <role>Card_Dispute_Agent</role>
         <role>FraudX_Agent</role>
         <role>Join_Lead</role>

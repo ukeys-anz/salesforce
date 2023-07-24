@@ -205,4 +205,10 @@
         <label>Confirmed Fraud</label>
         <closed>true</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Documents Uploaded</fullName>
+        <default>false</default>
+        <label>Documents Uploaded</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>
