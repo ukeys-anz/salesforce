@@ -13,4 +13,5 @@ public class SOPExpense {
   public String review;
   public SOPMoney statedMonthlyAverageAmount; 
   public Boolean leafNode;
+  public String updateTime;
 }
