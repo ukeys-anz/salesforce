@@ -81,7 +81,11 @@
     },
     "Task": {
       "IDR_Pend_Reason__c": "Reason why a case is pending",
-      "IDR_Portfolio_or_Business_Unit__c": "Party details a case is pending with"
+      "IDR_Portfolio_or_Business_Unit__c": "Party details a case is pending with",
+      "Case_Number__c": "To Display the Case Number for which email needs to be send out",
+      "PEGA_Case_Status__c": "To Display the last PEGA SMARTS Status for Resolved",
+      "Customer_Name__c": "To Display the Customer Name",
+      "PEGA_Case_Id__c": "Show the PEGA case number against the email task is created"
     },
     "trailheadapp__Badge__c": {
       "trailheadapp__Archived__c": "Boolean to reflect whether the module has been archived",
@@ -237,8 +241,8 @@
         "FinServ__KYCStatus__c",
         "FinServ__Status__c",
         "Hardship__c",
-        "Has_Customer_Provided_TFN__c",
-        "KYC_Verification_Level__c"
+        "KYC_Verification_Level__c",
+        "KYCVerificationDate__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2468715": [
@@ -278,7 +282,9 @@
         "PersonMobilePhone",
         "Phone",
         "Self_Certified_Tax_Date__c",
-        "Self_Certified_Tax_Residency__c"
+        "Self_Certified_Tax_Residency__c",
+        "Tax_Exemption_Type__c",
+        "TFN_Verification__c"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
       "IA-2530753": [
@@ -311,6 +317,8 @@
       ]
     },
     "Activity": {
+      "IA-2415999": ["PEGA_Case_Status__c"],
+      "IA-2415984": ["Customer_Name__c"],
       "IA-2453595": [
         "Action__c",
         "Authentication_Method__c",
@@ -334,7 +342,7 @@
         "Task_Sub_Type__c"
       ],
       "IA-2460507": ["Interaction_Owner__c"],
-      "IA-2468715": ["Voice_Call_SID__c"],
+      "IA-2468715": ["Voice_Call_SID__c", "Case_Number__c", "PEGA_Case_Id__c"],
       "IA-2415860": [
         "Case_Owner__c",
         "Cases_Related_To_Team__c",
@@ -1140,11 +1148,21 @@
         "Last_Modified_By__c",
         "Last_Modified_Date__c"
       ],
-      "IA-2415984": ["Preferred_Indicator__c"]
+      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415720": [
+        "Verification_Status__c",
+        "Verification_Date__c",
+        "Verification_Method__c"
+      ]
     },
     "ContactPointPhone": {
       "IA-2530753": ["Customer_Name__c"],
-      "IA-2415984": ["Preferred_Indicator__c"]
+      "IA-2415984": ["Preferred_Indicator__c"],
+      "IA-2415720": [
+        "Verification_Status__c",
+        "Verification_Date__c",
+        "Verification_Method__c"
+      ]
     },
     "ContactRequest": {
       "IA-2453595": [

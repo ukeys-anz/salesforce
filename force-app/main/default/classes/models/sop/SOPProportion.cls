@@ -5,5 +5,5 @@
  * @group Models
  */
 public class SOPProportion {
-    public String value;
-  }
+  public String value;
+}

@@ -553,4 +553,19 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+  /**
+   * @param sopIds sop id
+   * @param creditId credit id
+   * @param loanId loan id
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches UMI assessments from sop and gearbox api through mule
+   */
+  //
+  public virtual HttpCalloutResponse getUMIAssessments(
+    List<String> sopIds,
+    String creditId,
+    String loanId
+  ) {
+    return null;
+  }
 }

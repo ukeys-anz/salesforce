@@ -366,7 +366,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Has_Customer_Provided_TFN__c</field>
+        <field>Account.TFN_Verification__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

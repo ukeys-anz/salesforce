@@ -712,4 +712,12 @@ Feel free to contact us if you have any questions. You can find our contact info
         <shortDescription>Customer Onboarding UpdatePrimaryIdDocument API</shortDescription>
         <value>/customer-onboarding/v1/updatePrimaryIdDocument</value>
     </labels>
+    <labels>
+        <fullName>MS_Get_View_UMI</fullName>
+        <categories>ST</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Get View Umi API</shortDescription>
+        <value>callout:Mulesoft/</value>
+    </labels>
 </CustomLabels>

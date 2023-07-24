@@ -13,9 +13,11 @@ public with sharing class BOHServiceMock extends Service {
     response.statusCode = 200;
     response.successful = true;
   }
-
   private static final string SOP_LIST_ASSETS_RESPONSE = getStaticResource(
     'mock_getConsolidateSOP'
+  );
+  private static final string UMI_LIST_ASSEEEMENTS_RESPONSE = getStaticResource(
+    'mock_UMIListAssessments'
   );
 
   /**
@@ -27,6 +29,24 @@ public with sharing class BOHServiceMock extends Service {
   public override HttpCalloutResponse getListAssets(String sopId) {
     if (!preset) {
       response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
+    }
+    return response;
+  }
+
+  /**
+   * @param sopIds sop id
+   * @param creditId credit id
+   * @param loanId loan id
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches UMI assessments from sop and gearbox api through mule
+   */
+  public override HttpCalloutResponse getUMIAssessments(
+    List<String> sopIds,
+    String creditId,
+    String loanId
+  ) {
+    if (!preset) {
+      response.body = BOHServiceMock.UMI_LIST_ASSEEEMENTS_RESPONSE;
     }
     return response;
   }

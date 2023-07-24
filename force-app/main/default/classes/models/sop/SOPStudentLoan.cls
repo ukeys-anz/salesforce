@@ -5,18 +5,18 @@
  * @group Models
  */
 public class SOPStudentLoan {
-    public Boolean hecsWithheldPayment;
+  public Boolean hecsWithheldPayment;
 
-    /**
-     * @description return Yes or No for withheld value
-     */
-    public String outputWithheld {
-      get {
-        if (hecsWithheldPayment) {
-          return 'Yes';
-        } else {
-          return 'No';
-        }
+  /**
+   * @description return Yes or No for withheld value
+   */
+  public String outputWithheld {
+    get {
+      if (hecsWithheldPayment) {
+        return 'Yes';
+      } else {
+        return 'No';
       }
     }
   }
+}

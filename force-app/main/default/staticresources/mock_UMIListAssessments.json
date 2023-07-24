@@ -1,0 +1,774 @@
+{
+  "sopId": "13561fa3",
+  "creditEnquiryId": "13561fa3-5db1-4996-b732-8510337b500d",
+  "createTime": "2023-02-01T00:00:00Z",
+  "loanAppId": "8510337b500d",
+  "totalUMI": {
+    "currencyCode": "AUD",
+    "units": "6241",
+    "nanos": 0
+  },
+  "assessments": [
+    {
+      "sopId": "13561fa3",
+      "incomeAssessment": {
+        "summary": [
+          {
+            "type": "ANZ - Base Salary",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "5000",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "4000",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "ocvId": "1000990282"
+          },
+          {
+            "type": "ANZ - Overtime",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "5000",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "5000",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d8243",
+            "ocvId": "1000990280"
+          },
+          {
+            "type": "ANZ - Base Salary",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "5000",
+              "nanos": 4500000
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "4000",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "ocvId": "1000990283"
+          },
+          {
+            "type": "ANZ - Overtime",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "1100",
+              "nanos": 99
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "ocvId": "1000990284"
+          },
+          {
+            "type": "ANZ - Bonus",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "900",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "ocvId": "1000990280"
+          },
+          {
+            "type": "ANZ - Professional Memberships",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "358",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "400",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "ocvId": "1000990280"
+          },
+          {
+            "type": "ANZ - Car Insurance",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "267",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "parties": [
+              {
+                "ocvId": "1000990283"
+              },
+              {
+                "ocvId": "1000990284"
+              }
+            ]
+          },
+          {
+            "type": "ANZ - Subscriptions",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "20",
+              "nanos": 10
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "100",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990283"
+              }
+            ]
+          },
+          {
+            "type": "Starbucks - Base Salary",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "1500",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1500",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "ocvId": "1000990281"
+          },
+          {
+            "type": "Starbucks - Overtime",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "234",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "ocvId": "1000990281"
+          },
+          {
+            "type": "Rental income - 1 TBA Street",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "234",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            },
+            "id": "b271d963-e71d-464e-8395-7753fe1d82c6",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ]
+          }
+        ],
+        "totalApplicationAmount": {
+          "currencyCode": "AUD",
+          "units": "12000",
+          "nanos": 5400000
+        },
+        "totalAssessedAmount": {
+          "currencyCode": "AUD",
+          "units": "10800",
+          "nanos": 0
+        }
+      },
+      "hemExpenses": {
+        "summary": [
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "ocvId": "1000990281",
+            "type": "Groceries",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "ocvId": "1000990283",
+            "type": "Health & Wellbeing",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "150",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990284"
+              }
+            ],
+            "type": "Car, Travel & Belongings",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "870",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990282"
+              },
+              {
+                "ocvId": "1000990283"
+              }
+            ],
+            "type": "Transport",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990280"
+              },
+              {
+                "ocvId": "1000990282"
+              }
+            ],
+            "type": "Childcare",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "1000",
+              "nanos": 87980
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990280"
+              },
+              {
+                "ocvId": "1000990284"
+              }
+            ],
+            "type": "Public, Uni & Upskilling",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990284"
+              },
+              {
+                "ocvId": "1000990281"
+              }
+            ],
+            "type": "Lifestyle",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "900",
+              "nanos": 79
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990280"
+              },
+              {
+                "ocvId": "1000990281"
+              }
+            ],
+            "type": "Pet Care",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990280"
+              },
+              {
+                "ocvId": "1000990281"
+              }
+            ],
+            "type": "Phone, Internet & Subscriptions",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "120",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990280"
+              },
+              {
+                "ocvId": "1000990281"
+              }
+            ],
+            "type": "Clothing & Personal Care",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "400",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "parties": [
+              {
+                "ocvId": "1000990280"
+              },
+              {
+                "ocvId": "1000990281"
+              }
+            ],
+            "type": "Utilities & Household Costs",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "400",
+              "nanos": 67
+            }
+          }
+        ],
+        "totalApplicationAmount": {
+          "currencyCode": "AUD",
+          "units": "1000",
+          "nanos": 0
+        },
+        "totalAssessedAmount": {
+          "currencyCode": "AUD",
+          "units": "1500",
+          "nanos": 0
+        }
+      },
+      "nonHemExpenses": {
+        "summary": [
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Private Education",
+            "parties": [
+              {
+                "ocvId": "1000990280"
+              },
+              {
+                "ocvId": "1000990281"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "4500",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Public Education Services",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Rent",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Family Support",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Other",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "4000",
+              "nanos": 80
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "4000",
+              "nanos": 80
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Private School",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Owners Corp & Land Tax ",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 530
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 530
+            }
+          },
+          {
+            "id": "0523dfc-8782-4107-b77c-112b318cc6b4",
+            "type": "Health, Life & Other",
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1800",
+              "nanos": 0
+            }
+          }
+        ],
+        "totalApplicationAmount": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        },
+        "totalAssessedAmount": {
+          "currencyCode": "AUD",
+          "units": "7000",
+          "nanos": 0
+        }
+      },
+      "liabilities": {
+        "summary": [
+          {
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "type": "NAB - Investment Loan",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "3000",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "3000",
+              "nanos": 0
+            }
+          },
+          {
+            "ocvId": "1000990280",
+            "type": "Myer - Credit Card",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "1000",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "1000",
+              "nanos": 0
+            }
+          },
+          {
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "type": "ANZ - Margin Loan",
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "400",
+              "nanos": 0
+            }
+          },
+          {
+            "ocvId": "1000990281",
+            "type": "CBA - Credit Card",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "5500",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "5500",
+              "nanos": 0
+            }
+          },
+          {
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "type": "ANZ Liabilities (Home loans, CC, Personal Loans)",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "400",
+              "nanos": 0
+            }
+          },
+          {
+            "ocvId": "1000990281",
+            "type": "HSBC - Personal Loan",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "400",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "500",
+              "nanos": 0
+            }
+          },
+          {
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "type": "Liabilities that will be closed at settlement",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "0",
+              "nanos": 0
+            }
+          },
+          {
+            "ocvId": "1000990280",
+            "type": "Latitude Financial - Credit Card",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "5000",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "5500",
+              "nanos": 0
+            }
+          },
+          {
+            "parties": [
+              {
+                "ocvId": "1000990281"
+              },
+              {
+                "ocvId": "1000990280"
+              }
+            ],
+            "type": "ANZ PLUS LOAN APPLIED FOR",
+            "applicationAmount": {
+              "currencyCode": "AUD",
+              "units": "3000",
+              "nanos": 0
+            },
+            "assessedAmount": {
+              "currencyCode": "AUD",
+              "units": "3000",
+              "nanos": 0
+            }
+          }
+        ],
+        "totalApplicationAmount": {
+          "currencyCode": "AUD",
+          "units": "2000",
+          "nanos": 0
+        },
+        "totalAssessedAmount": {
+          "currencyCode": "AUD",
+          "units": "2000",
+          "nanos": 0
+        }
+      }
+    }
+  ]
+}
