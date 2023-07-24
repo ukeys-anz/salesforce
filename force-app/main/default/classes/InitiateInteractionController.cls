@@ -188,7 +188,7 @@ public with sharing class InitiateInteractionController {
    * @param chatOrCallSid the chatOrCallSid present in the interaction
    */
   private static void updateInteractionOwner(String chatOrCallSid) {
-    Interaction interactionToUpdate = [
+    List<Interaction> interactionToUpdate = [
       SELECT Id, OwnerId, Chat_or_Call_SID__c
       FROM Interaction
       WHERE Chat_or_Call_SID__c = :chatOrCallSid
@@ -196,11 +196,14 @@ public with sharing class InitiateInteractionController {
     ];
     Id currentUserId = UserInfo.getUserId();
     if (
-      interactionToUpdate != null &&
-      interactionToUpdate.OwnerId != currentUserId
+      !interactionToUpdate.isEmpty() &&
+      interactionToUpdate[0].OwnerId != currentUserId
     ) {
-      interactionToUpdate.OwnerId = currentUserId;
-      Database.SaveResult result = Database.update(interactionToUpdate, false);
+      interactionToUpdate[0].OwnerId = currentUserId;
+      Database.SaveResult result = Database.update(
+        interactionToUpdate[0],
+        false
+      );
       Logger.error('Error occured while updating Interaction Owner', result);
       Logger.saveLog();
     }
