@@ -46,20 +46,25 @@
     toastEvent.fire();
   },
   // Handle navigating user to case edit form
-  handleNavig: function (component) {
-    var navService = component.find("navService");
-    var pageReference = {
-      type: "standard__recordPage",
-      attributes: {
-        recordId: component.get("v.recordId"),
-        objectApiName: "Case",
-        actionName: "edit"
-      },
-      state: {
-        recordTypeId: component.get("v.selectedRecordTypeId"),
-        defaultFieldValues: component.get("v.autoFillFieldsString")
-      }
-    };
-    navService.navigate(pageReference);
+  handleNavig: function (component, result) {
+    if (result) {
+      component.set("v.showLWC", true);
+      component.set("v.showRTs", false);
+    } else {
+      $A.get("e.force:closeQuickAction").fire();
+      var navService = component.find("navService");
+      var pageReference = {
+        type: "standard__recordPage",
+        attributes: {
+          recordId: component.get("v.recordId"),
+          objectApiName: "Case",
+          actionName: "edit"
+        },
+        state: {
+          recordTypeId: component.get("v.selectedRecordTypeId")
+        }
+      };
+      navService.navigate(pageReference);
+    }
   }
 });

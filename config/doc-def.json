@@ -68,6 +68,13 @@
   ],
   "usermap": [
     {
+      "name": "ANZ Plus Operations - Read Only	",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["ANZ_Plus_Operations_Read_Only"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Business Admin",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Business_Admin"],

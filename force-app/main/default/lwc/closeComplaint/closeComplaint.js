@@ -1,6 +1,8 @@
 import { LightningElement, api, wire } from "lwc";
 import { getRecord, updateRecord } from "lightning/uiRecordApi";
 import { NavigationMixin } from "lightning/navigation";
+import { CloseActionScreenEvent } from "lightning/actions";
+
 import Case_RecordTypeId from "@salesforce/schema/Case.RecordTypeId";
 import ID_FIELD from "@salesforce/schema/Case.Id";
 //complaint resolution fields
@@ -529,7 +531,7 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         .then(() => {
           this.loading = false;
           // Display fresh data
-          window.location.reload();
+          this.dispatchEvent(new CloseActionScreenEvent());
         })
         .catch((error) => {
           let message = "Unknown error";

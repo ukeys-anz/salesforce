@@ -1,0 +1,10 @@
+.THIS .slds-card__footer {
+  background: rgb(243, 242, 242);
+  justify-content: flex-end;
+  display: flex;
+  position: sticky;
+  bottom: 0;
+}
+.cancelBTN {
+  margin-right: 4px;
+}
