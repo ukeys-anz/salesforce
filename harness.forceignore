@@ -174,3 +174,9 @@ force-app/main/default/omniDataTransforms
 force-app/main/default/omniIntegrationProcedures
 force-app/main/default/omniScripts
 force-app/main/default/omniUiCard
+
+#AR-90796 - Uninstall mvision
+mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
+force-app/main/default/objects/SkyhighNetworks__SHNEvent__c/SkyhighNetworks__SHNEvent__c.object-meta.xml
+force-app/main/default/objects/SkyhighNetworks__SHNEvent__c/fields/SkyhighNetworks__EventDetail__c.field-meta.xml
+force-app/main/default/objects/SkyhighNetworks__SHNEvent__c/fields/SkyhighNetworks__SourceObjectId__c.field-meta.xml
