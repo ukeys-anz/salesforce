@@ -102,6 +102,40 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>maxRecords</name>
+                    <value>3</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showAppTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showCallIntTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showIntTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showMsgTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showStoreIntTab</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>interactionRelatedList</componentName>
+                <identifier>c_interactionRelatedList</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>objectApiName</name>
+                    <value>Account</value>
+                </componentInstanceProperties>
                 <componentName>cfaasFilesRelatedList</componentName>
                 <identifier>c_cfaasFilesRelatedList</identifier>
             </componentInstance>

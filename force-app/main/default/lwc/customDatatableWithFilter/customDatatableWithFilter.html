@@ -1,0 +1,103 @@
+<template>
+  <div class="slds-card slds-grid slds-wrap slds-var-p-around_medium">
+    <template lwc:if={loading}>
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+      ></lightning-spinner>
+    </template>
+
+    <div class="slds-col slds-size_12-of-12">
+      <div class="slds-grid slds-grid_align-end">
+        <div class="slds-clearfix">
+          <div class="slds-float_left">
+            <lightning-input
+              label="Search"
+              onchange={handleSearch}
+            ></lightning-input>
+          </div>
+          <div class="slds-float_right slds-m-left_large slds-m-top_large">
+            <template lwc:if={boolIsMessage}>
+              <lightning-button-icon
+                icon-name="utility:filterList"
+                size="medium"
+                title="Filter"
+                onclick={handleFilterClick}
+              ></lightning-button-icon>
+              <div class={filterClass}>
+                <div class="flyout-panel slds-p-around_medium">
+                  <lightning-card title="Filter">
+                    <lightning-button-icon
+                      icon-name="utility:close"
+                      size="medium"
+                      title="Close"
+                      slot="actions"
+                      onclick={handleCloseClick}
+                    ></lightning-button-icon>
+                    <p class="slds-p-horizontal_small">
+                      <lightning-checkbox-group
+                        name="Status"
+                        label="Status"
+                        options={checkboxOptions}
+                        value={statusValue}
+                        onchange={handleStatusChange}
+                      >
+                      </lightning-checkbox-group>
+                    </p>
+                  </lightning-card>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-col slds-size_12-of-12 slds-var-m-top_large">
+      <c-datatable-with-column-click
+        data={currentPageData}
+        columns={_originalColumns}
+        key-field="id"
+        onrowaction={handleRowAction}
+        hide-checkbox-column="true"
+        default-sort-direction={_defaultSortDirection}
+        sorted-direction={_sortDirection}
+        sorted-by={_sortedBy}
+        onsort={handleSort}
+        ondatatablecolumnclickhandler={handleDatatableColumnClick}
+      >
+      </c-datatable-with-column-click>
+    </div>
+    <div class="slds-col slds-size_12-of-12 slds-var-m-top_large">
+      <div class="slds-align_absolute-center">
+        <ul class="slds-button-group-row">
+          <template lwc:if={hasPrev}>
+            <li class="slds-button-group-item">
+              <button class="slds-button slds-button_neutral" onclick={onPrev}>
+                prev
+              </button>
+            </li>
+          </template>
+          <template for:each={pagesList} for:item="pageNumber">
+            <li class="slds-button-group-item" key={pageNumber}>
+              <button
+                data-id={pageNumber}
+                class="slds-button slds-button_neutral"
+                onclick={onPageClick}
+              >
+                {pageNumber}
+              </button>
+            </li>
+          </template>
+          <template if:true={hasNext}>
+            <li class="slds-button-group-item">
+              <button class="slds-button slds-button_neutral" onclick={onNext}>
+                next
+              </button>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </div>
+</template>
