@@ -6,7 +6,6 @@
  * @group Repository
  */
 public with sharing class ViewServiceabilityModel extends CalloutModel {
-  public String sopId;
   public String creditEnquiryId;
   public DateTime createTime;
   public String loanAppId;

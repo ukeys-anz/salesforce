@@ -124,18 +124,20 @@ private class ViewServiceabilityControllerTest {
   static void testBOHServicegetUMIAssessments() {
     Test.setMock(HttpCalloutMock.class, new MockViewUMICallout());
     String loanId = '123';
+    String ocvId = '1000990280';
     BOHService serv = new BOHService();
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART +
       'forgeJWTToken' +
-      loanId,
+      ocvId,
       AuthServiceTest.IDTESTVALUE
     );
     Test.startTest();
     HttpCalloutResponse res = serv.getUMIAssessments(
       new List<String>{ loanId },
       loanId,
-      loanId
+      loanId,
+      ocvId
     );
     Test.stopTest();
     System.assertEquals(res.statusCode, 200, 'api call unsucessfully');
