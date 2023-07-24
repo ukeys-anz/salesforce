@@ -57,6 +57,7 @@ public with sharing class InteractionRelatedListControllerTest {
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
       InteractionType = 'Call',
+      Direction__c = 'Inbound',
       LocationId = testLocation.Id
     );
     List<Interaction> intList = new List<Interaction>{
@@ -115,6 +116,7 @@ public with sharing class InteractionRelatedListControllerTest {
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
       InteractionType = 'Call',
+      Direction__c = 'Inbound',
       LocationId = testLocation.Id
     );
 
