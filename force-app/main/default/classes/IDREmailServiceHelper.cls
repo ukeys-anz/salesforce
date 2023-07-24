@@ -6,6 +6,8 @@
  * @runTests IDREmailServiceTest
  */
 public with sharing class IDREmailServiceHelper {
+  public static Boolean attachmentFailureDetected = false;
+  public static Boolean emailIngestionFailure = false;
   /**
    * @description Creates a new case
    * @param email Inbound email object
@@ -99,6 +101,11 @@ public with sharing class IDREmailServiceHelper {
       emailMessage.HtmlBody = email
         ?.htmlBody
         ?.replaceAll('<a.*<.{1}a>', 'REMOVED');
+      if (emailMessage.HtmlBody.length() > 32000) {
+        // New Complaint with a long email body. Just rely on the plain text email.
+        emailIngestionFailure = true;
+        emailMessage.HtmlBody = '';
+      }
       emailMessage.TextBody = email?.plainTextBody;
       AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
         'EmailMessage',
@@ -210,6 +217,7 @@ public with sharing class IDREmailServiceHelper {
           );
           returnConVerList.add(cv);
         } else {
+          attachmentFailureDetected = true;
           Logger.error(
             'CMOS-' +
             caseNumber +
@@ -255,6 +263,7 @@ public with sharing class IDREmailServiceHelper {
           );
           returnConVerList.add(cv);
         } else {
+          attachmentFailureDetected = true;
           Logger.error(
             'CMOS-' +
             caseNumber +

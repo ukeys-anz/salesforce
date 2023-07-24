@@ -23,7 +23,7 @@ public virtual without sharing class CaseCloudEventModel extends CloudEventModel
     public String priority { get; set; }
     public String status { get; set; }
     public String subject { get; set; }
-    public DateTime disputeClosedDate { get; set; }
+    public Datetime disputeClosedDate { get; set; }
 
     public CaseCloudEventDataModel(Case theCase) {
       this.caseNumber = theCase.CaseNumber;

@@ -70,6 +70,10 @@ public with sharing class GetHelpConstants {
     .get('Fraud_Check')
     .getRecordTypeId();
 
+  public static final Id FALSE_CUSTOMER_PROFILE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('False_Customer_Profile')
+    .getRecordTypeId();
+
   //Financial Account Record types
 
   public static final String CHECKING_ACCOUNT_RT_APINAME = 'CheckingAccount';

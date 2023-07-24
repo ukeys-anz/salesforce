@@ -139,36 +139,47 @@ export default class CobPidViewAndEdit extends LightningElement {
   async handleSave() {
     this.isLoading = true;
 
-    try {
-      await updateCOBPIDData({
-        record: this.data
-      });
-      this.error = undefined;
-
-      await getRecordNotifyChange([{ recordId: this.recordId }]);
-
-      showToast(
-        this,
-        "Success!",
-        "Successfully updated details.",
-        "",
-        "success",
-        ""
-      );
-
-      this.handleClose();
-    } catch (error) {
-      this.error = error;
-      this.data = this._initDetokenizedData;
-
+    if (!this.validateFirstNameLastName()) {
       showToast(
         this,
         "Error!",
-        "Failed to update details. Please contact your System Administrator.",
+        'Please ensure that the blank first or last name field includes a hyphen ("-") as required before making the Equifax call.',
         "",
         "error",
         ""
       );
+    } else {
+      try {
+        await updateCOBPIDData({
+          record: this.data
+        });
+        this.error = undefined;
+
+        await getRecordNotifyChange([{ recordId: this.recordId }]);
+
+        showToast(
+          this,
+          "Success!",
+          "Successfully updated details.",
+          "",
+          "success",
+          ""
+        );
+
+        this.handleClose();
+      } catch (error) {
+        this.error = error;
+        this.data = this._initDetokenizedData;
+
+        showToast(
+          this,
+          "Error!",
+          "Failed to update details. Please contact your System Administrator.",
+          "",
+          "error",
+          ""
+        );
+      }
     }
 
     this.isLoading = false;
@@ -176,5 +187,12 @@ export default class CobPidViewAndEdit extends LightningElement {
 
   handleClose() {
     this.dispatchEvent(new CloseActionScreenEvent());
+  }
+
+  validateFirstNameLastName() {
+    if (!this.data.FirstName__c || !this.data.LastName__c) {
+      return false;
+    }
+    return true;
   }
 }

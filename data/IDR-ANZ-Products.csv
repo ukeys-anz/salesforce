@@ -565,4 +565,5 @@ ANZ Plus - Fixed Home Loan,571,1,2,15,,TRUE
 ANZ Landlord Insurance (CGU),572,3,8,41,IDR_Wealth,TRUE
 ANZ Car Insurance (Comprehensive) (CGU),573,3,8,44,IDR_Wealth,TRUE
 ANZ Home and Contents Insurance (CGU),574,3,8,41,IDR_Wealth,TRUE
+PayTo,575,6,19,130,IDR_Everyday_Banking,TRUE
 N/A,999,10,34,188,IDR_Everyday_Banking,TRUE

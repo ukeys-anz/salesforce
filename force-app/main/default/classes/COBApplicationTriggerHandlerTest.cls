@@ -7,6 +7,8 @@
 public with sharing class COBApplicationTriggerHandlerTest {
   private static final Faker FAKER = new Faker('AU');
 
+  private static final String EMPTY_STR = '';
+
   private static final String OCV_ID1 = '0123456789';
   private static final String OCV_ID2 = '9876543210';
   private static final String OCV_ID3 = '1237894560';
@@ -24,20 +26,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
 
   private static final Integer OCV_IDS_COUNT = OCV_IDS.size();
 
-  private static final String NON_OCR_MIDDLE_NAME = 'Hunky Dory';
-  private static final String MATCHING_SERVER_OCR_MIDDLE_NAME = 'Hunky Dory';
-  private static final String NON_MATCHING_SERVER_OCR_MIDDLE_NAME = 'Hunky Mory';
-
-  private static final List<String> MATCHING_MIDDLE_NAMES = new List<String>{
-    NON_OCR_MIDDLE_NAME,
-    MATCHING_SERVER_OCR_MIDDLE_NAME
-  };
-
-  private static final List<String> NON_MATCHING_MIDDLE_NAMES = new List<String>{
-    NON_OCR_MIDDLE_NAME,
-    NON_MATCHING_SERVER_OCR_MIDDLE_NAME
-  };
-
   private static final Map<String, String> OCV_ID_MIDDLE_NAME_TEST = new Map<String, String>{
     OCV_ID1 => COBApplicationActions.YES,
     OCV_ID2 => COBApplicationActions.YES,
@@ -54,12 +42,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
     OCV_ID1 => COBApplicationActions.YES,
     OCV_ID2 => COBApplicationActions.YES,
     OCV_ID3 => COBApplicationActions.NONE
-  };
-
-  private static final Map<String, List<String>> OCV_ID_MIDDLE_NAME_MATCHING = new Map<String, List<String>>{
-    OCV_ID1 => MATCHING_MIDDLE_NAMES,
-    OCV_ID2 => MATCHING_MIDDLE_NAMES,
-    OCV_ID3 => NON_MATCHING_MIDDLE_NAMES
   };
 
   @testSetup
@@ -155,7 +137,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
         OCVId__c = ocvId,
         PersonaId__c = FAKER.randomString(15),
         ElectronicVerificationAcknowledged__c = false,
-        EquifaxDVSResult__c = COBApplicationActionsHelper.PASS
+        VerificationType__c = COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
       );
       cobApps.add(cobApp);
     }
@@ -187,10 +169,31 @@ public with sharing class COBApplicationTriggerHandlerTest {
     COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
     cobPid.CustomerOnboardingApplication__c = cobApp.Id;
 
-    cobPid.MiddleNames__c = OCV_ID_MIDDLE_NAME_MATCHING.get(cobApp.OCVId__c)[0];
-    cobPid.MiddleNamesOCRServer__c = OCV_ID_MIDDLE_NAME_MATCHING.get(
-      cobApp.OCVId__c
-    )[1];
+    Boolean isMiddleNameMatched = OCV_ID_MIDDLE_NAME_TEST.get(
+        cobApp.OCVId__c
+      ) == COBApplicationActions.YES
+      ? true
+      : false;
+
+    cobPid.FirstName__c = isMiddleNameMatched
+      ? FAKER.randomString(5)
+      : EMPTY_STR;
+    cobPid.FirstNameOCRServer__c = isMiddleNameMatched
+      ? cobPid.FirstName__c
+      : EMPTY_STR;
+    cobPid.LastName__c = isMiddleNameMatched
+      ? FAKER.randomString(5)
+      : EMPTY_STR;
+    cobPid.LastNameOCRServer__c = isMiddleNameMatched
+      ? cobPid.LastName__c
+      : EMPTY_STR;
+    cobPid.MiddleNames__c = isMiddleNameMatched
+      ? FAKER.randomString(5)
+      : EMPTY_STR;
+    cobPid.MiddleNamesOCRMatch__c = isMiddleNameMatched;
+    cobPid.MiddleNamesOCRServer__c = isMiddleNameMatched
+      ? cobPid.MiddleNames__c
+      : EMPTY_STR;
 
     Boolean isMatched = FRAUD_CUSTOMER_DETAILS_TEST.get(cobApp.OCVId__c) ==
       COBApplicationActions.YES
@@ -201,11 +204,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
     cobPid.LicenceNumberOCRServer__c = isMatched
       ? cobPid.LicenceNumber__c
       : FAKER.randomString(10);
-    cobPid.LicenceCardNumber__c = FAKER.randomString(10);
-    cobPid.LicenceCardNumberOCRServer__c = isMatched
-      ? cobPid.LicenceCardNumber__c
-      : FAKER.randomString(10);
-    cobPid.FirstName__c = FAKER.randomString(5);
 
     return cobPid;
   }
@@ -308,7 +306,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
   }
 
   @isTest
-  public static void testCreateBaseKYCQACase() {
+  public static void testConstructBaseKYCQACase() {
     Map<Id, CustomerOnboardingApplication__c> oldMap = new Map<Id, CustomerOnboardingApplication__c>(
       getCOBApps()
     );
@@ -319,7 +317,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
       cobApp.ElectronicVerificationAcknowledged__c = true;
     }
 
-    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.createBaseKYCQACase(
+    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.constructBaseKYCQACase(
       cobApps,
       oldMap
     );
@@ -339,13 +337,13 @@ public with sharing class COBApplicationTriggerHandlerTest {
   }
 
   @isTest
-  public static void testCreateBaseKYCQACaseEmptyMap() {
+  public static void testConstructBaseKYCQACaseEmptyMap() {
     List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
     Map<Id, CustomerOnboardingApplication__c> oldMap = new Map<Id, CustomerOnboardingApplication__c>(
       cobApps
     );
 
-    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.createBaseKYCQACase(
+    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.constructBaseKYCQACase(
       cobApps,
       oldMap
     );

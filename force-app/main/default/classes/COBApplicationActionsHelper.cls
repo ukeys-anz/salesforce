@@ -7,9 +7,6 @@ public with sharing class COBApplicationActionsHelper {
   private static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
     'Pending_KYC_QA'
   );
-
-  private static final String EXPR_0 = 'expr0';
-
   public static final Map<String, String> VERIFICATION_TYPE_PRIORITY = new Map<String, String>{
     'MANUAL' => 'High',
     'UNSPECIFIED' => 'High',
@@ -27,13 +24,19 @@ public with sharing class COBApplicationActionsHelper {
   private static final String LICENCE = 'Licence';
   @TestVisible
   private static final String PASSPORT = 'Passport';
+  @TestVisible
+  private static final String VERIFICATION_TYPE_ASSISTED = 'ASSISTED';
+  @TestVisible
+  private static final String VERIFICATION_TYPE_STP = 'STP';
 
   /**
-   * @description Create KYC QA case
+   * @description Set KYC QA case base fields
    * @param cobApp Customer Onboarding Application
    * @return Case KYC QA case
    */
-  public static Case createKYCQACase(CustomerOnboardingApplication__c cobApp) {
+  public static Case setKYCQACaseBaseFields(
+    CustomerOnboardingApplication__c cobApp
+  ) {
     Case kycQACase = new Case(
       RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
       OwnerId = PENDING_KYC_QA_QUEUE.Id,
@@ -49,9 +52,8 @@ public with sharing class COBApplicationActionsHelper {
   /**
    * @description Get Accounts by OCV ids
    * @param ocvIds OCV Ids
-   * @return Map<Id, Account> Map of OCV ids and Accounts
+   * @return Map<String, Account> Map of OCV ids and Accounts
    */
-
   public static Map<String, Account> getAccountsByOCVIDs(Set<String> ocvIds) {
     Map<String, Account> accountsByOCVIDs = new Map<String, Account>();
 
@@ -97,13 +99,20 @@ public with sharing class COBApplicationActionsHelper {
               Id,
               IdDocumentType__c,
               CustomerOnboardingApplication__c,
-              MiddleNamesOCRMatch__c,
+              FirstName__c,
+              FirstNameOCRServer__c,
               FirstNameOCRMatch__c,
+              MiddleNames__c,
+              MiddleNamesOCRServer__c,
+              MiddleNamesOCRMatch__c,
+              LastName__c,
+              LastNameOCRServer__c,
               LastNameOCRMatch__c,
               LicenceNumberOCRMatch__c,
               LicenceCardNumberOCRMatch__c,
               PassportNumberOCRMatch__c,
-              DateOfBirthOCRMatch__c
+              DateOfBirthOCRMatch__c,
+              ExpiryDateOCRMatch__c
             FROM COBPrimaryIDDocuments__r
             ORDER BY CreatedDate DESC
           )
@@ -127,7 +136,6 @@ public with sharing class COBApplicationActionsHelper {
    * @param addressType  Address Type
    * @return getCOBAddressByAddressType COB Address
    */
-  @testVisible
   public static Map<String, COBAddress__c> getCOBAddressByOCVIdAddressType(
     Set<String> ocvIds,
     String addressType
@@ -170,29 +178,121 @@ public with sharing class COBApplicationActionsHelper {
     CustomerOnboardingApplication__c cobApp,
     COBPrimaryIDDocument__c cobPrimaryIDDocument
   ) {
-    Boolean isLicenceMatch =
-      cobPrimaryIDDocument.IdDocumentType__c == LICENCE &&
-      cobPrimaryIDDocument.LicenceNumberOCRMatch__c;
-    Boolean isPassportMatch =
-      cobPrimaryIDDocument.IdDocumentType__c == PASSPORT &&
-      cobPrimaryIDDocument.PassportNumberOCRMatch__c;
-    if (cobApp != null && cobPrimaryIDDocument != null) {
+    Logger.debug('Verification Type: ' + cobApp.VerificationType__c);
+    Logger.debug(
+      'Does Licence Match: ' + doesLicenceMatch(cobPrimaryIDDocument)
+    );
+    Logger.debug(
+      'Does Passport Match: ' + doesPassportMatch(cobPrimaryIDDocument)
+    );
+    Logger.debug(
+      'Does Full Name Match: ' + doesFullNameMatch(cobPrimaryIDDocument)
+    );
+    Logger.debug(
+      'Date Of Birth OCR Match: ' + cobPrimaryIDDocument.DateOfBirthOCRMatch__c
+    );
+    Logger.debug(
+      'Expiry Date OCR Match: ' + cobPrimaryIDDocument.ExpiryDateOCRMatch__c
+    );
+    Logger.saveLog();
+
+    if (
+      (cobApp.VerificationType__c == VERIFICATION_TYPE_STP ||
+      cobApp.VerificationType__c == VERIFICATION_TYPE_ASSISTED)
+    ) {
       if (
-        cobApp.EquifaxDVSResult__c == PASS &&
-        (isLicenceMatch || isPassportMatch)
+        doesLicenceMatch(cobPrimaryIDDocument) ||
+        doesPassportMatch(cobPrimaryIDDocument)
       ) {
         return YES;
-      } else if (
-        cobApp.EquifaxDVSResult__c != PASS &&
-        cobPrimaryIDDocument.FirstNameOCRMatch__c &&
-        cobPrimaryIDDocument.LastNameOCRMatch__c &&
-        cobPrimaryIDDocument.DateOfBirthOCRMatch__c &&
-        ((isLicenceMatch &&
-        cobPrimaryIDDocument.LicenceCardNumberOCRMatch__c) || isPassportMatch)
-      ) {
-        return YES;
+      } else {
+        return NONE;
       }
+    } else if (
+      doesFullNameMatch(cobPrimaryIDDocument) &&
+      cobPrimaryIDDocument.DateOfBirthOCRMatch__c &&
+      cobPrimaryIDDocument.ExpiryDateOCRMatch__c &&
+      (doesLicenceMatch(cobPrimaryIDDocument) ||
+      doesPassportMatch(cobPrimaryIDDocument))
+    ) {
+      return YES;
     }
     return NONE;
+  }
+
+  /**
+   * @description Populate Middle Name Check test result
+   * @param cobPid  COB Primary ID Document
+   * @return Middle Name Check result
+   */
+  public static String populateMiddleNameCheck(COBPrimaryIDDocument__c cobPid) {
+    Logger.debug(
+      'Are First And Last Names OCR Server Blank: ' +
+      areFirstAndLastNamesOCRServerBlank(cobPid)
+    );
+    Logger.debug('Does Midddle Names Match: ' + doMiddleNamesMatch(cobPid));
+    Logger.debug('Does Full Name Match: ' + doesFullNameMatch(cobPid));
+    Logger.debug('Does Licence Match: ' + doesLicenceMatch(cobPid));
+    Logger.debug('Does Passport Match: ' + doesPassportMatch(cobPid));
+    Logger.saveLog();
+
+    if (areFirstAndLastNamesOCRServerBlank(cobPid)) {
+      return NONE;
+    } else if (doMiddleNamesMatch(cobPid)) {
+      return YES;
+    } else if (
+      doesFullNameMatch(cobPid) &&
+      (doesLicenceMatch(cobPid) || doesPassportMatch(cobPid))
+    ) {
+      return YES;
+    }
+
+    return NONE;
+  }
+
+  @TestVisible
+  private static Boolean areFirstAndLastNamesOCRServerBlank(
+    COBPrimaryIDDocument__c cobPid
+  ) {
+    return String.isBlank(cobPid.FirstNameOCRServer__c) &&
+      String.isBlank(cobPid.LastNameOCRServer__c);
+  }
+
+  @TestVisible
+  private static Boolean doMiddleNamesMatch(COBPrimaryIDDocument__c cobPid) {
+    return cobPid.MiddleNamesOCRMatch__c &&
+      String.isNotBlank(cobPid.MiddleNamesOCRServer__c);
+  }
+
+  @TestVisible
+  private static Boolean doesFullNameMatch(COBPrimaryIDDocument__c cobPid) {
+    String cobPIDDFullName = CommonUtil.buildTrimedConcatenatedString(
+      new List<String>{
+        cobPid.FirstName__c,
+        cobPid.MiddleNames__c,
+        cobPid.LastName__c
+      }
+    );
+    String cobPIDDFullNameOCRServer = CommonUtil.buildTrimedConcatenatedString(
+      new List<String>{
+        cobPid.FirstNameOCRServer__c,
+        cobPid.MiddleNamesOCRServer__c,
+        cobPid.LastNameOCRServer__c
+      }
+    );
+
+    return cobPIDDFullName.equalsIgnoreCase(cobPIDDFullNameOCRServer);
+  }
+
+  @TestVisible
+  private static Boolean doesLicenceMatch(COBPrimaryIDDocument__c cobPid) {
+    return cobPid.IdDocumentType__c == LICENCE &&
+      cobPid.LicenceNumberOCRMatch__c;
+  }
+
+  @TestVisible
+  private static Boolean doesPassportMatch(COBPrimaryIDDocument__c cobPid) {
+    return cobPid.IdDocumentType__c == PASSPORT &&
+      cobPid.PassportNumberOCRMatch__c;
   }
 }

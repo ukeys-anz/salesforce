@@ -1843,7 +1843,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "536",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "24",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "173",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1857,7 +1857,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "537",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "24",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "172",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1871,7 +1871,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "539",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "24",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "177",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1885,7 +1885,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "540",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "24",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "175",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1899,7 +1899,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "541",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "24",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "175",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1913,7 +1913,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "542",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "172",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1927,7 +1927,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "543",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "172",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1941,7 +1941,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "544",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "177",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -1955,7 +1955,7 @@
       "IsActive": true,
       "ANZ_Product_Code__c": "545",
       "IDR_Product_or_Service_Line__c": "8",
-      "IDR_Product_or_Service_Category__c": "28",
+      "IDR_Product_or_Service_Category__c": "35",
       "IDR_Product_or_Service_Type__c": "177",
       "IDR_Workbasket__c": "IDR_Wealth",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
@@ -2364,6 +2364,20 @@
       "IDR_Product_or_Service_Category__c": "8",
       "IDR_Product_or_Service_Type__c": "41",
       "IDR_Workbasket__c": "IDR_Wealth",
+      "IDR_Product_Family__c": "@Product_Family__cRef11"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref575"
+      },
+      "Name": "PayTo",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "575",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Type__c": "130",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking",
       "IDR_Product_Family__c": "@Product_Family__cRef11"
     },
     {

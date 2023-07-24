@@ -37,10 +37,12 @@ public with sharing class COBPIDActions {
       cobPid.LastNameOCRMatch__c = String.isNotEmpty(cobPid.LastName__c)
         ? cobPid.LastName__c == cobPid.LastNameOCRServer__c
         : false;
-      cobPid.MiddleNamesOCRMatch__c = COBPIDActionsHelper.compareMiddleNamesValues(
-        cobPid.MiddleNames__c,
-        cobPid.MiddleNamesOCRServer__c
-      );
+      cobPid.MiddleNamesOCRMatch__c = String.isNotEmpty(cobPid.MiddleNames__c)
+        ? cobPid.MiddleNames__c == cobPid.MiddleNamesOCRServer__c
+        : false;
+      cobPid.ExpiryDateOCRMatch__c = cobPid.ExpiryDate__c != null
+        ? cobPid.ExpiryDate__c == cobPid.ExpiryDateOCRServer__c
+        : false;
     }
   }
 }

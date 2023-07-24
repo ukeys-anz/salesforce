@@ -186,4 +186,34 @@
         <default>false</default>
         <label>ANZ Plus Web</label>
     </standardValue>
+    <standardValue>
+        <fullName>Ribbon Failed Task</fullName>
+        <default>false</default>
+        <label>Ribbon Failed Task</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Splunk Alert</fullName>
+        <default>false</default>
+        <label>Splunk Alert</label>
+    </standardValue>
+    <standardValue>
+        <fullName>KYC QA</fullName>
+        <default>false</default>
+        <label>KYC QA</label>
+    </standardValue>
+    <standardValue>
+        <fullName>FalconX</fullName>
+        <default>false</default>
+        <label>FalconX</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other ANZ Plus Profile</fullName>
+        <default>false</default>
+        <label>Other ANZ Plus Profile</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Other AR&amp;C Profile</fullName>
+        <default>false</default>
+        <label>Other AR&amp;C Profile</label>
+    </standardValue>
 </StandardValueSet>

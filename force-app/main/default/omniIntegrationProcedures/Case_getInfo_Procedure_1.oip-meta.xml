@@ -16,6 +16,7 @@
     <name>getCustomerInfo</name>
     <omniProcessElements>
         <name>getCustomerInfo</name>
+        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -53,6 +54,7 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>ResponseAction</name>
+        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
