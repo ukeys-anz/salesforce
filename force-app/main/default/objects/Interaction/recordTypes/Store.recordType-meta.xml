@@ -177,18 +177,6 @@
     <picklistValues>
         <picklist>Resolution__c</picklist>
         <values>
-            <fullName>Assisted App download</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Did not Answer</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Follow-up Required</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>No Action</fullName>
             <default>false</default>
         </values>
@@ -198,10 +186,6 @@
         </values>
         <values>
             <fullName>Resolved</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Voice Mail</fullName>
             <default>false</default>
         </values>
     </picklistValues>
