@@ -2586,7 +2586,7 @@
       "IA-2415855": ["FinServ__ReferrerScore__c"],
       "IA-2432460": ["Refresh_Token__c"]
     },
-    "InteractionStatusMappingForTwilio": {
+    "InteractionStatusMappingForTwilio__mdt": {
       "IA-2530753": ["Interaction_Status__c", "Type__c", "Twilio_Status__c"]
     }
   }
