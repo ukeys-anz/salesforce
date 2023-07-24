@@ -62,7 +62,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'YourFeedback@anz.com';
       emailHeaders.add(sendTo);
 
@@ -127,7 +127,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'testclassxyz@testabc.com'; //This value is present in custom setting
       emailHeaders.add(sendTo);
 
@@ -181,7 +181,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'testclassxyzadsfdsafsda@testabc.com'; //This value is present in custom setting IDR_Email_Service_Setting__mdt
       emailHeaders.add(sendTo);
 
@@ -234,7 +234,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'test@test.com';
       emailHeaders.add(sendTo);
 
@@ -305,7 +305,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'test@test.com';
       emailHeaders.add(sendTo);
 
@@ -384,7 +384,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'test@test.com';
       emailHeaders.add(sendTo);
 
@@ -450,7 +450,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'undislosedrecipients:;';
       emailHeaders.add(sendTo);
 
@@ -524,7 +524,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'YourFeedback@anz.com';
       emailHeaders.add(sendTo);
 
@@ -586,7 +586,7 @@ public with sharing class IDREmailServiceTest {
       //Create email header
       List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
       Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
-      sendTo.name = 'X-MS-Exchange-Inbox-Rules-Loop';
+      sendTo.name = 'To';
       sendTo.value = 'YourFeedback@anz.com';
       emailHeaders.add(sendTo);
 
