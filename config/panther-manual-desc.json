@@ -231,7 +231,8 @@
     "trailheadapp__Trailmix_Assignment__c": "Junction object representing that a user has been assigned some learning content",
     "trailheadapp__User_Badge__c": "Junction object for badges and users.",
     "trailheadapp__User_Trailmix__c": "Maintains user assignments and follows for trailmixes.",
-    "User": "A Salesforce user (ANZ employee)"
+    "User": "A Salesforce user (ANZ employee)",
+    "InteractionStatusMappingForTwilio": "Custom Meta Data to store the mappings of Twilio and Interaction Status"
   },
   "pantherId": {
     "Account": {
@@ -2584,6 +2585,9 @@
       "IA-2415984": ["Area_Code__c", "Industry_Code__c", "State_Code__c"],
       "IA-2415855": ["FinServ__ReferrerScore__c"],
       "IA-2432460": ["Refresh_Token__c"]
+    },
+    "InteractionStatusMappingForTwilio": {
+      "IA-2530753": ["Interaction_Status__c", "Type__c", "Twilio_Status__c"]
     }
   }
 }

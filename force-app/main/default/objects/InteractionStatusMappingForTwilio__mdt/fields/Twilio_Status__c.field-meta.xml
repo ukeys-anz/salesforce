@@ -3,6 +3,7 @@
     <fullName>Twilio_Status__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Twilio</complianceGroup>
+    <description>Interaction Status received from Twilio</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Twilio Status</label>

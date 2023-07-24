@@ -6,7 +6,7 @@
  **/
 @isTest
 private class QualityAssessmentTriggerHandlerTest {
-  private static final String CUSTOMER_PURPOSE = 'Customer';
+  private static final String CUSTOMER_PURPOSE = 'ANZ Customer';
   private static final String STORE_LOCATION = 'Store';
   public static final String REFERENCE_VALUE = 'TestRef';
 

@@ -69,7 +69,8 @@
     "trailheadapp__Trailmix_Assignment__c",
     "trailheadapp__User_Badge__c",
     "trailheadapp__User_Trailmix__c",
-    "User"
+    "User",
+    "InteractionStatusMappingForTwilio__mdt"
   ],
   "usermap": [
     {
