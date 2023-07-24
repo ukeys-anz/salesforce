@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>OmniScript for creating and editing Store Interactions</description>
+    <description>OmniScript for creating and editing Call Interactions</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
@@ -1923,7 +1923,7 @@
   &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Who&quot;,
+  &quot;label&quot; : &quot;For&quot;,
   &quot;controlWidth&quot; : 5
 }</propertySetConfig>
                 <sequenceNumber>3.0</sequenceNumber>
@@ -3261,5 +3261,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>01c72f2f-9ccb-a3cc-c48d-08c8f5d2cbeb</webComponentKey>
+    <webComponentKey>6c8a6a8d-6a17-c400-bda0-0daf50bc1eb0</webComponentKey>
 </OmniScript>
