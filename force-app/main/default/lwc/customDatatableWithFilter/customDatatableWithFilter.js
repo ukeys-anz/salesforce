@@ -3,6 +3,13 @@ import INTERACTION_STATUS from "@salesforce/schema/Interaction.Status__c";
 import { getObjectInfo, getPicklistValues } from "lightning/uiObjectInfoApi";
 import { LightningElement, api, wire, track } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import { publish, MessageContext } from "lightning/messageService";
+import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
+import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+
+// Util methods
+import { handleErrorShowToast } from "c/utils";
 
 const SORT_DIRECTION = "desc";
 const SORTED_BY = "Interaction_Auto_Number__c";
@@ -151,6 +158,9 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   ];
   @track pages = [];
 
+  @wire(MessageContext)
+  messageContext;
+
   @wire(getObjectInfo, { objectApiName: "Interaction" })
   objectInfo;
 
@@ -160,7 +170,6 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   })
   statusPickListValues;
 
-  //This method will give the list of status for filtering the ineractions
   get checkboxOptions() {
     if (this.statusPickListValues.data) {
       return this.statusPickListValues.data.values;
@@ -256,7 +265,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     this.statusValue = event.detail.value;
     this.getRecordsFromDB();
   }
-  // To fetch the Interaction Records from the database based on search string. Also perform sorting, pagination
+
   getRecordsFromDB() {
     this.loading = !this.loading;
     fetchDataForInteraction({
@@ -291,12 +300,43 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   }
 
   handleRowAction(event) {
-    const actionName = event.detail.action.name;
-    const row = event.detail.row;
-    if (actionName) {
-      if (row) {
-        //Shivam will add his code in this method to use these varaible
-      }
+    const selectedAction = event.detail.action.name;
+    let accountId = event.detail.row.AccountId;
+    let chatOrCallSid = event.detail.row.Chat_or_Call_SID__c;
+    if (selectedAction === "ReplyToCustomer") {
+      let errorMessage =
+        "Failed to reinitiate chat. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
+      reinitiateChat({
+        accountId: accountId,
+        conversationSid: chatOrCallSid
+      })
+        .then((result) => {
+          if (result) {
+            this.showToast("Success", "Reinitiate Chat Completed Successfully");
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "Error in reinitiating chat -> " + JSON.stringify(error)
+          );
+          handleErrorShowToast(
+            this,
+            "Failed to re-initiate Chat",
+            errorMessage,
+            errorMessage,
+            "pester"
+          );
+        });
+    }
+
+    // Show Chat History related to the selected Chat Topic
+    if (selectedAction === "ViewTranscript") {
+      const message = { channelSID: chatOrCallSid };
+      this.publishLightningMessage(
+        chatHistoryChannel,
+        message,
+        "Error occurred while displaying related Chat History"
+      );
     }
   }
 
@@ -406,5 +446,33 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     if (this.filterClass === "slds-show") {
       this.filterClass = "slds-hide";
     }
+  }
+
+  publishLightningMessage(msgChannel, message, errorText) {
+    let boolIsError = false;
+    try {
+      publish(this.messageContext, msgChannel, message);
+    } catch (error) {
+      boolIsError = true;
+      let errorMessage = errorText;
+      if (error.body && error.body.message) {
+        errorMessage = error.body.message;
+      }
+
+      handleErrorShowToast(this, errorText, error, errorMessage, "pester");
+    } finally {
+      if (!boolIsError) {
+        this.showToast("Success", "View Transcript Ran Successfully");
+      }
+    }
+  }
+
+  showToast(title, message) {
+    const event = new ShowToastEvent({
+      title: title,
+      message: message,
+      variant: "success"
+    });
+    this.dispatchEvent(event);
   }
 }

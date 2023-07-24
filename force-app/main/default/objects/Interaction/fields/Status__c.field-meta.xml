@@ -9,31 +9,17 @@
     <label>Status</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>Unassigned</fullName>
+                <fullName>Active</fullName>
                 <default>false</default>
-                <label>Unassigned</label>
-            </value>
-            <value>
-                <fullName>Scheduled</fullName>
-                <default>false</default>
-                <label>Scheduled</label>
-            </value>
-            <value>
-                <fullName>Rescheduled</fullName>
-                <default>false</default>
-                <label>Rescheduled</label>
-            </value>
-            <value>
-                <fullName>Walk In</fullName>
-                <default>false</default>
-                <label>Walk In</label>
+                <label>Active</label>
             </value>
             <value>
                 <fullName>Cancelled</fullName>
@@ -41,19 +27,14 @@
                 <label>Cancelled</label>
             </value>
             <value>
-                <fullName>No Show</fullName>
+                <fullName>Closed &amp; Archived</fullName>
                 <default>false</default>
-                <label>No Show</label>
+                <label>Closed &amp; Archived</label>
             </value>
             <value>
                 <fullName>Completed</fullName>
                 <default>false</default>
                 <label>Completed</label>
-            </value>
-            <value>
-                <fullName>Not Completed</fullName>
-                <default>false</default>
-                <label>Not Completed</label>
             </value>
             <value>
                 <fullName>Created</fullName>
@@ -64,6 +45,51 @@
                 <fullName>Linked</fullName>
                 <default>false</default>
                 <label>Linked</label>
+            </value>
+            <value>
+                <fullName>New</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>No Show</fullName>
+                <default>false</default>
+                <label>No Show</label>
+            </value>
+            <value>
+                <fullName>Not Completed</fullName>
+                <default>false</default>
+                <label>Not Completed</label>
+            </value>
+            <value>
+                <fullName>On Hold (By Coach)</fullName>
+                <default>false</default>
+                <label>On Hold (By Coach)</label>
+            </value>
+            <value>
+                <fullName>On Hold (By Customer)</fullName>
+                <default>false</default>
+                <label>On Hold (By Customer)</label>
+            </value>
+            <value>
+                <fullName>Rescheduled</fullName>
+                <default>false</default>
+                <label>Rescheduled</label>
+            </value>
+            <value>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+                <label>Scheduled</label>
+            </value>
+            <value>
+                <fullName>Unassigned</fullName>
+                <default>false</default>
+                <label>Unassigned</label>
+            </value>
+            <value>
+                <fullName>Walk In</fullName>
+                <default>false</default>
+                <label>Walk In</label>
             </value>
         </valueSetDefinition>
     </valueSet>

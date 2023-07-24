@@ -15,21 +15,16 @@
         <controllingField>InteractionType</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
-            <value>
-                <fullName>Potts Point</fullName>
-                <default>false</default>
-                <label>Potts Point</label>
-            </value>
-            <value>
-                <fullName>Richmond</fullName>
-                <default>false</default>
-                <label>Richmond</label>
-            </value>
+            <sorted>true</sorted>
             <value>
                 <fullName>ACT</fullName>
                 <default>false</default>
                 <label>ACT</label>
+            </value>
+            <value>
+                <fullName>Branch</fullName>
+                <default>false</default>
+                <label>Branch</label>
             </value>
             <value>
                 <fullName>NSW</fullName>
@@ -42,9 +37,19 @@
                 <label>NT</label>
             </value>
             <value>
+                <fullName>Potts Point</fullName>
+                <default>false</default>
+                <label>Potts Point</label>
+            </value>
+            <value>
                 <fullName>QLD</fullName>
                 <default>false</default>
                 <label>QLD</label>
+            </value>
+            <value>
+                <fullName>Richmond</fullName>
+                <default>false</default>
+                <label>Richmond</label>
             </value>
             <value>
                 <fullName>SA</fullName>
@@ -65,11 +70,6 @@
                 <fullName>WA</fullName>
                 <default>false</default>
                 <label>WA</label>
-            </value>
-            <value>
-                <fullName>Branch</fullName>
-                <default>false</default>
-                <label>Branch</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
