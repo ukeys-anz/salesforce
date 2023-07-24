@@ -161,14 +161,20 @@ public with sharing class IDRCaseNotificationManager {
       'Email has failed to upload' => 'Email has failed to upload Case: ' +
       caseNumber +
       ' ' +
-      customerName,
-      'Parent Updated' => (fieldLabel.equalsIgnoreCase(
-          IDRConstants.CASE_OWNER_ID
-        ) && (!(String.valueOf(c.OwnerId).startsWith('00G'))))
-        ? 'A Case has been assigned to you ' + caseNumber + ' ' + customerName
-        : ''
+      customerName
     };
     subjectStr = mpFieldLabel2Subject.get(fieldLabel);
+    if ( subjectStr == null &&
+        fieldLabel != 'Parent Updated' &&
+        fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
+        (!(String.valueOf(c.OwnerId).startsWith('00G')))
+    ) {
+        subjectStr =
+        'A Case has been assigned to you ' +
+        caseNumber +
+        ' ' +
+        customerName;
+    }
     if (String.isNotEmpty(subjectStr)) {
       Task assiTaskRec = IDRTaskActions.createAssignmentTask(c, subjectStr);
       if (fieldLabel == 'Email Response Attached') {
