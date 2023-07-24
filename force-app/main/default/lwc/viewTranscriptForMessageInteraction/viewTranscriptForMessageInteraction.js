@@ -19,6 +19,7 @@ export default class ViewTranscriptForInteraction extends LightningElement {
 
   @api invoke() {
     if (this.chatOrCallSid && this.isExecuting) {
+      const message = { channelSID: this.chatOrCallSid };
       this.publishLightningMessage(
         chatHistoryChannel,
         this.chatOrCallSid,

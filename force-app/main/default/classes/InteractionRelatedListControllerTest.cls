@@ -7,7 +7,7 @@
 
 @isTest
 public with sharing class InteractionRelatedListControllerTest {
-  public static final String CUSTOMER_PURPOSE = 'ANZ Customer';
+  public static final String CUSTOMER_PURPOSE = 'Customer';
   public static final String DIGITAL_PURPOSE = 'Digital Support';
   public static final String OPEN_STATUS = 'Open';
   public static final String STORE_LOCATION = 'Store';
@@ -56,7 +56,7 @@ public with sharing class InteractionRelatedListControllerTest {
       CaseId__c = newCase.Id,
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
-      InteractionType = STORE_LOCATION,
+      InteractionType = 'Call',
       LocationId = testLocation.Id
     );
     List<Interaction> intList = new List<Interaction>{
@@ -114,7 +114,7 @@ public with sharing class InteractionRelatedListControllerTest {
       AccountId = testAcc.Id,
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
-      InteractionType = STORE_LOCATION,
+      InteractionType = 'Call',
       LocationId = testLocation.Id
     );
 

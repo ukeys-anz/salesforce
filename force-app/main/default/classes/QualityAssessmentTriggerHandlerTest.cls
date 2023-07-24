@@ -6,7 +6,7 @@
  **/
 @isTest
 private class QualityAssessmentTriggerHandlerTest {
-  private static final String CUSTOMER_PURPOSE = 'ANZ Customer';
+  private static final String CUSTOMER_PURPOSE = 'Customer';
   private static final String STORE_LOCATION = 'Store';
   public static final String REFERENCE_VALUE = 'TestRef';
 
@@ -685,7 +685,7 @@ private class QualityAssessmentTriggerHandlerTest {
       Name = faker.randomString(10),
       StartTime = Datetime.now(),
       Interaction_Purpose__c = CUSTOMER_PURPOSE,
-      InteractionType = STORE_LOCATION
+      InteractionType = 'Call'
     );
     insert interaction;
 
