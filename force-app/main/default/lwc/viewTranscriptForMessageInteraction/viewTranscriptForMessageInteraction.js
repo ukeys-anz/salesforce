@@ -22,7 +22,7 @@ export default class ViewTranscriptForInteraction extends LightningElement {
       const message = { channelSID: this.chatOrCallSid };
       this.publishLightningMessage(
         chatHistoryChannel,
-        this.chatOrCallSid,
+        message,
         "Error occurred while displaying related Chat History"
       );
     }
