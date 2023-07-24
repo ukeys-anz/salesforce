@@ -8,10 +8,10 @@
   'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount'
 )
 public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
-  public List<SOPAssetSummary> assetsSummaries;
+  public SOPAssetSummary assetsSummary;
   public List<SOPDebtSummary> liabilitiesSummaries;
   public List<SOPExpenseSummary> monthlyExpensesSummaries;
-  public List<SOPIncome> incomes;
+  public SOPIncomeSummary incomesSummary;
   public List<SOPEmployment> employments;
   public static Map<String, SOPEmployment> employeeIdToEmployeeMap;
   public static Map<String, String> employeeIdToPartyIdMap;
@@ -21,19 +21,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
   public List<SOPExpenseNode> expenseNodes;
   public Map<String, SOPExpense> expenseMap;
-
-  /**
-   * @description return the income size attribute to display no income message on flexcard.
-   */
-  public Integer incomeSize {
-    get {
-      if (incomes.size() == 0) {
-        return 0;
-      } else {
-        return incomes.size();
-      }
-    }
-  }
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
@@ -57,7 +44,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public void initMaps() {
     initPartyIdToAccountMap();
     initAccNumberToFinAccountMap();
-    initEmployeeIdToEmployeeMap();
   }
 
   /**
@@ -74,8 +60,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
 
     Set<String> ocvIdSet = new Set<String>();
-    if (assetsSummaries.size() > 0) {
-      for (SOPAsset asset : assetsSummaries[0].assets) {
+    if (assetsSummary != null) {
+      for (SOPAsset asset : assetsSummary.assets) {
         if (asset.ownership != null) {
           for (SOPOwnership owner : asset.ownership) {
             ocvIdSet.add(partyToOcvMap.get(owner.partyId));
@@ -118,8 +104,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       return;
     }
     Set<String> accNumberSet = new Set<String>();
-    if (assetsSummaries.size() > 0) {
-      for (SOPAsset asset : assetsSummaries[0].assets) {
+    if (assetsSummary != null) {
+      for (SOPAsset asset : assetsSummary.assets) {
         if (asset.account != null) {
           accNumberSet.add(asset.account.accountNumber);
         }
@@ -143,25 +129,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         finAcc.FinServ__FinancialAccountNumber__c,
         finAcc
       );
-    }
-  }
-
-  /**
-   * @description get Employee details from the employment node
-   */
-  public void initEmployeeIdToEmployeeMap() {
-    if (ResidentialLoanApplicationModel.employeeIdToEmployeeMap != null) {
-      return;
-    } else {
-      ResidentialLoanApplicationModel.employeeIdToEmployeeMap = new Map<String, SOPEmployment>();
-      if (this.employments != null) {
-        for (SOPEmployment employment : this.employments) {
-          ResidentialLoanApplicationModel.employeeIdToEmployeeMap.put(
-            employment.Id,
-            employment
-          );
-        }
-      }
     }
   }
 
@@ -408,6 +375,14 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   }
 
   /**
+   * @description SOPIncomeSummary displays all the income related values
+   */
+  public class SOPIncomeSummary {
+    public List<SOPIncome> incomes;
+    public SOPMoney incomesTotalAmount;
+  }
+
+  /**
    * @description model for general model configuration
    */
   public class SOPModel {
@@ -427,20 +402,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public class SOPIncome implements Comparable {
     public String id;
-    /**
-     * @description null check for the income child flexcard
-     */
-    public String idNullCheck {
-      get {
-        if (id != null) {
-          return 'Y';
-        } else {
-          return 'N';
-        }
-      }
-    }
     public String sopId;
     public List<SOPIncomeDetail> details;
+    public SOPEmployment employment;
     public string employmentId;
     public string updateTime;
     public SOPverification verification;
@@ -449,11 +413,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public string ownerName {
       get {
-        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
-          this.employmentId
-        );
-
-        if (employment != null && employment.partyId != null) {
+        if (employment.partyId != null) {
           Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
             employment.partyId
           );
@@ -473,27 +433,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String employer {
       get {
-        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
-          this.employmentId
-        );
         if (employment != null && employment.businessName != null) {
           return employment.businessName;
-        } else {
-          return null;
-        }
-      }
-    }
-
-    /**
-     * @description employment name for the income card
-     */
-    public String employmentBasis {
-      get {
-        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
-          this.employmentId
-        );
-        if (employment != null && employment.basis != null) {
-          return employment.basis;
         } else {
           return null;
         }
@@ -505,9 +446,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String startDate {
       get {
-        SOPEmployment employment = ResidentialLoanApplicationModel.employeeIdToEmployeeMap.get(
-          this.employmentId
-        );
         if (employment != null && employment.startDate != null) {
           return employment.startDate.year +
             '-' +
@@ -525,7 +463,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String employmentType {
       get {
-        String[] words = employmentBasis.split('_');
+        String[] words = employment.basis.split('_');
         String result = '';
         words.remove(0);
         words.remove(0);
@@ -630,7 +568,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String incomeVerified {
       get {
-        System.debug('Verification method: ' + verification);
         if (this.verification.method == 'VERIFICATION_METHOD_UNSPECIFIED') {
           return 'Yes';
         } else {
@@ -700,10 +637,12 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     );
     model.initMaps();
     model.organizeExpenseNodes();
-    if (model.assetsSummaries.size() > 0) {
-      model.assetsSummaries[0].assets.sort();
+    if (model.assetsSummary != null) {
+      model.assetsSummary.assets.sort();
     }
-    model.incomes.sort();
+    if (model.incomesSummary.incomes != null) {
+      model.incomesSummary.incomes.sort();
+    }
     return model;
   }
 }
