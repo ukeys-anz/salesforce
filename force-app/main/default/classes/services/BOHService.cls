@@ -5,6 +5,8 @@
  * @group Services
  */
 public with sharing class BOHService extends Service {
+  public static final String FLEXCARDDATETIMEDISPLAYFORMAT = 'd MMMM y | K:mm a';
+
   /**
    * @param sopId sop id to retrieve customer savings and asset
    * @return `HttpCalloutResponse` the api response
@@ -27,5 +29,14 @@ public with sharing class BOHService extends Service {
     );
 
     return response;
+  }
+
+  /**
+   * @description Converts the salesforce datetime into FLEXCARDDATETIMEDISPLAYFORMAT
+   * @param dt Input datetime to format.
+   * @return `String` formatted string in required format.
+   */
+  public static string getFormatedDate(DateTime dt) {
+    return dt != null ? dt.format(FLEXCARDDATETIMEDISPLAYFORMAT) : null;
   }
 }

@@ -13,5 +13,13 @@ public class SOPExpense {
   public String review;
   public SOPMoney statedMonthlyAverageAmount; 
   public Boolean leafNode;
-  public String updateTime;
+  public Datetime updateTime;
+  /**
+   * @description return update time in the expected format
+   */
+  public String updateTimeStr {
+    get {
+      return BOHService.getFormatedDate(updateTime);
+    }
+  }
 }
