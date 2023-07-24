@@ -531,7 +531,9 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
         .then(() => {
           this.loading = false;
           // Display fresh data
-          this.dispatchEvent(new CloseActionScreenEvent());
+          this.dispatchEvent(
+            new CloseActionScreenEvent({ bubbles: true, composed: true })
+          );
         })
         .catch((error) => {
           let message = "Unknown error";
