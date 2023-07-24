@@ -1836,7 +1836,7 @@
   &quot;label&quot; : &quot;Direction&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -2162,7 +2162,7 @@
   &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Who&quot;,
+  &quot;label&quot; : &quot;For&quot;,
   &quot;controlWidth&quot; : 5
 }</propertySetConfig>
                 <sequenceNumber>3.0</sequenceNumber>
@@ -3408,5 +3408,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForMessage_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>faf610eb-d9ae-84b4-54e3-31aa9471b873</webComponentKey>
+    <webComponentKey>69f88aa2-3b02-003e-755f-3281f6cac036</webComponentKey>
 </OmniScript>
