@@ -2,6 +2,7 @@ import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { RefreshEvent } from "lightning/refresh";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -61,6 +62,7 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
         if (result) {
           this.isExecuting = false;
           this.showToast("Success", "Reinitiate Chat Completed Successfully");
+          this.beginRefresh();
         }
       })
       .catch((error) => {
@@ -82,5 +84,9 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
       variant: "success"
     });
     this.dispatchEvent(event);
+  }
+
+  beginRefresh() {
+    this.dispatchEvent(new RefreshEvent());
   }
 }
