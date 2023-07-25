@@ -28,6 +28,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   @api anyRecordId;
   @api recordTypeDeveloperName;
   @api originalRecords;
+  recordTypeName;
   _defaultSortDirection;
   _sortDirection;
   _sortedBy;
@@ -166,16 +167,16 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   objectInfo({ data }) {
     if (data) {
       const recordTypeIds = data.recordTypeInfos;
-      let recordTypeName = "";
+
       if (this.recordTypeDeveloperName === "General") {
-        recordTypeName = "Call";
+        this.recordTypeName = "Call";
       } else if (this.recordTypeDeveloperName === "Store") {
-        recordTypeName = "In Person";
+        this.recordTypeName = "In Person";
       } else if (this.recordTypeDeveloperName === "Message") {
-        recordTypeName = "Message";
+        this.recordTypeName = "Message";
       }
       this.recordTypeId = Object.keys(recordTypeIds).find(
-        (rti) => recordTypeIds[rti].name === recordTypeName
+        (rti) => recordTypeIds[rti].name === this.recordTypeName
       );
     }
   }
