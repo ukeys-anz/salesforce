@@ -668,7 +668,7 @@ public with sharing class GetHelpCaseActionsHelper {
       ) {
         mobileByCaseIdMap.put(
           c.Id,
-          c.CustomerOnboardingApplication__r.SecurityMobile__c
+          '+' + c.CustomerOnboardingApplication__r.SecurityMobile__c
         );
       }
     }

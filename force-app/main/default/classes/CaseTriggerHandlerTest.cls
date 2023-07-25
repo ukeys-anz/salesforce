@@ -17,15 +17,21 @@ private class CaseTriggerHandlerTest {
 
   private static final String EMPTY_FAILED_REASON = '';
 
-  private static final List<String> MATCHING_MOBILE_NUMBERS = new List<String>{
-    '0412121212',
-    '0413131313',
-    '0415151515'
+  private static final List<String> COB_MATCHING_MOBILE_NUMBERS = new List<String>{
+    '61412121212',
+    '61413131313',
+    '61415151515'
+  };
+
+  private static final List<String> CUSTOMER_MATCHING_MOBILE_NUMBERS = new List<String>{
+    '+61412121212',
+    '+61413131313',
+    '+61415151515'
   };
 
   private static final List<String> NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '0412121219',
-    '0413131319'
+    '+61412121219',
+    '+61413131319'
   };
 
   @TestSetup
@@ -3276,13 +3282,16 @@ private class CaseTriggerHandlerTest {
   private static void makeCOBData() {
     List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
     List<Account> personAccsWithMobile = new List<Account>();
-    for (Integer i = 0; i < MATCHING_MOBILE_NUMBERS.size(); i++) {
-      cobApps.add(createCOBApp(MATCHING_MOBILE_NUMBERS[i]));
-      personAccsWithMobile.add(createPersonAccount(MATCHING_MOBILE_NUMBERS[i]));
+    for (String mobileNumber : COB_MATCHING_MOBILE_NUMBERS) {
+      cobApps.add(createCOBApp(mobileNumber));
     }
 
-    for (Integer i = 0; i < NOT_MATCHING_MOBILE_NUMBERS.size(); i++) {
-      cobApps.add(createCOBApp(NOT_MATCHING_MOBILE_NUMBERS[i]));
+    for (String mobileNumber : CUSTOMER_MATCHING_MOBILE_NUMBERS) {
+      personAccsWithMobile.add(createPersonAccount(mobileNumber));
+    }
+
+    for (String mobileNumber : NOT_MATCHING_MOBILE_NUMBERS) {
+      cobApps.add(createCOBApp(mobileNumber));
     }
 
     insert cobApps;
@@ -3389,10 +3398,10 @@ private class CaseTriggerHandlerTest {
     List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
 
     Assert.areEqual(
-      MATCHING_MOBILE_NUMBERS.size(),
+      COB_MATCHING_MOBILE_NUMBERS.size(),
       casesLinkedWithAccount.size(),
       'Should be ' +
-      MATCHING_MOBILE_NUMBERS.size() +
+      COB_MATCHING_MOBILE_NUMBERS.size() +
       ' KYC QA Cases with Matched Person Accounts'
     );
 
@@ -3428,10 +3437,10 @@ private class CaseTriggerHandlerTest {
     List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
 
     Assert.areEqual(
-      MATCHING_MOBILE_NUMBERS.size(),
+      COB_MATCHING_MOBILE_NUMBERS.size(),
       casesLinkedWithAccount.size(),
       'Should be ' +
-      MATCHING_MOBILE_NUMBERS.size() +
+      COB_MATCHING_MOBILE_NUMBERS.size() +
       ' KYC QA Cases with Matched Person Accounts'
     );
 
@@ -3468,10 +3477,10 @@ private class CaseTriggerHandlerTest {
     List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
 
     Assert.areEqual(
-      MATCHING_MOBILE_NUMBERS.size(),
+      COB_MATCHING_MOBILE_NUMBERS.size(),
       casesLinkedWithAccount.size(),
       'Should be ' +
-      MATCHING_MOBILE_NUMBERS.size() +
+      COB_MATCHING_MOBILE_NUMBERS.size() +
       ' KYC QA Cases with Matched Person Accounts'
     );
 

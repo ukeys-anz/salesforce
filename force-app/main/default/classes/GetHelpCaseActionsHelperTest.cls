@@ -18,10 +18,16 @@ public with sharing class GetHelpCaseActionsHelperTest {
 
   private static final String EMPTY_FAILED_REASON = '';
 
-  private static final List<String> MOBILE_NUMBERS = new List<String>{
-    '0412121212',
-    '0413131313',
-    '0415151515'
+  private static final List<String> COB_MOBILE_NUMBERS = new List<String>{
+    '61412121212',
+    '61413131313',
+    '61415151515'
+  };
+
+  private static final List<String> CUSTOMER_MOBILE_NUMBERS = new List<String>{
+    '+61412121212',
+    '+61413131313',
+    '+61415151515'
   };
 
   @TestSetup
@@ -33,9 +39,12 @@ public with sharing class GetHelpCaseActionsHelperTest {
     List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
     List<Account> personAccounts = new List<Account>();
 
-    for (Integer i = 0; i < MOBILE_NUMBERS.size(); i++) {
-      cobApps.add(createCOBApp(MOBILE_NUMBERS[i]));
-      personAccounts.add(createPersonAccount(MOBILE_NUMBERS[i]));
+    for (String mobileNumber : COB_MOBILE_NUMBERS) {
+      cobApps.add(createCOBApp(mobileNumber));
+    }
+
+    for (String mobileNumber : CUSTOMER_MOBILE_NUMBERS) {
+      personAccounts.add(createPersonAccount(mobileNumber));
     }
 
     //Add COB app with null mobile Number
@@ -279,18 +288,18 @@ public with sharing class GetHelpCaseActionsHelperTest {
     Test.stopTest();
 
     Assert.areEqual(
-      MOBILE_NUMBERS.size() + 1,
+      COB_MOBILE_NUMBERS.size() + 1,
       cases.size(),
       'Should be ' +
-      (MOBILE_NUMBERS.size() + 1) +
+      (COB_MOBILE_NUMBERS.size() + 1) +
       '  KYC QA Cases total'
     );
 
     Assert.areEqual(
-      MOBILE_NUMBERS.size(),
+      COB_MOBILE_NUMBERS.size(),
       mobileByCaseIdMap.size(),
       'Should be ' +
-      MOBILE_NUMBERS.size() +
+      COB_MOBILE_NUMBERS.size() +
       ' KYC QA Cases by COB App Mobile numbers'
     );
   }
@@ -311,15 +320,15 @@ public with sharing class GetHelpCaseActionsHelperTest {
   private static void testGetAccountsByMobile() {
     Test.startTest();
     Map<String, Account> accountsByMobileMap = GetHelpCaseActionsHelper.getAccountsByMobile(
-      MOBILE_NUMBERS
+      CUSTOMER_MOBILE_NUMBERS
     );
     Test.stopTest();
 
     Assert.areEqual(
-      MOBILE_NUMBERS.size(),
+      CUSTOMER_MOBILE_NUMBERS.size(),
       accountsByMobileMap.size(),
       'Should be ' +
-      MOBILE_NUMBERS.size() +
+      CUSTOMER_MOBILE_NUMBERS.size() +
       ' Accounts matched by Mobile Numbers'
     );
   }
