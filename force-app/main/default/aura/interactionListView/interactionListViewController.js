@@ -8,7 +8,7 @@
       .c__recordTypeDeveloperName;
 
     // Variable declared to show tab label
-    var tabname = "Message";
+    let tabname = "Message";
 
     // fetch the recordId from URL, this can be anything Account, Lead, Case, Coaching Summary etc
     const anyRecordId = component.get("v.pageReference").state.c__anyRecordId;
@@ -30,7 +30,7 @@
         workspaceAPI.setTabIcon({
           tabId: enclosedTabId,
           icon: "custom:custom14",
-          iconAlt: "SubTab Label Name"
+          iconAlt: "Interaction List View"
         });
       })
       .catch(function (error) {
