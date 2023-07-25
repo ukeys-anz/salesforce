@@ -7,16 +7,30 @@
     const recordTypeDeveloperName = component.get("v.pageReference").state
       .c__recordTypeDeveloperName;
 
+    // Variable declared to show tab label
+    let tabname = "Message";
+
     // fetch the recordId from URL, this can be anything Account, Lead, Case, Coaching Summary etc
     const anyRecordId = component.get("v.pageReference").state.c__anyRecordId;
     component.set("v.anyRecordId", anyRecordId);
     component.set("v.recordTypeDeveloperName", recordTypeDeveloperName);
+    if (recordTypeDeveloperName === "General") {
+      tabname = "Call";
+    } else if (recordTypeDeveloperName === "Store") {
+      tabname = "In Person";
+    }
     workspaceAPI
       .getEnclosingTabId()
       .then(function (enclosedTabId) {
         workspaceAPI.setTabLabel({
           tabId: enclosedTabId,
-          label: recordTypeDeveloperName + " List View"
+          label: tabname + " List View"
+        });
+        //Setting Tab icon
+        workspaceAPI.setTabIcon({
+          tabId: enclosedTabId,
+          icon: "custom:custom14",
+          iconAlt: "Interaction List View"
         });
       })
       .catch(function (error) {
