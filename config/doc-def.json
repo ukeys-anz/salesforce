@@ -57,7 +57,6 @@
     "Release__c",
     "Response_Type__c",
     "Reported_Bug__c",
-    "SkyhighNetworks__SHNEvent__c",
     "Task",
     "Traced_Application_Log__b",
     "trailheadapp__Badge__c",
@@ -71,6 +70,13 @@
     "User"
   ],
   "usermap": [
+    {
+      "name": "ANZ Plus Operations - Read Only	",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["ANZ_Plus_Operations_Read_Only"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
     {
       "name": "Business Admin",
       "profile": "ANZx Standard User",
@@ -285,13 +291,6 @@
       "permissionsetgroups": ["IDR_SI_Business_Contact"],
       "permissionsets": ["Enforce_SSO"],
       "type": "user"
-    },
-    {
-      "name": "MVISION Integration User",
-      "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": [],
-      "permissionsets": ["API_Only", "Mvision_Permissions", "Disable_MFA"],
-      "type": "system"
     },
     {
       "name": "Notification Broker Integration User",
