@@ -51,7 +51,7 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
     Integer maxNumber = (inputMap.get('maxNumber') == null)
       ? MAXLIMIT
       : (Integer) inputMap.get('maxNumber');
-    String interactionQuery = 'SELECT Id,RecordType.DeveloperName,Chat_or_Call_SID__c, Name, Interaction_Auto_Number__c, AccountId, Account.Name,Lead__c, Lead__r.Name,StartTime,Interaction_Purpose__c, Contact_Mobile__c,InteractionType,Resolution__c ,Owner.Name ,CreatedDate, Actual_Topics__c, Reason_for_Visit__c, Status__c, Place__c, Attendees__c ,Video_Call__c From Interaction WHERE ';
+    String interactionQuery = 'SELECT Id,RecordType.DeveloperName,Chat_or_Call_SID__c, Name, Interaction_Auto_Number__c, AccountId, Account.Name,Lead__c, Lead__r.Name,StartTime,Interaction_Purpose__c, Contact_Mobile__c,InteractionType,Resolution__c ,Owner.Name ,CreatedDate, Actual_Topics__c, Reason_for_Visit__c, Status__c, Place__c, Attendees__c ,Video_Call__c, Direction__c From Interaction WHERE ';
     String sobjectType = String.valueOf(
       Id.valueOf(anyRecordId).getSObjectType()
     );
