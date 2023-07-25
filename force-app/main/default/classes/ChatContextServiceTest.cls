@@ -2,11 +2,10 @@
  * @author Shermal Warnakula
  * @since  11/2020
  * @description Test class to cover tests for {@link ChatContextService}
- * ChatContextService class is deprecated as part of user story ANZX-104268. There will be no auto creation of Case will happen now. -Shivam , July 2023
  */
 @isTest
 public with sharing class ChatContextServiceTest {
-  /* @testSetup
+  @testSetup
   static void testSetup() {
     Faker faker = new Faker('AU');
     Profile p = CommonUtil.getProfileByName('Minimum Access - External Apps');
@@ -490,7 +489,7 @@ public with sharing class ChatContextServiceTest {
       responseDto[0].chatLabel,
       'Chat label should be as expected.'
     );
-  }*/
+  }
 
   /**
    * @description Method to prepare REST requests for test scenarios.
@@ -501,7 +500,7 @@ public with sharing class ChatContextServiceTest {
    * @return `List<ChatContextService.ChatContextRequest>` List of 'ChatContextService.ChatContextRequest'
    */
   //Suppress warnings for parameters to prepare request
-  /*public static List<ChatContextService.ChatContextRequest> prepareRequest(
+  public static List<ChatContextService.ChatContextRequest> prepareRequest(
     String ocvId,
     String channelSid,
     String caseSubtype,
@@ -528,5 +527,5 @@ public with sharing class ChatContextServiceTest {
     RestContext.response = res;
 
     return contextRequests;
-  }*/
+  }
 }
