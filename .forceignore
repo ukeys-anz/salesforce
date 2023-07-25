@@ -160,3 +160,6 @@ force-app/main/default/objects/LogEntry__c/fields/RecordsJson__c.field-meta.xml
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
+
+#AR-90796 - Uninstall mvision
+mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml

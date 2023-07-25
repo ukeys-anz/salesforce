@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -24,30 +25,96 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-1b16acd5-4f93-479f-afda-07d8826e3338</name>
         <itemInstances>
             <componentInstance>
                 <componentName>financialAccountParent</componentName>
                 <identifier>financialAccountParent</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-1b16acd5-4f93-479f-afda-07d8826e3338</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</name>
         <itemInstances>
             <componentInstance>
                 <componentName>statementsViewer</componentName>
                 <identifier>statementsViewer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-b9a693ff-d38f-48c1-9c05-e92b6c23ac9b</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-5ba94398-3ec2-41a0-a00c-6bb9aa8c5f7a</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p&gt;THIS COMPONENT IS ONLY AVAILABLE FOR SAVINGS ACCOUNT&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>flexipage_richText</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>SavingsAccount</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>filterOnRecordId</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <value>600</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sfAdvancedFilter</name>
+                    <value>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showTabs</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showToolbar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabAdvancedFilter</name>
+                    <value>Account Number</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>vizUrl</name>
+                    <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SITK-AccountInterestRates/AccountInterestRates</value>
+                </componentInstanceProperties>
+                <componentName>tab:tableauViz</componentName>
+                <identifier>tab_tableauViz</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>SavingsAccount</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -80,10 +147,24 @@
                 <identifier>customTab2</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-7188c568-afd4-48b9-a8df-672656f1f07a</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-5ba94398-3ec2-41a0-a00c-6bb9aa8c5f7a</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Interest Rates</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
+            </componentInstance>
+        </itemInstances>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -95,20 +176,20 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>Facet-23e8381a-68f6-46c9-88bc-49070fe34e1e</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceKnowledge:articleSearchDesktop</componentName>
                 <identifier>forceKnowledge_articleSearchDesktop</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-23e8381a-68f6-46c9-88bc-49070fe34e1e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>activityTabContent</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -120,10 +201,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>activityTabContent</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebartabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -161,10 +242,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebartabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentName>force:detailPanel</componentName>
@@ -194,7 +275,6 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
-        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Financial Account Record Page</masterLabel>
