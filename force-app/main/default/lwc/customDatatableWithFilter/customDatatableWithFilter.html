@@ -6,8 +6,20 @@
         variant="brand"
       ></lightning-spinner>
     </template>
-
-    <div class="slds-col slds-size_12-of-12">
+    <div class="slds-col slds-size_7-of-12">
+      <div
+        class="slds-page-header__title listViewTitle slds-truncate slds-var-m-top_medium"
+      >
+        <lightning-icon
+          icon-name="custom:custom14"
+          size="medium"
+          class="slds-var-m-right_xx-small"
+        >
+        </lightning-icon>
+        List of {recordTypeName} Interactions
+      </div>
+    </div>
+    <div class="slds-col slds-size_5-of-12">
       <div class="slds-grid slds-grid_align-end">
         <div class="slds-clearfix">
           <div class="slds-float_left">
@@ -52,7 +64,6 @@
         </div>
       </div>
     </div>
-
     <div class="slds-col slds-size_12-of-12 slds-var-m-top_large">
       <c-datatable-with-column-click
         data={currentPageData}
