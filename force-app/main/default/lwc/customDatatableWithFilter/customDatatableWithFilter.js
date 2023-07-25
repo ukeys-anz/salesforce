@@ -34,6 +34,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   _originalRecords;
   _localOriginalRecords;
   _originalColumns;
+  recordTypeId;
   statusValue = [];
   loading = false;
   boolIsMessage = false;
@@ -57,7 +58,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       },
       sortable: true
     },
-    { label: "Who", fieldName: "Interaction_Purpose__c", sortable: true },
+    { label: "For", fieldName: "Interaction_Purpose__c", sortable: true },
     { label: "Channel", fieldName: "InteractionType", sortable: true },
     { label: "Direction", fieldName: "Direction__c", sortable: true },
     {
@@ -94,7 +95,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       },
       sortable: true
     },
-    { label: "Who", fieldName: "Interaction_Purpose__c", sortable: true },
+    { label: "For", fieldName: "Interaction_Purpose__c", sortable: true },
     { label: "Channel", fieldName: "InteractionType", sortable: true },
     { label: "Status", fieldName: "Status__c", sortable: true },
     { label: "Direction", fieldName: "Direction__c", sortable: true },
@@ -136,7 +137,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
       },
       sortable: true
     },
-    { label: "Who", fieldName: "Interaction_Purpose__c", sortable: true },
+    { label: "For", fieldName: "Interaction_Purpose__c", sortable: true },
     { label: "Channel", fieldName: "InteractionType", sortable: true },
     { label: "Place", fieldName: "Place__c", sortable: true },
     { label: "Action Taken", fieldName: "Resolution__c", sortable: true },
@@ -162,10 +163,24 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   messageContext;
 
   @wire(getObjectInfo, { objectApiName: "Interaction" })
-  objectInfo;
-
+  objectInfo({ data }) {
+    if (data) {
+      const recordTypeIds = data.recordTypeInfos;
+      let recordTypeName = "";
+      if (this.recordTypeDeveloperName === "General") {
+        recordTypeName = "Call";
+      } else if (this.recordTypeDeveloperName === "Store") {
+        recordTypeName = "In Person";
+      } else if (this.recordTypeDeveloperName === "Message") {
+        recordTypeName = "Message";
+      }
+      this.recordTypeId = Object.keys(recordTypeIds).find(
+        (rti) => recordTypeIds[rti].name === recordTypeName
+      );
+    }
+  }
   @wire(getPicklistValues, {
-    recordTypeId: "$objectInfo.data.defaultRecordTypeId",
+    recordTypeId: "$recordTypeId",
     fieldApiName: INTERACTION_STATUS
   })
   statusPickListValues;

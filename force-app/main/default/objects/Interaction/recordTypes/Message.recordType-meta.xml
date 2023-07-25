@@ -220,18 +220,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Completed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Created</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Linked</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>New</fullName>
             <default>false</default>
         </values>
