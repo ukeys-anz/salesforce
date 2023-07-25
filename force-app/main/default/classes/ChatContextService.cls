@@ -4,13 +4,12 @@
  * @description APEX REST API class to handle incoming requests from Twilio.
  * StdCyclomaticComplexity Surpressed : The complexity of this test class is more than it is expected.
  * Note: StdCyclomaticComplexity | for each decision point, but not including boolean operators unlike CyclomaticComplexityRule
- * ChatContextService class is deprecated as part of user story ANZX-104268. There will be no auto creation of Case will happen now. -Shivam , July 2023
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity')
 @RestResource(urlMapping='/ChatContextRequests/*')
 global with sharing class ChatContextService {
   // General Inquiry Record Type Id
-  /*global static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+  global static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
     .getRecordTypeId();
   global static final String QUEUE_TYPE = 'Queue';
@@ -26,7 +25,7 @@ global with sharing class ChatContextService {
     LIMIT 1
   ];
 
-  global static Map<Id, Account> accountsById = new Map<Id, Account>();*/
+  global static Map<Id, Account> accountsById = new Map<Id, Account>();
 
   /**
    * @description HTTP POST method passing incoming Chat context in to Salesforce.
@@ -40,16 +39,9 @@ global with sharing class ChatContextService {
   @HttpPost
   global static void doPost(List<ChatContextRequest> contextRequests) {
     List<ChatContextResponse> responseList = new List<ChatContextResponse>();
+    Map<String, ChatContextRequest> requestByOCVId = new Map<String, ChatContextRequest>();
     Integer finalStatusCode = 400;
-    responseList.add(
-      generateErrorResponse(
-        '',
-        '',
-        'This class is deprecated and cannot be called. No case creation will happen ',
-        ''
-      )
-    );
-    /*Map<String, ChatContextRequest> requestByOCVId = new Map<String, ChatContextRequest>();
+
     if (!contextRequests.isEmpty()) {
       for (ChatContextRequest req : contextRequests) {
         if (isValidRequest(req)) {
@@ -210,7 +202,7 @@ global with sharing class ChatContextService {
         finalStatusCode = 200;
         break;
       }
-    }*/
+    }
 
     //Generate Response based on the results
     String jsonRes = JSON.serialize(responseList);
@@ -226,7 +218,7 @@ global with sharing class ChatContextService {
    * @param responseList list of responses to be returned
    * @return `Map<String, Boolean>` response status by OCVId
    */
-  /*private static Map<String, Boolean> createNewCases(
+  private static Map<String, Boolean> createNewCases(
     List<Case> newCases,
     Map<String, Boolean> responseStatusByOCVId,
     List<ChatContextResponse> responseList
@@ -313,14 +305,14 @@ global with sharing class ChatContextService {
     }
 
     return responseStatusByOCVId;
-  }*/
+  }
 
   /**
    * @description Method to check if the request record is valid or not.
    * @param chatContext Chat Context instance
    * @return `Boolean` true if the record is valid. Otherwise return false.
    */
-  /*private static Boolean isValidRequest(ChatContextRequest chatContext) {
+  private static Boolean isValidRequest(ChatContextRequest chatContext) {
     //Check if PPID is present but don't cancel flow if not present
     if (String.isBlank(chatContext.PPID)) {
       Logger.error('Missing PPID from request');
@@ -329,7 +321,7 @@ global with sharing class ChatContextService {
     //Check to make sure OCV ID and Channel ID are present
     return String.isNotBlank(chatContext.ocvId) &&
       String.isNotBlank(chatContext.channelSID);
-  }*/
+  }
 
   /**
    * @description Method to generate a response instance
@@ -339,7 +331,7 @@ global with sharing class ChatContextService {
    * @param subTypeLabel subtype parsed through
    * @return `ChatContextResponse`
    */
-  /*private static ChatContextResponse generateResponse(
+  private static ChatContextResponse generateResponse(
     String ocvId,
     String sfdcSearchString,
     String errMsg,
@@ -355,7 +347,7 @@ global with sharing class ChatContextService {
     response.errorMessage = errMsg;
     response.chatLabel = subTypeLabel;
     return response;
-  }*/
+  }
 
   /**
    * @description Method to generate an error response instance
@@ -441,7 +433,7 @@ global with sharing class ChatContextService {
    * @param responseList list of response instances
    * @param responseStatusByOCVId response status by OCVId
    */
-  /*private static void populateTypeFromSubtype(
+  private static void populateTypeFromSubtype(
     Case newCase,
     String subtype,
     Account acc,
@@ -487,13 +479,14 @@ global with sharing class ChatContextService {
 
     newCase.Sub_Type__c = subtype;
     newCase.Type = picklistDependencies.get(subtype)[0];
-  }*/
+  }
+
   /**
    * @description getSubtypeLowerCase validates caseSubtypes in requests regardless of case sensitvity
    * @param caseSubtype the Subtype received in request to validate
    * @return subtype the validated Subtype taking into account case sensitivity
    */
-  /*private static String getSubtypeLowerCase(String caseSubtype) {
+  private static String getSubtypeLowerCase(String caseSubtype) {
     Map<String, String> subtypeMap = CommonUtil.getCaseInsensitiveMap(
       Case.Sub_Type__c
     );
@@ -503,5 +496,5 @@ global with sharing class ChatContextService {
     } else {
       return caseSubtype;
     }
-  }*/
+  }
 }
