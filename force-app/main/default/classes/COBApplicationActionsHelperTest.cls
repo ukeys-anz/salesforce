@@ -140,7 +140,7 @@ public with sharing class COBApplicationActionsHelperTest {
   ) {
     cobPid.FirstNameOCRServer__c = isFirstNameOCRServerEmpty
       ? EMPTY_STR
-      : CommonUtil.buildTrimedConcatenatedString(
+      : CommonUtil.buildTrimmedConcatenatedString(
           new List<String>{ FIRST_NAME, MIDDLE_NAMES }
         );
     cobPid.LastNameOCRServer__c = isLastNameOCRServerEmpty

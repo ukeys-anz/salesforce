@@ -266,14 +266,14 @@ public with sharing class COBApplicationActionsHelper {
 
   @TestVisible
   private static Boolean doesFullNameMatch(COBPrimaryIDDocument__c cobPid) {
-    String cobPIDDFullName = CommonUtil.buildTrimedConcatenatedString(
+    String cobPIDDFullName = CommonUtil.buildTrimmedConcatenatedString(
       new List<String>{
         cobPid.FirstName__c,
         cobPid.MiddleNames__c,
         cobPid.LastName__c
       }
     );
-    String cobPIDDFullNameOCRServer = CommonUtil.buildTrimedConcatenatedString(
+    String cobPIDDFullNameOCRServer = CommonUtil.buildTrimmedConcatenatedString(
       new List<String>{
         cobPid.FirstNameOCRServer__c,
         cobPid.MiddleNamesOCRServer__c,

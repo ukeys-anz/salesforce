@@ -663,6 +663,20 @@
         "Disable_MFA"
       ],
       "type": "system"
+    },
+    {
+      "name": "Customer Validation Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "Case_Read_Write_KYC_QA",
+        "Customer_Onboarding_View_All",
+        "Customer_Read_Only",
+        "Disable_MFA"
+      ],
+      "type": "system"
     }
   ]
 }
