@@ -6,6 +6,7 @@
  */
 @isTest
 public with sharing class GetHelpCaseActionsHelperTest {
+  private static final Faker FAKER = new Faker('AU');
   private static final List<String> COB_CLOSED_STATUSES = new List<String>{
     GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
     GetHelpConstants.COB_FAILED_OK_STATUS
@@ -17,49 +18,149 @@ public with sharing class GetHelpCaseActionsHelperTest {
 
   private static final String EMPTY_FAILED_REASON = '';
 
+  private static final List<String> MOBILE_NUMBERS = new List<String>{
+    '0412121212',
+    '0413131313',
+    '0415151515'
+  };
+
   @TestSetup
   private static void makeData() {
-    List<Case> idOpsCases = new List<Case>();
-    List<Case> fraudCheckCases = new List<Case>();
+    makeCOBData();
+  }
+
+  private static void makeCOBData() {
+    List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
+    List<Account> personAccounts = new List<Account>();
+
+    for (Integer i = 0; i < MOBILE_NUMBERS.size(); i++) {
+      cobApps.add(createCOBApp(MOBILE_NUMBERS[i]));
+      personAccounts.add(createPersonAccount(MOBILE_NUMBERS[i]));
+    }
+
+    //Add COB app with null mobile Number
+    cobApps.add(createCOBApp(null));
+
+    insert cobApps;
+    insert personAccounts;
+
+    List<Entitlement> entitlements = CommonUtil.addPersonAccountEntitlements(
+      personAccounts,
+      GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
+    insert entitlements;
+
+    List<Case> cases = new List<Case>();
 
     for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      idOpsCases.add(
-        createCobCase(
+      // ID Ops Assistance Cases
+      cases.add(
+        createCase(
           GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS,
-          GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+          GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+          null
         )
       );
 
-      fraudCheckCases.add(
-        createCobCase(
+      //Fraud Check Cases
+      cases.add(
+        createCase(
           COB_CLOSED_STATUSES[i],
-          GetHelpConstants.FRAUD_CHECK_RT_ID
+          GetHelpConstants.FRAUD_CHECK_RT_ID,
+          null
         )
       );
     }
 
-    insert idOpsCases;
-    insert fraudCheckCases;
+    // KYC QA Cases
+    for (Integer i = 0; i < cobApps.size(); i++) {
+      cases.add(
+        createCase(
+          GetHelpConstants.OPEN_STATUS,
+          GetHelpConstants.KYCQA_RT_ID,
+          cobApps.get(i).Id
+        )
+      );
+    }
+
+    insert cases;
   }
 
-  private static Case createCobCase(String status, String recordTypeId) {
-    return new Case(Status = status, RecordTypeId = recordTypeId);
+  private static Case createCase(
+    String status,
+    String recordTypeId,
+    Id cobAppId
+  ) {
+    Case c = new Case();
+    c.Status = status;
+    c.RecordTypeId = recordTypeId;
+    c.CustomerOnboardingApplication__c = cobAppid;
+    if (c.recordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+      c.OwnerId = COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id;
+    }
+
+    return c;
   }
 
-  private static List<Case> getCOBCase(String recordtype) {
-    return [SELECT Id, Status FROM Case WHERE RecordTypeId = :recordtype];
+  private static List<Case> getCases(String recordtype) {
+    return [
+      SELECT
+        Id,
+        Status,
+        OwnerId,
+        AccountId,
+        ContactId,
+        ContactMobile,
+        EntitlementId
+      FROM Case
+      WHERE RecordTypeId = :recordtype
+    ];
+  }
+
+  private static CustomerOnboardingApplication__c createCOBApp(
+    String mobileNumber
+  ) {
+    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
+      SecurityMobile__c = mobileNumber
+    );
+
+    return cobApp;
+  }
+
+  private static Account createPersonAccount(String mobileNumber) {
+    Account acc = new Account(
+      FirstName = FAKER.person.firstName(),
+      LastName = FAKER.person.lastName(),
+      OCV_ID__c = FAKER.randomString(10),
+      PersonMobilePhone = mobileNumber,
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+    );
+
+    return acc;
+  }
+
+  private static List<Account> getPersonAccounts() {
+    return [
+      SELECT Id, PersonContactId
+      FROM Account
+      WHERE RecordTypeId = :GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+    ];
   }
 
   @isTest
   private static void testIsStatusChanged() {
-    Case oldRecord = createCobCase(
+    Case oldRecord = createCase(
       GetHelpConstants.COB_DAON_FAILED_STATUS,
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      null
     );
 
-    Case newRecord = createCobCase(
+    Case newRecord = createCase(
       GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      null
     );
 
     Boolean isStatusChanged = GetHelpCaseActionsHelper.isStatusChanged(
@@ -72,9 +173,7 @@ public with sharing class GetHelpCaseActionsHelperTest {
 
   @isTest
   private static void testGetCasesByIds() {
-    List<Case> caseRecords = getCOBCase(
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-    );
+    List<Case> caseRecords = getCases(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
 
     Set<Id> caseIds = new Set<Id>();
     for (Integer i = 0; i < COB_CASES_COUNT; i++) {
@@ -118,10 +217,8 @@ public with sharing class GetHelpCaseActionsHelperTest {
   }
 
   private static Map<Id, Case> setFraudCheckStatuses() {
-    List<Case> idOpsCases = getCOBCase(
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-    );
-    List<Case> fraudCheckCases = getCOBCase(GetHelpConstants.FRAUD_CHECK_RT_ID);
+    List<Case> idOpsCases = getCases(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
+    List<Case> fraudCheckCases = getCases(GetHelpConstants.FRAUD_CHECK_RT_ID);
 
     Map<Id, Case> parentIdAndChildCasedMap = new Map<Id, Case>();
 
@@ -169,5 +266,151 @@ public with sharing class GetHelpCaseActionsHelperTest {
       updatedIdOpsCases.isEmpty(),
       'There should be an empty list of cases.'
     );
+  }
+
+  @isTest
+  private static void testGetMobileByCaseId() {
+    List<Case> cases = getCases(GetHelpConstants.KYCQA_RT_ID);
+
+    Test.startTest();
+    Map<String, String> mobileByCaseIdMap = GetHelpCaseActionsHelper.getMobileByCaseId(
+      new Map<Id, Case>(cases).keySet()
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      MOBILE_NUMBERS.size() + 1,
+      cases.size(),
+      'Should be ' +
+      (MOBILE_NUMBERS.size() + 1) +
+      '  KYC QA Cases total'
+    );
+
+    Assert.areEqual(
+      MOBILE_NUMBERS.size(),
+      mobileByCaseIdMap.size(),
+      'Should be ' +
+      MOBILE_NUMBERS.size() +
+      ' KYC QA Cases by COB App Mobile numbers'
+    );
+  }
+
+  @isTest
+  private static void testGetMobileByCaseIdEmptyMap() {
+    Map<String, String> mobileByCaseIdMap = GetHelpCaseActionsHelper.getMobileByCaseId(
+      new Set<Id>()
+    );
+
+    Assert.isTrue(
+      mobileByCaseIdMap.isEmpty(),
+      'There should be an empty map of Mobile by Case Id.'
+    );
+  }
+
+  @isTest
+  private static void testGetAccountsByMobile() {
+    Test.startTest();
+    Map<String, Account> accountsByMobileMap = GetHelpCaseActionsHelper.getAccountsByMobile(
+      MOBILE_NUMBERS
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      MOBILE_NUMBERS.size(),
+      accountsByMobileMap.size(),
+      'Should be ' +
+      MOBILE_NUMBERS.size() +
+      ' Accounts matched by Mobile Numbers'
+    );
+  }
+
+  @isTest
+  private static void testGetAccountsByMobileEmptyMap() {
+    Map<String, Account> accountByMobileMap = GetHelpCaseActionsHelper.getAccountsByMobile(
+      new List<String>()
+    );
+
+    Assert.isTrue(
+      accountByMobileMap.isEmpty(),
+      'There should be an empty map of Mobile Phones and Account.'
+    );
+  }
+
+  @isTest
+  private static void testSetMatchingAccountFields() {
+    List<Case> cases = getCases(GetHelpConstants.KYCQA_RT_ID);
+
+    List<Account> personAccounts = getPersonAccounts();
+
+    Set<Id> accIds = (new Map<Id, Account>(personAccounts)).keySet();
+
+    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getEntitlements(
+      accIds,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
+
+    for (Case c : cases) {
+      for (Account matchingAcc : personAccounts) {
+        GetHelpCaseActionsHelper.setMatchingAccountFields(
+          c,
+          matchingAcc,
+          accountIdEntitlmentMap.get(matchingAcc.Id)
+        );
+
+        Assert.areEqual(
+          c.AccountId,
+          matchingAcc.Id,
+          'Case Account Id should be equal to Matching Account Id'
+        );
+
+        Assert.areEqual(
+          c.ContactId,
+          matchingAcc.PersonContactId,
+          'Case Contact Id should be equal to Matching Account Person Contact Id'
+        );
+
+        Assert.areEqual(
+          c.EntitlementId,
+          accountIdEntitlmentMap.get(matchingAcc.Id),
+          'Case Entitlement Id should be equal to Matching Account Entitlement Id'
+        );
+      }
+    }
+  }
+
+  @isTest
+  private static void testHandleKYCQACaseNoCustomerClosedStatus() {
+    List<Case> oldCases = getCases(GetHelpConstants.KYCQA_RT_ID);
+
+    for (Case oldCase : oldCases) {
+      Case newCase = new Case();
+      newCase.Status = GetHelpConstants.CLOSED_STATUS;
+      GetHelpCaseActionsHelper.handleKYCQACaseNoCustomer(newCase, oldCase);
+
+      Assert.areEqual(
+        newCase.OwnerId,
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
+        'Case Owner Id should be equal to ' +
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id
+      );
+    }
+  }
+
+  @isTest
+  private static void testHandleKYCQACaseNoCustomerRemainInNoCustomerQueue() {
+    List<Case> oldCases = getCases(GetHelpConstants.KYCQA_RT_ID);
+
+    for (Case oldCase : oldCases) {
+      Case newCase = new Case();
+      oldCase.OwnerId = GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id;
+      GetHelpCaseActionsHelper.handleKYCQACaseNoCustomer(newCase, oldCase);
+
+      Assert.areEqual(
+        newCase.OwnerId,
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
+        'Case Owner Id should be equal to ' +
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id
+      );
+    }
   }
 }

@@ -702,4 +702,76 @@ public with sharing class CommonUtil {
     }
     return String.join(newContents, ' ');
   }
+
+  /**
+   * @description Filter cases by Record Type Id
+   * @param records List of case records
+   * @param recordTypId Record Type Id
+   * @return List of filtered cases
+   */
+  public static List<Case> filterCasesByRecordTypeId(
+    List<Case> records,
+    Id recordTypId
+  ) {
+    List<Case> cases = new List<Case>();
+    for (Case c : records) {
+      if (c.RecordTypeId == recordTypId) {
+        cases.add(c);
+      }
+    }
+    return cases;
+  }
+
+  /**
+   * @description Get SLA Process by process name
+   * @param slaProceessName SLA Process name
+   * @return SlaProcess
+   */
+  public static SlaProcess getSLAProcess(String slaProceessName) {
+    if (
+      String.isBlank(slaProceessName) ||
+      PermissionUtils.canQuery('SlaProcess') == false
+    ) {
+      return null;
+    }
+
+    return [
+      SELECT Id, Name
+      FROM SlaProcess
+      WHERE
+        Name = :slaProceessName
+        AND IsActive = TRUE
+        AND IsVersionDefault = TRUE
+      LIMIT 1
+    ];
+  }
+
+  /**
+   * @description Add Person Account Entitlements
+   * @param accs List of Accounts
+   * @param slaProceessName SLA Process name
+   * @param entitlementName Entitlement Name
+   * @return List of Entitlements
+   */
+  public static List<Entitlement> addPersonAccountEntitlements(
+    List<Account> accs,
+    String slaProceessName,
+    String entitlementName
+  ) {
+    SlaProcess sla = getSLAProcess(slaProceessName);
+
+    List<Entitlement> entitlements = new List<Entitlement>();
+    for (Account acc : accs) {
+      entitlements.add(
+        new Entitlement(
+          Name = entitlementName,
+          AccountId = acc.Id,
+          StartDate = System.today(),
+          SlaProcessId = sla?.Id
+        )
+      );
+    }
+
+    return entitlements;
+  }
 }
