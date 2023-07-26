@@ -578,15 +578,39 @@ public with sharing class InteractionTriggerHandlerTest {
     insert psa;
     System.runAs(coachUser) {
       for (Id interactionrecord : interactionrecordtypeslist) {
-        Interaction newInteraction = new Interaction(
-          RecordTypeId = interactionrecord,
-          Name = 'New Interaction',
-          Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
-          InteractionType = InteractionConstants.STORE,
-          Direction__c = InteractionConstants.INBOUND,
-          StartTime = System.now()
-        );
-        insertInteractionList.add(newInteraction);
+        if (interactionrecord == GetHelpConstants.INTERACTION_GENERAL_RT_ID) {
+          Interaction newInteraction = new Interaction(
+            RecordTypeId = interactionrecord,
+            Name = 'New Interaction',
+            Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
+            InteractionType = InteractionConstants.CALL,
+            Direction__c = InteractionConstants.INBOUND,
+            StartTime = System.now()
+          );
+          insertInteractionList.add(newInteraction);
+        } else if (
+          interactionrecord == GetHelpConstants.INTERACTION_MESSAGE_RT_ID
+        ) {
+          Interaction newInteraction = new Interaction(
+            RecordTypeId = interactionrecord,
+            Name = 'New Interaction',
+            Interaction_Purpose__c = InteractionConstants.CUSTOMER,
+            InteractionType = InteractionConstants.CHAT,
+            Direction__c = InteractionConstants.INBOUND,
+            StartTime = System.now()
+          );
+          insertInteractionList.add(newInteraction);
+        } else {
+          Interaction newInteraction = new Interaction(
+            RecordTypeId = interactionrecord,
+            Name = 'New Interaction',
+            Interaction_Purpose__c = InteractionConstants.NONCUSTOMER,
+            InteractionType = InteractionConstants.STORE,
+            Direction__c = InteractionConstants.INBOUND,
+            StartTime = System.now()
+          );
+          insertInteractionList.add(newInteraction);
+        }
       }
       Test.startTest();
       DMLUtil.insertRecords(insertInteractionList, false, true);

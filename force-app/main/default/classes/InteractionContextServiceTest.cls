@@ -91,7 +91,7 @@ public with sharing class InteractionContextServiceTest {
       'Chat',
       'TW' + faker.randomString(10),
       'CR' + faker.randomString(10),
-      'Created'
+      'assigned'
     );
 
     Test.startTest();
@@ -182,7 +182,7 @@ public with sharing class InteractionContextServiceTest {
       'Voice',
       'TW' + faker.randomString(10),
       'CR' + faker.randomString(10),
-      'Created'
+      ''
     );
 
     Test.startTest();
@@ -229,7 +229,7 @@ public with sharing class InteractionContextServiceTest {
       'Voice',
       'TW' + faker.randomString(10),
       'CR' + faker.randomString(10),
-      'Created'
+      ''
     );
 
     Test.startTest();

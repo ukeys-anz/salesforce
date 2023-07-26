@@ -77,6 +77,11 @@
                 <label>Rescheduled</label>
             </value>
             <value>
+                <fullName>Resolved</fullName>
+                <default>false</default>
+                <label>Resolved</label>
+            </value>
+            <value>
                 <fullName>Scheduled</fullName>
                 <default>false</default>
                 <label>Scheduled</label>
