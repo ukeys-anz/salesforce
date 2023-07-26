@@ -43,10 +43,9 @@
     action.setCallback(this, function (response) {
       var state = response.getState();
       if (state === "SUCCESS") {
-        var parsedResult = JSON.parse(response.getReturnValue());
-        var result = response.getReturnValue();
+        var result = JSON.parse(response.getReturnValue());
         if (
-          !parsedResult.IDR_Product_Category__c &&
+          !result.IDR_Product_Category__c &&
           (selectedRecordTypeName == "Customer_Complaint" ||
             selectedRecordTypeName == "Non_Customer_Complaint")
         ) {
@@ -56,8 +55,18 @@
             "Error!"
           );
         } else {
-          component.set("v.defaultFieldsValueString", result);
-          helper.handleNavig(component, result);
+          $A.get("e.force:closeQuickAction").fire();
+          var autoFillFieldsString = "";
+          for (var i in result) {
+            autoFillFieldsString =
+              autoFillFieldsString + "," + i + "=" + result[i];
+          }
+          if (autoFillFieldsString.startsWith(",")) {
+            // drop the leading ','
+            autoFillFieldsString = autoFillFieldsString.substring(1);
+          }
+          component.set("v.autoFillFieldsString", autoFillFieldsString);
+          helper.handleNavig(component);
         }
       } else {
         helper.showToast(
@@ -68,9 +77,5 @@
       }
     });
     $A.enqueueAction(action);
-  },
-
-  cancelUpdateFieldValues: function (component, event, helper) {
-    $A.get("e.force:closeQuickAction").fire();
   }
 });

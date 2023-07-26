@@ -5,12 +5,10 @@
 >
   <aura:attribute name="caseRecord" type="Object" />
   <aura:attribute name="showRecordTypes" type="Boolean" default="false" />
-  <aura:attribute name="showLWC" type="Boolean" default="false" />
-  <aura:attribute name="showRTs" type="Boolean" default="true" />
   <aura:attribute name="caseRecordTypes" type="List" />
   <aura:attribute name="caseRecordError" type="String" />
   <aura:attribute name="selectedRecordTypeId" type="String" default="" />
-  <aura:attribute name="defaultFieldsValueString" type="String" default="" />
+  <aura:attribute name="autoFillFieldsString" type="String" default="" />
   <aura:attribute name="selectedRecordTypeName" type="String" default="" />
   <aura:attribute name="showError" type="Boolean" default="false" />
   <aura:handler name="init" value="{!this}" action="{!c.init}" />
@@ -28,104 +26,79 @@
     <div class="recordSaveError">{!v.caseRecordError}</div>
   </aura:if>
 
-  <aura:renderIf isTrue="{!v.showRTs}">
-    <article class="slds-card">
-      <!-- Header -->
-      <div class="slds-card__header slds-grid">
-        <h2 class="title slds-text-heading--medium slds-hyphenate">
-          Change Case Record Type
-        </h2>
-      </div>
+  <article class="slds-card">
+    <!-- Header -->
+    <div class="slds-card__header slds-grid">
+      <h2 class="title slds-text-heading--medium slds-hyphenate">
+        Change Case Record Type
+      </h2>
+    </div>
 
-      <!-- Error if no record type is available -->
-      <aura:if isTrue="{!v.showError}">
-        <div class="errorDiv">
-          <lightning:icon iconName="utility:warning" />
-          <p>
-            You don’t have access to any active Case record types. Contact your
-            Salesforce administrator for help.
-          </p>
-        </div>
-      </aura:if>
-
-      <!-- Body -->
-      <div class="slds-card__body slds-card__body_inner">
-        <p class="changeRecordTypeTagLine">
-          Existing picklists aren’t updated when record types change. You’ll
-          need to change picklist values manually.
-        </p>
+    <!-- Error if no record type is available -->
+    <aura:if isTrue="{!v.showError}">
+      <div class="errorDiv">
+        <lightning:icon iconName="utility:warning" />
         <p>
-          Select a record type for
-          <lightning:formattedText value="{!v.caseRecord.CaseNumber}" />.
+          You don’t have access to any active Case record types. Contact your
+          Salesforce administrator for help.
         </p>
-        <div class="recordTypeSection">
-          <p class="changeRecordTypeLeftColumn">Available record types</p>
-          <aura:if
-            isTrue="{!and(v.showRecordTypes, not(empty(v.caseRecord)) )}"
-          >
-            <div class="iteration">
-              <aura:iteration items="{!v.caseRecordTypes}" var="rt">
-                <div class="slds-form-element__control">
-                  <span class="slds-radio">
-                    <input
-                      type="radio"
-                      id="{!rt.Id}"
-                      value="{!rt.Id}"
-                      name="{!rt.DeveloperName}"
-                      checked=""
-                      onchange="{!c.handleSelectRecordType}"
-                    />
-                    <label class="slds-radio__label" for="{!rt.Id}">
-                      <span class="slds-radio_faux"></span>
-                      <span class="slds-form-element__label">{!rt.Name}</span>
-                      <div class="slds-text-body_regular radio-description">
-                        {!rt.Description}
-                      </div>
-                    </label>
-                  </span>
-                </div>
-              </aura:iteration>
-            </div>
-          </aura:if>
-        </div>
       </div>
+    </aura:if>
 
-      <!-- Footer -->
-      <footer class="slds-card__footer">
-        <lightning:button
-          variant="neutral"
-          label="Cancel"
-          onclick="{!c.handleClose}"
-        />
-        <lightning:button
-          variant="brand"
-          label="Next"
-          onclick="{!c.handleNext}"
-          disabled="true"
-          aura:id="nextButton"
-        />
-      </footer>
-    </article>
-  </aura:renderIf>
-
-  <aura:renderIf isTrue="{!v.showLWC}">
-    <article class="slds-card">
-      <div>
-        <div class="slds-card__header slds-grid">
-          <h2 class="title slds-text-heading--medium slds-hyphenate">
-            Update Field Values
-          </h2>
-        </div>
-        <div class="slds-card__body slds-card__body_inner">
-          <c:changeRecordTypeDefaultValue
-            recordId="{!v.recordId}"
-            aura:id="changeRTDefaultValue"
-            oncanceldefaultvalue="{!c.cancelUpdateFieldValues}"
-            updatedRT="{!v.selectedRecordTypeId}"
-            defaultValues="{!v.defaultFieldsValueString}"
-          ></c:changeRecordTypeDefaultValue>
-        </div>
+    <!-- Body -->
+    <div class="slds-card__body slds-card__body_inner">
+      <p class="changeRecordTypeTagLine">
+        Existing picklists aren’t updated when record types change. You’ll need
+        to change picklist values manually.
+      </p>
+      <p>
+        Select a record type for
+        <lightning:formattedText value="{!v.caseRecord.CaseNumber}" />.
+      </p>
+      <div class="recordTypeSection">
+        <p class="changeRecordTypeLeftColumn">Available record types</p>
+        <aura:if isTrue="{!and(v.showRecordTypes, not(empty(v.caseRecord)) )}">
+          <div class="iteration">
+            <aura:iteration items="{!v.caseRecordTypes}" var="rt">
+              <div class="slds-form-element__control">
+                <span class="slds-radio">
+                  <input
+                    type="radio"
+                    id="{!rt.Id}"
+                    value="{!rt.Id}"
+                    name="{!rt.DeveloperName}"
+                    checked=""
+                    onchange="{!c.handleSelectRecordType}"
+                  />
+                  <label class="slds-radio__label" for="{!rt.Id}">
+                    <span class="slds-radio_faux"></span>
+                    <span class="slds-form-element__label">{!rt.Name}</span>
+                    <div class="slds-text-body_regular radio-description">
+                      {!rt.Description}
+                    </div>
+                  </label>
+                </span>
+              </div>
+            </aura:iteration>
+          </div>
+        </aura:if>
       </div>
-    </article>
-  </aura:renderIf>
+    </div>
+
+    <!-- Footer -->
+    <footer class="slds-card__footer">
+      <lightning:button
+        variant="neutral"
+        label="Cancel"
+        onclick="{!c.handleClose}"
+      />
+      <lightning:button
+        variant="brand"
+        label="Next"
+        onclick="{!c.handleNext}"
+        disabled="true"
+        aura:id="nextButton"
+      />
+    </footer>
+  </article>
 </aura:component>
