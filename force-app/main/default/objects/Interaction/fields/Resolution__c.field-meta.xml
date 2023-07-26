@@ -22,9 +22,19 @@
                 <label>Assisted App download</label>
             </value>
             <value>
+                <fullName>Campaign</fullName>
+                <default>false</default>
+                <label>Campaign</label>
+            </value>
+            <value>
                 <fullName>Did not Answer</fullName>
                 <default>false</default>
                 <label>Did not Answer</label>
+            </value>
+            <value>
+                <fullName>Duplicate &amp; Closed</fullName>
+                <default>false</default>
+                <label>Duplicate &amp; Closed</label>
             </value>
             <value>
                 <fullName>Follow-up Required</fullName>
@@ -35,6 +45,11 @@
                 <fullName>No Action</fullName>
                 <default>false</default>
                 <label>No Action</label>
+            </value>
+            <value>
+                <fullName>Proactive Contact</fullName>
+                <default>false</default>
+                <label>Proactive Contact</label>
             </value>
             <value>
                 <fullName>Referred</fullName>
@@ -64,15 +79,27 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
+            <valueName>Campaign</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Did not Answer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>
+            <valueName>Duplicate &amp; Closed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
             <controllingFieldValue>Non-Customer</controllingFieldValue>
             <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
             <valueName>Follow-up Required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <valueName>Proactive Contact</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Customer</controllingFieldValue>

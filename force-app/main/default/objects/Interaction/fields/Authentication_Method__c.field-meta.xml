@@ -18,6 +18,11 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
+                <fullName>Authenticated</fullName>
+                <default>false</default>
+                <label>Authenticated</label>
+            </value>
+            <value>
                 <fullName>Authenticated by Coach</fullName>
                 <default>false</default>
                 <label>Authenticated by Coach</label>
@@ -95,6 +100,10 @@
             <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>SMS - OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Chat</controllingFieldValue>
+            <valueName>Authenticated</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>
