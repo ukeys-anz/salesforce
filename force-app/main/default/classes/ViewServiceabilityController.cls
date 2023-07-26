@@ -4,8 +4,21 @@
  * @description Controller for Credit Assessment flex card
  * @design https://confluence.service.anz/display/ABT/BOH+104+-+View+UMI
  */
-global with sharing class ViewServiceabilityController implements omnistudio.VlocityOpenInterface {
+global with sharing class ViewServiceabilityController implements omnistudio.VlocityOpenInterface, Callable {
   private static final String METHODNAME = 'getUMIAssessments';
+  /**
+   * @param action String value of local method to invoke
+   * @param args arg map that will contain input, output and options map
+   * @return `Object`
+   * @description flex card invokeable method overridden by callable interface
+   */
+  public Object call(String action, Map<String, Object> args) {
+    Map<String, Object> input = (Map<String, Object>) args.get('input');
+    Map<String, Object> output = (Map<String, Object>) args.get('output');
+    Map<String, Object> options = (Map<String, Object>) args.get('options');
+    return invokeMethod(action, input, output, options);
+  }
+
   /**
    * @param methodName String value of local method to invoke
    * @param input arg for omnistudio flex card

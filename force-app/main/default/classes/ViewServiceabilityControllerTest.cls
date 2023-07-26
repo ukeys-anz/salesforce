@@ -95,6 +95,40 @@ private class ViewServiceabilityControllerTest {
     );
   }
   @isTest
+  static void testgetUMIAssessmentsCallable() {
+    Test.startTest();
+    ResidentialLoanApplication rla = [
+      SELECT Id
+      FROM ResidentialLoanApplication
+      WHERE Name = '123'
+      LIMIT 1
+    ];
+    Map<String, Object> inputMap = new Map<String, Object>();
+    Map<String, Object> outMap = new Map<String, Object>();
+    ViewServiceabilityController ctrl = new ViewServiceabilityController();
+    inputMap.put('loanId', rla.Id);
+
+    Map<String, Object> args = new Map<String, Object>{
+      'input' => inputMap,
+      'output' => outMap,
+      'options' => new Map<String, Object>()
+    };
+    Object isInvoked = ctrl.call('getUMIAssessments', args);
+
+    Map<String, Object> payload = (Map<String, Object>) outMap.get('result');
+    Test.stopTest();
+    System.assert((Boolean) isInvoked, 'Method not invoked');
+    System.assertNotEquals(payload, null, 'Empty JSON');
+    System.assert(
+      (Boolean) payload.get('hasError') == false,
+      'Invalid response'
+    );
+    System.assert(
+      (Boolean) payload.get('isSubmitted'),
+      'Application is should be submitted'
+    );
+  }
+  @isTest
   static void testgetUMIAssessmentsWithError() {
     Test.startTest();
     ResidentialLoanApplication rla = [
