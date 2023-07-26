@@ -718,6 +718,6 @@ Feel free to contact us if you have any questions. You can find our contact info
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Get View Umi API</shortDescription>
-        <value>callout:Mulesoft/</value>
+        <value>callout:SF_MS_Fabric/</value>
     </labels>
 </CustomLabels>

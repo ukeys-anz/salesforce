@@ -37,13 +37,15 @@ public with sharing class BOHServiceMock extends Service {
    * @param sopIds sop id
    * @param creditId credit id
    * @param loanId loan id
+   * @param ocvId ocv id of the primary loan application
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
   public override HttpCalloutResponse getUMIAssessments(
     List<String> sopIds,
     String creditId,
-    String loanId
+    String loanId,
+    String ocvId
   ) {
     if (!preset) {
       response.body = BOHServiceMock.UMI_LIST_ASSEEEMENTS_RESPONSE;

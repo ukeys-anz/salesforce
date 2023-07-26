@@ -2,7 +2,6 @@
 <OmniUiCard xmlns="http://soap.sforce.com/2006/04/metadata">
     <name>ServiceabilityViewDebts</name>
     <authorName>ANZx</authorName>
-    <clonedFromOmniUiCardKey>ServiceabilityViewDebtsxxx/ANZx/1.0</clonedFromOmniUiCardKey>
     <dataSourceConfig>{&quot;dataSource&quot;:{&quot;type&quot;:null,&quot;value&quot;:{},&quot;orderBy&quot;:{},&quot;contextVariables&quot;:[]}}</dataSourceConfig>
     <description>ServiceabilityViewDebts</description>
     <isActive>true</isActive>

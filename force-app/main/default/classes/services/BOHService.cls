@@ -34,22 +34,24 @@ public with sharing class BOHService extends Service {
    * @param sopIds sop id
    * @param creditId credit id
    * @param loanId loan id
+   * @param ocvId ocv id of the primary loan application
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
   public override HttpCalloutResponse getUMIAssessments(
     List<String> sopIds,
     String creditId,
-    String loanId
+    String loanId,
+    String ocvId
   ) {
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, sopIds[0], headers);
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
 
     ViewUMIRequest requestBody = new ViewUMIRequest(sopIds, creditId, loanId);
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_View_UMI, // create a label
+      System.Label.MS_Get_View_UMI,
       HTTP_METHOD.HTTP_POST,
       headers,
       Json.serialize(requestBody, true)
