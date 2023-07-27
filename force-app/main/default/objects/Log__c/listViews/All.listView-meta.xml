@@ -3,12 +3,13 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>EnvironmentType__c</columns>
-    <columns>StartTime__c</columns>
     <columns>TraceId__c</columns>
+    <columns>UserId__c</columns>
     <columns>UserProfile__c</columns>
     <columns>TotalERROREntries__c</columns>
     <columns>TotalINFOEntries__c</columns>
     <columns>TotalDEBUGEntries__c</columns>
+    <columns>CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

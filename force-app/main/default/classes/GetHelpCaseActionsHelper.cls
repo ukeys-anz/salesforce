@@ -9,7 +9,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.ExcessivePublicCount')
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
-
+  public static final String FRAUD_GENERIC_CUSTOMER_NAME = 'Fraud Entitlement Account';
   // Set of record type Ids that will be sent to PEGA
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
     GetHelpConstants.ATM_DISPUTE_RT_ID,
@@ -144,6 +144,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -156,19 +157,27 @@ public with sharing class GetHelpCaseActionsHelper {
    * @description Get a list of account Ids from general enquiry cases
    * @param accountIds a list of account Ids
    * @param name name of the entitilement
-   * @return list of account ids
+   * @return Map of account Ids and their entitlement Ids
    */
-  public static List<Entitlement> getEntitlements(
-    List<Id> accountIds,
-    String name
-  ) {
-    List<Entitlement> entList = new List<Entitlement>();
-    entList = [
+  public static Map<Id, Id> getEntitlements(List<Id> accountIds, String name) {
+    if (accountIds.isEmpty()) {
+      new Map<Id, Id>();
+    }
+    if (PermissionUtils.canQuery('Entitlement') == false) {
+      new Map<Id, Id>();
+    }
+
+    Map<Id, Id> entMap = new Map<Id, Id>();
+
+    for (Entitlement en : [
       SELECT Id, AccountId
       FROM Entitlement
       WHERE AccountId IN :accountIds AND EndDate = NULL AND Name = :name
-    ];
-    return entList;
+    ]) {
+      entMap.put(en.AccountId, en.Id);
+    }
+
+    return entMap;
   }
 
   /**
@@ -184,6 +193,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -360,6 +370,42 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Check if the case is a false customer profile, then make the onboarding customer name value -
+   * - to be customer name
+   * @param records New record instances to process
+   */
+  public static void setFraudCustomerProfileCase(List<Case> records) {
+    Map<Id, Case> caseList = new Map<Id, Case>();
+    set<Id> accountIds = new Set<Id>();
+
+    for (Case record : records) {
+      if (
+        record.RecordTypeId == GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID
+      ) {
+        accountIds.add(record.AccountId);
+        caseList.put(record.AccountId, record);
+      }
+    }
+    if (accountIds.Size() > 0 && Schema.sObjectType.Account.isQueryable()) {
+      List<Account> accs = [
+        SELECT Id, Name
+        FROM Account
+        WHERE Id IN :accountIds
+      ];
+      for (Account acc : accs) {
+        Case c = caseList.get(acc.Id);
+        if (
+          String.isBlank(c.Fraud_Onboarding_Customer_Name__c) ||
+          (c.Fraud_Onboarding_Customer_Name__c != FRAUD_GENERIC_CUSTOMER_NAME &&
+          acc.Name != FRAUD_GENERIC_CUSTOMER_NAME)
+        ) {
+          c.Fraud_Onboarding_Customer_Name__c = acc.Name;
+        }
+      }
+    }
+  }
+
+  /**
    * @description Check if the account on the case has changed
    * @param records New record instances to process
    * @param oldCaseMap Old case map
@@ -395,6 +441,7 @@ public with sharing class GetHelpCaseActionsHelper {
     record.Fraud_Customer_Details__c = YES;
     record.Fraud_Middle_Name__c = YES;
     record.Fraud_Middle_Initial__c = YES;
+    record.Fraud_MiddleNameCheck__c = YES;
     record.Fraud_Selfie_Comparison_Match__c = YES;
     record.Fraud_PO_Box__c = YES;
     record.Fraud_Address_Valid__c = YES;

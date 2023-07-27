@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OCVEventVersionShouldBeHigher</fullName>
+    <active>true</active>
+    <description>Validation rule to enforce sequential OCV event versions.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ISCHANGED(OCV_Event_Version__c),
+OCV_Event_Version__c &lt; PRIORVALUE(OCV_Event_Version__c),
+NOT(ISNULL(OCV_Event_Version__c))
+)</errorConditionFormula>
+    <errorDisplayField>OCV_Event_Version__c</errorDisplayField>
+    <errorMessage>LOW VERSION: Event Version lower than existing Version.</errorMessage>
+</ValidationRule>

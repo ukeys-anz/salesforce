@@ -61,6 +61,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>BOH_Coach_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule shares all Interaction records with Read/Write access to BOH Coach Users.</description>
+        <label>BOH Coach Read/Write</label>
+        <sharedTo>
+            <role>BOH_Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Interaction_Join_Lead_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule shares all Interaction records with Read/Write access to Join Lead Users.</description>
@@ -135,6 +150,18 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingOwnerRules>
+        <fullName>ANZ_Plus_Operations_Interactions_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only access to Interactions.</description>
+        <label>ANZ_Plus_ Operations_Interactions_RO</label>
+        <sharedTo>
+            <role>ANZ_Plus_Operations_Read_Only</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>Interaction_Coach_Lead_Sharing</fullName>
         <accessLevel>Edit</accessLevel>

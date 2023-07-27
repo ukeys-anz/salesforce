@@ -2,6 +2,7 @@
  * @author Lance Shi
  * @since  01/2023
  * @description Class to generate Cloud Event Model objects
+ * without sharing: to allow trigger to publish cloud event on afterInsert
  */
 public without sharing class CaseCEController {
   public static set<Id> caseCloudSet = new Set<Id>();

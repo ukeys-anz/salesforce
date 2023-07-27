@@ -73,6 +73,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>CAC_Sub_Category__c</picklist>
+        <values>
+            <fullName>Credit file delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No resolution on original complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution considered unsuitable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solution not implemented</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Card_In_Possession_During_Transaction__c</picklist>
         <values>
             <fullName>NA</fullName>
@@ -3975,6 +3998,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>CGU</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CMC Markets</fullName>
             <default>false</default>
         </values>
@@ -4098,6 +4125,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>CGU</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>CMC Markets</fullName>
             <default>false</default>
         </values>
@@ -4218,6 +4249,10 @@
         </values>
         <values>
             <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CGU</fullName>
             <default>false</default>
         </values>
         <values>
@@ -6664,6 +6699,22 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Digital only service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No direct phone line</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not enough stores</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not working on device</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
@@ -7154,6 +7205,17 @@
     </picklistValues>
     <picklistValues>
         <picklist>Is_this_a_Business_Customer__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_this_a_complaint_about_a_complaint__c</picklist>
         <values>
             <fullName>No</fullName>
             <default>false</default>
@@ -8011,6 +8073,21 @@
         </values>
         <values>
             <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Outcome__c</picklist>
+        <values>
+            <fullName>Resolution Enhanced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Upheld</fullName>
             <default>false</default>
         </values>
     </picklistValues>

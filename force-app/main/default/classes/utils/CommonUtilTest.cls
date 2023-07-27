@@ -102,4 +102,71 @@ public with sharing class CommonUtilTest {
       'Failed to convert base64url to base64.'
     );
   }
+
+  @isTest
+  static void testBildTrimedConcatenatedString() {
+    String strWithSpace = 'string   with space';
+    String strAdditional = 'additional string';
+    List<String> items = new List<String>{
+      '   ',
+      '',
+      null,
+      ' ',
+      '  ' +
+      strWithSpace +
+      '   ',
+      strAdditional
+    };
+
+    String trimmedConcatenated = CommonUtil.buildTrimmedConcatenatedString(
+      items
+    );
+
+    String expected = strWithSpace + ' ' + strAdditional;
+    Assert.areEqual(
+      expected,
+      trimmedConcatenated,
+      'The trimmed concatenated string should be ' + expected
+    );
+  }
+
+  @isTest
+  static void testRemoveExtraSpaces() {
+    String expected = '';
+    String content = '';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be blank'
+    );
+
+    expected = 'remove Extra Spaces';
+    content = 'remove Extra Spaces';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
+    );
+
+    content = 'remove    Extra Spaces';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
+    );
+
+    content = 'remove Extra    Spaces';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
+    );
+
+    content = ' remove   Extra    Spaces ';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
+    );
+  }
 }

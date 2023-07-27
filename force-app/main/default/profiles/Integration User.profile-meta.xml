@@ -219,6 +219,10 @@
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
+    </layoutAssignments>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Account.Business_Account</recordType>
@@ -263,39 +267,39 @@
     </tabVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ActivitiesAccess</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>AllowViewKnowledge</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ApexRestServices</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ApiEnabled</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ApiUserOnly</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>ChatterInternalUser</name>
+        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <enabled>true</enabled>
         <name>LightningConsoleAllowedForUser</name>
-    </userPermissions>
-    <userPermissions>
         <enabled>true</enabled>
-        <name>ViewHelpLink</name>
     </userPermissions>
     <userPermissions>
-        <enabled>false</enabled>
+        <name>ViewHelpLink</name>
+        <enabled>true</enabled>
+    </userPermissions>
+    <userPermissions>
         <name>EnforceMutualAuthentication</name>
+        <enabled>false</enabled>
     </userPermissions>
 </Profile>

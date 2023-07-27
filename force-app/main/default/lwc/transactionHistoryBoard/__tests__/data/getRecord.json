@@ -11,14 +11,38 @@
       "displayValue": null,
       "value": "facc 321"
     },
-    "FinServ__FinancialAccountType__c": {
+    "RecordType": {
       "displayValue": null,
-      "value": "Checking"
+      "value": {
+        "apiName": "RecordType",
+        "childRelationships": {},
+        "fields": {
+          "Id": {
+            "displayValue": null,
+            "value": "0122O000001ANjKQAW"
+          },
+          "DeveloperName": {
+            "displayValue": null,
+            "value": "SavingsAccount"
+          }
+        },
+        "id": "0122O000001ANjKQAW",
+        "lastModifiedById": "005o0000000KEEUAA4",
+        "lastModifiedDate": "2019-08-22T23:45:53.000Z",
+        "recordTypeInfo": null,
+        "systemModstamp": "2019-08-23T06:00:11.000Z"
+      }
     }
   },
   "id": "0031700000pHcf8AAC",
   "lastModifiedById": "00517000002fESIAA2",
   "lastModifiedDate": "2019-02-15T10:33:07.000Z",
-  "recordTypeInfo": null,
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "CheckingAccount",
+    "recordTypeId": "0122N000004bIgyQAE"
+  },
   "systemModstamp": "2019-02-15T10:33:07.000Z"
 }

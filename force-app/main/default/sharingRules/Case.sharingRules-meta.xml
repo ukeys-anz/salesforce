@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>ANZ_Plus_Operations_Case_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only access to ANZ Plus Cases.</description>
+        <label>ANZ_Plus_ Operations_Case_RO</label>
+        <sharedTo>
+            <role>ANZ_Plus_Operations_Read_Only</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure,Direct Debit,Customer Feedback,Direct Entry,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint,General Enquiry,Card,NPP</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>ANZx_Account_Closure_QA</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Provide access to account closure for QA</description>
@@ -78,7 +93,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity</value>
+            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity,False Customer Profile</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -252,6 +267,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Escalated_Complaint_for_Quality_Analyst_Role_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing rule for Escalated complaints for Quality Analyst.</description>
+        <label>Escalated Complaint for Quality Analyst Role RO</label>
+        <sharedTo>
+            <roleAndSubordinates>Quality_Capability_Lead</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Original_Case_Owner__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_QA_RO</fullName>
         <accessLevel>Read</accessLevel>
         <description>All Cases having Dispute related record types are to be shared with Quality Analyst with Read access.</description>
@@ -363,7 +393,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -450,7 +480,7 @@
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -481,6 +511,11 @@
             <operation>equals</operation>
             <value>ANZ Plus Complaint</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>False Customer Profile</value>
+        </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -494,7 +529,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -621,7 +656,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity</value>
+            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -636,7 +671,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity,BPAY,Fraud Check,ID Ops Assistance</value>
+            <value>Direct Entry,Customer Feedback,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,ANZ Plus Complaint,Identity,BPAY,Fraud Check,ID Ops Assistance,False Customer Profile</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

@@ -39,7 +39,10 @@
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>Fraud_Lock_Card</permissionSets>
+    <permissionSets>Interaction_Context_Tag_Read_Write</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
+    <permissionSets>Interaction_Tag_Read_Write</permissionSets>
+    <permissionSets>InteractionOmniClasses</permissionSets>
     <permissionSets>Knowledge_Base_Author</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Modify_All</permissionSets>
