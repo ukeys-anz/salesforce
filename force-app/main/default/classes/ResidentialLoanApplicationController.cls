@@ -3,7 +3,20 @@
  * @description controller class for flexcard to show SOP
  * @since April 2023
  */
-global with sharing class ResidentialLoanApplicationController implements omnistudio.VlocityOpenInterface {
+global with sharing class ResidentialLoanApplicationController implements omnistudio.VlocityOpenInterface, Callable {
+  /**
+   * @param action String value of local method to invoke
+   * @param args arg map that will contain input, output and options map
+   * @return `Object`
+   * @description flex card invokeable method overridden by callable interface
+   */
+  public Object call(String action, Map<String, Object> args) {
+    Map<String, Object> input = (Map<String, Object>) args.get('input');
+    Map<String, Object> output = (Map<String, Object>) args.get('output');
+    Map<String, Object> options = (Map<String, Object>) args.get('options');
+    return invokeMethod(action, input, output, options);
+  }
+
   /**
    * @description method to invoke getListAssets method
    * @param methodName

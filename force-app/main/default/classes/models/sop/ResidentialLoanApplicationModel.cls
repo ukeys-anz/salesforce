@@ -9,8 +9,8 @@
 )
 public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public SOPAssetSummary assetsSummary;
-  public List<SOPDebtSummary> liabilitiesSummaries;
-  public List<SOPExpenseSummary> monthlyExpensesSummaries;
+  public SOPDebtSummary liabilitiesSummary;
+  public SOPExpenseSummary monthlyExpensesSummary;
   public SOPIncomeSummary incomesSummary;
   public List<SOPEmployment> employments;
   public static Map<String, SOPEmployment> employeeIdToEmployeeMap;
@@ -28,12 +28,11 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public Integer debtSize {
     get {
       if (
-        liabilitiesSummaries.isEmpty() ||
-        liabilitiesSummaries[0].liabilities.isEmpty()
+        liabilitiesSummary.liabilities.isEmpty()
       ) {
         return 0;
       } else {
-        return liabilitiesSummaries[0].liabilities.size();
+        return liabilitiesSummary.liabilities.size();
       }
     }
   }
@@ -69,12 +68,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
-    if (liabilitiesSummaries.size() > 0) {
-      for (SOPDebt debt : liabilitiesSummaries[0].liabilities) {
-        if (debt.ownership != null) {
-          for (SOPOwnership owner : debt.ownership) {
-            ocvIdSet.add(partyToOcvMap.get(owner.partyId));
-          }
+    for (SOPDebt debt : liabilitiesSummary.liabilities) {
+      if (debt.ownership != null) {
+        for (SOPOwnership owner : debt.ownership) {
+          ocvIdSet.add(partyToOcvMap.get(owner.partyId));
         }
       }
     }
@@ -111,11 +108,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
-    if (liabilitiesSummaries.size() > 0) {
-      for (SOPDebt debt : liabilitiesSummaries[0].liabilities) {
-        if (debt.account != null) {
-          accNumberSet.add(debt.account.accountNumber);
-        }
+    for (SOPDebt debt : liabilitiesSummary.liabilities) {
+      if (debt.account != null) {
+        accNumberSet.add(debt.account.accountNumber);
       }
     }
     List<FinServ__FinancialAccount__c> finAccList = [
@@ -136,18 +131,15 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    * @description organize expense nodes into a tree structure
    */
   public void organizeExpenseNodes() {
-    if (monthlyExpensesSummaries.isEmpty()) {
-      return;
-    }
     expenseNodes = new List<SOPExpenseNode>();
-    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
+    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       if (expense.expenseParent == null) {
         expense.layer = 1;
         expenseNodes.add(new SOPExpenseNode(expense));
       }
     }
     List<SOPExpenseNode> l1Nodes = new List<SOPExpenseNode>();
-    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
+    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       if (expense.layer == null) {
         for (SOPExpenseNode node : expenseNodes) {
           if (node.expense.categoryId == expense.expenseParent) {
@@ -159,7 +151,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         }
       }
     }
-    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
+    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       if (expense.layer == null) {
         for (SOPExpenseNode node : l1Nodes) {
           if (node.expense.categoryId == expense.expenseParent) {
@@ -171,7 +163,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       }
     }
     expenseMap = new Map<String, SOPExpense>();
-    for (SOPExpense expense : monthlyExpensesSummaries[0].monthlyExpenses) {
+    for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
       expenseMap.put(expense.categoryName, expense);
     }
   }

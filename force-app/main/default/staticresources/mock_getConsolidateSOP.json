@@ -140,609 +140,99 @@
       "createTime": "1970-01-01T00:00:00Z"
     }
   ],
-  "liabilitiesSummaries": [
-    {
-      "sop": "sops/f7a857fb-1098-4125-bec9-6f0b6f17987c",
-      "liabilities": [
-        {
-          "id": "849380b5c-11a5-4a6b-b5f7-a3e0d9219512",
-          "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
-          "type": "LIABILITY_TYPE_CREDIT_CARD",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "6000",
-              "nanos": 0
-            },
-            "interestRate": {
-              "value": ""
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "0",
-              "nanos": 0
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "0",
-              "nanos": 0
-            },
-            "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
-            "principalInterestRemainingTerm": 0,
-            "interestOnlyRemainingTerm": 0,
-            "liabilityDuePaidInFull": false,
-            "redrawAmount": {
-              "currencyCode": "AUD",
-              "units": "0",
-              "nanos": 0
-            },
-            "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-            "financialInstitution": "CBA"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "1000",
-            "nanos": 0
-          },
-          "account": {
-            "id": "0c2ab959-1247-4859-8318-77f75a011f3e",
-            "bsb": "",
-            "accountNumber": "98765679942",
-            "accountName": "",
-            "status": "ACCOUNT_STATE_UNSPECIFIED",
-            "financialInstitution": ""
-          },
-          "assetIds": [""],
-          "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
-          "ownership": [
-            {
-              "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "createTime": "2023-05-03T07:31:38.700353Z",
-          "updateTime": "2023-05-03T07:31:38.700353Z",
-          "updatedBy": "Gearbox",
-          "etag": "",
-          "originalOutstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "1050",
-            "nanos": 0
-          }
+  "liabilitiesSummary": {
+    "sop": "25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
+    "liabilities": [
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/f33aafb9-7a49-4848-8032-e03fb5af5627",
+        "uid": "f33aafb9-7a49-4848-8032-e03fb5af5627",
+        "type": "LIABILITY_TYPE_OVERDRAFT",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 0,
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "ANZX",
+          "verifiedPrincipalInterestRemainingTerm": 0
         },
-        {
-          "id": "85902b5c-11a5-4a6b-b5f7-a3e0d9219512",
-          "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
-          "type": "LIABILITY_TYPE_PERSONAL_LOAN",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "0",
-              "nanos": 0
-            },
-            "interestRate": {
-              "value": ""
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "0",
-              "nanos": 0
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "1850",
-              "nanos": 0
-            },
-            "repaymentFrequency": "FREQUENCY_MONTHLY",
-            "principalInterestRemainingTerm": 36,
-            "interestOnlyRemainingTerm": 0,
-            "liabilityDuePaidInFull": false,
-            "redrawAmount": {
-              "currencyCode": "AUD",
-              "units": "5000",
-              "nanos": 0
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "CBA"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "21000",
-            "nanos": 0
-          },
-          "account": {
-            "id": "0cf39265-097b-4934-bf26-ea9657718ab5",
-            "bsb": "",
-            "accountNumber": "6548673637364",
-            "accountName": "",
-            "status": "ACCOUNT_STATE_UNSPECIFIED",
-            "financialInstitution": ""
-          },
-          "assetIds": [""],
-          "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
-          "ownership": [
-            {
-              "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "createTime": "2023-05-02T07:31:38.700353Z",
-          "updateTime": "2023-05-02T07:31:38.700353Z",
-          "updatedBy": "Gearbox",
-          "etag": "",
-          "originalOutstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "22600",
-            "nanos": 0
-          }
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "id": "666ce996-3c3b-4c58-b925-c515d5a36889",
-          "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
-          "type": "LIABILITY_TYPE_HOME_LOAN",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "0",
-              "nanos": 0
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "0",
-              "nanos": 0
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "3850",
-              "nanos": 0
-            },
-            "repaymentFrequency": "FREQUENCY_MONTHLY",
-            "principalInterestRemainingTerm": 30,
-            "interestOnlyRemainingTerm": 2,
-            "liabilityDuePaidInFull": false,
-            "redrawAmount": {
-              "currencyCode": "AUD",
-              "units": "15000",
-              "nanos": 0
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "ANZx Plus"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "560000",
-            "nanos": 0
-          },
-          "account": {
-            "id": "0fc71e26-dfce-4f55-b658-5c34720f6c17",
-            "bsb": "014111",
-            "accountNumber": "876548291",
-            "accountName": "Mr Home loan",
-            "status": "ACCOUNT_STATE_ACTIVE",
-            "financialInstitution": "ANZx Plus"
-          },
-          "assetIds": [""],
-          "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
-          "ownership": [
-            {
-              "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "createTime": "2023-05-03T07:31:38.700353Z",
-          "updateTime": "2023-05-03T07:31:38.700353Z",
-          "updatedBy": "1000990280",
-          "etag": "",
-          "originalOutstandingBalance": {
-            "currencyCode": "AUD"
-          }
+        "account": {
+          "id": "caa54e4f-5023-4a4f-a84b-3fed1e57c8e5",
+          "bsb": "014111",
+          "accountNumber": "210418624",
+          "accountName": "ANZ Plus",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "ANZX",
+          "account": "",
+          "productDetails": null
         },
-        {
-          "id": "0acfda2d-4b20-4009-9479-c0a6976b2314",
-          "sopId": "f7a857fb-1098-4125-bec9-6f0b6f17987c",
-          "type": "LIABILITY_TYPE_STUDENT_LOAN",
-          "studentLoan": {
-            "hecsWithheldPayment": false
-          },
-          "outstandingBalance": {
-            "currencyCode": "CURRENCY_UNSPECIFIED",
-            "units": "25000",
-            "nanos": 50
-          },
-          "assetIds": [""],
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-              "proportion": {
-                "value": "50"
-              }
-            },
-            {
-              "partyId": "ea1d6d5d-c498-43a9-8a10-223232323223",
-              "proportion": {
-                "value": "50"
-              }
-            }
-          ],
-          "createTime": "2023-05-03T03:31:38.700353Z",
-          "updateTime": "2023-05-03T03:31:38.700353Z",
-          "updatedBy": "1000990280",
-          "etag": "",
-          "originalOutstandingBalance": {
-            "currencyCode": "AUD",
-            "nanos": 0
-          }
+        "assets": ["a5bf72ce-83af-4987-9ed5-50ee034d6886"],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          { "partyId": "1000991493", "proportion": { "value": "100" } }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-13T11:25:50.337387Z",
+        "updatedBy": "1000991493",
+        "etag": "1689247550337387000",
+        "verifiedOutstandingBalance": null
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "type": "LIABILITY_TYPE_OVERDRAFT",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "interestRate": 0,
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "ANZX",
+          "verifiedPrincipalInterestRemainingTerm": 0
         },
-        {
-          "id": "09d02873-0979-4753-91e3-56427e540975",
-          "type": "LIABILITY_TYPE_BPL_FACILITY",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "6000"
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "NAB"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "15500",
-            "nanos": 100000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-05-24T04:29:15.832785Z",
-          "updatedBy": "1000990280",
-          "etag": "1684902555832785000"
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "id": "00616c45-1ffa-4f1c-a387-a3d755072d64",
-          "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "10000"
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "NAB"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "15500",
-            "nanos": 100000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-05-24T06:31:35.866504Z",
-          "updatedBy": "1000990280",
-          "etag": "1684909895866504000"
+        "account": {
+          "id": "f05c4f51-f7e8-4449-a311-5cc84b507a63",
+          "bsb": "014111",
+          "accountNumber": "210418632",
+          "accountName": "ANZ Save",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "ANZX",
+          "account": "",
+          "productDetails": null
         },
-        {
-          "id": "6c2c0fa7-3ad8-47a8-8917-98efd5abc618",
-          "type": "LIABILITY_TYPE_OVERDRAFT",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "10000"
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "NAB"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "15500",
-            "nanos": 100000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-05-24T08:21:17.581432Z",
-          "updatedBy": "1000990280",
-          "etag": "1684916477581432000"
-        },
-        {
-          "id": "40b02f68-c62e-414c-b2f3-62a4e797f2d3",
-          "type": "LIABILITY_TYPE_VEHICLE_LOAN",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "10000"
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "NAB"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "15500",
-            "nanos": 100000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-05-24T08:24:36.128250Z",
-          "updatedBy": "1000990280",
-          "etag": "1684916676128250000"
-        },
-        {
-          "id": "5f21e58d-b90d-4c82-bf48-8d11edfdc9d0",
-          "type": "LIABILITY_TYPE_OTHER_LIABILITY",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "10000"
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "CBA"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "15500",
-            "nanos": 100000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-06-07T02:28:03.460393Z",
-          "updatedBy": "1000990280",
-          "etag": "1686104883460393000"
-        },
-        {
-          "id": "ac52b368-d370-4d83-a939-da5d6ff7f418",
-          "type": "LIABILITY_TYPE_OTHER_LOAN",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "10000"
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "NAB"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "15500",
-            "nanos": 100000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-06-07T02:32:19.655116Z",
-          "updatedBy": "1000990280",
-          "etag": "1686105139655116000"
-        },
-        {
-          "id": "a596d60f-1891-4174-8f0b-e7409ca8d6a3",
-          "type": "LIABILITY_TYPE_MARGIN_LOAN",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "10000"
-            },
-            "interestRate": {
-              "value": "550"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "650"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "NAB"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "15500",
-            "nanos": 100000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-06-05T06:28:52.996269Z",
-          "updatedBy": "1000990280",
-          "etag": "1685946532996269000"
-        },
-        {
-          "id": "ac52b368-d370-4d83-a939-da5d6ff7f418",
-          "type": "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
-          "institutionalLiability": {
-            "limit": {
-              "currencyCode": "AUD",
-              "units": "20000"
-            },
-            "interestRate": {
-              "value": "450"
-            },
-            "minimumPayment": {
-              "currencyCode": "AUD",
-              "units": "570"
-            },
-            "repaymentAmount": {
-              "currencyCode": "AUD",
-              "units": "890"
-            },
-            "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
-            "redrawAmount": {
-              "currencyCode": "AUD"
-            },
-            "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
-            "financialInstitution": "CBA"
-          },
-          "outstandingBalance": {
-            "currencyCode": "AUD",
-            "units": "4500",
-            "nanos": 200000000
-          },
-          "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-          "ownership": [
-            {
-              "partyId": "1000990280",
-              "proportion": {
-                "value": "100"
-              }
-            }
-          ],
-          "updateTime": "2023-06-07T02:32:19.655116Z",
-          "updatedBy": "1000990280",
-          "etag": "1686105139655116000"
-        }
-      ],
-      "liabilitiesTotalAmount": {
-        "currencyCode": "AUD",
-        "units": "72000",
-        "nanos": 700000000
+        "assets": ["e450ac74-78e1-470b-8e95-a2512f4359fe"],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          { "partyId": "1000991493", "proportion": { "value": "100" } }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-13T11:25:50.337387Z",
+        "updatedBy": "1000991493",
+        "etag": "1689247550337387000",
+        "verifiedOutstandingBalance": null
       }
-    }
-  ],
+    ],
+    "liabilitiesTotalAmount": {
+      "currencyCode": "AUD",
+      "units": "0",
+      "nanos": 0
+    },
+    "etag": ""
+  },
   "incomesSummary": {
     "sop": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
     "incomes": [
@@ -957,426 +447,589 @@
     },
     "etag": "1689056293959802000"
   },
-  "monthlyExpensesSummaries": [
-    {
-      "sop": "a2072999-ff40-4094-ba53-cd0bd3d6a12d",
-      "monthlyExpenses": [
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/",
-          "categoryId": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Education",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "1340"
-          },
-          "createTime": "0001-01-01T00:00:00Z",
-          "updateTime": "0001-01-01T00:00:00Z",
-          "etag": "-6795364578871345152"
+  "monthlyExpensesSummary": {
+    "sop": "25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
+    "monthlyExpenses": [
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/6a5d6abc-869c-4d2a-8b84-4a6f36b8ef3e",
+        "uid": "6a5d6abc-869c-4d2a-8b84-4a6f36b8ef3e",
+        "categoryId": "4b5143ad-76ad-470f-a264-370a728f7abe",
+        "expenseParent": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
+        "categoryName": "Public Education & Services",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/ddf1ff46-7bdc-4876-90e9-68223672039f",
-          "uid": "ddf1ff46-7bdc-4876-90e9-68223672039f",
-          "categoryId": "47280b5c-11a5-4a6b-b5f7-a3e0d9213c11",
-          "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
-          "categoryName": "Bills, Insurance \u0026 General",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "250"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_COMPLETED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/96829342-2b81-41ee-b610-16eefa185223",
+        "uid": "96829342-2b81-41ee-b610-16eefa185223",
+        "categoryId": "ab6cd64e-0391-413b-938f-2e39597fca97",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Health & Wellbeing",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/",
-          "categoryId": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Household Costs",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "1700"
-          },
-          "createTime": "0001-01-01T00:00:00Z",
-          "updateTime": "0001-01-01T00:00:00Z",
-          "etag": "-6795364578871345152"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/2dc581fe-6999-49f9-89fa-f956503c00f7",
+        "uid": "2dc581fe-6999-49f9-89fa-f956503c00f7",
+        "categoryId": "c463b0ad-89ef-46a0-9571-e0c8341c9446",
+        "expenseParent": "",
+        "categoryName": "LifeStyle",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/8e5ee92c-7457-417a-9dd0-154b60eb7598",
-          "uid": "8e5ee92c-7457-417a-9dd0-154b60eb7598",
-          "categoryId": "ab6cd64e-0391-413b-938f-2e39597fca97",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Health \u0026 Wellbeing",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "440"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_COMPLETED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/9432e057-96cf-4f26-ac1f-a51fc1187b18",
+        "uid": "9432e057-96cf-4f26-ac1f-a51fc1187b18",
+        "categoryId": "d556d6d8-17ae-4050-9fb9-e8f1e5ffe6f4",
+        "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+        "categoryName": "Owners Corp & Land Tax",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/0f097d76-bb26-4b69-8ed9-0ed63f2fc1a3",
-          "uid": "0f097d76-bb26-4b69-8ed9-0ed63f2fc1a3",
-          "categoryId": "ec52f68e-1b69-4a38-a678-36c4c92810f2",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Clothing \u0026 Personal Care",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "340"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
+        "uid": "",
+        "categoryId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "expenseParent": "",
+        "categoryName": "Essentials",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/c10b50ac-de03-4eca-aa9c-fb5dd2d8ac0b",
-          "uid": "c10b50ac-de03-4eca-aa9c-fb5dd2d8ac0b",
-          "categoryId": "f4725362-94b8-476b-be9f-14a28936a9aa",
-          "categoryName": "Other",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "120"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_NON_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": false,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "0001-01-01T00:00:00Z",
+        "updateTime": "0001-01-01T00:00:00Z",
+        "updatedBy": "",
+        "etag": "-6795364578871345152",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/f2e781c1-4a7e-4405-a112-02d6c3843ff4",
+        "uid": "f2e781c1-4a7e-4405-a112-02d6c3843ff4",
+        "categoryId": "ec52f68e-1b69-4a38-a678-36c4c92810f2",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Clothing & Personal Care",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/3bfb5104-93be-4b36-ad4e-14e46b146fac",
-          "uid": "3bfb5104-93be-4b36-ad4e-14e46b146fac",
-          "categoryId": "13561fa3-5db1-4996-b732-8510337b500d",
-          "expenseParent": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
-          "categoryName": "Family Support",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "66"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_NON_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/b9ec485b-e38d-45d5-9ec7-7f5037d6266e",
+        "uid": "b9ec485b-e38d-45d5-9ec7-7f5037d6266e",
+        "categoryId": "80523dfc-8782-4107-b77c-112b318cc6b4",
+        "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+        "categoryName": "Rent",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/6df91d43-f8ed-4723-8291-87057c8c9d92",
-          "uid": "6df91d43-f8ed-4723-8291-87057c8c9d92",
-          "categoryId": "4b5143ad-76ad-470f-a264-370a728f7abe",
-          "expenseParent": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
-          "categoryName": "Public Education \u0026 Services",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "890"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
+        "uid": "",
+        "categoryId": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Support & Care",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/adc312d9-0b1e-4f31-bfdf-dba04c7cffe1",
-          "uid": "adc312d9-0b1e-4f31-bfdf-dba04c7cffe1",
-          "categoryId": "80523dfc-8782-4107-b77c-112b318cc6b4",
-          "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
-          "categoryName": "Rent",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "1200"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_NON_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": false,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "0001-01-01T00:00:00Z",
+        "updateTime": "0001-01-01T00:00:00Z",
+        "updatedBy": "",
+        "etag": "-6795364578871345152",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/a6f0aa07-f4aa-4853-b322-509e956d3842",
+        "uid": "a6f0aa07-f4aa-4853-b322-509e956d3842",
+        "categoryId": "ebbc29b8-a13b-46c4-af13-6687348b2335",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Transport",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/cfd7644c-915d-407e-bbe0-460fff1f5c0c",
-          "uid": "cfd7644c-915d-407e-bbe0-460fff1f5c0c",
-          "categoryId": "8ff3ee2b-e90f-4303-b38e-97762b61f52b",
-          "expenseParent": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
-          "categoryName": "Childcare",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "250"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/eba04980-2419-4afc-a6cc-cd0f83bb2367",
+        "uid": "eba04980-2419-4afc-a6cc-cd0f83bb2367",
+        "categoryId": "13561fa3-5db1-4996-b732-8510337b500d",
+        "expenseParent": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
+        "categoryName": "Family Support",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/874c1098-3d7d-4251-8cc8-93a0de504c0b",
-          "uid": "874c1098-3d7d-4251-8cc8-93a0de504c0b",
-          "categoryId": "b9615970-e432-4105-bf94-860200cf4570",
-          "expenseParent": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
-          "categoryName": "Pet Care",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "534"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/356f9a78-e71a-4c3c-9472-f35887770440",
+        "uid": "356f9a78-e71a-4c3c-9472-f35887770440",
+        "categoryId": "47280b5c-11a5-4a6b-b5f7-a3e0d9213c11",
+        "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+        "categoryName": "Bills, Insurance & General",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/79288280-1297-4120-a5d7-65078364b2cb",
-          "uid": "79288280-1297-4120-a5d7-65078364b2cb",
-          "categoryId": "c463b0ad-89ef-46a0-9571-e0c8341c9446",
-          "categoryName": "LifeStyle",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "245"
-          },
-          "control": "EXPENSE_CONTROL_WARNING",
-          "review": "EXPENSE_REVIEW_COMPLETED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
+        "uid": "",
+        "categoryId": "5eca1a2b-d4e1-4307-b1d9-ca14362dc5fd",
+        "expenseParent": "ca354e5e-9af7-413f-aa71-7e543f373b42",
+        "categoryName": "Phone & Internet",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/e8c8148c-f292-4d96-8b3a-dc84dec8523c",
-          "uid": "e8c8148c-f292-4d96-8b3a-dc84dec8523c",
-          "categoryId": "ca354e5e-9af7-413f-aa71-7e543f373b42",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Subscriptions, Phone \u0026 Internet",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": false,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "0001-01-01T00:00:00Z",
+        "updateTime": "0001-01-01T00:00:00Z",
+        "updatedBy": "",
+        "etag": "-6795364578871345152",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/0feff9b3-6216-47cc-8254-cfeab32e0aef",
+        "uid": "0feff9b3-6216-47cc-8254-cfeab32e0aef",
+        "categoryId": "8ff3ee2b-e90f-4303-b38e-97762b61f52b",
+        "expenseParent": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
+        "categoryName": "Childcare",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/",
-          "categoryId": "5eca1a2b-d4e1-4307-b1d9-ca14362dc5fd",
-          "expenseParent": "ca354e5e-9af7-413f-aa71-7e543f373b42",
-          "categoryName": "Phone \u0026 Internet",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD"
-          },
-          "createTime": "0001-01-01T00:00:00Z",
-          "updateTime": "0001-01-01T00:00:00Z",
-          "etag": "-6795364578871345152"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
+        "uid": "",
+        "categoryId": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Household Costs",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/",
-          "categoryId": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Support \u0026 Care",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "850"
-          },
-          "createTime": "0001-01-01T00:00:00Z",
-          "updateTime": "0001-01-01T00:00:00Z",
-          "etag": "-6795364578871345152"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": false,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "0001-01-01T00:00:00Z",
+        "updateTime": "0001-01-01T00:00:00Z",
+        "updatedBy": "",
+        "etag": "-6795364578871345152",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/5292c2c2-6d6e-4e2f-8e63-d2f18439f341",
+        "uid": "5292c2c2-6d6e-4e2f-8e63-d2f18439f341",
+        "categoryId": "b9615970-e432-4105-bf94-860200cf4570",
+        "expenseParent": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
+        "categoryName": "Pet Care",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/5cdb8054-fa41-44e3-8f30-ed76d5a25c52",
-          "uid": "5cdb8054-fa41-44e3-8f30-ed76d5a25c52",
-          "categoryId": "a501f70e-f843-4613-9169-8b2943b6f54c",
-          "expenseParent": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
-          "categoryName": "Health, Life \u0026 Other",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "66"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_NON_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
+        "uid": "",
+        "categoryId": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Insurance Premiums",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/",
-          "categoryId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Essentials",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "5236"
-          },
-          "createTime": "0001-01-01T00:00:00Z",
-          "updateTime": "0001-01-01T00:00:00Z",
-          "etag": "-6795364578871345152"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": false,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "0001-01-01T00:00:00Z",
+        "updateTime": "0001-01-01T00:00:00Z",
+        "updatedBy": "",
+        "etag": "-6795364578871345152",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
+        "uid": "",
+        "categoryId": "d257a9ea-7de1-4253-a51a-2e28d79eb403",
+        "expenseParent": "ca354e5e-9af7-413f-aa71-7e543f373b42",
+        "categoryName": "Subscriptions",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/dd5cb804-bb9d-49fd-8e51-3be311bec099",
-          "uid": "dd5cb804-bb9d-49fd-8e51-3be311bec099",
-          "categoryId": "ebbc29b8-a13b-46c4-af13-6687348b2335",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Transport",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "230"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_COMPLETED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": false,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "0001-01-01T00:00:00Z",
+        "updateTime": "0001-01-01T00:00:00Z",
+        "updatedBy": "",
+        "etag": "-6795364578871345152",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",
+        "uid": "",
+        "categoryId": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Education",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/059f16cc-589b-4075-aec3-e9317f6bbbcb",
-          "uid": "059f16cc-589b-4075-aec3-e9317f6bbbcb",
-          "categoryId": "58a66b05-5b22-47b2-82bf-1c509f8e0b48",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Groceries",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "150"
-          },
-          "control": "EXPENSE_CONTROL_JUSTIFIED",
-          "review": "EXPENSE_REVIEW_COMPLETED",
-          "justificationCode": "JGR03",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": false,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "0001-01-01T00:00:00Z",
+        "updateTime": "0001-01-01T00:00:00Z",
+        "updatedBy": "",
+        "etag": "-6795364578871345152",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/ac3156b2-9c82-46e5-9cc1-d8284adb3653",
+        "uid": "ac3156b2-9c82-46e5-9cc1-d8284adb3653",
+        "categoryId": "58a66b05-5b22-47b2-82bf-1c509f8e0b48",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Groceries",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/63b700f0-c2c0-4385-a766-c0308e858d56",
-          "uid": "63b700f0-c2c0-4385-a766-c0308e858d56",
-          "categoryId": "786303fe-b09e-47c5-ab16-327ab8c6b3d3",
-          "expenseParent": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
-          "categoryName": "Private Education",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "450"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_NON_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/742596e9-df40-4cb6-8d5c-8dc1f5367df2",
+        "uid": "742596e9-df40-4cb6-8d5c-8dc1f5367df2",
+        "categoryId": "786303fe-b09e-47c5-ab16-327ab8c6b3d3",
+        "expenseParent": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
+        "categoryName": "Private Education",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/4785c74f-a9ae-4547-a893-d81770b0fc06",
-          "uid": "4785c74f-a9ae-4547-a893-d81770b0fc06",
-          "categoryId": "9e66cf3d-05c5-4207-8cfb-024254856d98",
-          "expenseParent": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
-          "categoryName": "Car, Travel \u0026 Belongings",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "120"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_HEM"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/5dab2062-9fdd-4947-915d-79444eec9b81",
+        "uid": "5dab2062-9fdd-4947-915d-79444eec9b81",
+        "categoryId": "9e66cf3d-05c5-4207-8cfb-024254856d98",
+        "expenseParent": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
+        "categoryName": "Car, Travel & Belongings",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/",
-          "categoryId": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
-          "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
-          "categoryName": "Insurance Premiums",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "186"
-          },
-          "createTime": "0001-01-01T00:00:00Z",
-          "updateTime": "0001-01-01T00:00:00Z",
-          "etag": "-6795364578871345152"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/6dd00156-2046-4a88-ad7e-9ff0ca8aaf28",
+        "uid": "6dd00156-2046-4a88-ad7e-9ff0ca8aaf28",
+        "categoryId": "a501f70e-f843-4613-9169-8b2943b6f54c",
+        "expenseParent": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
+        "categoryName": "Health, Life & Other",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/",
-          "categoryId": "d257a9ea-7de1-4253-a51a-2e28d79eb403",
-          "expenseParent": "ca354e5e-9af7-413f-aa71-7e543f373b42",
-          "categoryName": "Subscriptions",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD"
-          },
-          "createTime": "0001-01-01T00:00:00Z",
-          "updateTime": "0001-01-01T00:00:00Z",
-          "etag": "-6795364578871345152"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/f655c4a6-5fb9-43ba-8d6d-1a040accb30d",
+        "uid": "f655c4a6-5fb9-43ba-8d6d-1a040accb30d",
+        "categoryId": "ca354e5e-9af7-413f-aa71-7e543f373b42",
+        "expenseParent": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
+        "categoryName": "Subscriptions, Phone & Internet",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
         },
-        {
-          "name": "sops/a2072999-ff40-4094-ba53-cd0bd3d6a12d/expenses/129ff3a3-26f2-427e-b003-0f6d95fcd0a4",
-          "uid": "129ff3a3-26f2-427e-b003-0f6d95fcd0a4",
-          "categoryId": "d556d6d8-17ae-4050-9fb9-e8f1e5ffe6f4",
-          "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
-          "categoryName": "Owners Corp \u0026 Land Tax",
-          "statedMonthlyAverageAmount": {
-            "currencyCode": "AUD",
-            "units": "250"
-          },
-          "control": "EXPENSE_CONTROL_UNSPECIFIED",
-          "review": "EXPENSE_REVIEW_NOT_REQUIRED",
-          "leafNode": true,
-          "createTime": "2023-06-04T08:54:44.562348Z",
-          "updateTime": "2023-06-04T08:54:44.562348Z",
-          "updatedBy": "sop-service",
-          "etag": "1685868884562348000",
-          "hemState": "HEM_STATE_NON_HEM"
-        }
-      ],
-      "expensesTotalAmount": {
-        "currencyCode": "AUD",
-        "units": "5601"
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/f622f9a1-8274-4f0d-ab06-b7fb14ff2dd8",
+        "uid": "f622f9a1-8274-4f0d-ab06-b7fb14ff2dd8",
+        "categoryId": "f4725362-94b8-476b-be9f-14a28936a9aa",
+        "expenseParent": "",
+        "categoryName": "Other",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "0",
+          "nanos": 0
+        },
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2023-07-06T01:52:06.165083Z",
+        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "updatedBy": "sop-service",
+        "etag": "1688608326165083000",
+        "hemState": "HEM_STATE_UNSPECIFIED"
       }
-    }
-  ],
+    ],
+    "expensesTotalAmount": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+    "etag": ""
+  },
   "assetsSummary": {
     "sop": "sops/f7a857fb-1098-4125-bec9-6f0b6f17987c",
     "assets": [

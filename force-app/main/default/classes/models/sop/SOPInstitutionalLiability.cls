@@ -6,7 +6,7 @@
  */
 public class SOPInstitutionalLiability {
   public SOPMoney limitAmount;
-  public SOPInterestRate interestRate;
+  public Integer interestRate;
   public SOPMoney minimumPayment;
   public SOPMoney repaymentAmount;
   public String repaymentFrequency;
@@ -32,6 +32,21 @@ public class SOPInstitutionalLiability {
           ' ';
       }
       return result.trim();
+    }
+  }
+
+  /**
+   * @description return a readable interest rate value
+   */
+  public string readableInterestRate {
+    get {
+      try {
+        Decimal givenValue = Decimal.valueOf(interestRate);
+        String result = (givenValue / 100).setScale(2) + '%';
+        return result;
+      } catch (Exception e) {
+        return 'Not Provided';
+      }
     }
   }
 
