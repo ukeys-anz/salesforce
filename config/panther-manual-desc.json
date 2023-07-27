@@ -189,7 +189,10 @@
     "External_Case_Status__c": "This object is used to capture the Case status from external systems.",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
+    "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
+    "Interaction_Tag__c": "Master data to store all Tag values to be displayed on Custom LWCs",
+    "Interaction_Context_Tag__c": "Junction Object between Interaction and Interaction Tag",
     "Known_Issues__c": "Known Issues",
     "Knowledge__kav": "An internal knowledge article",
     "Lead": "Prospective customer details, and other personal information pertaining to a customer",
@@ -216,7 +219,6 @@
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
     "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
-    "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
     "Task": "A task to remind a user to follow up on something",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
@@ -233,7 +235,6 @@
     "Account": {
       "IA-2415720": [
         "ANZx_Customer__c",
-        "AR_C_Customer__c",
         "Anniversary_Date__c",
         "Anniversary_Duration__c",
         "Collections__c",
@@ -283,6 +284,9 @@
         "Phone",
         "Self_Certified_Tax_Date__c",
         "Self_Certified_Tax_Residency__c",
+        "Full_First_Name__c",
+        "Full_Middle_Name__c",
+        "Full_Last_Name__c",
         "Tax_Exemption_Type__c",
         "TFN_Verification__c"
       ],
@@ -292,10 +296,11 @@
         "Controlling_Post__c",
         "CPID_Link__c",
         "CPID__c",
+        "IsSkeleton__c",
         "IsSnapshotError__c",
         "IsSnapshotInProgress__c"
       ],
-      "IA-2415860": ["FinServ__CustomerType__c"]
+      "IA-2415860": ["FinServ__CustomerType__c", "IsTruncated__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -351,7 +356,8 @@
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
-        "Skip_Validations__c"
+        "Skip_Validations__c",
+        "Team_Manager__c"
       ],
       "IA-2415840": ["Case__c", "Case_Age_in_Days__c", "Case_Created__c"]
     },
@@ -461,6 +467,7 @@
         "External_System__c",
         "FinServ__FinancialAccount__c",
         "Fraud_COR_Event_ID__c",
+        "Fraud_Onboarding_Customer_Name__c",
         "IsOwnerCoachOrCoachLead__c",
         "OwnerId",
         "ParentId",
@@ -476,7 +483,10 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "Survey_Response__c"
+        "Survey_Response__c",
+        "Is_this_a_complaint_about_a_complaint__c",
+        "CAC_Sub_Category__c",
+        "Review_Outcome__c"
       ],
       "IA-2453595": [
         "Actual_Outcome__c",
@@ -548,6 +558,7 @@
         "Fraud_Customer_Provided_Selfie__c",
         "Fraud_Customer_Resolution_Provided__c",
         "Fraud_Defects_Rectified__c",
+        "Fraud_Detection_Case_Reference__c",
         "Fraud_Device_Status__c",
         "Fraud_EV_Match__c",
         "Fraud_Failed_Verification_Reason__c",
@@ -559,10 +570,12 @@
         "Fraud_Funds_to_Geography__c",
         "Fraud_Funds_to_Institution_Other__c",
         "Fraud_Funds_to_Institution__c",
+        "Fraud_Funds_to_OFI_Account__c",
         "Fraud_ID_Legible__c",
         "Fraud_ID_Not_Picture__c",
         "Fraud_ID_True_Document__c",
         "Fraud_Loss_Reason_Code__c",
+        "Fraud_MiddleNameCheck__c",
         "Fraud_Middle_Name__c",
         "Fraud_Middle_Initial__c",
         "Fraud_PIN_Status__c",
@@ -592,6 +605,12 @@
         "Fraud_Analytics_Change_Type__c",
         "Fraud_Analytics_Rule_Name__c",
         "Fraud_Analytics_Date_Complete__c",
+        "Fraud_ID_Compromise_Type__c",
+        "Fraud_Onboarding_Selfie_Of__c",
+        "Fraud_ANZX_Fraud_Confirm__c",
+        "Fraud_ARC_Profile_Exist__c",
+        "Fraud_ARC_Profile_Status__c",
+        "Fraud_Prevented__c",
         "Has_The_Card_Been_Stopped__c",
         "IDR_AFCA_Date__c",
         "IDR_AFCA_Due_Date__c",
@@ -872,7 +891,8 @@
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
         "PersonaId__c",
-        "PersonID__c"
+        "PersonID__c",
+        "Fraud_PersonID__c"
       ]
     },
     "CFaaS_File__c": {
@@ -1033,33 +1053,40 @@
         "DateOfBirthOCRServer__c",
         "DateOfBirthOCRClient__c"
       ],
-      "IA-2415992": [
-        "LicenceNumber__c",
-        "LicenceNumberOCRServer__c",
-        "LicenceNumberOCRClient__c",
-        "LicenceCardNumber__c",
-        "LicenceCardNumberOCRServer__c",
-        "LicenceCardNumberOCRClient__c",
-        "PassportNumber__c",
-        "PassportNumberOCRServer__c",
-        "PassportNumberOCRClient__c"
-      ],
       "IA-2530753": [
-        "Id",
         "CreatedById",
         "CreatedDate",
+        "Id",
+        "DateOfBirthOCRMatch__c",
+        "FirstNameOCRMatch__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Name",
+        "LastNameOCRMatch__c",
+        "LicenceCardNumber__c",
+        "LicenceCardNumberOCRClient__c",
         "LicenceCardNumberOCRClientTransform__c",
+        "LicenceCardNumberOCRMatch__c",
+        "LicenceCardNumberOCRServer__c",
         "LicenceCardNumberOCRServerTransform__c",
         "LicenceCardNumberTransform__c",
+        "LicenceNumber__c",
+        "LicenceNumberOCRClient__c",
         "LicenceNumberOCRClientTransform__c",
+        "LicenceNumberOCRMatch__c",
+        "LicenceNumberOCRServer__c",
         "LicenceNumberOCRServerTransform__c",
         "LicenceNumberTransform__c",
+        "MiddleNamesInitialsOCRMatch__c",
+        "MiddleNamesOCRMatch__c",
+        "Name",
+        "PassportNumber__c",
+        "PassportNumberOCRClient__c",
         "PassportNumberOCRClientTransform__c",
+        "PassportNumberOCRMatch__c",
+        "PassportNumberOCRServer__c",
         "PassportNumberOCRServerTransform__c",
-        "PassportNumberTransform__c"
+        "PassportNumberTransform__c",
+        "ExpiryDateOCRMatch__c"
       ]
     },
     "COBTaxResidency__c": {
@@ -1096,7 +1123,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Previous_Record_Type__c"
       ],
       "IA-2415860": ["Occurrence_Number__c"],
       "IA-2415984": [
@@ -1126,6 +1154,7 @@
         "Last_Modified_Date__c",
         "LastModifiedById",
         "LastModifiedDate",
+        "Previous_Related_Account__c",
         "RecordTypeId"
       ],
       "IA-2415984": [
@@ -1145,8 +1174,10 @@
         "Created_By__c",
         "Created_Date__c",
         "Customer_Name__c",
+        "External_Id__c",
         "Last_Modified_By__c",
-        "Last_Modified_Date__c"
+        "Last_Modified_Date__c",
+        "Previous_Related_Account__c"
       ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
@@ -1156,7 +1187,11 @@
       ]
     },
     "ContactPointPhone": {
-      "IA-2530753": ["Customer_Name__c"],
+      "IA-2530753": [
+        "Customer_Name__c",
+        "External_Id__c",
+        "Previous_Related_Account__c"
+      ],
       "IA-2415984": ["Preferred_Indicator__c"],
       "IA-2415720": [
         "Verification_Status__c",
@@ -1384,6 +1419,10 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
+    "FinServ__ContactContactRelation__c": {
+      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2453350": ["External_Id__c"]
+    },
     "FinServ__FinancialAccount__c": {
       "IA-2468715": [
         "Account_Key__c",
@@ -1392,7 +1431,6 @@
         "FinServ__RecordTypeName__c",
         "Marketing_Code__c",
         "OCV_ID__c",
-        "Primary_Owner_Start_Date__c",
         "Product_Type__c",
         "CreatedById",
         "CreatedDate",
@@ -1411,7 +1449,6 @@
         "FinServ__OpenDate__c",
         "FinServ__Status__c",
         "Interest_Accrued__c",
-        "Role_Type__c",
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",
         "Name",
@@ -1419,7 +1456,6 @@
       ],
       "IA-2415987": ["Interest_Rate_URL__c"],
       "IA-2530753": [
-        "IsPrimaryOwner__c",
         "OCV_Event_Version__c",
         "Product_SubCode__c",
         "Source_System_Status_Display__c",
@@ -1447,7 +1483,13 @@
         "LastModifiedDate",
         "RecordTypeId"
       ],
-      "IA-2530753": ["IsPrimaryOwner__c", "Role_Type__c"]
+      "IA-2530753": ["Role_Type__c"]
+    },
+    "FinServ__ReciprocalRole__c": {
+      "IA-2530753": ["OCV_Role__c", "Role_Description__c"]
+    },
+    "IDR_Omni_Settings__c": {
+      "IA-2415860": ["Disable_CMOS_Omni__c"]
     },
     "Industry__c": {
       "IA-2530401": [
@@ -1509,7 +1551,23 @@
         "Resolution__c",
         "StartTime",
         "Status__c",
-        "Twilio_ID__c"
+        "Twilio_ID__c",
+        "Assisted__c",
+        "Self_Service__c",
+        "Place__c"
+      ],
+      "IA-2468715": ["Loan_Application__c"]
+    },
+    "Interaction_Tag__c": {
+      "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"]
+    },
+    "Interaction_Context_Tag__c": {
+      "IA-2415840": [
+        "Name",
+        "Interaction__c",
+        "Interaction_Tag__c",
+        "Type__c",
+        "Tag_Name__c"
       ]
     },
     "InteractionSummary": {
@@ -2282,21 +2340,9 @@
         "ApexClassName__c",
         "ApexMethodName__c",
         "Log__c",
+        "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
-      ]
-    },
-    "SkyhighNetworks__SHNEvent__c": {
-      "IA-2468710": [
-        "SkyhighNetworks__EventDetail__c",
-        "SkyhighNetworks__SourceObjectId__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
       ]
     },
     "Task": {
@@ -2349,6 +2395,7 @@
         "Response_Status__c",
         "Response_Type__c",
         "Skip_Validations__c",
+        "Team_Manager__c",
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
       ],

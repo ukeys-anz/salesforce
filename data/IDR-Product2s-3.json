@@ -2271,6 +2271,20 @@
     {
       "attributes": {
         "type": "Product2",
+        "referenceId": "Product2Ref51"
+      },
+      "Name": "Foreign Currency Account",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "568",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Type__c": "28",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking",
+      "IDR_Product_Family__c": "@Product_Family__cRef4"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
         "referenceId": "Product2Ref526"
       },
       "Name": "ANZ Capital Notes",
@@ -2299,21 +2313,7 @@
     {
       "attributes": {
         "type": "Product2",
-        "referenceId": "Product2Ref51"
-      },
-      "Name": "Foreign Currency Account",
-      "IsActive": true,
-      "ANZ_Product_Code__c": "568",
-      "IDR_Product_or_Service_Line__c": "2",
-      "IDR_Product_or_Service_Category__c": "5",
-      "IDR_Product_or_Service_Type__c": "28",
-      "IDR_Workbasket__c": "IDR_Business_Owners",
-      "IDR_Product_Family__c": "@Product_Family__cRef4"
-    },
-    {
-      "attributes": {
-        "type": "Product2",
-        "referenceId": "Product2Ref6"
+        "referenceId": "Product2Ref571"
       },
       "Name": "ANZ Plus - Fixed Home Loan",
       "IsActive": true,
@@ -2323,6 +2323,62 @@
       "IDR_Product_or_Service_Type__c": "15",
       "IDR_Workbasket__c": "IDR_Home_Owners",
       "IDR_Product_Family__c": "@Product_Family__cRef2"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref572"
+      },
+      "Name": "ANZ Landlord Insurance (CGU)",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "572",
+      "IDR_Product_or_Service_Line__c": "3",
+      "IDR_Product_or_Service_Category__c": "8",
+      "IDR_Product_or_Service_Type__c": "41",
+      "IDR_Workbasket__c": "IDR_Wealth",
+      "IDR_Product_Family__c": "@Product_Family__cRef11"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref573"
+      },
+      "Name": "ANZ Car Insurance (Comprehensive) (CGU)",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "573",
+      "IDR_Product_or_Service_Line__c": "3",
+      "IDR_Product_or_Service_Category__c": "8",
+      "IDR_Product_or_Service_Type__c": "44",
+      "IDR_Workbasket__c": "IDR_Wealth",
+      "IDR_Product_Family__c": "@Product_Family__cRef11"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref574"
+      },
+      "Name": "ANZ Home and Contents Insurance (CGU)",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "574",
+      "IDR_Product_or_Service_Line__c": "3",
+      "IDR_Product_or_Service_Category__c": "8",
+      "IDR_Product_or_Service_Type__c": "41",
+      "IDR_Workbasket__c": "IDR_Wealth",
+      "IDR_Product_Family__c": "@Product_Family__cRef11"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "Product2Ref575"
+      },
+      "Name": "PayTo",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "575",
+      "IDR_Product_or_Service_Line__c": "6",
+      "IDR_Product_or_Service_Category__c": "19",
+      "IDR_Product_or_Service_Type__c": "130",
+      "IDR_Workbasket__c": "IDR_Everyday_Banking",
+      "IDR_Product_Family__c": "@Product_Family__cRef11"
     },
     {
       "attributes": {

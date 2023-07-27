@@ -1,0 +1,3 @@
+.slds-dropdown ul li:first-child {
+  display: none;
+}

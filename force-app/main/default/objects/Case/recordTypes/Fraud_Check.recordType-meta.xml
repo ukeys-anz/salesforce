@@ -6283,10 +6283,6 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Stores are cashless</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue_3__c</picklist>
@@ -6708,10 +6704,6 @@
         </values>
         <values>
             <fullName>Request won%27t be actioned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Stores are cashless</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -7137,10 +7129,6 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Stores are cashless</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Systemic_Issue_Category__c</picklist>
@@ -7218,6 +7206,10 @@
         <picklist>OnboardingVerificationFailedReason__c</picklist>
         <values>
             <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document details unreadable</fullName>
             <default>false</default>
         </values>
         <values>

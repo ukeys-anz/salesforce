@@ -275,7 +275,11 @@ public with sharing class ContactRequestActionsTest {
   static void testCreateInteractionFromRequestForLead() {
     setup();
     Faker faker = new Faker('AU');
-    Lead testLead = createTestLead();
+
+    Lead testLead;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      testLead = createTestLead();
+    }
 
     string requestReason = InteractionConstants.FINANCIAL_WELLBEING_PURPOSE_NAME;
 
@@ -296,10 +300,13 @@ public with sharing class ContactRequestActionsTest {
     ContactRequestActions contactRequestActionHelper = new ContactRequestActions();
 
     Test.startTest();
+    Interaction newInteraction;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      newInteraction = contactRequestActionHelper.createInteractionFromRequest(
+        request
+      );
+    }
 
-    Interaction newInteraction = contactRequestActionHelper.createInteractionFromRequest(
-      request
-    );
     Test.stopTest();
 
     System.assertNotEquals(
@@ -493,8 +500,10 @@ public with sharing class ContactRequestActionsTest {
     DateTime appointmentDateTime = DateTime.Now();
     DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
 
-    Lead testLead = createTestLead();
-
+    Lead testLead;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      testLead = createTestLead();
+    }
     List<InteractionSummary> summaries = [SELECT Id FROM InteractionSummary];
 
     system.assertEquals(
@@ -512,7 +521,9 @@ public with sharing class ContactRequestActionsTest {
     testInteraction.EndTime = endDateTime;
     testInteraction.Interaction_Purpose__c = InteractionConstants.OTHER_PURPOSE_NAME;
     testInteraction.InteractionType = InteractionConstants.CALL;
-    insert testInteraction;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      insert testInteraction;
+    }
   }
 
   @isTest

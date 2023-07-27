@@ -6,7 +6,7 @@ function checkFieldBusinessStatus() {
     if [[ $fieldMetadata != *"<businessStatus>"* ]];then
         echo "$2.$f : Missed businessStatus"
     elif [[ $fieldMetadata == *"<businessStatus>Hidden</businessStatus>"* ]];then
-        echo "$2.$f : Hidden field"
+        echo "$2.$f : Hidden field | This is not an error"
     fi        
 }
 
@@ -23,7 +23,7 @@ function checkFieldMetadataInformation() {
     if [[ $fieldMetadata != *Privacy* ]];then
         echo "$2.$f : Missed complianceGroup | Privacy"
     fi
-    if [[ $fieldMetadata != *"<description>"* && $3 != *"$2.$f,"* && $3 != *",$2.$f" ]];then
+    if [[ $fieldMetadata != *"<description>"* && $3 != *"$2.$f,"* && $3 != *",$2.$f" && $3 != "$2.$f" ]];then
         echo "$2.$f : Missed description"
     fi
     if [[ $fieldMetadata != *"<securityClassification>"* ]];then
@@ -32,7 +32,7 @@ function checkFieldMetadataInformation() {
 }
 
 function checkPantherIdInformation() {
-    if [[ $3 != *"$2.$1,"* && $3 != *",$2.$1"* ]];then
+    if [[ $3 != *"$2.$1,"* && $3 != *",$2.$1"* && $3 != "$2.$1" ]];then
         echo "$2.$1 : Missed pantherId"
     fi
 }
@@ -50,7 +50,9 @@ if [[ -d ./tmp/deploy/force-app/main/default/objects ]];then
             manualDescField=$(node ./ci/sysl-check.js "$objectName" "manualFieldDesc")
             for f in $o/fields/*;do
                 checkBusinessStatus=$( checkFieldBusinessStatus $f $objectName )
-                echo $checkBusinessStatus
+                if [[ "$checkBusinessStatus" != '' ]];then 
+                    echo $checkBusinessStatus
+                fi
                 if [[ $checkBusinessStatus != *"Hidden"* ]];then
                     checkFieldMetadataInformation $f $objectName $manualDescField
                     checkPantherIdInformation $f $objectName $pantherIdsField

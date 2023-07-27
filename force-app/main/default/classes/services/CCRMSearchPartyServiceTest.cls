@@ -16,7 +16,11 @@ public with sharing class CCRMSearchPartyServiceTest {
     HttpCalloutResponse response = service.searchPartyInfo(record);
     Test.stopTest();
 
-    System.assertEquals(200, response.statusCode);
+    System.assertEquals(
+      200,
+      response.statusCode,
+      'Expected response status code to be 200'
+    );
   }
 
   @isTest
@@ -26,7 +30,10 @@ public with sharing class CCRMSearchPartyServiceTest {
       CCRMSearchPartyService.class
     );
     Test.stopTest();
-    System.assert(serviceResult instanceof CCRMSearchPartyServiceMock);
+    System.assert(
+      serviceResult instanceof CCRMSearchPartyServiceMock,
+      'Expected instance of CCRMSearchPartyServiceMock'
+    );
   }
 
   class MockSearchPartyCallout implements HttpCalloutMock {

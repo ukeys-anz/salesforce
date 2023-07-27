@@ -368,6 +368,16 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Dynamic_Form_Blank_Space_Placeholder__c</fieldItem>
+                <identifier>RecordDynamic_Form_Blank_Space_Placeholder_cField11</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Dynamic_Form_Blank_Space_Placeholder__c</fieldItem>
                 <identifier>RecordDynamic_Form_Blank_Space_Placeholder_cField5</identifier>
             </fieldInstance>
         </itemInstances>
@@ -379,6 +389,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.LicenceCardNumber__c</fieldItem>
                 <identifier>RecordLicenceCardNumber_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Dynamic_Form_Blank_Space_Placeholder__c</fieldItem>
+                <identifier>RecordDynamic_Form_Blank_Space_Placeholder_cField12</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -439,7 +459,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.LicenceNumberOCRClient__c</fieldItem>
                 <identifier>RecordLicenceNumberOCRClient_cField</identifier>
@@ -449,7 +469,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.LicenceNumberOCRServer__c</fieldItem>
                 <identifier>RecordLicenceNumberOCRServer_cField</identifier>
@@ -459,7 +479,17 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.LicenceNumberOCRMatch__c</fieldItem>
+                <identifier>RecordLicenceNumberOCRMatch_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.LicenceCardNumberOCRClient__c</fieldItem>
                 <identifier>RecordLicenceCardNumberOCRClient_cField</identifier>
@@ -469,10 +499,20 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.LicenceCardNumberOCRServer__c</fieldItem>
                 <identifier>RecordLicenceCardNumberOCRServer_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.LicenceCardNumberOCRMatch__c</fieldItem>
+                <identifier>RecordLicenceCardNumberOCRMatch_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -513,6 +553,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.ExpiryDateOCRServer__c</fieldItem>
                 <identifier>RecordExpiryDateOCRServer_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ExpiryDateOCRMatch__c</fieldItem>
+                <identifier>ExpiryDateOCRMatch__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <type>Facet</type>
@@ -577,6 +627,16 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Dynamic_Form_Blank_Space_Placeholder__c</fieldItem>
+                <identifier>RecordDynamic_Form_Blank_Space_Placeholder_cField13</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CountryOfIssue__c</fieldItem>
@@ -621,7 +681,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.PassportNumberOCRClient__c</fieldItem>
                 <identifier>RecordPassportNumberOCRClient_cField</identifier>
@@ -631,10 +691,20 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.PassportNumberOCRServer__c</fieldItem>
                 <identifier>RecordPassportNumberOCRServer_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PassportNumberOCRMatch__c</fieldItem>
+                <identifier>RecordPassportNumberOCRMatch_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -764,6 +834,10 @@
                     <value>Facet-b08de510-9268-4f65-a4ac-c79c7f83e380</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Information</value>
                 </componentInstanceProperties>
@@ -778,6 +852,10 @@
                     <value>Facet-3f762ce7-1c00-4273-bc3f-39087bba3a26</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Personal Information</value>
                 </componentInstanceProperties>
@@ -790,6 +868,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-d1c6e661-0dec-4802-b7d2-9d90cba80ba3</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
@@ -819,6 +901,10 @@
                     <value>Facet-c969b5a9-9f90-4567-95ca-78ac7b8d5ac1</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Passport Information</value>
                 </componentInstanceProperties>
@@ -844,6 +930,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-af6327bb-9213-487d-90f1-76abaa326de2</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>

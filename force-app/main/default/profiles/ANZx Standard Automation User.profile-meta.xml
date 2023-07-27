@@ -107,6 +107,10 @@
         <recordType>Case.Direct_Entry_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-False Customer Profile Layout</layout>
+        <recordType>Case.False_Customer_Profile</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Fraud Layout</layout>
         <recordType>Case.Fraud</recordType>
     </layoutAssignments>
@@ -175,6 +179,10 @@
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
     </layoutAssignments>
     <loginIpRanges>
         <description>Allow all ips for this automation user to avoid MFA</description>

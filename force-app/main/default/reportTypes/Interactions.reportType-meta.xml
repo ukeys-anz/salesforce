@@ -2414,6 +2414,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>CaseId__c.Fraud_MiddleNameCheck__c</field>
+            <table>Interaction</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Lead__c.ABN__c</field>
             <table>Interaction</table>
         </columns>
@@ -3040,11 +3045,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Account.ANZx_Customer__c</field>
-            <table>Interaction</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Account.AR_C_Customer__c</field>
             <table>Interaction</table>
         </columns>
         <columns>

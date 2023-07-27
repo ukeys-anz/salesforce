@@ -16,14 +16,22 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
     List<Interaction> apptInteractions = InteractionFilter.getApptInteractions(
       records
     );
+    List<Interaction> storeInteractions = InteractionFilter.getStoreInteractions(
+      records
+    );
+
     Map<Id, SObject> apptMap = new Map<Id, SObject>(apptInteractions);
     Set<Id> apptIds = new Set<Id>(apptMap.keyset());
     InteractionSetters.setInteractionIds(apptInteractions);
     InteractionSetters.setExternalIds(apptIds);
+    InteractionAttendeeActions.insertDefaultAttendee(storeInteractions);
 
     List<Interaction> generalInteractions = InteractionFilter.getGeneralInteractions(
       records
     );
+
+    //Add Interaction Number for Store too.
+    generalInteractions.addAll(storeInteractions);
     Map<Id, SObject> generalMap = new Map<Id, SObject>(generalInteractions);
     Set<Id> generalIds = new Set<Id>(generalMap.keyset());
     InteractionSetters.setGeneralExternalIds(generalIds);
@@ -62,6 +70,9 @@ public with sharing class InteractionTriggerHandler extends Lib_TriggerHandler {
       }
     }
     interactiontoDeleteEvents.addAll(changedOwnerInteractions);
+    InteractionAttendeeActions.insertOwnerChangeAttendee(
+      changedOwnerInteractions
+    );
 
     createCoachingSummaryInteractions = InteractionFilter.getInteractionswithoutCoachingSummary(
       userOwnedInteractions

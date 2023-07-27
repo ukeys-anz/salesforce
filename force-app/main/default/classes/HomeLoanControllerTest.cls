@@ -56,27 +56,38 @@ public inherited sharing class HomeLoanControllerTest {
     homeLoanCustomer.External_Id__c = faker.randomString(6);
     insert homeLoanCustomer;
 
-    FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c();
-    finAccount.Name = homeLoanCustomer.Name;
-    finAccount.RecordTypeId = homeLoanRTId;
-    finAccount.FinServ__Balance__c = faker.randomDecimal(6, 2);
-    finAccount.FinServ__CurrentPostedBalance__c = faker.randomDecimal(4, 2);
-    finAccount.FinServ__Status__c = 'Active';
-    finAccount.FinServ__PrimaryOwner__c = homeLoanCustomer.Id;
-    finAccount.Account_Key__c = faker.randomString(10);
-    finAccount.Primary_Owner_Start_Date__c = faker.randomPastDate();
+    List<FinServ__FinancialAccount__c> finAccounts = TestDataFactory.createFinancialAccount(
+      2,
+      false
+    );
+    for (FinServ__FinancialAccount__c finAccount : finAccounts) {
+      finAccount.Name = homeLoanCustomer.Name;
+      finAccount.RecordTypeId = homeLoanRTId;
+      finAccount.FinServ__PrimaryOwner__c = homeLoanCustomer.Id;
+    }
 
-    insert finAccount;
+    finAccounts[0]
+      .Marketing_Code__c = GetHelpConstants.HOME_LOAN_MARKETING_CODES[0];
+    finAccounts[0].FinServ__FinancialAccountNumber__c = '111111111';
+
+    insert finAccounts;
+
     Test.startTest();
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Id finAccountId = HomeLoanController.getHomeLoanFinancialAccountId(
         homeLoanCustomer.Id
       );
-      System.assertNotEquals(
-        null,
-        finAccountId,
-        'expect to return a financial account id '
+      FinServ__FinancialAccount__c result = [
+        SELECT FinServ__FinancialAccountNumber__c
+        FROM FinServ__FinancialAccount__c
+        WHERE Id = :finAccountId
+        LIMIT 1
+      ];
+      Assert.areEqual(
+        '111111111',
+        result.FinServ__FinancialAccountNumber__c,
+        'One home loan marketing code fin account should be returned'
       );
     }
     Test.stopTest();

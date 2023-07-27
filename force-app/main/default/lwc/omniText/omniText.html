@@ -1,0 +1,24 @@
+<template>
+  <template if:true={isPicklist}>
+    <lightning-combobox
+      class="slds-size_12-of-12"
+      name={omniJsonDef.name}
+      label={omniJsonDef.propSetMap.label}
+      value={value}
+      placeholder=""
+      required={isRequired}
+      options={options}
+      onchange={handleChange}
+    >
+    </lightning-combobox>
+  </template>
+  <template if:true={isText}>
+    <lightning-input
+      type="text"
+      label={omniJsonDef.propSetMap.label}
+      required={isRequired}
+      onchange={handleChange}
+    >
+    </lightning-input>
+  </template>
+</template>

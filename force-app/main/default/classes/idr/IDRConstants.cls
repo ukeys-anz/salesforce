@@ -107,6 +107,7 @@ public with sharing class IDRConstants {
 
   //To auto assign cases checking for Subsequent Issue Type Set
   public static final Set<String> SUB_ISSUE_TYPE_HARDSHIP = new Set<String>{
+    '20',
     '21',
     '22',
     '23',
@@ -271,6 +272,7 @@ public with sharing class IDRConstants {
           'IDR_ANZ_Plus',
           'EDR_Hardship',
           'EDR_Wealth',
+          'IDR_Satellite',
           'IDR_Spare' //IDR Disputes & Scams
         };
       }
@@ -292,5 +294,76 @@ public with sharing class IDRConstants {
   public static final List<String> COMPLAINANT_USE_FIRST_NAME = new List<String>{
     DEBT_MANAGEMENT_FIRM,
     WEALTH_REPRESENTATIVE
+  };
+
+  public static final Boolean DISABLE_OMNI_FOR_CMOS = IDR_Omni_Settings__c.getInstance(
+      UserInfo.getUserId()
+    )
+    .Disable_CMOS_Omni__c;
+  public static final String CUSTOMER_COMPLAINT_RT_NAME = 'Customer_Complaint';
+  public static final String NON_CUSTOMER_COMPLAINT_RT_NAME = 'Non_Customer_Complaint';
+
+  public static final List<String> IDR_PRIORITY_VALUES = new List<String>{
+    'Standard',
+    'Financial Hardship',
+    'Vulnerable Customer',
+    'Customer in Collections'
+  };
+
+  public static final List<String> IDR_ORIGIN_VALUES = new List<String>{
+    '1',
+    'Phone',
+    '3',
+    '4',
+    '5',
+    'Email',
+    '6',
+    '8',
+    '9',
+    '10',
+    '11',
+    'Chat',
+    'ANZ Plus App'
+  };
+
+  public static final List<String> IDR_TYPE_VALUES = new List<String>{
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    'Chat',
+    'ANZ Plus App'
+  };
+
+  public static final List<String> IDR_ESCALATION_VALUES = new List<String>{
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '20'
   };
 }
