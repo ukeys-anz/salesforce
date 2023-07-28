@@ -64,7 +64,6 @@ public with sharing class TwilioServiceUtil {
       );
 
       if (twilioRecordUpserted.isSuccess()) {
-        responseList.add(generateResponse());
         if (!String.isBlank(payLoad.agentEmail)) {
           interactionToBeUpdated.add(
             new Interaction(

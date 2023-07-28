@@ -138,7 +138,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     ];
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioContexts = prepareRequest(
+    InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
       interactionRecord.Id,
       'TW' + faker.randomString(10),
       'CH1123141516161616',
@@ -193,7 +193,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       LIMIT 1
     ];
 
-    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioContexts = prepareRequest(
+    InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
       interactionRecord.Id,
       'TW' + faker.randomString(10),
       'CH1123141516161616',
@@ -248,7 +248,7 @@ public with sharing class InteractionContextServiceUpdateTest {
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioContexts = prepareRequest(
+    InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContexts = prepareRequest(
       interactionRecord.Id,
       'TW' + faker.randomString(10),
       'CH1123141516161617',
@@ -291,7 +291,7 @@ public with sharing class InteractionContextServiceUpdateTest {
    */
   //Suppress warnings for parameters to prepare request
   @SuppressWarnings('PMD.ExcessiveParameterList')
-  public static List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> prepareRequest(
+  public static InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload prepareRequest(
     String interactionId,
     String twilioId,
     String chatOrCallId,
@@ -300,7 +300,6 @@ public with sharing class InteractionContextServiceUpdateTest {
     String queueName,
     String agentEmail
   ) {
-    List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> contextRequests = new List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>();
     InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload contextReq = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
     contextReq.interactionId = interactionId;
     contextReq.chatOrCallId = chatOrCallId;
@@ -309,7 +308,6 @@ public with sharing class InteractionContextServiceUpdateTest {
     contextReq.chatOrCallStatus = chatOrCallStatus;
     contextReq.queueName = queueName;
     contextReq.agentEmail = agentEmail;
-    contextRequests.add(contextReq);
 
     //Setup request
     RestRequest req = new RestRequest();
@@ -323,6 +321,6 @@ public with sharing class InteractionContextServiceUpdateTest {
     RestContext.request = req;
     RestContext.response = res;
 
-    return contextRequests;
+    return contextReq;
   }
 }

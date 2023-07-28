@@ -81,7 +81,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    List<InteractionContextService.InteractionContextRequest> intContexts = prepareRequest(
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
       'OCVID887766',
       'CH' + faker.randomString(32),
       'Fraud',
@@ -129,7 +129,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    List<InteractionContextService.InteractionContextRequest> intContexts = prepareRequest(
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
       'OCVID887766',
       'CH' + faker.randomString(32),
       'Fraud',
@@ -172,7 +172,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request with phoneNumber
     // Prepare request test data
-    List<InteractionContextService.InteractionContextRequest> intContexts = prepareRequest(
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
       '',
       'CH' + faker.randomString(32),
       '',
@@ -219,7 +219,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request without valid OCV ID
     // Prepare request test data
-    List<InteractionContextService.InteractionContextRequest> intContexts = prepareRequest(
+    InteractionContextService.InteractionContextRequest intContexts = prepareRequest(
       '',
       'CH' + faker.randomString(32),
       '',
@@ -268,7 +268,7 @@ public with sharing class InteractionContextServiceTest {
    */
   //Suppress warnings for parameters to prepare request
   @SuppressWarnings('PMD.ExcessiveParameterList')
-  public static List<InteractionContextService.InteractionContextRequest> prepareRequest(
+  public static InteractionContextService.InteractionContextRequest prepareRequest(
     String ocvId,
     String chatOrCallId,
     String issueSubtype,
@@ -280,7 +280,6 @@ public with sharing class InteractionContextServiceTest {
     String callRecordingId,
     String chatOrCallStatus
   ) {
-    List<InteractionContextService.InteractionContextRequest> contextRequests = new List<InteractionContextService.InteractionContextRequest>();
     InteractionContextService.InteractionContextRequest contextReq = new InteractionContextService.InteractionContextRequest();
     contextReq.ocvId = ocvId;
     contextReq.chatOrCallId = chatOrCallId;
@@ -292,7 +291,6 @@ public with sharing class InteractionContextServiceTest {
     contextReq.twilioId = twilioId;
     contextReq.callRecordingId = callRecordingId;
     contextReq.chatOrCallStatus = chatOrCallStatus;
-    contextRequests.add(contextReq);
 
     //Setup request
     RestRequest req = new RestRequest();
@@ -306,7 +304,7 @@ public with sharing class InteractionContextServiceTest {
     RestContext.request = req;
     RestContext.response = res;
 
-    return contextRequests;
+    return contextReq;
   }
 
   /**
