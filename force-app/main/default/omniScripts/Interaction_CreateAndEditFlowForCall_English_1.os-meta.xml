@@ -1913,8 +1913,8 @@
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;Select the customer type this interaction relates to.&quot;,
+  &quot;help&quot; : true,
   &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -3261,5 +3261,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForCall_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>6c8a6a8d-6a17-c400-bda0-0daf50bc1eb0</webComponentKey>
+    <webComponentKey>2d0cd2ca-88e8-3e92-932a-07cd3925d3db</webComponentKey>
 </OmniScript>
