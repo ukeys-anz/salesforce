@@ -36,7 +36,10 @@ global with sharing class InteractionContextService {
    */
   @SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssMethodCount')
   @HttpPost
-  global static void doPost(List<InteractionContextRequest> contextRequest) {
+  global static void doPost(InteractionContextRequest contextRequest) {
+    List<InteractionContextRequest> contextRequests = new List<InteractionContextRequest>{
+      contextRequest
+    };
     Integer finalStatusCode = 400;
 
     Map<String, Id> accountsByOCVId = new Map<String, Id>();
@@ -50,9 +53,11 @@ global with sharing class InteractionContextService {
     List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload> twilioDetailsByInteractionList = new List<InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload>();
 
     //Validating the response recived from Twilio
-    if (!contextRequest.isEmpty()) {
-      for (Integer intCount = 0; intCount < contextRequest.size(); intCount++) {
-        InteractionContextRequest req = contextRequest.get(intCount);
+    if (!contextRequests.isEmpty()) {
+      for (
+        Integer intCount = 0; intCount < contextRequests.size(); intCount++
+      ) {
+        InteractionContextRequest req = contextRequests.get(intCount);
         if (
           isValidRequest(req).isEmpty() &&
           req.type.toLowerCase() == CHAT_INTERACTION_TYPE
@@ -115,9 +120,11 @@ global with sharing class InteractionContextService {
     }
 
     //Creation of New Interaction Record To Be Created and Checking Existing Interations to avoid creation of new interaction
-    if (!contextRequest.isEmpty()) {
-      for (Integer intCount = 0; intCount < contextRequest.size(); intCount++) {
-        InteractionContextRequest interactContext = contextRequest.get(
+    if (!contextRequests.isEmpty()) {
+      for (
+        Integer intCount = 0; intCount < contextRequests.size(); intCount++
+      ) {
+        InteractionContextRequest interactContext = contextRequests.get(
           intCount
         );
         if (
@@ -178,10 +185,10 @@ global with sharing class InteractionContextService {
           InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload twilioContext = new InteractionContextServiceUpdate.UpdateInteractionByTwilioPayload();
 
           twilioContext.interactionId = interactionToBeCreated[i].Id;
-          twilioContext.callRecordingId = contextRequest[i].callRecordingId;
-          twilioContext.chatOrCallId = contextRequest[i].chatOrCallId;
-          twilioContext.chatOrCallStatus = contextRequest[i].chatOrCallStatus;
-          twilioContext.twilioId = contextRequest[i].twilioId;
+          twilioContext.callRecordingId = contextRequests[i].callRecordingId;
+          twilioContext.chatOrCallId = contextRequests[i].chatOrCallId;
+          twilioContext.chatOrCallStatus = contextRequests[i].chatOrCallStatus;
+          twilioContext.twilioId = contextRequests[i].twilioId;
           twilioDetailsByInteractionList.add(twilioContext);
 
           responseList.add(
@@ -189,8 +196,8 @@ global with sharing class InteractionContextService {
               interactionToBeCreated[i].Id,
               newInteractionMap.get(interactionToBeCreated[i].Id)
                 .Interaction_External_Id__c,
-              contextRequest[i].ocvId,
-              contextRequest[i].issueSubtype
+              contextRequests[i].ocvId,
+              contextRequests[i].issueSubtype
             )
           );
         } else {
@@ -198,9 +205,9 @@ global with sharing class InteractionContextService {
           String errorvalues = String.join(err, '/n');
           responseList.add(
             generateErrorResponse(
-              contextRequest[i].ocvId,
+              contextRequests[i].ocvId,
               errorvalues,
-              contextRequest[i].issueSubtype
+              contextRequests[i].issueSubtype
             )
           );
         }
@@ -247,7 +254,7 @@ global with sharing class InteractionContextService {
     }
 
     //Creating the json response to be send to Twilio
-    String jsonRes = JSON.serialize(responseList);
+    String jsonRes = JSON.serialize(responseList.get(0));
     RestContext.response.addHeader('Content-Type', 'application/json');
     RestContext.response.responseBody = Blob.valueOf(jsonRes);
     RestContext.response.statusCode = finalStatusCode;

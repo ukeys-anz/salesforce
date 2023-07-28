@@ -10,22 +10,23 @@ global with sharing class InteractionContextServiceUpdate {
    * @param contextRequest twilio context request
    */
   @HttpPost
-  global static void doPost(
-    List<UpdateInteractionByTwilioPayload> contextRequest
-  ) {
+  global static void doPost(UpdateInteractionByTwilioPayload contextRequest) {
+    List<UpdateInteractionByTwilioPayload> contextRequests = new List<UpdateInteractionByTwilioPayload>{
+      contextRequest
+    };
     Integer finalStatus = 200;
     List<TwilioContextResponse> twilioResponse = new List<TwilioContextResponse>();
     try {
       //Twilio Detail Record inserted by Twilio
       twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
-        contextRequest
+        contextRequests
       );
     } catch (Exception e) {
       Logger.error('Error upserting Twilio Details and Interaction', e);
       Logger.saveLog();
       throw e;
     }
-    String jsonRes = JSON.serialize(twilioResponse);
+    String jsonRes = JSON.serialize(twilioResponse.get(0));
     RestContext.response.addHeader('Content-Type', 'application/json');
     RestContext.response.responseBody = Blob.valueOf(jsonRes);
     RestContext.response.statusCode = finalStatus;
