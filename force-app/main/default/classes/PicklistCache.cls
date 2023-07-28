@@ -39,7 +39,6 @@ public class PicklistCache implements Cache.CacheBuilder {
     );
     String responseFromcallout = res.body;
     responseFromcallout = responseFromcallout.replaceAll('&amp;', '&');
-
     Map<String, Object> root = (Map<String, Object>) JSON.deserializeUntyped(
       responseFromcallout
     );
