@@ -2205,8 +2205,8 @@
   },
   &quot;options&quot; : [ ],
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;Select the customer type this interaction relates to.&quot;,
+  &quot;help&quot; : true,
   &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -3406,5 +3406,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlow_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>bf606615-2305-692a-35eb-c5814fd258f3</webComponentKey>
+    <webComponentKey>d5cfa44f-5619-44d8-57ee-94f26eb1b71f</webComponentKey>
 </OmniScript>
