@@ -18,9 +18,27 @@
       "displayValue": null,
       "value": "fDKLSfQFtV1"
     },
-    "FinServ__FinancialAccountType__c": {
+    "RecordType": {
       "displayValue": null,
-      "value": "fDKLSfQFtV1"
+      "value": {
+        "apiName": "RecordType",
+        "childRelationships": {},
+        "fields": {
+          "Id": {
+            "displayValue": null,
+            "value": "0122O000001ANjKQAW"
+          },
+          "DeveloperName": {
+            "displayValue": null,
+            "value": "SavingsAccount"
+          }
+        },
+        "id": "0122O000001ANjKQAW",
+        "lastModifiedById": "005o0000000KEEUAA4",
+        "lastModifiedDate": "2019-08-22T23:45:53.000Z",
+        "recordTypeInfo": null,
+        "systemModstamp": "2019-08-23T06:00:11.000Z"
+      }
     },
     "Product_Name__c": {
       "displayValue": null,

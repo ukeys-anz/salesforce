@@ -36,6 +36,8 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
       records
     );
 
+    CCRMContactPointActions.updateContactPoints(records);
+
     CCRMContactPointAddressActions.unlinkProspectParentOnDeactivation(
       prospectAddresses,
       (Map<Id, ContactPointAddress>) oldMap

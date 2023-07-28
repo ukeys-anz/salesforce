@@ -130,7 +130,7 @@ private class CaseTriggerHandlerTest {
       Account a = new Account(
         Name = 'Complaint Entitlement Account',
         OCV_ID__c = faker.randomString(10),
-        AR_C_Customer__c = true
+        ANZx_Customer__c = false
       );
       accnts.add(a);
 
@@ -933,7 +933,12 @@ private class CaseTriggerHandlerTest {
   //Tests if the complaints entitlment logic in working as expected.
   @isTest
   static void testComplaintEntilement() {
-    Account a = [SELECT Id FROM Account WHERE AR_C_Customer__c = TRUE LIMIT 1];
+    Account a = [
+      SELECT Id
+      FROM Account
+      WHERE Name = 'Complaint Entitlement Account'
+      LIMIT 1
+    ];
 
     SlaProcess sla = CommonUtil.getSLAProcess(
       GetHelpConstants.COMPLAINTS_SLA_PROCESS_NAME

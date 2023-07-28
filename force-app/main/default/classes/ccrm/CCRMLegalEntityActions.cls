@@ -45,35 +45,36 @@ public with sharing class CCRMLegalEntityActions {
       }
     }
 
-    checkAccountOnFirstLegalEntity(
+    validateAccountOnFirstLegalEntity(
       records,
       mapOfOliWithOpportunity,
       mapOfOliWithOpportunityAccount
     );
 
-    //Get Legal Entity Parent Account
-    Map<Id, Id> mapOfAccountWithParentAccount = new Map<Id, Id>();
-    if (Schema.sObjectType.Account.isQueryable()) {
-      for (Account account : [
-        SELECT Id, ParentId
-        FROM Account
-        WHERE Id IN :accountIds
-      ]) {
-        mapOfAccountWithParentAccount.put(account.Id, account.ParentId);
-      }
-    }
+    //Get CLG account associated to Legal Entity
+    Map<Id, Id> mapOfAccountWithClgAccount = CCRMOpportunityActions.getMapOfAccountWithClgAccount(
+      accountIds
+    );
 
-    //Compare Opportunity Account - Parent Account WITH Legal Entity Account - Parent Account
+    //Compare Opportunity CLG Account WITH Legal Entity CLG Account
     for (Legal_Entity__c record : records) {
+      Id oppAccountClg = mapoli.get(record.Opportunity_Product__c);
+      if (String.IsEmpty(oppAccountClg)) {
+        continue;
+      }
+      //Opp Account CLG exist
       if (
-        mapoli.containsKey(record.Opportunity_Product__c) &&
-        mapOfAccountWithParentAccount.containsKey(record.Account__c)
+        //Record validated without any errors AND Legal Entity Account without CLG
+        !record.hasErrors() && mapOfAccountWithClgAccount.isEmpty()
       ) {
-        Id oppParentAccount = mapoli.get(record.Opportunity_Product__c);
-        Id legalParentAccount = mapOfAccountWithParentAccount.get(
+        record.addError(ACCOUNT_FIELD_NAME, INCORRECT_LEGAL_ENTITY);
+      } else if (
+        mapOfAccountWithClgAccount.containsKey(record.Account__c) //Legal Entity Account with CLG exist
+      ) {
+        Id legalEntityAccountClg = mapOfAccountWithClgAccount.get(
           record.Account__c
         );
-        if (oppParentAccount != legalParentAccount) {
+        if (oppAccountClg != legalEntityAccountClg) {
           record.addError(ACCOUNT_FIELD_NAME, INCORRECT_LEGAL_ENTITY);
         }
       }
@@ -83,12 +84,12 @@ public with sharing class CCRMLegalEntityActions {
   /**
    * @description This method will validate only first entity.
    * Validation : Legal Entity Account = Opportunity Account
-   * @name checkAccountOnFirstLegalEntity
+   * @name validateAccountOnFirstLegalEntity
    * @param records List of legal Entity records
    * @param mapOfOliWithOpportunity Map of opportunity product with opportunity ids
    * @param mapOfOliWithOpportunityAccount Map of opportunity product with opportunity accounts
    */
-  private static void checkAccountOnFirstLegalEntity(
+  private static void validateAccountOnFirstLegalEntity(
     List<Legal_Entity__c> records,
     Map<Id, Id> mapOfOliWithOpportunity,
     Map<Id, Id> mapOfOliWithOpportunityAccount
@@ -236,12 +237,14 @@ public with sharing class CCRMLegalEntityActions {
     //Get all opportunities which need to be updated
     if (!oppIds.isEmpty() && Schema.sObjectType.Opportunity.isQueryable()) {
       List<Opportunity> oppList = [
-        SELECT Id, Account.ParentId
+        SELECT Id, CLG__c
         FROM Opportunity
         WHERE Id IN :oppIds
       ];
       for (Opportunity opp : oppList) {
-        opp.AccountId = opp.Account.ParentId;
+        if (String.IsEmpty(opp.CLG__c) == false) {
+          opp.AccountId = opp.CLG__c;
+        }
       }
 
       if (Schema.sObjectType.Opportunity.isUpdateable() && !oppList.isEmpty()) {

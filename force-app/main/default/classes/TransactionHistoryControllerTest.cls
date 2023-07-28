@@ -56,8 +56,7 @@ public with sharing class TransactionHistoryControllerTest {
     FinServ__FinancialAccount__c finAcc = new FinServ__FinancialAccount__c(
       Name = 'Savings Account',
       FinServ__PrimaryOwner__c = acc.Id,
-      Account_Key__c = 'b#2fa8s0',
-      Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11')
+      Account_Key__c = 'b#2fa8s0'
     );
     insert finAcc;
     Test.startTest();

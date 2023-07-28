@@ -147,8 +147,11 @@ public with sharing class EventHelperTest {
     setup();
     DateTime appointmentDateTime = DateTime.Now();
     DateTime endDateTime = appointmentDateTime.addMinutes(otherPurposeDuration);
+    Lead testLead;
 
-    Lead testLead = createTestLead();
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      testLead = createTestLead();
+    }
 
     List<Event> events = [SELECT Id FROM Event];
 

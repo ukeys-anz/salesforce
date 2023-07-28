@@ -183,4 +183,17 @@ public with sharing class LoggerHelper {
 
     flushBuffer();
   }
+
+  /**
+   * @description checks the logger buffer for any errors
+   * @return a boolean indicating whether buffer contains any errors
+   */
+  public static boolean hasError() {
+    for (LogEventBuilder logEventBuilder : LOG_ENTRIES_BUFFER) {
+      if (logEventBuilder.getLogEvent().LoggingLevel__c == 'ERROR') {
+        return true;
+      }
+    }
+    return false;
+  }
 }

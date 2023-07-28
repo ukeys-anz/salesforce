@@ -328,8 +328,6 @@ public without sharing class CCRMLeadConversion {
     @AuraEnabled
     public string name;
     @AuraEnabled
-    public string clg;
-    @AuraEnabled
     public string suburb;
     @AuraEnabled
     public string postCode;
@@ -492,11 +490,10 @@ public without sharing class CCRMLeadConversion {
         update record;
       } catch (Exception e) {
         //log errors to application log
-        Lib_SystemLog.createSingleLogAsync(
+        CommonUtil.logAndThrowIAE(
           CCRMLeadConversion.class.getName(),
           'updateLeadWithCapcisId',
-          record.Id,
-          e.getMessage()
+          'Not enough permissions to update Lead record.'
         );
       }
     }

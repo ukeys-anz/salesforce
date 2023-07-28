@@ -118,7 +118,7 @@ public with sharing class CommonUtilTest {
       strAdditional
     };
 
-    String trimmedConcatenated = CommonUtil.buildTrimedConcatenatedString(
+    String trimmedConcatenated = CommonUtil.buildTrimmedConcatenatedString(
       items
     );
 
@@ -206,6 +206,45 @@ public with sharing class CommonUtilTest {
       'Should be ' +
       accs.size() +
       ' entitlements'
+    );
+  }
+
+  static void testRemoveExtraSpaces() {
+    String expected = '';
+    String content = '';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be blank'
+    );
+
+    expected = 'remove Extra Spaces';
+    content = 'remove Extra Spaces';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
+    );
+
+    content = 'remove    Extra Spaces';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
+    );
+
+    content = 'remove Extra    Spaces';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
+    );
+
+    content = ' remove   Extra    Spaces ';
+    Assert.areEqual(
+      expected,
+      CommonUtil.removeExtraSpaces(content),
+      'The removed extra spaces string should be ' + expected
     );
   }
 }

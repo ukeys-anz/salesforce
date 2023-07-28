@@ -44,25 +44,58 @@ public with sharing class CCRMFinancialAccountActions {
         record.Source_System_Status__c
       )
       ? sourceStatusLabelByValue.get(record.Source_System_Status__c)
-      : null;
-    if (sourceStatusLabel.length() > 9) {
-      if (
-        sourceStatusLabelByValue.get(record.Source_System_Status__c)
-          .contains('CAPCIS')
-      ) {
-        record.Source_System_Status_Display__c = sourceStatusLabelByValue.get(
-            record.Source_System_Status__c
-          )
-          .remove('CAPCIS');
+      : record.Source_System_Status__c;
+
+    if (sourceStatusLabel == null || sourceStatusLabel.length() <= 9) {
+      return;
+    }
+
+    for (String source : new List<String>{ 'CAPCIS', 'CACHE' }) {
+      if (sourceStatusLabel.contains(source)) {
+        record.Source_System_Status_Display__c = sourceStatusLabel.remove(
+          source
+        );
       }
+    }
+  }
+
+  /**
+   * @description If primary owner is blank, then set to the System Customer ID
+   * @name setPrimaryOwner
+   * @param records Financial account records from the trigger.
+   */
+  public static void setPrimaryOwner(
+    List<FinServ__FinancialAccount__c> records
+  ) {
+    Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
+
+    for (FinServ__FinancialAccount__c record : records) {
+      if (record.FinServ__PrimaryOwner__c == null) {
+        record.FinServ__PrimaryOwner__c = faSettings.System_Customer_Id__c;
+      }
+    }
+  }
+
+  /**
+   * @description Set Financial Account record Name field for non ANZx financial accounts
+   * @name populateName
+   * @param records Financial account records from the trigger.
+   */
+  public static void populateName(List<FinServ__FinancialAccount__c> records) {
+    for (FinServ__FinancialAccount__c record : records) {
       if (
-        sourceStatusLabelByValue.get(record.Source_System_Status__c)
-          .contains('CACHE')
+        !String.isBlank(record.FinServ__FinancialAccountType__c) &&
+        !String.isBlank(record.FinServ__FinancialAccountNumber__c) &&
+        !GetHelpConstants.ANZX_MARKETING_CODES.contains(
+          record.Marketing_Code__c
+        )
       ) {
-        record.Source_System_Status_Display__c = sourceStatusLabelByValue.get(
-            record.Source_System_Status__c
-          )
-          .remove('CACHE');
+        record.Name =
+          (record.FinServ__FinancialAccountType__c.contains(':')
+            ? record.FinServ__FinancialAccountType__c.split(':')[1]
+            : record.FinServ__FinancialAccountType__c) +
+          '-' +
+          record.FinServ__FinancialAccountNumber__c;
       }
     }
   }

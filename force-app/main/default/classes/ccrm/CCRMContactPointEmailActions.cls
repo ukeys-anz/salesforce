@@ -6,7 +6,6 @@
  */
 public with sharing class CCRMContactPointEmailActions {
   private static final String EMAIL_EXISTS_ERROR = 'An email record is already available for this customer. Please edit the email below.';
-  private static final String DUPLICATE_EMAIL_ERROR = 'Please provide an email different from the current value.';
   private static final String INVALID_EMAIL_ERROR = 'Please enter Email in correct format.';
 
   /**
@@ -115,7 +114,10 @@ public with sharing class CCRMContactPointEmailActions {
         !String.isBlank(record.EmailAddress) &&
         !Pattern.matches(Label.Regex_Email, record.EmailAddress)
       ) {
-        record.addError('EmailAddress', INVALID_EMAIL_ERROR);
+        record.addError(
+          Schema.SObjectType.ContactPointEmail.fields.EmailAddress.Name,
+          INVALID_EMAIL_ERROR
+        );
       }
     }
   }

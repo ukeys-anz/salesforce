@@ -693,7 +693,7 @@ public with sharing class CommonUtil {
    * @param items  List of Strings
    * @return Trimmed and Concatenated values of items
    */
-  public static String buildTrimedConcatenatedString(List<String> items) {
+  public static String buildTrimmedConcatenatedString(List<String> items) {
     List<String> newContents = new List<String>();
     for (String item : items) {
       if (String.isNotBlank(item?.trim())) {
@@ -773,5 +773,17 @@ public with sharing class CommonUtil {
     }
 
     return entitlements;
+  }
+
+  /**
+   * @description Remove extra spaces of content String
+   * @param content String
+   * @return Removed extra spaces of content String
+   */
+  public static String removeExtraSpaces(String content) {
+    if (content != null) {
+      return buildTrimmedConcatenatedString(content.split(' '));
+    }
+    return null;
   }
 }

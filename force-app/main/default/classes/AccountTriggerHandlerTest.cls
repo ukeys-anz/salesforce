@@ -5,14 +5,16 @@ private class AccountTriggerHandlerTest {
 
   @TestSetup
   static void makeData() {
-    Lead l = new Lead();
-    l.Firstname = 'John';
-    l.Lastname = 'Something';
-    l.Email = 'john.something@gmail.com';
-    l.MobilePhone = '0401123123';
-    l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      Lead l = new Lead();
+      l.Firstname = 'John';
+      l.Lastname = 'Something';
+      l.Email = 'john.something@gmail.com';
+      l.MobilePhone = '0401123123';
+      l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
 
-    insert l;
+      insert l;
+    }
   }
 
   @isTest
@@ -317,8 +319,9 @@ private class AccountTriggerHandlerTest {
       l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
       matchingLeads.add(l);
     }
-
-    insert matchingLeads;
+    System.runAs(CCRMTestDataFactory.getAdminUser()) {
+      insert matchingLeads;
+    }
 
     Account testAccount = new Account(
       FirstName = firstName,

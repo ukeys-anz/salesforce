@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>Contact_Contact_Relationship_Integration_ReadWrite</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Contact Contact Relationship Integration ReadWrite</label>
+        <sharedTo>
+            <group>System_Integration_Users</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>External_Id__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Contact_Contact_Relationship_Internal_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Contact Contact Relationship Internal Read</label>
+        <sharedTo>
+            <allInternalUsers/>
+        </sharedTo>
+        <criteriaItems>
+            <field>External_Id__c</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <criteriaItems>
+            <field>FinServ__EndDate__c</field>
+            <operation>equals</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

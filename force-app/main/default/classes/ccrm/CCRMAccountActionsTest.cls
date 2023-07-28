@@ -5,8 +5,6 @@
  */
 @isTest
 private class CCRMAccountActionsTest {
-  static Faker faker = new Faker('AU');
-
   @testSetup
   static void setup() {
     User ccrmAdmin = CCRMTestDataFactory.createAdminUser();
@@ -38,7 +36,7 @@ private class CCRMAccountActionsTest {
         FirstName = 'John',
         LastName = 'Doe',
         OCV_ID__c = faker.randomString(10),
-        AR_C_Customer__c = true
+        ANZx_Customer__c = false
       );
       insert testAccount;
 
@@ -76,7 +74,7 @@ private class CCRMAccountActionsTest {
       Account acc = new Account(
         Name = 'Test ANZx Account',
         OCV_ID__c = 'TESTOCVID4321',
-        AR_C_Customer__c = true,
+        ANZx_Customer__c = false,
         CPID__c = 'L7601'
       );
       insert acc;
@@ -98,7 +96,7 @@ private class CCRMAccountActionsTest {
       Account acc1 = new Account(
         Name = 'Test ANZx Account',
         OCV_ID__c = 'TESTOCVID4321',
-        AR_C_Customer__c = true,
+        ANZx_Customer__c = false,
         CPID__c = 'L7603'
       );
       insert acc1;
@@ -168,7 +166,7 @@ private class CCRMAccountActionsTest {
     Account testAccount = new Account(
       Name = 'Test Company',
       OCV_ID__c = faker.randomString(10),
-      AR_C_Customer__c = true,
+      ANZx_Customer__c = false,
       RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID,
       Source_System_Name__c = System.Label.CCRM_Source_System_Name,
       Source_System_ID__c = '123456789',
