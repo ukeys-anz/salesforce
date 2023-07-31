@@ -1507,8 +1507,8 @@
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : true,
   &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;The topic their query originated from within our authenticated channels.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
@@ -1668,7 +1668,7 @@
   &quot;readOnly&quot; : true,
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Video Call&quot;,
+  &quot;helpText&quot; : &quot;If this interaction also involved a video call, then check the box.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
@@ -3408,5 +3408,5 @@
     <type>Interaction</type>
     <uniqueName>Interaction_CreateAndEditFlowForMessage_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>2bff5db6-981e-99e9-6324-47a7a564b95d</webComponentKey>
+    <webComponentKey>ddcf015b-1ade-b089-48fd-0cc23612b4a7</webComponentKey>
 </OmniScript>
