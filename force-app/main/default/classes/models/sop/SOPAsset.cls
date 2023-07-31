@@ -37,7 +37,11 @@ public class SOPAsset implements Comparable {
   public Integer compareTo(Object compareTo) {
     SOPAsset compareToIncome = (SOPAsset) compareTo;
     Integer returnValue = 0;
-    if (this.estimatedValue.value < compareToIncome.estimatedValue.value) {
+    if (
+      this.estimatedValue != null &&
+      compareToIncome.estimatedValue != null &&
+      this.estimatedValue.value < compareToIncome.estimatedValue.value
+    ) {
       returnValue = 1;
     } else if (
       this.estimatedValue.value > compareToIncome.estimatedValue.value

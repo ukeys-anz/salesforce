@@ -1191,7 +1191,7 @@
           "accountNumber": "210418624",
           "accountName": "ANZ Plus",
           "status": "ACCOUNT_STATE_ACTIVE",
-          "financialInstitution": "ANZX",
+          "financialInstitution": "ANZ Plus",
           "account": "",
           "productDetails": null
         },
@@ -1221,7 +1221,7 @@
           "accountNumber": "210418632",
           "accountName": "ANZ Save",
           "status": "ACCOUNT_STATE_ACTIVE",
-          "financialInstitution": "ANZX",
+          "financialInstitution": "ANZ Plus",
           "account": "",
           "productDetails": null
         },

@@ -12,8 +12,6 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public SOPDebtSummary liabilitiesSummary;
   public SOPExpenseSummary monthlyExpensesSummary;
   public SOPIncomeSummary incomesSummary;
-  public List<SOPEmployment> employments;
-  public static Map<String, SOPEmployment> employeeIdToEmployeeMap;
   public static Map<String, String> employeeIdToPartyIdMap;
   public SOPModel sop;
   public static final String JOINT_ACCOUNT = 'Joint';
@@ -21,19 +19,37 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
   public static Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap;
   public List<SOPExpenseNode> expenseNodes;
   public Map<String, SOPExpense> expenseMap;
+  public static final String OVERTIME_INCOME = 'INCOME_TYPE_OVERTIME';
+  public static final String BASE_INCOME = 'INCOME_TYPE_BASE_SALARY';
+  public static final String COMMISSION_INCOME = 'INCOME_TYPE_COMMISSION';
+  public static final String BONUS_INCOME = 'INCOME_TYPE_BONUS';
+  public static final String VERIFICATION_METHOD = 'VERIFICATION_METHOD_UNSPECIFIED';
+  public static final String UNSPECIFIED = 'UNSPECIFIED';
+  public static final String NOT_SPECIFIED = 'Not Specified';
+  public static final String ASSET_TYPE_SHARES = 'ASSET_TYPE_SHARES';
+  public static final String ASSET_TYPE_HOME_CONTENTS = 'ASSET_TYPE_HOME_CONTENTS';
+  public static final String ASSET_TYPE_OTHER = 'ASSET_TYPE_OTHER';
+  public static final String ASSET_TYPE_VEHICLE = 'ASSET_TYPE_VEHICLE';
+  public static final String ASSET_TYPE_SUPER = 'ASSET_TYPE_SUPER';
+  public static final String ASSET_TYPE_BANK_ACCOUNT = 'ASSET_TYPE_BANK_ACCOUNT';
+  public static final String SAVINGS_ANZ = 'ANZ';
+  public static final String SAVINGS_ANZ_PLUS = 'ANZ Plus';
+  public static final String ASSET_TYPE_CASH = 'ASSET_TYPE_CASH';
+  public static final String ASSET_TYPE_PROPERTY = 'ASSET_TYPE_PROPERTY';
+  public static final String ASSET_TYPE_VERIFICATION = 'VERIFICATION_METHOD_UNSPECIFIED';
+  public static final String INCOME_GROSS = 'INCOME_AMOUNT_TYPE_GROSS';
+  public static final String INCOME_NET = 'INCOME_AMOUNT_TYPE_NET';
+  public static final String Y = 'Yes';
+  public static final String N = 'No';
+  public static final String BEFORE_TAX = 'Before Tax';
+  public static final String AFTER_TAX = 'After Tax';
 
   /**
    * @description return the debt size attribute to display no debt message on flexcard.
    */
   public Integer debtSize {
     get {
-      if (
-        liabilitiesSummary.liabilities.isEmpty()
-      ) {
-        return 0;
-      } else {
-        return liabilitiesSummary.liabilities.size();
-      }
+      return liabilitiesSummary.liabilities.size();
     }
   }
 
@@ -195,7 +211,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
-          if (asset.type != null && asset.type == 'ASSET_TYPE_CASH') {
+          if (asset?.type == ASSET_TYPE_CASH) {
             returnValue = true;
           }
         }
@@ -209,7 +225,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
-          if (asset.type != null && asset.type == 'ASSET_TYPE_PROPERTY') {
+          if (asset?.type == ASSET_TYPE_PROPERTY) {
             returnValue = true;
           }
         }
@@ -224,10 +240,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
           if (
-            asset.type != null &&
-            asset.type == 'ASSET_TYPE_BANK_ACCOUNT' &&
-            asset.account != null &&
-            asset.account.financialInstitution == 'ANZ Plus'
+            asset?.type == ASSET_TYPE_BANK_ACCOUNT &&
+            asset?.account.financialInstitution == SAVINGS_ANZ_PLUS
           ) {
             returnValue = true;
           }
@@ -243,10 +257,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
           if (
-            asset.type != null &&
-            asset.type == 'ASSET_TYPE_BANK_ACCOUNT' &&
-            asset.account != null &&
-            asset.account.financialInstitution == 'ANZ'
+            asset?.type == ASSET_TYPE_BANK_ACCOUNT &&
+            asset.account.financialInstitution == SAVINGS_ANZ
           ) {
             returnValue = true;
           }
@@ -262,11 +274,9 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
           if (
-            asset.type != null &&
-            asset.type == 'ASSET_TYPE_BANK_ACCOUNT' &&
-            asset.account != null &&
-            asset.account.financialInstitution != 'ANZ' &&
-            asset.account.financialInstitution != 'ANZ Plus'
+            asset?.type == ASSET_TYPE_BANK_ACCOUNT &&
+            asset?.account.financialInstitution != SAVINGS_ANZ &&
+            asset?.account.financialInstitution != SAVINGS_ANZ_PLUS
           ) {
             returnValue = true;
           }
@@ -281,7 +291,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
-          if (asset.type != null && asset.type == 'ASSET_TYPE_SUPER') {
+          if (asset?.type == ASSET_TYPE_SUPER) {
             returnValue = true;
           }
         }
@@ -295,7 +305,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
-          if (asset.type != null && asset.type == 'ASSET_TYPE_VEHICLE') {
+          if (asset?.type == ASSET_TYPE_VEHICLE) {
             returnValue = true;
           }
         }
@@ -309,7 +319,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
-          if (asset.type != null && asset.type == 'ASSET_TYPE_OTHER') {
+          if (asset?.type == ASSET_TYPE_OTHER) {
             returnValue = true;
           }
         }
@@ -323,7 +333,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
-          if (asset.type != null && asset.type == 'ASSET_TYPE_HOME_CONTENTS') {
+          if (asset?.type == ASSET_TYPE_HOME_CONTENTS) {
             returnValue = true;
           }
         }
@@ -337,7 +347,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       get {
         boolean returnValue = false;
         for (SOPAsset asset : assets) {
-          if (asset.type != null && asset.type == 'ASSET_TYPE_SHARES') {
+          if (asset?.type == ASSET_TYPE_SHARES) {
             returnValue = true;
           }
         }
@@ -405,7 +415,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public string ownerName {
       get {
-        if (employment.partyId != null) {
+        if (employment?.partyId != null) {
           Account act = ResidentialLoanApplicationModel.partyIdToAccountMap.get(
             employment.partyId
           );
@@ -425,7 +435,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String employer {
       get {
-        if (employment != null && employment.businessName != null) {
+        if (employment?.businessName != null) {
           return employment.businessName;
         } else {
           return null;
@@ -438,7 +448,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String startDate {
       get {
-        if (employment != null && employment.startDate != null) {
+        if (employment?.startDate != null) {
           return employment.startDate.year +
             '-' +
             employment.startDate.month +
@@ -455,27 +465,31 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String employmentType {
       get {
-        String[] words = employment.basis.split('_');
-        String result = '';
-        words.remove(0);
-        words.remove(0);
+        if (employment?.basis != null) {
+          String[] words = employment.basis.split('_');
+          String result = '';
+          words.remove(0);
+          words.remove(0);
 
-        for (Integer i = 0; i < words.size(); i++) {
-          if (i == 0 && words.size() > 1) {
-            result +=
-              words[i].substring(0, 1).toUpperCase() +
-              words[i].substring(1).toLowerCase() +
-              '-';
-          } else if (words[i] == 'UNSPECIFIED') {
-            result = 'Not Specified';
-          } else {
-            result +=
-              words[i].substring(0, 1).toUpperCase() +
-              words[i].substring(1).toLowerCase() +
-              ' ';
+          for (Integer i = 0; i < words.size(); i++) {
+            if (i == 0 && words.size() > 1) {
+              result +=
+                words[i].substring(0, 1).toUpperCase() +
+                words[i].substring(1).toLowerCase() +
+                '-';
+            } else if (words[i] == UNSPECIFIED) {
+              result = NOT_SPECIFIED;
+            } else {
+              result +=
+                words[i].substring(0, 1).toUpperCase() +
+                words[i].substring(1).toLowerCase() +
+                ' ';
+            }
           }
+          return result.trim();
+        } else {
+          return null;
         }
-        return result.trim();
       }
     }
 
@@ -485,7 +499,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public ResidentialLoanApplicationModel.SOPIncomeDetail baseIncome {
       get {
         for (SOPIncomeDetail detail : details) {
-          if (detail.type == 'INCOME_TYPE_BASE_SALARY') {
+          if (detail?.type == BASE_INCOME) {
             return detail;
           }
         }
@@ -499,7 +513,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public ResidentialLoanApplicationModel.SOPIncomeDetail overTimeIncome {
       get {
         for (SOPIncomeDetail detail : details) {
-          if (detail.type == 'INCOME_TYPE_OVERTIME') {
+          if (detail?.type == OVERTIME_INCOME) {
             return detail;
           }
         }
@@ -513,7 +527,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public ResidentialLoanApplicationModel.SOPIncomeDetail commissionIncome {
       get {
         for (SOPIncomeDetail detail : details) {
-          if (detail.type == 'INCOME_TYPE_COMMISSION') {
+          if (detail?.type == COMMISSION_INCOME) {
             return detail;
           }
         }
@@ -527,7 +541,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public ResidentialLoanApplicationModel.SOPIncomeDetail bonusIncome {
       get {
         for (SOPIncomeDetail detail : details) {
-          if (detail.type == 'INCOME_TYPE_BONUS') {
+          if (detail?.type == BONUS_INCOME) {
             return detail;
           }
         }
@@ -544,6 +558,8 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
       SOPIncome compareToIncome = (SOPIncome) compareTo;
       Integer returnValue = 0;
       if (
+        this.baseIncome != null &&
+        compareToIncome.baseIncome != null &&
         this.baseIncome.amount.value < compareToIncome.baseIncome.amount.value
       ) {
         returnValue = 1;
@@ -560,10 +576,13 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String incomeVerified {
       get {
-        if (this.verification.method == 'VERIFICATION_METHOD_UNSPECIFIED') {
-          return 'Yes';
+        if (
+          this.verification != null &&
+          this.verification.method == ASSET_TYPE_VERIFICATION
+        ) {
+          return 'Y';
         } else {
-          return 'No';
+          return 'N';
         }
       }
     }
@@ -581,10 +600,10 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public String incomeType {
       get {
         String categoryOfIncome;
-        if (this.amountType == 'INCOME_AMOUNT_TYPE_GROSS') {
-          categoryOfIncome = 'Before Tax';
-        } else if (this.amountType == 'INCOME_AMOUNT_TYPE_NET') {
-          categoryOfIncome = 'After Tax';
+        if (this.amountType != null && this.amountType == INCOME_GROSS) {
+          categoryOfIncome = BEFORE_TAX;
+        } else if (this.amountType == INCOME_NET) {
+          categoryOfIncome = AFTER_TAX;
         }
         return categoryOfIncome;
       }
@@ -595,22 +614,26 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public String frequency {
       get {
-        String result = '';
-        String[] words = this.frequency.split('_');
-        words.remove(0);
-        words.remove(0);
+        if (this.frequency != null) {
+          String result = '';
+          String[] words = this.frequency.split('_');
+          words.remove(0);
+          words.remove(0);
 
-        for (String word : words) {
-          if (word == 'UNSPECIFIED') {
-            result = 'Not Specified';
-          } else {
-            result =
-              word.substring(0, 1).toUpperCase() +
-              word.substring(1).toLowerCase() +
-              ' ';
+          for (String word : words) {
+            if (word == UNSPECIFIED) {
+              result = NOT_SPECIFIED;
+            } else {
+              result =
+                word.substring(0, 1).toUpperCase() +
+                word.substring(1).toLowerCase() +
+                ' ';
+            }
           }
+          return result.trim();
+        } else {
+          return null;
         }
-        return result.trim();
       }
     }
     public SOPMoney amount;
