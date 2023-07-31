@@ -21,12 +21,13 @@ public with sharing class BOHServiceMock extends Service {
   );
 
   /**
-   * @param sopId sop id to retrieve customer savings and asset
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
    * @return `HttpcalloutResponse` the api response
    * @description fetches fake response for sop api
    */
 
-  public override HttpCalloutResponse getListAssets(String sopId) {
+  public override HttpCalloutResponse getListAssets(String ocvId, String sopId) {
     if (!preset) {
       response.body = BOHServiceMock.SOP_LIST_ASSETS_RESPONSE;
     }

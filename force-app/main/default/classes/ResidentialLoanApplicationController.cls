@@ -46,7 +46,15 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String sopId = (String) inputMap.get('SOP_Id__c');
-      ResidentialLoanApplicationModel sopAssets = rlaRepo.getListAssets(sopId);
+      String loanId = (String) inputMap.get('loanId');
+
+      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
+        loanId
+      );
+      ResidentialLoanApplicationModel sopAssets = rlaRepo.getListAssets(
+        loanRec[0]?.Account?.OCV_ID__c,
+        sopId
+      );
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(sopAssets)));
       return true;
     } catch (Exception e) {
