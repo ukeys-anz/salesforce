@@ -492,7 +492,6 @@ private class CaseTriggerHandlerTest {
     // WHEN they are auto-escalated (kind of)
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases[i].IsEscalated = true;
-      newCases[i].OwnerId = IDRCaseActions.queue.Id;
     }
     update newCases;
 
