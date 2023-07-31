@@ -99,6 +99,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     ) {
       GetHelpCaseActions.populateOCVOnComplaint(records);
     }
+    GetHelpCaseActions.linkKYCQACasesToAccount(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   /**

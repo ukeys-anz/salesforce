@@ -19,11 +19,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
     OCV_ID3
   };
 
-  //The number of Accounts with OCV IDS can be less or equal to OCV_IDS_COUNT
-  private static final List<String> LINKED_OCV_IDS = new List<String>{
-    OCV_ID1
-  };
-
   private static final Integer OCV_IDS_COUNT = OCV_IDS.size();
 
   private static final Map<String, String> OCV_ID_MIDDLE_NAME_TEST = new Map<String, String>{
@@ -59,28 +54,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
       }
       insert cobPIDs;
       insert cobAddresses;
-    }
-
-    //Create Person Accounts
-    User thisUser = new User(Id = UserInfo.getUserId());
-    System.runAs(thisUser) {
-      List<AccountShare> accountShareRecords = new List<AccountShare>();
-      List<Account> accounts = createPersonAccounts();
-      // Criteria-based sharing rule cannot be tested using Apex, hence manually created AccountShare records
-      // so Customer Onboarding Integration User can query accounts in test context
-      for (Account acc : accounts) {
-        accountShareRecords.add(
-          new AccountShare(
-            AccountId = acc.Id,
-            RowCause = Schema.Accountshare.RowCause.Manual,
-            UserOrGroupId = integrationUser.Id,
-            AccountAccessLevel = 'Read',
-            OpportunityAccessLevel = 'None',
-            CaseAccessLevel = 'None'
-          )
-        );
-      }
-      insert accountShareRecords;
     }
   }
 
@@ -144,23 +117,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
 
     insert cobApps;
     return cobApps;
-  }
-
-  private static List<Account> createPersonAccounts() {
-    List<Account> accounts = new List<Account>();
-    for (String ocvId : LINKED_OCV_IDS) {
-      Account acc = new Account(
-        FirstName = FAKER.person.firstName(),
-        LastName = FAKER.person.lastName(),
-        OCV_ID__c = ocvId,
-        ANZx_Customer__c = true,
-        RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
-      );
-      accounts.add(acc);
-    }
-
-    insert accounts;
-    return accounts;
   }
 
   private static COBPrimaryIDDocument__c createCOBPid(
@@ -243,14 +199,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
     ];
   }
 
-  private static List<Case> getKYCQACasesLinkedToAccount() {
-    return [
-      SELECT Id, AccountId, OCV_Id__c
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID AND AccountId != NULL
-    ];
-  }
-
   private static Map<String, Case> createKYCQACases(
     List<CustomerOnboardingApplication__c> cobApps
   ) {
@@ -289,19 +237,10 @@ public with sharing class COBApplicationTriggerHandlerTest {
 
     //get all KYC QA case created
     List<Case> kycQACases = getKYCQACases();
-    //get KYC QA case linked to PersonAccount
-    List<Case> kycQACasesWithAccount = getKYCQACasesLinkedToAccount();
     Assert.areEqual(
       OCV_IDS_COUNT,
       kycQACases.size(),
       OCV_IDS_COUNT + ' new KYC QA cases should have been created.'
-    );
-
-    Assert.areEqual(
-      LINKED_OCV_IDS.size(),
-      kycQACasesWithAccount.size(),
-      LINKED_OCV_IDS.size() +
-      ' new Person Account linked KYC QA case(s) should have been created.'
     );
   }
 
@@ -397,12 +336,5 @@ public with sharing class COBApplicationTriggerHandlerTest {
         QASADDRESS_TEST.get(kycQACase.OCV_Id__c)
       );
     }
-
-    Assert.areEqual(
-      LINKED_OCV_IDS.size(),
-      linkedKYCQACases.size(),
-      LINKED_OCV_IDS.size() +
-      ' new Person Account linked KYC QA case(s) should have been created.'
-    );
   }
 }

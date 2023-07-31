@@ -219,7 +219,6 @@
     "Reported_Bug__c": "A defect with an ANZx customer facing application, or experience",
     "ResidentialLoanApplication": "General information and identifiers to describe type of loan",
     "SecureLogEntry__c": "Secure log records that store logging information on a record/callout level.",
-    "SkyhighNetworks__SHNEvent__c": "A monitoring event used to record Salesforce system access",
     "Task": "A task to remind a user to follow up on something",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
@@ -2309,19 +2308,6 @@
         "LogMessage__c",
         "SpanId__c",
         "RecordsJson__c"
-      ]
-    },
-    "SkyhighNetworks__SHNEvent__c": {
-      "IA-2468710": [
-        "SkyhighNetworks__EventDetail__c",
-        "SkyhighNetworks__SourceObjectId__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
       ]
     },
     "Task": {

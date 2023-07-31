@@ -7944,16 +7944,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>SkyhighNetworks__SHNEvent__c.SkyhighNetworks__EventDetail__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>SkyhighNetworks__SHNEvent__c.SkyhighNetworks__SourceObjectId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Task.Action__c</field>
         <readable>true</readable>

@@ -29,6 +29,12 @@ public with sharing class GetHelpCaseActionsHelper {
   private static final String MORE_THAN_TWO_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select more than two Additional Types.';
   private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
   private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
+
+  @TestVisible
+  private static final Group PENDING_KYC_QA_WO_CUSTOMER = CommonUtil.getQueueByName(
+    'Pending_KYC_QA_No_Customer'
+  );
+
   /**
    * @description  This method checks if Additional_Type__c has more than 2 values selected or
    * if the Type value is same as one of the additional values
@@ -137,8 +143,8 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param caseList a list of cases that we need to get account ids from
    * @return list of account ids
    */
-  public static List<Id> getEntitlementAccountIds(List<Case> caseList) {
-    List<Id> accountIds = new List<Id>();
+  public static Set<Id> getEntitlementAccountIds(List<Case> caseList) {
+    Set<Id> accountIds = new Set<Id>();
 
     for (Case c : caseList) {
       if (
@@ -159,15 +165,13 @@ public with sharing class GetHelpCaseActionsHelper {
    * @param name name of the entitilement
    * @return Map of account Ids and their entitlement Ids
    */
-  public static Map<Id, Id> getEntitlements(List<Id> accountIds, String name) {
-    if (accountIds.isEmpty()) {
-      new Map<Id, Id>();
-    }
-    if (PermissionUtils.canQuery('Entitlement') == false) {
-      new Map<Id, Id>();
-    }
-
+  public static Map<Id, Id> getEntitlements(Set<Id> accountIds, String name) {
     Map<Id, Id> entMap = new Map<Id, Id>();
+    if (
+      accountIds.isEmpty() || PermissionUtils.canQuery('Entitlement') == false
+    ) {
+      return entMap;
+    }
 
     for (Entitlement en : [
       SELECT Id, AccountId
@@ -193,7 +197,6 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -642,5 +645,91 @@ public with sharing class GetHelpCaseActionsHelper {
       )
       .date();
     return newTask;
+  }
+
+  /**
+   * @description Get Mobile Number and Case map
+   * @param oldCaseIds Set of old KYC QA Case Ids trigger.oldMap
+   * @return Mobile Number and Case Id map
+   */
+  public static Map<String, String> getMobileByCaseId(Set<Id> oldCaseIds) {
+    if (oldCaseIds.isEmpty() || PermissionUtils.canQuery('Case') == false) {
+      return new Map<String, String>();
+    }
+
+    Map<String, String> mobileByCaseIdMap = new Map<String, String>();
+    for (Case c : [
+      SELECT Id, CustomerOnboardingApplication__r.SecurityMobile__c
+      FROM Case
+      WHERE Id IN :oldCaseIds AND RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+    ]) {
+      if (
+        String.isNotBlank(c.CustomerOnboardingApplication__r.SecurityMobile__c)
+      ) {
+        mobileByCaseIdMap.put(
+          c.Id,
+          '+' + c.CustomerOnboardingApplication__r.SecurityMobile__c
+        );
+      }
+    }
+    return mobileByCaseIdMap;
+  }
+
+  /**
+   * @description Get Mobile Phones and Account map
+   * @param mobileNumbers List of mobiles from COB Applications
+   * @return Mobile Phones and Account map
+   */
+  public static Map<String, Account> getAccountsByMobile(
+    List<String> mobileNumbers
+  ) {
+    if (
+      mobileNumbers.isEmpty() || PermissionUtils.canQuery('Account') == false
+    ) {
+      return new Map<String, Account>();
+    }
+
+    Map<String, Account> accountByMobileMap = new Map<String, Account>();
+    for (Account acc : [
+      SELECT Id, PersonMobilePhone, PersonContactId
+      FROM Account
+      WHERE PersonMobilePhone IN :mobileNumbers AND ANZx_Customer__c = TRUE
+    ]) {
+      accountByMobileMap.put(acc.PersonMobilePhone, acc);
+    }
+    return accountByMobileMap;
+  }
+
+  /**
+   * @description Set case fileds with matching Account
+   * @param c Case
+   * @param matchingAcc Matched Account
+   * @param accountEntitlmentId Matched Account Entitlment Id
+   */
+  public static void setMatchingAccountFields(
+    Case c,
+    Account matchingAcc,
+    Id accountEntitlmentId
+  ) {
+    c.AccountId = matchingAcc.Id;
+    c.ContactId = matchingAcc.PersonContactId;
+    c.EntitlementId = accountEntitlmentId;
+  }
+
+  /**
+   * @description Handle KYC QA Case in the situatuon there is still no MAtched Account:
+   * Either move to "Pending KYC QA - No Customer" queue in the event the case is not closed yet or
+   * remain in the "Pending KYC QA - No Customer" queue untill there is a Matched Account
+   * @param c Case
+   * @param oldCase Old case
+   */
+  public static void handleKYCQACaseNoCustomer(Case c, Case oldCase) {
+    if (
+      (oldCase.Status != GetHelpConstants.CLOSED_STATUS &&
+      c.Status == GetHelpConstants.CLOSED_STATUS) ||
+      oldCase.OwnerId == PENDING_KYC_QA_WO_CUSTOMER.Id
+    ) {
+      c.OwnerId = PENDING_KYC_QA_WO_CUSTOMER.Id;
+    }
   }
 }
