@@ -672,6 +672,7 @@
         "API_Only",
         "Enforce_mTLS",
         "Case_Read_Write_KYC_QA",
+        "Case_View_All",
         "Customer_Onboarding_View_All",
         "Customer_Read_Only",
         "Disable_MFA"
