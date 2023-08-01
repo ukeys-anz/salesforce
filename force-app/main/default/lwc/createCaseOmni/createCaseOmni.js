@@ -25,25 +25,35 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     this.modalMsg = "";
     this.valCustomerFields();
     if (this.missingFields.length > 0) {
-      if (this.missingFields.length > 0) {
-        this.modalMsg =
-          "Please complete all required fields: " +
-          this.missingFields.join(", ");
-        if (
-          this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-          !this.omniJsonData.Case.CustomerDetails.Customer
-        ) {
-          this.modalMsg +=
-            "<br><br>Customer number must be numbers and atleast 10 digits long";
-        }
-      }
+      this.modalMsg =
+        "Please complete all required fields: " + this.missingFields.join(", ");
+      if (
+        this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+        !this.omniJsonData.Case.CustomerDetails.Customer
+      )
+        this.modalMsg +=
+          "<br><br>Customer number must be numbers and atleast 10 digits long.";
+      if (
+        this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+        this.omniJsonData.Response === false
+      )
+        this.modalMsg +=
+          "<br><br>Customer number is not valid or has not been validated, check the number and try again.";
       this.showModal = true;
     } else if (
       !this.missingFields.length &&
-      this.omniScriptHeaderDef.hasInvalidElements &&
-      this.omniJsonData.Case.isThisCustomerComplaint === "Yes"
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      this.omniScriptHeaderDef.hasInvalidElements
     ) {
       this.modalMsg = "Please complete all required fields";
+      this.showModal = true;
+    } else if (
+      !this.missingFields.length &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      this.omniJsonData.Response === false
+    ) {
+      this.modalMsg +=
+        "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
       this.showModal = true;
     } else {
       this.showModal = false;
@@ -98,7 +108,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         nonCustMap.push({ Street: "Street" });
         nonCustMap.push({ Suburb: "Suburb" });
         nonCustMap.push({ State: "State" });
-        nonCustMap.push({ Country: "Country" });
       }
       this.checkFields(details, nonCustMap);
     }

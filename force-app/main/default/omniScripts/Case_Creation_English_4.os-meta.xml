@@ -2,7 +2,7 @@
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -427,7 +427,7 @@
   &quot;label&quot; : &quot;Issue Type 2&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -502,11 +502,11 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;required&quot; : true,
+  &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Issue Type 3&quot;,
-  &quot;controlWidth&quot; : 3.0
+  &quot;controlWidth&quot; : 3
 }</propertySetConfig>
                 <sequenceNumber>18.0</sequenceNumber>
                 <type>Select</type>
@@ -845,7 +845,7 @@
   &quot;helpText&quot; : &quot;Start typing the ANZ product or Service the issue relates to for available options to appear&quot;,
   &quot;help&quot; : true,
   &quot;readOnly&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;googleTransformation&quot; : {
     &quot;postal_code&quot; : &quot;&quot;,
     &quot;country&quot; : &quot;&quot;,
@@ -919,10 +919,10 @@
                 <name>ProductServiceName3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;Product or Service Name 3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 4.0,
+  &quot;inputWidth&quot; : 4,
   &quot;googleTransformation&quot; : {
     &quot;street&quot; : &quot;&quot;,
     &quot;locality&quot; : &quot;&quot;,
@@ -931,13 +931,13 @@
     &quot;country&quot; : &quot;&quot;,
     &quot;postal_code&quot; : &quot;&quot;
   },
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;readOnly&quot; : false,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;Start typing the ANZ product or Service the issue relates to for available options to appear&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -950,10 +950,10 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;typeAheadKey&quot; : &quot;Name&quot;,
   &quot;dataProcessorFunction&quot; : &quot;&quot;,
-  &quot;callFrequency&quot; : 300.0,
+  &quot;callFrequency&quot; : 300,
   &quot;editMode&quot; : false,
   &quot;newItemLabel&quot; : &quot;New&quot;,
   &quot;hideEditButton&quot; : false,
@@ -1047,7 +1047,7 @@
   &quot;readOnly&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
+  &quot;required&quot; : true,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Subsequent Issue Type 2&quot;,
@@ -1064,11 +1064,11 @@
                 <name>SubsequentIssueType3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3.0,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;Subsequent Issue Type 3&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;required&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
@@ -5550,7 +5550,7 @@
   &quot;imageCountInRow&quot; : 3,
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false,
-  &quot;defaultValue&quot; : null
+  &quot;defaultValue&quot; : &quot;No&quot;
 }</propertySetConfig>
                 <sequenceNumber>61.0</sequenceNumber>
                 <type>Radio</type>
@@ -6372,5 +6372,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>de23fad0-5c6b-30cd-a1a7-91f7868e4df3</webComponentKey>
+    <webComponentKey>e3350932-d491-7825-920b-6433e11d5f51</webComponentKey>
 </OmniScript>
