@@ -1480,6 +1480,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.BankruptCheckBox__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.Tax_Exemption_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
