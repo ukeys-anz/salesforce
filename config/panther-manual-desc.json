@@ -1436,7 +1436,8 @@
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
         "System_Record_Status__c"
-      ]
+      ],
+      "IA-2468715": ["Force_Update__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
