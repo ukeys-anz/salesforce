@@ -6,6 +6,7 @@
     <description>NLP Topic from Twilio</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
+    <inlineHelpText>This is the suggested topic the message thread is about based on analysing the messages using our natural language processing (NLP) software.</inlineHelpText>
     <label>NLP Topic</label>
     <length>255</length>
     <required>false</required>

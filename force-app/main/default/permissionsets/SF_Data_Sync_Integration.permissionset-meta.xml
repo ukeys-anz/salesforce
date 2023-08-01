@@ -4127,6 +4127,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Twilio_Details__c.NLP_Topic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.Active_Directory_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
