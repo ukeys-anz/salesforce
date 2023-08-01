@@ -88,15 +88,15 @@ public with sharing class IDRTaskActions2 {
       }
     }
 
+    Case oCase2;
     for (Task oTask : lstTasks) {
       if (
         oTask.Type == TASK_TYPE_GENERAL &&
         String.isNotEmpty(oTask.Subject) &&
-        oTask.Subject.contains(TASK_SUBJECT_URGENT)
+        oTask.Subject.contains(TASK_SUBJECT_URGENT) &&
+        (oCase2 = mpId2Case.get(oTask.WhatId)) != null &&
+        (stRecipients = mpGroup2Recipients.get(oCase2.OwnerId)) != null
       ) {
-        stRecipients = mpGroup2Recipients.get(
-          mpId2Case.get(oTask.WhatId).OwnerId
-        );
         CommonUtil.sendInAppNotification(
           new InAppNotificationWrapper(
             oNotificationType.Id,
