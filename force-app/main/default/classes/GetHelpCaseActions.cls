@@ -954,31 +954,29 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    List<Case> kycQACases = CommonUtil.filterCasesByRecordTypeId(
-      records,
-      GetHelpConstants.KYCQA_RT_ID
+    //get all the cases with no customer from filtered kycQACases
+    List<Case> kycQACasesWithNoCustomer = GetHelpCaseActionsHelper.getKYCQACasesWithoutCustomer(
+      records
     );
-    if (kycQACases.isEmpty()) {
+
+    if (kycQACasesWithNoCustomer.isEmpty()) {
       return;
     }
 
     Map<String, String> mobileByCaseIdMap = GetHelpCaseActionsHelper.getMobileByCaseId(
-      oldMap.keySet()
+      new Map<Id, Case>(kycQACasesWithNoCustomer).keySet()
     );
 
     Map<String, Account> accountByMobileMap = GetHelpCaseActionsHelper.getAccountsByMobile(
       mobileByCaseIdMap.values()
     );
-    Set<Id> accIds = (new Map<Id, SObject>(accountByMobileMap.values()))
-      .keySet();
     // Get matched Accounts Entitelments
-    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getEntitlements(
-      accIds,
-      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getAccountIdEntitlmentMap(
+      accountByMobileMap.values()
     );
     Logger.debug('Accounts Entitlements: ' + accountIdEntitlmentMap);
 
-    for (Case c : kycQACases) {
+    for (Case c : kycQACasesWithNoCustomer) {
       Account matchingAcc = accountByMobileMap.get(mobileByCaseIdMap.get(c.Id));
       if (matchingAcc != null) {
         Id accountEntitlmentId = accountIdEntitlmentMap.get(matchingAcc.Id);

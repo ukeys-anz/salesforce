@@ -701,6 +701,20 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Get Account Ids Entitlment map
+   * @param accounts List of Accounts
+   * @return Account Ids Entitlment map
+   */
+  public static Map<Id, Id> getAccountIdEntitlmentMap(List<Account> accounts) {
+    Set<Id> accIds = (new Map<Id, SObject>(accounts)).keySet();
+    // Get matched Accounts Entitelments
+    return getEntitlements(
+      accIds,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
+  }
+
+  /**
    * @description Set case fileds with matching Account
    * @param c Case
    * @param matchingAcc Matched Account
@@ -731,5 +745,26 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       c.OwnerId = PENDING_KYC_QA_WO_CUSTOMER.Id;
     }
+  }
+
+  /**
+   * @description Filter cases by Record Type Id
+   * @param records List of case records
+   * @return List of filtered cases
+   */
+  public static List<Case> getKYCQACasesWithoutCustomer(List<Case> records) {
+    List<Case> kycQACases = CommonUtil.filterCasesByRecordTypeId(
+      records,
+      GetHelpConstants.KYCQA_RT_ID
+    );
+
+    List<Case> kycQACasesWithNoCustomer = new List<Case>();
+    for (Case c : kycQACases) {
+      if (c.AccountId == null) {
+        kycQACasesWithNoCustomer.add(c);
+      }
+    }
+
+    return kycQACasesWithNoCustomer;
   }
 }
