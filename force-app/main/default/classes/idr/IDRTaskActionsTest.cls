@@ -197,7 +197,7 @@ private with sharing class IDRTaskActionsTest {
       }
       insert newCases;
 
-      List<Task> taskToinsert = new List<Task>();
+      List<Task> taskToInsert = new List<Task>();
       for (Case c : newCases) {
         Task idrTask = new Task(
           WhatId = c.Id,
@@ -206,10 +206,10 @@ private with sharing class IDRTaskActionsTest {
           Priority = 'Standard',
           ActivityDate = System.today()
         );
-        taskToinsert.add(idrTask);
+        taskToInsert.add(idrTask);
       }
 
-      insert taskToinsert;
+      insert taskToInsert;
 
       CheckRecursive.firstCall = false;
 
@@ -224,7 +224,7 @@ private with sharing class IDRTaskActionsTest {
 
       Test.stopTest();
 
-      for (Task task : [SELECT Status FROM Task WHERE Id = :taskToinsert]) {
+      for (Task task : [SELECT Status FROM Task WHERE Id = :taskToInsert]) {
         System.assertEquals(
           IDRConstants.TASK_STATUS_COMPLETED,
           task.Status,
@@ -396,7 +396,7 @@ private with sharing class IDRTaskActionsTest {
       }
       insert newCases;
 
-      List<Task> taskToinsert = new List<Task>();
+      List<Task> taskToInsert = new List<Task>();
       for (Case c : newCases) {
         Task idrTask = new Task(
           WhatId = c.Id,
@@ -405,13 +405,13 @@ private with sharing class IDRTaskActionsTest {
           Priority = 'Standard',
           ActivityDate = System.today()
         );
-        taskToinsert.add(idrTask);
+        taskToInsert.add(idrTask);
       }
 
-      insert taskToinsert;
+      insert taskToInsert;
 
       Test.startTest();
-      for (Task t : tasktoInsert) {
+      for (Task t : taskToInsert) {
         t.Status = IDRConstants.TASK_STATUS_COMPLETED;
       }
       update taskToInsert;
@@ -419,12 +419,12 @@ private with sharing class IDRTaskActionsTest {
       Test.stopTest();
 
       for (Case c : [
-        SELECT IDR_Additional_Correspondence_Reviewed__c
+        SELECT IDR_Additional_Correspondence_reviewed__c
         FROM Case
         WHERE Id = :newCases
       ]) {
         System.assert(
-          c.IDR_Additional_Correspondence_Reviewed__c,
+          c.IDR_Additional_Correspondence_reviewed__c,
           'Case Additional Correspondance Reviewed should be as expected.'
         );
       }
@@ -454,8 +454,7 @@ private with sharing class IDRTaskActionsTest {
         newCases.add(
           new Case(
             RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-            IDR_Date_Received__c = System.now(),
-            OwnerId = oGroup.Id
+            IDR_Date_Received__c = System.now()
           )
         );
       }
@@ -468,7 +467,8 @@ private with sharing class IDRTaskActionsTest {
           Subject = IDRTaskActions2.TASK_SUBJECT_URGENT,
           RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
           Priority = 'Standard',
-          ActivityDate = System.today()
+          ActivityDate = System.today(),
+          OwnerId = oGroup.Id
         );
         lstTasks.add(idrTask);
       }
