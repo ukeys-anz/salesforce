@@ -126,7 +126,6 @@ public with sharing class IDRCaseNotificationManager {
   }
   /**
    * @description Builds Task A new email response has been received and when A Case has been re-assigned.
-   * StdCyclomaticComplexity Suppressed : This method uses structured if/else but complexity measure is more than limit.
    * @param fieldLabel Field label where the change has been detected
    * @param c case record where the  change has detected
    * @param parentCase parent case record which is attached to parentId of the above case

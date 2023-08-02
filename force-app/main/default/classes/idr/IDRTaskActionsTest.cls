@@ -184,50 +184,53 @@ private with sharing class IDRTaskActionsTest {
   }
   @IsTest
   static void testIDRTaskClosureOnCaseClose() {
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Date_Received__c = System.now()
-        )
-      );
-    }
-    insert newCases;
+    User l1User = TestUtil.getUserByFirstName('idrL1User');
+    System.runAs(l1User) {
+      Case[] newCases = new List<Case>();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        newCases.add(
+          new Case(
+            RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+            IDR_Date_Received__c = System.now()
+          )
+        );
+      }
+      insert newCases;
 
-    List<Task> taskToinsert = new List<Task>();
-    for (Case c : newCases) {
-      Task idrTask = new Task(
-        WhatId = c.Id,
-        Subject = IDRConstants.TASK_SUBJECT_DAY5,
-        RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
-        Priority = 'Standard',
-        ActivityDate = System.today()
-      );
-      taskToinsert.add(idrTask);
-    }
+      List<Task> taskToinsert = new List<Task>();
+      for (Case c : newCases) {
+        Task idrTask = new Task(
+          WhatId = c.Id,
+          Subject = IDRConstants.TASK_SUBJECT_DAY5,
+          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+          Priority = 'Standard',
+          ActivityDate = System.today()
+        );
+        taskToinsert.add(idrTask);
+      }
 
-    insert taskToinsert;
+      insert taskToinsert;
 
-    CheckRecursive.firstCall = false;
+      CheckRecursive.firstCall = false;
 
-    Test.startTest();
-    for (Case c : newCases) {
-      c.Status = IDRConstants.CLOSED_STATUS;
-      c.IDR_Complaint_Outcome__c = '1';
-      c.IDR_Description_of_Outcome__c = 'test';
-      c.IDR_Is_Common__c = 'No';
-    }
-    update newCases;
+      Test.startTest();
+      for (Case c : newCases) {
+        c.Status = IDRConstants.CLOSED_STATUS;
+        c.IDR_Complaint_Outcome__c = '1';
+        c.IDR_Description_of_Outcome__c = 'test';
+        c.IDR_Is_Common__c = 'No';
+      }
+      update newCases;
 
-    Test.stopTest();
+      Test.stopTest();
 
-    for (Task task : [SELECT Status FROM Task WHERE Id = :taskToinsert]) {
-      System.assertEquals(
-        IDRConstants.TASK_STATUS_COMPLETED,
-        task.Status,
-        'Task Status should be as expected.'
-      );
+      for (Task task : [SELECT Status FROM Task WHERE Id = :taskToinsert]) {
+        System.assertEquals(
+          IDRConstants.TASK_STATUS_COMPLETED,
+          task.Status,
+          'Task Status should be as expected.'
+        );
+      }
     }
   }
 
@@ -375,5 +378,103 @@ private with sharing class IDRTaskActionsTest {
       errorThrown,
       'IDR Task should have been deleted'
     );
+  }
+
+  @IsTest
+  static void testIDRCorrespondenceUpdate() {
+    User l1User = TestUtil.getUserByFirstName('idrL1User');
+    System.runAs(l1User) {
+      Case[] newCases = new List<Case>();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        newCases.add(
+          new Case(
+            RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+            Status = 'Withdrawn',
+            IDR_Date_Received__c = System.now()
+          )
+        );
+      }
+      insert newCases;
+
+      List<Task> taskToinsert = new List<Task>();
+      for (Case c : newCases) {
+        Task idrTask = new Task(
+          WhatId = c.Id,
+          Subject = IDRConstants.TASK_SUBJECT_DAY5,
+          RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
+          Priority = 'Standard',
+          ActivityDate = System.today()
+        );
+        taskToinsert.add(idrTask);
+      }
+
+      insert taskToinsert;
+
+      Test.startTest();
+      for (Task t : tasktoInsert) {
+        t.Status = IDRConstants.TASK_STATUS_COMPLETED;
+      }
+      update taskToInsert;
+
+      Test.stopTest();
+
+      for (Case c : [
+        SELECT IDR_Additional_Correspondence_Reviewed__c
+        FROM Case
+        WHERE Id = :newCases
+      ]) {
+        System.assert(
+          c.IDR_Additional_Correspondence_Reviewed__c,
+          'Case Additional Correspondance Reviewed should be as expected.'
+        );
+      }
+    }
+  }
+
+  @IsTest
+  static void urgentCaseAllocationTask() {
+
+    Group oGroup = [SELECT Id
+                    FROM Group
+                    WHERE DeveloperName = 'IDR_Everyday_Banking'
+                    LIMIT 1];
+
+    List<GroupMember> lstGroupMembers = new List<GroupMember>{
+      new GroupMember(GroupId = oGroup.Id, UserOrGroupId = UserInfo.getUserId())
+    };
+    insert lstGroupMembers;
+
+    Test.startTest();
+
+    // Insert User as current user, to get around MIXED_DML_OPERATION error
+    User thisUser = new User(Id = UserInfo.getUserId());
+    System.runAs(thisUser) {
+      Case[] newCases = new List<Case>();
+      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+        newCases.add(
+          new Case(
+            RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+            IDR_Date_Received__c = System.now(),
+            OwnerId = oGroup.Id
+          )
+        );
+      }
+      insert newCases;
+
+      List<Task> lstTasks = new List<Task>();
+      for (Case c : newCases) {
+        Task idrTask = new Task(
+          WhatId = c.Id,
+          Subject = IDRTaskActions2.TASK_SUBJECT_URGENT,
+          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          Priority = 'Standard',
+          ActivityDate = System.today()
+        );
+        lstTasks.add(idrTask);
+      }
+
+      insert lstTasks;
+    }
+    Test.stopTest();
   }
 }
