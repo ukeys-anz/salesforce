@@ -1034,10 +1034,11 @@
     "sop": "sops/f7a857fb-1098-4125-bec9-6f0b6f17987c",
     "assets": [
       {
-        "id": "20545432-ff8d-47b3-aa54-0b2e63c31de3",
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/dd879c38-61ed-4a0a-946d-2d53840b6f2e",
+        "uid": "20545432-ff8d-47b3-aa54-0b2e63c31de3",
         "type": "ASSET_TYPE_VEHICLE",
         "subType": "Truck",
-        "name": "My Car",
+        "assetName": "My Car",
         "estimatedValue": {
           "currencyCode": "AUD",
           "units": "55000"
@@ -1090,10 +1091,11 @@
         "etag": "1683190781084995000"
       },
       {
-        "id": "b0733744-c511-4a23-bb1b-6ddecdc4152c",
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/dd879c38-61ed-4a0a-946d-2d53840b6f2e",
+        "uid": "b0733744-c511-4a23-bb1b-6ddecdc4152c",
         "type": "ASSET_TYPE_VEHICLE",
         "subType": "Van",
-        "name": "Family Car",
+        "assetName": "Family Car",
         "estimatedValue": {
           "currencyCode": "AUD",
           "units": "4000"
@@ -1267,9 +1269,10 @@
         "etag": "1683192011272970123"
       },
       {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a",
         "id": "3d032ca6-919f-4249-8beb-4126f35cd818",
         "type": "ASSET_TYPE_PROPERTY",
-        "name": "463 Tooronga Road, HAWTHORN EAST  VIC  3123",
+        "assetName": "463 Tooronga Road, HAWTHORN EAST  VIC  3123",
         "estimatedValue": {
           "currencyCode": "AUD",
           "units": "850000",
@@ -1290,9 +1293,10 @@
         "updatedBy": "1000991493"
       },
       {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/dbe28f07-c979-467a-9f5c-31f11700c916",
         "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
         "type": "ASSET_TYPE_SUPER",
-        "name": "Super Account",
+        "assetName": "Asset Super",
         "estimatedValue": {
           "currencyCode": "AUD",
           "units": "3000"
@@ -1313,9 +1317,10 @@
         "etag": "1683190274878264000"
       },
       {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/b1af1255-4efb-434b-a117-1382e9bc7ecc",
         "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
         "type": "ASSET_TYPE_OTHER",
-        "name": "Other",
+        "assetName": "Asset Other",
         "estimatedValue": {
           "currencyCode": "AUD",
           "units": "345000",
@@ -1337,9 +1342,10 @@
         "etag": "1683190274878264000"
       },
       {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/35c875e7-da4c-4320-9139-dd3b7b0c6039",
         "id": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
         "type": "ASSET_TYPE_HOME_CONTENTS",
-        "name": "Other",
+        "assetName": "Home Contents",
         "estimatedValue": {
           "currencyCode": "AUD",
           "units": "125000",
@@ -1361,9 +1367,10 @@
         "etag": "1683190274878264000"
       },
       {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/501c7962-b301-4765-ba39-45ac4a976d14",
         "id": "20545432-ff8d-47b3-aa54-0b2e63c31de3",
         "type": "ASSET_TYPE_SHARES",
-        "name": "Investment",
+        "assetName": "Asset Investment",
         "estimatedValue": {
           "currencyCode": "AUD",
           "units": "55000"

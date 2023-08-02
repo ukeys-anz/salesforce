@@ -8,7 +8,7 @@ public class SOPAsset implements Comparable {
   public String id;
   public String type;
   public String subType;
-  public String name;
+  public String assetName;
   public SOPMoney estimatedValue;
   public SOPAccounts account;
   public List<SOPOwnership> ownership;
