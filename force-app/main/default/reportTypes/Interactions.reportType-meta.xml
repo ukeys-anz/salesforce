@@ -3049,11 +3049,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Account.AR_C_Customer__c</field>
-            <table>Interaction</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Account.ARBN__c</field>
             <table>Interaction</table>
         </columns>

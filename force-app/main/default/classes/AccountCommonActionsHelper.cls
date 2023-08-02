@@ -240,35 +240,4 @@ public with sharing class AccountCommonActionsHelper {
     }
     return matchingLeadsByAccIdMap;
   }
-
-  /**
-   * @description Get cases by OCV Ids or Mobile and record type
-   * @param ocvIds OCV Ids
-   * @param mobilePhones Mobile Phones
-   * @param recordTypeId The Case record type Id
-   * @return List<Case> List of Cases
-   */
-  public static List<Case> getCasesByOCVIdsOrMobiles(
-    Set<String> ocvIds,
-    Set<String> mobilePhones,
-    String recordTypeId
-  ) {
-    if (ocvIds.isEmpty() && mobilePhones.isEmpty()) {
-      return new List<Case>();
-    }
-
-    if (PermissionUtils.canQuery('Case') == false) {
-      return new List<Case>();
-    }
-
-    return [
-      SELECT Id, OCV_Id__c, CustomerOnboardingApplication__r.SecurityMobile__c
-      FROM Case
-      WHERE
-        (OCV_Id__c IN :ocvIds
-        OR CustomerOnboardingApplication__r.SecurityMobile__c IN :mobilePhones)
-        AND RecordTypeId = :recordTypeId
-        AND AccountId = NULL
-    ];
-  }
 }

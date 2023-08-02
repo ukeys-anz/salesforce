@@ -22,14 +22,18 @@
     "Contact",
     "ContactRequest",
     "ContactPointAddress",
+    "ContactPointEmail",
+    "ContactPointPhone",
     "ContentDocumentLink",
     "ContentVersion",
     "Controlling_Post__c",
     "CustomerOnboardingApplication__c",
     "EmailMessage",
     "External_Case_Status__c",
+    "FinServ__ContactContactRelation__c",
     "FinServ__FinancialAccount__c",
     "FinServ__FinancialAccountRole__c",
+    "FinServ__ReciprocalRole__c",
     "Identifier__c",
     "Interaction",
     "Interaction_Tag__c",
@@ -67,7 +71,7 @@
   ],
   "usermap": [
     {
-      "name": "ANZ Plus Operations - Read Only	",
+      "name": "ANZ Plus Operations - Read Only",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["ANZ_Plus_Operations_Read_Only"],
       "permissionsets": ["Enforce_SSO"],
@@ -309,6 +313,7 @@
         "Moderate_Chatter",
         "Read_Write_Customer_Details",
         "CCRM_Marketing_Integration_User",
+        "Customer_Relationships_Read_Write",
         "Disable_MFA"
       ],
       "type": "system"
@@ -622,6 +627,53 @@
         "API_Only",
         "Enforce_mTLS",
         "Mortgage",
+        "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "BOH Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Mortgage",
+        "BoH_Read_Write",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Microsoft Defender Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": ["Microsoft_Defender", "Disable_MFA"],
+      "type": "system"
+    },
+    {
+      "name": "CFaaS GCP Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "CFaaS_Integration",
+        "API_Only",
+        "Enforce_mTLS",
+        "Mortgage",
+        "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Customer Validation Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "Case_Read_Write_KYC_QA",
+        "Customer_Onboarding_View_All",
+        "Customer_Read_Only",
         "Disable_MFA"
       ],
       "type": "system"

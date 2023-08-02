@@ -15,6 +15,7 @@ public with sharing class COBPIDTriggerHandler extends Lib_TriggerHandler {
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
+    COBPIDActions.correctNamesSpaces(records);
     COBPIDActions.setOCRMatch(records);
   }
 
@@ -23,6 +24,7 @@ public with sharing class COBPIDTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    COBPIDActions.correctNamesSpaces(records);
     COBPIDActions.setOCRMatch(records);
   }
 }

@@ -99,8 +99,10 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         }
       }
       Logger.saveLog();
-      Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(UserInfo.getUserId())
-      .DisableDocumentDeletionTrigger__c;
+      Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(
+          UserInfo.getUserId()
+        )
+        .DisableDocumentDeletionTrigger__c;
       if (
         mpUpdateCases.size() > 0 &&
         !fDisableDocumentDeletionTrigger &&

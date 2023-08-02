@@ -5,10 +5,10 @@
     <label>IDR Level 2</label>
     <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>Email_Based_Identity_Verification_Option</permissionSets>
+    <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>IDR_User</permissionSets>
     <permissionSets>IDR_User_Level_2</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
-    <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
-    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

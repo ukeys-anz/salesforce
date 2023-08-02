@@ -32,8 +32,10 @@ public with sharing class IDRTaskActions2 {
         ((String) oTask.WhatId).left(3) == strCasePrefix
       ) {
         stCaseIds.add(oTask.WhatId);
-        if ( ((String) oTask.OwnerId).left(3) == strGroupPrefix &&
-            !mpGroup2Recipients.containsKey(oTask.OwnerId)) {
+        if (
+          ((String) oTask.OwnerId).left(3) == strGroupPrefix &&
+          !mpGroup2Recipients.containsKey(oTask.OwnerId)
+        ) {
           mpGroup2Recipients.put(oTask.OwnerId, new Set<String>());
         }
       }
@@ -91,15 +93,16 @@ public with sharing class IDRTaskActions2 {
 
     for (Task oTask : lstTasks) {
       if (
-          oTask.Type == TASK_TYPE_GENERAL &&
-          String.isNotEmpty(oTask.Subject) &&
-          oTask.Subject.contains(TASK_SUBJECT_URGENT)) {
-        if ( ((String)oTask.OwnerId).left(3) == strGroupPrefix) {
+        oTask.Type == TASK_TYPE_GENERAL &&
+        String.isNotEmpty(oTask.Subject) &&
+        oTask.Subject.contains(TASK_SUBJECT_URGENT)
+      ) {
+        if (((String) oTask.OwnerId).left(3) == strGroupPrefix) {
           stRecipients = mpGroup2Recipients.get(oTask.OwnerId);
         } else {
-          stRecipients = new Set<String>{oTask.OwnerId};
+          stRecipients = new Set<String>{ oTask.OwnerId };
         }
-        if ( stRecipients != null) {
+        if (stRecipients != null) {
           CommonUtil.sendInAppNotification(
             new InAppNotificationWrapper(
               oNotificationType.Id,

@@ -10,6 +10,7 @@ public with sharing class CCRMOpportunityActions {
   public static final String INVALID_CLOSE_DATE_ERROR = 'Please select a Closing Date (i.e. expected settlement date)';
   public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
   public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
+  public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';
 
   /**
    * @description This method will update Controlling Post field depending on the CPID provided in Account.
@@ -26,33 +27,67 @@ public with sharing class CCRMOpportunityActions {
       maskDescription(opp);
       accountIds.add(opp.AccountId);
     }
-    populateParentAccount(records, accountIds);
     checkAccountIsProspect(accountIds, records);
   }
 
   /**
    * @description This method will populate CLG filed with opportunity account parent field.
-   * @param records List of Opportunities
-   * @param accountIds Set of Account Ids
+   * @name populateClgAccount
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in afterUpdate.
    */
-  private static void populateParentAccount(
+  public static void populateClgAccount(
     List<Opportunity> records,
-    Set<Id> accountIds
+    Map<Id, Opportunity> oldMap
   ) {
-    Map<Id, Id> mapOfAccountWithParentAccount = new Map<Id, Id>();
-    if (Schema.sObjectType.Account.isQueryable()) {
-      for (Account account : [
-        SELECT Id, ParentId
-        FROM Account
-        WHERE Id IN :accountIds
-      ]) {
-        mapOfAccountWithParentAccount.put(account.Id, account.ParentId);
+    Set<Id> accountIds = new Set<Id>();
+    for (Opportunity opp : records) {
+      accountIds.add(opp.AccountId);
+    }
+    Map<Id, Id> mapOfAccountWithClgAccount = getMapOfAccountWithClgAccount(
+      accountIds
+    );
+
+    for (Opportunity opp : records) {
+      Id clgAccount = mapOfAccountWithClgAccount.get(opp.AccountId);
+      opp.CLG__c = clgAccount != null ? clgAccount : null;
+    }
+  }
+
+  /**
+   * @description This method will get CLG account associated to accounts
+   * @name getMapOfAccountWithClgAccount
+   * @param accountIds Account Ids
+   * @return Map<Id,Id> Account Ids with associated CLG Account Ids
+   */
+  public static Map<Id, Id> getMapOfAccountWithClgAccount(Set<Id> accountIds) {
+    Map<Id, Id> mapOfAccountWithClgAccount = new Map<Id, Id>();
+    if (Schema.sObjectType.FinServ__ReciprocalRole__c.isQueryable()) {
+      List<FinServ__ReciprocalRole__c> roleId = [
+        SELECT Id
+        FROM FinServ__ReciprocalRole__c
+        WHERE Name = :RECIPROCAL_ROLE_FOR_CLG
+        LIMIT 1
+      ];
+      if (
+        Schema.sObjectType.FinServ__AccountAccountRelation__c.isQueryable() &&
+        roleId.size() > 0
+      ) {
+        for (FinServ__AccountAccountRelation__c relatedaccount : [
+          SELECT FinServ__Account__c, FinServ__RelatedAccount__c
+          FROM FinServ__AccountAccountRelation__c
+          WHERE
+            FinServ__Account__c IN :accountIds
+            AND FinServ__Role__c = :roleId[0].Id
+        ]) {
+          mapOfAccountWithClgAccount.put(
+            relatedaccount.FinServ__Account__c,
+            relatedaccount.FinServ__RelatedAccount__c
+          );
+        }
       }
     }
-    for (Opportunity opp : records) {
-      Id parentAccount = mapOfAccountWithParentAccount.get(opp.AccountId);
-      opp.CLG__c = parentAccount != null ? parentAccount : opp.AccountId;
-    }
+    return mapOfAccountWithClgAccount;
   }
 
   /**

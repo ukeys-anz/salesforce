@@ -91,7 +91,7 @@ public without sharing class IDRTaskActionHelper {
     }
     return recordsToInsert.values();
   }
-  
+
   /**
    * @description updateCases will update Additional Correspondence Reviewed field on Case.
    * when Task status is completed.

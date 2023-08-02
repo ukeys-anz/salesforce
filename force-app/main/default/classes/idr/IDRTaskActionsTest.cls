@@ -433,11 +433,12 @@ private with sharing class IDRTaskActionsTest {
 
   @IsTest
   static void urgentCaseAllocationTask() {
-
-    Group oGroup = [SELECT Id
-                    FROM Group
-                    WHERE DeveloperName = 'IDR_Everyday_Banking'
-                    LIMIT 1];
+    Group oGroup = [
+      SELECT Id
+      FROM Group
+      WHERE DeveloperName = 'IDR_Everyday_Banking'
+      LIMIT 1
+    ];
 
     List<GroupMember> lstGroupMembers = new List<GroupMember>{
       new GroupMember(GroupId = oGroup.Id, UserOrGroupId = UserInfo.getUserId())

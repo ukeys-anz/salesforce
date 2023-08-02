@@ -705,17 +705,19 @@ private class CCRMLeadActionsTest {
 
     Test.startTest();
     //WHEN validated
-    CCRMLeadActions.populateFields(
-      new List<Lead>{
-        leadWithInvalidCampaignCode,
-        leadWithValidCustomerId,
-        leadWithInvalidCustomerId,
-        leadWithValidClgId,
-        leadWithInvalidClgId,
-        leadWithValidBusinessId,
-        leadWithInvalidBusinessId
-      }
-    );
+    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
+      CCRMLeadActions.populateFields(
+        new List<Lead>{
+          leadWithInvalidCampaignCode,
+          leadWithValidCustomerId,
+          leadWithInvalidCustomerId,
+          leadWithValidClgId,
+          leadWithInvalidClgId,
+          leadWithValidBusinessId,
+          leadWithInvalidBusinessId
+        }
+      );
+    }
     Test.stopTest();
 
     //THEN leads with no matching campaign or related account will fail validation
