@@ -180,7 +180,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     }
     expenseMap = new Map<String, SOPExpense>();
     for (SOPExpense expense : monthlyExpensesSummary.monthlyExpenses) {
-      expenseMap.put(expense.categoryName, expense);
+      expenseMap.put(expense.categoryName.replaceAll('&', 'and'), expense);
     }
   }
 
