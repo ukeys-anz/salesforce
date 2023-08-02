@@ -82,7 +82,7 @@ global with sharing class InteractionListViewFetchData implements omnistudio.Vlo
         String.join(statusSearch, '\',\'') +
         '\') ';
     }
-    interactionQuery += ' ORDER BY CreatedDate';
+    interactionQuery += ' ORDER BY CreatedDate DESC';
     interactionQuery += ' LIMIT ' + maxNumber;
     List<Interaction> lstInteractionsFromDB = (List<Interaction>) Database.query(
       interactionQuery
