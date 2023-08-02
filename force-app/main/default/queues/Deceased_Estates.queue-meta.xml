@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Customer Resolution Portfolio</name>
+    <name>Deceased Estates</name>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueSobject>
-        <sobjectType>Task</sobjectType>
+        <sobjectType>Case</sobjectType>
     </queueSobject>
 </Queue>

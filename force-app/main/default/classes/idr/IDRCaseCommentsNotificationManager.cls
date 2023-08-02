@@ -96,7 +96,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
             caseRec,
             subjectStr
           );
-          newCorrsTask.Description = 'Tick the \'Additional Correspondence reviewed\' checkbox in CMOS once task has been actioned and closed';
+          newCorrsTask.Description = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
           assiTasks.add(newCorrsTask);
         }
       }

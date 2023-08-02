@@ -91,4 +91,41 @@ public without sharing class IDRTaskActionHelper {
     }
     return recordsToInsert.values();
   }
+
+  /**
+   * @description updateCases will update Additional Correspondence Reviewed field on Case.
+   * when Task status is completed.
+   * @param newTasks The Task record list.
+   */
+  public static void updateCases(List<task> newTasks) {
+    List<case> casesToUpdate = new List<Case>();
+    for (Task taskObj : newTasks) {
+      if (
+        taskObj.Status == IDRConstants.TASK_STATUS_COMPLETED &&
+        taskObj.WhatId != null &&
+        (taskObj.WhatId + '').startswith('500')
+      ) {
+        casesToUpdate.add(
+          new Case(
+            Id = taskObj.WhatId,
+            IDR_Additional_Correspondence_Reviewed__c = true
+          )
+        );
+      }
+    }
+    if (!casesToUpdate.isEmpty()) {
+      if (
+        Case.SobjectType.getDescribe().isUpdateable() &&
+        Schema.SobjectType.Case.fields.IDR_Additional_Correspondence_Reviewed__c.isUpdateable()
+      ) {
+        update casesToUpdate;
+      } else {
+        CommonUtil.logAndThrowIAE(
+          'IDRTaskActions',
+          'updateCases',
+          'Not enough permissions to update Case.'
+        );
+      }
+    }
+  }
 }
