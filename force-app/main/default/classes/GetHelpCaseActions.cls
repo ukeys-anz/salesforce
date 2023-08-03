@@ -353,7 +353,7 @@ public with sharing class GetHelpCaseActions {
    * @param caseList list of cases from the trigger
    */
   public static void updateEntitlement(List<Case> caseList) {
-    List<Id> accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
+    Set<Id> accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
       caseList
     );
 
@@ -384,7 +384,7 @@ public with sharing class GetHelpCaseActions {
       return;
     }
 
-    List<Id> accountIds = new List<Id>();
+    Set<Id> accountIds = new Set<Id>();
 
     accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
       filteredCases
@@ -943,5 +943,56 @@ public with sharing class GetHelpCaseActions {
     }
 
     DMLUtil.insertRecords(taskList, false, true);
+  }
+
+  /**
+   * @description linkCasestoAccountByOCVId link case to customer profile by OCV Id or Mobile number
+   * @param records The Case records passed from Trigger.new()
+   * @param oldMap The Case records passed from Trigger.oldMap()
+   */
+  public static void linkKYCQACasesToAccount(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> kycQACases = CommonUtil.filterCasesByRecordTypeId(
+      records,
+      GetHelpConstants.KYCQA_RT_ID
+    );
+    if (kycQACases.isEmpty()) {
+      return;
+    }
+
+    Map<String, String> mobileByCaseIdMap = GetHelpCaseActionsHelper.getMobileByCaseId(
+      oldMap.keySet()
+    );
+
+    Map<String, Account> accountByMobileMap = GetHelpCaseActionsHelper.getAccountsByMobile(
+      mobileByCaseIdMap.values()
+    );
+    Set<Id> accIds = (new Map<Id, SObject>(accountByMobileMap.values()))
+      .keySet();
+    // Get matched Accounts Entitelments
+    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getEntitlements(
+      accIds,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
+    Logger.debug('Accounts Entitlements: ' + accountIdEntitlmentMap);
+
+    for (Case c : kycQACases) {
+      Account matchingAcc = accountByMobileMap.get(mobileByCaseIdMap.get(c.Id));
+      if (matchingAcc != null) {
+        Id accountEntitlmentId = accountIdEntitlmentMap.get(matchingAcc.Id);
+        GetHelpCaseActionsHelper.setMatchingAccountFields(
+          c,
+          matchingAcc,
+          accountEntitlmentId
+        );
+      } else {
+        Case oldCase = oldMap.get(c.Id);
+        GetHelpCaseActionsHelper.handleKYCQACaseNoCustomer(c, oldCase);
+      }
+      Logger.debug('KYC QA Case: ' + c);
+    }
+    Logger.saveLog();
   }
 }

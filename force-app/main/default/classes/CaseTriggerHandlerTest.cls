@@ -17,6 +17,23 @@ private class CaseTriggerHandlerTest {
 
   private static final String EMPTY_FAILED_REASON = '';
 
+  private static final List<String> COB_MATCHING_MOBILE_NUMBERS = new List<String>{
+    '61412121212',
+    '61413131313',
+    '61415151515'
+  };
+
+  private static final List<String> CUSTOMER_MATCHING_MOBILE_NUMBERS = new List<String>{
+    '+61412121212',
+    '+61413131313',
+    '+61415151515'
+  };
+
+  private static final List<String> NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
+    '+61412121219',
+    '+61413131319'
+  };
+
   @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
@@ -116,6 +133,12 @@ private class CaseTriggerHandlerTest {
         ANZx_Customer__c = false
       );
       accnts.add(a);
+
+      Account fraudAcc = new Account(
+        Name = 'Fraud Entitlement Account',
+        OCV_ID__c = faker.randomString(10)
+      );
+      accnts.add(fraudAcc);
       insert accnts;
 
       // Create IDR L1 user
@@ -187,6 +210,8 @@ private class CaseTriggerHandlerTest {
         );
       }
       insert integrationPsaList;
+
+      makeCOBData();
     }
     insertTestAccountsForDisputeCases();
   }
@@ -221,6 +246,106 @@ private class CaseTriggerHandlerTest {
       'CaseNumber__c should be equal to CaseNumber.'
     );
   }
+
+  @isTest
+  static void testFraudCustomerProfileDefaultValue() {
+    Account personAcc = [SELECT Id, Name FROM Account LIMIT 1];
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = personAcc.Id
+    );
+    Test.startTest();
+    insert newCase;
+    Case c = [
+      SELECT Id, Fraud_Onboarding_Customer_Name__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertEquals(
+      c.Fraud_Onboarding_Customer_Name__c,
+      personAcc.Name,
+      'By default, the Customer name on fraud customer profile should be the customer name'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testFraudCustomerProfileNoUpdateForGenericValue() {
+    // GIVEN: We have a Fraud Cusotmer Profile case with Fraud Generic customer
+    Account fraudAcc = [
+      SELECT Id, Name
+      FROM Account
+      WHERE Name = 'Fraud Entitlement Account'
+      LIMIT 1
+    ];
+    Account personAcc = [
+      SELECT Id, Name
+      FROM Account
+      WHERE Name != 'Fraud Entitlement Account'
+      LIMIT 1
+    ];
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = fraudAcc.Id
+    );
+
+    Test.startTest();
+    insert newCase;
+
+    // WHEN we update the account to be another not generic customer
+    newCase.AccountId = personAcc.Id;
+    update newCase;
+
+    // THEN the Onboarding Customer Name should not be updated
+    Case updatedCase = [
+      SELECT Id, Fraud_Onboarding_Customer_Name__c, AccountId
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertNotEquals(
+      updatedCase.Fraud_Onboarding_Customer_Name__c,
+      newCase.Fraud_Onboarding_Customer_Name__c,
+      'Onboarding Customer Name should not be updated.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testFraudCustomerProfileUpdateValue() {
+    // GIVEN: We have a Fraud Cusotmer Profile case with not Fraud Generic customer
+    List<Account> personAcc = [
+      SELECT Id, Name
+      FROM Account
+      WHERE Name != 'Fraud Entitlement Account'
+      LIMIT 2
+    ];
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = personAcc[0].Id
+    );
+
+    Test.startTest();
+    insert newCase;
+
+    // WHEN we update the account to be another not generic customer
+    newCase.AccountId = personAcc[1].Id;
+    update newCase;
+
+    // THEN the Onboarding Customer Name should be updated
+    Case updatedCase = [
+      SELECT Id, Fraud_Onboarding_Customer_Name__c, AccountId
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+
+    System.assertEquals(
+      updatedCase.Fraud_Onboarding_Customer_Name__c,
+      personAcc[1].Name,
+      'When we update a real customer, that should update the Onboarding Customer Name as well.'
+    );
+    Test.stopTest();
+  }
+
   @IsTest
   static void testCaseNumberNoCopy() {
     // GIVEN cases which already have their case number copied
@@ -814,17 +939,16 @@ private class CaseTriggerHandlerTest {
       WHERE Name = 'Complaint Entitlement Account'
       LIMIT 1
     ];
-    Slaprocess sla = [
-      SELECT Id, NAME
-      FROM Slaprocess
-      WHERE Name = 'complaints' AND IsActive = TRUE AND IsVersionDefault = TRUE
-      LIMIT 1
-    ];
+
+    SlaProcess sla = CommonUtil.getSLAProcess(
+      GetHelpConstants.COMPLAINTS_SLA_PROCESS_NAME
+    );
+
     Entitlement et = new Entitlement(
       Name = 'Complaints Entitlement',
       AccountId = a.Id,
       StartDate = Date.valueof(System.now().addDays(-2)),
-      SlaProcessId = sla.Id
+      SlaProcessId = sla?.Id
     );
     insert et;
     Case[] complaintCaselist = new List<Case>();
@@ -2941,47 +3065,6 @@ private class CaseTriggerHandlerTest {
     assert();
   }
 
-  @isTest
-  static void testEntitlementInsertKYCQA() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE Display_Name__c = 'TestAccount'
-      LIMIT 1
-    ];
-
-    // WHEN a KYC QA case is created
-    Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      Type = 'KYC QA Sample',
-      AccountId = acc.Id
-    );
-
-    Test.startTest();
-    insert newCase;
-    Test.stopTest();
-
-    Case testingCase = [
-      SELECT Id, EntitlementId
-      FROM Case
-      WHERE Id = :newCase.Id
-      LIMIT 1
-    ];
-
-    Entitlement accountEntitlement = [
-      SELECT Id
-      FROM Entitlement
-      WHERE AccountId = :acc.Id
-      LIMIT 1
-    ];
-
-    Assert.areEqual(
-      accountEntitlement.Id,
-      testingCase.EntitlementId,
-      'Link Entitlement from Account to KYC QA case.'
-    );
-  }
-
   private static void createIDOpsCases(User usr) {
     List<Case> idOpsCases = new List<Case>();
 
@@ -3199,5 +3282,274 @@ private class CaseTriggerHandlerTest {
       WHERE WhatId = :theCase.Id AND RecordTypeId = :taskRecordTypeId
     ];
     Assert.isTrue(taskList.isEmpty(), 'No Task should be created');
+  }
+
+  private static void makeCOBData() {
+    List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
+    List<Account> personAccsWithMobile = new List<Account>();
+    for (String mobileNumber : COB_MATCHING_MOBILE_NUMBERS) {
+      cobApps.add(createCOBApp(mobileNumber));
+    }
+
+    for (String mobileNumber : CUSTOMER_MATCHING_MOBILE_NUMBERS) {
+      personAccsWithMobile.add(createPersonAccount(mobileNumber));
+    }
+
+    for (String mobileNumber : NOT_MATCHING_MOBILE_NUMBERS) {
+      cobApps.add(createCOBApp(mobileNumber));
+    }
+
+    insert cobApps;
+    insert personAccsWithMobile;
+
+    List<Entitlement> entitlements = CommonUtil.addPersonAccountEntitlements(
+      personAccsWithMobile,
+      GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
+    insert entitlements;
+  }
+
+  private static CustomerOnboardingApplication__c createCOBApp(
+    String mobileNumber
+  ) {
+    CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
+      SecurityMobile__c = mobileNumber
+    );
+
+    return cobApp;
+  }
+
+  private static List<CustomerOnboardingApplication__c> getCOBApps() {
+    return [SELECT Id, SecurityMobile__c FROM CustomerOnboardingApplication__c];
+  }
+
+  private static Case createKYCQACase(Id cobAppId, Id caseOwnerId) {
+    Case c = new Case(
+      Status = GetHelpConstants.OPEN_STATUS,
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      CustomerOnboardingApplication__c = cobAppid,
+      OwnerId = caseOwnerId
+    );
+
+    return c;
+  }
+
+  private static List<Case> getKYCQACases() {
+    return [
+      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
+      FROM Case
+      WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+    ];
+  }
+
+  private static List<Case> getCasesLinkedWithAccount() {
+    return [
+      SELECT Id, AccountId, ContactId, ContactMobile, EntitlementId
+      FROM Case
+      WHERE AccountId != NULL AND ContactId != NULL AND EntitlementId != NULL
+    ];
+  }
+
+  private static List<Case> getCasesWithNoAccount() {
+    return [SELECT Id, OwnerId FROM Case WHERE AccountId = NULL];
+  }
+
+  private static Account createPersonAccount(String mobileNumber) {
+    Faker faker = new Faker('AU');
+    Account acc = new Account(
+      FirstName = faker.person.firstName(),
+      LastName = faker.person.lastName(),
+      OCV_ID__c = faker.randomString(10),
+      PersonMobilePhone = mobileNumber,
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+    );
+
+    return acc;
+  }
+
+  private static List<Case> createKYCQACases(Id caswOwnerId) {
+    List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
+
+    List<Case> kycQACases = new List<Case>();
+    for (CustomerOnboardingApplication__c cobApp : cobApps) {
+      kycQACases.add(createKYCQACase(cobApp.Id, caswOwnerId));
+    }
+
+    insert kycQACases;
+    return kycQACases;
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountChangeOwnership() {
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
+
+    // GIVEN KYC Case in Pending KYC QA Queue
+    List<Case> kycQACases = createKYCQACases(
+      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
+    );
+
+    // WHEN Change owner
+    for (Case kycQACase : kycQACases) {
+      kycQACase.OwnerId = usr.Id;
+    }
+
+    Test.startTest();
+    update kycQACases;
+    Test.stopTest();
+
+    // THEN KYC QA Cases will be linked with Matched Person Accounts
+    List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
+
+    Assert.areEqual(
+      COB_MATCHING_MOBILE_NUMBERS.size(),
+      casesLinkedWithAccount.size(),
+      'Should be ' +
+      COB_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with Matched Person Accounts'
+    );
+
+    // AND THEN KYC QA Cases will not be linked if no Matched Person Accounts found
+    List<Case> casesWithNoAccount = getCasesWithNoAccount();
+
+    Assert.areEqual(
+      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      casesWithNoAccount.size(),
+      'Should be ' +
+      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with no Matched Person Accounts'
+    );
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountChangeDescription() {
+    // GIVEN KYC Case in Pending KYC QA Queue
+    List<Case> kycQACases = createKYCQACases(
+      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
+    );
+
+    // WHEN Change Description
+    for (Case kycQACase : kycQACases) {
+      kycQACase.Description = 'Test';
+    }
+
+    Test.startTest();
+    update kycQACases;
+    Test.stopTest();
+
+    // THEN KYC QA Cases will be linked with Matched Person Accounts
+    List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
+
+    Assert.areEqual(
+      COB_MATCHING_MOBILE_NUMBERS.size(),
+      casesLinkedWithAccount.size(),
+      'Should be ' +
+      COB_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with Matched Person Accounts'
+    );
+
+    // AND THEN KYC QA Cases will not be linked if no Matched Person Accounts found
+    List<Case> casesWithNoAccount = getCasesWithNoAccount();
+
+    Assert.areEqual(
+      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      casesWithNoAccount.size(),
+      'Should be ' +
+      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with Matched Person Accounts'
+    );
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountNoCustomerCaseClosed() {
+    // GIVEN KYC Case in Pending KYC QA Queue
+    List<Case> kycQACases = createKYCQACases(
+      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
+    );
+
+    // WHEN Change Status to CLOSED
+    for (Case kycQACase : kycQACases) {
+      kycQACase.Status = GetHelpConstants.CLOSED_STATUS;
+      kycQACase.Sub_Status__c = 'No Defect';
+    }
+
+    Test.startTest();
+    update kycQACases;
+    Test.stopTest();
+
+    // THEN KYC QA Cases will be linked with Matched Person Accounts
+    List<Case> casesLinkedWithAccount = getCasesLinkedWithAccount();
+
+    Assert.areEqual(
+      COB_MATCHING_MOBILE_NUMBERS.size(),
+      casesLinkedWithAccount.size(),
+      'Should be ' +
+      COB_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with Matched Person Accounts'
+    );
+
+    // AND THEN KYC QA Cases will not be linked if no Matched Person Accounts found
+    List<Case> casesWithNoAccount = getCasesWithNoAccount();
+
+    Assert.areEqual(
+      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      casesWithNoAccount.size(),
+      'Should be ' +
+      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with Matched Person Accounts'
+    );
+
+    // AND THEN KYC QA Cases will be moved to Pending KYC QA - No Customer Queue
+    for (Case c : casesWithNoAccount) {
+      Assert.areEqual(
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
+        c.OwnerId,
+        'KYC QA Cases should move to ' +
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
+        'queue'
+      );
+    }
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountNoCustomerChangeOwnerInNoCustomerQueue() {
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
+
+    // GIVEN KYC Case in Pending KYC QA - No Customer Queue
+    List<Case> kycQACases = createKYCQACases(
+      GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id
+    );
+
+    // WHEN Attempt Changing owner
+    for (Case kycQACase : kycQACases) {
+      kycQACase.OwnerId = usr.Id;
+    }
+
+    Test.startTest();
+    update kycQACases;
+    Test.stopTest();
+
+    // THEN KYC QA Cases will not be linked if no Matched Person Accounts found
+    List<Case> casesWithNoAccount = getCasesWithNoAccount();
+
+    Assert.areEqual(
+      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      casesWithNoAccount.size(),
+      'Should be ' +
+      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with Matched Person Accounts'
+    );
+
+    // AND THEN KYC QA Cases will remain in Pending KYC QA - No Customer Queue
+    for (Case c : casesWithNoAccount) {
+      Assert.areEqual(
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id,
+        c.OwnerId,
+        'KYC QA Cases should remain in ' +
+        GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
+        'queue'
+      );
+    }
   }
 }

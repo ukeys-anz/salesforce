@@ -432,6 +432,11 @@
                 <default>false</default>
                 <label>Refer a Friend</label>
             </value>
+            <value>
+                <fullName>Bankruptcy</fullName>
+                <default>false</default>
+                <label>Bankruptcy</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
@@ -517,6 +522,14 @@
         <valueSettings>
             <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
             <valueName>90% Centrelink Payment Request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <valueName>Collections</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <valueName>Bankruptcy</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>
@@ -657,10 +670,6 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Document Request</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Home Loans</controllingFieldValue>
-            <valueName>Collections</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>

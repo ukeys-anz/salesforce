@@ -6263,10 +6263,6 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Stores are cashless</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Subsequent_Issue_3__c</picklist>
@@ -6688,10 +6684,6 @@
         </values>
         <values>
             <fullName>Request won%27t be actioned</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Stores are cashless</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -11595,6 +11587,10 @@
         </values>
         <values>
             <fullName>Address Update %28overseas%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bankruptcy</fullName>
             <default>false</default>
         </values>
         <values>

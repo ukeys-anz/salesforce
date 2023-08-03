@@ -2,6 +2,10 @@ import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
 
 const SUB_REMS = ["16", "20", "Repayment arrangement"];
+const SERVICE_QUALITY = "9";
+const FAILURE_TO_RESPOND = "61";
+const REFERRED_TO_FIRM = "3";
+const OTHER = "99";
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -36,7 +40,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.showModal = true;
     } else if (
       !this.missingFields.length &&
-      this.omniScriptHeaderDef.hasInvalidElements
+      this.omniScriptHeaderDef.hasInvalidElements &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes"
     ) {
       this.modalMsg = "Please complete all required fields";
       this.showModal = true;
@@ -85,6 +90,16 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         nonCustMap.push({ firstName: "First Name" });
         nonCustMap.push({ LastName: "Last Name" });
       }
+      let temp = this.omniJsonData.Case.ResolutionInformation;
+      if (
+        temp.custWrittenResponse === "Yes" ||
+        temp.complaintRelatedHardship === "Yes"
+      ) {
+        nonCustMap.push({ Street: "Street" });
+        nonCustMap.push({ Suburb: "Suburb" });
+        nonCustMap.push({ State: "State" });
+        nonCustMap.push({ Country: "Country" });
+      }
       this.checkFields(details, nonCustMap);
     }
     if (details.thirdPartyRepCheckbox === "Yes") {
@@ -131,15 +146,18 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.checkFields(details, this.omniJsonData.sysIssueMap);
     if (details.CAC) this.checkFields(details, this.omniJsonData.cacMap);
     if (
-      itype === "9" &&
-      subtype === "61" &&
+      itype === SERVICE_QUALITY &&
+      subtype === FAILURE_TO_RESPOND &&
       (details.ComplaintStatus === "Closed" ||
         details.ComplaintStatus === "Provisionally Closed")
     ) {
       if (!details.CAC)
         this.missingFields.push("Is this a complaint about a complaint?");
     }
-    if (details.ComplaintRemedy1 === "3" && !details.detailsOfComplaint1)
+    if (
+      details.ComplaintRemedy1 === REFERRED_TO_FIRM &&
+      !details.detailsOfComplaint1
+    )
       this.missingFields.push(
         "The details of this complaint have been provided to the product manufacturer"
       );
@@ -148,7 +166,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       !details.durationOfRemedy1
     )
       this.missingFields.push("Duration Of Remedy (months) 1");
-    if (details.ComplaintSubRemedy1 === "99" && !details.otherRemedy1)
+    if (details.ComplaintSubRemedy1 === OTHER && !details.otherRemedy1)
       this.missingFields.push("Other Remedy 1");
     if (
       details.ComplaintSubRemedy1 === "Reward Points" &&
@@ -157,7 +175,10 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.missingFields.push("Reward Points 1");
     if (details.secondComplaintRemedyCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.secRemedyMap);
-      if (details.ComplaintRemedy2 === "3" && !details.detailsOfComplaint2)
+      if (
+        details.ComplaintRemedy2 === REFERRED_TO_FIRM &&
+        !details.detailsOfComplaint2
+      )
         this.missingFields.push(
           "The details of this complaint have been provided to the product manufacturer 2"
         );
@@ -166,7 +187,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         !details.durationOfRemedy2
       )
         this.missingFields.push("Duration Of Remedy (months) 2");
-      if (details.ComplaintSubRemedy2 === "99" && !details.otherRemedy2)
+      if (details.ComplaintSubRemedy2 === OTHER && !details.otherRemedy2)
         this.missingFields.push("Other Remedy 2");
       if (
         details.ComplaintSubRemedy2 === "Reward Points" &&
@@ -176,7 +197,10 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     }
     if (details.thirdComplaintRemedyCheckbox === "Yes") {
       this.checkFields(details, this.omniJsonData.thirdRemedyMap);
-      if (details.ComplaintRemedy3 === "3" && !details.detailsOfComplaint3)
+      if (
+        details.ComplaintRemedy3 === REFERRED_TO_FIRM &&
+        !details.detailsOfComplaint3
+      )
         this.missingFields.push(
           "The details of this complaint have been provided to the product manufacturer 3"
         );
@@ -185,7 +209,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         !details.durationOfRemedy3
       )
         this.missingFields.push("Duration Of Remedy (months) 3");
-      if (details.ComplaintSubRemedy3 === "99" && !details.otherRemedy3)
+      if (details.ComplaintSubRemedy3 === OTHER && !details.otherRemedy3)
         this.missingFields.push("Other Remedy 3");
       if (
         details.ComplaintSubRemedy3 === "Reward Points" &&

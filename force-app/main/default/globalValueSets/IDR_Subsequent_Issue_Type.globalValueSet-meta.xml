@@ -481,11 +481,6 @@
         <label>No direct phone line</label>
     </customValue>
     <customValue>
-        <fullName>Stores are cashless</fullName>
-        <default>false</default>
-        <label>Stores are cashless</label>
-    </customValue>
-    <customValue>
         <fullName>Not enough stores</fullName>
         <default>false</default>
         <label>Not enough stores</label>

@@ -389,11 +389,6 @@
         <startAddress>13.210.4.0</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>44.234.215.175</endAddress>
-        <startAddress>44.234.215.175</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
         <description>Salesforce Australia (Public Cloud) 2</description>
         <endAddress>13.210.11.255</endAddress>
         <startAddress>13.210.8.0</startAddress>
@@ -405,8 +400,8 @@
     </loginIpRanges>
     <loginIpRanges>
         <description>Splunk Non-Prod</description>
-        <endAddress>59.154.134.109</endAddress>
-        <startAddress>59.154.134.109</startAddress>
+        <endAddress>119.225.215.30</endAddress>
+        <startAddress>119.225.215.30</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Qualtrics</description>
@@ -419,21 +414,6 @@
         <startAddress>162.247.216.0</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.8.140.255</endAddress>
-        <startAddress>52.8.140.255</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.62.169.21</endAddress>
-        <startAddress>52.62.169.21</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>54.79.123.149</endAddress>
-        <startAddress>54.79.123.149</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
         <description>Saas Splunk - Search Heads</description>
         <endAddress>34.87.223.167</endAddress>
         <startAddress>34.87.223.167</startAddress>
@@ -444,29 +424,9 @@
         <startAddress>34.87.246.15</startAddress>
     </loginIpRanges>
     <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.42.179.76</endAddress>
-        <startAddress>52.42.179.76</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>35.167.156.248</endAddress>
-        <startAddress>35.167.156.248</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>34.215.230.220</endAddress>
-        <startAddress>34.215.230.220</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
         <description>Saas Splunk - Search Heads</description>
         <endAddress>35.189.27.148</endAddress>
         <startAddress>35.189.27.148</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.1</endAddress>
-        <startAddress>203.110.235.1</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Saas Splunk - IDM</description>
@@ -482,66 +442,6 @@
         <description>Saas Splunk - Search Heads</description>
         <endAddress>35.244.124.52</endAddress>
         <startAddress>35.244.124.52</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.34.250.140</endAddress>
-        <startAddress>52.34.250.140</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.5</endAddress>
-        <startAddress>203.110.235.3</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>54.70.91.35</endAddress>
-        <startAddress>54.70.91.35</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.129</endAddress>
-        <startAddress>203.110.235.129</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision</description>
-        <endAddress>52.24.211.31</endAddress>
-        <startAddress>52.24.211.31</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.8.201.70</endAddress>
-        <startAddress>52.8.201.70</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.52.251.72</endAddress>
-        <startAddress>52.52.251.72</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>52.9.194.74</endAddress>
-        <startAddress>52.9.194.74</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>35.169.47.31</endAddress>
-        <startAddress>35.169.47.31</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>54.164.132.26</endAddress>
-        <startAddress>54.164.132.26</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>Mvision Prod</description>
-        <endAddress>34.215.17.195</endAddress>
-        <startAddress>34.215.17.195</startAddress>
-    </loginIpRanges>
-    <loginIpRanges>
-        <description>ANZ Proxy required for Mvision</description>
-        <endAddress>203.110.235.133</endAddress>
-        <startAddress>203.110.235.131</startAddress>
     </loginIpRanges>
     <loginIpRanges>
         <description>Sailpoint Internet Proxy DEV</description>
@@ -1032,6 +932,16 @@
         <description>Microsoft Defender Prod-32</description>
         <endAddress>52.156.123.143</endAddress>
         <startAddress>52.156.123.128</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mulesoft Cloudhub Non-Prod</description>
+        <endAddress>10.177.63.255</endAddress>
+        <startAddress>10.177.0.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Mulesoft Cloudhub Prod</description>
+        <endAddress>172.243.15.255</endAddress>
+        <startAddress>172.243.0.0</startAddress>
     </loginIpRanges>
     <objectPermissions>
         <allowCreate>false</allowCreate>

@@ -1060,6 +1060,10 @@
             <fullName>Undetected</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Funds never Received</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Fraud_Funds_to_Channel__c</picklist>

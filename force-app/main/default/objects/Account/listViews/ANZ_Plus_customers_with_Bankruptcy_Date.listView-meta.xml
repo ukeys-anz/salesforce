@@ -10,16 +10,6 @@
     <filterScope>Everything</filterScope>
     <label>ANZ Plus customers with Bankruptcy Date</label>
     <sharedTo>
-        <role>Business_Admin</role>
-        <role>BOH_Coach</role>
-        <role>Coach</role>
-        <role>Card_Dispute_Agent</role>
-        <role>Coach_Lead</role>
-        <role>FinCrime_Agent</role>
-        <role>FraudX_Agent</role>
-        <role>Quality_Analyst</role>
-        <role>Quality_Capability_Lead</role>
-        <role>Support_Coach</role>
-        <role>X3rd_Party_Mobile_Support_Team</role>
+        <role>Engineer</role>
     </sharedTo>
 </ListView>
