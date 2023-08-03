@@ -196,6 +196,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_Detection_Case_Reference__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Dispute_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -227,6 +232,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.FinServ__FinancialAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Funds_to_OFI_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -41,7 +41,12 @@
             <value>
                 <fullName>BM</fullName>
                 <default>false</default>
-                <label>British Empire Medal - BEMBravery Medal</label>
+                <label>Bravery Medal</label>
+            </value>
+            <value>
+                <fullName>BEM</fullName>
+                <default>false</default>
+                <label>British Empire Medal</label>
             </value>
             <value>
                 <fullName>CH</fullName>

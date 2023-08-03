@@ -24,8 +24,8 @@ public with sharing class TotalBalanceController {
         WHERE
           FinServ__Balance__c != NULL
           AND FinServ__PrimaryOwner__c = :ownerId
-          AND (FinServ__FinancialAccountType__c = 'Savings'
-          OR FinServ__FinancialAccountType__c = 'Checking')
+          AND (RecordTypeId = :GetHelpConstants.SAVINGS_ACCOUNT_RT_ID
+          OR RecordTypeId = :GetHelpConstants.CHECKING_ACCOUNT_RT_ID)
           AND (FinServ__Status__c = 'Active'
           OR FinServ__Status__c = 'Open')
       ];
@@ -53,7 +53,7 @@ public with sharing class TotalBalanceController {
         WHERE
           FinServ__Balance__c != NULL
           AND FinServ__PrimaryOwner__c = :ownerId
-          AND FinServ__FinancialAccountType__c = 'Savings'
+          AND RecordTypeId = :GetHelpConstants.SAVINGS_ACCOUNT_RT_ID
           AND (FinServ__Status__c = 'Active'
           OR FinServ__Status__c = 'Open')
       ];

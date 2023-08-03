@@ -78,9 +78,17 @@ public without sharing class LogEventBuilder {
 
     this.logEvent.ExceptionMessage__c = apexException.getMessage();
     Integer nIndex;
-    if ( (nIndex = this.logEvent.ExceptionMessage__c.indexOf('HTML Body: data value too large: ')) >=0 ) {
-      // ExceptionMessage looks likely to have included html content. Possibly email content. Need to remove it.
-      this.logEvent.ExceptionMessage__c = this.logEvent.ExceptionMessage__c.substring(0, nIndex + 33);
+    if (
+      this.logEvent.ExceptionMessage__c.contains('STRING_TOO_LONG') &&
+      (nIndex = this.logEvent.ExceptionMessage__c.indexOf(
+        'data value too large:'
+      )) >= 0
+    ) {
+      // ExceptionMessage looks likely to have included text/html content. Possibly email content. Need to remove it.
+      this.logEvent.ExceptionMessage__c = this.logEvent.ExceptionMessage__c.substring(
+        0,
+        nIndex + 21
+      );
     }
     this.logEvent.ExceptionType__c = apexException.getTypeName();
 
@@ -424,6 +432,21 @@ public without sharing class LogEventBuilder {
       this.shouldSave == true &&
       LoggingSettingsController.isSecureLogEnabled() == true
     ) {
+      this.logEvent.Payload__c = LogEventBuilderHelper.truncateFieldValue(
+        Schema.LogEvent__e.Payload__c,
+        payload
+      );
+    }
+    return this;
+  }
+
+  /**
+   * @description Sets the payload on log event from Omnistudio
+   * @param payload The payload to be store on log entry
+   * @return The same instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public LogEventBuilder setPayloadForOmniStudio(String payload) {
+    if (this.shouldSave == true) {
       this.logEvent.Payload__c = LogEventBuilderHelper.truncateFieldValue(
         Schema.LogEvent__e.Payload__c,
         payload

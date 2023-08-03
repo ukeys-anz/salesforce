@@ -668,10 +668,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FinancialAccountCommonActions</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FinancialAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -685,10 +681,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>FinancialAccountModelTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinancialAccountRoleCommonActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1550,11 +1542,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.AR_C_Customer__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.AccountNumber</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1684,6 +1671,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.IsSkeleton__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.IsSnapshotError__c</field>
         <readable>true</readable>
@@ -1766,6 +1758,26 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Temporary_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Full_First_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Full_Middle_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Full_Last_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.IsTruncated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2415,6 +2427,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Fraud_Detection_Case_Reference__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Dispute_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2456,6 +2473,41 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.FinServ__FinancialAccount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ANZX_Fraud_Confirm__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ARC_Profile_Exist__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ARC_Profile_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_ID_Compromise_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Onboarding_Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Onboarding_Selfie_Of__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Prevented__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2706,6 +2758,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Fraud_Total_Scam_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Fraud_Funds_to_OFI_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4154,6 +4211,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.ExpiryDateOCRMatch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.FirstNameOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4514,6 +4576,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.Previous_Record_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContactPointAddress.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4550,6 +4617,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ContactPointAddress.QAS_Valid_Address__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointAddress.Previous_Related_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4599,6 +4671,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ContactPointEmail.Previous_Related_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ContactPointPhone.Preferred_Indicator__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4615,6 +4692,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ContactPointPhone.ParentId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointPhone.Previous_Related_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6010,11 +6092,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.OCV_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FinServ__FinancialAccount__c.Primary_Owner_Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7867,16 +7944,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>SkyhighNetworks__SHNEvent__c.SkyhighNetworks__EventDetail__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>SkyhighNetworks__SHNEvent__c.SkyhighNetworks__SourceObjectId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Task.Action__c</field>
         <readable>true</readable>
@@ -8571,6 +8638,10 @@
         <recordType>Case.Direct_Entry_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-False Customer Profile Layout</layout>
+        <recordType>Case.False_Customer_Profile</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Fraud Check Layout</layout>
         <recordType>Case.Fraud_Check</recordType>
     </layoutAssignments>
@@ -8654,6 +8725,7 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>CollaborationGroup-All Active CMOS Group Layout</layout>
+        <recordType>CollaborationGroup.CMOS</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>ContentVersion-Content Version</layout>
@@ -8714,6 +8786,10 @@
     <layoutAssignments>
         <layout>Interaction-Interaction Layout</layout>
         <recordType>Interaction.General</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Interaction-Store Interaction Layout</layout>
+        <recordType>Interaction.Store</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>InteractionSummary-Interaction Summary Layout</layout>
@@ -9967,6 +10043,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>FinServ__FinancialAccountRole__c.FinServ__ContactRole</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>FinServ__FinancialAccountRole__c.System_Role</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

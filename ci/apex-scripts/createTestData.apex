@@ -10,6 +10,9 @@ Id savingsRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeIn
 Id checkingRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
   .get('CheckingAccount')
   .getRecordTypeId();
+Id bankingRTId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
+  .get('BankingAccount')
+  .getRecordTypeId();
 
 Faker faker = new Faker('AU');
 Integer personAccount_count = 3;
@@ -61,7 +64,6 @@ for (Account acc : personAccounts) {
     FinServ__FinancialAccountNumber__c = String.valueOf(faker.randomInteger(9)),
     FinServ__Status__c = 'Active',
     FinServ__Stage__c = 'Active',
-    Primary_Owner_Start_Date__c = System.today(),
     Account_Key__c = acc.OCV_ID__c + faker.randomString(5),
     FinServ__Balance__c = savingAccBalance,
     FinServ__CurrentPostedBalance__c = savingAccBalance,
@@ -79,13 +81,21 @@ for (Account acc : personAccounts) {
     FinServ__FinancialAccountNumber__c = String.valueOf(faker.randomInteger(9)),
     FinServ__Status__c = 'Active',
     FinServ__Stage__c = 'Active',
-    Primary_Owner_Start_Date__c = System.today(),
     Account_Key__c = acc.OCV_ID__c + faker.randomString(6),
     FinServ__Balance__c = bankBalance,
     FinServ__CurrentPostedBalance__c = bankBalance,
     RecordTypeId = checkingRTId
   );
   finAccList.add(fin_acc_checking);
+
+  FinServ__FinancialAccount__c fin_acc_homeloan = new FinServ__FinancialAccount__c(
+    Name = acc.FirstName + ' ' + acc.LastName,
+    FinServ__PrimaryOwner__c = acc.Id,
+    FinServ__FinancialAccountNumber__c = String.valueOf(faker.randomInteger(9)),
+    Account_Key__c = acc.OCV_ID__c + faker.randomString(6),
+    RecordTypeId = bankingRTId
+  );
+  finAccList.add(fin_acc_homeloan);
 }
 
 insert caseList;

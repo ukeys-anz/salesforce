@@ -126,13 +126,11 @@ public with sharing class IDRCaseNotificationManager {
   }
   /**
    * @description Builds Task A new email response has been received and when A Case has been re-assigned.
-   * StdCyclomaticComplexity Suppressed : This method uses structured if/else but complexity measure is more than limit.
    * @param fieldLabel Field label where the change has been detected
    * @param c case record where the  change has detected
    * @param parentCase parent case record which is attached to parentId of the above case
    * @return Task records associated with new email or new case assigned.
    */
-  @SuppressWarnings('PMD.StdCyclomaticComplexity')
   public static List<Task> createNotificationTask(
     String fieldLabel,
     Case c,
@@ -141,50 +139,50 @@ public with sharing class IDRCaseNotificationManager {
     String subjectStr = null;
     Task[] assiTasks = new List<Task>();
 
+    String caseNumber = c.CaseNumber != null ? c.CaseNumber : '';
     String customerName = (c.IDR_NC_First_Name__c != null ||
       c.IDR_NC_Last_Name__c != null)
       ? ('Customer Name : ' +
         (c.IDR_NC_First_Name__c != null ? c.IDR_NC_First_Name__c + ' ' : '') +
         (c.IDR_NC_Last_Name__c != null ? c.IDR_NC_Last_Name__c : ''))
       : '';
-    if (fieldLabel == 'Email Response Attached') {
-      subjectStr = (customerName != '')
+    Map<String, String> mpFieldLabel2Subject = new Map<String, String>{
+      'Email Response Attached' => (customerName != '')
         ? ('A new email response has been received on case : ' +
-          c.CaseNumber +
+          caseNumber +
           ' ' +
           customerName)
-        : ('A new email response has been received on case : ' + c.CaseNumber);
-    } else if (fieldLabel == 'Email Attachment Failure') {
-      subjectStr =
-        'Email attachment has failed to upload' +
-        c.CaseNumber +
-        ' ' +
-        customerName;
-    } else if (fieldLabel == 'Email has failed to upload') {
-      subjectStr =
-        'Email has failed to upload Case: ' +
-        c.CaseNumber +
-        ' ' +
-        customerName;
-    } else if (fieldLabel != 'Parent Updated') {
-      if (
+        : ('A new email response has been received on case : ' + caseNumber),
+      'Email Attachment Failure' => 'Email attachment has failed to upload ' +
+      caseNumber +
+      ' ' +
+      customerName,
+      'Email has failed to upload' => 'Email has failed to upload Case: ' +
+      caseNumber +
+      ' ' +
+      customerName
+    };
+    subjectStr = mpFieldLabel2Subject.get(fieldLabel);
+    if ( subjectStr == null &&
+        fieldLabel != 'Parent Updated' &&
         fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
         (!(String.valueOf(c.OwnerId).startsWith('00G')))
-      ) {
+    ) {
         subjectStr =
-          'A Case has been assigned to you ' +
-          c.CaseNumber +
-          ' ' +
-          customerName;
-      }
+        'A Case has been assigned to you ' +
+        caseNumber +
+        ' ' +
+        customerName;
     }
-    if (subjectStr != null) {
+    if (String.isNotEmpty(subjectStr)) {
       Task assiTaskRec = IDRTaskActions.createAssignmentTask(c, subjectStr);
       if (fieldLabel == 'Email Response Attached') {
         assiTaskRec.Description = 'Any attachments included with this email will be available to view in the \'Files\' tab in CMOS';
       }
-      if (fieldLabel == 'Email Attachment Failure' ||
-          fieldLabel == 'Email has failed to upload') {
+      if (
+        fieldLabel == 'Email Attachment Failure' ||
+        fieldLabel == 'Email has failed to upload'
+      ) {
         assiTaskRec.OwnerId = c.OwnerId != null
           ? !(String.valueOf(c.OwnerId).startsWith('00G'))
               ? c.OwnerId

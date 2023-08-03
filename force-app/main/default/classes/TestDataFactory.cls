@@ -2,6 +2,7 @@
  * @description This class is to provide generic setups configs for unit tests.
  * @group Utils
  */
+@isTest
 public without sharing class TestDataFactory {
   public static User thisUser = [
     SELECT Id
@@ -57,12 +58,10 @@ public without sharing class TestDataFactory {
         FinServ__Balance__c = 200,
         FinServ__CurrentPostedBalance__c = 200,
         FinServ__Status__c = 'Active',
-        FinServ__FinancialAccountType__c = 'Checking',
+        RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
         FinServ__PrimaryOwner__c = acc.Id,
         Account_Key__c = '342490981' + i,
-        Primary_Owner_Start_Date__c = Date.valueOf('2021-02-11'),
-        FinServ__FinancialAccountNumber__c = '000000000',
-        Role_Type__c = 'SOL'
+        FinServ__FinancialAccountNumber__c = '000000000'
       );
 
       financialAccounts.add(finAccount);
@@ -386,11 +385,8 @@ public without sharing class TestDataFactory {
     newFinServFinancialAccount.FinServ__Balance__c = 400;
     newFinServFinancialAccount.FinServ__CurrentPostedBalance__c = 400;
     newFinServFinancialAccount.FinServ__Status__c = 'Active';
-    newFinServFinancialAccount.FinServ__FinancialAccountType__c = 'Checking';
+    newFinServFinancialAccount.RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
     newFinServFinancialAccount.Account_Key__c = 'OCV00000000' + suffix;
-    newFinServFinancialAccount.Primary_Owner_Start_Date__c = Date.valueOf(
-      '2021-01-21'
-    );
     return newFinServFinancialAccount;
   }
 

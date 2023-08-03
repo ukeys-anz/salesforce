@@ -109,7 +109,6 @@ public with sharing class CCRMCreatePartyService extends Service {
     public String customerType;
     public String customerStatus;
     public String openedDate;
-    public Employment employment = new Employment();
     public Addresses addresses = new Addresses();
     public AdditionalDetails additionalDetails = new AdditionalDetails();
   }

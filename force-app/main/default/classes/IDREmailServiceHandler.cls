@@ -61,6 +61,7 @@ public with sharing class IDREmailServiceHandler {
       caseToUpd = caseToUpdList[0];
 
       //Create email message
+      IDREmailServiceHelper.emailIngestionFailure = false;
       IDREmailServiceHelper.createEmailMessage(email, caseToUpd.Id, caseNo);
       //Notify Case Owner
       if (fromEmail != System.Label.XpressionSenderAddress) {

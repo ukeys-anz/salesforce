@@ -48,6 +48,28 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Advertising_Indicator__c</picklist>
+        <values>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Disclosure_Indicator__c</picklist>
+        <values>
+            <fullName>N</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>FinServ__BorrowingHistory__c</picklist>
         <values>
             <fullName>Excellent</fullName>
@@ -714,7 +736,11 @@
     <picklistValues>
         <picklist>FinServ__KYCStatus__c</picklist>
         <values>
-            <fullName>Expired</fullName>
+            <fullName>CO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NE</fullName>
             <default>false</default>
         </values>
         <values>
@@ -722,11 +748,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>CO</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NE</fullName>
+            <fullName>NoMatch</fullName>
             <default>false</default>
         </values>
         <values>
@@ -738,39 +760,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Unknown</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Completed - Invalid</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Completed - Valid</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>In Queue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>In progress</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Overdue</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Required</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NoMatch</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Purged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -992,19 +986,23 @@
     <picklistValues>
         <picklist>FinServ__Status__c</picklist>
         <values>
-            <fullName>Active</fullName>
+            <fullName>Closed</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Inactive</fullName>
+            <fullName>Deceased</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Prospect</fullName>
+            <fullName>Delinquent</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Unknown</fullName>
+            <fullName>Dormant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Onboarding</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4026,6 +4024,189 @@
         </values>
         <values>
             <fullName>Warm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Suffix__pc</picklist>
+        <values>
+            <fullName>AC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BEM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COMDC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DCB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DCMG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DCVO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DFM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DSC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DSM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>II</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>III</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JNR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KCB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KCMG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KCVO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MHA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MHR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OAM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SNR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VC</fullName>
             <default>false</default>
         </values>
     </picklistValues>

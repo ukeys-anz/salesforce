@@ -53,7 +53,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
     manageNotificationTask(records);
   }
   /**
-   * @description Assesses whether or not to Task should be created. 
+   * @description Assesses whether or not to Task should be created.
    * @param records CaseComment records in current trigger context
    */
   public static void manageNotificationTask(List<CaseComment> records) {
@@ -131,7 +131,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
         IDR_NC_First_Name__c,
         IDR_NC_Last_Name__c
       FROM Case
-      WHERE Id IN :caseIds AND Owner.isActive = TRUE
+      WHERE Id IN :caseIds
     ]) {
       getCaseMap.put(c.Id, c);
     }
@@ -157,7 +157,9 @@ public with sharing class IDRCaseCommentsNotificationManager {
       record,
       new List<Id>{ record.OwnerId },
       record.CaseNumber,
-      customerName + 'New Case Comment added by ' + UserInfo.getName(),
+      customerName +
+      'New Case Comment added by ' +
+      UserInfo.getName(),
       record
     );
 

@@ -1,0 +1,8 @@
+[
+  {
+    "sobject": "FinServ__ReciprocalRole__c",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": ["Reciprocal.json"]
+  }
+]
