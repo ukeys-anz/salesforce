@@ -44,7 +44,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     }
     if (
       data &&
-      data.Issue3Checkbox === "No" &&
+      (data.Issue2Checkbox === "No" || data.Issue3Checkbox === "No") &&
       data.AccountPolicyNumber3 &&
       this.omniJsonDef.name === "AccountPolicyNumber3"
     ) {
