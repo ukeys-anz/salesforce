@@ -4,6 +4,21 @@
  * @description Util Class to handle incoming requests from Twilio for Twilio Details Upsert and Interaction Update.
  */
 public with sharing class TwilioServiceUtil {
+  public static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
+  static {
+    //Fetch Status Mapping for Twilio and Interaction
+    List<InteractionStatusMappingForTwilio__mdt> statusMap = [
+      SELECT Type__c, Interaction_Status__c, Twilio_Status__c
+      FROM InteractionStatusMappingForTwilio__mdt
+      WHERE Type__c = 'Chat'
+    ];
+    for (InteractionStatusMappingForTwilio__mdt status : statusMap) {
+      interactionTwilioStatusMap.put(
+        status.Twilio_Status__c,
+        status.Interaction_Status__c
+      );
+    }
+  }
   /**
    * @description method passing incoming twilio context in to Salesforce.
    * @param twilioContextRequest Twilio Context Request
@@ -26,7 +41,6 @@ public with sharing class TwilioServiceUtil {
       Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
       twilioDetailRecord.Twilio_ID__c = res.twilioId;
       twilioDetailRecord.Chat_or_Call_SID__c = res.chatOrCallId;
-      twilioDetailRecord.Status__c = res.chatOrCallStatus;
       twilioDetailRecord.Call_Recording_Id__c = res.callRecordingId;
       twilioDetailRecord.ANZ_Queue__c = res.queueName;
       if (res.agentEmail != null) {
@@ -37,11 +51,11 @@ public with sharing class TwilioServiceUtil {
 
     //Creating map of agent email and owner id
     for (User agent : [
-      SELECT Id, Email
+      SELECT Id, FederationIdentifier, Email
       FROM User
-      WHERE email IN :agentEmailList
+      WHERE Email IN :agentEmailList OR FederationIdentifier IN :agentEmailList
     ]) {
-      agentOwnerIdMap.put(agent.Email, agent.Id);
+      agentOwnerIdMap.put(agent.FederationIdentifier, agent.Id);
     }
 
     //Upsert Twilio Details
@@ -69,14 +83,16 @@ public with sharing class TwilioServiceUtil {
             new Interaction(
               Id = payLoad.interactionId,
               OwnerId = agentOwnerIdMap.get(payLoad.agentEmail),
-              TwilioDetailsID__c = twilioRecordUpserted.getId()
+              TwilioDetailsID__c = twilioRecordUpserted.getId(),
+              Status__c = getStatus(payLoad.chatOrCallStatus)
             )
           );
         } else {
           interactionToBeUpdated.add(
             new Interaction(
               Id = payLoad.interactionId,
-              TwilioDetailsID__c = twilioRecordUpserted.getId()
+              TwilioDetailsID__c = twilioRecordUpserted.getId(),
+              Status__c = getStatus(payLoad.chatOrCallStatus)
             )
           );
         }
@@ -92,6 +108,9 @@ public with sharing class TwilioServiceUtil {
         interactionToBeUpdated,
         false
       );
+      Logger.error('Error in Updating Interaction', results);
+      Logger.saveLog();
+
       for (Integer i = 0; i < interactionToBeUpdated.size(); i++) {
         Database.SaveResult sr = results[i];
         if (sr.isSuccess()) {
@@ -131,5 +150,18 @@ public with sharing class TwilioServiceUtil {
     response.success = false;
     response.statusCode = 400;
     return response;
+  }
+
+  /**
+   * @description Method to generate a response instance
+   * @param statusFromTwilio error message for twilio response
+   * @return It will return the string of status
+   */
+  public static String getStatus(String statusFromTwilio) {
+    return (String.isNotEmpty(statusFromTwilio) &&
+      !interactionTwilioStatusMap.isEmpty() &&
+      interactionTwilioStatusMap.containsKey(statusFromTwilio.toLowerCase()))
+      ? interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
+      : statusFromTwilio;
   }
 }

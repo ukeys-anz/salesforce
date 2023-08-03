@@ -12,22 +12,6 @@ global with sharing class InteractionContextService {
   global static final String INBOUND_DIRECTION = 'Inbound';
   global static final String OUTBOUND_DIRECTION = 'Outbound';
   public static Map<String, String> supportTopicMap = new Map<String, String>();
-  public static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
-
-  static {
-    //Fetch Status Mapping for Twilio and Interaction
-    List<InteractionStatusMappingForTwilio__mdt> statusMap = [
-      SELECT Type__c, Interaction_Status__c, Twilio_Status__c
-      FROM InteractionStatusMappingForTwilio__mdt
-      WHERE Type__c = 'Chat'
-    ];
-    for (InteractionStatusMappingForTwilio__mdt status : statusMap) {
-      interactionTwilioStatusMap.put(
-        status.Twilio_Status__c,
-        status.Interaction_Status__c
-      );
-    }
-  }
 
   /**
    * @description HTTP POST method passing incoming interaction context in to Salesforce.
@@ -166,6 +150,9 @@ global with sharing class InteractionContextService {
         interactionToBeCreated,
         false
       );
+      Logger.error('Error in Creating Interaction', results);
+      Logger.saveLog();
+
       Map<Id, Interaction> newInteractionMap = new Map<Id, Interaction>(
         [
           SELECT
@@ -451,14 +438,9 @@ global with sharing class InteractionContextService {
       intToInsert.InteractionType = 'Chat';
       intToInsert.Contact_Mobile__c = interactContextRequest.phoneNumber;
       intToInsert.Chat_or_Call_SID__c = interactContextRequest.chatOrCallId;
-      intToInsert.Status__c = (!interactionTwilioStatusMap.isEmpty() &&
-        interactionTwilioStatusMap.containsKey(
-          interactContextRequest.chatOrCallStatus.toLowerCase()
-        ))
-        ? interactionTwilioStatusMap.get(
-            interactContextRequest.chatOrCallStatus.toLowerCase()
-          )
-        : interactContextRequest.chatOrCallStatus;
+      intToInsert.Status__c = TwilioServiceUtil.getStatus(
+        interactContextRequest.chatOrCallStatus
+      );
       intToInsert.StartTime = System.now();
       intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
       intToInsert.Support_Topics__c = validateSupportTopic(
