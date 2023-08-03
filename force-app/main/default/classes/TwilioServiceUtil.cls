@@ -84,15 +84,7 @@ public with sharing class TwilioServiceUtil {
               Id = payLoad.interactionId,
               OwnerId = agentOwnerIdMap.get(payLoad.agentEmail),
               TwilioDetailsID__c = twilioRecordUpserted.getId(),
-              Status__c = (String.isNotEmpty(payLoad.chatOrCallStatus) &&
-                !interactionTwilioStatusMap.isEmpty() &&
-                interactionTwilioStatusMap.containsKey(
-                  payLoad.chatOrCallStatus.toLowerCase()
-                ))
-                ? interactionTwilioStatusMap.get(
-                    payLoad.chatOrCallStatus.toLowerCase()
-                  )
-                : payLoad.chatOrCallStatus
+              Status__c = getStatus(payLoad.chatOrCallStatus)
             )
           );
         } else {
@@ -100,15 +92,7 @@ public with sharing class TwilioServiceUtil {
             new Interaction(
               Id = payLoad.interactionId,
               TwilioDetailsID__c = twilioRecordUpserted.getId(),
-              Status__c = (String.isNotEmpty(payLoad.chatOrCallStatus) &&
-                !interactionTwilioStatusMap.isEmpty() &&
-                interactionTwilioStatusMap.containsKey(
-                  payLoad.chatOrCallStatus.toLowerCase()
-                ))
-                ? interactionTwilioStatusMap.get(
-                    payLoad.chatOrCallStatus.toLowerCase()
-                  )
-                : payLoad.chatOrCallStatus
+              Status__c = getStatus(payLoad.chatOrCallStatus)
             )
           );
         }
@@ -166,5 +150,18 @@ public with sharing class TwilioServiceUtil {
     response.success = false;
     response.statusCode = 400;
     return response;
+  }
+
+  /**
+   * @description Method to generate a response instance
+   * @param statusFromTwilio error message for twilio response
+   * @return It will return the string of status
+   */
+  public static String getStatus(String statusFromTwilio) {
+    return (String.isNotEmpty(statusFromTwilio) &&
+      !interactionTwilioStatusMap.isEmpty() &&
+      interactionTwilioStatusMap.containsKey(statusFromTwilio.toLowerCase()))
+      ? interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
+      : statusFromTwilio;
   }
 }
