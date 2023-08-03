@@ -4,6 +4,20 @@
  * @description Util Class to handle incoming requests from Twilio for Twilio Details Upsert and Interaction Update.
  */
 public with sharing class TwilioServiceUtil {
+  static {
+    //Fetch Status Mapping for Twilio and Interaction
+    List<InteractionStatusMappingForTwilio__mdt> statusMap = [
+      SELECT Type__c, Interaction_Status__c, Twilio_Status__c
+      FROM InteractionStatusMappingForTwilio__mdt
+      WHERE Type__c = 'Chat'
+    ];
+    for (InteractionStatusMappingForTwilio__mdt status : statusMap) {
+      interactionTwilioStatusMap.put(
+        status.Twilio_Status__c,
+        status.Interaction_Status__c
+      );
+    }
+  }
   /**
    * @description method passing incoming twilio context in to Salesforce.
    * @param twilioContextRequest Twilio Context Request
@@ -26,7 +40,6 @@ public with sharing class TwilioServiceUtil {
       Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
       twilioDetailRecord.Twilio_ID__c = res.twilioId;
       twilioDetailRecord.Chat_or_Call_SID__c = res.chatOrCallId;
-      twilioDetailRecord.Status__c = res.chatOrCallStatus;
       twilioDetailRecord.Call_Recording_Id__c = res.callRecordingId;
       twilioDetailRecord.ANZ_Queue__c = res.queueName;
       if (res.agentEmail != null) {
@@ -69,14 +82,32 @@ public with sharing class TwilioServiceUtil {
             new Interaction(
               Id = payLoad.interactionId,
               OwnerId = agentOwnerIdMap.get(payLoad.agentEmail),
-              TwilioDetailsID__c = twilioRecordUpserted.getId()
+              TwilioDetailsID__c = twilioRecordUpserted.getId(),
+              Status__c = (String.isNotEmpty(payLoad.chatOrCallStatus) &&
+                !interactionTwilioStatusMap.isEmpty() &&
+                interactionTwilioStatusMap.containsKey(
+                  payLoad.chatOrCallStatus.toLowerCase()
+                ))
+                ? interactionTwilioStatusMap.get(
+                    payLoad.chatOrCallStatus.toLowerCase()
+                  )
+                : payLoad.chatOrCallStatus
             )
           );
         } else {
           interactionToBeUpdated.add(
             new Interaction(
               Id = payLoad.interactionId,
-              TwilioDetailsID__c = twilioRecordUpserted.getId()
+              TwilioDetailsID__c = twilioRecordUpserted.getId(),
+              Status__c = (String.isNotEmpty(payLoad.chatOrCallStatus) &&
+                !interactionTwilioStatusMap.isEmpty() &&
+                interactionTwilioStatusMap.containsKey(
+                  payLoad.chatOrCallStatus.toLowerCase()
+                ))
+                ? interactionTwilioStatusMap.get(
+                    payLoad.chatOrCallStatus.toLowerCase()
+                  )
+                : payLoad.chatOrCallStatus
             )
           );
         }
@@ -92,6 +123,9 @@ public with sharing class TwilioServiceUtil {
         interactionToBeUpdated,
         false
       );
+      Logger.error('Error in Updating Interaction', results);
+      Logger.saveLog();
+
       for (Integer i = 0; i < interactionToBeUpdated.size(); i++) {
         Database.SaveResult sr = results[i];
         if (sr.isSuccess()) {

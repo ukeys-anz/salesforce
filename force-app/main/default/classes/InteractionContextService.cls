@@ -166,6 +166,9 @@ global with sharing class InteractionContextService {
         interactionToBeCreated,
         false
       );
+      Logger.error('Error in Creating Interaction', results);
+      Logger.saveLog();
+
       Map<Id, Interaction> newInteractionMap = new Map<Id, Interaction>(
         [
           SELECT
