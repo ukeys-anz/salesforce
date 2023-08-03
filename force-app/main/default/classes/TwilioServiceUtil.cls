@@ -51,11 +51,11 @@ public with sharing class TwilioServiceUtil {
 
     //Creating map of agent email and owner id
     for (User agent : [
-      SELECT Id, Email
+      SELECT Id, FederationIdentifier, Email
       FROM User
-      WHERE email IN :agentEmailList
+      WHERE Email IN :agentEmailList OR FederationIdentifier IN :agentEmailList
     ]) {
-      agentOwnerIdMap.put(agent.Email, agent.Id);
+      agentOwnerIdMap.put(agent.FederationIdentifier, agent.Id);
     }
 
     //Upsert Twilio Details
