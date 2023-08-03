@@ -20,19 +20,23 @@ public with sharing class COBApplicationActions {
     List<CustomerOnboardingApplication__c> records,
     Map<Id, CustomerOnboardingApplication__c> oldMap
   ) {
+    Logger.debug('KYC QA case creation started: ' + System.now());
     //Create base KYC QA Case
     Map<String, Case> ocvIdsKYCQACases = constructBaseKYCQACase(
       records,
       oldMap
     );
-
+    Logger.debug('KYC QA base case construction finished: ' + System.now());
     if (ocvIdsKYCQACases.isEmpty()) {
       return;
     }
 
     //Set KYC QA Case fields
     setKYCQAFields(records, ocvIdsKYCQACases);
+    Logger.debug('KYC QA test fields population finished: ' + System.now());
     DMLUtil.insertRecords(ocvIdsKYCQACases.values(), false, false);
+    Logger.debug('KYC QA case creation finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
