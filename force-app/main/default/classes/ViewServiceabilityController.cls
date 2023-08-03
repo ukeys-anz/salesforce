@@ -52,27 +52,29 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     Map<String, Object> options
   ) {
     UMIResponse result = new UMIResponse();
-    List<ResidentialLoanApplication> loanRec = getLoanRecord(
+    ResidentialLoanApplication loanRec = getLoanRecord(
       (String) input.get('loanId')
     );
 
-    result.hasError = (loanRec.isEmpty() ||
-    String.isBlank(loanRec[0]?.Credit_ID__c) ||
-    String.isBlank(loanRec[0]?.SOP_Id__c));
-    result.isSubmitted = String.isNotBlank(loanRec[0]?.Assessment_Outcome__c);
-
-    if (!result.hasError && result.isSubmitted) {
-      try {
-        ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
-        ViewServiceabilityModel apiResponse = api.getUMIAssessments(
-          new List<String>{ loanRec[0]?.SOP_Id__c },
-          loanRec[0]?.Credit_ID__c,
-          loanRec[0]?.Name,
-          loanRec[0]?.Account?.OCV_ID__c
-        );
-        transformAPIToUIResponse(result, apiResponse);
-      } catch (Exception ex) {
-        result.hasError = true;
+    result.isSubmitted = (String.isNotBlank(loanRec?.Assessment_Outcome__c));
+    if (result.isSubmitted) {
+      result.hasError = (String.isBlank(loanRec?.Credit_ID__c) ||
+      String.isBlank(loanRec?.SOP_Id__c));
+      if (!result.hasError) {
+        try {
+          ViewServiceabilityAPIRepository api = new ViewServiceabilityAPIRepository();
+          ViewServiceabilityModel apiResponse = api.getUMIAssessments(
+            new List<String>{ loanRec?.SOP_Id__c },
+            loanRec?.Credit_ID__c,
+            loanRec?.Name,
+            loanRec?.Account?.OCV_ID__c
+          );
+          transformAPIToUIResponse(result, apiResponse);
+        } catch (Exception ex) {
+          result.hasError = true;
+          Logger.error(ex.getMessage(), ex);
+          Logger.saveLog();
+        }
       }
     }
 
@@ -81,7 +83,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
   }
 
   private class UMIResponse {
-    Boolean hasError;
+    Boolean hasError = false;
     Boolean isSubmitted;
     Decimal totalUmi;
     String lastModified;
@@ -328,8 +330,8 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     return applicantNames;
   }
 
-  private List<ResidentialLoanApplication> getLoanRecord(String loanId) {
-    return [
+  private ResidentialLoanApplication getLoanRecord(String loanId) {
+    List<ResidentialLoanApplication> rla = [
       SELECT
         Id,
         Assessment_Outcome__c,
@@ -341,6 +343,8 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
       WHERE Id = :loanId
       LIMIT 1
     ];
+
+    return rla.isEmpty() ? null : rla[0];
   }
   private List<Account> getApplicants(Set<String> ocvIds) {
     return [
