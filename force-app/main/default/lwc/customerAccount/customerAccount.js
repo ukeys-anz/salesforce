@@ -18,6 +18,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     if (data && data.Case) {
       this.populateAccountNumbers(this._omniData);
       this.validateNAoption(this._omniData);
+      this.clearAccountFields(this._omniData.Case.ComplaintDetails);
     }
   }
 
@@ -27,6 +28,30 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
 
   render() {
     return tmp;
+  }
+
+  //To clear Account number 2 and Account number 3 fields
+  clearAccountFields(data) {
+    if (
+      data &&
+      data.Issue2Checkbox === "No" &&
+      data.AccountPolicyNumber2 &&
+      this.omniJsonDef.name === "AccountPolicyNumber2"
+    ) {
+      this.omniUpdateDataJson("");
+      this.value = "";
+      this.allValues = [];
+    }
+    if (
+      data &&
+      data.Issue3Checkbox === "No" &&
+      data.AccountPolicyNumber3 &&
+      this.omniJsonDef.name === "AccountPolicyNumber3"
+    ) {
+      this.omniUpdateDataJson("");
+      this.value = "";
+      this.allValues = [];
+    }
   }
 
   populateAccountNumbers(data) {
