@@ -19,7 +19,8 @@ public with sharing class InteractionContextServiceUpdateTest {
         'FirstName' => 'Coach Test ICT012',
         'ProfileId' => stdUserProfile.Id,
         'UserRoleId' => coachRole.Id,
-        'Email' => 'testCoach@anz.com'
+        'Email' => 'testCoach@anz.com',
+        'FederationIdentifier' => 'testCoach@anz.com'
       }
     );
 
@@ -48,7 +49,8 @@ public with sharing class InteractionContextServiceUpdateTest {
         'FirstName' => 'APIUserTestForInteraction',
         'ProfileId' => p.Id,
         'UserRoleId' => role.Id,
-        'Email' => 'testAPI@anz.com'
+        'Email' => 'testAPI@anz.com',
+        'FederationIdentifier' => 'testAPI@anz.com'
       }
     );
 
@@ -187,7 +189,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     // Prepare request test data
 
     User agentRecord = [
-      SELECT Id, Email
+      SELECT Id, FederationIdentifier
       FROM User
       WHERE FirstName = 'Coach Test ICT012'
       LIMIT 1
@@ -200,7 +202,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'Created1',
       'CR' + faker.randomString(10),
       'QName' + faker.randomString(8),
-      agentRecord.Email
+      agentRecord.FederationIdentifier
     );
 
     Test.startTest();
@@ -240,7 +242,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     ];
 
     User agentRecord = [
-      SELECT Id, Email
+      SELECT Id, FederationIdentifier
       FROM User
       WHERE FirstName = 'Coach Test ICT012'
       LIMIT 1
@@ -255,7 +257,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       '',
       'CR' + faker.randomString(10),
       'QName' + faker.randomString(8),
-      agentRecord.Email
+      agentRecord.FederationIdentifier
     );
 
     Test.startTest();
