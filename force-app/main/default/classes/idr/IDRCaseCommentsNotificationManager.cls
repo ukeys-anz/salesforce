@@ -74,17 +74,15 @@ public with sharing class IDRCaseCommentsNotificationManager {
               ? caseRec.IDR_NC_Last_Name__c
               : ''))
           : '';
-        String subjectStr = (customerName != '')
-          ? ('New Correspondence received on a Closed Complaint added by ' +
-            UserInfo.getName() +
-            ' on case ' +
-            caseRec.CaseNumber +
+        String subjectStr = IDRConstants.TASK_CORRESPONDENCE_SUBJECT +
             ' ' +
-            customerName)
-          : ('New Correspondence received on a Closed Complaint added by ' +
             UserInfo.getName() +
             ' on case ' +
-            caseRec.CaseNumber);
+            caseRec.CaseNumber;
+        if (customerName != '') {
+          subjectStr += ' ' +
+          customerName;
+        }
         if (
           caseRec.OwnerId != record.CreatedById &&
           IDRCaseActions.isIDRComplaintType(caseRec) &&
@@ -96,7 +94,7 @@ public with sharing class IDRCaseCommentsNotificationManager {
             caseRec,
             subjectStr
           );
-          newCorrsTask.Description = 'You must add a task comment detailing the action taken in your review of the new correspondence received on the closed complaint before marking this task as completed';
+          newCorrsTask.Description = IDRConstants.TASK_CORRESPONDENCE_DESCRIPTION;
           assiTasks.add(newCorrsTask);
         }
       }

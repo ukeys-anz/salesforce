@@ -97,26 +97,28 @@ public without sharing class IDRTaskActionHelper {
    * when Task status is completed.
    * @param newTasks The Task record list.
    */
-  public static void updateCases(List<task> newTasks) {
-    List<case> casesToUpdate = new List<Case>();
+  public static void updateCases(List<Task> newTasks) {
+    List<Case> casesToUpdate = new List<Case>();
     for (Task taskObj : newTasks) {
       if (
         taskObj.Status == IDRConstants.TASK_STATUS_COMPLETED &&
+        String.isNotEmpty(taskObj.Subject) &&
+        taskObj.Subject.startsWith(IDRConstants.TASK_CORRESPONDENCE_SUBJECT) &&
         taskObj.WhatId != null &&
-        (taskObj.WhatId + '').startswith('500')
+        (taskObj.WhatId + '').startsWith('500')
       ) {
         casesToUpdate.add(
           new Case(
             Id = taskObj.WhatId,
-            IDR_Additional_Correspondence_Reviewed__c = true
+            IDR_Additional_Correspondence_reviewed__c = true
           )
         );
       }
     }
     if (!casesToUpdate.isEmpty()) {
       if (
-        Case.SobjectType.getDescribe().isUpdateable() &&
-        Schema.SobjectType.Case.fields.IDR_Additional_Correspondence_Reviewed__c.isUpdateable()
+        Case.SObjectType.getDescribe().isUpdateable() &&
+        Schema.SObjectType.Case.fields.IDR_Additional_Correspondence_reviewed__c.isUpdateable()
       ) {
         update casesToUpdate;
       } else {

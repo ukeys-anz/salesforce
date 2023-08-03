@@ -400,7 +400,7 @@ private with sharing class IDRTaskActionsTest {
       for (Case c : newCases) {
         Task idrTask = new Task(
           WhatId = c.Id,
-          Subject = IDRConstants.TASK_SUBJECT_DAY5,
+          Subject = IDRConstants.TASK_CORRESPONDENCE_SUBJECT,
           RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
           Priority = 'Standard',
           ActivityDate = System.today()
@@ -425,7 +425,7 @@ private with sharing class IDRTaskActionsTest {
       ]) {
         System.assert(
           c.IDR_Additional_Correspondence_reviewed__c,
-          'Case Additional Correspondance Reviewed should be as expected.'
+          'Case Additional Correspondence Reviewed should be as expected.'
         );
       }
     }
