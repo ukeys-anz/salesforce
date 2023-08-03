@@ -4,7 +4,7 @@
  * @description Wrapper Class for Card Dispute metadata and data
  */
 @SuppressWarnings(
-  'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.PropertyNamingConventions'
+  'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.PropertyNamingConventions, PMD.NcssConstructorCount'
 )
 public without sharing class CardDisputeCaseCloudEventModel extends DisputeCaseCloudEventModel {
   public CardDisputeCaseCloudEventModel(
@@ -33,21 +33,24 @@ public without sharing class CardDisputeCaseCloudEventModel extends DisputeCaseC
    * @description the model for CardDispute Case cloud event data part
    */
   public class CardDisputeCaseCloudEventDataModel extends DisputeCaseCloudEventModel.DisputeCaseCloudEventDataModel {
-    public Decimal amountOfAuthorisedTransaction { get; set; }
-    public Decimal amountOfCreditDue { get; set; }
+    public FabricType.FabricMoney amountOfAuthorisedTransaction { get; set; }
+    public FabricType.FabricMoney amountOfCreditDue { get; set; }
     public String cardInPossessionDuringTransaction { get; set; }
     public String cardNumber { get; set; }
     public String cardScheme { get; set; }
     public String customerContactedMerchant { get; set; }
-    public Date dateGoodsWereReturnedOrServicesCancelled { get; set; }
-    public Date dateOfExpectedDeliveryService { get; set; }
+    public FabricType.FabricDate dateGoodsWereReturnedOrServicesCancelled {
+      get;
+      set;
+    }
+    public FabricType.FabricDate dateOfExpectedDeliveryService { get; set; }
     public String goodsOrServicesReturned { get; set; }
     public String hasTheCardBeenStopped { get; set; }
     public String isTheCardLostStolen { get; set; }
     public String merchantDescription { get; set; }
-    public Date refundRequestDate { get; set; }
-    public Date regularPaymentCancellationDate { get; set; }
-    public Date transactionAuthorisedDate { get; set; }
+    public FabricType.FabricDate refundRequestDate { get; set; }
+    public FabricType.FabricDate regularPaymentCancellationDate { get; set; }
+    public FabricType.FabricDate transactionAuthorisedDate { get; set; }
     public String transactionStatus { get; set; }
 
     public CardDisputeCaseCloudEventDataModel(
@@ -57,21 +60,51 @@ public without sharing class CardDisputeCaseCloudEventModel extends DisputeCaseC
     ) {
       super(theCase, theAccount);
       this.owner = theOwner;
-      this.amountOfAuthorisedTransaction = theCase.Amount_Of_Authorised_Transaction__c;
-      this.amountOfCreditDue = theCase.Amount_Of_Credit_Due__c;
+      if (theCase.Amount_Of_Authorised_Transaction__c != null) {
+        this.amountOfAuthorisedTransaction = new FabricType.FabricMoney(
+          null,
+          theCase.Amount_Of_Authorised_Transaction__c
+        );
+      }
+      if (theCase.Amount_Of_Credit_Due__c != null) {
+        this.amountOfCreditDue = new FabricType.FabricMoney(
+          null,
+          theCase.Amount_Of_Credit_Due__c
+        );
+      }
       this.cardInPossessionDuringTransaction = theCase.Card_In_Possession_During_Transaction__c;
       this.cardNumber = theCase.Card_Number__c;
       this.cardScheme = theCase.Card_Scheme__c;
       this.customerContactedMerchant = theCase.Customer_Contacted_Merchant__c;
-      this.dateGoodsWereReturnedOrServicesCancelled = theCase.Date_Goods_Were_Returned_Or_Services_can__c;
-      this.dateOfExpectedDeliveryService = theCase.Date_Of_Expected_Delivery_Service__c;
+      if (theCase.Date_Goods_Were_Returned_Or_Services_can__c != null) {
+        this.dateGoodsWereReturnedOrServicesCancelled = new FabricType.FabricDate(
+          theCase.Date_Goods_Were_Returned_Or_Services_can__c
+        );
+      }
+      if (theCase.Date_Of_Expected_Delivery_Service__c != null) {
+        this.dateOfExpectedDeliveryService = new FabricType.FabricDate(
+          theCase.Date_Of_Expected_Delivery_Service__c
+        );
+      }
       this.goodsOrServicesReturned = theCase.Goods_Or_Services_Returned__c;
       this.hasTheCardBeenStopped = theCase.Has_The_Card_Been_Stopped__c;
       this.isTheCardLostStolen = theCase.Is_The_Card_Lost_Stolen__c;
       this.merchantDescription = theCase.Merchant_Description__c;
-      this.refundRequestDate = theCase.Refund_Request_Date__c;
-      this.regularPaymentCancellationDate = theCase.Regular_Payment_Cancellation_Date__c;
-      this.transactionAuthorisedDate = theCase.Transaction_Authorised_Date__c;
+      if (theCase.Refund_Request_Date__c != null) {
+        this.refundRequestDate = new FabricType.FabricDate(
+          theCase.Refund_Request_Date__c
+        );
+      }
+      if (theCase.Regular_Payment_Cancellation_Date__c != null) {
+        this.regularPaymentCancellationDate = new FabricType.FabricDate(
+          theCase.Regular_Payment_Cancellation_Date__c
+        );
+      }
+      if (theCase.Transaction_Authorised_Date__c != null) {
+        this.transactionAuthorisedDate = new FabricType.FabricDate(
+          theCase.Transaction_Authorised_Date__c
+        );
+      }
       this.transactionStatus = theCase.Transaction_Status__c;
     }
   }

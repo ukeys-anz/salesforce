@@ -34,7 +34,7 @@ public with sharing class StravinskyControllerTest {
     checkingAccount.FinServ__Balance__c = 400;
     checkingAccount.FinServ__CurrentPostedBalance__c = 400;
     checkingAccount.FinServ__Status__c = 'Active';
-    checkingAccount.FinServ__FinancialAccountType__c = 'Checking';
+    checkingAccount.RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
     checkingAccount.FinServ__PrimaryOwner__c = acc.Id;
     checkingAccount.Account_Key__c = faker.randomString(10);
     insert checkingAccount;
@@ -44,7 +44,7 @@ public with sharing class StravinskyControllerTest {
     savingsAccount.FinServ__Balance__c = 400;
     savingsAccount.FinServ__CurrentPostedBalance__c = 400;
     savingsAccount.FinServ__Status__c = 'Active';
-    savingsAccount.FinServ__FinancialAccountType__c = 'Savings';
+    savingsAccount.RecordTypeId = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
     savingsAccount.FinServ__PrimaryOwner__c = acc.Id;
     savingsAccount.Account_Key__c = faker.randomString(10);
     insert savingsAccount;

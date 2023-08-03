@@ -659,4 +659,131 @@ public with sharing class CommonUtil {
     Logger.saveLog();
     throw e;
   }
+
+  /**
+   * @description checks if the user is having given permission sets assigned to it
+   * @param userId user Id
+   * @param permissionSetNames Set of permission set that needs to be verified
+   * @return Boolean if the user is having the permissions assigned to it
+   */
+  public static Boolean userPermissionCheck(
+    Id userId,
+    Set<String> permissionSetNames
+  ) {
+    Boolean isHavingPermission = false;
+    List<PermissionSetAssignment> permissionSetAssignments = [
+      SELECT PermissionSet.Name
+      FROM PermissionsetAssignment
+      WHERE AssigneeId = :userId
+    ];
+    Set<String> assignedPermissionSetGroups = new Set<String>();
+    for (PermissionSetAssignment assignment : permissionSetAssignments) {
+      assignedPermissionSetGroups.add(assignment.PermissionSet.Name);
+    }
+    for (String permissionSetName : permissionSetNames) {
+      if (assignedPermissionSetGroups.contains(permissionSetName)) {
+        isHavingPermission = true;
+      }
+    }
+    return isHavingPermission;
+  }
+
+  /**
+   * @description Build Trimmed and Concatenated values of Strings
+   * @param items  List of Strings
+   * @return Trimmed and Concatenated values of items
+   */
+  public static String buildTrimmedConcatenatedString(List<String> items) {
+    List<String> newContents = new List<String>();
+    for (String item : items) {
+      if (String.isNotBlank(item?.trim())) {
+        newContents.add(item.trim());
+      }
+    }
+    return String.join(newContents, ' ');
+  }
+
+  /**
+   * @description Filter cases by Record Type Id
+   * @param records List of case records
+   * @param recordTypId Record Type Id
+   * @return List of filtered cases
+   */
+  public static List<Case> filterCasesByRecordTypeId(
+    List<Case> records,
+    Id recordTypId
+  ) {
+    List<Case> cases = new List<Case>();
+    for (Case c : records) {
+      if (c.RecordTypeId == recordTypId) {
+        cases.add(c);
+      }
+    }
+    return cases;
+  }
+
+  /**
+   * @description Get SLA Process by process name
+   * @param slaProceessName SLA Process name
+   * @return SlaProcess
+   */
+  public static SlaProcess getSLAProcess(String slaProceessName) {
+    if (
+      String.isBlank(slaProceessName) ||
+      PermissionUtils.canQuery('SlaProcess') == false
+    ) {
+      return null;
+    }
+
+    return [
+      SELECT Id, Name
+      FROM SlaProcess
+      WHERE
+        Name = :slaProceessName
+        AND IsActive = TRUE
+        AND IsVersionDefault = TRUE
+      LIMIT 1
+    ];
+  }
+
+  /**
+   * @description Add Person Account Entitlements
+   * @param accs List of Accounts
+   * @param slaProceessName SLA Process name
+   * @param entitlementName Entitlement Name
+   * @return List of Entitlements
+   */
+  public static List<Entitlement> addPersonAccountEntitlements(
+    List<Account> accs,
+    String slaProceessName,
+    String entitlementName
+  ) {
+    SlaProcess sla = getSLAProcess(slaProceessName);
+
+    List<Entitlement> entitlements = new List<Entitlement>();
+    for (Account acc : accs) {
+      entitlements.add(
+        new Entitlement(
+          Name = entitlementName,
+          AccountId = acc.Id,
+          StartDate = System.today(),
+          SlaProcessId = sla?.Id
+        )
+      );
+    }
+
+    return entitlements;
+  }
+
+  /**
+   * @description Remove extra spaces of content String
+   * @param content String
+   * @return Removed extra spaces of content String
+   */
+  public static String removeExtraSpaces(String content) {
+    if (content != null) {
+      return buildTrimmedConcatenatedString(content.split(' '));
+    }
+    return null;
+  }
 }

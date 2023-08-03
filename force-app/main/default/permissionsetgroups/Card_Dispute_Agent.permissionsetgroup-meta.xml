@@ -18,7 +18,10 @@
     <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>Chat_Read_Only</permissionSets>
     <permissionSets>Coaches_Workbench</permissionSets>
+    <permissionSets>COB_Primary_ID_Document_And_Case_Status_Read_Write</permissionSets>
+    <permissionSets>COB_Tax_Residency_TIN_Read</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
+    <permissionSets>Customer_Onboarding_Read_Only</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>Einstein_Discovery_User</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>

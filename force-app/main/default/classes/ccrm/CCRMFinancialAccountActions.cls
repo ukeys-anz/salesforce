@@ -77,7 +77,7 @@ public with sharing class CCRMFinancialAccountActions {
   }
 
   /**
-   * @description Set Financial Account record Name field
+   * @description Set Financial Account record Name field for non ANZx financial accounts
    * @name populateName
    * @param records Financial account records from the trigger.
    */
@@ -85,7 +85,10 @@ public with sharing class CCRMFinancialAccountActions {
     for (FinServ__FinancialAccount__c record : records) {
       if (
         !String.isBlank(record.FinServ__FinancialAccountType__c) &&
-        !String.isBlank(record.FinServ__FinancialAccountNumber__c)
+        !String.isBlank(record.FinServ__FinancialAccountNumber__c) &&
+        !GetHelpConstants.ANZX_MARKETING_CODES.contains(
+          record.Marketing_Code__c
+        )
       ) {
         record.Name =
           (record.FinServ__FinancialAccountType__c.contains(':')

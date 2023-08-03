@@ -12,6 +12,7 @@
     <label>Account Closure Queue</label>
     <queue>Account_Closure_Queue</queue>
     <sharedTo>
+        <role>ANZ_Plus_Operations_Read_Only</role>
         <role>Coach_Lead</role>
         <role>FinCrime_Agent</role>
         <role>FraudX_Agent</role>
