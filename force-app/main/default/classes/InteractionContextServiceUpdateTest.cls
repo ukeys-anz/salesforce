@@ -252,7 +252,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionRecord.Id,
       'TW' + faker.randomString(10),
       'CH1123141516161617',
-      'assigned',
+      '',
       'CR' + faker.randomString(10),
       'QName' + faker.randomString(8),
       agentRecord.Email
