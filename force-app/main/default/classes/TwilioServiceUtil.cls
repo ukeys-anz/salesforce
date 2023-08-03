@@ -4,6 +4,7 @@
  * @description Util Class to handle incoming requests from Twilio for Twilio Details Upsert and Interaction Update.
  */
 public with sharing class TwilioServiceUtil {
+  public static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
   static {
     //Fetch Status Mapping for Twilio and Interaction
     List<InteractionStatusMappingForTwilio__mdt> statusMap = [
