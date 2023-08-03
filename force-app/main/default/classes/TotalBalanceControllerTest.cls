@@ -34,7 +34,7 @@ public with sharing class TotalBalanceControllerTest {
     finAccount.FinServ__Balance__c = 200;
     finAccount.FinServ__CurrentPostedBalance__c = 200;
     finAccount.FinServ__Status__c = 'Active';
-    finAccount.FinServ__FinancialAccountType__c = 'Checking';
+    finAccount.RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
     finAccount.FinServ__PrimaryOwner__c = accnt.Id;
     finAccount.Account_Key__c = faker.randomString(9);
 
@@ -48,7 +48,7 @@ public with sharing class TotalBalanceControllerTest {
           FinServ__Balance__c = 200,
           FinServ__CurrentPostedBalance__c = 200,
           FinServ__Status__c = 'Active',
-          FinServ__FinancialAccountType__c = 'Savings',
+          RecordTypeId = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID,
           FinServ__PrimaryOwner__c = accnt.Id,
           Account_Key__c = faker.randomString(9)
         )

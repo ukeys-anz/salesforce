@@ -1,5 +1,5 @@
 import { LightningElement, api, wire } from "lwc";
-import { getRecord } from "lightning/uiRecordApi";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { handleErrorShowToast } from "c/utils";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
@@ -9,8 +9,7 @@ import getTransactionHistoryAura from "@salesforce/apex/CoachBankingAPIRepositor
 
 import FIN_ACCOUNT_NUMBER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c";
 import FIN_ACCOUNT_OCV_ID from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
-import FIN_ACCOUNT_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__FinancialAccountType__c";
-import FIN_ACCOUNT_RECORD_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__RecordTypeName__c";
+import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
 import FIN_ACCOUNT_PRIMARY_OWNER from "@salesforce/schema/FinServ__FinancialAccount__c.FinServ__PrimaryOwner__c";
 
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
@@ -32,6 +31,17 @@ import {
 import { CurrentPageReference } from "lightning/navigation";
 import getDisputeRecordTypeMap from "@salesforce/apex/TransactionHistoryController.getDisputeRecordTypeMap";
 import { DISPUTE_RECORD_TYPES_RETRIEVE_ERROR } from "c/transactionHistoryService";
+
+const CHECKING_ACCOUNT_RT_APINAME = "CheckingAccount";
+const SAVINGS_ACCOUNT_RT_APINAME = "SavingsAccount";
+const BANK_ACCOUNT_RT_APINAME = "BankingAccount";
+
+export {
+  CHECKING_ACCOUNT_RT_APINAME,
+  SAVINGS_ACCOUNT_RT_APINAME,
+  BANK_ACCOUNT_RT_APINAME
+};
+
 export default class FinancialAccountParent extends LightningElement {
   @api recordId;
   @api objectApiName;
@@ -86,8 +96,7 @@ export default class FinancialAccountParent extends LightningElement {
     fields: [
       FIN_ACCOUNT_NUMBER,
       FIN_ACCOUNT_OCV_ID,
-      FIN_ACCOUNT_TYPE,
-      FIN_ACCOUNT_RECORD_TYPE,
+      FIN_ACCOUNT_RT_APINAME,
       FIN_ACCOUNT_PRIMARY_OWNER,
       FIN_ACCOUNT_INTEREST
     ]
@@ -98,11 +107,10 @@ export default class FinancialAccountParent extends LightningElement {
       this.ocvId = data.fields.OCV_ID__c.value;
       this.accountNumber = data.fields.FinServ__FinancialAccountNumber__c.value;
       this.primaryOwner = data.fields.FinServ__PrimaryOwner__c.value;
-      this.accRecordType = data.fields.FinServ__RecordTypeName__c.value;
-      const accType = data.fields.FinServ__FinancialAccountType__c.value;
+      this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
       if (
         this.ocvId &&
-        this.accRecordType === "Bank Account" &&
+        this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME &&
         hasHomeLoanPermission
       ) {
         this.isHomeLoan = true;
@@ -110,10 +118,10 @@ export default class FinancialAccountParent extends LightningElement {
         await this.getHomeLoanResponse();
       } else {
         this.showRaiseDispute = true;
-        if (accType === "Savings") {
+        if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
           this.isSavings = true;
           this.accountType = "savings";
-        } else if (accType === "Checking") {
+        } else if (this.accRecordTypeApiName === CHECKING_ACCOUNT_RT_APINAME) {
           this.isSavings = false;
           this.accountType = "checking";
         }
@@ -140,11 +148,17 @@ export default class FinancialAccountParent extends LightningElement {
   }
 
   get displayNotLoan() {
-    return hasAccountsGoalsPermission && this.accRecordType !== "Bank Account";
+    return (
+      hasAccountsGoalsPermission &&
+      this.accRecordTypeApiName !== BANK_ACCOUNT_RT_APINAME
+    );
   }
 
   get displayLoan() {
-    return hasHomeLoanPermission && this.accRecordType === "Bank Account";
+    return (
+      hasHomeLoanPermission &&
+      this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME
+    );
   }
 
   async getFinancialData() {
@@ -168,8 +182,8 @@ export default class FinancialAccountParent extends LightningElement {
       // If the API callout fails to fetch latest data, use this as a fallback to fetch
       // the records stored in Salesforce
       let accountDetails = await getFinancialAccountDB({
-        ownerId: this.recordId,
-        type: [this.accountType]
+        ownerId: this.primaryOwner,
+        recordTypeDeveloperNames: [this.accRecordTypeApiName]
       });
       this.accountData = this.handleAccountInformation(accountDetails);
     }

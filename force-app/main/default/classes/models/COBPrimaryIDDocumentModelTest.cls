@@ -6,6 +6,10 @@
  */
 @isTest
 public with sharing class COBPrimaryIDDocumentModelTest {
+  private static final List<String> OCR_SERVER_FIELDS_NULL_VALUES = new List<String>{
+    'LicenceNumberOCRServer__c'
+  };
+
   @isTest
   static void testParse() {
     String json =
@@ -52,6 +56,44 @@ public with sharing class COBPrimaryIDDocumentModelTest {
       tokenizedValues.size(),
       'Should tokenized ' +
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS.size() +
+      ' fields.'
+    );
+  }
+
+  @isTest
+  static void testBuildTokenizedValuesWithNullOCRServer() {
+    COBPrimaryIDDocument__c pid = new COBPrimaryIDDocument__c(
+      PersonaId__c = '000000000',
+      IdDocumentType__c = 'Licence',
+      LicenceNumber__c = '123123',
+      LicenceNumberOCRClient__c = '123123',
+      LicenceNumberOCRServer__c = OCR_SERVER_FIELDS_NULL_VALUES.contains(
+          'LicenceNumberOCRServer__c'
+        )
+        ? null
+        : '123123',
+      LicenceCardNumber__c = '456456',
+      LicenceCardNumberOCRClient__c = '456456',
+      LicenceCardNumberOCRServer__c = OCR_SERVER_FIELDS_NULL_VALUES.contains(
+          'LicenceCardNumberOCRServer__c'
+        )
+        ? null
+        : '456456'
+    );
+
+    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
+      pid,
+      COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
+    );
+
+    Integer expected =
+      COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS.size() -
+      OCR_SERVER_FIELDS_NULL_VALUES.size();
+    System.assertEquals(
+      expected,
+      tokenizedValues.size(),
+      'Should tokenized ' +
+      expected +
       ' fields.'
     );
   }

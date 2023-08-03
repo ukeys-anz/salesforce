@@ -21,7 +21,10 @@ public with sharing class COBApplicationActions {
     Map<Id, CustomerOnboardingApplication__c> oldMap
   ) {
     //Create base KYC QA Case
-    Map<String, Case> ocvIdsKYCQACases = createBaseKYCQACase(records, oldMap);
+    Map<String, Case> ocvIdsKYCQACases = constructBaseKYCQACase(
+      records,
+      oldMap
+    );
 
     if (ocvIdsKYCQACases.isEmpty()) {
       return;
@@ -29,7 +32,6 @@ public with sharing class COBApplicationActions {
 
     //Set KYC QA Case fields
     setKYCQAFields(records, ocvIdsKYCQACases);
-
     DMLUtil.insertRecords(ocvIdsKYCQACases.values(), false, false);
   }
 
@@ -38,27 +40,13 @@ public with sharing class COBApplicationActions {
    * @param cobApps List of COB Applications
    * @param ocvIdsKycQACases Map of OCV id and KYC QA case
    */
-  public static void setKYCQAFields(
+  @TestVisible
+  private static void setKYCQAFields(
     List<CustomerOnboardingApplication__c> cobApps,
     Map<String, Case> ocvIdsKycQACases
   ) {
-    setKYCQAFieldsAccount(ocvIdsKycQACases);
     setKYCQAFieldsCOBPID(cobApps, ocvIdsKycQACases);
     setKYCQAFieldsCOBAddress(ocvIdsKycQACases);
-  }
-
-  /**
-   * @description Update KYC QA case Account Id field
-   * @param ocvIdsKycQACases map of OCV id and KYC QA case
-   */
-  public static void setKYCQAFieldsAccount(Map<String, Case> ocvIdsKycQACases) {
-    Map<String, Account> accs = COBApplicationActionsHelper.getAccountsByOCVIDs(
-      ocvIdsKycQACases.keySet()
-    );
-    for (Case kycQACase : ocvIdsKycQACases.values()) {
-      Account acc = accs.get(kycQACase.OCV_Id__c);
-      kycQACase.AccountId = acc?.Id;
-    }
   }
 
   /**
@@ -66,28 +54,35 @@ public with sharing class COBApplicationActions {
    * @param cobApps List of COB Applications
    * @param ocvIdsKycQACases Map of OCV id and KYC QA case
    */
-  public static void setKYCQAFieldsCOBPID(
+  @TestVisible
+  private static void setKYCQAFieldsCOBPID(
     List<CustomerOnboardingApplication__c> cobApps,
     Map<String, Case> ocvIdsKycQACases
   ) {
     Map<Id, CustomerOnboardingApplication__c> cobAppIdApps = new Map<Id, CustomerOnboardingApplication__c>(
       cobApps
     );
-    Map<String, COBPrimaryIDDocument__c> cobPIDDs = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
+    Map<String, COBPrimaryIDDocument__c> cobPids = COBApplicationActionsHelper.getCOBPIDsByOCVIds(
       ocvIdsKycQACases.keySet()
     );
 
     for (Case kycQACase : ocvIdsKycQACases.values()) {
-      COBPrimaryIDDocument__c cobPIDD = cobPIDDs.get(kycQACase.OCV_Id__c);
-      if (cobPIDD != null) {
-        kycQACase.Fraud_MiddleNameCheck__c = cobPIDD.MiddleNamesOCRMatch__c
-          ? YES
-          : NONE;
-        kycQACase.Fraud_Customer_Details__c = COBApplicationActionsHelper.populateFraudCustomerDetails(
-          cobAppIdApps.get(kycQACase.CustomerOnboardingApplication__c),
-          cobPIDD
-        );
+      COBPrimaryIDDocument__c cobPid = cobPids.get(kycQACase.OCV_Id__c);
+      CustomerOnboardingApplication__c cobApp = cobAppIdApps.get(
+        kycQACase.CustomerOnboardingApplication__c
+      );
+
+      if (cobApp == null || cobPid == null) {
+        continue;
       }
+
+      kycQACase.Fraud_MiddleNameCheck__c = COBApplicationActionsHelper.populateMiddleNameCheck(
+        cobPid
+      );
+      kycQACase.Fraud_Customer_Details__c = COBApplicationActionsHelper.populateFraudCustomerDetails(
+        cobApp,
+        cobPid
+      );
     }
   }
 
@@ -95,6 +90,7 @@ public with sharing class COBApplicationActions {
    * @description Update KYC QA case Fields base on COB Address
    * @param ocvIdsKycQACases Map of OCV id and KYC QA case
    */
+  @TestVisible
   private static void setKYCQAFieldsCOBAddress(
     Map<String, Case> ocvIdsKycQACases
   ) {
@@ -115,13 +111,13 @@ public with sharing class COBApplicationActions {
   }
 
   /**
-   * @description Create Base KYC QA case when a COB Application is updated with Electronic Verification Acknowledged == true
+   * @description Constructs Base KYC QA case when a COB Application is updated with Electronic Verification Acknowledged == true
    * @param records Case records from trigger
    * @param oldMap map of records id and old records
    * @return Map<String, Case> OCV IDs with KYC QA Cases
    */
   @TestVisible
-  private static Map<String, Case> createBaseKYCQACase(
+  private static Map<String, Case> constructBaseKYCQACase(
     List<CustomerOnboardingApplication__c> records,
     Map<Id, CustomerOnboardingApplication__c> oldMap
   ) {
@@ -134,7 +130,9 @@ public with sharing class COBApplicationActions {
         cobApp.ElectronicVerificationAcknowledged__c == true &&
         oldCOBApp?.ElectronicVerificationAcknowledged__c == false
       ) {
-        Case kycQACase = COBApplicationActionsHelper.createKYCQACase(cobApp);
+        Case kycQACase = COBApplicationActionsHelper.setKYCQACaseBaseFields(
+          cobApp
+        );
 
         ocvIdsKYCQACases.put(cobApp.OCVId__c, kycQACase);
       }

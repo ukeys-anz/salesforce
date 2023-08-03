@@ -62,13 +62,9 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
    * @return true if product_code is 'ANZ Plus Standard Variable Rate Home Loan' (Variable & Fixed Loan)
    */
   private boolean isHomeLoanAccount(HomeLoanModel.HomeLoanAccount acc) {
-    if (
-      acc.product_details?.marketing_code != null &&
-      (acc.product_details.marketing_code.equals('HLVAR01') ||
-      acc.product_details.marketing_code.equals('HLFXD01'))
-    ) {
-      return true;
-    }
-    return false;
+    return (acc.product_details?.marketing_code != null &&
+    GetHelpConstants.HOME_LOAN_MARKETING_CODES.contains(
+      acc.product_details.marketing_code
+    ));
   }
 }
