@@ -45,8 +45,12 @@
         <name>Facet-88412bd3-6030-47f6-b683-1dff8c71ce20</name>
         <itemInstances>
             <componentInstance>
-                <componentName>cfSOP_Finances_Savings</componentName>
-                <identifier>c_cfSOP_Finances_Savings</identifier>
+                <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>SOP_Finances_Savings</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -79,6 +83,34 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-45222c7d-edff-4fe2-81bf-5cad91dd6ca6</name>
+        <itemInstances>
+            <componentInstance>
+                <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>Facet-398113ec-1cc5-492c-b2e3-16d26301a04d</name>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-45222c7d-edff-4fe2-81bf-5cad91dd6ca6</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Application Overview</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab7</identifier>
             </componentInstance>
         </itemInstances>
         <type>Facet</type>
@@ -121,6 +153,30 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_View_Finances_Tab}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <value>Facet-398113ec-1cc5-492c-b2e3-16d26301a04d</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.ANZx_View_Finances_Tab}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
