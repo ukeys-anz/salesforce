@@ -252,4 +252,6 @@ public with sharing class GetHelpConstants {
 
   // Basic Subscription Entitlment Process Name
   public static final String BASIC_SUBSCRIPTION_ENTITLEMENT_NAME = 'Basic Subscription';
+  public static final String ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME = 'anz plus - basic subscription';
+  public static final String COMPLAINTS_SLA_PROCESS_NAME = 'complaints';
 }
