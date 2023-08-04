@@ -2,9 +2,6 @@
 private class AccountTriggerHandlerTest {
   private final static Faker TESTFAKER = new Faker('AU');
   private final static string TEST_MOBILE = '123456789';
-  private final static string TEST_OVC_ID_1 = '123456789';
-  private final static string TEST_OVC_ID_2 = TESTFAKER.randomString(10);
-  private final static string TEST_OVC_ID_3 = TESTFAKER.randomString(10);
 
   @TestSetup
   static void makeData() {
@@ -17,37 +14,7 @@ private class AccountTriggerHandlerTest {
       l.RecordTypeId = GetHelpConstants.LEAD_ANZX_RT_ID;
 
       insert l;
-      createCases();
     }
-  }
-
-  static void createCases() {
-    CustomerOnboardingApplication__c coa = new CustomerOnboardingApplication__c(
-      SecurityMobile__c = TEST_MOBILE
-    );
-    insert coa;
-
-    List<Case> cases = new List<Case>();
-    Case case1 = new Case(
-      Status = 'Open',
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      OCV_Id__c = TEST_OVC_ID_1
-    );
-    cases.add(case1);
-    Case case2 = new Case(
-      Status = 'Open',
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      OCV_Id__c = TEST_OVC_ID_2,
-      CustomerOnboardingApplication__c = coa.id
-    );
-    cases.add(case2);
-    Case case3 = new Case(
-      Status = 'Open',
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      OCV_Id__c = TEST_OVC_ID_3
-    );
-    cases.add(case3);
-    insert cases;
   }
 
   @isTest

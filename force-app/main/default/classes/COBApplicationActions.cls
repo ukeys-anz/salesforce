@@ -20,20 +20,26 @@ public with sharing class COBApplicationActions {
     List<CustomerOnboardingApplication__c> records,
     Map<Id, CustomerOnboardingApplication__c> oldMap
   ) {
+    Logger.debug('KYC QA case creation started: ' + System.now());
     //Create base KYC QA Case
     Map<String, Case> ocvIdsKYCQACases = constructBaseKYCQACase(
       records,
       oldMap
     );
-
+    Logger.debug('KYC QA base case construction finished: ' + System.now());
     if (ocvIdsKYCQACases.isEmpty()) {
       return;
     }
 
     //Set KYC QA Case fields
     setKYCQAFields(records, ocvIdsKYCQACases);
+    List<Case> cases = ocvIdsKYCQACases.values();
 
-    DMLUtil.insertRecords(ocvIdsKYCQACases.values(), false, false);
+    Logger.debug('KYC QA number of cases: ' + cases.size());
+    Logger.debug('KYC QA case insertion started: ' + System.now());
+    DMLUtil.insertRecords(cases, false, false);
+    Logger.debug('KYC QA case insertion finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
@@ -46,26 +52,8 @@ public with sharing class COBApplicationActions {
     List<CustomerOnboardingApplication__c> cobApps,
     Map<String, Case> ocvIdsKycQACases
   ) {
-    setKYCQAFieldsAccount(ocvIdsKycQACases);
     setKYCQAFieldsCOBPID(cobApps, ocvIdsKycQACases);
     setKYCQAFieldsCOBAddress(ocvIdsKycQACases);
-  }
-
-  /**
-   * @description Update KYC QA case Account Id field
-   * @param ocvIdsKycQACases map of OCV id and KYC QA case
-   */
-  @TestVisible
-  private static void setKYCQAFieldsAccount(
-    Map<String, Case> ocvIdsKycQACases
-  ) {
-    Map<String, Account> accs = COBApplicationActionsHelper.getAccountsByOCVIDs(
-      ocvIdsKycQACases.keySet()
-    );
-    for (Case kycQACase : ocvIdsKycQACases.values()) {
-      Account acc = accs.get(kycQACase.OCV_Id__c);
-      kycQACase.AccountId = acc?.Id;
-    }
   }
 
   /**
@@ -78,6 +66,7 @@ public with sharing class COBApplicationActions {
     List<CustomerOnboardingApplication__c> cobApps,
     Map<String, Case> ocvIdsKycQACases
   ) {
+    Logger.debug('Set KYC QA fields from PID started: ' + System.now());
     Map<Id, CustomerOnboardingApplication__c> cobAppIdApps = new Map<Id, CustomerOnboardingApplication__c>(
       cobApps
     );
@@ -103,6 +92,7 @@ public with sharing class COBApplicationActions {
         cobPid
       );
     }
+    Logger.debug('Set KYC QA fields from PID finished: ' + System.now());
   }
 
   /**
@@ -113,6 +103,7 @@ public with sharing class COBApplicationActions {
   private static void setKYCQAFieldsCOBAddress(
     Map<String, Case> ocvIdsKycQACases
   ) {
+    Logger.debug('Set KYC QA fields from Address started: ' + System.now());
     Map<String, COBAddress__c> cobAddresses = COBApplicationActionsHelper.getCOBAddressByOCVIdAddressType(
       ocvIdsKycQACases.keySet(),
       CURRENT
@@ -127,6 +118,7 @@ public with sharing class COBApplicationActions {
           : NONE;
       }
     }
+    Logger.debug('Set KYC QA fields from Address finished: ' + System.now());
   }
 
   /**
