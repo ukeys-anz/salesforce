@@ -98,7 +98,6 @@ private with sharing class IDRCaseActionsTest {
     Set<Id> caseIds = (new Map<Id, Case>(newCases)).keySet();
     newCases = [SELECT OwnerId, isEscalated FROM Case WHERE id IN :caseIds];
     for (Case c : newCases) {
-      c.OwnerId = IDRCaseActions.queue.id;
       c.IsEscalated = true;
       c.IDR_Escalated_to__c = '1';
     }
@@ -137,7 +136,6 @@ private with sharing class IDRCaseActionsTest {
     Set<Id> caseIds = (new Map<Id, Case>(newCases)).keySet();
     newCases = [SELECT OwnerId, isEscalated FROM Case WHERE id IN :caseIds];
     for (Case c : newCases) {
-      c.OwnerId = IDRCaseActions.queue.id;
       c.IsEscalated = true;
       c.IDR_Escalated_to__c = '1';
     }
@@ -177,7 +175,6 @@ private with sharing class IDRCaseActionsTest {
     Set<Id> caseIds = (new Map<Id, Case>(newCases)).keySet();
     newCases = [SELECT OwnerId, isEscalated FROM Case WHERE id IN :caseIds];
     for (Case c : newCases) {
-      c.OwnerId = IDRCaseActions.queue.id;
       c.IsEscalated = true;
       c.IDR_Escalated_to__c = '1';
     }

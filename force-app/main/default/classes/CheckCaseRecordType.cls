@@ -101,6 +101,15 @@ public with sharing class CheckCaseRecordType {
   }
 
   /**
+   * @description Check if a case is False Customer Profile Case
+   * @param record The case record to check
+   * @return true if the case is a False Customer Profile Case
+   */
+  public static Boolean isFalseCustomerProfile(Case record) {
+    return GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID == record.RecordTypeId;
+  }
+
+  /**
    * @description Check if a case is Non Customer Complaint Case
    * @param record The case record to check
    * @return true if the case is a Non Customer Complaint Case
