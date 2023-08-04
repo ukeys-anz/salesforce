@@ -139,6 +139,17 @@ private class CaseTriggerHandlerTest {
         OCV_ID__c = faker.randomString(10)
       );
       accnts.add(fraudAcc);
+
+      Account falseCustomerProfileAcc = new Account(
+        FirstName = 'False Customer',
+        LastName = 'Profile Account',
+        OCV_ID__c = faker.randomString(10),
+        RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+        ANZx_Customer__c = true,
+        PersonMobilePhone = '+61400000000'
+      );
+      accnts.add(falseCustomerProfileAcc);
+
       insert accnts;
 
       // Create IDR L1 user
@@ -248,7 +259,7 @@ private class CaseTriggerHandlerTest {
   }
 
   @isTest
-  static void testFraudCustomerProfileDefaultValue() {
+  static void testFalseCustomerProfileDefaultValue() {
     Account personAcc = [SELECT Id, Name FROM Account LIMIT 1];
     Case newCase = new Case(
       RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
@@ -270,7 +281,7 @@ private class CaseTriggerHandlerTest {
   }
 
   @isTest
-  static void testFraudCustomerProfileNoUpdateForGenericValue() {
+  static void testFalseCustomerProfileNoUpdateForGenericValue() {
     // GIVEN: We have a Fraud Cusotmer Profile case with Fraud Generic customer
     Account fraudAcc = [
       SELECT Id, Name
@@ -311,7 +322,7 @@ private class CaseTriggerHandlerTest {
   }
 
   @isTest
-  static void testFraudCustomerProfileUpdateValue() {
+  static void testFalseCustomerProfileUpdateValue() {
     // GIVEN: We have a Fraud Cusotmer Profile case with not Fraud Generic customer
     List<Account> personAcc = [
       SELECT Id, Name
@@ -342,6 +353,120 @@ private class CaseTriggerHandlerTest {
       updatedCase.Fraud_Onboarding_Customer_Name__c,
       personAcc[1].Name,
       'When we update a real customer, that should update the Onboarding Customer Name as well.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testFalseCustomerProfileCOBRealCustomer() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE PersonMobilePhone = '+61400000000'
+      LIMIT 1
+    ];
+    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+      PersonaId__c = 'dsfsadfasdf',
+      OCVId__c = '4324234234',
+      SecurityMobile__c = '61400000000'
+    );
+    insert cob;
+
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = acc.Id
+    );
+
+    Test.startTest();
+    insert newCase;
+    Case c = [
+      SELECT Id, CustomerOnboardingApplication__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertEquals(
+      c.CustomerOnboardingApplication__c,
+      cob.Id,
+      'COB for real customer should be populated.'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testFalseCustomerProfileCOBGenericFraudCustomer() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Name = 'Fraud Entitlement Account'
+      LIMIT 1
+    ];
+
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = acc.Id
+    );
+
+    Test.startTest();
+    insert newCase;
+    Case c = [
+      SELECT Id, CustomerOnboardingApplication__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertEquals(
+      c.CustomerOnboardingApplication__c,
+      null,
+      'COB should be null'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testFalseCustomerProfileCOBUpdateRealCustomerToFraudGeneric() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE PersonMobilePhone = '+61400000000'
+      LIMIT 1
+    ];
+    Account genericFraudAcc = [
+      SELECT Id
+      FROM Account
+      WHERE Name = 'Fraud Entitlement Account'
+      LIMIT 1
+    ];
+    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
+      PersonaId__c = 'dsfsadfasdf',
+      OCVId__c = '4324234234',
+      SecurityMobile__c = '61400000000'
+    );
+    insert cob;
+
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      AccountId = acc.Id
+    );
+
+    Test.startTest();
+    insert newCase;
+    Case c = [
+      SELECT Id, CustomerOnboardingApplication__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+
+    c.AccountId = genericFraudAcc.Id;
+    update c;
+
+    c = [
+      SELECT Id, CustomerOnboardingApplication__c
+      FROM Case
+      WHERE Id = :newCase.Id
+    ];
+    System.assertEquals(
+      c.CustomerOnboardingApplication__c,
+      null,
+      'COB should be blank when we update it to Fraud Generic Account'
     );
     Test.stopTest();
   }
@@ -1226,6 +1351,26 @@ private class CaseTriggerHandlerTest {
     System.assertEquals(
       'Card - ' + disputeReason,
       newCases[0].Subject,
+      'New case subject should be as expected.'
+    );
+  }
+
+  @isTest
+  static void testPopulateFalseCustomerProfileCaseSubject() {
+    Account acc = [SELECT Id, Name FROM Account LIMIT 1];
+    Case c = new Case(
+      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      Type = 'Not Fraud',
+      Origin = 'Other',
+      AccountId = acc.Id
+    );
+    Test.startTest();
+    insert c;
+    c = [SELECT Subject FROM Case WHERE id = :c.id LIMIT 1];
+    Test.stopTest();
+    System.assertEquals(
+      'False Onboarding',
+      c.Subject,
       'New case subject should be as expected.'
     );
   }

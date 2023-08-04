@@ -38,7 +38,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.populateOCVOnComplaint(records);
     GetHelpCaseActions.validateDuplicateKYCQACasePerAccount(records);
     GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
-    GetHelpCaseActionsHelper.setFraudCustomerProfileCase(records);
+    GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
+      (List<Case>) records,
+      null
+    );
   }
 
   /**
@@ -71,7 +74,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records
     );
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records);
-    GetHelpCaseActionsHelper.setFraudCustomerProfileCase(records);
+    GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
+      (List<Case>) records,
+      (Map<Id, Case>) oldMap
+    );
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     for (Case record : (List<Case>) records) {
