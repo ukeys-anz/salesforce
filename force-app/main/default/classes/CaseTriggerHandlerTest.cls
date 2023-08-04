@@ -939,12 +939,6 @@ private class CaseTriggerHandlerTest {
       WHERE Name = 'Complaint Entitlement Account'
       LIMIT 1
     ];
-    Slaprocess sla = [
-      SELECT Id, NAME
-      FROM Slaprocess
-      WHERE Name = 'complaints' AND IsActive = TRUE AND IsVersionDefault = TRUE
-      LIMIT 1
-    ];
 
     SlaProcess sla = CommonUtil.getSLAProcess(
       GetHelpConstants.COMPLAINTS_SLA_PROCESS_NAME
