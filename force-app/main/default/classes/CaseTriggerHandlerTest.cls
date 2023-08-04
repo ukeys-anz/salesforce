@@ -2655,7 +2655,7 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       System.assert(false, 'Failed to create dispute case');
     }
-    Test.stopTest();
+    
     String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
     theCase = Database.query(
       'Select Id, ' +
@@ -2671,6 +2671,7 @@ private class CaseTriggerHandlerTest {
     theCase.Status = 'Closed';
     theCase.External_System__c = 'CARBe';
     theCase.External_Case_Id__c = 'EXTERNALCASEID000';
+    Test.stopTest();
     try {
       update theCase;
     } catch (DmlException e) {
