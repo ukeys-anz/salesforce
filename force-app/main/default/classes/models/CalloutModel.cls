@@ -19,7 +19,8 @@ public virtual class CalloutModel {
     'date' => 'transactionDate',
     '_links' => 'links',
     'set' => 'category_set',
-    'closed_at' => 'closed_date'
+    'closed_at' => 'closed_date',
+    'limit' => 'limitAmount'
   };
 
   /**

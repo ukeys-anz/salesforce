@@ -44,9 +44,11 @@ public with sharing class COBApplicationActionsHelperTest {
     List<COBAddress__c> cobAddresses = new List<COBAddress__c>();
 
     for (String ocvId : OCV_IDS) {
+      personAccounts.add(createPersonAccount(ocvId));
       cobApps.add(createCOBApp(ocvId));
     }
 
+    insert personAccounts;
     insert cobApps;
 
     for (CustomerOnboardingApplication__c cobApp : cobApps) {
@@ -64,6 +66,18 @@ public with sharing class COBApplicationActionsHelperTest {
 
     insert cobPids;
     insert cobAddresses;
+  }
+
+  private static Account createPersonAccount(String ocvId) {
+    Account acc = new Account(
+      FirstName = FAKER.person.firstName(),
+      LastName = FAKER.person.lastName(),
+      OCV_ID__c = ocvId,
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+    );
+
+    return acc;
   }
 
   private static CustomerOnboardingApplication__c createCOBApp(String ocvId) {
@@ -182,6 +196,35 @@ public with sharing class COBApplicationActionsHelperTest {
         'The priority should be ' + kycQACase.Priority
       );
     }
+  }
+
+  @isTest
+  private static void testGetAccountsByOCVIds() {
+    Test.startTest();
+    Map<String, Account> accountsByOCVIds = COBApplicationActionsHelper.getAccountsByOCVIds(
+      OCV_IDS
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      OCV_IDS_COUNT,
+      accountsByOCVIds.size(),
+      'There should be ' +
+      OCV_IDS_COUNT +
+      ' accounts.'
+    );
+  }
+
+  @isTest
+  private static void testGetAccountsByOCVIdsEmptySet() {
+    Map<String, Account> accountsByOCVIds = COBApplicationActionsHelper.getAccountsByOCVIds(
+      new Set<String>()
+    );
+
+    Assert.isTrue(
+      accountsByOCVIds.isEmpty(),
+      'There should be an empty list of Accounts.'
+    );
   }
 
   @isTest

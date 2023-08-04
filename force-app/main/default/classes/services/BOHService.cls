@@ -8,6 +8,33 @@ public with sharing class BOHService extends Service {
   public static final String ANZPLUSLOAN = 'ANZ PLUS LOAN APPLIED FOR';
   public static final String FLEXCARDDATETIMEDISPLAYFORMAT = 'd MMMM y | K:mm a';
   /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `HttpCalloutResponse` the api response
+   * @description fetches customer information of sop from lex api through mule
+   * ===========
+   * curl command in dev: grpcurl -H "Authorization: Bearer ${TOKEN}" -d '{"sop_id":"0626ba39-aeb9-4ebb-a275-01bf15aeb8d1"}' sop-service.lex-dev.apps-dev.x.gcpnp.anz:443 lex.service.sop.v1beta1.SopService/ListAssets
+   * ===========
+   */
+  //
+  public override HttpCalloutResponse getListAssets(
+    String ocvId, 
+    String sopId
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
+
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      System.Label.MS_Get_SOP + sopId,
+      HTTP_METHOD.HTTP_GET,
+      headers,
+      null
+    );
+
+    return response;
+  }
+  /**
    * @param sopIds sop id
    * @param creditId credit id
    * @param loanId loan id
@@ -89,5 +116,25 @@ public with sharing class BOHService extends Service {
       }
       return str;
     }
+  }
+
+  /**
+   * @description get the loan record for boh services
+   * @param loanId the loan id to query for more information
+   * @return `List<ResidentialLoanApplication>` List of residential loan application records
+   */
+  public static List<ResidentialLoanApplication> getLoanRecord(String loanId) {
+    return [
+      SELECT
+        Id,
+        Assessment_Outcome__c,
+        Credit_ID__c,
+        SOP_Id__c,
+        Name,
+        Account.OCV_ID__c
+      FROM ResidentialLoanApplication
+      WHERE Id = :loanId
+      LIMIT 1
+    ];
   }
 }

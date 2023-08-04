@@ -314,6 +314,14 @@
         <value>/contact-centre/v1/chat/users/</value>
     </labels>
     <labels>
+        <fullName>MS_Get_SOP</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_SOP</shortDescription>
+        <value>callout:SF_MS_Fabric/credit-assessment/v1/sop/</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Transactions</fullName>
         <categories>MS</categories>
         <language>en_US</language>

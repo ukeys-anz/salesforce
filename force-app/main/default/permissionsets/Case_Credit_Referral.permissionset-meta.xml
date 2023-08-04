@@ -4,6 +4,10 @@
         <apexClass>CaseDurationService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>CreditAssessmentActionsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Provides necessary access to credit referral cases for BOH Coach, Credit Assessment Officer/Lead</description>
     <fieldPermissions>
         <editable>false</editable>

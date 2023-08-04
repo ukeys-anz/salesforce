@@ -185,6 +185,33 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Get a list of account Ids from general enquiry cases
+   * @param accountIds a list of account Ids
+   * @param name name of the entitilement
+   * @return Map of account Ids and their entitlement Ids
+   */
+  public static Map<Id, Id> getEntitlements(List<Id> accountIds, String name) {
+    if (accountIds.isEmpty()) {
+      new Map<Id, Id>();
+    }
+    if (PermissionUtils.canQuery('Entitlement') == false) {
+      new Map<Id, Id>();
+    }
+
+    Map<Id, Id> entMap = new Map<Id, Id>();
+
+    for (Entitlement en : [
+      SELECT Id, AccountId
+      FROM Entitlement
+      WHERE AccountId IN :accountIds AND EndDate = NULL AND Name = :name
+    ]) {
+      entMap.put(en.AccountId, en.Id);
+    }
+
+    return entMap;
+  }
+
+  /**
    * @description Update the Entitlement Id on the case and the parent account has an entitlement
    * @param caseList a list of cases that we need to update the entitlement Id
    * @param entMap a map of account id and its corresponding entitlement id
@@ -197,6 +224,7 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {

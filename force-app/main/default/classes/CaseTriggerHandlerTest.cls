@@ -2655,7 +2655,7 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       System.assert(false, 'Failed to create dispute case');
     }
-    Test.stopTest();
+
     String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
     theCase = Database.query(
       'Select Id, ' +
@@ -2671,6 +2671,7 @@ private class CaseTriggerHandlerTest {
     theCase.Status = 'Closed';
     theCase.External_System__c = 'CARBe';
     theCase.External_Case_Id__c = 'EXTERNALCASEID000';
+    Test.stopTest();
     try {
       update theCase;
     } catch (DmlException e) {
@@ -3063,6 +3064,47 @@ private class CaseTriggerHandlerTest {
     Test.stopTest();
 
     assert();
+  }
+
+  @isTest
+  static void testEntitlementInsertKYCQA() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+      LIMIT 1
+    ];
+
+    // WHEN a KYC QA case is created
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      Type = 'KYC QA Sample',
+      AccountId = acc.Id
+    );
+
+    Test.startTest();
+    insert newCase;
+    Test.stopTest();
+
+    Case testingCase = [
+      SELECT Id, EntitlementId
+      FROM Case
+      WHERE Id = :newCase.Id
+      LIMIT 1
+    ];
+
+    Entitlement accountEntitlement = [
+      SELECT Id
+      FROM Entitlement
+      WHERE AccountId = :acc.Id
+      LIMIT 1
+    ];
+
+    Assert.areEqual(
+      accountEntitlement.Id,
+      testingCase.EntitlementId,
+      'Link Entitlement from Account to KYC QA case.'
+    );
   }
 
   private static void createIDOpsCases(User usr) {
