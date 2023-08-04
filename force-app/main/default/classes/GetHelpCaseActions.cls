@@ -976,7 +976,6 @@ public with sharing class GetHelpCaseActions {
       accIds,
       GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
     );
-    Logger.debug('Accounts Entitlements: ' + accountIdEntitlmentMap);
 
     for (Case c : kycQACases) {
       Account matchingAcc = accountByMobileMap.get(mobileByCaseIdMap.get(c.Id));
@@ -991,7 +990,7 @@ public with sharing class GetHelpCaseActions {
         Case oldCase = oldMap.get(c.Id);
         GetHelpCaseActionsHelper.handleKYCQACaseNoCustomer(c, oldCase);
       }
-      Logger.debug('KYC QA Case: ' + c);
+      Logger.debug('KYC QA Case Number: ' + c.CaseNumber__c);
     }
     Logger.saveLog();
   }
