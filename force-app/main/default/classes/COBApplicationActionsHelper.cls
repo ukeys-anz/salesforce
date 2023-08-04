@@ -45,9 +45,6 @@ public with sharing class COBApplicationActionsHelper {
       OCV_Id__c = cobApp.OCVId__c,
       Priority = VERIFICATION_TYPE_PRIORITY.get(cobApp.VerificationType__c)
     );
-
-    Logger.debug('KYC QA Case with base fields: ' + kycQACase);
-    Logger.saveLog();
     return kycQACase;
   }
 
@@ -103,8 +100,6 @@ public with sharing class COBApplicationActionsHelper {
       }
     }
 
-    Logger.debug('COB Primary ID Documents: ' + cobPIDs);
-    Logger.saveLog();
     return cobPIDs;
   }
 
@@ -143,9 +138,6 @@ public with sharing class COBApplicationActionsHelper {
         cobAppIdAddresses.put(cobApp.OCVId__c, cobApp.COBAddresses__r[0]);
       }
     }
-
-    Logger.debug('COB Addressess: ' + cobAppIdAddresses);
-    Logger.saveLog();
 
     return cobAppIdAddresses;
   }
