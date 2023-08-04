@@ -4,7 +4,7 @@
  * @description Helper class for @link COBApplicationActions
  */
 public with sharing class COBApplicationActionsHelper {
-  private static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
+  public static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
     'Pending_KYC_QA'
   );
   public static final Map<String, String> VERIFICATION_TYPE_PRIORITY = new Map<String, String>{
@@ -46,6 +46,8 @@ public with sharing class COBApplicationActionsHelper {
       Priority = VERIFICATION_TYPE_PRIORITY.get(cobApp.VerificationType__c)
     );
 
+    Logger.debug('KYC QA Case with base fields: ' + kycQACase);
+    Logger.saveLog();
     return kycQACase;
   }
 
@@ -84,49 +86,52 @@ public with sharing class COBApplicationActionsHelper {
   public static Map<String, COBPrimaryIDDocument__c> getCOBPIDsByOCVIds(
     Set<String> ocvIds
   ) {
-    Map<String, COBPrimaryIDDocument__c> cobPIDs = new Map<String, COBPrimaryIDDocument__c>();
-    if (ocvIds.isEmpty()) {
-      return cobPIDs;
+    if (
+      ocvIds.isEmpty() ||
+      PermissionUtils.canQuery('COBPrimaryIDDocument__c') == false
+    ) {
+      return new Map<String, COBPrimaryIDDocument__c>();
     }
 
-    if (PermissionUtils.canQuery('COBPrimaryIDDocument__c')) {
-      //getting max COB PID records createdDate for each cobAppId
-      List<CustomerOnboardingApplication__c> cobApps = [
-        SELECT
-          OCVId__c,
-          (
-            SELECT
-              Id,
-              IdDocumentType__c,
-              CustomerOnboardingApplication__c,
-              FirstName__c,
-              FirstNameOCRServer__c,
-              FirstNameOCRMatch__c,
-              MiddleNames__c,
-              MiddleNamesOCRServer__c,
-              MiddleNamesOCRMatch__c,
-              LastName__c,
-              LastNameOCRServer__c,
-              LastNameOCRMatch__c,
-              LicenceNumberOCRMatch__c,
-              LicenceCardNumberOCRMatch__c,
-              PassportNumberOCRMatch__c,
-              DateOfBirthOCRMatch__c,
-              ExpiryDateOCRMatch__c
-            FROM COBPrimaryIDDocuments__r
-            ORDER BY CreatedDate DESC
-          )
-        FROM CustomerOnboardingApplication__c
-        WHERE OCVId__c IN :ocvIds
-      ];
+    Map<String, COBPrimaryIDDocument__c> cobPIDs = new Map<String, COBPrimaryIDDocument__c>();
+    //getting max COB PID records createdDate for each cobAppId
+    List<CustomerOnboardingApplication__c> cobApps = [
+      SELECT
+        OCVId__c,
+        (
+          SELECT
+            Id,
+            IdDocumentType__c,
+            CustomerOnboardingApplication__c,
+            FirstName__c,
+            FirstNameOCRServer__c,
+            FirstNameOCRMatch__c,
+            MiddleNames__c,
+            MiddleNamesOCRServer__c,
+            MiddleNamesOCRMatch__c,
+            LastName__c,
+            LastNameOCRServer__c,
+            LastNameOCRMatch__c,
+            LicenceNumberOCRMatch__c,
+            LicenceCardNumberOCRMatch__c,
+            PassportNumberOCRMatch__c,
+            DateOfBirthOCRMatch__c,
+            ExpiryDateOCRMatch__c
+          FROM COBPrimaryIDDocuments__r
+          ORDER BY CreatedDate DESC
+        )
+      FROM CustomerOnboardingApplication__c
+      WHERE OCVId__c IN :ocvIds
+    ];
 
-      for (CustomerOnboardingApplication__c cobApp : cobApps) {
-        if (!cobApp.COBPrimaryIDDocuments__r.isEmpty()) {
-          cobPIDs.put(cobApp.OCVId__c, cobApp.COBPrimaryIDDocuments__r[0]);
-        }
+    for (CustomerOnboardingApplication__c cobApp : cobApps) {
+      if (!cobApp.COBPrimaryIDDocuments__r.isEmpty()) {
+        cobPIDs.put(cobApp.OCVId__c, cobApp.COBPrimaryIDDocuments__r[0]);
       }
     }
 
+    Logger.debug('COB Primary ID Documents: ' + cobPIDs);
+    Logger.saveLog();
     return cobPIDs;
   }
 
@@ -140,31 +145,35 @@ public with sharing class COBApplicationActionsHelper {
     Set<String> ocvIds,
     String addressType
   ) {
-    Map<String, COBAddress__c> cobAppIdAddresses = new Map<String, COBAddress__c>();
-    if (ocvIds.isEmpty()) {
-      return cobAppIdAddresses;
+    if (
+      ocvIds.isEmpty() || PermissionUtils.canQuery('COBAddress__c') == false
+    ) {
+      return new Map<String, COBAddress__c>();
     }
 
-    if (PermissionUtils.canQuery('COBAddress__c')) {
-      List<CustomerOnboardingApplication__c> cobApps = [
-        SELECT
-          OCVId__c,
-          (
-            SELECT Id, CustomerOnboardingApplication__c, QASAddress__c
-            FROM COBAddresses__r
-            WHERE AddressType__c = :addressType
-            ORDER BY CreatedDate DESC
-          )
-        FROM CustomerOnboardingApplication__c
-        WHERE OCVId__c IN :ocvIds
-      ];
+    Map<String, COBAddress__c> cobAppIdAddresses = new Map<String, COBAddress__c>();
+    List<CustomerOnboardingApplication__c> cobApps = [
+      SELECT
+        OCVId__c,
+        (
+          SELECT Id, CustomerOnboardingApplication__c, QASAddress__c
+          FROM COBAddresses__r
+          WHERE AddressType__c = :addressType
+          ORDER BY CreatedDate DESC
+        )
+      FROM CustomerOnboardingApplication__c
+      WHERE OCVId__c IN :ocvIds
+    ];
 
-      for (CustomerOnboardingApplication__c cobApp : cobApps) {
-        if (!cobApp.COBAddresses__r.isEmpty()) {
-          cobAppIdAddresses.put(cobApp.OCVId__c, cobApp.COBAddresses__r[0]);
-        }
+    for (CustomerOnboardingApplication__c cobApp : cobApps) {
+      if (!cobApp.COBAddresses__r.isEmpty()) {
+        cobAppIdAddresses.put(cobApp.OCVId__c, cobApp.COBAddresses__r[0]);
       }
     }
+
+    Logger.debug('COB Addressess: ' + cobAppIdAddresses);
+    Logger.saveLog();
+
     return cobAppIdAddresses;
   }
 

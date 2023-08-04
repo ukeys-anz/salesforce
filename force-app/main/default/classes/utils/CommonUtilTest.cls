@@ -131,6 +131,84 @@ public with sharing class CommonUtilTest {
   }
 
   @isTest
+  static void testFilterCasesByRecordTypeId() {
+    List<Case> cases = new List<Case>();
+
+    Integer kycQACaseCount = 2;
+
+    List<Id> recordTypes = new List<Id>{
+      GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID
+    };
+
+    for (Integer i = 0; i < kycQACaseCount; i++) {
+      recordTypes.add(GetHelpConstants.KYCQA_RT_ID);
+    }
+
+    for (Id recordType : recordTypes) {
+      cases.add(new Case(RecordTypeId = recordType));
+    }
+
+    List<Case> filteredKYCQACases = CommonUtil.filterCasesByRecordTypeId(
+      cases,
+      GetHelpConstants.KYCQA_RT_ID
+    );
+
+    Assert.areEqual(
+      kycQACaseCount,
+      filteredKYCQACases.size(),
+      'Should be ' +
+      kycQACaseCount +
+      ' filtered Cases'
+    );
+  }
+
+  static void testGetSLAProcess() {
+    SlaProcess sla = CommonUtil.getSLAProcess(
+      GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME
+    );
+
+    Assert.isNotNull(
+      sla,
+      'There should be SLA Process named ' +
+      GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME
+    );
+  }
+
+  static void testGetSLAProcessNoSlaProcessName() {
+    SlaProcess sla = CommonUtil.getSLAProcess(null);
+
+    Assert.isNull(sla, 'There should be no SLA Process found.');
+  }
+
+  static void testAddPersonAccountEntitlements() {
+    Faker faker = new Faker('AU');
+    List<Account> accs = new List<Account>();
+    Account acc = new Account(
+      FirstName = faker.person.firstName(),
+      LastName = faker.person.lastName(),
+      OCV_ID__c = faker.randomString(10),
+      ANZx_Customer__c = true,
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
+    );
+
+    accs.add(acc);
+    insert accs;
+
+    List<Entitlement> entitlements = CommonUtil.addPersonAccountEntitlements(
+      accs,
+      GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
+
+    Assert.areEqual(
+      accs.size(),
+      entitlements.size(),
+      'Should be ' +
+      accs.size() +
+      ' entitlements'
+    );
+  }
+
   static void testRemoveExtraSpaces() {
     String expected = '';
     String content = '';

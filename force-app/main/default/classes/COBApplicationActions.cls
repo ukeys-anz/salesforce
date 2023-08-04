@@ -32,7 +32,6 @@ public with sharing class COBApplicationActions {
 
     //Set KYC QA Case fields
     setKYCQAFields(records, ocvIdsKYCQACases);
-
     DMLUtil.insertRecords(ocvIdsKYCQACases.values(), false, false);
   }
 
