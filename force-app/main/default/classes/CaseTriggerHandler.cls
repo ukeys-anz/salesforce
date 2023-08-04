@@ -19,15 +19,19 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
    */
   public override void onApplyDefaults() {
+    Logger.debug('On_Apply_Default started: ' + System.now());
     IDRCaseActions.applyDefaults((List<Case>) records);
     SICaseActions.applyDefaults((List<Case>) records);
     GetHelpCaseActions.applyDefaults((List<Case>) records);
+    Logger.debug('On_Apply_Default finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
    * @description onBeforeInsert to handle before insert trigger actions.
    */
   public override void onBeforeInsert() {
+    Logger.debug('On_Before_Insert started: ' + System.now());
     GetHelpCaseActions.validateAdditionalTypes(records, null);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.setPriority(records);
@@ -42,23 +46,31 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       null
     );
+    Logger.debug('On_Before_Insert finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
    * @description onValidate() method is called before onAfterInsert to validate records or handle the records for which we need to update the values.
    */
   public override void onValidate() {
+    Logger.debug('On_Validate_before_AfterInsert started: ' + System.now());
     IDRCaseActions.afterInsert(records);
+    Logger.debug('On_Validate_before_AfterInsert finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
    * @description onAfterInsert to update the list of records which were identified in onValidate() method
    */
   public override void onAfterInsert() {
+    Logger.debug('On_After_Insert started: ' + System.now());
     IDRCaseActions.completeAfterActions();
     SICaseActions.afterInsert(records);
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
+    Logger.debug('On_After_Insert finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
@@ -66,6 +78,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_Before_Update started: ' + System.now());
     GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
@@ -109,6 +122,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
+    Logger.debug('On_Before_Update finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
@@ -116,8 +131,11 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onValidate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_Validate_before_AfterUpdate started: ' + System.now());
     IDRCaseActions.afterUpdate(oldMap, records);
     GetHelpCaseActions.afterUpdate(oldMap, records);
+    Logger.debug('On_Validate_before_AfterUpdate finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
@@ -125,6 +143,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_After_Update started: ' + System.now());
     IDRCaseActions.completeAfterActions();
     GetHelpCaseActions.completeAfterActions();
     SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
@@ -145,12 +164,15 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       (Map<Id, Case>) oldMap
     );
+    Logger.debug('On_After_Update finished: ' + System.now());
+    Logger.saveLog();
   }
 
   /**
    * @description onBeforeDelete
    */
   public override void onBeforeDelete() {
+    Logger.debug('On_Before_Delete started: ' + System.now());
     IDRCaseActions.onBeforeDelete(records);
     if (!System.isFuture()) {
       Set<Id> bugIdSet = new Set<Id>();
@@ -161,5 +183,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       }
       GetHelpCaseActions.futureRollupRelatedBug(bugIdSet);
     }
+    Logger.debug('On_Before_Delete finished: ' + System.now());
+    Logger.saveLog();
   }
 }

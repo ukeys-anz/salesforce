@@ -74,14 +74,14 @@ public with sharing class IDRCaseCommentsNotificationManager {
               ? caseRec.IDR_NC_Last_Name__c
               : ''))
           : '';
-        String subjectStr = IDRConstants.TASK_CORRESPONDENCE_SUBJECT +
-            ' ' +
-            UserInfo.getName() +
-            ' on case ' +
-            caseRec.CaseNumber;
+        String subjectStr =
+          IDRConstants.TASK_CORRESPONDENCE_SUBJECT +
+          ' ' +
+          UserInfo.getName() +
+          ' on case ' +
+          caseRec.CaseNumber;
         if (customerName != '') {
-          subjectStr += ' ' +
-          customerName;
+          subjectStr += ' ' + customerName;
         }
         if (
           caseRec.OwnerId != record.CreatedById &&

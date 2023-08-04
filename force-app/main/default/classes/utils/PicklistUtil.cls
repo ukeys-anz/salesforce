@@ -5,14 +5,13 @@
  * @group Utility
  */
 public class PicklistUtil {
-
   private static PicklistCache getCachedPicklist(
     String objectName,
     String picklistName
   ) {
-    if ( Test.isRunningTest()) {
-      return (new PicklistUtil.PicklistCache()).doLoad(
-      objectName + '-' + picklistName);
+    if (Test.isRunningTest()) {
+      return (new PicklistUtil.PicklistCache())
+        .doLoad(objectName + '-' + picklistName);
     }
     return ((PicklistCache) Cache.Org.get(
       PicklistCache.class,
@@ -42,7 +41,7 @@ public class PicklistUtil {
    * @param picklistName picklist field API name
    * @return `Map<String, List<String>>` a map of controlling picklist value, to a list of dependent values
    */
-  public static Map<String, List<Map<String,String>>> getCachedOmniPicklistMap(
+  public static Map<String, List<Map<String, String>>> getCachedOmniPicklistMap(
     String objectName,
     String picklistName
   ) {
@@ -50,8 +49,8 @@ public class PicklistUtil {
   }
 
   /**
-  * @description cacheable PicklistEntry class
-  */
+   * @description cacheable PicklistEntry class
+   */
   class PicklistEntryCacheable {
     public String label;
     public String value;
@@ -102,7 +101,10 @@ public class PicklistUtil {
           lstValues = new List<String>();
           parentList.put(strChild, lstValues);
         }
-        for (PicklistEntryCacheable peParent : mpChild2Parent.get(strChild).controlling) {
+        for (
+          PicklistEntryCacheable peParent : mpChild2Parent.get(strChild)
+            .controlling
+        ) {
           lstValues.add(peParent.value);
         }
       }
@@ -113,7 +115,7 @@ public class PicklistUtil {
      * @description Interpretation of mpChild2Parent usable by Omni callers
      * @return Map of parent values to list of key/values pairs for children
      */
-    public Map<String, List<Map<String,String>>> getOmniChildList() {
+    public Map<String, List<Map<String, String>>> getOmniChildList() {
       // Return a Parent to Child list in Omni format
       Map<String, List<Map<String, String>>> omniChildList = new Map<String, List<Map<String, String>>>();
       PicklistDependency pdChild;
@@ -125,10 +127,12 @@ public class PicklistUtil {
             lstValues = new List<Map<String, String>>();
             omniChildList.put(peParent.value, lstValues);
           }
-          lstValues.add(new Map<String, String>{
-          'name' => pdChild.self.value,
-          'value' => pdChild.self.label
-          });
+          lstValues.add(
+            new Map<String, String>{
+              'name' => pdChild.self.value,
+              'value' => pdChild.self.label
+            }
+          );
         }
       }
       return omniChildList;
@@ -144,7 +148,10 @@ public class PicklistUtil {
       System.debug('doLoad');
       String objectName = picklistKey.split('-')[0];
       String picklistName = picklistKey.split('-')[1];
-      mpChild2Parent = PicklistUtil.getPicklistDependencyMap(objectName, picklistName);
+      mpChild2Parent = PicklistUtil.getPicklistDependencyMap(
+        objectName,
+        picklistName
+      );
       System.debug('this: ' + JSON.serialize(this));
       return this;
     }
@@ -211,9 +218,7 @@ public class PicklistUtil {
       ) {
         PicklistEntry controlValue = (controlValues == null
           ? null
-          : (controlValues[index].isActive()
-              ? controlValues[index]
-              : null));
+          : (controlValues[index].isActive() ? controlValues[index] : null));
         Integer bitIndex = index / 6;
         if (bitIndex > base64chars.size() - 1) {
           break;
