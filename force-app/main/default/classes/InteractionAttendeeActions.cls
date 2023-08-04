@@ -300,6 +300,7 @@ public with sharing class InteractionAttendeeActions {
       }
     }
 
-    DMLUtil.insertRecords(lstInteractAttend, false, true);
+    //This code creates interaction attendee in system mode using Twilio API user with limited access
+    DMLUtil.insertRecords(lstInteractAttend, false, false);
   }
 }
