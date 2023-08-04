@@ -2655,7 +2655,7 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       System.assert(false, 'Failed to create dispute case');
     }
-    
+
     String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
     theCase = Database.query(
       'Select Id, ' +
