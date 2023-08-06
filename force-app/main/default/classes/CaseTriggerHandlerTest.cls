@@ -3290,6 +3290,7 @@ private class CaseTriggerHandlerTest {
     User usr = TestUtil.getUserByFirstName('IntegrationTest');
     Case theCase;
     System.runAs(usr) {
+      Test.startTest();
       theCase = TestDataFactory.createCase(recordTypeDeveloperName);
       theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
       theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
@@ -3309,7 +3310,6 @@ private class CaseTriggerHandlerTest {
       );
       insert externalCaseStatus;
 
-      Test.startTest();
       theCase.Status = 'Closed';
       update theCase;
       Test.stopTest();
