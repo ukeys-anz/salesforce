@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_AFCA_Sub_issue_Type__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>Sub categorisation of AFCA issue</description>
+    <externalId>false</externalId>
+    <label>AFCA Sub-issue Type</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_AFCA_Issue_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Failure to active in the client&apos;s best interest</fullName>
+                <default>false</default>
+                <label>Failure to active in the client&apos;s best interest</label>
+            </value>
+            <value>
+                <fullName>Failure to prioritise client’s interests</fullName>
+                <default>false</default>
+                <label>Failure to prioritise client’s interests</label>
+            </value>
+            <value>
+                <fullName>Failure to provide advice</fullName>
+                <default>false</default>
+                <label>Failure to provide advice</label>
+            </value>
+            <value>
+                <fullName>Inappropriate advice</fullName>
+                <default>false</default>
+                <label>Inappropriate advice</label>
+            </value>
+            <value>
+                <fullName>Break Costs</fullName>
+                <default>false</default>
+                <label>Break Costs</label>
+            </value>
+            <value>
+                <fullName>Deductible or excess</fullName>
+                <default>false</default>
+                <label>Deductible or excess</label>
+            </value>
+            <value>
+                <fullName>Incorrect commissions</fullName>
+                <default>false</default>
+                <label>Incorrect commissions</label>
+            </value>
+            <value>
+                <fullName>Incorrect fees/costs</fullName>
+                <default>false</default>
+                <label>Incorrect fees/costs</label>
+            </value>
+            <value>
+                <fullName>Incorrect interest added</fullName>
+                <default>false</default>
+                <label>Incorrect interest added</label>
+            </value>
+            <value>
+                <fullName>Incorrect premiums</fullName>
+                <default>false</default>
+                <label>Incorrect premiums</label>
+            </value>
+            <value>
+                <fullName>Incorrect tax</fullName>
+                <default>false</default>
+                <label>Incorrect tax</label>
+            </value>
+            <value>
+                <fullName>No claim bonus</fullName>
+                <default>false</default>
+                <label>No claim bonus</label>
+            </value>
+            <value>
+                <fullName>Incorrect/inappropriate advice</fullName>
+                <default>false</default>
+                <label>Incorrect/inappropriate advice</label>
+            </value>
+            <value>
+                <fullName>Incorrect/inappropriate data collection</fullName>
+                <default>false</default>
+                <label>Incorrect/inappropriate data collection</label>
+            </value>
+            <value>
+                <fullName>Incorrect/inappropriate data correction</fullName>
+                <default>false</default>
+                <label>Incorrect/inappropriate data correction</label>
+            </value>
+            <value>
+                <fullName>Incorrect/inappropriate data maintenance</fullName>
+                <default>false</default>
+                <label>Incorrect/inappropriate data maintenance</label>
+            </value>
+            <value>
+                <fullName>Incorrect/inappropriate data use or disclosure</fullName>
+                <default>false</default>
+                <label>Incorrect/inappropriate data use or disclosure</label>
+            </value>
+            <value>
+                <fullName>Other CDR issue</fullName>
+                <default>false</default>
+                <label>Other CDR issue</label>
+            </value>
+            <value>
+                <fullName>Security and Destruction/De-identification</fullName>
+                <default>false</default>
+                <label>Security and Destruction/De-identification</label>
+            </value>
+            <value>
+                <fullName>Credit Enquiry</fullName>
+                <default>false</default>
+                <label>Credit Enquiry</label>
+            </value>
+            <value>
+                <fullName>Credit Score</fullName>
+                <default>false</default>
+                <label>Credit Score</label>
+            </value>
+            <value>
+                <fullName>Default listing</fullName>
+                <default>false</default>
+                <label>Default listing</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Repayment History Information</fullName>
+                <default>false</default>
+                <label>Repayment History Information</label>
+            </value>
+            <value>
+                <fullName>Break costs disclosure</fullName>
+                <default>false</default>
+                <label>Break costs disclosure</label>
+            </value>
+            <value>
+                <fullName>Fee disclosure</fullName>
+                <default>false</default>
+                <label>Fee disclosure</label>
+            </value>
+            <value>
+                <fullName>Incorrect product/service information</fullName>
+                <default>false</default>
+                <label>Incorrect product/service information</label>
+            </value>
+            <value>
+                <fullName>Insufficient product/service information</fullName>
+                <default>false</default>
+                <label>Insufficient product/service information</label>
+            </value>
+            <value>
+                <fullName>Misleading product/service information</fullName>
+                <default>false</default>
+                <label>Misleading product/service information</label>
+            </value>
+            <value>
+                <fullName>Decline of financial difficulty request</fullName>
+                <default>false</default>
+                <label>Decline of financial difficulty request</label>
+            </value>
+            <value>
+                <fullName>Default judgement obtained</fullName>
+                <default>false</default>
+                <label>Default judgement obtained</label>
+            </value>
+            <value>
+                <fullName>Default notice</fullName>
+                <default>false</default>
+                <label>Default notice</label>
+            </value>
+            <value>
+                <fullName>Financial firm failure to respond to request for assistance</fullName>
+                <default>false</default>
+                <label>Financial firm failure to respond to request for assistance</label>
+            </value>
+            <value>
+                <fullName>Request to suspend enforcement proceedings</fullName>
+                <default>false</default>
+                <label>Request to suspend enforcement proceedings</label>
+            </value>
+            <value>
+                <fullName>Application for early super release declined</fullName>
+                <default>false</default>
+                <label>Application for early super release declined</label>
+            </value>
+            <value>
+                <fullName>Appropriate Lending</fullName>
+                <default>false</default>
+                <label>Appropriate Lending</label>
+            </value>
+            <value>
+                <fullName>Cancellation of policy</fullName>
+                <default>false</default>
+                <label>Cancellation of policy</label>
+            </value>
+            <value>
+                <fullName>Claim amount</fullName>
+                <default>false</default>
+                <label>Claim amount</label>
+            </value>
+            <value>
+                <fullName>Death benefit distribution</fullName>
+                <default>false</default>
+                <label>Death benefit distribution</label>
+            </value>
+            <value>
+                <fullName>Denial of application or variation request</fullName>
+                <default>false</default>
+                <label>Denial of application or variation request</label>
+            </value>
+            <value>
+                <fullName>Denial of claim</fullName>
+                <default>false</default>
+                <label>Denial of claim</label>
+            </value>
+            <value>
+                <fullName>Denial of claim- Complainant non-disclosure</fullName>
+                <default>false</default>
+                <label>Denial of claim- Complainant non-disclosure</label>
+            </value>
+            <value>
+                <fullName>Denial of claim- Driving under influence</fullName>
+                <default>false</default>
+                <label>Denial of claim- Driving under influence</label>
+            </value>
+            <value>
+                <fullName>Denial of claim- Exclusion/condition</fullName>
+                <default>false</default>
+                <label>Denial of claim- Exclusion/condition</label>
+            </value>
+            <value>
+                <fullName>Denial of claim-Fraudulent claim</fullName>
+                <default>false</default>
+                <label>Denial of claim-Fraudulent claim</label>
+            </value>
+            <value>
+                <fullName>Denial of claim- No policy or contract</fullName>
+                <default>false</default>
+                <label>Denial of claim- No policy or contract</label>
+            </value>
+            <value>
+                <fullName>Denial of claim- no proof of loss</fullName>
+                <default>false</default>
+                <label>Denial of claim- no proof of loss</label>
+            </value>
+            <value>
+                <fullName>Family law division of super benefit</fullName>
+                <default>false</default>
+                <label>Family law division of super benefit</label>
+            </value>
+            <value>
+                <fullName>Inappropriate debt collection action</fullName>
+                <default>false</default>
+                <label>Inappropriate debt collection action</label>
+            </value>
+            <value>
+                <fullName>Inappropriate margin call notice and/or investment liquidation</fullName>
+                <default>false</default>
+                <label>Inappropriate margin call notice and/or investment liquidation</label>
+            </value>
+            <value>
+                <fullName>Interpretation of product terms and conditions</fullName>
+                <default>false</default>
+                <label>Interpretation of product terms and conditions</label>
+            </value>
+            <value>
+                <fullName>Liability disputed</fullName>
+                <default>false</default>
+                <label>Liability disputed</label>
+            </value>
+            <value>
+                <fullName>Mortgagee sale</fullName>
+                <default>false</default>
+                <label>Mortgagee sale</label>
+            </value>
+            <value>
+                <fullName>Responsible lending</fullName>
+                <default>false</default>
+                <label>Responsible lending</label>
+            </value>
+            <value>
+                <fullName>Unconscionable conduct</fullName>
+                <default>false</default>
+                <label>Unconscionable conduct</label>
+            </value>
+            <value>
+                <fullName>Unfair Contract terms</fullName>
+                <default>false</default>
+                <label>Unfair Contract terms</label>
+            </value>
+            <value>
+                <fullName>Delay</fullName>
+                <default>false</default>
+                <label>Delay</label>
+            </value>
+            <value>
+                <fullName>Failure to follow instructions/agreement</fullName>
+                <default>false</default>
+                <label>Failure to follow instructions/agreement</label>
+            </value>
+            <value>
+                <fullName>Non Rules</fullName>
+                <default>false</default>
+                <label>Non Rules</label>
+            </value>
+            <value>
+                <fullName>Failure/refusal to provide access</fullName>
+                <default>false</default>
+                <label>Failure/refusal to provide access</label>
+            </value>
+            <value>
+                <fullName>Other privacy breaches</fullName>
+                <default>false</default>
+                <label>Other privacy breaches</label>
+            </value>
+            <value>
+                <fullName>Unauthorised information disclosed</fullName>
+                <default>false</default>
+                <label>Unauthorised information disclosed</label>
+            </value>
+            <value>
+                <fullName>Account administration error</fullName>
+                <default>false</default>
+                <label>Account administration error</label>
+            </value>
+            <value>
+                <fullName>Delay in claim handling</fullName>
+                <default>false</default>
+                <label>Delay in claim handling</label>
+            </value>
+            <value>
+                <fullName>Delay in complaint handling</fullName>
+                <default>false</default>
+                <label>Delay in complaint handling</label>
+            </value>
+            <value>
+                <fullName>Failure to provide special needs assistance</fullName>
+                <default>false</default>
+                <label>Failure to provide special needs assistance</label>
+            </value>
+            <value>
+                <fullName>Incorrect financial information provided</fullName>
+                <default>false</default>
+                <label>Incorrect financial information provided</label>
+            </value>
+            <value>
+                <fullName>Loss of documents / personal property</fullName>
+                <default>false</default>
+                <label>Loss of documents / personal property</label>
+            </value>
+            <value>
+                <fullName>Management of complainant details</fullName>
+                <default>false</default>
+                <label>Management of complainant details</label>
+            </value>
+            <value>
+                <fullName>Service quality</fullName>
+                <default>false</default>
+                <label>Service quality</label>
+            </value>
+            <value>
+                <fullName>Technical problems</fullName>
+                <default>false</default>
+                <label>Technical problems</label>
+            </value>
+            <value>
+                <fullName>Chargebacks- declined (consumer)</fullName>
+                <default>false</default>
+                <label>Chargebacks- declined (consumer)</label>
+            </value>
+            <value>
+                <fullName>Chargebacks- delayed (consumer)</fullName>
+                <default>false</default>
+                <label>Chargebacks- delayed (consumer)</label>
+            </value>
+            <value>
+                <fullName>Chargebacks- merchant</fullName>
+                <default>false</default>
+                <label>Chargebacks- merchant</label>
+            </value>
+            <value>
+                <fullName>Dishonoured transactions</fullName>
+                <default>false</default>
+                <label>Dishonoured transactions</label>
+            </value>
+            <value>
+                <fullName>Incorrect Payment</fullName>
+                <default>false</default>
+                <label>Incorrect Payment</label>
+            </value>
+            <value>
+                <fullName>Mistaken internet payment</fullName>
+                <default>false</default>
+                <label>Mistaken internet payment</label>
+            </value>
+            <value>
+                <fullName>Unauthorised transaction (scam)</fullName>
+                <default>false</default>
+                <label>Unauthorised transaction (scam)</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Account administration error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Delay in claim handling</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Delay in complaint handling</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Failure to provide special needs assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Incorrect financial information provided</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Loss of documents / personal property</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Management of complainant details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Service quality</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Technical problems</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Failure to active in the client&apos;s best interest</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Failure to prioritise client’s interests</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Failure to provide advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Inappropriate advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Chargebacks- declined (consumer)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Chargebacks- delayed (consumer)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Chargebacks- merchant</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Dishonoured transactions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Incorrect Payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Mistaken internet payment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Unauthorised transaction (scam)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>Break Costs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>Deductible or excess</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>Incorrect commissions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>Incorrect fees/costs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>Incorrect interest added</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>Incorrect premiums</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>Incorrect tax</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>No claim bonus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Data Rights</controllingFieldValue>
+            <valueName>Incorrect/inappropriate advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Data Rights</controllingFieldValue>
+            <valueName>Incorrect/inappropriate data collection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Data Rights</controllingFieldValue>
+            <valueName>Incorrect/inappropriate data correction</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Data Rights</controllingFieldValue>
+            <valueName>Incorrect/inappropriate data maintenance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Data Rights</controllingFieldValue>
+            <valueName>Incorrect/inappropriate data use or disclosure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Data Rights</controllingFieldValue>
+            <valueName>Other CDR issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Consumer Data Rights</controllingFieldValue>
+            <valueName>Security and Destruction/De-identification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Reporting</controllingFieldValue>
+            <valueName>Credit Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Reporting</controllingFieldValue>
+            <valueName>Credit Score</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Reporting</controllingFieldValue>
+            <valueName>Default listing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Reporting</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Credit Reporting</controllingFieldValue>
+            <valueName>Repayment History Information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disclosure</controllingFieldValue>
+            <valueName>Break costs disclosure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disclosure</controllingFieldValue>
+            <valueName>Fee disclosure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disclosure</controllingFieldValue>
+            <valueName>Incorrect product/service information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disclosure</controllingFieldValue>
+            <valueName>Insufficient product/service information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Disclosure</controllingFieldValue>
+            <valueName>Misleading product/service information</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Difficulty</controllingFieldValue>
+            <valueName>Decline of financial difficulty request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Difficulty</controllingFieldValue>
+            <valueName>Default judgement obtained</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Difficulty</controllingFieldValue>
+            <valueName>Default notice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Difficulty</controllingFieldValue>
+            <valueName>Financial firm failure to respond to request for assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Difficulty</controllingFieldValue>
+            <valueName>Request to suspend enforcement proceedings</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Application for early super release declined</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Appropriate Lending</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Cancellation of policy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Claim amount</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Death benefit distribution</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of application or variation request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of claim</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of claim- Complainant non-disclosure</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of claim- Driving under influence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of claim- Exclusion/condition</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of claim-Fraudulent claim</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of claim- No policy or contract</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of claim- no proof of loss</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Family law division of super benefit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Inappropriate debt collection action</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Inappropriate margin call notice and/or investment liquidation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Interpretation of product terms and conditions</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Liability disputed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Mortgagee sale</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Responsible lending</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Unconscionable conduct</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Unfair Contract terms</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Instructions</controllingFieldValue>
+            <valueName>Delay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Instructions</controllingFieldValue>
+            <valueName>Failure to follow instructions/agreement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Non Rules</controllingFieldValue>
+            <valueName>Non Rules</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Privacy &amp; Confidentiality</controllingFieldValue>
+            <valueName>Failure/refusal to provide access</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Privacy &amp; Confidentiality</controllingFieldValue>
+            <valueName>Other privacy breaches</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Privacy &amp; Confidentiality</controllingFieldValue>
+            <valueName>Unauthorised information disclosed</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

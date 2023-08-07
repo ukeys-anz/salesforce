@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_AFCA_Product_Line__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>AFCA Product Line categorisation</description>
+    <externalId>false</externalId>
+    <label>AFCA  Product Line</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Credit</fullName>
+                <default>false</default>
+                <label>Credit</label>
+            </value>
+            <value>
+                <fullName>Deposit Taking</fullName>
+                <default>false</default>
+                <label>Deposit Taking</label>
+            </value>
+            <value>
+                <fullName>Payment Systems</fullName>
+                <default>false</default>
+                <label>Payment Systems</label>
+            </value>
+            <value>
+                <fullName>Investments</fullName>
+                <default>false</default>
+                <label>Investments</label>
+            </value>
+            <value>
+                <fullName>Life Insurance</fullName>
+                <default>false</default>
+                <label>Life Insurance</label>
+            </value>
+            <value>
+                <fullName>General Insurance</fullName>
+                <default>false</default>
+                <label>General Insurance</label>
+            </value>
+            <value>
+                <fullName>Traditional Trustee Services</fullName>
+                <default>false</default>
+                <label>Traditional Trustee Services</label>
+            </value>
+            <value>
+                <fullName>Non Rules</fullName>
+                <default>false</default>
+                <label>Non Rules</label>
+            </value>
+            <value>
+                <fullName>Superannuation</fullName>
+                <default>false</default>
+                <label>Superannuation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
