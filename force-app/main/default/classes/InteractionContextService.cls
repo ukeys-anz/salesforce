@@ -11,6 +11,8 @@ global with sharing class InteractionContextService {
   global static final String CHAT_INTERACTION_TYPE = 'chat';
   global static final String INBOUND_DIRECTION = 'Inbound';
   global static final String OUTBOUND_DIRECTION = 'Outbound';
+  global static final String DEFAULT_CHAT_FOR = 'Customer';
+  global static final String DEFAULT_CHAT_AUTHENTICATED_METHOD = 'Authenticated';
   public static Map<String, String> supportTopicMap = new Map<String, String>();
 
   /**
@@ -447,6 +449,9 @@ global with sharing class InteractionContextService {
         interactContextRequest.issueSubtype
       );
       intToInsert.AccountId = accountsMap.get(interactContextRequest.ocvId);
+      intToInsert.Authentication_Method__c = DEFAULT_CHAT_AUTHENTICATED_METHOD;
+      intToInsert.Interaction_Purpose__c = DEFAULT_CHAT_FOR;
+
       listOfInteractionsToCreate.add(intToInsert);
     } else if (
       interactContextRequest.type.toLowerCase() == CALL_INTERACTION_TYPE
