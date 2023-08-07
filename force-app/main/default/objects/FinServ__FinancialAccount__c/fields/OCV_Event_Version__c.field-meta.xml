@@ -3,6 +3,7 @@
     <fullName>OCV_Event_Version__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - OCV</complianceGroup>
+    <defaultValue>1</defaultValue>
     <description>Financial account event version received from OCV</description>
     <externalId>false</externalId>
     <label>OCV Event Version</label>

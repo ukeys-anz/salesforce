@@ -1422,6 +1422,7 @@
         "FinServ__InterestRate__c",
         "FinServ__OpenDate__c",
         "FinServ__Status__c",
+        "Number_Of_Signatures__c",
         "Interest_Accrued__c",
         "Total_Number_of_Cards__c",
         "lastUpdatedDateTime__c",
@@ -1435,7 +1436,8 @@
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
         "System_Record_Status__c"
-      ]
+      ],
+      "IA-2468715": ["Force_Update__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [

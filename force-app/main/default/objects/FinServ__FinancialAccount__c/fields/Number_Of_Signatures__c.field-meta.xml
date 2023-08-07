@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_Of_Signatures__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_OCV</complianceGroup>
+    <description>The number of signatures required on joint accounts for events requiring additional authorisation.</description>
+    <externalId>false</externalId>
+    <label>Number Of Signatures</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>0</fullName>
+                <default>false</default>
+                <label>Not Applicable</label>
+            </value>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>Anyone to Sign</label>
+            </value>
+            <value>
+                <fullName>2</fullName>
+                <default>false</default>
+                <label>Both/All to Sign</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>Refer to Account Signing Authority</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
