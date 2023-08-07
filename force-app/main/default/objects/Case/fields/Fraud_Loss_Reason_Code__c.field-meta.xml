@@ -76,6 +76,11 @@
                 <default>false</default>
                 <label>Falcon Alerted Only</label>
             </value>
+            <value>
+                <fullName>Funds never Received</fullName>
+                <default>false</default>
+                <label>Funds never Received</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

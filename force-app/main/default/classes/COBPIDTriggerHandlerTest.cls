@@ -32,6 +32,8 @@ public with sharing class COBPIDTriggerHandlerTest {
 
   private static final Integer SIZE = Integer.valueOf(Label.Test_Bulk_Size);
 
+  private static final String EMPTY_STR = '';
+
   @TestSetup
   private static void makeData() {
     List<CustomerOnboardingApplication__c> cobApps = new List<CustomerOnboardingApplication__c>();
@@ -158,6 +160,64 @@ public with sharing class COBPIDTriggerHandlerTest {
       cobPids[i].LastNameOCRServer__c = SERVER_OCR_NON_MATCHING_LAST_NAME;
       cobPids[i]
         .DateOfBirthOCRServer__c = SERVER_OCR_NON_MATCHING_DATE_OF_BIRTH;
+    }
+
+    insert cobPids;
+
+    Test.startTest();
+    update cobPids;
+    Test.stopTest();
+
+    //get updated COB Primary ID Documents
+    List<COBPrimaryIDDocument__c> updatedCobPids = getCobPid();
+
+    Assert.isFalse(
+      updatedCobPids[0].LicenceNumberOCRMatch__c,
+      'Licence Number OCR Match should be false'
+    );
+
+    Assert.isFalse(
+      updatedCobPids[0].LicenceCardNumberOCRMatch__c,
+      'Licence Card Number OCR Match should be false'
+    );
+
+    Assert.isFalse(
+      updatedCobPids[0].PassportNumberOCRMatch__c,
+      'Passport Number OCR Match should be false'
+    );
+
+    Assert.isFalse(
+      updatedCobPids[0].FirstNameOCRMatch__c,
+      'First Name OCR Match should be false'
+    );
+
+    Assert.isFalse(
+      updatedCobPids[0].MiddleNamesOCRMatch__c,
+      'Middle Names OCR Match should be false'
+    );
+
+    Assert.isFalse(
+      updatedCobPids[0].LastNameOCRMatch__c,
+      'Last Name OCR Match should be false'
+    );
+
+    Assert.isFalse(
+      updatedCobPids[0].DateofBirthOCRMatch__c,
+      'Date Of Birth OCR Match should be false'
+    );
+  }
+
+  @isTest
+  public static void testSetOCRMatchOnBeforeUpdateWithEmptyNonOCR() {
+    List<COBPrimaryIDDocument__c> cobPids = createCobPid();
+    for (Integer i = 0; i < SIZE; i++) {
+      cobPids[i].LicenceNumber__c = EMPTY_STR;
+      cobPids[i].LicenceCardNumber__c = EMPTY_STR;
+      cobPids[i].PassportNumber__c = EMPTY_STR;
+      cobPids[i].FirstName__c = EMPTY_STR;
+      cobPids[i].MiddleNames__c = EMPTY_STR;
+      cobPids[i].LastName__c = EMPTY_STR;
+      cobPids[i].DateOfBirth__c = null;
     }
 
     insert cobPids;

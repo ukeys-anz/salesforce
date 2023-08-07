@@ -17,6 +17,7 @@
     <queue>COB_ID_Ops_Assistance_Queue</queue>
     <sharedTo>
         <role>Business_Admin</role>
+        <role>Card_Dispute_Agent</role>
         <role>FraudX_Agent</role>
         <role>Join_Lead</role>
     </sharedTo>

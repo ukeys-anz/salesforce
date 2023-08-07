@@ -95,8 +95,7 @@ changeMetadata force-app/main/default/applications/Coaches_Console.app-meta.xml 
 changeMetadata force-app/main/default/objects/Case/fields/IDR_NC_State__c.field-meta.xml IDRNCState
 changeMetadata force-app/main/default/objects/Case/fields/OnboardingVerificationFailedReason__c.field-meta.xml OnboardingVerificationFailedReason
 changeMetadata force-app/main/default/settings/Address.settings-meta.xml AddressSettings
-changeMetadata force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml SIWorkflow 
-changeMetadata force-app/main/default/permissionsets/Mvision_Permissions.permissionset-meta.xml Mvision
+changeMetadata force-app/main/default/objects/Case/fields/SI_Workflow_Step__c.field-meta.xml SIWorkflow
 changeMetadata force-app/main/default/permissionsets/Read_Only_Admin.permissionset-meta.xml readOnly
 changeMetadata force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml sfdxDeploy
 changeMetadata force-app/main/default/permissionsets/SFDX_Snapshots.permissionset-meta.xml sfdxSnap

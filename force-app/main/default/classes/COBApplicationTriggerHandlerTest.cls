@@ -7,6 +7,8 @@
 public with sharing class COBApplicationTriggerHandlerTest {
   private static final Faker FAKER = new Faker('AU');
 
+  private static final String EMPTY_STR = '';
+
   private static final String OCV_ID1 = '0123456789';
   private static final String OCV_ID2 = '9876543210';
   private static final String OCV_ID3 = '1237894560';
@@ -17,26 +19,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
     OCV_ID3
   };
 
-  //The number of Accounts with OCV IDS can be less or equal to OCV_IDS_COUNT
-  private static final List<String> LINKED_OCV_IDS = new List<String>{
-    OCV_ID1
-  };
-
   private static final Integer OCV_IDS_COUNT = OCV_IDS.size();
-
-  private static final String NON_OCR_MIDDLE_NAME = 'Hunky Dory';
-  private static final String MATCHING_SERVER_OCR_MIDDLE_NAME = 'Hunky Dory';
-  private static final String NON_MATCHING_SERVER_OCR_MIDDLE_NAME = 'Hunky Mory';
-
-  private static final List<String> MATCHING_MIDDLE_NAMES = new List<String>{
-    NON_OCR_MIDDLE_NAME,
-    MATCHING_SERVER_OCR_MIDDLE_NAME
-  };
-
-  private static final List<String> NON_MATCHING_MIDDLE_NAMES = new List<String>{
-    NON_OCR_MIDDLE_NAME,
-    NON_MATCHING_SERVER_OCR_MIDDLE_NAME
-  };
 
   private static final Map<String, String> OCV_ID_MIDDLE_NAME_TEST = new Map<String, String>{
     OCV_ID1 => COBApplicationActions.YES,
@@ -56,12 +39,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
     OCV_ID3 => COBApplicationActions.NONE
   };
 
-  private static final Map<String, List<String>> OCV_ID_MIDDLE_NAME_MATCHING = new Map<String, List<String>>{
-    OCV_ID1 => MATCHING_MIDDLE_NAMES,
-    OCV_ID2 => MATCHING_MIDDLE_NAMES,
-    OCV_ID3 => NON_MATCHING_MIDDLE_NAMES
-  };
-
   @testSetup
   static void setup() {
     User integrationUser = createTestUsers();
@@ -77,28 +54,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
       }
       insert cobPIDs;
       insert cobAddresses;
-    }
-
-    //Create Person Accounts
-    User thisUser = new User(Id = UserInfo.getUserId());
-    System.runAs(thisUser) {
-      List<AccountShare> accountShareRecords = new List<AccountShare>();
-      List<Account> accounts = createPersonAccounts();
-      // Criteria-based sharing rule cannot be tested using Apex, hence manually created AccountShare records
-      // so Customer Onboarding Integration User can query accounts in test context
-      for (Account acc : accounts) {
-        accountShareRecords.add(
-          new AccountShare(
-            AccountId = acc.Id,
-            RowCause = Schema.Accountshare.RowCause.Manual,
-            UserOrGroupId = integrationUser.Id,
-            AccountAccessLevel = 'Read',
-            OpportunityAccessLevel = 'None',
-            CaseAccessLevel = 'None'
-          )
-        );
-      }
-      insert accountShareRecords;
     }
   }
 
@@ -155,7 +110,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
         OCVId__c = ocvId,
         PersonaId__c = FAKER.randomString(15),
         ElectronicVerificationAcknowledged__c = false,
-        EquifaxDVSResult__c = COBApplicationActionsHelper.PASS
+        VerificationType__c = COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
       );
       cobApps.add(cobApp);
     }
@@ -164,33 +119,37 @@ public with sharing class COBApplicationTriggerHandlerTest {
     return cobApps;
   }
 
-  private static List<Account> createPersonAccounts() {
-    List<Account> accounts = new List<Account>();
-    for (String ocvId : LINKED_OCV_IDS) {
-      Account acc = new Account(
-        FirstName = FAKER.person.firstName(),
-        LastName = FAKER.person.lastName(),
-        OCV_ID__c = ocvId,
-        ANZx_Customer__c = true,
-        RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
-      );
-      accounts.add(acc);
-    }
-
-    insert accounts;
-    return accounts;
-  }
-
   private static COBPrimaryIDDocument__c createCOBPid(
     CustomerOnboardingApplication__c cobApp
   ) {
     COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
     cobPid.CustomerOnboardingApplication__c = cobApp.Id;
 
-    cobPid.MiddleNames__c = OCV_ID_MIDDLE_NAME_MATCHING.get(cobApp.OCVId__c)[0];
-    cobPid.MiddleNamesOCRServer__c = OCV_ID_MIDDLE_NAME_MATCHING.get(
-      cobApp.OCVId__c
-    )[1];
+    Boolean isMiddleNameMatched = OCV_ID_MIDDLE_NAME_TEST.get(
+        cobApp.OCVId__c
+      ) == COBApplicationActions.YES
+      ? true
+      : false;
+
+    cobPid.FirstName__c = isMiddleNameMatched
+      ? FAKER.randomString(5)
+      : EMPTY_STR;
+    cobPid.FirstNameOCRServer__c = isMiddleNameMatched
+      ? cobPid.FirstName__c
+      : EMPTY_STR;
+    cobPid.LastName__c = isMiddleNameMatched
+      ? FAKER.randomString(5)
+      : EMPTY_STR;
+    cobPid.LastNameOCRServer__c = isMiddleNameMatched
+      ? cobPid.LastName__c
+      : EMPTY_STR;
+    cobPid.MiddleNames__c = isMiddleNameMatched
+      ? FAKER.randomString(5)
+      : EMPTY_STR;
+    cobPid.MiddleNamesOCRMatch__c = isMiddleNameMatched;
+    cobPid.MiddleNamesOCRServer__c = isMiddleNameMatched
+      ? cobPid.MiddleNames__c
+      : EMPTY_STR;
 
     Boolean isMatched = FRAUD_CUSTOMER_DETAILS_TEST.get(cobApp.OCVId__c) ==
       COBApplicationActions.YES
@@ -201,11 +160,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
     cobPid.LicenceNumberOCRServer__c = isMatched
       ? cobPid.LicenceNumber__c
       : FAKER.randomString(10);
-    cobPid.LicenceCardNumber__c = FAKER.randomString(10);
-    cobPid.LicenceCardNumberOCRServer__c = isMatched
-      ? cobPid.LicenceCardNumber__c
-      : FAKER.randomString(10);
-    cobPid.FirstName__c = FAKER.randomString(5);
 
     return cobPid;
   }
@@ -242,14 +196,6 @@ public with sharing class COBApplicationTriggerHandlerTest {
       SELECT Id, AccountId, OCV_Id__c
       FROM Case
       WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
-    ];
-  }
-
-  private static List<Case> getKYCQACasesLinkedToAccount() {
-    return [
-      SELECT Id, AccountId, OCV_Id__c
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID AND AccountId != NULL
     ];
   }
 
@@ -291,24 +237,15 @@ public with sharing class COBApplicationTriggerHandlerTest {
 
     //get all KYC QA case created
     List<Case> kycQACases = getKYCQACases();
-    //get KYC QA case linked to PersonAccount
-    List<Case> kycQACasesWithAccount = getKYCQACasesLinkedToAccount();
     Assert.areEqual(
       OCV_IDS_COUNT,
       kycQACases.size(),
       OCV_IDS_COUNT + ' new KYC QA cases should have been created.'
     );
-
-    Assert.areEqual(
-      LINKED_OCV_IDS.size(),
-      kycQACasesWithAccount.size(),
-      LINKED_OCV_IDS.size() +
-      ' new Person Account linked KYC QA case(s) should have been created.'
-    );
   }
 
   @isTest
-  public static void testCreateBaseKYCQACase() {
+  public static void testConstructBaseKYCQACase() {
     Map<Id, CustomerOnboardingApplication__c> oldMap = new Map<Id, CustomerOnboardingApplication__c>(
       getCOBApps()
     );
@@ -319,7 +256,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
       cobApp.ElectronicVerificationAcknowledged__c = true;
     }
 
-    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.createBaseKYCQACase(
+    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.constructBaseKYCQACase(
       cobApps,
       oldMap
     );
@@ -339,13 +276,13 @@ public with sharing class COBApplicationTriggerHandlerTest {
   }
 
   @isTest
-  public static void testCreateBaseKYCQACaseEmptyMap() {
+  public static void testConstructBaseKYCQACaseEmptyMap() {
     List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
     Map<Id, CustomerOnboardingApplication__c> oldMap = new Map<Id, CustomerOnboardingApplication__c>(
       cobApps
     );
 
-    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.createBaseKYCQACase(
+    Map<String, Case> ocvIdsKYCQACases = COBApplicationActions.constructBaseKYCQACase(
       cobApps,
       oldMap
     );
@@ -399,12 +336,5 @@ public with sharing class COBApplicationTriggerHandlerTest {
         QASADDRESS_TEST.get(kycQACase.OCV_Id__c)
       );
     }
-
-    Assert.areEqual(
-      LINKED_OCV_IDS.size(),
-      linkedKYCQACases.size(),
-      LINKED_OCV_IDS.size() +
-      ' new Person Account linked KYC QA case(s) should have been created.'
-    );
   }
 }

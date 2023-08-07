@@ -303,7 +303,14 @@ public with sharing class NewCaseFlowWrapperController {
             AND DeveloperName NOT IN :recordTypesToExcl
             AND Id IN :caseRecordTypeIds
         ];
-        if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
+        if (
+          !IDRConstants.DISABLE_OMNI_FOR_CMOS &&
+          !isShellCaseCRTB &&
+          CommonUtil.userPermissionCheck(
+            (Id) userInfo.getUserId(),
+            new Set<String>{ 'IDR_Level_1', 'IDR_Level_2', 'IDR_Level_3' }
+          )
+        ) {
           //Fetching 'Customer-Complaint' recodtype Id
           RecordType newrt = new RecordType(
             Id = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,

@@ -505,6 +505,7 @@ public with sharing class IDRCaseActions {
     if (
       record.IsEscalated &&
       record.Status != IDRConstants.ESCALATED_STATUS &&
+      record.Status != IDRConstants.WITHDRAWN_STATUS &&
       (String.isBlank(record.IDR_Escalation_Reason__c) ||
       record.IDR_Escalation_Reason__c == INDEXING_ESCALATION_REASON)
     ) {

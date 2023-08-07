@@ -339,6 +339,17 @@ public with sharing class IDREmailServiceTest {
       Test.startTest();
       idremserObj.handleInboundEmail(email, env);
       Test.stopTest();
+      //Task should be created for incorrect attachment types
+      List<Task> taskList = [
+        SELECT Id, Subject
+        FROM Task
+        WHERE Subject LIKE '%Email attachment has failed to upload%'
+      ];
+      System.assertEquals(
+        1,
+        taskList.size(),
+        'Email Attachment Failure Task should have been created'
+      );
       //Asserts
       List<ContentVersion> conVerList = [SELECT Id FROM ContentVersion LIMIT 1];
       System.assertEquals(0, conVerList.size(), 'There is no ContentVersion');
@@ -545,6 +556,84 @@ public with sharing class IDREmailServiceTest {
 
       System.assertEquals(1, lstCases.size(), 'Complaint not created.');
     }
+  }
+
+  @IsTest
+  static void attachmentFailureWhileCreatingCase() {
+    IDR_Email_Settings__c idrEmailSetting = new IDR_Email_Settings__c(
+      Name = 'Test_Email',
+      Inbox_Email__c = 'YourFeedback@anz.com',
+      Origin__c = 'Email',
+      Technical_Email_Address__c = 'testtechnicaladdress@testabc.com'
+    );
+    insert idrEmailSetting;
+    User contextUser = [
+      SELECT Id
+      FROM User
+      WHERE FirstName = 'ESContextUser'
+      LIMIT 1
+    ];
+    Test.startTest();
+    System.runAs(contextUser) {
+      // Create a new email and envelope object.
+      Messaging.InboundEmail email = new Messaging.InboundEmail();
+      Messaging.InboundEnvelope env = new Messaging.InboundEnvelope();
+      email.subject = 'New case creation subject test';
+      email.plainTextBody = 'Test email body.';
+      email.htmlBody = 'Test html email body.';
+      env.fromAddress = 'user@acme.com';
+
+      //Create email header
+      List<Messaging.InboundEmail.Header> emailHeaders = new List<Messaging.InboundEmail.Header>();
+      Messaging.InboundEmail.Header sendTo = new Messaging.InboundEmail.Header();
+      sendTo.name = 'To';
+      sendTo.value = 'YourFeedback@anz.com';
+      emailHeaders.add(sendTo);
+
+      Messaging.InboundEmail.Header fromEmail = new Messaging.InboundEmail.Header();
+      fromEmail.name = 'From';
+      fromEmail.value = 'testFrom@abc.com';
+      emailHeaders.add(fromEmail);
+
+      email.headers = emailHeaders;
+      //Creating text attachment
+      Messaging.InboundEmail.TextAttachment txtAtt = new Messaging.InboundEmail.TextAttachment();
+      txtAtt.body = 'This is a text Attachment body';
+      txtAtt.fileName = 'DummyDoc.txt';
+      //Non supported mime type
+      txtAtt.mimeTypeSubType = 'nonsupport/test';
+      email.textAttachments = new List<Messaging.InboundEmail.TextAttachment>{
+        txtAtt
+      };
+      //Creating binary attachment
+      Messaging.InboundEmail.BinaryAttachment binAtt = new Messaging.InboundEmail.BinaryAttachment();
+      binAtt.body = Blob.valueOf('This is a binary Attachment body');
+      binAtt.fileName = 'DummyDoc.txt';
+      //Non supported mime type
+      txtAtt.mimeTypeSubType = 'nonsupport/test';
+      email.binaryAttachments = new List<Messaging.InboundEmail.BinaryAttachment>{
+        binAtt
+      };
+
+      IDREmailService idremserObj = new IDREmailService();
+      idremserObj.handleInboundEmail(email, env);
+
+      Test.stopTest();
+    }
+
+    //Task should be created for incorrect attachment types
+    List<Task> taskList = [
+      SELECT Id, Subject
+      FROM Task
+      WHERE Subject LIKE '%Email attachment has failed to upload%'
+    ];
+
+    //Asserts
+    System.assertEquals(
+      1,
+      taskList.size(),
+      'Email Attachment Failure Task should have been created'
+    );
   }
 
   /**

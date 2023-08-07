@@ -151,6 +151,18 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingOwnerRules>
+        <fullName>ANZ_Plus_Operations_Interactions_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only access to Interactions.</description>
+        <label>ANZ_Plus_ Operations_Interactions_RO</label>
+        <sharedTo>
+            <role>ANZ_Plus_Operations_Read_Only</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Interaction_Coach_Lead_Sharing</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Interaction Coach Lead Sharing</label>

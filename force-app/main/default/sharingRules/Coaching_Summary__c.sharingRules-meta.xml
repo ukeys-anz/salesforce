@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>ANZ_Plus_Operations_Coach_Summary_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Read only access to Coaching Summary.</description>
+        <label>ANZ_Plus_ Operations_Coach_Summary_RO</label>
+        <sharedTo>
+            <role>ANZ_Plus_Operations_Read_Only</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Business_Admin_RW_ANZX</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule provides read/write access to coaching summary for business admin role</description>
