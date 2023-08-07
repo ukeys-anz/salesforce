@@ -35,6 +35,12 @@
         <aggregateTypes>Sum</aggregateTypes>
         <field>Case.Case_Age_in_Days__c</field>
     </columns>
+    <columns>
+        <field>PRIORITY</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Product_Category__c</field>
+    </columns>
     <customDetailFormulas>
         <calculatedFormula>OWNER</calculatedFormula>
         <dataType>Text</dataType>

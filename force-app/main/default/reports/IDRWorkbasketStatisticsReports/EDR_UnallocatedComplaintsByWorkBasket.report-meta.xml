@@ -5,6 +5,9 @@
         <field>CASE_NUMBER</field>
     </columns>
     <columns>
+        <field>Case.IDR_AFCA_Due_Date__c</field>
+    </columns>
+    <columns>
         <field>STATUS</field>
     </columns>
     <columns>
@@ -15,15 +18,6 @@
     </columns>
     <columns>
         <field>Case.IDR_Subsequent_Issue__c</field>
-    </columns>
-    <columns>
-        <field>Case.IDR_Escalation_Reason__c</field>
-    </columns>
-    <columns>
-        <field>Case.IDR_CFMS_Complaint_Number__c</field>
-    </columns>
-    <columns>
-        <field>Case.IDR_AFCA_Due_Date__c</field>
     </columns>
     <columns>
         <field>Case.IDR_AFCA_Status__c</field>
@@ -37,6 +31,12 @@
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>PRIORITY</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Product_Category__c</field>
     </columns>
     <customDetailFormulas>
         <calculatedFormula>IF(OR(OWNER=Case.Queue__c,OWNER=Case.IDR_Queue_Report_Label__c), 1, 0)</calculatedFormula>
@@ -105,6 +105,8 @@
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <sortColumn>Case.IDR_AFCA_Due_Date__c</sortColumn>
+    <sortOrder>Desc</sortOrder>
     <timeFrameFilter>
         <dateColumn>CREATED_DATEONLY</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
