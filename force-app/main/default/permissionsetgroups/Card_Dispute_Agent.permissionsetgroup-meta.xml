@@ -10,6 +10,7 @@
     <permissionSets>Card_Management_Coach</permissionSets>
     <permissionSets>Case_Read_Only_Fraud_Agent</permissionSets>
     <permissionSets>Case_Read_Write_Customer_Feedback</permissionSets>
+    <permissionSets>Case_Read_Write_Customer_Onboarding</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>Case_Read_Write_Get_Help</permissionSets>
     <permissionSets>Case_Read_Write_KYC_QA</permissionSets>
