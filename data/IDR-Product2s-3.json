@@ -2385,7 +2385,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref576"
       },
-      "Name": "Loan Facility (Cache)",
+      "Name": "Loan Facility(Cache)",
       "IsActive": true,
       "ANZ_Product_Code__c": "576",
       "IDR_Product_or_Service_Line__c": "5",
