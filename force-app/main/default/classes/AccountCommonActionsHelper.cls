@@ -5,7 +5,7 @@
  * @description Helper class for AccountCommonActions
  */
 
- public with sharing class AccountCommonActionsHelper {
+public with sharing class AccountCommonActionsHelper {
   /**
    * @description revertAccountFieldChanges checks if a field has been updated and revert its value to the old value
    * @param newRec The account record from Trigger.new()

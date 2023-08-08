@@ -5,7 +5,7 @@
  * @runTests AccountTriggerHandlerTest
  */
 
- public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
+public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.

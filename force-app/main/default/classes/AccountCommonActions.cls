@@ -5,7 +5,7 @@
  * @description Common Account Action methods
  */
 
-public with sharing class AccountCommonActions {
+ public with sharing class AccountCommonActions {
   // Variable used to store the account Ids into which matching leads were converted into
   // This is used to revert the changes on accounts that resulted from lead conversion process
   private static Set<Id> convertedAccountIds = new Set<Id>();
@@ -366,51 +366,5 @@ public with sharing class AccountCommonActions {
         DMLUtil.USER_MODE
       );
     }
-  }
-
-  /**
-   * @description linkCasestoAccountByOCVId link case to customer profile by OCV Id or Mobile number
-   * @param recordTypeId The Case record type Id
-   * @param records The Account records passed from Trigger.new()
-   */
-  public static void linkCasesToAccountByOCVId(
-    String recordTypeId,
-    List<Account> records
-  ) {
-    Map<String, String> ocvIdAccountIds = new Map<String, String>();
-    Map<String, String> mobileAccountIds = new Map<String, String>();
-    List<Id> accountIds = new List<Id>();
-    for (Account acc : records) {
-      if (String.isNotEmpty(acc.OCV_Id__c)) {
-        ocvIdAccountIds.put(acc.OCV_Id__c, acc.Id);
-      }
-      if (String.isNotEmpty(acc.PersonMobilePhone)) {
-        mobileAccountIds.put(acc.PersonMobilePhone, acc.Id);
-      }
-      accountIds.add(acc.Id);
-    }
-
-    List<Case> updateCases = AccountCommonActionsHelper.getCasesByOCVIdsOrMobiles(
-      ocvIdAccountIds.keySet(),
-      mobileAccountIds.keySet(),
-      recordTypeId
-    );
-
-    Map<Id, Id> accountIdEntitlmentMap = GetHelpCaseActionsHelper.getEntitlements(
-      accountIds,
-      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
-    );
-
-    for (Case c : updateCases) {
-      if (ocvIdAccountIds.containsKey(c.OCV_Id__c)) {
-        c.AccountId = ocvIdAccountIds.get(c.OCV_Id__c);
-      } else {
-        c.AccountId = mobileAccountIds.get(
-          c.CustomerOnboardingApplication__r.SecurityMobile__c
-        );
-      }
-      c.EntitlementId = accountIdEntitlmentMap.get(c.AccountId);
-    }
-    update updateCases;
   }
 }
