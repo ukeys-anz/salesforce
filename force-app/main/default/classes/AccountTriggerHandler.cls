@@ -5,7 +5,7 @@
  * @runTests AccountTriggerHandlerTest
  */
 
-public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
+ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
@@ -27,10 +27,6 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     AccountCommonActions.createEntitlement(records);
     AccountCommonActions.findAndConvertLead(records);
-    AccountCommonActions.linkCasestoAccountByOCVId(
-      GetHelpConstants.KYCQA_RT_ID,
-      records
-    );
   }
 
   /**

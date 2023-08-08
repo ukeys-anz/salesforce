@@ -52,26 +52,8 @@ public with sharing class COBApplicationActions {
     List<CustomerOnboardingApplication__c> cobApps,
     Map<String, Case> ocvIdsKycQACases
   ) {
-    setKYCQAFieldsAccount(ocvIdsKycQACases);
     setKYCQAFieldsCOBPID(cobApps, ocvIdsKycQACases);
     setKYCQAFieldsCOBAddress(ocvIdsKycQACases);
-  }
-
-  /**
-   * @description Update KYC QA case Account Id field
-   * @param ocvIdsKycQACases map of OCV id and KYC QA case
-   */
-  @TestVisible
-  private static void setKYCQAFieldsAccount(
-    Map<String, Case> ocvIdsKycQACases
-  ) {
-    Map<String, Account> accs = COBApplicationActionsHelper.getAccountsByOCVIDs(
-      ocvIdsKycQACases.keySet()
-    );
-    for (Case kycQACase : ocvIdsKycQACases.values()) {
-      Account acc = accs.get(kycQACase.OCV_Id__c);
-      kycQACase.AccountId = acc?.Id;
-    }
   }
 
   /**

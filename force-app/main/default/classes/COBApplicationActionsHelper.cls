@@ -49,33 +49,6 @@ public with sharing class COBApplicationActionsHelper {
   }
 
   /**
-   * @description Get Accounts by OCV ids
-   * @param ocvIds OCV Ids
-   * @return Map<String, Account> Map of OCV ids and Accounts
-   */
-  public static Map<String, Account> getAccountsByOCVIDs(Set<String> ocvIds) {
-    Map<String, Account> accountsByOCVIDs = new Map<String, Account>();
-
-    if (ocvIds.isEmpty()) {
-      return accountsByOCVIDs;
-    }
-
-    if (PermissionUtils.canQuery('Account')) {
-      List<Account> accs = [
-        SELECT Id, OCV_ID__c
-        FROM Account
-        WHERE OCV_ID__c IN :ocvIds
-      ];
-
-      for (Account acc : accs) {
-        accountsByOCVIDs.put(acc.OCV_ID__c, acc);
-      }
-    }
-
-    return accountsByOCVIDs;
-  }
-
-  /**
    * @description Get PID by  OCV Ids
    * @param ocvIds OCV Ids
    * @return Map<Id, COBPrimaryIDDocument__c> Map of OCV ids and COB Primary ID Documents

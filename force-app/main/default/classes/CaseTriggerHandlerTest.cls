@@ -17,21 +17,30 @@ private class CaseTriggerHandlerTest {
 
   private static final String EMPTY_FAILED_REASON = '';
 
+  private static final String MOBILE1 = '61412121212';
+  private static final String MOBILE2 = '61413131313';
+  private static final String MOBILE3 = '61415151515';
+
   private static final List<String> COB_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '61412121212',
-    '61413131313',
-    '61415151515'
+    MOBILE1,
+    MOBILE2,
+    MOBILE3
   };
 
   private static final List<String> CUSTOMER_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '+61412121212',
-    '+61413131313',
-    '+61415151515'
+    '+' + MOBILE1,
+    '+' + MOBILE2,
+    '+' + MOBILE3
   };
 
-  private static final List<String> NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
-    '+61412121219',
-    '+61413131319'
+  private static final List<String> COB_NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
+    '61499999999',
+    '61488888888'
+  };
+
+  private static final List<String> CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS = new List<String>{
+    '+61422222222',
+    '+61433333333'
   };
 
   @TestSetup
@@ -2655,7 +2664,7 @@ private class CaseTriggerHandlerTest {
     } catch (DmlException e) {
       System.assert(false, 'Failed to create dispute case');
     }
-
+    Test.stopTest();
     String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
     theCase = Database.query(
       'Select Id, ' +
@@ -2671,7 +2680,6 @@ private class CaseTriggerHandlerTest {
     theCase.Status = 'Closed';
     theCase.External_System__c = 'CARBe';
     theCase.External_Case_Id__c = 'EXTERNALCASEID000';
-    Test.stopTest();
     try {
       update theCase;
     } catch (DmlException e) {
@@ -3066,47 +3074,6 @@ private class CaseTriggerHandlerTest {
     assert();
   }
 
-  @isTest
-  static void testEntitlementInsertKYCQA() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE Display_Name__c = 'TestAccount'
-      LIMIT 1
-    ];
-
-    // WHEN a KYC QA case is created
-    Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      Type = 'KYC QA Sample',
-      AccountId = acc.Id
-    );
-
-    Test.startTest();
-    insert newCase;
-    Test.stopTest();
-
-    Case testingCase = [
-      SELECT Id, EntitlementId
-      FROM Case
-      WHERE Id = :newCase.Id
-      LIMIT 1
-    ];
-
-    Entitlement accountEntitlement = [
-      SELECT Id
-      FROM Entitlement
-      WHERE AccountId = :acc.Id
-      LIMIT 1
-    ];
-
-    Assert.areEqual(
-      accountEntitlement.Id,
-      testingCase.EntitlementId,
-      'Link Entitlement from Account to KYC QA case.'
-    );
-  }
-
   private static void createIDOpsCases(User usr) {
     List<Case> idOpsCases = new List<Case>();
 
@@ -3290,7 +3257,6 @@ private class CaseTriggerHandlerTest {
     User usr = TestUtil.getUserByFirstName('IntegrationTest');
     Case theCase;
     System.runAs(usr) {
-      Test.startTest();
       theCase = TestDataFactory.createCase(recordTypeDeveloperName);
       theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
       theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
@@ -3310,6 +3276,7 @@ private class CaseTriggerHandlerTest {
       );
       insert externalCaseStatus;
 
+      Test.startTest();
       theCase.Status = 'Closed';
       update theCase;
       Test.stopTest();
@@ -3337,9 +3304,18 @@ private class CaseTriggerHandlerTest {
       personAccsWithMobile.add(createPersonAccount(mobileNumber));
     }
 
-    for (String mobileNumber : NOT_MATCHING_MOBILE_NUMBERS) {
+    //Add COB apps with not matching mobile Numbers
+    for (String mobileNumber : COB_NOT_MATCHING_MOBILE_NUMBERS) {
       cobApps.add(createCOBApp(mobileNumber));
     }
+
+    // Add person Accounts to be linked to cases with no COB
+    List<Account> personAccountsForCasesWithNoCOB = new List<Account>();
+    for (String mobileNumber : CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS) {
+      personAccountsForCasesWithNoCOB.add(createPersonAccount(mobileNumber));
+    }
+
+    personAccsWithMobile.addAll(personAccountsForCasesWithNoCOB);
 
     insert cobApps;
     insert personAccsWithMobile;
@@ -3397,6 +3373,14 @@ private class CaseTriggerHandlerTest {
     return [SELECT Id, OwnerId FROM Case WHERE AccountId = NULL];
   }
 
+  private static List<Case> getCasesWithAccountNoCOB() {
+    return [
+      SELECT Id, OwnerId
+      FROM Case
+      WHERE AccountId != NULL AND CustomerOnboardingApplication__c = NULL
+    ];
+  }
+
   private static Account createPersonAccount(String mobileNumber) {
     Faker faker = new Faker('AU');
     Account acc = new Account(
@@ -3411,12 +3395,34 @@ private class CaseTriggerHandlerTest {
     return acc;
   }
 
+  private static List<Account> getPersonAccountByMobile(
+    List<String> mobilePhones
+  ) {
+    return [SELECT Id FROM Account WHERE PersonMobilePhone IN :mobilePhones];
+  }
+
   private static List<Case> createKYCQACases(Id caswOwnerId) {
     List<CustomerOnboardingApplication__c> cobApps = getCOBApps();
 
     List<Case> kycQACases = new List<Case>();
     for (CustomerOnboardingApplication__c cobApp : cobApps) {
       kycQACases.add(createKYCQACase(cobApp.Id, caswOwnerId));
+    }
+
+    insert kycQACases;
+    return kycQACases;
+  }
+
+  private static List<Case> createKYCQACasesWithAccountNoCOB(Id caswOwnerId) {
+    List<Account> accs = getPersonAccountByMobile(
+      CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS
+    );
+
+    List<Case> kycQACases = new List<Case>();
+    for (Account acc : accs) {
+      Case c = createKYCQACase(null, caswOwnerId);
+      c.AccountId = acc.Id;
+      kycQACases.add(c);
     }
 
     insert kycQACases;
@@ -3456,10 +3462,10 @@ private class CaseTriggerHandlerTest {
     List<Case> casesWithNoAccount = getCasesWithNoAccount();
 
     Assert.areEqual(
-      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
       casesWithNoAccount.size(),
       'Should be ' +
-      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
       ' KYC QA Cases with no Matched Person Accounts'
     );
   }
@@ -3495,10 +3501,10 @@ private class CaseTriggerHandlerTest {
     List<Case> casesWithNoAccount = getCasesWithNoAccount();
 
     Assert.areEqual(
-      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
       casesWithNoAccount.size(),
       'Should be ' +
-      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
       ' KYC QA Cases with Matched Person Accounts'
     );
   }
@@ -3535,10 +3541,10 @@ private class CaseTriggerHandlerTest {
     List<Case> casesWithNoAccount = getCasesWithNoAccount();
 
     Assert.areEqual(
-      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
       casesWithNoAccount.size(),
       'Should be ' +
-      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
       ' KYC QA Cases with Matched Person Accounts'
     );
 
@@ -3576,10 +3582,10 @@ private class CaseTriggerHandlerTest {
     List<Case> casesWithNoAccount = getCasesWithNoAccount();
 
     Assert.areEqual(
-      NOT_MATCHING_MOBILE_NUMBERS.size(),
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size(),
       casesWithNoAccount.size(),
       'Should be ' +
-      NOT_MATCHING_MOBILE_NUMBERS.size() +
+      COB_NOT_MATCHING_MOBILE_NUMBERS.size() +
       ' KYC QA Cases with Matched Person Accounts'
     );
 
@@ -3591,6 +3597,47 @@ private class CaseTriggerHandlerTest {
         'KYC QA Cases should remain in ' +
         GetHelpCaseActionsHelper.PENDING_KYC_QA_WO_CUSTOMER.Id +
         'queue'
+      );
+    }
+  }
+
+  @isTest
+  static void testLinkKYCQACasesToAccountWithCustomerCaseClosed() {
+    User usr = TestUtil.getUserByFirstName('FraudXTest');
+    // GIVEN KYC Case in Pending KYC QA Queue with Customer and no COB
+    List<Case> kycQACases = createKYCQACasesWithAccountNoCOB(
+      COBApplicationActionsHelper.PENDING_KYC_QA_QUEUE.Id
+    );
+
+    // WHEN Change Status to CLOSED
+    for (Case kycQACase : kycQACases) {
+      kycQACase.OwnerId = usr.Id;
+      kycQACase.Status = GetHelpConstants.CLOSED_STATUS;
+      kycQACase.Sub_Status__c = 'No Defect';
+    }
+
+    Test.startTest();
+    update kycQACases;
+    Test.stopTest();
+
+    // THEN KYC QA Cases will not be re-linked
+    List<Case> casesWithAccountNoCOB = getCasesWithAccountNoCOB();
+
+    Assert.areEqual(
+      CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS.size(),
+      casesWithAccountNoCOB.size(),
+      'Should be ' +
+      CUSTOMER_NOT_MATCHING_MOBILE_NUMBERS.size() +
+      ' KYC QA Cases with Matched Person Accounts'
+    );
+
+    // AND THEN KYC QA Cases will remain with the case owner that closed the case
+    for (Case c : casesWithAccountNoCOB) {
+      Assert.areEqual(
+        usr.Id,
+        c.OwnerId,
+        'KYC QA Cases should remain with the case owner that closed the case: ' +
+        usr.id
       );
     }
   }

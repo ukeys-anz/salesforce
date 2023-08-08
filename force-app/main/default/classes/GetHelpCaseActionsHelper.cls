@@ -185,33 +185,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Get a list of account Ids from general enquiry cases
-   * @param accountIds a list of account Ids
-   * @param name name of the entitilement
-   * @return Map of account Ids and their entitlement Ids
-   */
-  public static Map<Id, Id> getEntitlements(List<Id> accountIds, String name) {
-    if (accountIds.isEmpty()) {
-      new Map<Id, Id>();
-    }
-    if (PermissionUtils.canQuery('Entitlement') == false) {
-      new Map<Id, Id>();
-    }
-
-    Map<Id, Id> entMap = new Map<Id, Id>();
-
-    for (Entitlement en : [
-      SELECT Id, AccountId
-      FROM Entitlement
-      WHERE AccountId IN :accountIds AND EndDate = NULL AND Name = :name
-    ]) {
-      entMap.put(en.AccountId, en.Id);
-    }
-
-    return entMap;
-  }
-
-  /**
    * @description Update the Entitlement Id on the case and the parent account has an entitlement
    * @param caseList a list of cases that we need to update the entitlement Id
    * @param entMap a map of account id and its corresponding entitlement id
@@ -224,7 +197,6 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
         c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -729,6 +701,20 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
+   * @description Get Account Ids Entitlment map
+   * @param accounts List of Accounts
+   * @return Account Ids Entitlment map
+   */
+  public static Map<Id, Id> getAccountIdEntitlmentMap(List<Account> accounts) {
+    Set<Id> accIds = (new Map<Id, SObject>(accounts)).keySet();
+    // Get matched Accounts Entitelments
+    return getEntitlements(
+      accIds,
+      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
+    );
+  }
+
+  /**
    * @description Set case fileds with matching Account
    * @param c Case
    * @param matchingAcc Matched Account
@@ -759,5 +745,26 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       c.OwnerId = PENDING_KYC_QA_WO_CUSTOMER.Id;
     }
+  }
+
+  /**
+   * @description Filter cases by Record Type Id
+   * @param records List of case records
+   * @return List of filtered cases
+   */
+  public static List<Case> getKYCQACasesWithoutCustomer(List<Case> records) {
+    List<Case> kycQACases = CommonUtil.filterCasesByRecordTypeId(
+      records,
+      GetHelpConstants.KYCQA_RT_ID
+    );
+
+    List<Case> kycQACasesWithNoCustomer = new List<Case>();
+    for (Case c : kycQACases) {
+      if (c.AccountId == null) {
+        kycQACasesWithNoCustomer.add(c);
+      }
+    }
+
+    return kycQACasesWithNoCustomer;
   }
 }

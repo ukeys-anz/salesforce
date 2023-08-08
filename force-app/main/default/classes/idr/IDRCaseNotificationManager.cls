@@ -164,13 +164,12 @@ public with sharing class IDRCaseNotificationManager {
       customerName
     };
     subjectStr = mpFieldLabel2Subject.get(fieldLabel);
-    if (
-      subjectStr == null &&
-      fieldLabel != 'Parent Updated' &&
-      fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
-      (!(String.valueOf(c.OwnerId).startsWith('00G')))
+    if ( subjectStr == null &&
+        fieldLabel != 'Parent Updated' &&
+        fieldLabel.equalsIgnoreCase(IDRConstants.CASE_OWNER_ID) &&
+        (!(String.valueOf(c.OwnerId).startsWith('00G')))
     ) {
-      subjectStr =
+        subjectStr =
         'A Case has been assigned to you ' +
         caseNumber +
         ' ' +
