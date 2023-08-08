@@ -5,7 +5,7 @@
  * @description Common Account Action methods
  */
 
- public with sharing class AccountCommonActions {
+public with sharing class AccountCommonActions {
   // Variable used to store the account Ids into which matching leads were converted into
   // This is used to revert the changes on accounts that resulted from lead conversion process
   private static Set<Id> convertedAccountIds = new Set<Id>();
