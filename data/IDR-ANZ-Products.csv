@@ -566,5 +566,5 @@ ANZ Landlord Insurance (CGU),572,3,8,41,IDR_Wealth,TRUE
 ANZ Car Insurance (Comprehensive) (CGU),573,3,8,44,IDR_Wealth,TRUE
 ANZ Home and Contents Insurance (CGU),574,3,8,41,IDR_Wealth,TRUE
 PayTo,575,6,19,130,IDR_Everyday_Banking,TRUE
-Loan Facility(Cache),576,5,18,125,IDR Business Owners,TRUE
+Loan Facility (Cache),576,1,1,2,IDR Business Owners,TRUE
 N/A,999,10,34,188,IDR_Everyday_Banking,TRUE

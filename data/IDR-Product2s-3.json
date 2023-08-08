@@ -2385,14 +2385,14 @@
         "type": "Product2",
         "referenceId": "Product2Ref576"
       },
-      "Name": "Loan Facility(Cache)",
+      "Name": "Loan Facility (Cache)",
       "IsActive": true,
       "ANZ_Product_Code__c": "576",
-      "IDR_Product_or_Service_Line__c": "5",
-      "IDR_Product_or_Service_Category__c": "18",
-      "IDR_Product_or_Service_Type__c": "125",
+      "IDR_Product_or_Service_Line__c": "1",
+      "IDR_Product_or_Service_Category__c": "1",
+      "IDR_Product_or_Service_Type__c": "2",
       "IDR_Workbasket__c": "IDR Business Owners",
-      "IDR_Product_Family__c": "@Product_Family__cRef11"
+      "IDR_Product_Family__c": "@Product_Family__cRef5"
     },
     {
       "attributes": {
