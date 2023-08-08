@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Extra_Care_Hub_Cases</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>Sub_Type__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>CASES.RECORDTYPE</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>OWNER_NAME</columns>
+    <filterScope>Queue</filterScope>
+    <label>Extra Care Hub Cases</label>
+    <queue>Extra_Care_Hub</queue>
+    <sharedTo>
+        <role>Coach_Lead</role>
+        <role>Support_Coach</role>
+        <role>Coach</role>
+    </sharedTo>
+</ListView>
