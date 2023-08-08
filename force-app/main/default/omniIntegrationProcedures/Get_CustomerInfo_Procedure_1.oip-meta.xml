@@ -63,6 +63,7 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>RemoteAction</name>
+        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>

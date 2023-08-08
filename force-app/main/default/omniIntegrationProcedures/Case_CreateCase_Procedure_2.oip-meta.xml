@@ -2,31 +2,550 @@
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
     <customJavaScript>{
     &quot;Case&quot;: {
-        &quot;PaymentAmountProvided1&quot;: null,
-        &quot;SecondComplaintCheckbox&quot;: false,
-        &quot;ComplaintRemedy2&quot;: null,
-        &quot;ComplaintSubRemedy2&quot;: null,
-        &quot;PaymentAmountProvided2&quot;: null,
-        &quot;ThirdComplaintCheckbox&quot;: null,
-        &quot;ComplaintRemedy3&quot;: null,
-        &quot;ComplaintSubRemedy3&quot;: null,
-        &quot;PaymentAmountProvided3&quot;: null,
-        &quot;REALFormMAXID&quot;: null,
-        &quot;WhyIsThisPossibleSystemicIssue&quot;: &quot;test test test test&quot;,
-        &quot;PossibleSystemicIssueCategory&quot;: &quot;3&quot;,
-        &quot;WhichAdditionalIssuesaereSystemic&quot;: null,
-        &quot;ParentCase-Block&quot;: null,
-        &quot;CAC&quot;: null,
-        &quot;ReviewOutcome&quot;: null,
-        &quot;Id&quot;: &quot;5009j000005IGGLAA4&quot;,
-        &quot;ComplaintStatus&quot;: &quot;Provisionally Closed&quot;,
-        &quot;ComplaintOutcome&quot;: &quot;2&quot;,
-        &quot;realFormRequired&quot;: &quot;No&quot;,
-        &quot;isSystemicIssue&quot;: &quot;Yes&quot;,
-        &quot;DescriptionOutcome&quot;: &quot;testing dec case close 234355&quot;,
-        &quot;ComplaintRemedy1&quot;: &quot;1&quot;
-    },
-    &quot;isCloseCase&quot;: true
+        &quot;CustomerNumber&quot;: null,
+        &quot;displayNAOption&quot;: true,
+        &quot;displayNAOption2&quot;: true,
+        &quot;displayNAOption3&quot;: true,
+        &quot;CustomerDecision&quot;: &quot;Agrees&quot;,
+        &quot;CustomerDetails&quot;: {
+            &quot;CustomerIdentifier&quot;: null,{
+                &quot;omniscriptId&quot;: &quot;0jN5O000000020XUAQ&quot;,
+                &quot;language&quot;: &quot;English&quot;,
+                &quot;type&quot;: &quot;Case&quot;,
+                &quot;runMode&quot;: &quot;preview&quot;,
+                &quot;sId&quot;: &quot;0jN5O000000020XUAQ&quot;,
+                &quot;theme&quot;: &quot;lightning&quot;,
+                &quot;subType&quot;: &quot;Creation&quot;,
+                &quot;timeStamp&quot;: &quot;2023-06-12T01:06:27.828Z&quot;,
+                &quot;userProfile&quot;: &quot;System Administrator&quot;,
+                &quot;userTimeZoneName&quot;: &quot;Australia/Sydney&quot;,
+                &quot;userTimeZone&quot;: &quot;600&quot;,
+                &quot;userCurrencyCode&quot;: &quot;AUD&quot;,
+                &quot;userName&quot;: &quot;laxmiteja.vuyyuru@anz.com.omni&quot;,
+                &quot;userId&quot;: &quot;0055O000001YdI3QAK&quot;,
+                &quot;omniProcessId&quot;: &quot;0jN5O000000020XUAQ&quot;,
+                &quot;localTimeZoneName&quot;: &quot;Australia/Melbourne&quot;,
+                &quot;KnownIssue&quot;: [
+                    {
+                        &quot;attributes&quot;: {
+                            &quot;type&quot;: &quot;Known_Issues__c&quot;,
+                            &quot;url&quot;: &quot;/services/data/v58.0/sobjects/Known_Issues__c/a1H5O000000TtKJUA0&quot;
+                        },
+                        &quot;Id&quot;: &quot;a1H5O000000TtKJUA0&quot;,
+                        &quot;Name&quot;: &quot;Known issu 1&quot;,
+                        &quot;IDR_Is_there_another_issue__c&quot;: false,
+                        &quot;IDR_REAL_Form_Required__c&quot;: false,
+                        &quot;Is_Active__c&quot;: true,
+                        &quot;IDR_Channel_Received__c&quot;: &quot;Phone&quot;,
+                        &quot;IDR_Priority__c&quot;: &quot;Standard&quot;
+                    },
+                    {
+                        &quot;attributes&quot;: {
+                            &quot;type&quot;: &quot;Known_Issues__c&quot;,
+                            &quot;url&quot;: &quot;/services/data/v58.0/sobjects/Known_Issues__c/a1H5O000000TtKOUA0&quot;
+                        },
+                        &quot;Id&quot;: &quot;a1H5O000000TtKOUA0&quot;,
+                        &quot;Name&quot;: &quot;App Outage&quot;,
+                        &quot;IDR_Customer_Desired_Outcome__c&quot;: &quot;This another outcome for app outage&quot;,
+                        &quot;IDR_Is_there_another_issue__c&quot;: false,
+                        &quot;IDR_REAL_Form_Required__c&quot;: false,
+                        &quot;Is_Active__c&quot;: true,
+                        &quot;IDR_Channel_Received__c&quot;: &quot;Phone&quot;,
+                        &quot;IDR_Priority__c&quot;: &quot;Standard&quot;
+                    },
+                    {
+                        &quot;attributes&quot;: {
+                            &quot;type&quot;: &quot;Known_Issues__c&quot;,
+                            &quot;url&quot;: &quot;/services/data/v58.0/sobjects/Known_Issues__c/a1H5O000000TtKTUA0&quot;
+                        },
+                        &quot;Id&quot;: &quot;a1H5O000000TtKTUA0&quot;,
+                        &quot;Name&quot;: &quot;Instant Banking Outage&quot;,
+                        &quot;IDR_Is_there_another_issue__c&quot;: false,
+                        &quot;IDR_REAL_Form_Required__c&quot;: false,
+                        &quot;Is_Active__c&quot;: true,
+                        &quot;IDR_Channel_Received__c&quot;: &quot;Phone&quot;,
+                        &quot;IDR_Priority__c&quot;: &quot;Standard&quot;
+                    },
+                    {
+                        &quot;attributes&quot;: {
+                            &quot;type&quot;: &quot;Known_Issues__c&quot;,
+                            &quot;url&quot;: &quot;/services/data/v58.0/sobjects/Known_Issues__c/a1H5O000000TwdeUAC&quot;
+                        },
+                        &quot;Id&quot;: &quot;a1H5O000000TwdeUAC&quot;,
+                        &quot;Name&quot;: &quot;Call Disconnected While on Hold&quot;,
+                        &quot;IDR_Issue_Type__c&quot;: &quot;9&quot;,
+                        &quot;Product__c&quot;: &quot;01t5O000000lWJ4QAM&quot;,
+                        &quot;IDR_Sub_Issue_Type__c&quot;: &quot;59&quot;,
+                        &quot;IDR_Description_of_Issue__c&quot;: &quot;Customer was on hold and was disconnected while on hold.&quot;,
+                        &quot;IDR_Customer_Desired_Outcome__c&quot;: &quot;Customer would like to speak to a consultant.&quot;,
+                        &quot;IDR_Is_there_another_issue__c&quot;: false,
+                        &quot;IDR_Written_Response_Required__c&quot;: &quot;No&quot;,
+                        &quot;IDR_REAL_Form_Required__c&quot;: false,
+                        &quot;IDR_Possible_Systemic_Issue__c&quot;: &quot;No&quot;,
+                        &quot;IDR_Status__c&quot;: &quot;Closed&quot;,
+                        &quot;IDR_Complaint_Outcome__c&quot;: &quot;2&quot;,
+                        &quot;IDR_Description_of_Outcome__c&quot;: &quot;Customer was connected to a consultant.&quot;,
+                        &quot;IDR_Complaint_Remedy__c&quot;: &quot;2&quot;,
+                        &quot;IDR_Non_Financial_Remedy__c&quot;: &quot;1&quot;,
+                        &quot;Is_Active__c&quot;: true,
+                        &quot;IDR_Channel_Received__c&quot;: &quot;Phone&quot;,
+                        &quot;IDR_Priority__c&quot;: &quot;Standard&quot;,
+                        &quot;IDR_Written_Response_Requested__c&quot;: &quot;No&quot;,
+                        &quot;Product__r&quot;: {
+                            &quot;attributes&quot;: {
+                                &quot;type&quot;: &quot;Product2&quot;,
+                                &quot;url&quot;: &quot;/services/data/v58.0/sobjects/Product2/01t5O000000lWJ4QAM&quot;
+                            },
+                            &quot;Name&quot;: &quot;N/A&quot;,
+                            &quot;Id&quot;: &quot;01t5O000000lWJ4QAM&quot;
+                        }
+                    }
+                ],
+                &quot;custMap&quot;: [
+                    {
+                        &quot;Customer&quot;: &quot;Customer Number&quot;
+                    },
+                    {
+                        &quot;CustomerType&quot;: &quot;Customer Type&quot;
+                    }
+                ],
+                &quot;nonCustMap&quot;: [
+                    {
+                        &quot;CustomerType&quot;: &quot;Customer Type&quot;
+                    },
+                    {
+                        &quot;Age&quot;: &quot;Age&quot;
+                    },
+                    {
+                        &quot;Gender&quot;: &quot;Gender&quot;
+                    },
+                    {
+                        &quot;Postcode&quot;: &quot;Postcode&quot;
+                    },
+                    {
+                        &quot;State&quot;: &quot;State&quot;
+                    },
+                    {
+                        &quot;Country&quot;: &quot;Country&quot;
+                    }
+                ],
+                &quot;thirdPartyMap&quot;: [
+                    {
+                        &quot;thirdPartyName&quot;: &quot;Nominated 3rd party name&quot;
+                    },
+                    {
+                        &quot;thirdPartyRel&quot;: &quot;Relationship to complaint&quot;
+                    },
+                    {
+                        &quot;thirdPartyCountry&quot;: &quot;Nominated 3rd party country&quot;
+                    },
+                    {
+                        &quot;thirdPartyState&quot;: &quot;Nominated 3rd party state&quot;
+                    }
+                ],
+                &quot;cmpMap&quot;: [
+                    {
+                        &quot;Priority&quot;: &quot;Priority&quot;
+                    },
+                    {
+                        &quot;ChannelReceived&quot;: &quot;Channel Received&quot;
+                    },
+                    {
+                        &quot;IssueType&quot;: &quot;Issue Type&quot;
+                    },
+                    {
+                        &quot;SubSequentIssueType&quot;: &quot;Subsequent Issue Type&quot;
+                    },
+                    {
+                        &quot;ProductServiceName-Block&quot;: &quot;Product Service Name&quot;
+                    },
+                    {
+                        &quot;DescriptionOfIssue&quot;: &quot;Description of Issue&quot;
+                    },
+                    {
+                        &quot;CustomerDesiredOutcome&quot;: &quot;Customer Desired Outcome&quot;
+                    }
+                ],
+                &quot;secCmpMap&quot;: [
+                    {
+                        &quot;IssueType2&quot;: &quot;Issue Type 2&quot;
+                    },
+                    {
+                        &quot;SubsequentIssueType2&quot;: &quot;Subsequent Issue Type 2&quot;
+                    },
+                    {
+                        &quot;ProductServiceName2-Block&quot;: &quot;Product Service Name 2&quot;
+                    }
+                ],
+                &quot;thirdCmpMap&quot;: [
+                    {
+                        &quot;IssueType3&quot;: &quot;Issue Type 3&quot;
+                    },
+                    {
+                        &quot;SubsequentIssueType3&quot;: &quot;Subsequent Issue Type 3&quot;
+                    },
+                    {
+                        &quot;ProductServiceName3-Block&quot;: &quot;Product Service Name 3&quot;
+                    }
+                ],
+                &quot;resInfoMap&quot;: [
+                    {
+                        &quot;custWrittenResponse&quot;: &quot;Has the customer requested a written response?&quot;
+                    },
+                    {
+                        &quot;complaintRelatedHardship&quot;: &quot;Is the complaint relating to hardship, a declined insurance claim, the value of an insurance claim or a decision of a superannuation trustee?&quot;
+                    }
+                ],
+                &quot;closeCmpMap&quot;: [
+                    {
+                        &quot;ComplaintOutcome&quot;: &quot;Complaint Outcome&quot;
+                    },
+                    {
+                        &quot;ComplaintDescription&quot;: &quot;Complaint Description&quot;
+                    },
+                    {
+                        &quot;ComplaintRemedy1&quot;: &quot;Complaint Remedy 1&quot;
+                    },
+                    {
+                        &quot;ComplaintSubRemedy1&quot;: &quot;Complaint Sub Remedy 1&quot;
+                    },
+                    {
+                        &quot;realFormRequired&quot;: &quot;Is a REAL form required?&quot;
+                    },
+                    {
+                        &quot;systemicIssue&quot;: &quot;Is this a possible systemic issue?&quot;
+                    }
+                ],
+                &quot;realMap&quot;: [
+                    {
+                        &quot;realFormMAXId&quot;: &quot;REAL Form MAX ID/ServiceNow ID&quot;
+                    }
+                ],
+                &quot;sysIssueMap&quot;: [
+                    {
+                        &quot;systemicIssueReason&quot;: &quot;Why is this a possible systemic issue?&quot;
+                    },
+                    {
+                        &quot;systemicIssueCat&quot;: &quot;Possible Systemic Issue Category&quot;
+                    }
+                ],
+                &quot;cacMap&quot;: [
+                    {
+                        &quot;ParentCase-Block&quot;: &quot;Parent Case&quot;
+                    },
+                    {
+                        &quot;CACSubCat&quot;: &quot;CAC Sub Category&quot;
+                    },
+                    {
+                        &quot;ReviewOutcome&quot;: &quot;Review Outcome of Original Complaint&quot;
+                    }
+                ],
+                &quot;secRemedyMap&quot;: [
+                    {
+                        &quot;ComplaintRemedy2&quot;: &quot;Complaint Remedy 2&quot;
+                    },
+                    {
+                        &quot;ComplaintSubRemedy2&quot;: &quot;Complaint Sub Remedy 2&quot;
+                    }
+                ],
+                &quot;thirdRemedyMap&quot;: [
+                    {
+                        &quot;ComplaintRemedy3&quot;: &quot;Complaint Remedy 3&quot;
+                    },
+                    {
+                        &quot;ComplaintSubRemedy3&quot;: &quot;Complaint Sub Remedy 3&quot;
+                    }
+                ],
+                &quot;escMap&quot;: [
+                    {
+                        &quot;ComplaintEscalationReason&quot;: &quot;Complaint Escalation Reason&quot;
+                    },
+                    {
+                        &quot;RestrictionLevel&quot;: &quot;Restriction Level&quot;
+                    }
+                ],
+                &quot;Case&quot;: {
+                    &quot;CustomerNumber&quot;: null,
+                    &quot;displayNAOption&quot;: true,
+                    &quot;displayNAOption2&quot;: true,
+                    &quot;displayNAOption3&quot;: true,
+                    &quot;CustomerDecision&quot;: null,
+                    &quot;CustomerDetails&quot;: {
+                        &quot;CustomerIdentifier&quot;: &quot;Customer/Business CAP ID&quot;,
+                        &quot;Customer&quot;: &quot;4024865085&quot;,
+                        &quot;BusinessName&quot;: null,
+                        &quot;MiddleName&quot;: null,
+                        &quot;Age&quot;: null,
+                        &quot;Gender&quot;: null,
+                        &quot;Email&quot;: null,
+                        &quot;Mobile&quot;: null,
+                        &quot;Phone&quot;: null,
+                        &quot;Postcode&quot;: null,
+                        &quot;State&quot;: null,
+                        &quot;Country&quot;: null,
+                        &quot;thirdPartyRepCheckbox&quot;: &quot;No&quot;,
+                        &quot;switchOff3rdPartyNotCheckbox&quot;: null,
+                        &quot;thirdPartyName&quot;: null,
+                        &quot;thirdPartyRel&quot;: null,
+                        &quot;thirdPartyEmail&quot;: null,
+                        &quot;thirdPartyMobile&quot;: null,
+                        &quot;thirdPartyPhone&quot;: null,
+                        &quot;thirdPartyStreet&quot;: null,
+                        &quot;thirdPartyPostCode&quot;: null,
+                        &quot;thirdPartyCountry&quot;: null,
+                        &quot;thirdPartyState&quot;: null,
+                        &quot;expressCaseCreationCheckbox&quot;: &quot;No&quot;,
+                        &quot;CustomerType&quot;: &quot;1&quot;
+                    },
+                    &quot;ComplaintDetails&quot;: {
+                        &quot;IssueType2&quot;: &quot;4&quot;,
+                        &quot;SubsequentIssueType2&quot;: &quot;21&quot;,
+                        &quot;ProductServiceName2-Block&quot;: {
+                            &quot;ProductServiceName2&quot;: &quot;ANZ Balance Visa&quot;,
+                            &quot;Name&quot;: &quot;ANZ Balance Visa&quot;,
+                            &quot;Id&quot;: &quot;01t2P000000GKTKQA4&quot;,
+                            &quot;AllowAccountPolicyNumber&quot;: false
+                        },
+                        &quot;Issue3Checkbox&quot;: &quot;No&quot;,
+                        &quot;IssueType3&quot;: null,
+                        &quot;SubsequentIssueType3&quot;: null,
+                        &quot;ProductServiceName3-Block&quot;: null,
+                        &quot;Issue2Checkbox&quot;: &quot;Yes&quot;,
+                        &quot;Priority&quot;: &quot;Standard&quot;,
+                        &quot;ChannelReceived&quot;: &quot;Phone&quot;,
+                        &quot;IssueType&quot;: &quot;13&quot;,
+                        &quot;SubSequentIssueType&quot;: &quot;4&quot;,
+                        &quot;ProductServiceName-Block&quot;: {
+                            &quot;ProductServiceName&quot;: &quot;ANZ Easy Start Residential Investment Loan&quot;,
+                            &quot;Name&quot;: &quot;ANZ Easy Start Residential Investment Loan&quot;,
+                            &quot;Id&quot;: &quot;01t2P000000GKTMQA4&quot;,
+                            &quot;AllowAccountPolicyNumber&quot;: false
+                        },
+                        &quot;AccountPolicyNumber&quot;: &quot;00000000000000210405591;&quot;,
+                        &quot;DescriptionOfIssue&quot;: &quot;t&quot;,
+                        &quot;CustomerDesiredOutcome&quot;: &quot;t&quot;,
+                        &quot;AccountPolicyNumber2&quot;: &quot;00000000000000713642612;&quot;
+                    },
+                    &quot;ResolutionInformation&quot;: {
+                        &quot;ComplaintEscalationReason&quot;: null,
+                        &quot;RestrictionLevel&quot;: null,
+                        &quot;ComplaintOutcome&quot;: null,
+                        &quot;ComplaintDescription&quot;: null,
+                        &quot;ComplaintRemedy1&quot;: null,
+                        &quot;ComplaintSubRemedy1&quot;: null,
+                        &quot;durationOfRemedy1&quot;: null,
+                        &quot;otherRemedy1&quot;: null,
+                        &quot;rewardPoints1&quot;: null,
+                        &quot;detailsOfComplaint1&quot;: null,
+                        &quot;PaymentAmountProvided1&quot;: null,
+                        &quot;secondComplaintRemedyCheckbox&quot;: null,
+                        &quot;ComplaintRemedy2&quot;: null,
+                        &quot;ComplaintSubRemedy2&quot;: null,
+                        &quot;durationOfRemedy2&quot;: null,
+                        &quot;otherRemedy2&quot;: null,
+                        &quot;rewardPoints2&quot;: null,
+                        &quot;detailsOfComplaint2&quot;: null,
+                        &quot;PaymentAmountProvided2&quot;: null,
+                        &quot;thirdComplaintRemedyCheckbox&quot;: null,
+                        &quot;ComplaintRemedy3&quot;: null,
+                        &quot;ComplaintSubRemedy3&quot;: null,
+                        &quot;durationOfRemedy3&quot;: null,
+                        &quot;otherRemedy3&quot;: null,
+                        &quot;rewaesPoints3&quot;: null,
+                        &quot;detailsOfComplaint3&quot;: null,
+                        &quot;PaymentAmountProvided3&quot;: null,
+                        &quot;realFormRequired&quot;: null,
+                        &quot;realFormMAXId&quot;: null,
+                        &quot;systemicIssue&quot;: null,
+                        &quot;systemicIssueReason&quot;: null,
+                        &quot;systemicIssueCat&quot;: null,
+                        &quot;additionalissues&quot;: null,
+                        &quot;CAC&quot;: null,
+                        &quot;ParentCase-Block&quot;: null,
+                        &quot;CACSubCat&quot;: null,
+                        &quot;ReviewOutcome&quot;: null,
+                        &quot;ComplaintStatus&quot;: &quot;Open&quot;,
+                        &quot;custWrittenResponse&quot;: &quot;No&quot;,
+                        &quot;complaintRelatedHardship&quot;: &quot;No&quot;
+                    },
+                    &quot;isThisCustomerComplaint&quot;: &quot;Yes&quot;
+                },
+                &quot;Response&quot;: {
+                    &quot;accounts&quot;: [
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000713642611&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:APP&quot;,
+                            &quot;subProductCode&quot;: null
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000713642610&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:APP&quot;,
+                            &quot;subProductCode&quot;: null
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000713642612&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:APP&quot;,
+                            &quot;subProductCode&quot;: null
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000713642613&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:APP&quot;,
+                            &quot;subProductCode&quot;: null
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000210405591&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:DDA&quot;,
+                            &quot;subProductCode&quot;: &quot;CAP-CIS:DDANH&quot;
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000182364197&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:DDA&quot;,
+                            &quot;subProductCode&quot;: &quot;CAP-CIS:DDACD&quot;
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000456234614&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:DDA&quot;,
+                            &quot;subProductCode&quot;: null
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000210405516&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:DDA&quot;,
+                            &quot;subProductCode&quot;: &quot;CAP-CIS:DDAPT&quot;
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000219360238&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:DDA&quot;,
+                            &quot;subProductCode&quot;: &quot;CAP-CIS:DDAI3&quot;
+                        },
+                        {
+                            &quot;accountNumber&quot;: &quot;00000000000000210405663&quot;,
+                            &quot;productCode&quot;: &quot;CAP-CIS:DDA&quot;,
+                            &quot;subProductCode&quot;: &quot;CAP-CIS:DDAEB&quot;
+                        }
+                    ],
+                    &quot;profile&quot;: {
+                        &quot;age&quot;: &quot;75&quot;,
+                        &quot;businessName&quot;: null,
+                        &quot;companyName&quot;: null,
+                        &quot;complainantType&quot;: &quot;Individual&quot;,
+                        &quot;country&quot;: &quot;AUS&quot;,
+                        &quot;cpId&quot;: &quot;L0808&quot;,
+                        &quot;customerId&quot;: &quot;4024865085&quot;,
+                        &quot;dob&quot;: &quot;1948-01-13&quot;,
+                        &quot;email&quot;: &quot;testnotifications.anz@gmail.com&quot;,
+                        &quot;firstName&quot;: &quot;BOLLENBACHE&quot;,
+                        &quot;gender&quot;: &quot;M&quot;,
+                        &quot;lastName&quot;: &quot;ALEXANDER&quot;,
+                        &quot;middleName&quot;: &quot;CAROLYN&quot;,
+                        &quot;mobile&quot;: &quot;+918500070061&quot;,
+                        &quot;ocvId&quot;: &quot;1000972464&quot;,
+                        &quot;phone&quot;: &quot;+918500070061&quot;,
+                        &quot;postCode&quot;: &quot;3000&quot;,
+                        &quot;state&quot;: &quot;VIC&quot;,
+                        &quot;street&quot;: &quot;EMPIRE 22 25/2 WILLS STREET EAST&quot;,
+                        &quot;suburb&quot;: &quot;MELBOURNE&quot;
+                    },
+                    &quot;relationshipManager&quot;: {
+                        &quot;details&quot;: null,
+                        &quot;error&quot;: null
+                    }
+                }
+            }
+            &quot;Customer&quot;: null,
+            &quot;BusinessName&quot;: null,
+            &quot;MiddleName&quot;: &quot;test2&quot;,
+            &quot;Age&quot;: &quot;1&quot;,
+            &quot;Gender&quot;: &quot;1&quot;,
+            &quot;Email&quot;: &quot;test2@test.com&quot;,
+            &quot;Mobile&quot;: &quot;4534354354&quot;,
+            &quot;Phone&quot;: &quot;43543543&quot;,
+            &quot;Postcode&quot;: &quot;4545&quot;,
+            &quot;State&quot;: &quot;1&quot;,
+            &quot;Country&quot;: &quot;Australia&quot;,
+            &quot;thirdPartyRepCheckbox&quot;: &quot;No&quot;,
+            &quot;switchOff3rdPartyNotCheckbox&quot;: null,
+            &quot;thirdPartyName&quot;: null,
+            &quot;thirdPartyRel&quot;: null,
+            &quot;thirdPartyEmail&quot;: null,
+            &quot;thirdPartyMobile&quot;: null,
+            &quot;thirdPartyPhone&quot;: null,
+            &quot;thirdPartyStreet&quot;: null,
+            &quot;thirdPartyPostCode&quot;: null,
+            &quot;thirdPartyCountry&quot;: null,
+            &quot;thirdPartyState&quot;: null,
+            &quot;expressCaseCreationCheckbox&quot;: &quot;No&quot;,
+            &quot;firstName&quot;: &quot;test1&quot;,
+            &quot;LastName&quot;: &quot;test3&quot;,
+            &quot;CustomerType&quot;: &quot;1&quot;,
+            &quot;Street&quot;: &quot;dtrdrtdrtdrtdrt&quot;,
+            &quot;Suburb&quot;: &quot;rtddrtdrtdrtdtrd&quot;
+        },
+        &quot;ComplaintDetails&quot;: {
+            &quot;IssueType2&quot;: null,
+            &quot;SubsequentIssueType2&quot;: null,
+            &quot;ProductServiceName2-Block&quot;: null,
+            &quot;Issue3Checkbox&quot;: null,
+            &quot;IssueType3&quot;: null,
+            &quot;SubsequentIssueType3&quot;: null,
+            &quot;ProductServiceName3-Block&quot;: null,
+            &quot;Issue2Checkbox&quot;: &quot;No&quot;,
+            &quot;Priority&quot;: &quot;Standard&quot;,
+            &quot;ChannelReceived&quot;: &quot;Phone&quot;,
+            &quot;IssueType&quot;: &quot;21&quot;,
+            &quot;SubSequentIssueType&quot;: &quot;36&quot;,
+            &quot;ProductServiceName-Block&quot;: {
+                &quot;ProductServiceName&quot;: &quot;ANZ Rewards Visa Gold&quot;,
+                &quot;Name&quot;: &quot;ANZ Rewards Visa Gold&quot;,
+                &quot;Id&quot;: &quot;01t2P000000GKTIQA4&quot;,
+                &quot;AllowAccountPolicyNumber&quot;: true
+            },
+            &quot;DescriptionOfIssue&quot;: &quot;ftfftftyftyfy&quot;,
+            &quot;CustomerDesiredOutcome&quot;: &quot;ftyftfyftytyfty&quot;
+        },
+        &quot;ResolutionInformation&quot;: {
+            &quot;ComplaintEscalationReason&quot;: null,
+            &quot;RestrictionLevel&quot;: null,
+            &quot;ComplaintOutcome&quot;: null,
+            &quot;ComplaintDescription&quot;: null,
+            &quot;ComplaintRemedy1&quot;: null,
+            &quot;ComplaintSubRemedy1&quot;: null,
+            &quot;durationOfRemedy1&quot;: null,
+            &quot;otherRemedy1&quot;: null,
+            &quot;rewardPoints1&quot;: null,
+            &quot;detailsOfComplaint1&quot;: null,
+            &quot;PaymentAmountProvided1&quot;: null,
+            &quot;secondComplaintRemedyCheckbox&quot;: null,
+            &quot;ComplaintRemedy2&quot;: null,
+            &quot;ComplaintSubRemedy2&quot;: null,
+            &quot;durationOfRemedy2&quot;: null,
+            &quot;otherRemedy2&quot;: null,
+            &quot;rewardPoints2&quot;: null,
+            &quot;detailsOfComplaint2&quot;: null,
+            &quot;PaymentAmountProvided2&quot;: null,
+            &quot;thirdComplaintRemedyCheckbox&quot;: null,
+            &quot;ComplaintRemedy3&quot;: null,
+            &quot;ComplaintSubRemedy3&quot;: null,
+            &quot;durationOfRemedy3&quot;: null,
+            &quot;otherRemedy3&quot;: null,
+            &quot;rewaesPoints3&quot;: null,
+            &quot;detailsOfComplaint3&quot;: null,
+            &quot;PaymentAmountProvided3&quot;: null,
+            &quot;realFormRequired&quot;: null,
+            &quot;realFormMAXId&quot;: null,
+            &quot;systemicIssue&quot;: null,
+            &quot;systemicIssueReason&quot;: null,
+            &quot;systemicIssueCat&quot;: null,
+            &quot;additionalissues&quot;: null,
+            &quot;CAC&quot;: null,
+            &quot;ParentCase-Block&quot;: null,
+            &quot;CACSubCat&quot;: null,
+            &quot;ReviewOutcome&quot;: null,
+            &quot;ComplaintStatus&quot;: &quot;Open&quot;,
+            &quot;custWrittenResponse&quot;: &quot;No&quot;,
+            &quot;complaintRelatedHardship&quot;: &quot;No&quot;
+        },
+        &quot;isThisCustomerComplaint&quot;: &quot;No&quot;
+    }
 }</customJavaScript>
     <description>The IP is used to create Case.</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
@@ -40,6 +559,7 @@
     <name>CreateCase</name>
     <omniProcessElements>
         <name>DRCloseCase</name>
+        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -71,6 +591,7 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>DRCreateCase</name>
+        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -102,6 +623,7 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>ResponseAction</name>
+        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -128,6 +650,7 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>TransformCaseDetails</name>
+        <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -190,5 +713,5 @@
     <type>Case</type>
     <uniqueName>Case_CreateCase_Procedure_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>eeeec23f-4aef-53a7-1052-64a7f0ac63e7</webComponentKey>
+    <webComponentKey>a50f1361-55bd-c569-7f2d-0c9e809ad88b</webComponentKey>
 </OmniIntegrationProcedure>

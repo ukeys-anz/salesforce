@@ -853,4 +853,12 @@ public with sharing class Logger {
   public static void saveLog() {
     LoggerHelper.saveLog(LoggerHelper.transactionSaveMethod);
   }
+
+  /**
+   * @description checks the logger buffer for any errors
+   * @return a boolean indicating whether buffer contains any errors
+   */
+  public static boolean hasError() {
+    return LoggerHelper.hasError();
+  }
 }

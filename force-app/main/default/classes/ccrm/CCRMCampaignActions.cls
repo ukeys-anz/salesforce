@@ -50,6 +50,10 @@ public with sharing class CCRMCampaignActions {
       }
     }
 
+    if (campaignCodes.isEmpty()) {
+      return mapCampaignCodeRecord;
+    }
+
     for (Campaign campaignRecord : [
       SELECT Id, Code__c, Priority__c, Description, Description__c
       FROM Campaign

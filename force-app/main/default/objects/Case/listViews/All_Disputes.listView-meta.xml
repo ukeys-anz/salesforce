@@ -8,14 +8,15 @@
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.ATM_Dispute,Case.BPAY_Dispute,Case.Card_Dispute,Case.Direct_Debit_Dispute,Case.Direct_Entry_Dispute,Case.NPP_Dispute</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Disputes</label>
     <sharedTo>
+        <role>ANZ_Plus_Operations_Read_Only</role>
         <role>Coach</role>
         <role>FraudX_Agent</role>
     </sharedTo>

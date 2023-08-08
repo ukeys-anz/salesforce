@@ -58,7 +58,7 @@ public without sharing class TestDataFactory {
         FinServ__Balance__c = 200,
         FinServ__CurrentPostedBalance__c = 200,
         FinServ__Status__c = 'Active',
-        FinServ__FinancialAccountType__c = 'Checking',
+        RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
         FinServ__PrimaryOwner__c = acc.Id,
         Account_Key__c = '342490981' + i,
         FinServ__FinancialAccountNumber__c = '000000000'
@@ -385,7 +385,7 @@ public without sharing class TestDataFactory {
     newFinServFinancialAccount.FinServ__Balance__c = 400;
     newFinServFinancialAccount.FinServ__CurrentPostedBalance__c = 400;
     newFinServFinancialAccount.FinServ__Status__c = 'Active';
-    newFinServFinancialAccount.FinServ__FinancialAccountType__c = 'Checking';
+    newFinServFinancialAccount.RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
     newFinServFinancialAccount.Account_Key__c = 'OCV00000000' + suffix;
     return newFinServFinancialAccount;
   }

@@ -7,7 +7,6 @@
     <columns>Marketing_Consent__c</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <columns>LEAD.RECORDTYPE</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>LEAD.STATUS</field>
         <operation>equals</operation>
@@ -18,8 +17,10 @@
         <operation>equals</operation>
         <value>Lead.ANZX_Leads</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Nurturing</label>
     <sharedTo>
+        <role>ANZ_Plus_Operations_Read_Only</role>
         <role>Coach</role>
         <role>Coach_Lead</role>
         <role>Quality_Analyst</role>

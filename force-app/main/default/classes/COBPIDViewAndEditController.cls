@@ -17,12 +17,15 @@ public with sharing class COBPIDViewAndEditController {
   @TestVisible
   private static final List<String> LICENCE_TOKENIZED_FIELDS = new List<String>{
     'LicenceNumber__c',
-    'LicenceCardNumber__c'
+    'LicenceNumberOCRServer__c',
+    'LicenceCardNumber__c',
+    'LicenceCardNumberOCRServer__c'
   };
 
   @TestVisible
   private static final List<String> PASSPORT_TOKENIZED_FIELDS = new List<String>{
-    'PassportNumber__c'
+    'PassportNumber__c',
+    'PassportNumberOCRServer__c'
   };
 
   /**
